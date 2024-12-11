@@ -14,6 +14,7 @@ public class SimpleWoodTableModel {
 
     public static List<Block> tables = new ArrayList<>() {
         {
+            add(ModDecorativeBlocks.TREATED_WOOD_TABLE);
         }
     };
 

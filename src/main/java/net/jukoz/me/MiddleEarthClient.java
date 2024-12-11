@@ -428,6 +428,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BLACK_PINE.ladder(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WILLOW.ladder(), RenderLayer.getCutout());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.TREATED_WOOD_LADDER, RenderLayer.getCutout());
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.ROPE_LADDER, RenderLayer.getCutout());
 
         for(SimpleLadderModel.Ladder block : SimpleLadderModel.vanillaLadders) {
@@ -447,6 +449,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BEECH.door(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BLACK_LEBETHRON.door(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WHITE_LEBETHRON.door(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.CHESTNUT.door(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.LARCH.door(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.MALLORN.door(), RenderLayer.getCutout());
@@ -474,6 +477,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.GRAY_MUSHROOM.chair(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.DARK_MUSHROOM.chair(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.MUSHROOM.chair(), RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.TREATED_WOOD_CHAIR, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.FALLEN_MALLORN_LEAVES, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.FALLEN_MIRKWOOD_LEAVES, RenderLayer.getCutout());

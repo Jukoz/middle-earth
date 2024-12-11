@@ -436,6 +436,15 @@ public class ModDecorativeBlocks {
             new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque()));
     public static final Block WARPED_CHAIR = registerBlockWithItem("warped_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque()));
+
+    public static final Block TREATED_WOOD_STOOL = registerBlockWithItem("treated_wood_stool",
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
+    public static final Block TREATED_WOOD_BENCH = registerBlockWithItem("treated_wood_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
+    public static final Block TREATED_WOOD_TABLE = registerBlockWithItem("treated_wood_table",
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
+    public static final Block TREATED_WOOD_CHAIR = registerBlockWithItem("treated_wood_chair",
+            new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
     //endregion
 
     public static final Block WATERING_CAN = registerBlockWithItem("watering_can",
@@ -512,6 +521,9 @@ public class ModDecorativeBlocks {
             new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
     public static final Block WARPED_LADDER = registerBlockWithItem("warped_ladder",
             new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
+
+    public static final Block TREATED_WOOD_LADDER = registerBlockWithItem("treated_wood_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.LADDER).burnable()));
 
     public static final Block ROPE_LADDER = registerBlockWithItem("rope_ladder",
             new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL).burnable()));

@@ -4928,6 +4928,13 @@
 
   "block.me.warped_ladder": "Warped Ladder",
 
+  "block.me.treated_wood_stool": "Treated Wood Stool",
+  "block.me.treated_wood_bench": "Treated Wood Bench",
+  "block.me.treated_wood_table": "Treated Wood Table",
+  "block.me.treated_wood_chair": "Treated Wood Chair",
+
+  "block.me.treated_wood_ladder": "Treated Wood Ladder",
+
   "block.me.blue_cushion": "Blue Cushion",
   "block.me.brown_cushion": "Brown Cushion",
   "block.me.dark_blue_cushion": "Dark Blue Cushion",
