@@ -78,6 +78,12 @@ public class ModArmorModels {
         RUSTED_MORDOR_SNOUT_HELMET(ModEquipmentItems.RUSTED_MORDOR_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
 
         URUK_HAI_LEATHER_SCOUT_CAP(ModEquipmentItems.URUK_HAI_LEATHER_SCOUT_CAP, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_LIGHT_HELMET(ModEquipmentItems.URUK_HAI_LIGHT_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_PAINTED_LIGHT_HELMET(ModEquipmentItems.URUK_HAI_PAINTED_LIGHT_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_REINFORCED_HELMET(ModEquipmentItems.URUK_HAI_REINFORCED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_PAINTED_REINFORCED_HELMET(ModEquipmentItems.URUK_HAI_PAINTED_REINFORCED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_SOLDIER_HELMET(ModEquipmentItems.URUK_HAI_SOLDIER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_PAINTED_SOLDIER_HELMET(ModEquipmentItems.URUK_HAI_PAINTED_SOLDIER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_PLATE_HELMET(ModEquipmentItems.URUK_HAI_PLATE_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_PLATE_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_PLATE_PAINTED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_SAPPER_HELMET(ModEquipmentItems.URUK_HAI_SAPPER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
