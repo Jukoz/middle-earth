@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.item.utils.armor.capes.ModCapes;
 import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
@@ -44,12 +45,12 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_ORNAMENTED_LEATHER_HELMET))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_COAT).withColor(LIGHT_GREEN).withWeight(4))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_COAT).withColor(DARK_GREEN).withWeight(4))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_COAT).withColor(LIGHT_BROWN).withWeight(4))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_COAT).withColor(DARK_BROWN).withWeight(4))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_COAT).withColor(LIGHT_BEIGE).withWeight(2))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_COAT).withColor(DARK_BEIGE).withWeight(2))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(LIGHT_GREEN).withWeight(4))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(DARK_GREEN).withWeight(4))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(LIGHT_BROWN).withWeight(4))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(DARK_BROWN).withWeight(4))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(LIGHT_BEIGE).withWeight(2))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(DARK_BEIGE).withWeight(2))
                                 .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(LIGHT_GREEN))
                                 .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(DARK_GREEN))
                                 .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(LIGHT_BEIGE))

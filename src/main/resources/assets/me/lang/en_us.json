@@ -655,7 +655,6 @@
   "item.me.gondorian_fountain_guard_leggings": "Gondorian Fountain Guard Leggings",
   "item.me.gondorian_fountain_guard_boots": "Gondorian Fountain Guard Boots",
 
-  "item.me.rohirric_coat": "Rohirric Coat",
   "item.me.rohirric_reinforced_coat": "Rohirric Reinforced Coat",
 
   "item.me.rohirric_leather_helmet": "Rohirric Leather Helmet",
@@ -795,28 +794,43 @@
   "item.me.galadhrim_lord_leggings": "Galadhrim Lord Leggings",
   "item.me.galadhrim_lord_boots": "Galadhrim Lord Boots",
 
-  "item.me.orc_mail_coif": "Orc Mail Coif",
+  "item.me.mordor_helmet": "Mordor Helmet",
+  "item.me.rusted_mordor_helmet": "Rusted Mordor Helmet",
+  "item.me.mordor_kettle_hat": "Mordor Kettle Hat",
+  "item.me.rusted_mordor_kettle_hat": "Rusted Mordor Kettle Hat",
+  "item.me.mordor_kettle_hat_with_coif": "Mordor Kettle Hat With Coif",
+  "item.me.rusted_mordor_kettle_hat_with_coif": "Rusted Mordor Kettle Hat With Coif",
+  "item.me.mordor_nasal_helmet": "Mordor Nasal Helmet",
+  "item.me.rusted_mordor_nasal_helmet": "Rusted Mordor Nasal Helmet",
 
-  "item.me.orc_mail_hauberk": "Orc Mail Hauberk",
+  "item.me.mordor_crest_helmet": "Mordor Crest Helmet",
+  "item.me.rusted_mordor_crest_helmet": "Rusted Mordor Crest Helmet",
+  "item.me.mordor_mandible_helmet": "Mordor Mandible Helmet",
+  "item.me.rusted_mordor_mandible_helmet": "Rusted Mordor Mandible Helmet",
+  "item.me.mordor_sallet": "Mordor Sallet",
+  "item.me.rusted_mordor_sallet": "Rusted Mordor Sallet",
+  "item.me.mordor_great_helmet": "Mordor Great Helmet",
+  "item.me.rusted_mordor_great_helmet": "Rusted Mordor Great Helmet",
+  "item.me.mordor_snout_helmet": "Mordor Snout Helmet",
+  "item.me.rusted_mordor_snout_helmet": "Rusted Mordor Snout Helmet",
 
-  "item.me.orc_mail_coat": "Orc Mail Coat",
+  "item.me.mordor_leather_cuirass": "Mordor Leather Cuirass",
+  "item.me.mordor_painted_cuirass": "Mordor Painted Cuirass",
 
-  "item.me.orc_sallet": "Orc Sallet",
+  "item.me.mordor_chestplate": "Mordor Chestplate",
+  "item.me.mordor_cuirass": "Mordor Cuirass",
+  "item.me.rusted_mordor_cuirass": "Rusted Mordor Cuirass",
+  "item.me.mordor_degraded_gondorian_chestplate": "Mordor Degraded Gondorian Chestplate",
+  "item.me.mordor_gorget_hauberk": "Mordor Gorget Hauberk",
+  "item.me.rusted_mordor_gorget_hauberk": "Rusted Mordor Gorget Hauberk",
+  "item.me.mordor_painted_leather_cuirass": "Mordor Painted Leather Cuirass",
+  "item.me.mordor_reinforced_coat": "Mordor Reinforced Coat",
+  "item.me.rusted_mordor_reinforced_coat": "Rusted Mordor Reinforced Coat",
 
-  "item.me.orc_gorget_hauberk": "Orc Gorget Hauberk",
+  "item.me.mordor_scale_coat": "Mordor Scale Coat",
 
-  "item.me.orc_plate_boots": "Orc Plate Boots",
-
-  "item.me.mordor_orc_helmet": "Mordor Orc Helmet",
-  "item.me.mordor_orc_eye_helmet": "Mordor Orc Eye Helmet",
-  "item.me.mordor_orc_great_eye_helmet": "Mordor Orc Great Eye Helmet",
-  "item.me.mordor_orc_mandible_helmet": "Mordor Orc Mandible Helmet",
-  "item.me.mordor_orc_oversight_helmet": "Mordor Orc Oversight Helmet",
-  "item.me.mordor_orc_snout_helmet": "Mordor Orc Snout Helmet",
-
-  "item.me.mordor_orc_scale_coat": "Mordor Orc Scale Coat",
-
-  "item.me.mordor_orc_chestplate": "Mordor Orc Chestplate",
+  "item.me.mordor_plate_boots": "Mordor Plate Boots",
+  "item.me.rusted_mordor_plate_boots": "Rusted Mordor Plate Boots",
 
   "item.me.black_uruk_plate_helmet": "Black Uruk Plate Helmet",
   "item.me.black_uruk_face_plate_helmet": "Black Uruk Face Plate Helmet",

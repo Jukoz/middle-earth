@@ -64,8 +64,18 @@ public class ModArmorModels {
 
         BLACK_URUK_COMMANDER_HELMET(ModEquipmentItems.BLACK_URUK_COMMANDER_HELMET, new HelmetSkullModel<>(HelmetSkullModel.getTexturedModelData().createModel())),
 
-        MORDOR_ORC_SNOUT_HELMET(ModEquipmentItems.MORDOR_ORC_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
-        ORC_SALLET(ModEquipmentItems.ORC_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
+        MORDOR_CREST_HELMET(ModEquipmentItems.MORDOR_CREST_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_CREST_HELMET(ModEquipmentItems.RUSTED_MORDOR_CREST_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        MORDOR_GREAT_HELMET(ModEquipmentItems.MORDOR_GREAT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_GREAT_HELMET(ModEquipmentItems.RUSTED_MORDOR_GREAT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        MORDOR_KETTLE_HAT(ModEquipmentItems.MORDOR_KETTLE_HAT, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_KETTLE_HAT(ModEquipmentItems.RUSTED_MORDOR_KETTLE_HAT, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        MORDOR_KETTLE_HAT_WITH_COIF(ModEquipmentItems.MORDOR_KETTLE_HAT_WITH_COIF, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_KETTLE_HAT_WITH_COIF(ModEquipmentItems.RUSTED_MORDOR_KETTLE_HAT_WITH_COIF, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        MORDOR_SALLET(ModEquipmentItems.MORDOR_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_SALLET(ModEquipmentItems.RUSTED_MORDOR_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
+        MORDOR_SNOUT_HELMET(ModEquipmentItems.MORDOR_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_SNOUT_HELMET(ModEquipmentItems.RUSTED_MORDOR_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
 
         URUK_HAI_LEATHER_SCOUT_CAP(ModEquipmentItems.URUK_HAI_LEATHER_SCOUT_CAP, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_PLATE_HELMET(ModEquipmentItems.URUK_HAI_PLATE_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),

@@ -29,7 +29,6 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.GONDORIAN_LEATHER_CUIRASS, true);
         dyeablePieces.put(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE, true);
 
-        dyeablePieces.put(ModEquipmentItems.ROHIRRIC_COAT, true);
         dyeablePieces.put(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT, true);
         dyeablePieces.put(ModEquipmentItems.ROHIRRIC_LEATHER_VEST, true);
         dyeablePieces.put(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST, true);
@@ -44,8 +43,15 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.ELVEN_ARMING_COAT, true);
         dyeablePieces.put(ModEquipmentItems.ELVEN_ARMING_SKIRT, true);
         dyeablePieces.put(ModEquipmentItems.ELVEN_OPEN_ARMING_SKIRT, true);
-        dyeablePieces.put(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR, true);
-        dyeablePieces.put(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR, true);
+
+        dyeablePieces.put(ModEquipmentItems.MORDOR_CUIRASS, true);
+        dyeablePieces.put(ModEquipmentItems.RUSTED_MORDOR_CUIRASS, true);
+        dyeablePieces.put(ModEquipmentItems.MORDOR_DEGRADED_GONDORIAN_CHESTPLATE, true);
+        dyeablePieces.put(ModEquipmentItems.MORDOR_LEATHER_CUIRASS, true);
+        dyeablePieces.put(ModEquipmentItems.MORDOR_PAINTED_CUIRASS, true);
+        dyeablePieces.put(ModEquipmentItems.MORDOR_PAINTED_LEATHER_CUIRASS, true);
+        dyeablePieces.put(ModEquipmentItems.MORDOR_REINFORCED_COAT, true);
+        dyeablePieces.put(ModEquipmentItems.RUSTED_MORDOR_REINFORCED_COAT, true);
 
         dyeableCapes.put(ModCapes.CAPE, true);
         dyeableCapes.put(ModCapes.CLOAK, false);
@@ -62,5 +68,8 @@ public class ModDyeablePieces {
         dyeableHoods.put(ModHoods.GRAY_FUR_HOOD, true);
         dyeableHoods.put(ModHoods.TAN_FUR_HOOD, true);
         dyeableHoods.put(ModHoods.WHITE_FUR_HOOD, true);
+
+        dyeablePieces.put(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR, true);
+        dyeablePieces.put(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR, true);
     }
 }

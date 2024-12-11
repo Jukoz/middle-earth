@@ -366,11 +366,6 @@ public class ModEquipmentItems {
     //endregion
 
     //region ROHAN
-    public static final Item ROHIRRIC_COAT = registerDyeableArmorPiece("rohirric_coat",
-            new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
-                    ModFactions.ROHAN));
     public static final Item ROHIRRIC_REINFORCED_COAT = registerDyeableArmorPiece("rohirric_reinforced_coat",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent( 15256475))
@@ -832,55 +827,120 @@ public class ModEquipmentItems {
     //region ORCS
 
     //region GENERIC
-    public static final Item ORC_MAIL_COIF = registerArmorPiece("orc_mail_coif",
-            new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
-                    ModFactions.NONE));
-    public static final Item ORC_MAIL_HAUBERK = registerArmorPiece("orc_mail_hauberk",
-            new CustomChestplateItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
-                    ModFactions.NONE));
-    public static final Item ORC_MAIL_COAT = registerArmorPiece("orc_mail_coat",
-            new CustomLeggingsItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
-                    ModFactions.NONE));
-
-    public static final Item ORC_SALLET = registerCustomModelArmorPiece("orc_sallet",
-            new CustomHelmetItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
-                    ModFactions.NONE));
-
-    public static final Item ORC_GORGET_HAUBERK = registerArmorPiece("orc_gorget_hauberk",
-            new CustomChestplateItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
-                    ModFactions.NONE));
-
-    public static final Item ORC_PLATE_BOOTS = registerArmorPiece("orc_plate_boots",
-            new CustomBootsItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
-                    ModFactions.NONE));
     //endregion
 
     //region MORDOR
-    public static final Item MORDOR_ORC_HELMET = registerArmorPiece("mordor_orc_helmet",
-            new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, new Item.Settings(),
-                    ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_EYE_HELMET = registerArmorPiece("mordor_orc_eye_helmet",
-            new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, new Item.Settings(),
-                    ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_GREAT_EYE_HELMET = registerArmorPiece("mordor_orc_great_eye_helmet",
+
+    public static final Item MORDOR_HELMET = registerArmorPiece("mordor_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_MANDIBLE_HELMET = registerArmorPiece("mordor_orc_mandible_helmet",
+    public static final Item RUSTED_MORDOR_HELMET = registerArmorPiece("rusted_mordor_helmet",
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_KETTLE_HAT = registerCustomModelArmorPiece("mordor_kettle_hat",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_OVERSIGHT_HELMET = registerArmorPiece("mordor_orc_oversight_helmet",
-            new CustomHelmetItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
+    public static final Item RUSTED_MORDOR_KETTLE_HAT = registerCustomModelArmorPiece("rusted_mordor_kettle_hat",
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_SNOUT_HELMET = registerCustomModelArmorPiece("mordor_orc_snout_helmet",
-            new CustomHelmetItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
+    public static final Item MORDOR_KETTLE_HAT_WITH_COIF = registerCustomModelArmorPiece("mordor_kettle_hat_with_coif",
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RUSTED_MORDOR_KETTLE_HAT_WITH_COIF = registerCustomModelArmorPiece("rusted_mordor_kettle_hat_with_coif",
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_NASAL_HELMET = registerArmorPiece("mordor_nasal_helmet",
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RUSTED_MORDOR_NASAL_HELMET = registerArmorPiece("rusted_mordor_nasal_helmet",
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, new Item.Settings(),
                     ModFactions.MORDOR));
 
-    public static final Item MORDOR_ORC_CHESTPLATE = registerArmorPiece("mordor_orc_chestplate",
+    public static final Item MORDOR_CREST_HELMET = registerCustomModelArmorPiece("mordor_crest_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RUSTED_MORDOR_CREST_HELMET = registerCustomModelArmorPiece("rusted_mordor_crest_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_MANDIBLE_HELMET = registerArmorPiece("mordor_mandible_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RUSTED_MORDOR_MANDIBLE_HELMET = registerArmorPiece("rusted_mordor_mandible_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_SALLET = registerCustomModelArmorPiece("mordor_sallet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RUSTED_MORDOR_SALLET = registerCustomModelArmorPiece("rusted_mordor_sallet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings(),
+                    ModFactions.MORDOR));
+
+    public static final Item MORDOR_GREAT_HELMET = registerCustomModelArmorPiece("mordor_great_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RUSTED_MORDOR_GREAT_HELMET = registerCustomModelArmorPiece("rusted_mordor_great_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_SNOUT_HELMET = registerCustomModelArmorPiece("mordor_snout_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RUSTED_MORDOR_SNOUT_HELMET = registerCustomModelArmorPiece("rusted_mordor_snout_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
+                    ModFactions.MORDOR));
+
+
+    public static final Item MORDOR_LEATHER_CUIRASS = registerDyeableArmorPiece("mordor_leather_cuirass",
+            new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5186845)),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_PAINTED_CUIRASS = registerDyeableArmorPiece("mordor_painted_cuirass",
+            new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5186845)),
+                    ModFactions.MORDOR));
+
+    public static final Item MORDOR_CHESTPLATE = registerArmorPiece("mordor_chestplate",
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
                     ModFactions.MORDOR));
+    public static final Item MORDOR_CUIRASS = registerDyeableArmorPiece("mordor_cuirass",
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5186845)),
+                    ModFactions.MORDOR));
+    public static final Item RUSTED_MORDOR_CUIRASS = registerDyeableArmorPiece("rusted_mordor_cuirass",
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5186845)),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_DEGRADED_GONDORIAN_CHESTPLATE = registerDyeableArmorPiece("mordor_degraded_gondorian_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5186845)),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_GORGET_HAUBERK = registerArmorPiece("mordor_gorget_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RUSTED_MORDOR_GORGET_HAUBERK = registerArmorPiece("rusted_mordor_gorget_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_PAINTED_LEATHER_CUIRASS = registerDyeableArmorPiece("mordor_painted_leather_cuirass",
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5186845)),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_REINFORCED_COAT = registerDyeableArmorPiece("mordor_reinforced_coat",
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5186845)),
+                    ModFactions.MORDOR));
+    public static final Item RUSTED_MORDOR_REINFORCED_COAT = registerDyeableArmorPiece("rusted_mordor_reinforced_coat",
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5186845)),
+                    ModFactions.MORDOR));
 
-    public static final Item MORDOR_ORC_SCALE_COAT = registerArmorPiece("mordor_orc_scale_coat",
-            new CustomLeggingsItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
+    public static final Item MORDOR_SCALE_COAT = registerArmorPiece("mordor_scale_coat",
+            new CustomLeggingsItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
+                    ModFactions.MORDOR));
+
+    public static final Item MORDOR_PLATE_BOOTS = registerArmorPiece("mordor_plate_boots",
+            new CustomBootsItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RUSTED_MORDOR_PLATE_BOOTS = registerArmorPiece("rusted_mordor_plate_boots",
+            new CustomBootsItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings(),
                     ModFactions.MORDOR));
     
     public static final Item BLACK_URUK_PLATE_HELMET = registerArmorPiece("black_uruk_plate_helmet",
@@ -1041,6 +1101,7 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
 
+    //endregion
 
     //endregion
 
