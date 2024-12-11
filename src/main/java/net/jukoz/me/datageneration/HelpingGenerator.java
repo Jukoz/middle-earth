@@ -18,7 +18,6 @@ public class HelpingGenerator {
 
         for (StoneBlockSets.SimpleBlockSetMain set : StoneBlockSets.setsMain) {
             SimpleBlockModel.blocks.add(set.base());
-            //SimpleBlockModel.cobbleableStoneBlocks.add(set.base());
 
             SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.base(), set.slab()));
             SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.base(), set.slab(), set.verticalSlab()));

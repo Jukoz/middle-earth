@@ -78,8 +78,6 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         TagKey<Block> silver_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "silver_ores"));
         TagKey<Block> mithril_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "mithril_ores"));
 
-
-
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {
                 getOrCreateTagBuilder(coal_ores)
@@ -128,16 +126,11 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 needsDiamondTools.add(record.verticalSlab());
                 needsDiamondTools.add(record.stairs());
                 needsDiamondTools.add(record.wall());
-            } else {
-                needsStoneTools.add(record.base());
-                needsStoneTools.add(record.slab());
-                needsStoneTools.add(record.verticalSlab());
-                needsStoneTools.add(record.stairs());
-                needsStoneTools.add(record.wall());
             }
         }
 
         baseStoneOverworld.add(Blocks.CALCITE);
+
         for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
             if(record.base() != StoneBlockSets.ASHEN_STONE.base()) baseStoneOverworld.add(record.base());
             if (Registries.BLOCK.getId(record.base()).getPath().contains("nurgon")){
@@ -148,6 +141,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 needsIronTools.add(record.wall());
                 needsIronTools.add(record.stool());
                 needsIronTools.add(record.table());
+                needsIronTools.add(record.rocks());
             }else if (Registries.BLOCK.getId(record.base()).getPath().contains("medgon")){
                 needsDiamondTools.add(record.base());
                 needsDiamondTools.add(record.slab());
@@ -156,14 +150,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 needsDiamondTools.add(record.wall());
                 needsDiamondTools.add(record.stool());
                 needsDiamondTools.add(record.table());
-            } else {
-                needsStoneTools.add(record.base());
-                needsStoneTools.add(record.slab());
-                needsStoneTools.add(record.verticalSlab());
-                needsStoneTools.add(record.stairs());
-                needsStoneTools.add(record.wall());
-                needsStoneTools.add(record.stool());
-                needsStoneTools.add(record.table());
+                needsDiamondTools.add(record.rocks());
             }
         }
 
@@ -267,6 +254,13 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(ModDecorativeBlocks.BONFIRE);
 
         needsIronTools.add(ModDecorativeBlocks.TREATED_STEEL_ROD);
+        needsIronTools.add(ModDecorativeBlocks.TREATED_STEEL_ROD);
+
+        needsIronTools.add(ModBlocks.TREATED_STEEL_DOOR);
+        needsIronTools.add(ModBlocks.TREATED_STEEL_TRAPDOOR);
+
+        needsIronTools.add(ModBlocks.TREATED_STEEL_BARS);
+        needsIronTools.add(ModBlocks.GILDED_BARS);
 
         needsStoneTools.add(ModDecorativeBlocks.WATERING_CAN);
         mineablePickaxe.add(ModDecorativeBlocks.WATERING_CAN);

@@ -218,15 +218,69 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.BONFIRE);
             add(ModDecorativeBlocks.WALL_SCONCE);
 
+            add(ModBlocks.TREATED_STEEL_DOOR);
+            add(ModBlocks.TREATED_STEEL_TRAPDOOR);
+
+            add(ModBlocks.TREATED_STEEL_BARS);
+            add(ModBlocks.GILDED_BARS);
+
             add(ModDecorativeBlocks.GREAT_GONDORIAN_GATE);
 
             add(ModDecorativeBlocks.GREAT_DWARVEN_GATE);
             add(ModDecorativeBlocks.HIDDEN_DWARVEN_DOOR);
 
-
             add(ModDecorativeBlocks.GREAT_ORCISH_GATE);
 
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
+
+            add(ModBlocks.WATTLE_AND_BRICK);
+            add(ModBlocks.WATTLE_AND_BRICK_CROSS);
+            add(ModBlocks.WATTLE_AND_BRICK_RIGHT);
+            add(ModBlocks.WATTLE_AND_BRICK_LEFT);
+            add(ModBlocks.WATTLE_AND_BRICK_PILLAR);
+            add(ModBlocks.WATTLE_AND_BRICK_DIAMOND);
+
+            add(ModBlocks.WATTLE_AND_WHITE_DAUB);
+            add(ModBlocks.WATTLE_AND_WHITE_DAUB_CROSS);
+            add(ModBlocks.WATTLE_AND_WHITE_DAUB_RIGHT);
+            add(ModBlocks.WATTLE_AND_WHITE_DAUB_LEFT);
+            add(ModBlocks.WATTLE_AND_WHITE_DAUB_PILLAR);
+            add(ModBlocks.WATTLE_AND_WHITE_DAUB_DIAMOND);
+
+            add(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB);
+            add(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_CROSS);
+            add(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_RIGHT);
+            add(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_LEFT);
+            add(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_PILLAR);
+            add(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_DIAMOND);
+
+            add(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB);
+            add(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_CROSS);
+            add(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_RIGHT);
+            add(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_LEFT);
+            add(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_PILLAR);
+            add(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_DIAMOND);
+
+            add(ModBlocks.RED_WATTLE_AND_WHITE_DAUB);
+            add(ModBlocks.RED_WATTLE_AND_WHITE_DAUB_CROSS);
+            add(ModBlocks.RED_WATTLE_AND_WHITE_DAUB_RIGHT);
+            add(ModBlocks.RED_WATTLE_AND_WHITE_DAUB_LEFT);
+            add(ModBlocks.RED_WATTLE_AND_WHITE_DAUB_PILLAR);
+            add(ModBlocks.RED_WATTLE_AND_WHITE_DAUB_DIAMOND);
+
+            add(ModBlocks.DARK_WATTLE_AND_DARK_DAUB);
+            add(ModBlocks.DARK_WATTLE_AND_DARK_DAUB_CROSS);
+            add(ModBlocks.DARK_WATTLE_AND_DARK_DAUB_RIGHT);
+            add(ModBlocks.DARK_WATTLE_AND_DARK_DAUB_LEFT);
+            add(ModBlocks.DARK_WATTLE_AND_DARK_DAUB_PILLAR);
+            add(ModBlocks.DARK_WATTLE_AND_DARK_DAUB_DIAMOND);
+
+            add(ModBlocks.WATTLE_AND_YELLOW_DAUB);
+            add(ModBlocks.WATTLE_AND_YELLOW_DAUB_CROSS);
+            add(ModBlocks.WATTLE_AND_YELLOW_DAUB_RIGHT);
+            add(ModBlocks.WATTLE_AND_YELLOW_DAUB_LEFT);
+            add(ModBlocks.WATTLE_AND_YELLOW_DAUB_PILLAR);
+            add(ModBlocks.WATTLE_AND_YELLOW_DAUB_DIAMOND);
         }
     };
 }

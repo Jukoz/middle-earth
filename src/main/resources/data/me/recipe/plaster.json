@@ -2,13 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "me:straw"
-    },
-    {
-      "item": "me:straw"
-    },
-    {
-      "item": "me:straw"
+      "item": "minecraft:water_bucket"
     },
     {
       "item": "minecraft:sand"
@@ -18,6 +12,12 @@
     },
     {
       "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:clay"
     },
     {
       "item": "minecraft:clay"
@@ -30,7 +30,7 @@
     }
   ],
   "result": {
-    "id": "me:white_daub",
-    "count": 6
+    "id": "me:plaster",
+    "count":  8
   }
 }

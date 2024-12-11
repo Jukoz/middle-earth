@@ -683,6 +683,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createDyeableBlockRecipe(exporter, OtherBlockSets.YELLOW_ROOF_TILES.block().asItem(), Items.LIGHT_GRAY_DYE, OtherBlockSets.BRIGHT_YELLOW_ROOF_TILES.block(), 8);
         createDyeableBlockRecipe(exporter, OtherBlockSets.YELLOW_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_YELLOW_ROOF_TILES.block(), 8);
         createDyeableBlockRecipe(exporter, OtherBlockSets.YELLOW_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_YELLOW_ROOF_TILES.block(), 8);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.TAN_CLAY_BRICKS.base(), 5)
+                .pattern(" B ")
+                .pattern("BPB")
+                .pattern(" B ")
+                .input('P', StoneBlockSets.PLASTER.base())
+                .input('B', Items.BRICKS)
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.PLASTER.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.PLASTER.base()))
+                .offerTo(exporter);
         //endregion
 
         //region SMITHING
@@ -850,6 +860,80 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.TIN_INGOT),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.TIN_INGOT))
                 .offerTo(exporter);
+
+        createWattleRecipes(exporter, Items.BRICKS,
+                ModBlocks.WATTLE_AND_BRICK, ModBlocks.WATTLE_AND_BRICK_CROSS, ModBlocks.WATTLE_AND_BRICK_RIGHT,
+                ModBlocks.WATTLE_AND_BRICK_LEFT, ModBlocks.WATTLE_AND_BRICK_PILLAR, ModBlocks.WATTLE_AND_BRICK_DIAMOND);
+
+        createWattleRecipes(exporter, StoneBlockSets.WHITE_DAUB.base().asItem(),
+                ModBlocks.WATTLE_AND_WHITE_DAUB, ModBlocks.WATTLE_AND_WHITE_DAUB_CROSS, ModBlocks.WATTLE_AND_WHITE_DAUB_RIGHT,
+                ModBlocks.WATTLE_AND_WHITE_DAUB_LEFT, ModBlocks.WATTLE_AND_WHITE_DAUB_PILLAR, ModBlocks.WATTLE_AND_WHITE_DAUB_DIAMOND);
+
+        createWattleRecipes(exporter, StoneBlockSets.DARK_DAUB.base().asItem(),
+                ModBlocks.DARK_WATTLE_AND_DARK_DAUB, ModBlocks.DARK_WATTLE_AND_DARK_DAUB_CROSS, ModBlocks.DARK_WATTLE_AND_DARK_DAUB_RIGHT,
+                ModBlocks.DARK_WATTLE_AND_DARK_DAUB_LEFT, ModBlocks.DARK_WATTLE_AND_DARK_DAUB_PILLAR, ModBlocks.DARK_WATTLE_AND_DARK_DAUB_DIAMOND);
+
+        createWattleRecipes(exporter, StoneBlockSets.YELLOW_DAUB.base().asItem(),
+                ModBlocks.WATTLE_AND_YELLOW_DAUB, ModBlocks.WATTLE_AND_YELLOW_DAUB_CROSS, ModBlocks.WATTLE_AND_YELLOW_DAUB_RIGHT,
+                ModBlocks.WATTLE_AND_YELLOW_DAUB_LEFT, ModBlocks.WATTLE_AND_YELLOW_DAUB_PILLAR, ModBlocks.WATTLE_AND_YELLOW_DAUB_DIAMOND);
+
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB.asItem(), Items.BLACK_DYE, ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_CROSS.asItem(), Items.BLACK_DYE, ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_CROSS, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_RIGHT.asItem(), Items.BLACK_DYE, ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_RIGHT, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_LEFT.asItem(), Items.BLACK_DYE, ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_LEFT, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_PILLAR.asItem(), Items.BLACK_DYE, ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_PILLAR, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_DIAMOND.asItem(), Items.BLACK_DYE, ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_DIAMOND, 8);
+
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB.asItem(), Items.GREEN_DYE, ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_CROSS.asItem(), Items.GREEN_DYE, ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_CROSS, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_RIGHT.asItem(), Items.GREEN_DYE, ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_RIGHT, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_LEFT.asItem(), Items.GREEN_DYE, ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_LEFT, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_PILLAR.asItem(), Items.GREEN_DYE, ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_PILLAR, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_DIAMOND.asItem(), Items.GREEN_DYE, ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_DIAMOND, 8);
+
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB.asItem(), Items.RED_DYE, ModBlocks.RED_WATTLE_AND_WHITE_DAUB, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_CROSS.asItem(), Items.RED_DYE, ModBlocks.RED_WATTLE_AND_WHITE_DAUB_CROSS, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_RIGHT.asItem(), Items.RED_DYE, ModBlocks.RED_WATTLE_AND_WHITE_DAUB_RIGHT, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_LEFT.asItem(), Items.RED_DYE, ModBlocks.RED_WATTLE_AND_WHITE_DAUB_LEFT, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_PILLAR.asItem(), Items.RED_DYE, ModBlocks.RED_WATTLE_AND_WHITE_DAUB_PILLAR, 8);
+        createDyeableBlockRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_DIAMOND.asItem(), Items.RED_DYE, ModBlocks.RED_WATTLE_AND_WHITE_DAUB_DIAMOND, 8);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.TREATED_STEEL_BARS, 16)
+                .pattern("SSS")
+                .pattern("SSS")
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.STEEL_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.STEEL_INGOT))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.TREATED_STEEL_TRAPDOOR, 2)
+                .pattern("NSN")
+                .pattern("NSN")
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.STEEL_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.STEEL_INGOT))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.TREATED_STEEL_DOOR, 3)
+                .pattern("SS")
+                .pattern("SS")
+                .pattern("SS")
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.STEEL_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.STEEL_INGOT))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.GILDED_BARS, 16)
+                .pattern("III")
+                .pattern("III")
+                .input('I', Items.GOLD_INGOT)
+                .criterion(FabricRecipeProvider.hasItem(Items.GOLD_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(Items.GOLD_INGOT))
+                .offerTo(exporter);
+
+        createDyeableBlockRecipe(exporter, StoneBlockSets.WHITE_DAUB.base().asItem(), Items.BLACK_DYE, StoneBlockSets.DARK_DAUB.base(), 8);
+        createDyeableBlockRecipe(exporter, StoneBlockSets.WHITE_DAUB.base().asItem(), Items.YELLOW_DYE, StoneBlockSets.YELLOW_DAUB.base(), 8);
         //endregion
 
         ComplexRecipeJsonBuilder.create(CustomItemDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
@@ -1178,7 +1262,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     }
 
     private void createPressurePlateRecipe(RecipeExporter exporter, Item input, Block output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 2)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
                 .pattern("BB")
                 .input('B', input)
                 .criterion(FabricRecipeProvider.hasItem(input),
@@ -1221,7 +1305,87 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
+    private void createWattleRecipes(RecipeExporter exporter, Item input, Block outputBase,
+                                        Block outputCross, Block outputRight, Block outputLeft, Block outputPillar, Block outputDiamond) {
+        createBaseWattleRecipe(exporter, input, outputBase);
+        createCrossWattleRecipe(exporter, input, outputCross);
+        createRightWattleRecipe(exporter, input, outputRight);
+        createLeftWattleRecipe(exporter, input, outputLeft);
+        createPillarWattleRecipe(exporter, input, outputPillar);
+        createDiamondWattleRecipe(exporter, input, outputDiamond);
+    }
 
+    private void createBaseWattleRecipe(RecipeExporter exporter, Item input, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+                .pattern(" S ")
+                .pattern("SDS")
+                .pattern(" S ")
+                .input('S', Items.STICK)
+                .input('D', input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
+
+    private void createCrossWattleRecipe(RecipeExporter exporter, Item input, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 4)
+                .pattern("SDS")
+                .pattern("DSD")
+                .pattern("SDS")
+                .input('S', Items.STICK)
+                .input('D', input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
+
+    private void createRightWattleRecipe(RecipeExporter exporter, Item input, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 6)
+                .pattern("DDS")
+                .pattern("DSD")
+                .pattern("SDD")
+                .input('S', Items.STICK)
+                .input('D', input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
+
+    private void createLeftWattleRecipe(RecipeExporter exporter, Item input, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 6)
+                .pattern("SDD")
+                .pattern("DSD")
+                .pattern("DDS")
+                .input('S', Items.STICK)
+                .input('D', input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
+
+    private void createPillarWattleRecipe(RecipeExporter exporter, Item input, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 6)
+                .pattern("DSD")
+                .pattern("DSD")
+                .pattern("DSD")
+                .input('S', Items.STICK)
+                .input('D', input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
+
+    private void createDiamondWattleRecipe(RecipeExporter exporter, Item input, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 5)
+                .pattern("DSD")
+                .pattern("SDS")
+                .pattern("DSD")
+                .input('S', Items.STICK)
+                .input('D', input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
     //endregion
 
     //region ITEM RECIPE METHODS
