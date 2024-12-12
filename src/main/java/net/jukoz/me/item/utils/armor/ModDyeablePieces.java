@@ -44,6 +44,28 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.ELVEN_ARMING_SKIRT, true);
         dyeablePieces.put(ModEquipmentItems.ELVEN_OPEN_ARMING_SKIRT, true);
 
+        dyeablePieces.put(ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_LEATHER_STRAP, false);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_SCALE_VEST, true);
+
+        dyeablePieces.put(ModEquipmentItems.ORCISH_LEATHER_SKIRT, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_LEG_BRACER, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_REINFORCED_LEATHER_SKIRT, true);
+        dyeablePieces.put(ModEquipmentItems.RUSTED_ORCISH_REINFORCED_LEATHER_SKIRT, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_REINFORCED_STRIP_LEATHER_SKIRT, true);
+        dyeablePieces.put(ModEquipmentItems.RUSTED_ORCISH_REINFORCED_STRIP_LEATHER_SKIRT, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_STRIP_LEATHER_SKIRT, true);
+
+        dyeablePieces.put(ModEquipmentItems.ORCISH_BLACK_FUR_BOOTS, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_BROWN_FUR_BOOTS, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_GRAY_FUR_BOOTS, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_TAN_FUR_BOOTS, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_WHITE_FUR_BOOTS, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_BRACED_SANDALS, true);
+        dyeablePieces.put(ModEquipmentItems.ORCISH_SANDALS, false);
+
         dyeablePieces.put(ModEquipmentItems.MORDOR_CUIRASS, true);
         dyeablePieces.put(ModEquipmentItems.RUSTED_MORDOR_CUIRASS, true);
         dyeablePieces.put(ModEquipmentItems.MORDOR_DEGRADED_GONDORIAN_CHESTPLATE, true);

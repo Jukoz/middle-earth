@@ -64,6 +64,9 @@ public class ModArmorModels {
 
         BLACK_URUK_COMMANDER_HELMET(ModEquipmentItems.BLACK_URUK_COMMANDER_HELMET, new HelmetSkullModel<>(HelmetSkullModel.getTexturedModelData().createModel())),
 
+        ORCISH_BRACED_HELMET(ModEquipmentItems.ORCISH_BRACED_HELMET, new OrcSpikeHelmetModel<>(OrcSpikeHelmetModel.getTexturedModelData().createModel())),
+        ORCISH_SALLET(ModEquipmentItems.ORCISH_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
+
         MORDOR_CREST_HELMET(ModEquipmentItems.MORDOR_CREST_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
         RUSTED_MORDOR_CREST_HELMET(ModEquipmentItems.RUSTED_MORDOR_CREST_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
         MORDOR_GREAT_HELMET(ModEquipmentItems.MORDOR_GREAT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
