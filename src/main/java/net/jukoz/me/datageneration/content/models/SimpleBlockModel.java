@@ -137,8 +137,10 @@ public class SimpleBlockModel {
 
     public static List<ChiseledBlock> chiseledMainBlockTopBottom = new ArrayList<>() {
         {
-            add(new ChiseledBlock(ModBlocks.CHISELED_STONE, Blocks.STONE));
-            add(new ChiseledBlock(ModBlocks.CHISELED_GRANITE, Blocks.GRANITE));
+            add(new ChiseledBlock(ModBlocks.CHISELED_STONE, Blocks.STONE_SLAB));
+            add(new ChiseledBlock(ModBlocks.CHISELED_ANDESITE, Blocks.ANDESITE_SLAB));
+            add(new ChiseledBlock(ModBlocks.CHISELED_GRANITE, Blocks.GRANITE_SLAB));
+            add(new ChiseledBlock(ModBlocks.CHISELED_DIORITE, Blocks.DIORITE_SLAB));
             add(new ChiseledBlock(ModBlocks.CHISELED_GONLUIN, StoneBlockSets.GONLUIN.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_MEDGON, StoneBlockSets.MEDGON.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_DOLOMITE, StoneBlockSets.DOLOMITE.slab()));
@@ -207,7 +209,9 @@ public class SimpleBlockModel {
     public static List<ChiseledPolishedBlock> chiseledTilesBlocksTopBottom = new ArrayList<>() {
         {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_STONE_TILES, StoneBlockSets.STONE_TILES.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_ANDESITE_TILES, StoneBlockSets.ANDESITE_TILES.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_GRANITE_TILES, StoneBlockSets.GRANITE_TILES.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_DIORITE_TILES, StoneBlockSets.DIORITE_TILES.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_DOLOMITE_TILES, StoneBlockSets.DOLOMITE_TILES.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_GREEN_TUFF_TILES, StoneBlockSets.GREEN_TUFF_TILES.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_LIMESTONE_TILES, StoneBlockSets.LIMESTONE_TILES.slab()));
@@ -220,7 +224,9 @@ public class SimpleBlockModel {
     public static List<ChiseledPolishedBlock> chiseledSmoothBlocksTopBottom = new ArrayList<>() {
         {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_STONE, Blocks.SMOOTH_STONE_SLAB));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_ANDESITE, StoneBlockSets.SMOOTH_ANDESITE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_GRANITE, StoneBlockSets.SMOOTH_GRANITE.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_DIORITE, StoneBlockSets.SMOOTH_DIORITE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_DOLOMITE, StoneBlockSets.SMOOTH_DOLOMITE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_GREEN_TUFF, StoneBlockSets.SMOOTH_GREEN_TUFF.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_LIMESTONE, StoneBlockSets.SMOOTH_LIMESTONE.slab()));

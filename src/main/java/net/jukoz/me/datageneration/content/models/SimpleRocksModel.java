@@ -23,7 +23,7 @@ public class SimpleRocksModel {
             add(new Rocks(Blocks.CALCITE, ModBlocks.CALCITE_ROCKS));
             add(new Rocks(Blocks.DEEPSLATE, ModBlocks.DEEPSLATE_ROCKS));
             add(new Rocks(Blocks.TUFF, ModBlocks.TUFF_ROCKS));
-            add(new Rocks(Blocks.BASALT, ModBlocks.BASALT_ROCKS));
+            add(new Rocks(Blocks.SMOOTH_BASALT, ModBlocks.BASALT_ROCKS));
             add(new Rocks(Blocks.BLACKSTONE, ModBlocks.BLACKSTONE_ROCKS));
         }
     };
