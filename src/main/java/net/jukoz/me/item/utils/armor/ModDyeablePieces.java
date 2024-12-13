@@ -1,14 +1,17 @@
 package net.jukoz.me.item.utils.armor;
 
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.utils.armor.capes.ModCapes;
+import net.jukoz.me.item.utils.armor.hoods.ModHoods;
 import net.minecraft.item.Item;
 
 import java.util.HashMap;
 
 public class ModDyeablePieces {
 
-
-    public static HashMap<Item, Boolean> dyeablePieces = new HashMap<Item, Boolean>();
+    public static HashMap<Item, Boolean> dyeablePieces = new HashMap<>();
+    public static HashMap<ModCapes, Boolean> dyeableCapes = new HashMap<>();
+    public static HashMap<ModHoods, Boolean> dyeableHoods = new HashMap<>();
 
     public static void addDyeablePieces() {
         dyeablePieces.put(ModEquipmentItems.BYCOCKET, false);
@@ -43,5 +46,21 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.ELVEN_OPEN_ARMING_SKIRT, true);
         dyeablePieces.put(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR, true);
         dyeablePieces.put(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR, true);
+
+        dyeableCapes.put(ModCapes.CAPE, true);
+        dyeableCapes.put(ModCapes.CLOAK, false);
+        dyeableCapes.put(ModCapes.SURCOAT, true);
+        dyeableCapes.put(ModCapes.BLACK_FUR_CLOAK, true);
+        dyeableCapes.put(ModCapes.BROWN_FUR_CLOAK, true);
+        dyeableCapes.put(ModCapes.GRAY_FUR_CLOAK, true);
+        dyeableCapes.put(ModCapes.TAN_FUR_CLOAK, true);
+        dyeableCapes.put(ModCapes.WHITE_FUR_CLOAK, true);
+
+        dyeableHoods.put(ModHoods.HOOD, false);
+        dyeableHoods.put(ModHoods.BLACK_FUR_HOOD, true);
+        dyeableHoods.put(ModHoods.BROWN_FUR_HOOD, true);
+        dyeableHoods.put(ModHoods.GRAY_FUR_HOOD, true);
+        dyeableHoods.put(ModHoods.TAN_FUR_HOOD, true);
+        dyeableHoods.put(ModHoods.WHITE_FUR_HOOD, true);
     }
 }

@@ -4,15 +4,19 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.utils.MEEquipmentTooltip;
 import net.jukoz.me.item.utils.armor.ExtendedArmorMaterial;
+import net.jukoz.me.item.utils.armor.ModDyeablePieces;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,10 +58,18 @@ public class CustomChestplateItem extends ArmorItem implements MEEquipmentToolti
         CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
         if(dyeDataComponent != null){
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color").formatted(Formatting.GRAY).append(": " + String.format(MEEquipmentTooltip.COLOR_PREFIX, (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
         }
         if (capeDataComponent != null) {
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape().getName()));
+            if (ModDyeablePieces.dyeableCapes.containsKey(capeDataComponent.cape())){
+                list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape().getName())
+                        .append(" (")
+                        .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color")
+                                .append(": " + String.format("#%06X", (0xFFFFFF & CapeDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR))))
+                                .append(")")).formatted(Formatting.GRAY));
+            } else {
+                list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape().getName()).formatted(Formatting.GRAY));
+            }
         }
 
         return list;

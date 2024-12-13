@@ -2,9 +2,9 @@ package net.jukoz.me.world.chunkgen.map;
 
 import com.google.common.base.Stopwatch;
 import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.biomes.surface.MEBiome;
-import net.jukoz.me.world.biomes.surface.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.jukoz.me.world.map.MiddleEarthMapGeneration;
+import org.joml.sampling.Convolution;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,11 +14,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class ImageUtils {
-    public static int BRUSH_SIZE = 16;
-    public static float RATIO = 1.0f / (BRUSH_SIZE * BRUSH_SIZE);
+    private static HashMap<Integer, float[]> gaussianBlurKernel = new HashMap<>();
+    private static float[] edgeKernel =
+                    {-1f, -2f, -1f,
+                     -2f,  12f, -2f,
+                     -1f, -2f, -1f};
+    private static final float GAUSSIAN_SIGMA = 3.81f;
 
     public static Random random = new Random();
 
@@ -165,7 +168,87 @@ public class ImageUtils {
     }
 
     private static int getExpansionWeight(Integer integer) throws Exception{
-        return MEBiomesData.getBiomeByColor(integer).biomeGenerationData.biomeWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
+        return MapBasedBiomePool.getBiomeByColor(integer).getBiomeData().biomeWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
+    }
+
+
+    /**
+     * TODO : Optimise this part, it the longest process in World-Gen
+     * about 60s before -> about 40s now
+     */
+    public static BufferedImage blur(BufferedImage image, int brushSize, boolean crop) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int newWidth = width + (2 * brushSize);
+        int newHeight = height + (2 * brushSize);
+
+        BufferedImage imageWithBorders = image;
+        Graphics2D g2d;
+        if(!crop) { // CLAMP_TO_BORDER
+            imageWithBorders = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+            g2d = imageWithBorders.createGraphics();
+
+            g2d.setColor(MapBasedBiomePool.DEFAULT_COLOR);
+            g2d.fillRect(0, 0, newWidth, newHeight);
+            g2d.drawImage(image, brushSize, brushSize, null);
+        } else { // CLAMP_TO_EDGE
+            imageWithBorders = new BufferedImage(newWidth, newHeight, image.getType());
+            g2d = imageWithBorders.createGraphics();
+
+            // Copy image content (center)
+            g2d.drawImage(image, brushSize, brushSize, null);
+
+            // extend left & right
+            g2d.drawImage(image, 0, brushSize, brushSize, height + brushSize, 0, 0, 1, height, null);
+            g2d.drawImage(image, newWidth - brushSize, brushSize, newWidth, height + brushSize, width - 1, 0, width, height, null);
+
+            // extend up & down
+            g2d.drawImage(image, brushSize, 0, brushSize + width, brushSize, 0, 0, width, 1, null);
+            g2d.drawImage(image, brushSize, newHeight - brushSize, brushSize + width, newHeight, 0, height - 1, width, height, null);
+
+            // extend corners
+            g2d.drawImage(image, 0, 0, brushSize, brushSize, 0, 0, 1, 1, null);
+            g2d.drawImage(image, newWidth - brushSize, 0, newWidth, brushSize, width - 1, 0, width, 1, null);
+            g2d.drawImage(image, 0, newHeight - brushSize, brushSize, newHeight, 0, height - 1, 1, height, null);
+            g2d.drawImage(image, newWidth - brushSize, newHeight - brushSize, newWidth, newHeight, width - 1, height - 1, width, height, null);
+        }
+
+        float[] blurKernel = new float[brushSize*brushSize];
+
+        if(gaussianBlurKernel.containsKey(brushSize)) {
+            blurKernel = gaussianBlurKernel.get(brushSize);
+        }
+        else {
+            Convolution.gaussianKernel(brushSize, brushSize, GAUSSIAN_SIGMA, blurKernel);
+            gaussianBlurKernel.put(brushSize, blurKernel);
+        }
+        Kernel kernel = new Kernel(brushSize, brushSize, blurKernel);
+        ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
+
+        BufferedImage blurredImage = new BufferedImage(width, height, image.getType());
+        op.filter(image, blurredImage);
+
+        if(crop) {
+            return blurredImage.getSubimage(brushSize, brushSize, width - brushSize*2, height - brushSize*2);
+        } else {
+            return blurredImage;
+        }
+    }
+
+    private static final int EDGE_BRUSH_SIZE = 3;
+    public static BufferedImage edge(BufferedImage image) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        Kernel kernel = new Kernel(EDGE_BRUSH_SIZE, EDGE_BRUSH_SIZE, edgeKernel);
+        ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
+
+        BufferedImage edgeImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        edgeImage = op.filter(image, edgeImage);
+
+
+
+        return edgeImage;
     }
 
 

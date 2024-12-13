@@ -10,9 +10,9 @@ import net.minecraft.util.function.ValueLists;
 import java.util.function.IntFunction;
 
 public enum ModCapes implements StringIdentifiable {
-    BASE_CAPE(0,"base_cape"),
+    CAPE(0,"cape"),
     SURCOAT(1,"surcoat"),
-    BASE_CLOAK(2,"base_cloak"),
+    CLOAK(2,"cloak"),
 
     BLACK_FUR_CLOAK(3,"black_fur_cloak"),
     BROWN_FUR_CLOAK(4,"brown_fur_cloak"),

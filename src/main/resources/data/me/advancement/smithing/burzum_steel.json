@@ -1,0 +1,38 @@
+{
+  "parent": "me:smithing/crude_ingot",
+  "criteria": {
+    "burzum_steel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:burzum_steel_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.burzum_steel.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:burzum_steel_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.burzum_steel.title"
+    }
+  },
+  "requirements": [
+    [
+      "burzum_steel"
+    ]
+  ]
+}

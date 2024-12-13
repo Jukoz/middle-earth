@@ -1,6 +1,7 @@
 package net.jukoz.me.block.special.shapingAnvil;
 
 import net.jukoz.me.item.ModToolItems;
+import net.jukoz.me.item.items.SmithingHammerItem;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.EquipmentSlot;
@@ -97,8 +98,8 @@ public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implemen
         ItemStack stack = player.getEquippedStack(EquipmentSlot.MAINHAND);
         BlockEntity blockEntity = world.getBlockEntity(pos);
 
-        if (stack.isOf(ModToolItems.SMITHING_HAMMER) && player.getAttackCooldownProgress(0.5f) > 0.9f){
-            player.incrementStat(Stats.USED.getOrCreateStat(ModToolItems.SMITHING_HAMMER));
+        if (stack.getItem() instanceof SmithingHammerItem hammer && player.getAttackCooldownProgress(0.5f) > 0.9f){
+            player.incrementStat(Stats.USED.getOrCreateStat(hammer));
             stack.use(world, player, player.getActiveHand());
             if (!world.isClient){
                 player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
