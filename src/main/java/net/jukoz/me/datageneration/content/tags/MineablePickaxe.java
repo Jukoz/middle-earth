@@ -122,22 +122,6 @@ public class MineablePickaxe {
             add(ModBlocks.POINTED_DOLOMITE);
             add(ModBlocks.POINTED_IZHERABAN);
 
-            add(ModBlocks.RAW_MITHRIL_BLOCK);
-            add(ModBlocks.MITHRIL_BLOCK);
-            add(ModBlocks.RAW_TIN_BLOCK);
-            add(ModBlocks.TIN_BLOCK);
-            add(ModBlocks.RAW_LEAD_BLOCK);
-            add(ModBlocks.LEAD_BLOCK);
-            add(ModBlocks.RAW_SILVER_BLOCK);
-            add(ModBlocks.SILVER_BLOCK);
-
-            add(ModBlocks.BRONZE_BLOCK);
-            add(ModBlocks.CRUDE_BLOCK);
-            add(ModBlocks.STEEL_BLOCK);
-            add(ModBlocks.KHAZAD_STEEL_BLOCK);
-            add(ModBlocks.EDHEL_STEEL_BLOCK);
-            add(ModBlocks.BURZUM_STEEL_BLOCK);
-
             add(ModBlocks.STONE_PILLAR);
             add(ModBlocks.MOSSY_STONE_PILLAR);
             add(ModBlocks.CRACKED_STONE_PILLAR);
@@ -222,6 +206,34 @@ public class MineablePickaxe {
             add(ModBlocks.BASALT_ROCKS);
             add(ModBlocks.BLACKSTONE_ROCKS);
 
+            add(ModDecorativeBlocks.CALCITE_STATUE);
+            add(ModDecorativeBlocks.GONLUIN_STATUE);
+            add(ModDecorativeBlocks.TUFF_STATUE);
+
+            add(ModDecorativeBlocks.TREATED_STEEL_ROD);
+
+            add(ModDecorativeBlocks.BRONZE_CHAIN);
+            add(ModDecorativeBlocks.BRONZE_BROAD_CHAIN);
+            add(ModDecorativeBlocks.SPIKY_CHAIN);
+
+            add(ModDecorativeBlocks.CHIMNEY);
+
+            add(ModBlocks.RAW_MITHRIL_BLOCK);
+            add(ModBlocks.MITHRIL_BLOCK);
+            add(ModBlocks.RAW_TIN_BLOCK);
+            add(ModBlocks.TIN_BLOCK);
+            add(ModBlocks.RAW_LEAD_BLOCK);
+            add(ModBlocks.LEAD_BLOCK);
+            add(ModBlocks.RAW_SILVER_BLOCK);
+            add(ModBlocks.SILVER_BLOCK);
+
+            add(ModBlocks.BRONZE_BLOCK);
+            add(ModBlocks.CRUDE_BLOCK);
+            add(ModBlocks.STEEL_BLOCK);
+            add(ModBlocks.KHAZAD_STEEL_BLOCK);
+            add(ModBlocks.EDHEL_STEEL_BLOCK);
+            add(ModBlocks.BURZUM_STEEL_BLOCK);
+
             add(ModDecorativeBlocks.BIG_BRAZIER);
             add(ModDecorativeBlocks.SMALL_BRAZIER);
 
@@ -230,7 +242,10 @@ public class MineablePickaxe {
 
             add(ModDecorativeBlocks.FIRE_BOWL);
             add(ModDecorativeBlocks.BONFIRE);
+            add(ModDecorativeBlocks.SCONCE);
             add(ModDecorativeBlocks.WALL_SCONCE);
+            add(ModDecorativeBlocks.GILDED_SCONCE);
+            add(ModDecorativeBlocks.GILDED_WALL_SCONCE);
 
             add(ModBlocks.TREATED_STEEL_DOOR);
             add(ModBlocks.TREATED_STEEL_TRAPDOOR);
@@ -238,14 +253,18 @@ public class MineablePickaxe {
             add(ModBlocks.TREATED_STEEL_BARS);
             add(ModBlocks.GILDED_BARS);
 
+            add(ModDecorativeBlocks.FORGE);
+            add(ModDecorativeBlocks.TREATED_ANVIL);
+            add(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL);
+            add(ModDecorativeBlocks.ELVEN_TREATED_ANVIL);
+            add(ModDecorativeBlocks.ORCISH_TREATED_ANVIL);
+
             add(ModDecorativeBlocks.GREAT_GONDORIAN_GATE);
 
             add(ModDecorativeBlocks.GREAT_DWARVEN_GATE);
             add(ModDecorativeBlocks.HIDDEN_DWARVEN_DOOR);
 
             add(ModDecorativeBlocks.GREAT_ORCISH_GATE);
-
-            add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 
             add(ModBlocks.WATTLE_AND_BRICK);
             add(ModBlocks.WATTLE_AND_BRICK_CROSS);

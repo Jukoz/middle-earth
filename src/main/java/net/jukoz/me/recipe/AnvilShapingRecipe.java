@@ -14,7 +14,6 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
@@ -29,7 +28,7 @@ public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
     }
 
     public ItemStack createIcon() {
-        return new ItemStack(ModDecorativeBlocks.TREADTED_ANVIL);
+        return new ItemStack(ModDecorativeBlocks.TREATED_ANVIL);
     }
 
     @Override

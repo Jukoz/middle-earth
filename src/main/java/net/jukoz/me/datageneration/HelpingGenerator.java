@@ -217,6 +217,7 @@ public class HelpingGenerator {
             }
 
             WoodenSlabs.woodenSlabs.add(set.planksSlab());
+            WoodenVerticalSlabs.woodenVericalSlabs.add(set.planksVerticalSlab());
             ModdedStrippedLogs.strippedLogs.add(set.strippedLog());
 
             LogsThatBurn.logsThatBurn.add(set.log());
@@ -370,6 +371,11 @@ public class HelpingGenerator {
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools){
             BlockDrops.blocks.add(stool.base());
             MineableAxe.blocks.add(stool.base());
+        }
+
+        for(SimpleWoodBenchModel.VanillaBench bench : SimpleWoodBenchModel.vanillaBenchs){
+            BlockDrops.blocks.add(bench.base());
+            MineableAxe.blocks.add(bench.base());
         }
 
         for(SimpleWoodTableModel.VanillaTable table : SimpleWoodTableModel.vanillaTables) {

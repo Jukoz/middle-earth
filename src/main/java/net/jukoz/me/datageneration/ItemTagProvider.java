@@ -42,6 +42,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         TagKey<Item> saplings = TagKey.of(RegistryKeys.ITEM, Identifier.of("saplings"));
         TagKey<Item> wooden_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs"));
+        TagKey<Item> wooden_vertical_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "wooden_vertical_slabs"));
         TagKey<Item> logs_that_burn = TagKey.of(RegistryKeys.ITEM, Identifier.of("logs_that_burn"));
         TagKey<Item> stone_crafting_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_crafting_materials"));
         TagKey<Item> stone_tool_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials"));
@@ -126,6 +127,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         WoodenSlabs.woodenSlabs.forEach(block -> {
             getOrCreateTagBuilder(wooden_slabs).add(block.asItem());
+        });
+
+        WoodenVerticalSlabs.woodenVericalSlabs.forEach(block -> {
+            getOrCreateTagBuilder(wooden_vertical_slabs).add(block.asItem());
         });
 
         ModdedStrippedLogs.strippedLogs.forEach(block -> {

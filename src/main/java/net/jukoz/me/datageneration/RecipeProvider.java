@@ -204,6 +204,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             }
 
             createSlabsRecipe(exporter, record.planks(), record.planksSlab());
+            createVerticalSlabsRecipe(exporter, record.planksSlab(), record.planksVerticalSlab());
+            createSlabsFromVerticalRecipe(exporter, record.planksVerticalSlab(), record.planksSlab());
             createStairsRecipe(exporter, record.planks(), record.planksStairs());
             createDoorRecipe(exporter, record.planks(), record.door());
             createTrapdoorRecipe(exporter, record.planks(), record.trapdoor());
@@ -247,6 +249,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         .offerTo(exporter);
             }
             createSlabsRecipe(exporter, record.block(), record.slab());
+            createVerticalSlabsRecipe(exporter, record.slab(), record.verticalSlab());
+            createSlabsFromVerticalRecipe(exporter, record.verticalSlab(), record.slab());
             createStairsRecipe(exporter, record.block(), record.stairs());
             createWallsRecipe(exporter, record.block(), record.wall());
         }
@@ -264,6 +268,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         .offerTo(exporter);
             }
             createSlabsRecipe(exporter, record.block(), record.slab());
+            createVerticalSlabsRecipe(exporter, record.slab(), record.verticalSlab());
+            createSlabsFromVerticalRecipe(exporter, record.verticalSlab(), record.slab());
             createStairsRecipe(exporter, record.block(), record.stairs());
         }
         //endregion
@@ -1336,6 +1342,186 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.ROPE),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.ROPE))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.TREATED_STEEL_ROD, 1)
+                .pattern("S")
+                .pattern("S")
+                .pattern("S")
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.STEEL_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.STEEL_INGOT))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.CHAIN, 4)
+                .pattern("N")
+                .pattern("I")
+                .pattern("N")
+                .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                .input('I', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.STEEL_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.STEEL_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID,Registries.ITEM.getId(Items.CHAIN).getPath() + "_alt"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BRONZE_CHAIN, 4)
+                .pattern("N")
+                .pattern("I")
+                .pattern("N")
+                .input('N', ModResourceItems.BRONZE_NUGGET)
+                .input('I', ModResourceItems.BRONZE_INGOT)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.BRONZE_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.STEEL_INGOT))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BRONZE_BROAD_CHAIN, 8)
+                .pattern("NN")
+                .pattern("II")
+                .pattern("NN")
+                .input('N', ModResourceItems.BRONZE_NUGGET)
+                .input('I', ModResourceItems.BRONZE_INGOT)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.BRONZE_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.STEEL_INGOT))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SPIKY_CHAIN, 4)
+                .pattern(" N ")
+                .pattern("NIN")
+                .pattern(" N ")
+                .input('I', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.STEEL_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.STEEL_INGOT))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModResourceItems.DWARVEN_KEY, 1)
+                .pattern("IN")
+                .input('N', ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input('I', ModResourceItems.KHAZAD_STEEL_INGOT)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.KHAZAD_STEEL_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.KHAZAD_STEEL_INGOT))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CHIMNEY, 2)
+                .pattern(" B ")
+                .pattern(" B ")
+                .pattern("PPP")
+                .input('B', Items.BRICKS)
+                .input('P', StoneBlockSets.POLISHED_DOLOMITE.base())
+                .criterion(FabricRecipeProvider.hasItem(Items.BRICKS),
+                        FabricRecipeProvider.conditionsFromItem(Items.BRICKS))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BIG_BRAZIER, 2)
+                .pattern("B B")
+                .pattern("BCB")
+                .pattern("SSS")
+                .input('B', ModBlocks.TREATED_STEEL_BARS)
+                .input('C', Items.CAMPFIRE)
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                .criterion(FabricRecipeProvider.hasItem(Items.CAMPFIRE),
+                        FabricRecipeProvider.conditionsFromItem(Items.CAMPFIRE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GILDED_BIG_BRAZIER, 2)
+                .pattern("B B")
+                .pattern("BCB")
+                .pattern("SSS")
+                .input('B', ModBlocks.GILDED_BARS)
+                .input('C', Items.CAMPFIRE)
+                .input('S', Items.GOLD_INGOT)
+                .criterion(FabricRecipeProvider.hasItem(Items.CAMPFIRE),
+                        FabricRecipeProvider.conditionsFromItem(Items.CAMPFIRE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SMALL_BRAZIER, 2)
+                .pattern("BCB")
+                .pattern("SSS")
+                .input('B', ModBlocks.TREATED_STEEL_BARS)
+                .input('C', Items.CAMPFIRE)
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                .criterion(FabricRecipeProvider.hasItem(Items.CAMPFIRE),
+                        FabricRecipeProvider.conditionsFromItem(Items.CAMPFIRE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GILDED_SMALL_BRAZIER, 2)
+                .pattern("BCB")
+                .pattern("SSS")
+                .input('B', ModBlocks.GILDED_BARS)
+                .input('C', Items.CAMPFIRE)
+                .input('S', Items.GOLD_INGOT)
+                .criterion(FabricRecipeProvider.hasItem(Items.CAMPFIRE),
+                        FabricRecipeProvider.conditionsFromItem(Items.CAMPFIRE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.FIRE_BOWL, 2)
+                .pattern("SCS")
+                .pattern("SSS")
+                .input('C', Items.CAMPFIRE)
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                .criterion(FabricRecipeProvider.hasItem(Items.CAMPFIRE),
+                        FabricRecipeProvider.conditionsFromItem(Items.CAMPFIRE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BONFIRE, 1)
+                .pattern(" L ")
+                .pattern("LCL")
+                .input('C', Items.CAMPFIRE)
+                .input('L', TagKey.of(RegistryKeys.ITEM, Identifier.of("logs")))
+                .criterion(FabricRecipeProvider.hasItem(Items.CAMPFIRE),
+                        FabricRecipeProvider.conditionsFromItem(Items.CAMPFIRE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GROUND_BOOK, 1)
+                .pattern("BSR")
+                .input('B', Items.BOOK)
+                .input('S', Items.STRING)
+                .input('R', Items.RED_DYE)
+                .criterion(FabricRecipeProvider.hasItem(Items.BOOK),
+                        FabricRecipeProvider.conditionsFromItem(Items.BOOK))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.DWARVEN_GROUND_BOOK, 1)
+                .pattern("BG")
+                .input('B', Items.BOOK)
+                .input('G', Items.GOLD_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(Items.BOOK),
+                        FabricRecipeProvider.conditionsFromItem(Items.BOOK))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SMALL_CRATE, 1)
+                .pattern("SSS")
+                .pattern("PPP")
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
+                .input('P', TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(Items.OAK_PLANKS),
+                        FabricRecipeProvider.conditionsFromItem(Items.OAK_PLANKS))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.THIN_BARREL, 1)
+                .pattern("VSV")
+                .pattern("V V")
+                .pattern("VSV")
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
+                .input('V', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "wooden_vertical_slabs")))
+                .criterion(FabricRecipeProvider.hasItem(Items.OAK_SLAB),
+                        FabricRecipeProvider.conditionsFromItem(Items.OAK_SLAB))
+                .offerTo(exporter);
+
+        createBannerPatternRecipe(exporter, ModResourceItems.PIPEWEED, ModResourceItems.PIPEWEED_BANNER_PATTERN);
+        createBannerPatternRecipe(exporter, ModNatureBlocks.LEBETHRON_SAPLING.asItem(), ModResourceItems.GONDOR_BANNER_PATTERN);
+        createBannerPatternRecipe(exporter, WoodBlockSets.MALLORN.sapling().asItem(), ModResourceItems.LOTHLORIEN_BANNER_PATTERN);
+        createBannerPatternRecipe(exporter, Items.MAGMA_BLOCK, ModResourceItems.MORDOR_BANNER_PATTERN);
+        createBannerPatternRecipe(exporter, Items.HAY_BLOCK, ModResourceItems.ROHAN_BANNER_PATTERN);
+        createBannerPatternRecipe(exporter, Items.BONE, ModResourceItems.MISTY_MOUNTAINS_ORCS_BANNER_PATTERN);
+        createBannerPatternRecipe(exporter, Items.WHITE_DYE, ModResourceItems.ISENGARD_BANNER_PATTERN);
+        createBannerPatternRecipe(exporter, ModToolItems.DWARVEN_SMITHING_HAMMER, ModResourceItems.ANVIL_BANNER_PATTERN);
+        createBannerPatternRecipe(exporter, ModResourceItems.BRONZE_INGOT, ModResourceItems.BELL_BANNER_PATTERN);
+        createBannerPatternRecipe(exporter, Items.GOLD_NUGGET, ModResourceItems.DWARF_CROWN_BANNER_PATTERN);
+        createBannerPatternRecipe(exporter, Items.BOW, ModResourceItems.BOW_BANNER_PATTERN);
+
+        createBrickRecipe(exporter, ModBlocks.POINTED_DOLOMITE.asItem(), StoneBlockSets.DOLOMITE.base(), 1);
+        createBrickRecipe(exporter, ModBlocks.POINTED_GALONN.asItem(), StoneBlockSets.GALONN.base(), 1);
+        createBrickRecipe(exporter, ModBlocks.POINTED_IZHERABAN.asItem(), StoneBlockSets.IZHERABAN.base(), 1);
+        createBrickRecipe(exporter, ModBlocks.POINTED_LIMESTONE.asItem(), StoneBlockSets.LIMESTONE.base(), 1);
         //endregion
 
         ComplexRecipeJsonBuilder.create(CustomItemDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
@@ -1812,6 +1998,19 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(woolBlock))
                 .offerTo(exporter);
     }
+
+    private void createBannerPatternRecipe(RecipeExporter exporter, Item input, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, output, 1)
+                .pattern("PF")
+                .pattern("BI")
+                .input('I', input)
+                .input('B', Items.BLACK_DYE)
+                .input('F', Items.FEATHER)
+                .input('P', Items.PAPER)
+                .criterion(FabricRecipeProvider.hasItem(Items.PAPER),
+                        FabricRecipeProvider.conditionsFromItem(Items.PAPER))
+                .offerTo(exporter);
+    }
     //endregion
 
     //region ITEM RECIPE METHODS
@@ -1939,52 +2138,11 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-
     private void createToolSetRecipes(RecipeExporter exporter, Item inputRod, Item inputMaterial, Item outputPickaxe,  Item outputAxe, Item outputShovel, Item outputHoe) {
         createPickaxeRecipe(exporter, inputRod, inputMaterial, outputPickaxe);
         createAxeRecipe(exporter, inputRod, inputMaterial, outputAxe);
         createShovelRecipe(exporter, inputRod, inputMaterial, outputShovel);
         createHoeRecipe(exporter, inputRod, inputMaterial, outputHoe);
-    }
-    private void createBootsRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
-                .pattern("M M")
-                .pattern("M M")
-                .input('M', inputMaterial)
-                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
-                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
-                .offerTo(exporter);
-    }
-    private void createLeggingsRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
-                .pattern("MMM")
-                .pattern("M M")
-                .pattern("M M")
-                .input('M', inputMaterial)
-                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
-                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
-                .offerTo(exporter);
-    }
-
-    private void createChestplateRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
-                .pattern("M M")
-                .pattern("MMM")
-                .pattern("MMM")
-                .input('M', inputMaterial)
-                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
-                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
-                .offerTo(exporter);
-    }
-
-    private void createHelmetRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
-                .pattern("MMM")
-                .pattern("M M")
-                .input('M', inputMaterial)
-                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
-                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
-                .offerTo(exporter);
     }
 
     private void createCookedFoodRecipes(RecipeExporter exporter, Item rawFood, Item cookedFood) {

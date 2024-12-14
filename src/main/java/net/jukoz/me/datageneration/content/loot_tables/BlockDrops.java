@@ -1,9 +1,10 @@
 package net.jukoz.me.datageneration.content.loot_tables;
 
-import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.datageneration.content.models.SimpleLadderModel;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
             add(ModDecorativeBlocks.SCONCE);
+            add(ModDecorativeBlocks.GILDED_SCONCE);
 
             add(ModDecorativeBlocks.ROPE);
 
@@ -67,6 +69,27 @@ public class BlockDrops {
             add(ModDecorativeBlocks.FIRE_BOWL);
             add(ModDecorativeBlocks.BONFIRE);
 
+            add(ModDecorativeBlocks.WATERING_CAN);
+            add(ModDecorativeBlocks.WOODEN_BUCKET);
+
+            add(ModDecorativeBlocks.TREATED_STEEL_ROD);
+
+            add(ModDecorativeBlocks.TREATED_ANVIL);
+            add(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL);
+            add(ModDecorativeBlocks.ELVEN_TREATED_ANVIL);
+            add(ModDecorativeBlocks.ORCISH_TREATED_ANVIL);
+
+            add(ModDecorativeBlocks.BELLOWS);
+
+            add(ModDecorativeBlocks.TREATED_WOOD_LADDER);
+            add(ModDecorativeBlocks.TREATED_WOOD_STOOL);
+            add(ModDecorativeBlocks.TREATED_WOOD_CHAIR);
+            add(ModDecorativeBlocks.TREATED_WOOD_TABLE);
+            add(ModDecorativeBlocks.TREATED_WOOD_BENCH);
+
+            add(ModDecorativeBlocks.GROUND_BOOK);
+            add(ModDecorativeBlocks.DWARVEN_GROUND_BOOK);
+
             add(ModNatureBlocks.MALLOS);
             add(ModNatureBlocks.ELANOR);
             add(ModNatureBlocks.YELLOW_FLOWER);
@@ -77,6 +100,23 @@ public class BlockDrops {
             add(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS);
             add(ModNatureBlocks.LILY_PADS);
             add(ModNatureBlocks.DUCKWEED);
+
+            add(ModDecorativeBlocks.OAK_LADDER);
+            add(ModDecorativeBlocks.SPRUCE_LADDER);
+            add(ModDecorativeBlocks.BIRCH_LADDER);
+            add(ModDecorativeBlocks.JUNGLE_LADDER);
+            add(ModDecorativeBlocks.ACACIA_LADDER);
+            add(ModDecorativeBlocks.DARK_OAK_LADDER);
+            add(ModDecorativeBlocks.MANGROVE_LADDER);
+            add(ModDecorativeBlocks.CHERRY_LADDER);
+            add(ModDecorativeBlocks.BAMBOO_LADDER);
+            add(ModDecorativeBlocks.CRIMSON_LADDER);
+            add(ModDecorativeBlocks.WARPED_LADDER);
+
+            add(ModDecorativeBlocks.ROPE_LADDER);
+
+            add(ModDecorativeBlocks.THIN_BARREL);
+            add(ModDecorativeBlocks.SMALL_CRATE);
         }
     };
 }

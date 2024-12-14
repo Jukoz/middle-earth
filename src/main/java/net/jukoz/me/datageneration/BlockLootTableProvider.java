@@ -9,6 +9,7 @@ import net.jukoz.me.block.special.doors.LargeDoor4x2;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.CropDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
+import net.jukoz.me.datageneration.content.models.SimplePaneModel;
 import net.jukoz.me.datageneration.content.models.SimpleRocksModel;
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.item.ModResourceItems;
@@ -150,6 +151,11 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             if (set.mithril_ore() != null) {
                 addDrop(set.mithril_ore(), oreDrops(set.mithril_ore(), ModResourceItems.RAW_MITHRIL));
             }
+        }
+
+        for (SimplePaneModel.Pane pane : SimplePaneModel.panes){
+            addDropWithSilkTouch(pane.pane());
+            addDropWithSilkTouch(pane.glass());
         }
 
         cobbleDrops(ModBlocks.STONE_MYCELIUM, Blocks.COBBLESTONE);

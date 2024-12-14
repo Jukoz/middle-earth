@@ -32,7 +32,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         var needsStoneTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("needs_stone_tool")));
         var needsIronTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("needs_iron_tool")));
-        var needsDiamondTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "needs_diamond_tool")));
+        var needsDiamondTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("needs_diamond_tool")));
         var needsNetheriteTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("fabric", "needs_tool_level_4")));
 
         var baseStoneOverworld = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("base_stone_overworld")));
@@ -246,8 +246,14 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(OreRockSets.MEDGON.iron_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.mithril_ore());
 
+        needsIronTools.add(ModDecorativeBlocks.TREATED_ANVIL);
+        needsIronTools.add(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL);
+        needsIronTools.add(ModDecorativeBlocks.ELVEN_TREATED_ANVIL);
+        needsIronTools.add(ModDecorativeBlocks.ORCISH_TREATED_ANVIL);
+
+        needsIronTools.add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
+
         needsDiamondTools.add(ModDecorativeBlocks.REINFORCED_CHEST);
-        needsDiamondTools.add(ModDecorativeBlocks.TREADTED_ANVIL);
 
         needsDiamondTools.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
@@ -256,9 +262,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(ModDecorativeBlocks.SMALL_BRAZIER);
         needsIronTools.add(ModDecorativeBlocks.GILDED_SMALL_BRAZIER);
         needsIronTools.add(ModDecorativeBlocks.FIRE_BOWL);
-        needsIronTools.add(ModDecorativeBlocks.BONFIRE);
 
-        needsIronTools.add(ModDecorativeBlocks.TREATED_STEEL_ROD);
         needsIronTools.add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 
         needsIronTools.add(ModBlocks.TREATED_STEEL_DOOR);
@@ -267,8 +271,11 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(ModBlocks.TREATED_STEEL_BARS);
         needsIronTools.add(ModBlocks.GILDED_BARS);
 
+        needsIronTools.add(ModDecorativeBlocks.SPIKY_CHAIN);
+
         needsStoneTools.add(ModDecorativeBlocks.WATERING_CAN);
         mineablePickaxe.add(ModDecorativeBlocks.WATERING_CAN);
+
         mineableAxe.add(ModDecorativeBlocks.WOODEN_BUCKET);
 
         needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
@@ -522,8 +529,5 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.MEDIUM_GLOWSTONE_BUD);
         mineablePickaxe.add(ModBlocks.LARGE_GLOWSTONE_BUD);
         mineablePickaxe.add(ModBlocks.GLOWSTONE_CLUSTER);
-
-        mineablePickaxe.add(ModDecorativeBlocks.FORGE);
-        mineablePickaxe.add(ModDecorativeBlocks.TREADTED_ANVIL);
     }
 }
