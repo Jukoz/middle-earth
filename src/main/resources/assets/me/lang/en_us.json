@@ -6516,7 +6516,9 @@
 
 "#Comment": "GUI",
   "screen.me.forge": "Forge",
-  "container.artisan_table": "Artisan Table",
+  "container.me.artisan_table": "Artisan Table",
+  "container.me.small_crate": "Small Crate",
+  "container.me.thin_barrel": "Thin Barrel",
   "screen.me.reinforced_chest": "Reinforced Chest",
   "screen.me.wood_pile": "Wood Pile",
   "screen.me.shaping_anvil": "Shaping Anvil",
