@@ -39,8 +39,10 @@ public class BroadhoofGoatArmorFeatureRenderer extends FeatureRenderer<Broadhoof
                 VertexConsumer vertexConsumer;
 
                 if (itemStack.isIn(ModTags.DYEABLE)) {
-                    vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getOverlayTexture()));
-                    this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
+                    if(animalArmorItem.getOverlayTexture() != null) {
+                        vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getOverlayTexture()));
+                        this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
+                    }
 
                     vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getEntityTexture()));
                     int color = CustomDyeableDataComponent.getColor(itemStack, CustomDyeableDataComponent.DEFAULT_COLOR);

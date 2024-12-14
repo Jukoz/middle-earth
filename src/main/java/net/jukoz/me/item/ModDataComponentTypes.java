@@ -1,10 +1,7 @@
 package net.jukoz.me.item;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
-import net.jukoz.me.item.dataComponents.CapeDataComponent;
-import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
-import net.jukoz.me.item.dataComponents.HoodDataComponent;
+import net.jukoz.me.item.dataComponents.*;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
@@ -28,6 +25,10 @@ public class ModDataComponentTypes {
 
     public static final ComponentType<CustomDyeableDataComponent> DYE_DATA = register("dye", (builder) -> {
         return builder.codec(CustomDyeableDataComponent.CODEC).packetCodec(CustomDyeableDataComponent.PACKET_CODEC);
+    });
+
+    public static final ComponentType<MountArmorAddonComponent> MOUNT_ARMOR_DATA = register("mount_armor_addon", (builder) -> {
+        return builder.codec(MountArmorAddonComponent.CODEC).packetCodec(MountArmorAddonComponent.PACKET_CODEC);
     });
 
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {

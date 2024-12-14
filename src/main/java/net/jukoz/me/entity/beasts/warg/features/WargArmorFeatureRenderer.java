@@ -3,7 +3,9 @@ package net.jukoz.me.entity.beasts.warg.features;
 import net.jukoz.me.entity.beasts.warg.WargEntity;
 import net.jukoz.me.entity.beasts.warg.WargModel;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
+import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.items.armor.CustomAnimalArmorItem;
+import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -33,9 +35,23 @@ public class WargArmorFeatureRenderer extends FeatureRenderer<WargEntity, WargMo
 
                 this.model.setAngles(wargEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 
-                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getEntityTexture()));
-                this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
-                return;
+                VertexConsumer vertexConsumer;
+
+                if (itemStack.isIn(ModTags.DYEABLE)) {
+                    if(animalArmorItem.getOverlayTexture() != null) {
+                        vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getOverlayTexture()));
+                        this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
+                    }
+
+                    vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getEntityTexture()));
+                    int color = CustomDyeableDataComponent.getColor(itemStack, CustomDyeableDataComponent.DEFAULT_COLOR);
+                    this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
+                }
+                else {
+                    vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getEntityTexture()));
+                    int color = CustomDyeableDataComponent.getColor(itemStack, CustomDyeableDataComponent.DEFAULT_COLOR);
+                    this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
+                }
             }
         }
     }

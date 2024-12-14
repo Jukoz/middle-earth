@@ -190,6 +190,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         registerDyeableItem(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
         registerDyeableItem(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
 
+        registerDyeableItem(ModEquipmentItems.WARG_LEATHER_ARMOR);
+        registerDyeableItem(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);
+
+
         // Animals
         EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
         EntityRendererRegistry.register(ModEntities.PHEASANT, PheasantRenderer::new);
