@@ -2,6 +2,8 @@ package net.jukoz.me.entity.beasts.trolls.stone;
 
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.jukoz.me.entity.goals.BeastTargetPlayerGoal;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -41,6 +43,7 @@ public class StoneTrollEntity extends TrollEntity {
         super.initGoals();
         this.goalSelector.add(0, new AvoidSunlightGoal(this));
         this.goalSelector.add(1, new EscapeSunlightGoal(this, 1.2d));
+        this.targetSelector.add(4, new BeastTargetPlayerGoal(this, this.getDisposition()));
     }
 
     @Override
@@ -68,6 +71,11 @@ public class StoneTrollEntity extends TrollEntity {
 
         Vec3d vec3d = new Vec3d(0.0, 0.0, f).rotateY(-this.bodyYaw * ((float)Math.PI / 180));
         positionUpdater.accept(passenger, this.getX() + vec3d.x, this.getY() + this.getMountedHeightOffset(), this.getZ() + vec3d.z);
+    }
+
+    @Override
+    protected Disposition getDisposition() {
+        return Disposition.EVIL;
     }
 
     public void setPetrifying(int petrifying) {

@@ -33,6 +33,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var feathers = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "feathers")));
         var cloaks = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "cloaks")));
         var warg_food = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
+        var warg_armor = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor")));
+        var broadhoof_goat_armor = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
         var dyeable = getOrCreateTagBuilder(ModTags.DYEABLE);
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("iron_ores"));
@@ -73,6 +75,16 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         warg_food.add(ModFoodItems.RAW_SWAN);
         warg_food.add(ModFoodItems.RAW_VENISON);
 
+        warg_armor.add(ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_GUNDABAD_PLATE_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_MORDOR_MAIL_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_LEATHER_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);
+
+        broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_PLATE_ARMOR);
+        broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
+        broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
+
         bones.add(Items.BONE);
         bones.add(ModResourceItems.ORC_BONE);
         bones.add(ModResourceItems.WARG_BONE);
@@ -87,6 +99,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         dyeable.add(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
         dyeable.add(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
+
+        dyeable.add(ModEquipmentItems.WARG_LEATHER_ARMOR);
+        dyeable.add(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {

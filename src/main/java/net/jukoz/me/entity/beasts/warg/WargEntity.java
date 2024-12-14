@@ -16,6 +16,8 @@ import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.datas.RaceType;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
@@ -67,7 +69,7 @@ public class WargEntity extends AbstractBeastEntity {
     private static final float MAX_HEALTH_BONUS = WargEntity.getChildHealthBonus(max -> max - 1);
     private static final Ingredient TEMPTING_INGREDIENT = Ingredient.fromTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
     private static final double WALKING_SPEED = 0.25;
-    private static final double HUNTING_SPEED = 2;
+    private static final double HUNTING_SPEED = 2.5;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(WargEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public int idleAnimationTimeout = this.random.nextInt(600) + 1700;
     private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.WARG.getDimensions().scaled(0.5f);
@@ -110,26 +112,24 @@ public class WargEntity extends AbstractBeastEntity {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, HUNTING_SPEED, false));
-        this.goalSelector.add(4, new ChargeAttackGoal(this, maxChargeCooldown()));
+        this.goalSelector.add(4, new ChargeAttackGoal(this, this.getDisposition(), maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 1.0, TEMPTING_INGREDIENT, false));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
-        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
-        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity)this));
-        this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
-        this.targetSelector.add(4, new TargetPlayerGoal(this));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
-        this.targetSelector.add(7, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
-        this.targetSelector.add(8, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
-        this.targetSelector.add(9, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-        this.targetSelector.add(10, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
-        this.targetSelector.add(11, new ActiveTargetGoal<>(this, SheepEntity.class, true));
-        this.targetSelector.add(12, new ActiveTargetGoal<>(this, GoatEntity.class, true));
-        this.targetSelector.add(13, new ActiveTargetGoal<>(this, DeerEntity.class, true));
-        this.targetSelector.add(14, new ActiveTargetGoal<>(this, PheasantEntity.class, true));
+        this.targetSelector.add(3, new BeastRevengeGoal(this, new Class[0]).setGroupRevenge());
+        this.targetSelector.add(4, new BeastTargetPlayerGoal(this, this.getDisposition()));
+        this.targetSelector.add(5, new BeastActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
+        this.targetSelector.add(6, new BeastActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
+        this.targetSelector.add(7, new BeastActiveTargetGoal<>(this, GondorHumanEntity.class, true));
+        this.targetSelector.add(8, new BeastActiveTargetGoal<>(this, RohanHumanEntity.class, true));
+        this.targetSelector.add(9, new BeastActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        this.targetSelector.add(10, new BeastActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(11, new BeastActiveTargetGoal<>(this, SheepEntity.class, true));
+        this.targetSelector.add(12, new BeastActiveTargetGoal<>(this, GoatEntity.class, true));
+        this.targetSelector.add(13, new BeastActiveTargetGoal<>(this, DeerEntity.class, true));
+        this.targetSelector.add(14, new BeastActiveTargetGoal<>(this, PheasantEntity.class, true));
     }
 
     @Override
@@ -224,6 +224,16 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     @Override
+    protected Disposition getDisposition() {
+        return Disposition.EVIL;
+    }
+
+    @Override
+    protected List<RaceType> getRaceType() {
+        return List.of(RaceType.ORC, RaceType.URUK);
+    }
+
+    @Override
     public EntityDimensions getBaseDimensions(EntityPose pose) {
         return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
     }
@@ -279,6 +289,10 @@ public class WargEntity extends AbstractBeastEntity {
             this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
         }
 
+        if(!this.isAttacking() && this.getAttacker() == null) {
+            this.setRunning(false);
+        }
+
         if(this.isSitting()) {
             this.getNavigation().stop();
         }
@@ -287,20 +301,11 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected void setupAnimationStates() {
         if(this.isSitting()) {
-            if(!this.sittingAnimationState.isRunning()) {
-                this.stopSittingAnimationState.stop();
-                this.startSittingAnimationState.startIfNotRunning(this.age);
-                this.startedSitting = true;
-            }
-            if(!this.startSittingAnimationState.isRunning() && startedSitting) {
-                this.sittingAnimationState.startIfNotRunning(this.age);
-            }
+            this.startSittingAnimationState.startIfNotRunning(this.age);
         }
-        else if (startedSitting){
-            this.stopSittingAnimationState.startIfNotRunning(this.age);
+        if(!this.isSitting() && this.startSittingAnimationState.isRunning()) {
             this.startSittingAnimationState.stop();
-            this.sittingAnimationState.stop();
-            this.startedSitting = false;
+            this.stopSittingAnimationState.start(this.age);
         }
     }
 
@@ -375,7 +380,7 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isHorseArmor(ItemStack stack) {
-        return (stack.isOf(ModEquipmentItems.WARG_LEATHER_ARMOR) || stack.isOf(ModEquipmentItems.WARG_PLATE_ARMOR));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor")));
     }
 
     public boolean hasCharged() {
