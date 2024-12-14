@@ -76,6 +76,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         warg_armor.add(ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR);
         warg_armor.add(ModEquipmentItems.WARG_GUNDABAD_PLATE_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_MORDOR_MAIL_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_LEATHER_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);
 
         broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_PLATE_ARMOR);
         broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
@@ -95,6 +98,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         dyeable.add(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
         dyeable.add(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
+
+        dyeable.add(ModEquipmentItems.WARG_LEATHER_ARMOR);
+        dyeable.add(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {

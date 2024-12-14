@@ -20,11 +20,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public class WargArmorSpineFeatureRenderer extends FeatureRenderer<WargEntity, WargModel> {
-    private final WargArmorTopAddonsModel model;
+    private final WargArmorBaseAddonsModel model;
 
     public WargArmorSpineFeatureRenderer(FeatureRendererContext<WargEntity, WargModel> context, EntityModelLoader loader) {
         super(context);
-        this.model = new WargArmorTopAddonsModel(loader.getModelPart(ModEntityModelLayers.WARG_ARMOR_ADDONS_FRONT));
+        this.model = new WargArmorBaseAddonsModel(loader.getModelPart(ModEntityModelLayers.WARG_ARMOR_ADDONS_SPINE));
     }
 
     @Override
@@ -33,17 +33,14 @@ public class WargArmorSpineFeatureRenderer extends FeatureRenderer<WargEntity, W
         Item item = itemStack.getItem();
 
         if(item instanceof CustomAnimalArmorItem animalArmorItem) {
-            if (itemStack.isOf(ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR) || itemStack.isOf(ModEquipmentItems.WARG_LEATHER_ARMOR)) {
+            if (itemStack.isOf(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR)) {
                 ((WargModel)this.getContextModel()).copyStateTo(this.model);
 
                 this.model.setAngles(wargEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 
                 Identifier addonTexture = null;
 
-                if(itemStack.isOf(ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR)) { // Mordor Armor Spine
-                    addonTexture = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_mordor_spine_addon.png");
-                }
-                else if(itemStack.isOf(ModEquipmentItems.WARG_LEATHER_ARMOR))  { // Bone Spine
+                if(itemStack.isOf(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR))  { // Bone Spine
                     addonTexture = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_bone_spine_addon.png");
                 }
 

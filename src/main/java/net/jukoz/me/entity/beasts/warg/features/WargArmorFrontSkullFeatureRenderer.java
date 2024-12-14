@@ -34,7 +34,7 @@ public class WargArmorFrontSkullFeatureRenderer extends FeatureRenderer<WargEnti
 
         if(item instanceof CustomAnimalArmorItem animalArmorItem) {
             if (itemStack.isOf(ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR)) {
-                if(itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA) != null && itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA).enabled()) {
+                if(itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA) != null && itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA).topArmorAddon()) {
                     ((WargModel)this.getContextModel()).copyStateTo(this.model);
 
                     this.model.setAngles(wargEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
