@@ -14,6 +14,11 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_POLISHED_STONE);
             add(ModBlocks.CHISELED_STONE_TILES);
             add(ModBlocks.CHISELED_SMOOTH_STONE);
+
+            add(ModBlocks.CHISELED_DEEPSLATE_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_DEEPSLATE);
+            add(ModBlocks.CHISELED_DEEPSLATE_TILES);
+            add(ModBlocks.CHISELED_SMOOTH_DEEPSLATE);
             
             add(ModBlocks.CHISELED_ASHEN_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_ASHEN_STONE);
@@ -25,8 +30,11 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_BLUE_TUFF_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_BLUE_TUFF);
 
+            add(ModBlocks.CHISELED_CALCITE);
             add(ModBlocks.CHISELED_CALCITE_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_CALCITE);
+            add(ModBlocks.CHISELED_CALCITE_TILES);
+            add(ModBlocks.CHISELED_SMOOTH_CALCITE);
 
             add(ModBlocks.CHISELED_GREEN_TUFF);
             add(ModBlocks.CHISELED_GREEN_TUFF_BRICKS);

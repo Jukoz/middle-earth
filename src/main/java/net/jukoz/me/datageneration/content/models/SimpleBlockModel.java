@@ -129,7 +129,6 @@ public class SimpleBlockModel {
     public static List<ChiseledBlock> chiseledBlocks = new ArrayList<>() {
         {
             add(new ChiseledBlock(ModBlocks.CHISELED_GONLUIN_BRICKS, StoneBlockSets.GONLUIN_BRICKS.slab()));
-            add(new ChiseledBlock(ModBlocks.CHISELED_CALCITE_BRICKS, StoneBlockSets.CALCITE_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_BASALT_BRICKS, StoneBlockSets.BASALT_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_NURGON_BRICKS, StoneBlockSets.NURGON_BRICKS.slab()));
         }
@@ -141,6 +140,7 @@ public class SimpleBlockModel {
             add(new ChiseledBlock(ModBlocks.CHISELED_ANDESITE, Blocks.ANDESITE_SLAB));
             add(new ChiseledBlock(ModBlocks.CHISELED_GRANITE, Blocks.GRANITE_SLAB));
             add(new ChiseledBlock(ModBlocks.CHISELED_DIORITE, Blocks.DIORITE_SLAB));
+            add(new ChiseledBlock(ModBlocks.CHISELED_CALCITE, ModBlocks.CALCITE_SLAB));
             add(new ChiseledBlock(ModBlocks.CHISELED_GONLUIN, StoneBlockSets.GONLUIN.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_MEDGON, StoneBlockSets.MEDGON.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_DOLOMITE, StoneBlockSets.DOLOMITE.slab()));
@@ -162,6 +162,8 @@ public class SimpleBlockModel {
             add(new ChiseledBlock(ModBlocks.CHISELED_ANDESITE_BRICKS, StoneBlockSets.ANDESITE_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_DIORITE_BRICKS, StoneBlockSets.DIORITE_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_GRANITE_BRICKS, StoneBlockSets.GRANITE_BRICKS.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_CALCITE_BRICKS, StoneBlockSets.CALCITE_BRICKS.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_DEEPSLATE_BRICKS, Blocks.COBBLED_DEEPSLATE_SLAB));
             add(new ChiseledBlock(ModBlocks.CHISELED_DOLOMITE_BRICKS, StoneBlockSets.DOLOMITE_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_GREEN_TUFF_BRICKS, StoneBlockSets.GREEN_TUFF_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_IRONSTONE_BRICKS, StoneBlockSets.IRONSTONE_BRICKS.slab()));
@@ -182,6 +184,8 @@ public class SimpleBlockModel {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_ANDESITE, Blocks.POLISHED_ANDESITE_SLAB));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_DIORITE, Blocks.POLISHED_DIORITE_SLAB));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_GRANITE, Blocks.POLISHED_GRANITE_SLAB));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_CALCITE, StoneBlockSets.POLISHED_CALCITE.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_DEEPSLATE, Blocks.POLISHED_DEEPSLATE_SLAB));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_IRONSTONE, StoneBlockSets.POLISHED_IRONSTONE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_DOLOMITE, StoneBlockSets.POLISHED_DOLOMITE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_GREEN_TUFF, StoneBlockSets.POLISHED_GREEN_TUFF.slab()));
@@ -201,7 +205,6 @@ public class SimpleBlockModel {
     public static List<ChiseledPolishedBlock> chiseledPolishedBlocks = new ArrayList<>() {
         {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_GONLUIN, StoneBlockSets.POLISHED_GONLUIN.slab()));
-            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_CALCITE, StoneBlockSets.POLISHED_CALCITE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_NURGON, StoneBlockSets.POLISHED_NURGON.slab()));
         }
     };
@@ -212,6 +215,8 @@ public class SimpleBlockModel {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_ANDESITE_TILES, StoneBlockSets.ANDESITE_TILES.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_GRANITE_TILES, StoneBlockSets.GRANITE_TILES.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_DIORITE_TILES, StoneBlockSets.DIORITE_TILES.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_CALCITE_TILES, StoneBlockSets.CALCITE_TILES.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_DEEPSLATE_TILES, Blocks.DEEPSLATE_TILE_SLAB));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_DOLOMITE_TILES, StoneBlockSets.DOLOMITE_TILES.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_GREEN_TUFF_TILES, StoneBlockSets.GREEN_TUFF_TILES.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_LIMESTONE_TILES, StoneBlockSets.LIMESTONE_TILES.slab()));
@@ -227,6 +232,8 @@ public class SimpleBlockModel {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_ANDESITE, StoneBlockSets.SMOOTH_ANDESITE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_GRANITE, StoneBlockSets.SMOOTH_GRANITE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_DIORITE, StoneBlockSets.SMOOTH_DIORITE.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_DEEPSLATE, StoneBlockSets.SMOOTH_DEEPSLATE.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_CALCITE, StoneBlockSets.SMOOTH_CALCITE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_DOLOMITE, StoneBlockSets.SMOOTH_DOLOMITE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_GREEN_TUFF, StoneBlockSets.SMOOTH_GREEN_TUFF.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_LIMESTONE, StoneBlockSets.SMOOTH_LIMESTONE.slab()));
