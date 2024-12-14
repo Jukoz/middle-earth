@@ -83,11 +83,11 @@ public class CustomAnimalArmorItem extends ArmorItem implements MEEquipmentToolt
         if(dyeDataComponent != null){
             list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
         }
-        if (mountArmorAddonComponent != null) {
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".addon_enabled"));
+        if(mountArmorAddonComponent != null && mountArmorAddonComponent.topArmorAddon()) {
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mount_armor_addon_top"));
         }
-        else {
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".addon_disabled"));
+        if(mountArmorAddonComponent != null && mountArmorAddonComponent.sideArmorAddon()) {
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mount_armor_addon_side"));
         }
 
         return list;
