@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NGN",
+    " I ",
+    " R "
+  ],
+  "key": {
+    "N": {
+      "item": "me:burzum_steel_nugget"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "I": {
+      "item": "me:burzum_steel_ingot"
+    },
+    "R": {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:rod"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:burzum_steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    }
+  },
+  "result": {
+    "id": "me:torch_of_orthanc",
+    "count": 1
+  }
+}

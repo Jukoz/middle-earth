@@ -17,8 +17,6 @@ public class OtherBlockSets {
     public static MiscBlockSet TREATED_WOOD_PANELS = registerMiscSet("treated_wood_panels", null, Blocks.OAK_PLANKS, true);
     public static MiscBlockSet TREATED_WOOD_TILING = registerMiscSet("treated_wood_tiling", null, Blocks.OAK_PLANKS, false);
 
-    public static RoofBlockSet TAN_CLAY_TILES = registerClaySet("tan_clay_tiles", StoneBlockSets.TAN_CLAY_BRICKS.base());
-
     public static RoofBlockSet OAK_SHINGLES = registerWoodSet("oak_shingles", Blocks.OAK_PLANKS);
     public static RoofBlockSet SPRUCE_SHINGLES = registerWoodSet("spruce_shingles", Blocks.SPRUCE_PLANKS);
     public static RoofBlockSet BIRCH_SHINGLES = registerWoodSet("birch_shingles", Blocks.BIRCH_PLANKS);
@@ -138,7 +136,6 @@ public class OtherBlockSets {
     public static RoofBlockSet WAXED_ROTTEN_THATCH = registerWaxedThatchSet("waxed_rotten_thatch");
 
     public static RoofBlockSet[] sets = new RoofBlockSet[] {
-            TAN_CLAY_TILES,
 
             THATCH,
             WEATHERED_THATCH,
