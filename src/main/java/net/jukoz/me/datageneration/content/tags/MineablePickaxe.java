@@ -266,6 +266,18 @@ public class MineablePickaxe {
 
             add(ModDecorativeBlocks.GREAT_ORCISH_GATE);
 
+            add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
+
+            add(ModBlocks.COPPER_BARS);
+            add(ModBlocks.EXPOSED_COPPER_BARS);
+            add(ModBlocks.WEATHERED_COPPER_BARS);
+            add(ModBlocks.OXIDIZED_COPPER_BARS);
+
+            add(ModBlocks.WAXED_COPPER_BARS);
+            add(ModBlocks.WAXED_EXPOSED_COPPER_BARS);
+            add(ModBlocks.WAXED_WEATHERED_COPPER_BARS);
+            add(ModBlocks.WAXED_OXIDIZED_COPPER_BARS);
+
             add(ModBlocks.WATTLE_AND_BRICK);
             add(ModBlocks.WATTLE_AND_BRICK_CROSS);
             add(ModBlocks.WATTLE_AND_BRICK_RIGHT);

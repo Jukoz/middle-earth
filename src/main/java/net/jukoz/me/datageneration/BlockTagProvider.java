@@ -45,10 +45,14 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         var leaves = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("leaves")));
 
+        var wool = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("wool")));
+
         var cobwebs = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "cobwebs")));
 
         mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
         mineablePickaxe.add(MineablePickaxe.blocks.toArray(new Block[0]));
+
+        wool.add(Wool.blocks.toArray(new Block[0]));
 
         leaves.add(LeavesSets.blocks.toArray(new Block[0]));
         mineableHoe.add(MineableHoe.blocks.toArray(new Block[0]));
