@@ -22,6 +22,7 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargModel> {
         super(context, new WargModel(context.getPart(ModEntityModelLayers.WARG)), 0.8f);
         this.addFeature(new WargEyesFeatureRenderer(this));
         this.addFeature(new WargArmorFeatureRenderer(this, context.getModelLoader()));
+        this.addFeature(new WargArmorSpineFeatureRenderer(this, context.getModelLoader()));
         this.addFeature(new WargSaddleFeatureRenderer(this, context.getModelLoader()));
         this.addFeature(new WargArmorFrontSkullFeatureRenderer(this, context.getModelLoader()));
         this.addFeature(new WargArmorBackSkullFeatureRenderer(this, context.getModelLoader()));

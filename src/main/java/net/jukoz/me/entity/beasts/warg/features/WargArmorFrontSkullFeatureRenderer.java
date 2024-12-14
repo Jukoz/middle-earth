@@ -20,11 +20,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public class WargArmorFrontSkullFeatureRenderer extends FeatureRenderer<WargEntity, WargModel> {
-    private final WargArmorAddonsModel model;
+    private final WargArmorTopAddonsModel model;
 
     public WargArmorFrontSkullFeatureRenderer(FeatureRendererContext<WargEntity, WargModel> context, EntityModelLoader loader) {
         super(context);
-        this.model = new WargArmorAddonsModel(loader.getModelPart(ModEntityModelLayers.WARG_ARMOR_ADDONS_FRONT));
+        this.model = new WargArmorTopAddonsModel(loader.getModelPart(ModEntityModelLayers.WARG_ARMOR_ADDONS_FRONT));
     }
 
     @Override

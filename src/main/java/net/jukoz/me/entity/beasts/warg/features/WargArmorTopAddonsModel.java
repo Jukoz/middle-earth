@@ -4,15 +4,13 @@ import net.jukoz.me.entity.beasts.warg.WargAnimations;
 import net.jukoz.me.entity.beasts.warg.WargEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.MathHelper;
 
-public class WargArmorAddonsModel extends SinglePartEntityModel<WargEntity> {
+public class WargArmorTopAddonsModel extends SinglePartEntityModel<WargEntity> {
 
     private final ModelPart warg;
-    public WargArmorAddonsModel(ModelPart root) {
+    public WargArmorTopAddonsModel(ModelPart root) {
         this.warg = root.getChild("root");
     }
 
