@@ -150,7 +150,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
-        return 22.0f + (float)randomIntGetter.applyAsInt(8) + (float)randomIntGetter.applyAsInt(9);
+        return 20.0f + (float)randomIntGetter.applyAsInt(8) + (float)randomIntGetter.applyAsInt(9);
     }
 
     protected static double getChildJumpStrengthBonus(DoubleSupplier randomDoubleGetter) {
@@ -296,7 +296,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
         for(Entity entity : entities) {
             if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
-                entity.damage(entity.getDamageSources().mobAttack(this), 8.0f);
+                entity.damage(entity.getDamageSources().mobAttack(this), getAttackDamage());
                 entity.pushAwayFrom(this);
 
                 if(this.random.nextInt(10) == 0 && !this.isTame() && !this.isBaby()) {
