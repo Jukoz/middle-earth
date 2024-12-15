@@ -37,6 +37,10 @@ public class BeastTargetPlayerGoal extends ActiveTargetGoal<PlayerEntity> {
         }
         if(beastDisposition != null){
             PlayerData data = StateSaverAndLoader.getPlayerState(player);
+
+            if(data == null)
+                return false;
+            
             Disposition playerDisposition = data.getCurrentDisposition();
             return playerDisposition != beastDisposition;
         }
