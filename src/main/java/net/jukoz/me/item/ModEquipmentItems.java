@@ -1126,9 +1126,6 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.MORDOR));
 
-    public static final Item MORDOR_SHIELD = registerItem("mordor_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
-
     public static final Item NAZGUL_CLOAK_HOOD = registerArmorPiece("nazgul_cloak_hood",
             new CustomHelmetItem(ModArmorMaterials.STEEL_T3, new Item.Settings(),
                     ModFactions.MORDOR));

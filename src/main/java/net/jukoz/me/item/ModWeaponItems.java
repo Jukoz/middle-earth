@@ -11,7 +11,10 @@ import net.jukoz.me.item.items.shields.CustomBannerShieldItem;
 import net.jukoz.me.item.items.shields.CustomShieldItem;
 import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.items.weapons.*;
-import net.jukoz.me.item.items.weapons.artefacts.*;
+import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeaponItem;
+import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingLongswordWeaponItem;
+import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomLongswordWeaponItem;
+import net.jukoz.me.item.items.weapons.artefacts.MorgulKnifeItem;
 import net.jukoz.me.item.items.weapons.ranged.CustomBowWeaponItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModShieldTypes;
@@ -357,6 +360,39 @@ public class ModWeaponItems {
     public static final Item BLACK_NUMENOREAN_SPEAR = registerItemWithSpearModel("black_numenorean_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR));
 
+    public static final Item MORDOR_WOODEN_SHIELD = registerShield("mordor_wooden_shield",
+            new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_PAINTED_WOODEN_SHIELD = registerShield("mordor_painted_wooden_shield",
+            new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModFactions.MORDOR));
+
+    public static final Item MORDOR_ROUND_SHIELD = registerShield("mordor_round_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_BLACK_ROUND_SHIELD = registerShield("mordor_black_round_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_PAINTED_ROUND_SHIELD = registerShield("mordor_painted_round_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+
+    public static final Item MORDOR_BRACED_SHIELD = registerShield("mordor_braced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_BLACK_BRACED_SHIELD = registerShield("mordor_black_braced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_PAINTED_BRACED_SHIELD = registerShield("mordor_painted_braced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+
+    public static final Item MORDOR_LARGE_SHIELD = registerShield("mordor_large_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_BLACK_LARGE_SHIELD = registerShield("mordor_black_large_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_PAINTED_LARGE_SHIELD = registerShield("mordor_painted_large_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+
+    public static final Item GONDORIAN_CONVERTED_SHIELD = registerShield("gondorian_converted_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+
+    public static final Item MORDOR_HEAVY_SHIELD = registerShield("mordor_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_PAINTED_EAVY_SHIELD = registerShield("mordor_painted_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.MORDOR));
     public static final Item BLACK_NUMENOREAN_TOWER_SHIELD = registerShield("black_numenorean_tower_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
     //endregion
