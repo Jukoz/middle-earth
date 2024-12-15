@@ -152,7 +152,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
-        return 14.0f + (float)randomIntGetter.applyAsInt(6) + (float)randomIntGetter.applyAsInt(6);
+        return 12.0f + (float)randomIntGetter.applyAsInt(6) + (float)randomIntGetter.applyAsInt(6);
     }
 
     protected static double getChildAttackDamageBonus(DoubleSupplier randomDoubleGetter) {
@@ -160,7 +160,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {
-        return ((double)0.4 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25) * 0.25;
+        return ((double)0.5 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25) * 0.3;
     }
 
     @Override
