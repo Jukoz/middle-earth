@@ -405,6 +405,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         if(this.isTame() && this.isTamable()) {
             if(isCommandItem(itemStack) && player == getOwner()) {
                 this.setSitting(!isSitting());
+                return ActionResult.SUCCESS;
             }
 
             if (itemStack.isOf(Items.CHEST) && !this.hasChest()) {
@@ -414,15 +415,6 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
 
             if(!(isCommandItem(itemStack) || isBreedingItem(itemStack) || itemStack.isOf(Items.CHEST)) && this.isMountable()) {
                 super.interactMob(player, hand);
-            }
-        }
-
-        if (!this.hasPassengers() && !bl && this.isMountable()) {
-            if (!itemStack.isEmpty()) {
-                if (!this.hasChest() && itemStack.isOf(Items.CHEST) && this.canCarryChest()) {
-                    this.addChest(player, itemStack);
-                    return ActionResult.SUCCESS;
-                }
             }
         }
 

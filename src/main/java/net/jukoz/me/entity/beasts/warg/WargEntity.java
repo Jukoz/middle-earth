@@ -304,9 +304,12 @@ public class WargEntity extends AbstractBeastEntity {
         if(this.isSitting()) {
             this.startSittingAnimationState.startIfNotRunning(this.age);
         }
-        if(!this.isSitting() && this.startSittingAnimationState.isRunning()) {
+        else if(!this.isSitting() && this.startSittingAnimationState.isRunning()) {
             this.startSittingAnimationState.stop();
             this.stopSittingAnimationState.start(this.age);
+        }
+        else {
+            this.startSittingAnimationState.stop();
         }
     }
 
