@@ -2,7 +2,6 @@ package net.jukoz.me.entity.seat;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.SeatBlock;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.vehicle.VehicleEntity;
@@ -15,8 +14,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-
-import javax.swing.text.html.HTML;
 
 public class SeatEntity extends VehicleEntity {
 
