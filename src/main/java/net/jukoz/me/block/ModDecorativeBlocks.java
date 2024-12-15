@@ -55,7 +55,7 @@ public class ModDecorativeBlocks {
 
     public static final Block FORGE = registerBlock("forge",
             new ForgeBlock(AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool()));
-    public static final Block TREADTED_ANVIL = registerBlock("treated_anvil",
+    public static final Block TREATED_ANVIL = registerBlock("treated_anvil",
             new TreatedAnvilblock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(1.65f).requiresTool().nonOpaque()));
     public static final Block DWARVEN_TREATED_ANVIL = registerBlock("dwarven_treated_anvil",
             new DwarvenShapingAnvilBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(1.65f).requiresTool().nonOpaque()));
@@ -65,7 +65,7 @@ public class ModDecorativeBlocks {
             new OrcishTreatedAnvilblock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(1.65f).requiresTool().nonOpaque()));
 
     public static final Block BELLOWS = registerBlock("bellows",
-            new BellowsBlock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool().nonOpaque()));
+            new BellowsBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
     public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
             new ArtisanTable(AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque()));
 
@@ -83,11 +83,11 @@ public class ModDecorativeBlocks {
             new CandleHeapBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).nonOpaque().luminance(createLightLevelFromLitBlockState(10))));
 
     public static final Block CALCITE_STATUE = registerBlockWithItem("calcite_statue",
-            new StatueBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque()));
+            new StatueBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque().requiresTool()));
     public static final Block GONLUIN_STATUE = registerBlockWithItem("gonluin_statue",
-            new StatueBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque()));
+            new StatueBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool()));
     public static final Block TUFF_STATUE = registerBlockWithItem("tuff_statue",
-            new StatueBlock(AbstractBlock.Settings.copy(Blocks.TUFF).nonOpaque()));
+            new StatueBlock(AbstractBlock.Settings.copy(Blocks.TUFF).nonOpaque().requiresTool()));
 
     public static final Block FIRE_OF_ORTHANC = registerBlock("fire_of_orthanc",
             new FireOfOrthancBlock(AbstractBlock.Settings.create().requiresTool().mapColor(MapColor.BLACK)
@@ -436,6 +436,15 @@ public class ModDecorativeBlocks {
             new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque()));
     public static final Block WARPED_CHAIR = registerBlockWithItem("warped_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque()));
+
+    public static final Block TREATED_WOOD_STOOL = registerBlockWithItem("treated_wood_stool",
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
+    public static final Block TREATED_WOOD_BENCH = registerBlockWithItem("treated_wood_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
+    public static final Block TREATED_WOOD_TABLE = registerBlockWithItem("treated_wood_table",
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
+    public static final Block TREATED_WOOD_CHAIR = registerBlockWithItem("treated_wood_chair",
+            new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
     //endregion
 
     public static final Block WATERING_CAN = registerBlockWithItem("watering_can",
@@ -512,6 +521,9 @@ public class ModDecorativeBlocks {
             new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
     public static final Block WARPED_LADDER = registerBlockWithItem("warped_ladder",
             new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
+
+    public static final Block TREATED_WOOD_LADDER = registerBlockWithItem("treated_wood_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.LADDER).burnable()));
 
     public static final Block ROPE_LADDER = registerBlockWithItem("rope_ladder",
             new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL).burnable()));

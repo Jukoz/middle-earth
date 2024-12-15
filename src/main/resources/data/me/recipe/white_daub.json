@@ -2,10 +2,28 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:wheat"
+      "item": "me:straw"
+    },
+    {
+      "item": "me:straw"
+    },
+    {
+      "item": "me:straw"
     },
     {
       "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:clay"
+    },
+    {
+      "item": "minecraft:clay"
     },
     {
       "item": "minecraft:clay"
@@ -13,6 +31,6 @@
   ],
   "result": {
     "id": "me:white_daub",
-    "count":  2
+    "count": 6
   }
 }

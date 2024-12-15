@@ -1,8 +1,6 @@
 package net.jukoz.me.datageneration.content.models;
 
-import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModDecorativeBlocks;
-import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 
@@ -13,7 +11,11 @@ public class SimpleWoodStoolModel {
 
     public record VanillaStool(Block base, Block planks) {}
 
-    public static List<Block> stools = new ArrayList<>() {};
+    public static List<Block> stools = new ArrayList<>() {
+        {
+            add(ModDecorativeBlocks.TREATED_WOOD_STOOL);
+        }
+    };
 
     public static List<VanillaStool> vanillaStools = new ArrayList<>() {
         {
