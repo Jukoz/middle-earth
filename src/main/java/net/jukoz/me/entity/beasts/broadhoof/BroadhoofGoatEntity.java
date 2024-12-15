@@ -158,7 +158,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {
-        return ((double)0.2f + randomDoubleGetter.getAsDouble() * 0.15 + randomDoubleGetter.getAsDouble() * 0.15 + randomDoubleGetter.getAsDouble() * 0.15) * 0.25;
+        return ((double)0.4f + randomDoubleGetter.getAsDouble() * 0.2 + randomDoubleGetter.getAsDouble() * 0.2 + randomDoubleGetter.getAsDouble() * 0.2) * 0.25;
     }
 
     @Override
@@ -418,7 +418,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 1.8f) : ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f);
+        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f);
     }
 
     @Override

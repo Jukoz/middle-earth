@@ -209,19 +209,6 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         return (double)this.getHeight() - 0.19 + (double)(0.12F * MathHelper.cos(g * 1.5F) * 2.0F * f);
     }
 
-    @Override
-    protected Vec3d getControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput) {
-        if (this.isOnGround() && this.jumpStrength == 0.0f && this.isAngry() && !this.jumping || this.isSitting()) {
-            return Vec3d.ZERO;
-        }
-        float f = controllingPlayer.sidewaysSpeed * 0.5f;
-        float g = controllingPlayer.forwardSpeed * 0.75f;
-        if (g <= 0.0f) {
-            g *= 0.25f;
-        }
-        return new Vec3d(f, 0.0, g);
-    }
-
     public PlayerEntity getOwner() {
         if(this.getOwnerUuid() != null) {
             return getPlayerByUuid(this.getOwnerUuid());
