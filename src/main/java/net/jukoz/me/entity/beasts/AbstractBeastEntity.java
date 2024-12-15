@@ -1,13 +1,12 @@
 package net.jukoz.me.entity.beasts;
 
-import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatEntity;
+import net.jukoz.me.resources.StateSaverAndLoader;
+import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.datas.RaceType;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
-import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -34,6 +33,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -152,6 +152,20 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     // Getters and Setters =============================================================================================
+    protected boolean isMountable() {
+        return true;
+    }
+    protected boolean isTamable() {
+        return true;
+    }
+
+    protected Disposition getDisposition(){
+        return null;
+    }
+
+    protected List<RaceType> getRaceType() {
+        return null;
+    }
 
     public boolean hasChest() {
         return this.dataTracker.get(CHEST);
@@ -346,7 +360,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     public void tryBonding(PlayerEntity player) {
-        if(random.nextDouble() <= 0.1d || player.isCreative()) {
+        if(random.nextDouble() <= 0.1d || player.isInCreativeMode()) {
             this.tameBeast(player);
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
 
@@ -369,38 +383,55 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
 
+        if(!this.getWorld().isClient()) {
+            Disposition playerDisposition = StateSaverAndLoader.getPlayerState(player).getCurrentDisposition();
+            RaceType playerRace = StateSaverAndLoader.getPlayerState(player).getRaceType(this.getWorld());
+
+            if(playerDisposition != this.getDisposition() || playerRace == RaceType.NONE || (this.getRaceType() != null && !this.getRaceType().contains(playerRace))) {
+                return ActionResult.FAIL;
+            }
+        }
+
         ItemStack itemStack = player.getStackInHand(hand);
 
-        if(this.isTame()) {
+        if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && this.isTamable()) {
+            if(!this.getWorld().isClient()) {
+                this.tryBonding(player);
+                this.eat(player, hand, itemStack);
+            }
+            return ActionResult.success(this.getWorld().isClient());
+        }
+
+        if(this.isTame() && this.isTamable()) {
             if(isCommandItem(itemStack) && player == getOwner()) {
                 this.setSitting(!isSitting());
             }
 
             if (itemStack.isOf(Items.CHEST) && !this.hasChest()) {
                 this.addChest(player, itemStack);
-                return ActionResult.success(((World)this.getWorld()).isClient);
+                return ActionResult.SUCCESS;
             }
 
-            if(!(isCommandItem(itemStack) || isBreedingItem(itemStack) || itemStack.isOf(Items.CHEST))) {
+            if(!(isCommandItem(itemStack) || isBreedingItem(itemStack) || itemStack.isOf(Items.CHEST)) && this.isMountable()) {
                 super.interactMob(player, hand);
             }
         }
 
-        if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && !this.getWorld().isClient) {
-            this.tryBonding(player);
-            this.eat(player, hand, itemStack);
-        }
-
-        if (!this.hasPassengers() && !bl) {
+        if (!this.hasPassengers() && !bl && this.isMountable()) {
             if (!itemStack.isEmpty()) {
                 if (!this.hasChest() && itemStack.isOf(Items.CHEST) && this.canCarryChest()) {
                     this.addChest(player, itemStack);
-                    return ActionResult.success(this.getWorld().isClient);
+                    return ActionResult.SUCCESS;
                 }
             }
         }
 
-        return ActionResult.success(this.getWorld().isClient);
+        return ActionResult.FAIL;
+    }
+
+    @Override
+    public ActionResult interactHorse(PlayerEntity player, ItemStack stack) {
+        return super.interactHorse(player, stack);
     }
 
     public boolean isBondingItem(ItemStack itemStack) {

@@ -2,9 +2,7 @@ package net.jukoz.me.entity.beasts.warg;
 
 import com.google.common.collect.Maps;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.entity.beasts.warg.features.WargArmorFeatureRenderer;
-import net.jukoz.me.entity.beasts.warg.features.WargEyesFeatureRenderer;
-import net.jukoz.me.entity.beasts.warg.features.WargSaddleFeatureRenderer;
+import net.jukoz.me.entity.beasts.warg.features.*;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -24,7 +22,11 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargModel> {
         super(context, new WargModel(context.getPart(ModEntityModelLayers.WARG)), 0.8f);
         this.addFeature(new WargEyesFeatureRenderer(this));
         this.addFeature(new WargArmorFeatureRenderer(this, context.getModelLoader()));
+        this.addFeature(new WargArmorSpineFeatureRenderer(this, context.getModelLoader()));
+        this.addFeature(new WargArmorSideSkullsFeatureRenderer(this, context.getModelLoader()));
         this.addFeature(new WargSaddleFeatureRenderer(this, context.getModelLoader()));
+        this.addFeature(new WargArmorFrontSkullFeatureRenderer(this, context.getModelLoader()));
+        this.addFeature(new WargArmorBackSkullFeatureRenderer(this, context.getModelLoader()));
     }
 
     @Override

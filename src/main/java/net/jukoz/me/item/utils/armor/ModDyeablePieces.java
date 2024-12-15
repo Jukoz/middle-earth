@@ -75,6 +75,12 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.MORDOR_REINFORCED_COAT, true);
         dyeablePieces.put(ModEquipmentItems.RUSTED_MORDOR_REINFORCED_COAT, true);
 
+        dyeablePieces.put(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR, true);
+        dyeablePieces.put(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR, true);
+        dyeablePieces.put(ModEquipmentItems.WARG_LEATHER_ARMOR, true);
+        dyeablePieces.put(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR, true);
+        dyeablePieces.put(ModEquipmentItems.WARG_MORDOR_MAIL_ARMOR, true);
+
         dyeableCapes.put(ModCapes.CAPE, true);
         dyeableCapes.put(ModCapes.CLOAK, false);
         dyeableCapes.put(ModCapes.SURCOAT, true);

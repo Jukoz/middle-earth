@@ -1315,17 +1315,26 @@ public class ModEquipmentItems {
 
     //endregion
 
-    /*public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
-            new TrollArmorItem(10, "steel", new Item.Settings().maxCount(1)));*/
-
     // GENERIC
-    public static final Item WARG_LEATHER_ARMOR = registerGeneratedItem("warg_leather_armor", new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, null, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4))));
-    public static final Item WARG_PLATE_ARMOR = registerGeneratedItem("warg_plate_armor", new CustomAnimalArmorItem(ModArmorMaterials.PLATE, null, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10))));
+    // Warg
+    public static final Item WARG_MORDOR_PLATE_ARMOR = registerGeneratedItem("warg_mordor_plate_armor",
+            new CustomAnimalArmorItem(ModArmorMaterials.PLATE, "_mordor", CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10)), ModFactions.MORDOR));
+    public static final Item WARG_GUNDABAD_PLATE_ARMOR = registerGeneratedItem("warg_gundabad_plate_armor",
+            new CustomAnimalArmorItem(ModArmorMaterials.PLATE, "_gundabad", CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10)), ModSubFactions.GUNDABAD));
+    public static final Item WARG_MORDOR_MAIL_ARMOR = registerDyeableArmorPiece("warg_mordor_mail_armor",
+            new CustomAnimalArmorItem(ModArmorMaterials.MAIL, "_mordor", CustomAnimalArmorItem.Type.WARG, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(6)).component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(4865076)), ModFactions.MORDOR));
+    public static final Item WARG_LEATHER_ARMOR = registerDyeableArmorPiece("warg_leather_armor",
+            new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, null, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4)).component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(4865076)), ModFactions.MORDOR));
+    public static final Item WARG_REINFORCED_LEATHER_ARMOR = registerDyeableArmorPiece("warg_reinforced_leather_armor",
+            new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, "_reinforced", CustomAnimalArmorItem.Type.WARG, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4)).component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(4865076)), ModFactions.MORDOR));
+
+    // Broadhoof Goat
     public static final Item BROADHOOF_GOAT_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_padded_armor",
-            new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4)).component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))));
+            new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4)).component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475)), ModSubFactions.EREBOR));
     public static final Item BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_ornamented_padded_armor",
-            new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, "_ornamented", CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4)).component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))));
-    public static final Item BROADHOOF_GOAT_PLATE_ARMOR = registerGeneratedItem("broadhoof_goat_plate_armor", new CustomAnimalArmorItem(ModArmorMaterials.PLATE, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10))));
+            new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, "_ornamented", CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4)).component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475)), ModSubFactions.EREBOR));
+    public static final Item BROADHOOF_GOAT_PLATE_ARMOR = registerGeneratedItem("broadhoof_goat_plate_armor",
+            new CustomAnimalArmorItem(ModArmorMaterials.PLATE, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10)), ModSubFactions.EREBOR));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());

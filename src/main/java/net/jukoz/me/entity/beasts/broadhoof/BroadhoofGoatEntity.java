@@ -1,9 +1,13 @@
 package net.jukoz.me.entity.beasts.broadhoof;
 
+import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.jukoz.me.entity.goals.*;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.datas.RaceType;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
@@ -27,6 +31,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.InstrumentTags;
@@ -38,6 +43,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -67,6 +73,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     private static final TrackedData<Boolean> LEFT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> RIGHT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> BRUSHED_BEARD = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> MOUNTABLE = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState jumpAnimationState = new AnimationState();
     private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.BROADHOOF_GOAT.getDimensions().scaled(0.5f);
 
@@ -101,12 +108,13 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, HUNTING_SPEED, false));
-        this.goalSelector.add(4, new ChargeAttackGoal(this, maxChargeCooldown()));
+        this.goalSelector.add(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 1.0, TEMPTING_INGREDIENT, false));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
+        this.targetSelector.add(1, new BeastRevengeGoal(this, new Class[0]).setGroupRevenge());
     }
 
     @Override
@@ -117,6 +125,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         builder.add(LEFT_HORN, true);
         builder.add(RIGHT_HORN, true);
         builder.add(BRUSHED_BEARD, false);
+        builder.add(MOUNTABLE, true);
     }
 
     @Override
@@ -137,6 +146,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.dataTracker.set(LEFT_HORN, nbt.getBoolean("HasLeftHorn"));
         this.dataTracker.set(RIGHT_HORN, nbt.getBoolean("HasRightHorn"));
         this.dataTracker.set(BRUSHED_BEARD, nbt.getBoolean("HasBrushedBeard"));
+        this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
@@ -152,17 +162,27 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
+    protected Disposition getDisposition() {
+        return Disposition.GOOD;
+    }
+
+    @Override
+    protected List<RaceType> getRaceType() {
+        return List.of(RaceType.DWARF);
+    }
+
+    @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
-        if(this.isTame()) {
+        if(this.isTame() && this.isTamable()) {
             if (this.isBreedingItem(itemStack)) {
                 if(this.getHealth() < this.getMaxHealth()) {
                     itemStack.decrementUnlessCreative(1, player);
                     FoodComponent foodComponent = itemStack.get(DataComponentTypes.FOOD);
                     float f = foodComponent != null ? (float)foodComponent.nutrition() : 1.0f;
                     this.heal(2.0f * f);
-                    return ActionResult.success(this.getWorld().isClient());
+                    return ActionResult.SUCCESS;
                 }
                 else if (!this.getWorld().isClient && this.getBreedingAge() == 0 && this.canEat()) {
                     this.eat(player, hand, itemStack);
@@ -226,6 +246,16 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     @Override
     public EntityDimensions getBaseDimensions(EntityPose pose) {
         return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
+    }
+
+    @Override
+    protected boolean isMountable() {
+        return this.dataTracker.get(MOUNTABLE);
+    }
+
+    @Override
+    protected boolean isTamable() {
+        return this.isMountable();
     }
 
     @Override
@@ -312,9 +342,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isHorseArmor(ItemStack stack) {
-        return  stack.isOf(ModEquipmentItems.BROADHOOF_GOAT_PLATE_ARMOR) ||
-                stack.isOf(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR) ||
-                stack.isOf(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
     }
 
     @Override
@@ -368,20 +396,11 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     protected void setupAnimationStates() {
         if(this.isSitting()) {
-            if(!this.sittingAnimationState.isRunning()) {
-                this.stopSittingAnimationState.stop();
-                this.startSittingAnimationState.startIfNotRunning(this.age);
-                this.startedSitting = true;
-            }
-            if(!this.startSittingAnimationState.isRunning() && startedSitting) {
-                this.sittingAnimationState.startIfNotRunning(this.age);
-            }
+            this.startSittingAnimationState.startIfNotRunning(this.age);
         }
-        else if (startedSitting){
-            this.stopSittingAnimationState.startIfNotRunning(this.age);
+        if(!this.isSitting() && this.startSittingAnimationState.isRunning()) {
             this.startSittingAnimationState.stop();
-            this.sittingAnimationState.stop();
-            this.startedSitting = false;
+            this.stopSittingAnimationState.start(this.age);
         }
 
         if(this.isInAir() && this.hasControllingPassenger()) {
@@ -420,6 +439,10 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
         BroadhoofGoatHorns horns = Util.getRandom(BroadhoofGoatHorns.values(), this.random);
         this.setHorns(horns);
+
+        if(!this.getWorld().isClient()) {
+            this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
+        }
 
         return super.initialize(world, difficulty, spawnReason, entityData);
     }

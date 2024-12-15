@@ -664,6 +664,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         ComplexRecipeJsonBuilder.create(ArmorHoodRemovalRecipe::new).offerTo(exporter, "custom_armor_hood_removal");
         ComplexRecipeJsonBuilder.create(ArmorCapeRecipe::new).offerTo(exporter, "custom_armor_cape");
         ComplexRecipeJsonBuilder.create(ArmorCapeRemovalRecipe::new).offerTo(exporter, "custom_armor_cape_removal");
+        ComplexRecipeJsonBuilder.create(MountArmorAddonRemovalRecipe::new).offerTo(exporter, "custom_mount_armor_addon_removal");
+        ComplexRecipeJsonBuilder.create(MountArmorSideSkullAddonRecipe::new).offerTo(exporter, "custom_mount_armor_side_skull_addon");
+        ComplexRecipeJsonBuilder.create(MountArmorTopSkullAddonRecipe::new).offerTo(exporter, "custom_mount_armor_top_skull_addon");
 
         //region Alloying6
         AlloyRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.MISC, "bronze", INGOT_LIQUID_VALUE * 4)
