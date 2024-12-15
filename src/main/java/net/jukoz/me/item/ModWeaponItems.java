@@ -350,15 +350,15 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModFactions.MORDOR));
 
     public static final Item BLACK_NUMENOREAN_SWORD = registerItemWithModel("black_numenorean_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), true);
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModSubFactions.MORDOR_BLACK_NUMENOREANS), true);
     public static final Item BLACK_NUMENOREAN_LONGSWORD = registerItemWithModel("black_numenorean_longsword",
-            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModSubFactions.MORDOR_BLACK_NUMENOREANS), true);
     public static final Item BLACK_NUMENOREAN_DAGGER = registerItemWithModel("black_numenorean_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, ModSubFactions.MORDOR_BLACK_NUMENOREANS), false);
     public static final Item BLACK_NUMENOREAN_AXE = registerItemWithModel("black_numenorean_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), true);
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, ModSubFactions.MORDOR_BLACK_NUMENOREANS), true);
     public static final Item BLACK_NUMENOREAN_SPEAR = registerItemWithSpearModel("black_numenorean_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR));
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModSubFactions.MORDOR_BLACK_NUMENOREANS));
 
     public static final Item MORDOR_WOODEN_SHIELD = registerShield("mordor_wooden_shield",
             new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModFactions.MORDOR));

@@ -58,6 +58,10 @@ public enum ModCapes implements StringIdentifiable {
     ORCISH_TAN_FUR_SURCOAT_WITH_BONE(36,"orcish_tan_fur_surcoat_with_bone"),
     ORCISH_WHITE_FUR_SURCOAT_WITH_BONE(37,"orcish_white_fur_surcoat_with_bone"),
 
+    MORDOR_BLACK_NUMENOREAN_CAPE(38,"mordor_black_numenorean_cape"),
+
+    ORTHANC_GUARD_CAPE(39,"orthanc_guard_cape"),
+
     ;
 
     private static final IntFunction<ModCapes> BY_ID = ValueLists.createIdToValueFunction(ModCapes::getId, ModCapes.values(), ValueLists.OutOfBoundsHandling.ZERO);;

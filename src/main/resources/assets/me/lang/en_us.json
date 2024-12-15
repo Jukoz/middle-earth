@@ -894,6 +894,13 @@
   "item.me.black_uruk_commander_helmet": "Black Uruk Commander Helmet",
   "item.me.black_uruk_commander_chestplate": "Black Uruk Commander Chestplate",
 
+  "item.me.mordor_black_numenorean_plate_helmet": "Mordor Black Númenórean Plate Helmet",
+  "item.me.mordor_black_numenorean_plate_chestplate": "Mordor Black Númenórean Plate Chestplate",
+  "item.me.mordor_black_numenorean_plate_leggings": "Mordor Black Númenórean Plate Leggings",
+  "item.me.mordor_black_numenorean_plate_boots": "Mordor Black Númenórean Plate Boots",
+
+  "item.me.mordor_black_numenorean_cape": "Mordor Black Númenórean Cape",
+
   "item.me.nazgul_cloak_hood": "Nazgûl Cloak Hood",
   "item.me.nazgul_cloak": "Nazgûl Cloak",
   "item.me.nazgul_pants": "Nazgûl Pants",
@@ -934,6 +941,14 @@
   "item.me.uruk_hai_plate_chestplate": "Uruk-Hai Plate Chestplate",
   "item.me.uruk_hai_plate_leggings": "Uruk-Hai Plate Leggings",
   "item.me.uruk_hai_plate_boots": "Uruk-Hai Plate Boots",
+
+  "item.me.orthanc_guard_helmet": "Orthanc Guard Helmet",
+  "item.me.orthanc_commander_helmet": "Orthanc Commander Helmet",
+  "item.me.orthanc_guard_chestplate": "Orthanc Guard Chestplate",
+  "item.me.orthanc_guard_leggings": "Orthanc Guard Leggings",
+  "item.me.orthanc_guard_boots": "Orthanc Guard Boots",
+
+  "item.me.orthanc_guard_cape": "Orthanc Guard Cape",
 
   "item.me.gundabad_bone_pauldron": "Gundabad Bone Pauldron",
 
@@ -6547,6 +6562,7 @@
   "tooltip.me.erebor" : "Erebor",
   "tooltip.me.lothlorien" : "Lothlórien",
   "tooltip.me.mordor" : "Mordor",
+  "tooltip.me.mordor_black_numenoreans" : "Mordor Black Númenóreans",
   "tooltip.me.misty_mountains_goblins" : "Misty Mountains Goblins",
   "tooltip.me.gundabad" : "Gundabad",
   "tooltip.me.moria_goblins" : "Moria Goblins",
@@ -6680,6 +6696,10 @@
   "tooltip.me.orcish_gray_fur_surcoat_with_bone": "Orcish Gray Fur Surcoat With Bone",
   "tooltip.me.orcish_tan_fur_surcoat_with_bone": "Orcish Tan Fur Surcoat With Bone",
   "tooltip.me.orcish_white_fur_surcoat_with_bone": "Orcish White Fur Surcoat With Bone",
+
+  "tooltip.me.mordor_black_numenorean_cape": "Mordor Black Númenórean Cape",
+
+  "tooltip.me.orthanc_guard_cape": "Orthanc Guard Cape",
 
 "#Comment:": "Disposition",
   "disposition.me.good" : "Good",

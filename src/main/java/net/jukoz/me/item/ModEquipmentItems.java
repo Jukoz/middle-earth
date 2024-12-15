@@ -7,9 +7,7 @@ import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.items.armor.*;
-import net.jukoz.me.item.items.shields.CustomShieldItem;
 import net.jukoz.me.item.utils.ModItemGroups;
-import net.jukoz.me.item.utils.ModShieldTypes;
 import net.jukoz.me.item.utils.armor.ModArmorMaterials;
 import net.jukoz.me.item.utils.armor.capes.ModCapes;
 import net.jukoz.me.item.utils.armor.hoods.ModHoods;
@@ -1126,6 +1124,25 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.MORDOR));
 
+    public static final Item MORDOR_BLACK_NUMENOREAN_PLATE_HELMET = registerCustomModelArmorPiece("mordor_black_numenorean_plate_helmet",
+            new CustomHelmetItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModSubFactions.MORDOR_BLACK_NUMENOREANS));
+    public static final Item MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE = registerCustomModelArmorPiece("mordor_black_numenorean_plate_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.STEEL_T5, new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.MORDOR_BLACK_NUMENOREAN_CAPE)),
+                    ModSubFactions.MORDOR_BLACK_NUMENOREANS));
+    public static final Item MORDOR_BLACK_NUMENOREAN_PLATE_LEGGINGS = registerArmorPiece("mordor_black_numenorean_plate_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModSubFactions.MORDOR_BLACK_NUMENOREANS));
+    public static final Item MORDOR_BLACK_NUMENOREAN_PLATE_BOOTS = registerArmorPiece("mordor_black_numenorean_plate_boots",
+            new CustomBootsItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModSubFactions.MORDOR_BLACK_NUMENOREANS));
+
+    public static final Item MORDOR_BLACK_NUMENOREAN_CAPE = registerCape("mordor_black_numenorean_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.MORDOR_BLACK_NUMENOREAN_CAPE)),
+                    ModSubFactions.MORDOR_BLACK_NUMENOREANS));
+
     public static final Item NAZGUL_CLOAK_HOOD = registerArmorPiece("nazgul_cloak_hood",
             new CustomHelmetItem(ModArmorMaterials.STEEL_T3, new Item.Settings(),
                     ModFactions.MORDOR));
@@ -1226,6 +1243,28 @@ public class ModEquipmentItems {
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_PLATE_BOOTS = registerArmorPiece("uruk_hai_plate_boots",
             new CustomBootsItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
+                    ModFactions.ISENGARD));
+
+    public static final Item ORTHANC_GUARD_HELMET = registerCustomModelArmorPiece("orthanc_guard_helmet",
+            new CustomHelmetItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModFactions.ISENGARD));
+    public static final Item ORTHANC_COMMANDER_HELMET = registerCustomModelArmorPiece("orthanc_commander_helmet",
+            new CustomHelmetItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModFactions.ISENGARD));
+    public static final Item ORTHANC_GUARD_CHESTPLATE = registerArmorPiece("orthanc_guard_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.STEEL_T5, new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ORTHANC_GUARD_CAPE)),
+                    ModFactions.ISENGARD));
+    public static final Item ORTHANC_GUARD_LEGGINGS = registerArmorPiece("orthanc_guard_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModFactions.ISENGARD));
+    public static final Item ORTHANC_GUARD_BOOTS = registerArmorPiece("orthanc_guard_boots",
+            new CustomBootsItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModFactions.ISENGARD));
+
+    public static final Item ORTHANC_GUARD_CAPE = registerCape("orthanc_guard_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ORTHANC_GUARD_CAPE)),
                     ModFactions.ISENGARD));
     //endregion
 

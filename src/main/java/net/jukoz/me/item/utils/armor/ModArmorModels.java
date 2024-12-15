@@ -1,15 +1,11 @@
 package net.jukoz.me.item.utils.armor;
 
-import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
-import net.jukoz.me.client.model.equipment.chest.HaltChestplateModel;
-import net.jukoz.me.client.model.equipment.chest.HobgoblinPlateChestplateModel;
-import net.jukoz.me.client.model.equipment.chest.HobgoblinTrophyPlateChestplateModel;
+import net.jukoz.me.client.model.equipment.chest.*;
 import net.jukoz.me.client.model.equipment.head.helmets.*;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.utils.armor.capes.ModCapeModels;
 import net.jukoz.me.item.utils.armor.capes.ModCapes;
 import net.jukoz.me.item.utils.armor.hoods.ModHoodModels;
-import net.jukoz.me.item.utils.armor.hoods.ModHoodStates;
 import net.jukoz.me.item.utils.armor.hoods.ModHoods;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
@@ -62,7 +58,6 @@ public class ModArmorModels {
         GALADHRIM_HELMET(ModEquipmentItems.GALADHRIM_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
         GALADHRIM_LORD_HELMET(ModEquipmentItems.GALADHRIM_LORD_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
 
-        BLACK_URUK_COMMANDER_HELMET(ModEquipmentItems.BLACK_URUK_COMMANDER_HELMET, new HelmetSkullModel<>(HelmetSkullModel.getTexturedModelData().createModel())),
 
         ORCISH_BRACED_HELMET(ModEquipmentItems.ORCISH_BRACED_HELMET, new OrcSpikeHelmetModel<>(OrcSpikeHelmetModel.getTexturedModelData().createModel())),
         ORCISH_SALLET(ModEquipmentItems.ORCISH_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
@@ -80,6 +75,10 @@ public class ModArmorModels {
         MORDOR_SNOUT_HELMET(ModEquipmentItems.MORDOR_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
         RUSTED_MORDOR_SNOUT_HELMET(ModEquipmentItems.RUSTED_MORDOR_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
 
+        BLACK_URUK_COMMANDER_HELMET(ModEquipmentItems.BLACK_URUK_COMMANDER_HELMET, new HelmetSkullModel<>(HelmetSkullModel.getTexturedModelData().createModel())),
+
+        MORDOR_BLACK_NUMENOREAN_PLATE_HELMET(ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET, new MordorBNHelmetModel<>(MordorBNHelmetModel.getTexturedModelData().createModel())),
+
         URUK_HAI_LEATHER_SCOUT_CAP(ModEquipmentItems.URUK_HAI_LEATHER_SCOUT_CAP, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_LIGHT_HELMET(ModEquipmentItems.URUK_HAI_LIGHT_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_PAINTED_LIGHT_HELMET(ModEquipmentItems.URUK_HAI_PAINTED_LIGHT_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
@@ -95,6 +94,9 @@ public class ModArmorModels {
         URUK_HAI_BERSERKER_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_BERSERKER_PAINTED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_COMMANDER_HELMET(ModEquipmentItems.URUK_HAI_COMMANDER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_COMMANDER_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_COMMANDER_PAINTED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+
+        ORTHANC_GUARD_HELMET(ModEquipmentItems.ORTHANC_GUARD_HELMET, new OrthancCommanderHelmetModel<>(OrthancCommanderHelmetModel.getTexturedModelData().createModel())),
+        ORTHANC_COMMANDER_HELMET(ModEquipmentItems.ORTHANC_COMMANDER_HELMET, new OrthancCommanderHelmetModel<>(OrthancCommanderHelmetModel.getTexturedModelData().createModel())),
 
         GUNDABAD_CAPTAIN_HELMET(ModEquipmentItems.GUNDABAD_CAPTAIN_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
         GUNDABAD_SCREECHER_HELMET(ModEquipmentItems.GUNDABAD_SCREECHER_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
@@ -137,6 +139,8 @@ public class ModArmorModels {
 
         BLACK_URUK_PLATE_CHESTPLATE(ModEquipmentItems.BLACK_URUK_PLATE_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
         BLACK_URUK_COMMANDER_CHESTPLATE(ModEquipmentItems.BLACK_URUK_COMMANDER_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
+
+        MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE(ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE, new MordorBNChestplateModel<>(MordorBNChestplateModel.getTexturedModelData().createModel())),
 
         URUK_HAI_PLATE_CHESTPLATE(ModEquipmentItems.URUK_HAI_PLATE_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
 
@@ -209,6 +213,10 @@ public class ModArmorModels {
         ORCISH_GRAY_FUR_SURCOAT_WITH_BONE(ModCapes.ORCISH_GRAY_FUR_SURCOAT_WITH_BONE, ModCapeModels.SURCOAT_FUR_MODELS),
         ORCISH_TAN_FUR_SURCOAT_WITH_BONE(ModCapes.ORCISH_TAN_FUR_SURCOAT_WITH_BONE, ModCapeModels.SURCOAT_FUR_MODELS),
         ORCISH_WHITE_FUR_SURCOAT_WITH_BONE(ModCapes.ORCISH_WHITE_FUR_SURCOAT_WITH_BONE, ModCapeModels.SURCOAT_FUR_MODELS),
+
+        MORDOR_BLACK_NUMENOREAN_CAPE(ModCapes.MORDOR_BLACK_NUMENOREAN_CAPE, ModCapeModels.MEDIUM_MODELS),
+
+        ORTHANC_GUARD_CAPE(ModCapes.ORTHANC_GUARD_CAPE, ModCapeModels.MEDIUM_MODELS),
         ;
 
         private final ModCapes cape;
