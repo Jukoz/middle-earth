@@ -7,10 +7,10 @@
   ],
   "key": {
     "I": {
-      "item": "me:steel_ingot"
+      "tag": "me:steel_ingots"
     },
     "N": {
-      "item": "me:steel_nugget"
+      "tag": "me:steel_nuggets"
     },
     "C": {
       "item": "minecraft:chest"

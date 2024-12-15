@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:water_bucket"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:clay"
+    },
+    {
+      "item": "minecraft:clay"
+    },
+    {
+      "item": "minecraft:clay"
+    },
+    {
+      "item": "minecraft:clay"
+    }
+  ],
+  "result": {
+    "id": "me:plaster",
+    "count":  8
+  }
+}

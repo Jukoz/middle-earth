@@ -22,7 +22,7 @@ public class ModEmiPlugin implements EmiPlugin {
     public static final EmiRecipeCategory ARTISAN_TABLE_CATEGORY
             = new EmiRecipeCategory(Identifier.of(MiddleEarth.MOD_ID, "artisan_table"), ARTISAN_TABLE, new EmiTexture(MY_SPRITE_SHEET, 0, 0, 16, 16));
 
-    public static final EmiStack ANVIL_SHAPING = EmiStack.of(ModDecorativeBlocks.TREADTED_ANVIL);
+    public static final EmiStack ANVIL_SHAPING = EmiStack.of(ModDecorativeBlocks.TREATED_ANVIL);
     public static final EmiRecipeCategory ANVIL_SHAPING_CATEGORY
             = new EmiRecipeCategory(Identifier.of(MiddleEarth.MOD_ID, "anvil_shaping"), ANVIL_SHAPING, new EmiTexture(MY_SPRITE_SHEET, 0, 32, 16, 16));
 
@@ -39,7 +39,7 @@ public class ModEmiPlugin implements EmiPlugin {
         }
 
         registry.addCategory(ANVIL_SHAPING_CATEGORY);
-        registry.addWorkstation(ANVIL_SHAPING_CATEGORY, EmiStack.of(ModDecorativeBlocks.TREADTED_ANVIL));
+        registry.addWorkstation(ANVIL_SHAPING_CATEGORY, EmiStack.of(ModDecorativeBlocks.TREATED_ANVIL));
         registry.addWorkstation(ANVIL_SHAPING_CATEGORY, EmiStack.of(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL));
         registry.addWorkstation(ANVIL_SHAPING_CATEGORY, EmiStack.of(ModDecorativeBlocks.ELVEN_TREATED_ANVIL));
         registry.addWorkstation(ANVIL_SHAPING_CATEGORY, EmiStack.of(ModDecorativeBlocks.ORCISH_TREATED_ANVIL));
