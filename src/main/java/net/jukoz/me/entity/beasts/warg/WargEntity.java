@@ -38,6 +38,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
@@ -264,7 +265,7 @@ public class WargEntity extends AbstractBeastEntity {
         float g = this.limbAnimator.getPos() * (MathHelper.PI / 180) * 18;
         float h = passenger.isSprinting() ? 1 : 0;
 
-        double y = (MathHelper.cos(g * 2 * 1.2f - (MathHelper.PI * (h - 1))) * f * (0.06 + (0.035 * h))) - 0.1;
+        double y = (MathHelper.cos(g * 2 * 1.2f - (MathHelper.PI * (h - 1))) * (0.06 + (0.035 * h)));
 
         return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
     }
@@ -339,13 +340,13 @@ public class WargEntity extends AbstractBeastEntity {
         for(Entity entity : entities) {
             if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
                 entity.damage(entity.getDamageSources().mobAttack(this), this.getAttackDamage());
-                if(entity.hasVehicle()) {
-                    if(entity instanceof PlayerEntity) {
-                        entity.stopRiding();
-                    }
-                    else {
-                        entity.dismountVehicle();
-                    }
+
+                if(entity instanceof ServerPlayerEntity) {
+                    entity.stopRiding();
+                }
+                else if(!this.getWorld().isClient) {
+                    entity.dismountVehicle();
+                    entity.removeAllPassengers();
                 }
 
                 this.setCharging(false);
