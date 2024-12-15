@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "me:warg_bone"
+      "item": "me:dirty_bone"
     }
   ],
   "result": {
     "id": "minecraft:bone_meal",
-    "count": 4
+    "count": 3
   }
 }

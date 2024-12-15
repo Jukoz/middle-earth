@@ -151,7 +151,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
-        return 14.0f + (float)randomIntGetter.applyAsInt(5) + (float)randomIntGetter.applyAsInt(5);
+        return 14.0f + (float)randomIntGetter.applyAsInt(6) + (float)randomIntGetter.applyAsInt(6);
     }
 
     protected static double getChildAttackDamageBonus(DoubleSupplier randomDoubleGetter) {
@@ -159,7 +159,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {
-        return ((double)0.3 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25) * 0.25;
+        return ((double)0.4 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25) * 0.25;
     }
 
     @Override
@@ -338,7 +338,7 @@ public class WargEntity extends AbstractBeastEntity {
 
         for(Entity entity : entities) {
             if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
-                entity.damage(entity.getDamageSources().mobAttack(this), 12.0f);
+                entity.damage(entity.getDamageSources().mobAttack(this), this.getAttackDamage());
                 if(entity.hasVehicle()) {
                     if(entity instanceof PlayerEntity) {
                         entity.stopRiding();
