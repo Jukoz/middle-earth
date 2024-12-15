@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "me:orc_bone"
+      "item": "me:dirty_bone"
     }
   ],
   "result": {
