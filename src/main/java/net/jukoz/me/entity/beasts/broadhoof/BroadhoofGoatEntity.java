@@ -211,7 +211,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         float h = passenger.isSprinting() ? (1.2f/0.74f) : 4;
         float j = passenger.isSprinting() ? 1 : 0;
 
-        double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * f * (0.06 + (0.1 * j)) - 0.1;
+        double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * (0.06 + (0.05 * j)) - 0.05;
 
         if(this.isSitting()) {
             y = -0.5;
@@ -314,7 +314,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     protected void jump(float strength, Vec3d movementInput) {
         if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
             double d = this.getJumpVelocity(strength);
-            Vec3d vec3d = this.getVelocity().multiply(1.5);
+            Vec3d vec3d = this.getVelocity().multiply(4);
             this.setVelocity(vec3d.x, d, vec3d.z);
             this.setInAir(true);
             this.velocityDirty = true;
