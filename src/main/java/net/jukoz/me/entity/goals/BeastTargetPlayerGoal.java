@@ -31,21 +31,18 @@ public class BeastTargetPlayerGoal extends ActiveTargetGoal<PlayerEntity> {
     }
 
     private boolean canTargetMob(){
-        LivingEntity entity = mob.getTarget();
-        if(entity == null)
-            return true;
-        PlayerEntity player = (PlayerEntity) entity;
-        if(mob.getWorld().getDifficulty() == Difficulty.PEACEFUL || mob.isTame()){
+        PlayerEntity player = this.mob.getWorld().getClosestPlayer(this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());;
+        if(player == null || mob.getWorld().getDifficulty() == Difficulty.PEACEFUL || mob.isTame() || player == mob.getOwner()){
             return false;
         }
         if(beastDisposition != null){
             PlayerData data = StateSaverAndLoader.getPlayerState(player);
-            Disposition playerDisposition = data.getCurrentDisposition();
-            if(playerDisposition == null)
-                return true;
-            if(playerDisposition == beastDisposition){
+
+            if(data == null)
                 return false;
-            }
+            
+            Disposition playerDisposition = data.getCurrentDisposition();
+            return playerDisposition != beastDisposition;
         }
         return true;
     }

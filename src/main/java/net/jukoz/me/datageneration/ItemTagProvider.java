@@ -15,7 +15,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
@@ -44,6 +43,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         TagKey<Item> saplings = TagKey.of(RegistryKeys.ITEM, Identifier.of("saplings"));
         TagKey<Item> wooden_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs"));
+        TagKey<Item> wooden_vertical_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "wooden_vertical_slabs"));
         TagKey<Item> logs_that_burn = TagKey.of(RegistryKeys.ITEM, Identifier.of("logs_that_burn"));
         TagKey<Item> stone_crafting_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_crafting_materials"));
         TagKey<Item> stone_tool_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials"));
@@ -85,8 +85,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
 
         bones.add(Items.BONE);
-        bones.add(ModResourceItems.ORC_BONE);
-        bones.add(ModResourceItems.WARG_BONE);
+        bones.add(ModResourceItems.DIRTY_BONE);
 
         feathers.add(ModResourceItems.SWAN_FEATHER);
         feathers.add(Items.FEATHER);
@@ -141,6 +140,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         WoodenSlabs.woodenSlabs.forEach(block -> {
             getOrCreateTagBuilder(wooden_slabs).add(block.asItem());
+        });
+
+        WoodenVerticalSlabs.woodenVericalSlabs.forEach(block -> {
+            getOrCreateTagBuilder(wooden_vertical_slabs).add(block.asItem());
         });
 
         ModdedStrippedLogs.strippedLogs.forEach(block -> {

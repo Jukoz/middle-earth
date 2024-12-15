@@ -36,7 +36,7 @@ public class ModDecorativeItems {
     public static final Item FORGE = registerItem("forge",
             new BlockItem(ModDecorativeBlocks.FORGE, new Item.Settings()));
     public static final Item TREATED_ANVIL = registerItem("treated_anvil",
-            new BlockItem(ModDecorativeBlocks.TREADTED_ANVIL, new Item.Settings()));
+            new BlockItem(ModDecorativeBlocks.TREATED_ANVIL, new Item.Settings()));
     public static final Item DWARVEN_TREATED_ANVIL = registerItem("dwarven_treated_anvil",
             new BlockItem(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL, new Item.Settings()));
     public static final Item ELVEN_TREATED_ANVIL = registerItem("elven_treated_anvil",

@@ -2,6 +2,7 @@ package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.block.OtherBlockSets;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 
@@ -14,6 +15,7 @@ public class SimpleLadderModel {
 
     public static List<Ladder> ladders = new ArrayList<>() {
         {
+            add(new Ladder(OtherBlockSets.TREATED_WOOD_PLANKS.block(), ModDecorativeBlocks.TREATED_WOOD_LADDER));
         }
     };
 
