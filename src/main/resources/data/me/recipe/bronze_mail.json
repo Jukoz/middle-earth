@@ -5,7 +5,7 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:chainmail_ring"
+        "item": "me:mail_ring"
       },
       "components": {
         "minecraft:trim": {
@@ -17,7 +17,7 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:chainmail_ring"
+        "item": "me:mail_ring"
       },
       "components": {
         "minecraft:trim": {
@@ -29,7 +29,7 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:chainmail_ring"
+        "item": "me:mail_ring"
       },
       "components": {
         "minecraft:trim": {
@@ -41,7 +41,7 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:chainmail_ring"
+        "item": "me:mail_ring"
       },
       "components": {
         "minecraft:trim": {
@@ -53,7 +53,7 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:chainmail_ring"
+        "item": "me:mail_ring"
       },
       "components": {
         "minecraft:trim": {
@@ -64,7 +64,7 @@
     }
   ],
   "result": {
-    "id": "me:chainmail",
+    "id": "me:mail",
     "components": {
       "minecraft:trim": {
         "material": "me:bronze",

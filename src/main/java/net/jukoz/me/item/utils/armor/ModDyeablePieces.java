@@ -33,8 +33,8 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.ROHIRRIC_LEATHER_VEST, true);
         dyeablePieces.put(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST, true);
         dyeablePieces.put(ModEquipmentItems.ROHIRRIC_GAMBESON, true);
-        dyeablePieces.put(ModEquipmentItems.ROHIRRIC_MAIL_SHIRT, true);
-        dyeablePieces.put(ModEquipmentItems.ROHIRRIC_MAIL_SHIRT_OPEN, true);
+        dyeablePieces.put(ModEquipmentItems.ROHIRRIC_REINFORCED_LEATHER_VEST, true);
+        dyeablePieces.put(ModEquipmentItems.ROHIRRIC_BRACED_MAIL_SHIRT, true);
 
         dyeablePieces.put(ModEquipmentItems.DALISH_ARMING_COAT_BLACK_FUR, true);
         dyeablePieces.put(ModEquipmentItems.DALISH_ARMING_COAT_BROWN_FUR, true);

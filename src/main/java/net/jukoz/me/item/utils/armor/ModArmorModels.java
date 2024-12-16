@@ -52,8 +52,8 @@ public class ModArmorModels {
 
         LORIEN_DIADEM(ModEquipmentItems.LORIEN_DIADEM, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
         LORIEN_LEATHER_HELMET(ModEquipmentItems.LORIEN_LEATHER_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        LORIEN_CHAIN_COIF_DIADEM(ModEquipmentItems.LORIEN_CHAIN_COIF_DIADEM, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        LORIEN_SHORT_CHAIN_COIF_DIADEM(ModEquipmentItems.LORIEN_SHORT_CHAIN_COIF_DIADEM, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        LORIEN_MAIL_COIF_DIADEM(ModEquipmentItems.LORIEN_MAIL_COIF_DIADEM, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        LORIEN_SHORT_MAIL_COIF_DIADEM(ModEquipmentItems.LORIEN_SHORT_MAIL_COIF_DIADEM, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
         LORIEN_SOLDIER_HELMET(ModEquipmentItems.LORIEN_SOLDIER_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
         GALADHRIM_HELMET(ModEquipmentItems.GALADHRIM_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
         GALADHRIM_LORD_HELMET(ModEquipmentItems.GALADHRIM_LORD_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),

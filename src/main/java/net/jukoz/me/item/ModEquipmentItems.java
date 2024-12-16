@@ -203,7 +203,7 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.LEATHER_T2, new Item.Settings(),
                     ModFactions.NONE));
 
-    public static final Item CHAIN_COIF = registerArmorPiece("chain_coif",
+    public static final Item MAIL_COIF = registerArmorPiece("mail_coif",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.NONE));
 
@@ -215,11 +215,14 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.NONE));
 
-    public static final Item CHAIN_HAUBERK = registerArmorPiece("chain_hauberk",
+    public static final Item MAIL_HAUBERK = registerArmorPiece("mail_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModFactions.NONE));
+    public static final Item MAIL_SHIRT = registerArmorPiece("mail_shirt",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.NONE));
 
-    public static final Item CHAIN_SKIRT = registerArmorPiece("chain_skirt",
+    public static final Item MAIL_SKIRT = registerArmorPiece("mail_skirt",
             new CustomLeggingsItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.NONE));
 
@@ -245,7 +248,7 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.GONDOR));
 
-    public static final Item GONDORIAN_CHAIN_HAUBERK = registerArmorPiece("gondorian_chain_hauberk",
+    public static final Item GONDORIAN_MAIL_HAUBERK = registerArmorPiece("gondorian_mail_hauberk",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.GONDOR));
     public static final Item GONDORIAN_TABBARD = registerArmorPiece("gondorian_tabbard",
@@ -260,7 +263,7 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
                     ModFactions.GONDOR));
 
-    public static final Item GONDORIAN_CHAIN_COAT = registerArmorPiece("gondorian_chain_coat",
+    public static final Item GONDORIAN_MAIL_COAT = registerArmorPiece("gondorian_mail_coat",
             new CustomLeggingsItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.GONDOR));
 
@@ -409,17 +412,17 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.ROHAN));
 
-    public static final Item ROHIRRIC_MAIL_SHIRT = registerDyeableArmorPiece("rohirric_mail_shirt",
+    public static final Item ROHIRRIC_REINFORCED_LEATHER_VEST = registerDyeableArmorPiece("rohirric_reinforced_leather_vest",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     ModFactions.ROHAN));
-    public static final Item ROHIRRIC_MAIL_SHIRT_OPEN = registerDyeableArmorPiece("rohirric_mail_shirt_open",
+    public static final Item ROHIRRIC_BRACED_MAIL_SHIRT = registerDyeableArmorPiece("rohirric_braced_mail_shirt",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     ModFactions.ROHAN));
-    public static final Item ROHIRRIC_MAIL_HAUBERK = registerArmorPiece("rohirric_mail_hauberk",
+    public static final Item ROHIRRIC_REINFORCED_LEATHER_SCALE_VEST = registerArmorPiece("rohirric_reinforced_leather_scale_vest",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     ModFactions.ROHAN));
@@ -530,11 +533,11 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.DALE));
 
-    public static final Item DALISH_CHAIN_HAUBERK = registerArmorPiece("dalish_chain_hauberk",
+    public static final Item DALISH_MAIL_HAUBERK = registerArmorPiece("dalish_mail_hauberk",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.DALE));
 
-    public static final Item DALISH_CHAIN_COAT = registerArmorPiece("dalish_chain_coat",
+    public static final Item DALISH_MAIL_COAT = registerArmorPiece("dalish_mail_coat",
             new CustomLeggingsItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.DALE));
 
@@ -553,7 +556,7 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.STEEL_T4, new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.DALISH_HEYDAY_CAPE)),
                     ModFactions.DALE));
-    public static final Item DALISH_HEYDAY_CHAIN_COAT = registerArmorPiece("dalish_heyday_chain_coat",
+    public static final Item DALISH_HEYDAY_MAIL_COAT = registerArmorPiece("dalish_heyday_mail_coat",
             new CustomLeggingsItem(ModArmorMaterials.STEEL_T4, new Item.Settings(),
                     ModFactions.DALE));
     public static final Item DALISH_HEYDAY_BOOTS = registerArmorPiece("dalish_heyday_boots",
@@ -567,7 +570,7 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
                     ModFactions.DALE));
 
-    public static final Item BARDING_CHAIN_SKIRT = registerArmorPiece("barding_chain_skirt",
+    public static final Item BARDING_MAIL_SKIRT = registerArmorPiece("barding_mail_skirt",
             new CustomLeggingsItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
                     ModFactions.DALE));
     public static final Item BARDING_PLATED_BOOTS = registerArmorPiece("barding_plated_boots",
@@ -704,15 +707,15 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.LEATHER_T2, new Item.Settings(),
                     ModFactions.NONE));
 
-    public static final Item ELVEN_CHAIN_COIF = registerArmorPiece("elven_chain_coif",
+    public static final Item ELVEN_MAIL_COIF = registerArmorPiece("elven_mail_coif",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.NONE));
 
-    public static final Item ELVEN_CHAIN_HAUBERK = registerArmorPiece("elven_chain_hauberk",
+    public static final Item ELVEN_MAIL_HAUBERK = registerArmorPiece("elven_mail_hauberk",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.NONE));
 
-    public static final Item ELVEN_CHAIN_SKIRT = registerArmorPiece("elven_chain_skirt",
+    public static final Item ELVEN_MAIL_SKIRT = registerArmorPiece("elven_mail_skirt",
             new CustomLeggingsItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.NONE));
     //endregion
@@ -734,17 +737,17 @@ public class ModEquipmentItems {
             new CustomLeggingsItem(ModArmorMaterials.LEATHER_T2, new Item.Settings(),
                     ModFactions.LOTHLORIEN));
 
-    public static final Item LORIEN_CHAIN_COIF_DIADEM = registerCustomModelArmorPiece("lorien_chain_coif_diadem",
+    public static final Item LORIEN_MAIL_COIF_DIADEM = registerCustomModelArmorPiece("lorien_mail_coif_diadem",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.LOTHLORIEN));
-    public static final Item LORIEN_SHORT_CHAIN_COIF_DIADEM = registerCustomModelArmorPiece("lorien_short_chain_coif_diadem",
+    public static final Item LORIEN_SHORT_MAIL_COIF_DIADEM = registerCustomModelArmorPiece("lorien_short_mail_coif_diadem",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.LOTHLORIEN));
 
-    public static final Item LORIEN_CHAIN_HAUBERK = registerArmorPiece("lorien_chain_hauberk",
+    public static final Item LORIEN_MAIL_HAUBERK = registerArmorPiece("lorien_mail_hauberk",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.LOTHLORIEN));
-    public static final Item LORIEN_MARCHWARDEN_CHAIN_HAUBERK = registerArmorPiece("lorien_marchwarden_chain_hauberk",
+    public static final Item LORIEN_MARCHWARDEN_MAIL_HAUBERK = registerArmorPiece("lorien_marchwarden_mail_hauberk",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.LORIEN_MARCHWARDEN_CAPE)),
                     ModFactions.LOTHLORIEN));
@@ -753,7 +756,7 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.ELVEN_STEEL_T4, new Item.Settings(),
                     ModFactions.LOTHLORIEN));
 
-    public static final Item LORIEN_SOLDIER_CHAIN_HAUBERK = registerArmorPiece("lorien_soldier_chain_hauberk",
+    public static final Item LORIEN_SOLDIER_MAIL_HAUBERK = registerArmorPiece("lorien_soldier_mail_hauberk",
             new CustomChestplateItem(ModArmorMaterials.ELVEN_STEEL_T4, new Item.Settings(),
                     ModFactions.LOTHLORIEN));
     public static final Item LORIEN_SOLDIER_SCALE_HAUBERK = registerArmorPiece("lorien_soldier_scale_hauberk",
@@ -1189,14 +1192,14 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.ISENGARD));
 
-    public static final Item URUK_HAI_CHAIN_HAUBERK = registerArmorPiece("uruk_hai_chain_hauberk",
+    public static final Item URUK_HAI_MAIL_HAUBERK = registerArmorPiece("uruk_hai_mail_hauberk",
             new CustomChestplateItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.ISENGARD));
 
-    public static final Item URUK_HAI_CHAIN_COAT = registerArmorPiece("uruk_hai_chain_coat",
+    public static final Item URUK_HAI_MAIL_COAT = registerArmorPiece("uruk_hai_mail_coat",
             new CustomLeggingsItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.ISENGARD));
-    public static final Item URUK_HAI_CHAIN_SKIRT = registerArmorPiece("uruk_hai_chain_skirt",
+    public static final Item URUK_HAI_MAIL_SKIRT = registerArmorPiece("uruk_hai_mail_skirt",
             new CustomLeggingsItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.ISENGARD));
 
@@ -1292,15 +1295,15 @@ public class ModEquipmentItems {
     public static final Item GUNDABAD_SKULLCAP_HELMET = registerCustomModelArmorPiece("gundabad_skullcap_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
-    public static final Item GUNDABAD_CHAIN_COIF = registerArmorPiece("gundabad_chain_coif",
+    public static final Item GUNDABAD_MAIL_COIF = registerArmorPiece("gundabad_mail_coif",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
 
-    public static final Item GUNDABAD_CHAIN_HAUBERK = registerArmorPiece("gundabad_chain_hauberk",
+    public static final Item GUNDABAD_MAIL_HAUBERK = registerArmorPiece("gundabad_mail_hauberk",
             new CustomChestplateItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
 
-    public static final Item GUNDABAD_CHAIN_COAT = registerArmorPiece("gundabad_chain_coat",
+    public static final Item GUNDABAD_MAIL_COAT = registerArmorPiece("gundabad_mail_coat",
             new CustomLeggingsItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
 
@@ -1337,7 +1340,7 @@ public class ModEquipmentItems {
     public static final Item GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_chestplate",
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
-    public static final Item GUNDABAD_HOBGOBLIN_CHAIN_COAT = registerArmorPiece("gundabad_hobgoblin_chain_coat",
+    public static final Item GUNDABAD_HOBGOBLIN_MAIL_COAT = registerArmorPiece("gundabad_hobgoblin_mail_coat",
             new CustomLeggingsItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_HOBGOBLIN_PLATED_BOOTS = registerArmorPiece("gundabad_hobgoblin_plated_boots",

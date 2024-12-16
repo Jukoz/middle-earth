@@ -245,7 +245,6 @@
   "item.me.gold_ring": "Gold Ring",
   "item.me.middle_earth_map": "Middle-earth Map",
   "item.me.ash": "Ash",
-  "item.me.iron_chainmail": "Iron Chainmail",
 
 "#Comment:": "Item - Mob Drops",
   "item.me.dirty_bone": "Dirty Bone",
@@ -336,8 +335,8 @@
   "item.me.great_axe_head": "Great Axe Head",
   "item.me.sword_hilt": "Sword Hilt",
 
-  "item.me.chainmail_ring": "Chainmail Ring",
-  "item.me.chainmail": "Chainmail",
+  "item.me.mail_ring": "Mail Ring",
+  "item.me.mail": "Mail",
   "item.me.scale": "Scale",
   "item.me.scale_mail": "Scale Mail",
   "item.me.armor_plate": "Armor Plate",
@@ -614,13 +613,14 @@
   "item.me.travelling_boots": "Travelling Boots",
   "item.me.high_cut_boots": "High Cut Boots",
 
-  "item.me.chain_coif": "Chain Coif",
+  "item.me.mail_coif": "Mail Coif",
   "item.me.kettle_hat": "Kettle hat",
   "item.me.open_face_helmet": "Open Face Helmet",
 
-  "item.me.chain_hauberk": "Chain Hauberk",
+  "item.me.mail_hauberk": "Mail Hauberk",
+  "item.me.mail_shirt": "Mail Shirt",
 
-  "item.me.chain_skirt": "Chain Skirt",
+  "item.me.mail_skirt": "Mail Skirt",
 
   "item.me.sallet": "Sallet",
 
@@ -630,12 +630,12 @@
 
   "item.me.gondorian_cabasset_helmet": "Gondorian Cabasset Helmet",
 
-  "item.me.gondorian_chain_hauberk": "Gondorian Chain Hauberk",
+  "item.me.gondorian_mail_hauberk": "Gondorian Mail Hauberk",
   "item.me.gondorian_tabbard": "Gondorian Tabbard",
   "item.me.gondorian_leather_cuirass": "Gondorian Leather Cuirass",
   "item.me.gondorian_leather_chestplate": "Gondorian Leather Chestplate",
 
-  "item.me.gondorian_chain_coat": "Gondorian Chain Coat",
+  "item.me.gondorian_mail_coat": "Gondorian Mail Coat",
 
   "item.me.gondorian_soldier_helmet": "Gondorian Soldier Helmet",
 
@@ -678,9 +678,9 @@
   "item.me.rohirric_reinforced_militia_helmet": "Rohirric Reinforced Militia Helmet",
   "item.me.rohirric_ornamented_militia_helmet": "Rohirric Ornamented Militia Helmet",
 
-  "item.me.rohirric_mail_shirt": "Rohirric Mail Shirt",
-  "item.me.rohirric_mail_shirt_open": "Rohirric Mail Shirt Open",
-  "item.me.rohirric_mail_hauberk": "Rohirric Mail Hauberk",
+  "item.me.rohirric_reinforced_leather_vest": "Rohirric Reinforced Leather Vest",
+  "item.me.rohirric_reinforced_leather_scale_vest": "Rohirric Reinforced Leather Scale Vest",
+  "item.me.rohirric_braced_mail_shirt": "Rohirric Braced Mail Shirt",
 
   "item.me.rohirric_soldier_helmet": "Rohirric Soldier Helmet",
   "item.me.rohirric_ornamented_soldier_helmet": "Rohirric Ornamented Soldier Helmet",
@@ -712,9 +712,9 @@
   "item.me.dalish_helmet_brown_fur": "Dalish Helmet Brown Fur",
   "item.me.dalish_helmet_tan_fur": "Dalish Helmet Tan Fur",
 
-  "item.me.dalish_chain_hauberk": "Dalish Chain Hauberk",
+  "item.me.dalish_mail_hauberk": "Dalish Mail Hauberk",
 
-  "item.me.dalish_chain_coat": "Dalish Chain Coat",
+  "item.me.dalish_mail_coat": "Dalish Mail Coat",
 
   "item.me.dalish_burgonet": "Dalish Burgonet",
 
@@ -722,12 +722,12 @@
 
   "item.me.dalish_heyday_helmet": "Dalish Heyday Helmet",
   "item.me.dalish_heyday_chestplate": "Dalish Heyday Chestplate",
-  "item.me.dalish_heyday_chain_coat": "Dalish Heyday Chain Coat",
+  "item.me.dalish_heyday_mail_coat": "Dalish Heyday Mail Coat",
   "item.me.dalish_heyday_boots": "Dalish Heyday Boots",
 
   "item.me.barding_soldier_helmet": "Barding Soldier Helmet",
   "item.me.barding_soldier_chestplate": "Barding Soldier Chestplate",
-  "item.me.barding_chain_skirt": "Barding Chain Skirt",
+  "item.me.barding_mail_skirt": "Barding Mail Skirt",
   "item.me.barding_plated_boots": "Barding Plated Boots",
 
   "item.me.barding_sergeant_helmet": "Barding Sergeant Helmet",
@@ -765,11 +765,11 @@
 
   "item.me.elven_boots": "Elven Boots",
 
-  "item.me.elven_chain_coif": "Elven Chain Coif",
+  "item.me.elven_mail_coif": "Elven Mail Coif",
 
-  "item.me.elven_chain_hauberk": "Elven Chain Hauberk",
+  "item.me.elven_mail_hauberk": "Elven Mail Hauberk",
 
-  "item.me.elven_chain_skirt": "Elven Chain Skirt",
+  "item.me.elven_mail_skirt": "Elven Mail Skirt",
 
   "item.me.lorien_diadem": "Lórien Diadem",
 
@@ -779,15 +779,15 @@
 
   "item.me.lorien_arming_skirt": "Lórien Arming Skirt",
 
-  "item.me.lorien_chain_coif_diadem": "Lórien Chain Coif Diadem",
-  "item.me.lorien_short_chain_coif_diadem": "Lórien Short Chain Coif Diadem",
+  "item.me.lorien_mail_coif_diadem": "Lórien Mail Coif Diadem",
+  "item.me.lorien_short_mail_coif_diadem": "Lórien Short Mail Coif Diadem",
 
-  "item.me.lorien_chain_hauberk": "Lórien Chain Hauberk",
-  "item.me.lorien_marchwarden_chain_hauberk": "Lórien Marchwarden Chain Hauberk",
+  "item.me.lorien_mail_hauberk": "Lórien Mail Hauberk",
+  "item.me.lorien_marchwarden_mail_hauberk": "Lórien Marchwarden Mail Hauberk",
 
   "item.me.lorien_soldier_helmet": "Lórien Soldier Helmet",
 
-  "item.me.lorien_soldier_chain_hauberk": "Lórien Soldier Chain Hauberk",
+  "item.me.lorien_soldier_mail_hauberk": "Lórien Soldier Mail Hauberk",
   "item.me.lorien_soldier_scale_hauberk": "Lórien Soldier Scale Hauberk",
 
   "item.me.lorien_scale_coat": "Lórien Scale Coat",
@@ -918,12 +918,12 @@
   "item.me.uruk_hai_painted_leather_chestplate": "Uruk-Hai Painted Leather Chestplate",
   "item.me.uruk_hai_leather_hauberk": "Uruk-Hai Leather Hauberk",
 
-  "item.me.uruk_hai_chain_hauberk": "Uruk-Hai Chain Hauberk",
+  "item.me.uruk_hai_mail_hauberk": "Uruk-Hai Mail Hauberk",
 
   "item.me.uruk_hai_cuirass": "Uruk-Hai Cuirass",
 
-  "item.me.uruk_hai_chain_coat": "Uruk-Hai Chain Coat",
-  "item.me.uruk_hai_chain_skirt": "Uruk-Hai Chain Skirt",
+  "item.me.uruk_hai_mail_coat": "Uruk-Hai Mail Coat",
+  "item.me.uruk_hai_mail_skirt": "Uruk-Hai Mail Skirt",
 
   "item.me.uruk_hai_boots": "Uruk-Hai Boots",
 
@@ -959,11 +959,11 @@
   "item.me.gundabad_laced_boots": "Gundabad Laced Boots",
 
   "item.me.gundabad_skullcap_helmet": "Gundabad Skullcap Helmet",
-  "item.me.gundabad_chain_coif": "Gundabad Chain Coif",
+  "item.me.gundabad_mail_coif": "Gundabad Mail Coif",
 
-  "item.me.gundabad_chain_hauberk": "Gundabad Chain Hauberk",
+  "item.me.gundabad_mail_hauberk": "Gundabad Mail Hauberk",
 
-  "item.me.gundabad_chain_coat": "Gundabad Chain Coat",
+  "item.me.gundabad_mail_coat": "Gundabad Mail Coat",
 
   "item.me.gundabad_screecher_helmet": "Gundabad Screecher Helmet",
   "item.me.gundabad_soldier_helmet": "Gundabad Soldier Helmet",
@@ -979,7 +979,7 @@
   "item.me.gundabad_hobgoblin_plate_small_horn_helmet": "Gundabad Hobgoblin Plate Small Horn Helmet",
   "item.me.gundabad_hobgoblin_plate_chestplate": "Gundabad Hobgoblin Plate Chestplate",
 
-  "item.me.gundabad_hobgoblin_chain_coat": "Gundabad Hobgoblin Chain Coat",
+  "item.me.gundabad_hobgoblin_mail_coat": "Gundabad Hobgoblin Mail Coat",
   "item.me.gundabad_hobgoblin_plated_boots": "Gundabad Hobgoblin Plated Boots",
   "item.me.gundabad_hobgoblin_plate_trophy_chestplate": "Gundabad Hobgoblin Plate Trophy Chestplate",
 
