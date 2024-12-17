@@ -11,6 +11,9 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
@@ -56,6 +59,23 @@ public class LongbeardDwarfRenderer extends BipedEntityRenderer<LongbeardDwarfEn
                        VertexConsumerProvider bufferSource, int packedLight) {
 
         poseStack.scale(SIZE, SIZE, SIZE);
+        if (entity.getEquippedStack(EquipmentSlot.HEAD).isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "helmet_hides_dwarf_beard")))){
+            this.model.head.getChild("beard").visible = false;
+            this.model.head.getChild("beard2").visible = false;
+            this.model.head.getChild("beard_tip").visible = false;
+
+            this.model.head.getChild("nori_beard_left").visible = false;
+            this.model.head.getChild("nori_beard_center").visible = false;
+            this.model.head.getChild("nori_beard_right").visible = false;
+        } else {
+            this.model.head.getChild("beard").visible = true;
+            this.model.head.getChild("beard2").visible = true;
+            this.model.head.getChild("beard_tip").visible = true;
+
+            this.model.head.getChild("nori_beard_left").visible = true;
+            this.model.head.getChild("nori_beard_center").visible = true;
+            this.model.head.getChild("nori_beard_right").visible = true;
+        }
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }
