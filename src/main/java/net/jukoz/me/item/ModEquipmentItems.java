@@ -1272,28 +1272,34 @@ public class ModEquipmentItems {
     //endregion
 
     //region MISTY MOUNTAIN GOBLINS
-    public static final Item GUNDABAD_BONE_PAULDRON = registerArmorPiece("gundabad_bone_pauldron",
-            new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, new Item.Settings(),
+    public static final Item GUNDABAD_BONE_PAULDRON = registerDyeableArmorPiece("gundabad_bone_pauldron",
+            new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3944757)),
                     ModSubFactions.GUNDABAD));
 
-    public static final Item GUNDABAD_SEEKER_HELMET = registerCustomModelArmorPiece("gundabad_seeker_helmet",
-            new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, new Item.Settings(),
+    public static final Item GUNDABAD_SEEKER_HELMET = registerDyeableCustomModelArmorPiece("gundabad_seeker_helmet",
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3944757)),
                     ModSubFactions.GUNDABAD));
 
-    public static final Item GUNDABAD_LEATHER_SCALE_COAT = registerArmorPiece("gundabad_leather_scale_coat",
-            new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings(),
+    public static final Item GUNDABAD_LEATHER_SCALE_COAT = registerDyeableArmorPiece("gundabad_leather_scale_coat",
+            new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3944757)),
                     ModSubFactions.GUNDABAD));
 
-    public static final Item GUNDABAD_LEATHER_LEGGINGS = registerArmorPiece("gundabad_leather_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.LEATHER_T2, new Item.Settings(),
+    public static final Item GUNDABAD_LEATHER_LEGGINGS = registerDyeableArmorPiece("gundabad_leather_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3944757)),
                     ModSubFactions.GUNDABAD));
 
-    public static final Item GUNDABAD_LACED_BOOTS = registerArmorPiece("gundabad_laced_boots",
-            new CustomBootsItem(ModArmorMaterials.LEATHER_T2, new Item.Settings(),
+    public static final Item GUNDABAD_LACED_BOOTS = registerDyeableArmorPiece("gundabad_laced_boots",
+            new CustomBootsItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3944757)),
                     ModSubFactions.GUNDABAD));
 
-    public static final Item GUNDABAD_SKULLCAP_HELMET = registerCustomModelArmorPiece("gundabad_skullcap_helmet",
-            new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
+    public static final Item GUNDABAD_SKULLCAP_HELMET = registerDyeableCustomModelArmorPiece("gundabad_skullcap_helmet",
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3944757)),
                     ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_MAIL_COIF = registerArmorPiece("gundabad_mail_coif",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
@@ -1303,26 +1309,32 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
 
-    public static final Item GUNDABAD_MAIL_COAT = registerArmorPiece("gundabad_mail_coat",
-            new CustomLeggingsItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
+    public static final Item GUNDABAD_MAIL_COAT = registerDyeableArmorPiece("gundabad_mail_coat",
+            new CustomLeggingsItem(ModArmorMaterials.CRUDE_T3, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3944757)),
                     ModSubFactions.GUNDABAD));
 
-    public static final Item GUNDABAD_SCREECHER_HELMET = registerCustomModelArmorPiece("gundabad_screecher_helmet",
-            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
+    public static final Item GUNDABAD_SCREECHER_HELMET = registerDyeableCustomModelArmorPiece("gundabad_screecher_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3944757)),
                     ModSubFactions.GUNDABAD));
-    public static final Item GUNDABAD_SOLDIER_HELMET = registerCustomModelArmorPiece("gundabad_soldier_helmet",
-            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
-                    ModSubFactions.GUNDABAD));
-
-    public static final Item GUNDABAD_REINFORCED_LEATHER_SCALE_COAT = registerArmorPiece("gundabad_reinforced_leather_scale_coat",
-            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
-                    ModSubFactions.GUNDABAD));
-    public static final Item GUNDABAD_REINFORCED_LEATHER_VEST = registerArmorPiece("gundabad_reinforced_leather_vest",
-            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
+    public static final Item GUNDABAD_SOLDIER_HELMET = registerDyeableCustomModelArmorPiece("gundabad_soldier_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3944757)),
                     ModSubFactions.GUNDABAD));
 
-    public static final Item GUNDABAD_CAPTAIN_HELMET = registerCustomModelArmorPiece("gundabad_captain_helmet",
-            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
+    public static final Item GUNDABAD_REINFORCED_LEATHER_SCALE_COAT = registerDyeableArmorPiece("gundabad_reinforced_leather_scale_coat",
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3944757)),
+                    ModSubFactions.GUNDABAD));
+    public static final Item GUNDABAD_REINFORCED_LEATHER_VEST = registerDyeableArmorPiece("gundabad_reinforced_leather_vest",
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3944757)),
+                    ModSubFactions.GUNDABAD));
+
+    public static final Item GUNDABAD_CAPTAIN_HELMET = registerDyeableCustomModelArmorPiece("gundabad_captain_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3944757)),
                     ModSubFactions.GUNDABAD));
 
     public static final Item GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_crested_helmet",

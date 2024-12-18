@@ -75,6 +75,19 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.MORDOR_REINFORCED_COAT, true);
         dyeablePieces.put(ModEquipmentItems.RUSTED_MORDOR_REINFORCED_COAT, true);
 
+        dyeablePieces.put(ModEquipmentItems.GUNDABAD_BONE_PAULDRON, true);
+        dyeablePieces.put(ModEquipmentItems.GUNDABAD_SEEKER_HELMET, true);
+        dyeablePieces.put(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT, true);
+        dyeablePieces.put(ModEquipmentItems.GUNDABAD_LEATHER_LEGGINGS, true);
+        dyeablePieces.put(ModEquipmentItems.GUNDABAD_LACED_BOOTS, true);
+        dyeablePieces.put(ModEquipmentItems.GUNDABAD_SKULLCAP_HELMET, true);
+        dyeablePieces.put(ModEquipmentItems.GUNDABAD_MAIL_COAT, true);
+        dyeablePieces.put(ModEquipmentItems.GUNDABAD_SCREECHER_HELMET, true);
+        dyeablePieces.put(ModEquipmentItems.GUNDABAD_SOLDIER_HELMET, true);
+        dyeablePieces.put(ModEquipmentItems.GUNDABAD_REINFORCED_LEATHER_SCALE_COAT, true);
+        dyeablePieces.put(ModEquipmentItems.GUNDABAD_REINFORCED_LEATHER_VEST, true);
+        dyeablePieces.put(ModEquipmentItems.GUNDABAD_CAPTAIN_HELMET, true);
+
         dyeablePieces.put(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR, true);
         dyeablePieces.put(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR, true);
         dyeablePieces.put(ModEquipmentItems.WARG_LEATHER_ARMOR, true);
