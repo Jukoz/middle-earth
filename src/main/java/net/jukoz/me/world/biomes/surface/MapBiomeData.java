@@ -305,6 +305,10 @@ public class MapBiomeData {
         // MORDOR
         addBiome(new BiomeData(MEBiomeKeys.MORDOR, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(2695203, 1905947, 6450777, 1513734, 3550502, 2695966), CaveType.ASHEN));
+        addBiome(new BiomeData(MEBiomeKeys.MORDOR_ASHEN_FOREST, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
+                new BiomeColorsDTO(2695203, 1905947, 6450777, 1513734, 3550502, 2695966), CaveType.ASHEN));
+        addBiome(new BiomeData(MEBiomeKeys.MORDOR_HILL, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
+                new BiomeColorsDTO(2695203, 1905947, 6450777, 1513734, 3550502, 2695966), CaveType.ASHEN));
         addBiome(new BiomeData(MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS, MEBiomeDataConfigs.mordorMountainsPeaks, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(3747117, 2629407, 6450777, 1513734, 5129527, 3486247), CaveType.ASHEN));
         addBiome(new BiomeData(MEBiomeKeys.MORDOR_MOUNTAINS, MEBiomeDataConfigs.mordorMountainsPeaks, MEBiomeDataConfigs.ashenStoneLayers,
@@ -315,7 +319,9 @@ public class MapBiomeData {
                 new BiomeColorsDTO(5460048, 4999240, 5860962, 731161, 6252369, 4735297), CaveType.ASHEN));
         // MORGUL VALE
         addBiome(new BiomeData(MEBiomeKeys.MORGUL_VALE, MEBiomeDataConfigs.mordorGrass, MEBiomeDataConfigs.ashenStoneLayers,
-                new BiomeColorsDTO(4479570, 3690813, 3897457, 595232, 4545602, 4348994), CaveType.ASHEN));
+                new BiomeColorsDTO(4479570, 3690813, 3897457, 595232, 4545602, 4876362), CaveType.ASHEN));
+        addBiome(new BiomeData(MEBiomeKeys.MORGUL_FOREST, MEBiomeDataConfigs.mordorGrass, MEBiomeDataConfigs.ashenStoneLayers,
+                new BiomeColorsDTO(4479570, 3690813, 3897457, 595232, 4545602, 4876362), CaveType.ASHEN));
         addBiome(new BiomeData(MEBiomeKeys.MORGUL_RIVER, MEBiomeDataConfigs.ashenDirt, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(4479570, 3690813, 3897457, 595232, 4545602, 4348994)));
         // MOUNT DOOM
@@ -350,6 +356,8 @@ public class MapBiomeData {
         // NURN
         addBiome(new BiomeData(MEBiomeKeys.NURN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8954077, 11781331, 5860970, 1321760, 7443043, 6982236)));
+        addBiome(new BiomeData(MEBiomeKeys.NURN_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(8954077, 11781331, 5860970, 1321760, 6916445, 6784858)));
         addBiome(new BiomeData(MEBiomeKeys.NURN_EDGE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8821450, 11517913, 5202783, 1321247, 6511435, 7960147)));
         addBiome(new BiomeData(MEBiomeKeys.NURN_SEA, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers,

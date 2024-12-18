@@ -101,6 +101,7 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> PATCH_MIRKWOOD_ROOTS = registerKey("patch_mirkwood_roots");
     public static final RegistryKey<PlacedFeature> PATCH_MORDOR_LICHEN = registerKey("patch_mordor_lichen");
     public static final RegistryKey<PlacedFeature> PATCH_MOSS = registerKey("patch_moss");
+    public static final RegistryKey<PlacedFeature> PATCH_MOSS_CARPET = registerKey("patch_moss_carpet");
     public static final RegistryKey<PlacedFeature> PATCH_REEDS = registerKey("patch_reeds");
     public static final RegistryKey<PlacedFeature> PATCH_STICKY_SNOW = registerKey("patch_sticky_snow");
     public static final RegistryKey<PlacedFeature> PATCH_TAN_SHRUB = registerKey("patch_tan_shrub");;
@@ -214,6 +215,7 @@ public class ModVegetationPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mirkwood = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_MIRKWOOD);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mordorLichen = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_MORDOR_LICHEN);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> moss = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_MOSS);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> mossCarpet = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_MOSS_CARPET);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> reeds = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_REEDS);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> stickySnow = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_STICKY_SNOW);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> strawBerries = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_STRAWBERRY_BUSH);
@@ -319,6 +321,7 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, PATCH_MIRKWOOD_ROOTS, mirkwoodRoots, sparse, CountPlacementModifier.of(UniformIntProvider.create(0, 2)));
         PlacedFeatures.register(featureRegisterable, PATCH_MORDOR_LICHEN, mordorLichen, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_MOSS, moss, CountPlacementModifier.of(UniformIntProvider.create(15, 30)), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_MOSS_CARPET, mossCarpet, uncommon, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_SHRIVELED_SHRUB, shriveledShrubs, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_STRAWBERRY_BUSH, strawBerries, veryRare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_TALL_GRASS, tallGrass, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

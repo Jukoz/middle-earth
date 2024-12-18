@@ -38,6 +38,16 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.SHIRE_EDGE, new SubBiome(72)
                 .addSubBiomeData(-1.0f, -0.27f, MEBiomeKeys.SHIRE_WOODS)
                 .addSubBiomeData(0.32f, 2.01f, MEBiomeKeys.SHIRE_HILLS, true));
+
+        subBiomesMap.put(MEBiomeKeys.MORDOR, new SubBiome(144)
+                .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.MORDOR_ASHEN_FOREST)
+                .addSubBiomeData(0.27f, 2.01f, MEBiomeKeys.MORDOR_HILL, true));
+        subBiomesMap.put(MEBiomeKeys.MORGUL_VALE, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.MORGUL_FOREST)
+                .addSubBiomeData(0.3f, 1.0f, MEBiomeKeys.MORGUL_FOREST));
+        subBiomesMap.put(MEBiomeKeys.NURN, new SubBiome(144)
+                .addSubBiomeData(-1.0f, -0.31f, MEBiomeKeys.NURN_FOREST)
+                .addSubBiomeData(0.27f, 2.01f, MEBiomeKeys.NURN_FOREST, true));
     }
 
     public static boolean isSubBiome(RegistryKey<Biome> biomeRegistryKey) {

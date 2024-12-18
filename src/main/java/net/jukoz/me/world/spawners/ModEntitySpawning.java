@@ -169,9 +169,24 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.ITHILIEN_WASTES, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR_WASTES, wildMordorSpawnSettings);
 
+        spawns.put(MEBiomeKeys.DAGORLAD, wildMordorSpawnSettings);
+        spawns.put(MEBiomeKeys.GORGOROTH, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR, mordorSpawnSettings);
+        spawns.put(MEBiomeKeys.MORDOR_ASHEN_FOREST, mordorSpawnSettings);
+        spawns.put(MEBiomeKeys.MORDOR_HILL, mordorSpawnSettings);
+        spawns.put(MEBiomeKeys.MORGUL_VALE, mordorSpawnSettings);
+        spawns.put(MEBiomeKeys.MORGUL_FOREST, mordorSpawnSettings);
+        spawns.put(MEBiomeKeys.TOROGWAITH, mordorSpawnSettings);
+        spawns.put(MEBiomeKeys.UDUN, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.NURN, wildMordorSpawnSettings);
+        spawns.put(MEBiomeKeys.NURN_FOREST, wildMordorSpawnSettings);
+        spawns.put(MEBiomeKeys.NURN_EDGE, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR_MOUNTAINS, wildMordorSpawnSettings);
+        spawns.put(MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS, wildMordorSpawnSettings);
+        spawns.put(MEBiomeKeys.MORDOR_MOUNTAINS_PEAKS, wildMordorSpawnSettings);
+        spawns.put(MEBiomeKeys.SOUTHERN_EPHEL_DUATH, wildMordorSpawnSettings);
+        spawns.put(MEBiomeKeys.SOUTHERN_EPHEL_DUATH_BASE, wildMordorSpawnSettings);
+        spawns.put(MEBiomeKeys.SOUTHERN_EPHEL_DUATH_PEAKS, wildMordorSpawnSettings);
     }
 
     public static List<EntitySpawningSettings> getSpawnsAt(RegistryKey<Biome> biomeRegistryKey) {

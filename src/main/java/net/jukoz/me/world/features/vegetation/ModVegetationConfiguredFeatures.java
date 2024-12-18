@@ -106,6 +106,7 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MIRKWOOD_ROOTS = registerKey("patch_mirkwood_roots");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MORDOR_LICHEN = registerKey("patch_mordor_lichen");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MOSS = registerKey("patch_moss");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MOSS_CARPET = registerKey("patch_moss_carpet");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SHRIVELED_SHRUB = registerKey("patch_shriveled_shrub");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_STRAWBERRY_BUSH = registerKey("patch_strawberry_bush");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_TAN_SHRUB = registerKey("patch_tan_shrub");
@@ -382,6 +383,8 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_MOSS, Feature.MULTIFACE_GROWTH,
                 new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock)ModNatureBlocks.MOSS,
                         20, true, true, true, 0.5f, BLOCKS_MOSS));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_MOSS_CARPET, Feature.BLOCK_PILE,
+                new BlockPileFeatureConfig(BlockStateProvider.of(Blocks.MOSS_CARPET)));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_STICKY_SNOW, Feature.MULTIFACE_GROWTH,
                 new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock)ModNatureBlocks.STICKY_SNOW,

@@ -237,6 +237,9 @@ public class ModBiomeFeatures {
     public static void addDeadBlackPineTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.DEAD_BLACK_PINE_PLACED_TREE_KEY);
     }
+    public static void addAbundantDeadBlackPineTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.ABUNDANT_DEAD_BLACK_PINE_PLACED_TREE_KEY);
+    }
 
     public static void addAbundantSpruceTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.FOOTHILLS_SPRUCE_PLACED_TREE_KEY);
@@ -582,6 +585,9 @@ public class ModBiomeFeatures {
     public static void addMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_MOSS);
     }
+    public static void addMossCarpet(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_MOSS_CARPET);
+    }
     public static void addReedsFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_REEDS);
     }
@@ -677,14 +683,23 @@ public class ModBiomeFeatures {
     public static void addAshenDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.ASHEN_DIRT_ORE);
     }
-    public static void addAshenDirtStoneOre(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(OrePlacedFeatures.ASHEN_DIRT_STONE_ORE);
+    public static void addAshenStoneDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ASHEN_STONE_DIRT_ORE);
+    }
+    public static void addAshenStoneDirtCommonOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ASHEN_STONE_DIRT_COMMON_ORE);
     }
     public static void addAshenGravelOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.ASHEN_GRAVEL);
     }
     public static void addAshenSandOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.ASHEN_SAND);
+    }
+    public static void addAshenGravelDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ASHEN_GRAVEL_DIRT);
+    }
+    public static void addAshenGravelSandOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ASHEN_GRAVEL_SAND);
     }
     public static void addAshenStoneGravelOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.ASHEN_STONE_GRAVEL);
@@ -766,6 +781,9 @@ public class ModBiomeFeatures {
     }
     public static void addOldPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.OLD_PODZOL_ORE);
+    }
+    public static void addStoneOldPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.STONE_OLD_PODZOL_ORE);
     }
     public static void addSandOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.SAND_ORE);
