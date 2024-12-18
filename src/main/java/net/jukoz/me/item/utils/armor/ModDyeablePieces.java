@@ -44,6 +44,9 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.ELVEN_ARMING_SKIRT, true);
         dyeablePieces.put(ModEquipmentItems.ELVEN_OPEN_ARMING_SKIRT, true);
 
+        dyeablePieces.put(ModEquipmentItems.DWARVEN_GAMBESON, true);
+        dyeablePieces.put(ModEquipmentItems.DWARVEN_MINER_GAMBESON, true);
+
         dyeablePieces.put(ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE, true);
         dyeablePieces.put(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE, true);
         dyeablePieces.put(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST, true);

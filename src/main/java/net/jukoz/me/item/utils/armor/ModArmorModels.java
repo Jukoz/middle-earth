@@ -46,6 +46,8 @@ public class ModArmorModels {
         BARDING_SOLDIER_HELMET(ModEquipmentItems.BARDING_SOLDIER_HELMET, new DaleHelmetModel<>(DaleHelmetModel.getTexturedModelData().createModel())),
         BARDING_SERGEANT_HELMET(ModEquipmentItems.BARDING_SERGEANT_HELMET, new DaleHelmetModel<>(DaleHelmetModel.getTexturedModelData().createModel())),
 
+        DWARVEN_MINER_HELMET(ModEquipmentItems.DWARVEN_MINER_HELMET, new DwarvenMinerHelmetModel<>(DwarvenMinerHelmetModel.getTexturedModelData().createModel())),
+
         EREBOR_PLATE_HELMET(ModEquipmentItems.EREBOR_PLATE_HELMET, new EreborHelmetModel<>(EreborHelmetModel.getTexturedModelData().createModel())),
         RAVENHILL_SENTINEL_HELMET(ModEquipmentItems.RAVENHILL_SENTINEL_HELMET, new EreborWingsHelmetModel<>(EreborWingsHelmetModel.getTexturedModelData().createModel())),
         EREBOR_GATEWARDEN_HELMET(ModEquipmentItems.EREBOR_GATEWARDEN_HELMET, new EreborHelmetModel<>(EreborHelmetModel.getTexturedModelData().createModel())),
@@ -57,7 +59,6 @@ public class ModArmorModels {
         LORIEN_SOLDIER_HELMET(ModEquipmentItems.LORIEN_SOLDIER_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
         GALADHRIM_HELMET(ModEquipmentItems.GALADHRIM_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
         GALADHRIM_LORD_HELMET(ModEquipmentItems.GALADHRIM_LORD_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-
 
         ORCISH_BRACED_HELMET(ModEquipmentItems.ORCISH_BRACED_HELMET, new OrcSpikeHelmetModel<>(OrcSpikeHelmetModel.getTexturedModelData().createModel())),
         ORCISH_SALLET(ModEquipmentItems.ORCISH_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),

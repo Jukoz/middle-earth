@@ -604,19 +604,60 @@ public class ModEquipmentItems {
     //region DWARVES
 
     //region GENERIC
+    public static final Item DWARVEN_MINER_HELMET = registerCustomModelArmorPiece("dwarven_miner_helmet",
+            new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, new Item.Settings(),
+                    ModFactions.NONE));
 
-    public static final Item LONGBEARD_SEGMENTED_HELMET = registerArmorPiece("longbeard_segmented_helmet",
+    public static final Item DWARVEN_GAMBESON = registerDyeableArmorPiece("dwarven_gambeson",
+            new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(11572859)),
+                    ModFactions.NONE));
+
+    public static final Item DWARVEN_MAIL_COIF = registerArmorPiece("dwarven_mail_coif",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
-                    ModFactions.LONGBEARDS));
+                    ModFactions.NONE));
 
-    public static final Item DWARVEN_PARTISAN_CHESTPLATE = registerArmorPiece("dwarven_partisan_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings(),
+    public static final Item DWARVEN_MAIL_HAUBERK = registerArmorPiece("dwarven_mail_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.NONE));
-    public static final Item DWARVEN_PARTISAN_LEGGINGS = registerArmorPiece("dwarven_partisan_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.LEATHER_T2, new Item.Settings(),
+    public static final Item DWARVEN_MINER_GAMBESON = registerDyeableArmorPiece("dwarven_miner_gambeson",
+            new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(11572859)),
                     ModFactions.NONE));
+
+    public static final Item DWARVEN_MAIL_COAT = registerArmorPiece("dwarven_mail_coat",
+            new CustomLeggingsItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModFactions.NONE));
+
+    public static final Item DWARVEN_MAIL_CHAUSSES = registerArmorPiece("dwarven_mail_chausses",
+            new CustomBootsItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModFactions.NONE));
+
+    public static final Item DWARVEN_BOOTS = registerArmorPiece("dwarven_boots",
+            new CustomBootsItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModFactions.NONE));
+
+    public static final Item DWARVEN_SCALE_HAUBERK = registerArmorPiece("dwarven_scale_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
+                    ModFactions.NONE));
+
+    public static final Item DWARVEN_SCALE_COAT = registerArmorPiece("dwarven_scale_coat",
+            new CustomLeggingsItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
+                    ModFactions.NONE));
+
+    public static final Item DWARVEN_REINFORCED_BOOTS = registerArmorPiece("dwarven_reinforced_boots",
+            new CustomBootsItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
+                    ModFactions.NONE));
+
+
+
 
     //endregion
+
+    //region LONGBEARDS
+    public static final Item LONGBEARD_SEGMENTED_HELMET = registerArmorPiece("longbeard_segmented_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BRONZE_T2, new Item.Settings(),
+                    ModFactions.LONGBEARDS));
 
     //region EREBOR
 
@@ -682,6 +723,8 @@ public class ModEquipmentItems {
             new CapeChestplateItem(new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.RAVENHILL_SENTINEL_CAPE)),
                     ModSubFactions.EREBOR));
+    //endregion
+
     //endregion
 
     //endregion
