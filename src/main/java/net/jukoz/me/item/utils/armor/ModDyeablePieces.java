@@ -52,6 +52,14 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.LONGBEARD_REINFORCED_LEATHER_HAUBERK, true);
         dyeablePieces.put(ModEquipmentItems.LONGBEARD_LEATHER_LEGGINGS, true);
 
+        dyeablePieces.put(ModEquipmentItems.EREBOR_BRAWLER_CHESTPLATE, true);
+        dyeablePieces.put(ModEquipmentItems.EREBOR_LONG_COAT, true);
+        dyeablePieces.put(ModEquipmentItems.EREBOR_PADDED_MAIL_HAUBERK, true);
+        dyeablePieces.put(ModEquipmentItems.EREBOR_PARTISAN_COAT, true);
+        dyeablePieces.put(ModEquipmentItems.EREBOR_REINFORCED_COAT, true);
+        dyeablePieces.put(ModEquipmentItems.EREBOR_REINFORCED_LEATHER_HAUBERK, true);
+        dyeablePieces.put(ModEquipmentItems.EREBOR_LEATHER_LEGGINGS, true);
+
         dyeablePieces.put(ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE, true);
         dyeablePieces.put(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE, true);
         dyeablePieces.put(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST, true);

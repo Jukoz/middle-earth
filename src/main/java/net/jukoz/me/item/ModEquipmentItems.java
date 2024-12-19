@@ -674,9 +674,115 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
                     ModFactions.LONGBEARDS));
 
-
-
     //region EREBOR
+    public static final Item EREBOR_BRACED_LEATHER_HELMET = registerArmorPiece("erebor_braced_leather_helmet",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_NASAL_LEATHER_HELMET = registerArmorPiece("erebor_nasal_leather_helmet",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+
+    public static final Item EREBOR_PARTISAN_COAT = registerDyeableArmorPiece("erebor_partisan_coat",
+            new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
+                    ModSubFactions.EREBOR));
+
+    public static final Item EREBOR_LEATHER_LEGGINGS = registerDyeableArmorPiece("erebor_leather_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
+                    ModSubFactions.EREBOR));
+
+    public static final Item EREBOR_MAIL_COIF = registerArmorPiece("erebor_mail_coif",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_GILDED_MAIL_COIF = registerArmorPiece("erebor_gilded_mail_coif",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_CLOSED_MAIL_COIF = registerArmorPiece("erebor_closed_mail_coif",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_REINFORCED_LEATHER_HELMET = registerArmorPiece("erebor_reinforced_leather_helmet",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_HELMET = registerArmorPiece("erebor_helmet",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_HELMET_WITH_MAIL_COIF = registerArmorPiece("erebor_helmet_with_mail_coif",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+
+    public static final Item EREBOR_MAIL_HAUBERK = registerArmorPiece("erebor_mail_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_PADDED_MAIL_HAUBERK = registerDyeableArmorPiece("erebor_padded_mail_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3687263)),
+                    ModSubFactions.EREBOR));
+
+    public static final Item EREBOR_MAIL_COAT = registerArmorPiece("erebor_mail_coat",
+            new CustomLeggingsItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_MAIL_LEGGINGS = registerArmorPiece("erebor_mail_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+
+    public static final Item EREBOR_MAIL_CHAUSSES = registerArmorPiece("erebor_mail_chausses",
+            new CustomBootsItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_BOOTS = registerArmorPiece("erebor_boots",
+            new CustomBootsItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+
+    public static final Item RAVENHILL_HELMET = registerArmorPiece("ravenhill_helmet",
+            new CustomHelmetItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item RAVENHILL_REINFORCED_HELMET = registerArmorPiece("ravenhill_reinforced_helmet",
+            new CustomHelmetItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item RAVENHILL_GILDED_HELMET = registerArmorPiece("ravenhill_gilded_helmet",
+            new CustomHelmetItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+
+    public static final Item EREBOR_SCALE_HAUBERK = registerArmorPiece("erebor_scale_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_LONG_COAT = registerDyeableArmorPiece("erebor_long_coat",
+            new CustomChestplateItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_BRAWLER_CHESTPLATE = registerDyeableArmorPiece("erebor_brawler_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3687263)),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_REINFORCED_LEATHER_HAUBERK = registerDyeableArmorPiece("erebor_reinforced_leather_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_REINFORCED_COAT = registerDyeableArmorPiece("erebor_reinforced_coat",
+            new CustomChestplateItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3687263)),
+                    ModSubFactions.EREBOR));
+    public static final Item RAVENHILL_REINFORCED_MAIL_HAUBERK = registerArmorPiece("ravenhill_reinforced_mail_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+
+    public static final Item EREBOR_SCALE_COAT = registerArmorPiece("erebor_scale_coat",
+            new CustomLeggingsItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_SCALE_LEGGINGS = registerArmorPiece("erebor_scale_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+
+    public static final Item RAVENHILL_BOOTS = registerArmorPiece("ravenhill_boots",
+            new CustomBootsItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+
+    public static final Item EREBOR_GUARD_HELMET = registerArmorPiece("erebor_guard_helmet",
+            new CustomHelmetItem(ModArmorMaterials.DWARVEN_STEEL_T5, new Item.Settings(),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_CAPTAIN_HELMET = registerCustomModelArmorPiece("erebor_captain_helmet",
+            new CustomHelmetItem(ModArmorMaterials.DWARVEN_STEEL_T5, new Item.Settings(),
+                    ModSubFactions.EREBOR));
 
     public static final Item EREBOR_PLATE_HELMET = registerCustomModelArmorPiece("erebor_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.DWARVEN_STEEL_T5, new Item.Settings(),

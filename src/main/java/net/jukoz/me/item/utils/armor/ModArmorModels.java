@@ -48,6 +48,8 @@ public class ModArmorModels {
 
         DWARVEN_MINER_HELMET(ModEquipmentItems.DWARVEN_MINER_HELMET, new DwarvenMinerHelmetModel<>(DwarvenMinerHelmetModel.getTexturedModelData().createModel())),
 
+        EREBOR_CAPTAIN_HELMET(ModEquipmentItems.EREBOR_CAPTAIN_HELMET, new EreborHornsHelmetModel<>(EreborHornsHelmetModel.getTexturedModelData().createModel())),
+
         EREBOR_PLATE_HELMET(ModEquipmentItems.EREBOR_PLATE_HELMET, new EreborHelmetModel<>(EreborHelmetModel.getTexturedModelData().createModel())),
         RAVENHILL_SENTINEL_HELMET(ModEquipmentItems.RAVENHILL_SENTINEL_HELMET, new EreborWingsHelmetModel<>(EreborWingsHelmetModel.getTexturedModelData().createModel())),
         EREBOR_GATEWARDEN_HELMET(ModEquipmentItems.EREBOR_GATEWARDEN_HELMET, new EreborHelmetModel<>(EreborHelmetModel.getTexturedModelData().createModel())),
