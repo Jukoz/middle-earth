@@ -648,16 +648,33 @@ public class ModEquipmentItems {
     public static final Item DWARVEN_REINFORCED_BOOTS = registerArmorPiece("dwarven_reinforced_boots",
             new CustomBootsItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
                     ModFactions.NONE));
-
-
-
-
     //endregion
 
     //region LONGBEARDS
     public static final Item LONGBEARD_SEGMENTED_HELMET = registerArmorPiece("longbeard_segmented_helmet",
             new CustomHelmetItem(ModArmorMaterials.BRONZE_T2, new Item.Settings(),
                     ModFactions.LONGBEARDS));
+
+    public static final Item LONGBEARD_LEATHER_HAUBERK = registerDyeableArmorPiece("longbeard_leather_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
+                    ModFactions.LONGBEARDS));
+
+    public static final Item LONGBEARD_LEATHER_LEGGINGS = registerDyeableArmorPiece("longbeard_leather_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
+                    ModFactions.LONGBEARDS));
+
+    public static final Item LONGBEARD_PARTISAN_COAT = registerDyeableArmorPiece("longbeard_partisan_coat",
+            new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
+                    ModFactions.LONGBEARDS));
+    public static final Item LONGBEARD_REINFORCED_LEATHER_HAUBERK = registerDyeableArmorPiece("longbeard_reinforced_leather_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
+                    ModFactions.LONGBEARDS));
+
+
 
     //region EREBOR
 

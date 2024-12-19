@@ -47,6 +47,11 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.DWARVEN_GAMBESON, true);
         dyeablePieces.put(ModEquipmentItems.DWARVEN_MINER_GAMBESON, true);
 
+        dyeablePieces.put(ModEquipmentItems.LONGBEARD_LEATHER_HAUBERK, true);
+        dyeablePieces.put(ModEquipmentItems.LONGBEARD_PARTISAN_COAT, true);
+        dyeablePieces.put(ModEquipmentItems.LONGBEARD_REINFORCED_LEATHER_HAUBERK, true);
+        dyeablePieces.put(ModEquipmentItems.LONGBEARD_LEATHER_LEGGINGS, true);
+
         dyeablePieces.put(ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE, true);
         dyeablePieces.put(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE, true);
         dyeablePieces.put(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST, true);
