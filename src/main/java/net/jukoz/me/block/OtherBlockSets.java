@@ -50,6 +50,9 @@ public class OtherBlockSets {
     public static RoofBlockSet MIRKWOOD_SHINGLES = registerWoodSet("mirkwood_shingles", WoodBlockSets.MIRKWOOD.planks());
     public static RoofBlockSet MIRKWOOD_ROOFING = registerWoodSet("mirkwood_roofing", MIRKWOOD_SHINGLES.block);
     public static RoofBlockSet PALM_SHINGLES = registerWoodSet("palm_shingles", WoodBlockSets.PALM.planks());
+    public static RoofBlockSet PALM_ROOFING = registerWoodSet("palm_roofing", PALM_SHINGLES.block);
+    public static RoofBlockSet WHITE_PALM_SHINGLES = registerWoodSet("white_palm_shingles", WoodBlockSets.WHITE_PALM.planks());
+    public static RoofBlockSet WHITE_PALM_ROOFING = registerWoodSet("white_palm_roofing", WHITE_PALM_SHINGLES.block);
     public static RoofBlockSet PINE_SHINGLES = registerWoodSet("pine_shingles", WoodBlockSets.PINE.planks());
     public static RoofBlockSet PINE_ROOFING = registerWoodSet("pine_roofing", PINE_SHINGLES.block);
     public static RoofBlockSet BLACK_PINE_SHINGLES = registerWoodSet("black_pine_shingles", WoodBlockSets.BLACK_PINE.planks());
@@ -182,6 +185,9 @@ public class OtherBlockSets {
             MIRKWOOD_SHINGLES,
             MIRKWOOD_ROOFING,
             PALM_SHINGLES,
+            PALM_ROOFING,
+            WHITE_PALM_SHINGLES,
+            WHITE_PALM_ROOFING,
             PINE_SHINGLES,
             PINE_ROOFING,
             BLACK_PINE_SHINGLES,
