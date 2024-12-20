@@ -248,9 +248,7 @@
   "item.me.iron_chainmail": "Iron Chainmail",
 
 "#Comment:": "Item - Mob Drops",
-  "item.me.orc_bone": "Orc Bone",
-  "item.me.warg_bone": "Warg Bone",
-  "item.me.warg_fur": "Warg Fur",
+  "item.me.dirty_bone": "Dirty Bone",
   "item.me.fang": "Fang",
 
 "#Comment:": "Item - Phial",

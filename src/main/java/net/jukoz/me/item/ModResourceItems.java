@@ -97,9 +97,7 @@ public class ModResourceItems {
     public static final Item QUARTZ_SHARD = registerItem("quartz_shard",
             new Item(new Item.Settings()));
 
-    public static final Item ORC_BONE = registerItem("orc_bone",
-            new Item(new Item.Settings()));
-    public static final Item WARG_BONE = registerItem("warg_bone",
+    public static final Item DIRTY_BONE = registerItem("dirty_bone",
             new Item(new Item.Settings()));
     public static final Item FANG = registerItem("fang",
             new Item(new Item.Settings()));

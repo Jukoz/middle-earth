@@ -15,7 +15,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
@@ -86,8 +85,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
 
         bones.add(Items.BONE);
-        bones.add(ModResourceItems.ORC_BONE);
-        bones.add(ModResourceItems.WARG_BONE);
+        bones.add(ModResourceItems.DIRTY_BONE);
 
         feathers.add(ModResourceItems.SWAN_FEATHER);
         feathers.add(Items.FEATHER);
