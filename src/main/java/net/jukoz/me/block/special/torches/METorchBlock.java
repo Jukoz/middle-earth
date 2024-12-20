@@ -1,16 +1,13 @@
-package net.jukoz.me.block.special;
+package net.jukoz.me.block.special.torches;
 
-import net.jukoz.me.block.special.fireBlocks.AbstractToggleableFireBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.TorchBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -23,19 +20,17 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-public class SconceBlock extends net.minecraft.block.TorchBlock {
+public class METorchBlock extends TorchBlock {
 
     public static final BooleanProperty LIT = Properties.LIT;
 
-    public SconceBlock(Settings settings, SimpleParticleType particleEffect) {
-        super(particleEffect, settings);
+    public METorchBlock(Settings settings) {
+        super(ParticleTypes.FLAME, settings);
         this.setDefaultState((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(LIT, true)))));
     }
 
@@ -89,7 +84,7 @@ public class SconceBlock extends net.minecraft.block.TorchBlock {
         }
     }
 
-    public static boolean isLitSconce(BlockState state) {
-        return state.contains(LIT) && (Boolean)state.get(LIT) && state.getBlock() instanceof SconceBlock;
+    public static boolean isLitTorch(BlockState state) {
+        return state.contains(LIT) && (Boolean)state.get(LIT) && state.getBlock() instanceof METorchBlock;
     }
 }

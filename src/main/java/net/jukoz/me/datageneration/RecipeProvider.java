@@ -1134,6 +1134,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(Items.TORCH))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeItems.ORCISH_SCONCE, 2)
+                .pattern("NTN")
+                .pattern(" S ")
+                .input('N', ModResourceItems.CRUDE_NUGGET)
+                .input('S', Items.STICK)
+                .input('T', Items.TORCH)
+                .criterion(FabricRecipeProvider.hasItem(Items.TORCH),
+                        FabricRecipeProvider.conditionsFromItem(Items.TORCH))
+                .offerTo(exporter);
+
         createWoodStoolRecipe(exporter, OtherBlockSets.TREATED_WOOD_PLANKS.block().asItem(), ModDecorativeBlocks.TREATED_WOOD_STOOL);
         createWoodBenchRecipe(exporter, OtherBlockSets.TREATED_WOOD_PLANKS.block().asItem(), ModDecorativeBlocks.TREATED_WOOD_BENCH);
         createWoodTableRecipe(exporter, OtherBlockSets.TREATED_WOOD_PLANKS.block().asItem(), ModDecorativeBlocks.TREATED_WOOD_TABLE);

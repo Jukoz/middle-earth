@@ -1,9 +1,9 @@
-package net.jukoz.me.block.special;
+package net.jukoz.me.block.special.torches;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.WallTorchBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -15,26 +15,23 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-public class WallSconceBlock extends net.minecraft.block.WallTorchBlock {
+public class MEWallTorchBlock extends WallTorchBlock {
 
     public static final BooleanProperty LIT = Properties.LIT;
 
-    public WallSconceBlock(Settings settings, SimpleParticleType particleEffect) {
-        super(particleEffect, settings);
+    public MEWallTorchBlock(Settings settings) {
+        super(ParticleTypes.FLAME, settings);
         this.setDefaultState((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(LIT, true).with(FACING, Direction.NORTH)))));
     }
 
@@ -92,7 +89,7 @@ public class WallSconceBlock extends net.minecraft.block.WallTorchBlock {
         }
     }
 
-    public static boolean isLitWallSconce(BlockState state) {
-        return state.contains(LIT) && (Boolean)state.get(LIT) && state.getBlock() instanceof WallSconceBlock;
+    public static boolean isLitWallTorch(BlockState state) {
+        return state.contains(LIT) && (Boolean)state.get(LIT) && state.getBlock() instanceof MEWallTorchBlock;
     }
 }

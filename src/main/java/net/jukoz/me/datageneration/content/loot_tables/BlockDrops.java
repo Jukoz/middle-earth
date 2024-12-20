@@ -23,8 +23,15 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WOOD_PILE);
             add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
+
             add(ModDecorativeBlocks.SCONCE);
+            add(ModDecorativeBlocks.WALL_SCONCE);
+
             add(ModDecorativeBlocks.GILDED_SCONCE);
+            add(ModDecorativeBlocks.GILDED_WALL_SCONCE);
+
+            add(ModDecorativeBlocks.ORCISH_SCONCE);
+            add(ModDecorativeBlocks.ORCISH_WALL_SCONCE);
 
             add(ModDecorativeBlocks.ROPE);
 
