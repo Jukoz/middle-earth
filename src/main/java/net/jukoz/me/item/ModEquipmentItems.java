@@ -138,30 +138,30 @@ public class ModEquipmentItems {
                     ModFactions.NONE));
 
     public static final Item WOVEN_HAT = registerCustomModelArmorPiece("woven_hat",
-            new CustomHelmetItem(ModArmorMaterials.LEATHER_T1, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.FABRIC_T1, new Item.Settings(),
                     ModFactions.NONE));
 
     public static final Item BYCOCKET = registerDyeableArmorPiece("bycocket",
-            new CustomHelmetItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
+            new CustomHelmetItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
                     ModFactions.NONE));
 
     public static final Item ARMING_COAT = registerDyeableArmorPiece("arming_coat",
-            new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
+            new CustomChestplateItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475)),
                     ModFactions.NONE));
 
     public static final Item ARMING_SKIRT = registerDyeableArmorPiece("arming_skirt",
-            new CustomLeggingsItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
+            new CustomLeggingsItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475)),
                     ModFactions.NONE));
 
     public static final Item SHOES = registerArmorPiece("shoes",
-            new CustomBootsItem(ModArmorMaterials.LEATHER_T1, new Item.Settings(),
+            new CustomBootsItem(ModArmorMaterials.FABRIC_T1, new Item.Settings(),
                     ModFactions.NONE));
 
     public static final Item WORK_SHOES = registerArmorPiece("work_shoes",
-            new CustomBootsItem(ModArmorMaterials.LEATHER_T1, new Item.Settings(),
+            new CustomBootsItem(ModArmorMaterials.FABRIC_T1, new Item.Settings(),
                     ModFactions.NONE));
 
     public static final Item LEATHER_SKULLCAP = registerDyeableArmorPiece("leather_skullcap",
@@ -368,7 +368,7 @@ public class ModEquipmentItems {
 
     //region ROHAN
     public static final Item ROHIRRIC_REINFORCED_COAT = registerDyeableArmorPiece("rohirric_reinforced_coat",
-            new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
+            new CustomChestplateItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent( 15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     ModFactions.ROHAN));
@@ -501,19 +501,19 @@ public class ModEquipmentItems {
 
     //region DALE
     public static final Item DALISH_ARMING_COAT_BLACK_FUR = registerDyeableArmorPiece("dalish_arming_coat_black_fur",
-            new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
+            new CustomChestplateItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(7296407)),
                     ModFactions.DALE));
     public static final Item DALISH_ARMING_COAT_BROWN_FUR = registerDyeableArmorPiece("dalish_arming_coat_brown_fur",
-            new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
+            new CustomChestplateItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(7296407)),
                     ModFactions.DALE));
     public static final Item DALISH_ARMING_COAT_TAN_FUR = registerDyeableArmorPiece("dalish_arming_coat_tan_fur",
-            new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
+            new CustomChestplateItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(7296407)),
                     ModFactions.DALE));
     public static final Item DALISH_HEYDAY_ARMING_COAT = registerArmorPiece("dalish_heyday_arming_coat",
-            new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.FABRIC_T1, new Item.Settings(),
                     ModFactions.DALE));
 
     public static final Item DALISH_BOOTS = registerArmorPiece("dalish_boots",
@@ -856,16 +856,16 @@ public class ModEquipmentItems {
     //region GENERIC
 
     public static final Item ELVEN_ARMING_COAT = registerDyeableArmorPiece("elven_arming_coat",
-            new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
+            new CustomChestplateItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(4805220)),
                     ModFactions.NONE));
 
     public static final Item ELVEN_ARMING_SKIRT = registerDyeableArmorPiece("elven_arming_skirt",
-            new CustomLeggingsItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
+            new CustomLeggingsItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(4805220)),
                     ModFactions.NONE));
     public static final Item ELVEN_OPEN_ARMING_SKIRT = registerDyeableArmorPiece("elven_open_arming_skirt",
-            new CustomLeggingsItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
+            new CustomLeggingsItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(4805220)),
                     ModFactions.NONE));
 
@@ -888,7 +888,7 @@ public class ModEquipmentItems {
 
     //region LOTHLORIEN
     public static final Item LORIEN_DIADEM = registerCustomModelArmorPiece("lorien_diadem",
-            new CustomHelmetItem(ModArmorMaterials.LEATHER_T1, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BRONZE_T1, new Item.Settings(),
                     ModFactions.LOTHLORIEN));
 
     public static final Item LORIEN_LEATHER_HELMET = registerCustomModelArmorPiece("lorien_leather_helmet",
@@ -1000,7 +1000,7 @@ public class ModEquipmentItems {
                     ModFactions.NONE));
 
     public static final Item ORCISH_SANDALS = registerDyeableArmorPiece("orcish_sandals",
-            new CustomBootsItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
+            new CustomBootsItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(4865076)),
                     ModFactions.NONE));
 
