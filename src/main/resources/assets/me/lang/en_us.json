@@ -6896,6 +6896,7 @@
   "alert.me.hood_up": "Hood up.",
 
   "alert.me.seat.occupied": "This seat is occupied.",
+  "alert.me.seat.space_not_empty": "Block above the seat is not empty.",
 
 "#Comment": "Events",
   "event.me.join.faction.success": "You have joined %s",

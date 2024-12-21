@@ -31,8 +31,10 @@ public class SeatEntity extends VehicleEntity {
         if(!this.getWorld().isClient){
             World world = this.getWorld();
             BlockPos pos = this.getBlockPos();
-            if(!this.hasPassengers() || !this.getWorld().getBlockState(this.getBlockPos()).isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")))){
+            if (!this.hasPassengers() && this.getWorld().getBlockState(pos).isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")))){
                 world.setBlockState(this.getBlockPos(), world.getBlockState(pos).with(SeatBlock.OCCUPIED, false));
+                this.remove(RemovalReason.DISCARDED);
+            } else if(!this.hasPassengers() || !this.getWorld().getBlockState(pos).isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")))){
                 this.remove(RemovalReason.DISCARDED);
             }
         }
@@ -43,8 +45,9 @@ public class SeatEntity extends VehicleEntity {
         super.removePassenger(passenger);
         World world = passenger.getWorld();
         BlockPos pos = this.getBlockPos();
-        Direction direction = world.getBlockState(pos).get(Properties.HORIZONTAL_FACING);
-        pos = pos.offset(direction);
+        if (world.getBlockState(pos).isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")))){
+            pos = pos.offset(world.getBlockState(pos).get(Properties.HORIZONTAL_FACING));
+        }
         passenger.requestTeleport(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
     }
 
