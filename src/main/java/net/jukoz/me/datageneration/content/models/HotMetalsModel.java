@@ -59,7 +59,7 @@ public class HotMetalsModel {
             add(ModResourceItems.ROD);
             add(ModResourceItems.LARGE_ROD);
 
-            add(ModResourceItems.CHAINMAIL_RING);
+            add(ModResourceItems.MAIL_RING);
             add(ModResourceItems.SCALE);
             add(ModResourceItems.ARMOR_PLATE);
             add(ModResourceItems.HELMET_PLATE);
@@ -70,7 +70,7 @@ public class HotMetalsModel {
 
     public static List<ShapingTag> shapesTag = new ArrayList<>() {
         {
-            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")), ModResourceItems.CHAINMAIL_RING, 25));
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")), ModResourceItems.MAIL_RING, 25));
             add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")), ModResourceItems.SCALE, 25));
 
             add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHORT_BLADE, 80));

@@ -1,0 +1,174 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"3": "me:items/mordor_braced_shield"
+	},
+	"elements": [
+		{
+			"name": "Handle",
+			"from": [7, 8, 9],
+			"to": [9, 14, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 10]},
+			"faces": {
+				"north": {"uv": [11, 0, 11.5, 1.5], "texture": "#3"},
+				"east": {"uv": [8, 0, 9.5, 1.5], "texture": "#3"},
+				"south": {"uv": [11.5, 0, 12, 1.5], "texture": "#3"},
+				"west": {"uv": [9.5, 0, 11, 1.5], "texture": "#3"},
+				"up": {"uv": [11, 2, 9.5, 1.5], "rotation": 90, "texture": "#3"},
+				"down": {"uv": [9.5, 1.5, 8, 2], "rotation": 270, "texture": "#3"}
+			}
+		},
+		{
+			"name": "mordor_shield_0",
+			"from": [3, 2, 8],
+			"to": [13, 20, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, -5, 8]},
+			"faces": {
+				"north": {"uv": [3.25, 0, 0.75, 4.5], "texture": "#3"},
+				"east": {"uv": [11, 2, 11.25, 6.5], "texture": "#3"},
+				"south": {"uv": [7.25, 0, 4.75, 4.5], "texture": "#3"},
+				"west": {"uv": [8.75, 2, 9, 6.5], "texture": "#3"},
+				"up": {"uv": [8.75, 2, 11.25, 2.25], "texture": "#3"},
+				"down": {"uv": [8.75, 6.25, 11.25, 6.5], "texture": "#3"}
+			}
+		},
+		{
+			"name": "mordor_shield_1",
+			"from": [1, 6, 8],
+			"to": [3, 19, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, -5, 8]},
+			"faces": {
+				"north": {"uv": [0.75, 0.25, 0.25, 3.5], "texture": "#3"},
+				"east": {"uv": [8.5, 2.25, 8.75, 5.5], "texture": "#3"},
+				"south": {"uv": [7.75, 0.25, 7.25, 3.5], "texture": "#3"},
+				"west": {"uv": [8.25, 2.25, 8.5, 5.5], "texture": "#3"},
+				"up": {"uv": [8.25, 2.25, 8.75, 2.5], "texture": "#3"},
+				"down": {"uv": [8.25, 5.25, 8.75, 5.5], "texture": "#3"}
+			}
+		},
+		{
+			"name": "mordor_shield_2",
+			"from": [13, 6, 8],
+			"to": [15, 19, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, -5, 8]},
+			"faces": {
+				"north": {"uv": [3.75, 0.25, 3.25, 3.5], "texture": "#3"},
+				"east": {"uv": [11.5, 2.25, 11.75, 5.5], "texture": "#3"},
+				"south": {"uv": [4.75, 0.25, 4.25, 3.5], "texture": "#3"},
+				"west": {"uv": [11.25, 2.25, 11.5, 5.5], "texture": "#3"},
+				"up": {"uv": [11.25, 2.25, 11.75, 2.5], "texture": "#3"},
+				"down": {"uv": [11.25, 5.25, 11.75, 5.5], "texture": "#3"}
+			}
+		},
+		{
+			"name": "mordor_shield_3",
+			"from": [0, 9, 8],
+			"to": [1, 18, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, -5, 8]},
+			"faces": {
+				"north": {"uv": [0.25, 0.5, 0, 2.75], "texture": "#3"},
+				"east": {"uv": [8, 2.5, 8.25, 4.75], "texture": "#3"},
+				"south": {"uv": [8, 0.5, 7.75, 2.75], "texture": "#3"},
+				"west": {"uv": [8, 2.5, 8.25, 4.75], "texture": "#3"},
+				"up": {"uv": [8, 2.5, 8.25, 2.75], "texture": "#3"},
+				"down": {"uv": [8, 4.5, 8.25, 4.75], "texture": "#3"}
+			}
+		},
+		{
+			"name": "mordor_shield_4",
+			"from": [15, 9, 8],
+			"to": [16, 18, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, -5, 8]},
+			"faces": {
+				"north": {"uv": [4, 0.5, 3.75, 2.75], "texture": "#3"},
+				"east": {"uv": [11.75, 2.5, 12, 4.75], "texture": "#3"},
+				"south": {"uv": [4.25, 0.5, 4, 2.75], "texture": "#3"},
+				"west": {"uv": [11.75, 2.5, 12, 4.75], "texture": "#3"},
+				"up": {"uv": [11.75, 2.5, 12, 2.75], "texture": "#3"},
+				"down": {"uv": [11.75, 4.5, 12, 4.75], "texture": "#3"}
+			}
+		},
+		{
+			"name": "mordor_shield_5",
+			"from": [2, 4, 8],
+			"to": [3, 6, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, -5, 8]},
+			"faces": {
+				"north": {"uv": [0.75, 3.5, 0.5, 4], "texture": "#3"},
+				"east": {"uv": [8.5, 5.5, 8.75, 6], "texture": "#3"},
+				"south": {"uv": [7.5, 3.5, 7.25, 4], "texture": "#3"},
+				"west": {"uv": [8.5, 5.5, 8.75, 6], "texture": "#3"},
+				"up": {"uv": [8.5, 5.5, 8.75, 5.75], "texture": "#3"},
+				"down": {"uv": [8.5, 5.75, 8.75, 6], "texture": "#3"}
+			}
+		},
+		{
+			"name": "mordor_shield_6",
+			"from": [13, 4, 8],
+			"to": [14, 6, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, -5, 8]},
+			"faces": {
+				"north": {"uv": [3.5, 3.5, 3.25, 4], "texture": "#3"},
+				"east": {"uv": [11.25, 5.5, 11.5, 6], "texture": "#3"},
+				"south": {"uv": [4.75, 3.5, 4.5, 4], "texture": "#3"},
+				"west": {"uv": [11.25, 5.5, 11.5, 6], "texture": "#3"},
+				"up": {"uv": [11.25, 5.5, 11.5, 5.75], "texture": "#3"},
+				"down": {"uv": [11.25, 5.75, 11.5, 6], "texture": "#3"}
+			}
+		},
+		{
+			"name": "mordor_shield_7",
+			"from": [5, 1, 8],
+			"to": [11, 2, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, -5, 8]},
+			"faces": {
+				"north": {"uv": [2.75, 4.5, 1.25, 4.75], "texture": "#3"},
+				"east": {"uv": [10.5, 6.5, 10.75, 6.75], "texture": "#3"},
+				"south": {"uv": [6.75, 4.5, 5.25, 4.75], "texture": "#3"},
+				"west": {"uv": [9.25, 6.5, 9.5, 6.75], "texture": "#3"},
+				"up": {"uv": [9.25, 6.5, 10.75, 6.75], "texture": "#3"},
+				"down": {"uv": [9.25, 6.5, 10.75, 6.75], "texture": "#3"}
+			}
+		}
+	],
+	"gui_light": "front",
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, -90, 0],
+			"translation": [4, -5, 4.75]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, -90, 0],
+			"translation": [4, -5, 4.75]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 0, -3],
+			"translation": [0, -6, 0]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 0, -3],
+			"translation": [0, -6, 0]
+		},
+		"ground": {
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [-166.28, 34.83, -175.66],
+			"translation": [0, -1.25, 0],
+			"scale": [0.47109, 0.47109, 0.47109]
+		},
+		"fixed": {
+			"translation": [0, -5, -1.75],
+			"scale": [1.75, 1.75, 1.75]
+		}
+	},
+	"groups": [
+		{
+			"name": "root",
+			"origin": [8, 0, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+		}
+	]
+}

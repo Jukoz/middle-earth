@@ -65,7 +65,7 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:chainmail_ring"
+        "item": "me:mail_ring"
       },
       "components": {
         "minecraft:trim": {
@@ -77,7 +77,7 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:chainmail_ring"
+        "item": "me:mail_ring"
       },
       "components": {
         "minecraft:trim": {
@@ -89,7 +89,7 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:chainmail_ring"
+        "item": "me:mail_ring"
       },
       "components": {
         "minecraft:trim": {
@@ -101,7 +101,7 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:chainmail_ring"
+        "item": "me:mail_ring"
       },
       "components": {
         "minecraft:trim": {

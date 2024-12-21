@@ -247,7 +247,6 @@
   "item.me.gold_ring": "Gold Ring",
   "item.me.middle_earth_map": "Middle-earth Map",
   "item.me.ash": "Ash",
-  "item.me.iron_chainmail": "Iron Chainmail",
 
 "#Comment:": "Item - Mob Drops",
   "item.me.dirty_bone": "Dirty Bone",
@@ -338,8 +337,8 @@
   "item.me.great_axe_head": "Great Axe Head",
   "item.me.sword_hilt": "Sword Hilt",
 
-  "item.me.chainmail_ring": "Chainmail Ring",
-  "item.me.chainmail": "Chainmail",
+  "item.me.mail_ring": "Mail Ring",
+  "item.me.mail": "Mail",
   "item.me.scale": "Scale",
   "item.me.scale_mail": "Scale Mail",
   "item.me.armor_plate": "Armor Plate",
@@ -582,6 +581,16 @@
   "item.me.galadhrim_cape": "Galadhrim Cape",
   "item.me.galadhrim_hood": "Galadhrim Hood",
   "item.me.galadhrim_lord_surcoat": "Galadhrim Lord Surcoat",
+  
+  "item.me.orcish_cape": "Orcish Cape",
+  "item.me.orcish_long_cape": "Orcish Long Cape",
+  "item.me.orcish_shoulders": "Orcish Shoulders",
+
+  "item.me.orcish_black_fur_surcoat_with_bone": "Orcish Black Fur Surcoat With Bone",
+  "item.me.orcish_brown_fur_surcoat_with_bone": "Orcish Brown Fur Surcoat With Bone",
+  "item.me.orcish_gray_fur_surcoat_with_bone": "Orcish Gray Fur Surcoat With Bone",
+  "item.me.orcish_tan_fur_surcoat_with_bone": "Orcish Tan Fur Surcoat With Bone",
+  "item.me.orcish_white_fur_surcoat_with_bone": "Orcish White Fur Surcoat With Bone",
 
   "item.me.straw_hat": "Straw Hat",
   "item.me.woven_hat": "Woven Hat",
@@ -606,13 +615,14 @@
   "item.me.travelling_boots": "Travelling Boots",
   "item.me.high_cut_boots": "High Cut Boots",
 
-  "item.me.chain_coif": "Chain Coif",
+  "item.me.mail_coif": "Mail Coif",
   "item.me.kettle_hat": "Kettle hat",
   "item.me.open_face_helmet": "Open Face Helmet",
 
-  "item.me.chain_hauberk": "Chain Hauberk",
+  "item.me.mail_hauberk": "Mail Hauberk",
+  "item.me.mail_shirt": "Mail Shirt",
 
-  "item.me.chain_skirt": "Chain Skirt",
+  "item.me.mail_skirt": "Mail Skirt",
 
   "item.me.sallet": "Sallet",
 
@@ -622,12 +632,12 @@
 
   "item.me.gondorian_cabasset_helmet": "Gondorian Cabasset Helmet",
 
-  "item.me.gondorian_chain_hauberk": "Gondorian Chain Hauberk",
+  "item.me.gondorian_mail_hauberk": "Gondorian Mail Hauberk",
   "item.me.gondorian_tabbard": "Gondorian Tabbard",
   "item.me.gondorian_leather_cuirass": "Gondorian Leather Cuirass",
   "item.me.gondorian_leather_chestplate": "Gondorian Leather Chestplate",
 
-  "item.me.gondorian_chain_coat": "Gondorian Chain Coat",
+  "item.me.gondorian_mail_coat": "Gondorian Mail Coat",
 
   "item.me.gondorian_soldier_helmet": "Gondorian Soldier Helmet",
 
@@ -655,7 +665,6 @@
   "item.me.gondorian_fountain_guard_leggings": "Gondorian Fountain Guard Leggings",
   "item.me.gondorian_fountain_guard_boots": "Gondorian Fountain Guard Boots",
 
-  "item.me.rohirric_coat": "Rohirric Coat",
   "item.me.rohirric_reinforced_coat": "Rohirric Reinforced Coat",
 
   "item.me.rohirric_leather_helmet": "Rohirric Leather Helmet",
@@ -671,9 +680,9 @@
   "item.me.rohirric_reinforced_militia_helmet": "Rohirric Reinforced Militia Helmet",
   "item.me.rohirric_ornamented_militia_helmet": "Rohirric Ornamented Militia Helmet",
 
-  "item.me.rohirric_mail_shirt": "Rohirric Mail Shirt",
-  "item.me.rohirric_mail_shirt_open": "Rohirric Mail Shirt Open",
-  "item.me.rohirric_mail_hauberk": "Rohirric Mail Hauberk",
+  "item.me.rohirric_reinforced_leather_vest": "Rohirric Reinforced Leather Vest",
+  "item.me.rohirric_reinforced_leather_scale_vest": "Rohirric Reinforced Leather Scale Vest",
+  "item.me.rohirric_braced_mail_shirt": "Rohirric Braced Mail Shirt",
 
   "item.me.rohirric_soldier_helmet": "Rohirric Soldier Helmet",
   "item.me.rohirric_ornamented_soldier_helmet": "Rohirric Ornamented Soldier Helmet",
@@ -705,9 +714,9 @@
   "item.me.dalish_helmet_brown_fur": "Dalish Helmet Brown Fur",
   "item.me.dalish_helmet_tan_fur": "Dalish Helmet Tan Fur",
 
-  "item.me.dalish_chain_hauberk": "Dalish Chain Hauberk",
+  "item.me.dalish_mail_hauberk": "Dalish Mail Hauberk",
 
-  "item.me.dalish_chain_coat": "Dalish Chain Coat",
+  "item.me.dalish_mail_coat": "Dalish Mail Coat",
 
   "item.me.dalish_burgonet": "Dalish Burgonet",
 
@@ -715,21 +724,86 @@
 
   "item.me.dalish_heyday_helmet": "Dalish Heyday Helmet",
   "item.me.dalish_heyday_chestplate": "Dalish Heyday Chestplate",
-  "item.me.dalish_heyday_chain_coat": "Dalish Heyday Chain Coat",
+  "item.me.dalish_heyday_mail_coat": "Dalish Heyday Mail Coat",
   "item.me.dalish_heyday_boots": "Dalish Heyday Boots",
 
   "item.me.barding_soldier_helmet": "Barding Soldier Helmet",
   "item.me.barding_soldier_chestplate": "Barding Soldier Chestplate",
-  "item.me.barding_chain_skirt": "Barding Chain Skirt",
+  "item.me.barding_mail_skirt": "Barding Mail Skirt",
   "item.me.barding_plated_boots": "Barding Plated Boots",
 
   "item.me.barding_sergeant_helmet": "Barding Sergeant Helmet",
   "item.me.barding_sergeant_chestplate": "Barding Sergeant Chestplate",
 
+  "item.me.dwarven_miner_helmet": "Dwarven Miner Helmet",
+
+  "item.me.dwarven_gambeson": "Dwarven Gambeson",
+
+  "item.me.dwarven_mail_coif": "Dwarven Mail Coif",
+
+  "item.me.dwarven_mail_hauberk": "Dwarven Mail Hauberk",
+  "item.me.dwarven_miner_gambeson": "Dwarven Miner Gambeson",
+
+  "item.me.dwarven_mail_coat": "Dwarven Mail Coat",
+
+  "item.me.dwarven_mail_chausses": "Dwarven Mail Chausses",
+  "item.me.dwarven_boots": "Dwarven Boots",
+
+  "item.me.dwarven_scale_hauberk": "Dwarven Scale Hauberk",
+  "item.me.dwarven_scale_coat": "Dwarven Scale Coat",
+
+  "item.me.dwarven_reinforced_boots": "Dwarven Reinforced Boots",
+
   "item.me.longbeard_segmented_helmet": "Longbeard Segmented Helmet",
 
-  "item.me.dwarven_partisan_chestplate": "Dwarven Partisan Chestplate",
-  "item.me.dwarven_partisan_leggings": "Dwarven Partisan Leggings",
+  "item.me.longbeard_leather_hauberk": "Longbeard Leather Hauberk",
+  "item.me.longbeard_wanderer_coat": "Longbeard Wanderer Coat",
+
+  "item.me.longbeard_leather_leggings": "Longbeard Leather Leggings",
+
+  "item.me.longbeard_partisan_outfit": "Longbeard Partisan Outfit",
+  "item.me.longbeard_reinforced_leather_hauberk": "Longbeard Reinforced Leather Hauberk",
+
+  "item.me.erebor_braced_leather_helmet": "Erebor Braced Leather Helmet",
+  "item.me.erebor_nasal_leather_helmet": "Erebor Nasal Leather Helmet",
+
+
+  "item.me.erebor_leather_leggings": "Erebor Leather Leggings",
+
+  "item.me.erebor_mail_coif": "Erebor Mail Coif",
+  "item.me.erebor_gilded_mail_coif": "Erebor Gilded Mail Coif",
+  "item.me.erebor_closed_mail_coif": "Erebor Closed Mail Coif",
+  "item.me.erebor_reinforced_leather_helmet": "Erebor Reinforced Leather Helmet",
+  "item.me.erebor_helmet": "Erebor Helmet",
+  "item.me.erebor_helmet_with_mail_coif": "Erebor Helmet With Mail Coif",
+
+  "item.me.erebor_mail_hauberk": "Erebor Mail Hauberk",
+  "item.me.erebor_padded_mail_hauberk": "Erebor Padded Mail Hauberk",
+
+  "item.me.erebor_mail_coat": "Erebor Mail Coat",
+  "item.me.erebor_mail_leggings": "Erebor Mail Leggings",
+
+  "item.me.erebor_mail_chausses": "Erebor Mail Chausses",
+  "item.me.erebor_boots": "Erebor Boots",
+
+  "item.me.ravenhill_helmet": "Ravenhill Helmet",
+  "item.me.ravenhill_reinforced_helmet": "Ravenhill Reinforced Helmet",
+  "item.me.ravenhill_gilded_helmet": "Ravenhill Gilded Helmet",
+
+  "item.me.erebor_scale_hauberk": "Erebor Scale Hauberk",
+  "item.me.erebor_long_coat": "Erebor Long Coat",
+  "item.me.erebor_brawler_chestplate": "Erebor Brawler Chestplate",
+  "item.me.erebor_reinforced_leather_hauberk": "Erebor Reinforced Leather Hauberk",
+  "item.me.erebor_reinforced_coat": "Erebor Reinforced Coat",
+  "item.me.ravenhill_reinforced_mail_hauberk": "Ravenhill Reinforced Mail Hauberk",
+
+  "item.me.erebor_scale_coat": "Erebor Scale Coat",
+  "item.me.erebor_scale_leggings": "Erebor Scale Leggings",
+
+  "item.me.ravenhill_boots": "Ravenhill Boots",
+
+  "item.me.erebor_guard_helmet": "Erebor Guard Helmet",
+  "item.me.erebor_captain_helmet": "Erebor Captain Helmet",
 
   "item.me.erebor_plate_helmet": "Erebor Plate Helmet",
   "item.me.erebor_plate_chestplate": "Erebor Plate Chestplate",
@@ -758,11 +832,11 @@
 
   "item.me.elven_boots": "Elven Boots",
 
-  "item.me.elven_chain_coif": "Elven Chain Coif",
+  "item.me.elven_mail_coif": "Elven Mail Coif",
 
-  "item.me.elven_chain_hauberk": "Elven Chain Hauberk",
+  "item.me.elven_mail_hauberk": "Elven Mail Hauberk",
 
-  "item.me.elven_chain_skirt": "Elven Chain Skirt",
+  "item.me.elven_mail_skirt": "Elven Mail Skirt",
 
   "item.me.lorien_diadem": "Lórien Diadem",
 
@@ -772,15 +846,15 @@
 
   "item.me.lorien_arming_skirt": "Lórien Arming Skirt",
 
-  "item.me.lorien_chain_coif_diadem": "Lórien Chain Coif Diadem",
-  "item.me.lorien_short_chain_coif_diadem": "Lórien Short Chain Coif Diadem",
+  "item.me.lorien_mail_coif_diadem": "Lórien Mail Coif Diadem",
+  "item.me.lorien_short_mail_coif_diadem": "Lórien Short Mail Coif Diadem",
 
-  "item.me.lorien_chain_hauberk": "Lórien Chain Hauberk",
-  "item.me.lorien_marchwarden_chain_hauberk": "Lórien Marchwarden Chain Hauberk",
+  "item.me.lorien_mail_hauberk": "Lórien Mail Hauberk",
+  "item.me.lorien_marchwarden_mail_hauberk": "Lórien Marchwarden Mail Hauberk",
 
   "item.me.lorien_soldier_helmet": "Lórien Soldier Helmet",
 
-  "item.me.lorien_soldier_chain_hauberk": "Lórien Soldier Chain Hauberk",
+  "item.me.lorien_soldier_mail_hauberk": "Lórien Soldier Mail Hauberk",
   "item.me.lorien_soldier_scale_hauberk": "Lórien Soldier Scale Hauberk",
 
   "item.me.lorien_scale_coat": "Lórien Scale Coat",
@@ -795,28 +869,86 @@
   "item.me.galadhrim_lord_leggings": "Galadhrim Lord Leggings",
   "item.me.galadhrim_lord_boots": "Galadhrim Lord Boots",
 
-  "item.me.orc_mail_coif": "Orc Mail Coif",
+  "item.me.orcish_leather_strap": "Orcish Leather Strap",
 
-  "item.me.orc_mail_hauberk": "Orc Mail Hauberk",
+  "item.me.orcish_sandals": "Orcish Sandals",
 
-  "item.me.orc_mail_coat": "Orc Mail Coat",
+  "item.me.rusted_orcish_mail_coif": "Rusted Orcish Mail Coif",
 
-  "item.me.orc_sallet": "Orc Sallet",
+  "item.me.orcish_leather_chestplate": "Orcish Leather Chestplate",
+  "item.me.orcish_leather_scale_vest": "Orcish Leather Scale Vest",
+  "item.me.rusted_orcish_mail_hauberk": "Rusted Orcish Mail Hauberk",
+  "item.me.rusted_orcish_mail_shirt": "Rusted Orcish Mail Shirt",
 
-  "item.me.orc_gorget_hauberk": "Orc Gorget Hauberk",
+  "item.me.orcish_leather_skirt": "Orcish Leather Skirt",
+  "item.me.orcish_leg_bracer": "Orcish Leg Bracer",
+  "item.me.rusted_orcish_mail_coat": "Rusted Orcish Mail Coat",
+  "item.me.rusted_orcish_reinforced_leather_skirt": "Rusted Orcish Reinforced Leather Skirt",
+  "item.me.rusted_orcish_reinforced_strip_leather_skirt": "Rusted Orcish Reinforced Strip Leather Skirt",
+  "item.me.orcish_strip_leather_skirt": "Orcish Strip Leather Skirt",
 
-  "item.me.orc_plate_boots": "Orc Plate Boots",
+  "item.me.orcish_braced_helmet": "Orcish Braced Helmet",
+  "item.me.orcish_helmet": "Orcish Helmet",
+  "item.me.orcish_mail_coif": "Orcish Mail Coif",
 
-  "item.me.mordor_orc_helmet": "Mordor Orc Helmet",
-  "item.me.mordor_orc_eye_helmet": "Mordor Orc Eye Helmet",
-  "item.me.mordor_orc_great_eye_helmet": "Mordor Orc Great Eye Helmet",
-  "item.me.mordor_orc_mandible_helmet": "Mordor Orc Mandible Helmet",
-  "item.me.mordor_orc_oversight_helmet": "Mordor Orc Oversight Helmet",
-  "item.me.mordor_orc_snout_helmet": "Mordor Orc Snout Helmet",
+  "item.me.orcish_mail_hauberk": "Orcish Mail Hauberk",
+  "item.me.orcish_mail_shirt": "Orcish Mail Shirt",
 
-  "item.me.mordor_orc_scale_coat": "Mordor Orc Scale Coat",
+  "item.me.orcish_mail_coat": "Orcish Mail Coat",
+  "item.me.orcish_reinforced_leather_skirt": "Orcish Reinforced Leather Skirt",
+  "item.me.orcish_reinforced_strip_leather_skirt": "Orcish Reinforced Strip Leather Skirt",
 
-  "item.me.mordor_orc_chestplate": "Mordor Orc Chestplate",
+  "item.me.orcish_sallet": "Orcish Sallet",
+
+  "item.me.orcish_belly_plate_chestplate": "Orcish Belly Plate Chestplate",
+  "item.me.orcish_scale_vest": "Orcish Scale Vest",
+
+  "item.me.orcish_reinforced_leg_bracer": "Orcish Reinforced Leg Bracer",
+
+  "item.me.orcish_black_fur_boots": "Orcish Black Fur Boots",
+  "item.me.orcish_brown_fur_boots": "Orcish Brown Fur Boots",
+  "item.me.orcish_gray_fur_boots": "Orcish Gray Fur Boots",
+  "item.me.orcish_tan_fur_boots": "Orcish Tan Fur Boots",
+  "item.me.orcish_white_fur_boots": "Orcish White Fur Boots",
+  "item.me.orcish_braced_sandals": "Orcish Braced Sandals",
+
+  "item.me.mordor_helmet": "Mordor Helmet",
+  "item.me.rusted_mordor_helmet": "Rusted Mordor Helmet",
+  "item.me.mordor_kettle_hat": "Mordor Kettle Hat",
+  "item.me.rusted_mordor_kettle_hat": "Rusted Mordor Kettle Hat",
+  "item.me.mordor_kettle_hat_with_coif": "Mordor Kettle Hat With Coif",
+  "item.me.rusted_mordor_kettle_hat_with_coif": "Rusted Mordor Kettle Hat With Coif",
+  "item.me.mordor_nasal_helmet": "Mordor Nasal Helmet",
+  "item.me.rusted_mordor_nasal_helmet": "Rusted Mordor Nasal Helmet",
+
+  "item.me.mordor_crest_helmet": "Mordor Crest Helmet",
+  "item.me.rusted_mordor_crest_helmet": "Rusted Mordor Crest Helmet",
+  "item.me.mordor_mandible_helmet": "Mordor Mandible Helmet",
+  "item.me.rusted_mordor_mandible_helmet": "Rusted Mordor Mandible Helmet",
+  "item.me.mordor_sallet": "Mordor Sallet",
+  "item.me.rusted_mordor_sallet": "Rusted Mordor Sallet",
+  "item.me.mordor_great_helmet": "Mordor Great Helmet",
+  "item.me.rusted_mordor_great_helmet": "Rusted Mordor Great Helmet",
+  "item.me.mordor_snout_helmet": "Mordor Snout Helmet",
+  "item.me.rusted_mordor_snout_helmet": "Rusted Mordor Snout Helmet",
+
+  "item.me.mordor_leather_cuirass": "Mordor Leather Cuirass",
+  "item.me.mordor_painted_cuirass": "Mordor Painted Cuirass",
+
+  "item.me.mordor_chestplate": "Mordor Chestplate",
+  "item.me.mordor_cuirass": "Mordor Cuirass",
+  "item.me.rusted_mordor_cuirass": "Rusted Mordor Cuirass",
+  "item.me.mordor_degraded_gondorian_chestplate": "Mordor Degraded Gondorian Chestplate",
+  "item.me.mordor_gorget_hauberk": "Mordor Gorget Hauberk",
+  "item.me.rusted_mordor_gorget_hauberk": "Rusted Mordor Gorget Hauberk",
+  "item.me.mordor_painted_leather_cuirass": "Mordor Painted Leather Cuirass",
+  "item.me.mordor_reinforced_coat": "Mordor Reinforced Coat",
+  "item.me.rusted_mordor_reinforced_coat": "Rusted Mordor Reinforced Coat",
+
+  "item.me.mordor_scale_coat": "Mordor Scale Coat",
+
+  "item.me.mordor_plate_boots": "Mordor Plate Boots",
+  "item.me.rusted_mordor_plate_boots": "Rusted Mordor Plate Boots",
 
   "item.me.black_uruk_plate_helmet": "Black Uruk Plate Helmet",
   "item.me.black_uruk_face_plate_helmet": "Black Uruk Face Plate Helmet",
@@ -827,12 +959,40 @@
   "item.me.black_uruk_commander_helmet": "Black Uruk Commander Helmet",
   "item.me.black_uruk_commander_chestplate": "Black Uruk Commander Chestplate",
 
+  "item.me.mordor_black_numenorean_plate_helmet": "Mordor Black Númenórean Plate Helmet",
+  "item.me.mordor_black_numenorean_plate_chestplate": "Mordor Black Númenórean Plate Chestplate",
+  "item.me.mordor_black_numenorean_plate_leggings": "Mordor Black Númenórean Plate Leggings",
+  "item.me.mordor_black_numenorean_plate_boots": "Mordor Black Númenórean Plate Boots",
+
+  "item.me.mordor_black_numenorean_cape": "Mordor Black Númenórean Cape",
+
   "item.me.nazgul_cloak_hood": "Nazgûl Cloak Hood",
   "item.me.nazgul_cloak": "Nazgûl Cloak",
   "item.me.nazgul_pants": "Nazgûl Pants",
   "item.me.nazgul_boots": "Nazgûl Boots",
 
   "item.me.uruk_hai_leather_scout_cap": "Uruk-Hai Leather Scout Cap",
+
+  "item.me.uruk_hai_light_helmet": "Uruk-Hai Light Helmet",
+  "item.me.uruk_hai_painted_light_helmet": "Uruk-Hai Painted Light Helmet",
+  "item.me.uruk_hai_reinforced_helmet": "Uruk-Hai Reinforced Helmet",
+  "item.me.uruk_hai_painted_reinforced_helmet": "Uruk-Hai Painted Reinforced Helmet",
+  
+  "item.me.uruk_hai_soldier_helmet": "Uruk-Hai Soldier Helmet",
+  "item.me.uruk_hai_painted_soldier_helmet": "Uruk-Hai Painted Soldier Helmet",
+
+  "item.me.uruk_hai_leather_chestplate": "Uruk-Hai Leather Chestplate",
+  "item.me.uruk_hai_painted_leather_chestplate": "Uruk-Hai Painted Leather Chestplate",
+  "item.me.uruk_hai_leather_hauberk": "Uruk-Hai Leather Hauberk",
+
+  "item.me.uruk_hai_mail_hauberk": "Uruk-Hai Mail Hauberk",
+
+  "item.me.uruk_hai_cuirass": "Uruk-Hai Cuirass",
+
+  "item.me.uruk_hai_mail_coat": "Uruk-Hai Mail Coat",
+  "item.me.uruk_hai_mail_skirt": "Uruk-Hai Mail Skirt",
+
+  "item.me.uruk_hai_boots": "Uruk-Hai Boots",
 
   "item.me.uruk_hai_plate_helmet": "Uruk-Hai Plate Helmet",
   "item.me.uruk_hai_plate_painted_helmet": "Uruk-Hai Plate Painted Helmet",
@@ -847,14 +1007,46 @@
   "item.me.uruk_hai_plate_leggings": "Uruk-Hai Plate Leggings",
   "item.me.uruk_hai_plate_boots": "Uruk-Hai Plate Boots",
 
-  "item.me.hobgoblin_chain_hauberk": "Hobgoblin Chain Hauberk",
+  "item.me.orthanc_guard_helmet": "Orthanc Guard Helmet",
+  "item.me.orthanc_commander_helmet": "Orthanc Commander Helmet",
+  "item.me.orthanc_guard_chestplate": "Orthanc Guard Chestplate",
+  "item.me.orthanc_guard_leggings": "Orthanc Guard Leggings",
+  "item.me.orthanc_guard_boots": "Orthanc Guard Boots",
+
+  "item.me.orthanc_guard_cape": "Orthanc Guard Cape",
+
+  "item.me.gundabad_bone_pauldron": "Gundabad Bone Pauldron",
+
+  "item.me.gundabad_seeker_helmet": "Gundabad Seeker Helmet",
+
+  "item.me.gundabad_leather_scale_coat": "Gundabad Leather Scale Coat",
+
+  "item.me.gundabad_leather_leggings": "Gundabad Leather Leggings",
+
+  "item.me.gundabad_laced_boots": "Gundabad Laced Boots",
+
+  "item.me.gundabad_skullcap_helmet": "Gundabad Skullcap Helmet",
+  "item.me.gundabad_mail_coif": "Gundabad Mail Coif",
+
+  "item.me.gundabad_mail_hauberk": "Gundabad Mail Hauberk",
+
+  "item.me.gundabad_mail_coat": "Gundabad Mail Coat",
+
+  "item.me.gundabad_screecher_helmet": "Gundabad Screecher Helmet",
+  "item.me.gundabad_soldier_helmet": "Gundabad Soldier Helmet",
+
+  "item.me.gundabad_reinforced_leather_scale_coat": "Gundabad Leather Reinforced Scale Coat",
+  "item.me.gundabad_reinforced_leather_vest": "Gundabad Reinforced Leather Vest",
+
+  "item.me.gundabad_captain_helmet": "Gundabad Captain Helmet",
 
   "item.me.gundabad_hobgoblin_plate_crested_helmet": "Gundabad Hobgoblin Plate Crested Helmet",
   "item.me.gundabad_hobgoblin_plate_large_crest_helmet": "Gundabad Hobgoblin Plate Large Crest Helmet",
   "item.me.gundabad_hobgoblin_plate_long_horn_helmet": "Gundabad Hobgoblin Plate Long Horn Helmet",
   "item.me.gundabad_hobgoblin_plate_small_horn_helmet": "Gundabad Hobgoblin Plate Small Horn Helmet",
   "item.me.gundabad_hobgoblin_plate_chestplate": "Gundabad Hobgoblin Plate Chestplate",
-  "item.me.gundabad_hobgoblin_chain_coat": "Gundabad Hobgoblin Chain Coat",
+
+  "item.me.gundabad_hobgoblin_mail_coat": "Gundabad Hobgoblin Mail Coat",
   "item.me.gundabad_hobgoblin_plated_boots": "Gundabad Hobgoblin Plated Boots",
   "item.me.gundabad_hobgoblin_plate_trophy_chestplate": "Gundabad Hobgoblin Plate Trophy Chestplate",
 
@@ -959,8 +1151,23 @@
   "item.me.galadhrim_shield": "Galadhirm Shield",
   "item.me.galadhrim_lord_shield": "Galadhirm Lord Shield",
 
+  "item.me.mordor_wooden_shield": "Mordor Wooden Shield",
+  "item.me.mordor_painted_wooden_shield": "Mordor Painted Wooden Shield",
+  "item.me.mordor_round_shield": "Mordor Round Shield",
+  "item.me.mordor_black_round_shield": "Mordor Black Round Shield",
+  "item.me.mordor_painted_round_shield": "Mordor Painted Round Shield",
+  "item.me.mordor_braced_shield": "Mordor Braced Shield",
+  "item.me.mordor_black_braced_shield": "Mordor Black Braced Shield",
+  "item.me.mordor_painted_braced_shield": "Mordor Painted Braced Shield",
+  "item.me.mordor_large_shield": "Mordor Large Shield",
+  "item.me.mordor_black_large_shield": "Mordor Black Large Shield",
+  "item.me.mordor_painted_large_shield": "Mordor Painted Large Shield",
+  "item.me.gondorian_converted_shield": "Gondorian Converted Shield",
+
+  "item.me.mordor_heavy_shield": "Mordor Heavy Shield",
+  "item.me.mordor_painted_heavy_shield": "Mordor Painted Heavy Shield",
+
   "item.me.black_numenorean_tower_shield": "Black Númenórean Shield",
-  "item.me.mordor_shield": "Mordor Shield",
 
   "item.me.uruk_hai_heater_shield": "Uruk-Hai Heater Shield",
   "item.me.uruk_hai_shield": "Uruk-Hai Shield",
@@ -6556,6 +6763,7 @@
   "tooltip.me.sub_faction" : "§7Sub Faction: §f",
   "tooltip.me.customizations" : "§6Custom Parts: §f",
   "tooltip.me.reach" : "Reach: ",
+  "tooltip.me.dyed" : "Dyed: ",
   "tooltip.me.artisan" : "Artisan: ",
   "tooltip.me.blocks_range" : " Blocks",
   "tooltip.me.backstab" : "§7 +50% damage when backstabbing",
@@ -6595,6 +6803,7 @@
   "tooltip.me.erebor" : "Erebor",
   "tooltip.me.lothlorien" : "Lothlórien",
   "tooltip.me.mordor" : "Mordor",
+  "tooltip.me.mordor_black_numenoreans" : "Mordor Black Númenóreans",
   "tooltip.me.misty_mountains_goblins" : "Misty Mountains Goblins",
   "tooltip.me.gundabad" : "Gundabad",
   "tooltip.me.moria_goblins" : "Moria Goblins",
@@ -6718,6 +6927,20 @@
   "tooltip.me.galadhrim_cape": "Galadhrim Cape",
   "tooltip.me.galadhrim_hood": "Galadhrim Hood",
   "tooltip.me.galadhrim_lord_surcoat": "Galadhrim Lord Surcoat",
+
+  "tooltip.me.orcish_cape": "Orcish Cape",
+  "tooltip.me.orcish_long_cape": "Orcish Long Cape",
+  "tooltip.me.orcish_shoulders": "Orcish Shoulders",
+
+  "tooltip.me.orcish_black_fur_surcoat_with_bone": "Orcish Black Fur Surcoat With Bone",
+  "tooltip.me.orcish_brown_fur_surcoat_with_bone": "Orcish Brown Fur Surcoat With Bone",
+  "tooltip.me.orcish_gray_fur_surcoat_with_bone": "Orcish Gray Fur Surcoat With Bone",
+  "tooltip.me.orcish_tan_fur_surcoat_with_bone": "Orcish Tan Fur Surcoat With Bone",
+  "tooltip.me.orcish_white_fur_surcoat_with_bone": "Orcish White Fur Surcoat With Bone",
+
+  "tooltip.me.mordor_black_numenorean_cape": "Mordor Black Númenórean Cape",
+
+  "tooltip.me.orthanc_guard_cape": "Orthanc Guard Cape",
 
 "#Comment:": "Disposition",
   "disposition.me.good" : "Good",
