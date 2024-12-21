@@ -192,6 +192,12 @@ public class ModNatureBlocks {
     public static final Block AZALEA_FLOWER_GROWTH = registerBlock("azalea_flower_growth",
             new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).burnable()), true);
+    public static final Block DRY_GROWTH = registerBlock("dry_growth",
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
+                    .mapColor(DyeColor.GREEN).burnable()), true);
+    public static final Block GREEN_GROWTH = registerBlock("green_growth",
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
+                    .mapColor(DyeColor.GREEN).burnable()), true);
     public static final Block IVY_GROWTH = registerBlock("ivy_growth",
             new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).burnable()), true);
