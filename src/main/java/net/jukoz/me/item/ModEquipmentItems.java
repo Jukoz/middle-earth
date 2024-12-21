@@ -659,6 +659,10 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
                     ModFactions.LONGBEARDS));
+    public static final Item LONGBEARD_WANDERER_COAT = registerDyeableArmorPiece("longbeard_wanderer_coat",
+            new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
+                    ModFactions.LONGBEARDS));
 
     public static final Item LONGBEARD_LEATHER_LEGGINGS = registerDyeableArmorPiece("longbeard_leather_leggings",
             new CustomLeggingsItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
@@ -680,11 +684,6 @@ public class ModEquipmentItems {
                     ModSubFactions.EREBOR));
     public static final Item EREBOR_NASAL_LEATHER_HELMET = registerArmorPiece("erebor_nasal_leather_helmet",
             new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings(),
-                    ModSubFactions.EREBOR));
-
-    public static final Item EREBOR_PARTISAN_COAT = registerDyeableArmorPiece("erebor_partisan_coat",
-            new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
                     ModSubFactions.EREBOR));
 
     public static final Item EREBOR_LEATHER_LEGGINGS = registerDyeableArmorPiece("erebor_leather_leggings",
