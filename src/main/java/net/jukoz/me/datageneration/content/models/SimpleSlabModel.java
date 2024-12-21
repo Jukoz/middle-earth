@@ -18,6 +18,7 @@ public class SimpleSlabModel {
             add(new Slab(ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT_SLAB));
             add(new Slab(ModBlocks.COBBLY_ASHEN_DIRT, ModBlocks.COBBLY_ASHEN_DIRT_SLAB));
             add(new Slab(ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_SLAB));
+            add(new Slab(ModBlocks.SNOWY_DIRT, ModBlocks.SNOWY_DIRT_SLAB));
             add(new Slab(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB));
             add(new Slab(ModBlocks.CUT_LEAD, ModBlocks.CUT_LEAD_SLAB));
             add(new Slab(ModBlocks.CUT_SILVER, ModBlocks.CUT_SILVER_SLAB));

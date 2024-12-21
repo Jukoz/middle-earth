@@ -174,6 +174,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         largeDoorDrop(ModDecorativeBlocks.GREAT_ELVEN_GATE);
         largeDoorDrop(ModDecorativeBlocks.GREAT_ORCISH_GATE);
 
+        cobbleDrops(ModBlocks.SNOWY_GRASS_BLOCK, ModBlocks.DRY_DIRT);
+
         for (SimpleRocksModel.Rocks rock : SimpleRocksModel.rocks) {
             rocksDrop(rock.rocks());
         }

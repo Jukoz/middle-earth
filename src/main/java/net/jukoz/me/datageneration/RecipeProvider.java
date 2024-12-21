@@ -487,6 +487,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createStairsRecipe(exporter, ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_SLAB);
 
+        createStairsRecipe(exporter, ModBlocks.SNOWY_DIRT, ModBlocks.SNOWY_DIRT_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.SNOWY_DIRT, ModBlocks.SNOWY_DIRT_SLAB);
+
         createPaneRecipe(exporter, Blocks.WHITE_WOOL.asItem(), ModBlocks.NET, 16);
 
         createPaneRecipe(exporter, Blocks.CUT_COPPER.asItem(), ModBlocks.COPPER_BARS, 16);
@@ -1306,6 +1309,15 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input('D', Items.DIRT)
                 .criterion(FabricRecipeProvider.hasItem(Items.MOSS_BLOCK),
                         FabricRecipeProvider.conditionsFromItem(Items.MOSS_BLOCK))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOWY_DIRT, 4)
+                .pattern("DS")
+                .pattern("SD")
+                .input('D', Items.DIRT)
+                .input('S', Items.SNOW_BLOCK)
+                .criterion(FabricRecipeProvider.hasItem(Items.DIRT),
+                        FabricRecipeProvider.conditionsFromItem(Items.DIRT))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.COBBLY_DIRT, 4)
