@@ -210,6 +210,7 @@ public class ModRegistries {
 
         registry.add(ModNatureBlocks.MIRKWOOD_ROOTS, 300);
         registry.add(ModNatureBlocks.GREEN_SHRUB, 100);
+        registry.add(ModNatureBlocks.SMALL_DRY_SHRUB, 100);
         registry.add(ModNatureBlocks.TAN_SHRUB, 100);
 
         registry.add(ModDecorativeBlocks.ROPE, 150);
@@ -329,6 +330,7 @@ public class ModRegistries {
 
         registry.add(ModNatureBlocks.TAN_SHRUB, 0.50f);
         registry.add(ModNatureBlocks.GREEN_SHRUB, 0.50f);
+        registry.add(ModNatureBlocks.SMALL_DRY_SHRUB, 0.30f);
         registry.add(ModNatureBlocks.MORGUL_IVY, 0.40f);
         registry.add(ModNatureBlocks.CORRUPTED_MOSS_CARPET, 0.30f);
         registry.add(ModNatureBlocks.CORRUPTED_MOSS_BLOCK, 0.65f);
@@ -345,6 +347,7 @@ public class ModRegistries {
 
         registry.add(ModNatureBlocks.BROWN_GRASS, 0.30f);
         registry.add(ModNatureBlocks.DYING_GRASS, 0.30f);
+        registry.add(ModNatureBlocks.GRIM_GRASS, 0.30f);
         registry.add(ModNatureBlocks.DRY_GRASS, 0.30f);
         registry.add(ModNatureBlocks.GRASS_TUFT, 0.30f);
         registry.add(ModNatureBlocks.WHEATGRASS, 0.30f);
