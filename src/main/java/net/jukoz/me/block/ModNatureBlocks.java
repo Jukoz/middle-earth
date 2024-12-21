@@ -28,9 +28,6 @@ public class ModNatureBlocks {
     public static final Block TOUGH_BERRY_BUSH = registerBlock("tough_berry_bush",
             new ToughBerryBushBlock(AbstractBlock.Settings.copy(Blocks.SWEET_BERRY_BUSH).ticksRandomly().noCollision().breakInstantly()
                     .sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), false);
-    public static final Block MORDOR_LICHEN = registerBlock("mordor_lichen",
-            new MordorPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
-                    .mapColor(DyeColor.GRAY)), true);
 
     public static final Block MORGUL_IVY = registerBlock("morgul_ivy",
             new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
@@ -105,9 +102,6 @@ public class ModNatureBlocks {
             new CustomPlantBlock(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
     public static final Block HEATHER = registerBlock("heather",
-            new CustomPlantBlock(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
-                    .mapColor(DyeColor.GREEN)), true);
-    public static final Block HEATHER_BUSH = registerBlock("heather_bush",
             new CustomPlantBlock(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
     public static final Block RED_HEATHER = registerBlock("red_heather",

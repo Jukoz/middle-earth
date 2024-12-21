@@ -329,7 +329,6 @@ public class ModRegistries {
 
         registry.add(ModNatureBlocks.TAN_SHRUB, 0.50f);
         registry.add(ModNatureBlocks.GREEN_SHRUB, 0.50f);
-        registry.add(ModNatureBlocks.MORDOR_LICHEN, 0.30f);
         registry.add(ModNatureBlocks.MORGUL_IVY, 0.40f);
         registry.add(ModNatureBlocks.CORRUPTED_MOSS_CARPET, 0.30f);
         registry.add(ModNatureBlocks.CORRUPTED_MOSS_BLOCK, 0.65f);
@@ -365,7 +364,6 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.DEAD_HEATHER, 0.30f);
         registry.add(ModNatureBlocks.DRY_HEATHER, 0.30f);
         registry.add(ModNatureBlocks.HEATH, 0.30f);
-        registry.add(ModNatureBlocks.HEATHER_BUSH, 0.65f);
         registry.add(ModNatureBlocks.GIANT_HOROKAKA, 0.65f);
         registry.add(ModNatureBlocks.HOROKAKA, 0.50f);
 
