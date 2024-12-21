@@ -1519,6 +1519,23 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(Items.OAK_SLAB))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.BELL, 1)
+                .pattern("VSV")
+                .pattern("VGV")
+                .input('S', Items.STICK)
+                .input('V', ModBlocks.STONE_VERTICAL_SLAB)
+                .input('G', Items.GOLD_INGOT)
+                .criterion(FabricRecipeProvider.hasItem(Items.GOLD_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(Items.GOLD_INGOT))
+                .offerTo(exporter);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.STICKY_SNOW, 8)
+                .input(Items.SNOWBALL, 8)
+                .input(Items.WATER_BUCKET, 1)
+                .criterion(FabricRecipeProvider.hasItem(Items.SNOWBALL),
+                        FabricRecipeProvider.conditionsFromItem(Items.SNOWBALL))
+                .offerTo(exporter);
+
         createBannerPatternRecipe(exporter, ModResourceItems.PIPEWEED, ModResourceItems.PIPEWEED_BANNER_PATTERN);
         createBannerPatternRecipe(exporter, ModNatureBlocks.LEBETHRON_SAPLING.asItem(), ModResourceItems.GONDOR_BANNER_PATTERN);
         createBannerPatternRecipe(exporter, WoodBlockSets.MALLORN.sapling().asItem(), ModResourceItems.LOTHLORIEN_BANNER_PATTERN);
