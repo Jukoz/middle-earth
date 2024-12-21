@@ -234,7 +234,7 @@ public class ModEquipmentItems {
     //region HOBBITS
     public static final Item SHIRRIFF_HAT = registerDyeableCustomModelArmorPiece("shirriff_hat",
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T1, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(3440180)),
                     ModFactions.SHIRE));
     //endregion
 
@@ -665,7 +665,7 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
                     ModFactions.LONGBEARDS));
 
-    public static final Item LONGBEARD_PARTISAN_COAT = registerDyeableArmorPiece("longbeard_partisan_coat",
+    public static final Item LONGBEARD_PARTISAN_OUTFIT = registerDyeableArmorPiece("longbeard_partisan_outfit",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5914168)),
                     ModFactions.LONGBEARDS));
