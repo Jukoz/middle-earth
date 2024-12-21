@@ -22,17 +22,17 @@ public class CapeChestplateItem extends ArmorItem implements MEEquipmentTooltip 
     public ModSubFactions subFaction;
 
     public CapeChestplateItem(Settings settings, ModFactions faction) {
-        super(ModArmorMaterials.LEATHER_T0.material(), Type.CHESTPLATE, settings
+        super(ModArmorMaterials.FABRIC_T0.material(), Type.CHESTPLATE, settings
                 .maxCount(1)
-                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.LEATHER_T0.durabilityModifier())));
+                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.FABRIC_T0.durabilityModifier())));
         this.faction = faction;
         this.subFaction = null;
     }
 
     public CapeChestplateItem(Settings settings, ModSubFactions subFaction) {
-        super(ModArmorMaterials.LEATHER_T0.material(), Type.CHESTPLATE, settings
+        super(ModArmorMaterials.FABRIC_T0.material(), Type.CHESTPLATE, settings
                 .maxCount(1)
-                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.LEATHER_T0.durabilityModifier())));
+                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.FABRIC_T0.durabilityModifier())));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
     }

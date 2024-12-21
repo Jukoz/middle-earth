@@ -7,8 +7,6 @@ import net.minecraft.util.Identifier;
 
 public class HelmetAddonModel<T extends LivingEntity> extends BipedEntityModel<T> {
 
-    public  Identifier HELMET_ADDON_TEXTURE;
-
     public HelmetAddonModel(ModelPart root) {
         super(root);
     }

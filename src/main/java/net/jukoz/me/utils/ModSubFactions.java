@@ -5,6 +5,8 @@ public enum ModSubFactions {
 
     EREBOR("erebor", ModFactions.LONGBEARDS),
 
+    MORDOR_BLACK_NUMENOREANS("mordor_black_numenoreans", ModFactions.MORDOR),
+
     GUNDABAD("gundabad", ModFactions.MISTY_MOUNTAINS_GOBLINS),
 
     ;
