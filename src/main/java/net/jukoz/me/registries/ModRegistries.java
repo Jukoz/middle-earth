@@ -11,7 +11,6 @@ import net.jukoz.me.datageneration.content.tags.LeavesSets;
 import net.jukoz.me.datageneration.content.tags.Saplings;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
-import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.recipe.ModTags;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -331,6 +330,7 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.TAN_SHRUB, 0.50f);
         registry.add(ModNatureBlocks.GREEN_SHRUB, 0.50f);
         registry.add(ModNatureBlocks.SMALL_DRY_SHRUB, 0.30f);
+        registry.add(ModNatureBlocks.FROZEN_SHRUB, 0.10f);
         registry.add(ModNatureBlocks.MORGUL_IVY, 0.40f);
         registry.add(ModNatureBlocks.CORRUPTED_MOSS_CARPET, 0.30f);
         registry.add(ModNatureBlocks.CORRUPTED_MOSS_BLOCK, 0.65f);
@@ -345,12 +345,23 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.YELLOW_FLOWER, 0.65f);
         registry.add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER, 0.65f);
 
+        registry.add(ModNatureBlocks.LIGHT_BLUE_FLOWERS, 0.65f);
+        registry.add(ModNatureBlocks.MAGENTA_FLOWERS, 0.65f);
+        registry.add(ModNatureBlocks.ORANGE_FLOWERS, 0.65f);
+        registry.add(ModNatureBlocks.PINK_FLOWERS, 0.65f);
+        registry.add(ModNatureBlocks.PURPLE_FLOWERS, 0.65f);
+        registry.add(ModNatureBlocks.RED_FLOWERS, 0.65f);
+        registry.add(ModNatureBlocks.WHITE_FLOWERS, 0.65f);
+        registry.add(ModNatureBlocks.YELLOW_FLOWERS, 0.65f);
+
         registry.add(ModNatureBlocks.BROWN_GRASS, 0.30f);
         registry.add(ModNatureBlocks.DYING_GRASS, 0.30f);
+        registry.add(ModNatureBlocks.FROZEN_GRASS, 0.10f);
         registry.add(ModNatureBlocks.GRIM_GRASS, 0.30f);
         registry.add(ModNatureBlocks.TEMPERATE_GRASS, 0.30f);
         registry.add(ModNatureBlocks.DRY_GRASS, 0.30f);
         registry.add(ModNatureBlocks.GRASS_TUFT, 0.30f);
+        registry.add(ModNatureBlocks.FROZEN_TUFT, 0.10f);
         registry.add(ModNatureBlocks.WHEATGRASS, 0.30f);
         registry.add(ModNatureBlocks.WILD_GRASS, 0.30f);
         registry.add(ModNatureBlocks.WILDERGRASS, 0.30f);

@@ -716,6 +716,7 @@ public class ModelProvider extends FabricModelProvider {
 
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.AZALEA_FLOWER_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.DRY_GROWTH);
+        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.FROZEN_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.GREEN_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.IVY_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.LILAC_FLOWER_GROWTH);
