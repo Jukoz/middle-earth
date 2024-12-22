@@ -40,7 +40,6 @@ public class HelmetArmorRenderer implements ArmorRenderer {
         this.customHelmetModel = new CustomHelmetModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_HELMET));
         this.hoodModel = new CloakHoodModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
 
-        CustomHelmetItem item = (CustomHelmetItem)stack.getItem();
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.HEAD) {
