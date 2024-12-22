@@ -209,19 +209,6 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         return (double)this.getHeight() - 0.19 + (double)(0.12F * MathHelper.cos(g * 1.5F) * 2.0F * f);
     }
 
-    @Override
-    protected Vec3d getControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput) {
-        if (this.isOnGround() && this.jumpStrength == 0.0f && this.isAngry() && !this.jumping || this.isSitting()) {
-            return Vec3d.ZERO;
-        }
-        float f = controllingPlayer.sidewaysSpeed * 0.5f;
-        float g = controllingPlayer.forwardSpeed * 0.75f;
-        if (g <= 0.0f) {
-            g *= 0.25f;
-        }
-        return new Vec3d(f, 0.0, g);
-    }
-
     public PlayerEntity getOwner() {
         if(this.getOwnerUuid() != null) {
             return getPlayerByUuid(this.getOwnerUuid());
@@ -405,6 +392,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         if(this.isTame() && this.isTamable()) {
             if(isCommandItem(itemStack) && player == getOwner()) {
                 this.setSitting(!isSitting());
+                return ActionResult.SUCCESS;
             }
 
             if (itemStack.isOf(Items.CHEST) && !this.hasChest()) {
@@ -414,15 +402,6 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
 
             if(!(isCommandItem(itemStack) || isBreedingItem(itemStack) || itemStack.isOf(Items.CHEST)) && this.isMountable()) {
                 super.interactMob(player, hand);
-            }
-        }
-
-        if (!this.hasPassengers() && !bl && this.isMountable()) {
-            if (!itemStack.isEmpty()) {
-                if (!this.hasChest() && itemStack.isOf(Items.CHEST) && this.canCarryChest()) {
-                    this.addChest(player, itemStack);
-                    return ActionResult.SUCCESS;
-                }
             }
         }
 

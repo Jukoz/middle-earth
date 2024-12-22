@@ -38,6 +38,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
@@ -151,7 +152,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
-        return 14.0f + (float)randomIntGetter.applyAsInt(6) + (float)randomIntGetter.applyAsInt(6);
+        return 12.0f + (float)randomIntGetter.applyAsInt(6) + (float)randomIntGetter.applyAsInt(6);
     }
 
     protected static double getChildAttackDamageBonus(DoubleSupplier randomDoubleGetter) {
@@ -159,7 +160,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {
-        return ((double)0.4 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25) * 0.25;
+        return ((double)0.5 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25) * 0.3;
     }
 
     @Override
@@ -250,7 +251,7 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 1.5f) : ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f);
+        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f);
     }
 
     @Override
@@ -264,7 +265,7 @@ public class WargEntity extends AbstractBeastEntity {
         float g = this.limbAnimator.getPos() * (MathHelper.PI / 180) * 18;
         float h = passenger.isSprinting() ? 1 : 0;
 
-        double y = (MathHelper.cos(g * 2 * 1.2f - (MathHelper.PI * (h - 1))) * f * (0.06 + (0.035 * h))) - 0.1;
+        double y = (MathHelper.cos(g * 2 * 1.2f - (MathHelper.PI * (h - 1))) * (0.06 + (0.035 * h)));
 
         return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
     }
@@ -284,10 +285,6 @@ public class WargEntity extends AbstractBeastEntity {
 
             this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
         }
-        else if (--idleAnimationTimeout <= 0 && !this.isTame()){
-            this.setSitting(!this.isSitting());
-            this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
-        }
 
         if(!this.isAttacking() && this.getAttacker() == null) {
             this.setRunning(false);
@@ -301,11 +298,12 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected void setupAnimationStates() {
         if(this.isSitting()) {
+            this.stopSittingAnimationState.stop();
             this.startSittingAnimationState.startIfNotRunning(this.age);
         }
-        if(!this.isSitting() && this.startSittingAnimationState.isRunning()) {
+        else {
             this.startSittingAnimationState.stop();
-            this.stopSittingAnimationState.start(this.age);
+            this.stopSittingAnimationState.startIfNotRunning(this.age);
         }
     }
 
@@ -339,13 +337,13 @@ public class WargEntity extends AbstractBeastEntity {
         for(Entity entity : entities) {
             if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
                 entity.damage(entity.getDamageSources().mobAttack(this), this.getAttackDamage());
-                if(entity.hasVehicle()) {
-                    if(entity instanceof PlayerEntity) {
-                        entity.stopRiding();
-                    }
-                    else {
-                        entity.dismountVehicle();
-                    }
+
+                if(entity instanceof ServerPlayerEntity) {
+                    entity.stopRiding();
+                }
+                else if(!this.getWorld().isClient) {
+                    entity.dismountVehicle();
+                    entity.removeAllPassengers();
                 }
 
                 this.setCharging(false);
