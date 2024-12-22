@@ -238,6 +238,26 @@ public class ModWeaponItems {
     public static final Item DALISH_NOBLE_SPEAR = registerItemWithSpearModel("dalish_noble_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE));
 
+    public static final Item DALISH_BLUE_OVAL_SHIELD = registerShield("dalish_blue_oval_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.DALE));
+    public static final Item DALISH_RED_OVAL_SHIELD = registerShield("dalish_red_oval_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.DALE));
+    public static final Item DALISH_BARDING_OVAL_SHIELD = registerShield("dalish_barding_oval_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.DALE));
+
+    public static final Item DALISH_BLUE_BRACED_SHIELD = registerShield("dalish_blue_braced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.DALE));
+    public static final Item DALISH_RED_BRACED_SHIELD = registerShield("dalish_red_braced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.DALE));
+    public static final Item DALISH_BARDING_BRACED_SHIELD = registerShield("dalish_barding_braced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.DALE));
+
+    public static final Item DALISH_HEAVY_SHIELD = registerShield("dalish_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.DALE));
+    public static final Item DALISH_BARDING_HEAVY_SHIELD = registerShield("dalish_barding_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.DALE));
+    public static final Item DALISH_ROYAL_HEAVY_SHIELD = registerShield("dalish_royal_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.DALE));
     public static final Item DALISH_HEYDAY_ROUND_SHIELD = registerShield("dalish_heyday_round_shield",
             new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.DALE));
     //endregion

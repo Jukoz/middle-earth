@@ -1135,6 +1135,18 @@
   "item.me.gondorian_knight_shield": "Gondorian Knight Shield",
   "item.me.gondorian_ornamented_knight_shield": "Gondorian Ornamented Knight Shield",
 
+  "item.me.dalish_blue_braced_shield": "Dalish Blue Braced Shield",
+  "item.me.dalish_red_braced_shield": "Dalish Red Braced Shield",
+  "item.me.dalish_barding_braced_shield": "Dalish Barding Braced Shield",
+
+  "item.me.dalish_blue_oval_shield": "Dalish Blue Oval Shield",
+  "item.me.dalish_red_oval_shield": "Dalish Red Oval Shield",
+  "item.me.dalish_barding_oval_shield": "Dalish Barding Oval Shield",
+
+  "item.me.dalish_heavy_shield": "Dalish Heavy Shield",
+  "item.me.dalish_barding_heavy_shield": "Dalish Barding Heavy Shield",
+  "item.me.dalish_royal_heavy_shield": "Dalish Royal Heavy Shield",
+
   "item.me.dalish_heyday_round_shield": "Dalish Heyday Round Shield",
 
   "item.me.erebor_shield": "Erebor Shield",

@@ -1,0 +1,11 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "me:item/dalish_heavy_shield_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"2": "me:item/dalish_royal_heavy_shield"
+	},
+	"overrides": [
+		{"predicate": {"blocking": 1}, "model": "me:item/dalish_royal_heavy_shield_blocking"}
+	]
+}
