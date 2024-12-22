@@ -2458,6 +2458,12 @@
   "block.me.chiseled_galonn_tiles": "Chiseled Galonn Tiles",
   "block.me.chiseled_smooth_galonn": "Chiseled Smooth Galonn",
 
+  "block.me.galonn_brickwork": "Galonn Brickwork",
+  "block.me.galonn_brickwork_slab": "Galonn Brickwork Slab",
+  "block.me.galonn_brickwork_vertical_slab": "Galonn Brickwork Vertical Slab",
+  "block.me.galonn_brickwork_stairs": "Galonn Brickwork Stairs",
+  "block.me.galonn_brickwork_wall": "Galonn Brickwork Wall",
+
   "block.me.galonn_pressure_plate": "Galonn Pressure Plate",
   "block.me.galonn_button": "Galonn Button",
   "block.me.galonn_trapdoor": "Galonn Trapdoor",
