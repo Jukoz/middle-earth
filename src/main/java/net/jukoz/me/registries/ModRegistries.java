@@ -348,6 +348,7 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.BROWN_GRASS, 0.30f);
         registry.add(ModNatureBlocks.DYING_GRASS, 0.30f);
         registry.add(ModNatureBlocks.GRIM_GRASS, 0.30f);
+        registry.add(ModNatureBlocks.TEMPERATE_GRASS, 0.30f);
         registry.add(ModNatureBlocks.DRY_GRASS, 0.30f);
         registry.add(ModNatureBlocks.GRASS_TUFT, 0.30f);
         registry.add(ModNatureBlocks.WHEATGRASS, 0.30f);
