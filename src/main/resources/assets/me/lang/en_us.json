@@ -45,7 +45,9 @@
   "advancements.smithing.burzum_steel.description": "Forge the mighty Búrzum-Steel",
   "advancements.smithing.orcish_treated_anvil.title": "Touched by Shadow",
   "advancements.smithing.orcish_treated_anvil.description": "Craft an Orcish anvil to create Orcish items",
-  "advancements.smithing.dwarven_lantern.title": "Light of Khazad-dûm",
+  "advancements.smithing.crystal_lamp.title": "Light of Khazad-dûm",
+  "advancements.smithing.crystal_lamp.description": "Craft a crystal lamp",
+  "advancements.smithing.dwarven_lantern.title": "A light in the dark",
   "advancements.smithing.dwarven_lantern.description": "Craft a dwarven lantern",
   "advancements.smithing.elven_lantern.title": "Light of the Elves",
   "advancements.smithing.elven_lantern.description": "Light your way like the Quendi",
@@ -2456,6 +2458,12 @@
   "block.me.chiseled_galonn_tiles": "Chiseled Galonn Tiles",
   "block.me.chiseled_smooth_galonn": "Chiseled Smooth Galonn",
 
+  "block.me.galonn_brickwork": "Galonn Brickwork",
+  "block.me.galonn_brickwork_slab": "Galonn Brickwork Slab",
+  "block.me.galonn_brickwork_vertical_slab": "Galonn Brickwork Vertical Slab",
+  "block.me.galonn_brickwork_stairs": "Galonn Brickwork Stairs",
+  "block.me.galonn_brickwork_wall": "Galonn Brickwork Wall",
+
   "block.me.galonn_pressure_plate": "Galonn Pressure Plate",
   "block.me.galonn_button": "Galonn Button",
   "block.me.galonn_trapdoor": "Galonn Trapdoor",
@@ -3991,6 +3999,12 @@
   "block.me.mire_bricks_stairs": "Mire Brick Stairs",
   "block.me.mire_bricks_wall": "Mire Brick Wall",
 
+  "block.me.snowy_grass_block": "Snowy Grass Block",
+
+  "block.me.snowy_dirt": "Snowy Dirt",
+  "block.me.snowy_dirt_slab": "Snowy Dirt Slab",
+  "block.me.snowy_dirt_stairs": "Snowy Dirt Stairs",
+
   "block.me.cobbly_dirt": "Cobbly Dirt",
   "block.me.cobbly_dirt_slab": "Cobbly Dirt Slab",
   "block.me.cobbly_dirt_stairs": "Cobbly Dirt Stairs",
@@ -4539,7 +4553,7 @@
   "block.me.white_palm_shingles_stairs": "White Palm Shingles Stairs",
   "block.me.white_palm_shingles_slab": "White Palm Shingles Slab",
   "block.me.white_palm_shingles_vertical_slab": "White Palm Shingles Vertical Slab",
-  "block.me.white_palm_shingles_wall": "Palm Shingles Wall",
+  "block.me.white_palm_shingles_wall": "White Palm Shingles Wall",
   "block.me.white_palm_roofing": "White Palm Roofing",
   "block.me.white_palm_roofing_stairs": "White Palm Roofing Stairs",
   "block.me.white_palm_roofing_slab": "White Palm Roofing Slab",
@@ -5313,6 +5327,7 @@
 
   "block.me.sconce": "Sconce",
   "block.me.gilded_sconce": "Gilded Sconce",
+  "block.me.orcish_sconce": "Orcish Sconce",
 
   "block.me.candle_heap": "Candle Heap",
 
@@ -5359,9 +5374,10 @@
 "#Comment:": "Block - Plants",
   "block.me.brown_grass": "Brown Grass",
   "block.me.green_shrub": "Green Shrub",
+  "block.me.small_dry_shrub": "Small Dry Shrub",
+  "block.me.frozen_shrub": "Frozen Shrub",
   "block.me.mallos": "Mallos",
   "block.me.elanor": "Elanor",
-  "block.me.mordor_lichen": "Mordor Lichen",
   "block.me.morgul_ivy": "Morgul Ivy",
   "block.me.hanging_cobweb": "Hanging Cobweb",
   "block.me.corner_cobweb": "Corner Cobweb",
@@ -5376,11 +5392,14 @@
   "block.me.reeds": "Reeds",
   "block.me.dry_grass": "Dry Grass",
   "block.me.dying_grass": "Dying Grass",
+  "block.me.frozen_grass": "Frozen Grass",
+  "block.me.grim_grass": "Grim Grass",
+  "block.me.temperate_grass": "Temperate Grass",
   "block.me.grass_tuft": "Grass Tuft",
+  "block.me.frozen_tuft": "Frozen Tuft",
   "block.me.heather": "Heather",
   "block.me.dead_heather": "Dead Heather",
   "block.me.dry_heather": "Dry Heather",
-  "block.me.heather_bush": "Heather Bush",
   "block.me.red_heather": "Red Heather",
   "block.me.heath": "Heath",
   "block.me.wheatgrass": "Wheatgrass",
@@ -5411,12 +5430,24 @@
   "block.me.small_flowering_lily_pads": "Small Flowering Lily Pads",
 
   "block.me.azalea_flower_growth": "Azalea Flower Growth",
+  "block.me.dry_growth": "Dry Growth",
+  "block.me.frozen_growth": "Frozen Growth",
+  "block.me.green_growth": "Green Growth",
   "block.me.ivy_growth": "Ivy Growth",
   "block.me.lilac_flower_growth": "Lilac Flower Growth",
   "block.me.pink_flower_growth": "Pink Flower Growth",
   "block.me.red_flower_growth": "Red Flower Growth",
   "block.me.white_flower_growth": "White Flower Growth",
   "block.me.yellow_flower_growth": "Yellow Flower Growth",
+
+  "block.me.light_blue_flowers": "Light Blue Flowers",
+  "block.me.magenta_flowers": "Magenta Flowers",
+  "block.me.orange_flowers": "Orange Flowers",
+  "block.me.pink_flowers": "Pink Flowers",
+  "block.me.purple_flowers": "Purple Flowers",
+  "block.me.red_flowers": "Red Flowers",
+  "block.me.white_flowers": "White Flowers",
+  "block.me.yellow_flowers": "Yellow Flowers",
 
   "block.me.strawberry_bush": "Strawberry Bush",
   "block.me.tan_shrub": "Tan Shrub",
@@ -5747,6 +5778,12 @@
 
 "#Comment:": "Block - Misc",
   "block.me.sticky_snow": "Sticky Snow",
+  "block.me.sticky_ice": "Sticky Ice",
+
+  "block.me.floating_ice": "Floating Ice",
+
+  "block.me.short_icicles": "Short Icicles",
+  "block.me.drooping_icicles": "Drooping Icicles",
 
   "block.me.river_sand": "River Sand",
   "block.me.black_sand": "Black Sand",
@@ -7118,6 +7155,7 @@
   "alert.me.hood_up": "Hood up.",
 
   "alert.me.seat.occupied": "This seat is occupied.",
+  "alert.me.seat.space_not_empty": "Block above the seat is not empty.",
 
 "#Comment": "Events",
   "event.me.join.faction.success": "You have joined %s",

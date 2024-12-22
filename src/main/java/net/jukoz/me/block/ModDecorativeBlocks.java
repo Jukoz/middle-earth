@@ -16,6 +16,8 @@ import net.jukoz.me.block.special.shapingAnvil.orcishTreatedAnvil.OrcishTreatedA
 import net.jukoz.me.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
 import net.jukoz.me.block.special.statues.StatueBlock;
 import net.jukoz.me.block.special.toggeable_lights.*;
+import net.jukoz.me.block.special.torches.METorchBlock;
+import net.jukoz.me.block.special.torches.MEWallTorchBlock;
 import net.jukoz.me.block.special.wood_pile.WoodPileBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
@@ -485,14 +487,19 @@ public class ModDecorativeBlocks {
             new BonfireBlock(AbstractBlock.Settings.copy(Blocks.CAMPFIRE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block SCONCE = registerBlock("sconce",
-            new SconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
+            new METorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block WALL_SCONCE = registerBlock("wall_sconce",
-            new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
+            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block GILDED_SCONCE = registerBlock("gilded_sconce",
-            new SconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
+            new METorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block GILDED_WALL_SCONCE = registerBlock("gilded_wall_sconce",
-            new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
+            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+
+    public static final Block ORCISH_SCONCE = registerBlock("orcish_sconce",
+            new METorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+    public static final Block ORCISH_WALL_SCONCE = registerBlock("orcish_wall_sconce",
+            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block GROUND_BOOK = registerBlockWithItem("ground_book",
             new GroundBookBlock(AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision()));

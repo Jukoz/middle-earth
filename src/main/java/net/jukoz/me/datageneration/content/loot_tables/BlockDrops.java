@@ -23,8 +23,15 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WOOD_PILE);
             add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
+
             add(ModDecorativeBlocks.SCONCE);
+            add(ModDecorativeBlocks.WALL_SCONCE);
+
             add(ModDecorativeBlocks.GILDED_SCONCE);
+            add(ModDecorativeBlocks.GILDED_WALL_SCONCE);
+
+            add(ModDecorativeBlocks.ORCISH_SCONCE);
+            add(ModDecorativeBlocks.ORCISH_WALL_SCONCE);
 
             add(ModDecorativeBlocks.ROPE);
 
@@ -96,10 +103,21 @@ public class BlockDrops {
             add(ModNatureBlocks.HOROKAKA);
             add(ModNatureBlocks.GIANT_HOROKAKA);
 
+            add(ModNatureBlocks.LIGHT_BLUE_FLOWERS);
+            add(ModNatureBlocks.MAGENTA_FLOWERS);
+            add(ModNatureBlocks.ORANGE_FLOWERS);
+            add(ModNatureBlocks.PINK_FLOWERS);
+            add(ModNatureBlocks.PURPLE_FLOWERS);
+            add(ModNatureBlocks.RED_FLOWERS);
+            add(ModNatureBlocks.WHITE_FLOWERS);
+            add(ModNatureBlocks.YELLOW_FLOWERS);
+
             add(ModNatureBlocks.SMALL_LILY_PADS);
             add(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS);
             add(ModNatureBlocks.LILY_PADS);
             add(ModNatureBlocks.DUCKWEED);
+
+            add(ModNatureBlocks.FLOATING_ICE);
 
             add(ModDecorativeBlocks.OAK_LADDER);
             add(ModDecorativeBlocks.SPRUCE_LADDER);

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/coral_fan",
-  "textures": {
-    "fan": "me:block/mordor_lichen_fan"
-  }
-}

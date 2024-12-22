@@ -370,6 +370,9 @@ public class ModBlocks {
     public static final Block WATTLE_TRAPDOOR = registerStoneBlock("wattle_trapdoor",
             new TrapdoorBlock(BlockSetType.OAK, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR)), true);
 
+    public static final Block SNOWY_GRASS_BLOCK = registerMiscBlock("snowy_grass_block",
+            new Block(AbstractBlock.Settings.copy(Blocks.GRASS_BLOCK)),false);
+
     public static final Block GRASSY_DIRT = registerMiscBlock("grassy_dirt",
             new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
     public static final Block GRASSY_DIRT_SLAB = registerMiscBlock("grassy_dirt_slab",
@@ -392,6 +395,13 @@ public class ModBlocks {
             new StairsBlock(TURF.getDefaultState(), AbstractBlock.Settings.copy(TURF)),true);
     public static final Block TURF_VERTICAL_SLAB = registerMiscBlock("turf_vertical_slab",
             new VerticalSlabBlock(AbstractBlock.Settings.copy(TURF)),true);
+
+    public static final Block SNOWY_DIRT = registerMiscBlock("snowy_dirt",
+            new Block(AbstractBlock.Settings.copy(Blocks.COARSE_DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
+    public static final Block SNOWY_DIRT_SLAB = registerMiscBlock("snowy_dirt_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(SNOWY_DIRT)),true);
+    public static final Block SNOWY_DIRT_STAIRS = registerMiscBlock("snowy_dirt_stairs",
+            new StairsBlock(SNOWY_DIRT.getDefaultState(), AbstractBlock.Settings.copy(SNOWY_DIRT)),true);
 
     public static final Block COBBLY_DIRT = registerMiscBlock("cobbly_dirt",
             new Block(AbstractBlock.Settings.copy(Blocks.COARSE_DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);

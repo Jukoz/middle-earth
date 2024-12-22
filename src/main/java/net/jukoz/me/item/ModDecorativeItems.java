@@ -32,6 +32,8 @@ public class ModDecorativeItems {
             new VerticallyAttachableBlockItem(ModDecorativeBlocks.SCONCE, ModDecorativeBlocks.WALL_SCONCE, new Item.Settings(), Direction.DOWN));
     public static final Item GILDED_SCONCE = registerItem("gilded_sconce",
             new VerticallyAttachableBlockItem(ModDecorativeBlocks.GILDED_SCONCE, ModDecorativeBlocks.GILDED_WALL_SCONCE, new Item.Settings(), Direction.DOWN));
+    public static final Item ORCISH_SCONCE = registerItem("orcish_sconce",
+            new VerticallyAttachableBlockItem(ModDecorativeBlocks.ORCISH_SCONCE, ModDecorativeBlocks.ORCISH_WALL_SCONCE, new Item.Settings(), Direction.DOWN));
 
     public static final Item FORGE = registerItem("forge",
             new BlockItem(ModDecorativeBlocks.FORGE, new Item.Settings()));

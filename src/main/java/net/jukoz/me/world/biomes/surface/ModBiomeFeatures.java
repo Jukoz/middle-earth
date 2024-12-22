@@ -530,18 +530,12 @@ public class ModBiomeFeatures {
     public static void addRareHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_RARE_HEATHER);
     }
-    public static void addHeatherBush(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_HEATHER_BUSH);
-    }
-    public static void addCommonHeatherBush(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_HEATHER_BUSH);
-    }
     public static void addHorokaka(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_HOROKAKA);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_GIANT_HOROKAKA);
     }
     public static void addRedHeather(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_HEATHER_BUSH);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_RED_HEATHER);
     }
     public static void addShriveledShrubs(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SHRIVELED_SHRUB);
@@ -575,9 +569,6 @@ public class ModBiomeFeatures {
     }
     public static void addSmallFloweringLilyPads(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SMALL_FLOWERING_LILY_PADS);
-    }
-    public static void addMordorLichen(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_MORDOR_LICHEN);
     }
     public static void addMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_MOSS);

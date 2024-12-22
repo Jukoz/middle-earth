@@ -715,12 +715,17 @@ public class ModelProvider extends FabricModelProvider {
         registerOrientableTrapdoorLadder(blockStateModelGenerator, ModDecorativeBlocks.ROPE_LADDER);
 
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.AZALEA_FLOWER_GROWTH);
+        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.DRY_GROWTH);
+        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.FROZEN_GROWTH);
+        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.GREEN_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.IVY_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.LILAC_FLOWER_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.PINK_FLOWER_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.RED_FLOWER_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.WHITE_FLOWER_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
+
+        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.STICKY_ICE);
     }
 
     public final void registerFanModel(BlockStateModelGenerator blockStateCollector, Block coralFanBlock) {

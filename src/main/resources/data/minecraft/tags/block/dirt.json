@@ -12,9 +12,11 @@
     "me:mire",
     "me:grassy_dirt",
     "me:cobbly_dirt",
+    "me:snowy_dirt",
     "me:turf",
     "me:turf_slab",
     "me:turf_stairs",
-    "me:turf_vertical_slab"
+    "me:turf_vertical_slab",
+    "me:snowy_grass_block"
   ]
 }

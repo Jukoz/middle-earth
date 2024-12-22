@@ -1,15 +1,15 @@
 {
 	"credit": "Made with Blockbench",
-	"texture_size": [22, 22],
 	"ambientocclusion": false,
+	"texture_size": [32, 32],
 	"textures": {
 		"0": "me:block/dead_rushes",
 		"particle": "me:block/dead_rushes"
 	},
 	"elements": [
 		{
-			"from": [19, 0, -3],
-			"to": [19, 22, 19],
+			"from": [19, 0, -8],
+			"to": [19, 32, 24],
 			"rotation": {"angle": 45, "axis": "y", "origin": [19, 0, 19], "rescale": true},
 			"faces": {
 				"north": {"uv": [0, 0, 0, 16], "texture": "#0"},
@@ -21,8 +21,8 @@
 			}
 		},
 		{
-			"from": [-3, 0, -3],
-			"to": [19, 22, -3],
+			"from": [-8, 0, -3],
+			"to": [24, 32, -3],
 			"rotation": {"angle": 45, "axis": "y", "origin": [19, 0, -3], "rescale": true},
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#0"},
