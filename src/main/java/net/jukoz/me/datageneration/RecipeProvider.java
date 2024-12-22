@@ -1548,6 +1548,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(Items.SNOWBALL))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.STICKY_ICE, 4)
+                .pattern("II")
+                .pattern("II")
+                .input('I', Items.ICE)
+                .criterion(FabricRecipeProvider.hasItem(Items.ICE),
+                        FabricRecipeProvider.conditionsFromItem(Items.ICE))
+                .offerTo(exporter);
+
         createBannerPatternRecipe(exporter, ModResourceItems.PIPEWEED, ModResourceItems.PIPEWEED_BANNER_PATTERN);
         createBannerPatternRecipe(exporter, ModNatureBlocks.LEBETHRON_SAPLING.asItem(), ModResourceItems.GONDOR_BANNER_PATTERN);
         createBannerPatternRecipe(exporter, WoodBlockSets.MALLORN.sapling().asItem(), ModResourceItems.LOTHLORIEN_BANNER_PATTERN);

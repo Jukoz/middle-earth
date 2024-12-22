@@ -53,8 +53,19 @@ public class ModNatureBlocks {
                     .mapColor(DyeColor.GREEN).burnable()), true);
 
     public static final Block STICKY_SNOW = registerBlock("sticky_snow",
-            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision()
-                    .strength(0.2f).sounds(BlockSoundGroup.SNOW).mapColor(DyeColor.GREEN).burnable()), true);
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.WHITE).replaceable().noCollision()
+                    .strength(0.2f).sounds(BlockSoundGroup.SNOW)), true);
+    public static final Block STICKY_ICE = registerBlock("sticky_ice",
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).replaceable().noCollision()
+                    .strength(0.2f).sounds(BlockSoundGroup.GLASS)), true);
+
+    public static final Block SHORT_ICICLES = registerBlock("short_icicles",
+            new ShortIciclesBlock(AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).noCollision()
+                    .strength(0.2f).sounds(BlockSoundGroup.GLASS)), true);
+
+    public static final Block DROOPING_ICICLES = registerBlock("drooping_icicles",
+            new DroopingIciclesBlock(AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).noCollision()
+                    .strength(0.2f).sounds(BlockSoundGroup.GLASS)), true);
 
     public static final Block FOREST_MOSS = registerBlock("forest_moss",
             new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
@@ -273,6 +284,9 @@ public class ModNatureBlocks {
             new MushroomBlock(AbstractBlock.Settings.copy(Blocks.BROWN_MUSHROOM_BLOCK)), true);
     public static final Block YELLOW_AMANITA_BLOCK = registerBlock("yellow_amanita_block",
             new MushroomBlock(AbstractBlock.Settings.copy(Blocks.BROWN_MUSHROOM_BLOCK)), true);
+
+    public static final Block FLOATING_ICE = registerBlock("floating_ice",
+            new FloatingIceBlock(AbstractBlock.Settings.copy(Blocks.ICE)), false);
 
     public static final Block BEECH_SAPLING = registerSimpleSapling("beech_sapling", ModTreeConfiguredFeatures.BEECH_TREE_KEY);
     public static final Block CHESTNUT_SAPLING = registerSimpleSapling("chestnut_sapling", ModTreeConfiguredFeatures.CHESTNUT_TREE_KEY);

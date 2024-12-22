@@ -723,6 +723,8 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.RED_FLOWER_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.WHITE_FLOWER_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
+
+        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.STICKY_ICE);
     }
 
     public final void registerFanModel(BlockStateModelGenerator blockStateCollector, Block coralFanBlock) {

@@ -5758,6 +5758,12 @@
 
 "#Comment:": "Block - Misc",
   "block.me.sticky_snow": "Sticky Snow",
+  "block.me.sticky_ice": "Sticky Ice",
+
+  "block.me.floating_ice": "Floating Ice",
+
+  "block.me.short_icicles": "Short Icicles",
+  "block.me.drooping_icicles": "Drooping Icicles",
 
   "block.me.river_sand": "River Sand",
   "block.me.black_sand": "Black Sand",

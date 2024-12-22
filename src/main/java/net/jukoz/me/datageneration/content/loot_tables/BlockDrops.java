@@ -108,6 +108,8 @@ public class BlockDrops {
             add(ModNatureBlocks.LILY_PADS);
             add(ModNatureBlocks.DUCKWEED);
 
+            add(ModNatureBlocks.FLOATING_ICE);
+
             add(ModDecorativeBlocks.OAK_LADDER);
             add(ModDecorativeBlocks.SPRUCE_LADDER);
             add(ModDecorativeBlocks.BIRCH_LADDER);
