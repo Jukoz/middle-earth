@@ -75,29 +75,6 @@ public class DroopingIciclesBlock extends Block {
         }
     }
 
-    /*public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient && (player.isCreative() || !player.canHarvest(state))) {
-            DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.get(HALF);
-            if (doubleBlockHalf == DoubleBlockHalf.LOWER) {
-                BlockPos blockPos = pos.up();
-                BlockState blockState = world.getBlockState(blockPos);
-                if (blockState.isOf(state.getBlock()) && blockState.get(HALF) == DoubleBlockHalf.UPPER) {
-                    world.setBlockState(blockPos,  Blocks.AIR.getDefaultState(), 35);
-                    world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
-                }
-            } else{
-                BlockPos blockPos = pos.down();
-                BlockState blockState = world.getBlockState(blockPos);
-                if (blockState.isOf(state.getBlock()) && blockState.get(HALF) == DoubleBlockHalf.LOWER) {
-                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
-                    world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
-                }
-            }
-        }
-
-        return super.onBreak(world, pos, state, player);
-    }*/
-
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         if (state.get(HALF) == DoubleBlockHalf.UPPER){
             return super.getOutlineShape(state, world, pos, context);
