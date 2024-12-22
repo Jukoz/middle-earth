@@ -362,7 +362,7 @@ public class ModEquipmentItems {
                     ModFactions.GONDOR));
 
     public static final Item GONDORIAN_HORSE_ARMOR = registerGeneratedItem("gondorian_horse_armor",
-            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.GONDOR));
+            new CustomHorseArmorItem(ModArmorMaterials.GONDORIAN_HORSE_ARMOR.material(), AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.GONDOR));
 
     //endregion
 
@@ -496,7 +496,7 @@ public class ModEquipmentItems {
                     ModFactions.ROHAN));
 
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
-            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.ROHAN));
+            new CustomHorseArmorItem(ModArmorMaterials.ROHIRRIC_HORSE_ARMOR.material(), AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.ROHAN));
     //endregion
 
     //region DALE
@@ -597,6 +597,10 @@ public class ModEquipmentItems {
             new CapeChestplateItem(new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BARDING_SERGEANT_CAPE)),
                     ModFactions.DALE));
+
+    public static final Item DALISH_HORSE_ARMOR = registerGeneratedItem("dalish_horse_armor",
+            new CustomHorseArmorItem(ModArmorMaterials.DALISH_HORSE_ARMOR.material(), AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.DALE));
+
     //endregion
 
     //endregion
@@ -985,7 +989,7 @@ public class ModEquipmentItems {
                     ModFactions.LOTHLORIEN));
 
     public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
-            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.LOTHLORIEN));
+            new CustomHorseArmorItem(ModArmorMaterials.LORIEN_HORSE_ARMOR.material(), AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.LOTHLORIEN));
 
     //endregion
     //endregion

@@ -58,6 +58,11 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial MAIL = registerArmor("mail", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, Items.IRON_INGOT);
     public static final ExtendedArmorMaterial PLATE = registerArmor("plate", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.STEEL_INGOT);
 
+    public static final ExtendedArmorMaterial GONDORIAN_HORSE_ARMOR = registerArmor("gondorian", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.STEEL_INGOT);
+    public static final ExtendedArmorMaterial ROHIRRIC_HORSE_ARMOR = registerArmor("rohirric", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.STEEL_INGOT);
+    public static final ExtendedArmorMaterial DALISH_HORSE_ARMOR = registerArmor("dalish", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.STEEL_INGOT);
+    public static final ExtendedArmorMaterial LORIEN_HORSE_ARMOR = registerArmor("lorien", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.STEEL_INGOT);
+
 
     private static ExtendedArmorMaterial registerArmor(String name, Tiers tier, RegistryEntry<SoundEvent> equipSound, Item repairIngredient) {
         EnumMap<ArmorItem.Type, Integer> map = new EnumMap<>(ArmorItem.Type.class);
