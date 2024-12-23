@@ -318,6 +318,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     @Override
     protected void jump(float strength, Vec3d movementInput) {
         if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
+            this.setChargeTimeout(30);
             double d = this.getJumpVelocity(strength);
             Vec3d vec3d = this.getVelocity().multiply(4);
             this.setVelocity(vec3d.x, d, vec3d.z);
