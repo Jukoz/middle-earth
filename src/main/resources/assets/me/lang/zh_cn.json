@@ -46,7 +46,9 @@
   "advancements.smithing.burzum_steel.description": "制作出强而有力的布祖姆钢锭",
   "advancements.smithing.orcish_treated_anvil.title": "魔影的短暂触及",
   "advancements.smithing.orcish_treated_anvil.description": "制作一个奥克精制铁砧，以锻造奥克的装备",
-  "advancements.smithing.dwarven_lantern.title": "卡扎督姆之光",
+  "advancements.smithing.crystal_lamp.title": "卡扎督姆之光",
+  "advancements.smithing.crystal_lamp.description": "制作一个水晶灯笼",
+  "advancements.smithing.dwarven_lantern.title": "暗中微芒",
   "advancements.smithing.dwarven_lantern.description": "制作一个矮人灯笼",
   "advancements.smithing.elven_lantern.title": "费艾诺之光",
   "advancements.smithing.elven_lantern.description": "像昆迪那般照亮前路",
@@ -246,11 +248,9 @@
   "item.me.gold_ring": "金戒指",
   "item.me.middle_earth_map": "中洲地图",
   "item.me.ash": "灰烬",
-  "item.me.iron_chainmail": "铁锁链甲片",
 
   "#Comment:": "物品 - 生物掉落",
   "item.me.dirty_bone": "奥克骨头",
-  "item.me.warg_fur": "座狼毛皮",
   "item.me.fang": "獠牙",
 
   "#Comment:": "物品 - 水晶瓶",
@@ -338,8 +338,8 @@
   "item.me.great_axe_head": "巨斧头",
   "item.me.sword_hilt": "剑柄",
 
-  "item.me.chainmail_ring": "锁链甲环",
-  "item.me.chainmail": "锁链甲片",
+  "item.me.mail_ring": "锁链甲环",
+  "item.me.mail": "锁链甲片",
   "item.me.scale": "鳞片甲粒",
   "item.me.scale_mail": "鳞片甲片",
   "item.me.armor_plate": "盔甲板材",
@@ -550,11 +550,11 @@
   "item.me.tan_fur_cloak": "褐色毛皮斗篷",
   "item.me.white_fur_cloak": "白色毛皮斗篷",
 
-  "item.me.black_fur": "黑色毛皮",
-  "item.me.brown_fur": "棕色毛皮",
-  "item.me.gray_fur": "灰色毛皮",
-  "item.me.tan_fur": "褐色毛皮",
-  "item.me.white_fur": "白色毛皮",
+  "item.me.black_fur": "黑色毛皮披肩",
+  "item.me.brown_fur": "棕色毛皮披肩",
+  "item.me.gray_fur": "灰色毛皮披肩",
+  "item.me.tan_fur": "褐色毛皮披肩",
+  "item.me.white_fur": "白色毛皮披肩",
 
   "item.me.surcoat": "罩衣",
 
@@ -583,6 +583,16 @@
   "item.me.galadhrim_hood": "加拉兹民兜帽",
   "item.me.galadhrim_lord_surcoat": "加拉兹民领主罩衣",
 
+  "item.me.orcish_cape": "奥克披风",
+  "item.me.orcish_long_cape": "奥克长披风",
+  "item.me.orcish_shoulders": "奥克披肩",
+
+  "item.me.orcish_black_fur_surcoat_with_bone": "奥克具骨罩衣 (黑色毛皮)",
+  "item.me.orcish_brown_fur_surcoat_with_bone": "奥克具骨罩衣 (棕色毛皮)",
+  "item.me.orcish_gray_fur_surcoat_with_bone": "奥克具骨罩衣 (灰色毛皮)",
+  "item.me.orcish_tan_fur_surcoat_with_bone": "奥克具骨罩衣 (褐色毛皮)",
+  "item.me.orcish_white_fur_surcoat_with_bone": "奥克具骨罩衣 (白色毛皮)",
+
   "item.me.straw_hat": "稻草帽",
   "item.me.woven_hat": "编织帽",
   "item.me.bycocket": "罗宾汉帽",
@@ -594,7 +604,7 @@
   "item.me.shoes": "鞋",
   "item.me.work_shoes": "工作鞋",
 
-  "item.me.leather_skullcap": "皮革头骨帽",
+  "item.me.leather_skullcap": "皮革无檐帽",
   "item.me.gambeson_cap": "软甲帽",
   "item.me.gambeson_cowl": "软甲风帽",
 
@@ -606,13 +616,14 @@
   "item.me.travelling_boots": "旅行靴子",
   "item.me.high_cut_boots": "高帮靴子",
 
-  "item.me.chain_coif": "锁链圆帽",
+  "item.me.mail_coif": "锁链巾帽",
   "item.me.kettle_hat": "圆顶帽",
   "item.me.open_face_helmet": "无覆面头盔",
 
-  "item.me.chain_hauberk": "锁链帷子",
+  "item.me.mail_hauberk": "锁链帷子",
+  "item.me.mail_shirt": "锁链衫甲",
 
-  "item.me.chain_skirt": "锁链裙甲",
+  "item.me.mail_skirt": "锁链裙甲",
 
   "item.me.sallet": "轻盔",
 
@@ -622,21 +633,21 @@
 
   "item.me.gondorian_cabasset_helmet": "刚铎高顶头盔",
 
-  "item.me.gondorian_chain_hauberk": "刚铎锁链帷子",
+  "item.me.gondorian_mail_hauberk": "刚铎锁链帷子",
   "item.me.gondorian_tabbard": "刚铎战袍",
   "item.me.gondorian_leather_cuirass": "刚铎皮革胸衣",
   "item.me.gondorian_leather_chestplate": "刚铎皮革胸甲",
 
-  "item.me.gondorian_chain_coat": "刚铎锁链外套",
+  "item.me.gondorian_mail_coat": "刚铎锁链罩衣",
 
   "item.me.gondorian_soldier_helmet": "刚铎士兵头盔",
 
   "item.me.gondorian_soldier_chestplate": "刚铎士兵胸甲",
 
-  "item.me.gondorian_plate_helmet": "刚铎板条头盔",
-  "item.me.gondorian_plate_chestplate": "刚铎板条胸甲",
-  "item.me.gondorian_plate_leggings": "刚铎板条护腿",
-  "item.me.gondorian_plate_boots": "刚铎板条靴子",
+  "item.me.gondorian_plate_helmet": "刚铎板材头盔",
+  "item.me.gondorian_plate_chestplate": "刚铎板材胸甲",
+  "item.me.gondorian_plate_leggings": "刚铎板材护腿",
+  "item.me.gondorian_plate_boots": "刚铎板材靴子",
 
   "item.me.gondorian_captain_helmet": "刚铎队长头盔",
 
@@ -655,7 +666,6 @@
   "item.me.gondorian_fountain_guard_leggings": "刚铎喷泉守卫护腿",
   "item.me.gondorian_fountain_guard_boots": "刚铎喷泉守卫靴子",
 
-  "item.me.rohirric_coat": "洛汗外套",
   "item.me.rohirric_reinforced_coat": "洛汗加固外套",
 
   "item.me.rohirric_leather_helmet": "洛汗皮革头盔",
@@ -671,9 +681,9 @@
   "item.me.rohirric_reinforced_militia_helmet": "洛汗加固民兵头盔",
   "item.me.rohirric_ornamented_militia_helmet": "洛汗饰样民兵头盔",
 
-  "item.me.rohirric_mail_shirt": "洛汗锁链衬衣",
-  "item.me.rohirric_mail_shirt_open": "洛汗锁链衬衣 (敞开式)",
-  "item.me.rohirric_mail_hauberk": "洛汗锁链帷子",
+  "item.me.rohirric_reinforced_leather_vest": "洛汗加固皮革背心",
+  "item.me.rohirric_reinforced_leather_scale_vest": "洛汗加固皮革鳞片背心",
+  "item.me.rohirric_braced_mail_shirt": "洛汗系带锁链衫甲",
 
   "item.me.rohirric_soldier_helmet": "洛汗士兵头盔",
   "item.me.rohirric_ornamented_soldier_helmet": "洛汗饰样士兵头盔",
@@ -705,9 +715,9 @@
   "item.me.dalish_helmet_brown_fur": "河谷邦头盔 (棕色毛皮)",
   "item.me.dalish_helmet_tan_fur": "河谷邦头盔 (褐色毛皮)",
 
-  "item.me.dalish_chain_hauberk": "河谷邦锁链帷子",
+  "item.me.dalish_mail_hauberk": "河谷邦锁链帷子",
 
-  "item.me.dalish_chain_coat": "河谷邦锁链外套",
+  "item.me.dalish_mail_coat": "河谷邦锁链罩衣",
 
   "item.me.dalish_burgonet": "河谷邦钢头盔",
 
@@ -715,26 +725,91 @@
 
   "item.me.dalish_heyday_helmet": "河谷邦旧日头盔",
   "item.me.dalish_heyday_chestplate": "河谷邦旧日胸甲",
-  "item.me.dalish_heyday_chain_coat": "河谷邦旧日锁链外套",
+  "item.me.dalish_heyday_mail_coat": "河谷邦旧日锁链罩衣",
   "item.me.dalish_heyday_boots": "河谷邦旧日靴子",
 
   "item.me.barding_soldier_helmet": "巴德士兵头盔",
   "item.me.barding_soldier_chestplate": "巴德士兵胸甲",
-  "item.me.barding_chain_skirt": "巴德锁链裙甲",
-  "item.me.barding_plated_boots": "巴德板条靴子",
+  "item.me.barding_mail_skirt": "巴德锁链裙甲",
+  "item.me.barding_plated_boots": "巴德板材靴子",
 
   "item.me.barding_sergeant_helmet": "巴德将领头盔",
   "item.me.barding_sergeant_chestplate": "巴德将领胸甲",
 
+  "item.me.dwarven_miner_helmet": "矮人矿工头盔",
+
+  "item.me.dwarven_gambeson": "矮人软甲",
+
+  "item.me.dwarven_mail_coif": "矮人锁链巾帽",
+
+  "item.me.dwarven_mail_hauberk": "矮人锁链帷子",
+  "item.me.dwarven_miner_gambeson": "矮人矿工软甲",
+
+  "item.me.dwarven_mail_coat": "矮人锁链罩衣",
+
+  "item.me.dwarven_mail_chausses": "矮人锁链马靴",
+  "item.me.dwarven_boots": "矮人靴子",
+
+  "item.me.dwarven_scale_hauberk": "矮人鳞片帷子",
+  "item.me.dwarven_scale_coat": "矮人鳞片罩衣",
+
+  "item.me.dwarven_reinforced_boots": "矮人加固靴子",
+
   "item.me.longbeard_segmented_helmet": "长须矮人分体式头盔",
 
-  "item.me.dwarven_partisan_chestplate": "矮人游击胸甲",
-  "item.me.dwarven_partisan_leggings": "矮人游击护腿",
+  "item.me.longbeard_leather_hauberk": "长须矮人皮革帷子",
+  "item.me.longbeard_wanderer_coat": "长须矮人漫游者外套",
 
-  "item.me.erebor_plate_helmet": "埃瑞博板条头盔",
-  "item.me.erebor_plate_chestplate": "埃瑞博板条胸甲",
-  "item.me.erebor_plate_leggings": "埃瑞博板条护腿",
-  "item.me.erebor_plate_boots": "埃瑞博板条靴子",
+  "item.me.longbeard_leather_leggings": "长须矮人皮革护腿",
+
+  "item.me.longbeard_partisan_outfit": "长须矮人游击套装",
+  "item.me.longbeard_reinforced_leather_hauberk": "长须矮人加固皮革帷子",
+
+  "item.me.erebor_braced_leather_helmet": "埃瑞博系带皮革头盔",
+  "item.me.erebor_nasal_leather_helmet": "埃瑞博护鼻皮革头盔",
+
+
+  "item.me.erebor_leather_leggings": "埃瑞博皮革护腿",
+
+  "item.me.erebor_mail_coif": "埃瑞博锁链巾帽",
+  "item.me.erebor_gilded_mail_coif": "埃瑞博镶金锁链巾帽",
+  "item.me.erebor_closed_mail_coif": "埃瑞博闭合式锁链巾帽",
+  "item.me.erebor_reinforced_leather_helmet": "埃瑞博加固皮革头盔",
+  "item.me.erebor_helmet": "埃瑞博头盔",
+  "item.me.erebor_helmet_with_mail_coif": "埃瑞博锁链头巾头盔",
+
+  "item.me.erebor_mail_hauberk": "埃瑞博锁链帷子",
+  "item.me.erebor_padded_mail_hauberk": "埃瑞博衬垫锁链帷子",
+
+  "item.me.erebor_mail_coat": "埃瑞博锁链罩衣",
+  "item.me.erebor_mail_leggings": "埃瑞博锁链护腿",
+
+  "item.me.erebor_mail_chausses": "埃瑞博锁链马靴",
+  "item.me.erebor_boots": "埃瑞博靴子",
+
+  "item.me.ravenhill_helmet": "渡鸦岭头盔",
+  "item.me.ravenhill_reinforced_helmet": "渡鸦岭加固头盔",
+  "item.me.ravenhill_gilded_helmet": "渡鸦岭镶金头盔",
+
+  "item.me.erebor_scale_hauberk": "埃瑞博鳞片帷子",
+  "item.me.erebor_long_coat": "埃瑞博长外套",
+  "item.me.erebor_brawler_chestplate": "埃瑞博斗士胸甲",
+  "item.me.erebor_reinforced_leather_hauberk": "埃瑞博加固皮革帷子",
+  "item.me.erebor_reinforced_coat": "埃瑞博加固外套",
+  "item.me.ravenhill_reinforced_mail_hauberk": "渡鸦岭加固锁链帷子",
+
+  "item.me.erebor_scale_coat": "埃瑞博鳞片罩衣",
+  "item.me.erebor_scale_leggings": "埃瑞博鳞片护腿",
+
+  "item.me.ravenhill_boots": "渡鸦岭靴子",
+
+  "item.me.erebor_guard_helmet": "埃瑞博守卫头盔",
+  "item.me.erebor_captain_helmet": "埃瑞博队长头盔",
+
+  "item.me.erebor_plate_helmet": "埃瑞博板材头盔",
+  "item.me.erebor_plate_chestplate": "埃瑞博板材胸甲",
+  "item.me.erebor_plate_leggings": "埃瑞博板材护腿",
+  "item.me.erebor_plate_boots": "埃瑞博板材靴子",
 
   "item.me.ravenhill_watchwarden_helmet": "渡鸦岭守望者头盔",
   "item.me.ravenhill_watchwarden_chestplate": "渡鸦岭守望者胸甲",
@@ -754,15 +829,15 @@
   "item.me.elven_arming_coat": "精灵武装外套",
 
   "item.me.elven_arming_skirt": "精灵武装裙甲",
-  "item.me.elven_open_arming_skirt": "精灵武装裙甲 (敞开式)",
+  "item.me.elven_open_arming_skirt": "精灵敞开式武装裙甲",
 
   "item.me.elven_boots": "精灵靴子",
 
-  "item.me.elven_chain_coif": "精灵锁链圆帽",
+  "item.me.elven_mail_coif": "精灵锁链巾帽",
 
-  "item.me.elven_chain_hauberk": "精灵锁链帷子",
+  "item.me.elven_mail_hauberk": "精灵锁链帷子",
 
-  "item.me.elven_chain_skirt": "精灵锁链裙甲",
+  "item.me.elven_mail_skirt": "精灵锁链裙甲",
 
   "item.me.lorien_diadem": "罗瑞恩冠冕",
 
@@ -772,18 +847,18 @@
 
   "item.me.lorien_arming_skirt": "罗瑞恩武装裙甲",
 
-  "item.me.lorien_chain_coif_diadem": "罗瑞恩锁链圆帽冠冕",
-  "item.me.lorien_short_chain_coif_diadem": "罗瑞恩低锁链圆帽冠冕",
+  "item.me.lorien_mail_coif_diadem": "罗瑞恩锁链头巾冠冕",
+  "item.me.lorien_short_mail_coif_diadem": "罗瑞恩低锁链头巾冠冕",
 
-  "item.me.lorien_chain_hauberk": "罗瑞恩锁链帷子",
-  "item.me.lorien_marchwarden_chain_hauberk": "罗瑞恩边界守卫锁链帷子",
+  "item.me.lorien_mail_hauberk": "罗瑞恩锁链帷子",
+  "item.me.lorien_marchwarden_mail_hauberk": "罗瑞恩边界守卫锁链帷子",
 
   "item.me.lorien_soldier_helmet": "罗瑞恩士兵头盔",
 
-  "item.me.lorien_soldier_chain_hauberk": "罗瑞恩士兵锁链帷子",
+  "item.me.lorien_soldier_mail_hauberk": "罗瑞恩士兵锁链帷子",
   "item.me.lorien_soldier_scale_hauberk": "罗瑞恩士兵鳞片帷子",
 
-  "item.me.lorien_scale_coat": "罗瑞恩鳞片外套",
+  "item.me.lorien_scale_coat": "罗瑞恩鳞片罩衣",
 
   "item.me.galadhrim_helmet": "加拉兹民头盔",
   "item.me.galadhrim_chestplate": "加拉兹民胸甲",
@@ -795,37 +870,102 @@
   "item.me.galadhrim_lord_leggings": "加拉兹民领主护腿",
   "item.me.galadhrim_lord_boots": "加拉兹民领主靴子",
 
-  "item.me.orc_mail_coif": "奥克锁链圆帽",
+  "item.me.orcish_leather_strap": "奥克皮革肩带",
 
-  "item.me.orc_mail_hauberk": "奥克锁链帷子",
+  "item.me.orcish_sandals": "奥克凉鞋",
 
-  "item.me.orc_mail_coat": "奥克锁链外套",
+  "item.me.rusted_orcish_mail_coif": "生锈的奥克锁链巾帽",
 
-  "item.me.orc_sallet": "奥克轻盔",
+  "item.me.orcish_leather_chestplate": "奥克皮革胸甲",
+  "item.me.orcish_leather_scale_vest": "奥克皮革鳞片背心",
+  "item.me.rusted_orcish_mail_hauberk": "生锈的奥克锁链帷子",
+  "item.me.rusted_orcish_mail_shirt": "生锈的奥克锁链衫甲",
 
-  "item.me.orc_gorget_hauberk": "奥克护颈帷子",
+  "item.me.orcish_leather_skirt": "奥克皮革裙甲",
+  "item.me.orcish_leg_bracer": "奥克腿部护腕",
+  "item.me.rusted_orcish_mail_coat": "生锈的奥克锁链罩衣",
+  "item.me.rusted_orcish_reinforced_leather_skirt": "生锈的奥克加固皮革裙甲",
+  "item.me.rusted_orcish_reinforced_strip_leather_skirt": "生锈的奥克加固条带皮革裙甲",
+  "item.me.orcish_strip_leather_skirt": "奥克条带皮革裙甲",
 
-  "item.me.orc_plate_boots": "奥克板条靴子",
+  "item.me.orcish_braced_helmet": "奥克系带头盔",
+  "item.me.orcish_helmet": "奥克头盔",
+  "item.me.orcish_mail_coif": "奥克锁链巾帽",
 
-  "item.me.mordor_orc_helmet": "魔多奥克头盔",
-  "item.me.mordor_orc_eye_helmet": "魔多奥克眼饰头盔",
-  "item.me.mordor_orc_great_eye_helmet": "魔多奥克魔眼头盔",
-  "item.me.mordor_orc_mandible_helmet": "魔多奥克护颚头盔",
-  "item.me.mordor_orc_oversight_helmet": "魔多奥克监视头盔",
-  "item.me.mordor_orc_snout_helmet": "魔多奥克凸吻头盔",
+  "item.me.orcish_mail_hauberk": "奥克锁链帷子",
+  "item.me.orcish_mail_shirt": "奥克锁链衫甲",
 
-  "item.me.mordor_orc_scale_coat": "魔多奥克鳞片外套",
+  "item.me.orcish_mail_coat": "奥克锁链罩衣",
+  "item.me.orcish_reinforced_leather_skirt": "奥克加固皮革裙甲",
+  "item.me.orcish_reinforced_strip_leather_skirt": "奥克加固条带皮革裙甲",
 
-  "item.me.mordor_orc_chestplate": "魔多奥克胸甲",
+  "item.me.orcish_sallet": "奥克轻盔",
 
-  "item.me.black_uruk_plate_helmet": "黑乌鲁克板条头盔",
-  "item.me.black_uruk_face_plate_helmet": "黑乌鲁克覆面头盔",
-  "item.me.black_uruk_plate_chestplate": "黑乌鲁克板条胸甲",
-  "item.me.black_uruk_plate_leggings": "黑乌鲁克板条护腿",
-  "item.me.black_uruk_plate_boots": "黑乌鲁克板条靴子",
+  "item.me.orcish_belly_plate_chestplate": "奥克遮腹板材胸甲",
+  "item.me.orcish_scale_vest": "奥克鳞片背心",
+
+  "item.me.orcish_reinforced_leg_bracer": "奥克加固腿部护腕",
+
+  "item.me.orcish_black_fur_boots": "奥克黑色毛皮靴子",
+  "item.me.orcish_brown_fur_boots": "奥克棕色毛皮靴子",
+  "item.me.orcish_gray_fur_boots": "奥克灰色毛皮靴子",
+  "item.me.orcish_tan_fur_boots": "奥克褐色毛皮靴子",
+  "item.me.orcish_white_fur_boots": "奥克白色毛皮靴子",
+  "item.me.orcish_braced_sandals": "奥克系带凉鞋",
+
+  "item.me.mordor_helmet": "魔多头盔",
+  "item.me.rusted_mordor_helmet": "生锈的魔多头盔",
+  "item.me.mordor_kettle_hat": "魔多圆顶帽",
+  "item.me.rusted_mordor_kettle_hat": "生锈的魔多圆顶帽",
+  "item.me.mordor_kettle_hat_with_coif": "魔多头巾圆顶帽",
+  "item.me.rusted_mordor_kettle_hat_with_coif": "生锈的魔多头巾圆顶帽",
+  "item.me.mordor_nasal_helmet": "魔多护鼻头盔",
+  "item.me.rusted_mordor_nasal_helmet": "生锈的魔多护鼻头盔",
+
+  "item.me.mordor_crest_helmet": "魔多羽饰头盔",
+  "item.me.rusted_mordor_crest_helmet": "生锈的魔多羽饰头盔",
+  "item.me.mordor_mandible_helmet": "魔多颌饰头盔",
+  "item.me.rusted_mordor_mandible_helmet": "生锈的魔多颌饰头盔",
+  "item.me.mordor_sallet": "魔多轻盔",
+  "item.me.rusted_mordor_sallet": "生锈的魔多轻盔",
+  "item.me.mordor_great_helmet": "魔多大型头盔",
+  "item.me.rusted_mordor_great_helmet": "生锈的魔多大型头盔",
+  "item.me.mordor_snout_helmet": "魔多猪鼻头盔",
+  "item.me.rusted_mordor_snout_helmet": "生锈的魔多猪鼻头盔",
+
+  "item.me.mordor_leather_cuirass": "魔多皮革护胸",
+  "item.me.mordor_painted_cuirass": "魔多纹饰护胸",
+
+  "item.me.mordor_chestplate": "魔多胸甲",
+  "item.me.mordor_cuirass": "魔多护胸",
+  "item.me.rusted_mordor_cuirass": "生锈的魔多护胸",
+  "item.me.mordor_degraded_gondorian_chestplate": "魔多二手刚铎胸甲",
+  "item.me.mordor_gorget_hauberk": "魔多饰领帷子",
+  "item.me.rusted_mordor_gorget_hauberk": "生锈的魔多饰领帷子",
+  "item.me.mordor_painted_leather_cuirass": "魔多纹饰皮革护胸",
+  "item.me.mordor_reinforced_coat": "魔多加固外套",
+  "item.me.rusted_mordor_reinforced_coat": "生锈的魔多加固外套",
+
+  "item.me.mordor_scale_coat": "魔多鳞片罩衣",
+
+  "item.me.mordor_plate_boots": "魔多板材靴子",
+  "item.me.rusted_mordor_plate_boots": "生锈的魔多板材靴子",
+
+  "item.me.black_uruk_plate_helmet": "黑乌鲁克板材头盔",
+  "item.me.black_uruk_face_plate_helmet": "黑乌鲁克覆面板材头盔",
+  "item.me.black_uruk_plate_chestplate": "黑乌鲁克板材胸甲",
+  "item.me.black_uruk_plate_leggings": "黑乌鲁克板材护腿",
+  "item.me.black_uruk_plate_boots": "黑乌鲁克板材靴子",
 
   "item.me.black_uruk_commander_helmet": "黑乌鲁克指挥官头盔",
   "item.me.black_uruk_commander_chestplate": "黑乌鲁克指挥胸甲",
+
+  "item.me.mordor_black_numenorean_plate_helmet": "魔多黑努门诺尔板材头盔",
+  "item.me.mordor_black_numenorean_plate_chestplate": "魔多黑努门诺尔板材胸甲",
+  "item.me.mordor_black_numenorean_plate_leggings": "魔多黑努门诺尔板材护腿",
+  "item.me.mordor_black_numenorean_plate_boots": "魔多黑努门诺尔板材靴子",
+
+  "item.me.mordor_black_numenorean_cape": "魔多黑努门诺尔披风",
 
   "item.me.nazgul_cloak_hood": "那兹古尔斗篷兜帽",
   "item.me.nazgul_cloak": "那兹古尔斗篷",
@@ -834,8 +974,29 @@
 
   "item.me.uruk_hai_leather_scout_cap": "乌鲁克皮革斥候帽",
 
-  "item.me.uruk_hai_plate_helmet": "乌鲁克板条头盔",
-  "item.me.uruk_hai_plate_painted_helmet": "乌鲁克板条纹饰头盔",
+  "item.me.uruk_hai_light_helmet": "乌鲁克轻型头盔",
+  "item.me.uruk_hai_painted_light_helmet": "乌鲁克纹饰轻型头盔",
+  "item.me.uruk_hai_reinforced_helmet": "乌鲁克加固头盔",
+  "item.me.uruk_hai_painted_reinforced_helmet": "乌鲁克纹饰加固头盔",
+
+  "item.me.uruk_hai_soldier_helmet": "乌鲁克士兵头盔",
+  "item.me.uruk_hai_painted_soldier_helmet": "乌鲁克纹饰士兵头盔",
+
+  "item.me.uruk_hai_leather_chestplate": "乌鲁克皮革胸甲",
+  "item.me.uruk_hai_painted_leather_chestplate": "乌鲁克纹饰皮革胸甲",
+  "item.me.uruk_hai_leather_hauberk": "乌鲁克皮革帷子",
+
+  "item.me.uruk_hai_mail_hauberk": "乌鲁克锁链帷子",
+
+  "item.me.uruk_hai_cuirass": "乌鲁克护胸",
+
+  "item.me.uruk_hai_mail_coat": "乌鲁克锁链罩衣",
+  "item.me.uruk_hai_mail_skirt": "乌鲁克锁链裙甲",
+
+  "item.me.uruk_hai_boots": "乌鲁克靴子",
+
+  "item.me.uruk_hai_plate_helmet": "乌鲁克板材头盔",
+  "item.me.uruk_hai_plate_painted_helmet": "乌鲁克板材纹饰头盔",
   "item.me.uruk_hai_sapper_helmet": "乌鲁克工兵头盔",
   "item.me.uruk_hai_sapper_painted_helmet": "乌鲁克工兵纹饰头盔",
   "item.me.uruk_hai_berserker_helmet": "乌鲁克狂战士头盔",
@@ -843,27 +1004,61 @@
   "item.me.uruk_hai_commander_helmet": "乌鲁克指挥头盔",
   "item.me.uruk_hai_commander_painted_helmet": "乌鲁克指挥纹饰头盔",
 
-  "item.me.uruk_hai_plate_chestplate": "乌鲁克板条胸甲",
-  "item.me.uruk_hai_plate_leggings": "乌鲁克板条护腿",
-  "item.me.uruk_hai_plate_boots": "乌鲁克板条靴子",
+  "item.me.uruk_hai_plate_chestplate": "乌鲁克板材胸甲",
+  "item.me.uruk_hai_plate_leggings": "乌鲁克板材护腿",
+  "item.me.uruk_hai_plate_boots": "乌鲁克板材靴子",
 
-  "item.me.hobgoblin_chain_hauberk": "大半兽人锁链帷子",
+  "item.me.orthanc_guard_helmet": "欧尔桑克守卫头盔",
+  "item.me.orthanc_commander_helmet": "欧尔桑克司令头盔",
+  "item.me.orthanc_guard_chestplate": "欧尔桑克守卫胸甲",
+  "item.me.orthanc_guard_leggings": "欧尔桑克守卫护腿",
+  "item.me.orthanc_guard_boots": "欧尔桑克守卫靴子",
 
-  "item.me.gundabad_hobgoblin_plate_crested_helmet": "贡达巴德大半兽人板条头饰头盔",
-  "item.me.gundabad_hobgoblin_plate_large_crest_helmet": "贡达巴德大半兽人板条大头饰头盔",
-  "item.me.gundabad_hobgoblin_plate_long_horn_helmet": "贡达巴德大半兽人板条大角头盔",
-  "item.me.gundabad_hobgoblin_plate_small_horn_helmet": "贡达巴德大半兽人板条小角头盔",
-  "item.me.gundabad_hobgoblin_plate_chestplate": "贡达巴德大半兽人板条胸甲",
-  "item.me.gundabad_hobgoblin_chain_coat": "贡达巴德大半兽人锁链外套",
-  "item.me.gundabad_hobgoblin_plated_boots": "贡达巴德大半兽人板条靴子",
-  "item.me.gundabad_hobgoblin_plate_trophy_chestplate": "贡达巴德大半兽人板条战利胸甲",
+  "item.me.orthanc_guard_cape": "欧尔桑克守卫披风",
 
-  "item.me.steel_troll_armor": "钢食人妖铠",
+  "item.me.gundabad_bone_pauldron": "贡达巴德骨制护肩",
+
+  "item.me.gundabad_seeker_helmet": "贡达巴德寻踪者头盔",
+
+  "item.me.gundabad_leather_scale_coat": "贡达巴德皮革鳞片罩衣",
+
+  "item.me.gundabad_leather_leggings": "贡达巴德皮革护腿",
+
+  "item.me.gundabad_laced_boots": "贡达巴德绑带靴子",
+
+  "item.me.gundabad_skullcap_helmet": "贡达巴德无檐头盔",
+  "item.me.gundabad_mail_coif": "贡达巴德锁链巾帽",
+
+  "item.me.gundabad_mail_hauberk": "贡达巴德锁链帷子",
+
+  "item.me.gundabad_mail_coat": "贡达巴德锁链罩衣",
+
+  "item.me.gundabad_screecher_helmet": "贡达巴德尖嚎者头盔",
+  "item.me.gundabad_soldier_helmet": "贡达巴德士兵头盔",
+
+  "item.me.gundabad_reinforced_leather_scale_coat": "贡达巴德皮革加固鳞片外套",
+  "item.me.gundabad_reinforced_leather_vest": "贡达巴德加固皮革背心",
+
+  "item.me.gundabad_captain_helmet": "贡达巴德队长头盔",
+
+  "item.me.gundabad_hobgoblin_plate_crested_helmet": "贡达巴德大半兽人板材羽饰头盔",
+  "item.me.gundabad_hobgoblin_plate_large_crest_helmet": "贡达巴德大半兽人板材大羽饰头盔",
+  "item.me.gundabad_hobgoblin_plate_long_horn_helmet": "贡达巴德大半兽人板材大角头盔",
+  "item.me.gundabad_hobgoblin_plate_small_horn_helmet": "贡达巴德大半兽人板材小角头盔",
+  "item.me.gundabad_hobgoblin_plate_chestplate": "贡达巴德大半兽人板材胸甲",
+
+  "item.me.gundabad_hobgoblin_mail_coat": "贡达巴德大半兽人锁链罩衣",
+  "item.me.gundabad_hobgoblin_plated_boots": "贡达巴德大半兽人板材靴子",
+  "item.me.gundabad_hobgoblin_plate_trophy_chestplate": "贡达巴德大半兽人板材战利胸甲",
+
+  "item.me.warg_mordor_plate_armor": "魔多板材座狼铠",
+  "item.me.warg_gundabad_plate_armor": "贡达巴德板材座狼铠",
+  "item.me.warg_mordor_mail_armor": "魔多锁链座狼铠",
+  "item.me.warg_reinforced_leather_armor": "加固皮革座狼铠",
   "item.me.warg_leather_armor": "皮革座狼铠",
-  "item.me.warg_plate_armor": "板条座狼铠",
-  "item.me.broadhoof_goat_padded_armor": "布制宽蹄山羊铠",
-  "item.me.broadhoof_goat_ornamented_padded_armor": "布制宽蹄山羊饰样铠",
-  "item.me.broadhoof_goat_plate_armor": "宽蹄山羊板条铠",
+  "item.me.broadhoof_goat_padded_armor": "衬垫宽蹄山羊铠",
+  "item.me.broadhoof_goat_ornamented_padded_armor": "衬垫饰样宽蹄山羊铠",
+  "item.me.broadhoof_goat_plate_armor": "板材宽蹄山羊铠",
 
   "#Comment:": "盾牌",
   "item.me.round_shield": "圆形盾",
@@ -941,6 +1136,18 @@
   "item.me.gondorian_knight_shield": "刚铎骑士盾牌",
   "item.me.gondorian_ornamented_knight_shield": "刚铎骑士精饰盾牌",
 
+  "item.me.dalish_blue_braced_shield": "河谷邦蓝色系带盾牌",
+  "item.me.dalish_red_braced_shield": "河谷邦红色系带盾牌",
+  "item.me.dalish_barding_braced_shield": "河谷邦巴德系带盾牌",
+
+  "item.me.dalish_blue_oval_shield": "河谷邦蓝色卵形盾牌",
+  "item.me.dalish_red_oval_shield": "河谷邦红色卵形盾牌",
+  "item.me.dalish_barding_oval_shield": "河谷邦巴德卵形盾牌",
+
+  "item.me.dalish_heavy_shield": "河谷邦重型盾牌",
+  "item.me.dalish_barding_heavy_shield": "河谷邦巴德重型盾牌",
+  "item.me.dalish_royal_heavy_shield": "河谷邦皇家重型盾牌",
+
   "item.me.dalish_heyday_round_shield": "河谷邦旧日圆形盾",
 
   "item.me.erebor_shield": "埃瑞博盾牌",
@@ -957,8 +1164,23 @@
   "item.me.galadhrim_shield": "加拉兹民盾牌",
   "item.me.galadhrim_lord_shield": "加拉兹民领主盾牌",
 
+  "item.me.mordor_wooden_shield": "魔多木制盾牌",
+  "item.me.mordor_painted_wooden_shield": "魔多纹饰木制盾牌",
+  "item.me.mordor_round_shield": "魔多圆形盾牌",
+  "item.me.mordor_black_round_shield": "魔多黑色圆形盾牌",
+  "item.me.mordor_painted_round_shield": "魔多纹饰圆形盾牌",
+  "item.me.mordor_braced_shield": "魔多系带盾牌",
+  "item.me.mordor_black_braced_shield": "魔多黑色系带盾牌",
+  "item.me.mordor_painted_braced_shield": "魔多纹饰系带盾牌",
+  "item.me.mordor_large_shield": "魔多大型盾牌",
+  "item.me.mordor_black_large_shield": "魔多黑色大型盾牌",
+  "item.me.mordor_painted_large_shield": "魔多纹饰大型盾牌",
+  "item.me.gondorian_converted_shield": "被亵渎的刚铎盾牌",
+
+  "item.me.mordor_heavy_shield": "魔多重型盾牌",
+  "item.me.mordor_painted_heavy_shield": "魔多纹饰重型盾牌",
+
   "item.me.black_numenorean_tower_shield": "黑努门诺尔盾牌",
-  "item.me.mordor_shield": "魔多盾牌",
 
   "item.me.uruk_hai_heater_shield": "乌鲁克扇形盾牌",
   "item.me.uruk_hai_shield": "乌鲁克盾牌",
@@ -974,6 +1196,7 @@
   "#Comment:": "物品 - 马铠",
   "item.me.rohirric_horse_armor": "洛汗马铠",
   "item.me.gondorian_horse_armor": "刚铎马铠",
+  "item.me.dalish_horse_armor": "河谷邦马铠",
   "item.me.lorien_horse_armor": "罗瑞恩马铠",
 
   "#Comment:": "物品 - 食物",
@@ -1310,16 +1533,56 @@
   "block.me.cracked_smooth_stone_stairs": "裂纹平滑石头楼梯",
   "block.me.cracked_smooth_stone_wall": "裂纹平滑石头墙",
 
+  "block.me.old_stone": "古旧石头",
+  "block.me.old_stone_slab": "古旧石台阶",
+  "block.me.old_stone_vertical_slab": "古旧石竖台阶",
+  "block.me.old_stone_stairs": "古旧石楼梯",
+  "block.me.old_stone_wall": "古旧石墙",
+
+  "block.me.stone_brickwork": "石嵌砖",
+  "block.me.stone_brickwork_slab": "石嵌砖台阶",
+  "block.me.stone_brickwork_vertical_slab": "石嵌砖竖台阶",
+  "block.me.stone_brickwork_stairs": "石嵌砖楼梯",
+  "block.me.stone_brickwork_wall": "石嵌砖墙",
+
   "block.me.chiseled_stone": "雕纹石头",
   "block.me.chiseled_polished_stone": "雕纹磨制石头",
   "block.me.chiseled_stone_tiles": "雕纹石头瓦",
 
-  "block.me.stone_stool": "石凳",
-  "block.me.stone_table": "石桌",
-  "block.me.stone_chair": "石椅",
+  "block.me.stone_rocks": "石块",
+
+  "block.me.stone_stool": "石凳子",
+  "block.me.stone_table": "石桌子",
+  "block.me.stone_chair": "石椅子",
 
   "#Comment:": "方块 - 深板岩",
+  "block.me.old_deepslate": "古旧深板岩",
+  "block.me.old_deepslate_slab": "古旧深板岩台阶",
+  "block.me.old_deepslate_vertical_slab": "古旧深板岩竖台阶",
+  "block.me.old_deepslate_stairs": "古旧深板岩楼梯",
+  "block.me.old_deepslate_wall": "古旧深板岩墙",
+
+  "block.me.smooth_deepslate": "平滑深板岩",
+  "block.me.smooth_deepslate_slab": "平滑深板岩台阶",
+  "block.me.smooth_deepslate_vertical_slab": "平滑深板岩竖台阶",
+  "block.me.smooth_deepslate_stairs": "平滑深板岩楼梯",
+  "block.me.smooth_deepslate_wall": "平滑深板岩墙",
+  "block.me.mossy_smooth_deepslate": "生苔的平滑深板岩",
+  "block.me.mossy_smooth_deepslate_slab": "生苔的平滑深板岩台阶",
+  "block.me.mossy_smooth_deepslate_vertical_slab": "生苔的平滑深板岩竖台阶",
+  "block.me.mossy_smooth_deepslate_stairs": "生苔的平滑深板岩楼梯",
+  "block.me.mossy_smooth_deepslate_wall": "生苔的平滑深板岩墙",
+  "block.me.cracked_smooth_deepslate": "裂纹平滑深板岩",
+  "block.me.cracked_smooth_deepslate_slab": "裂纹平滑深板岩台阶",
+  "block.me.cracked_smooth_deepslate_vertical_slab": "裂纹平滑深板岩竖台阶",
+  "block.me.cracked_smooth_deepslate_stairs": "裂纹平滑深板岩楼梯",
+  "block.me.cracked_smooth_deepslate_wall": "裂纹平滑深板岩墙",
   "block.me.cobbled_deepslate_vertical_slab": "深板岩圆石竖台阶",
+  "block.me.mossy_cobbled_deepslate": "生苔的深板岩圆石",
+  "block.me.mossy_cobbled_deepslate_slab": "生苔的深板岩圆石台阶",
+  "block.me.mossy_cobbled_deepslate_vertical_slab": "生苔的深板岩圆石竖台阶",
+  "block.me.mossy_cobbled_deepslate_stairs": "生苔的深板岩圆石楼梯",
+  "block.me.mossy_cobbled_deepslate_wall": "生苔的深板岩圆石墙",
   "block.me.deepslate_pillar": "深板岩柱",
   "block.me.mossy_deepslate_pillar": "生苔的深板岩柱",
   "block.me.cracked_deepslate_pillar": "裂纹深板岩柱",
@@ -1346,10 +1609,25 @@
   "block.me.cracked_polished_deepslate_vertical_slab": "裂纹磨制深板岩竖台阶",
   "block.me.cracked_polished_deepslate_stairs": "裂纹磨制深板岩楼梯",
   "block.me.cracked_polished_deepslate_wall": "裂纹磨制深板岩墙",
+  "block.me.chiseled_polished_deepslate": "雕纹磨制深板岩",
+  "block.me.chiseled_deepslate_bricks": "雕纹深板岩砖",
+  "block.me.chiseled_deepslate_tiles": "雕纹深板岩瓦",
+  "block.me.chiseled_smooth_deepslate": "雕纹平滑深板岩",
 
-  "block.me.deepslate_stool": "深板岩凳",
-  "block.me.deepslate_table": "深板岩桌",
-  "block.me.deepslate_chair": "深板岩椅",
+  "block.me.deepslate_brickwork": "深板岩嵌砖",
+  "block.me.deepslate_brickwork_slab": "深板岩嵌砖台阶",
+  "block.me.deepslate_brickwork_vertical_slab": "深板岩嵌砖竖台阶",
+  "block.me.deepslate_brickwork_stairs": "深板岩嵌砖楼梯",
+  "block.me.deepslate_brickwork_wall": "深板岩嵌砖墙",
+
+  "block.me.deepslate_pressure_plate": "深板岩压力板",
+  "block.me.deepslate_button": "深板岩按钮",
+
+  "block.me.deepslate_rocks": "深板岩石块",
+
+  "block.me.deepslate_stool": "深板岩凳子",
+  "block.me.deepslate_table": "深板岩桌子",
+  "block.me.deepslate_chair": "深板岩椅子",
 
   "#Comment:": "方块 - 灰烬岩",
   "block.me.ashen_cobblestone": "灰烬岩圆石",
@@ -1419,9 +1697,9 @@
 
   "block.me.ashen_stone_rocks": "灰烬岩石块",
 
-  "block.me.ashen_stone_stool": "灰烬岩凳",
-  "block.me.ashen_stone_table": "灰烬岩桌",
-  "block.me.ashen_stone_chair": "灰烬岩椅",
+  "block.me.ashen_stone_stool": "灰烬岩凳子",
+  "block.me.ashen_stone_table": "灰烬岩桌子",
+  "block.me.ashen_stone_chair": "灰烬岩椅子",
 
   "#Comment:": "方块 - 浮石",
   "block.me.cobbled_pumice": "浮石圆石",
@@ -1496,11 +1774,32 @@
 
   "block.me.pumice_rocks": "浮石石块",
 
-  "block.me.pumice_stool": "浮石凳",
-  "block.me.pumice_table": "浮石桌",
-  "block.me.pumice_chair": "浮石椅",
+  "block.me.pumice_stool": "浮石凳子",
+  "block.me.pumice_table": "浮石桌子",
+  "block.me.pumice_chair": "浮石椅子",
 
   "#Comment:": "方块 - 方解石",
+  "block.me.old_calcite": "古旧方解石",
+  "block.me.old_calcite_slab": "古旧方解石台阶",
+  "block.me.old_calcite_vertical_slab": "古旧方解石竖台阶",
+  "block.me.old_calcite_stairs": "古旧方解石楼梯",
+  "block.me.old_calcite_wall": "古旧方解石墙",
+
+  "block.me.smooth_calcite": "平滑方解石",
+  "block.me.smooth_calcite_slab": "平滑方解石台阶",
+  "block.me.smooth_calcite_vertical_slab": "平滑方解石竖台阶",
+  "block.me.smooth_calcite_stairs": "平滑方解石楼梯",
+  "block.me.smooth_calcite_wall": "平滑方解石墙",
+  "block.me.mossy_smooth_calcite": "生苔的平滑方解石",
+  "block.me.mossy_smooth_calcite_slab": "生苔的平滑方解石台阶",
+  "block.me.mossy_smooth_calcite_vertical_slab": "生苔的平滑方解石竖台阶",
+  "block.me.mossy_smooth_calcite_stairs": "生苔的平滑方解石楼梯",
+  "block.me.mossy_smooth_calcite_wall": "生苔的平滑方解石墙",
+  "block.me.cracked_smooth_calcite": "裂纹平滑方解石",
+  "block.me.cracked_smooth_calcite_slab": "裂纹平滑方解石台阶",
+  "block.me.cracked_smooth_calcite_vertical_slab": "裂纹平滑方解石竖台阶",
+  "block.me.cracked_smooth_calcite_stairs": "裂纹平滑方解石楼梯",
+  "block.me.cracked_smooth_calcite_wall": "裂纹平滑方解石墙",
   "block.me.cobbled_calcite": "方解石圆石",
   "block.me.cobbled_calcite_slab": "方解石圆石台阶",
   "block.me.cobbled_calcite_vertical_slab": "方解石圆石竖台阶",
@@ -1561,14 +1860,25 @@
   "block.me.cracked_polished_calcite_wall": "裂纹磨制方解石墙",
   "block.me.chiseled_polished_calcite": "雕纹磨制方解石",
   "block.me.chiseled_calcite_bricks": "雕纹方解石砖",
+  "block.me.chiseled_calcite": "雕纹方解石",
+  "block.me.chiseled_calcite_tiles": "雕纹方解石瓦",
+  "block.me.chiseled_smooth_calcite": "雕纹平滑方解石",
 
+  "block.me.calcite_brickwork": "方解石嵌砖",
+  "block.me.calcite_brickwork_slab": "方解石嵌砖台阶",
+  "block.me.calcite_brickwork_vertical_slab": "方解石嵌砖竖台阶",
+  "block.me.calcite_brickwork_stairs": "方解石嵌砖楼梯",
+  "block.me.calcite_brickwork_wall": "方解石嵌砖墙",
+
+  "block.me.calcite_pressure_plate": "方解石压力板",
+  "block.me.calcite_button": "方解石按钮",
   "block.me.calcite_trapdoor": "方解石活板门",
 
   "block.me.calcite_rocks": "方解石石块",
   
-  "block.me.calcite_stool": "方解石凳",
-  "block.me.calcite_table": "方解石桌",
-  "block.me.calcite_chair": "方解石椅",
+  "block.me.calcite_stool": "方解石凳子",
+  "block.me.calcite_table": "方解石桌子",
+  "block.me.calcite_chair": "方解石椅子",
 
   "#Comment:": "方块 - 白云岩",
   "block.me.pointed_dolomite": "白云岩石锥",
@@ -1663,9 +1973,9 @@
 
   "block.me.dolomite_rocks": "白云岩石块",
 
-  "block.me.dolomite_stool": "白云岩凳",
-  "block.me.dolomite_table": "白云岩桌",
-  "block.me.dolomite_chair": "白云岩椅",
+  "block.me.dolomite_stool": "白云岩凳子",
+  "block.me.dolomite_table": "白云岩桌子",
+  "block.me.dolomite_chair": "白云岩椅子",
 
   "#Comment:": "方块 - 路因岩",
   "block.me.cobbled_gonluin": "路因岩圆石",
@@ -1744,9 +2054,9 @@
   "block.me.gonluin_carved_window": "路因岩雕纹窗户",
   "block.me.gonluin_carved_window_pane": "路因岩雕纹窗户板",
 
-  "block.me.gonluin_stool": "路因岩凳",
-  "block.me.gonluin_table": "路因岩桌",
-  "block.me.gonluin_chair": "路因岩椅",
+  "block.me.gonluin_stool": "路因岩凳子",
+  "block.me.gonluin_table": "路因岩桌子",
+  "block.me.gonluin_chair": "路因岩椅子",
 
   "#Comment:": "方块 - 蓝色凝灰岩",
   "block.me.cobbled_blue_tuff": "蓝色凝灰岩圆石",
@@ -1821,9 +2131,9 @@
 
   "block.me.blue_tuff_rocks": "蓝色凝灰岩石块",
 
-  "block.me.blue_tuff_stool": "蓝色凝灰岩凳",
-  "block.me.blue_tuff_table": "蓝色凝灰岩桌",
-  "block.me.blue_tuff_chair": "蓝色凝灰岩椅",
+  "block.me.blue_tuff_stool": "蓝色凝灰岩凳子",
+  "block.me.blue_tuff_table": "蓝色凝灰岩桌子",
+  "block.me.blue_tuff_chair": "蓝色凝灰岩椅子",
 
   "#Comment:": "方块 - 绿色凝灰岩",
   "block.me.cobbled_green_tuff": "绿色凝灰岩圆石",
@@ -1923,9 +2233,9 @@
 
   "block.me.green_tuff_rocks": "绿色凝灰岩石块",
 
-  "block.me.green_tuff_stool": "绿色凝灰岩凳",
-  "block.me.green_tuff_table": "绿色凝灰岩桌",
-  "block.me.green_tuff_chair": "绿色凝灰岩椅",
+  "block.me.green_tuff_stool": "绿色凝灰岩凳子",
+  "block.me.green_tuff_table": "绿色凝灰岩桌子",
+  "block.me.green_tuff_chair": "绿色凝灰岩椅子",
 
   "block.me.gilded_green_tuff_pressure_plate": "镶金绿色凝灰岩压力板",
   "block.me.gilded_green_tuff_button": "镶金绿色凝灰岩按钮",
@@ -1933,23 +2243,41 @@
 
   "block.me.gilded_green_tuff_rocks": "镶金绿色凝灰岩石块",
 
-  "block.me.gilded_green_tuff_stool": "镶金绿色凝灰岩凳",
-  "block.me.gilded_green_tuff_table": "镶金绿色凝灰岩桌",
-  "block.me.gilded_green_tuff_chair": "镶金绿色凝灰岩椅",
+  "block.me.gilded_green_tuff_stool": "镶金绿色凝灰岩凳子",
+  "block.me.gilded_green_tuff_table": "镶金绿色凝灰岩桌子",
+  "block.me.gilded_green_tuff_chair": "镶金绿色凝灰岩椅子",
 
   "#Comment:": "方块 - 黑石",
-  "block.me.blackstone_stool": "黑石凳",
-  "block.me.blackstone_table": "黑石桌",
-  "block.me.blackstone_chair": "黑石椅",
+  "block.me.blackstone_tiles": "黑石瓦",
+  "block.me.blackstone_tiles_slab": "黑石瓦台阶",
+  "block.me.blackstone_tiles_vertical_slab": "黑石瓦竖台阶",
+  "block.me.blackstone_tiles_stairs": "黑石瓦楼梯",
+  "block.me.blackstone_tiles_wall": "黑石瓦墙",
+  "block.me.mossy_blackstone_tiles": "生苔的黑石瓦",
+  "block.me.mossy_blackstone_tiles_slab": "生苔的黑石瓦台阶",
+  "block.me.mossy_blackstone_tiles_vertical_slab": "生苔的黑石瓦竖台阶",
+  "block.me.mossy_blackstone_tiles_stairs": "生苔的黑石瓦楼梯",
+  "block.me.mossy_blackstone_tiles_wall": "生苔的黑石瓦墙",
+  "block.me.cracked_blackstone_tiles": "裂纹黑石瓦",
+  "block.me.cracked_blackstone_tiles_slab": "裂纹黑石瓦台阶",
+  "block.me.cracked_blackstone_tiles_vertical_slab": "裂纹黑石瓦竖台阶",
+  "block.me.cracked_blackstone_tiles_stairs": "裂纹黑石瓦楼梯",
+  "block.me.cracked_blackstone_tiles_wall": "裂纹黑石瓦墙",
+
+  "block.me.blackstone_rocks": "黑石石块",
+
+  "block.me.blackstone_stool": "黑石凳子",
+  "block.me.blackstone_table": "黑石桌子",
+  "block.me.blackstone_chair": "黑石椅子",
 
   "#Comment:": "方块 - 石灰岩",
   "block.me.pointed_limestone": "石灰岩石锥",
 
-  "block.me.old_limestone": "原始石灰岩",
-  "block.me.old_limestone_slab": "原始石灰岩台阶",
-  "block.me.old_limestone_vertical_slab": "原始石灰岩竖台阶",
-  "block.me.old_limestone_stairs": "原始石灰岩楼梯",
-  "block.me.old_limestone_wall": "原始石灰岩墙",
+  "block.me.old_limestone": "古旧石灰岩",
+  "block.me.old_limestone_slab": "古旧石灰岩台阶",
+  "block.me.old_limestone_vertical_slab": "古旧石灰岩竖台阶",
+  "block.me.old_limestone_stairs": "古旧石灰岩楼梯",
+  "block.me.old_limestone_wall": "古旧石灰岩墙",
 
   "block.me.smooth_limestone": "平滑石灰岩",
   "block.me.smooth_limestone_slab": "平滑石灰岩台阶",
@@ -2047,18 +2375,18 @@
 
   "block.me.limestone_rocks": "石灰岩石块",
 
-  "block.me.limestone_stool": "石灰岩凳",
-  "block.me.limestone_table": "石灰岩桌",
-  "block.me.limestone_chair": "石灰岩椅",
+  "block.me.limestone_stool": "石灰岩凳子",
+  "block.me.limestone_table": "石灰岩桌子",
+  "block.me.limestone_chair": "石灰岩椅子",
 
   "#Comment:": "方块 - 加隆岩 （精灵语石灰岩）",
   "block.me.pointed_galonn": "加隆岩石锥",
 
-  "block.me.old_galonn": "原始加隆岩",
-  "block.me.old_galonn_slab": "原始加隆岩台阶",
-  "block.me.old_galonn_vertical_slab": "原始加隆岩竖台阶",
-  "block.me.old_galonn_stairs": "原始加隆岩楼梯",
-  "block.me.old_galonn_wall": "原始加隆岩墙",
+  "block.me.old_galonn": "古旧加隆岩",
+  "block.me.old_galonn_slab": "古旧加隆岩台阶",
+  "block.me.old_galonn_vertical_slab": "古旧加隆岩竖台阶",
+  "block.me.old_galonn_stairs": "古旧加隆岩楼梯",
+  "block.me.old_galonn_wall": "古旧加隆岩墙",
 
   "block.me.smooth_galonn": "平滑加隆岩",
   "block.me.smooth_galonn_slab": "平滑加隆岩台阶",
@@ -2144,15 +2472,21 @@
   "block.me.chiseled_galonn_tiles": "雕纹加隆岩瓦",
   "block.me.chiseled_smooth_galonn": "雕纹平滑加隆岩",
 
+  "block.me.galonn_brickwork": "加隆岩嵌砖",
+  "block.me.galonn_brickwork_slab": "加隆岩嵌砖台阶",
+  "block.me.galonn_brickwork_vertical_slab": "加隆岩嵌砖竖台阶",
+  "block.me.galonn_brickwork_stairs": "加隆岩嵌砖楼梯",
+  "block.me.galonn_brickwork_wall": "加隆岩嵌砖墙",
+
   "block.me.galonn_pressure_plate": "加隆岩压力板",
   "block.me.galonn_button": "加隆岩按钮",
   "block.me.galonn_trapdoor": "加隆岩活板门",
 
   "block.me.galonn_rocks": "加隆岩石块",
 
-  "block.me.galonn_stool": "加隆岩凳",
-  "block.me.galonn_table": "加隆岩桌",
-  "block.me.galonn_chair": "加隆岩椅",
+  "block.me.galonn_stool": "加隆岩凳子",
+  "block.me.galonn_table": "加隆岩桌子",
+  "block.me.galonn_chair": "加隆岩椅子",
 
   "#Comment:": "方块 - 辉长岩",
   "block.me.cobbled_gabbro": "辉长岩圆石",
@@ -2233,9 +2567,9 @@
 
   "block.me.gabbro_rocks": "辉长岩石块",
 
-  "block.me.gabbro_stool": "辉长岩凳",
-  "block.me.gabbro_table": "辉长岩桌",
-  "block.me.gabbro_chair": "辉长岩椅",
+  "block.me.gabbro_stool": "辉长岩凳子",
+  "block.me.gabbro_table": "辉长岩桌子",
+  "block.me.gabbro_chair": "辉长岩椅子",
 
   "#Comment:": "方块 - 板岩",
   "block.me.cobbled_slate": "板岩圆石",
@@ -2310,28 +2644,17 @@
 
   "block.me.slate_rocks": "板岩石块",
 
-  "block.me.slate_stool": "板岩凳",
-  "block.me.slate_table": "板岩桌",
-  "block.me.slate_chair": "板岩椅",
-
-  "#Comment:": "方块 - 黑石",
-  "block.me.blackstone_tiles": "黑石瓦",
-  "block.me.blackstone_tiles_slab": "黑石瓦台阶",
-  "block.me.blackstone_tiles_vertical_slab": "黑石瓦竖台阶",
-  "block.me.blackstone_tiles_stairs": "黑石瓦楼梯",
-  "block.me.blackstone_tiles_wall": "黑石瓦墙",
-  "block.me.mossy_blackstone_tiles": "生苔的黑石瓦",
-  "block.me.mossy_blackstone_tiles_slab": "生苔的黑石瓦台阶",
-  "block.me.mossy_blackstone_tiles_vertical_slab": "生苔的黑石瓦竖台阶",
-  "block.me.mossy_blackstone_tiles_stairs": "生苔的黑石瓦楼梯",
-  "block.me.mossy_blackstone_tiles_wall": "生苔的黑石瓦墙",
-  "block.me.cracked_blackstone_tiles": "裂纹黑石瓦",
-  "block.me.cracked_blackstone_tiles_slab": "裂纹黑石瓦台阶",
-  "block.me.cracked_blackstone_tiles_vertical_slab": "裂纹黑石瓦竖台阶",
-  "block.me.cracked_blackstone_tiles_stairs": "裂纹黑石瓦楼梯",
-  "block.me.cracked_blackstone_tiles_wall": "裂纹黑石瓦墙",
+  "block.me.slate_stool": "板岩凳子",
+  "block.me.slate_table": "板岩桌子",
+  "block.me.slate_chair": "板岩椅子",
 
   "#Comment:": "方块 - 花岗岩",
+  "block.me.chiseled_polished_granite": "雕纹磨制花岗岩",
+  "block.me.chiseled_granite_bricks": "雕纹花岗岩砖",
+  "block.me.chiseled_granite": "雕纹花岗岩",
+  "block.me.chiseled_granite_tiles": "雕纹花岗岩瓦",
+  "block.me.chiseled_smooth_granite": "雕纹平滑花岗岩",
+
   "block.me.smooth_granite": "平滑花岗岩",
   "block.me.smooth_granite_slab": "平滑花岗岩台阶",
   "block.me.smooth_granite_vertical_slab": "平滑花岗岩竖台阶",
@@ -2402,8 +2725,11 @@
   "block.me.cracked_polished_granite_vertical_slab": "裂纹磨制花岗岩竖台阶",
   "block.me.cracked_polished_granite_stairs": "裂纹磨制花岗岩楼梯",
   "block.me.cracked_polished_granite_wall": "裂纹磨制花岗岩墙",
-  "block.me.chiseled_polished_granite": "雕纹磨制花岗岩",
-  "block.me.chiseled_granite_bricks": "雕纹花岗岩砖",
+  "block.me.old_granite": "古旧花岗岩",
+  "block.me.old_granite_slab": "古旧花岗岩台阶",
+  "block.me.old_granite_vertical_slab": "古旧花岗岩竖台阶",
+  "block.me.old_granite_stairs": "古旧花岗岩楼梯",
+  "block.me.old_granite_wall": "古旧花岗岩墙",
 
   "block.me.granite_brickwork": "花岗岩嵌砖",
   "block.me.granite_brickwork_slab": "花岗岩嵌砖台阶",
@@ -2411,16 +2737,34 @@
   "block.me.granite_brickwork_stairs": "花岗岩嵌砖楼梯",
   "block.me.granite_brickwork_wall": "花岗岩嵌砖墙",
 
-  "block.me.granite_stool": "花岗岩凳",
-  "block.me.granite_table": "花岗岩桌",
-  "block.me.granite_chair": "花岗岩椅",
+  "block.me.granite_rocks": "花岗岩石块",
+
+  "block.me.granite_stool": "花岗岩凳子",
+  "block.me.granite_table": "花岗岩桌子",
+  "block.me.granite_chair": "花岗岩椅子",
 
   "#Comment:": "方块 - 闪长岩",
+  "block.me.chiseled_polished_diorite": "雕纹磨制闪长岩",
+  "block.me.chiseled_diorite_bricks": "雕纹闪长岩砖",
+  "block.me.chiseled_diorite": "雕纹闪长岩",
+  "block.me.chiseled_diorite_tiles": "雕纹闪长岩瓦",
+  "block.me.chiseled_smooth_diorite": "雕纹平滑闪长岩",
+
   "block.me.smooth_diorite": "平滑闪长岩",
   "block.me.smooth_diorite_slab": "平滑闪长岩台阶",
   "block.me.smooth_diorite_vertical_slab": "平滑闪长岩竖台阶",
   "block.me.smooth_diorite_stairs": "平滑闪长岩楼梯",
   "block.me.smooth_diorite_wall": "平滑闪长岩墙",
+  "block.me.mossy_smooth_diorite": "生苔的平滑闪长岩",
+  "block.me.mossy_smooth_diorite_slab": "生苔的平滑闪长岩台阶",
+  "block.me.mossy_smooth_diorite_vertical_slab": "生苔的平滑闪长岩竖台阶",
+  "block.me.mossy_smooth_diorite_stairs": "生苔的平滑闪长岩楼梯",
+  "block.me.mossy_smooth_diorite_wall": "生苔的平滑闪长岩墙",
+  "block.me.cracked_smooth_diorite": "裂纹平滑闪长岩",
+  "block.me.cracked_smooth_diorite_slab": "裂纹平滑闪长岩台阶",
+  "block.me.cracked_smooth_diorite_vertical_slab": "裂纹平滑闪长岩竖台阶",
+  "block.me.cracked_smooth_diorite_stairs": "裂纹平滑闪长岩楼梯",
+  "block.me.cracked_smooth_diorite_wall": "裂纹平滑闪长岩墙",
   "block.me.cobbled_diorite": "闪长岩圆石",
   "block.me.cobbled_diorite_slab": "闪长岩圆石台阶",
   "block.me.cobbled_diorite_vertical_slab": "闪长岩圆石竖台阶",
@@ -2476,12 +2820,23 @@
   "block.me.cracked_polished_diorite_vertical_slab": "裂纹磨制闪长岩竖台阶",
   "block.me.cracked_polished_diorite_stairs": "裂纹磨制闪长岩楼梯",
   "block.me.cracked_polished_diorite_wall": "裂纹磨制闪长岩墙",
-  "block.me.chiseled_polished_diorite": "雕纹磨制闪长岩",
-  "block.me.chiseled_diorite_bricks": "雕纹闪长岩砖",
+  "block.me.old_diorite": "古旧闪长岩",
+  "block.me.old_diorite_slab": "古旧闪长岩台阶",
+  "block.me.old_diorite_vertical_slab": "古旧闪长岩竖台阶",
+  "block.me.old_diorite_stairs": "古旧闪长岩楼梯",
+  "block.me.old_diorite_wall": "古旧闪长岩墙",
 
-  "block.me.diorite_stool": "闪长岩凳",
-  "block.me.diorite_table": "闪长岩桌",
-  "block.me.diorite_chair": "闪长岩椅",
+  "block.me.diorite_brickwork": "闪长岩嵌砖",
+  "block.me.diorite_brickwork_slab": "闪长岩嵌砖台阶",
+  "block.me.diorite_brickwork_vertical_slab": "闪长岩嵌砖竖台阶",
+  "block.me.diorite_brickwork_stairs": "闪长岩嵌砖楼梯",
+  "block.me.diorite_brickwork_wall": "闪长岩嵌砖墙",
+
+  "block.me.diorite_rocks": "闪长岩石块",
+
+  "block.me.diorite_stool": "闪长岩凳子",
+  "block.me.diorite_table": "闪长岩桌子",
+  "block.me.diorite_chair": "闪长岩椅子",
 
   "#Comment:": "方块 - 凝灰岩",
   "block.me.smooth_tuff": "平滑凝灰岩",
@@ -2562,11 +2917,34 @@
   "block.me.tuff_carved_window": "凝灰岩雕纹窗户",
   "block.me.tuff_carved_window_pane": "凝灰岩雕纹窗户板",
 
-  "block.me.tuff_stool": "凝灰岩凳",
-  "block.me.tuff_table": "凝灰岩桌",
-  "block.me.tuff_chair": "凝灰岩椅",
+  "block.me.tuff_rocks": "凝灰岩石块",
+
+  "block.me.tuff_stool": "凝灰岩凳子",
+  "block.me.tuff_table": "凝灰岩桌子",
+  "block.me.tuff_chair": "凝灰岩椅子",
 
   "#Comment:": "方块 - 安山岩",
+  "block.me.chiseled_polished_andesite": "雕纹磨制安山岩",
+  "block.me.chiseled_andesite_bricks": "雕纹安山岩砖",
+  "block.me.chiseled_andesite": "雕纹安山岩",
+  "block.me.chiseled_andesite_tiles": "雕纹安山岩瓦",
+  "block.me.chiseled_smooth_andesite": "雕纹平滑安山岩",
+
+  "block.me.smooth_andesite": "平滑安山岩",
+  "block.me.smooth_andesite_slab": "平滑安山岩台阶",
+  "block.me.smooth_andesite_vertical_slab": "平滑安山岩竖台阶",
+  "block.me.smooth_andesite_stairs": "平滑安山岩楼梯",
+  "block.me.smooth_andesite_wall": "平滑安山岩墙",
+  "block.me.mossy_smooth_andesite": "生苔的平滑安山岩",
+  "block.me.mossy_smooth_andesite_slab": "生苔的平滑安山岩台阶",
+  "block.me.mossy_smooth_andesite_vertical_slab": "生苔的平滑安山岩竖台阶",
+  "block.me.mossy_smooth_andesite_stairs": "生苔的平滑安山岩楼梯",
+  "block.me.mossy_smooth_andesite_wall": "生苔的平滑安山岩墙",
+  "block.me.cracked_smooth_andesite": "裂纹平滑安山岩",
+  "block.me.cracked_smooth_andesite_slab": "裂纹平滑安山岩台阶",
+  "block.me.cracked_smooth_andesite_vertical_slab": "裂纹平滑安山岩竖台阶",
+  "block.me.cracked_smooth_andesite_stairs": "裂纹平滑安山岩楼梯",
+  "block.me.cracked_smooth_andesite_wall": "裂纹平滑安山岩墙",
   "block.me.cobbled_andesite": "安山岩圆石",
   "block.me.cobbled_andesite_slab": "安山岩圆石台阶",
   "block.me.cobbled_andesite_vertical_slab": "安山岩圆石竖台阶",
@@ -2622,12 +3000,23 @@
   "block.me.cracked_polished_andesite_vertical_slab": "裂纹磨制安山岩竖台阶",
   "block.me.cracked_polished_andesite_stairs": "裂纹磨制安山岩楼梯",
   "block.me.cracked_polished_andesite_wall": "裂纹磨制安山岩墙",
-  "block.me.chiseled_polished_andesite": "雕纹磨制安山岩",
-  "block.me.chiseled_andesite_bricks": "雕纹安山岩砖",
+  "block.me.old_andesite": "古旧安山岩",
+  "block.me.old_andesite_slab": "古旧安山岩台阶",
+  "block.me.old_andesite_vertical_slab": "古旧安山岩竖台阶",
+  "block.me.old_andesite_stairs": "古旧安山岩楼梯",
+  "block.me.old_andesite_wall": "古旧安山岩墙",
 
-  "block.me.andesite_stool": "安山岩凳",
-  "block.me.andesite_table": "安山岩桌",
-  "block.me.andesite_chair": "安山岩椅",
+  "block.me.andesite_brickwork": "安山岩嵌砖",
+  "block.me.andesite_brickwork_slab": "安山岩嵌砖台阶",
+  "block.me.andesite_brickwork_vertical_slab": "安山岩嵌砖竖台阶",
+  "block.me.andesite_brickwork_stairs": "安山岩嵌砖楼梯",
+  "block.me.andesite_brickwork_wall": "安山岩嵌砖墙",
+
+  "block.me.andesite_rocks": "安山岩石块",
+
+  "block.me.andesite_stool": "安山岩凳子",
+  "block.me.andesite_table": "安山岩桌子",
+  "block.me.andesite_chair": "安山岩椅子",
 
   "#Comment:": "方块 - 老红砖",
 
@@ -2705,9 +3094,11 @@
   "block.me.chiseled_polished_basalt": "雕纹磨制玄武岩",
   "block.me.chiseled_basalt_bricks": "雕纹玄武岩砖",
 
-  "block.me.basalt_stool": "玄武岩凳",
-  "block.me.basalt_table": "玄武岩桌",
-  "block.me.basalt_chair": "玄武岩椅",
+  "block.me.basalt_rocks": "玄武岩石块",
+
+  "block.me.basalt_stool": "玄武岩凳子",
+  "block.me.basalt_table": "玄武岩桌子",
+  "block.me.basalt_chair": "玄武岩椅子",
 
   "#Comment:": "方块 - 翡翠岩",
   "block.me.cobbled_jadeite": "翡翠岩圆石",
@@ -2777,9 +3168,9 @@
 
   "block.me.jadeite_rocks": "翡翠岩石块",
 
-  "block.me.jadeite_stool": "翡翠岩凳",
-  "block.me.jadeite_table": "翡翠岩桌",
-  "block.me.jadeite_chair": "翡翠岩椅",
+  "block.me.jadeite_stool": "翡翠岩凳子",
+  "block.me.jadeite_table": "翡翠岩桌子",
+  "block.me.jadeite_chair": "翡翠岩椅子",
 
   "#Comment:": "方块 - 石英岩",
   "block.me.cobbled_quartzite": "石英岩圆石",
@@ -2849,9 +3240,9 @@
 
   "block.me.quartzite_rocks": "石英岩石块",
 
-  "block.me.quartzite_stool": "石英岩凳",
-  "block.me.quartzite_table": "石英岩桌",
-  "block.me.quartzite_chair": "石英岩椅",
+  "block.me.quartzite_stool": "石英岩凳子",
+  "block.me.quartzite_table": "石英岩桌子",
+  "block.me.quartzite_chair": "石英岩椅子",
 
   "#Comment:": "方块 - 铁石",
   "block.me.smooth_ironstone": "平滑铁石",
@@ -2932,9 +3323,9 @@
 
   "block.me.ironstone_rocks": "铁石石块",
 
-  "block.me.ironstone_stool": "铁石凳",
-  "block.me.ironstone_table": "铁石桌",
-  "block.me.ironstone_chair": "铁石椅",
+  "block.me.ironstone_stool": "铁石凳子",
+  "block.me.ironstone_table": "铁石桌子",
+  "block.me.ironstone_chair": "铁石椅子",
 
   "#Comment:": "方块 - 黑胆石",
   "block.me.smooth_hematite": "平滑黑胆石",
@@ -3021,9 +3412,9 @@
 
   "block.me.hematite_rocks": "黑胆石石块",
 
-  "block.me.hematite_stool": "黑胆石凳",
-  "block.me.hematite_table": "黑胆石桌",
-  "block.me.hematite_chair": "黑胆石椅",
+  "block.me.hematite_stool": "黑胆石凳子",
+  "block.me.hematite_table": "黑胆石桌子",
+  "block.me.hematite_chair": "黑胆石椅子",
 
   "#Comment:": "方块 - 片麻岩",
   "block.me.smooth_gneiss": "平滑片麻岩",
@@ -3110,9 +3501,9 @@
 
   "block.me.gneiss_rocks": "片麻岩石块",
 
-  "block.me.gneiss_stool": "片麻岩凳",
-  "block.me.gneiss_table": "片麻岩桌",
-  "block.me.gneiss_chair": "片麻岩椅",
+  "block.me.gneiss_stool": "片麻岩凳子",
+  "block.me.gneiss_table": "片麻岩桌子",
+  "block.me.gneiss_chair": "片麻岩椅子",
 
   "#Comment:": "方块 - 齐吉尔岩 zigil = silver",
   "block.me.smooth_zigilaban": "平滑齐吉尔岩",
@@ -3199,18 +3590,18 @@
 
   "block.me.zigilaban_rocks": "齐吉尔岩石块",
 
-  "block.me.zigilaban_stool": "齐吉尔岩凳",
-  "block.me.zigilaban_table": "齐吉尔岩桌",
-  "block.me.zigilaban_chair": "齐吉尔岩椅",
+  "block.me.zigilaban_stool": "齐吉尔岩凳子",
+  "block.me.zigilaban_table": "齐吉尔岩桌子",
+  "block.me.zigilaban_chair": "齐吉尔岩椅子",
 
   "#Comment:": "方块 - 伊遮尔岩 （矮人语石灰岩）",
   "block.me.pointed_izheraban": "伊遮尔岩石锥",
 
-  "block.me.old_izheraban": "原始伊遮尔岩",
-  "block.me.old_izheraban_slab": "原始伊遮尔岩台阶",
-  "block.me.old_izheraban_vertical_slab": "原始伊遮尔岩竖台阶",
-  "block.me.old_izheraban_stairs": "原始伊遮尔岩楼梯",
-  "block.me.old_izheraban_wall": "原始伊遮尔岩墙",
+  "block.me.old_izheraban": "古旧伊遮尔岩",
+  "block.me.old_izheraban_slab": "古旧伊遮尔岩台阶",
+  "block.me.old_izheraban_vertical_slab": "古旧伊遮尔岩竖台阶",
+  "block.me.old_izheraban_stairs": "古旧伊遮尔岩楼梯",
+  "block.me.old_izheraban_wall": "古旧伊遮尔岩墙",
 
   "block.me.smooth_izheraban": "平滑伊遮尔岩",
   "block.me.smooth_izheraban_slab": "平滑伊遮尔岩台阶",
@@ -3296,6 +3687,12 @@
   "block.me.chiseled_izheraban": "雕纹伊遮尔岩",
   "block.me.chiseled_smooth_izheraban": "雕纹平滑伊遮尔岩",
 
+  "block.me.izheraban_brickwork": "伊遮尔岩嵌砖",
+  "block.me.izheraban_brickwork_slab": "伊遮尔岩嵌砖台阶",
+  "block.me.izheraban_brickwork_vertical_slab": "伊遮尔岩嵌砖竖台阶",
+  "block.me.izheraban_brickwork_stairs": "伊遮尔岩嵌砖楼梯",
+  "block.me.izheraban_brickwork_wall": "伊遮尔岩嵌砖墙",
+
   "block.me.izheraban_pressure_plate": "伊遮尔岩压力板",
   "block.me.izheraban_button": "伊遮尔岩按钮",
   "block.me.izheraban_trapdoor": "伊遮尔岩活板门",
@@ -3305,9 +3702,9 @@
   "block.me.izheraban_carved_window": "伊遮尔岩雕纹窗户",
   "block.me.izheraban_carved_window_pane": "伊遮尔岩雕纹窗户板",
 
-  "block.me.izheraban_stool": "伊遮尔岩凳",
-  "block.me.izheraban_table": "伊遮尔岩桌",
-  "block.me.izheraban_chair": "伊遮尔岩椅",
+  "block.me.izheraban_stool": "伊遮尔岩凳子",
+  "block.me.izheraban_table": "伊遮尔岩桌子",
+  "block.me.izheraban_chair": "伊遮尔岩椅子",
 
   "#Comment:": "方块 - 深渊岩 núr = deep",
   "block.me.cobbled_nurgon": "深渊岩圆石",
@@ -3377,9 +3774,9 @@
 
   "block.me.nurgon_rocks": "深渊岩石块",
 
-  "block.me.nurgon_stool": "深渊岩圆石凳",
-  "block.me.nurgon_table": "深渊岩圆石桌",
-  "block.me.nurgon_chair": "深渊岩圆石椅",
+  "block.me.nurgon_stool": "深渊岩圆石凳子",
+  "block.me.nurgon_table": "深渊岩圆石桌子",
+  "block.me.nurgon_chair": "深渊岩圆石椅子",
 
   "#Comment:": "方块 - 地心岩 med = last, spawns at the \"last\" of the world in terms of depth",
   "block.me.smooth_medgon": "平滑地心岩",
@@ -3463,9 +3860,9 @@
 
   "block.me.medgon_rocks": "地心岩石块",
 
-  "block.me.medgon_stool": "地心岩凳",
-  "block.me.medgon_table": "地心岩桌",
-  "block.me.medgon_chair": "地心岩椅",
+  "block.me.medgon_stool": "地心岩凳子",
+  "block.me.medgon_table": "地心岩桌子",
+  "block.me.medgon_chair": "地心岩椅子",
 
   "#Comment:": "方块 - 冰冻岩",
   "block.me.frozen_cobblestone": "冰冻岩圆石",
@@ -3535,9 +3932,9 @@
 
   "block.me.frozen_stone_rocks": "冰冻岩石块",
 
-  "block.me.frozen_stone_stool": "冰冻岩凳",
-  "block.me.frozen_stone_table": "冰冻岩桌",
-  "block.me.frozen_stone_chair": "冰冻岩椅",
+  "block.me.frozen_stone_stool": "冰冻岩凳子",
+  "block.me.frozen_stone_table": "冰冻岩桌子",
+  "block.me.frozen_stone_chair": "冰冻岩椅子",
 
   "#Comment:": "方块 - 混合石",
   "block.me.mixed_stones": "混合石",
@@ -3615,6 +4012,12 @@
   "block.me.mire_bricks_stairs": "软泥砖楼梯",
   "block.me.mire_bricks_wall": "软泥砖墙",
 
+  "block.me.snowy_grass_block": "积雪草方块",
+
+  "block.me.snowy_dirt": "积雪泥土",
+  "block.me.snowy_dirt_slab": "积雪泥土台阶",
+  "block.me.snowy_dirt_stairs": "积雪泥土楼梯",
+
   "block.me.cobbly_dirt": "嵌石泥土",
   "block.me.cobbly_dirt_slab": "嵌石泥土台阶",
   "block.me.cobbly_dirt_stairs": "嵌石泥土楼梯",
@@ -3674,10 +4077,10 @@
   "block.me.stripped_beech_wood_vertical_slab": "去皮山毛榉原木竖台阶",
   "block.me.stripped_beech_wood_stairs": "去皮山毛榉原木楼梯",
 
-  "block.me.beech_stool": "山毛榉木凳",
+  "block.me.beech_stool": "山毛榉木凳子",
   "block.me.beech_bench": "山毛榉木长椅",
-  "block.me.beech_table": "山毛榉木桌",
-  "block.me.beech_chair": "山毛榉木椅",
+  "block.me.beech_table": "山毛榉木桌子",
+  "block.me.beech_chair": "山毛榉木椅子",
 
   "block.me.beech_ladder": "山毛榉木梯子",
 
@@ -3720,10 +4123,10 @@
   "block.me.stripped_larch_wood_vertical_slab": "去皮落叶松原木竖台阶",
   "block.me.stripped_larch_wood_stairs": "去皮落叶松原木楼梯",
 
-  "block.me.larch_stool": "落叶松木凳",
+  "block.me.larch_stool": "落叶松木凳子",
   "block.me.larch_bench": "落叶松木长椅",
-  "block.me.larch_table": "落叶松木桌",
-  "block.me.larch_chair": "落叶松木椅",
+  "block.me.larch_table": "落叶松木桌子",
+  "block.me.larch_chair": "落叶松木椅子",
 
   "block.me.larch_ladder": "落叶松木梯子",
 
@@ -3765,10 +4168,10 @@
   "block.me.stripped_black_lebethron_wood_vertical_slab": "去皮黑色莱贝斯隆原木竖台阶",
   "block.me.stripped_black_lebethron_wood_stairs": "去皮黑色莱贝斯隆原木楼梯",
 
-  "block.me.black_lebethron_stool": "黑色莱贝斯隆木凳",
+  "block.me.black_lebethron_stool": "黑色莱贝斯隆木凳子",
   "block.me.black_lebethron_bench": "黑色莱贝斯隆木长椅",
-  "block.me.black_lebethron_table": "黑色莱贝斯隆木桌",
-  "block.me.black_lebethron_chair": "黑色莱贝斯隆木椅",
+  "block.me.black_lebethron_table": "黑色莱贝斯隆木桌子",
+  "block.me.black_lebethron_chair": "黑色莱贝斯隆木椅子",
 
   "block.me.black_lebethron_ladder": "黑色莱贝斯隆木梯子",
 
@@ -3809,10 +4212,10 @@
   "block.me.stripped_white_lebethron_wood_vertical_slab": "去皮白色莱贝斯隆原木竖台阶",
   "block.me.stripped_white_lebethron_wood_stairs": "去皮白色莱贝斯隆原木楼梯",
 
-  "block.me.white_lebethron_stool": "白色莱贝斯隆木凳",
+  "block.me.white_lebethron_stool": "白色莱贝斯隆木凳子",
   "block.me.white_lebethron_bench": "白色莱贝斯隆木长椅",
-  "block.me.white_lebethron_table": "白色莱贝斯隆木桌",
-  "block.me.white_lebethron_chair": "白色莱贝斯隆木椅",
+  "block.me.white_lebethron_table": "白色莱贝斯隆木桌子",
+  "block.me.white_lebethron_chair": "白色莱贝斯隆木椅子",
 
   "block.me.white_lebethron_ladder": "白色莱贝斯隆木梯子",
 
@@ -3854,10 +4257,10 @@
   "block.me.stripped_chestnut_wood_vertical_slab": "去皮栗木竖台阶",
   "block.me.stripped_chestnut_wood_stairs": "去皮栗木楼梯",
 
-  "block.me.chestnut_stool": "栗木凳",
+  "block.me.chestnut_stool": "栗木凳子",
   "block.me.chestnut_bench": "栗木长椅",
-  "block.me.chestnut_table": "栗木桌",
-  "block.me.chestnut_chair": "栗木椅",
+  "block.me.chestnut_table": "栗木桌子",
+  "block.me.chestnut_chair": "栗木椅子",
 
   "block.me.chestnut_ladder": "栗木梯子",
 
@@ -3900,10 +4303,10 @@
   "block.me.stripped_holly_wood_vertical_slab": "去皮冬青木竖台阶",
   "block.me.stripped_holly_wood_stairs": "去皮冬青木楼梯",
 
-  "block.me.holly_stool": "冬青木凳",
+  "block.me.holly_stool": "冬青木凳子",
   "block.me.holly_bench": "冬青木长椅",
-  "block.me.holly_table": "冬青木桌",
-  "block.me.holly_chair": "冬青木椅",
+  "block.me.holly_table": "冬青木桌子",
+  "block.me.holly_chair": "冬青木椅子",
 
   "block.me.holly_ladder": "冬青木梯子",
 
@@ -3947,10 +4350,10 @@
   "block.me.stripped_mallorn_wood_vertical_slab": "去皮瑁珑原木竖台阶",
   "block.me.stripped_mallorn_wood_stairs": "去皮瑁珑原木楼梯",
 
-  "block.me.mallorn_stool": "瑁珑木凳",
+  "block.me.mallorn_stool": "瑁珑木凳子",
   "block.me.mallorn_bench": "瑁珑木长椅",
-  "block.me.mallorn_table": "瑁珑木桌",
-  "block.me.mallorn_chair": "瑁珑木椅",
+  "block.me.mallorn_table": "瑁珑木桌子",
+  "block.me.mallorn_chair": "瑁珑木椅子",
 
   "block.me.mallorn_ladder": "瑁珑木梯子",
 
@@ -3995,10 +4398,10 @@
   "block.me.stripped_maple_wood_vertical_slab": "去皮枫木原木竖台阶",
   "block.me.stripped_maple_wood_stairs": "去皮枫木原木楼梯",
 
-  "block.me.maple_stool": "枫木凳",
+  "block.me.maple_stool": "枫木凳子",
   "block.me.maple_bench": "枫木长椅",
-  "block.me.maple_table": "枫木桌",
-  "block.me.maple_chair": "枫木椅",
+  "block.me.maple_table": "枫木桌子",
+  "block.me.maple_chair": "枫木椅子",
 
   "block.me.maple_ladder": "枫木梯子",
 
@@ -4039,10 +4442,10 @@
   "block.me.stripped_silver_maple_wood_vertical_slab": "去皮银枫木原木竖台阶",
   "block.me.stripped_silver_maple_wood_stairs": "去皮银枫木原木楼梯",
 
-  "block.me.silver_maple_stool": "银枫木凳",
+  "block.me.silver_maple_stool": "银枫木凳子",
   "block.me.silver_maple_bench": "银枫木长椅",
-  "block.me.silver_maple_table": "银枫木桌",
-  "block.me.silver_maple_chair": "银枫木椅",
+  "block.me.silver_maple_table": "银枫木桌子",
+  "block.me.silver_maple_chair": "银枫木椅子",
 
   "block.me.silver_maple_ladder": "银枫木梯子",
 
@@ -4087,10 +4490,10 @@
   "block.me.stripped_mirkwood_wood_vertical_slab": "去皮阴郁原木竖台阶",
   "block.me.stripped_mirkwood_wood_stairs": "去皮阴郁原木楼梯",
 
-  "block.me.mirkwood_stool": "阴郁木凳",
+  "block.me.mirkwood_stool": "阴郁木凳子",
   "block.me.mirkwood_bench": "阴郁木长椅",
-  "block.me.mirkwood_table": "阴郁木桌",
-  "block.me.mirkwood_chair": "阴郁木椅",
+  "block.me.mirkwood_table": "阴郁木桌子",
+  "block.me.mirkwood_chair": "阴郁木椅子",
 
   "block.me.mirkwood_ladder": "阴郁木梯子",
 
@@ -4132,10 +4535,10 @@
   "block.me.stripped_palm_wood_vertical_slab": "去皮棕榈原木竖台阶",
   "block.me.stripped_palm_wood_stairs": "去皮棕榈原木楼梯",
 
-  "block.me.palm_stool": "棕榈木凳",
+  "block.me.palm_stool": "棕榈木凳子",
   "block.me.palm_bench": "棕榈木长椅",
-  "block.me.palm_table": "棕榈木桌",
-  "block.me.palm_chair": "棕榈木椅",
+  "block.me.palm_table": "棕榈木桌子",
+  "block.me.palm_chair": "棕榈木椅子",
 
   "block.me.palm_ladder": "棕榈木梯子",
 
@@ -4177,10 +4580,10 @@
   "block.me.stripped_white_palm_wood_vertical_slab": "去皮白色棕榈木竖台阶",
   "block.me.stripped_white_palm_wood_stairs": "去皮白色棕榈木楼梯",
 
-  "block.me.white_palm_stool": "白色棕榈木凳",
+  "block.me.white_palm_stool": "白色棕榈木凳子",
   "block.me.white_palm_bench": "白色棕榈木长椅",
-  "block.me.white_palm_table": "白色棕榈木桌",
-  "block.me.white_palm_chair": "白色棕榈木椅",
+  "block.me.white_palm_table": "白色棕榈木桌子",
+  "block.me.white_palm_chair": "白色棕榈木椅子",
 
   "block.me.white_palm_ladder": "白色棕榈木梯子",
 
@@ -4224,10 +4627,10 @@
   "block.me.stripped_pine_wood_vertical_slab": "去皮松木原木竖台阶",
   "block.me.stripped_pine_wood_stairs": "去皮松木原木楼梯",
 
-  "block.me.pine_stool": "松木凳",
+  "block.me.pine_stool": "松木凳子",
   "block.me.pine_bench": "松木长椅",
-  "block.me.pine_table": "松木桌",
-  "block.me.pine_chair": "松木椅",
+  "block.me.pine_table": "松木桌子",
+  "block.me.pine_chair": "松木椅子",
 
   "block.me.pine_ladder": "松木梯子",
 
@@ -4271,10 +4674,10 @@
   "block.me.stripped_black_pine_wood_vertical_slab": "去皮黑松木原木竖台阶",
   "block.me.stripped_black_pine_wood_stairs": "去皮黑松木原木楼梯",
 
-  "block.me.black_pine_stool": "黑松木凳",
+  "block.me.black_pine_stool": "黑松木凳子",
   "block.me.black_pine_bench": "黑松木长椅",
-  "block.me.black_pine_table": "黑松木桌",
-  "block.me.black_pine_chair": "黑松木椅",
+  "block.me.black_pine_table": "黑松木桌子",
+  "block.me.black_pine_chair": "黑松木椅子",
 
   "block.me.black_pine_ladder": "黑松木梯子",
 
@@ -4316,10 +4719,10 @@
   "block.me.stripped_willow_wood_vertical_slab": "去皮柳木原木竖台阶",
   "block.me.stripped_willow_wood_stairs": "去皮柳木原木楼梯",
 
-  "block.me.willow_stool": "柳木凳",
+  "block.me.willow_stool": "柳木凳子",
   "block.me.willow_bench": "柳木长椅",
-  "block.me.willow_table": "柳木桌",
-  "block.me.willow_chair": "柳木椅",
+  "block.me.willow_table": "柳木桌子",
+  "block.me.willow_chair": "柳木椅子",
 
   "block.me.willow_ladder": "柳木梯子",
 
@@ -4342,10 +4745,10 @@
   "block.me.mushroom_shingles_vertical_slab": "蘑菇瓦竖台阶",
   "block.me.mushroom_shingles_wall": "蘑菇瓦墙",
 
-  "block.me.mushroom_stool": "蘑菇凳",
+  "block.me.mushroom_stool": "蘑菇凳子",
   "block.me.mushroom_bench": "蘑菇长椅",
-  "block.me.mushroom_table": "蘑菇桌",
-  "block.me.mushroom_chair": "蘑菇椅",
+  "block.me.mushroom_table": "蘑菇桌子",
+  "block.me.mushroom_chair": "蘑菇椅子",
 
   "block.me.mushroom_ladder": "蘑菇梯子",
 
@@ -4369,10 +4772,10 @@
   "block.me.dark_mushroom_shingles_vertical_slab": "暗蘑菇瓦竖台阶",
   "block.me.dark_mushroom_shingles_wall": "暗蘑菇瓦墙",
 
-  "block.me.dark_mushroom_stool": "暗蘑菇凳",
+  "block.me.dark_mushroom_stool": "暗蘑菇凳子",
   "block.me.dark_mushroom_bench": "暗蘑菇长椅",
-  "block.me.dark_mushroom_table": "暗蘑菇桌",
-  "block.me.dark_mushroom_chair": "暗蘑菇椅",
+  "block.me.dark_mushroom_table": "暗蘑菇桌子",
+  "block.me.dark_mushroom_chair": "暗蘑菇椅子",
 
   "block.me.dark_mushroom_ladder": "暗蘑菇梯子",
 
@@ -4396,10 +4799,10 @@
   "block.me.gray_mushroom_shingles_vertical_slab": "灰蘑菇瓦竖台阶",
   "block.me.gray_mushroom_shingles_wall": "灰蘑菇瓦墙",
 
-  "block.me.gray_mushroom_stool": "灰蘑菇凳",
+  "block.me.gray_mushroom_stool": "灰蘑菇凳子",
   "block.me.gray_mushroom_bench": "灰蘑菇长椅",
-  "block.me.gray_mushroom_table": "灰蘑菇桌",
-  "block.me.gray_mushroom_chair": "灰蘑菇椅",
+  "block.me.gray_mushroom_table": "灰蘑菇桌子",
+  "block.me.gray_mushroom_chair": "灰蘑菇椅子",
 
   "block.me.gray_mushroom_ladder": "灰蘑菇梯子",
 
@@ -4822,82 +5225,89 @@
 
   "#Comment:": "方块 - 原版家具",
 
-  "block.me.oak_stool": "橡木凳",
+  "block.me.oak_stool": "橡木凳子",
   "block.me.oak_bench": "橡木长椅",
-  "block.me.oak_table": "橡木桌",
-  "block.me.oak_chair": "橡木椅",
+  "block.me.oak_table": "橡木桌子",
+  "block.me.oak_chair": "橡木椅子",
 
   "block.me.oak_ladder": "橡木梯子",
 
-  "block.me.spruce_stool": "云杉木凳",
+  "block.me.spruce_stool": "云杉木凳子",
   "block.me.spruce_bench": "云杉木长椅",
-  "block.me.spruce_table": "云杉木桌",
-  "block.me.spruce_chair": "云杉木椅",
+  "block.me.spruce_table": "云杉木桌子",
+  "block.me.spruce_chair": "云杉木椅子",
 
   "block.me.spruce_ladder": "云杉木梯子",
 
-  "block.me.birch_stool": "白桦木凳",
+  "block.me.birch_stool": "白桦木凳子",
   "block.me.birch_bench": "白桦木长椅",
-  "block.me.birch_table": "白桦木桌",
-  "block.me.birch_chair": "白桦木椅",
+  "block.me.birch_table": "白桦木桌子",
+  "block.me.birch_chair": "白桦木椅子",
 
   "block.me.birch_ladder": "白桦木梯子",
 
-  "block.me.jungle_stool": "丛林木凳",
+  "block.me.jungle_stool": "丛林木凳子",
   "block.me.jungle_bench": "丛林木长椅",
-  "block.me.jungle_table": "丛林木桌",
-  "block.me.jungle_chair": "丛林木椅",
+  "block.me.jungle_table": "丛林木桌子",
+  "block.me.jungle_chair": "丛林木椅子",
 
   "block.me.jungle_ladder": "丛林木梯子",
 
-  "block.me.acacia_stool": "金合欢木凳",
+  "block.me.acacia_stool": "金合欢木凳子",
   "block.me.acacia_bench": "金合欢木长椅",
-  "block.me.acacia_table": "金合欢木桌",
-  "block.me.acacia_chair": "金合欢木椅",
+  "block.me.acacia_table": "金合欢木桌子",
+  "block.me.acacia_chair": "金合欢木椅子",
 
   "block.me.acacia_ladder": "金合欢木梯子",
 
-  "block.me.dark_oak_stool": "深色橡木凳",
+  "block.me.dark_oak_stool": "深色橡木凳子",
   "block.me.dark_oak_bench": "深色橡木长椅",
-  "block.me.dark_oak_table": "深色橡木桌",
-  "block.me.dark_oak_chair": "深色橡木椅",
+  "block.me.dark_oak_table": "深色橡木桌子",
+  "block.me.dark_oak_chair": "深色橡木椅子",
 
   "block.me.dark_oak_ladder": "深色橡木梯子",
 
-  "block.me.mangrove_stool": "红树木凳",
+  "block.me.mangrove_stool": "红树木凳子",
   "block.me.mangrove_bench": "红树木长椅",
-  "block.me.mangrove_table": "红树木桌",
-  "block.me.mangrove_chair": "红树木椅",
+  "block.me.mangrove_table": "红树木桌子",
+  "block.me.mangrove_chair": "红树木椅子",
 
   "block.me.mangrove_ladder": "红树木梯子",
 
-  "block.me.cherry_stool": "樱花木凳",
+  "block.me.cherry_stool": "樱花木凳子",
   "block.me.cherry_bench": "樱花木长椅",
-  "block.me.cherry_table": "樱花木桌",
-  "block.me.cherry_chair": "樱花木椅",
+  "block.me.cherry_table": "樱花木桌子",
+  "block.me.cherry_chair": "樱花木椅子",
 
   "block.me.cherry_ladder": "樱花木梯子",
 
-  "block.me.bamboo_stool": "竹凳",
+  "block.me.bamboo_stool": "竹凳子",
   "block.me.bamboo_bench": "竹长椅",
-  "block.me.bamboo_table": "竹桌",
-  "block.me.bamboo_chair": "竹椅",
+  "block.me.bamboo_table": "竹桌子",
+  "block.me.bamboo_chair": "竹椅子",
 
   "block.me.bamboo_ladder": "竹梯子",
 
-  "block.me.crimson_stool": "绯红木凳",
+  "block.me.crimson_stool": "绯红木凳子",
   "block.me.crimson_bench": "绯红木长椅",
-  "block.me.crimson_table": "绯红木桌",
-  "block.me.crimson_chair": "绯红木椅",
+  "block.me.crimson_table": "绯红木桌子",
+  "block.me.crimson_chair": "绯红木椅子",
 
   "block.me.crimson_ladder": "绯红木梯子",
 
-  "block.me.warped_stool": "诡异木凳",
+  "block.me.warped_stool": "诡异木凳子",
   "block.me.warped_bench": "诡异木长椅",
-  "block.me.warped_table": "诡异木桌",
-  "block.me.warped_chair": "诡异木椅",
+  "block.me.warped_table": "诡异木桌子",
+  "block.me.warped_chair": "诡异木椅子",
 
   "block.me.warped_ladder": "诡异木梯子",
+
+  "block.me.treated_wood_stool": "精制木凳子",
+  "block.me.treated_wood_bench": "精制木长椅",
+  "block.me.treated_wood_table": "精制木桌子",
+  "block.me.treated_wood_chair": "精制木椅子",
+
+  "block.me.treated_wood_ladder": "精制木梯子",
 
   "block.me.blue_cushion": "蓝色坐垫",
   "block.me.brown_cushion": "棕色坐垫",
@@ -4930,6 +5340,7 @@
 
   "block.me.sconce": "火炬",
   "block.me.gilded_sconce": "镀金火炬",
+  "block.me.orcish_sconce": "奥克火炬",
 
   "block.me.candle_heap": "蜡烛堆",
 
@@ -4976,9 +5387,10 @@
   "#Comment:": "方块 - 植物",
   "block.me.brown_grass": "棕色草",
   "block.me.green_shrub": "绿色灌木",
+  "block.me.small_dry_shrub": "小枯灌木",
+  "block.me.frozen_shrub": "冻灌木",
   "block.me.mallos": "瑁洛斯",
   "block.me.elanor": "埃拉诺",
-  "block.me.mordor_lichen": "魔多苔藓",
   "block.me.morgul_ivy": "魔古尔青藤",
   "block.me.hanging_cobweb": "悬挂蛛网",
   "block.me.corner_cobweb": "角落蛛网",
@@ -4993,11 +5405,14 @@
   "block.me.reeds": "芦苇",
   "block.me.dry_grass": "干草丛",
   "block.me.dying_grass": "枯草丛",
-  "block.me.grass_tuft": "草丛簇",
+  "block.me.frozen_grass": "冻草丛",
+  "block.me.grim_grass": "阴森草丛",
+  "block.me.temperate_grass": "温带草丛",
+  "block.me.grass_tuft": "草簇",
+  "block.me.frozen_tuft": "冻草簇",
   "block.me.heather": "帚石楠",
-  "block.me.dead_heather": "死亡帚石楠",
-  "block.me.dry_heather": "干枯帚石楠",
-  "block.me.heather_bush": "帚石楠灌木丛",
+  "block.me.dead_heather": "死帚石楠",
+  "block.me.dry_heather": "枯帚石楠",
   "block.me.red_heather": "红帚石楠",
   "block.me.heath": "石楠",
   "block.me.wheatgrass": "麦草丛",
@@ -5028,12 +5443,24 @@
   "block.me.small_flowering_lily_pads": "开花小睡莲",
 
   "block.me.azalea_flower_growth": "杜鹃花植被",
+  "block.me.dry_growth": "枯植被",
+  "block.me.frozen_growth": "冻植被",
+  "block.me.green_growth": "绿色植被",
   "block.me.ivy_growth": "常春藤植被",
   "block.me.lilac_flower_growth": "丁香花植被",
   "block.me.pink_flower_growth": "粉色花植被",
   "block.me.red_flower_growth": "红色花植被",
   "block.me.white_flower_growth": "白色花植被",
   "block.me.yellow_flower_growth": "黄色花植被",
+
+  "block.me.light_blue_flowers": "淡蓝色花丛",
+  "block.me.magenta_flowers": "品红色花丛",
+  "block.me.orange_flowers": "橙色花丛",
+  "block.me.pink_flowers": "粉红色花丛",
+  "block.me.purple_flowers": "紫色花丛",
+  "block.me.red_flowers": "红色花丛",
+  "block.me.white_flowers": "白色花丛",
+  "block.me.yellow_flowers": "黄色花丛",
 
   "block.me.strawberry_bush": "草莓灌木丛",
   "block.me.tan_shrub": "褐色灌木丛",
@@ -5364,6 +5791,12 @@
 
   "#Comment:": "方块 - 杂项",
   "block.me.sticky_snow": "黏雪",
+  "block.me.sticky_ice": "黏冰",
+
+  "block.me.floating_ice": "浮冰团",
+
+  "block.me.short_icicles": "短冰棱",
+  "block.me.drooping_icicles": "下垂冰棱",
 
   "block.me.river_sand": "河沙",
   "block.me.black_sand": "黑沙",
@@ -6340,7 +6773,9 @@
 
   "#Comment": "界面",
   "screen.me.forge": "锻造炉",
-  "container.artisan_table": "工匠台",
+  "container.me.artisan_table": "工匠台",
+  "container.me.small_crate": "小型板条箱",
+  "container.me.thin_barrel": "窄木桶",
   "screen.me.reinforced_chest": "加固箱子",
   "screen.me.wood_pile": "木堆",
   "screen.me.shaping_anvil": "铁砧塑形",
@@ -6377,6 +6812,7 @@
   "tooltip.me.sub_faction" : "§7子派系：§f",
   "tooltip.me.customizations" : "§6自定义部件：§f",
   "tooltip.me.reach" : "范围：",
+  "tooltip.me.dyed" : "已染色：",
   "tooltip.me.artisan" : "工匠：",
   "tooltip.me.blocks_range" : " 方块",
   "tooltip.me.backstab" : "§7 背刺时提高 50% 伤害",
@@ -6416,6 +6852,7 @@
   "tooltip.me.erebor" : "埃瑞博",
   "tooltip.me.lothlorien" : "洛丝罗瑞恩",
   "tooltip.me.mordor" : "魔多",
+  "tooltip.me.mordor_black_numenoreans" : "魔多黑努门诺尔",
   "tooltip.me.misty_mountains_goblins" : "迷雾山脉半兽人",
   "tooltip.me.gundabad" : "贡达巴德",
   "tooltip.me.moria_goblins" : "墨瑞亚半兽人",
@@ -6426,12 +6863,13 @@
   "tooltip.me.dale" : "河谷邦",
 
   "tooltip.me.color" : "当前颜色",
-  "tooltip.me.cape" : "披风",
-  "tooltip.me.hood" : "兜帽",
   "tooltip.me.impaled_skulls" : "头颅尖桩",
   "tooltip.me.skull" : "头颅",
   "tooltip.me.pouch" : "袋子",
   "tooltip.me.feather" : "羽毛",
+
+  "tooltip.me.mount_armor_addon_top" : "顶部盔甲附件：已启用",
+  "tooltip.me.mount_armor_addon_side" : "侧部盔甲附件：已启用",
 
   "tooltip.me.forge_output_mode0" : "所需金属不足",
   "tooltip.me.forge_output_mode1" : "1 金属粒",
@@ -6538,6 +6976,20 @@
   "tooltip.me.galadhrim_cape": "加拉兹民披风",
   "tooltip.me.galadhrim_hood": "加拉兹民兜帽",
   "tooltip.me.galadhrim_lord_surcoat": "加拉兹民领主罩衣",
+
+  "tooltip.me.orcish_cape": "奥克披风",
+  "tooltip.me.orcish_long_cape": "奥克长披风",
+  "tooltip.me.orcish_shoulders": "奥克披肩",
+
+  "tooltip.me.orcish_black_fur_surcoat_with_bone": "奥克具骨罩衣（黑色毛皮)",
+  "tooltip.me.orcish_brown_fur_surcoat_with_bone": "奥克具骨罩衣（棕色毛皮)",
+  "tooltip.me.orcish_gray_fur_surcoat_with_bone": "奥克具骨罩衣（灰色毛皮)",
+  "tooltip.me.orcish_tan_fur_surcoat_with_bone": "奥克具骨罩衣（褐色毛皮)",
+  "tooltip.me.orcish_white_fur_surcoat_with_bone": "奥克具骨罩衣（白色毛皮)",
+
+  "tooltip.me.mordor_black_numenorean_cape": "魔多黑努门诺尔披风",
+
+  "tooltip.me.orthanc_guard_cape": "欧尔桑克守卫披风",
 
   "#Comment:": "性情",
   "disposition.me.good" : "良善",
@@ -6715,6 +7167,9 @@
   "alert.me.hood_down": "摘下兜帽。",
   "alert.me.hood_up": "套上兜帽。",
 
+  "alert.me.seat.occupied": "该座位已经有人坐了。",
+  "alert.me.seat.space_not_empty": "该座位上方被堵住了。",
+
   "#Comment": "事件",
   "event.me.join.faction.success": "你加入了%s",
   "event.me.leave.faction.success": "你离开了%s",
@@ -6797,7 +7252,7 @@
   "tag.item.me.ingot_shaping": "可加工金属锭",
   "tag.item.me.lead_ores": "铅矿石",
   "tag.item.me.mithril_ores": "秘银矿石",
-  "tag.item.me.mod_planks": "中洲植物",
+  "tag.item.me.mod_planks": "中洲木板",
   "tag.item.me.mod_stripped_logs": "中洲去皮原木",
   "tag.item.me.mushroom_stew_ingredient": "蘑菇煲食材",
   "tag.item.me.nugget_shaping": "可加工金属粒",
