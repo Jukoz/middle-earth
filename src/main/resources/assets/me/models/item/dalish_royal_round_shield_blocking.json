@@ -1,7 +1,6 @@
 {
 	"credit": "Made with Blockbench",
-	"texture_size": [64, 64],
-	"parent": "me:item/dalish_red_braced_shield",
+	"parent": "me:item/dalish_royal_round_shield",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [45, -45, 0],
@@ -25,7 +24,7 @@
 			"name": "root",
 			"origin": [8, 0, 8],
 			"color": 0,
-			"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
+			"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 		}
 	]
 }

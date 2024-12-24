@@ -16,7 +16,6 @@ import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -554,7 +553,7 @@ public class ModEquipmentItems {
                     ModFactions.DALE));
     public static final Item DALISH_HEYDAY_CHESTPLATE = registerArmorPiece("dalish_heyday_chestplate",
             new CustomChestplateItem(ModArmorMaterials.STEEL_T4, new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.DALISH_HEYDAY_CAPE)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.DALISH_HEYDAY_CLOAK)),
                     ModFactions.DALE));
     public static final Item DALISH_HEYDAY_MAIL_COAT = registerArmorPiece("dalish_heyday_mail_coat",
             new CustomLeggingsItem(ModArmorMaterials.STEEL_T4, new Item.Settings(),
@@ -589,9 +588,9 @@ public class ModEquipmentItems {
             new CapeChestplateItem(new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BARDING_SURCOAT)),
                     ModFactions.DALE));
-    public static final Item DALISH_HEYDAY_CAPE = registerCape("dalish_heyday_cape",
+    public static final Item DALISH_HEYDAY_CLOAK = registerCape("dalish_heyday_cloak",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.DALISH_HEYDAY_CAPE)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.DALISH_HEYDAY_CLOAK)),
                     ModFactions.DALE));
     public static final Item BARDING_SERGEANT_CAPE = registerCape("barding_sergeant_cape",
             new CapeChestplateItem(new Item.Settings()

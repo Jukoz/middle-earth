@@ -570,7 +570,7 @@
   "item.me.horse_lord_cape": "Horse Lord Cape",
 
   "item.me.barding_surcoat": "Barding Surcoat",
-  "item.me.dalish_heyday_cape": "Dalish Heyday Cape",
+  "item.me.dalish_heyday_cloak": "Dalish Heyday Cloak",
   "item.me.barding_sergeant_cape": "Barding Sergeant Cape",
 
   "item.me.erebor_cape": "Erebor Cape",
@@ -1136,16 +1136,16 @@
   "item.me.gondorian_ornamented_knight_shield": "Gondorian Ornamented Knight Shield",
 
   "item.me.dalish_blue_braced_shield": "Dalish Blue Braced Shield",
-  "item.me.dalish_red_braced_shield": "Dalish Red Braced Shield",
   "item.me.dalish_barding_braced_shield": "Dalish Barding Braced Shield",
 
   "item.me.dalish_blue_oval_shield": "Dalish Blue Oval Shield",
-  "item.me.dalish_red_oval_shield": "Dalish Red Oval Shield",
   "item.me.dalish_barding_oval_shield": "Dalish Barding Oval Shield",
 
   "item.me.dalish_heavy_shield": "Dalish Heavy Shield",
   "item.me.dalish_barding_heavy_shield": "Dalish Barding Heavy Shield",
   "item.me.dalish_royal_heavy_shield": "Dalish Royal Heavy Shield",
+
+  "item.me.dalish_royal_round_shield": "Dalish Royal Round Shield",
 
   "item.me.dalish_heyday_round_shield": "Dalish Heyday Round Shield",
 
@@ -6964,7 +6964,7 @@
   "tooltip.me.horse_lord_cape": "Horse Lord Cape",
 
   "tooltip.me.barding_surcoat": "Barding Surcoat",
-  "tooltip.me.dalish_heyday_cape": "Dalish Heyday Cape",
+  "tooltip.me.dalish_heyday_cloak": "Dalish Heyday Cloak",
   "tooltip.me.barding_sergeant_cape": "Barding Sergeant Cape",
 
   "tooltip.me.erebor_cape": "Erebor Cape",
