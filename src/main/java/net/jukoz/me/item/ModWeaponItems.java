@@ -331,7 +331,22 @@ public class ModWeaponItems {
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
     public static final Item EREBOR_REINFORCED_SHIELD = registerShield("erebor_reinforced_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
-    public static final Item EREBOR_HEAVY_SHIELD = registerShield("erebor_heavy_shield",
+
+    public static final Item EREBOR_BUCKLER_SHIELD = registerShield("erebor_buckler_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_TOWER_SHIELD = registerShield("erebor_tower_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_REINFORCED_TOWER_SHIELD = registerShield("erebor_reinforced_tower_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_ORNAMENTED_TOWER_SHIELD = registerShield("erebor_ornamented_tower_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item RAVENHILL_TOWER_SHIELD = registerShield("ravenhill_tower_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item RAVENHILL_REINFORCED_TOWER_SHIELD = registerShield("ravenhill_reinforced_tower_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item RAVENHILL_ORNAMENTED_TOWER_SHIELD = registerShield("ravenhill_ornamented_tower_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item SHIELD_OF_THE_KING_UNDER_THE_MOUNTAIN = registerShield("shield_of_the_king_under_the_mountain",
             new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
     //endregion
 
