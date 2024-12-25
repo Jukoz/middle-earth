@@ -474,6 +474,26 @@ public class ModWeaponItems {
     //region MISTIES
 
     //region GUNDABAD
+    public static final Item GUNDABAD_FALCHION = registerItemWithModel("gundabad_falchion",
+            new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL, ModSubFactions.GUNDABAD), true);
+    public static final Item GUNDABAD_ELITE_CLEAVER = registerItemWithModel("gundabad_elite_cleaver",
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModSubFactions.GUNDABAD), true);
+    public static final Item GUNDABAD_WARBLADE = registerItemWithModel("gundabad_warblade",
+            new CustomLongswordWeaponItem(ModToolMaterials.BURZUM_STEEL, ModSubFactions.GUNDABAD), true);
+    public static final Item GUNDABAD_ELITE_SCIMITAR = registerItemWithModel("gundabad_elite_scimitar",
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModSubFactions.GUNDABAD), true);
+    public static final Item GUNDABAD_SHANK = registerItemWithModel("gundabad_shank",
+            new CustomDaggerWeaponItem(ModToolMaterials.BURZUM_STEEL, ModSubFactions.GUNDABAD), false);
+    public static final Item GUNDABAD_ELITE_DAGGER = registerItemWithModel("gundabad_elite_dagger",
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModSubFactions.GUNDABAD), false);
+    public static final Item GUNDABAD_AXE = registerItemWithModel("gundabad_axe",
+            new CustomAxeWeaponItem(ModToolMaterials.BURZUM_STEEL, ModSubFactions.GUNDABAD), true);
+    public static final Item GUNDABAD_ELITE_BATTLEAXE = registerItemWithModel("gundabad_elite_battleaxe",
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModSubFactions.GUNDABAD), true);
+    public static final Item GUNDABAD_SPEAR = registerItemWithSpearModel("gundabad_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL, ModSubFactions.GUNDABAD));
+    public static final Item GUNDABAD_ELITE_SPEAR = registerItemWithSpearModel("gundabad_elite_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModSubFactions.GUNDABAD));
 
     public static final Item GUNDABAD_WOODEN_SHIELD = registerShield("gundabad_wooden_shield",
             new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModSubFactions.GUNDABAD));

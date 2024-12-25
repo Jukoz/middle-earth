@@ -393,19 +393,6 @@
   "item.me.lorien_noble_spear": "Lórien Noble Spear",
   "item.me.lorien_bow": "Lórien Bow",
 
-"#Comment:": "Item - Mordor Orc",
-  "item.me.mordor_orc_sword": "Mordor Orc Sword",
-  "item.me.mordor_orc_scimitar": "Mordor Orc Scimitar",
-  "item.me.mordor_orc_dagger": "Mordor Orc Dagger",
-  "item.me.mordor_orc_battleaxe": "Mordor Orc Battleaxe",
-  "item.me.mordor_orc_pike": "Mordor Orc Pike",
-  "item.me.mordor_orc_pickaxe": "Mordor Orc Pickaxe",
-  "item.me.mordor_orc_axe": "Mordor Orc Axe",
-  "item.me.mordor_orc_shovel": "Mordor Orc Shovel",
-  "item.me.mordor_orc_hoe": "Mordor Orc Hoe",
-
-  "item.me.morgul_blade": "Morgul Blade",
-
 "#Comment:": "Item - Rohan",
   "item.me.rohirric_sword": "Rohirric Sword",
   "item.me.rohirric_noble_sword": "Rohirric Noble Sword",
@@ -466,6 +453,18 @@
   "item.me.uruk_hai_spear": "Uruk-Hai Spear",
   "item.me.isengard_orc_axe": "Isengard Orc Axe",
   "item.me.uruk_hai_axe": "Uruk-Hai Axe",
+
+"#Comment:": "Item - Gundabad",
+  "item.me.gundabad_falchion": "Gundabad Falchion",
+  "item.me.gundabad_elite_cleaver": "Gundabad Elite Cleaver",
+  "item.me.gundabad_warblade": "Gundabad Warblade",
+  "item.me.gundabad_elite_scimitar": "Gundabad Elite Scimitar",
+  "item.me.gundabad_shank": "Gundabad Shank",
+  "item.me.gundabad_elite_dagger": "Gundabad Elite Dagger",
+  "item.me.gundabad_spear": "Gundabad Spear",
+  "item.me.gundabad_elite_spear": "Gundabad Elite Spear",
+  "item.me.gundabad_axe": "Gundabad Axe",
+  "item.me.gundabad_elite_battleaxe": "Gundabad Elite Battleaxe",
 
 "#Comment:": "Item - Misc Weapons",
   "item.me.wooden_dagger": "Wooden Dagger",
