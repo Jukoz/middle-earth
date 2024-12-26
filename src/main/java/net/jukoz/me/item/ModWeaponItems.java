@@ -11,10 +11,7 @@ import net.jukoz.me.item.items.shields.CustomBannerShieldItem;
 import net.jukoz.me.item.items.shields.CustomShieldItem;
 import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.items.weapons.*;
-import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeaponItem;
-import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingLongswordWeaponItem;
-import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomLongswordWeaponItem;
-import net.jukoz.me.item.items.weapons.artefacts.MorgulKnifeItem;
+import net.jukoz.me.item.items.weapons.artefacts.*;
 import net.jukoz.me.item.items.weapons.ranged.CustomBowWeaponItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModShieldTypes;
@@ -514,25 +511,49 @@ public class ModWeaponItems {
     //endregion
 
     //region ARTEFACTS
-    public static final Item GLAMDRING = registerItemNoModel("glamdring",
+
+    public static final Item DAGAMARTH = registerItemWithModel("dagamarth",
+            new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
+    public static final Item HERUGRIM = registerItemWithModel("herugrim",
+            new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
+
+    public static final Item MACE_OF_SAURON = registerItemWithModel("mace_of_sauron",
+            new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
+
+    public static final Item ANGUIREL = registerItemWithModel("anguirel",
+            new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
+    public static final Item GLAMDRING = registerArtefactNoModel("glamdring",
             new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), false, true, true);
-    public static final Item NARSIL = registerItemNoModel("narsil",
+    public static final Item LONG_FORGOTTEN_LONGSWORD = registerItemWithModel("long_forgotten_longsword",
+            new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
+    public static final Item LONGSWORD_OF_ELDER_KINGS = registerItemWithModel("longsword_of_elder_kings",
+            new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
+    public static final Item NARSIL = registerArtefactNoModel("narsil",
             new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true, true, false);
-    public static final Item ORCRIST = registerItemNoModel("orcrist",
+    public static final Item NOLDORIN_LONGSWORD = registerItemWithModel("noldorin_longsword",
+            new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
+    public static final Item ORCRIST = registerArtefactNoModel("orcrist",
             new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), false, true, true);
 
-    public static final Item MORGUL_KNIFE = registerItemNoModel("morgul_knife",
+    public static final Item BARROW_BLADE = registerItemWithModel("barrow_blade",
+            new MorgulKnifeItem(ModToolMaterials.NOBLE_STEEL), false);
+    public static final Item MORGUL_KNIFE = registerArtefactNoModel("morgul_knife",
             new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE), false, false, false);
-    public static final Item STING = registerItemNoModel("sting",
+    public static final Item STING = registerArtefactNoModel("sting",
             new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL), false, false, true);
+
+    public static final Item AEGLOS = registerItemWithSpearModel("aeglos",
+            new ArtefactCustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL));
 
     public static final Item ANORTHANN = registerShield("anorthann",
             new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.NONE));
     public static final Item CUTHANN = registerShield("cuthann",
             new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.NONE));
+    public static final Item SHIELD_OF_DURINS_GUARD = registerShield("shield_of_durins_guard",
+            new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.NONE));
     //endregion
 
-    public static final Item HELD_BANNER = registerItemNoModel("held_banner",
+    public static final Item HELD_BANNER = registerArtefactNoModel("held_banner",
             new HeldBannerItem(new Item.Settings().maxCount(1)), false, false, false);
 
 
@@ -559,7 +580,7 @@ public class ModWeaponItems {
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
-    private static Item registerItemNoModel(String name, Item item, boolean brokenModel, boolean isDualModel, boolean glowy) {
+    private static Item registerArtefactNoModel(String name, Item item, boolean brokenModel, boolean isDualModel, boolean glowy) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         if(brokenModel){
             SimpleBigItemModel.artefactsBroken.add(item);

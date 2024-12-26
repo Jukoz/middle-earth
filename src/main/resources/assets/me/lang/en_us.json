@@ -519,16 +519,28 @@
   "item.me.netherite_spear": "Netherite Spear",
 
 "#Comment:": "Item - Artefacts",
+  "item.me.dagamarth": "Dagamarth",
+  "item.me.herugrim": "Herugrim",
+
+  "item.me.mace_of_sauron": "Mace of Sauron",
+
+  "item.me.anguirel": "Anguirel",
+  "item.me.glamdring": "Glamdring",
+  "item.me.long_forgotten_longsword": "Long Forgotten Longsword",
+  "item.me.longsword_of_elder_kings": "Longsword Of Elder Kings",
+  "item.me.narsil": "Narsil",
+  "item.me.noldorin_longsword": "Noldorin Longsword",
   "item.me.orcrist": "Orcrist",
 
-  "item.me.glamdring": "Glamdring",
-  "item.me.narsil": "Narsil",
-
+  "item.me.barrow_blade": "Barrow Blade",
   "item.me.sting": "Sting",
   "item.me.morgul_knife": "Morgul Knife",
 
+  "item.me.aeglos": "Aeglos",
+
   "item.me.anorthann": "Anorthann",
   "item.me.cuthann": "Cûthann",
+  "item.me.shield_of_durins_guard": "Shield of Durin's Guard",
 
 "#Comment:": "Armours",
   "item.me.hood": "Hood",
