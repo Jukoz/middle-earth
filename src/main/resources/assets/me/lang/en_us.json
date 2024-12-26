@@ -6834,7 +6834,6 @@
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",
   "tooltip.me.alt" : "Hold §3ALT§f to see custom parts information.",
   "tooltip.me.weapon_type" : "§eType: §f",
-  "tooltip.me.shield_type" : "§eType: §f",
   "tooltip.me.faction" : "§6Faction: §f",
   "tooltip.me.sub_faction" : "§7Sub Faction: §f",
   "tooltip.me.customizations" : "§6Custom Parts: §f",
@@ -6842,7 +6841,7 @@
   "tooltip.me.dyed" : "Dyed: ",
   "tooltip.me.artisan" : "Artisan: ",
   "tooltip.me.blocks_range" : " Blocks",
-  "tooltip.me.backstab" : "§7 +50% damage when backstabbing",
+  "tooltip.me.backstab" : "§7+50% damage when backstabbing",
   "tooltip.me.door_size" : "Door size: ",
 
   "tooltip.me.tier_clothing" : "§fClothing",
@@ -7093,6 +7092,24 @@
 
 "#Comment:": "Race Tooltip",
   "race_tooltip.me.attribute_header" : "Attributes : ",
+
+"#Comment:": "Lore Tooltips",
+  "tooltip.me.glamdring_lore_0" : "The Foe-Hammer, mate of Orcrist,",
+  "tooltip.me.glamdring_lore_1" : "once borne by the King of Gondolin.",
+  "tooltip.me.narsil_lore_0" : "The Red and White Flame, borne by the King of the Dúnedain.",
+  "tooltip.me.narsil_lore_1" : "It was broken upon the slopes of Mount Doom.",
+  "tooltip.me.orcist_lore_0" : "The Goblin-Cleaver, mate of Glamdring,",
+  "tooltip.me.orcist_lore_1" : "once used by Thorin Oakenshield.",
+
+  "tooltip.me.morgul_blade_lore_0" : "A knife forged with wicked sorcery,",
+  "tooltip.me.morgul_blade_lore_1" : "often carried by the Ringwraiths.",
+  "tooltip.me.sting_lore_0" : "An elvish knife, made in Gondolin long ago,",
+  "tooltip.me.sting_lore_1" : "carried by Bilbo Baggins of the Shire.",
+
+  "tooltip.me.cuthann_lore_0" : "The Shield of the Moon, mate to Anorthann,",
+  "tooltip.me.cuthann_lore_1" : "forged long ago in Nargothrond.",
+  "tooltip.me.anorthann_lore_0" : "The Shield of the Sun, mate to Cúthann,",
+  "tooltip.me.anorthann_lore_1" : "forged long ago in Nargothrond.",
 
 "#Comment:": "Faction descriptions",
   "description.me.gondor.description_0" : "A last bastion for the Men of the West, the Kings of Gondor long stood watch over the neighbouring darkness. Though their line is broken, the stalwart Gondorians stand strong and fight to keep Mordor at bay.",
