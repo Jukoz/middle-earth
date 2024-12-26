@@ -53,11 +53,13 @@ public interface MEEquipmentTooltip {
     default void appendBaseArtefactTooltip(List<Text> tooltip, ItemStack stack) {
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
-            if(!(stack.getDamage() < stack.getMaxDamage() - 1)){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact_broken").formatted(Formatting.ITALIC).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact")).formatted(Formatting.GOLD));
-            } else {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact").formatted(Formatting.GOLD));
+
+            if(!(stack.getDamage() < stack.getMaxDamage() - 1)) {
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".broken").formatted(Formatting.GRAY));
             }
+
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact").formatted(Formatting.GOLD));
+
             if(!getAdditionalShiftLines(stack).isEmpty()) tooltip.addAll(getAdditionalShiftLines(stack));
 
             tooltip.add(Text.literal(""));

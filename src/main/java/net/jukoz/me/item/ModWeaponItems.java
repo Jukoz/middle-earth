@@ -509,7 +509,6 @@ public class ModWeaponItems {
     //endregion
 
     //region ARTEFACTS
-
     public static final Item DAGAMARTH = registerItemWithModel("dagamarth",
             new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
     public static final Item HERUGRIM = registerItemWithModel("herugrim",
