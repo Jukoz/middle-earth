@@ -393,19 +393,6 @@
   "item.me.lorien_noble_spear": "Lórien Noble Spear",
   "item.me.lorien_bow": "Lórien Bow",
 
-"#Comment:": "Item - Mordor Orc",
-  "item.me.mordor_orc_sword": "Mordor Orc Sword",
-  "item.me.mordor_orc_scimitar": "Mordor Orc Scimitar",
-  "item.me.mordor_orc_dagger": "Mordor Orc Dagger",
-  "item.me.mordor_orc_battleaxe": "Mordor Orc Battleaxe",
-  "item.me.mordor_orc_pike": "Mordor Orc Pike",
-  "item.me.mordor_orc_pickaxe": "Mordor Orc Pickaxe",
-  "item.me.mordor_orc_axe": "Mordor Orc Axe",
-  "item.me.mordor_orc_shovel": "Mordor Orc Shovel",
-  "item.me.mordor_orc_hoe": "Mordor Orc Hoe",
-
-  "item.me.morgul_blade": "Morgul Blade",
-
 "#Comment:": "Item - Rohan",
   "item.me.rohirric_sword": "Rohirric Sword",
   "item.me.rohirric_noble_sword": "Rohirric Noble Sword",
@@ -466,6 +453,18 @@
   "item.me.uruk_hai_spear": "Uruk-Hai Spear",
   "item.me.isengard_orc_axe": "Isengard Orc Axe",
   "item.me.uruk_hai_axe": "Uruk-Hai Axe",
+
+"#Comment:": "Item - Gundabad",
+  "item.me.gundabad_falchion": "Gundabad Falchion",
+  "item.me.gundabad_elite_cleaver": "Gundabad Elite Cleaver",
+  "item.me.gundabad_warblade": "Gundabad Warblade",
+  "item.me.gundabad_elite_scimitar": "Gundabad Elite Scimitar",
+  "item.me.gundabad_shank": "Gundabad Shank",
+  "item.me.gundabad_elite_dagger": "Gundabad Elite Dagger",
+  "item.me.gundabad_spear": "Gundabad Spear",
+  "item.me.gundabad_elite_spear": "Gundabad Elite Spear",
+  "item.me.gundabad_axe": "Gundabad Axe",
+  "item.me.gundabad_elite_battleaxe": "Gundabad Elite Battleaxe",
 
 "#Comment:": "Item - Misc Weapons",
   "item.me.wooden_dagger": "Wooden Dagger",
@@ -570,7 +569,7 @@
   "item.me.horse_lord_cape": "Horse Lord Cape",
 
   "item.me.barding_surcoat": "Barding Surcoat",
-  "item.me.dalish_heyday_cape": "Dalish Heyday Cape",
+  "item.me.dalish_heyday_cloak": "Dalish Heyday Cloak",
   "item.me.barding_sergeant_cape": "Barding Sergeant Cape",
 
   "item.me.erebor_cape": "Erebor Cape",
@@ -1136,16 +1135,16 @@
   "item.me.gondorian_ornamented_knight_shield": "Gondorian Ornamented Knight Shield",
 
   "item.me.dalish_blue_braced_shield": "Dalish Blue Braced Shield",
-  "item.me.dalish_red_braced_shield": "Dalish Red Braced Shield",
   "item.me.dalish_barding_braced_shield": "Dalish Barding Braced Shield",
 
   "item.me.dalish_blue_oval_shield": "Dalish Blue Oval Shield",
-  "item.me.dalish_red_oval_shield": "Dalish Red Oval Shield",
   "item.me.dalish_barding_oval_shield": "Dalish Barding Oval Shield",
 
   "item.me.dalish_heavy_shield": "Dalish Heavy Shield",
   "item.me.dalish_barding_heavy_shield": "Dalish Barding Heavy Shield",
   "item.me.dalish_royal_heavy_shield": "Dalish Royal Heavy Shield",
+
+  "item.me.dalish_royal_round_shield": "Dalish Royal Round Shield",
 
   "item.me.dalish_heyday_round_shield": "Dalish Heyday Round Shield",
 
@@ -1155,7 +1154,14 @@
   "item.me.erebor_ornamented_shield": "Erebor Ornamented Shield",
   "item.me.erebor_reinforced_shield": "Erebor Reinforced Shield",
 
-  "item.me.erebor_heavy_shield": "Erebor Heavy Shield",
+  "item.me.erebor_buckler_shield": "Erebor Buckler Shield",
+  "item.me.erebor_tower_shield": "Erebor Tower Shield",
+  "item.me.erebor_reinforced_tower_shield": "Erebor Reinforced Tower Shield",
+  "item.me.erebor_ornamented_tower_shield": "Erebor Ornamented Tower Shield",
+  "item.me.ravenhill_tower_shield": "Ravenhill Tower Shield",
+  "item.me.ravenhill_reinforced_tower_shield": "Ravenhill Reinforced Tower Shield",
+  "item.me.ravenhill_ornamented_tower_shield": "Ravenhill Ornamented Tower Shield",
+  "item.me.shield_of_the_king_under_the_mountain": "Shield Of The King Under The Mountain",
 
   "item.me.lorien_shield": "Lórien Shield",
   "item.me.lorien_laurels_shield": "Lórien Laurels Shield",
@@ -1187,6 +1193,15 @@
   "item.me.uruk_hai_white_palmprint_shield": "Uruk-Hai White Palmprint Shield",
   "item.me.uruk_hai_s_rune_shield": "Uruk-Hai S Rune Shield",
   "item.me.uruk_hai_siege_shield": "Uruk-Hai Siege Shield",
+
+  "item.me.gundabad_wooden_shield": "Gundabad Wooden Shield",
+  "item.me.gundabad_painted_wooden_shield": "Gundabad Painted Wooden Shield",
+  "item.me.gundabad_great_eye_painted_wooden_shield": "Gundabad Great Eye Painted Wooden Shield",
+  "item.me.gundabad_peaks_painted_wooden_shield": "Gundabad Peaks Painted Wooden Shield",
+
+  "item.me.gundabad_reinforced_shield": "Gundabad Reinforced Shield",
+
+  "item.me.gundabad_heavy_shield": "Gundabad Heavy Shield",
 
   "item.me.misty_mountains_shield": "Misty Mountains Shield",
 
@@ -6964,7 +6979,7 @@
   "tooltip.me.horse_lord_cape": "Horse Lord Cape",
 
   "tooltip.me.barding_surcoat": "Barding Surcoat",
-  "tooltip.me.dalish_heyday_cape": "Dalish Heyday Cape",
+  "tooltip.me.dalish_heyday_cloak": "Dalish Heyday Cloak",
   "tooltip.me.barding_sergeant_cape": "Barding Sergeant Cape",
 
   "tooltip.me.erebor_cape": "Erebor Cape",

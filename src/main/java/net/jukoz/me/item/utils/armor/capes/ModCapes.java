@@ -38,7 +38,7 @@ public enum ModCapes implements StringIdentifiable {
     HORSE_LORD_CAPE(21,"horse_lord_cape"),
 
     BARDING_SURCOAT(22,"barding_surcoat"),
-    DALISH_HEYDAY_CAPE(23,"dalish_heyday_cape"),
+    DALISH_HEYDAY_CLOAK(23,"dalish_heyday_cloak"),
     BARDING_SERGEANT_CAPE(24,"barding_sergeant_cape"),
 
     EREBOR_CAPE(25,"erebor_cape"),
