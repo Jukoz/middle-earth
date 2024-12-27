@@ -78,11 +78,15 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_DIORITE_TILES);
             add(ModBlocks.CHISELED_SMOOTH_DIORITE);
 
+            add(ModBlocks.CHISELED_BASALT);
+            add(ModBlocks.CHISELED_BASALT_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_BASALT);
+            add(ModBlocks.CHISELED_BASALT_TILES);
+            add(ModBlocks.CHISELED_SMOOTH_BASALT);
+
             add(ModBlocks.CHISELED_POLISHED_TUFF);
             add(ModBlocks.CHISELED_TUFF_TILES);
             add(ModBlocks.CHISELED_SMOOTH_TUFF);
-
-            add(ModBlocks.CHISELED_BASALT_BRICKS);
 
             add(ModBlocks.CHISELED_DOLOMITE);
             add(ModBlocks.CHISELED_DOLOMITE_BRICKS);
@@ -180,6 +184,10 @@ public class MineablePickaxe {
             add(ModBlocks.DIORITE_PILLAR);
             add(ModBlocks.MOSSY_DIORITE_PILLAR);
             add(ModBlocks.CRACKED_DIORITE_PILLAR);
+
+            add(ModBlocks.BASALT_PILLAR);
+            add(ModBlocks.MOSSY_BASALT_PILLAR);
+            add(ModBlocks.CRACKED_BASALT_PILLAR);
 
             add(ModBlocks.TUFF_PILLAR);
             add(ModBlocks.MOSSY_TUFF_PILLAR);

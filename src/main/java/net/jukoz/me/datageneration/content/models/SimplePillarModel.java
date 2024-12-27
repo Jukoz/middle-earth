@@ -86,6 +86,10 @@ public class SimplePillarModel {
             add(new StonePillar(ModBlocks.MOSSY_DIORITE_PILLAR, ModBlocks.DIORITE_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_DIORITE_PILLAR, ModBlocks.DIORITE_PILLAR));
 
+            add(new StonePillar(ModBlocks.BASALT_PILLAR, StoneBlockSets.BASALT_BRICKS.base()));
+            add(new StonePillar(ModBlocks.MOSSY_BASALT_PILLAR, ModBlocks.BASALT_PILLAR));
+            add(new StonePillar(ModBlocks.CRACKED_BASALT_PILLAR, ModBlocks.BASALT_PILLAR));
+
             add(new StonePillar(ModBlocks.TUFF_PILLAR, Blocks.TUFF_BRICKS));
             add(new StonePillar(ModBlocks.MOSSY_TUFF_PILLAR, ModBlocks.TUFF_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_TUFF_PILLAR, ModBlocks.TUFF_PILLAR));
