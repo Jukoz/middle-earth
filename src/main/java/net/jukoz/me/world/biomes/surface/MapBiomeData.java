@@ -184,6 +184,10 @@ public class MapBiomeData {
         // GORGOROTH
         addBiome(new BiomeData(MEBiomeKeys.GORGOROTH, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(2564128, 1709079, 4869697, 1513734, 3156775, 2169880), CaveType.ASHEN));
+        addBiome(new BiomeData(MEBiomeKeys.GORGOROTH_ASHEN_FOREST, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
+                new BiomeColorsDTO(2958629, 2432545, 4869697, 1513734, 3156775, 2169880), CaveType.ASHEN));
+        addBiome(new BiomeData(MEBiomeKeys.GORGOROTH_DELTA, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
+                new BiomeColorsDTO(2762018, 2695711, 4869697, 1513734, 3156775, 2169880), CaveType.ASHEN));
         // GREY MOUNTAINS
         addBiome(new BiomeData(MEBiomeKeys.GREY_PLAINS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(hillySky, 12637179, defaultWater, defaultWaterFog, 5939024, 8566393)));
@@ -357,9 +361,13 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.NURN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8954077, 11781331, 5860970, 1321760, 7443043, 6982236)));
         addBiome(new BiomeData(MEBiomeKeys.NURN_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(8954077, 11781331, 5860970, 1321760, 6916445, 6784858)));
+                new BiomeColorsDTO(8822986, 11057090, 5860970, 1321760, 6916445, 6784858)));
+        addBiome(new BiomeData(MEBiomeKeys.NURN_HILL, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(9283042, 11978194, 5860970, 1321760, 7968366, 7310690)));
         addBiome(new BiomeData(MEBiomeKeys.NURN_EDGE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8821450, 11517913, 5202783, 1321247, 6511435, 7960147)));
+        addBiome(new BiomeData(MEBiomeKeys.NURN_EDGE_WOODS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(8360637, 10793931, 5202783, 1321247, 6513227, 7829843)));
         addBiome(new BiomeData(MEBiomeKeys.NURN_SEA, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8952797, 11779800, 5860963, 863008, 5465422, 5663573)));
         addBiome(new BiomeData(MEBiomeKeys.NURN_RIVER, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers,

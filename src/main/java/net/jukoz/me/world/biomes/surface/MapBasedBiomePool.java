@@ -153,6 +153,8 @@ public class MapBasedBiomePool {
         add(new Color(0xdee3bf), new MapBasedCustomBiome(MEBiomeKeys.GULF_OF_LHUN_SHORES, 0, MEBiomeDataConfigs.landModifier.heightModifier(0.97f).heightModifier(0.1f).noiseModifier(0.05f)));
         add(new Color(0x5bbd55), new MapBasedCustomBiome(MEBiomeKeys.GONDOR, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x382424), new MapBasedCustomBiome(MEBiomeKeys.GORGOROTH, 6, MEBiomeDataConfigs.plainsModifier));
+        add(new Color(0x3B2826), new MapBasedCustomBiome(MEBiomeKeys.GORGOROTH_ASHEN_FOREST, 6, MEBiomeDataConfigs.plainsModifier));
+        add(new Color(0x593B38), new MapBasedCustomBiome(MEBiomeKeys.GORGOROTH_DELTA, 6, MEBiomeDataConfigs.plainsModifier));
         add(new Color(0x5c935c), new MapBasedCustomBiome(MEBiomeKeys.GREY_PLAINS, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x7d7171), new MapBasedCustomBiome(MEBiomeKeys.GREY_MOUNTAINS_BASE, 30, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
         add(new Color(0x6e6262), new MapBasedCustomBiome(MEBiomeKeys.GREY_MOUNTAINS, 61, MEBiomeDataConfigs.mountainModifier.heightModifier(0.355f)));
@@ -216,7 +218,9 @@ public class MapBasedBiomePool {
         add(new Color(0xa0a595), new MapBasedCustomBiome(MEBiomeKeys.NORTHERN_WASTELANDS, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x4a4d33), new MapBasedCustomBiome(MEBiomeKeys.NURN, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0x4C5437), new MapBasedCustomBiome(MEBiomeKeys.NURN_FOREST, 6, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x515741), new MapBasedCustomBiome(MEBiomeKeys.NURN_HILL, 11, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x453b32), new MapBasedCustomBiome(MEBiomeKeys.NURN_EDGE, 6, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x4B4135), new MapBasedCustomBiome(MEBiomeKeys.NURN_EDGE_WOODS, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x495235), new MapBasedCustomBiome(MEBiomeKeys.OLD_ANGMAR, 6, MEBiomeDataConfigs.landModifier.noiseModifier(0.6f)));
         add(new Color(0x4d5736), new MapBasedCustomBiome(MEBiomeKeys.OLD_ANGMAR_FOREST, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x535d40), new MapBasedCustomBiome(MEBiomeKeys.OLD_ANGMAR_COLD_HILL, 17, MEBiomeDataConfigs.landModifier.noiseModifier(0.5f)));
@@ -315,6 +319,8 @@ public class MapBasedBiomePool {
 
         wastePondBiomes.add(MEBiomeKeys.DAGORLAD);
         wastePondBiomes.add(MEBiomeKeys.GORGOROTH);
+        wastePondBiomes.add(MEBiomeKeys.GORGOROTH_ASHEN_FOREST);
+        wastePondBiomes.add(MEBiomeKeys.GORGOROTH_DELTA);
         wastePondBiomes.add(MEBiomeKeys.MORDOR);
         wastePondBiomes.add(MEBiomeKeys.MORDOR_ASHEN_FOREST);
         wastePondBiomes.add(MEBiomeKeys.MORDOR_HILL);
@@ -327,7 +333,9 @@ public class MapBasedBiomePool {
         wastePondBiomes.add(MEBiomeKeys.EASTERN_NURN);
         wastePondBiomes.add(MEBiomeKeys.NURN);
         wastePondBiomes.add(MEBiomeKeys.NURN_FOREST);
+        wastePondBiomes.add(MEBiomeKeys.NURN_HILL);
         wastePondBiomes.add(MEBiomeKeys.NURN_EDGE);
+        wastePondBiomes.add(MEBiomeKeys.NURN_EDGE_WOODS);
         wastePondBiomes.add(MEBiomeKeys.TOROGWAITH);
         wastePondBiomes.add(MEBiomeKeys.UDUN);
 

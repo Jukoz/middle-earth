@@ -171,6 +171,8 @@ public class ModEntitySpawning {
 
         spawns.put(MEBiomeKeys.DAGORLAD, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.GORGOROTH, mordorSpawnSettings);
+        spawns.put(MEBiomeKeys.GORGOROTH_ASHEN_FOREST, mordorSpawnSettings);
+        spawns.put(MEBiomeKeys.GORGOROTH_DELTA, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR_ASHEN_FOREST, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR_HILL, mordorSpawnSettings);
@@ -180,7 +182,9 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.UDUN, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.NURN, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.NURN_FOREST, wildMordorSpawnSettings);
+        spawns.put(MEBiomeKeys.NURN_HILL, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.NURN_EDGE, wildMordorSpawnSettings);
+        spawns.put(MEBiomeKeys.NURN_EDGE_WOODS, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR_MOUNTAINS, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR_MOUNTAINS_PEAKS, wildMordorSpawnSettings);
