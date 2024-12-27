@@ -17,6 +17,8 @@ public class ModNatureBlockItems {
     public static final Item LILY_PADS = registerItem("lily_pads", new PlaceableOnWaterItem(ModNatureBlocks.LILY_PADS, new Item.Settings()));
     public static final Item DUCKWEED = registerItem("duckweed", new PlaceableOnWaterItem(ModNatureBlocks.DUCKWEED, new Item.Settings()));
 
+    public static final Item FLOATING_ICE = registerItem("floating_ice", new PlaceableOnWaterItem(ModNatureBlocks.FLOATING_ICE, new Item.Settings()));
+
     private static Item registerItem(String name, Item item) {
         ModItemGroups.NATURE_BLOCKS_CONTENTS.add(item.getDefaultStack());
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);

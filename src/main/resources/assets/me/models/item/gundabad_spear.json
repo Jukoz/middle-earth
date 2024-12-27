@@ -1,0 +1,205 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "me:item/spear",
+	"texture_size": [32, 48],
+	"textures": {
+		"21": "me:item/gundabad_spear"
+	},
+	"elements": [
+		{
+			"name": "Shaft",
+			"from": [8, 0, 8],
+			"to": [8.5, 23.5, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 23, 8.5]},
+			"faces": {
+				"north": {"uv": [0.5, 0.33333, 1, 16], "texture": "#21"},
+				"east": {"uv": [0, 0.33333, 0.5, 16], "texture": "#21"},
+				"south": {"uv": [1.5, 0.33333, 2, 16], "texture": "#21"},
+				"west": {"uv": [1, 0.33333, 1.5, 16], "texture": "#21"},
+				"up": {"uv": [1, 0.33333, 0.5, 0], "texture": "#21"},
+				"down": {"uv": [1.5, 0, 1, 0.33333], "texture": "#21"}
+			}
+		},
+		{
+			"name": "gundabad_spear_head_type_A_0",
+			"from": [8.025, 22.49989, 5.5003],
+			"to": [8.475, 22.99987, 6.00028],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.29997, 20.24997, 8.2502]},
+			"faces": {
+				"north": {"uv": [10.5, 1.33333, 11, 1.66667], "texture": "#21"},
+				"east": {"uv": [10.5, 1.33333, 11, 1.66667], "texture": "#21"},
+				"south": {"uv": [10.5, 1.33333, 11, 1.66667], "texture": "#21"},
+				"west": {"uv": [11, 1.33333, 10.5, 1.66667], "texture": "#21"},
+				"up": {"uv": [10.5, 1.33333, 11, 1.66667], "rotation": 270, "texture": "#21"},
+				"down": {"uv": [10.5, 1.33333, 11, 1.66667], "rotation": 90, "texture": "#21"}
+			}
+		},
+		{
+			"name": "gundabad_spear_head_type_A_1",
+			"from": [8.025, 21.49993, 6.00028],
+			"to": [8.475, 22.49989, 7.00024],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.29997, 20.24997, 8.2502]},
+			"faces": {
+				"north": {"uv": [10, 1.66667, 10.5, 2.33333], "texture": "#21"},
+				"east": {"uv": [9.5, 1.66667, 10.5, 2.33333], "texture": "#21"},
+				"south": {"uv": [9.5, 1.66667, 10, 2.33333], "texture": "#21"},
+				"west": {"uv": [10.5, 1.66667, 9.5, 2.33333], "texture": "#21"},
+				"up": {"uv": [9.5, 1.66667, 10.5, 2], "rotation": 270, "texture": "#21"},
+				"down": {"uv": [9.5, 2, 10.5, 2.33333], "rotation": 90, "texture": "#21"}
+			}
+		},
+		{
+			"name": "gundabad_spear_head_type_A_2",
+			"from": [8.025, 19.99998, 7.00024],
+			"to": [8.475, 21.99991, 7.50022],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.29997, 20.24997, 8.2502]},
+			"faces": {
+				"north": {"uv": [9, 2, 9.5, 3.33333], "texture": "#21"},
+				"east": {"uv": [9, 2, 9.5, 3.33333], "texture": "#21"},
+				"south": {"uv": [9, 2, 9.5, 3.33333], "texture": "#21"},
+				"west": {"uv": [9.5, 2, 9, 3.33333], "texture": "#21"},
+				"up": {"uv": [9, 2, 9.5, 2.33333], "rotation": 270, "texture": "#21"},
+				"down": {"uv": [9, 3, 9.5, 3.33333], "rotation": 90, "texture": "#21"}
+			}
+		},
+		{
+			"name": "gundabad_spear_head_type_A_3",
+			"from": [8.025, 19.5, 7.50022],
+			"to": [8.475, 21.49993, 8.50019],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.29997, 20.24997, 8.2502]},
+			"faces": {
+				"north": {"uv": [8.5, 2.33333, 9, 3.66667], "texture": "#21"},
+				"east": {"uv": [8, 2.33333, 9, 3.66667], "texture": "#21"},
+				"south": {"uv": [8, 2.33333, 8.5, 3.66667], "texture": "#21"},
+				"west": {"uv": [9, 2.33333, 8, 3.66667], "texture": "#21"},
+				"up": {"uv": [8, 2.33333, 9, 2.66667], "rotation": 270, "texture": "#21"},
+				"down": {"uv": [8, 3.33333, 9, 3.66667], "rotation": 90, "texture": "#21"}
+			}
+		},
+		{
+			"name": "gundabad_spear_head_type_A_4",
+			"from": [8.025, 20.99994, 6.50026],
+			"to": [8.475, 21.49993, 7.00024],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.29997, 20.24997, 8.2502]},
+			"faces": {
+				"north": {"uv": [9.5, 2.33333, 10, 2.66667], "texture": "#21"},
+				"east": {"uv": [9.5, 2.33333, 10, 2.66667], "texture": "#21"},
+				"south": {"uv": [9.5, 2.33333, 10, 2.66667], "texture": "#21"},
+				"west": {"uv": [10, 2.33333, 9.5, 2.66667], "texture": "#21"},
+				"up": {"uv": [9.5, 2.33333, 10, 2.66667], "rotation": 270, "texture": "#21"},
+				"down": {"uv": [9.5, 2.33333, 10, 2.66667], "rotation": 90, "texture": "#21"}
+			}
+		},
+		{
+			"name": "gundabad_spear_head_type_A_5",
+			"from": [8.025, 19.00002, 8.50019],
+			"to": [8.475, 20.99994, 9.00017],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.29997, 20.24997, 8.2502]},
+			"faces": {
+				"north": {"uv": [7.5, 2.66667, 8, 4], "texture": "#21"},
+				"east": {"uv": [7.5, 2.66667, 8, 4], "texture": "#21"},
+				"south": {"uv": [7.5, 2.66667, 8, 4], "texture": "#21"},
+				"west": {"uv": [8, 2.66667, 7.5, 4], "texture": "#21"},
+				"up": {"uv": [7.5, 2.66667, 8, 3], "rotation": 270, "texture": "#21"},
+				"down": {"uv": [7.5, 3.66667, 8, 4], "rotation": 90, "texture": "#21"}
+			}
+		},
+		{
+			"name": "gundabad_spear_head_type_A_6",
+			"from": [8.025, 18.50004, 10.50011],
+			"to": [8.475, 19.99998, 11.00009],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.29997, 20.24997, 8.2502]},
+			"faces": {
+				"north": {"uv": [5.5, 3.33333, 6, 4.33333], "texture": "#21"},
+				"east": {"uv": [5.5, 3.33333, 6, 4.33333], "texture": "#21"},
+				"south": {"uv": [5.5, 3.33333, 6, 4.33333], "texture": "#21"},
+				"west": {"uv": [6, 3.33333, 5.5, 4.33333], "texture": "#21"},
+				"up": {"uv": [5.5, 3.33333, 6, 3.66667], "rotation": 270, "texture": "#21"},
+				"down": {"uv": [5.5, 4, 6, 4.33333], "rotation": 90, "texture": "#21"}
+			}
+		},
+		{
+			"name": "gundabad_spear_head_type_A_7",
+			"from": [8.025, 18.50004, 9.00017],
+			"to": [8.475, 19.99998, 9.50015],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.29997, 20.24997, 8.2502]},
+			"faces": {
+				"north": {"uv": [7, 3.33333, 7.5, 4.33333], "texture": "#21"},
+				"east": {"uv": [7, 3.33333, 7.5, 4.33333], "texture": "#21"},
+				"south": {"uv": [7, 3.33333, 7.5, 4.33333], "texture": "#21"},
+				"west": {"uv": [7.5, 3.33333, 7, 4.33333], "texture": "#21"},
+				"up": {"uv": [7, 3.33333, 7.5, 3.66667], "rotation": 270, "texture": "#21"},
+				"down": {"uv": [7, 4, 7.5, 4.33333], "rotation": 90, "texture": "#21"}
+			}
+		},
+		{
+			"name": "gundabad_spear_head_type_A_8",
+			"from": [8.025, 17.50007, 9.50015],
+			"to": [8.475, 19.5, 10.00013],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.29997, 20.24997, 8.2502]},
+			"faces": {
+				"north": {"uv": [6.5, 3.66667, 7, 5], "texture": "#21"},
+				"east": {"uv": [6.5, 3.66667, 7, 5], "texture": "#21"},
+				"south": {"uv": [6.5, 3.66667, 7, 5], "texture": "#21"},
+				"west": {"uv": [7, 3.66667, 6.5, 5], "texture": "#21"},
+				"up": {"uv": [6.5, 3.66667, 7, 4], "rotation": 270, "texture": "#21"},
+				"down": {"uv": [6.5, 4.66667, 7, 5], "rotation": 90, "texture": "#21"}
+			}
+		},
+		{
+			"name": "gundabad_spear_head_type_A_9",
+			"from": [8.025, 18.50004, 10.00013],
+			"to": [8.475, 19.00002, 10.50011],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.29997, 20.24997, 8.2502]},
+			"faces": {
+				"north": {"uv": [6, 4, 6.5, 4.33333], "texture": "#21"},
+				"east": {"uv": [6, 4, 6.5, 4.33333], "texture": "#21"},
+				"south": {"uv": [6, 4, 6.5, 4.33333], "texture": "#21"},
+				"west": {"uv": [6.5, 4, 6, 4.33333], "texture": "#21"},
+				"up": {"uv": [6, 4, 6.5, 4.33333], "rotation": 270, "texture": "#21"},
+				"down": {"uv": [6, 4, 6.5, 4.33333], "rotation": 90, "texture": "#21"}
+			}
+		},
+		{
+			"name": "gundabad_spear_head_type_A_10",
+			"from": [8.025, 17.50007, 8.50019],
+			"to": [8.475, 18.00006, 9.50015],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.29997, 20.24997, 8.2502]},
+			"faces": {
+				"north": {"uv": [7.5, 4.66667, 8, 5], "texture": "#21"},
+				"east": {"uv": [7, 4.66667, 8, 5], "texture": "#21"},
+				"south": {"uv": [7, 4.66667, 7.5, 5], "texture": "#21"},
+				"west": {"uv": [8, 4.66667, 7, 5], "texture": "#21"},
+				"up": {"uv": [7, 4.66667, 8, 5], "rotation": 270, "texture": "#21"},
+				"down": {"uv": [7, 4.66667, 8, 5], "rotation": 90, "texture": "#21"}
+			}
+		}
+	],
+	"display": {},
+	"overrides": [
+		{"predicate": {"holding": 1}, "model": "me:item/gundabad_spear_holding"}
+	],
+	"groups": [
+		{
+			"name": "Spear",
+			"origin": [8.5, 31, 8.5],
+			"color": 0,
+			"children": [
+				0,
+				{
+					"name": "Head",
+					"origin": [8, 39.832, 5.17],
+					"color": 0,
+					"children": [
+						{
+							"name": "gundabad_spear_head_type_A",
+							"origin": [8, 8, 8],
+							"color": 0,
+							"children": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -38,7 +38,7 @@ public enum ModCapes implements StringIdentifiable {
     HORSE_LORD_CAPE(21,"horse_lord_cape"),
 
     BARDING_SURCOAT(22,"barding_surcoat"),
-    DALISH_HEYDAY_CAPE(23,"dalish_heyday_cape"),
+    DALISH_HEYDAY_CLOAK(23,"dalish_heyday_cloak"),
     BARDING_SERGEANT_CAPE(24,"barding_sergeant_cape"),
 
     EREBOR_CAPE(25,"erebor_cape"),
@@ -47,6 +47,21 @@ public enum ModCapes implements StringIdentifiable {
     LORIEN_MARCHWARDEN_CAPE(27,"lorien_marchwarden_cape"),
     GALADHRIM_CAPE(28,"galadhrim_cape"),
     GALADHRIM_LORD_SURCOAT(29,"galadhrim_lord_surcoat"),
+
+    ORCISH_CAPE(30,"orcish_cape"),
+    ORCISH_LONG_CAPE(31,"orcish_long_cape"),
+    ORCISH_SHOULDERS(32,"orcish_shoulders"),
+
+    ORCISH_BLACK_FUR_SURCOAT_WITH_BONE(33,"orcish_black_fur_surcoat_with_bone"),
+    ORCISH_BROWN_FUR_SURCOAT_WITH_BONE(34,"orcish_brown_fur_surcoat_with_bone"),
+    ORCISH_GRAY_FUR_SURCOAT_WITH_BONE(35,"orcish_gray_fur_surcoat_with_bone"),
+    ORCISH_TAN_FUR_SURCOAT_WITH_BONE(36,"orcish_tan_fur_surcoat_with_bone"),
+    ORCISH_WHITE_FUR_SURCOAT_WITH_BONE(37,"orcish_white_fur_surcoat_with_bone"),
+
+    MORDOR_BLACK_NUMENOREAN_CAPE(38,"mordor_black_numenorean_cape"),
+
+    ORTHANC_GUARD_CAPE(39,"orthanc_guard_cape"),
+
     ;
 
     private static final IntFunction<ModCapes> BY_ID = ValueLists.createIdToValueFunction(ModCapes::getId, ModCapes.values(), ValueLists.OutOfBoundsHandling.ZERO);;

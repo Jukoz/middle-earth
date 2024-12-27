@@ -24,17 +24,17 @@ public class HoodHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     public ModSubFactions subFaction;
 
     public HoodHelmetItem(Settings settings, ModFactions faction) {
-        super(ModArmorMaterials.LEATHER_T0.material(), Type.HELMET, settings
+        super(ModArmorMaterials.FABRIC_T0.material(), Type.HELMET, settings
                 .maxCount(1)
-                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.LEATHER_T0.durabilityModifier())));
+                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.FABRIC_T0.durabilityModifier())));
         this.faction = faction;
         this.subFaction = null;
     }
 
     public HoodHelmetItem(Settings settings, ModSubFactions subFaction) {
-        super(ModArmorMaterials.LEATHER_T0.material(), Type.HELMET, settings
+        super(ModArmorMaterials.FABRIC_T0.material(), Type.HELMET, settings
                 .maxCount(1)
-                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.LEATHER_T0.durabilityModifier())));
+                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.FABRIC_T0.durabilityModifier())));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
     }

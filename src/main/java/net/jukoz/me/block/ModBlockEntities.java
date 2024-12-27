@@ -37,7 +37,7 @@ public class ModBlockEntities {
         TREATED_ANVIL = Registry.register(Registries.BLOCK_ENTITY_TYPE,
                 Identifier.of(MiddleEarth.MOD_ID, "treated_anvil"),
                 BlockEntityType.Builder.create(TreatedAnvilBlockEntity::new,
-                        ModDecorativeBlocks.TREADTED_ANVIL,
+                        ModDecorativeBlocks.TREATED_ANVIL,
                         ModDecorativeBlocks.DWARVEN_TREATED_ANVIL,
                         ModDecorativeBlocks.ELVEN_TREATED_ANVIL,
                         ModDecorativeBlocks.ORCISH_TREATED_ANVIL).build(null));

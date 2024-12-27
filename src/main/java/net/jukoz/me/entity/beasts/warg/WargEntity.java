@@ -16,6 +16,8 @@ import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.datas.RaceType;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
@@ -36,6 +38,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
@@ -67,7 +70,7 @@ public class WargEntity extends AbstractBeastEntity {
     private static final float MAX_HEALTH_BONUS = WargEntity.getChildHealthBonus(max -> max - 1);
     private static final Ingredient TEMPTING_INGREDIENT = Ingredient.fromTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
     private static final double WALKING_SPEED = 0.25;
-    private static final double HUNTING_SPEED = 2;
+    private static final double HUNTING_SPEED = 2.5;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(WargEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public int idleAnimationTimeout = this.random.nextInt(600) + 1700;
     private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.WARG.getDimensions().scaled(0.5f);
@@ -110,26 +113,24 @@ public class WargEntity extends AbstractBeastEntity {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, HUNTING_SPEED, false));
-        this.goalSelector.add(4, new ChargeAttackGoal(this, maxChargeCooldown()));
+        this.goalSelector.add(4, new ChargeAttackGoal(this, this.getDisposition(), maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 1.0, TEMPTING_INGREDIENT, false));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
-        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
-        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity)this));
-        this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
-        this.targetSelector.add(4, new TargetPlayerGoal(this));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
-        this.targetSelector.add(7, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
-        this.targetSelector.add(8, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
-        this.targetSelector.add(9, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-        this.targetSelector.add(10, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
-        this.targetSelector.add(11, new ActiveTargetGoal<>(this, SheepEntity.class, true));
-        this.targetSelector.add(12, new ActiveTargetGoal<>(this, GoatEntity.class, true));
-        this.targetSelector.add(13, new ActiveTargetGoal<>(this, DeerEntity.class, true));
-        this.targetSelector.add(14, new ActiveTargetGoal<>(this, PheasantEntity.class, true));
+        this.targetSelector.add(3, new BeastRevengeGoal(this, new Class[0]).setGroupRevenge());
+        this.targetSelector.add(4, new BeastTargetPlayerGoal(this, this.getDisposition()));
+        this.targetSelector.add(5, new BeastActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
+        this.targetSelector.add(6, new BeastActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
+        this.targetSelector.add(7, new BeastActiveTargetGoal<>(this, GondorHumanEntity.class, true));
+        this.targetSelector.add(8, new BeastActiveTargetGoal<>(this, RohanHumanEntity.class, true));
+        this.targetSelector.add(9, new BeastActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        this.targetSelector.add(10, new BeastActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(11, new BeastActiveTargetGoal<>(this, SheepEntity.class, true));
+        this.targetSelector.add(12, new BeastActiveTargetGoal<>(this, GoatEntity.class, true));
+        this.targetSelector.add(13, new BeastActiveTargetGoal<>(this, DeerEntity.class, true));
+        this.targetSelector.add(14, new BeastActiveTargetGoal<>(this, PheasantEntity.class, true));
     }
 
     @Override
@@ -151,7 +152,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
-        return 14.0f + (float)randomIntGetter.applyAsInt(5) + (float)randomIntGetter.applyAsInt(5);
+        return 12.0f + (float)randomIntGetter.applyAsInt(6) + (float)randomIntGetter.applyAsInt(6);
     }
 
     protected static double getChildAttackDamageBonus(DoubleSupplier randomDoubleGetter) {
@@ -159,7 +160,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {
-        return ((double)0.3 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25) * 0.25;
+        return ((double)0.5 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25) * 0.3;
     }
 
     @Override
@@ -224,6 +225,16 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     @Override
+    protected Disposition getDisposition() {
+        return Disposition.EVIL;
+    }
+
+    @Override
+    protected List<RaceType> getRaceType() {
+        return List.of(RaceType.ORC, RaceType.URUK);
+    }
+
+    @Override
     public EntityDimensions getBaseDimensions(EntityPose pose) {
         return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
     }
@@ -240,7 +251,7 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 1.5f) : ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f);
+        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f);
     }
 
     @Override
@@ -254,7 +265,7 @@ public class WargEntity extends AbstractBeastEntity {
         float g = this.limbAnimator.getPos() * (MathHelper.PI / 180) * 18;
         float h = passenger.isSprinting() ? 1 : 0;
 
-        double y = (MathHelper.cos(g * 2 * 1.2f - (MathHelper.PI * (h - 1))) * f * (0.06 + (0.035 * h))) - 0.1;
+        double y = (MathHelper.cos(g * 2 * 1.2f - (MathHelper.PI * (h - 1))) * (0.06 + (0.035 * h)));
 
         return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
     }
@@ -274,9 +285,9 @@ public class WargEntity extends AbstractBeastEntity {
 
             this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
         }
-        else if (--idleAnimationTimeout <= 0 && !this.isTame()){
-            this.setSitting(!this.isSitting());
-            this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
+
+        if(!this.isAttacking() && this.getAttacker() == null) {
+            this.setRunning(false);
         }
 
         if(this.isSitting()) {
@@ -287,20 +298,12 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected void setupAnimationStates() {
         if(this.isSitting()) {
-            if(!this.sittingAnimationState.isRunning()) {
-                this.stopSittingAnimationState.stop();
-                this.startSittingAnimationState.startIfNotRunning(this.age);
-                this.startedSitting = true;
-            }
-            if(!this.startSittingAnimationState.isRunning() && startedSitting) {
-                this.sittingAnimationState.startIfNotRunning(this.age);
-            }
+            this.stopSittingAnimationState.stop();
+            this.startSittingAnimationState.startIfNotRunning(this.age);
         }
-        else if (startedSitting){
-            this.stopSittingAnimationState.startIfNotRunning(this.age);
+        else {
             this.startSittingAnimationState.stop();
-            this.sittingAnimationState.stop();
-            this.startedSitting = false;
+            this.stopSittingAnimationState.startIfNotRunning(this.age);
         }
     }
 
@@ -333,14 +336,14 @@ public class WargEntity extends AbstractBeastEntity {
 
         for(Entity entity : entities) {
             if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
-                entity.damage(entity.getDamageSources().mobAttack(this), 12.0f);
-                if(entity.hasVehicle()) {
-                    if(entity instanceof PlayerEntity) {
-                        entity.stopRiding();
-                    }
-                    else {
-                        entity.dismountVehicle();
-                    }
+                entity.damage(entity.getDamageSources().mobAttack(this), this.getAttackDamage());
+
+                if(entity instanceof ServerPlayerEntity) {
+                    entity.stopRiding();
+                }
+                else if(!this.getWorld().isClient) {
+                    entity.dismountVehicle();
+                    entity.removeAllPassengers();
                 }
 
                 this.setCharging(false);
@@ -375,7 +378,7 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isHorseArmor(ItemStack stack) {
-        return (stack.isOf(ModEquipmentItems.WARG_LEATHER_ARMOR) || stack.isOf(ModEquipmentItems.WARG_PLATE_ARMOR));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor")));
     }
 
     public boolean hasCharged() {

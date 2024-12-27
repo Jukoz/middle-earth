@@ -32,11 +32,13 @@ public class ModDecorativeItems {
             new VerticallyAttachableBlockItem(ModDecorativeBlocks.SCONCE, ModDecorativeBlocks.WALL_SCONCE, new Item.Settings(), Direction.DOWN));
     public static final Item GILDED_SCONCE = registerItem("gilded_sconce",
             new VerticallyAttachableBlockItem(ModDecorativeBlocks.GILDED_SCONCE, ModDecorativeBlocks.GILDED_WALL_SCONCE, new Item.Settings(), Direction.DOWN));
+    public static final Item ORCISH_SCONCE = registerItem("orcish_sconce",
+            new VerticallyAttachableBlockItem(ModDecorativeBlocks.ORCISH_SCONCE, ModDecorativeBlocks.ORCISH_WALL_SCONCE, new Item.Settings(), Direction.DOWN));
 
     public static final Item FORGE = registerItem("forge",
             new BlockItem(ModDecorativeBlocks.FORGE, new Item.Settings()));
     public static final Item TREATED_ANVIL = registerItem("treated_anvil",
-            new BlockItem(ModDecorativeBlocks.TREADTED_ANVIL, new Item.Settings()));
+            new BlockItem(ModDecorativeBlocks.TREATED_ANVIL, new Item.Settings()));
     public static final Item DWARVEN_TREATED_ANVIL = registerItem("dwarven_treated_anvil",
             new BlockItem(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL, new Item.Settings()));
     public static final Item ELVEN_TREATED_ANVIL = registerItem("elven_treated_anvil",

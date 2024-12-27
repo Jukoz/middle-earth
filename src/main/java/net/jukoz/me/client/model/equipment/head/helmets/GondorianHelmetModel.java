@@ -29,13 +29,12 @@ public class GondorianHelmetModel<T extends LivingEntity> extends HelmetAddonMod
                 .uv(50, 0).mirrored().cuboid(2.0F, -19.8F, 0.0F, 7.0F, 16.0F, 0.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(50, 16).cuboid(-9.0F, -19.8F, 0.0F, 7.0F, 16.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.5F, 0.0F));
 
-        addons.addChild("Side_Right_r1", ModelPartBuilder.create().uv(40, 49).cuboid(-6.0F, -9.5F, 0.528F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-5.0F, -6.5F, -0.5F, 0.0F, 1.309F, 0.0F));
+        addons.addChild("side_right_0", ModelPartBuilder.create().uv(40, 49).cuboid(-6.0F, -9.5F, 0.528F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-5.0F, -6.5F, -0.5F, 0.0F, 1.309F, 0.0F));
+        addons.addChild("side_right_1", ModelPartBuilder.create().uv(52, 32).cuboid(-6.0F, -9.5F, 0.502F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-5.0F, -6.5F, -2.5F, 0.0F, 1.3963F, 0.0F));
 
-        addons.addChild("Side_Left_r1", ModelPartBuilder.create().uv(52, 49).cuboid(0.0F, -9.5F, 0.492F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(5.0F, -6.5F, -0.5F, 0.0F, -1.309F, 0.0F));
+        addons.addChild("side_left_0", ModelPartBuilder.create().uv(52, 49).cuboid(0.0F, -9.5F, 0.492F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(5.0F, -6.5F, -0.5F, 0.0F, -1.309F, 0.0F));
+        addons.addChild("side_left_1", ModelPartBuilder.create().uv(40, 32).cuboid(0.0F, -9.5F, 0.534F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(5.0F, -6.5F, -2.5F, 0.0F, -1.3963F, 0.0F));
 
-        addons.addChild("Side_Left_r2", ModelPartBuilder.create().uv(40, 32).cuboid(0.0F, -9.5F, 0.534F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(5.0F, -6.5F, -2.5F, 0.0F, -1.3963F, 0.0F));
-
-        addons.addChild("Side_Right_r2", ModelPartBuilder.create().uv(52, 32).cuboid(-6.0F, -9.5F, 0.502F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-5.0F, -6.5F, -2.5F, 0.0F, 1.3963F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

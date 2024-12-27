@@ -2,65 +2,67 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "me:dirty_bone",
+          "weight": 2,
           "functions": [
             {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 0.0
-              },
-              "function": "minecraft:set_count"
+              "function": "minecraft:enchanted_count_increase",
+              "count": 1,
+              "limit": 2,
+              "enchantment": "minecraft:looting"
             },
             {
+              "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
-              },
-              "function": "minecraft:enchanted_count_increase",
-              "enchantment": "minecraft:looting"
+                "min": 0,
+                "max": 2
+              }
             }
-          ],
-          "name": "me:fang"
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:fang",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
         }
       ]
     },
     {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "me:fur",
+          "weight": 1,
           "functions": [
             {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
-              },
-              "function": "minecraft:set_count"
+              "function": "minecraft:enchanted_count_increase",
+              "count": 1,
+              "limit": 2,
+              "enchantment": "minecraft:looting"
             },
             {
+              "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
-              },
-              "function": "minecraft:enchanted_count_increase",
-              "enchantment": "minecraft:looting"
+                "min": 0,
+                "max": 1
+              }
             }
-          ],
-          "name": "me:warg_bone"
+          ]
         }
       ]
     }
-  ],
-  "random_sequence": "minecraft:entities/wolf"
+  ]
 }

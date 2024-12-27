@@ -97,9 +97,7 @@ public class ModResourceItems {
     public static final Item QUARTZ_SHARD = registerItem("quartz_shard",
             new Item(new Item.Settings()));
 
-    public static final Item ORC_BONE = registerItem("orc_bone",
-            new Item(new Item.Settings()));
-    public static final Item WARG_BONE = registerItem("warg_bone",
+    public static final Item DIRTY_BONE = registerItem("dirty_bone",
             new Item(new Item.Settings()));
     public static final Item FANG = registerItem("fang",
             new Item(new Item.Settings()));
@@ -165,9 +163,9 @@ public class ModResourceItems {
     public static final Item SWORD_HILT = registerItem("sword_hilt",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
 
-    public static final Item CHAINMAIL_RING = registerItem("chainmail_ring",
+    public static final Item MAIL_RING = registerItem("mail_ring",
             new SmithingMaterialItem(new Item.Settings().maxCount(64)));
-    public static final Item CHAINMAIL = registerItem("chainmail",
+    public static final Item MAIL = registerItem("mail",
             new Item(new Item.Settings().maxCount(16)));
     public static final Item SCALE = registerItem("scale",
             new Item(new Item.Settings().maxCount(64)));

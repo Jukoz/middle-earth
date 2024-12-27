@@ -558,6 +558,10 @@ public class ModelProvider extends FabricModelProvider {
             registerRocksBlock(blockStateModelGenerator, rocks.rocks(), rocks.block());
         }
 
+        for(SimpleRocksModel.Rocks rocks : SimpleRocksModel.vanillaRocks){
+            registerRocksBlock(blockStateModelGenerator, rocks.rocks(), rocks.block());
+        }
+
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.stool());
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.DARK_MUSHROOM.stool());
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.GRAY_MUSHROOM.stool());
@@ -711,12 +715,17 @@ public class ModelProvider extends FabricModelProvider {
         registerOrientableTrapdoorLadder(blockStateModelGenerator, ModDecorativeBlocks.ROPE_LADDER);
 
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.AZALEA_FLOWER_GROWTH);
+        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.DRY_GROWTH);
+        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.FROZEN_GROWTH);
+        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.GREEN_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.IVY_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.LILAC_FLOWER_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.PINK_FLOWER_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.RED_FLOWER_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.WHITE_FLOWER_GROWTH);
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
+
+        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.STICKY_ICE);
     }
 
     public final void registerFanModel(BlockStateModelGenerator blockStateCollector, Block coralFanBlock) {
@@ -1082,16 +1091,16 @@ public class ModelProvider extends FabricModelProvider {
 
     public void registerRocksBlock(BlockStateModelGenerator blockStateModelGenerator, Block rocksBlock, Block origin) {
         Identifier stage0 = MEModels.ROCKS_STAGE_0.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath())),
+                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
                 blockStateModelGenerator.modelCollector);
         Identifier stage1 = MEModels.ROCKS_STAGE_1.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath())),
+                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
                 blockStateModelGenerator.modelCollector);
         Identifier stage2 = MEModels.ROCKS_STAGE_2.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath())),
+                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
                 blockStateModelGenerator.modelCollector);
         Identifier stage3 = MEModels.ROCKS_STAGE_3.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath())),
+                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
                 blockStateModelGenerator.modelCollector);
         
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(rocksBlock).coordinate(BlockStateVariantMap
@@ -1270,14 +1279,13 @@ public class ModelProvider extends FabricModelProvider {
         registerPalettedItem(ModResourceItems.LONG_BLADE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SWORD_HILT, itemModelGenerator);
 
-        registerPalettedItem(ModResourceItems.CHAINMAIL_RING, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.CHAINMAIL, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.MAIL_RING, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.MAIL, itemModelGenerator);
 
         registerPalettedItem(ModResourceItems.SCALE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SCALE_MAIL, itemModelGenerator);
 
         registerPalettedItem(ModResourceItems.ARMOR_PLATE, itemModelGenerator);
-
 
         registerPalettedItem(ModResourceItems.HELMET_PLATE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SHIELD_BORDER, itemModelGenerator);

@@ -22,17 +22,17 @@ public class CapeChestplateItem extends ArmorItem implements MEEquipmentTooltip 
     public ModSubFactions subFaction;
 
     public CapeChestplateItem(Settings settings, ModFactions faction) {
-        super(ModArmorMaterials.LEATHER_T0.material(), Type.CHESTPLATE, settings
+        super(ModArmorMaterials.FABRIC_T0.material(), Type.CHESTPLATE, settings
                 .maxCount(1)
-                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.LEATHER_T0.durabilityModifier())));
+                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.FABRIC_T0.durabilityModifier())));
         this.faction = faction;
         this.subFaction = null;
     }
 
     public CapeChestplateItem(Settings settings, ModSubFactions subFaction) {
-        super(ModArmorMaterials.LEATHER_T0.material(), Type.CHESTPLATE, settings
+        super(ModArmorMaterials.FABRIC_T0.material(), Type.CHESTPLATE, settings
                 .maxCount(1)
-                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.LEATHER_T0.durabilityModifier())));
+                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.FABRIC_T0.durabilityModifier())));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
     }
@@ -44,7 +44,7 @@ public class CapeChestplateItem extends ArmorItem implements MEEquipmentTooltip 
         CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
         if(dyeDataComponent != null){
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyed").append(": " + String.format(MEEquipmentTooltip.COLOR_PREFIX, (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyed").append(String.format(MEEquipmentTooltip.COLOR_PREFIX, (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
         }
         if (capeDataComponent != null) {
             list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape().getName()).formatted(Formatting.GRAY));

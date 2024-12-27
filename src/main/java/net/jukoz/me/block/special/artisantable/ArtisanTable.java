@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 
 public class ArtisanTable extends HorizontalFacingBlock {
     public static final EnumProperty<ArtisanTablePart> PART = EnumProperty.of("part", ArtisanTablePart.class);
-    private static final Text TITLE = Text.translatable("container.artisan_table");
+    private static final Text TITLE = Text.translatable("container.me.artisan_table");
 
 
     public ArtisanTable(Settings settings) {

@@ -45,7 +45,9 @@
   "advancements.smithing.burzum_steel.description": "Forge the mighty Búrzum-Steel",
   "advancements.smithing.orcish_treated_anvil.title": "Touched by Shadow",
   "advancements.smithing.orcish_treated_anvil.description": "Craft an Orcish anvil to create Orcish items",
-  "advancements.smithing.dwarven_lantern.title": "Light of Khazad-dûm",
+  "advancements.smithing.crystal_lamp.title": "Light of Khazad-dûm",
+  "advancements.smithing.crystal_lamp.description": "Craft a crystal lamp",
+  "advancements.smithing.dwarven_lantern.title": "A light in the dark",
   "advancements.smithing.dwarven_lantern.description": "Craft a dwarven lantern",
   "advancements.smithing.elven_lantern.title": "Light of the Elves",
   "advancements.smithing.elven_lantern.description": "Light your way like the Quendi",
@@ -177,17 +179,17 @@
   "biome.me.ice_cave": "Ice Cave",
 
 "#Comment:": "Item Groups",
-  "itemGroup.me.stone_blocks": "[ME] Stone Blocks",
-  "itemGroup.me.wood_blocks": "[ME] Wood Blocks",
-  "itemGroup.me.misc_blocks": "[ME] Misc Blocks",
-  "itemGroup.me.nature_blocks": "[ME] Nature Blocks",
-  "itemGroup.me.decorative_blocks": "[ME] Decorative Blocks",
-  "itemGroup.me.food_items": "[ME] Food",
-  "itemGroup.me.weapon_items": "[ME] Weapons",
-  "itemGroup.me.equipment_items": "[ME] Equipment",
-  "itemGroup.me.tool_items": "[ME] Tools",
-  "itemGroup.me.resource_items": "[ME] Resources",
-  "itemGroup.me.spawn_egg_items": "[ME] Spawn Eggs",
+  "itemGroup.me.stone_blocks": "Middle-earth Stone Blocks",
+  "itemGroup.me.wood_blocks": "Middle-earth Wood Blocks",
+  "itemGroup.me.misc_blocks": "Middle-earth Misc Blocks",
+  "itemGroup.me.nature_blocks": "Middle-earth Nature Blocks",
+  "itemGroup.me.decorative_blocks": "Middle-earth Decorative Blocks",
+  "itemGroup.me.food_items": "Middle-earth Food",
+  "itemGroup.me.weapon_items": "Middle-earth Weapons",
+  "itemGroup.me.equipment_items": "Middle-earth Equipment",
+  "itemGroup.me.tool_items": "Middle-earth Tools",
+  "itemGroup.me.resource_items": "Middle-earth Resources",
+  "itemGroup.me.spawn_egg_items": "Middle-earth Spawn Eggs",
 
 "#Comment:": "Status Effects",
   "effect.me.hallucination" : "Hallucination",
@@ -245,12 +247,9 @@
   "item.me.gold_ring": "Gold Ring",
   "item.me.middle_earth_map": "Middle-earth Map",
   "item.me.ash": "Ash",
-  "item.me.iron_chainmail": "Iron Chainmail",
 
 "#Comment:": "Item - Mob Drops",
-  "item.me.orc_bone": "Orc Bone",
-  "item.me.warg_bone": "Warg Bone",
-  "item.me.warg_fur": "Warg Fur",
+  "item.me.dirty_bone": "Dirty Bone",
   "item.me.fang": "Fang",
 
 "#Comment:": "Item - Phial",
@@ -338,8 +337,8 @@
   "item.me.great_axe_head": "Great Axe Head",
   "item.me.sword_hilt": "Sword Hilt",
 
-  "item.me.chainmail_ring": "Chainmail Ring",
-  "item.me.chainmail": "Chainmail",
+  "item.me.mail_ring": "Mail Ring",
+  "item.me.mail": "Mail",
   "item.me.scale": "Scale",
   "item.me.scale_mail": "Scale Mail",
   "item.me.armor_plate": "Armor Plate",
@@ -393,19 +392,6 @@
   "item.me.lorien_spear": "Lórien Spear",
   "item.me.lorien_noble_spear": "Lórien Noble Spear",
   "item.me.lorien_bow": "Lórien Bow",
-
-"#Comment:": "Item - Mordor Orc",
-  "item.me.mordor_orc_sword": "Mordor Orc Sword",
-  "item.me.mordor_orc_scimitar": "Mordor Orc Scimitar",
-  "item.me.mordor_orc_dagger": "Mordor Orc Dagger",
-  "item.me.mordor_orc_battleaxe": "Mordor Orc Battleaxe",
-  "item.me.mordor_orc_pike": "Mordor Orc Pike",
-  "item.me.mordor_orc_pickaxe": "Mordor Orc Pickaxe",
-  "item.me.mordor_orc_axe": "Mordor Orc Axe",
-  "item.me.mordor_orc_shovel": "Mordor Orc Shovel",
-  "item.me.mordor_orc_hoe": "Mordor Orc Hoe",
-
-  "item.me.morgul_blade": "Morgul Blade",
 
 "#Comment:": "Item - Rohan",
   "item.me.rohirric_sword": "Rohirric Sword",
@@ -467,6 +453,18 @@
   "item.me.uruk_hai_spear": "Uruk-Hai Spear",
   "item.me.isengard_orc_axe": "Isengard Orc Axe",
   "item.me.uruk_hai_axe": "Uruk-Hai Axe",
+
+"#Comment:": "Item - Gundabad",
+  "item.me.gundabad_falchion": "Gundabad Falchion",
+  "item.me.gundabad_elite_cleaver": "Gundabad Elite Cleaver",
+  "item.me.gundabad_warblade": "Gundabad Warblade",
+  "item.me.gundabad_elite_scimitar": "Gundabad Elite Scimitar",
+  "item.me.gundabad_shank": "Gundabad Shank",
+  "item.me.gundabad_elite_dagger": "Gundabad Elite Dagger",
+  "item.me.gundabad_spear": "Gundabad Spear",
+  "item.me.gundabad_elite_spear": "Gundabad Elite Spear",
+  "item.me.gundabad_axe": "Gundabad Axe",
+  "item.me.gundabad_elite_battleaxe": "Gundabad Elite Battleaxe",
 
 "#Comment:": "Item - Misc Weapons",
   "item.me.wooden_dagger": "Wooden Dagger",
@@ -571,7 +569,7 @@
   "item.me.horse_lord_cape": "Horse Lord Cape",
 
   "item.me.barding_surcoat": "Barding Surcoat",
-  "item.me.dalish_heyday_cape": "Dalish Heyday Cape",
+  "item.me.dalish_heyday_cloak": "Dalish Heyday Cloak",
   "item.me.barding_sergeant_cape": "Barding Sergeant Cape",
 
   "item.me.erebor_cape": "Erebor Cape",
@@ -582,6 +580,16 @@
   "item.me.galadhrim_cape": "Galadhrim Cape",
   "item.me.galadhrim_hood": "Galadhrim Hood",
   "item.me.galadhrim_lord_surcoat": "Galadhrim Lord Surcoat",
+  
+  "item.me.orcish_cape": "Orcish Cape",
+  "item.me.orcish_long_cape": "Orcish Long Cape",
+  "item.me.orcish_shoulders": "Orcish Shoulders",
+
+  "item.me.orcish_black_fur_surcoat_with_bone": "Orcish Black Fur Surcoat With Bone",
+  "item.me.orcish_brown_fur_surcoat_with_bone": "Orcish Brown Fur Surcoat With Bone",
+  "item.me.orcish_gray_fur_surcoat_with_bone": "Orcish Gray Fur Surcoat With Bone",
+  "item.me.orcish_tan_fur_surcoat_with_bone": "Orcish Tan Fur Surcoat With Bone",
+  "item.me.orcish_white_fur_surcoat_with_bone": "Orcish White Fur Surcoat With Bone",
 
   "item.me.straw_hat": "Straw Hat",
   "item.me.woven_hat": "Woven Hat",
@@ -606,13 +614,14 @@
   "item.me.travelling_boots": "Travelling Boots",
   "item.me.high_cut_boots": "High Cut Boots",
 
-  "item.me.chain_coif": "Chain Coif",
+  "item.me.mail_coif": "Mail Coif",
   "item.me.kettle_hat": "Kettle hat",
   "item.me.open_face_helmet": "Open Face Helmet",
 
-  "item.me.chain_hauberk": "Chain Hauberk",
+  "item.me.mail_hauberk": "Mail Hauberk",
+  "item.me.mail_shirt": "Mail Shirt",
 
-  "item.me.chain_skirt": "Chain Skirt",
+  "item.me.mail_skirt": "Mail Skirt",
 
   "item.me.sallet": "Sallet",
 
@@ -622,12 +631,12 @@
 
   "item.me.gondorian_cabasset_helmet": "Gondorian Cabasset Helmet",
 
-  "item.me.gondorian_chain_hauberk": "Gondorian Chain Hauberk",
+  "item.me.gondorian_mail_hauberk": "Gondorian Mail Hauberk",
   "item.me.gondorian_tabbard": "Gondorian Tabbard",
   "item.me.gondorian_leather_cuirass": "Gondorian Leather Cuirass",
   "item.me.gondorian_leather_chestplate": "Gondorian Leather Chestplate",
 
-  "item.me.gondorian_chain_coat": "Gondorian Chain Coat",
+  "item.me.gondorian_mail_coat": "Gondorian Mail Coat",
 
   "item.me.gondorian_soldier_helmet": "Gondorian Soldier Helmet",
 
@@ -655,7 +664,6 @@
   "item.me.gondorian_fountain_guard_leggings": "Gondorian Fountain Guard Leggings",
   "item.me.gondorian_fountain_guard_boots": "Gondorian Fountain Guard Boots",
 
-  "item.me.rohirric_coat": "Rohirric Coat",
   "item.me.rohirric_reinforced_coat": "Rohirric Reinforced Coat",
 
   "item.me.rohirric_leather_helmet": "Rohirric Leather Helmet",
@@ -671,9 +679,9 @@
   "item.me.rohirric_reinforced_militia_helmet": "Rohirric Reinforced Militia Helmet",
   "item.me.rohirric_ornamented_militia_helmet": "Rohirric Ornamented Militia Helmet",
 
-  "item.me.rohirric_mail_shirt": "Rohirric Mail Shirt",
-  "item.me.rohirric_mail_shirt_open": "Rohirric Mail Shirt Open",
-  "item.me.rohirric_mail_hauberk": "Rohirric Mail Hauberk",
+  "item.me.rohirric_reinforced_leather_vest": "Rohirric Reinforced Leather Vest",
+  "item.me.rohirric_reinforced_leather_scale_vest": "Rohirric Reinforced Leather Scale Vest",
+  "item.me.rohirric_braced_mail_shirt": "Rohirric Braced Mail Shirt",
 
   "item.me.rohirric_soldier_helmet": "Rohirric Soldier Helmet",
   "item.me.rohirric_ornamented_soldier_helmet": "Rohirric Ornamented Soldier Helmet",
@@ -705,9 +713,9 @@
   "item.me.dalish_helmet_brown_fur": "Dalish Helmet Brown Fur",
   "item.me.dalish_helmet_tan_fur": "Dalish Helmet Tan Fur",
 
-  "item.me.dalish_chain_hauberk": "Dalish Chain Hauberk",
+  "item.me.dalish_mail_hauberk": "Dalish Mail Hauberk",
 
-  "item.me.dalish_chain_coat": "Dalish Chain Coat",
+  "item.me.dalish_mail_coat": "Dalish Mail Coat",
 
   "item.me.dalish_burgonet": "Dalish Burgonet",
 
@@ -715,21 +723,86 @@
 
   "item.me.dalish_heyday_helmet": "Dalish Heyday Helmet",
   "item.me.dalish_heyday_chestplate": "Dalish Heyday Chestplate",
-  "item.me.dalish_heyday_chain_coat": "Dalish Heyday Chain Coat",
+  "item.me.dalish_heyday_mail_coat": "Dalish Heyday Mail Coat",
   "item.me.dalish_heyday_boots": "Dalish Heyday Boots",
 
   "item.me.barding_soldier_helmet": "Barding Soldier Helmet",
   "item.me.barding_soldier_chestplate": "Barding Soldier Chestplate",
-  "item.me.barding_chain_skirt": "Barding Chain Skirt",
+  "item.me.barding_mail_skirt": "Barding Mail Skirt",
   "item.me.barding_plated_boots": "Barding Plated Boots",
 
   "item.me.barding_sergeant_helmet": "Barding Sergeant Helmet",
   "item.me.barding_sergeant_chestplate": "Barding Sergeant Chestplate",
 
+  "item.me.dwarven_miner_helmet": "Dwarven Miner Helmet",
+
+  "item.me.dwarven_gambeson": "Dwarven Gambeson",
+
+  "item.me.dwarven_mail_coif": "Dwarven Mail Coif",
+
+  "item.me.dwarven_mail_hauberk": "Dwarven Mail Hauberk",
+  "item.me.dwarven_miner_gambeson": "Dwarven Miner Gambeson",
+
+  "item.me.dwarven_mail_coat": "Dwarven Mail Coat",
+
+  "item.me.dwarven_mail_chausses": "Dwarven Mail Chausses",
+  "item.me.dwarven_boots": "Dwarven Boots",
+
+  "item.me.dwarven_scale_hauberk": "Dwarven Scale Hauberk",
+  "item.me.dwarven_scale_coat": "Dwarven Scale Coat",
+
+  "item.me.dwarven_reinforced_boots": "Dwarven Reinforced Boots",
+
   "item.me.longbeard_segmented_helmet": "Longbeard Segmented Helmet",
 
-  "item.me.dwarven_partisan_chestplate": "Dwarven Partisan Chestplate",
-  "item.me.dwarven_partisan_leggings": "Dwarven Partisan Leggings",
+  "item.me.longbeard_leather_hauberk": "Longbeard Leather Hauberk",
+  "item.me.longbeard_wanderer_coat": "Longbeard Wanderer Coat",
+
+  "item.me.longbeard_leather_leggings": "Longbeard Leather Leggings",
+
+  "item.me.longbeard_partisan_outfit": "Longbeard Partisan Outfit",
+  "item.me.longbeard_reinforced_leather_hauberk": "Longbeard Reinforced Leather Hauberk",
+
+  "item.me.erebor_braced_leather_helmet": "Erebor Braced Leather Helmet",
+  "item.me.erebor_nasal_leather_helmet": "Erebor Nasal Leather Helmet",
+
+
+  "item.me.erebor_leather_leggings": "Erebor Leather Leggings",
+
+  "item.me.erebor_mail_coif": "Erebor Mail Coif",
+  "item.me.erebor_gilded_mail_coif": "Erebor Gilded Mail Coif",
+  "item.me.erebor_closed_mail_coif": "Erebor Closed Mail Coif",
+  "item.me.erebor_reinforced_leather_helmet": "Erebor Reinforced Leather Helmet",
+  "item.me.erebor_helmet": "Erebor Helmet",
+  "item.me.erebor_helmet_with_mail_coif": "Erebor Helmet With Mail Coif",
+
+  "item.me.erebor_mail_hauberk": "Erebor Mail Hauberk",
+  "item.me.erebor_padded_mail_hauberk": "Erebor Padded Mail Hauberk",
+
+  "item.me.erebor_mail_coat": "Erebor Mail Coat",
+  "item.me.erebor_mail_leggings": "Erebor Mail Leggings",
+
+  "item.me.erebor_mail_chausses": "Erebor Mail Chausses",
+  "item.me.erebor_boots": "Erebor Boots",
+
+  "item.me.ravenhill_helmet": "Ravenhill Helmet",
+  "item.me.ravenhill_reinforced_helmet": "Ravenhill Reinforced Helmet",
+  "item.me.ravenhill_gilded_helmet": "Ravenhill Gilded Helmet",
+
+  "item.me.erebor_scale_hauberk": "Erebor Scale Hauberk",
+  "item.me.erebor_long_coat": "Erebor Long Coat",
+  "item.me.erebor_brawler_chestplate": "Erebor Brawler Chestplate",
+  "item.me.erebor_reinforced_leather_hauberk": "Erebor Reinforced Leather Hauberk",
+  "item.me.erebor_reinforced_coat": "Erebor Reinforced Coat",
+  "item.me.ravenhill_reinforced_mail_hauberk": "Ravenhill Reinforced Mail Hauberk",
+
+  "item.me.erebor_scale_coat": "Erebor Scale Coat",
+  "item.me.erebor_scale_leggings": "Erebor Scale Leggings",
+
+  "item.me.ravenhill_boots": "Ravenhill Boots",
+
+  "item.me.erebor_guard_helmet": "Erebor Guard Helmet",
+  "item.me.erebor_captain_helmet": "Erebor Captain Helmet",
 
   "item.me.erebor_plate_helmet": "Erebor Plate Helmet",
   "item.me.erebor_plate_chestplate": "Erebor Plate Chestplate",
@@ -758,11 +831,11 @@
 
   "item.me.elven_boots": "Elven Boots",
 
-  "item.me.elven_chain_coif": "Elven Chain Coif",
+  "item.me.elven_mail_coif": "Elven Mail Coif",
 
-  "item.me.elven_chain_hauberk": "Elven Chain Hauberk",
+  "item.me.elven_mail_hauberk": "Elven Mail Hauberk",
 
-  "item.me.elven_chain_skirt": "Elven Chain Skirt",
+  "item.me.elven_mail_skirt": "Elven Mail Skirt",
 
   "item.me.lorien_diadem": "Lórien Diadem",
 
@@ -772,15 +845,15 @@
 
   "item.me.lorien_arming_skirt": "Lórien Arming Skirt",
 
-  "item.me.lorien_chain_coif_diadem": "Lórien Chain Coif Diadem",
-  "item.me.lorien_short_chain_coif_diadem": "Lórien Short Chain Coif Diadem",
+  "item.me.lorien_mail_coif_diadem": "Lórien Mail Coif Diadem",
+  "item.me.lorien_short_mail_coif_diadem": "Lórien Short Mail Coif Diadem",
 
-  "item.me.lorien_chain_hauberk": "Lórien Chain Hauberk",
-  "item.me.lorien_marchwarden_chain_hauberk": "Lórien Marchwarden Chain Hauberk",
+  "item.me.lorien_mail_hauberk": "Lórien Mail Hauberk",
+  "item.me.lorien_marchwarden_mail_hauberk": "Lórien Marchwarden Mail Hauberk",
 
   "item.me.lorien_soldier_helmet": "Lórien Soldier Helmet",
 
-  "item.me.lorien_soldier_chain_hauberk": "Lórien Soldier Chain Hauberk",
+  "item.me.lorien_soldier_mail_hauberk": "Lórien Soldier Mail Hauberk",
   "item.me.lorien_soldier_scale_hauberk": "Lórien Soldier Scale Hauberk",
 
   "item.me.lorien_scale_coat": "Lórien Scale Coat",
@@ -795,28 +868,86 @@
   "item.me.galadhrim_lord_leggings": "Galadhrim Lord Leggings",
   "item.me.galadhrim_lord_boots": "Galadhrim Lord Boots",
 
-  "item.me.orc_mail_coif": "Orc Mail Coif",
+  "item.me.orcish_leather_strap": "Orcish Leather Strap",
 
-  "item.me.orc_mail_hauberk": "Orc Mail Hauberk",
+  "item.me.orcish_sandals": "Orcish Sandals",
 
-  "item.me.orc_mail_coat": "Orc Mail Coat",
+  "item.me.rusted_orcish_mail_coif": "Rusted Orcish Mail Coif",
 
-  "item.me.orc_sallet": "Orc Sallet",
+  "item.me.orcish_leather_chestplate": "Orcish Leather Chestplate",
+  "item.me.orcish_leather_scale_vest": "Orcish Leather Scale Vest",
+  "item.me.rusted_orcish_mail_hauberk": "Rusted Orcish Mail Hauberk",
+  "item.me.rusted_orcish_mail_shirt": "Rusted Orcish Mail Shirt",
 
-  "item.me.orc_gorget_hauberk": "Orc Gorget Hauberk",
+  "item.me.orcish_leather_skirt": "Orcish Leather Skirt",
+  "item.me.orcish_leg_bracer": "Orcish Leg Bracer",
+  "item.me.rusted_orcish_mail_coat": "Rusted Orcish Mail Coat",
+  "item.me.rusted_orcish_reinforced_leather_skirt": "Rusted Orcish Reinforced Leather Skirt",
+  "item.me.rusted_orcish_reinforced_strip_leather_skirt": "Rusted Orcish Reinforced Strip Leather Skirt",
+  "item.me.orcish_strip_leather_skirt": "Orcish Strip Leather Skirt",
 
-  "item.me.orc_plate_boots": "Orc Plate Boots",
+  "item.me.orcish_braced_helmet": "Orcish Braced Helmet",
+  "item.me.orcish_helmet": "Orcish Helmet",
+  "item.me.orcish_mail_coif": "Orcish Mail Coif",
 
-  "item.me.mordor_orc_helmet": "Mordor Orc Helmet",
-  "item.me.mordor_orc_eye_helmet": "Mordor Orc Eye Helmet",
-  "item.me.mordor_orc_great_eye_helmet": "Mordor Orc Great Eye Helmet",
-  "item.me.mordor_orc_mandible_helmet": "Mordor Orc Mandible Helmet",
-  "item.me.mordor_orc_oversight_helmet": "Mordor Orc Oversight Helmet",
-  "item.me.mordor_orc_snout_helmet": "Mordor Orc Snout Helmet",
+  "item.me.orcish_mail_hauberk": "Orcish Mail Hauberk",
+  "item.me.orcish_mail_shirt": "Orcish Mail Shirt",
 
-  "item.me.mordor_orc_scale_coat": "Mordor Orc Scale Coat",
+  "item.me.orcish_mail_coat": "Orcish Mail Coat",
+  "item.me.orcish_reinforced_leather_skirt": "Orcish Reinforced Leather Skirt",
+  "item.me.orcish_reinforced_strip_leather_skirt": "Orcish Reinforced Strip Leather Skirt",
 
-  "item.me.mordor_orc_chestplate": "Mordor Orc Chestplate",
+  "item.me.orcish_sallet": "Orcish Sallet",
+
+  "item.me.orcish_belly_plate_chestplate": "Orcish Belly Plate Chestplate",
+  "item.me.orcish_scale_vest": "Orcish Scale Vest",
+
+  "item.me.orcish_reinforced_leg_bracer": "Orcish Reinforced Leg Bracer",
+
+  "item.me.orcish_black_fur_boots": "Orcish Black Fur Boots",
+  "item.me.orcish_brown_fur_boots": "Orcish Brown Fur Boots",
+  "item.me.orcish_gray_fur_boots": "Orcish Gray Fur Boots",
+  "item.me.orcish_tan_fur_boots": "Orcish Tan Fur Boots",
+  "item.me.orcish_white_fur_boots": "Orcish White Fur Boots",
+  "item.me.orcish_braced_sandals": "Orcish Braced Sandals",
+
+  "item.me.mordor_helmet": "Mordor Helmet",
+  "item.me.rusted_mordor_helmet": "Rusted Mordor Helmet",
+  "item.me.mordor_kettle_hat": "Mordor Kettle Hat",
+  "item.me.rusted_mordor_kettle_hat": "Rusted Mordor Kettle Hat",
+  "item.me.mordor_kettle_hat_with_coif": "Mordor Kettle Hat With Coif",
+  "item.me.rusted_mordor_kettle_hat_with_coif": "Rusted Mordor Kettle Hat With Coif",
+  "item.me.mordor_nasal_helmet": "Mordor Nasal Helmet",
+  "item.me.rusted_mordor_nasal_helmet": "Rusted Mordor Nasal Helmet",
+
+  "item.me.mordor_crest_helmet": "Mordor Crest Helmet",
+  "item.me.rusted_mordor_crest_helmet": "Rusted Mordor Crest Helmet",
+  "item.me.mordor_mandible_helmet": "Mordor Mandible Helmet",
+  "item.me.rusted_mordor_mandible_helmet": "Rusted Mordor Mandible Helmet",
+  "item.me.mordor_sallet": "Mordor Sallet",
+  "item.me.rusted_mordor_sallet": "Rusted Mordor Sallet",
+  "item.me.mordor_great_helmet": "Mordor Great Helmet",
+  "item.me.rusted_mordor_great_helmet": "Rusted Mordor Great Helmet",
+  "item.me.mordor_snout_helmet": "Mordor Snout Helmet",
+  "item.me.rusted_mordor_snout_helmet": "Rusted Mordor Snout Helmet",
+
+  "item.me.mordor_leather_cuirass": "Mordor Leather Cuirass",
+  "item.me.mordor_painted_cuirass": "Mordor Painted Cuirass",
+
+  "item.me.mordor_chestplate": "Mordor Chestplate",
+  "item.me.mordor_cuirass": "Mordor Cuirass",
+  "item.me.rusted_mordor_cuirass": "Rusted Mordor Cuirass",
+  "item.me.mordor_degraded_gondorian_chestplate": "Mordor Degraded Gondorian Chestplate",
+  "item.me.mordor_gorget_hauberk": "Mordor Gorget Hauberk",
+  "item.me.rusted_mordor_gorget_hauberk": "Rusted Mordor Gorget Hauberk",
+  "item.me.mordor_painted_leather_cuirass": "Mordor Painted Leather Cuirass",
+  "item.me.mordor_reinforced_coat": "Mordor Reinforced Coat",
+  "item.me.rusted_mordor_reinforced_coat": "Rusted Mordor Reinforced Coat",
+
+  "item.me.mordor_scale_coat": "Mordor Scale Coat",
+
+  "item.me.mordor_plate_boots": "Mordor Plate Boots",
+  "item.me.rusted_mordor_plate_boots": "Rusted Mordor Plate Boots",
 
   "item.me.black_uruk_plate_helmet": "Black Uruk Plate Helmet",
   "item.me.black_uruk_face_plate_helmet": "Black Uruk Face Plate Helmet",
@@ -827,12 +958,40 @@
   "item.me.black_uruk_commander_helmet": "Black Uruk Commander Helmet",
   "item.me.black_uruk_commander_chestplate": "Black Uruk Commander Chestplate",
 
+  "item.me.mordor_black_numenorean_plate_helmet": "Mordor Black Númenórean Plate Helmet",
+  "item.me.mordor_black_numenorean_plate_chestplate": "Mordor Black Númenórean Plate Chestplate",
+  "item.me.mordor_black_numenorean_plate_leggings": "Mordor Black Númenórean Plate Leggings",
+  "item.me.mordor_black_numenorean_plate_boots": "Mordor Black Númenórean Plate Boots",
+
+  "item.me.mordor_black_numenorean_cape": "Mordor Black Númenórean Cape",
+
   "item.me.nazgul_cloak_hood": "Nazgûl Cloak Hood",
   "item.me.nazgul_cloak": "Nazgûl Cloak",
   "item.me.nazgul_pants": "Nazgûl Pants",
   "item.me.nazgul_boots": "Nazgûl Boots",
 
   "item.me.uruk_hai_leather_scout_cap": "Uruk-Hai Leather Scout Cap",
+
+  "item.me.uruk_hai_light_helmet": "Uruk-Hai Light Helmet",
+  "item.me.uruk_hai_painted_light_helmet": "Uruk-Hai Painted Light Helmet",
+  "item.me.uruk_hai_reinforced_helmet": "Uruk-Hai Reinforced Helmet",
+  "item.me.uruk_hai_painted_reinforced_helmet": "Uruk-Hai Painted Reinforced Helmet",
+  
+  "item.me.uruk_hai_soldier_helmet": "Uruk-Hai Soldier Helmet",
+  "item.me.uruk_hai_painted_soldier_helmet": "Uruk-Hai Painted Soldier Helmet",
+
+  "item.me.uruk_hai_leather_chestplate": "Uruk-Hai Leather Chestplate",
+  "item.me.uruk_hai_painted_leather_chestplate": "Uruk-Hai Painted Leather Chestplate",
+  "item.me.uruk_hai_leather_hauberk": "Uruk-Hai Leather Hauberk",
+
+  "item.me.uruk_hai_mail_hauberk": "Uruk-Hai Mail Hauberk",
+
+  "item.me.uruk_hai_cuirass": "Uruk-Hai Cuirass",
+
+  "item.me.uruk_hai_mail_coat": "Uruk-Hai Mail Coat",
+  "item.me.uruk_hai_mail_skirt": "Uruk-Hai Mail Skirt",
+
+  "item.me.uruk_hai_boots": "Uruk-Hai Boots",
 
   "item.me.uruk_hai_plate_helmet": "Uruk-Hai Plate Helmet",
   "item.me.uruk_hai_plate_painted_helmet": "Uruk-Hai Plate Painted Helmet",
@@ -847,20 +1006,54 @@
   "item.me.uruk_hai_plate_leggings": "Uruk-Hai Plate Leggings",
   "item.me.uruk_hai_plate_boots": "Uruk-Hai Plate Boots",
 
-  "item.me.hobgoblin_chain_hauberk": "Hobgoblin Chain Hauberk",
+  "item.me.orthanc_guard_helmet": "Orthanc Guard Helmet",
+  "item.me.orthanc_commander_helmet": "Orthanc Commander Helmet",
+  "item.me.orthanc_guard_chestplate": "Orthanc Guard Chestplate",
+  "item.me.orthanc_guard_leggings": "Orthanc Guard Leggings",
+  "item.me.orthanc_guard_boots": "Orthanc Guard Boots",
+
+  "item.me.orthanc_guard_cape": "Orthanc Guard Cape",
+
+  "item.me.gundabad_bone_pauldron": "Gundabad Bone Pauldron",
+
+  "item.me.gundabad_seeker_helmet": "Gundabad Seeker Helmet",
+
+  "item.me.gundabad_leather_scale_coat": "Gundabad Leather Scale Coat",
+
+  "item.me.gundabad_leather_leggings": "Gundabad Leather Leggings",
+
+  "item.me.gundabad_laced_boots": "Gundabad Laced Boots",
+
+  "item.me.gundabad_skullcap_helmet": "Gundabad Skullcap Helmet",
+  "item.me.gundabad_mail_coif": "Gundabad Mail Coif",
+
+  "item.me.gundabad_mail_hauberk": "Gundabad Mail Hauberk",
+
+  "item.me.gundabad_mail_coat": "Gundabad Mail Coat",
+
+  "item.me.gundabad_screecher_helmet": "Gundabad Screecher Helmet",
+  "item.me.gundabad_soldier_helmet": "Gundabad Soldier Helmet",
+
+  "item.me.gundabad_reinforced_leather_scale_coat": "Gundabad Leather Reinforced Scale Coat",
+  "item.me.gundabad_reinforced_leather_vest": "Gundabad Reinforced Leather Vest",
+
+  "item.me.gundabad_captain_helmet": "Gundabad Captain Helmet",
 
   "item.me.gundabad_hobgoblin_plate_crested_helmet": "Gundabad Hobgoblin Plate Crested Helmet",
   "item.me.gundabad_hobgoblin_plate_large_crest_helmet": "Gundabad Hobgoblin Plate Large Crest Helmet",
   "item.me.gundabad_hobgoblin_plate_long_horn_helmet": "Gundabad Hobgoblin Plate Long Horn Helmet",
   "item.me.gundabad_hobgoblin_plate_small_horn_helmet": "Gundabad Hobgoblin Plate Small Horn Helmet",
   "item.me.gundabad_hobgoblin_plate_chestplate": "Gundabad Hobgoblin Plate Chestplate",
-  "item.me.gundabad_hobgoblin_chain_coat": "Gundabad Hobgoblin Chain Coat",
+
+  "item.me.gundabad_hobgoblin_mail_coat": "Gundabad Hobgoblin Mail Coat",
   "item.me.gundabad_hobgoblin_plated_boots": "Gundabad Hobgoblin Plated Boots",
   "item.me.gundabad_hobgoblin_plate_trophy_chestplate": "Gundabad Hobgoblin Plate Trophy Chestplate",
 
-  "item.me.steel_troll_armor": "Steel Troll Armor",
+  "item.me.warg_mordor_plate_armor": "Warg Mordor Plate Armor",
+  "item.me.warg_gundabad_plate_armor": "Warg Gundabad Plate Armor",
+  "item.me.warg_mordor_mail_armor": "Warg Mordor Mail Armor",
+  "item.me.warg_reinforced_leather_armor": "Warg Reinforced Leather Armor",
   "item.me.warg_leather_armor": "Warg Leather Armor",
-  "item.me.warg_plate_armor": "Warg Plate Armor",
   "item.me.broadhoof_goat_padded_armor": "Broadhoof Goat Padded Armor",
   "item.me.broadhoof_goat_ornamented_padded_armor": "Broadhoof Goat Ornamented Padded Armor",
   "item.me.broadhoof_goat_plate_armor": "Broadhoof Goat Plate Armor",
@@ -941,6 +1134,18 @@
   "item.me.gondorian_knight_shield": "Gondorian Knight Shield",
   "item.me.gondorian_ornamented_knight_shield": "Gondorian Ornamented Knight Shield",
 
+  "item.me.dalish_blue_braced_shield": "Dalish Blue Braced Shield",
+  "item.me.dalish_barding_braced_shield": "Dalish Barding Braced Shield",
+
+  "item.me.dalish_blue_oval_shield": "Dalish Blue Oval Shield",
+  "item.me.dalish_barding_oval_shield": "Dalish Barding Oval Shield",
+
+  "item.me.dalish_heavy_shield": "Dalish Heavy Shield",
+  "item.me.dalish_barding_heavy_shield": "Dalish Barding Heavy Shield",
+  "item.me.dalish_royal_heavy_shield": "Dalish Royal Heavy Shield",
+
+  "item.me.dalish_royal_round_shield": "Dalish Royal Round Shield",
+
   "item.me.dalish_heyday_round_shield": "Dalish Heyday Round Shield",
 
   "item.me.erebor_shield": "Erebor Shield",
@@ -949,7 +1154,14 @@
   "item.me.erebor_ornamented_shield": "Erebor Ornamented Shield",
   "item.me.erebor_reinforced_shield": "Erebor Reinforced Shield",
 
-  "item.me.erebor_heavy_shield": "Erebor Heavy Shield",
+  "item.me.erebor_buckler_shield": "Erebor Buckler Shield",
+  "item.me.erebor_tower_shield": "Erebor Tower Shield",
+  "item.me.erebor_reinforced_tower_shield": "Erebor Reinforced Tower Shield",
+  "item.me.erebor_ornamented_tower_shield": "Erebor Ornamented Tower Shield",
+  "item.me.ravenhill_tower_shield": "Ravenhill Tower Shield",
+  "item.me.ravenhill_reinforced_tower_shield": "Ravenhill Reinforced Tower Shield",
+  "item.me.ravenhill_ornamented_tower_shield": "Ravenhill Ornamented Tower Shield",
+  "item.me.shield_of_the_king_under_the_mountain": "Shield Of The King Under The Mountain",
 
   "item.me.lorien_shield": "Lórien Shield",
   "item.me.lorien_laurels_shield": "Lórien Laurels Shield",
@@ -957,8 +1169,23 @@
   "item.me.galadhrim_shield": "Galadhirm Shield",
   "item.me.galadhrim_lord_shield": "Galadhirm Lord Shield",
 
+  "item.me.mordor_wooden_shield": "Mordor Wooden Shield",
+  "item.me.mordor_painted_wooden_shield": "Mordor Painted Wooden Shield",
+  "item.me.mordor_round_shield": "Mordor Round Shield",
+  "item.me.mordor_black_round_shield": "Mordor Black Round Shield",
+  "item.me.mordor_painted_round_shield": "Mordor Painted Round Shield",
+  "item.me.mordor_braced_shield": "Mordor Braced Shield",
+  "item.me.mordor_black_braced_shield": "Mordor Black Braced Shield",
+  "item.me.mordor_painted_braced_shield": "Mordor Painted Braced Shield",
+  "item.me.mordor_large_shield": "Mordor Large Shield",
+  "item.me.mordor_black_large_shield": "Mordor Black Large Shield",
+  "item.me.mordor_painted_large_shield": "Mordor Painted Large Shield",
+  "item.me.gondorian_converted_shield": "Gondorian Converted Shield",
+
+  "item.me.mordor_heavy_shield": "Mordor Heavy Shield",
+  "item.me.mordor_painted_heavy_shield": "Mordor Painted Heavy Shield",
+
   "item.me.black_numenorean_tower_shield": "Black Númenórean Shield",
-  "item.me.mordor_shield": "Mordor Shield",
 
   "item.me.uruk_hai_heater_shield": "Uruk-Hai Heater Shield",
   "item.me.uruk_hai_shield": "Uruk-Hai Shield",
@@ -967,6 +1194,15 @@
   "item.me.uruk_hai_s_rune_shield": "Uruk-Hai S Rune Shield",
   "item.me.uruk_hai_siege_shield": "Uruk-Hai Siege Shield",
 
+  "item.me.gundabad_wooden_shield": "Gundabad Wooden Shield",
+  "item.me.gundabad_painted_wooden_shield": "Gundabad Painted Wooden Shield",
+  "item.me.gundabad_great_eye_painted_wooden_shield": "Gundabad Great Eye Painted Wooden Shield",
+  "item.me.gundabad_peaks_painted_wooden_shield": "Gundabad Peaks Painted Wooden Shield",
+
+  "item.me.gundabad_reinforced_shield": "Gundabad Reinforced Shield",
+
+  "item.me.gundabad_heavy_shield": "Gundabad Heavy Shield",
+
   "item.me.misty_mountains_shield": "Misty Mountains Shield",
 
   "item.me.held_banner": "Held Banner",
@@ -974,6 +1210,7 @@
 "#Comment:": "Item - Horse Armor",
   "item.me.rohirric_horse_armor": "Rohirric Horse Armor",
   "item.me.gondorian_horse_armor": "Gondorian Horse Armor",
+  "item.me.dalish_horse_armor": "Dalish Horse Armor",
   "item.me.lorien_horse_armor": "Lórien Horse Armor",
 
 "#Comment:": "Item - Food",
@@ -1310,16 +1547,56 @@
   "block.me.cracked_smooth_stone_stairs": "Cracked Smooth Stone Stairs",
   "block.me.cracked_smooth_stone_wall": "Cracked Smooth Stone Wall",
 
+  "block.me.old_stone": "Old Stone",
+  "block.me.old_stone_slab": "Old Stone Slab",
+  "block.me.old_stone_vertical_slab": "Old Stone Vertical Slab",
+  "block.me.old_stone_stairs": "Old Stone Stairs",
+  "block.me.old_stone_wall": "Old Stone Wall",
+
+  "block.me.stone_brickwork": "Stone Brickwork",
+  "block.me.stone_brickwork_slab": "Stone Brickwork Slab",
+  "block.me.stone_brickwork_vertical_slab": "Stone Brickwork Vertical Slab",
+  "block.me.stone_brickwork_stairs": "Stone Brickwork Stairs",
+  "block.me.stone_brickwork_wall": "Stone Brickwork Wall",
+
   "block.me.chiseled_stone": "Chiseled Stone",
   "block.me.chiseled_polished_stone": "Chiseled Polished Stone",
   "block.me.chiseled_stone_tiles": "Chiseled Stone Tiles",
+
+  "block.me.stone_rocks": "Stone Rocks",
 
   "block.me.stone_stool": "Stone Stool",
   "block.me.stone_table": "Stone Table",
   "block.me.stone_chair": "Stone Chair",
 
 "#Comment:": "Block - Deepslate",
+  "block.me.old_deepslate": "Old Deepslate",
+  "block.me.old_deepslate_slab": "Old Deepslate Slab",
+  "block.me.old_deepslate_vertical_slab": "Old Deepslate Vertical Slab",
+  "block.me.old_deepslate_stairs": "Old Deepslate Stairs",
+  "block.me.old_deepslate_wall": "Old Deepslate Wall",
+
+  "block.me.smooth_deepslate": "Smooth Deepslate",
+  "block.me.smooth_deepslate_slab": "Smooth Deepslate Slab",
+  "block.me.smooth_deepslate_vertical_slab": "Smooth Deepslate Vertical Slab",
+  "block.me.smooth_deepslate_stairs": "Smooth Deepslate Stairs",
+  "block.me.smooth_deepslate_wall": "Smooth Deepslate Wall",
+  "block.me.mossy_smooth_deepslate": "Mossy Smooth Deepslate",
+  "block.me.mossy_smooth_deepslate_slab": "Mossy Smooth Deepslate Slab",
+  "block.me.mossy_smooth_deepslate_vertical_slab": "Mossy Smooth Deepslate Vertical Slab",
+  "block.me.mossy_smooth_deepslate_stairs": "Mossy Smooth Deepslate Stairs",
+  "block.me.mossy_smooth_deepslate_wall": "Mossy Smooth Deepslate Wall",
+  "block.me.cracked_smooth_deepslate": "Cracked Smooth Deepslate",
+  "block.me.cracked_smooth_deepslate_slab": "Cracked Smooth Deepslate Slab",
+  "block.me.cracked_smooth_deepslate_vertical_slab": "Cracked Smooth Deepslate Vertical Slab",
+  "block.me.cracked_smooth_deepslate_stairs": "Cracked Smooth Deepslate Stairs",
+  "block.me.cracked_smooth_deepslate_wall": "Cracked Smooth Deepslate Wall",
   "block.me.cobbled_deepslate_vertical_slab": "Cobbled Deepslate Vertical Slab",
+  "block.me.mossy_cobbled_deepslate": "Mossy Cobbled Deepslate",
+  "block.me.mossy_cobbled_deepslate_slab": "Mossy Cobbled Deepslate Slab",
+  "block.me.mossy_cobbled_deepslate_vertical_slab": "Mossy Cobbled Deepslate Vertical Slab",
+  "block.me.mossy_cobbled_deepslate_stairs": "Mossy Cobbled Deepslate Stairs",
+  "block.me.mossy_cobbled_deepslate_wall": "Mossy Cobbled Deepslate Wall",
   "block.me.deepslate_pillar": "Deepslate Pillar",
   "block.me.mossy_deepslate_pillar": "Mossy Deepslate Pillar",
   "block.me.cracked_deepslate_pillar": "Cracked Deepslate Pillar",
@@ -1329,7 +1606,7 @@
   "block.me.mossy_deepslate_bricks_vertical_slab": "Mossy Deepslate Bricks Vertical Slab",
   "block.me.mossy_deepslate_bricks_stairs": "Mossy Deepslate Bricks Stairs",
   "block.me.mossy_deepslate_bricks_wall": "Mossy Deepslate Bricks Wall",
-  "block.me.deepslate_tile_vertical_slab": "Deepslate Tile Vertical Slab",
+  "block.me.deepslate_tile_vertical_slab": "Deepslate Tile verical Slab",
   "block.me.mossy_deepslate_tiles": "Mossy Deepslate Tiles",
   "block.me.mossy_deepslate_tiles_slab": "Mossy Deepslate Tiles Slab",
   "block.me.mossy_deepslate_tiles_vertical_slab": "Mossy Deepslate Tiles Vertical Slab",
@@ -1346,6 +1623,21 @@
   "block.me.cracked_polished_deepslate_vertical_slab": "Cracked Polished Deepslate Vertical Slab",
   "block.me.cracked_polished_deepslate_stairs": "Cracked Polished Deepslate Stairs",
   "block.me.cracked_polished_deepslate_wall": "Cracked Polished Deepslate Wall",
+  "block.me.chiseled_polished_deepslate": "Chiseled Polished Deepslate",
+  "block.me.chiseled_deepslate_bricks": "Chiseled Deepslate Bricks",
+  "block.me.chiseled_deepslate_tiles": "Chiseled Deepslate Tiles",
+  "block.me.chiseled_smooth_deepslate": "Chiseled Smooth Deepslate",
+
+  "block.me.deepslate_brickwork": "Deepslate Brickwork",
+  "block.me.deepslate_brickwork_slab": "Deepslate Brickwork Slab",
+  "block.me.deepslate_brickwork_vertical_slab": "Deepslate Brickwork Vertical Slab",
+  "block.me.deepslate_brickwork_stairs": "Deepslate Brickwork Stairs",
+  "block.me.deepslate_brickwork_wall": "Deepslate Brickwork Wall",
+
+  "block.me.deepslate_pressure_plate": "Deepslate Pressure Plate",
+  "block.me.deepslate_button": "Deepslate Button",
+
+  "block.me.deepslate_rocks": "Deepslate Rocks",
 
   "block.me.deepslate_stool": "Deepslate Stool",
   "block.me.deepslate_table": "Deepslate Table",
@@ -1501,6 +1793,27 @@
   "block.me.pumice_chair": "Pumice Chair",
 
 "#Comment:": "Block - Calcite",
+  "block.me.old_calcite": "Old Calcite",
+  "block.me.old_calcite_slab": "Old Calcite Slab",
+  "block.me.old_calcite_vertical_slab": "Old Calcite Vertical Slab",
+  "block.me.old_calcite_stairs": "Old Calcite Stairs",
+  "block.me.old_calcite_wall": "Old Calcite Wall",
+
+  "block.me.smooth_calcite": "Smooth Calcite",
+  "block.me.smooth_calcite_slab": "Smooth Calcite Slab",
+  "block.me.smooth_calcite_vertical_slab": "Smooth Calcite Vertical Slab",
+  "block.me.smooth_calcite_stairs": "Smooth Calcite Stairs",
+  "block.me.smooth_calcite_wall": "Smooth Calcite Wall",
+  "block.me.mossy_smooth_calcite": "Mossy Smooth Calcite",
+  "block.me.mossy_smooth_calcite_slab": "Mossy Smooth Calcite Slab",
+  "block.me.mossy_smooth_calcite_vertical_slab": "Mossy Smooth Calcite Vertical Slab",
+  "block.me.mossy_smooth_calcite_stairs": "Mossy Smooth Calcite Stairs",
+  "block.me.mossy_smooth_calcite_wall": "Mossy Smooth Calcite Wall",
+  "block.me.cracked_smooth_calcite": "Cracked Smooth Calcite",
+  "block.me.cracked_smooth_calcite_slab": "Cracked Smooth Calcite Slab",
+  "block.me.cracked_smooth_calcite_vertical_slab": "Cracked Smooth Calcite Vertical Slab",
+  "block.me.cracked_smooth_calcite_stairs": "Cracked Smooth Calcite Stairs",
+  "block.me.cracked_smooth_calcite_wall": "Cracked Smooth Calcite Wall",
   "block.me.cobbled_calcite": "Cobbled Calcite",
   "block.me.cobbled_calcite_slab": "Cobbled Calcite Slab",
   "block.me.cobbled_calcite_vertical_slab": "Cobbled Calcite Vertical Slab",
@@ -1561,7 +1874,18 @@
   "block.me.cracked_polished_calcite_wall": "Cracked Polished Calcite Wall",
   "block.me.chiseled_polished_calcite": "Chiseled Polished Calcite",
   "block.me.chiseled_calcite_bricks": "Chiseled Calcite Bricks",
+  "block.me.chiseled_calcite": "Chiseled Calcite",
+  "block.me.chiseled_calcite_tiles": "Chiseled Calcite Tiles",
+  "block.me.chiseled_smooth_calcite": "Chiseled Smooth Calcite",
 
+  "block.me.calcite_brickwork": "Calcite Brickwork",
+  "block.me.calcite_brickwork_slab": "Calcite Brickwork Slab",
+  "block.me.calcite_brickwork_vertical_slab": "Calcite Brickwork Vertical Slab",
+  "block.me.calcite_brickwork_stairs": "Calcite Brickwork Stairs",
+  "block.me.calcite_brickwork_wall": "Calcite Brickwork Wall",
+
+  "block.me.calcite_pressure_plate": "Calcite Pressure Plate",
+  "block.me.calcite_button": "Calcite Button",
   "block.me.calcite_trapdoor": "Calcite Trapdoor",
 
   "block.me.calcite_rocks": "Calcite Rocks",
@@ -1938,6 +2262,24 @@
   "block.me.gilded_green_tuff_chair": "Gilded Green Tuff Chair",
 
 "#Comment:": "Block - Blackstone",
+  "block.me.blackstone_tiles": "Blackstone Tiles",
+  "block.me.blackstone_tiles_slab": "Blackstone Tiles Slab",
+  "block.me.blackstone_tiles_vertical_slab": "Blackstone Tiles Vertical Slab",
+  "block.me.blackstone_tiles_stairs": "Blackstone Tiles Stairs",
+  "block.me.blackstone_tiles_wall": "Blackstone Tiles Wall",
+  "block.me.mossy_blackstone_tiles": "Mossy Blackstone Tiles",
+  "block.me.mossy_blackstone_tiles_slab": "Mossy Blackstone Tiles Slab",
+  "block.me.mossy_blackstone_tiles_vertical_slab": "Mossy Blackstone Tiles Vertical Slab",
+  "block.me.mossy_blackstone_tiles_stairs": "Mossy Blackstone Tiles Stairs",
+  "block.me.mossy_blackstone_tiles_wall": "Mossy Blackstone Tiles Wall",
+  "block.me.cracked_blackstone_tiles": "Cracked Blackstone Tiles",
+  "block.me.cracked_blackstone_tiles_slab": "Cracked Blackstone Tiles Slab",
+  "block.me.cracked_blackstone_tiles_vertical_slab": "Cracked Blackstone Tiles Vertical Slab",
+  "block.me.cracked_blackstone_tiles_stairs": "Cracked Blackstone Tiles Stairs",
+  "block.me.cracked_blackstone_tiles_wall": "Cracked Blackstone Tiles Wall",
+
+  "block.me.blackstone_rocks": "Blackstone Rocks",
+
   "block.me.blackstone_stool": "Blackstone Stool",
   "block.me.blackstone_table": "Blackstone Table",
   "block.me.blackstone_chair": "Blackstone Chair",
@@ -2144,6 +2486,12 @@
   "block.me.chiseled_galonn_tiles": "Chiseled Galonn Tiles",
   "block.me.chiseled_smooth_galonn": "Chiseled Smooth Galonn",
 
+  "block.me.galonn_brickwork": "Galonn Brickwork",
+  "block.me.galonn_brickwork_slab": "Galonn Brickwork Slab",
+  "block.me.galonn_brickwork_vertical_slab": "Galonn Brickwork Vertical Slab",
+  "block.me.galonn_brickwork_stairs": "Galonn Brickwork Stairs",
+  "block.me.galonn_brickwork_wall": "Galonn Brickwork Wall",
+
   "block.me.galonn_pressure_plate": "Galonn Pressure Plate",
   "block.me.galonn_button": "Galonn Button",
   "block.me.galonn_trapdoor": "Galonn Trapdoor",
@@ -2314,24 +2662,13 @@
   "block.me.slate_table": "Slate Table",
   "block.me.slate_chair": "Slate Chair",
 
-"#Comment:": "Block - Blackstone",
-  "block.me.blackstone_tiles": "Blackstone Tiles",
-  "block.me.blackstone_tiles_slab": "Blackstone Tiles Slab",
-  "block.me.blackstone_tiles_vertical_slab": "Blackstone Tiles Vertical Slab",
-  "block.me.blackstone_tiles_stairs": "Blackstone Tiles Stairs",
-  "block.me.blackstone_tiles_wall": "Blackstone Tiles Wall",
-  "block.me.mossy_blackstone_tiles": "Mossy Blackstone Tiles",
-  "block.me.mossy_blackstone_tiles_slab": "Mossy Blackstone Tiles Slab",
-  "block.me.mossy_blackstone_tiles_vertical_slab": "Mossy Blackstone Tiles Vertical Slab",
-  "block.me.mossy_blackstone_tiles_stairs": "Mossy Blackstone Tiles Stairs",
-  "block.me.mossy_blackstone_tiles_wall": "Mossy Blackstone Tiles Wall",
-  "block.me.cracked_blackstone_tiles": "Cracked Blackstone Tiles",
-  "block.me.cracked_blackstone_tiles_slab": "Cracked Blackstone Tiles Slab",
-  "block.me.cracked_blackstone_tiles_vertical_slab": "Cracked Blackstone Tiles Vertical Slab",
-  "block.me.cracked_blackstone_tiles_stairs": "Cracked Blackstone Tiles Stairs",
-  "block.me.cracked_blackstone_tiles_wall": "Cracked Blackstone Tiles Wall",
-
 "#Comment:": "Block - Granite",
+  "block.me.chiseled_polished_granite": "Chiseled Polished Granite",
+  "block.me.chiseled_granite_bricks": "Chiseled Granite Bricks",
+  "block.me.chiseled_granite": "Chiseled Granite",
+  "block.me.chiseled_granite_tiles": "Chiseled Granite Tiles",
+  "block.me.chiseled_smooth_granite": "Chiseled Smooth Granite",
+
   "block.me.smooth_granite": "Smooth Granite",
   "block.me.smooth_granite_slab": "Smooth Granite Slab",
   "block.me.smooth_granite_vertical_slab": "Smooth Granite Vertical Slab",
@@ -2402,8 +2739,11 @@
   "block.me.cracked_polished_granite_vertical_slab": "Cracked Polished Granite Vertical Slab",
   "block.me.cracked_polished_granite_stairs": "Cracked Polished Granite Stairs",
   "block.me.cracked_polished_granite_wall": "Cracked Polished Granite Wall",
-  "block.me.chiseled_polished_granite": "Chiseled Polished Granite",
-  "block.me.chiseled_granite_bricks": "Chiseled Granite Bricks",
+  "block.me.old_granite": "Old Granite",
+  "block.me.old_granite_slab": "Old Granite Slab",
+  "block.me.old_granite_vertical_slab": "Old Granite Vertical Slab",
+  "block.me.old_granite_stairs": "Old Granite Stairs",
+  "block.me.old_granite_wall": "Old Granite Wall",
 
   "block.me.granite_brickwork": "Granite Brickwork",
   "block.me.granite_brickwork_slab": "Granite Brickwork Slab",
@@ -2411,16 +2751,34 @@
   "block.me.granite_brickwork_stairs": "Granite Brickwork Stairs",
   "block.me.granite_brickwork_wall": "Granite Brickwork Wall",
 
+  "block.me.granite_rocks": "Granite Rocks",
+
   "block.me.granite_stool": "Granite Stool",
   "block.me.granite_table": "Granite Table",
   "block.me.granite_chair": "Granite Chair",
 
 "#Comment:": "Block - Diorite",
+  "block.me.chiseled_polished_diorite": "Chiseled Polished Diorite",
+  "block.me.chiseled_diorite_bricks": "Chiseled Diorite Bricks",
+  "block.me.chiseled_diorite": "Chiseled Diorite",
+  "block.me.chiseled_diorite_tiles": "Chiseled Diorite Tiles",
+  "block.me.chiseled_smooth_diorite": "Chiseled Smooth Diorite",
+
   "block.me.smooth_diorite": "Smooth Diorite",
   "block.me.smooth_diorite_slab": "Smooth Diorite Slab",
   "block.me.smooth_diorite_vertical_slab": "Smooth Diorite Vertical Slab",
   "block.me.smooth_diorite_stairs": "Smooth Diorite Stairs",
   "block.me.smooth_diorite_wall": "Smooth Diorite Wall",
+  "block.me.mossy_smooth_diorite": "Mossy Smooth Diorite",
+  "block.me.mossy_smooth_diorite_slab": "Mossy Smooth Diorite Slab",
+  "block.me.mossy_smooth_diorite_vertical_slab": "Mossy Smooth Diorite Vertical Slab",
+  "block.me.mossy_smooth_diorite_stairs": "Mossy Smooth Diorite Stairs",
+  "block.me.mossy_smooth_diorite_wall": "Mossy Smooth Diorite Wall",
+  "block.me.cracked_smooth_diorite": "Cracked Smooth Diorite",
+  "block.me.cracked_smooth_diorite_slab": "Cracked Smooth Diorite Slab",
+  "block.me.cracked_smooth_diorite_vertical_slab": "Cracked Smooth Diorite Vertical Slab",
+  "block.me.cracked_smooth_diorite_stairs": "Cracked Smooth Diorite Stairs",
+  "block.me.cracked_smooth_diorite_wall": "Cracked Smooth Diorite Wall",
   "block.me.cobbled_diorite": "Cobbled Diorite",
   "block.me.cobbled_diorite_slab": "Cobbled Diorite Slab",
   "block.me.cobbled_diorite_vertical_slab": "Cobbled Diorite Vertical Slab",
@@ -2476,13 +2834,24 @@
   "block.me.cracked_polished_diorite_vertical_slab": "Cracked Polished Diorite Vertical Slab",
   "block.me.cracked_polished_diorite_stairs": "Cracked Polished Diorite Stairs",
   "block.me.cracked_polished_diorite_wall": "Cracked Polished Diorite Wall",
-  "block.me.chiseled_polished_diorite": "Chiseled Polished Diorite",
-  "block.me.chiseled_diorite_bricks": "Chiseled Diorite Bricks",
+  "block.me.old_diorite": "Old Diorite",
+  "block.me.old_diorite_slab": "Old Diorite Slab",
+  "block.me.old_diorite_vertical_slab": "Old Diorite Vertical Slab",
+  "block.me.old_diorite_stairs": "Old Diorite Stairs",
+  "block.me.old_diorite_wall": "Old Diorite Wall",
+
+  "block.me.diorite_brickwork": "Diorite Brickwork",
+  "block.me.diorite_brickwork_slab": "Diorite Brickwork Slab",
+  "block.me.diorite_brickwork_vertical_slab": "Diorite Brickwork Vertical Slab",
+  "block.me.diorite_brickwork_stairs": "Diorite Brickwork Stairs",
+  "block.me.diorite_brickwork_wall": "Diorite Brickwork Wall",
+
+  "block.me.diorite_rocks": "Diorite Rocks",
 
   "block.me.diorite_stool": "Diorite Stool",
   "block.me.diorite_table": "Diorite Table",
   "block.me.diorite_chair": "Diorite Chair",
-
+  
 "#Comment:": "Block - Tuff",
   "block.me.smooth_tuff": "Smooth Tuff",
   "block.me.smooth_tuff_slab": "Smooth Tuff Slab",
@@ -2562,11 +2931,34 @@
   "block.me.tuff_carved_window": "Tuff Carved Window",
   "block.me.tuff_carved_window_pane": "Tuff Carved Window Pane",
 
+  "block.me.tuff_rocks": "Tuff Rocks",
+
   "block.me.tuff_stool": "Tuff Stool",
   "block.me.tuff_table": "Tuff Table",
   "block.me.tuff_chair": "Tuff Chair",
 
 "#Comment:": "Block - Andesite",
+  "block.me.chiseled_polished_andesite": "Chiseled Polished Andesite",
+  "block.me.chiseled_andesite_bricks": "Chiseled Andesite Bricks",
+  "block.me.chiseled_andesite": "Chiseled Andesite",
+  "block.me.chiseled_andesite_tiles": "Chiseled Andesite Tiles",
+  "block.me.chiseled_smooth_andesite": "Chiseled Smooth Andesite",
+
+  "block.me.smooth_andesite": "Smooth Andesite",
+  "block.me.smooth_andesite_slab": "Smooth Andesite Slab",
+  "block.me.smooth_andesite_vertical_slab": "Smooth Andesite Vertical Slab",
+  "block.me.smooth_andesite_stairs": "Smooth Andesite Stairs",
+  "block.me.smooth_andesite_wall": "Smooth Andesite Wall",
+  "block.me.mossy_smooth_andesite": "Mossy Smooth Andesite",
+  "block.me.mossy_smooth_andesite_slab": "Mossy Smooth Andesite Slab",
+  "block.me.mossy_smooth_andesite_vertical_slab": "Mossy Smooth Andesite Vertical Slab",
+  "block.me.mossy_smooth_andesite_stairs": "Mossy Smooth Andesite Stairs",
+  "block.me.mossy_smooth_andesite_wall": "Mossy Smooth Andesite Wall",
+  "block.me.cracked_smooth_andesite": "Cracked Smooth Andesite",
+  "block.me.cracked_smooth_andesite_slab": "Cracked Smooth Andesite Slab",
+  "block.me.cracked_smooth_andesite_vertical_slab": "Cracked Smooth Andesite Vertical Slab",
+  "block.me.cracked_smooth_andesite_stairs": "Cracked Smooth Andesite Stairs",
+  "block.me.cracked_smooth_andesite_wall": "Cracked Smooth Andesite Wall",
   "block.me.cobbled_andesite": "Cobbled Andesite",
   "block.me.cobbled_andesite_slab": "Cobbled Andesite Slab",
   "block.me.cobbled_andesite_vertical_slab": "Cobbled Andesite Vertical Slab",
@@ -2622,8 +3014,19 @@
   "block.me.cracked_polished_andesite_vertical_slab": "Cracked Polished Andesite Vertical Slab",
   "block.me.cracked_polished_andesite_stairs": "Cracked Polished Andesite Stairs",
   "block.me.cracked_polished_andesite_wall": "Cracked Polished Andesite Wall",
-  "block.me.chiseled_polished_andesite": "Chiseled Polished Andesite",
-  "block.me.chiseled_andesite_bricks": "Chiseled Andesite Bricks",
+  "block.me.old_andesite": "Old Andesite",
+  "block.me.old_andesite_slab": "Old Andesite Slab",
+  "block.me.old_andesite_vertical_slab": "Old Andesite Vertical Slab",
+  "block.me.old_andesite_stairs": "Old Andesite Stairs",
+  "block.me.old_andesite_wall": "Old Andesite Wall",
+
+  "block.me.andesite_brickwork": "Andesite Brickwork",
+  "block.me.andesite_brickwork_slab": "Andesite Brickwork Slab",
+  "block.me.andesite_brickwork_vertical_slab": "Andesite Brickwork Vertical Slab",
+  "block.me.andesite_brickwork_stairs": "Andesite Brickwork Stairs",
+  "block.me.andesite_brickwork_wall": "Andesite Brickwork Wall",
+
+  "block.me.andesite_rocks": "Andesite Rocks",
 
   "block.me.andesite_stool": "Andesite Stool",
   "block.me.andesite_table": "Andesite Table",
@@ -2704,6 +3107,8 @@
   "block.me.cracked_polished_basalt_wall": "Cracked Polished Basalt Wall",
   "block.me.chiseled_polished_basalt": "Chiseled Polished Basalt",
   "block.me.chiseled_basalt_bricks": "Chiseled Basalt Bricks",
+
+  "block.me.basalt_rocks": "Basalt Rocks",
 
   "block.me.basalt_stool": "Basalt Stool",
   "block.me.basalt_table": "Basalt Table",
@@ -3297,6 +3702,12 @@
   "block.me.chiseled_izheraban": "Chiseled Izhêr'Aban",
   "block.me.chiseled_smooth_izheraban": "Chiseled Smooth Izhêr'Aban",
 
+  "block.me.izheraban_brickwork": "Izhêr'Aban Brickwork",
+  "block.me.izheraban_brickwork_slab": "Izhêr'Aban Brickwork Slab",
+  "block.me.izheraban_brickwork_vertical_slab": "Izhêr'Aban Brickwork Vertical Slab",
+  "block.me.izheraban_brickwork_stairs": "Izhêr'Aban Brickwork Stairs",
+  "block.me.izheraban_brickwork_wall": "Izhêr'Aban Brickwork Wall",
+
   "block.me.izheraban_pressure_plate": "Izhêr'Aban Pressure Plate",
   "block.me.izheraban_button": "Izhêr'Aban Button",
   "block.me.izheraban_trapdoor": "Izhêr'Aban Trapdoor",
@@ -3615,6 +4026,12 @@
   "block.me.mire_bricks_vertical_slab": "Mire Brick Vertical Slab",
   "block.me.mire_bricks_stairs": "Mire Brick Stairs",
   "block.me.mire_bricks_wall": "Mire Brick Wall",
+
+  "block.me.snowy_grass_block": "Snowy Grass Block",
+
+  "block.me.snowy_dirt": "Snowy Dirt",
+  "block.me.snowy_dirt_slab": "Snowy Dirt Slab",
+  "block.me.snowy_dirt_stairs": "Snowy Dirt Stairs",
 
   "block.me.cobbly_dirt": "Cobbly Dirt",
   "block.me.cobbly_dirt_slab": "Cobbly Dirt Slab",
@@ -4164,7 +4581,7 @@
   "block.me.white_palm_shingles_stairs": "White Palm Shingles Stairs",
   "block.me.white_palm_shingles_slab": "White Palm Shingles Slab",
   "block.me.white_palm_shingles_vertical_slab": "White Palm Shingles Vertical Slab",
-  "block.me.white_palm_shingles_wall": "Palm Shingles Wall",
+  "block.me.white_palm_shingles_wall": "White Palm Shingles Wall",
   "block.me.white_palm_roofing": "White Palm Roofing",
   "block.me.white_palm_roofing_stairs": "White Palm Roofing Stairs",
   "block.me.white_palm_roofing_slab": "White Palm Roofing Slab",
@@ -4636,7 +5053,7 @@
   "block.me.dark_cyan_roof_tiles_wall": "Dark Cyan Roof Tiles Wall",
 
   "block.me.light_cyan_roof_tiles": "Light Cyan Roof Tiles",
-  "block.me.light_cyan_roof_tiles_stairs": "Light lue Roof Tiles Stairs",
+  "block.me.light_cyan_roof_tiles_stairs": "Light Blue Roof Tiles Stairs",
   "block.me.light_cyan_roof_tiles_slab": "Light Cyan Roof Tiles Slab",
   "block.me.light_cyan_roof_tiles_vertical_slab": "Light Cyan Roof Tiles Vertical Slab",
   "block.me.light_cyan_roof_tiles_wall": "Light Cyan Roof Tiles Wall",
@@ -4900,6 +5317,13 @@
 
   "block.me.warped_ladder": "Warped Ladder",
 
+  "block.me.treated_wood_stool": "Treated Wood Stool",
+  "block.me.treated_wood_bench": "Treated Wood Bench",
+  "block.me.treated_wood_table": "Treated Wood Table",
+  "block.me.treated_wood_chair": "Treated Wood Chair",
+
+  "block.me.treated_wood_ladder": "Treated Wood Ladder",
+
   "block.me.blue_cushion": "Blue Cushion",
   "block.me.brown_cushion": "Brown Cushion",
   "block.me.dark_blue_cushion": "Dark Blue Cushion",
@@ -4931,6 +5355,7 @@
 
   "block.me.sconce": "Sconce",
   "block.me.gilded_sconce": "Gilded Sconce",
+  "block.me.orcish_sconce": "Orcish Sconce",
 
   "block.me.candle_heap": "Candle Heap",
 
@@ -4977,9 +5402,10 @@
 "#Comment:": "Block - Plants",
   "block.me.brown_grass": "Brown Grass",
   "block.me.green_shrub": "Green Shrub",
+  "block.me.small_dry_shrub": "Small Dry Shrub",
+  "block.me.frozen_shrub": "Frozen Shrub",
   "block.me.mallos": "Mallos",
   "block.me.elanor": "Elanor",
-  "block.me.mordor_lichen": "Mordor Lichen",
   "block.me.morgul_ivy": "Morgul Ivy",
   "block.me.hanging_cobweb": "Hanging Cobweb",
   "block.me.corner_cobweb": "Corner Cobweb",
@@ -4994,11 +5420,14 @@
   "block.me.reeds": "Reeds",
   "block.me.dry_grass": "Dry Grass",
   "block.me.dying_grass": "Dying Grass",
+  "block.me.frozen_grass": "Frozen Grass",
+  "block.me.grim_grass": "Grim Grass",
+  "block.me.temperate_grass": "Temperate Grass",
   "block.me.grass_tuft": "Grass Tuft",
+  "block.me.frozen_tuft": "Frozen Tuft",
   "block.me.heather": "Heather",
   "block.me.dead_heather": "Dead Heather",
   "block.me.dry_heather": "Dry Heather",
-  "block.me.heather_bush": "Heather Bush",
   "block.me.red_heather": "Red Heather",
   "block.me.heath": "Heath",
   "block.me.wheatgrass": "Wheatgrass",
@@ -5029,12 +5458,24 @@
   "block.me.small_flowering_lily_pads": "Small Flowering Lily Pads",
 
   "block.me.azalea_flower_growth": "Azalea Flower Growth",
+  "block.me.dry_growth": "Dry Growth",
+  "block.me.frozen_growth": "Frozen Growth",
+  "block.me.green_growth": "Green Growth",
   "block.me.ivy_growth": "Ivy Growth",
   "block.me.lilac_flower_growth": "Lilac Flower Growth",
   "block.me.pink_flower_growth": "Pink Flower Growth",
   "block.me.red_flower_growth": "Red Flower Growth",
   "block.me.white_flower_growth": "White Flower Growth",
   "block.me.yellow_flower_growth": "Yellow Flower Growth",
+
+  "block.me.light_blue_flowers": "Light Blue Flowers",
+  "block.me.magenta_flowers": "Magenta Flowers",
+  "block.me.orange_flowers": "Orange Flowers",
+  "block.me.pink_flowers": "Pink Flowers",
+  "block.me.purple_flowers": "Purple Flowers",
+  "block.me.red_flowers": "Red Flowers",
+  "block.me.white_flowers": "White Flowers",
+  "block.me.yellow_flowers": "Yellow Flowers",
 
   "block.me.strawberry_bush": "Strawberry Bush",
   "block.me.tan_shrub": "Tan Shrub",
@@ -5365,6 +5806,12 @@
 
 "#Comment:": "Block - Misc",
   "block.me.sticky_snow": "Sticky Snow",
+  "block.me.sticky_ice": "Sticky Ice",
+
+  "block.me.floating_ice": "Floating Ice",
+
+  "block.me.short_icicles": "Short Icicles",
+  "block.me.drooping_icicles": "Drooping Icicles",
 
   "block.me.river_sand": "River Sand",
   "block.me.black_sand": "Black Sand",
@@ -6341,7 +6788,9 @@
 
 "#Comment": "GUI",
   "screen.me.forge": "Forge",
-  "container.artisan_table": "Artisan Table",
+  "container.me.artisan_table": "Artisan Table",
+  "container.me.small_crate": "Small Crate",
+  "container.me.thin_barrel": "Thin Barrel",
   "screen.me.reinforced_chest": "Reinforced Chest",
   "screen.me.wood_pile": "Wood Pile",
   "screen.me.shaping_anvil": "Shaping Anvil",
@@ -6378,6 +6827,7 @@
   "tooltip.me.sub_faction" : "§7Sub Faction: §f",
   "tooltip.me.customizations" : "§6Custom Parts: §f",
   "tooltip.me.reach" : "Reach: ",
+  "tooltip.me.dyed" : "Dyed: ",
   "tooltip.me.artisan" : "Artisan: ",
   "tooltip.me.blocks_range" : " Blocks",
   "tooltip.me.backstab" : "§7 +50% damage when backstabbing",
@@ -6417,6 +6867,7 @@
   "tooltip.me.erebor" : "Erebor",
   "tooltip.me.lothlorien" : "Lothlórien",
   "tooltip.me.mordor" : "Mordor",
+  "tooltip.me.mordor_black_numenoreans" : "Mordor Black Númenóreans",
   "tooltip.me.misty_mountains_goblins" : "Misty Mountains Goblins",
   "tooltip.me.gundabad" : "Gundabad",
   "tooltip.me.moria_goblins" : "Moria Goblins",
@@ -6431,6 +6882,9 @@
   "tooltip.me.skull" : "Skull",
   "tooltip.me.pouch" : "Pouch",
   "tooltip.me.feather" : "Feather",
+  
+  "tooltip.me.mount_armor_addon_top" : "Top Armor Addon: Enabled",
+  "tooltip.me.mount_armor_addon_side" : "Side Armor Addon: Enabled",
 
   "tooltip.me.forge_output_mode0" : "Not enough Metal.",
   "tooltip.me.forge_output_mode1" : "1 Nugget",
@@ -6525,7 +6979,7 @@
   "tooltip.me.horse_lord_cape": "Horse Lord Cape",
 
   "tooltip.me.barding_surcoat": "Barding Surcoat",
-  "tooltip.me.dalish_heyday_cape": "Dalish Heyday Cape",
+  "tooltip.me.dalish_heyday_cloak": "Dalish Heyday Cloak",
   "tooltip.me.barding_sergeant_cape": "Barding Sergeant Cape",
 
   "tooltip.me.erebor_cape": "Erebor Cape",
@@ -6537,6 +6991,20 @@
   "tooltip.me.galadhrim_cape": "Galadhrim Cape",
   "tooltip.me.galadhrim_hood": "Galadhrim Hood",
   "tooltip.me.galadhrim_lord_surcoat": "Galadhrim Lord Surcoat",
+
+  "tooltip.me.orcish_cape": "Orcish Cape",
+  "tooltip.me.orcish_long_cape": "Orcish Long Cape",
+  "tooltip.me.orcish_shoulders": "Orcish Shoulders",
+
+  "tooltip.me.orcish_black_fur_surcoat_with_bone": "Orcish Black Fur Surcoat With Bone",
+  "tooltip.me.orcish_brown_fur_surcoat_with_bone": "Orcish Brown Fur Surcoat With Bone",
+  "tooltip.me.orcish_gray_fur_surcoat_with_bone": "Orcish Gray Fur Surcoat With Bone",
+  "tooltip.me.orcish_tan_fur_surcoat_with_bone": "Orcish Tan Fur Surcoat With Bone",
+  "tooltip.me.orcish_white_fur_surcoat_with_bone": "Orcish White Fur Surcoat With Bone",
+
+  "tooltip.me.mordor_black_numenorean_cape": "Mordor Black Númenórean Cape",
+
+  "tooltip.me.orthanc_guard_cape": "Orthanc Guard Cape",
 
 "#Comment:": "Disposition",
   "disposition.me.good" : "Good",
@@ -6713,6 +7181,9 @@
 
   "alert.me.hood_down": "Hood down.",
   "alert.me.hood_up": "Hood up.",
+
+  "alert.me.seat.occupied": "This seat is occupied.",
+  "alert.me.seat.space_not_empty": "Block above the seat is not empty.",
 
 "#Comment": "Events",
   "event.me.join.faction.success": "You have joined %s",
