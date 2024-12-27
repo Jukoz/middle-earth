@@ -1202,6 +1202,9 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings(),
                     ModFactions.MORDOR));
 
+    public static final Item RUSTED_MORDOR_CHESTPLATE = registerArmorPiece("rusted_mordor_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings(),
+                    ModFactions.MORDOR));
     public static final Item RUSTED_MORDOR_CUIRASS = registerDyeableArmorPiece("rusted_mordor_cuirass",
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5186845)),
