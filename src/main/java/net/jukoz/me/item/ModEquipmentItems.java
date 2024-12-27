@@ -1384,25 +1384,25 @@ public class ModEquipmentItems {
     public static final Item URUK_HAI_PLATE_HELMET = registerCustomModelArmorPiece("uruk_hai_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
-    public static final Item URUK_HAI_PLATE_PAINTED_HELMET = registerCustomModelArmorPiece("uruk_hai_plate_painted_helmet",
+    public static final Item URUK_HAI_PAINTED_PLATE_HELMET = registerCustomModelArmorPiece("uruk_hai_painted_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_SAPPER_HELMET = registerCustomModelArmorPiece("uruk_hai_sapper_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
-    public static final Item URUK_HAI_SAPPER_PAINTED_HELMET = registerCustomModelArmorPiece("uruk_hai_sapper_painted_helmet",
+    public static final Item URUK_HAI_PAINTED_SAPPER_HELMET = registerCustomModelArmorPiece("uruk_hai_painted_sapper_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_BERSERKER_HELMET = registerCustomModelArmorPiece("uruk_hai_berserker_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
-    public static final Item URUK_HAI_BERSERKER_PAINTED_HELMET = registerCustomModelArmorPiece("uruk_hai_berserker_painted_helmet",
+    public static final Item URUK_HAI_PAINTED_BERSERKER_HELMET = registerCustomModelArmorPiece("uruk_hai_painted_berserker_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_COMMANDER_HELMET = registerCustomModelArmorPiece("uruk_hai_commander_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
-    public static final Item URUK_HAI_COMMANDER_PAINTED_HELMET = registerCustomModelArmorPiece("uruk_hai_commander_painted_helmet",
+    public static final Item URUK_HAI_PAINTED_COMMANDER_HELMET = registerCustomModelArmorPiece("uruk_hai_painted_commander_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_PLATE_CHESTPLATE = registerCustomModelArmorPiece("uruk_hai_plate_chestplate",
