@@ -965,10 +965,8 @@
 
   "item.me.mordor_black_numenorean_cape": "Mordor Black Númenórean Cape",
 
-  "item.me.nazgul_cloak_hood": "Nazgûl Cloak Hood",
-  "item.me.nazgul_cloak": "Nazgûl Cloak",
-  "item.me.nazgul_pants": "Nazgûl Pants",
-  "item.me.nazgul_boots": "Nazgûl Boots",
+  "item.me.nazgul_hood": "Nazgûl Hood",
+  "item.me.nazgul_robes": "Nazgûl Robes",
 
   "item.me.uruk_hai_leather_scout_cap": "Uruk-Hai Leather Scout Cap",
 
@@ -7002,7 +7000,10 @@
   "tooltip.me.orcish_tan_fur_surcoat_with_bone": "Orcish Tan Fur Surcoat With Bone",
   "tooltip.me.orcish_white_fur_surcoat_with_bone": "Orcish White Fur Surcoat With Bone",
 
+  "tooltip.me.nazgul_hood": "Nazgûl Hood",
+
   "tooltip.me.mordor_black_numenorean_cape": "Mordor Black Númenórean Cape",
+  "tooltip.me.nazgul_robes": "Nazgûl Robes",
 
   "tooltip.me.orthanc_guard_cape": "Orthanc Guard Cape",
 

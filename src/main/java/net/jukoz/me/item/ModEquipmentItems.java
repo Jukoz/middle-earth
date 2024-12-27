@@ -1314,17 +1314,13 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.MORDOR_BLACK_NUMENOREAN_CAPE)),
                     ModSubFactions.MORDOR_BLACK_NUMENOREANS));
 
-    public static final Item NAZGUL_CLOAK_HOOD = registerArmorPiece("nazgul_cloak_hood",
-            new CustomHelmetItem(ModArmorMaterials.STEEL_T3, new Item.Settings(),
+    public static final Item NAZGUL_HOOD = registerHood("nazgul_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.NAZGUL_HOOD)),
                     ModFactions.MORDOR));
-    public static final Item NAZGUL_CLOAK = registerArmorPiece("nazgul_cloak",
-            new CustomChestplateItem(ModArmorMaterials.STEEL_T3, new Item.Settings(),
-                    ModFactions.MORDOR));
-    public static final Item NAZGUL_PANTS = registerArmorPiece("nazgul_pants",
-            new CustomLeggingsItem(ModArmorMaterials.STEEL_T3, new Item.Settings(),
-                    ModFactions.MORDOR));
-    public static final Item NAZGUL_BOOTS = registerArmorPiece("nazgul_boots",
-            new CustomBootsItem(ModArmorMaterials.STEEL_T3, new Item.Settings(),
+    public static final Item NAZGUL_ROBES = registerCape("nazgul_robes",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.NAZGUL_ROBES)),
                     ModFactions.MORDOR));
     //endregion
 

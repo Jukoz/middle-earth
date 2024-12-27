@@ -93,8 +93,6 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         ModEquipmentItems.hoods.forEach(cloaks::add);
         ModEquipmentItems.capes.forEach(cloaks::add);
 
-        cloaks.add(ModEquipmentItems.NAZGUL_CLOAK_HOOD);
-
         dyeable.add(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
         dyeable.add(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
 

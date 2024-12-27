@@ -218,6 +218,7 @@ public class ModArmorModels {
         ORCISH_WHITE_FUR_SURCOAT_WITH_BONE(ModCapes.ORCISH_WHITE_FUR_SURCOAT_WITH_BONE, ModCapeModels.SURCOAT_FUR_MODELS),
 
         MORDOR_BLACK_NUMENOREAN_CAPE(ModCapes.MORDOR_BLACK_NUMENOREAN_CAPE, ModCapeModels.MEDIUM_MODELS),
+        NAZGUL_ROBES(ModCapes.NAZGUL_ROBES, ModCapeModels.NAZGUL_ROBES_MODEL),
 
         ORTHANC_GUARD_CAPE(ModCapes.ORTHANC_GUARD_CAPE, ModCapeModels.MEDIUM_MODELS),
         ;
@@ -254,11 +255,11 @@ public class ModArmorModels {
         GONDORIAN_CITADEL_GUARD_HOOD(ModHoods.GONDORIAN_CITADEL_GUARD_HOOD, ModHoodModels.REGULAR_MODELS),
 
         LORIEN_MARCHWARDEN_HOOD(ModHoods.LORIEN_MARCHWARDEN_HOOD, ModHoodModels.REGULAR_MODELS),
-        GALADHRIM_HOOD(ModHoods.GALADHRIM_HOOD, ModHoodModels.REGULAR_MODELS)
+        GALADHRIM_HOOD(ModHoods.GALADHRIM_HOOD, ModHoodModels.REGULAR_MODELS),
+        NAZGUL_HOOD(ModHoods.NAZGUL_HOOD, ModHoodModels.NAZGUL_MODELS),
         ;
         private final ModHoods hood;
         private final ModHoodModels models;
-
 
         ModHoodPairedModels(ModHoods hood, ModHoodModels models){
             this.hood = hood;
