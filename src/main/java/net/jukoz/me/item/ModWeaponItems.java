@@ -13,6 +13,7 @@ import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.items.weapons.*;
 import net.jukoz.me.item.items.weapons.artefacts.*;
 import net.jukoz.me.item.items.weapons.ranged.CustomBowWeaponItem;
+import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModShieldTypes;
 import net.jukoz.me.item.utils.ModToolMaterials;
@@ -139,6 +140,8 @@ public class ModWeaponItems {
 
     public static final Item GONDORIAN_BOW = registerBowItem("gondorian_bow",
             new CustomBowWeaponItem(ModFactions.GONDOR, new Item.Settings().maxDamage(640)));
+    public static final Item GONDORIAN_LONGBOW = registerLongbowItem("gondorian_longbow",
+            new CustomLongbowWeaponItem(ModFactions.GONDOR, new Item.Settings().maxDamage(640)));
 
     public static final Item GONDORIAN_SHIELD = registerShield("gondorian_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
@@ -146,7 +149,7 @@ public class ModWeaponItems {
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
     public static final Item GONDORIAN_KINGS_GUARD_TOWER_SHIELD = registerShield("gondorian_kings_guard_tower_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
-    public static final Item LAST_ALLIANCE_HEILOOM_TOWER_SHIELD = registerShield("last_alliance_heirloom_tower_shield",
+    public static final Item LAST_ALLIANCE_HEIRLOOM_TOWER_SHIELD = registerShield("last_alliance_heirloom_tower_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
     public static final Item GONDORIAN_HERO_SHIELD = registerShield("gondorian_hero_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
@@ -576,6 +579,12 @@ public class ModWeaponItems {
     private static Item registerBowItem(String name, Item item) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBowItemModel.items.add(item);
+        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    private static Item registerLongbowItem(String name, Item item) {
+        ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
+        SimpleBigItemModel.bigBows.add(item);
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

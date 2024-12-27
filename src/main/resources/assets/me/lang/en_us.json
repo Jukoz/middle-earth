@@ -6861,6 +6861,9 @@
   "tooltip.me.spear" : "Spear",
   "tooltip.me.longsword" : "Longsword",
 
+  "tooltip.me.bow" : "Bow",
+  "tooltip.me.longbow" : "Longbow",
+
   "tooltip.me.light_shield" : "§fLight Shield",
   "tooltip.me.medium_shield" : "§9Medium Shield",
   "tooltip.me.heavy_shield" : "§cHeavy Shield",

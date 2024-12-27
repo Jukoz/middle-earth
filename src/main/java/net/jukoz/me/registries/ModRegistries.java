@@ -269,6 +269,7 @@ public class ModRegistries {
         registry.add(ModWeaponItems.ROHIRRIC_BOW, 300);
         registry.add(ModWeaponItems.LORIEN_BOW, 300);
         registry.add(ModWeaponItems.GONDORIAN_BOW, 300);
+        registry.add(ModWeaponItems.GONDORIAN_LONGBOW, 400);
         //registry.add(ModWeaponItems.UMBAR_BOW, 300);
         //registry.add(ModWeaponItems.DALISH_BOW, 300);
 
