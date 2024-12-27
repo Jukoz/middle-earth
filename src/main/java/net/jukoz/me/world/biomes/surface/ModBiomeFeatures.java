@@ -524,6 +524,9 @@ public class ModBiomeFeatures {
     public static void addGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_GRASS);
     }
+    public static void addGrimGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_GRIM_GRASS);
+    }
     public static void addCommonHeath(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_HEATH);
     }

@@ -19,6 +19,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ModBiomes {
+    private static List<RegistryKey<PlacedFeature>> surfaceStructures = new ArrayList<>();;
     private static List<RegistryKey<PlacedFeature>> vegetation = new ArrayList<>();;
     private static ArrayList<RegistryKey<PlacedFeature>> undergroundOres = new ArrayList<>();;
     
@@ -1338,11 +1339,11 @@ public class ModBiomes {
         ModBiomeFeatures.addBlackStonePile(vegetation);
 
         if(step == 0) { // Plateau
-            ModBiomeFeatures.addMordorLichen(vegetation);
+            ModBiomeFeatures.addGrimGrass(vegetation);
             ModBiomeFeatures.addCommonToughBerries(vegetation);
             ModBiomeFeatures.addLavaMagmaLake(generationSettings);
         } else if(step == 1) { // Ashen Forest
-            ModBiomeFeatures.addMordorLichen(vegetation);
+            ModBiomeFeatures.addGrimGrass(vegetation);
             ModBiomeFeatures.addToughBerries(vegetation);
             ModBiomeFeatures.addCommonToughBerries(vegetation);
             ModBiomeFeatures.addAshenStoneDirtCommonOre(vegetation);
@@ -1354,7 +1355,9 @@ public class ModBiomes {
             ModBiomeFeatures.addDryPineBushes(vegetation);
         } else if(step == 2) { // Delta
             vegetation.add(NetherPlacedFeatures.DELTA);
-            vegetation.add(ModMiscPlacedFeatures.SMALL_BASALT_COLUMNS);
+            surfaceStructures.add(ModMiscPlacedFeatures.SMALL_BASALT_COLUMNS);
+            surfaceStructures.add(ModMiscPlacedFeatures.SMALL_PUMICE_COLUMNS);
+            surfaceStructures.add(ModMiscPlacedFeatures.LARGE_PUMICE_COLUMNS);
             ModBiomeFeatures.addLavaMagmaLake(generationSettings);
             ModBiomeFeatures.addBasaltBoulder(vegetation);
             ModBiomeFeatures.addSmoothBasaltOre(vegetation);
@@ -2536,7 +2539,7 @@ public class ModBiomes {
     }
 
     public static void addMordorVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        ModBiomeFeatures.addMordorLichen(vegetation);
+        ModBiomeFeatures.addGrimGrass(vegetation);
         ModBiomeFeatures.addAshBlockOre(vegetation);
         ModBiomeFeatures.addCommonToughBerries(vegetation);
     }
@@ -2687,11 +2690,15 @@ public class ModBiomes {
 
         DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
 
+        surfaceStructures = surfaceStructures.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();
         vegetation = vegetation.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();
         for(int i = 0; i < vegetation.size() - 1; i++) {
             if(vegetation.get(i).getValue().toString().equals(vegetation.get(i + 1).getValue().toString())) {
                 throw new IllegalStateException("Duplicate value in list for: " + vegetation.get(i).getValue().toString());
             }
+        }
+        for (RegistryKey<PlacedFeature> feature: surfaceStructures) {
+            generationSettings.feature(GenerationStep.Feature.SURFACE_STRUCTURES, feature);
         }
         for (RegistryKey<PlacedFeature> feature: vegetation) {
             generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, feature);
@@ -2719,6 +2726,7 @@ public class ModBiomes {
                 .build();
         context.register(biomeRegistryKey, biome);
 
+        surfaceStructures = new ArrayList<>();
         vegetation = new ArrayList<>();
         undergroundOres = new ArrayList<>();
     }

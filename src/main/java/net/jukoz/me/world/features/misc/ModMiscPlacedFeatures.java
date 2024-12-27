@@ -7,6 +7,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.BiomePlacementModifier;
 import net.minecraft.world.gen.placementmodifier.CountMultilayerPlacementModifier;
@@ -17,6 +18,12 @@ public class ModMiscPlacedFeatures {
 
     public static final RegistryKey<PlacedFeature> LAVA_MAGMA_POOL = registerKey("lava_magma_pool");
     public static final RegistryKey<PlacedFeature> SMALL_BASALT_COLUMNS = registerKey("small_basalt_columns");
+    public static final RegistryKey<PlacedFeature> SMALL_PUMICE_COLUMNS = registerKey("small_pumice_columns");
+    public static final RegistryKey<PlacedFeature> LARGE_PUMICE_COLUMNS = registerKey("large_pumice_columns");
+
+    static PlacementModifier uncommon = PlacedFeatures.createCountExtraModifier(1, 0.2f, 1);
+    static PlacementModifier sparse = PlacedFeatures.createCountExtraModifier(0, 0.5f, 1);
+
     public static void bootstrap(Registerable<PlacedFeature> featureRegisterable) {
         RegistryEntryLookup<ConfiguredFeature<?, ?>> registryEntryLookup = featureRegisterable.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
@@ -24,6 +31,10 @@ public class ModMiscPlacedFeatures {
                 PlacedFeatures.createCountExtraModifier(0, 0.05f, 1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
 
         PlacedFeatures.register(featureRegisterable, SMALL_BASALT_COLUMNS, registryEntryLookup.getOrThrow(NetherConfiguredFeatures.SMALL_BASALT_COLUMNS),
+                CountMultilayerPlacementModifier.of(1), BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, SMALL_PUMICE_COLUMNS, registryEntryLookup.getOrThrow(ModMiscConfiguredFeatures.SMALL_PUMICE_COLUMNS),
+                CountMultilayerPlacementModifier.of(2), BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, LARGE_PUMICE_COLUMNS, registryEntryLookup.getOrThrow(ModMiscConfiguredFeatures.LARGE_PUMICE_COLUMNS),
                 CountMultilayerPlacementModifier.of(1), BiomePlacementModifier.of());
     }
 

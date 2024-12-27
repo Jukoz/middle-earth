@@ -16,19 +16,19 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
-public class ColumnFeature extends Feature<ColumnFeatureConfig> {
+public class CaveColumnFeature extends Feature<CaveColumnFeatureConfig> {
     private static final ImmutableList<Block> CANNOT_REPLACE_BLOCKS;
 
-    public ColumnFeature(Codec<ColumnFeatureConfig> configCodec) {
+    public CaveColumnFeature(Codec<CaveColumnFeatureConfig> configCodec) {
         super(configCodec);
     }
 
-    public boolean generate(FeatureContext<ColumnFeatureConfig> context) {
+    public boolean generate(FeatureContext<CaveColumnFeatureConfig> context) {
         int i = context.getGenerator().getSeaLevel();
         BlockPos blockPos = context.getOrigin();
         StructureWorldAccess structureWorldAccess = context.getWorld();
         Random random = context.getRandom();
-        ColumnFeatureConfig basaltColumnsFeatureConfig = (ColumnFeatureConfig)context.getConfig();
+        CaveColumnFeatureConfig basaltColumnsFeatureConfig = (CaveColumnFeatureConfig)context.getConfig();
         if (!canPlaceAt(structureWorldAccess, i, blockPos.mutableCopy())) {
             return false;
         } else {
