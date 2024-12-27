@@ -39,8 +39,39 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.27f, MEBiomeKeys.SHIRE_WOODS)
                 .addSubBiomeData(0.32f, 2.01f, MEBiomeKeys.SHIRE_HILLS, true));
 
+        subBiomesMap.put(MEBiomeKeys.ANORIEN, new SubBiome(144)
+                .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.GONDOR_FOREST)
+                .addSubBiomeData(0.39f, 2.01f, MEBiomeKeys.GONDOR_HILL, true));
+        subBiomesMap.put(MEBiomeKeys.LOSSARNACH, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.GONDOR_FOREST)
+                //.addSubBiomeData(0.39f, 2.01f, MEBiomeKeys.GONDOR_HILL)
+        );
+        subBiomesMap.put(MEBiomeKeys.LEBENNIN, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.GONDOR_FOREST)
+                //.addSubBiomeData(0.39f, 2.01f, MEBiomeKeys.GONDOR_HILL)
+        );
+        subBiomesMap.put(MEBiomeKeys.LAMEDON, new SubBiome(96)
+                .addSubBiomeData(-1.0f, -0.40f, MEBiomeKeys.GONDOR_FOREST)
+                .addSubBiomeData(0.32f, 2.01f, MEBiomeKeys.GONDOR_HILL)
+        );
+        //subBiomesMap.put(MEBiomeKeys.BELFALAS, new SubBiome(96)
+        //        .addSubBiomeData(-1.0f, -0.40f, MEBiomeKeys.GONDOR_FOREST)
+        //        .addSubBiomeData(0.32f, 2.01f, MEBiomeKeys.GONDOR_HILL)
+        //);
+        subBiomesMap.put(MEBiomeKeys.GONDOR, new SubBiome(128)
+                .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.GONDOR_FOREST)
+                .addSubBiomeData(0.3f, 2.01f, MEBiomeKeys.GONDOR_HILL)
+        );
+
+        subBiomesMap.put(MEBiomeKeys.ITHILIEN, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.ITHILIEN_GLADE)
+                .addSubBiomeData(0.35f, 2.01f, MEBiomeKeys.ITHILIEN_GLADE));
+        subBiomesMap.put(MEBiomeKeys.ITHILIEN_WASTES, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.ITHILIEN_WASTES_GLADE)
+                .addSubBiomeData(0.35f, 2.01f, MEBiomeKeys.ITHILIEN_WASTES_GLADE));
+
         subBiomesMap.put(MEBiomeKeys.GORGOROTH, new SubBiome()
-                .addSubBiomeData(-1.0f, -0.34f, MEBiomeKeys.GORGOROTH_ASHEN_FOREST)
+                .addSubBiomeData(-1.0f, -0.34f, MEBiomeKeys.GORGOROTH_ASHEN_WOODS)
                 .addSubBiomeData(0.41f, 2.01f, MEBiomeKeys.GORGOROTH_DELTA));
         subBiomesMap.put(MEBiomeKeys.MORDOR, new SubBiome(144)
                 .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.MORDOR_ASHEN_FOREST)
@@ -53,6 +84,9 @@ public class SubBiomes {
                 .addSubBiomeData(0.27f, 2.01f, MEBiomeKeys.NURN_HILL, true));
         subBiomesMap.put(MEBiomeKeys.NURN_EDGE, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.33f, MEBiomeKeys.NURN_EDGE_WOODS));
+        subBiomesMap.put(MEBiomeKeys.UDUN, new SubBiome(144)
+                .addSubBiomeData(-1.0f, -0.31f, MEBiomeKeys.MORDOR_ASHEN_FOREST)
+                .addSubBiomeData(0.29f, 2.01f, MEBiomeKeys.MORDOR_HILL, true));
     }
 
     public static boolean isSubBiome(RegistryKey<Biome> biomeRegistryKey) {

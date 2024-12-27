@@ -163,15 +163,20 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.LEBENNIN, ruralGondorSpawnSettings);
         spawns.put(MEBiomeKeys.LAMEDON, ruralGondorSpawnSettings);
         spawns.put(MEBiomeKeys.GONDOR, ruralGondorSpawnSettings);
+        spawns.put(MEBiomeKeys.GONDOR_HILL, ruralGondorSpawnSettings);
         spawns.put(MEBiomeKeys.BELFALAS, gondorSpawnSettings);
+        spawns.put(MEBiomeKeys.BELFALAS_HILLS, ruralGondorSpawnSettings);
+        spawns.put(MEBiomeKeys.BLACKROOT_VALE, gondorAndMordor);
 
         spawns.put(MEBiomeKeys.ITHILIEN, gondorGarrisonAndMordor);
+        spawns.put(MEBiomeKeys.ITHILIEN_GLADE, gondorGarrisonAndMordor);
         spawns.put(MEBiomeKeys.ITHILIEN_WASTES, wildMordorSpawnSettings);
+        spawns.put(MEBiomeKeys.ITHILIEN_WASTES_GLADE, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR_WASTES, wildMordorSpawnSettings);
 
         spawns.put(MEBiomeKeys.DAGORLAD, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.GORGOROTH, mordorSpawnSettings);
-        spawns.put(MEBiomeKeys.GORGOROTH_ASHEN_FOREST, mordorSpawnSettings);
+        spawns.put(MEBiomeKeys.GORGOROTH_ASHEN_WOODS, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.GORGOROTH_DELTA, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR_ASHEN_FOREST, mordorSpawnSettings);

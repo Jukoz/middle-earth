@@ -34,6 +34,15 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> FLOWER_MALLOS = registerKey("flower_mallos");
     public static final RegistryKey<PlacedFeature> FLOWER_ELANOR = registerKey("flower_elanor");
 
+    public static final RegistryKey<PlacedFeature> FLOWERS_LIGHT_BLUE = registerKey("flowers_light_blue");
+    public static final RegistryKey<PlacedFeature> FLOWERS_MAGENTA = registerKey("flowers_magenta");
+    public static final RegistryKey<PlacedFeature> FLOWERS_ORANGE = registerKey("flowers_orange");
+    public static final RegistryKey<PlacedFeature> FLOWERS_PINK = registerKey("flowers_pink");
+    public static final RegistryKey<PlacedFeature> FLOWERS_PURPLE = registerKey("flowers_purple");
+    public static final RegistryKey<PlacedFeature> FLOWERS_RED = registerKey("flowers_red");
+    public static final RegistryKey<PlacedFeature> FLOWERS_WHITE = registerKey("flowers_white");
+    public static final RegistryKey<PlacedFeature> FLOWERS_YELLOW = registerKey("flowers_yellow");
+
     // region FIELDS
     public static final RegistryKey<PlacedFeature> FIELD_HEATHER = registerKey("field_heather");
     // endregion
@@ -105,6 +114,7 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> PATCH_STICKY_SNOW = registerKey("patch_sticky_snow");
     public static final RegistryKey<PlacedFeature> PATCH_TAN_SHRUB = registerKey("patch_tan_shrub");;
     public static final RegistryKey<PlacedFeature> PATCH_WHEAT_GRASS = registerKey("patch_wheat_grass");
+    public static final RegistryKey<PlacedFeature> PATCH_SPARSE_WHEAT_GRASS = registerKey("patch_uncommon_wheat_grass");
     public static final RegistryKey<PlacedFeature> PATCH_COMMON_WHEAT_GRASS = registerKey("patch_common_wheat_grass");
     public static final RegistryKey<PlacedFeature> PATCH_WILD_GRASS = registerKey("patch_wild_grass");
     public static final RegistryKey<PlacedFeature> PATCH_WILDER_GRASS = registerKey("patch_wilder_grass");
@@ -166,6 +176,15 @@ public class ModVegetationPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerLossarnach = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_LOSSARNACH);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerMallos = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_MALLOS);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerElanor = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_ELANOR);
+
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowersLightBlue = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWERS_LIGHT_BLUE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowersMagenta = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWERS_MAGENTA);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowersOrange = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWERS_ORANGE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowersPink = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWERS_PINK);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowersPurple = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWERS_PURPLE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowersRed = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWERS_RED);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowersWhite = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWERS_WHITE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowersYellow = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWERS_YELLOW);
 
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> fieldHeather = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FIELD_HEATHER);
 
@@ -263,6 +282,15 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, FLOWER_MALLOS, flowerMallos, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_ELANOR, flowerElanor, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
 
+        PlacedFeatures.register(featureRegisterable, FLOWERS_LIGHT_BLUE, flowersLightBlue, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWERS_MAGENTA, flowersMagenta, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWERS_ORANGE, flowersOrange, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWERS_PINK, flowersPink, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWERS_PURPLE, flowersPurple, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWERS_RED, flowersRed, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWERS_WHITE, flowersWhite, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWERS_YELLOW, flowersYellow, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+
         PlacedFeatures.register(featureRegisterable, FIELD_HEATHER, fieldHeather, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
 
         PlacedFeatures.register(featureRegisterable, AZALEA_GROWTH, growthAzalea, CountPlacementModifier.of(UniformIntProvider.create(204, 255)), PlacedFeatures.BOTTOM_TO_120_RANGE,
@@ -331,6 +359,7 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, PATCH_REEDS, reeds, CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_STICKY_SNOW, stickySnow, CountPlacementModifier.of(UniformIntProvider.create(48, 80)), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_WHEAT_GRASS, wheatGrass, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_SPARSE_WHEAT_GRASS, wheatGrass, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_COMMON_WHEAT_GRASS, wheatGrass, uncommon, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_WILD_GRASS, wildGrass, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_WILDER_GRASS, wilderGrass, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

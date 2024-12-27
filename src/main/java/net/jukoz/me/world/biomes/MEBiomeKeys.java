@@ -70,8 +70,10 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> GULF_OF_LHUN_SHORES = MEBiomeKeys.register("gulf_of_lhun_shores");
     public static final RegistryKey<Biome> GULF_OF_LHUN_CLIFFS = MEBiomeKeys.register("gulf_of_lhun_cliffs");
     public static final RegistryKey<Biome> GONDOR = MEBiomeKeys.register("gondor");
+    public static final RegistryKey<Biome> GONDOR_FOREST = MEBiomeKeys.register("gondor_forest");
+    public static final RegistryKey<Biome> GONDOR_HILL = MEBiomeKeys.register("gondor_hill");
     public static final RegistryKey<Biome> GORGOROTH = MEBiomeKeys.register("gorgoroth");
-    public static final RegistryKey<Biome> GORGOROTH_ASHEN_FOREST = MEBiomeKeys.register("gorgoroth_ashen_forest");
+    public static final RegistryKey<Biome> GORGOROTH_ASHEN_WOODS = MEBiomeKeys.register("gorgoroth_ashen_woods");
     public static final RegistryKey<Biome> GORGOROTH_DELTA = MEBiomeKeys.register("gorgoroth_delta");
     public static final RegistryKey<Biome> GREY_MOUNTAINS = MEBiomeKeys.register("grey_mountains");
     public static final RegistryKey<Biome> GREY_MOUNTAINS_BASE = MEBiomeKeys.register("grey_mountains_base");
@@ -94,7 +96,9 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> ISENGARD = MEBiomeKeys.register("isengard");
     public static final RegistryKey<Biome> ISENGARD_HILL = MEBiomeKeys.register("isengard_hill");
     public static final RegistryKey<Biome> ITHILIEN = MEBiomeKeys.register("ithilien");
+    public static final RegistryKey<Biome> ITHILIEN_GLADE = MEBiomeKeys.register("ithilien_glade");
     public static final RegistryKey<Biome> ITHILIEN_WASTES = MEBiomeKeys.register("ithilien_wastes");
+    public static final RegistryKey<Biome> ITHILIEN_WASTES_GLADE = MEBiomeKeys.register("ithilien_wastes_glade");
     public static final RegistryKey<Biome> LAMEDON = MEBiomeKeys.register("lamedon");
     public static final RegistryKey<Biome> LEBENNIN = MEBiomeKeys.register("lebennin");
     public static final RegistryKey<Biome> LEBENNIN_SHORES = MEBiomeKeys.register("lebennin_shores");

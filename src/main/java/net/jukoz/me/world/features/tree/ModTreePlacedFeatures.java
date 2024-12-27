@@ -44,6 +44,7 @@ public class ModTreePlacedFeatures {
     public static final RegistryKey<PlacedFeature> COMMON_WHITE_LEBETHRON_PLACED_TREE_KEY = registerKey("common_white_lebethron_tree");
     public static final RegistryKey<PlacedFeature> RARE_BLACK_LEBETHRON_PLACED_TREE_KEY = registerKey("rare_black_lebethron_tree");
     public static final RegistryKey<PlacedFeature> RARE_WHITE_LEBETHRON_PLACED_TREE_KEY = registerKey("rare_white_lebethron_tree");
+    public static final RegistryKey<PlacedFeature> VERY_RARE_BLACK_LEBETHRON_PLACED_TREE_KEY = registerKey("very_rare_black_lebethron_tree");
     public static final RegistryKey<PlacedFeature> MALLORN_PLACED_TREE_KEY = registerKey("mallorn_tree");
     public static final RegistryKey<PlacedFeature> SMALL_MALLORN_PLACED_TREE_KEY = registerKey("small_mallorn_tree");
     public static final RegistryKey<PlacedFeature> MALLORN_BUSH_PLACED_TREE_KEY = registerKey("mallorn_bush");
@@ -219,6 +220,9 @@ public class ModTreePlacedFeatures {
                         ModNatureBlocks.LEBETHRON_SAPLING));
         register(context, RARE_WHITE_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(0, 0.005f, 1),
+                        ModNatureBlocks.LEBETHRON_SAPLING));
+        register(context, VERY_RARE_BLACK_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(veryRareTree,
                         ModNatureBlocks.LEBETHRON_SAPLING));
 
         register(context, MALLORN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MALLORN_TREE_KEY),

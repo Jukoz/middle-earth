@@ -181,10 +181,14 @@ public class MapBiomeData {
         // GONDOR
         addBiome(new BiomeData(MEBiomeKeys.GONDOR, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 7582562, 6592327)));
+        addBiome(new BiomeData(MEBiomeKeys.GONDOR_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(7510756, 12308204, defaultWater, defaultWaterFog, 7186525, 6658376)));
+        addBiome(new BiomeData(MEBiomeKeys.GONDOR_HILL, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(8432895, 12900082, defaultWater, defaultWaterFog, 8502640, 7381842)));
         // GORGOROTH
         addBiome(new BiomeData(MEBiomeKeys.GORGOROTH, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(2564128, 1709079, 4869697, 1513734, 3156775, 2169880), CaveType.ASHEN));
-        addBiome(new BiomeData(MEBiomeKeys.GORGOROTH_ASHEN_FOREST, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.GORGOROTH_ASHEN_WOODS, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(2958629, 2432545, 4869697, 1513734, 3156775, 2169880), CaveType.ASHEN));
         addBiome(new BiomeData(MEBiomeKeys.GORGOROTH_DELTA, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(2762018, 2695711, 4869697, 1513734, 3156775, 2169880), CaveType.ASHEN));
@@ -236,8 +240,12 @@ public class MapBiomeData {
         // ITHILIEN
         addBiome(new BiomeData(MEBiomeKeys.ITHILIEN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 5152072, 4889668)));
+        addBiome(new BiomeData(MEBiomeKeys.ITHILIEN_GLADE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(7246036, 11518431, defaultWater, defaultWaterFog, 6401627, 5086791)));
         addBiome(new BiomeData(MEBiomeKeys.ITHILIEN_WASTES, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(9085388, 11254223, 4944318, 723757, 5733716, 5537108)));
+                new BiomeColorsDTO(9085388, 10661827, 4944318, 723757, 5733716, 5537108)));
+        addBiome(new BiomeData(MEBiomeKeys.ITHILIEN_WASTES_GLADE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(9611731, 11254223, 4944318, 723757, 6326621, 5537108)));
         // LAMEDON
         addBiome(new BiomeData(MEBiomeKeys.LAMEDON, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 9162899, 8043898)));

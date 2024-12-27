@@ -44,6 +44,15 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_MALLOS = registerKey("flower_mallos");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_ELANOR = registerKey("flower_elanor");
 
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWERS_LIGHT_BLUE = registerKey("flowers_light_blue");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWERS_MAGENTA = registerKey("flowers_magenta");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWERS_ORANGE = registerKey("flowers_orange");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWERS_PINK = registerKey("flowers_pink");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWERS_PURPLE = registerKey("flowers_purple");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWERS_RED = registerKey("flowers_red");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWERS_WHITE = registerKey("flowers_white");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWERS_YELLOW = registerKey("flowers_yellow");
+
     // region FIELDS
     public static final RegistryKey<ConfiguredFeature<?, ?>> FIELD_HEATHER = registerKey("field_heather");
     // endregion
@@ -191,6 +200,31 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, FLOWER_ELANOR, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.ELANOR))));
+
+        ConfiguredFeatures.register(featureRegisterable, FLOWERS_LIGHT_BLUE, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.LIGHT_BLUE_FLOWERS))));
+        ConfiguredFeatures.register(featureRegisterable, FLOWERS_MAGENTA, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.MAGENTA_FLOWERS))));
+        ConfiguredFeatures.register(featureRegisterable, FLOWERS_ORANGE, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.ORANGE_FLOWERS))));
+        ConfiguredFeatures.register(featureRegisterable, FLOWERS_PINK, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.PINK_FLOWERS))));
+        ConfiguredFeatures.register(featureRegisterable, FLOWERS_PURPLE, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.PURPLE_FLOWERS))));
+        ConfiguredFeatures.register(featureRegisterable, FLOWERS_RED, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.RED_FLOWERS))));
+        ConfiguredFeatures.register(featureRegisterable, FLOWERS_WHITE, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.WHITE_FLOWERS))));
+        ConfiguredFeatures.register(featureRegisterable, FLOWERS_YELLOW, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.YELLOW_FLOWERS))));
 
 
         ConfiguredFeatures.register(featureRegisterable, AZALEA_GROWTH, Feature.MULTIFACE_GROWTH,
