@@ -376,6 +376,7 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet TUFF_BRICKWORK = registerStoneSet("tuff_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
+
     public static SimpleBlockSet OLD_TUFF = registerStoneSet("old_tuff", Blocks.TUFF.getHardness(), Blocks.TUFF.getBlastResistance(), null);
 
     public static SimpleBlockSet SMOOTH_BLACKSTONE = registerStoneSet("smooth_blackstone", Blocks.BLACKSTONE.getHardness(), Blocks.BLACKSTONE.getBlastResistance(), Blocks.BLACKSTONE);
@@ -445,20 +446,26 @@ public class StoneBlockSets {
     public static SimpleBlockSet NURGON_TILES = registerStoneSet("nurgon_tiles", COBBLED_NURGON.base.getHardness(), COBBLED_NURGON.base.getBlastResistance(), NURGON_BRICKS.base);
     //public static SimpleBlockSet MOSSY_NURGON_TILES = registerStoneSet("mossy_nurgon_tiles", COBBLED_NURGON.base.getHardness(), COBBLED_NURGON.base.getBlastResistance(), NURGON_TILES.base);
     //public static SimpleBlockSet CRACKED_NURGON_TILES = registerStoneSet("cracked_nurgon_tiles", COBBLED_NURGON.base.getHardness(), COBBLED_NURGON.base.getBlastResistance(), NURGON_TILES.base);
-
+    
     public static SimpleBlockSetMain MEDGON = registerMainStoneSet("medgon", MEDGON_HARDNESS, MEDGON_BLAST_RESISTANCE, null);
-    public static SimpleBlockSet SMOOTH_MEDGON = registerStoneSet("smooth_medgon", MEDGON_HARDNESS, MEDGON_BLAST_RESISTANCE, MEDGON.base);
+    public static SimpleBlockSet SMOOTH_MEDGON = registerStoneSet("smooth_medgon", MEDGON.base.getHardness(), MEDGON.base.getBlastResistance(), MEDGON.base);
+    public static SimpleBlockSet MOSSY_SMOOTH_MEDGON = registerStoneSet("mossy_smooth_medgon", SMOOTH_MEDGON.base.getHardness(), SMOOTH_MEDGON.base.getBlastResistance(), SMOOTH_MEDGON.base);
+    public static SimpleBlockSet CRACKED_SMOOTH_MEDGON = registerStoneSet("cracked_smooth_medgon", SMOOTH_MEDGON.base.getHardness(), SMOOTH_MEDGON.base.getBlastResistance(), SMOOTH_MEDGON.base);
     public static SimpleBlockSet COBBLED_MEDGON = registerStoneSet("cobbled_medgon", MEDGON_BRICKS_HARDNESS, MEDGON_BRICKS_BLAST_RESISTANCE, MEDGON.base);
     public static SimpleBlockSet MOSSY_COBBLED_MEDGON = registerStoneSet("mossy_cobbled_medgon", MEDGON_BRICKS_HARDNESS, MEDGON_BRICKS_BLAST_RESISTANCE, COBBLED_MEDGON.base);
     public static SimpleBlockSet POLISHED_MEDGON = registerStoneSet("polished_medgon", MEDGON.base.getHardness(), MEDGON.base.getBlastResistance(), MEDGON.base);
-    //public static SimpleBlockSet MOSSY_POLISHED_MEDGON = registerStoneSet("mossy_polished_medgon", MEDGON.base.getHardness(), MEDGON.base.getBlastResistance(), POLISHED_MEDGON.base);
-    //public static SimpleBlockSet CRACKED_POLISHED_MEDGON = registerStoneSet("cracked_polished_medgon", MEDGON.base.getHardness(), MEDGON.base.getBlastResistance(), POLISHED_MEDGON.base);
+    public static SimpleBlockSet MOSSY_POLISHED_MEDGON = registerStoneSet("mossy_polished_medgon", MEDGON.base.getHardness(), MEDGON.base.getBlastResistance(), POLISHED_MEDGON.base);
+    public static SimpleBlockSet CRACKED_POLISHED_MEDGON = registerStoneSet("cracked_polished_medgon", MEDGON.base.getHardness(), MEDGON.base.getBlastResistance(), POLISHED_MEDGON.base);
     public static SimpleBlockSet MEDGON_BRICKS = registerStoneSet("medgon_bricks", COBBLED_MEDGON.base.getHardness(), COBBLED_MEDGON.base.getBlastResistance(), POLISHED_MEDGON.base);
-    //public static SimpleBlockSet MOSSY_MEDGON_BRICKS = registerStoneSet("mossy_medgon_bricks", COBBLED_MEDGON.base.getHardness(), COBBLED_MEDGON.base.getBlastResistance(), MEDGON_BRICKS.base);
+    public static SimpleBlockSet MOSSY_MEDGON_BRICKS = registerStoneSet("mossy_medgon_bricks", COBBLED_MEDGON.base.getHardness(), COBBLED_MEDGON.base.getBlastResistance(), MEDGON_BRICKS.base);
     public static SimpleBlockSet CRACKED_MEDGON_BRICKS = registerStoneSet("cracked_medgon_bricks", COBBLED_MEDGON.base.getHardness(), COBBLED_MEDGON.base.getBlastResistance(), MEDGON_BRICKS.base);
     public static SimpleBlockSet MEDGON_TILES = registerStoneSet("medgon_tiles", COBBLED_MEDGON.base.getHardness(), COBBLED_MEDGON.base.getBlastResistance(), MEDGON_BRICKS.base);
-    //public static SimpleBlockSet MOSSY_MEDGON_TILES = registerStoneSet("mossy_medgon_tiles", COBBLED_MEDGON.base.getHardness(), COBBLED_MEDGON.base.getBlastResistance(), MEDGON_TILES.base);
+    public static SimpleBlockSet MOSSY_MEDGON_TILES = registerStoneSet("mossy_medgon_tiles", COBBLED_MEDGON.base.getHardness(), COBBLED_MEDGON.base.getBlastResistance(), MEDGON_TILES.base);
     public static SimpleBlockSet CRACKED_MEDGON_TILES = registerStoneSet("cracked_medgon_tiles", COBBLED_MEDGON.base.getHardness(), COBBLED_MEDGON.base.getBlastResistance(), MEDGON_TILES.base);
+
+    public static SimpleBlockSet MEDGON_BRICKWORK = registerStoneSet("medgon_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
+
+    public static SimpleBlockSet OLD_MEDGON = registerStoneSet("old_medgon", MEDGON.base.getHardness(), MEDGON.base.getBlastResistance(), null);
 
     public static SimpleBlockSet MIXED_STONES = registerStoneSet("mixed_stones", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet MOSSY_MIXED_STONES = registerStoneSet("mossy_mixed_stones", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, MIXED_STONES.base);
@@ -890,13 +897,23 @@ public class StoneBlockSets {
             NURGON_TILES,
 
             SMOOTH_MEDGON,
+            MOSSY_SMOOTH_MEDGON,
+            CRACKED_SMOOTH_MEDGON,
             COBBLED_MEDGON,
             MOSSY_COBBLED_MEDGON,
             POLISHED_MEDGON,
+            MOSSY_POLISHED_MEDGON,
+            CRACKED_POLISHED_MEDGON,
             MEDGON_BRICKS,
+            MOSSY_MEDGON_BRICKS,
             CRACKED_MEDGON_BRICKS,
             MEDGON_TILES,
+            MOSSY_MEDGON_TILES,
             CRACKED_MEDGON_TILES,
+
+            OLD_MEDGON,
+
+            MEDGON_BRICKWORK,
     };
 
     public static SimplePillarBlockSet[] pillarSets = new SimplePillarBlockSet[] {

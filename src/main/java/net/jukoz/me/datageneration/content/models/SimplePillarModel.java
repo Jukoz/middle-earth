@@ -102,8 +102,10 @@ public class SimplePillarModel {
             add(new StonePillar(ModBlocks.CRACKED_JADEITE_PILLAR, ModBlocks.JADEITE_PILLAR));
 
             add(new StonePillar(ModBlocks.NURGON_PILLAR, StoneBlockSets.NURGON_BRICKS.base()));
-            add(new StonePillar(ModBlocks.MEDGON_PILLAR, StoneBlockSets.MEDGON_BRICKS.base()));
 
+            add(new StonePillar(ModBlocks.MEDGON_PILLAR, StoneBlockSets.MEDGON_BRICKS.base()));
+            add(new StonePillar(ModBlocks.MOSSY_MEDGON_PILLAR, ModBlocks.MEDGON_PILLAR));
+            add(new StonePillar(ModBlocks.CRACKED_MEDGON_PILLAR, ModBlocks.MEDGON_PILLAR));
         }
     };
 }

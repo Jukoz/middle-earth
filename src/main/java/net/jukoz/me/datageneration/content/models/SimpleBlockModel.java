@@ -145,7 +145,6 @@ public class SimpleBlockModel {
             add(new ChiseledBlock(ModBlocks.CHISELED_BLACKSTONE, StoneBlockSets.COBBLED_BLACKSTONE.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_CALCITE, ModBlocks.CALCITE_SLAB));
             add(new ChiseledBlock(ModBlocks.CHISELED_GONLUIN, StoneBlockSets.GONLUIN.slab()));
-            add(new ChiseledBlock(ModBlocks.CHISELED_MEDGON, StoneBlockSets.MEDGON.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_DOLOMITE, StoneBlockSets.DOLOMITE.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_GREEN_TUFF, StoneBlockSets.GREEN_TUFF.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_IRONSTONE, StoneBlockSets.IRONSTONE.slab()));
@@ -155,6 +154,7 @@ public class SimpleBlockModel {
             add(new ChiseledBlock(ModBlocks.CHISELED_IZHERABAN, StoneBlockSets.IZHERABAN.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_LIMESTONE, StoneBlockSets.LIMESTONE.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_GALONN, StoneBlockSets.GALONN.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_MEDGON, StoneBlockSets.MEDGON.slab()));
         }
     };
 
@@ -202,9 +202,9 @@ public class SimpleBlockModel {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_IZHERABAN, StoneBlockSets.POLISHED_IZHERABAN.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_BLUE_TUFF, StoneBlockSets.POLISHED_BLUE_TUFF.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_ASHEN_STONE, StoneBlockSets.POLISHED_ASHEN_STONE.slab()));
-            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_MEDGON, StoneBlockSets.POLISHED_MEDGON.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_LIMESTONE, StoneBlockSets.POLISHED_LIMESTONE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_GALONN, StoneBlockSets.POLISHED_GALONN.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_MEDGON, StoneBlockSets.POLISHED_MEDGON.slab()));
         }
     };
 
@@ -231,6 +231,7 @@ public class SimpleBlockModel {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_TUFF_TILES, StoneBlockSets.TUFF_TILES.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_GALONN_TILES, StoneBlockSets.GALONN_TILES.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_IZHERABAN_TILES, StoneBlockSets.IZHERABAN_TILES.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_MEDGON_TILES, StoneBlockSets.MEDGON_TILES.slab()));
         }
     };
 
@@ -250,6 +251,7 @@ public class SimpleBlockModel {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_TUFF, StoneBlockSets.SMOOTH_TUFF.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_GALONN, StoneBlockSets.SMOOTH_GALONN.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_IZHERABAN, StoneBlockSets.SMOOTH_IZHERABAN.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_MEDGON, StoneBlockSets.SMOOTH_MEDGON.slab()));
         }
     };
 

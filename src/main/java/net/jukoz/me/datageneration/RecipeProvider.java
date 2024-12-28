@@ -996,6 +996,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createStatueRecipe(exporter, StoneBlockSets.POLISHED_GONLUIN.base(), StoneBlockSets.GONLUIN.base(), StoneBlockSets.GONLUIN.wall(), ModDecorativeBlocks.GONLUIN_STATUE);
         createStatueRecipe(exporter, Blocks.POLISHED_TUFF, Blocks.TUFF, Blocks.TUFF_WALL, ModDecorativeBlocks.TUFF_STATUE);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.MEDGON_SPIKE, 1)
+                .pattern("M  ")
+                .pattern("MM ")
+                .pattern("PMP")
+                .input('M', StoneBlockSets.MEDGON.base())
+                .input('P', StoneBlockSets.POLISHED_MEDGON.base())
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.MEDGON.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.MEDGON.base()))
+                .offerTo(exporter);
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.WATTLE_AND_BRICK_WINDOW, 4)
                 .pattern("BSB")
                 .pattern("SGS")
