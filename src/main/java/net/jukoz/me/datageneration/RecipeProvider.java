@@ -1159,7 +1159,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .pattern("LLL")
                 .pattern("LSL")
                 .pattern("LLL")
-                .input('S', ModResourceItems.STEEL_INGOT)
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
                 .input('L', WoodBlockSets.LARCH.planks())
                 .criterion(FabricRecipeProvider.hasItem(WoodBlockSets.LARCH.planks()),
                         FabricRecipeProvider.conditionsFromItem(WoodBlockSets.LARCH.planks()))
@@ -1169,7 +1169,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .pattern("LSL")
                 .pattern("SLL")
                 .pattern("LSL")
-                .input('S', ModResourceItems.STEEL_INGOT)
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
                 .input('L', Items.SPRUCE_PLANKS)
                 .criterion(FabricRecipeProvider.hasItem(Items.SPRUCE_PLANKS),
                         FabricRecipeProvider.conditionsFromItem(Items.SPRUCE_PLANKS))
@@ -1197,6 +1197,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LIGHT_BLUE_HOBBIT_DOOR, 1)
+                .pattern(" B ")
+                .pattern("BDB")
+                .pattern(" B ")
+                .input('D', ModDecorativeBlocks.LARCH_HOBBIT_DOOR)
+                .input('B', Items.LIGHT_BLUE_DYE)
+                .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR),
+                        FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR))
+                .offerTo(exporter);
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.RED_HOBBIT_DOOR, 1)
                 .pattern(" B ")
                 .pattern("BDG")
@@ -1219,14 +1229,76 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.TALL_BLACK_PINE_DOOR, 1)
+                .pattern("SP")
+                .pattern("PP")
+                .pattern("SP")
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                .input('P', WoodBlockSets.BLACK_PINE.planks())
+                .criterion(FabricRecipeProvider.hasItem(WoodBlockSets.BLACK_PINE.planks()),
+                        FabricRecipeProvider.conditionsFromItem(WoodBlockSets.BLACK_PINE.planks()))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.OAK_STABLE_DOOR, 1)
+                .pattern("SPP")
+                .pattern("PPP")
+                .pattern("SPP")
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                .input('P', Items.OAK_PLANKS)
+                .criterion(FabricRecipeProvider.hasItem(Items.OAK_PLANKS),
+                        FabricRecipeProvider.conditionsFromItem(Items.OAK_PLANKS))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.REINFORCED_BLACK_PINE_DOOR, 1)
+                .pattern("SPP")
+                .pattern("SPS")
+                .pattern("SPP")
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                .input('P', WoodBlockSets.BLACK_PINE.planks())
+                .criterion(FabricRecipeProvider.hasItem(WoodBlockSets.BLACK_PINE.planks()),
+                        FabricRecipeProvider.conditionsFromItem(WoodBlockSets.BLACK_PINE.planks()))
+                .offerTo(exporter);
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR, 1)
                 .pattern("SPP")
                 .pattern("SPS")
                 .pattern("SPP")
-                .input('S', ModResourceItems.STEEL_INGOT)
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
                 .input('P', Items.SPRUCE_PLANKS)
                 .criterion(FabricRecipeProvider.hasItem(Items.SPRUCE_PLANKS),
                         FabricRecipeProvider.conditionsFromItem(Items.SPRUCE_PLANKS))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SIMPLE_LARCH_GATE, 1)
+                .pattern("SPP")
+                .pattern("PPP")
+                .pattern("SPP")
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                .input('P', WoodBlockSets.LARCH.planks())
+                .criterion(FabricRecipeProvider.hasItem(WoodBlockSets.LARCH.planks()),
+                        FabricRecipeProvider.conditionsFromItem(WoodBlockSets.LARCH.planks()))
+                .offerTo(exporter);
+
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.RICKETY_SIMPLE_LARCH_DOOR, ModDecorativeBlocks.SIMPLE_LARCH_GATE);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SPRUCE_STABLE_DOOR, 1)
+                .pattern("SPP")
+                .pattern("PPP")
+                .pattern("SPP")
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                .input('P', Items.SPRUCE_PLANKS)
+                .criterion(FabricRecipeProvider.hasItem(Items.SPRUCE_PLANKS),
+                        FabricRecipeProvider.conditionsFromItem(Items.SPRUCE_PLANKS))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LARGE_STURDY_DOOR, 1)
+                .pattern("SPP")
+                .pattern("PPP")
+                .pattern("SPP")
+                .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                .input('P', TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(Items.OAK_PLANKS),
+                        FabricRecipeProvider.conditionsFromItem(Items.OAK_PLANKS))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GREAT_GONDORIAN_GATE, 1)
@@ -1261,6 +1333,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.BRONZE_INGOT),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.BRONZE_INGOT))
                 .offerTo(exporter);
+
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.RUINED_DWARVEN_DOOR, ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.HIDDEN_DWARVEN_DOOR, 1)
                 .pattern("SSG")

@@ -535,6 +535,25 @@ public class ModDecorativeBlocks {
     public static final Block ROPE_LADDER = registerBlockWithItem("rope_ladder",
             new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL).burnable()));
 
+    public static final Block TALL_BLACK_PINE_DOOR = registerDoorBlock("tall_black_pine_door",
+            new LargeDoor3x1(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+
+    public static final Block OAK_STABLE_DOOR = registerDoorBlock("oak_stable_door",
+            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block REINFORCED_BLACK_PINE_DOOR = registerDoorBlock("reinforced_black_pine_door",
+            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block REINFORCED_SPRUCE_DOOR = registerDoorBlock("reinforced_spruce_door",
+            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block SIMPLE_LARCH_GATE = registerDoorBlock("simple_larch_gate",
+            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block RICKETY_SIMPLE_LARCH_DOOR = registerDoorBlock("rickety_simple_larch_door",
+            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block SPRUCE_STABLE_DOOR = registerDoorBlock("spruce_stable_door",
+            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+
+    public static final Block LARGE_STURDY_DOOR = registerDoorBlock("large_sturdy_door",
+            new LargeDoor5x3(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+
     public static final Block LARCH_HOBBIT_DOOR = registerDoorBlock("larch_hobbit_door",
             new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block SPRUCE_HOBBIT_DOOR = registerDoorBlock("spruce_hobbit_door",
@@ -544,23 +563,24 @@ public class ModDecorativeBlocks {
             new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block GREEN_HOBBIT_DOOR = registerDoorBlock("green_hobbit_door",
             new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block LIGHT_BLUE_HOBBIT_DOOR = registerDoorBlock("light_blue_hobbit_door",
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block RED_HOBBIT_DOOR = registerDoorBlock("red_hobbit_door",
             new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block YELLOW_HOBBIT_DOOR = registerDoorBlock("yellow_hobbit_door",
             new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
-
-    public static final Block REINFORCED_SPRUCE_DOOR = registerDoorBlock("reinforced_spruce_door",
-            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
 
     public static final Block GREAT_GONDORIAN_GATE = registerDoorBlock("great_gondorian_gate",
             new LargeDoor10x5(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
 
     public static final Block GREAT_DWARVEN_GATE = registerDoorBlock("great_dwarven_gate",
             new LargeDoor5x2(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
-    public static final Block VARNISHED_DWARVEN_DOOR = registerDoorBlock("varnished_dwarven_door",
-            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
     public static final Block HIDDEN_DWARVEN_DOOR = registerDoorBlock("hidden_dwarven_door",
             new LargeThickDoor3x2(AbstractBlock.Settings.copy(Blocks.STONE)));
+    public static final Block VARNISHED_DWARVEN_DOOR = registerDoorBlock("varnished_dwarven_door",
+            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+    public static final Block RUINED_DWARVEN_DOOR = registerDoorBlock("ruined_dwarven_door",
+            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
 
     public static final Block GREAT_ELVEN_GATE = registerDoorBlock("great_elven_gate",
             new LargeDoor6x2(AbstractBlock.Settings.copy(Blocks.OAK_DOOR)));

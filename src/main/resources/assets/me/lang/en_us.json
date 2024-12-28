@@ -6089,19 +6089,32 @@
   "block.me.bronze_broad_chain": "Bronze Broad Chain",
   "block.me.spiky_chain": "Spiky Chain",
 
-  "block.me.blue_hobbit_door": "Blue Hobbit Door",
-  "block.me.green_hobbit_door": "Green Hobbit Door",
-  "block.me.red_hobbit_door": "Red Hobbit Door",
-  "block.me.yellow_hobbit_door": "Yellow Hobbit Door",
+  "block.me.tall_black_pine_door": "Tall Black Pine Door",
+
+  "block.me.oak_stable_door": "Oak Stable Door",
+  "block.me.reinforced_spruce_door": "Reinforced Spruce Door",
+  "block.me.reinforced_black_pine_door": "Reinforced Black Pine Door",
+  "block.me.simple_larch_gate": "Simple Larch Gate",
+  "block.me.rickety_simple_larch_door": "Rickety Simple Larch Door",
+  "block.me.spruce_stable_door": "Spruce Stable Door",
+
+  "block.me.large_sturdy_door": "Large Sturdy Door",
+
+
   "block.me.larch_hobbit_door": "Larch Hobbit Door",
   "block.me.spruce_hobbit_door": "Spruce Hobbit Door",
 
-  "block.me.reinforced_spruce_door": "Reinforced Spruce Door",
+  "block.me.blue_hobbit_door": "Blue Hobbit Door",
+  "block.me.green_hobbit_door": "Green Hobbit Door",
+  "block.me.light_blue_hobbit_door": "Light Blue Hobbit Door",
+  "block.me.red_hobbit_door": "Red Hobbit Door",
+  "block.me.yellow_hobbit_door": "Yellow Hobbit Door",
 
   "block.me.great_gondorian_gate": "Great Gondorian Gate",
 
   "block.me.great_dwarven_gate": "Great Dwarven Gate",
   "block.me.varnished_dwarven_door": "Varnished Dwarven Door",
+  "block.me.ruined_dwarven_door": "Ruined Dwarven Door",
   "block.me.hidden_dwarven_door": "Hidden Dwarven Door",
 
   "block.me.great_elven_gate": "Great Elven Gate",
