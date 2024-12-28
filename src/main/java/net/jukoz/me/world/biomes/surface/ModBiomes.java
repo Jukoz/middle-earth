@@ -788,11 +788,14 @@ public class ModBiomes {
             ModBiomeFeatures.addVeryRareLebethronTrees(vegetation);
         } else if(step == 1) {
             ModSpawnSettingsBuilder.addDeer(spawnSettings);
+            ModBiomeFeatures.addRareBeechTrees(vegetation);
             ModBiomeFeatures.addBeechTrees(vegetation);
-            ModBiomeFeatures.addSparseBirchTrees(vegetation);
-            ModBiomeFeatures.addCommonLebethronTrees(vegetation);
+            ModBiomeFeatures.addBirchTrees(vegetation);
+            ModBiomeFeatures.addRareLebethronTrees(vegetation);
+            ModBiomeFeatures.addLebethronTrees(vegetation);
             ModBiomeFeatures.addChestnutTrees(vegetation);
             ModBiomeFeatures.addOakTrees(vegetation);
+            ModBiomeFeatures.addDarkOakTrees(vegetation);
             ModBiomeFeatures.addRareMegaOakTrees(vegetation);
 
             ModBiomeFeatures.addWildGrass(vegetation);
@@ -1009,12 +1012,14 @@ public class ModBiomes {
 
     public static void createIthilienBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, boolean wastes, boolean glade) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         ModSpawnSettingsBuilder.addDeer(spawnSettings);
+        ModSpawnSettingsBuilder.addRabbits(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addWildPotato(vegetation);
         ModBiomeFeatures.addFalseOatgrass(vegetation);
         ModBiomeFeatures.addRareMorsel(vegetation);
         ModBiomeFeatures.addRareWhiteMushroom(vegetation);
@@ -1022,11 +1027,11 @@ public class ModBiomes {
         ModBiomeFeatures.addCommonOakBush(vegetation);
         ModBiomeFeatures.addCoarseDirtOre(vegetation);
         ModBiomeFeatures.addDioriteBoulder(vegetation);
-        ModBiomeFeatures.addWildPotato(vegetation);
 
         addGondorVegetation(generationSettings);
 
         if(!glade) {
+            ModBiomeFeatures.addBracken(vegetation);
             ModBiomeFeatures.addWheatGrass(vegetation);
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addOakTrees(vegetation);
@@ -1035,6 +1040,7 @@ public class ModBiomes {
             ModBiomeFeatures.addBlackPineTrees(vegetation);
             ModBiomeFeatures.addForestBlockMoss(vegetation);
         } else {
+            ModBiomeFeatures.addHeather(vegetation);
             ModBiomeFeatures.addTallGrass(vegetation);
             ModBiomeFeatures.addSparseWheatGrass(vegetation);
             ModBiomeFeatures.addTuftGrass(vegetation);
