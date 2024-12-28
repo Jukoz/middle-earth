@@ -183,6 +183,7 @@ public class MapBasedBiomePool {
         add(new Color(0x43c17d), new MapBasedCustomBiome(MEBiomeKeys.LINDON, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x438564), new MapBasedCustomBiome(MEBiomeKeys.LONG_MARSHES, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x48c440), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xE5A695), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_CHERRY_BLOSSOM, 23, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x6bc35c), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_VALLEY, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0xA9C35C), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_VALLEY_RED, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x9AC35C), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_VALLEY_ORANGE, 7, MEBiomeDataConfigs.landModifier));

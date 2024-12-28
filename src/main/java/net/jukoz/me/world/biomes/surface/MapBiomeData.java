@@ -272,8 +272,10 @@ public class MapBiomeData {
         // LOSSARNACH
         addBiome(new BiomeData(MEBiomeKeys.LOSSARNACH, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8240485, 7909996)));
+        addBiome(new BiomeData(MEBiomeKeys.LOSSARNACH_CHERRY_BLOSSOM, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(8103167, 12638463, defaultWater, defaultWaterFog, 11983713, 11983713)));
         addBiome(new BiomeData(MEBiomeKeys.LOSSARNACH_VALLEY, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 9551961, 9355638)));
+                new BiomeColorsDTO(8103167, 12638463, defaultWater, defaultWaterFog, 9551961, 9355638)));
         addBiome(new BiomeData(MEBiomeKeys.LOSSARNACH_VALLEY_RED, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 12082206, 13977913)));
         addBiome(new BiomeData(MEBiomeKeys.LOSSARNACH_VALLEY_ORANGE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,

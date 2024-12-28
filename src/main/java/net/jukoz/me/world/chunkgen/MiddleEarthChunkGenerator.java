@@ -165,6 +165,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.LONG_MARSHES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LORIEN_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH_CHERRY_BLOSSOM),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH_VALLEY),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH_VALLEY_RED),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH_VALLEY_ORANGE),

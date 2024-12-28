@@ -42,10 +42,10 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.ANORIEN, new SubBiome(144)
                 .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.GONDOR_FOREST)
                 .addSubBiomeData(0.39f, 2.01f, MEBiomeKeys.GONDOR_HILL, true));
-        subBiomesMap.put(MEBiomeKeys.LOSSARNACH, new SubBiome()
+
+        subBiomesMap.put(MEBiomeKeys.LOSSARNACH, new SubBiome(180, 1.2f)
                 .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.GONDOR_FOREST)
-                //.addSubBiomeData(0.39f, 2.01f, MEBiomeKeys.GONDOR_HILL)
-        );
+                .addSubBiomeData(0.38f, 2.01f, MEBiomeKeys.LOSSARNACH_CHERRY_BLOSSOM, true));
         subBiomesMap.put(MEBiomeKeys.LOSSARNACH_VALLEY, new SubBiome(64, 0.28f)
                 .addSubBiomeData(-1.0f, -0.4f, MEBiomeKeys.LOSSARNACH_VALLEY_RED)
                 .addSubBiomeData(-0.4f, -0.26f, MEBiomeKeys.LOSSARNACH_VALLEY_ORANGE)

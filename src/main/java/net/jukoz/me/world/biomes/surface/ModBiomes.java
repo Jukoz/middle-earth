@@ -120,6 +120,7 @@ public class ModBiomes {
         createLakeBiome(context, MEBiomeKeys.LONG_LAKE);
         createMirkwoodSwampBiome(context, MEBiomeKeys.LONG_MARSHES);
         createLossarnach(context, MEBiomeKeys.LOSSARNACH, 0);
+        createLossarnachCherryBlossom(context, MEBiomeKeys.LOSSARNACH_CHERRY_BLOSSOM);
         createLossarnach(context, MEBiomeKeys.LOSSARNACH_VALLEY, 1);
         createLossarnach(context, MEBiomeKeys.LOSSARNACH_VALLEY_GREEN, 2);
         createLossarnach(context, MEBiomeKeys.LOSSARNACH_VALLEY_YELLOW, 3);
@@ -1226,6 +1227,24 @@ public class ModBiomes {
             ModBiomeFeatures.addMegaOakTrees(vegetation);
             ModBiomeFeatures.addCommonOakBush(vegetation);
         }
+
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
+    }
+
+    public static void createLossarnachCherryBlossom(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addGondorVegetation(generationSettings);
+        ModBiomeFeatures.addOakBushes(vegetation);
+        ModBiomeFeatures.addTallGrass(vegetation);
+        ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addTuftGrass(vegetation);
+        ModBiomeFeatures.addPinkFlowers(vegetation);
+        ModBiomeFeatures.addPinkFlowerGrowth(vegetation);
+        vegetation.add(VegetationPlacedFeatures.TREES_CHERRY);
+        vegetation.add(VegetationPlacedFeatures.FLOWER_CHERRY);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }

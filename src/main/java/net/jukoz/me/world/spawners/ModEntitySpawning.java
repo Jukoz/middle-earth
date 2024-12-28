@@ -160,6 +160,8 @@ public class ModEntitySpawning {
 
         spawns.put(MEBiomeKeys.ANORIEN, gondorAndMordor);
         spawns.put(MEBiomeKeys.ANORIEN_RIVERSIDE, gondorAndMordor);
+        spawns.put(MEBiomeKeys.LOSSARNACH, ruralGondorSpawnSettings);
+        spawns.put(MEBiomeKeys.LOSSARNACH_VALLEY, ruralGondorSpawnSettings);
         spawns.put(MEBiomeKeys.LEBENNIN, ruralGondorSpawnSettings);
         spawns.put(MEBiomeKeys.LAMEDON, ruralGondorSpawnSettings);
         spawns.put(MEBiomeKeys.GONDOR, ruralGondorSpawnSettings);

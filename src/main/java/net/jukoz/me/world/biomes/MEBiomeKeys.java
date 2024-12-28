@@ -111,6 +111,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> LONG_MARSHES = MEBiomeKeys.register("long_marshes");
     public static final RegistryKey<Biome> LORIEN_EDGE = MEBiomeKeys.register("lorien_edge");
     public static final RegistryKey<Biome> LOSSARNACH = MEBiomeKeys.register("lossarnach");
+    public static final RegistryKey<Biome> LOSSARNACH_CHERRY_BLOSSOM = MEBiomeKeys.register("lossarnach_cherry_blossom");
     public static final RegistryKey<Biome> LOSSARNACH_VALLEY = MEBiomeKeys.register("lossarnach_valley");
     public static final RegistryKey<Biome> LOSSARNACH_VALLEY_RED = MEBiomeKeys.register("lossarnach_valley_red");
     public static final RegistryKey<Biome> LOSSARNACH_VALLEY_ORANGE = MEBiomeKeys.register("lossarnach_valley_orange");
