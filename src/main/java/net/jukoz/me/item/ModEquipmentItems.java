@@ -16,7 +16,6 @@ import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -362,7 +361,7 @@ public class ModEquipmentItems {
                     ModFactions.GONDOR));
 
     public static final Item GONDORIAN_HORSE_ARMOR = registerGeneratedItem("gondorian_horse_armor",
-            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.GONDOR));
+            new CustomHorseArmorItem(ModArmorMaterials.GONDORIAN_HORSE_ARMOR.material(), AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.GONDOR));
 
     //endregion
 
@@ -496,7 +495,7 @@ public class ModEquipmentItems {
                     ModFactions.ROHAN));
 
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
-            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.ROHAN));
+            new CustomHorseArmorItem(ModArmorMaterials.ROHIRRIC_HORSE_ARMOR.material(), AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.ROHAN));
     //endregion
 
     //region DALE
@@ -554,7 +553,7 @@ public class ModEquipmentItems {
                     ModFactions.DALE));
     public static final Item DALISH_HEYDAY_CHESTPLATE = registerArmorPiece("dalish_heyday_chestplate",
             new CustomChestplateItem(ModArmorMaterials.STEEL_T4, new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.DALISH_HEYDAY_CAPE)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.DALISH_HEYDAY_CLOAK)),
                     ModFactions.DALE));
     public static final Item DALISH_HEYDAY_MAIL_COAT = registerArmorPiece("dalish_heyday_mail_coat",
             new CustomLeggingsItem(ModArmorMaterials.STEEL_T4, new Item.Settings(),
@@ -589,14 +588,18 @@ public class ModEquipmentItems {
             new CapeChestplateItem(new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BARDING_SURCOAT)),
                     ModFactions.DALE));
-    public static final Item DALISH_HEYDAY_CAPE = registerCape("dalish_heyday_cape",
+    public static final Item DALISH_HEYDAY_CLOAK = registerCape("dalish_heyday_cloak",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.DALISH_HEYDAY_CAPE)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.DALISH_HEYDAY_CLOAK)),
                     ModFactions.DALE));
     public static final Item BARDING_SERGEANT_CAPE = registerCape("barding_sergeant_cape",
             new CapeChestplateItem(new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BARDING_SERGEANT_CAPE)),
                     ModFactions.DALE));
+
+    public static final Item DALISH_HORSE_ARMOR = registerGeneratedItem("dalish_horse_armor",
+            new CustomHorseArmorItem(ModArmorMaterials.DALISH_HORSE_ARMOR.material(), AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.DALE));
+
     //endregion
 
     //endregion
@@ -985,7 +988,7 @@ public class ModEquipmentItems {
                     ModFactions.LOTHLORIEN));
 
     public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
-            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.LOTHLORIEN));
+            new CustomHorseArmorItem(ModArmorMaterials.LORIEN_HORSE_ARMOR.material(), AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.LOTHLORIEN));
 
     //endregion
     //endregion

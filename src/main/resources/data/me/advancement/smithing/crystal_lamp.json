@@ -1,0 +1,38 @@
+{
+  "parent": "me:smithing/bronze_ingot",
+  "criteria": {
+    "crystal_lamp": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:crystal_lamp"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.crystal_lamp.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:crystal_lamp"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.crystal_lamp.title"
+    }
+  },
+  "requirements": [
+    [
+      "crystal_lamp"
+    ]
+  ]
+}

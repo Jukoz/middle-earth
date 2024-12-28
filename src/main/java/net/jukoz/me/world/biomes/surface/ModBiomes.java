@@ -480,7 +480,6 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         undergroundOres.add(MiscPlacedFeatures.DISK_CLAY);
-        ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addBasaltOre(vegetation);
         ModBiomeFeatures.addBlackSand(vegetation);
         ModBiomeFeatures.addBrownBolete(vegetation);
@@ -1250,7 +1249,6 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addMordorVegetation(generationSettings);
-        ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addPumicePileRare(vegetation);
         ModBiomeFeatures.addAshenStoneBoulder(vegetation);
         ModBiomeFeatures.addPumiceColumnRare(vegetation);
@@ -1288,7 +1286,6 @@ public class ModBiomes {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
-        ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addAshBlockOre(vegetation);
         ModBiomeFeatures.addPumicePileRare(vegetation);
         ModBiomeFeatures.addAshenStoneGravelOre(vegetation);
@@ -1308,7 +1305,6 @@ public class ModBiomes {
 
         addMordorVegetation(generationSettings);
         ModBiomeFeatures.addDeadRushes(vegetation);
-        ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addMireOre(vegetation);
         ModBiomeFeatures.addMudOre(vegetation);
@@ -1457,7 +1453,6 @@ public class ModBiomes {
         ModBiomeFeatures.addAshenDirtOre(vegetation);
         ModBiomeFeatures.addAshenGravelOre(vegetation);
         ModBiomeFeatures.addDyingGrass(vegetation);
-        ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addShriveledShrubs(vegetation);
 
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
@@ -1573,7 +1568,6 @@ public class ModBiomes {
             ModBiomeFeatures.addCommonHeath(vegetation);
             ModBiomeFeatures.addCommonHeather(vegetation);
             ModBiomeFeatures.addRareHeather(vegetation);
-            ModBiomeFeatures.addCommonHeatherBush(vegetation);
             ModBiomeFeatures.addAlliumFlower(vegetation);
             ModBiomeFeatures.addLilacFlowerGrowth(vegetation);
             ModBiomeFeatures.addLilacFlower(vegetation);
@@ -1979,7 +1973,6 @@ public class ModBiomes {
 
         addMordorVegetation(generationSettings);
         ModBiomeFeatures.addGrass(vegetation);
-        ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addAshenDirtOre(vegetation);
         ModBiomeFeatures.addDirtToGrassOre(vegetation);
         ModBiomeFeatures.addShriveledShrubs(vegetation);
@@ -2272,7 +2265,6 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
         vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
         ModBiomeFeatures.addHeather(vegetation);
-        ModBiomeFeatures.addHeatherBush(vegetation);
         ModBiomeFeatures.addCommonWheatGrass(vegetation);
         ModBiomeFeatures.addRareWilderGrass(vegetation);
         ModBiomeFeatures.addWildGarlic(vegetation);

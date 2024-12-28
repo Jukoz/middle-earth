@@ -45,7 +45,9 @@
   "advancements.smithing.burzum_steel.description": "Forge the mighty Búrzum-Steel",
   "advancements.smithing.orcish_treated_anvil.title": "Touched by Shadow",
   "advancements.smithing.orcish_treated_anvil.description": "Craft an Orcish anvil to create Orcish items",
-  "advancements.smithing.dwarven_lantern.title": "Light of Khazad-dûm",
+  "advancements.smithing.crystal_lamp.title": "Light of Khazad-dûm",
+  "advancements.smithing.crystal_lamp.description": "Craft a crystal lamp",
+  "advancements.smithing.dwarven_lantern.title": "A light in the dark",
   "advancements.smithing.dwarven_lantern.description": "Craft a dwarven lantern",
   "advancements.smithing.elven_lantern.title": "Light of the Elves",
   "advancements.smithing.elven_lantern.description": "Light your way like the Quendi",
@@ -391,19 +393,6 @@
   "item.me.lorien_noble_spear": "Lórien Noble Spear",
   "item.me.lorien_bow": "Lórien Bow",
 
-"#Comment:": "Item - Mordor Orc",
-  "item.me.mordor_orc_sword": "Mordor Orc Sword",
-  "item.me.mordor_orc_scimitar": "Mordor Orc Scimitar",
-  "item.me.mordor_orc_dagger": "Mordor Orc Dagger",
-  "item.me.mordor_orc_battleaxe": "Mordor Orc Battleaxe",
-  "item.me.mordor_orc_pike": "Mordor Orc Pike",
-  "item.me.mordor_orc_pickaxe": "Mordor Orc Pickaxe",
-  "item.me.mordor_orc_axe": "Mordor Orc Axe",
-  "item.me.mordor_orc_shovel": "Mordor Orc Shovel",
-  "item.me.mordor_orc_hoe": "Mordor Orc Hoe",
-
-  "item.me.morgul_blade": "Morgul Blade",
-
 "#Comment:": "Item - Rohan",
   "item.me.rohirric_sword": "Rohirric Sword",
   "item.me.rohirric_noble_sword": "Rohirric Noble Sword",
@@ -464,6 +453,18 @@
   "item.me.uruk_hai_spear": "Uruk-Hai Spear",
   "item.me.isengard_orc_axe": "Isengard Orc Axe",
   "item.me.uruk_hai_axe": "Uruk-Hai Axe",
+
+"#Comment:": "Item - Gundabad",
+  "item.me.gundabad_falchion": "Gundabad Falchion",
+  "item.me.gundabad_elite_cleaver": "Gundabad Elite Cleaver",
+  "item.me.gundabad_warblade": "Gundabad Warblade",
+  "item.me.gundabad_elite_scimitar": "Gundabad Elite Scimitar",
+  "item.me.gundabad_shank": "Gundabad Shank",
+  "item.me.gundabad_elite_dagger": "Gundabad Elite Dagger",
+  "item.me.gundabad_spear": "Gundabad Spear",
+  "item.me.gundabad_elite_spear": "Gundabad Elite Spear",
+  "item.me.gundabad_axe": "Gundabad Axe",
+  "item.me.gundabad_elite_battleaxe": "Gundabad Elite Battleaxe",
 
 "#Comment:": "Item - Misc Weapons",
   "item.me.wooden_dagger": "Wooden Dagger",
@@ -568,7 +569,7 @@
   "item.me.horse_lord_cape": "Horse Lord Cape",
 
   "item.me.barding_surcoat": "Barding Surcoat",
-  "item.me.dalish_heyday_cape": "Dalish Heyday Cape",
+  "item.me.dalish_heyday_cloak": "Dalish Heyday Cloak",
   "item.me.barding_sergeant_cape": "Barding Sergeant Cape",
 
   "item.me.erebor_cape": "Erebor Cape",
@@ -1134,6 +1135,18 @@
   "item.me.gondorian_knight_shield": "Gondorian Knight Shield",
   "item.me.gondorian_ornamented_knight_shield": "Gondorian Ornamented Knight Shield",
 
+  "item.me.dalish_blue_braced_shield": "Dalish Blue Braced Shield",
+  "item.me.dalish_barding_braced_shield": "Dalish Barding Braced Shield",
+
+  "item.me.dalish_blue_oval_shield": "Dalish Blue Oval Shield",
+  "item.me.dalish_barding_oval_shield": "Dalish Barding Oval Shield",
+
+  "item.me.dalish_heavy_shield": "Dalish Heavy Shield",
+  "item.me.dalish_barding_heavy_shield": "Dalish Barding Heavy Shield",
+  "item.me.dalish_royal_heavy_shield": "Dalish Royal Heavy Shield",
+
+  "item.me.dalish_royal_round_shield": "Dalish Royal Round Shield",
+
   "item.me.dalish_heyday_round_shield": "Dalish Heyday Round Shield",
 
   "item.me.erebor_shield": "Erebor Shield",
@@ -1142,7 +1155,14 @@
   "item.me.erebor_ornamented_shield": "Erebor Ornamented Shield",
   "item.me.erebor_reinforced_shield": "Erebor Reinforced Shield",
 
-  "item.me.erebor_heavy_shield": "Erebor Heavy Shield",
+  "item.me.erebor_buckler_shield": "Erebor Buckler Shield",
+  "item.me.erebor_tower_shield": "Erebor Tower Shield",
+  "item.me.erebor_reinforced_tower_shield": "Erebor Reinforced Tower Shield",
+  "item.me.erebor_ornamented_tower_shield": "Erebor Ornamented Tower Shield",
+  "item.me.ravenhill_tower_shield": "Ravenhill Tower Shield",
+  "item.me.ravenhill_reinforced_tower_shield": "Ravenhill Reinforced Tower Shield",
+  "item.me.ravenhill_ornamented_tower_shield": "Ravenhill Ornamented Tower Shield",
+  "item.me.shield_of_the_king_under_the_mountain": "Shield Of The King Under The Mountain",
 
   "item.me.lorien_shield": "Lórien Shield",
   "item.me.lorien_laurels_shield": "Lórien Laurels Shield",
@@ -1175,6 +1195,15 @@
   "item.me.uruk_hai_s_rune_shield": "Uruk-Hai S Rune Shield",
   "item.me.uruk_hai_siege_shield": "Uruk-Hai Siege Shield",
 
+  "item.me.gundabad_wooden_shield": "Gundabad Wooden Shield",
+  "item.me.gundabad_painted_wooden_shield": "Gundabad Painted Wooden Shield",
+  "item.me.gundabad_great_eye_painted_wooden_shield": "Gundabad Great Eye Painted Wooden Shield",
+  "item.me.gundabad_peaks_painted_wooden_shield": "Gundabad Peaks Painted Wooden Shield",
+
+  "item.me.gundabad_reinforced_shield": "Gundabad Reinforced Shield",
+
+  "item.me.gundabad_heavy_shield": "Gundabad Heavy Shield",
+
   "item.me.misty_mountains_shield": "Misty Mountains Shield",
 
   "item.me.held_banner": "Held Banner",
@@ -1182,6 +1211,7 @@
 "#Comment:": "Item - Horse Armor",
   "item.me.rohirric_horse_armor": "Rohirric Horse Armor",
   "item.me.gondorian_horse_armor": "Gondorian Horse Armor",
+  "item.me.dalish_horse_armor": "Dalish Horse Armor",
   "item.me.lorien_horse_armor": "Lórien Horse Armor",
 
 "#Comment:": "Item - Food",
@@ -2456,6 +2486,12 @@
   "block.me.chiseled_galonn": "Chiseled Galonn",
   "block.me.chiseled_galonn_tiles": "Chiseled Galonn Tiles",
   "block.me.chiseled_smooth_galonn": "Chiseled Smooth Galonn",
+
+  "block.me.galonn_brickwork": "Galonn Brickwork",
+  "block.me.galonn_brickwork_slab": "Galonn Brickwork Slab",
+  "block.me.galonn_brickwork_vertical_slab": "Galonn Brickwork Vertical Slab",
+  "block.me.galonn_brickwork_stairs": "Galonn Brickwork Stairs",
+  "block.me.galonn_brickwork_wall": "Galonn Brickwork Wall",
 
   "block.me.galonn_pressure_plate": "Galonn Pressure Plate",
   "block.me.galonn_button": "Galonn Button",
@@ -3992,6 +4028,12 @@
   "block.me.mire_bricks_stairs": "Mire Brick Stairs",
   "block.me.mire_bricks_wall": "Mire Brick Wall",
 
+  "block.me.snowy_grass_block": "Snowy Grass Block",
+
+  "block.me.snowy_dirt": "Snowy Dirt",
+  "block.me.snowy_dirt_slab": "Snowy Dirt Slab",
+  "block.me.snowy_dirt_stairs": "Snowy Dirt Stairs",
+
   "block.me.cobbly_dirt": "Cobbly Dirt",
   "block.me.cobbly_dirt_slab": "Cobbly Dirt Slab",
   "block.me.cobbly_dirt_stairs": "Cobbly Dirt Stairs",
@@ -4540,7 +4582,7 @@
   "block.me.white_palm_shingles_stairs": "White Palm Shingles Stairs",
   "block.me.white_palm_shingles_slab": "White Palm Shingles Slab",
   "block.me.white_palm_shingles_vertical_slab": "White Palm Shingles Vertical Slab",
-  "block.me.white_palm_shingles_wall": "Palm Shingles Wall",
+  "block.me.white_palm_shingles_wall": "White Palm Shingles Wall",
   "block.me.white_palm_roofing": "White Palm Roofing",
   "block.me.white_palm_roofing_stairs": "White Palm Roofing Stairs",
   "block.me.white_palm_roofing_slab": "White Palm Roofing Slab",
@@ -5314,6 +5356,7 @@
 
   "block.me.sconce": "Sconce",
   "block.me.gilded_sconce": "Gilded Sconce",
+  "block.me.orcish_sconce": "Orcish Sconce",
 
   "block.me.candle_heap": "Candle Heap",
 
@@ -5360,9 +5403,10 @@
 "#Comment:": "Block - Plants",
   "block.me.brown_grass": "Brown Grass",
   "block.me.green_shrub": "Green Shrub",
+  "block.me.small_dry_shrub": "Small Dry Shrub",
+  "block.me.frozen_shrub": "Frozen Shrub",
   "block.me.mallos": "Mallos",
   "block.me.elanor": "Elanor",
-  "block.me.mordor_lichen": "Mordor Lichen",
   "block.me.morgul_ivy": "Morgul Ivy",
   "block.me.hanging_cobweb": "Hanging Cobweb",
   "block.me.corner_cobweb": "Corner Cobweb",
@@ -5377,11 +5421,14 @@
   "block.me.reeds": "Reeds",
   "block.me.dry_grass": "Dry Grass",
   "block.me.dying_grass": "Dying Grass",
+  "block.me.frozen_grass": "Frozen Grass",
+  "block.me.grim_grass": "Grim Grass",
+  "block.me.temperate_grass": "Temperate Grass",
   "block.me.grass_tuft": "Grass Tuft",
+  "block.me.frozen_tuft": "Frozen Tuft",
   "block.me.heather": "Heather",
   "block.me.dead_heather": "Dead Heather",
   "block.me.dry_heather": "Dry Heather",
-  "block.me.heather_bush": "Heather Bush",
   "block.me.red_heather": "Red Heather",
   "block.me.heath": "Heath",
   "block.me.wheatgrass": "Wheatgrass",
@@ -5412,12 +5459,24 @@
   "block.me.small_flowering_lily_pads": "Small Flowering Lily Pads",
 
   "block.me.azalea_flower_growth": "Azalea Flower Growth",
+  "block.me.dry_growth": "Dry Growth",
+  "block.me.frozen_growth": "Frozen Growth",
+  "block.me.green_growth": "Green Growth",
   "block.me.ivy_growth": "Ivy Growth",
   "block.me.lilac_flower_growth": "Lilac Flower Growth",
   "block.me.pink_flower_growth": "Pink Flower Growth",
   "block.me.red_flower_growth": "Red Flower Growth",
   "block.me.white_flower_growth": "White Flower Growth",
   "block.me.yellow_flower_growth": "Yellow Flower Growth",
+
+  "block.me.light_blue_flowers": "Light Blue Flowers",
+  "block.me.magenta_flowers": "Magenta Flowers",
+  "block.me.orange_flowers": "Orange Flowers",
+  "block.me.pink_flowers": "Pink Flowers",
+  "block.me.purple_flowers": "Purple Flowers",
+  "block.me.red_flowers": "Red Flowers",
+  "block.me.white_flowers": "White Flowers",
+  "block.me.yellow_flowers": "Yellow Flowers",
 
   "block.me.strawberry_bush": "Strawberry Bush",
   "block.me.tan_shrub": "Tan Shrub",
@@ -5748,6 +5807,12 @@
 
 "#Comment:": "Block - Misc",
   "block.me.sticky_snow": "Sticky Snow",
+  "block.me.sticky_ice": "Sticky Ice",
+
+  "block.me.floating_ice": "Floating Ice",
+
+  "block.me.short_icicles": "Short Icicles",
+  "block.me.drooping_icicles": "Drooping Icicles",
 
   "block.me.river_sand": "River Sand",
   "block.me.black_sand": "Black Sand",
@@ -6915,7 +6980,7 @@
   "tooltip.me.horse_lord_cape": "Horse Lord Cape",
 
   "tooltip.me.barding_surcoat": "Barding Surcoat",
-  "tooltip.me.dalish_heyday_cape": "Dalish Heyday Cape",
+  "tooltip.me.dalish_heyday_cloak": "Dalish Heyday Cloak",
   "tooltip.me.barding_sergeant_cape": "Barding Sergeant Cape",
 
   "tooltip.me.erebor_cape": "Erebor Cape",
@@ -7119,6 +7184,7 @@
   "alert.me.hood_up": "Hood up.",
 
   "alert.me.seat.occupied": "This seat is occupied.",
+  "alert.me.seat.space_not_empty": "Block above the seat is not empty.",
 
 "#Comment": "Events",
   "event.me.join.faction.success": "You have joined %s",

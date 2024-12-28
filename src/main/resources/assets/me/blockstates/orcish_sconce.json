@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "me:block/orcish_sconce"
+    },
+    "lit=true": {
+      "model": "me:block/orcish_sconce_lit"
+    }
+  }
+}
