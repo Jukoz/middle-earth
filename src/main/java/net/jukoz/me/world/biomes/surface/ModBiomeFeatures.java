@@ -528,6 +528,9 @@ public class ModBiomeFeatures {
     public static void addPumiceColumnLarge(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PUMICE_COLUMN_LARGE);
     }
+    public static void addBeachGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_BEACH_GRASS);
+    }
     public static void addHaradFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_BROWN_GRASS);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_GREEN_SHRUB);

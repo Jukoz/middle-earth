@@ -114,7 +114,8 @@ public class ModBiomes {
         createIthilienBiome(context, MEBiomeKeys.ITHILIEN_WASTES, true, false);
         createIthilienBiome(context, MEBiomeKeys.ITHILIEN_WASTES_GLADE, true, true);
         createLamedonBiome(context, MEBiomeKeys.LAMEDON);
-        createLebennin(context, MEBiomeKeys.LEBENNIN);
+        createLebennin(context, MEBiomeKeys.LEBENNIN, 0);
+        createLebennin(context, MEBiomeKeys.LEBENNIN_HILLS, 1);
         createGondorRiverSideBiome(context, MEBiomeKeys.LEBENNIN_SHORES);
         createLindonBiome(context, MEBiomeKeys.LINDON);
         createLakeBiome(context, MEBiomeKeys.LONG_LAKE);
@@ -834,6 +835,7 @@ public class ModBiomes {
         addGondorVegetation(generationSettings);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addDioriteBoulder(vegetation);
+        ModBiomeFeatures.addBeachGrass(vegetation);
         ModBiomeFeatures.addDryGrass(vegetation);
 
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
@@ -1096,7 +1098,7 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
-    public static void createLebennin(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+    public static void createLebennin(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
@@ -1110,10 +1112,21 @@ public class ModBiomes {
 
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
         ModBiomeFeatures.addOakBushes(vegetation);
-        ModBiomeFeatures.addVeryRareBirchTrees(vegetation);
-        ModBiomeFeatures.addRareBeechTrees(vegetation);
-        ModBiomeFeatures.addRareOakTrees(vegetation);
-        ModBiomeFeatures.addRareLebethronTrees(vegetation);
+
+        if(step == 0) { // Plains
+            ModBiomeFeatures.addLightBlueFlowers(vegetation);
+            ModBiomeFeatures.addRareBeechTrees(vegetation);
+            ModBiomeFeatures.addRareLebethronTrees(vegetation);
+        } else if (step == 1) { // Hills
+            ModBiomeFeatures.addBlackPineTrees(vegetation);
+            ModBiomeFeatures.addPineTrees(vegetation);
+            ModBiomeFeatures.addSpruceTrees(vegetation);
+            ModBiomeFeatures.addSparseLarchTrees(vegetation);
+            ModBiomeFeatures.addSpruceBushes(vegetation);
+            ModBiomeFeatures.addStoneGrassOre(vegetation);
+            ModBiomeFeatures.addFalseOatgrass(vegetation);
+            ModBiomeFeatures.addBracken(vegetation);
+        }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }

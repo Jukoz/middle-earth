@@ -101,6 +101,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> ITHILIEN_WASTES_GLADE = MEBiomeKeys.register("ithilien_wastes_glade");
     public static final RegistryKey<Biome> LAMEDON = MEBiomeKeys.register("lamedon");
     public static final RegistryKey<Biome> LEBENNIN = MEBiomeKeys.register("lebennin");
+    public static final RegistryKey<Biome> LEBENNIN_HILLS = MEBiomeKeys.register("lebennin_hills");
     public static final RegistryKey<Biome> LEBENNIN_SHORES = MEBiomeKeys.register("lebennin_shores");
     public static final RegistryKey<Biome> LINDON = MEBiomeKeys.register("lindon");
     public static final RegistryKey<Biome> LONELY_MOUNTAIN_BASE = MEBiomeKeys.register("lonely_mountain_base");

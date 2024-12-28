@@ -251,9 +251,11 @@ public class MapBiomeData {
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 9162899, 8043898)));
         // LEBENNIN
         addBiome(new BiomeData(MEBiomeKeys.LEBENNIN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 5883985, 744996)));
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 5883985, 3248206)));
+        addBiome(new BiomeData(MEBiomeKeys.LEBENNIN_HILLS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 7194470, 4693601)));
         addBiome(new BiomeData(MEBiomeKeys.LEBENNIN_SHORES, MEBiomeDataConfigs.sandShores, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(defaultSky, defaultFog, defaultShoreWater, defaultWaterFog, 5883985, 7449969)));
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultShoreWater, defaultWaterFog, 5883985, 4239457)));
         // LINDON
         addBiome(new BiomeData(MEBiomeKeys.LINDON, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
                 new BiomeColorsDTO(8827134, 12771327, defaultWater, defaultWaterFog, 6523989, 5667402)));

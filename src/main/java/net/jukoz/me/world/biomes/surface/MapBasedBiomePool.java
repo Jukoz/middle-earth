@@ -179,6 +179,7 @@ public class MapBasedBiomePool {
         add(new Color(0x3B724D), new MapBasedCustomBiome(MEBiomeKeys.ITHILIEN_WASTES_GLADE, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0xa4ffa4), new MapBasedCustomBiome(MEBiomeKeys.LAMEDON, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x42dc38), new MapBasedCustomBiome(MEBiomeKeys.LEBENNIN, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x5AD952), new MapBasedCustomBiome(MEBiomeKeys.LEBENNIN_HILLS, 17, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x7fd665), new MapBasedCustomBiome(MEBiomeKeys.LEBENNIN_SHORES, 0, MEBiomeDataConfigs.plainsModifier.heightModifier(0.98f).noiseModifier(0.1f)));
         add(new Color(0x43c17d), new MapBasedCustomBiome(MEBiomeKeys.LINDON, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x438564), new MapBasedCustomBiome(MEBiomeKeys.LONG_MARSHES, 3, MEBiomeDataConfigs.landModifier));
@@ -290,6 +291,7 @@ public class MapBasedBiomePool {
         riverbiomes.add(MEBiomeKeys.FROZEN_RIVER);
 
         waterBiomes.add(MEBiomeKeys.BELFALAS_BEACH);
+        waterBiomes.add(MEBiomeKeys.LEBENNIN_SHORES);
         waterBiomes.add(MEBiomeKeys.DEAD_MARSHES_WATER);
         waterBiomes.add(MEBiomeKeys.EMYN_MUIL_POND);
         waterBiomes.add(MEBiomeKeys.FROZEN_POND);
