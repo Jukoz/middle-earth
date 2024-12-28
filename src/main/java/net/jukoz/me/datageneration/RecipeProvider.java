@@ -651,6 +651,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createBrickworkBlockRecipe(exporter, StoneBlockSets.ANDESITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.ANDESITE_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.GRANITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.GRANITE_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.DIORITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.DIORITE_BRICKWORK.base());
+        createBrickworkBlockRecipe(exporter, StoneBlockSets.TUFF_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.TUFF_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.TAN_CLAY_BRICKS.base(), StoneBlockSets.PLASTER.base(), StoneBlockSets.TAN_CLAY_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.MIXED_STONES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.MIXED_STONES_BRICKWORK.base());
 

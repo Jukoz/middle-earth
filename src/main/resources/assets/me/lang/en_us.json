@@ -1897,6 +1897,12 @@
 "#Comment:": "Block - Dolomite",
   "block.me.pointed_dolomite": "Pointed Dolomite",
 
+  "block.me.old_dolomite": "Old Dolomite",
+  "block.me.old_dolomite_slab": "Old Dolomite Slab",
+  "block.me.old_dolomite_vertical_slab": "Old Dolomite Vertical Slab",
+  "block.me.old_dolomite_stairs": "Old Dolomite Stairs",
+  "block.me.old_dolomite_wall": "Old Dolomite Wall",
+  
   "block.me.smooth_dolomite": "Smooth Dolomite",
   "block.me.smooth_dolomite_slab": "Smooth Dolomite Slab",
   "block.me.smooth_dolomite_vertical_slab": "Smooth Dolomite Vertical Slab",
@@ -2853,6 +2859,12 @@
   "block.me.diorite_chair": "Diorite Chair",
   
 "#Comment:": "Block - Tuff",
+  "block.me.old_tuff": "Old Tuff",
+  "block.me.old_tuff_slab": "Old Tuff Slab",
+  "block.me.old_tuff_vertical_slab": "Old Tuff Vertical Slab",
+  "block.me.old_tuff_stairs": "Old Tuff Stairs",
+  "block.me.old_tuff_wall": "Old Tuff Wall",
+  
   "block.me.smooth_tuff": "Smooth Tuff",
   "block.me.smooth_tuff_slab": "Smooth Tuff Slab",
   "block.me.smooth_tuff_vertical_slab": "Smooth Tuff Vertical Slab",
@@ -2927,6 +2939,12 @@
   "block.me.chiseled_tuff_bricks": "Chiseled Tuff Bricks",
   "block.me.chiseled_tuff_tiles": "Chiseled Tuff Tiles",
   "block.me.chiseled_smooth_tuff": "Chiseled Smooth Tuff",
+
+  "block.me.tuff_brickwork": "Tuff Brickwork",
+  "block.me.tuff_brickwork_slab": "Tuff Brickwork Slab",
+  "block.me.tuff_brickwork_vertical_slab": "Tuff Brickwork Vertical Slab",
+  "block.me.tuff_brickwork_stairs": "Tuff Brickwork Stairs",
+  "block.me.tuff_brickwork_wall": "Tuff Brickwork Wall",
 
   "block.me.tuff_carved_window": "Tuff Carved Window",
   "block.me.tuff_carved_window_pane": "Tuff Carved Window Pane",
