@@ -66,8 +66,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     private static final float MIN_HEALTH_BONUS = BroadhoofGoatEntity.getChildHealthBonus(max -> 0);
     private static final float MAX_HEALTH_BONUS = BroadhoofGoatEntity.getChildHealthBonus(max -> max - 1);
     private static final Ingredient TEMPTING_INGREDIENT = Ingredient.fromTag(ItemTags.GOAT_FOOD);
-    private static final double WALKING_SPEED = 0.15;
-    private static final double HUNTING_SPEED = 2;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> HORNS = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> LEFT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -84,7 +82,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, WALKING_SPEED)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 1)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 50.0d)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.4d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
@@ -107,7 +105,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
-        this.goalSelector.add(3, new MeleeAttackGoal(this, HUNTING_SPEED, false));
+        this.goalSelector.add(3, new MeleeAttackGoal(this, 1, false));
         this.goalSelector.add(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 1.0, TEMPTING_INGREDIENT, false));
@@ -297,7 +295,14 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         for(Entity entity : entities) {
             if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
                 entity.damage(entity.getDamageSources().mobAttack(this), getAttackDamage());
-                entity.pushAwayFrom(this);
+
+                Vec3d velocity = this.getVelocity();
+                velocity = velocity.multiply(1.0, 0.0, 1.0);
+                velocity = velocity.normalize();
+                Vec3d vec3d = velocity.multiply(2);
+                if (vec3d.lengthSquared() > 0.0) {
+                    entity.addVelocity(vec3d.x, 0.15, vec3d.z);
+                }
 
                 if(this.random.nextInt(10) == 0 && !this.isTame() && !this.isBaby()) {
                     this.dropHorn();
@@ -313,6 +318,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     @Override
     protected void jump(float strength, Vec3d movementInput) {
         if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
+            this.setChargeTimeout(30);
             double d = this.getJumpVelocity(strength);
             Vec3d vec3d = this.getVelocity().multiply(4);
             this.setVelocity(vec3d.x, d, vec3d.z);
@@ -332,8 +338,13 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     @Override
     public void startJumping(int height) {
         if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
-            this.jumping = true;
-            this.playJumpSound();
+            if(!this.isSitting()) {
+                this.jumping = true;
+                this.playJumpSound();
+            }
+            else {
+                this.setSitting(false);
+            }
         }
         else {
             super.startJumping(height);
@@ -418,7 +429,11 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f);
+        if(!this.isSitting()) {
+            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f);
+        }
+
+        return super.getSaddledSpeed(controllingPlayer);
     }
 
     @Override
