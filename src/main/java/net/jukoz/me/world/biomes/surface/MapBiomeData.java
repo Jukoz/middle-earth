@@ -273,7 +273,15 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.LOSSARNACH, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8240485, 7909996)));
         addBiome(new BiomeData(MEBiomeKeys.LOSSARNACH_VALLEY, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8896601, 9355638)));
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 9551961, 9355638)));
+        addBiome(new BiomeData(MEBiomeKeys.LOSSARNACH_VALLEY_RED, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 12082206, 13977913)));
+        addBiome(new BiomeData(MEBiomeKeys.LOSSARNACH_VALLEY_ORANGE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 14647328, 15761188)));
+        addBiome(new BiomeData(MEBiomeKeys.LOSSARNACH_VALLEY_YELLOW, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 15649303, 16768256)));
+        addBiome(new BiomeData(MEBiomeKeys.LOSSARNACH_VALLEY_GREEN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 11126589, 9289041)));
         // LOTHLORIEN
         addBiome(new BiomeData(MEBiomeKeys.LORIEN_EDGE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
                 new BiomeColorsDTO(defaultSky, 11455105, defaultWater, defaultWaterFog, 10601262, 6202980)));

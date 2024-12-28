@@ -121,6 +121,10 @@ public class ModBiomes {
         createMirkwoodSwampBiome(context, MEBiomeKeys.LONG_MARSHES);
         createLossarnach(context, MEBiomeKeys.LOSSARNACH, 0);
         createLossarnach(context, MEBiomeKeys.LOSSARNACH_VALLEY, 1);
+        createLossarnach(context, MEBiomeKeys.LOSSARNACH_VALLEY_GREEN, 2);
+        createLossarnach(context, MEBiomeKeys.LOSSARNACH_VALLEY_YELLOW, 3);
+        createLossarnach(context, MEBiomeKeys.LOSSARNACH_VALLEY_ORANGE, 4);
+        createLossarnach(context, MEBiomeKeys.LOSSARNACH_VALLEY_RED, 5);
         createLorienEdgeBiome(context, MEBiomeKeys.LORIEN_EDGE);
         createLothlorienBiome(context, MEBiomeKeys.LOTHLORIEN);
         createMinhiriathBiome(context, MEBiomeKeys.MINHIRIATH);
@@ -1166,9 +1170,13 @@ public class ModBiomes {
         ModBiomeFeatures.addWildBellPepper(vegetation);
         ModBiomeFeatures.addWheatGrass(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
-        ModBiomeFeatures.addRareWilderGrass(vegetation);
+        ModBiomeFeatures.addTuftGrass(vegetation);
 
         if(step == 0) { // Plains
+            ModBiomeFeatures.addYellowFlowers(vegetation);
+            ModBiomeFeatures.addOrangeFlowers(vegetation);
+            ModBiomeFeatures.addRedFlowers(vegetation);
+            ModBiomeFeatures.addWhiteFlowers(vegetation);
             ModBiomeFeatures.addLossarnachFlowers(vegetation);
             ModBiomeFeatures.addGravelOre(vegetation);
             ModBiomeFeatures.addDioriteBoulder(vegetation);
@@ -1178,7 +1186,11 @@ public class ModBiomes {
             ModBiomeFeatures.addRareBeechTrees(vegetation);
             ModBiomeFeatures.addRareOakTrees(vegetation);
             ModBiomeFeatures.addRareLebethronTrees(vegetation);
+            ModBiomeFeatures.addWilderGrass(vegetation);
         } else if (step == 1) { // Flower valley
+            ModBiomeFeatures.addYellowFlowers(vegetation);
+            ModBiomeFeatures.addOrangeFlowers(vegetation);
+            ModBiomeFeatures.addRedFlowers(vegetation);
             ModBiomeFeatures.addLossarnachFlowersCommon(vegetation);
             ModBiomeFeatures.addWildPotato(vegetation);
             ModBiomeFeatures.addSparsePineTrees(vegetation);
@@ -1186,8 +1198,27 @@ public class ModBiomes {
             ModBiomeFeatures.addRareOakTrees(vegetation);
             ModBiomeFeatures.addRareLebethronTrees(vegetation);
             ModBiomeFeatures.addChestnutTrees(vegetation);
-        } else { // Forest
-
+            ModBiomeFeatures.addWilderGrass(vegetation);
+        } else if (step >= 2) { // Forest
+            if (step == 2) {
+                ModBiomeFeatures.addMapleTree(vegetation);
+                ModBiomeFeatures.addWilderGrass(vegetation);
+            } else if(step == 3) { // Yellow
+                ModBiomeFeatures.addYellowMapleTree(vegetation);
+                ModBiomeFeatures.addRareWilderGrass(vegetation);
+            } else if (step == 4) { // Orange
+                ModBiomeFeatures.addOrangeMapleTree(vegetation);
+            } else if (step == 5) { // Red
+                ModBiomeFeatures.addRedMapleTree(vegetation);
+            }
+            ModBiomeFeatures.addSparseWheatGrass(vegetation);
+            ModBiomeFeatures.addCoarseDirtOre(vegetation);
+            ModBiomeFeatures.addFrequentOakTrees(vegetation);
+            ModBiomeFeatures.addRareOakTrees(vegetation);
+            ModBiomeFeatures.addOakTrees(vegetation);
+            ModBiomeFeatures.addCommonOakTrees(vegetation);
+            ModBiomeFeatures.addMegaOakTrees(vegetation);
+            ModBiomeFeatures.addCommonOakBush(vegetation);
         }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);

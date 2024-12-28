@@ -184,6 +184,10 @@ public class MapBasedBiomePool {
         add(new Color(0x438564), new MapBasedCustomBiome(MEBiomeKeys.LONG_MARSHES, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x48c440), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x6bc35c), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_VALLEY, 7, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xA9C35C), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_VALLEY_RED, 7, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x9AC35C), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_VALLEY_ORANGE, 7, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x8AC35C), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_VALLEY_YELLOW, 7, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x72C35C), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_VALLEY_GREEN, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0xcdce60), new MapBasedCustomBiome(MEBiomeKeys.LORIEN_EDGE, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0xddd81c), new MapBasedCustomBiome(MEBiomeKeys.LOTHLORIEN, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x91a46d), new MapBasedCustomBiome(MEBiomeKeys.MINHIRIATH, 4, MEBiomeDataConfigs.landModifier));

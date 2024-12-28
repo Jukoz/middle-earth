@@ -46,6 +46,17 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.GONDOR_FOREST)
                 //.addSubBiomeData(0.39f, 2.01f, MEBiomeKeys.GONDOR_HILL)
         );
+        subBiomesMap.put(MEBiomeKeys.LOSSARNACH_VALLEY, new SubBiome(64, 0.28f)
+                .addSubBiomeData(-1.0f, -0.4f, MEBiomeKeys.LOSSARNACH_VALLEY_RED)
+                .addSubBiomeData(-0.4f, -0.26f, MEBiomeKeys.LOSSARNACH_VALLEY_ORANGE)
+                .addSubBiomeData(-0.26f, -0.11f, MEBiomeKeys.LOSSARNACH_VALLEY_YELLOW)
+                .addSubBiomeData(-0.11f, -0.09f, MEBiomeKeys.LOSSARNACH_VALLEY_GREEN)
+
+                .addSubBiomeData(0.09f, 0.11f, MEBiomeKeys.LOSSARNACH_VALLEY_GREEN)
+                .addSubBiomeData(0.11f, 0.26f, MEBiomeKeys.LOSSARNACH_VALLEY_YELLOW)
+                .addSubBiomeData(0.26f, 0.4f, MEBiomeKeys.LOSSARNACH_VALLEY_ORANGE)
+                .addSubBiomeData(0.4f, 2.01f, MEBiomeKeys.LOSSARNACH_VALLEY_RED)
+        );
         subBiomesMap.put(MEBiomeKeys.LEBENNIN, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.GONDOR_FOREST)
                 //.addSubBiomeData(0.39f, 2.01f, MEBiomeKeys.GONDOR_HILL)

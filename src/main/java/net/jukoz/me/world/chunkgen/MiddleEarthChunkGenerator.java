@@ -166,6 +166,10 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.LORIEN_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH_VALLEY),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH_VALLEY_RED),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH_VALLEY_ORANGE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH_VALLEY_YELLOW),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH_VALLEY_GREEN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOTHLORIEN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OASIS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.POND),
@@ -325,7 +329,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 if(SubBiomes.isSubBiome(customHeightBiomeHeightData.getBiomeKey())) {
                     SubBiome subBiome = SubBiomes.getSubBiomeFromChild(customHeightBiomeHeightData.getBiomeKey());
                     if(subBiome != null) {
-                        double perlin = ModBiomeSource.getSubBiomeNoise(posX, posZ);
+                        double perlin = ModBiomeSource.getSubBiomeNoise(posX, posZ, subBiome.getFrequency());
                         double additionalHeight = Math.max(subBiome.getAdditionalHeight((float) perlin) - 1, 0);
                         additionalHeight *= MiddleEarthMapRuntime.getInstance().getEdge(posX, posZ);
                         height += (float) additionalHeight;

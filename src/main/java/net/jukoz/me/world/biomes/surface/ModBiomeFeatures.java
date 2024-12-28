@@ -143,6 +143,30 @@ public class ModBiomeFeatures {
         vegetation.add(ModTreePlacedFeatures.SILVER_ORANGE_MAPLE_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.SILVER_RED_MAPLE_PLACED_TREE_KEY);
     }
+    public static void addMapleTree(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SCARCE_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SCARCE_SILVER_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SILVER_MAPLE_PLACED_TREE_KEY);
+    }
+    public static void addYellowMapleTree(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SCARCE_YELLOW_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SCARCE_SILVER_YELLOW_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.YELLOW_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SILVER_YELLOW_MAPLE_PLACED_TREE_KEY);
+    }
+    public static void addOrangeMapleTree(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SCARCE_ORANGE_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SCARCE_SILVER_ORANGE_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.ORANGE_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SILVER_ORANGE_MAPLE_PLACED_TREE_KEY);
+    }
+    public static void addRedMapleTree(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SCARCE_RED_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SCARCE_SILVER_RED_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.RED_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SILVER_RED_MAPLE_PLACED_TREE_KEY);
+    }
     public static void addScarceMapleTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.SCARCE_MAPLE_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.SCARCE_YELLOW_MAPLE_PLACED_TREE_KEY);
@@ -172,6 +196,9 @@ public class ModBiomeFeatures {
     }
     public static void addCommonOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.COMMON_OAK_PLACED_TREE_KEY);
+    }
+    public static void addFrequentOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.ABUNDANT_OAK_PLACED_TREE_KEY);
     }
     public static void addRareOakBushes(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.OAK_BUSH_RARE_PLACED_TREE_KEY);

@@ -8,14 +8,19 @@ import java.util.ArrayList;
 public class SubBiome {
     public ArrayList<SubBiomeData> subBiomesData;
     private float additionalHeight;
+    private float frequency;
 
     public SubBiome() {
         this(56);
     }
 
     public SubBiome(float additionalHeight) {
+        this(additionalHeight, 1);
+    }
+    public SubBiome(float additionalHeight, float frequency) {
         this.subBiomesData = new ArrayList<>();
         this.additionalHeight = additionalHeight;
+        this.frequency = frequency;
     }
 
     public SubBiome addSubBiomeData(float noiseMin, float noiseMax, RegistryKey<Biome> biome) {
@@ -49,6 +54,10 @@ public class SubBiome {
             if(biomeRegistryKey == subBiomeData.biome) return true;
         }
         return false;
+    }
+
+    public float getFrequency() {
+        return frequency;
     }
 
     public float getAdditionalHeight(float value) {
