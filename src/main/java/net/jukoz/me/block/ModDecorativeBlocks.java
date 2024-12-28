@@ -137,6 +137,16 @@ public class ModDecorativeBlocks {
     public static final Block WHITE_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("white_wattle_framed_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
+    public static final Block TUFF_CARVED_WINDOW = registerBlockWithItem("tuff_carved_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block TUFF_CARVED_WINDOW_PANE = registerBlockWithItem("tuff_carved_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block BLACKSTONE_CARVED_WINDOW = registerBlockWithItem("blackstone_carved_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block BLACKSTONE_CARVED_WINDOW_PANE = registerBlockWithItem("blackstone_carved_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
     public static final Block GONLUIN_CARVED_WINDOW = registerBlockWithItem("gonluin_carved_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
     public static final Block GONLUIN_CARVED_WINDOW_PANE = registerBlockWithItem("gonluin_carved_window_pane",
@@ -145,11 +155,6 @@ public class ModDecorativeBlocks {
     public static final Block MEDGON_CARVED_WINDOW = registerBlockWithItem("medgon_carved_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
     public static final Block MEDGON_CARVED_WINDOW_PANE = registerBlockWithItem("medgon_carved_window_pane",
-            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
-
-    public static final Block TUFF_CARVED_WINDOW = registerBlockWithItem("tuff_carved_window",
-            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
-    public static final Block TUFF_CARVED_WINDOW_PANE = registerBlockWithItem("tuff_carved_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
     public static final Block IZHERABAN_CARVED_WINDOW = registerBlockWithItem("izheraban_carved_window",

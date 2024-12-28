@@ -569,6 +569,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(Blocks.TUFF))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BLACKSTONE_CARVED_WINDOW, 2)
+                .pattern("EEE")
+                .pattern("EGE")
+                .pattern("EEE")
+                .input('E', Blocks.BLACKSTONE)
+                .input('G', Items.GLASS)
+                .criterion(FabricRecipeProvider.hasItem(Blocks.BLACKSTONE),
+                        FabricRecipeProvider.conditionsFromItem(Blocks.BLACKSTONE))
+                .offerTo(exporter);
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.IZHERABAN_CARVED_WINDOW, 2)
                 .pattern("EEE")
                 .pattern("EGE")
@@ -652,6 +662,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createBrickworkBlockRecipe(exporter, StoneBlockSets.GRANITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.GRANITE_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.DIORITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.DIORITE_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.TUFF_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.TUFF_BRICKWORK.base());
+        createBrickworkBlockRecipe(exporter, StoneBlockSets.BLACKSTONE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.BLACKSTONE_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.TAN_CLAY_BRICKS.base(), StoneBlockSets.PLASTER.base(), StoneBlockSets.TAN_CLAY_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.MIXED_STONES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.MIXED_STONES_BRICKWORK.base());
 

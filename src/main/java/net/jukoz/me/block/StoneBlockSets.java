@@ -378,8 +378,21 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet OLD_TUFF = registerStoneSet("old_tuff", Blocks.TUFF.getHardness(), Blocks.TUFF.getBlastResistance(), null);
 
-    public static SimpleBlockSet BLACKSTONE_TILES = registerStoneSet("blackstone_tiles", Blocks.POLISHED_BLACKSTONE_BRICKS.getHardness(), Blocks.POLISHED_BLACKSTONE_BRICKS.getBlastResistance(), Blocks.POLISHED_BLACKSTONE_BRICKS);
-    public static SimpleBlockSet CRACKED_BLACKSTONE_TILES = registerStoneSet("cracked_blackstone_tiles", Blocks.POLISHED_BLACKSTONE_BRICKS.getHardness(), Blocks.POLISHED_BLACKSTONE_BRICKS.getBlastResistance(), BLACKSTONE_TILES.base);
+    public static SimpleBlockSet SMOOTH_BLACKSTONE = registerStoneSet("smooth_blackstone", Blocks.BLACKSTONE.getHardness(), Blocks.BLACKSTONE.getBlastResistance(), Blocks.BLACKSTONE);
+    public static SimpleBlockSet MOSSY_SMOOTH_BLACKSTONE = registerStoneSet("mossy_smooth_blackstone", SMOOTH_BLACKSTONE.base.getHardness(), SMOOTH_BLACKSTONE.base.getBlastResistance(), SMOOTH_BLACKSTONE.base);
+    public static SimpleBlockSet CRACKED_SMOOTH_BLACKSTONE = registerStoneSet("cracked_smooth_blackstone", SMOOTH_BLACKSTONE.base.getHardness(), SMOOTH_BLACKSTONE.base.getBlastResistance(), SMOOTH_BLACKSTONE.base);
+    public static SimpleBlockSet COBBLED_BLACKSTONE = registerStoneSet("cobbled_blackstone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, Blocks.BLACKSTONE);
+    public static SimpleBlockSet MOSSY_COBBLED_BLACKSTONE = registerStoneSet("mossy_cobbled_blackstone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, COBBLED_BLACKSTONE.base);
+    public static SimpleBlockSet MOSSY_POLISHED_BLACKSTONE = registerStoneSet("mossy_polished_blackstone", Blocks.BLACKSTONE.getHardness(), Blocks.BLACKSTONE.getBlastResistance(), Blocks.POLISHED_BLACKSTONE);
+    public static SimpleBlockSet CRACKED_POLISHED_BLACKSTONE = registerStoneSet("cracked_polished_blackstone", Blocks.BLACKSTONE.getHardness(), Blocks.BLACKSTONE.getBlastResistance(), Blocks.POLISHED_BLACKSTONE);
+    public static SimpleBlockSet MOSSY_POLISHED_BLACKSTONE_BRICKS = registerStoneSet("mossy_polished_blackstone_bricks", COBBLED_BLACKSTONE.base.getHardness(), COBBLED_BLACKSTONE.base.getBlastResistance(), Blocks.POLISHED_BLACKSTONE_BRICKS);
+    public static SimpleBlockSet BLACKSTONE_TILES = registerStoneSet("blackstone_tiles", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, Blocks.POLISHED_BLACKSTONE_BRICKS);
+    public static SimpleBlockSet MOSSY_BLACKSTONE_TILES = registerStoneSet("mossy_blackstone_tiles", COBBLED_BLACKSTONE.base.getHardness(), COBBLED_BLACKSTONE.base.getBlastResistance(), BLACKSTONE_TILES.base);
+    public static SimpleBlockSet CRACKED_BLACKSTONE_TILES = registerStoneSet("cracked_blackstone_tiles", COBBLED_BLACKSTONE.base.getHardness(), COBBLED_BLACKSTONE.base.getBlastResistance(), BLACKSTONE_TILES.base);
+
+    public static SimpleBlockSet BLACKSTONE_BRICKWORK = registerStoneSet("blackstone_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
+
+    public static SimpleBlockSet OLD_BLACKSTONE = registerStoneSet("old_blackstone", Blocks.BLACKSTONE.getHardness(), Blocks.BLACKSTONE.getBlastResistance(), null);
 
     public static SimpleBlockSet MOSSY_SMOOTH_BASALT = registerStoneSet("mossy_smooth_basalt", Blocks.SMOOTH_BASALT.getHardness(), Blocks.SMOOTH_BASALT.getBlastResistance(), Blocks.SMOOTH_BASALT);
     public static SimpleBlockSet CRACKED_SMOOTH_BASALT = registerStoneSet("cracked_smooth_basalt", Blocks.SMOOTH_BASALT.getHardness(), Blocks.SMOOTH_BASALT.getBlastResistance(), Blocks.SMOOTH_BASALT);
@@ -823,8 +836,21 @@ public class StoneBlockSets {
 
             TUFF_BRICKWORK,
 
+            SMOOTH_BLACKSTONE,
+            MOSSY_SMOOTH_BLACKSTONE,
+            CRACKED_SMOOTH_BLACKSTONE,
+            COBBLED_BLACKSTONE,
+            MOSSY_COBBLED_BLACKSTONE,
+            MOSSY_POLISHED_BLACKSTONE_BRICKS,
             BLACKSTONE_TILES,
+            MOSSY_BLACKSTONE_TILES,
             CRACKED_BLACKSTONE_TILES,
+            MOSSY_POLISHED_BLACKSTONE,
+            CRACKED_POLISHED_BLACKSTONE,
+
+            OLD_BLACKSTONE,
+
+            BLACKSTONE_BRICKWORK,
 
             MOSSY_SMOOTH_BASALT,
             CRACKED_SMOOTH_BASALT,
