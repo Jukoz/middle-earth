@@ -1,7 +1,7 @@
 package net.jukoz.me.item.utils;
 
 import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
-import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeaponItem;
 import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingLongswordWeaponItem;
@@ -9,6 +9,7 @@ import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomLongswordWeaponIt
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import net.jukoz.me.item.items.PipeItem;
 
 public class ModModelPredicateProvider {
 
@@ -18,6 +19,7 @@ public class ModModelPredicateProvider {
         registerBowModel();
         registerArtefactModels();
         registerGlowingArtefactModels();
+        registerPipeModels();
     }
 
     private static void registerBowModel() {
@@ -26,6 +28,14 @@ public class ModModelPredicateProvider {
         registerBow(ModWeaponItems.LORIEN_BOW);
         registerBow(ModWeaponItems.ROHIRRIC_BOW);
         //registerBow(ModWeaponItems.UMBAR_BOW);
+    }
+    private static void registerPipeModels() {
+        registerPipeModel(ModToolItems.CLAYSHIRE_PIPE);
+        registerPipeModel(ModToolItems.PIPE);
+        registerPipeModel(ModToolItems.RIVERBEND_PIPE);
+        registerPipeModel(ModToolItems.BRIMMINGBEND_PIPE);
+        registerPipeModel(ModToolItems.LONGBOTTOM_PIPE);
+
     }
 
     private static void registerArtefactModels() {
@@ -83,5 +93,15 @@ public class ModModelPredicateProvider {
             ModelPredicateProviderRegistry.register(item, Identifier.of("glowing"),
                     (stack, world, entity, seed) -> ArtefactCustomGlowingDaggerWeaponItem.shouldBeGlowing(world, entity) ? 1.0F : 0.0F);
         }
+    }
+
+    private static void registerPipeModel(Item pipe){
+        ModelPredicateProviderRegistry.register(pipe, Identifier.of("smoking"),
+                (stack, world, entity, seed) -> {
+                    if (stack.getItem() instanceof PipeItem pipeItem) {
+                        return pipeItem.isSmoking() ? 1.0F : 0.0F;
+                    }
+                    return 0.0F;
+                });
     }
 }

@@ -290,6 +290,11 @@
   "item.me.mithril_axe": "Mithril Axe",
   "item.me.mithril_shovel": "Mithril Shovel",
   "item.me.mithril_hoe": "Mithril Hoe",
+  "item.me.pipe": "Pipe",
+  "item.me.clayshire_pipe": "Clay Pipe",
+  "item.me.riverbend_pipe": "Riverbend Pipe",
+  "item.me.brimmingbend_pipe": "Brimmingbend Pipe",
+  "item.me.longbottom_pipe": "Longbottom Pipe",
 
   "item.me.bronze_bucket": "Bronze Bucket",
   "item.me.broken_bronze_bucket": "Broken Bronze Bucket",
@@ -1267,6 +1272,7 @@
 
 "#Comment:": "Item - Resources",
   "item.me.pipeweed": "Pipeweed",
+  "item.me.dried_pipeweed": "Dried Pipeweed",
   "item.me.flax": "Flax",
   "item.me.red_agate_shard": "Red Agate Shard",
   "item.me.citrine_shard": "Citrine Shard",
@@ -6985,9 +6991,12 @@
   "block.me.banner.snail.yellow": "Yellow Snail",
 
 "#Comment": "SOUNDS",
-  "sounds.me.bellows_push": "Bellows Push",
-  "sounds.me.nazgul_fade": "Nazgûl Fading",
-  "sounds.me.nazgul_scream": "Nazgûl Screaming",
+  "sounds.me.bellows_push": "Bellows blowing",
+  "sounds.me.nazgul_fade": "Nazgûl fading",
+  "sounds.me.nazgul_scream": "Nazgûl screaming",
+  "sounds.me.pipe_refill": "Pipe refills",
+  "sounds.me.pipe_exhale": "Pipe exhales",
+  "sounds.me.pipe_ignite": "Pipe ignites",
 
 "#Comment": "GUI",
   "screen.me.forge": "Forge",
