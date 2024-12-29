@@ -176,6 +176,9 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent( 15256475)),
                     ModFactions.NONE));
+    public static final Item KETTLE_HAT = registerCustomModelArmorPiece("kettle_hat",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings(),
+                    ModFactions.NONE));
 
     public static final Item GAMBESON = registerDyeableArmorPiece("gambeson",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
@@ -205,8 +208,14 @@ public class ModEquipmentItems {
     public static final Item MAIL_COIF = registerArmorPiece("mail_coif",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.NONE));
+    public static final Item CLOSED_MAIL_COIF = registerArmorPiece("closed_mail_coif",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModFactions.NONE));
 
-    public static final Item KETTLE_HAT = registerCustomModelArmorPiece("kettle_hat",
+    public static final Item KETTLE_HAT_WITH_COIF = registerCustomModelArmorPiece("kettle_hat_with_coif",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModFactions.NONE));
+    public static final Item KETTLE_HAT_WITH_CLOSED_COIF = registerCustomModelArmorPiece("kettle_hat_with_closed_coif",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.NONE));
 
@@ -700,16 +709,7 @@ public class ModEquipmentItems {
     public static final Item EREBOR_GILDED_MAIL_COIF = registerArmorPiece("erebor_gilded_mail_coif",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModSubFactions.EREBOR));
-    public static final Item EREBOR_CLOSED_MAIL_COIF = registerArmorPiece("erebor_closed_mail_coif",
-            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
-                    ModSubFactions.EREBOR));
-    public static final Item EREBOR_REINFORCED_LEATHER_HELMET = registerArmorPiece("erebor_reinforced_leather_helmet",
-            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
-                    ModSubFactions.EREBOR));
     public static final Item EREBOR_HELMET = registerArmorPiece("erebor_helmet",
-            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
-                    ModSubFactions.EREBOR));
-    public static final Item EREBOR_HELMET_WITH_MAIL_COIF = registerArmorPiece("erebor_helmet_with_mail_coif",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModSubFactions.EREBOR));
 
@@ -738,9 +738,7 @@ public class ModEquipmentItems {
     public static final Item RAVENHILL_HELMET = registerArmorPiece("ravenhill_helmet",
             new CustomHelmetItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
                     ModSubFactions.EREBOR));
-    public static final Item RAVENHILL_REINFORCED_HELMET = registerArmorPiece("ravenhill_reinforced_helmet",
-            new CustomHelmetItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
-                    ModSubFactions.EREBOR));
+
     public static final Item RAVENHILL_GILDED_HELMET = registerArmorPiece("ravenhill_gilded_helmet",
             new CustomHelmetItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
                     ModSubFactions.EREBOR));

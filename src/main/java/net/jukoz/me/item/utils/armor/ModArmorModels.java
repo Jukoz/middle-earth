@@ -17,6 +17,8 @@ public class ModArmorModels {
         STRAW_HAT(ModEquipmentItems.STRAW_HAT, new HatArmorAddonModel<>(HatArmorAddonModel.getTexturedModelData().createModel())),
         WOVEN_HAT(ModEquipmentItems.WOVEN_HAT, new HatArmorAddonModel<>(HatArmorAddonModel.getTexturedModelData().createModel())),
         KETTLE_HAT(ModEquipmentItems.KETTLE_HAT, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        KETTLE_HAT_WITH_COIF(ModEquipmentItems.KETTLE_HAT_WITH_COIF, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        KETTLE_HAT_WITH_CLOSED_COIF(ModEquipmentItems.KETTLE_HAT_WITH_CLOSED_COIF, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
         SALLET(ModEquipmentItems.SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
 
         SHIRRIF_HAT(ModEquipmentItems.SHIRRIFF_HAT, new HatArmorAddonModel<>(HatArmorAddonModel.getTexturedModelData().createModel())),
