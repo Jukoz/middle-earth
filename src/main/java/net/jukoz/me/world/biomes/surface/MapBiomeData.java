@@ -65,6 +65,8 @@ public class MapBiomeData {
         // BELFALAS
         addBiome(new BiomeData(MEBiomeKeys.BELFALAS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 5951101, 5485154)));
+        addBiome(new BiomeData(MEBiomeKeys.BELFALAS_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 5291633, 5221213)));
         addBiome(new BiomeData(MEBiomeKeys.BELFALAS_BEACH, MEBiomeDataConfigs.whiteSandShores, MEBiomeDataConfigs.gondorLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultShoreWater, defaultWaterFog, 7323271, 6665073)));
         addBiome(new BiomeData(MEBiomeKeys.BELFALAS_HILLS, MEBiomeDataConfigs.whiteMountains, MEBiomeDataConfigs.gondorLayers,

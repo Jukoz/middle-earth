@@ -74,6 +74,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.BARROW_DOWNS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BELERIAND_ISLAND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BELFALAS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.BELFALAS_FOREST),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BELFALAS_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BELFALAS_BEACH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BLACKROOT_VALE),

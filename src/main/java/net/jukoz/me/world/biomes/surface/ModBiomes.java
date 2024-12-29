@@ -31,9 +31,10 @@ public class ModBiomes {
         createAnorienBiome(context, MEBiomeKeys.ANORIEN_FOOTHILLS);
         createBarrowDownsBiome(context, MEBiomeKeys.BARROW_DOWNS);
         createBeleriandIslandBiome(context, MEBiomeKeys.BELERIAND_ISLAND);
-        createBelfalasBiome(context, MEBiomeKeys.BELFALAS, false);
+        createBelfalasBiome(context, MEBiomeKeys.BELFALAS, 0);
         createBelfalasShoresBiome(context, MEBiomeKeys.BELFALAS_BEACH);
-        createBelfalasBiome(context, MEBiomeKeys.BELFALAS_HILLS, true);
+        createBelfalasBiome(context, MEBiomeKeys.BELFALAS_HILLS, 1);
+        createBelfalasBiome(context, MEBiomeKeys.BELFALAS_FOREST, 2);
         createBlackRootVale(context, MEBiomeKeys.BLACKROOT_VALE, false);
         createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, 0);
         createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS_BASE, 1);
@@ -329,7 +330,7 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
-    public static void createBelfalasBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, boolean hills) {
+    public static void createBelfalasBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
         ModSpawnSettingsBuilder.addSwan(spawnSettings);
@@ -341,7 +342,13 @@ public class ModBiomes {
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addCalciteBoulder(vegetation);
 
-        if(hills) {
+        if(step == 0) { // Plains
+            addGondorVegetation(generationSettings);
+            vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+            ModBiomeFeatures.addRareBirchTrees(vegetation);
+            ModBiomeFeatures.addRareOakBushes(vegetation);
+            ModBiomeFeatures.addLightBlueFlowers(vegetation);
+        } else if(step == 1) { // Hills
             addNordicVegetation(generationSettings);
             ModBiomeFeatures.addCalciteOre(vegetation);
             ModBiomeFeatures.addDioriteOre(vegetation);
@@ -351,12 +358,19 @@ public class ModBiomes {
             ModBiomeFeatures.addPineTrees(vegetation);
             ModBiomeFeatures.addRareSpruceTrees(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
-        } else {
-            addGondorVegetation(generationSettings);
-            vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+        } else if (step == 2) { // Forest
+            ModSpawnSettingsBuilder.addDeer(spawnSettings);
+            ModBiomeFeatures.addOakBushes(vegetation);
+            ModBiomeFeatures.addGravelOre(vegetation);
+            ModBiomeFeatures.addLebethronTrees(vegetation);
             ModBiomeFeatures.addRareBirchTrees(vegetation);
-            ModBiomeFeatures.addRareLebethronTrees(vegetation);
-            ModBiomeFeatures.addRareOakBushes(vegetation);
+            ModBiomeFeatures.addBirchTrees(vegetation);
+            ModBiomeFeatures.addBeechTrees(vegetation);
+            ModBiomeFeatures.addForestMoss(vegetation);
+            ModBiomeFeatures.addFalseOatgrass(vegetation);
+            ModBiomeFeatures.addPodzolOre(vegetation);
+            ModBiomeFeatures.addHollyTrees(vegetation);
+            ModBiomeFeatures.addWhiteMushroom(vegetation);
         }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
@@ -367,9 +381,12 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addGondorVegetation(generationSettings);
+        ModBiomeFeatures.addBeachGrass(vegetation);
         ModBiomeFeatures.addDioriteBoulder(vegetation);
         ModBiomeFeatures.addHorokaka(vegetation);
         ModBiomeFeatures.addRareOakBushes(vegetation);
+        ModBiomeFeatures.addWhitePalmTree(vegetation);
+        ModBiomeFeatures.addWhiteFlowers(vegetation);
 
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
 

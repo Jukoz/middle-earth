@@ -84,6 +84,7 @@ public class ModTreePlacedFeatures {
     public static final RegistryKey<PlacedFeature> MEGA_OAK_COMMON_PLACED_TREE_KEY = registerKey("mega_oak_common_tree");
     public static final RegistryKey<PlacedFeature> PALM_PLACED_TREE_KEY = registerKey("palm_tree");
     public static final RegistryKey<PlacedFeature> WHITE_PALM_PLACED_TREE_KEY = registerKey("white_palm_tree");
+    public static final RegistryKey<PlacedFeature> UNCOMMON_WHITE_PALM_PLACED_TREE_KEY = registerKey("uncommon_white_palm_tree");
     public static final RegistryKey<PlacedFeature> ABUNDANT_PINE_PLACED_TREE_KEY = registerKey("abundant_pine_tree");
     public static final RegistryKey<PlacedFeature> COMMON_PINE_PLACED_TREE_KEY = registerKey("common_pine_tree");
     public static final RegistryKey<PlacedFeature> PINE_PLACED_TREE_KEY = registerKey("pine_tree");
@@ -346,6 +347,8 @@ public class ModTreePlacedFeatures {
         register(context, WHITE_PALM_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(specialTree,
                         Blocks.OAK_SAPLING));
+        register(context, UNCOMMON_WHITE_PALM_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY),
+                VegetationPlacedFeatures.treeModifiers(rareTree));
 
         register(context, ABUNDANT_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(foothillsTree,

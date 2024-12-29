@@ -232,6 +232,9 @@ public class ModBiomeFeatures {
         vegetation.add(ModTreePlacedFeatures.PALM_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.WHITE_PALM_PLACED_TREE_KEY);
     }
+    public static void addWhitePalmTree(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.UNCOMMON_WHITE_PALM_PLACED_TREE_KEY);
+    }
 
     public static void addAbundantPineTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.ABUNDANT_PINE_PLACED_TREE_KEY);
