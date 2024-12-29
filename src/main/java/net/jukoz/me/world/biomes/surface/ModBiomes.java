@@ -78,7 +78,7 @@ public class ModBiomes {
         createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 2);
         createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, 1);
         createEregionBiome(context, MEBiomeKeys.EREGION);
-        createSwampAnduin(context,MEBiomeKeys.ETHIR_ANDUIN);
+        createEthirAnduin(context,MEBiomeKeys.ETHIR_ANDUIN);
         createFangornBiome(context, MEBiomeKeys.FANGORN);
         createMistyMountainsBiome(context, MEBiomeKeys.FANGORN_FOOTHILLS, 0);
         createMistyMountainsBiome(context, MEBiomeKeys.FANUIDHOL_BASE, 0);
@@ -164,7 +164,7 @@ public class ModBiomes {
         createLakeBiome(context, MEBiomeKeys.NEN_HITHOEL);
         createTrollshawsBiome(context, MEBiomeKeys.NEN_HITHOEL_FOREST);
         createTrollshawsBiome(context, MEBiomeKeys.NEN_HITHOEL_SHORES);
-        createSwampAnduin(context, MEBiomeKeys.NINDALF);
+        createNindalf(context, MEBiomeKeys.NINDALF);
         createNorthDownsBiome(context, MEBiomeKeys.NORTH_DOWNS);
         createNorthDunlandBiome(context, MEBiomeKeys.NORTHERN_DUNLAND, true);
         createMirkwoodSwampBiome(context, MEBiomeKeys.NORTHERN_MIRKWOOD_SWAMP);
@@ -735,7 +735,7 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
-    public static void createSwampAnduin(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+    public static void createEthirAnduin(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
         ModSpawnSettingsBuilder.addSwampMobs(spawnSettings);
@@ -756,8 +756,49 @@ public class ModBiomes {
         ModBiomeFeatures.addRareWilderGrass(vegetation);
         ModBiomeFeatures.addReedsFoliage(vegetation);
         ModBiomeFeatures.addWheatGrass(vegetation);
+        ModBiomeFeatures.addOakVinesTrees(vegetation);
+
+        ModBiomeFeatures.addCommonTallGrass(undergroundOres);
+        ModBiomeFeatures.addBulrushAndCattail(undergroundOres);
+        ModBiomeFeatures.addDuckweed(undergroundOres);
+        ModBiomeFeatures.addLilyPads(undergroundOres);
+        ModBiomeFeatures.addSmallLilyPads(undergroundOres);
+
+        vegetation.add(VegetationPlacedFeatures.TREES_MANGROVE);
+
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
+    }
+
+    public static void createNindalf(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addSwampMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        ModBiomeFeatures.addDisks(undergroundOres);
+        ModBiomeFeatures.addGrass(vegetation);
+        vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
+        vegetation.add(VegetationPlacedFeatures.FLOWER_SWAMP);
+        vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE_SWAMP);
+        ModBiomeFeatures.addWaterDelta(vegetation);
+        ModBiomeFeatures.addAbundantMudOre(vegetation);
+        ModBiomeFeatures.addDeadRushes(vegetation);
+        ModBiomeFeatures.addSmallLilyPads(vegetation);
+        ModBiomeFeatures.addPackedMudOre(vegetation);
+        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addMudOre(vegetation);
+        ModBiomeFeatures.addMireOre(vegetation);
+        ModBiomeFeatures.addRareWilderGrass(vegetation);
+        ModBiomeFeatures.addReedsFoliage(vegetation);
+        ModBiomeFeatures.addWheatGrass(vegetation);
         ModBiomeFeatures.addRareBeechTrees(vegetation);
         ModBiomeFeatures.addOakVinesTrees(vegetation);
+
+        ModBiomeFeatures.addCommonTallGrass(undergroundOres);
+        ModBiomeFeatures.addBulrushAndCattail(undergroundOres);
+        ModBiomeFeatures.addDuckweed(undergroundOres);
+        ModBiomeFeatures.addLilyPads(undergroundOres);
+        ModBiomeFeatures.addSmallLilyPads(undergroundOres);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
