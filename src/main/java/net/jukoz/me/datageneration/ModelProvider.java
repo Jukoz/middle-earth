@@ -1235,6 +1235,10 @@ public class ModelProvider extends FabricModelProvider {
             }
         }
 
+        for (Item item : SimpleBigItemModel.genericItems) {
+            itemModelGenerator.register(item, "_inventory", Models.HANDHELD);
+        }
+
         for (Item item : HotMetalsModel.items) {
             itemModelGenerator.register(item, "_hot", Models.GENERATED);
         }
