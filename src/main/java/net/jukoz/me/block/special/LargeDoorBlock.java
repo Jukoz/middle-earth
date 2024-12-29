@@ -54,7 +54,7 @@ public class LargeDoorBlock extends Block {
     }
 
     public LargeDoorBlock(Settings settings) {
-        super(settings);
+        super(settings.nonOpaque());
         doorHeight = 1;
         doorWidth = 1;
         this.setDefaultState((((this.stateManager.getDefaultState()).with(HORIZONTAL_FACING, Direction.NORTH)).with(getPart(), 0)).with(OPEN, false).with(HINGE, DoorHinge.LEFT));

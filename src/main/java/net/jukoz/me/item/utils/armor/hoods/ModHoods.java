@@ -23,6 +23,8 @@ public enum ModHoods implements StringIdentifiable {
 
     LORIEN_MARCHWARDEN_HOOD(7,"lorien_marchwarden_hood"),
     GALADHRIM_HOOD(8,"galadhrim_hood"),
+
+    NAZGUL_HOOD(9,"nazgul_hood", ModHoodStates.UP),
     ;
 
     private static final IntFunction<ModHoods> BY_ID = ValueLists.createIdToValueFunction(ModHoods::getId, ModHoods.values(), ValueLists.OutOfBoundsHandling.ZERO);;
