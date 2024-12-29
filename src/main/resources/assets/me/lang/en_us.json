@@ -6991,9 +6991,12 @@
   "block.me.banner.snail.yellow": "Yellow Snail",
 
 "#Comment": "SOUNDS",
-  "sounds.me.bellows_push": "Bellows Push",
-  "sounds.me.nazgul_fade": "Nazgûl Fading",
-  "sounds.me.nazgul_scream": "Nazgûl Screaming",
+  "sounds.me.bellows_push": "Bellows blowing",
+  "sounds.me.nazgul_fade": "Nazgûl fading",
+  "sounds.me.nazgul_scream": "Nazgûl screaming",
+  "sounds.me.pipe_refill": "Pipe refills",
+  "sounds.me.pipe_exhale": "Pipe exhales",
+  "sounds.me.pipe_ignite": "Pipe ignites",
 
 "#Comment": "GUI",
   "screen.me.forge": "Forge",

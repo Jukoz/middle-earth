@@ -12,6 +12,8 @@ public class ModSounds {
     public static SoundEvent NAZGUL_FADE = registerSoundEvent("nazgul_fade");
     public static SoundEvent NAZGUL_SCREAM = registerSoundEvent("nazgul_scream");
     public static SoundEvent PIPE_EXHALE = registerSoundEvent("pipe_exhale");
+    public static SoundEvent PIPE_REFILL = registerSoundEvent("pipe_refill");
+    public static SoundEvent PIPE_IGNITE = registerSoundEvent( "pipe_ignite");
 
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);

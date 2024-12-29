@@ -47,10 +47,11 @@ public class PipeItem extends Item {
             driedPipeweedStack.decrementUnlessCreative(1, user);
             itemStack.setDamage(0);
             ((PlayerEntity)user).getItemCooldownManager().set(this, 20);
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_COMPOSTER_FILL, SoundCategory.PLAYERS, 1.0F, 1.0F);
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), ModSounds.PIPE_REFILL, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
         }
         else{
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), ModSounds.PIPE_IGNITE, SoundCategory.PLAYERS, 1.0F, 1.0F);
             user.setCurrentHand(hand);
             this.smoking = true;
             user.incrementStat(Stats.USED.getOrCreateStat(this));
@@ -68,6 +69,20 @@ public class PipeItem extends Item {
         this.smoking = false;
         ((PlayerEntity)user).getItemCooldownManager().set(this, 20);
 
+    }
+
+    @Override
+    public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
+        if (smoking) {
+            int totalTicks = USAGE_TIME - remainingUseTicks;
+            int frequency = Math.max(4, (int) Math.pow((USAGE_TIME - totalTicks) / 10.0, 2));            if (remainingUseTicks % frequency == 0) {
+                world.addParticle(ParticleTypes.SMOKE,
+                        user.getX() + user.getRotationVec(1.0F).x * 0.5,
+                        user.getY() + user.getEyeHeight(user.getPose()) + user.getRotationVec(1.0F).y * 0.5 + 0.04,
+                        user.getZ() + user.getRotationVec(1.0F).z * 0.5,
+                        0, 0.02, 0);
+            }
+        }
     }
 
     public ItemStack finishUsing(ItemStack item, World world, LivingEntity user){
