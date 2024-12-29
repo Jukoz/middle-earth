@@ -617,7 +617,8 @@ public class ModEquipmentItems {
 
     //region GENERIC
     public static final Item DWARVEN_MINER_HELMET = registerDyeableCustomModelArmorPiece("dwarven_miner_helmet",
-            new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(7098174)),
                     ModFactions.NONE));
 
     public static final Item DWARVEN_GAMBESON = registerDyeableArmorPiece("dwarven_gambeson",
@@ -691,14 +692,17 @@ public class ModEquipmentItems {
                     ModFactions.LONGBEARDS));
 
     //region EREBOR
-    public static final Item EREBOR_LEATHER_HELMET = registerArmorPiece("erebor_leather_helmet",
-            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings(),
+    public static final Item EREBOR_LEATHER_HELMET = registerDyeableArmorPiece("erebor_leather_helmet",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(7098174)),
                     ModSubFactions.EREBOR));
-    public static final Item EREBOR_BRACED_LEATHER_HELMET = registerArmorPiece("erebor_braced_leather_helmet",
-            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings(),
+    public static final Item EREBOR_BRACED_LEATHER_HELMET = registerDyeableArmorPiece("erebor_braced_leather_helmet",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(6309430)),
                     ModSubFactions.EREBOR));
-    public static final Item EREBOR_NASAL_LEATHER_HELMET = registerArmorPiece("erebor_nasal_leather_helmet",
-            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings(),
+    public static final Item EREBOR_NASAL_LEATHER_HELMET = registerDyeableArmorPiece("erebor_nasal_leather_helmet",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(7098174)),
                     ModSubFactions.EREBOR));
 
     public static final Item EREBOR_LEATHER_LEGGINGS = registerDyeableArmorPiece("erebor_leather_leggings",
