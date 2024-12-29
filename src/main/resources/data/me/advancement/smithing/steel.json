@@ -1,0 +1,38 @@
+{
+  "parent": "me:smithing/bronze_ingot",
+  "criteria": {
+    "steel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:steel_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.steel.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:steel_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.steel.title"
+    }
+  },
+  "requirements": [
+    [
+      "steel"
+    ]
+  ]
+}

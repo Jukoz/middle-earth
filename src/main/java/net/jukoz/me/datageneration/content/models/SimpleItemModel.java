@@ -63,8 +63,7 @@ public class SimpleItemModel {
             add(ModResourceItems.CITRINE_SHARD);
             add(ModResourceItems.QUARTZ_SHARD);
 
-            add(ModResourceItems.ORC_BONE);
-            add(ModResourceItems.WARG_BONE);
+            add(ModResourceItems.DIRTY_BONE);
             add(ModResourceItems.FANG);
 
             add(ModResourceItems.ASH);

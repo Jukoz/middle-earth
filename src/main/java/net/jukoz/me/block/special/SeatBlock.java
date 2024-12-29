@@ -5,43 +5,33 @@ import net.jukoz.me.entity.seat.SeatEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.function.Predicate;
-
 public class SeatBlock extends Block {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-
-    private static final Predicate<Entity> RIDERS = EntityPredicates.EXCEPT_SPECTATOR.and(Entity::canHit);
-
+    public static final BooleanProperty OCCUPIED = Properties.OCCUPIED;
 
     public SeatBlock(Settings settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
+        setDefaultState(getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false).with(OCCUPIED, false));
     }
 
     @Override
@@ -55,32 +45,33 @@ public class SeatBlock extends Block {
         seat.setInvisible(true);
         seat.setInvulnerable(true);
 
-        //TODO Remove multiple passengers, crab i hate you for making me do this
-
         if(world.isClient) {
             return ActionResult.CONSUME;
         } else if(player.isSneaking() || player.isSpectator()) {
-            //System.out.println("is sneaking or spectator");
             return ActionResult.FAIL;
         } else if (player.shouldCancelInteraction()) {
-            //System.out.println("canceled interaction");
+            return ActionResult.SUCCESS;
+        } else if (!world.getBlockState(pos.up()).isAir()){
+            player.sendMessage(Text.translatable("alert.me.seat.space_not_empty"), true);
+            return ActionResult.SUCCESS;
+        }else if (state.get(OCCUPIED)){
+            player.sendMessage(Text.translatable("alert.me.seat.occupied"), true);
             return ActionResult.SUCCESS;
         } else {
             if(world.spawnEntity(seat)) {
                 player.startRiding(seat, true);
                 player.setYaw(yaw);
                 player.setHeadYaw(yaw);
-                //System.out.println("spawn new seat");
+                world.setBlockState(pos, state.with(OCCUPIED, true));
                 return ActionResult.SUCCESS;
             } else {
-                //System.out.println("could not spawn seat");
                 return ActionResult.CONSUME;
             }
         }
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(Properties.HORIZONTAL_FACING, WATERLOGGED);
+        builder.add(Properties.HORIZONTAL_FACING, WATERLOGGED, OCCUPIED);
     }
 
     @Nullable

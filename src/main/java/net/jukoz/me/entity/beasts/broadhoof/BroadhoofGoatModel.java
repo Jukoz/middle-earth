@@ -7,6 +7,7 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
+import org.joml.Vector3f;
 
 public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntity> {
     private final ModelPart broadhoofGoat;

@@ -11,7 +11,11 @@ public class SimpleWoodBenchModel {
 
     public record VanillaBench(Block base, Block planks) {}
 
-    public static List<Block> benchs = new ArrayList<>() {};
+    public static List<Block> benchs = new ArrayList<>() {
+        {
+            add(ModDecorativeBlocks.TREATED_WOOD_BENCH);
+        }
+    };
 
     public static List<VanillaBench> vanillaBenchs = new ArrayList<>() {
         {

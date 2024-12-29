@@ -17,6 +17,9 @@ public class ModRecipeSerializer<T extends Recipe<?>> {
     public static final SpecialRecipeSerializer<ArmorCapeRemovalRecipe> CUSTOM_ARMOR_CAPE_REMOVAL = register("custom_armor_cape_removal", new SpecialRecipeSerializer<>(ArmorCapeRemovalRecipe::new));
     public static final SpecialRecipeSerializer<ArmorHoodRecipe> CUSTOM_ARMOR_HOOD = register("custom_armor_hood", new SpecialRecipeSerializer<>(ArmorHoodRecipe::new));
     public static final SpecialRecipeSerializer<ArmorHoodRemovalRecipe> CUSTOM_ARMOR_HOOD_REMOVAL = register("custom_armor_hood_removal", new SpecialRecipeSerializer<>(ArmorHoodRemovalRecipe::new));
+    public static final SpecialRecipeSerializer<MountArmorAddonRemovalRecipe> CUSTOM_MOUNT_ARMOR_ADDON_REMOVAL = register("custom_mount_armor_addon_removal", new SpecialRecipeSerializer<>(MountArmorAddonRemovalRecipe::new));
+    public static final SpecialRecipeSerializer<MountArmorSideSkullAddonRecipe> CUSTOM_MOUNT_ARMOR_SIDE_SKULL_ADDON = register("custom_mount_armor_side_skull_addon", new SpecialRecipeSerializer<>(MountArmorSideSkullAddonRecipe::new));
+    public static final SpecialRecipeSerializer<MountArmorTopSkullAddonRecipe> CUSTOM_MOUNT_ARMOR_TOP_SKULL_ADDON = register("custom_mount_armor_top_skull_addon", new SpecialRecipeSerializer<>(MountArmorTopSkullAddonRecipe::new));
 
     public static final SpecialRecipeSerializer<CustomItemDecorationRecipe> CUSTOM_ITEM_DECORATION = register("custom_item_decoration", new SpecialRecipeSerializer<>(CustomItemDecorationRecipe::new));
 

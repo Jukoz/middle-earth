@@ -75,7 +75,7 @@ public class ModItemGroups {
     public static final List<ItemStack> NATURE_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup NATURE_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".nature_blocks"))
-            .icon(() -> new ItemStack(ModNatureBlocks.HEATHER_BUSH.asItem()))
+            .icon(() -> new ItemStack(ModNatureBlocks.HEATHER.asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : NATURE_BLOCKS_CONTENTS) {
                     entries.add(item);

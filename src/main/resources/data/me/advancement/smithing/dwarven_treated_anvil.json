@@ -1,0 +1,38 @@
+{
+  "parent": "me:smithing/khazad_steel",
+  "criteria": {
+    "dwarven_treated_anvil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:dwarven_treated_anvil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.dwarven_treated_anvil.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:dwarven_treated_anvil"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.dwarven_treated_anvil.title"
+    }
+  },
+  "requirements": [
+    [
+      "dwarven_treated_anvil"
+    ]
+  ]
+}

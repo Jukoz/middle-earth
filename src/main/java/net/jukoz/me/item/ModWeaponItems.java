@@ -11,7 +11,10 @@ import net.jukoz.me.item.items.shields.CustomBannerShieldItem;
 import net.jukoz.me.item.items.shields.CustomShieldItem;
 import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.items.weapons.*;
-import net.jukoz.me.item.items.weapons.artefacts.*;
+import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeaponItem;
+import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingLongswordWeaponItem;
+import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomLongswordWeaponItem;
+import net.jukoz.me.item.items.weapons.artefacts.MorgulKnifeItem;
 import net.jukoz.me.item.items.weapons.ranged.CustomBowWeaponItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModShieldTypes;
@@ -235,6 +238,24 @@ public class ModWeaponItems {
     public static final Item DALISH_NOBLE_SPEAR = registerItemWithSpearModel("dalish_noble_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE));
 
+    public static final Item DALISH_BLUE_OVAL_SHIELD = registerShield("dalish_blue_oval_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.DALE));
+    public static final Item DALISH_BARDING_OVAL_SHIELD = registerShield("dalish_barding_oval_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.DALE));
+
+    public static final Item DALISH_BLUE_BRACED_SHIELD = registerShield("dalish_blue_braced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.DALE));
+    public static final Item DALISH_BARDING_BRACED_SHIELD = registerShield("dalish_barding_braced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.DALE));
+
+    public static final Item DALISH_HEAVY_SHIELD = registerShield("dalish_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.DALE));
+    public static final Item DALISH_BARDING_HEAVY_SHIELD = registerShield("dalish_barding_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.DALE));
+    public static final Item DALISH_ROYAL_HEAVY_SHIELD = registerShield("dalish_royal_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.DALE));
+    public static final Item DALISH_ROYAL_ROUND_SHIELD = registerShield("dalish_royal_round_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.DALE));
     public static final Item DALISH_HEYDAY_ROUND_SHIELD = registerShield("dalish_heyday_round_shield",
             new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.DALE));
     //endregion
@@ -310,7 +331,22 @@ public class ModWeaponItems {
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
     public static final Item EREBOR_REINFORCED_SHIELD = registerShield("erebor_reinforced_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
-    public static final Item EREBOR_HEAVY_SHIELD = registerShield("erebor_heavy_shield",
+
+    public static final Item EREBOR_BUCKLER_SHIELD = registerShield("erebor_buckler_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_TOWER_SHIELD = registerShield("erebor_tower_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_REINFORCED_TOWER_SHIELD = registerShield("erebor_reinforced_tower_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_ORNAMENTED_TOWER_SHIELD = registerShield("erebor_ornamented_tower_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item RAVENHILL_TOWER_SHIELD = registerShield("ravenhill_tower_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item RAVENHILL_REINFORCED_TOWER_SHIELD = registerShield("ravenhill_reinforced_tower_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item RAVENHILL_ORNAMENTED_TOWER_SHIELD = registerShield("ravenhill_ornamented_tower_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
+    public static final Item SHIELD_OF_THE_KING_UNDER_THE_MOUNTAIN = registerShield("shield_of_the_king_under_the_mountain",
             new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
     //endregion
 
@@ -347,16 +383,49 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModFactions.MORDOR));
 
     public static final Item BLACK_NUMENOREAN_SWORD = registerItemWithModel("black_numenorean_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), true);
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModSubFactions.MORDOR_BLACK_NUMENOREANS), true);
     public static final Item BLACK_NUMENOREAN_LONGSWORD = registerItemWithModel("black_numenorean_longsword",
-            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModSubFactions.MORDOR_BLACK_NUMENOREANS), true);
     public static final Item BLACK_NUMENOREAN_DAGGER = registerItemWithModel("black_numenorean_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, ModSubFactions.MORDOR_BLACK_NUMENOREANS), false);
     public static final Item BLACK_NUMENOREAN_AXE = registerItemWithModel("black_numenorean_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), true);
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, ModSubFactions.MORDOR_BLACK_NUMENOREANS), true);
     public static final Item BLACK_NUMENOREAN_SPEAR = registerItemWithSpearModel("black_numenorean_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR));
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModSubFactions.MORDOR_BLACK_NUMENOREANS));
 
+    public static final Item MORDOR_WOODEN_SHIELD = registerShield("mordor_wooden_shield",
+            new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_PAINTED_WOODEN_SHIELD = registerShield("mordor_painted_wooden_shield",
+            new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModFactions.MORDOR));
+
+    public static final Item MORDOR_ROUND_SHIELD = registerShield("mordor_round_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_BLACK_ROUND_SHIELD = registerShield("mordor_black_round_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_PAINTED_ROUND_SHIELD = registerShield("mordor_painted_round_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+
+    public static final Item MORDOR_BRACED_SHIELD = registerShield("mordor_braced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_BLACK_BRACED_SHIELD = registerShield("mordor_black_braced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_PAINTED_BRACED_SHIELD = registerShield("mordor_painted_braced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+
+    public static final Item MORDOR_LARGE_SHIELD = registerShield("mordor_large_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_BLACK_LARGE_SHIELD = registerShield("mordor_black_large_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_PAINTED_LARGE_SHIELD = registerShield("mordor_painted_large_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+
+    public static final Item GONDORIAN_CONVERTED_SHIELD = registerShield("gondorian_converted_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
+
+    public static final Item MORDOR_HEAVY_SHIELD = registerShield("mordor_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.MORDOR));
+    public static final Item MORDOR_PAINTED_EAVY_SHIELD = registerShield("mordor_painted_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.MORDOR));
     public static final Item BLACK_NUMENOREAN_TOWER_SHIELD = registerShield("black_numenorean_tower_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
     //endregion
@@ -400,6 +469,48 @@ public class ModWeaponItems {
 
     public static final Item MISTY_MOUNTAINS_SHIELD = registerShield("misty_mountains_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MISTY_MOUNTAINS_GOBLINS));
+    //endregion
+
+    //region MISTIES
+
+    //region GUNDABAD
+    public static final Item GUNDABAD_FALCHION = registerItemWithModel("gundabad_falchion",
+            new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL, ModSubFactions.GUNDABAD), true);
+    public static final Item GUNDABAD_ELITE_CLEAVER = registerItemWithModel("gundabad_elite_cleaver",
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModSubFactions.GUNDABAD), true);
+    public static final Item GUNDABAD_WARBLADE = registerItemWithModel("gundabad_warblade",
+            new CustomLongswordWeaponItem(ModToolMaterials.BURZUM_STEEL, ModSubFactions.GUNDABAD), true);
+    public static final Item GUNDABAD_ELITE_SCIMITAR = registerItemWithModel("gundabad_elite_scimitar",
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModSubFactions.GUNDABAD), true);
+    public static final Item GUNDABAD_SHANK = registerItemWithModel("gundabad_shank",
+            new CustomDaggerWeaponItem(ModToolMaterials.BURZUM_STEEL, ModSubFactions.GUNDABAD), false);
+    public static final Item GUNDABAD_ELITE_DAGGER = registerItemWithModel("gundabad_elite_dagger",
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModSubFactions.GUNDABAD), false);
+    public static final Item GUNDABAD_AXE = registerItemWithModel("gundabad_axe",
+            new CustomAxeWeaponItem(ModToolMaterials.BURZUM_STEEL, ModSubFactions.GUNDABAD), true);
+    public static final Item GUNDABAD_ELITE_BATTLEAXE = registerItemWithModel("gundabad_elite_battleaxe",
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModSubFactions.GUNDABAD), true);
+    public static final Item GUNDABAD_SPEAR = registerItemWithSpearModel("gundabad_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL, ModSubFactions.GUNDABAD));
+    public static final Item GUNDABAD_ELITE_SPEAR = registerItemWithSpearModel("gundabad_elite_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModSubFactions.GUNDABAD));
+
+    public static final Item GUNDABAD_WOODEN_SHIELD = registerShield("gundabad_wooden_shield",
+            new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModSubFactions.GUNDABAD));
+    public static final Item GUNDABAD_PAINTED_WOODEN_SHIELD = registerShield("gundabad_painted_wooden_shield",
+            new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModSubFactions.GUNDABAD));
+    public static final Item GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD = registerShield("gundabad_great_eye_painted_wooden_shield",
+            new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModSubFactions.GUNDABAD));
+    public static final Item GUNDABAD_PEAKS_PAINTED_WOODEN_SHIELD = registerShield("gundabad_peaks_painted_wooden_shield",
+            new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModSubFactions.GUNDABAD));
+
+    public static final Item GUNDABAD_REINFORCED_SHIELD = registerShield("gundabad_reinforced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.GUNDABAD));
+
+    public static final Item GUNDABAD_HEAVY_SHIELD = registerShield("gundabad_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.GUNDABAD));
+    //endregion
+
     //endregion
 
     //region ARTEFACTS

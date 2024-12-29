@@ -12,6 +12,9 @@ import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
 import net.jukoz.me.item.ModFoodItems;
+import net.jukoz.me.resources.StateSaverAndLoader;
+import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -72,20 +75,19 @@ public class TrollEntity extends AbstractBeastEntity {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 0.9f, false));
-        this.goalSelector.add(4, new ChargeAttackGoal(this, maxChargeCooldown()));
+        this.goalSelector.add(4, new ChargeAttackGoal(this, this.getDisposition(), maxChargeCooldown()));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity)this));
-        this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
-        this.targetSelector.add(4, new TargetPlayerGoal(this));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
-        this.targetSelector.add(7, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
-        this.targetSelector.add(8, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-        this.targetSelector.add(9, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(3, new BeastRevengeGoal(this, new Class[0]));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
+        this.targetSelector.add(6, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
+        this.targetSelector.add(7, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
+        this.targetSelector.add(8, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
+        this.targetSelector.add(9, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        this.targetSelector.add(0, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
     protected void initDataTracker(DataTracker.Builder builder) {
@@ -167,6 +169,11 @@ public class TrollEntity extends AbstractBeastEntity {
                 this.bondingTimeout--;
             }
         }
+    }
+
+    @Override
+    protected Disposition getDisposition() {
+        return Disposition.EVIL;
     }
 
     @Override
@@ -303,6 +310,14 @@ public class TrollEntity extends AbstractBeastEntity {
 
     public void throwAttack() {
         Entity target = this.getTarget();
+        if(target instanceof PlayerEntity player) {
+            PlayerData data = StateSaverAndLoader.getPlayerState(player);
+            Disposition playerDisposition = data.getCurrentDisposition();
+            if(playerDisposition == this.getDisposition()){
+                return;
+            }
+        }
+
         if(target != null && !this.getWorld().isClient) {
             this.setThrowing(false);
 

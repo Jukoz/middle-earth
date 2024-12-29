@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "me:yellow_flowers"
+    }
+  ],
+  "result": {
+    "id": "minecraft:yellow_dye"
+  }
+}

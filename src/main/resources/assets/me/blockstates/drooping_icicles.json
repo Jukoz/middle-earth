@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "me:block/drooping_icicles"
+    },
+    "half=lower": {
+      "model": "me:block/drooping_icicles_end"
+    }
+  }
+}

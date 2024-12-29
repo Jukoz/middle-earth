@@ -11,6 +11,7 @@ public enum ModCapeModels {
     WIDE_MODELS(new CapeWideModel<>(CapeWideModel.getTexturedModelData().createModel()), new UnarmoredCapeWideModel<>(UnarmoredCapeWideModel.getTexturedModelData().createModel())),
     FUR_MODELS(new FurCapeModel<>(FurCapeModel.getTexturedModelData().createModel()), new UnarmoredFurCapeModel<>(UnarmoredFurCapeModel.getTexturedModelData().createModel())),
     SURCOAT_MODELS(new CapeSurcoatModel<>(CapeSurcoatModel.getTexturedModelData().createModel()), new UnarmoredCapeSurcoatModel<>(UnarmoredCapeSurcoatModel.getTexturedModelData().createModel())),
+    SURCOAT_FUR_MODELS(new FurSurcoatModel<>(FurSurcoatModel.getTexturedModelData().createModel()), new UnarmoredFurSurcoatModel<>(UnarmoredFurSurcoatModel.getTexturedModelData().createModel())),
     ;
 
     private final ChestplateAddonModel<LivingEntity> armoredModel;

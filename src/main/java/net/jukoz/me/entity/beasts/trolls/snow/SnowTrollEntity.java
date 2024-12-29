@@ -36,7 +36,7 @@ public class SnowTrollEntity extends TrollEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new MeleeAttackGoal(this, 0.9f, false));
-        this.goalSelector.add(3, new ChargeAttackGoal(this, maxChargeCooldown()));
+        this.goalSelector.add(3, new ChargeAttackGoal(this, null, maxChargeCooldown()));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(6, new LookAroundGoal(this));

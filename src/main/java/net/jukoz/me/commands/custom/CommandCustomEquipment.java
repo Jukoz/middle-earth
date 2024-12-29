@@ -68,6 +68,7 @@ public class CommandCustomEquipment {
             return 0;
         }
 
+        // TODO: literally cape-thingy such as gondorian_hero_cape should not be setCape-d
         if ((handStack.getItem() instanceof CustomChestplateItem || handStack.getItem() instanceof CapeChestplateItem)){
             handStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(cape));
             MutableText sourceText = Text.translatable("command.me.cape.success").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + cape.getName()));

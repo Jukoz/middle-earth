@@ -15,7 +15,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
@@ -33,6 +32,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var feathers = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "feathers")));
         var cloaks = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "cloaks")));
         var warg_food = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
+        var warg_armor = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor")));
+        var broadhoof_goat_armor = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
         var dyeable = getOrCreateTagBuilder(ModTags.DYEABLE);
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("iron_ores"));
@@ -42,6 +43,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         TagKey<Item> saplings = TagKey.of(RegistryKeys.ITEM, Identifier.of("saplings"));
         TagKey<Item> wooden_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs"));
+        TagKey<Item> wooden_vertical_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "wooden_vertical_slabs"));
         TagKey<Item> logs_that_burn = TagKey.of(RegistryKeys.ITEM, Identifier.of("logs_that_burn"));
         TagKey<Item> stone_crafting_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_crafting_materials"));
         TagKey<Item> stone_tool_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials"));
@@ -72,9 +74,19 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         warg_food.add(ModFoodItems.RAW_SWAN);
         warg_food.add(ModFoodItems.RAW_VENISON);
 
+        warg_armor.add(ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_GUNDABAD_PLATE_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_ISENGARD_PLATE_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_MORDOR_MAIL_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_LEATHER_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);
+
+        broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_PLATE_ARMOR);
+        broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
+        broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
+
         bones.add(Items.BONE);
-        bones.add(ModResourceItems.ORC_BONE);
-        bones.add(ModResourceItems.WARG_BONE);
+        bones.add(ModResourceItems.DIRTY_BONE);
 
         feathers.add(ModResourceItems.SWAN_FEATHER);
         feathers.add(Items.FEATHER);
@@ -86,6 +98,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         dyeable.add(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
         dyeable.add(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
+
+        dyeable.add(ModEquipmentItems.WARG_LEATHER_ARMOR);
+        dyeable.add(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {
@@ -126,6 +141,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         WoodenSlabs.woodenSlabs.forEach(block -> {
             getOrCreateTagBuilder(wooden_slabs).add(block.asItem());
+        });
+
+        WoodenVerticalSlabs.woodenVericalSlabs.forEach(block -> {
+            getOrCreateTagBuilder(wooden_vertical_slabs).add(block.asItem());
         });
 
         ModdedStrippedLogs.strippedLogs.forEach(block -> {

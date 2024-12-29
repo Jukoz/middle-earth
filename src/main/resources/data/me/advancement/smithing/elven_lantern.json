@@ -1,0 +1,38 @@
+{
+  "parent": "me:smithing/edhel_steel",
+  "criteria": {
+    "elven_lantern": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:elven_lantern"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.elven_lantern.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:elven_lantern"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.elven_lantern.title"
+    }
+  },
+  "requirements": [
+    [
+      "elven_lantern"
+    ]
+  ]
+}
