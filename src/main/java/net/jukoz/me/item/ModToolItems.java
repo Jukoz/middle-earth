@@ -171,11 +171,11 @@ public class ModToolItems {
             new EntityBucketItem(EntityType.TADPOLE, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_TADPOLE, new Item.Settings().maxCount(1).fireproof()));
     */
 
-    public static final Item PIPE = registerItem("pipe", new PipeItem(new Item.Settings().maxCount(1), 3));
-    public static final Item CLAYSHIRE_PIPE = registerItem("clayshire_pipe", new PipeItem(new Item.Settings().maxCount(1), 3));
-    public static final Item RIVERBEND_PIPE = registerItem("riverbend_pipe", new PipeItem(new Item.Settings().maxCount(1), 3 ));
-    public static final Item BRIMMINGBEND_PIPE = registerItem("brimmingbend_pipe", new PipeItem(new Item.Settings().maxCount(1), 5));
-    public static final Item LONGBOTTOM_PIPE = registerItem("longbottom_pipe", new PipeItem(new Item.Settings().maxCount(1), 5));
+    public static final Item PIPE = registerItem2dGUI3dPerson("pipe", new PipeItem(new Item.Settings().maxCount(1), 3));
+    public static final Item CLAYSHIRE_PIPE = registerItem2dGUI3dPerson("clayshire_pipe", new PipeItem(new Item.Settings().maxCount(1), 3));
+    public static final Item RIVERBEND_PIPE = registerItem2dGUI3dPerson("riverbend_pipe", new PipeItem(new Item.Settings().maxCount(1), 3 ));
+    public static final Item BRIMMINGBEND_PIPE = registerItem2dGUI3dPerson("brimmingbend_pipe", new PipeItem(new Item.Settings().maxCount(1), 5));
+    public static final Item LONGBOTTOM_PIPE = registerItem2dGUI3dPerson("longbottom_pipe", new PipeItem(new Item.Settings().maxCount(1), 5));
 
 
     private static Item registerItem(String name, Item item) {
@@ -200,8 +200,13 @@ public class ModToolItems {
         SimpleItemModel.items.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
-
+    public static Item registerItem2dGUI3dPerson(String name, Item item){
+        SimpleBigItemModel.genericItems.add(item);
+        ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
+        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
     public static void registerModItems() {
         LoggerUtil.logDebugMsg("Registering Mod Tool Items for " + MiddleEarth.MOD_ID);
     }
+
 }
