@@ -131,7 +131,9 @@ public class ModBiomes {
         createLossarnach(context, MEBiomeKeys.LOSSARNACH_VALLEY_ORANGE, 4);
         createLossarnach(context, MEBiomeKeys.LOSSARNACH_VALLEY_RED, 5);
         createLorienEdgeBiome(context, MEBiomeKeys.LORIEN_EDGE);
-        createLothlorienBiome(context, MEBiomeKeys.LOTHLORIEN);
+        createLothlorienBiome(context, MEBiomeKeys.LOTHLORIEN, 0);
+        createLothlorienBiome(context, MEBiomeKeys.LOTHLORIEN_GLADE, 1);
+        createLothlorienBiome(context, MEBiomeKeys.LOTHLORIEN_BLOSSOM, 2);
         createMinhiriathBiome(context, MEBiomeKeys.MINHIRIATH);
         createMirkwoodBiome(context, MEBiomeKeys.MIRKWOOD, true, false);
         createMirkwoodBiome(context, MEBiomeKeys.MIRKWOOD_EDGE, false, false);
@@ -1249,17 +1251,34 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
-    public static void createLothlorienBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+    public static void createLothlorienBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         ModSpawnSettingsBuilder.addSwan(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addLothlorienVegetation(generationSettings);
-        ModBiomeFeatures.addSmallMallornTress(vegetation);
-        ModBiomeFeatures.addOakTrees(vegetation);
-        ModBiomeFeatures.addSparseBirchTrees(vegetation);
-        ModBiomeFeatures.addMegaMallornTrees(vegetation);
+
+        if(step == 0) { // Forest
+            ModBiomeFeatures.addSmallMallornTress(vegetation);
+            ModBiomeFeatures.addOakTrees(vegetation);
+            ModBiomeFeatures.addSparseBirchTrees(vegetation);
+            ModBiomeFeatures.addMegaMallornTrees(vegetation);
+        } else if(step == 1) { // Glade
+            ModBiomeFeatures.addYellowFlowers(vegetation);
+            ModBiomeFeatures.addSedumYellow(vegetation);
+            ModBiomeFeatures.addMallornTrees(vegetation);
+            ModBiomeFeatures.addMallornFloweringBushes(vegetation);
+        } else if(step == 2) { // Blossom
+            ModBiomeFeatures.addSmallMallornTress(vegetation);
+            ModBiomeFeatures.addMallornFloweringBushes(vegetation);
+            ModBiomeFeatures.addOakTrees(vegetation);
+            ModBiomeFeatures.addSparseBirchTrees(vegetation);
+            ModBiomeFeatures.addCherryBlossomTrees(vegetation);
+            ModBiomeFeatures.addPinkFlowers(vegetation);
+            ModBiomeFeatures.addPinkFlowerGrowth(vegetation);
+            vegetation.add(VegetationPlacedFeatures.FLOWER_CHERRY);
+        }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }

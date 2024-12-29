@@ -195,6 +195,8 @@ public class MapBasedBiomePool {
         add(new Color(0x72C35C), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_VALLEY_GREEN, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0xcdce60), new MapBasedCustomBiome(MEBiomeKeys.LORIEN_EDGE, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0xddd81c), new MapBasedCustomBiome(MEBiomeKeys.LOTHLORIEN, 6, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xDDDA1C), new MapBasedCustomBiome(MEBiomeKeys.LOTHLORIEN_GLADE, 6, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xE1C822), new MapBasedCustomBiome(MEBiomeKeys.LOTHLORIEN_BLOSSOM, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x91a46d), new MapBasedCustomBiome(MEBiomeKeys.MINHIRIATH, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x0a360f), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD, 8, MEBiomeDataConfigs.mirkwoodModifier));
         add(new Color(0x124918), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_EDGE, 5, MEBiomeDataConfigs.landModifier));

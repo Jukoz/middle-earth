@@ -51,6 +51,13 @@ public class ModEntitySpawning {
                 new EntitySpawningSettings(ModEntities.ROHIRRIM_VETERAN, 1, 2, 8),
                 new EntitySpawningSettings(ModEntities.ROHIRRIM_LEADER, 1, 1, 2)
         );
+        List<EntitySpawningSettings> lothlorienSpawnSettings = List.of(
+                new EntitySpawningSettings(ModEntities.LORIEN_MILITIA, 1, 3, 24),
+                new EntitySpawningSettings(ModEntities.LORIEN_SOLDIER, 1, 4, 45),
+                new EntitySpawningSettings(ModEntities.LORIEN_KNIGHT, 1, 3, 20),
+                new EntitySpawningSettings(ModEntities.LORIEN_VETERAN, 1, 2, 8),
+                new EntitySpawningSettings(ModEntities.LORIEN_LEADER, 1, 1, 3)
+        );
         List<EntitySpawningSettings> ruralGondorSpawnSettings = List.of(
                 new EntitySpawningSettings(ModEntities.GONDORIAN_MILITIA, 1, 3, 60),
                 new EntitySpawningSettings(ModEntities.GONDORIAN_SOLDIER, 1, 4, 40),
@@ -129,13 +136,9 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.GREY_MOUNTAINS, wildGoblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_PLAINS, goblinsAndLongbeards);
 
-        spawns.put(MEBiomeKeys.LOTHLORIEN, List.of(
-                new EntitySpawningSettings(ModEntities.LORIEN_MILITIA, 1, 3, 24),
-                new EntitySpawningSettings(ModEntities.LORIEN_SOLDIER, 1, 4, 45),
-                new EntitySpawningSettings(ModEntities.LORIEN_KNIGHT, 1, 3, 20),
-                new EntitySpawningSettings(ModEntities.LORIEN_VETERAN, 1, 2, 8),
-                new EntitySpawningSettings(ModEntities.LORIEN_LEADER, 1, 1, 3)
-        ));
+        spawns.put(MEBiomeKeys.LOTHLORIEN, lothlorienSpawnSettings);
+        spawns.put(MEBiomeKeys.LOTHLORIEN_GLADE, lothlorienSpawnSettings);
+        spawns.put(MEBiomeKeys.LOTHLORIEN_BLOSSOM, lothlorienSpawnSettings);
         spawns.put(MEBiomeKeys.LORIEN_EDGE, List.of(
                 new EntitySpawningSettings(ModEntities.LORIEN_MILITIA, 1, 3, 3),
                 new EntitySpawningSettings(ModEntities.LORIEN_SOLDIER, 1, 4, 4),

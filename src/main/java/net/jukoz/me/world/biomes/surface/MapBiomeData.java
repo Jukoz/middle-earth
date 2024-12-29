@@ -297,6 +297,10 @@ public class MapBiomeData {
                 new BiomeColorsDTO(defaultSky, 11455105, defaultWater, defaultWaterFog, 10601262, 6202980)));
         addBiome(new BiomeData(MEBiomeKeys.LOTHLORIEN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
                 new BiomeColorsDTO(defaultSky, 13748853, defaultWater, defaultWaterFog, 12961832, 6989412)));
+        addBiome(new BiomeData(MEBiomeKeys.LOTHLORIEN_GLADE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
+                new BiomeColorsDTO(defaultSky, 13748853, defaultWater, defaultWaterFog, 14146100, 6989412)));
+        addBiome(new BiomeData(MEBiomeKeys.LOTHLORIEN_BLOSSOM, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
+                new BiomeColorsDTO(defaultSky, 13748853, defaultWater, defaultWaterFog, 10864680, 7387753)));
         // MINHIRIATH
         addBiome(new BiomeData(MEBiomeKeys.MINHIRIATH, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
                 new BiomeColorsDTO(defaultSky, 12637429, 4615389, 658236, 8626526, 8231005)));

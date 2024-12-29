@@ -83,8 +83,11 @@ public class SubBiomes {
 
         subBiomesMap.put(MEBiomeKeys.ROHAN, new SubBiome(64, 1.1f)
                 .addSubBiomeData(-1.0f, -0.33f, MEBiomeKeys.ROHAN_FOREST)
-                .addSubBiomeData(0.36f, 2.01f, MEBiomeKeys.ROHAN_HILLS, true)
-        );
+                .addSubBiomeData(0.36f, 2.01f, MEBiomeKeys.ROHAN_HILLS, true));
+
+        subBiomesMap.put(MEBiomeKeys.LOTHLORIEN, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.42f, MEBiomeKeys.LOTHLORIEN_BLOSSOM)
+                .addSubBiomeData(-0.09f, 0.07f, MEBiomeKeys.LOTHLORIEN_GLADE));
 
         subBiomesMap.put(MEBiomeKeys.ITHILIEN, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.ITHILIEN_GLADE)

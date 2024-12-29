@@ -133,6 +133,9 @@ public class ModBiomeFeatures {
     public static void addMallornBushes(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MALLORN_BUSH_PLACED_TREE_KEY);
     }
+    public static void addMallornFloweringBushes(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.MALLORN_FLOWERING_BUSH_PLACED_TREE_KEY);
+    }
     public static void addMapleTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MAPLE_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.YELLOW_MAPLE_PLACED_TREE_KEY);
