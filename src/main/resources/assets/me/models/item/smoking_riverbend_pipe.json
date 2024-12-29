@@ -3,6 +3,7 @@
 	"textures": {
 		"layer0": "me:item/riverbend_pipe"
 	},
+	"gui_light": "front",
 	"elements": [
 		{
 			"from": [7, 0, 4],

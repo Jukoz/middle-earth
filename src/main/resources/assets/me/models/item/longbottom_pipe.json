@@ -3,6 +3,7 @@
 	"textures": {
 		"0": "me:item/longbottom_pipe"
 	},
+	"gui_light": "front",
 	"elements": [
 		{
 			"from": [6.5, 0, 3],

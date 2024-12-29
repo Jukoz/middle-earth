@@ -3,6 +3,8 @@
 	"textures": {
 		"layer0": "me:item/pipe"
 	},
+	"gui_light": "front",
+
 	"elements": [
 		{
 			"from": [7, 0, 4],
