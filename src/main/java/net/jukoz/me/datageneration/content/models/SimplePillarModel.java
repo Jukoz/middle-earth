@@ -86,6 +86,14 @@ public class SimplePillarModel {
             add(new StonePillar(ModBlocks.MOSSY_DIORITE_PILLAR, ModBlocks.DIORITE_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_DIORITE_PILLAR, ModBlocks.DIORITE_PILLAR));
 
+            add(new StonePillar(ModBlocks.BLACKSTONE_PILLAR, Blocks.POLISHED_BLACKSTONE_BRICKS));
+            add(new StonePillar(ModBlocks.MOSSY_BLACKSTONE_PILLAR, ModBlocks.BLACKSTONE_PILLAR));
+            add(new StonePillar(ModBlocks.CRACKED_BLACKSTONE_PILLAR, ModBlocks.BLACKSTONE_PILLAR));
+
+            add(new StonePillar(ModBlocks.BASALT_PILLAR, StoneBlockSets.BASALT_BRICKS.base()));
+            add(new StonePillar(ModBlocks.MOSSY_BASALT_PILLAR, ModBlocks.BASALT_PILLAR));
+            add(new StonePillar(ModBlocks.CRACKED_BASALT_PILLAR, ModBlocks.BASALT_PILLAR));
+
             add(new StonePillar(ModBlocks.TUFF_PILLAR, Blocks.TUFF_BRICKS));
             add(new StonePillar(ModBlocks.MOSSY_TUFF_PILLAR, ModBlocks.TUFF_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_TUFF_PILLAR, ModBlocks.TUFF_PILLAR));
@@ -94,8 +102,10 @@ public class SimplePillarModel {
             add(new StonePillar(ModBlocks.CRACKED_JADEITE_PILLAR, ModBlocks.JADEITE_PILLAR));
 
             add(new StonePillar(ModBlocks.NURGON_PILLAR, StoneBlockSets.NURGON_BRICKS.base()));
-            add(new StonePillar(ModBlocks.MEDGON_PILLAR, StoneBlockSets.MEDGON_BRICKS.base()));
 
+            add(new StonePillar(ModBlocks.MEDGON_PILLAR, StoneBlockSets.MEDGON_BRICKS.base()));
+            add(new StonePillar(ModBlocks.MOSSY_MEDGON_PILLAR, ModBlocks.MEDGON_PILLAR));
+            add(new StonePillar(ModBlocks.CRACKED_MEDGON_PILLAR, ModBlocks.MEDGON_PILLAR));
         }
     };
 }
