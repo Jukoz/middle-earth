@@ -60,11 +60,13 @@ public class OtherBlockSets {
     public static RoofBlockSet WILLOW_SHINGLES = registerWoodSet("willow_shingles", WoodBlockSets.WILLOW.planks());
     public static RoofBlockSet WILLOW_ROOFING = registerWoodSet("willow_roofing", WILLOW_SHINGLES.block);
 
+    public static RoofBlockSet SCORCHED_SHINGLES = registerWoodSet("scorched_shingles", WoodBlockSets.SCORCHED.planks());
+    public static RoofBlockSet SCORCHED_ROOFING = registerWoodSet("scorched_roofing", SCORCHED_SHINGLES.block);
+
     public static RoofBlockSet GRAY_MUSHROOM_SHINGLES = registerWoodSet("gray_mushroom_shingles", MushroomBlockSets.GRAY_MUSHROOM.planks());
     public static RoofBlockSet DARK_MUSHROOM_SHINGLES = registerWoodSet("dark_mushroom_shingles", MushroomBlockSets.DARK_MUSHROOM.planks());
     public static RoofBlockSet MUSHROOM_SHINGLES = registerWoodSet("mushroom_shingles", MushroomBlockSets.MUSHROOM.planks());
 
-    public static RoofBlockSet CHARRED_SHINGLES = registerWoodSet("charred_shingles", null);
     public static RoofBlockSet WEATHERED_SHINGLES = registerWoodSet("weathered_shingles", null);
 
     public static RoofBlockSet CLAY_TILING = registerClaySet("clay_tiling", Blocks.TERRACOTTA);
@@ -194,11 +196,14 @@ public class OtherBlockSets {
             BLACK_PINE_ROOFING,
             WILLOW_SHINGLES,
             WILLOW_ROOFING,
+
+            SCORCHED_SHINGLES,
+            SCORCHED_ROOFING,
+            
             DARK_MUSHROOM_SHINGLES,
             GRAY_MUSHROOM_SHINGLES,
             MUSHROOM_SHINGLES,
 
-            CHARRED_SHINGLES,
             WEATHERED_SHINGLES,
 
             CLAY_TILING,

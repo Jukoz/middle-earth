@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,half=upper": {
+      "model": "me:block/medgon_spike_top",
+      "y": 90
+    },
+    "facing=north,half=upper": {
+      "model": "me:block/medgon_spike_top"
+    },
+    "facing=south,half=upper": {
+      "model": "me:block/medgon_spike_top",
+      "y": 180
+    },
+    "facing=west,half=upper": {
+      "model": "me:block/medgon_spike_top",
+      "y": 270
+    },
+    "facing=east,half=lower": {
+      "model": "me:block/medgon_spike_bottom",
+      "y": 90
+    },
+    "facing=north,half=lower": {
+      "model": "me:block/medgon_spike_bottom"
+    },
+    "facing=south,half=lower": {
+      "model": "me:block/medgon_spike_bottom",
+      "y": 180
+    },
+    "facing=west,half=lower": {
+      "model": "me:block/medgon_spike_bottom",
+      "y": 270
+    }
+  }
+}

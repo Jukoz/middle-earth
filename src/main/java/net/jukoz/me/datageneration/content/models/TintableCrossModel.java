@@ -87,6 +87,10 @@ public class TintableCrossModel {
             add(ModNatureBlocks.SHORT_BULRUSH);
 
             add(ModNatureBlocks.SHRIVELED_SHRUB);
+
+            add(ModNatureBlocks.SCORCHED_GRASS);
+            add(ModNatureBlocks.SCORCHED_TUFT);
+            add(ModNatureBlocks.SCORCHED_SHRUB);
         }
     };
 }

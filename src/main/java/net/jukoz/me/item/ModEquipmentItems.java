@@ -176,6 +176,9 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent( 15256475)),
                     ModFactions.NONE));
+    public static final Item KETTLE_HAT = registerCustomModelArmorPiece("kettle_hat",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings(),
+                    ModFactions.NONE));
 
     public static final Item GAMBESON = registerDyeableArmorPiece("gambeson",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
@@ -205,8 +208,14 @@ public class ModEquipmentItems {
     public static final Item MAIL_COIF = registerArmorPiece("mail_coif",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.NONE));
+    public static final Item CLOSED_MAIL_COIF = registerArmorPiece("closed_mail_coif",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModFactions.NONE));
 
-    public static final Item KETTLE_HAT = registerCustomModelArmorPiece("kettle_hat",
+    public static final Item KETTLE_HAT_WITH_COIF = registerCustomModelArmorPiece("kettle_hat_with_coif",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
+                    ModFactions.NONE));
+    public static final Item KETTLE_HAT_WITH_CLOSED_COIF = registerCustomModelArmorPiece("kettle_hat_with_closed_coif",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModFactions.NONE));
 
@@ -607,8 +616,9 @@ public class ModEquipmentItems {
     //region DWARVES
 
     //region GENERIC
-    public static final Item DWARVEN_MINER_HELMET = registerCustomModelArmorPiece("dwarven_miner_helmet",
-            new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, new Item.Settings(),
+    public static final Item DWARVEN_MINER_HELMET = registerDyeableCustomModelArmorPiece("dwarven_miner_helmet",
+            new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(7098174)),
                     ModFactions.NONE));
 
     public static final Item DWARVEN_GAMBESON = registerDyeableArmorPiece("dwarven_gambeson",
@@ -682,11 +692,17 @@ public class ModEquipmentItems {
                     ModFactions.LONGBEARDS));
 
     //region EREBOR
-    public static final Item EREBOR_BRACED_LEATHER_HELMET = registerArmorPiece("erebor_braced_leather_helmet",
-            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings(),
+    public static final Item EREBOR_LEATHER_HELMET = registerDyeableArmorPiece("erebor_leather_helmet",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(7098174)),
                     ModSubFactions.EREBOR));
-    public static final Item EREBOR_NASAL_LEATHER_HELMET = registerArmorPiece("erebor_nasal_leather_helmet",
-            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings(),
+    public static final Item EREBOR_BRACED_LEATHER_HELMET = registerDyeableArmorPiece("erebor_braced_leather_helmet",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(6309430)),
+                    ModSubFactions.EREBOR));
+    public static final Item EREBOR_NASAL_LEATHER_HELMET = registerDyeableArmorPiece("erebor_nasal_leather_helmet",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(7098174)),
                     ModSubFactions.EREBOR));
 
     public static final Item EREBOR_LEATHER_LEGGINGS = registerDyeableArmorPiece("erebor_leather_leggings",
@@ -700,16 +716,7 @@ public class ModEquipmentItems {
     public static final Item EREBOR_GILDED_MAIL_COIF = registerArmorPiece("erebor_gilded_mail_coif",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModSubFactions.EREBOR));
-    public static final Item EREBOR_CLOSED_MAIL_COIF = registerArmorPiece("erebor_closed_mail_coif",
-            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
-                    ModSubFactions.EREBOR));
-    public static final Item EREBOR_REINFORCED_LEATHER_HELMET = registerArmorPiece("erebor_reinforced_leather_helmet",
-            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
-                    ModSubFactions.EREBOR));
     public static final Item EREBOR_HELMET = registerArmorPiece("erebor_helmet",
-            new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
-                    ModSubFactions.EREBOR));
-    public static final Item EREBOR_HELMET_WITH_MAIL_COIF = registerArmorPiece("erebor_helmet_with_mail_coif",
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, new Item.Settings(),
                     ModSubFactions.EREBOR));
 
@@ -738,9 +745,7 @@ public class ModEquipmentItems {
     public static final Item RAVENHILL_HELMET = registerArmorPiece("ravenhill_helmet",
             new CustomHelmetItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
                     ModSubFactions.EREBOR));
-    public static final Item RAVENHILL_REINFORCED_HELMET = registerArmorPiece("ravenhill_reinforced_helmet",
-            new CustomHelmetItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
-                    ModSubFactions.EREBOR));
+
     public static final Item RAVENHILL_GILDED_HELMET = registerArmorPiece("ravenhill_gilded_helmet",
             new CustomHelmetItem(ModArmorMaterials.DWARVEN_STEEL_T4, new Item.Settings(),
                     ModSubFactions.EREBOR));
@@ -1202,6 +1207,9 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings(),
                     ModFactions.MORDOR));
 
+    public static final Item RUSTED_MORDOR_CHESTPLATE = registerArmorPiece("rusted_mordor_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings(),
+                    ModFactions.MORDOR));
     public static final Item RUSTED_MORDOR_CUIRASS = registerDyeableArmorPiece("rusted_mordor_cuirass",
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T3, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5186845)),
@@ -1314,17 +1322,13 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.MORDOR_BLACK_NUMENOREAN_CAPE)),
                     ModSubFactions.MORDOR_BLACK_NUMENOREANS));
 
-    public static final Item NAZGUL_CLOAK_HOOD = registerArmorPiece("nazgul_cloak_hood",
-            new CustomHelmetItem(ModArmorMaterials.STEEL_T3, new Item.Settings(),
+    public static final Item NAZGUL_HOOD = registerHood("nazgul_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.NAZGUL_HOOD)),
                     ModFactions.MORDOR));
-    public static final Item NAZGUL_CLOAK = registerArmorPiece("nazgul_cloak",
-            new CustomChestplateItem(ModArmorMaterials.STEEL_T3, new Item.Settings(),
-                    ModFactions.MORDOR));
-    public static final Item NAZGUL_PANTS = registerArmorPiece("nazgul_pants",
-            new CustomLeggingsItem(ModArmorMaterials.STEEL_T3, new Item.Settings(),
-                    ModFactions.MORDOR));
-    public static final Item NAZGUL_BOOTS = registerArmorPiece("nazgul_boots",
-            new CustomBootsItem(ModArmorMaterials.STEEL_T3, new Item.Settings(),
+    public static final Item NAZGUL_ROBES = registerCape("nazgul_robes",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.NAZGUL_ROBES)),
                     ModFactions.MORDOR));
     //endregion
 
@@ -1385,25 +1389,25 @@ public class ModEquipmentItems {
     public static final Item URUK_HAI_PLATE_HELMET = registerCustomModelArmorPiece("uruk_hai_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
-    public static final Item URUK_HAI_PLATE_PAINTED_HELMET = registerCustomModelArmorPiece("uruk_hai_plate_painted_helmet",
+    public static final Item URUK_HAI_PAINTED_PLATE_HELMET = registerCustomModelArmorPiece("uruk_hai_painted_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_SAPPER_HELMET = registerCustomModelArmorPiece("uruk_hai_sapper_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
-    public static final Item URUK_HAI_SAPPER_PAINTED_HELMET = registerCustomModelArmorPiece("uruk_hai_sapper_painted_helmet",
+    public static final Item URUK_HAI_PAINTED_SAPPER_HELMET = registerCustomModelArmorPiece("uruk_hai_painted_sapper_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_BERSERKER_HELMET = registerCustomModelArmorPiece("uruk_hai_berserker_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
-    public static final Item URUK_HAI_BERSERKER_PAINTED_HELMET = registerCustomModelArmorPiece("uruk_hai_berserker_painted_helmet",
+    public static final Item URUK_HAI_PAINTED_BERSERKER_HELMET = registerCustomModelArmorPiece("uruk_hai_painted_berserker_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_COMMANDER_HELMET = registerCustomModelArmorPiece("uruk_hai_commander_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
-    public static final Item URUK_HAI_COMMANDER_PAINTED_HELMET = registerCustomModelArmorPiece("uruk_hai_commander_painted_helmet",
+    public static final Item URUK_HAI_PAINTED_COMMANDER_HELMET = registerCustomModelArmorPiece("uruk_hai_painted_commander_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_PLATE_CHESTPLATE = registerCustomModelArmorPiece("uruk_hai_plate_chestplate",
@@ -1540,6 +1544,8 @@ public class ModEquipmentItems {
             new CustomAnimalArmorItem(ModArmorMaterials.PLATE, "_mordor", CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10)), ModFactions.MORDOR));
     public static final Item WARG_GUNDABAD_PLATE_ARMOR = registerGeneratedItem("warg_gundabad_plate_armor",
             new CustomAnimalArmorItem(ModArmorMaterials.PLATE, "_gundabad", CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10)), ModSubFactions.GUNDABAD));
+    public static final Item WARG_ISENGARD_PLATE_ARMOR = registerGeneratedItem("warg_isengard_plate_armor",
+            new CustomAnimalArmorItem(ModArmorMaterials.PLATE, "_isengard", CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10)), ModFactions.ISENGARD));
     public static final Item WARG_MORDOR_MAIL_ARMOR = registerDyeableArmorPiece("warg_mordor_mail_armor",
             new CustomAnimalArmorItem(ModArmorMaterials.MAIL, "_mordor", CustomAnimalArmorItem.Type.WARG, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(6)).component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(4865076)), ModFactions.MORDOR));
     public static final Item WARG_LEATHER_ARMOR = registerDyeableArmorPiece("warg_leather_armor",

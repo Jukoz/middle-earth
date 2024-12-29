@@ -11,7 +11,7 @@ public class BeastSitGoal extends Goal {
 
     public BeastSitGoal(AbstractBeastEntity mob) {
         this.mob = mob;
-        this.setControls(EnumSet.of(Goal.Control.JUMP, Goal.Control.MOVE));
+        this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
     }
 
     @Override
