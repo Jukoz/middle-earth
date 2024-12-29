@@ -59,8 +59,9 @@ public enum ModCapes implements StringIdentifiable {
     ORCISH_WHITE_FUR_SURCOAT_WITH_BONE(37,"orcish_white_fur_surcoat_with_bone"),
 
     MORDOR_BLACK_NUMENOREAN_CAPE(38,"mordor_black_numenorean_cape"),
+    NAZGUL_ROBES(39,"nazgul_robes"),
 
-    ORTHANC_GUARD_CAPE(39,"orthanc_guard_cape"),
+    ORTHANC_GUARD_CAPE(40,"orthanc_guard_cape"),
 
     ;
 
