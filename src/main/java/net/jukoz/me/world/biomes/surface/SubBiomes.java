@@ -42,6 +42,9 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.ANORIEN, new SubBiome(144)
                 .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.GONDOR_FOREST)
                 .addSubBiomeData(0.39f, 2.01f, MEBiomeKeys.GONDOR_HILL, true));
+        subBiomesMap.put(MEBiomeKeys.PELENNOR_FIELDS, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.41f, MEBiomeKeys.GONDOR_FOREST)
+                .addSubBiomeData(0.42f, 2.01f, MEBiomeKeys.GONDOR_FOREST));
 
         subBiomesMap.put(MEBiomeKeys.LOSSARNACH, new SubBiome(180, 1.2f)
                 .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.GONDOR_FOREST)
@@ -68,6 +71,10 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.BELFALAS, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.33f, MEBiomeKeys.BELFALAS_FOREST)
                 .addSubBiomeData(0.34f, 2.01f, MEBiomeKeys.BELFALAS_FOREST)
+        );
+        subBiomesMap.put(MEBiomeKeys.BLACKROOT_VALE, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.BLACKROOT_FOREST)
+                .addSubBiomeData(0.31f, 2.01f, MEBiomeKeys.BLACKROOT_FOREST)
         );
         subBiomesMap.put(MEBiomeKeys.GONDOR, new SubBiome(128)
                 .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.GONDOR_FOREST)

@@ -22,6 +22,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> BELFALAS_HILLS = MEBiomeKeys.register("belfalas_hills");
     public static final RegistryKey<Biome> BELFALAS_BEACH = MEBiomeKeys.register("belfalas_beach");
     public static final RegistryKey<Biome> BLACKROOT_VALE = MEBiomeKeys.register("blackroot_vale");
+    public static final RegistryKey<Biome> BLACKROOT_FOREST = MEBiomeKeys.register("blackroot_forest");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS_FOOTHILLS = MEBiomeKeys.register("blue_mountains_foothills");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS_BASE = MEBiomeKeys.register("blue_mountains_base");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS = MEBiomeKeys.register("blue_mountains");

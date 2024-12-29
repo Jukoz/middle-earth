@@ -277,6 +277,13 @@ public class ModBiomeFeatures {
         vegetation.add(ModTreePlacedFeatures.ABUNDANT_DEAD_BLACK_PINE_PLACED_TREE_KEY);
     }
 
+    public static void addScorchedTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SCORCHED_TREE_PLACED_TREE_KEY);
+    }
+    public static void addAbundantScorchedTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.ABUNDANT_SCORCHED_TREE_PLACED_TREE_KEY);
+    }
+
     public static void addAbundantSpruceTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.FOOTHILLS_SPRUCE_PLACED_TREE_KEY);
     }
@@ -609,6 +616,26 @@ public class ModBiomeFeatures {
     }
     public static void addRedHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_RED_HEATHER);
+    }
+    public static void addScorchedGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SCORCHED_GRASS);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SCORCHED_TUFT);
+    }
+    public static void addScorchedShrub(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SCORCHED_SHRUB);
+    }
+    public static void addCommonScorchedGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_SCORCHED_GRASS);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_SCORCHED_TUFT);
+    }
+    public static void addCommonScorchedShrub(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_SCORCHED_SHRUB);
+    }
+    public static void addSedum(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SEDUM);
+    }
+    public static void addSedumYellow(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SEDUM_YELLOW);
     }
     public static void addShriveledShrubs(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SHRIVELED_SHRUB);

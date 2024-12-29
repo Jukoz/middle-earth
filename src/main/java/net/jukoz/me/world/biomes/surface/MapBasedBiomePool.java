@@ -103,6 +103,7 @@ public class MapBasedBiomePool {
         add(new Color(0x23ad51), new MapBasedCustomBiome(MEBiomeKeys.BELFALAS_HILLS, 37, MEBiomeDataConfigs.mountainModifier));
         add(new Color(0x4ddb77), new MapBasedCustomBiome(MEBiomeKeys.BELFALAS_BEACH, 0, MEBiomeDataConfigs.plainsModifier.heightModifier(0.98f).noiseModifier(0.1f)));
         add(new Color(0x41943c), new MapBasedCustomBiome(MEBiomeKeys.BLACKROOT_VALE, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x3C8C37), new MapBasedCustomBiome(MEBiomeKeys.BLACKROOT_FOREST, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x4caf75), new MapBasedCustomBiome(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, 35, MEBiomeDataConfigs.bmModifier.heightModifier(0.23f)));
         add(new Color(0xb2b7d2), new MapBasedCustomBiome(MEBiomeKeys.BLUE_MOUNTAINS_BASE, 53, MEBiomeDataConfigs.bmModifier));
         add(new Color(0xc8d1ff), new MapBasedCustomBiome(MEBiomeKeys.BLUE_MOUNTAINS, 82, MEBiomeDataConfigs.bmModifier));

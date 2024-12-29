@@ -74,6 +74,8 @@ public class MapBiomeData {
         // BLACKROOT
         addBiome(new BiomeData(MEBiomeKeys.BLACKROOT_VALE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
                 new BiomeColorsDTO(8036582, 12176100, 5076939, defaultWaterFog, 6400098, 6069598)));
+        addBiome(new BiomeData(MEBiomeKeys.BLACKROOT_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(7575257, 11255256, 5076939, defaultWaterFog, 5610326, 5543511)));
         // BLUE MOUNTAINS
         addBiome(new BiomeData(MEBiomeKeys.BLUE_MOUNTAINS, MEBiomeDataConfigs.blueMountains, MEBiomeDataConfigs.gonluinLayers,
                 new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 6652524, 6652524)));
