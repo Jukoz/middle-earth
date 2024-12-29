@@ -140,7 +140,7 @@ public class ModWeaponItems {
 
     public static final Item GONDORIAN_BOW = registerBowItem("gondorian_bow",
             new CustomBowWeaponItem(ModFactions.GONDOR, new Item.Settings().maxDamage(640)));
-    public static final Item GONDORIAN_LONGBOW = registerLongbowItem("gondorian_longbow",
+    public static final Item GONDORIAN_LONGBOW = registerBigBowItem("gondorian_longbow",
             new CustomLongbowWeaponItem(ModFactions.GONDOR, new Item.Settings().maxDamage(640)));
 
     public static final Item GONDORIAN_SHIELD = registerShield("gondorian_shield",
@@ -300,6 +300,9 @@ public class ModWeaponItems {
     //endregion
 
     //region EREBOR
+    public static final Item LONGBEARD_BOW = registerBigBowItem("longbeard_bow",
+            new CustomBowWeaponItem(ModFactions.LONGBEARDS, new Item.Settings().maxDamage(640)));
+
     public static final Item EREBOR_SWORD = registerItemWithModel("erebor_sword",
             new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL, ModSubFactions.EREBOR), true);
     public static final Item EREBOR_NOBLE_SWORD = registerItemWithModel("erebor_noble_sword",
@@ -320,6 +323,9 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.KHAZAD_STEEL, ModSubFactions.EREBOR));
     public static final Item EREBOR_NOBLE_SPEAR = registerItemWithSpearModel("erebor_noble_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_KHAZAD_STEEL, ModSubFactions.EREBOR));
+
+    public static final Item EREBOR_BOW = registerBigBowItem("erebor_bow",
+            new CustomBowWeaponItem(ModSubFactions.EREBOR, new Item.Settings().maxDamage(640)));
 
     public static final Item EREBOR_SHIELD = registerShield("erebor_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
@@ -493,6 +499,9 @@ public class ModWeaponItems {
     public static final Item GUNDABAD_ELITE_SPEAR = registerItemWithSpearModel("gundabad_elite_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModSubFactions.GUNDABAD));
 
+    public static final Item GUNDABAD_LONGBOW = registerBigBowItem("gundabad_longbow",
+            new CustomLongbowWeaponItem(ModSubFactions.GUNDABAD, new Item.Settings().maxDamage(640)));
+
     public static final Item GUNDABAD_WOODEN_SHIELD = registerShield("gundabad_wooden_shield",
             new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_PAINTED_WOODEN_SHIELD = registerShield("gundabad_painted_wooden_shield",
@@ -582,7 +591,7 @@ public class ModWeaponItems {
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
-    private static Item registerLongbowItem(String name, Item item) {
+    private static Item registerBigBowItem(String name, Item item) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBigItemModel.bigBows.add(item);
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);

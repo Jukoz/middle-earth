@@ -21,12 +21,16 @@ public class ModModelPredicateProvider {
     }
 
     private static void registerBowModel() {
-        //registerBow(ModWeaponItems.DALISH_BOW);
         registerBow(ModWeaponItems.GONDORIAN_BOW);
         registerLongbow(ModWeaponItems.GONDORIAN_LONGBOW);
-        registerBow(ModWeaponItems.LORIEN_BOW);
         registerBow(ModWeaponItems.ROHIRRIC_BOW);
-        //registerBow(ModWeaponItems.UMBAR_BOW);
+
+        registerBow(ModWeaponItems.LORIEN_BOW);
+
+        registerBow(ModWeaponItems.LONGBEARD_BOW);
+        registerBow(ModWeaponItems.EREBOR_BOW);
+
+        registerLongbow(ModWeaponItems.GUNDABAD_LONGBOW);
     }
 
     private static void registerArtefactModels() {

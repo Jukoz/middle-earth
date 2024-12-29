@@ -354,6 +354,9 @@
   "item.me.orc_spear": "Orc Spear",
   "item.me.orc_axe": "Orc Axe",
 
+"#Comment:": "Item - Longbeards",
+  "item.me.longbeard_bow": "Longbeard Bow",
+
 "#Comment:": "Item - Erebor",
   "item.me.erebor_sword": "Erebor Sword",
   "item.me.erebor_noble_sword": "Erebor Noble Sword",
@@ -365,6 +368,8 @@
   "item.me.erebor_noble_axe": "Erebor Noble Axe",
   "item.me.erebor_spear": "Erebor Spear",
   "item.me.erebor_noble_spear": "Erebor Noble Spear",
+
+  "item.me.erebor_bow": "Erebor Bow",
 
 "#Comment:": "Item - Gondor",
   "item.me.gondorian_sword": "Gondorian Sword",
@@ -378,7 +383,9 @@
   "item.me.gondorian_spear": "Gondorian Spear",
   "item.me.gondorian_noble_spear": "Gondorian Noble Spear",
   "item.me.gondorian_fountain_guard_spear": "Gondorian Fountain Guard Spear",
+
   "item.me.gondorian_bow": "Gondorian Bow",
+  "item.me.gondorian_longbow": "Gondorian Longbow",
 
 "#Comment:": "Item - Lorien",
   "item.me.lorien_sword": "Lórien Sword",
@@ -391,6 +398,7 @@
   "item.me.lorien_noble_axe": "Lórien Noble Axe",
   "item.me.lorien_spear": "Lórien Spear",
   "item.me.lorien_noble_spear": "Lórien Noble Spear",
+
   "item.me.lorien_bow": "Lórien Bow",
 
 "#Comment:": "Item - Rohan",
@@ -404,6 +412,7 @@
   "item.me.rohirric_noble_axe": "Rohirric Noble Axe",
   "item.me.rohirric_spear": "Rohirric Spear",
   "item.me.rohirric_noble_spear": "Rohirric Noble Spear",
+
   "item.me.rohirric_bow": "Rohirric Bow",
 
 "#Comment:": "Item - Dalish",
@@ -465,6 +474,8 @@
   "item.me.gundabad_elite_spear": "Gundabad Elite Spear",
   "item.me.gundabad_axe": "Gundabad Axe",
   "item.me.gundabad_elite_battleaxe": "Gundabad Elite Battleaxe",
+
+  "item.me.gundabad_longbow": "Gundabad Longbow",
 
 "#Comment:": "Item - Misc Weapons",
   "item.me.wooden_dagger": "Wooden Dagger",
