@@ -44,6 +44,7 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.ELVEN_ARMING_SKIRT, true);
         dyeablePieces.put(ModEquipmentItems.ELVEN_OPEN_ARMING_SKIRT, true);
 
+        dyeablePieces.put(ModEquipmentItems.DWARVEN_MINER_HELMET, true);
         dyeablePieces.put(ModEquipmentItems.DWARVEN_GAMBESON, true);
         dyeablePieces.put(ModEquipmentItems.DWARVEN_MINER_GAMBESON, true);
 

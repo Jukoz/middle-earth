@@ -616,7 +616,7 @@ public class ModEquipmentItems {
     //region DWARVES
 
     //region GENERIC
-    public static final Item DWARVEN_MINER_HELMET = registerCustomModelArmorPiece("dwarven_miner_helmet",
+    public static final Item DWARVEN_MINER_HELMET = registerDyeableCustomModelArmorPiece("dwarven_miner_helmet",
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, new Item.Settings(),
                     ModFactions.NONE));
 
@@ -691,6 +691,9 @@ public class ModEquipmentItems {
                     ModFactions.LONGBEARDS));
 
     //region EREBOR
+    public static final Item EREBOR_LEATHER_HELMET = registerArmorPiece("erebor_leather_helmet",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings(),
+                    ModSubFactions.EREBOR));
     public static final Item EREBOR_BRACED_LEATHER_HELMET = registerArmorPiece("erebor_braced_leather_helmet",
             new CustomHelmetItem(ModArmorMaterials.IRON_T2, new Item.Settings(),
                     ModSubFactions.EREBOR));
