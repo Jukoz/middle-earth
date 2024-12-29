@@ -76,6 +76,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         warg_armor.add(ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR);
         warg_armor.add(ModEquipmentItems.WARG_GUNDABAD_PLATE_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_ISENGARD_PLATE_ARMOR);
         warg_armor.add(ModEquipmentItems.WARG_MORDOR_MAIL_ARMOR);
         warg_armor.add(ModEquipmentItems.WARG_LEATHER_ARMOR);
         warg_armor.add(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);

@@ -78,11 +78,20 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_DIORITE_TILES);
             add(ModBlocks.CHISELED_SMOOTH_DIORITE);
 
+            add(ModBlocks.CHISELED_BASALT);
+            add(ModBlocks.CHISELED_BASALT_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_BASALT);
+            add(ModBlocks.CHISELED_BASALT_TILES);
+            add(ModBlocks.CHISELED_SMOOTH_BASALT);
+
+            add(ModBlocks.CHISELED_BLACKSTONE);
+            add(ModBlocks.CHISELED_POLISHED_BLACKSTONE_BRICKS);
+            add(ModBlocks.CHISELED_BLACKSTONE_TILES);
+            add(ModBlocks.CHISELED_SMOOTH_BLACKSTONE);
+
             add(ModBlocks.CHISELED_POLISHED_TUFF);
             add(ModBlocks.CHISELED_TUFF_TILES);
             add(ModBlocks.CHISELED_SMOOTH_TUFF);
-
-            add(ModBlocks.CHISELED_BASALT_BRICKS);
 
             add(ModBlocks.CHISELED_DOLOMITE);
             add(ModBlocks.CHISELED_DOLOMITE_BRICKS);
@@ -111,11 +120,7 @@ public class MineablePickaxe {
             add(ModBlocks.NURGON_PILLAR);
             add(ModBlocks.CHISELED_NURGON_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_NURGON);
-
-            add(ModBlocks.MEDGON_PILLAR);
-            add(ModBlocks.CHISELED_MEDGON);
-            add(ModBlocks.CHISELED_MEDGON_BRICKS);
-            add(ModBlocks.CHISELED_POLISHED_MEDGON);
+            
 
             add(ModBlocks.POINTED_GALONN);
             add(ModBlocks.POINTED_LIMESTONE);
@@ -181,12 +186,30 @@ public class MineablePickaxe {
             add(ModBlocks.MOSSY_DIORITE_PILLAR);
             add(ModBlocks.CRACKED_DIORITE_PILLAR);
 
+            add(ModBlocks.BLACKSTONE_PILLAR);
+            add(ModBlocks.MOSSY_BLACKSTONE_PILLAR);
+            add(ModBlocks.CRACKED_BLACKSTONE_PILLAR);
+
+            add(ModBlocks.BASALT_PILLAR);
+            add(ModBlocks.MOSSY_BASALT_PILLAR);
+            add(ModBlocks.CRACKED_BASALT_PILLAR);
+
             add(ModBlocks.TUFF_PILLAR);
             add(ModBlocks.MOSSY_TUFF_PILLAR);
             add(ModBlocks.CRACKED_TUFF_PILLAR);
             
             add(ModBlocks.JADEITE_PILLAR);
             add(ModBlocks.CRACKED_JADEITE_PILLAR);
+
+            add(ModBlocks.MEDGON_PILLAR);
+            add(ModBlocks.MOSSY_MEDGON_PILLAR);
+            add(ModBlocks.CRACKED_MEDGON_PILLAR);
+
+            add(ModBlocks.CHISELED_MEDGON);
+            add(ModBlocks.CHISELED_MEDGON_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_MEDGON);
+            add(ModBlocks.CHISELED_MEDGON_TILES);
+            add(ModBlocks.CHISELED_SMOOTH_MEDGON);
 
             add(ModBlocks.STONE_TRAPDOOR);
             add(ModBlocks.GRANITE_TRAPDOOR);
@@ -209,6 +232,7 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.CALCITE_STATUE);
             add(ModDecorativeBlocks.GONLUIN_STATUE);
             add(ModDecorativeBlocks.TUFF_STATUE);
+            add(ModDecorativeBlocks.MEDGON_SPIKE);
 
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 

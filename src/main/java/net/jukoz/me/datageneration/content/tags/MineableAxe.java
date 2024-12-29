@@ -24,12 +24,21 @@ public class MineableAxe {
 
             add(ModDecorativeBlocks.BLUE_HOBBIT_DOOR);
             add(ModDecorativeBlocks.GREEN_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.LIGHT_BLUE_HOBBIT_DOOR);
             add(ModDecorativeBlocks.RED_HOBBIT_DOOR);
             add(ModDecorativeBlocks.YELLOW_HOBBIT_DOOR);
             add(ModDecorativeBlocks.LARCH_HOBBIT_DOOR);
             add(ModDecorativeBlocks.SPRUCE_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.TALL_BLACK_PINE_DOOR);
+            add(ModDecorativeBlocks.OAK_STABLE_DOOR);
+            add(ModDecorativeBlocks.REINFORCED_BLACK_PINE_DOOR);
             add(ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR);
+            add(ModDecorativeBlocks.SIMPLE_LARCH_GATE);
+            add(ModDecorativeBlocks.RICKETY_SIMPLE_LARCH_DOOR);
+            add(ModDecorativeBlocks.SPRUCE_STABLE_DOOR);
+            add(ModDecorativeBlocks.LARGE_STURDY_DOOR);
             add(ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR);
+            add(ModDecorativeBlocks.RUINED_DWARVEN_DOOR);
             add(ModDecorativeBlocks.GREAT_ELVEN_GATE);
 
             add(ModBlocks.BLACK_WATTLE_TRAPDOOR);

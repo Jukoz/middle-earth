@@ -85,6 +85,31 @@ public class HelpingGenerator {
             Walls.walls.add(set.wall());
         }
 
+        for (StoneBlockSets.SimplePillarBlockSet set : StoneBlockSets.pillarSets) {
+            SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.base()));
+            if (set.base().toString().contains("cobble") && !set.base().toString().contains("mossy")) {
+                Stones.stones.add(set.base());
+            }
+            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.base(), set.slab()));
+            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.base(), set.slab(), set.verticalSlab()));
+            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.base(), set.stairs()));
+            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.base(), set.wall()));
+
+            BlockDrops.blocks.add(set.base());
+            BlockDrops.blocks.add(set.slab());
+            BlockDrops.blocks.add(set.verticalSlab());
+            BlockDrops.blocks.add(set.stairs());
+            BlockDrops.blocks.add(set.wall());
+
+            MineablePickaxe.blocks.add(set.base());
+            MineablePickaxe.blocks.add(set.wall());
+            MineablePickaxe.blocks.add(set.slab());
+            MineablePickaxe.blocks.add(set.verticalSlab());
+            MineablePickaxe.blocks.add(set.stairs());
+
+            Walls.walls.add(set.wall());
+        }
+
         for (WoodBlockSets.SimpleBlockSet set : WoodBlockSets.sets) {
             if(set.leaves() != null) {
                 LeavesSets.blocks.add(set.leaves());

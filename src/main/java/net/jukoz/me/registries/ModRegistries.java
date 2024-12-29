@@ -384,6 +384,10 @@ public class ModRegistries {
 
         registry.add(ModNatureBlocks.SHRIVELED_SHRUB, 0.30f);
 
+        registry.add(ModNatureBlocks.SCORCHED_GRASS, 0.10f);
+        registry.add(ModNatureBlocks.SCORCHED_TUFT, 0.10f);
+        registry.add(ModNatureBlocks.SCORCHED_SHRUB, 0.10f);
+
         registry.add(ModNatureBlocks.BROWN_BOLETE, 0.65f);
         registry.add(ModNatureBlocks.CAVE_AMANITA, 0.65f);
         registry.add(ModNatureBlocks.DEEP_FIRECAP, 0.65f);
@@ -429,6 +433,7 @@ public class ModRegistries {
 
         registry.add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, 0.4F);
 
+        registry.add(ModNatureBlocks.FALLEN_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.FALLEN_MALLORN_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.FALLEN_MIRKWOOD_LEAVES, 0.3F);
 

@@ -60,6 +60,25 @@ public class ModDecorativeItems {
     public static final Item WOOD_PILE = registerItem("wood_pile",
             new BlockItem(ModDecorativeBlocks.WOOD_PILE, new Item.Settings()));
 
+    public static final Item TALL_BLACK_PINE_DOOR = registerItem("tall_black_pine_door",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.TALL_BLACK_PINE_DOOR, new Item.Settings().maxCount(16)));
+
+    public static final Item OAK_STABLE_DOOR = registerItem("oak_stable_door",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.OAK_STABLE_DOOR, new Item.Settings().maxCount(16)));
+    public static final Item REINFORCED_SPRUCE_DOOR = registerItem("reinforced_spruce_door",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR, new Item.Settings().maxCount(16)));
+    public static final Item REINFORCED_BLACK_PINE_DOOR = registerItem("reinforced_black_pine_door",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.REINFORCED_BLACK_PINE_DOOR, new Item.Settings().maxCount(16)));
+    public static final Item SIMPLE_LARCH_GATE = registerItem("simple_larch_gate",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.SIMPLE_LARCH_GATE, new Item.Settings().maxCount(16)));
+    public static final Item RICKETY_SIMPLE_LARCH_DOOR = registerItem("rickety_simple_larch_door",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.RICKETY_SIMPLE_LARCH_DOOR, new Item.Settings().maxCount(16)));
+    public static final Item SPRUCE_STABLE_DOOR = registerItem("spruce_stable_door",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.SPRUCE_STABLE_DOOR, new Item.Settings().maxCount(16)));
+
+    public static final Item LARGE_STURDY_DOOR = registerItem("large_sturdy_door",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.LARGE_STURDY_DOOR, new Item.Settings().maxCount(16)));
+
     public static final Item LARCH_HOBBIT_DOOR = registerItem("larch_hobbit_door",
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.LARCH_HOBBIT_DOOR, new Item.Settings().maxCount(16)));
     public static final Item SPRUCE_HOBBIT_DOOR = registerItem("spruce_hobbit_door",
@@ -68,23 +87,24 @@ public class ModDecorativeItems {
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.BLUE_HOBBIT_DOOR, new Item.Settings().maxCount(16)));
     public static final Item GREEN_HOBBIT_DOOR = registerItem("green_hobbit_door",
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.GREEN_HOBBIT_DOOR, new Item.Settings().maxCount(16)));
+    public static final Item LIGHT_BLUE_HOBBIT_DOOR = registerItem("light_blue_hobbit_door",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.LIGHT_BLUE_HOBBIT_DOOR, new Item.Settings().maxCount(16)));
     public static final Item RED_HOBBIT_DOOR = registerItem("red_hobbit_door",
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.RED_HOBBIT_DOOR, new Item.Settings().maxCount(16)));
     public static final Item YELLOW_HOBBIT_DOOR = registerItem("yellow_hobbit_door",
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.YELLOW_HOBBIT_DOOR, new Item.Settings().maxCount(16)));
-
-    public static final Item REINFORCED_SPRUCE_DOOR = registerItem("reinforced_spruce_door",
-            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR, new Item.Settings().maxCount(16)));
 
     public static final Item GREAT_GONDORIAN_GATE = registerItem("great_gondorian_gate",
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.GREAT_GONDORIAN_GATE, new Item.Settings().maxCount(16)));
 
     public static final Item GREAT_DWARVEN_GATE = registerItem("great_dwarven_gate",
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.GREAT_DWARVEN_GATE, new Item.Settings().maxCount(16)));
-    public static final Item VARNISHED_DWARVEN_DOOR = registerItem("varnished_dwarven_door",
-            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR, new Item.Settings().maxCount(16)));
     public static final Item HIDDEN_DWARVEN_DOOR = registerItem("hidden_dwarven_door",
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.HIDDEN_DWARVEN_DOOR, new Item.Settings().maxCount(16)));
+    public static final Item VARNISHED_DWARVEN_DOOR = registerItem("varnished_dwarven_door",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR, new Item.Settings().maxCount(16)));
+    public static final Item RUINED_DWARVEN_DOOR = registerItem("ruined_dwarven_door",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.RUINED_DWARVEN_DOOR, new Item.Settings().maxCount(16)));
 
     public static final Item GREAT_ELVEN_GATE = registerItem("great_elven_gate",
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.GREAT_ELVEN_GATE, new Item.Settings().maxCount(16)));
