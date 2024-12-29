@@ -433,6 +433,7 @@ public class ModRegistries {
 
         registry.add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, 0.4F);
 
+        registry.add(ModNatureBlocks.FALLEN_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.FALLEN_MALLORN_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.FALLEN_MIRKWOOD_LEAVES, 0.3F);
 

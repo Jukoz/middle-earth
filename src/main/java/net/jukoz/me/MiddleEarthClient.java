@@ -75,6 +75,7 @@ import net.jukoz.me.particles.custom.AnvilBonkParticle;
 import net.jukoz.me.particles.custom.LeavesParticle;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
@@ -84,6 +85,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.FoliageColors;
 import net.minecraft.world.biome.GrassColors;
 
 public class MiddleEarthClient implements ClientModInitializer {
@@ -402,12 +404,18 @@ public class MiddleEarthClient implements ClientModInitializer {
                 ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT_STAIRS,
                 ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS, ModBlocks.TURF_VERTICAL_SLAB);
 
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
-            BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
-            return GrassColors.getDefaultColor();
-        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS,
+        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
+                    if (view == null || pos == null) {
+                        return FoliageColors.getDefaultColor();
+                    }
+                    return BiomeColors.getFoliageColor(view, pos);
+                }, ModNatureBlocks.FALLEN_LEAVES);
+
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> GrassColors.getDefaultColor(), ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS,
                 ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT_STAIRS,
                 ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS, ModBlocks.TURF_VERTICAL_SLAB);
+
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getDefaultColor(), ModNatureBlocks.FALLEN_LEAVES);
 
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
@@ -520,6 +528,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.TREATED_WOOD_CHAIR, RenderLayer.getCutout());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.FALLEN_LEAVES, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.FALLEN_MALLORN_LEAVES, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.FALLEN_MIRKWOOD_LEAVES, RenderLayer.getCutout());
 

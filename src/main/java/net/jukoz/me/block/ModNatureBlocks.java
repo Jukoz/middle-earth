@@ -371,6 +371,8 @@ public class ModNatureBlocks {
     public static final Block PINE_BRANCHES = registerBlock("pine_branches",
             new Block(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
 
+    public static final Block FALLEN_LEAVES = registerBlock("fallen_leaves",
+            new FallenLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().replaceable().noCollision()), true);
     public static final Block FALLEN_MALLORN_LEAVES = registerBlock("fallen_mallorn_leaves",
             new FallenLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().replaceable().noCollision()), true);
     public static final Block FALLEN_MIRKWOOD_LEAVES = registerBlock("fallen_mirkwood_leaves",
