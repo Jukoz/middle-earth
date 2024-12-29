@@ -76,9 +76,14 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.BLACKROOT_FOREST)
                 .addSubBiomeData(0.31f, 2.01f, MEBiomeKeys.BLACKROOT_FOREST)
         );
-        subBiomesMap.put(MEBiomeKeys.GONDOR, new SubBiome(128)
+        subBiomesMap.put(MEBiomeKeys.GONDOR, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.GONDOR_FOREST)
-                .addSubBiomeData(0.3f, 2.01f, MEBiomeKeys.GONDOR_HILL)
+                .addSubBiomeData(0.3f, 2.01f, MEBiomeKeys.GONDOR_HILL, true)
+        );
+
+        subBiomesMap.put(MEBiomeKeys.ROHAN, new SubBiome(64, 1.1f)
+                .addSubBiomeData(-1.0f, -0.33f, MEBiomeKeys.ROHAN_FOREST)
+                .addSubBiomeData(0.36f, 2.01f, MEBiomeKeys.ROHAN_HILLS, true)
         );
 
         subBiomesMap.put(MEBiomeKeys.ITHILIEN, new SubBiome()

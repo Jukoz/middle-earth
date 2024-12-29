@@ -255,6 +255,8 @@ public class MapBasedBiomePool {
         add(new Color(0x89ab8e), new MapBasedCustomBiome(MEBiomeKeys.HIGH_MOOR, 36, MEBiomeDataConfigs.landModifier.noiseModifier(0.3f).heightModifier(0.66f)));
         add(new Color(0x7e9d82), new MapBasedCustomBiome(MEBiomeKeys.HIGH_MOOR_HILLS, 43, MEBiomeDataConfigs.landModifier.noiseModifier(0.4f).heightModifier(0.34f)));
         add(new Color(0xb7e566), new MapBasedCustomBiome(MEBiomeKeys.ROHAN, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xA5D75A), new MapBasedCustomBiome(MEBiomeKeys.ROHAN_FOREST, 5, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xB6DE71), new MapBasedCustomBiome(MEBiomeKeys.ROHAN_HILLS, 17, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x95ad5f), new MapBasedCustomBiome(MEBiomeKeys.SARN_GEBIR_SHORES, 5, MEBiomeDataConfigs.landModifier.heightModifier(0.98f).noiseModifier(0.1f)));
         add(new Color(0x889e57), new MapBasedCustomBiome(MEBiomeKeys.SARN_GEBIR_WILDLANDS, 11, MEBiomeDataConfigs.landModifier.heightModifier(0.67f)));
         add(new Color(0x54d946), new MapBasedCustomBiome(MEBiomeKeys.SHIRE, 6, MEBiomeDataConfigs.shireModifier));

@@ -192,6 +192,8 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> RIVER = MEBiomeKeys.register("river");
     public static final RegistryKey<Biome> RIVER_RUNNING = MEBiomeKeys.register("river_running");
     public static final RegistryKey<Biome> ROHAN = MEBiomeKeys.register("rohan");
+    public static final RegistryKey<Biome> ROHAN_FOREST = MEBiomeKeys.register("rohan_forest");
+    public static final RegistryKey<Biome> ROHAN_HILLS = MEBiomeKeys.register("rohan_hills");
     public static final RegistryKey<Biome> SARN_GEBIR_SHORES = MEBiomeKeys.register("sarn_gebir_shores");
     public static final RegistryKey<Biome> SARN_GEBIR_WILDLANDS = MEBiomeKeys.register("sarn_gebir_wildlands");
     public static final RegistryKey<Biome> SHIRE = MEBiomeKeys.register("shire");

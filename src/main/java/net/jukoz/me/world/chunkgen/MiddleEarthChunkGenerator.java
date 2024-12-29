@@ -244,6 +244,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.HIGH_MOOR_VALE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HIGH_MOOR_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ROHAN),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.ROHAN_FOREST),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.ROHAN_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SEA_OF_RHUN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SARN_GEBIR_WILDLANDS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SARN_GEBIR_SHORES),
