@@ -322,6 +322,11 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         return super.getSaddleSound();
     }
 
+    @Override
+    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
+        return this.isSitting() ? 0 : super.getSaddledSpeed(controllingPlayer);
+    }
+
     // Move Set and Behavior ===========================================================================================
     @Override
     protected void jump(float strength, Vec3d movementInput) {
