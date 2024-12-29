@@ -154,6 +154,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.ITHILIEN_WASTES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ITHILIEN_WASTES_GLADE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LAMEDON),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LAMEDON_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LEBENNIN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LEBENNIN_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LEBENNIN_SHORES),

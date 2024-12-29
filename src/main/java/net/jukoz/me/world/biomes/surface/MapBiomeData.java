@@ -249,6 +249,8 @@ public class MapBiomeData {
         // LAMEDON
         addBiome(new BiomeData(MEBiomeKeys.LAMEDON, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 9162899, 8043898)));
+        addBiome(new BiomeData(MEBiomeKeys.LAMEDON_HILLS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 9751707, 8370303)));
         // LEBENNIN
         addBiome(new BiomeData(MEBiomeKeys.LEBENNIN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 5883985, 3248206)));
@@ -489,7 +491,7 @@ public class MapBiomeData {
                 new BiomeColorsDTO(3289130, 2827810, 6255709, 1252359, 4142897, 3156775), CaveType.ASHEN));
         // TROLLSHAWS
         addBiome(new BiomeData(MEBiomeKeys.TROLLSHAWS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(6980296, 10402016, 4618461, defaultWaterFog, 9666387, 9731143), CaveType.ASHEN));
+                new BiomeColorsDTO(6980296, 10402016, 4618461, defaultWaterFog, 9666387, 9731143)));
         // UDUN
         addBiome(new BiomeData(MEBiomeKeys.UDUN, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(4273461, 2826529, 6450777, 1513734, 3549478, 2695966), CaveType.ASHEN));

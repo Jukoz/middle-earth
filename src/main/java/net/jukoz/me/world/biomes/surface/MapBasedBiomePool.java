@@ -178,6 +178,7 @@ public class MapBasedBiomePool {
         add(new Color(0x336443), new MapBasedCustomBiome(MEBiomeKeys.ITHILIEN_WASTES, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0x3B724D), new MapBasedCustomBiome(MEBiomeKeys.ITHILIEN_WASTES_GLADE, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0xa4ffa4), new MapBasedCustomBiome(MEBiomeKeys.LAMEDON, 7, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xABF1AB), new MapBasedCustomBiome(MEBiomeKeys.LAMEDON_HILLS, 23, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x42dc38), new MapBasedCustomBiome(MEBiomeKeys.LEBENNIN, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x5AD952), new MapBasedCustomBiome(MEBiomeKeys.LEBENNIN_HILLS, 17, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x7fd665), new MapBasedCustomBiome(MEBiomeKeys.LEBENNIN_SHORES, 0, MEBiomeDataConfigs.plainsModifier.heightModifier(0.98f).noiseModifier(0.1f)));

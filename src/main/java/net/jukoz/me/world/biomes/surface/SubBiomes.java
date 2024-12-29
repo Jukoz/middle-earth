@@ -61,9 +61,9 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.GONDOR_FOREST)
                 .addSubBiomeData(0.34f, 2.01f, MEBiomeKeys.LEBENNIN_HILLS, true)
         );
-        subBiomesMap.put(MEBiomeKeys.LAMEDON, new SubBiome(96)
+        subBiomesMap.put(MEBiomeKeys.LAMEDON, new SubBiome(64)
                 .addSubBiomeData(-1.0f, -0.40f, MEBiomeKeys.GONDOR_FOREST)
-                .addSubBiomeData(0.32f, 2.01f, MEBiomeKeys.GONDOR_HILL)
+                .addSubBiomeData(0.31f, 2.01f, MEBiomeKeys.LAMEDON_HILLS, true)
         );
         //subBiomesMap.put(MEBiomeKeys.BELFALAS, new SubBiome(96)
         //        .addSubBiomeData(-1.0f, -0.40f, MEBiomeKeys.GONDOR_FOREST)
