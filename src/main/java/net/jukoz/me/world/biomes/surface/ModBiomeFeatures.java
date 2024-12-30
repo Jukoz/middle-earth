@@ -413,8 +413,11 @@ public class ModBiomeFeatures {
     // region FIELDS
     public static void addHeatherField(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FIELD_HEATHER);
-    }
     // endregion
+    }
+    public static void addMirkwoodVines(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.MIRKWOOD_VINES);
+    }
 
     // region GROWTH
     public static void addAzaleaGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
@@ -561,6 +564,9 @@ public class ModBiomeFeatures {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_HOROKAKA);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_GIANT_HOROKAKA);
     }
+    public static void addCobwebs(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_COBWEB);
+    }
     public static void addCorruptedMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_CORRUPTED_MOSS);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_CORRUPTED_MOSS_CARPET);
@@ -612,6 +618,9 @@ public class ModBiomeFeatures {
     }
     public static void addRareHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_RARE_HEATHER);
+    }
+    public static void addDeadHeather(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_DEAD_HEATHER);
     }
     public static void addHorokaka(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_HOROKAKA);
@@ -684,6 +693,9 @@ public class ModBiomeFeatures {
     }
     public static void addStickySnow(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_STICKY_SNOW);
+    }
+    public static void addSpiderEggs(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SPIDER_EGGS);
     }
     public static void addWheatGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_WHEAT_GRASS);

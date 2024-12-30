@@ -89,6 +89,11 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.42f, MEBiomeKeys.LOTHLORIEN_BLOSSOM)
                 .addSubBiomeData(-0.09f, 0.07f, MEBiomeKeys.LOTHLORIEN_GLADE));
 
+        subBiomesMap.put(MEBiomeKeys.MIRKWOOD, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.33f, MEBiomeKeys.WEBBED_WOODS));
+        subBiomesMap.put(MEBiomeKeys.DARK_MIRKWOOD, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.WEBBED_DARK_WOODS));
+
         subBiomesMap.put(MEBiomeKeys.ITHILIEN, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.ITHILIEN_GLADE)
                 .addSubBiomeData(0.35f, 2.01f, MEBiomeKeys.ITHILIEN_GLADE));

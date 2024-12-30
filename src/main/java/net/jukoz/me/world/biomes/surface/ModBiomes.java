@@ -3,6 +3,7 @@ package net.jukoz.me.world.biomes.surface;
 import net.jukoz.me.world.biomes.BiomeColorsDTO;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.features.misc.ModMiscPlacedFeatures;
+import net.jukoz.me.world.features.vegetation.ModVegetationPlacedFeatures;
 import net.jukoz.me.world.spawners.ModSpawnSettingsBuilder;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -232,7 +233,8 @@ public class ModBiomes {
         createMordorBiome(context, MEBiomeKeys.UDUN);
         createUmbarBiome(context, MEBiomeKeys.UMBAR);
         createWastePondBiome(context, MEBiomeKeys.WASTE_POND);
-        createMirkwoodBiome(context, MEBiomeKeys.WEBBED_WOODS, true, true);
+        createWebbedMirkwoodBiome(context, MEBiomeKeys.WEBBED_WOODS, false);
+        createWebbedMirkwoodBiome(context, MEBiomeKeys.WEBBED_DARK_WOODS, true);
         createWitheredHeathBiome(context, MEBiomeKeys.WITHERED_HEATH);
         createWhiteMountainsBiome(context, MEBiomeKeys.WHITE_MOUNTAINS_BASE);
         createWhiteMountainsFaces(context, MEBiomeKeys.WHITE_MOUNTAINS, false);
@@ -557,6 +559,7 @@ public class ModBiomes {
         undergroundOres.add(MiscPlacedFeatures.DISK_CLAY);
         ModBiomeFeatures.addAshenGravelOre(undergroundOres);
         ModBiomeFeatures.addAshenSandOre(undergroundOres);
+        ModBiomeFeatures.addDeadHeather(undergroundOres);
         ModBiomeFeatures.addSoulSandOre(vegetation);
         vegetation.add(OceanPlacedFeatures.KELP_WARM);
         vegetation.add(OceanPlacedFeatures.SEAGRASS_NORMAL);
@@ -1390,6 +1393,7 @@ public class ModBiomes {
 
         addMirkwoodVegetation(generationSettings);
         ModBiomeFeatures.addMirkwoodRoots(vegetation);
+        ModBiomeFeatures.addDeadHeather(vegetation);
         ModBiomeFeatures.addMudOre(vegetation);
         ModBiomeFeatures.addRareMorsel(vegetation);
         ModBiomeFeatures.addRareWhiteMushroom(vegetation);
@@ -1404,6 +1408,32 @@ public class ModBiomes {
                 ModBiomeFeatures.addForestMoss(vegetation);
                 ModBiomeFeatures.addForestBlockMoss(vegetation);
             }
+        }
+
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
+    }
+
+    public static void createWebbedMirkwoodBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, boolean dark) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addWolves(spawnSettings);
+
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addMirkwoodVegetation(generationSettings);
+        ModBiomeFeatures.addMirkwoodRoots(vegetation);
+        ModBiomeFeatures.addDeadHeather(vegetation);
+        ModBiomeFeatures.addMudOre(vegetation);
+        ModBiomeFeatures.addRareMorsel(vegetation);
+        ModBiomeFeatures.addRareWhiteMushroom(vegetation);
+        ModBiomeFeatures.addCobwebs(vegetation);
+        ModBiomeFeatures.addSpiderEggs(vegetation);
+
+        addMegaMirkwoodTrees(generationSettings);
+        ModBiomeFeatures.addSmallMirkwoodTrees(vegetation);
+        ModBiomeFeatures.addCorruptedMoss(vegetation);
+        if(!dark) {
+            ModBiomeFeatures.addForestMoss(vegetation);
+            ModBiomeFeatures.addForestBlockMoss(vegetation);
         }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
@@ -1796,6 +1826,7 @@ public class ModBiomes {
         ModBiomeFeatures.addAshenStoneBoulder(vegetation);
         ModBiomeFeatures.addBasaltBoulder(vegetation);
         ModBiomeFeatures.addDeadRushes(vegetation);
+        ModBiomeFeatures.addDeadHeather(vegetation);
         ModBiomeFeatures.addWildLeek(vegetation);
         ModBiomeFeatures.addWildFlax(vegetation);
         ModBiomeFeatures.addToughBerries(vegetation);
@@ -2790,6 +2821,8 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
+        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ModVegetationPlacedFeatures.MIRKWOOD_VINES);
+        ModBiomeFeatures.addMirkwoodVines(vegetation);
         ModBiomeFeatures.addCoarseDirtOre(vegetation);
         ModBiomeFeatures.addFalseOatgrass(vegetation);
         ModBiomeFeatures.addOldPodzolOre(vegetation);

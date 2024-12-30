@@ -219,6 +219,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> UDUN = MEBiomeKeys.register("udun");
     public static final RegistryKey<Biome> UMBAR = MEBiomeKeys.register("umbar");
     public static final RegistryKey<Biome> WEBBED_WOODS = MEBiomeKeys.register("webbed_woods");
+    public static final RegistryKey<Biome> WEBBED_DARK_WOODS = MEBiomeKeys.register("webbed_dark_woods");
     public static final RegistryKey<Biome> WITHERED_HEATH = MEBiomeKeys.register("withered_heath");
     public static final RegistryKey<Biome> WASTE_POND = MEBiomeKeys.register("waste_pond");
     public static final RegistryKey<Biome> WHITE_MOUNTAINS_BASE = MEBiomeKeys.register("white_mountains_base");

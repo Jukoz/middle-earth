@@ -19,6 +19,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.dynamic.Range;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
@@ -56,6 +57,7 @@ public class ModVegetationConfiguredFeatures {
     // region FIELDS
     public static final RegistryKey<ConfiguredFeature<?, ?>> FIELD_HEATHER = registerKey("field_heather");
     // endregion
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MIRKWOOD_VINES = registerKey("mirkwood_vines");
 
     // region GROWTH
     public static final RegistryKey<ConfiguredFeature<?, ?>> AZALEA_GROWTH = registerKey("azalea_growth");
@@ -81,6 +83,8 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_BASALT = registerKey("patch_basalt");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_BLACKSTONE = registerKey("patch_blackstone");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_PUMICE = registerKey("patch_pumice");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_COBWEB = registerKey("patch_cobweb");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SPIDER_EGGS = registerKey("patch_spider_eggs");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PUMICE_COLUMN = registerKey("pumice_column");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PUMICE_COLUMN_LARGE = registerKey("pumice_column_large");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_BEACH_GRASS = registerKey("patch_beach_grass");
@@ -100,10 +104,14 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FALSE_OATGRASS = registerKey("patch_false_oatgrass");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FOREST_MOSS = registerKey("patch_forest_moss");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FOREST_MOSS_CARPET = registerKey("patch_forest_moss_carpet");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FROZEN_GRASS = registerKey("patch_frozen_grass");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FROZEN_SHRUB = registerKey("patch_frozen_shrub");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FROZEN_TUFT = registerKey("patch_frozen_tuft");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_GREEN_SHRUB = registerKey("patch_green_shrub");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_GRIM_GRASS = registerKey("patch_grim_grass");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_HEATH = registerKey("patch_heath");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_HEATHER = registerKey("patch_heather");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_DEAD_HEATHER = registerKey("patch_dead_heather");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_HOROKAKA = registerKey("patch_horokaka");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_GIANT_HOROKAKA = registerKey("patch_giant_horokaka");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_RED_HEATHER = registerKey("patch_red_heather");
@@ -116,9 +124,9 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MIRKWOOD_ROOTS = registerKey("patch_mirkwood_roots");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MOSS = registerKey("patch_moss");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MOSS_CARPET = registerKey("patch_moss_carpet");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SCORCHED_GRASS = registerKey("patch_grass");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SCORCHED_SHRUB = registerKey("patch_shrub");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SCORCHED_TUFT = registerKey("patch_tuft");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SCORCHED_GRASS = registerKey("patch_scorched_grass");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SCORCHED_SHRUB = registerKey("patch_scorched_shrub");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SCORCHED_TUFT = registerKey("patch_scorched_tuft");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SEDUM = registerKey("patch_sedum");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SEDUM_YELLOW = registerKey("patch_sedum_yellow");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SHRIVELED_SHRUB = registerKey("patch_shriveled_shrub");
@@ -165,6 +173,12 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, FIELD_HEATHER, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.HEATHER))));
+
+        ConfiguredFeatures.register(featureRegisterable, MIRKWOOD_VINES, Feature.BLOCK_COLUMN,
+                new BlockColumnFeatureConfig(List.of(
+                BlockColumnFeatureConfig.createLayer(UniformIntProvider.create(3, 17), BlockStateProvider.of(ModNatureBlocks.MIRKWOOD_VINES_PLANT)),
+                BlockColumnFeatureConfig.createLayer(ConstantIntProvider.create(1), BlockStateProvider.of(ModNatureBlocks.MIRKWOOD_VINES))),
+                Direction.DOWN, BlockPredicate.IS_AIR, true));
 
         ConfiguredFeatures.register(featureRegisterable, FLOWER_ALLIUM, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
@@ -263,6 +277,13 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_PUMICE, Feature.BLOCK_PILE,
                 new BlockPileFeatureConfig(BlockStateProvider.of(StoneBlockSets.PUMICE.base())));
 
+        ConfiguredFeatures.register(featureRegisterable, PATCH_COBWEB, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(Blocks.COBWEB))));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_SPIDER_EGGS, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.MIRKWOOD_SPIDER_EGG))));
+
         ConfiguredFeatures.register(featureRegisterable, PUMICE_COLUMN, ModFeatures.CAVE_COLUMN,
                 new CaveColumnFeatureConfig(ConstantIntProvider.create(1), UniformIntProvider.create(1, 4), StoneBlockSets.PUMICE.base().getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, PUMICE_COLUMN_LARGE, ModFeatures.CAVE_COLUMN,
@@ -349,6 +370,9 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_HEATHER, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.HEATHER))));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_DEAD_HEATHER, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.DEAD_HEATHER))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_HOROKAKA, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,

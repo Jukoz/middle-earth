@@ -307,6 +307,8 @@ public class MapBiomeData {
         // MIRKWOOD
         addBiome(new BiomeData(MEBiomeKeys.MIRKWOOD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(6849446, 6780008, 7111535, 338483, 4151612, 3823415)));
+        addBiome(new BiomeData(MEBiomeKeys.WEBBED_DARK_WOODS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(6124690, 6319201, 7111535, 338483, 4216382, 3823671)));
         addBiome(new BiomeData(MEBiomeKeys.MIRKWOOD_EDGE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7578800, 7897724, 7111535, 338483, 4546876, 4284215)));
         addBiome(new BiomeData(MEBiomeKeys.MIRKWOOD_FOOTHILLS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,

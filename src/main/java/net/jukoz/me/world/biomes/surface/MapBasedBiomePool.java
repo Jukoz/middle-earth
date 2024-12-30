@@ -199,6 +199,7 @@ public class MapBasedBiomePool {
         add(new Color(0xE1C822), new MapBasedCustomBiome(MEBiomeKeys.LOTHLORIEN_BLOSSOM, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x91a46d), new MapBasedCustomBiome(MEBiomeKeys.MINHIRIATH, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x0a360f), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD, 8, MEBiomeDataConfigs.mirkwoodModifier));
+        add(new Color(0x123B16), new MapBasedCustomBiome(MEBiomeKeys.WEBBED_DARK_WOODS, 8, MEBiomeDataConfigs.mirkwoodModifier));
         add(new Color(0x124918), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_EDGE, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0x2e5332), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_FOOTHILLS, 32, MEBiomeDataConfigs.foothillModifier.heightModifier(0.28f)));
         add(new Color(0x4c554d), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_MOUNTAINS_BASE, 56, MEBiomeDataConfigs.mountainModifier));
@@ -327,6 +328,7 @@ public class MapBasedBiomePool {
         mirkwoodSwampBiomes.add(MEBiomeKeys.DARK_ANDUIN_VALES);
         mirkwoodSwampBiomes.add(MEBiomeKeys.DOL_GULDUR);
         mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD);
+        mirkwoodSwampBiomes.add(MEBiomeKeys.WEBBED_DARK_WOODS);
         mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD_EDGE);
 
         oasisBiomes.add(MEBiomeKeys.CORSAIR_COASTS);

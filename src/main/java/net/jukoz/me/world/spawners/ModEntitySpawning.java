@@ -155,8 +155,10 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.DALE_RIVERSIDE, goblinsAndLongbeards);
         spawns.put(MEBiomeKeys.DALE_FOREST, banditSpawnSettings);
 
-        spawns.put(MEBiomeKeys.MIRKWOOD, List.of(new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 1, 5)));
+        spawns.put(MEBiomeKeys.MIRKWOOD, List.of(new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 1, 3)));
+        spawns.put(MEBiomeKeys.WEBBED_WOODS, List.of(new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 3, 6)));
         spawns.put(MEBiomeKeys.DARK_MIRKWOOD, mordorAndSpiders);
+        spawns.put(MEBiomeKeys.WEBBED_DARK_WOODS, List.of(new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 3, 6)));
         spawns.put(MEBiomeKeys.DOL_GULDUR, mordorSpawnSettings);
 
         spawns.put(MEBiomeKeys.ROHAN, rohanSpawnSettings);
