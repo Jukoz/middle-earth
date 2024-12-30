@@ -22,7 +22,8 @@ public class HeldItemRendererMixin {
         ItemStack itemStack2 = player.getOffHandStack();
         Hand hand = player.getActiveHand();
         boolean bl = itemStack.getItem() instanceof CustomCrossbowWeaponItem || itemStack2.getItem() instanceof CustomCrossbowWeaponItem
-                || itemStack.isOf(Items.CROSSBOW) || itemStack2.isOf(Items.CROSSBOW);
+                || itemStack.isOf(Items.CROSSBOW) || itemStack2.isOf(Items.CROSSBOW)
+                || itemStack.isOf(Items.BOW) || itemStack2.isOf(Items.BOW);
         if (!bl) {
             cir.setReturnValue(HeldItemRenderer.HandRenderType.RENDER_BOTH_HANDS);
         } else if (player.isUsingItem()){
