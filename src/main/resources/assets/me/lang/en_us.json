@@ -290,6 +290,11 @@
   "item.me.mithril_axe": "Mithril Axe",
   "item.me.mithril_shovel": "Mithril Shovel",
   "item.me.mithril_hoe": "Mithril Hoe",
+  "item.me.pipe": "Pipe",
+  "item.me.clayshire_pipe": "Clay Pipe",
+  "item.me.riverbend_pipe": "Riverbend Pipe",
+  "item.me.brimmingbend_pipe": "Brimmingbend Pipe",
+  "item.me.longbottom_pipe": "Longbottom Pipe",
 
   "item.me.bronze_bucket": "Bronze Bucket",
   "item.me.broken_bronze_bucket": "Broken Bronze Bucket",
@@ -605,6 +610,7 @@
   "item.me.leather_skullcap": "Leather Skullcap",
   "item.me.gambeson_cap": "Gambeson Cap",
   "item.me.gambeson_cowl": "Gambeson Cowl",
+  "item.me.kettle_hat": "Kettle hat",
 
   "item.me.leather_vest": "Leather Vest",
   "item.me.leather_scale_vest": "Leather Scale Vest",
@@ -615,7 +621,9 @@
   "item.me.high_cut_boots": "High Cut Boots",
 
   "item.me.mail_coif": "Mail Coif",
-  "item.me.kettle_hat": "Kettle hat",
+  "item.me.kettle_hat_with_coif": "Kettle Hat With Coif",
+  "item.me.closed_mail_coif": "Closed Mail Coif",
+  "item.me.kettle_hat_with_closed_coif": "Kettle Hat With Closed Coif",
   "item.me.open_face_helmet": "Open Face Helmet",
 
   "item.me.mail_hauberk": "Mail Hauberk",
@@ -763,18 +771,15 @@
   "item.me.longbeard_partisan_outfit": "Longbeard Partisan Outfit",
   "item.me.longbeard_reinforced_leather_hauberk": "Longbeard Reinforced Leather Hauberk",
 
+  "item.me.erebor_leather_helmet": "Erebor Leather Helmet",
   "item.me.erebor_braced_leather_helmet": "Erebor Braced Leather Helmet",
   "item.me.erebor_nasal_leather_helmet": "Erebor Nasal Leather Helmet",
-
 
   "item.me.erebor_leather_leggings": "Erebor Leather Leggings",
 
   "item.me.erebor_mail_coif": "Erebor Mail Coif",
   "item.me.erebor_gilded_mail_coif": "Erebor Gilded Mail Coif",
-  "item.me.erebor_closed_mail_coif": "Erebor Closed Mail Coif",
-  "item.me.erebor_reinforced_leather_helmet": "Erebor Reinforced Leather Helmet",
   "item.me.erebor_helmet": "Erebor Helmet",
-  "item.me.erebor_helmet_with_mail_coif": "Erebor Helmet With Mail Coif",
 
   "item.me.erebor_mail_hauberk": "Erebor Mail Hauberk",
   "item.me.erebor_padded_mail_hauberk": "Erebor Padded Mail Hauberk",
@@ -786,7 +791,6 @@
   "item.me.erebor_boots": "Erebor Boots",
 
   "item.me.ravenhill_helmet": "Ravenhill Helmet",
-  "item.me.ravenhill_reinforced_helmet": "Ravenhill Reinforced Helmet",
   "item.me.ravenhill_gilded_helmet": "Ravenhill Gilded Helmet",
 
   "item.me.erebor_scale_hauberk": "Erebor Scale Hauberk",
@@ -935,6 +939,7 @@
   "item.me.mordor_painted_cuirass": "Mordor Painted Cuirass",
 
   "item.me.mordor_chestplate": "Mordor Chestplate",
+  "item.me.rusted_mordor_chestplate": "Rusted Mordor Chestplate",
   "item.me.mordor_cuirass": "Mordor Cuirass",
   "item.me.rusted_mordor_cuirass": "Rusted Mordor Cuirass",
   "item.me.mordor_degraded_gondorian_chestplate": "Mordor Degraded Gondorian Chestplate",
@@ -965,10 +970,8 @@
 
   "item.me.mordor_black_numenorean_cape": "Mordor Black Númenórean Cape",
 
-  "item.me.nazgul_cloak_hood": "Nazgûl Cloak Hood",
-  "item.me.nazgul_cloak": "Nazgûl Cloak",
-  "item.me.nazgul_pants": "Nazgûl Pants",
-  "item.me.nazgul_boots": "Nazgûl Boots",
+  "item.me.nazgul_hood": "Nazgûl Hood",
+  "item.me.nazgul_robes": "Nazgûl Robes",
 
   "item.me.uruk_hai_leather_scout_cap": "Uruk-Hai Leather Scout Cap",
 
@@ -994,13 +997,13 @@
   "item.me.uruk_hai_boots": "Uruk-Hai Boots",
 
   "item.me.uruk_hai_plate_helmet": "Uruk-Hai Plate Helmet",
-  "item.me.uruk_hai_plate_painted_helmet": "Uruk-Hai Plate Painted Helmet",
+  "item.me.uruk_hai_painted_plate_helmet": "Uruk-Hai Painted Plate Helmet",
   "item.me.uruk_hai_sapper_helmet": "Uruk-Hai Sapper Helmet",
-  "item.me.uruk_hai_sapper_painted_helmet": "Uruk-Hai Sapper Painted Helmet",
+  "item.me.uruk_hai_painted_sapper_helmet": "Uruk-Hai Painted Sapper Helmet",
   "item.me.uruk_hai_berserker_helmet": "Uruk-Hai Berserker Helmet",
-  "item.me.uruk_hai_berserker_painted_helmet": "Uruk-Hai Berserker Painted Helmet",
+  "item.me.uruk_hai_painted_berserker_helmet": "Uruk-Hai Painted Berserker Helmet",
   "item.me.uruk_hai_commander_helmet": "Uruk-Hai Commander Helmet",
-  "item.me.uruk_hai_commander_painted_helmet": "Uruk-Hai Commander Painted Helmet",
+  "item.me.uruk_hai_painted_commander_helmet": "Uruk-Hai Painted Commander Helmet",
 
   "item.me.uruk_hai_plate_chestplate": "Uruk-Hai Plate Chestplate",
   "item.me.uruk_hai_plate_leggings": "Uruk-Hai Plate Leggings",
@@ -1269,6 +1272,7 @@
 
 "#Comment:": "Item - Resources",
   "item.me.pipeweed": "Pipeweed",
+  "item.me.dried_pipeweed": "Dried Pipeweed",
   "item.me.flax": "Flax",
   "item.me.red_agate_shard": "Red Agate Shard",
   "item.me.citrine_shard": "Citrine Shard",
@@ -6987,9 +6991,12 @@
   "block.me.banner.snail.yellow": "Yellow Snail",
 
 "#Comment": "SOUNDS",
-  "sounds.me.bellows_push": "Bellows Push",
-  "sounds.me.nazgul_fade": "Nazgûl Fading",
-  "sounds.me.nazgul_scream": "Nazgûl Screaming",
+  "sounds.me.bellows_push": "Bellows blowing",
+  "sounds.me.nazgul_fade": "Nazgûl fading",
+  "sounds.me.nazgul_scream": "Nazgûl screaming",
+  "sounds.me.pipe_refill": "Pipe refills",
+  "sounds.me.pipe_exhale": "Pipe exhales",
+  "sounds.me.pipe_ignite": "Pipe ignites",
 
 "#Comment": "GUI",
   "screen.me.forge": "Forge",
@@ -7207,7 +7214,10 @@
   "tooltip.me.orcish_tan_fur_surcoat_with_bone": "Orcish Tan Fur Surcoat With Bone",
   "tooltip.me.orcish_white_fur_surcoat_with_bone": "Orcish White Fur Surcoat With Bone",
 
+  "tooltip.me.nazgul_hood": "Nazgûl Hood",
+
   "tooltip.me.mordor_black_numenorean_cape": "Mordor Black Númenórean Cape",
+  "tooltip.me.nazgul_robes": "Nazgûl Robes",
 
   "tooltip.me.orthanc_guard_cape": "Orthanc Guard Cape",
 

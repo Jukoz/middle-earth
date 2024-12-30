@@ -12,6 +12,12 @@ public class SimpleBigItemModel {
 
         }
     };
+    /**
+        Generic items/not weapoons. Pipes- etc. For in GUI 2d sprite- not in GUI 3d model as json.
+    */
+    public static List<Item> genericItems = new ArrayList<>(){
+
+    };
 
     public static List<Item> artefacts = new ArrayList<>() {
         {

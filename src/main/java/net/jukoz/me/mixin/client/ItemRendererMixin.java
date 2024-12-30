@@ -35,7 +35,8 @@ public abstract class ItemRendererMixin {
         if(renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED) {
             if(SimpleBigItemModel.artefacts.contains(stack.getItem())
                     || SimpleBigItemModel.items.contains(stack.getItem())
-                    || SimpleSpearModel.items.contains(stack.getItem())) {
+                    || SimpleSpearModel.items.contains(stack.getItem())
+                    || SimpleBigItemModel.genericItems.contains(stack.getItem())) {
                 Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(stack.getItem());
                 if (SimpleBigItemModel.artefactsGlowing.contains(stack.getItem())){
                     if (stack.getItem() instanceof  ArtefactCustomGlowingLongswordWeaponItem item && item.glowing){

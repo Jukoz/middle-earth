@@ -21,5 +21,23 @@
       "me:nazgul/nazgul_scream2",
       "me:nazgul/nazgul_scream3"
     ]
+  },
+  "pipe_exhale": {
+    "subtitle": "sounds.me.pipe_exhale",
+    "sounds": [
+      "me:pipe/pipe_exhale1"
+    ]
+  },
+  "pipe_refill": {
+    "subtitle": "sounds.me.pipe_refill",
+    "sounds": [
+      "minecraft:block/composter/fill1"
+    ]
+  },
+  "pipe_ignite": {
+    "subtitle": "sounds.me.pipe_ignite",
+    "sounds": [
+      "minecraft:fire/ignite"
+    ]
   }
 }
