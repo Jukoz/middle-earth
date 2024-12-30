@@ -7,6 +7,7 @@ import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeap
 import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingLongswordWeaponItem;
 import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomLongswordWeaponItem;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.jukoz.me.item.items.PipeItem;
@@ -33,6 +34,8 @@ public class ModModelPredicateProvider {
         registerBow(ModWeaponItems.EREBOR_BOW);
 
         registerBow(ModWeaponItems.GUNDABAD_BOW);
+
+        registerCrossbow(ModWeaponItems.GUNDABAD_CROSSBOW);
     }
     private static void registerPipeModels() {
         registerPipeModel(ModToolItems.CLAYSHIRE_PIPE);
@@ -76,6 +79,23 @@ public class ModModelPredicateProvider {
 
         ModelPredicateProviderRegistry.register(bow, Identifier.of("pulling"),
                 (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0f : 0.0f);
+    }
+
+    private static void registerCrossbow(Item crossbow) {
+        ModelPredicateProviderRegistry.register(crossbow, Identifier.of("pull"),
+                (stack, world, entity, seed) -> {
+                    if (entity == null) {
+                        return 0.0F;
+                    } else {
+                        return CrossbowItem.isCharged(stack) ? 0.0F : (float)(stack.getMaxUseTime(entity) - entity.getItemUseTimeLeft()) / (float)CrossbowItem.getPullTime(stack, entity);
+                    }
+                });
+
+        ModelPredicateProviderRegistry.register(crossbow, Identifier.of("pulling"),
+                (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack && !CrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
+
+        ModelPredicateProviderRegistry.register(crossbow, Identifier.of("charged"),
+                (stack, world, entity, seed) -> CrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
     }
 
     private static void registerShieldModel() {

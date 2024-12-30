@@ -1261,6 +1261,13 @@ public class ModelProvider extends FabricModelProvider {
             }
         }
 
+        for (Item item : SimpleCrossbowItemModel.items) {
+            for (int i = 0; i < 3; i++) {
+                itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.CROSSBOW);
+            }
+            itemModelGenerator.register(item, "_charged", CustomItemModels.CROSSBOW);
+        }
+
         for (Item item : SimpleSpawnEggItemModel.items) {
             itemModelGenerator.register(item, CustomItemModels.TEMPLATE_SPAWN_EGG);
         }

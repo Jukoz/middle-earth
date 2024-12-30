@@ -482,6 +482,8 @@
 
   "item.me.gundabad_bow": "Gundabad Bow",
 
+  "item.me.gundabad_crossbow": "Gundabad Crossbow",
+
 "#Comment:": "Item - Misc Weapons",
   "item.me.wooden_dagger": "Wooden Dagger",
   "item.me.stone_dagger": "Stone Dagger",
@@ -7361,7 +7363,7 @@
   "tooltip.me.shield_of_durins_guard_lore_0" : "A mithril-trimmed shield bearing the proud",
   "tooltip.me.shield_of_durins_guard_lore_1" : "icon of Durin's line.",
   "tooltip.me.shield_of_the_king_under_the_mountain_lore_0" : "An iconic shield emblazoned with a",
-  "tooltip.me.shield_of_the_king_under_the_mountainlore_1" : "gilded raven.",
+  "tooltip.me.shield_of_the_king_under_the_mountain_lore_1" : "gilded raven.",
 
 "#Comment:": "Faction descriptions",
   "description.me.gondor.description_0" : "A last bastion for the Men of the West, the Kings of Gondor long stood watch over the neighbouring darkness. Though their line is broken, the stalwart Gondorians stand strong and fight to keep Mordor at bay.",

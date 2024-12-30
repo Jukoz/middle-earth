@@ -1,10 +1,7 @@
 package net.jukoz.me.item;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
-import net.jukoz.me.datageneration.content.models.SimpleBowItemModel;
-import net.jukoz.me.datageneration.content.models.SimpleHandheldItemModel;
-import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
+import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.item.items.HeldBannerItem;
 import net.jukoz.me.item.items.shields.ArtefactCustomShieldItem;
 import net.jukoz.me.item.items.shields.CustomBannerShieldItem;
@@ -13,6 +10,7 @@ import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.items.weapons.*;
 import net.jukoz.me.item.items.weapons.artefacts.*;
 import net.jukoz.me.item.items.weapons.ranged.CustomBowWeaponItem;
+import net.jukoz.me.item.items.weapons.ranged.CustomCrossbowWeaponItem;
 import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModShieldTypes;
@@ -499,6 +497,9 @@ public class ModWeaponItems {
     public static final Item GUNDABAD_BOW = registerBigBowItem("gundabad_bow",
             new CustomBowWeaponItem(ModSubFactions.GUNDABAD, new Item.Settings().maxDamage(640)));
 
+    public static final Item GUNDABAD_CROSSBOW = registerCrossbowItem("gundabad_crossbow",
+            new CustomCrossbowWeaponItem(ModSubFactions.GUNDABAD, new Item.Settings().maxDamage(640)));
+
     public static final Item GUNDABAD_WOODEN_SHIELD = registerShield("gundabad_wooden_shield",
             new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_PAINTED_WOODEN_SHIELD = registerShield("gundabad_painted_wooden_shield",
@@ -591,6 +592,12 @@ public class ModWeaponItems {
     private static Item registerBigBowItem(String name, Item item) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBigItemModel.bigBows.add(item);
+        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    private static Item registerCrossbowItem(String name, Item item) {
+        ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
+        SimpleCrossbowItemModel.items.add(item);
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

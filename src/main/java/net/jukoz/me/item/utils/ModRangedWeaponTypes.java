@@ -5,7 +5,9 @@ import net.minecraft.util.StringIdentifiable;
 public enum ModRangedWeaponTypes implements StringIdentifiable {
 
     BOW("bow", false),
-    LONGBOW("longbow", false),
+    LONGBOW("longbow", true),
+
+    CROSSBOW("crossbow", false),
     ;
 
     public final String name;
