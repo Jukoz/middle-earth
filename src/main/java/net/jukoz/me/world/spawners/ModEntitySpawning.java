@@ -147,6 +147,7 @@ public class ModEntitySpawning {
 
         spawns.put(MEBiomeKeys.LONELY_MOUNTAIN_BASE, longBeardsSpawnSettings);
         spawns.put(MEBiomeKeys.LONELY_MOUNTAIN, longBeardsSpawnSettings);
+        spawns.put(MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, longBeardsSpawnSettings);
         spawns.put(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, goblinsAndLongbeards);
         spawns.put(MEBiomeKeys.IRON_HILLS, longBeardsSpawnSettings);
         spawns.put(MEBiomeKeys.IRON_HILLS_BASE, longBeardsSpawnSettings);

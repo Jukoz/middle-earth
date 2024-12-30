@@ -75,6 +75,7 @@ public class ModBiomes {
         createEmynMuilBiome(context, MEBiomeKeys.EMYN_MUIL_PEAKS);
         createWastePondBiome(context, MEBiomeKeys.EMYN_MUIL_POND);
         createEnedwaithBiome(context, MEBiomeKeys.ENEDWAITH);
+        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, 0);
         createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN, 0);
         createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_BASE, 1);
         createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 2);

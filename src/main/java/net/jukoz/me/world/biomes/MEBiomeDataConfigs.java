@@ -66,12 +66,12 @@ public class MEBiomeDataConfigs {
     public static SlopeMap lonelyMountain = new SlopeMap().addSlopeData(33, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
             .addSlopeData(44, Blocks.STONE)
-            .addSlopeData(56, StoneBlockSets.GREEN_TUFF.base())
+            .addSlopeData(56, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.DEEPSLATE);
     public static SlopeMap lonelyMountainPeak = new SlopeMap().addSlopeData(22, Blocks.SNOW_BLOCK)
             .addSlopeData(30, StoneBlockSets.FROZEN_STONE.base())
             .addSlopeData(44, Blocks.STONE)
-            .addSlopeData(56, StoneBlockSets.GREEN_TUFF.base())
+            .addSlopeData(56, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.DEEPSLATE);
 
     public static SlopeMap ironHills = new SlopeMap().addSlopeData(32, Blocks.GRASS_BLOCK)
