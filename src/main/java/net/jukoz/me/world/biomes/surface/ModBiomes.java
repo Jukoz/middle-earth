@@ -77,7 +77,7 @@ public class ModBiomes {
         createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN, 0);
         createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_BASE, 1);
         createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 2);
-        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, 1);
+        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, 3);
         createEregionBiome(context, MEBiomeKeys.EREGION);
         createEthirAnduin(context,MEBiomeKeys.ETHIR_ANDUIN);
         createFangornBiome(context, MEBiomeKeys.FANGORN);
@@ -108,8 +108,10 @@ public class ModBiomes {
         createIronHillsBiome(context, MEBiomeKeys.IRON_HILLS, false);
         createIronHillsBiome(context, MEBiomeKeys.IRON_HILLS_BASE, true);
         createIronHillsBiome(context, MEBiomeKeys.IRON_HILLS_PEAKS, true);
-        createNorthernRhovanionTaiga(context, MEBiomeKeys.IRON_HILLS_PLAINS);
-        createNorthernRhovanionTaiga(context, MEBiomeKeys.IRON_FOOTHILLS);
+        createRhovanionTaigaBiome(context, MEBiomeKeys.IRON_HILLS_PLAINS, 0);
+        createRhovanionTaigaBiome(context, MEBiomeKeys.NORTHERN_RHOVANION_FOREST, 1);
+        createRhovanionTaigaBiome(context, MEBiomeKeys.NORTHERN_RHOVANION_HILLS, 2);
+        createRhovanionTaigaBiome(context, MEBiomeKeys.IRON_FOOTHILLS, 3);
         createIsengardBiome(context, MEBiomeKeys.ISENGARD, true);
         createIsengardBiome(context, MEBiomeKeys.ISENGARD_HILL, false);
         createIthilienBiome(context, MEBiomeKeys.ITHILIEN, false, false);
@@ -699,17 +701,20 @@ public class ModBiomes {
             ModBiomeFeatures.addCommonSpruceBushes(vegetation);
         } else if (step == 1) {
             //ModBiomeFeatures.addStoneGrassOre(vegetation);
-            //ModBiomeFeatures.addDolomiteOre(vegetation);
             ModBiomeFeatures.addSparseLarchTrees(vegetation);
             ModBiomeFeatures.addSparsePineTrees(vegetation);
             ModBiomeFeatures.addScarceSpruceTrees(vegetation);
             vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
             vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
             vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
-        } else {
-            //ModBiomeFeatures.addDolomiteOre(vegetation);
-            //ModBiomeFeatures.addFrozenStone(vegetation);
-            //temperature = 0.0f;
+        } else if (step == 2) {
+            addNordicVegetation(generationSettings);
+        } else if (step == 3) {
+            addNordicVegetation(generationSettings);
+            ModBiomeFeatures.addCoarseDirtOre(vegetation);
+            ModBiomeFeatures.addSpruceBushes(vegetation);
+            ModBiomeFeatures.addDolomiteBoulder(vegetation);
+            ModBiomeFeatures.addVeryRareSpruceTrees(vegetation);
         }
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addAbundantTuffOre(vegetation);
@@ -943,10 +948,7 @@ public class ModBiomes {
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addRareForestMoss(vegetation);
 
-        ModBiomeFeatures.addSparseLarchTrees(vegetation);
         ModBiomeFeatures.addSparsePineTrees(vegetation);
-        ModBiomeFeatures.addRareSpruceTrees(vegetation);
-        ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
         ModBiomeFeatures.addSpruceBushes(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
@@ -961,7 +963,6 @@ public class ModBiomes {
 
         ModBiomeFeatures.addCornflower(vegetation);
         addNordicVegetation(generationSettings);
-        addNordicTrees(generationSettings);
         ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
         ModBiomeFeatures.addSpruceBushes(vegetation);
 
@@ -1068,18 +1069,44 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
-    public static void createNorthernRhovanionTaiga(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+    public static void createRhovanionTaigaBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
-        ModBiomeFeatures.addCornflower(vegetation);
-        ModBiomeFeatures.addHematiteBoulder(vegetation);
-        ModBiomeFeatures.addIronStoneBoulder(vegetation);
         addNordicVegetation(generationSettings);
-        addNordicTrees(generationSettings);
         ModBiomeFeatures.addSpruceBushes(vegetation);
+
+        if(step == 0) { // Plains
+            ModBiomeFeatures.addCornflower(vegetation);
+            ModBiomeFeatures.addCoarseDirtOre(vegetation);
+            ModBiomeFeatures.addHematiteBoulder(vegetation);
+            ModBiomeFeatures.addIronStoneBoulder(vegetation);
+            ModBiomeFeatures.addRareSpruceTrees(vegetation);
+        } else if(step == 1) { // Forest
+            ModBiomeFeatures.addFalseOatgrass(vegetation);
+            ModBiomeFeatures.addCoarseDirtOre(vegetation);
+            ModBiomeFeatures.addGravelOre(vegetation);
+            ModBiomeFeatures.addDolomiteBoulder(vegetation);
+            ModBiomeFeatures.addOakTrees(vegetation);
+            ModBiomeFeatures.addCommonDarkOakTrees(vegetation);
+            ModBiomeFeatures.addLarchTrees(vegetation);
+            ModBiomeFeatures.addCommonPineTrees(vegetation);
+            ModBiomeFeatures.addCommonBlackPineTrees(vegetation);
+            ModBiomeFeatures.addSpruceTrees(vegetation);
+        } else if (step == 2) { // Hills
+            ModBiomeFeatures.addGrassToStoneOre(vegetation);
+            ModBiomeFeatures.addFalseOatgrass(vegetation);
+            ModBiomeFeatures.addLarchTrees(vegetation);
+            ModBiomeFeatures.addPineTrees(vegetation);
+            ModBiomeFeatures.addBlackPineTrees(vegetation);
+            ModBiomeFeatures.addSpruceTrees(vegetation);
+        } else if (step == 3) { // Foothills
+            ModBiomeFeatures.addSparseLarchTrees(vegetation);
+            ModBiomeFeatures.addPineTrees(vegetation);
+            ModBiomeFeatures.addSpruceTrees(vegetation);
+        }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
@@ -2852,6 +2879,7 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
         ModBiomeFeatures.addBracken(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addGrass(vegetation);
         ModBiomeFeatures.addBrownBolete(vegetation);
         ModBiomeFeatures.addMorsel(vegetation);
         ModBiomeFeatures.addWhiteMushroom(vegetation);

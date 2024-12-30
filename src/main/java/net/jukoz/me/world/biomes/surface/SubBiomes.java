@@ -94,6 +94,19 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.DARK_MIRKWOOD, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.WEBBED_DARK_WOODS));
 
+        subBiomesMap.put(MEBiomeKeys.GUNDABAD_PLAINS, new SubBiome(96)
+                .addSubBiomeData(-1.0f, -0.34f, MEBiomeKeys.NORTHERN_RHOVANION_FOREST)
+                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.NORTHERN_RHOVANION_HILLS, true));
+        subBiomesMap.put(MEBiomeKeys.GREY_PLAINS, new SubBiome(96)
+                .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.NORTHERN_RHOVANION_FOREST)
+                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.NORTHERN_RHOVANION_HILLS, true));
+        subBiomesMap.put(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, new SubBiome(96)
+                .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.NORTHERN_RHOVANION_FOREST)
+                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.NORTHERN_RHOVANION_HILLS, true));
+        subBiomesMap.put(MEBiomeKeys.IRON_HILLS_PLAINS, new SubBiome(96)
+                .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.NORTHERN_RHOVANION_FOREST)
+                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.NORTHERN_RHOVANION_HILLS, true));
+
         subBiomesMap.put(MEBiomeKeys.ITHILIEN, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.ITHILIEN_GLADE)
                 .addSubBiomeData(0.35f, 2.01f, MEBiomeKeys.ITHILIEN_GLADE));

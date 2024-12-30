@@ -234,6 +234,10 @@ public class MapBiomeData {
                 new BiomeColorsDTO(8761343, defaultFog, defaultWater, defaultWaterFog, 7187321, 6793328)));
         addBiome(new BiomeData(MEBiomeKeys.IRON_HILLS_PLAINS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(hillySky, 12637183, defaultWater, defaultWaterFog, 7713657, 7580788)));
+        addBiome(new BiomeData(MEBiomeKeys.NORTHERN_RHOVANION_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(9218275, 11978476, defaultWater, defaultWaterFog, 7120752, 6988907)));
+        addBiome(new BiomeData(MEBiomeKeys.NORTHERN_RHOVANION_HILLS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(9218275, 11978476, defaultWater, defaultWaterFog, 6462822, 6987883)));
         addBiome(new BiomeData(MEBiomeKeys.IRON_FOOTHILLS, MEBiomeDataConfigs.ironHills, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
         // ISENGARD

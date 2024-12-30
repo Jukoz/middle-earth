@@ -90,6 +90,8 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> HILLS_OF_EVENDIM = MEBiomeKeys.register("hills_of_evendim");
 
     public static final RegistryKey<Biome> IRON_HILLS_PLAINS = MEBiomeKeys.register("iron_hills_frontier");
+    public static final RegistryKey<Biome> NORTHERN_RHOVANION_FOREST = MEBiomeKeys.register("northern_rhovanion_forest");
+    public static final RegistryKey<Biome> NORTHERN_RHOVANION_HILLS = MEBiomeKeys.register("northern_rhovanion_hills");
     public static final RegistryKey<Biome> DALE_RIVERSIDE = MEBiomeKeys.register("iron_hills_riverside");
     public static final RegistryKey<Biome> IRON_FOOTHILLS = MEBiomeKeys.register("iron_foothills");
     public static final RegistryKey<Biome> IRON_HILLS_BASE = MEBiomeKeys.register("iron_hills_base");

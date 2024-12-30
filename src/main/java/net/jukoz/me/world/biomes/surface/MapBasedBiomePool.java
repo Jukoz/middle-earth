@@ -169,6 +169,8 @@ public class MapBasedBiomePool {
         add(new Color(0xb4d679), new MapBasedCustomBiome(MEBiomeKeys.HARONDOR, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x9cbb5e), new MapBasedCustomBiome(MEBiomeKeys.HILLS_OF_EVENDIM, 35, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x6ea163), new MapBasedCustomBiome(MEBiomeKeys.IRON_HILLS_PLAINS, 8, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x639458), new MapBasedCustomBiome(MEBiomeKeys.NORTHERN_RHOVANION_FOREST, 9, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x72A268), new MapBasedCustomBiome(MEBiomeKeys.NORTHERN_RHOVANION_HILLS, 23, MEBiomeDataConfigs.landModifier));
         add(new Color(0x6daf6d), new MapBasedCustomBiome(MEBiomeKeys.IRON_FOOTHILLS, 25, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0xbdaaa8), new MapBasedCustomBiome(MEBiomeKeys.IRON_HILLS_BASE, 32, MEBiomeDataConfigs.mountainModifier.heightModifier(0.48f)));
         add(new Color(0xae908d), new MapBasedCustomBiome(MEBiomeKeys.IRON_HILLS, 51, MEBiomeDataConfigs.mountainModifier.heightModifier(0.57f)));

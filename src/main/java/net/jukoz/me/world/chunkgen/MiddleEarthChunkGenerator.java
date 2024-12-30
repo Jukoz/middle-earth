@@ -149,6 +149,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_PLAINS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_RHOVANION_FOREST),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_RHOVANION_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ISENGARD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ISENGARD_HILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ITHILIEN),
