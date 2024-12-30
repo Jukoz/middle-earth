@@ -45,6 +45,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> DARK_ANDUIN_VALES = MEBiomeKeys.register("dark_anduin_vales");
     public static final RegistryKey<Biome> DEAD_MARSHES = MEBiomeKeys.register("dead_marshes");
     public static final RegistryKey<Biome> DEAD_MARSHES_WATER = MEBiomeKeys.register("dead_marshes_water");
+    public static final RegistryKey<Biome> DESOLATED_LANDS = MEBiomeKeys.register("desolated_lands");
     public static final RegistryKey<Biome> DOL_GULDUR = MEBiomeKeys.register("dol_guldur");
     public static final RegistryKey<Biome> DOL_GULDUR_HILL = MEBiomeKeys.register("dol_guldur_hill");
     public static final RegistryKey<Biome> DORWINION = MEBiomeKeys.register("dorwinion");

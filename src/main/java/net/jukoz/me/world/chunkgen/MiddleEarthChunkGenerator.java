@@ -102,6 +102,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.DARK_ANDUIN_VALES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DEAD_MARSHES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DEAD_MARSHES_WATER),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DESOLATED_LANDS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DOL_GULDUR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DOL_GULDUR_HILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DORWINION),

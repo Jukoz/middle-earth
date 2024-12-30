@@ -125,6 +125,7 @@ public class MapBasedBiomePool {
         add(new Color(0x121a13), new MapBasedCustomBiome(MEBiomeKeys.DARK_MIRKWOOD, 6, MEBiomeDataConfigs.mirkwoodModifier));
         add(new Color(0x1a2d1c), new MapBasedCustomBiome(MEBiomeKeys.DARK_MIRKWOOD_EDGE, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0xa6bf72), new MapBasedCustomBiome(MEBiomeKeys.DARK_ANDUIN_VALES, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x759675), new MapBasedCustomBiome(MEBiomeKeys.DESOLATED_LANDS, 9, MEBiomeDataConfigs.landModifier));
         add(new Color(0x2c2733), new MapBasedCustomBiome(MEBiomeKeys.DOL_GULDUR, 11, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x352d42), new MapBasedCustomBiome(MEBiomeKeys.DOL_GULDUR_HILL, 31, MEBiomeDataConfigs.mountainModifier));
         add(new Color(0x529250), new MapBasedCustomBiome(MEBiomeKeys.DORWINION, 4, MEBiomeDataConfigs.landModifier));

@@ -61,6 +61,7 @@ public class ModBiomes {
         createMirkwoodBiome(context, MEBiomeKeys.DARK_MIRKWOOD_EDGE, false, true);
         createDeadMarshesBiome(context, MEBiomeKeys.DEAD_MARSHES);
         createDeadMarshesWaterBiome(context, MEBiomeKeys.DEAD_MARSHES_WATER);
+        createDesolatedLandsBiome(context, MEBiomeKeys.DESOLATED_LANDS);
         createMirkwoodBiome(context, MEBiomeKeys.DOL_GULDUR, false, true);
         createMirkwoodBiome(context, MEBiomeKeys.DOL_GULDUR_HILL, false, true);
         createDorwinionBiome(context, MEBiomeKeys.DORWINION);
@@ -576,6 +577,30 @@ public class ModBiomes {
         vegetation.add(OceanPlacedFeatures.KELP_WARM);
         vegetation.add(OceanPlacedFeatures.SEAGRASS_NORMAL);
         ModBiomeFeatures.addGrass(vegetation);
+
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
+    }
+
+    public static void createDesolatedLandsBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        ModBiomeFeatures.addAshenGravelOre(undergroundOres);
+        ModBiomeFeatures.addAshenSandOre(undergroundOres);
+        ModBiomeFeatures.addDyingGrass(undergroundOres);
+        ModBiomeFeatures.addCommonToughBerries(undergroundOres);
+        vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_COMMON);
+        ModBiomeFeatures.addBasaltBoulder(undergroundOres);
+        ModBiomeFeatures.addBlackStonePile(undergroundOres);
+        ModBiomeFeatures.addDeadHeather(undergroundOres);
+        ModBiomeFeatures.addCommonScorchedShrub(undergroundOres);
+        ModBiomeFeatures.addCommonScorchedGrass(undergroundOres);
+        ModBiomeFeatures.addScorchedTrees(undergroundOres);
+        ModBiomeFeatures.addSparsePineTrees(undergroundOres);
+        ModBiomeFeatures.addScarceBlackPineTrees(undergroundOres);
+        ModBiomeFeatures.addRareSpruceTrees(undergroundOres);
+        ModBiomeFeatures.addShriveledShrubs(vegetation);
+        ModBiomeFeatures.addDeadRushes(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
@@ -1366,6 +1391,7 @@ public class ModBiomes {
             ModBiomeFeatures.addRareLebethronTrees(vegetation);
             ModBiomeFeatures.addWilderGrass(vegetation);
         } else if (step == 1) { // Flower valley
+            ModBiomeFeatures.addWhiteFlowerGrowth(vegetation);
             ModBiomeFeatures.addYellowFlowers(vegetation);
             ModBiomeFeatures.addOrangeFlowers(vegetation);
             ModBiomeFeatures.addRedFlowers(vegetation);
@@ -2016,11 +2042,13 @@ public class ModBiomes {
             ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
             ModBiomeFeatures.addScarceSpruceTrees(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
+            ModBiomeFeatures.addScorchedTrees(vegetation);
             ModBiomeFeatures.addStickySnow(vegetation);
             temperature = 0.5f;
         } else if(step == 3) { // Frozen Hill
             ModBiomeFeatures.addShriveledShrubs(vegetation);
             ModBiomeFeatures.addSnowOre(vegetation);
+            ModBiomeFeatures.addScorchedTrees(vegetation);
             ModBiomeFeatures.addDeadBlackPineTrees(vegetation);
             ModBiomeFeatures.addSparsePineTrees(vegetation);
             ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
@@ -2602,11 +2630,16 @@ public class ModBiomes {
         ModBiomeFeatures.addCoarseDirtOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addBasaltBoulder(vegetation);
+        ModBiomeFeatures.addBlackStonePile(vegetation);
+        ModBiomeFeatures.addAshenGravelOre(undergroundOres);
+        ModBiomeFeatures.addAshenSandOre(undergroundOres);
 
+        ModBiomeFeatures.addDeadRushes(undergroundOres);
         ModBiomeFeatures.addDeadBlackPineTrees(vegetation);
         ModBiomeFeatures.addScorchedTrees(vegetation);
-        ModBiomeFeatures.addScorchedGrass(vegetation);
-        ModBiomeFeatures.addScorchedShrub(vegetation);
+        ModBiomeFeatures.addCommonScorchedGrass(vegetation);
+        ModBiomeFeatures.addCommonScorchedShrub(vegetation);
+        ModBiomeFeatures.addShriveledShrubs(vegetation);
         ModBiomeFeatures.addDryPineTrees(vegetation);
         ModBiomeFeatures.addDryPineBushes(vegetation);
         ModBiomeFeatures.addToughBerries(vegetation);

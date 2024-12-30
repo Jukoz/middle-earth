@@ -431,6 +431,9 @@ public class ModBiomeFeatures {
     public static void addIvyGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.IVY_GROWTH);
     }
+    public static void addFrozenGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FROZEN_GROWTH);
+    }
     public static void addLilacFlowerGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.LILAC_FLOWER_GROWTH);
     }
@@ -607,6 +610,9 @@ public class ModBiomeFeatures {
     public static void addFalseOatgrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_FALSE_OATGRASS);
     }
+    public static void addFloatingIce(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FLOATING_ICE);
+    }
     public static void addForestMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_FOREST_MOSS);
     }
@@ -614,7 +620,13 @@ public class ModBiomeFeatures {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_FOREST_MOSS_CARPET);
         vegetation.add(OrePlacedFeatures.FOREST_MOSS_DISK);
     }
-
+    public static void addFrozenGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FROZEN_GRASS);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FROZEN_TUFT);
+    }
+    public static void addFrozenShrub(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FROZEN_SHRUB);
+    }
     public static void addRareForestMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_RARE_FOREST_MOSS);
     }
