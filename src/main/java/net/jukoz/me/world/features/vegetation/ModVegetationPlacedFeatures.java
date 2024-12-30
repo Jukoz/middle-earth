@@ -251,12 +251,12 @@ public class ModVegetationPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> fallenLeaves = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FALLEN_LEAVES);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> fallenMallornLeaves = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FALLEN_MALLORN_LEAVES);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> fallenMirkwoodLeaves = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FALLEN_MIRKWOOD_LEAVES);
-        RegistryEntry.Reference<ConfiguredFeature<?, ?>> floatingIce = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_LILY_PADS);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> floatingIce = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FLOATING_ICE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> forestMoss = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FOREST_MOSS);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> forestMossCarpet = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FOREST_MOSS_CARPET);
-        RegistryEntry.Reference<ConfiguredFeature<?, ?>> frozenGrass = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FOREST_MOSS_CARPET);
-        RegistryEntry.Reference<ConfiguredFeature<?, ?>> frozenShrub = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FOREST_MOSS_CARPET);
-        RegistryEntry.Reference<ConfiguredFeature<?, ?>> frozenTuft = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FOREST_MOSS_CARPET);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> frozenGrass = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FROZEN_GRASS);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> frozenShrub = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FROZEN_SHRUB);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> frozenTuft = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FROZEN_SHRUB);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> greenShrub = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_GREEN_SHRUB);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> grass = registryEntryLookup.getOrThrow(VegetationConfiguredFeatures.PATCH_GRASS);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> grimGrass = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_GRIM_GRASS);
@@ -387,9 +387,9 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, PATCH_FLOATING_ICE, floatingIce, abundant, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_FOREST_MOSS, forestMoss, CountPlacementModifier.of(UniformIntProvider.create(15, 30)), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_FOREST_MOSS_CARPET, forestMossCarpet, uncommon, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, PATCH_FROZEN_GRASS, frozenGrass, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_FROZEN_GRASS, frozenGrass, uncommon, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_FROZEN_SHRUB, frozenShrub, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, PATCH_FROZEN_TUFT, frozenTuft, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_FROZEN_TUFT, frozenTuft, uncommon, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_GRASS, grass, overflowing, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_GRIM_GRASS, grimGrass, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_GREEN_SHRUB, greenShrub, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

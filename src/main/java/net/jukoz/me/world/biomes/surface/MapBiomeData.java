@@ -396,7 +396,7 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.NORTH_DOWNS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 9414008, 9018483)));
         // NORTHERN WASTELANDS
-        addBiome(new BiomeData(MEBiomeKeys.NORTHERN_WASTELANDS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.frozenLayers,
+        addBiome(new BiomeData(MEBiomeKeys.NORTHERN_WASTELANDS, MEBiomeDataConfigs.snowyPlains, MEBiomeDataConfigs.frozenLayers,
                 new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 5932658, 7973008), CaveType.FOROD));
         // NURN
         addBiome(new BiomeData(MEBiomeKeys.NURN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
@@ -422,7 +422,7 @@ public class MapBiomeData {
                 new BiomeColorsDTO(8954077, 11781343, 4814544, 460593, 7443043, 6982236)));
         addBiome(new BiomeData(MEBiomeKeys.OLD_ANGMAR_COLD_HILL, MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8954077, 11781343, 4814544, 460593, 7443043, 6982236)));
-        addBiome(new BiomeData(MEBiomeKeys.OLD_ANGMAR_FROZEN_HILL, MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.stoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.OLD_ANGMAR_FROZEN_HILL, MEBiomeDataConfigs.snowyPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8954077, 11781343, 4814544, 460593, 7443043, 6982236)));
         // OLD ARTHEDAIN
         addBiome(new BiomeData(MEBiomeKeys.OLD_ARTHEDAIN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
@@ -492,7 +492,7 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.SOUTHERN_EPHEL_DUATH_PEAKS, MEBiomeDataConfigs.southernMordorMountainsPeaks, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(4142646, 3090215, 6450777, 1513734, 3550502, 2169880), CaveType.ASHEN));
         // SOUTHERN FOROCHEL
-        addBiome(new BiomeData(MEBiomeKeys.SOUTHERN_FOROCHEL, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.frozenLayers,
+        addBiome(new BiomeData(MEBiomeKeys.SOUTHERN_FOROCHEL, MEBiomeDataConfigs.snowyPlains, MEBiomeDataConfigs.frozenLayers,
                 new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 7177842, 7971216), CaveType.FOROD));
         // THE ANGLE
         addBiome(new BiomeData(MEBiomeKeys.THE_ANGLE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,

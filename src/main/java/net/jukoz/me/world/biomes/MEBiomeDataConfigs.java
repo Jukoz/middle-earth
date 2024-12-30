@@ -1,7 +1,6 @@
 package net.jukoz.me.world.biomes;
 
 import net.jukoz.me.block.ModBlocks;
-import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.Blocks;
 
@@ -171,6 +170,9 @@ public class MEBiomeDataConfigs {
             .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
 
     public static SlopeMap grassPlains = new SlopeMap().addSlopeData(25, Blocks.GRASS_BLOCK)
+            .addSlopeData(36, Blocks.COARSE_DIRT)
+            .addSlopeData(MAX_ANGLE, Blocks.STONE);
+    public static SlopeMap snowyPlains = new SlopeMap().addSlopeData(25, ModBlocks.SNOWY_GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
     public static SlopeMap sandShores = new SlopeMap().addSlopeData(27, Blocks.SAND)

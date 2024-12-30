@@ -88,7 +88,7 @@ public class ModBiomes {
         createMistyMountainsBiome(context, MEBiomeKeys.FANUIDHOL, 1);
         createMistyMountainsBiome(context, MEBiomeKeys.FANUIDHOL_PEAKS, 2);
         createForodwaithBiome(context, MEBiomeKeys.FORODWAITH);
-        createOceanBiome(context, MEBiomeKeys.FROZEN_OCEAN);
+        createFrozenOceanBiome(context, MEBiomeKeys.FROZEN_OCEAN);
         createFrozenPond(context, MEBiomeKeys.FROZEN_POND);
         createLindonBiome(context, MEBiomeKeys.GULF_OF_LHUN_CLIFFS);
         createLindonBiome(context, MEBiomeKeys.GULF_OF_LHUN_SHORES);
@@ -1884,6 +1884,10 @@ public class ModBiomes {
         ModBiomeFeatures.addAndesiteBoulder(vegetation);
         ModBiomeFeatures.addBlueTuffBoulder(vegetation);
 
+        ModBiomeFeatures.addFrozenGrass(vegetation);
+        ModBiomeFeatures.addFrozenShrub(vegetation);
+        ModBiomeFeatures.addFrozenGrowth(vegetation);
+
         ModBiomeFeatures.addSparseLarchTrees(vegetation);
         ModBiomeFeatures.addSparsePineTrees(vegetation);
         ModBiomeFeatures.addRareSpruceTrees(vegetation);
@@ -2045,6 +2049,8 @@ public class ModBiomes {
             ModBiomeFeatures.addSpruceBushes(vegetation);
             ModBiomeFeatures.addScorchedTrees(vegetation);
             ModBiomeFeatures.addStickySnow(vegetation);
+            ModBiomeFeatures.addFrozenGrass(vegetation);
+            ModBiomeFeatures.addFrozenGrowth(vegetation);
             temperature = 0.5f;
         } else if(step == 3) { // Frozen Hill
             ModBiomeFeatures.addShriveledShrubs(vegetation);
@@ -2054,6 +2060,9 @@ public class ModBiomes {
             ModBiomeFeatures.addSparsePineTrees(vegetation);
             ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
             ModBiomeFeatures.addSpruceTrees(vegetation);
+            ModBiomeFeatures.addFrozenGrass(vegetation);
+            ModBiomeFeatures.addFrozenShrub(vegetation);
+            ModBiomeFeatures.addFrozenGrowth(vegetation);
             temperature = -0.2f;
         }
 
@@ -2405,11 +2414,27 @@ public class ModBiomes {
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
-        addNordicVegetation(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
+        vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
+        vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
+        vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
+        vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
+        vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
+        vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
+        ModBiomeFeatures.addBracken(vegetation);
+        ModBiomeFeatures.addBrownBolete(vegetation);
+        ModBiomeFeatures.addMorsel(vegetation);
+        ModBiomeFeatures.addWhiteMushroom(vegetation);
+        ModBiomeFeatures.addWildBeetroot(vegetation);
+        ModBiomeFeatures.addWildPotato(vegetation);
+
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addBlueTuffBoulder(vegetation);
         ModBiomeFeatures.addSparsePineTrees(vegetation);
         ModBiomeFeatures.addRareSpruceTrees(vegetation);
+        ModBiomeFeatures.addFrozenGrass(vegetation);
+        ModBiomeFeatures.addFrozenShrub(vegetation);
+        ModBiomeFeatures.addFrozenGrowth(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, -0.4f, true);
     }
@@ -2756,6 +2781,18 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
+    public static void createFrozenOceanBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addOceanAnimals(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addOceanVegetation(generationSettings);
+        ModBiomeFeatures.addFloatingIce(vegetation);
+        ModBiomeFeatures.addFrozenGrass(vegetation);
+
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
+    }
+
     public static void createFrozenPond(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addColdWaterAnimals(spawnSettings);
@@ -2765,7 +2802,10 @@ public class ModBiomes {
 
         vegetation.add(OceanPlacedFeatures.KELP_COLD);
         vegetation.add(OceanPlacedFeatures.SEAGRASS_NORMAL);
-        ModBiomeFeatures.addGrass(vegetation);
+        ModBiomeFeatures.addFloatingIce(vegetation);
+        ModBiomeFeatures.addFrozenGrass(vegetation);
+        ModBiomeFeatures.addFrozenShrub(vegetation);
+        ModBiomeFeatures.addFrozenGrowth(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, -0.1f, true);
     }
