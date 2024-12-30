@@ -470,9 +470,6 @@ public class ModWeaponItems {
 
     public static final Item URUK_HAI_SIEGE_SHIELD = registerShield("uruk_hai_siege_shield",
             new CustomSiegeShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
-
-    public static final Item MISTY_MOUNTAINS_SHIELD = registerShield("misty_mountains_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MISTY_MOUNTAINS_GOBLINS));
     //endregion
 
     //region MISTIES

@@ -14,6 +14,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -62,13 +63,11 @@ public class SpearEntity extends PersistentProjectileEntity {
             if (entity.getType() == EntityType.ENDERMAN) {
                 return;
             }
-            world = this.getWorld();
             if (world instanceof ServerWorld) {
                 serverWorld = (ServerWorld)world;
                 EnchantmentHelper.onTargetDamaged(serverWorld, entity, damageSource, this.getWeaponStack());
             }
-            if (entity instanceof LivingEntity) {
-                LivingEntity livingEntity = (LivingEntity)entity;
+            if (entity instanceof LivingEntity livingEntity) {
                 this.knockback(livingEntity, damageSource);
                 this.onHit(livingEntity);
             }
@@ -98,17 +97,6 @@ public class SpearEntity extends PersistentProjectileEntity {
 
     }
 
-    protected boolean tryPickup(PlayerEntity player) {
-        return super.tryPickup(player) || this.isNoClip() && this.isOwner(player) && player.getInventory().insertStack(this.asItemStack());
-    }
-
-    public void onPlayerCollision(PlayerEntity player) {
-        if (this.isOwner(player) || this.getOwner() == null) {
-            super.onPlayerCollision(player);
-        }
-
-    }
-
     @Override
     protected ItemStack getDefaultItemStack() {
         return ModWeaponItems.WOODEN_SPEAR.getDefaultStack();
@@ -118,7 +106,6 @@ public class SpearEntity extends PersistentProjectileEntity {
         return 0.8f;
     }
 
-    @Override
     public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
         return true;
     }

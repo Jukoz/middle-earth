@@ -1,7 +1,6 @@
 {
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
-	"gui_light": "front",
 	"textures": {
 		"1": "me:item/gundabad_heavy_shield"
 	},
@@ -245,6 +244,7 @@
 			}
 		}
 	],
+	"gui_light": "front",
 	"overrides": [
 		{"predicate": {"blocking": 1}, "model": "me:item/gundabad_heavy_shield_blocking"}
 	],
@@ -270,6 +270,7 @@
 		},
 		"gui": {
 			"rotation": [-166.28, 34.83, -175.66],
+			"translation": [0, -0.75, 0],
 			"scale": [0.47109, 0.47109, 0.47109]
 		},
 		"fixed": {
