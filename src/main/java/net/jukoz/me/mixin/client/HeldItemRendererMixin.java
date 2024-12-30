@@ -1,9 +1,14 @@
 package net.jukoz.me.mixin.client;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.jukoz.me.item.items.weapons.ranged.CustomCrossbowWeaponItem;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.item.CrossbowItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
@@ -11,6 +16,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(HeldItemRenderer.class)
@@ -47,5 +53,11 @@ public class HeldItemRendererMixin {
     @Unique
     private static boolean isChargedCrossbow(ItemStack stack) {
         return (stack.getItem() instanceof CustomCrossbowWeaponItem || stack.isOf(Items.CROSSBOW)) && CrossbowItem.isCharged(stack);
+    }
+
+    @WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z",
+            ordinal = 1),method = "renderFirstPersonItem")
+    private boolean renderFirstPersonItem(ItemStack instance, Item item, Operation<Boolean> original) {
+        return original.call(instance, item) || instance.getItem() instanceof CustomCrossbowWeaponItem;
     }
 }
