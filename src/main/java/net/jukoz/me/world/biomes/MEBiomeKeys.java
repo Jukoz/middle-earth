@@ -37,7 +37,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> CORSAIR_COASTS = MEBiomeKeys.register("corsair_coasts");
     public static final RegistryKey<Biome> DALE = MEBiomeKeys.register("dale");
     public static final RegistryKey<Biome> DALE_FOREST = MEBiomeKeys.register("dale_forest");
-    public static final RegistryKey<Biome> DALE_HILL = MEBiomeKeys.register("dale_hill");
+    public static final RegistryKey<Biome> DALE_MEADOW = MEBiomeKeys.register("dale_meadow");
     public static final RegistryKey<Biome> DALE_CITY = MEBiomeKeys.register("dale_city");
     public static final RegistryKey<Biome> DAGORLAD = MEBiomeKeys.register("dagorlad");
     public static final RegistryKey<Biome> DARK_MIRKWOOD = MEBiomeKeys.register("dark_mirkwood");

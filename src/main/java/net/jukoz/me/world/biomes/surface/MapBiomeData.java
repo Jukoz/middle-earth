@@ -113,7 +113,7 @@ public class MapBiomeData {
                 new BiomeColorsDTO(8230911, 12178175, defaultWater, defaultWaterFog, 6400105, 8703593)));
         addBiome(new BiomeData(MEBiomeKeys.DALE_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8230911, 12178175, defaultWater, defaultWaterFog, 6393176, 4820272)));
-        addBiome(new BiomeData(MEBiomeKeys.DALE_HILL, MEBiomeDataConfigs.stoneHills, MEBiomeDataConfigs.stoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.DALE_MEADOW, MEBiomeDataConfigs.stoneHills, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8230911, 12178175, defaultWater, defaultWaterFog, 6400105, 8703593)));
         addBiome(new BiomeData(MEBiomeKeys.DALE_CITY, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8230911, 12178175, defaultWater, defaultWaterFog, 6400105, 8703593)));

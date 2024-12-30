@@ -119,7 +119,7 @@ public class MapBasedBiomePool {
         add(new Color(0x4d4541), new MapBasedCustomBiome(MEBiomeKeys.DAGORLAD, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x84a44e), new MapBasedCustomBiome(MEBiomeKeys.DALE, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x84a455), new MapBasedCustomBiome(MEBiomeKeys.DALE_FOREST, 5, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x84a450), new MapBasedCustomBiome(MEBiomeKeys.DALE_HILL, 27, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x84a450), new MapBasedCustomBiome(MEBiomeKeys.DALE_MEADOW, 27, MEBiomeDataConfigs.landModifier));
         add(new Color(0x84b44b), new MapBasedCustomBiome(MEBiomeKeys.DALE_CITY, 4, MEBiomeDataConfigs.plainsModifier));
         add(new Color(0x7db06a), new MapBasedCustomBiome(MEBiomeKeys.DALE_RIVERSIDE, 0, MEBiomeDataConfigs.landModifier.heightModifier(0.98f).noiseModifier(0.1f)));
         add(new Color(0x121a13), new MapBasedCustomBiome(MEBiomeKeys.DARK_MIRKWOOD, 6, MEBiomeDataConfigs.mirkwoodModifier));

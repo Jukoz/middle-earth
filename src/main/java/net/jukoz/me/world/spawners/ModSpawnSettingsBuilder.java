@@ -47,6 +47,9 @@ public class ModSpawnSettingsBuilder {
     public static void addMountainsMobs(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.GOAT, 4, 1, 3));
     }
+    public static void addBroadhoofGoats(SpawnSettings.Builder builder) {
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.BROADHOOF_GOAT, 4, 1, 3));
+    }
 
     public static void addNordicMobs(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.RABBIT, 4, 2, 4));

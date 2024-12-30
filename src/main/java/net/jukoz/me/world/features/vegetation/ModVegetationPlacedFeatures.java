@@ -30,6 +30,7 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> FLOWER_AZURE_BLUET_RARE = registerKey("flower_azure_bluet_rare");
     public static final RegistryKey<PlacedFeature> FLOWER_BLUE_ORCHID = registerKey("flower_blue_orchid");
     public static final RegistryKey<PlacedFeature> FLOWER_CORNFLOWER = registerKey("flower_cornflower");
+    public static final RegistryKey<PlacedFeature> FLOWER_CORNFLOWER_COMMON = registerKey("flower_cornflower_common");
     public static final RegistryKey<PlacedFeature> FLOWER_DORWINION = registerKey("flower_dorwinion");
     public static final RegistryKey<PlacedFeature> FLOWER_GREEN_JEWEL = registerKey("flower_green_jewel");
     public static final RegistryKey<PlacedFeature> FLOWER_LILAC = registerKey("flower_lilac");
@@ -311,6 +312,7 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, FLOWER_MEADOW, flowerMeadow, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_DORWINION, flowerDorwinion, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_CORNFLOWER, flowerCornflower, veryRare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWER_CORNFLOWER_COMMON, flowerCornflower, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_GREEN_JEWEL, flowerGreenJewel, veryRare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_LILAC, flowerLilac, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_LEBENNIN, flowerLebennin, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

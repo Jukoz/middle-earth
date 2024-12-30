@@ -472,6 +472,9 @@ public class ModBiomeFeatures {
     public static void addCornflower(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_CORNFLOWER);
     }
+    public static void addCornflowerCommon(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_CORNFLOWER_COMMON);
+    }
     public static void addFlowerGreenJewel(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_GREEN_JEWEL);
     }
