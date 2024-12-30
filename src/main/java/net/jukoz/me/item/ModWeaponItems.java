@@ -140,6 +140,8 @@ public class ModWeaponItems {
             new CustomBowWeaponItem(ModFactions.GONDOR, new Item.Settings().maxDamage(640)));
     public static final Item GONDORIAN_LONGBOW = registerBigBowItem("gondorian_longbow",
             new CustomLongbowWeaponItem(ModFactions.GONDOR, new Item.Settings().maxDamage(640)));
+    public static final Item GONDORIAN_NOBLE_LONGBOW = registerBigBowItem("gondorian_noble_longbow",
+            new CustomLongbowWeaponItem(ModFactions.GONDOR, new Item.Settings().maxDamage(640)));
 
     public static final Item GONDORIAN_SHIELD = registerShield("gondorian_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
@@ -179,8 +181,12 @@ public class ModWeaponItems {
     public static final Item ROHIRRIC_NOBLE_SPEAR = registerItemWithSpearModel("rohirric_noble_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.ROHAN));
 
-    public static final Item ROHIRRIC_BOW = registerBowItem("rohirric_bow",
+    public static final Item ROHIRRIC_BOW = registerBigBowItem("rohirric_bow",
             new CustomBowWeaponItem(ModFactions.ROHAN, new Item.Settings().maxDamage(640)));
+    public static final Item ROHIRRIC_NOBLE_BOW = registerBigBowItem("rohirric_noble_bow",
+            new CustomBowWeaponItem(ModFactions.ROHAN, new Item.Settings().maxDamage(640)));
+    public static final Item ROHIRRIC_LONGBOW = registerBigBowItem("rohirric_longbow",
+            new CustomLongbowWeaponItem(ModFactions.ROHAN, new Item.Settings().maxDamage(640)));
 
     public static final Item ROHIRRIC_SHIELD = registerShield("rohirric_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
@@ -236,6 +242,13 @@ public class ModWeaponItems {
     public static final Item DALISH_NOBLE_SPEAR = registerItemWithSpearModel("dalish_noble_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE));
 
+    public static final Item DALISH_LONGBOW = registerBigBowItem("dalish_longbow",
+            new CustomLongbowWeaponItem(ModFactions.DALE, new Item.Settings().maxDamage(640)));
+    public static final Item DALISH_HEYDAY_LONGBOW = registerBigBowItem("dalish_heyday_longbow",
+            new CustomLongbowWeaponItem(ModFactions.DALE, new Item.Settings().maxDamage(640)));
+    public static final Item DALISH_NOBLE_LONGBOW = registerBigBowItem("dalish_noble_longbow",
+            new CustomLongbowWeaponItem(ModFactions.DALE, new Item.Settings().maxDamage(640)));
+
     public static final Item DALISH_BLUE_OVAL_SHIELD = registerShield("dalish_blue_oval_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.DALE));
     public static final Item DALISH_BARDING_OVAL_SHIELD = registerShield("dalish_barding_oval_shield",
@@ -282,8 +295,12 @@ public class ModWeaponItems {
     public static final Item LORIEN_NOBLE_SPEAR = registerItemWithSpearModel("lorien_noble_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_EDHEL_STEEL, ModFactions.LOTHLORIEN));
     
-    public static final Item LORIEN_BOW = registerBowItem("lorien_bow",
+    public static final Item LORIEN_BOW = registerBigBowItem("lorien_bow",
             new CustomBowWeaponItem(ModFactions.LOTHLORIEN, new Item.Settings().maxDamage(640)));
+    public static final Item LORIEN_LONGBOW = registerBigBowItem("lorien_longbow",
+            new CustomLongbowWeaponItem(ModFactions.LOTHLORIEN, new Item.Settings().maxDamage(640)));
+    public static final Item LORIEN_NOBLE_LONGBOW = registerBigBowItem("lorien_noble_longbow",
+            new CustomLongbowWeaponItem(ModFactions.LOTHLORIEN, new Item.Settings().maxDamage(640)));
 
     public static final Item LORIEN_SHIELD = registerShield("lorien_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.LOTHLORIEN));
@@ -298,9 +315,6 @@ public class ModWeaponItems {
     //endregion
 
     //region EREBOR
-    public static final Item LONGBEARD_BOW = registerBigBowItem("longbeard_bow",
-            new CustomBowWeaponItem(ModFactions.LONGBEARDS, new Item.Settings().maxDamage(640)));
-
     public static final Item EREBOR_SWORD = registerItemWithModel("erebor_sword",
             new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL, ModSubFactions.EREBOR), true);
     public static final Item EREBOR_NOBLE_SWORD = registerItemWithModel("erebor_noble_sword",
@@ -324,6 +338,12 @@ public class ModWeaponItems {
 
     public static final Item EREBOR_BOW = registerBigBowItem("erebor_bow",
             new CustomBowWeaponItem(ModSubFactions.EREBOR, new Item.Settings().maxDamage(640)));
+    public static final Item EREBOR_NOBLE_BOW = registerBigBowItem("erebor_noble_bow",
+            new CustomBowWeaponItem(ModSubFactions.EREBOR, new Item.Settings().maxDamage(640)));
+    public static final Item EREBOR_CROSSBOW = registerCrossbowItem("erebor_crossbow",
+            new CustomCrossbowWeaponItem(ModSubFactions.EREBOR, new Item.Settings().maxDamage(640)));
+    public static final Item EREBOR_NOBLE_CROSSBOW = registerCrossbowItem("erebor_noble_crossbow",
+            new CustomCrossbowWeaponItem(ModSubFactions.EREBOR, new Item.Settings().maxDamage(640)));
 
     public static final Item EREBOR_SHIELD = registerShield("erebor_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));

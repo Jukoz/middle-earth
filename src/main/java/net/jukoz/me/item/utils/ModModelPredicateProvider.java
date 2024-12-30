@@ -26,12 +26,24 @@ public class ModModelPredicateProvider {
     private static void registerBowModel() {
         registerBow(ModWeaponItems.GONDORIAN_BOW);
         registerLongbow(ModWeaponItems.GONDORIAN_LONGBOW);
+        registerLongbow(ModWeaponItems.GONDORIAN_NOBLE_LONGBOW);
+
         registerBow(ModWeaponItems.ROHIRRIC_BOW);
+        registerBow(ModWeaponItems.ROHIRRIC_NOBLE_BOW);
+        registerLongbow(ModWeaponItems.ROHIRRIC_LONGBOW);
 
         registerBow(ModWeaponItems.LORIEN_BOW);
+        registerLongbow(ModWeaponItems.LORIEN_LONGBOW);
+        registerLongbow(ModWeaponItems.LORIEN_NOBLE_LONGBOW);
 
-        registerBow(ModWeaponItems.LONGBEARD_BOW);
+        registerLongbow(ModWeaponItems.DALISH_LONGBOW);
+        registerLongbow(ModWeaponItems.DALISH_HEYDAY_LONGBOW);
+        registerLongbow(ModWeaponItems.DALISH_NOBLE_LONGBOW);
+
         registerBow(ModWeaponItems.EREBOR_BOW);
+        registerBow(ModWeaponItems.EREBOR_NOBLE_BOW);
+        registerCrossbow(ModWeaponItems.EREBOR_CROSSBOW);
+        registerCrossbow(ModWeaponItems.EREBOR_NOBLE_CROSSBOW);
 
         registerBow(ModWeaponItems.GUNDABAD_BOW);
 

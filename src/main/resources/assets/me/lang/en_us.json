@@ -359,9 +359,6 @@
   "item.me.orc_spear": "Orc Spear",
   "item.me.orc_axe": "Orc Axe",
 
-"#Comment:": "Item - Longbeards",
-  "item.me.longbeard_bow": "Longbeard Bow",
-
 "#Comment:": "Item - Erebor",
   "item.me.erebor_sword": "Erebor Sword",
   "item.me.erebor_noble_sword": "Erebor Noble Sword",
@@ -375,6 +372,9 @@
   "item.me.erebor_noble_spear": "Erebor Noble Spear",
 
   "item.me.erebor_bow": "Erebor Bow",
+  "item.me.erebor_noble_bow": "Erebor Noble Bow",
+  "item.me.erebor_crossbow": "Erebor Crossbow",
+  "item.me.erebor_noble_crossbow": "Erebor Noble Crossbow",
 
 "#Comment:": "Item - Gondor",
   "item.me.gondorian_sword": "Gondorian Sword",
@@ -391,6 +391,7 @@
 
   "item.me.gondorian_bow": "Gondorian Bow",
   "item.me.gondorian_longbow": "Gondorian Longbow",
+  "item.me.gondorian_noble_longbow": "Gondorian Noble Longbow",
 
 "#Comment:": "Item - Lorien",
   "item.me.lorien_sword": "Lórien Sword",
@@ -405,6 +406,8 @@
   "item.me.lorien_noble_spear": "Lórien Noble Spear",
 
   "item.me.lorien_bow": "Lórien Bow",
+  "item.me.lorien_longbow": "Lórien Longbow",
+  "item.me.lorien_noble_longbow": "Lórien Noble Longbow",
 
 "#Comment:": "Item - Rohan",
   "item.me.rohirric_sword": "Rohirric Sword",
@@ -419,6 +422,8 @@
   "item.me.rohirric_noble_spear": "Rohirric Noble Spear",
 
   "item.me.rohirric_bow": "Rohirric Bow",
+  "item.me.rohirric_noble_bow": "Rohirric Noble Bow",
+  "item.me.rohirric_longbow": "Rohirric Longbow",
 
 "#Comment:": "Item - Dalish",
   "item.me.dalish_sword": "Dalish Sword",
@@ -437,6 +442,10 @@
   "item.me.dalish_spear": "Dalish Spear",
   "item.me.dalish_heyday_spear": "Dalish Heyday Spear",
   "item.me.dalish_noble_spear": "Dalish Noble Spear",
+
+  "item.me.dalish_longbow": "Dalish Longbow",
+  "item.me.dalish_heyday_longbow": "Dalish Heyday Longbow",
+  "item.me.dalish_noble_longbow": "Dalish Noble Longbow",
 
 "#Comment:": "Item - Mordor",
   "item.me.mordor_falchion": "Mordor Falchion",
@@ -7086,6 +7095,7 @@
 
   "tooltip.me.bow" : "Bow",
   "tooltip.me.longbow" : "Longbow",
+  "tooltip.me.crossbow" : "Crossbow",
 
   "tooltip.me.light_shield" : "§fLight Shield",
   "tooltip.me.medium_shield" : "§9Medium Shield",
