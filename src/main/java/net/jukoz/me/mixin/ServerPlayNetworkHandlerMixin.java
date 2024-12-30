@@ -2,6 +2,7 @@ package net.jukoz.me.mixin;
 
 import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
+import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -24,7 +25,8 @@ public class ServerPlayNetworkHandlerMixin {
         ItemStack stackMainHand = this.player.getStackInHand(Hand.MAIN_HAND);
         if(stackMainHand != null){
             if ((stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded))
-                    || (stackMainHand.getItem() instanceof CustomSiegeShieldItem)) {
+                    || (stackMainHand.getItem() instanceof CustomSiegeShieldItem)
+                    || (stackMainHand.getItem() instanceof CustomLongbowWeaponItem)) {
                 ci.cancel();
             }
         }

@@ -32,7 +32,7 @@ public class ModModelPredicateProvider {
         registerBow(ModWeaponItems.LONGBEARD_BOW);
         registerBow(ModWeaponItems.EREBOR_BOW);
 
-        registerLongbow(ModWeaponItems.GUNDABAD_LONGBOW);
+        registerBow(ModWeaponItems.GUNDABAD_BOW);
     }
     private static void registerPipeModels() {
         registerPipeModel(ModToolItems.CLAYSHIRE_PIPE);

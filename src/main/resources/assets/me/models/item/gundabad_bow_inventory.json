@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "me:item/gundabad_longbow_inventory"
+    "layer0": "me:item/gundabad_bow_inventory"
   }
 }

@@ -499,8 +499,8 @@ public class ModWeaponItems {
     public static final Item GUNDABAD_ELITE_SPEAR = registerItemWithSpearModel("gundabad_elite_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModSubFactions.GUNDABAD));
 
-    public static final Item GUNDABAD_LONGBOW = registerBigBowItem("gundabad_longbow",
-            new CustomLongbowWeaponItem(ModSubFactions.GUNDABAD, new Item.Settings().maxDamage(640)));
+    public static final Item GUNDABAD_BOW = registerBigBowItem("gundabad_bow",
+            new CustomBowWeaponItem(ModSubFactions.GUNDABAD, new Item.Settings().maxDamage(640)));
 
     public static final Item GUNDABAD_WOODEN_SHIELD = registerShield("gundabad_wooden_shield",
             new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, ModSubFactions.GUNDABAD));

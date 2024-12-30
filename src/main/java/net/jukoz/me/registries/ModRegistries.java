@@ -272,7 +272,7 @@ public class ModRegistries {
         registry.add(ModWeaponItems.LORIEN_BOW, 300);
         registry.add(ModWeaponItems.LONGBEARD_BOW, 300);
         registry.add(ModWeaponItems.EREBOR_BOW, 300);
-        registry.add(ModWeaponItems.GUNDABAD_LONGBOW, 400);
+        registry.add(ModWeaponItems.GUNDABAD_BOW, 300);
 
         registry.add(ModWeaponItems.WOODEN_DAGGER, 150);
 
