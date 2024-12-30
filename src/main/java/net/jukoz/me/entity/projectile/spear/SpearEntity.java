@@ -11,6 +11,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -93,6 +94,17 @@ public class SpearEntity extends PersistentProjectileEntity {
         Vec3d vec3d = velocity.multiply(1.45 * e + d * 1.5 * e);
         if (vec3d.lengthSquared() > 0.0) {
             target.addVelocity(vec3d.x, 0.15, vec3d.z);
+        }
+
+    }
+
+    protected boolean tryPickup(PlayerEntity player) {
+        return super.tryPickup(player) || this.isNoClip() && this.isOwner(player) && player.getInventory().insertStack(this.asItemStack());
+    }
+
+    public void onPlayerCollision(PlayerEntity player) {
+        if (this.isOwner(player) || this.getOwner() == null) {
+            super.onPlayerCollision(player);
         }
 
     }
