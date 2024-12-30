@@ -101,6 +101,9 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_DRY_GRASS = registerKey("patch_dry_grass");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_DUCKWEED = registerKey("patch_duckweed");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_DYING_GRASS = registerKey("patch_dying_grass");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FALLEN_LEAVES = registerKey("patch_fallen_leaves");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FALLEN_MALLORN_LEAVES = registerKey("patch_fallen_mallorn_leaves");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FALLEN_MIRKWOOD_LEAVES = registerKey("patch_fallen_mirkwood_leaves");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FALSE_OATGRASS = registerKey("patch_false_oatgrass");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FOREST_MOSS = registerKey("patch_forest_moss");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FOREST_MOSS_CARPET = registerKey("patch_forest_moss_carpet");
@@ -344,6 +347,13 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_DYING_GRASS, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.DYING_GRASS))));
+
+        ConfiguredFeatures.register(featureRegisterable, PATCH_FALLEN_LEAVES, Feature.BLOCK_PILE,
+                new BlockPileFeatureConfig(BlockStateProvider.of(ModNatureBlocks.FALLEN_LEAVES)));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_FALLEN_MALLORN_LEAVES, Feature.BLOCK_PILE,
+                new BlockPileFeatureConfig(BlockStateProvider.of(ModNatureBlocks.FALLEN_MALLORN_LEAVES)));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_FALLEN_MIRKWOOD_LEAVES, Feature.BLOCK_PILE,
+                new BlockPileFeatureConfig(BlockStateProvider.of(ModNatureBlocks.FALLEN_MIRKWOOD_LEAVES)));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_FALSE_OATGRASS, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,

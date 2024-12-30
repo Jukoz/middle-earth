@@ -27,6 +27,7 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> ABUNDANT_WATER_DELTA = registerKey("abundant_water_delta");
     public static final RegistryKey<PlacedFeature> FLOWER_ALLIUM = registerKey("flower_allium");
     public static final RegistryKey<PlacedFeature> FLOWER_AZURE_BLUET = registerKey("flower_azure_bluet");
+    public static final RegistryKey<PlacedFeature> FLOWER_AZURE_BLUET_RARE = registerKey("flower_azure_bluet_rare");
     public static final RegistryKey<PlacedFeature> FLOWER_BLUE_ORCHID = registerKey("flower_blue_orchid");
     public static final RegistryKey<PlacedFeature> FLOWER_CORNFLOWER = registerKey("flower_cornflower");
     public static final RegistryKey<PlacedFeature> FLOWER_DORWINION = registerKey("flower_dorwinion");
@@ -88,6 +89,9 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> PATCH_DYING_GRASS = registerKey("patch_dying_grass");
     public static final RegistryKey<PlacedFeature> PATCH_DRY_GRASS = registerKey("patch_dry_grass");
     public static final RegistryKey<PlacedFeature> PATCH_FALSE_OATGRASS = registerKey("patch_false_oatgrass");
+    public static final RegistryKey<PlacedFeature> PATCH_FALLEN_LEAVES = registerKey("patch_fallen_leaves");
+    public static final RegistryKey<PlacedFeature> PATCH_FALLEN_MALLORN_LEAVES = registerKey("patch_fallen_mallorn_leaves");
+    public static final RegistryKey<PlacedFeature> PATCH_FALLEN_MIRKWOOD_LEAVES = registerKey("patch_fallen_mirkwood_leaves");
     public static final RegistryKey<PlacedFeature> PATCH_FOREST_MOSS = registerKey("patch_forest_moss");
     public static final RegistryKey<PlacedFeature> PATCH_FOREST_MOSS_CARPET = registerKey("patch_forest_moss_carpet");
     public static final RegistryKey<PlacedFeature> PATCH_RARE_FOREST_MOSS = registerKey("patch_rare_forest_moss");
@@ -237,6 +241,9 @@ public class ModVegetationPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dryGrass = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_DRY_GRASS);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> duckweed = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_DUCKWEED);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> falseOatgrass = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FALSE_OATGRASS);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> fallenLeaves = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FALLEN_LEAVES);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> fallenMallornLeaves = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FALLEN_MALLORN_LEAVES);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> fallenMirkwoodLeaves = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FALLEN_MIRKWOOD_LEAVES);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> forestMoss = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FOREST_MOSS);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> forestMossCarpet = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FOREST_MOSS_CARPET);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> greenShrub = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_GREEN_SHRUB);
@@ -299,6 +306,7 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, ABUNDANT_WATER_DELTA, waterDelta, abundant, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_ALLIUM, flowerAllium, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_AZURE_BLUET, flowerAzureBluet, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWER_AZURE_BLUET_RARE, flowerAzureBluet, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_BLUE_ORCHID, flowerBlueOrchid, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_MEADOW, flowerMeadow, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_DORWINION, flowerDorwinion, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
@@ -360,6 +368,9 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, PATCH_DYING_GRASS, dyingGrass, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_DRY_GRASS, dryGrass, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_FALSE_OATGRASS, falseOatgrass, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_FALLEN_LEAVES, fallenLeaves, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_FALLEN_MALLORN_LEAVES, fallenMallornLeaves, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_FALLEN_MIRKWOOD_LEAVES, fallenMirkwoodLeaves, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_FOREST_MOSS, forestMoss, CountPlacementModifier.of(UniformIntProvider.create(15, 30)), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_FOREST_MOSS_CARPET, forestMossCarpet, uncommon, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_GRASS, grass, overflowing, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

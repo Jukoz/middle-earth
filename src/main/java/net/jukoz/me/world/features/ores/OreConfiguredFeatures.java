@@ -40,6 +40,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> CORRUPTED_MOSS_DISK = registerKey("corrupted_moss_disk");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIORITE_ORE = registerKey("diorite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIRT_TO_GRASS_ORE = registerKey("dirt_to_grass_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DIRTY_ROOTS_ORE = registerKey("dirty_roots");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DOLOMITE_ORE = registerKey("dolomite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DRIPSTONE_ORE = registerKey("dripstone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DRY_DIRT_ORE = registerKey("dry_dirt_ore");
@@ -50,6 +51,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> STONE_GRASS_ORE = registerKey("stone_grass_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GONLUIN_GRASS_ORE = registerKey("gonluin_grass_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LIMESTONE_ORE = registerKey("limestone_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> LORIEN_PODZOL_ORE = registerKey("lorien_podzol_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MIRE_ORE = registerKey("mire_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MUD_ORE = registerKey("mud_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PACKED_MUD_ORE = registerKey("packed_mud_ore");
@@ -139,6 +141,8 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, DIRT_TO_GRASS_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.GRASS_BLOCK.getDefaultState(), 64, 0.2f));
+        ConfiguredFeatures.register(featureRegisterable, DIRTY_ROOTS_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, ModBlocks.DIRTY_ROOTS.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, DOLOMITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, StoneBlockSets.DOLOMITE.base().getDefaultState(), 64, 0.25f));
@@ -176,6 +180,8 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, LIMESTONE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, StoneBlockSets.LIMESTONE.base().getDefaultState(), 64, 0.25f));
+        ConfiguredFeatures.register(featureRegisterable, LORIEN_PODZOL_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, ModNatureBlocks.LORIEN_PODZOL.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, MIRE_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, ModBlocks.MIRE.getDefaultState(), 48, 0.4f));
