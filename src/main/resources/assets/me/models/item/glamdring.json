@@ -4,11 +4,17 @@
     "layer0": "me:item/glamdring"
   },
   "overrides": [
-        {
-            "predicate": {
-                "glowing": 1
-            },
-            "model": "me:item/glamdring_glowing"
-        }
-    ]
+    {
+      "predicate": {
+        "broken": 1
+      },
+      "model": "me:item/glamdring_broken"
+    },
+    {
+      "predicate": {
+        "glowing": 1
+      },
+      "model": "me:item/glamdring_glowing"
+    }
+  ]
 }

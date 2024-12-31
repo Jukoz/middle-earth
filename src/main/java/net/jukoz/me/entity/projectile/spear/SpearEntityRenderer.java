@@ -19,7 +19,7 @@ import net.minecraft.util.math.RotationAxis;
 @Environment(EnvType.CLIENT)
 public class SpearEntityRenderer<T extends SpearEntity> extends EntityRenderer<T> {
     private static final float MIN_DISTANCE = 12.25F;
-    private static final float SCALE = 1.5F;
+    private static final float SCALE = 1.0F;
     private final ItemRenderer itemRenderer;
     private final float scale;
     private final boolean lit;
@@ -48,6 +48,9 @@ public class SpearEntityRenderer<T extends SpearEntity> extends EntityRenderer<T
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevYaw, entity.getYaw()) - 90.0f));
         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-90));
         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevPitch, entity.getPitch())));
+
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90.0f));
+
 
         matrices.scale(scale, scale, scale);
 

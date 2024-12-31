@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "me:item/hammer_of_helm_hammerhand_broken_inventory"
+  }
+}

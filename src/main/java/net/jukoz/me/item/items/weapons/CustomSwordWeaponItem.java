@@ -82,4 +82,5 @@ public class CustomSwordWeaponItem extends SwordItem implements MEEquipmentToolt
         }
         return super.getName(stack);
     }
+
 }

@@ -359,6 +359,8 @@
   "item.me.orc_spear": "Orc Spear",
   "item.me.orc_axe": "Orc Axe",
 
+  "item.me.orcish_bow": "Orcish Bow",
+
 "#Comment:": "Item - Erebor",
   "item.me.erebor_sword": "Erebor Sword",
   "item.me.erebor_noble_sword": "Erebor Noble Sword",
@@ -370,6 +372,11 @@
   "item.me.erebor_noble_axe": "Erebor Noble Axe",
   "item.me.erebor_spear": "Erebor Spear",
   "item.me.erebor_noble_spear": "Erebor Noble Spear",
+
+  "item.me.erebor_bow": "Erebor Bow",
+  "item.me.erebor_noble_bow": "Erebor Noble Bow",
+  "item.me.erebor_crossbow": "Erebor Crossbow",
+  "item.me.erebor_noble_crossbow": "Erebor Noble Crossbow",
 
 "#Comment:": "Item - Gondor",
   "item.me.gondorian_sword": "Gondorian Sword",
@@ -383,7 +390,10 @@
   "item.me.gondorian_spear": "Gondorian Spear",
   "item.me.gondorian_noble_spear": "Gondorian Noble Spear",
   "item.me.gondorian_fountain_guard_spear": "Gondorian Fountain Guard Spear",
+
   "item.me.gondorian_bow": "Gondorian Bow",
+  "item.me.gondorian_longbow": "Gondorian Longbow",
+  "item.me.gondorian_noble_longbow": "Gondorian Noble Longbow",
 
 "#Comment:": "Item - Lorien",
   "item.me.lorien_sword": "Lórien Sword",
@@ -396,7 +406,10 @@
   "item.me.lorien_noble_axe": "Lórien Noble Axe",
   "item.me.lorien_spear": "Lórien Spear",
   "item.me.lorien_noble_spear": "Lórien Noble Spear",
+
   "item.me.lorien_bow": "Lórien Bow",
+  "item.me.lorien_longbow": "Lórien Longbow",
+  "item.me.lorien_noble_longbow": "Lórien Noble Longbow",
 
 "#Comment:": "Item - Rohan",
   "item.me.rohirric_sword": "Rohirric Sword",
@@ -409,7 +422,10 @@
   "item.me.rohirric_noble_axe": "Rohirric Noble Axe",
   "item.me.rohirric_spear": "Rohirric Spear",
   "item.me.rohirric_noble_spear": "Rohirric Noble Spear",
+
   "item.me.rohirric_bow": "Rohirric Bow",
+  "item.me.rohirric_noble_bow": "Rohirric Noble Bow",
+  "item.me.rohirric_longbow": "Rohirric Longbow",
 
 "#Comment:": "Item - Dalish",
   "item.me.dalish_sword": "Dalish Sword",
@@ -429,6 +445,10 @@
   "item.me.dalish_heyday_spear": "Dalish Heyday Spear",
   "item.me.dalish_noble_spear": "Dalish Noble Spear",
 
+  "item.me.dalish_longbow": "Dalish Longbow",
+  "item.me.dalish_heyday_longbow": "Dalish Heyday Longbow",
+  "item.me.dalish_noble_longbow": "Dalish Noble Longbow",
+
 "#Comment:": "Item - Mordor",
   "item.me.mordor_falchion": "Mordor Falchion",
   "item.me.mordor_elite_cleaver": "Mordor Elite Cleaver",
@@ -440,6 +460,9 @@
   "item.me.mordor_elite_spear": "Mordor Elite Spear",
   "item.me.mordor_axe": "Mordor Axe",
   "item.me.mordor_elite_axe": "Mordor Elite Axe",
+
+  "item.me.mordor_bow": "Mordor Bow",
+  "item.me.mordor_elite_longbow": "Mordor Elite Longbow",
 
   "item.me.black_numenorean_sword": "Black Númenórean Sword",
   "item.me.black_numenorean_longsword": "Black Númenórean Longsword",
@@ -459,6 +482,9 @@
   "item.me.isengard_orc_axe": "Isengard Orc Axe",
   "item.me.uruk_hai_axe": "Uruk-Hai Axe",
 
+  "item.me.uruk_hai_bow": "Uruk-Hai Bow",
+  "item.me.uruk_hai_crossbow": "Uruk-Hai Crossbow",
+
 "#Comment:": "Item - Gundabad",
   "item.me.gundabad_falchion": "Gundabad Falchion",
   "item.me.gundabad_elite_cleaver": "Gundabad Elite Cleaver",
@@ -470,6 +496,9 @@
   "item.me.gundabad_elite_spear": "Gundabad Elite Spear",
   "item.me.gundabad_axe": "Gundabad Axe",
   "item.me.gundabad_elite_battleaxe": "Gundabad Elite Battleaxe",
+
+  "item.me.gundabad_bow": "Gundabad Bow",
+  "item.me.gundabad_crossbow": "Gundabad Crossbow",
 
 "#Comment:": "Item - Misc Weapons",
   "item.me.wooden_dagger": "Wooden Dagger",
@@ -524,16 +553,30 @@
   "item.me.netherite_spear": "Netherite Spear",
 
 "#Comment:": "Item - Artefacts",
+  "item.me.dagamarth": "Dagamarth",
+  "item.me.herugrim": "Herugrim",
+  "item.me.nazgul_sword": "Nazgûl sword",
+
+  "item.me.hammer_of_helm_hammerhand": "Hammer of Helm Hammerhand",
+  "item.me.mace_of_sauron": "Mace of Sauron",
+
+  "item.me.anguirel": "Anguirel",
+  "item.me.glamdring": "Glamdring",
+  "item.me.long_forgotten_longsword": "Long-forgotten Longsword",
+  "item.me.longsword_of_elder_kings": "Longsword Of Elder Kings",
+  "item.me.narsil": "Narsil",
+  "item.me.noldorin_longsword": "Noldorin Longsword",
   "item.me.orcrist": "Orcrist",
 
-  "item.me.glamdring": "Glamdring",
-  "item.me.narsil": "Narsil",
-
+  "item.me.barrow_blade": "Barrow Blade",
   "item.me.sting": "Sting",
   "item.me.morgul_knife": "Morgul Knife",
 
+  "item.me.aeglos": "Aeglos",
+
   "item.me.anorthann": "Anorthann",
   "item.me.cuthann": "Cûthann",
+  "item.me.shield_of_durins_guard": "Shield of Durin's Guard",
 
 "#Comment:": "Armours",
   "item.me.hood": "Hood",
@@ -1206,8 +1249,6 @@
   "item.me.gundabad_reinforced_shield": "Gundabad Reinforced Shield",
 
   "item.me.gundabad_heavy_shield": "Gundabad Heavy Shield",
-
-  "item.me.misty_mountains_shield": "Misty Mountains Shield",
 
   "item.me.held_banner": "Held Banner",
 
@@ -7034,7 +7075,6 @@
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",
   "tooltip.me.alt" : "Hold §3ALT§f to see custom parts information.",
   "tooltip.me.weapon_type" : "§eType: §f",
-  "tooltip.me.shield_type" : "§eType: §f",
   "tooltip.me.faction" : "§6Faction: §f",
   "tooltip.me.sub_faction" : "§7Sub Faction: §f",
   "tooltip.me.customizations" : "§6Custom Parts: §f",
@@ -7042,7 +7082,7 @@
   "tooltip.me.dyed" : "Dyed: ",
   "tooltip.me.artisan" : "Artisan: ",
   "tooltip.me.blocks_range" : " Blocks",
-  "tooltip.me.backstab" : "§7 +50% damage when backstabbing",
+  "tooltip.me.backstab" : "§7+50% damage when backstabbing",
   "tooltip.me.door_size" : "Door size: ",
 
   "tooltip.me.tier_clothing" : "§fClothing",
@@ -7054,13 +7094,17 @@
   "tooltip.me.tier_mithril" : "§bMithril",
 
   "tooltip.me.artefact" : "Artefact",
-  "tooltip.me.artefact_broken" : "Broken ",
+  "tooltip.me.broken" : "Broken",
 
   "tooltip.me.sword" : "Sword",
   "tooltip.me.axe" : "Axe",
   "tooltip.me.dagger" : "Dagger",
   "tooltip.me.spear" : "Spear",
   "tooltip.me.longsword" : "Longsword",
+
+  "tooltip.me.bow" : "Bow",
+  "tooltip.me.longbow" : "Longbow",
+  "tooltip.me.crossbow" : "Crossbow",
 
   "tooltip.me.light_shield" : "§fLight Shield",
   "tooltip.me.medium_shield" : "§9Medium Shield",
@@ -7296,6 +7340,53 @@
 
 "#Comment:": "Race Tooltip",
   "race_tooltip.me.attribute_header" : "Attributes : ",
+
+"#Comment:": "Lore Tooltips",
+  "tooltip.me.dagamarth_lore_0" : "A storied blade forged by Narvi and Celebrimbor,",
+  "tooltip.me.dagamarth_lore_1" : "thought lost.",
+  "tooltip.me.herugrim_lore_0" : "A sword set with green jewels, passed down through",
+  "tooltip.me.herugrim_lore_1" : "the line of Eorl for generations.",
+  "tooltip.me.nazgul_sword_lore_0" : "Cold as death,",
+  "tooltip.me.nazgul_sword_lore_1" : "with a wicked point.",
+
+  "tooltip.me.mace_of_sauron_lore_0" : "Wielded by the Dark Lord,",
+  "tooltip.me.mace_of_sauron_lore_1" : "this weapon has claimed many lives.",
+  "tooltip.me.hammer_of_helm_hammerhand_lore_0" : "Once wielded by a King of Rohan,",
+  "tooltip.me.hammer_of_helm_hammerhand_lore_1" : "who fell in the Deep.",
+
+  "tooltip.me.anguirel_lore_0" : "A unique black blade forged in",
+  "tooltip.me.anguirel_lore_1" : "elder days from a meteorite.",
+  "tooltip.me.glamdring_lore_0" : "The Foe-Hammer, mate of Orcrist,",
+  "tooltip.me.glamdring_lore_1" : "once borne by the King of Gondolin.",
+  "tooltip.me.long_forgotten_longsword_lore_0" : "A mysterious melted and shattered",
+  "tooltip.me.long_forgotten_longsword_lore_1" : "longsword.",
+  "tooltip.me.longsword_of_elder_kings_lore_0" : "A well-crafted blade,",
+  "tooltip.me.longsword_of_elder_kings_lore_1" : "said to have belonged to the King of Nargothrond.",
+  "tooltip.me.narsil_lore_0" : "The Red and White Flame, borne by the King of the Dúnedain.",
+  "tooltip.me.narsil_lore_1" : "It was broken upon the slopes of Mount Doom.",
+  "tooltip.me.noldorin_longsword_lore_0" : "Such blades were once borne into battle by",
+  "tooltip.me.noldorin_longsword_lore_1" : "the Noldor in ages past.",
+  "tooltip.me.orcrist_lore_0" : "The Goblin-Cleaver, mate of Glamdring,",
+  "tooltip.me.orcrist_lore_1" : "once used by Thorin Oakenshield.",
+
+  "tooltip.me.barrow_blade_lore_0" : "Leaf-shaped and set with fiery jewels,",
+  "tooltip.me.barrow_blade_lore_1" : "these were made for the princes of Cardolan.",
+  "tooltip.me.morgul_knife_lore_0" : "A knife forged with wicked sorcery,",
+  "tooltip.me.morgul_knife_lore_1" : "often carried by the Ringwraiths.",
+  "tooltip.me.sting_lore_0" : "An elvish knife, made in Gondolin long ago,",
+  "tooltip.me.sting_lore_1" : "carried by Bilbo Baggins of the Shire.",
+
+  "tooltip.me.aeglos_lore_0" : "Called \"Snow-Point\", this legendary spear was carried into battle by",
+  "tooltip.me.aeglos_lore_1" : "King Gil-galad through many ages.",
+
+  "tooltip.me.cuthann_lore_0" : "The Shield of the Moon, mate to Anorthann,",
+  "tooltip.me.cuthann_lore_1" : "forged long ago in Nargothrond.",
+  "tooltip.me.anorthann_lore_0" : "The Shield of the Sun, mate to Cúthann,",
+  "tooltip.me.anorthann_lore_1" : "forged long ago in Nargothrond.",
+  "tooltip.me.shield_of_durins_guard_lore_0" : "A mithril-trimmed shield bearing the proud",
+  "tooltip.me.shield_of_durins_guard_lore_1" : "icon of Durin's line.",
+  "tooltip.me.shield_of_the_king_under_the_mountain_lore_0" : "An iconic shield emblazoned with a",
+  "tooltip.me.shield_of_the_king_under_the_mountain_lore_1" : "gilded raven.",
 
 "#Comment:": "Faction descriptions",
   "description.me.gondor.description_0" : "A last bastion for the Men of the West, the Kings of Gondor long stood watch over the neighbouring darkness. Though their line is broken, the stalwart Gondorians stand strong and fight to keep Mordor at bay.",
