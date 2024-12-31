@@ -7346,6 +7346,13 @@
   "tooltip.me.dagamarth_lore_1" : "thought lost.",
   "tooltip.me.herugrim_lore_0" : "A sword set with green jewels, passed down through",
   "tooltip.me.herugrim_lore_1" : "the line of Eorl for generations.",
+  "tooltip.me.nazgul_sword_lore_0" : "Cold as death,",
+  "tooltip.me.nazgul_sword_lore_1" : "with a wicked point.",
+
+  "tooltip.me.mace_of_sauron_lore_0" : "Wielded by the Dark Lord,",
+  "tooltip.me.mace_of_sauron_lore_1" : "this weapon has claimed many lives.",
+  "tooltip.me.hammer_of_helm_hammerhand_lore_0" : "Once wielded by a King of Rohan,",
+  "tooltip.me.hammer_of_helm_hammerhand_lore_1" : "who fell in the Deep.",
 
   "tooltip.me.anguirel_lore_0" : "A unique black blade forged in",
   "tooltip.me.anguirel_lore_1" : "elder days from a meteorite.",
@@ -7368,9 +7375,6 @@
   "tooltip.me.morgul_knife_lore_1" : "often carried by the Ringwraiths.",
   "tooltip.me.sting_lore_0" : "An elvish knife, made in Gondolin long ago,",
   "tooltip.me.sting_lore_1" : "carried by Bilbo Baggins of the Shire.",
-
-  "tooltip.me.mace_of_sauron_lore_0" : "Wielded by the Dark Lord,",
-  "tooltip.me.mace_of_sauron_lore_1" : "this weapon has claimed many lives.",
 
   "tooltip.me.aeglos_lore_0" : "Called \"Snow-Point\", this legendary spear was carried into battle by",
   "tooltip.me.aeglos_lore_1" : "King Gil-galad through many ages.",
