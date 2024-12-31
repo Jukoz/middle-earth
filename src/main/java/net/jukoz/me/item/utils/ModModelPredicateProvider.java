@@ -45,8 +45,15 @@ public class ModModelPredicateProvider {
         registerCrossbow(ModWeaponItems.EREBOR_CROSSBOW);
         registerCrossbow(ModWeaponItems.EREBOR_NOBLE_CROSSBOW);
 
-        registerBow(ModWeaponItems.GUNDABAD_BOW);
+        registerBow(ModWeaponItems.ORCISH_BOW);
 
+        registerBow(ModWeaponItems.MORDOR_BOW);
+        registerLongbow(ModWeaponItems.MORDOR_ELITE_LONGBOW);
+
+        registerBow(ModWeaponItems.URUK_HAI_BOW);
+        registerCrossbow(ModWeaponItems.URUK_HAI_CROSSBOW);
+
+        registerBow(ModWeaponItems.GUNDABAD_BOW);
         registerCrossbow(ModWeaponItems.GUNDABAD_CROSSBOW);
     }
     private static void registerPipeModels() {

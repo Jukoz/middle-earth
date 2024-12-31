@@ -382,6 +382,10 @@ public class ModWeaponItems {
             new CustomAxeWeaponItem(ModToolMaterials.BURZUM_STEEL), true);
     public static final Item ORC_SPEAR = registerItemWithSpearModel("orc_spear",
             new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL));
+
+    public static final Item ORCISH_BOW = registerBigBowItem("orcish_bow",
+            new CustomBowWeaponItem(ModFactions.NONE, new Item.Settings().maxDamage(640)));
+
     //region MORDOR
     public static final Item MORDOR_FALCHION = registerItemWithModel("mordor_falchion",
             new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL, ModFactions.MORDOR), true);
@@ -403,6 +407,11 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL, ModFactions.MORDOR));
     public static final Item MORDOR_ELITE_SPEAR = registerItemWithSpearModel("mordor_elite_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModFactions.MORDOR));
+
+    public static final Item MORDOR_BOW = registerBigBowItem("mordor_bow",
+            new CustomBowWeaponItem(ModFactions.NONE, new Item.Settings().maxDamage(640)));
+    public static final Item MORDOR_ELITE_LONGBOW = registerBigBowItem("mordor_elite_longbow",
+            new CustomLongbowWeaponItem(ModFactions.NONE, new Item.Settings().maxDamage(640)));
 
     public static final Item BLACK_NUMENOREAN_SWORD = registerItemWithModel("black_numenorean_sword",
             new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModSubFactions.MORDOR_BLACK_NUMENOREANS), true);
@@ -474,6 +483,11 @@ public class ModWeaponItems {
     public static final Item URUK_HAI_SPEAR = registerItemWithSpearModel("uruk_hai_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModFactions.ISENGARD));
 
+    public static final Item URUK_HAI_BOW = registerBigBowItem("uruk_hai_bow",
+            new CustomBowWeaponItem(ModFactions.ISENGARD, new Item.Settings().maxDamage(640)));
+    public static final Item URUK_HAI_CROSSBOW = registerCrossbowItem("uruk_hai_crossbow",
+            new CustomCrossbowWeaponItem(ModFactions.ISENGARD, new Item.Settings().maxDamage(640)));
+
     public static final Item URUK_HAI_HEATER_SHIELD = registerShield("uruk_hai_heater_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ISENGARD));
 
@@ -516,7 +530,6 @@ public class ModWeaponItems {
 
     public static final Item GUNDABAD_BOW = registerBigBowItem("gundabad_bow",
             new CustomBowWeaponItem(ModSubFactions.GUNDABAD, new Item.Settings().maxDamage(640)));
-
     public static final Item GUNDABAD_CROSSBOW = registerCrossbowItem("gundabad_crossbow",
             new CustomCrossbowWeaponItem(ModSubFactions.GUNDABAD, new Item.Settings().maxDamage(640)));
 

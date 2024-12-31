@@ -283,6 +283,14 @@ public class ModRegistries {
         registry.add(ModWeaponItems.EREBOR_CROSSBOW, 400);
         registry.add(ModWeaponItems.EREBOR_NOBLE_CROSSBOW, 400);
 
+        registry.add(ModWeaponItems.ORCISH_BOW, 300);
+
+        registry.add(ModWeaponItems.MORDOR_BOW, 300);
+        registry.add(ModWeaponItems.MORDOR_ELITE_LONGBOW, 400);
+
+        registry.add(ModWeaponItems.URUK_HAI_BOW, 300);
+        registry.add(ModWeaponItems.URUK_HAI_CROSSBOW, 400);
+
         registry.add(ModWeaponItems.GUNDABAD_BOW, 300);
         registry.add(ModWeaponItems.GUNDABAD_CROSSBOW, 400);
 

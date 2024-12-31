@@ -359,6 +359,8 @@
   "item.me.orc_spear": "Orc Spear",
   "item.me.orc_axe": "Orc Axe",
 
+  "item.me.orcish_bow": "Orcish Bow",
+
 "#Comment:": "Item - Erebor",
   "item.me.erebor_sword": "Erebor Sword",
   "item.me.erebor_noble_sword": "Erebor Noble Sword",
@@ -459,6 +461,9 @@
   "item.me.mordor_axe": "Mordor Axe",
   "item.me.mordor_elite_axe": "Mordor Elite Axe",
 
+  "item.me.mordor_bow": "Mordor Bow",
+  "item.me.mordor_elite_longbow": "Mordor Elite Longbow",
+
   "item.me.black_numenorean_sword": "Black Númenórean Sword",
   "item.me.black_numenorean_longsword": "Black Númenórean Longsword",
   "item.me.black_numenorean_dagger": "Black Númenórean Dagger",
@@ -477,6 +482,9 @@
   "item.me.isengard_orc_axe": "Isengard Orc Axe",
   "item.me.uruk_hai_axe": "Uruk-Hai Axe",
 
+  "item.me.uruk_hai_bow": "Uruk-Hai Bow",
+  "item.me.uruk_hai_crossbow": "Uruk-Hai Crossbow",
+
 "#Comment:": "Item - Gundabad",
   "item.me.gundabad_falchion": "Gundabad Falchion",
   "item.me.gundabad_elite_cleaver": "Gundabad Elite Cleaver",
@@ -490,7 +498,6 @@
   "item.me.gundabad_elite_battleaxe": "Gundabad Elite Battleaxe",
 
   "item.me.gundabad_bow": "Gundabad Bow",
-
   "item.me.gundabad_crossbow": "Gundabad Crossbow",
 
 "#Comment:": "Item - Misc Weapons",
