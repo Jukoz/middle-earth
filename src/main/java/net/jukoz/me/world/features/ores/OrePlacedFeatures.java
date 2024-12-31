@@ -49,6 +49,7 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> GRANITE_ORE = registerKey("granite_ore");
     public static final RegistryKey<PlacedFeature> GRAVEL_ORE = registerKey("gravel_ore");
     public static final RegistryKey<PlacedFeature> STONE_GRASS_ORE = registerKey("stone_grass_ore");
+    public static final RegistryKey<PlacedFeature> SAND_TO_GRASS_ORE = registerKey("sand_to_grass_ore");
     public static final RegistryKey<PlacedFeature> STONE_GRASS_ABUNDANT_ORE = registerKey("stone_grass_abundant_ore");
     public static final RegistryKey<PlacedFeature> OLD_PODZOL_ORE = registerKey("old_podzol_ore");
     public static final RegistryKey<PlacedFeature> STONE_OLD_PODZOL_ORE = registerKey("stone_old_podzol_ore");
@@ -108,6 +109,7 @@ public class OrePlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> granite = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRANITE_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> gravel = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRAVEL_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> stoneGrass = registryEntryLookup.getOrThrow(OreConfiguredFeatures.STONE_GRASS_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> sandToGrass = registryEntryLookup.getOrThrow(OreConfiguredFeatures.SAND_TO_GRASS_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oldPodzol = registryEntryLookup.getOrThrow(OreConfiguredFeatures.OLD_PODZOL_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> stoneOldPodzol = registryEntryLookup.getOrThrow(OreConfiguredFeatures.OLD_STONE_PODZOL_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> limestone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.LIMESTONE_ORE);
@@ -197,6 +199,8 @@ public class OrePlacedFeatures {
         PlacedFeatures.register(featureRegisterable, STONE_GRASS_ORE, stoneGrass, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, STONE_GRASS_ABUNDANT_ORE, stoneGrass, abundant,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, SAND_TO_GRASS_ORE, sandToGrass, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, OLD_PODZOL_ORE, oldPodzol, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

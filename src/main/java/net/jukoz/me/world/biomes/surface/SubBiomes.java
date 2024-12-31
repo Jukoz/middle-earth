@@ -19,6 +19,10 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.DALE, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.27f, MEBiomeKeys.DALE_FOREST)
                 .addSubBiomeData(0.31f, 2.01f, MEBiomeKeys.DALE_MEADOW));
+        subBiomesMap.put(MEBiomeKeys.LINDON, new SubBiome(56, 1.25f)
+                .addSubBiomeData(-1.0f, -0.31f, MEBiomeKeys.LINDON_MEADOW)
+                .addSubBiomeData(0.22f, 0.44f, MEBiomeKeys.LINDON_FOREST)
+                .addSubBiomeData(0.44f, 2.0f, MEBiomeKeys.LINDON_HIDDEN_BLOSSOM));
         subBiomesMap.put(MEBiomeKeys.OLD_ANGMAR, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.2f, MEBiomeKeys.OLD_ANGMAR_FOREST)
                 .addSubBiomeData(0.22f, 0.27f, MEBiomeKeys.OLD_ANGMAR_COLD_HILL, true)

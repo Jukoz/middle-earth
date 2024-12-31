@@ -51,6 +51,9 @@ public class ModBiomeFeatures {
     public static void addVeryRareBeechTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.VERY_RARE_BEECH_PLACED_TREE_KEY);
     }
+    public static void addCommonBirchTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.COMMON_BIRCH_PLACED_TREE_KEY);
+    }
     public static void addBirchTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.BIRCH_PLACED_TREE_KEY);
     }
@@ -918,6 +921,9 @@ public class ModBiomeFeatures {
     }
     public static void addStoneGrassOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.STONE_GRASS_ORE);
+    }
+    public static void addSandToGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.SAND_TO_GRASS_ORE);
     }
     public static void addStoneGrassAbundantOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.STONE_GRASS_ABUNDANT_ORE);

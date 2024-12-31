@@ -73,8 +73,8 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> FORODWAITH = MEBiomeKeys.register("forodwaith");
     public static final RegistryKey<Biome> FROZEN_OCEAN = MEBiomeKeys.register("frozen_ocean");
     public static final RegistryKey<Biome> FROZEN_POND = MEBiomeKeys.register("frozen_pond");
-    public static final RegistryKey<Biome> GULF_OF_LHUN_SHORES = MEBiomeKeys.register("gulf_of_lhun_shores");
-    public static final RegistryKey<Biome> GULF_OF_LHUN_CLIFFS = MEBiomeKeys.register("gulf_of_lhun_cliffs");
+    public static final RegistryKey<Biome> LINDON_SHORES = MEBiomeKeys.register("lindon_shores");
+    public static final RegistryKey<Biome> LINDON_SHORES_CLIFFS = MEBiomeKeys.register("lindon_shores_cliffs");
     public static final RegistryKey<Biome> GONDOR = MEBiomeKeys.register("gondor");
     public static final RegistryKey<Biome> GONDOR_FOREST = MEBiomeKeys.register("gondor_forest");
     public static final RegistryKey<Biome> GONDOR_HILL = MEBiomeKeys.register("gondor_hill");
@@ -113,6 +113,9 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> LEBENNIN_HILLS = MEBiomeKeys.register("lebennin_hills");
     public static final RegistryKey<Biome> LEBENNIN_SHORES = MEBiomeKeys.register("lebennin_shores");
     public static final RegistryKey<Biome> LINDON = MEBiomeKeys.register("lindon");
+    public static final RegistryKey<Biome> LINDON_FOREST = MEBiomeKeys.register("lindon_forest");
+    public static final RegistryKey<Biome> LINDON_HIDDEN_BLOSSOM = MEBiomeKeys.register("lindon_hidden_blossom");
+    public static final RegistryKey<Biome> LINDON_MEADOW = MEBiomeKeys.register("lindon_meadow");
     public static final RegistryKey<Biome> LONELY_MOUNTAIN_FOOTHILLS = MEBiomeKeys.register("lonely_mountain_foothills");
     public static final RegistryKey<Biome> LONELY_MOUNTAIN_BASE = MEBiomeKeys.register("lonely_mountain_base");
     public static final RegistryKey<Biome> LONELY_MOUNTAIN = MEBiomeKeys.register("lonely_mountain");

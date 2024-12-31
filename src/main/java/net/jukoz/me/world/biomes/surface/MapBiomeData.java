@@ -185,10 +185,10 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.FORODWAITH, MEBiomeDataConfigs.forodwaith, MEBiomeDataConfigs.frozenLayers,
                 new BiomeColorsDTO(8364543, 10335206, 3823818, 66852, 3494723, 4478280), CaveType.FOROD));
         // GULF OF LHUN
-        addBiome(new BiomeData(MEBiomeKeys.GULF_OF_LHUN_SHORES, MEBiomeDataConfigs.gulfOfLhunShoresLayers, MEBiomeDataConfigs.limeStoneLayers,
-                new BiomeColorsDTO(8827134, 12771327, defaultShoreWater, defaultWaterFog, 6523989, 5667402)));
-        addBiome(new BiomeData(MEBiomeKeys.GULF_OF_LHUN_CLIFFS, MEBiomeDataConfigs.gulfOfLhunShoresLayers, MEBiomeDataConfigs.limeStoneLayers,
-                new BiomeColorsDTO(8827134, 12771327, defaultShoreWater, defaultWaterFog, 6523989, 5667402)));
+        addBiome(new BiomeData(MEBiomeKeys.LINDON_SHORES, MEBiomeDataConfigs.gulfOfLhunShoresLayers, MEBiomeDataConfigs.limeStoneLayers,
+                new BiomeColorsDTO(8827134, 12771327, defaultShoreWater, defaultWaterFog, 9090684, 8168815)));
+        addBiome(new BiomeData(MEBiomeKeys.LINDON_SHORES_CLIFFS, MEBiomeDataConfigs.gulfOfLhunShoresLayers, MEBiomeDataConfigs.limeStoneLayers,
+                new BiomeColorsDTO(8827134, 12771327, defaultShoreWater, defaultWaterFog, 9090684, 8168815)));
         // GONDOR
         addBiome(new BiomeData(MEBiomeKeys.GONDOR, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 7582562, 6592327)));
@@ -275,7 +275,13 @@ public class MapBiomeData {
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultShoreWater, defaultWaterFog, 5883985, 4239457)));
         // LINDON
         addBiome(new BiomeData(MEBiomeKeys.LINDON, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
-                new BiomeColorsDTO(8827134, 12771327, defaultWater, defaultWaterFog, 6523989, 5667402)));
+                new BiomeColorsDTO(8827134, 12771327, defaultWater, defaultWaterFog, 7385448, 6593880)));
+        addBiome(new BiomeData(MEBiomeKeys.LINDON_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
+                new BiomeColorsDTO(8827134, 12771327, defaultWater, defaultWaterFog, 6331736, 6067536)));
+        addBiome(new BiomeData(MEBiomeKeys.LINDON_HIDDEN_BLOSSOM, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
+                new BiomeColorsDTO(8827134, 12771327, defaultWater, defaultWaterFog, 7584106, 6593880)));
+        addBiome(new BiomeData(MEBiomeKeys.LINDON_MEADOW, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
+                new BiomeColorsDTO(8827134, 12771327, defaultWater, defaultWaterFog, 7584106, 6725722)));
         // LONELY MOUNTAINS
         addBiome(new BiomeData(MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, MEBiomeDataConfigs.lonelyMountain, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 7321722, 6858353)));

@@ -49,6 +49,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRAVEL_ORE = registerKey("gravel_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRANITE_ORE = registerKey("granite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> STONE_GRASS_ORE = registerKey("stone_grass_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SAND_TO_GRASS_ORE = registerKey("sand_to_grass_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GONLUIN_GRASS_ORE = registerKey("gonluin_grass_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LIMESTONE_ORE = registerKey("limestone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LORIEN_PODZOL_ORE = registerKey("lorien_podzol_ore");
@@ -75,6 +76,7 @@ public class OreConfiguredFeatures {
         BlockMatchRuleTest grassTest = new BlockMatchRuleTest(Blocks.GRASS_BLOCK);
         BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHEN_STONE.base());
         BlockMatchRuleTest ashenGravelTest = new BlockMatchRuleTest(ModBlocks.ASHEN_GRAVEL);
+        TagMatchRuleTest sandTest = new TagMatchRuleTest(BlockTags.SAND);
         TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.BASE_STONE_OVERWORLD);
 
         List<OreFeatureConfig.Target> ashenStoneList = List.of(
@@ -165,6 +167,9 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, GRANITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.GRANITE.getDefaultState(), 64, 0.4f));
+
+        ConfiguredFeatures.register(featureRegisterable, SAND_TO_GRASS_ORE, ModFeatures.SURFACE_ORE,
+                new SurfaceOreFeatureConfig(sandTest, Blocks.GRASS_BLOCK.getDefaultState(), 64));
 
         ConfiguredFeatures.register(featureRegisterable, STONE_GRASS_ORE, ModFeatures.SURFACE_ORE,
                 new SurfaceOreFeatureConfig(stoneTest, Blocks.GRASS_BLOCK.getDefaultState(), 64));

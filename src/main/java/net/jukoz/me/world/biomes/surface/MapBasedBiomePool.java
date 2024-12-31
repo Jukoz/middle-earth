@@ -156,8 +156,8 @@ public class MapBasedBiomePool {
         add(new Color(0xb0a288), new MapBasedCustomBiome(MEBiomeKeys.FANUIDHOL, 78, MEBiomeDataConfigs.mountainModifier.heightModifier(0.34f)));
         add(new Color(0xc4b499), new MapBasedCustomBiome(MEBiomeKeys.FANUIDHOL_PEAKS, 102, MEBiomeDataConfigs.mountainModifier.heightModifier(0.39f)));
         add(new Color(0xececec), new MapBasedCustomBiome(MEBiomeKeys.FORODWAITH, 14, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x4ad58a), new MapBasedCustomBiome(MEBiomeKeys.GULF_OF_LHUN_CLIFFS, 30, MEBiomeDataConfigs.landModifier.heightModifier(0.76f)));
-        add(new Color(0xdee3bf), new MapBasedCustomBiome(MEBiomeKeys.GULF_OF_LHUN_SHORES, 0, MEBiomeDataConfigs.landModifier.heightModifier(0.97f).heightModifier(0.1f).noiseModifier(0.05f)));
+        add(new Color(0x4ad58a), new MapBasedCustomBiome(MEBiomeKeys.LINDON_SHORES_CLIFFS, 30, MEBiomeDataConfigs.landModifier.heightModifier(0.76f)));
+        add(new Color(0xdee3bf), new MapBasedCustomBiome(MEBiomeKeys.LINDON_SHORES, 0, MEBiomeDataConfigs.landModifier.heightModifier(0.97f).heightModifier(0.1f).noiseModifier(0.05f)));
         add(new Color(0x5bbd55), new MapBasedCustomBiome(MEBiomeKeys.GONDOR, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x50A94B), new MapBasedCustomBiome(MEBiomeKeys.GONDOR_FOREST, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x5BAB57), new MapBasedCustomBiome(MEBiomeKeys.GONDOR_HILL, 12, MEBiomeDataConfigs.foothillModifier));
@@ -192,6 +192,9 @@ public class MapBasedBiomePool {
         add(new Color(0x5AD952), new MapBasedCustomBiome(MEBiomeKeys.LEBENNIN_HILLS, 17, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x7fd665), new MapBasedCustomBiome(MEBiomeKeys.LEBENNIN_SHORES, 0, MEBiomeDataConfigs.plainsModifier.heightModifier(0.98f).noiseModifier(0.1f)));
         add(new Color(0x43c17d), new MapBasedCustomBiome(MEBiomeKeys.LINDON, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x3CB072), new MapBasedCustomBiome(MEBiomeKeys.LINDON_FOREST, 6, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x48C761), new MapBasedCustomBiome(MEBiomeKeys.LINDON_HIDDEN_BLOSSOM, 8, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x4AD375), new MapBasedCustomBiome(MEBiomeKeys.LINDON_MEADOW, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x438564), new MapBasedCustomBiome(MEBiomeKeys.LONG_MARSHES, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x48c440), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0xE5A695), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_CHERRY_BLOSSOM, 23, MEBiomeDataConfigs.foothillModifier));
@@ -300,8 +303,8 @@ public class MapBasedBiomePool {
         add(new Color(0x316b2e), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_FOOTHILLS, 37, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.47f).heightModifier(0.47f)));
         add(new Color(0x4f7c4c), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_HILLS, 63, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.62f).heightModifier(0.76f)));
 
-        coastalBiomes.add(MEBiomeKeys.GULF_OF_LHUN_CLIFFS);
-        coastalBiomes.add(MEBiomeKeys.GULF_OF_LHUN_SHORES);
+        coastalBiomes.add(MEBiomeKeys.LINDON_SHORES_CLIFFS);
+        coastalBiomes.add(MEBiomeKeys.LINDON_SHORES);
 
         riverbiomes.add(MEBiomeKeys.RIVER);
         riverbiomes.add(MEBiomeKeys.NURN_RIVER);
