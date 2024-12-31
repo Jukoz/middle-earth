@@ -5,6 +5,7 @@ import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.utils.armor.capes.ModCapes;
 import net.jukoz.me.item.utils.armor.hoods.ModHoods;
+import net.jukoz.me.resources.MiddleEarthNpcs;
 import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
@@ -12,17 +13,27 @@ import net.jukoz.me.resources.datas.npcs.data.NpcGearItemData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearSlotData;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 
 public class BanditNpcDataPool {
-    public final static NpcData BANDIT_THUG;
-    public final static NpcData BANDIT_THIEF;
     private final static String FACTION_BASE = "bandit.";
     private final static int DARK_BLUE = 0x2d3744;
     private final static int OLIVE_GREEN = 0x3c3e2a;
     private final static int DARK_BROWN = 0x2b1c17;
+
+    public final static NpcData BANDIT_THUG;
+    public final static NpcData BANDIT_THIEF;
+
+    public static List<NpcData> fetchAll() {
+        return List.of(
+                BANDIT_THUG,
+                BANDIT_THIEF
+        );
+    }
 
     static {
         BANDIT_THUG = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "thug"), MiddleEarthRaces.HUMAN, List.of(

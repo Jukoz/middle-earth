@@ -3,21 +3,31 @@ package net.jukoz.me.resources.datas.npcs.pools;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.resources.MiddleEarthNpcs;
 import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearItemData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearSlotData;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 
 public class LorienNpcDataPool {
-    public final static NpcData LOTHLORIEN_MILITIA;
     private final static String FACTION_BASE = "lothlorien.";
     private final static int LIGHT_BLUE = 0x3a4250;
     private final static int DARK_BLUE = 0x252b3a;
+    public final static NpcData LOTHLORIEN_MILITIA;
+
+    
+    public static List<NpcData> fetchAll() {
+        return List.of(
+                LOTHLORIEN_MILITIA
+        );
+    }
     static {
         LOTHLORIEN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), MiddleEarthRaces.ELF, List.of(
                 NpcGearData.create()

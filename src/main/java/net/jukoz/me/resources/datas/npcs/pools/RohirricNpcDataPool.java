@@ -5,6 +5,7 @@ import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.utils.armor.capes.ModCapes;
+import net.jukoz.me.resources.MiddleEarthNpcs;
 import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
@@ -12,17 +13,14 @@ import net.jukoz.me.resources.datas.npcs.data.NpcGearItemData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearSlotData;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 
 public class RohirricNpcDataPool {
-    public final static NpcData ROHAN_MILITIA;
-    public final static NpcData ROHAN_SOLDIER;
-    public final static NpcData ROHAN_KNIGHT;
-    public final static NpcData ROHAN_ROYAL_GUARD;
-    public final static NpcData ROHAN_EORLING_MARSHAL;
-    public final static NpcData ROHAN_HORSE_LORD;
+    private final static String FACTION_BASE = "rohan.";
 
     private final static int LIGHT_GREEN = 0x516c42;
     private final static int DARK_GREEN = 0x2d4122;
@@ -33,7 +31,23 @@ public class RohirricNpcDataPool {
     private final static int LIGHT_BROWN = 0x69594d;
     private final static int DARK_BROWN = 0x44382f;
 
-    private final static String FACTION_BASE = "rohan.";
+    public final static NpcData ROHAN_MILITIA;
+    public final static NpcData ROHAN_SOLDIER;
+    public final static NpcData ROHAN_KNIGHT;
+    public final static NpcData ROHAN_ROYAL_GUARD;
+    public final static NpcData ROHAN_EORLING_MARSHAL;
+    public final static NpcData ROHAN_HORSE_LORD;
+
+    public static List<NpcData> fetchAll() {
+        return List.of(
+                ROHAN_MILITIA,
+                ROHAN_SOLDIER,
+                ROHAN_KNIGHT,
+                ROHAN_ROYAL_GUARD,
+                ROHAN_EORLING_MARSHAL,
+                ROHAN_HORSE_LORD
+        );
+    }
 
     static {
         ROHAN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), MiddleEarthRaces.HUMAN, List.of(
