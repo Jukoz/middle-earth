@@ -579,6 +579,8 @@
   "item.me.cuthann": "库桑恩",
   "item.me.shield_of_durins_guard": "都林守卫之盾",
 
+  "item.me.helmet_of_helm_hammerhand": "“锤手”海尔姆之盔",
+
   "#Comment:": "盔甲",
   "item.me.hood": "兜帽",
 
@@ -604,6 +606,7 @@
   "item.me.white_fur": "白色毛皮披肩",
 
   "item.me.surcoat": "罩衣",
+  "item.me.robe": "长袍",
 
   "item.me.gondorian_captain_cape": "刚铎队长披风",
   "item.me.gondorian_hero_cape": "刚铎英雄披风",
@@ -643,6 +646,7 @@
   "item.me.straw_hat": "稻草帽",
   "item.me.woven_hat": "编织帽",
   "item.me.bycocket": "罗宾汉帽",
+  "item.me.wizard_hat": "巫师帽",
 
   "item.me.arming_coat": "武装外套",
 
@@ -7221,6 +7225,8 @@
 
   "tooltip.me.surcoat": "罩衣",
 
+  "tooltip.me.robe": "长袍",
+
   "tooltip.me.gondorian_captain_cape": "刚铎队长披风",
   "tooltip.me.gondorian_hero_cape": "刚铎英雄披风",
   "tooltip.me.gondorian_kings_guard_cape": "刚铎国王守卫披风",
@@ -7341,8 +7347,8 @@
   "race_tooltip.me.attribute_header" : "属性：",
 
   "#Comment:": "传说工具提示",
-  "tooltip.me.dagamarth_lore_0" : "一把闻名利刃，由纳维与凯勒布林博所锻制，",
-  "tooltip.me.dagamarth_lore_1" : "后世人皆以为遗失。",
+  "tooltip.me.dagamarth_lore_0" : "一把闻名利刃，由纳维与凯勒布林博",
+  "tooltip.me.dagamarth_lore_1" : "所锻制，后世人皆以为遗失。",
   "tooltip.me.herugrim_lore_0" : "一柄镶有绿色珠宝的剑，",
   "tooltip.me.herugrim_lore_1" : "被埃奥尔一族代代相传。",
   "tooltip.me.nazgul_sword_lore_0" : "冰寒冷彻骨，",
@@ -7361,12 +7367,12 @@
   "tooltip.me.long_forgotten_longsword_lore_1" : "的一把神祕长剑。",
   "tooltip.me.longsword_of_elder_kings_lore_0" : "一把做工优良的长剑，",
   "tooltip.me.longsword_of_elder_kings_lore_1" : "据传曾属于纳国斯隆德国王芬罗德。",
-  "tooltip.me.narsil_lore_0" : "意为“白光与赤炎”，曾由杜内丹人领袖埃兰迪尔所携带。",
-  "tooltip.me.narsil_lore_1" : "后在末日山的大战中遭到折断。",
+  "tooltip.me.narsil_lore_0" : "意为“白光与赤炎”，曾由杜内丹人领袖",
+  "tooltip.me.narsil_lore_1" : "埃兰迪尔所携带。后在末日山的大战中遭到折断。",
   "tooltip.me.noldorin_longsword_lore_0" : "此类利剑曾在远古年月",
   "tooltip.me.noldorin_longsword_lore_1" : "伴随诺多族一同征战前往。",
-  "tooltip.me.orcrist_lore_0" : "意为“斩杀半兽人之剑”，与格拉姆德凛成对。",
-  "tooltip.me.orcrist_lore_1" : "曾被梭林·橡木盾所执。",
+  "tooltip.me.orcrist_lore_0" : "意为“斩杀半兽人之剑”，与格拉姆德凛",
+  "tooltip.me.orcrist_lore_1" : "成对。曾被梭林·橡木盾所执。",
 
   "tooltip.me.barrow_blade_lore_0" : "一把形如树叶的短剑，镶有火热的珠宝。",
   "tooltip.me.barrow_blade_lore_1" : "曾是为了卡多蓝的王子所制作。",
@@ -7386,6 +7392,9 @@
   "tooltip.me.shield_of_durins_guard_lore_1" : "绘有都林一族的家族纹章。",
   "tooltip.me.shield_of_the_king_under_the_mountain_lore_0" : "绘有标志性鎏金渡鸦的",
   "tooltip.me.shield_of_the_king_under_the_mountain_lore_1" : "一面耀眼盾牌。",
+
+  "tooltip.me.helmet_of_helm_hammerhand_lore_0" : "洛汗国王海尔姆的头盔，",
+  "tooltip.me.helmet_of_helm_hammerhand_lore_1" : "众人以此作为权力的象征。",
 
   "#Comment:": "派系描述",
   "description.me.gondor.description_0" : "此处作为西方人类的最后堡垒，刚铎的统治者长久以来于此处监视相邻的黑暗之地。尽管他们的防线已被突破，刚铎人民仍然于此坚定同魔多作着顽强斗争。",
