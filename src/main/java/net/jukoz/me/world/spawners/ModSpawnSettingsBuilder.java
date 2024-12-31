@@ -98,4 +98,8 @@ public class ModSpawnSettingsBuilder {
     public static void addDeer(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.DEER, 10, 1, 4));
     }
+
+    public static void addWarg(SpawnSettings.Builder builder) {
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.WARG, 8, 1, 5));
+    }
 }
