@@ -578,6 +578,8 @@
   "item.me.cuthann": "Cûthann",
   "item.me.shield_of_durins_guard": "Shield of Durin's Guard",
 
+  "item.me.helmet_of_helm_hammerhand": "Helmet of Helm Hammerhand",
+
 "#Comment:": "Armours",
   "item.me.hood": "Hood",
 
@@ -603,6 +605,7 @@
   "item.me.white_fur": "White Fur",
 
   "item.me.surcoat": "Surcoat",
+  "item.me.robe": "Robe",
 
   "item.me.gondorian_captain_cape": "Gondorian Captain Cape",
   "item.me.gondorian_hero_cape": "Gondorian Hero Cape",
@@ -642,6 +645,7 @@
   "item.me.straw_hat": "Straw Hat",
   "item.me.woven_hat": "Woven Hat",
   "item.me.bycocket": "Bycocket",
+  "item.me.wizard_hat": "Wizard Hat",
 
   "item.me.arming_coat": "Arming Coat",
 
@@ -7222,6 +7226,8 @@
 
   "tooltip.me.surcoat": "Surcoat",
 
+  "tooltip.me.robe": "Robe",
+
   "tooltip.me.gondorian_captain_cape": "Gondorian Captain Cape",
   "tooltip.me.gondorian_hero_cape": "Gondorian Hero Cape",
   "tooltip.me.gondorian_kings_guard_cape": "Gondorian King's Guard Cape",
@@ -7387,6 +7393,9 @@
   "tooltip.me.shield_of_durins_guard_lore_1" : "icon of Durin's line.",
   "tooltip.me.shield_of_the_king_under_the_mountain_lore_0" : "An iconic shield emblazoned with a",
   "tooltip.me.shield_of_the_king_under_the_mountain_lore_1" : "gilded raven.",
+
+  "tooltip.me.helmet_of_helm_hammerhand_lore_0" : "Helm of a mighty King of Rohan,",
+  "tooltip.me.helmet_of_helm_hammerhand_lore_1" : "sign of great power.",
 
 "#Comment:": "Faction descriptions",
   "description.me.gondor.description_0" : "A last bastion for the Men of the West, the Kings of Gondor long stood watch over the neighbouring darkness. Though their line is broken, the stalwart Gondorians stand strong and fight to keep Mordor at bay.",
