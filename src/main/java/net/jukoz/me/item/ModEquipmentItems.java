@@ -7,6 +7,7 @@ import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.items.armor.*;
+import net.jukoz.me.item.items.armor.artefact.CustomArtefactHelmetItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.armor.ModArmorMaterials;
 import net.jukoz.me.item.utils.armor.capes.ModCapes;
@@ -84,6 +85,11 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.CLOAK))
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
+    public static final Item ROBE = registerDyeableCape("robe",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROBE))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
+                    ModFactions.NONE));
 
     public static final Item BLACK_FUR_CLOAK = registerDyeableCape("black_fur_cloak",
             new CapeChestplateItem(new Item.Settings()
@@ -143,6 +149,11 @@ public class ModEquipmentItems {
     public static final Item BYCOCKET = registerDyeableArmorPiece("bycocket",
             new CustomHelmetItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
+                    ModFactions.NONE));
+
+    public static final Item WIZARD_HAT = registerDyeableCustomModelArmorPiece("wizard_hat",
+            new CustomHelmetItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
 
     public static final Item ARMING_COAT = registerDyeableArmorPiece("arming_coat",
@@ -1532,7 +1543,7 @@ public class ModEquipmentItems {
                     ModSubFactions.GUNDABAD));
 
     public static final Item GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_trophy_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
+            new CustomArtefactHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     //endregion
 
@@ -1560,6 +1571,10 @@ public class ModEquipmentItems {
             new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, "_ornamented", CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4)).component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475)), ModSubFactions.EREBOR));
     public static final Item BROADHOOF_GOAT_PLATE_ARMOR = registerGeneratedItem("broadhoof_goat_plate_armor",
             new CustomAnimalArmorItem(ModArmorMaterials.PLATE, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10)), ModSubFactions.EREBOR));
+
+    public static final Item HELMET_OF_HELM_HAMMERHAND = registerCustomModelArmorPiece("helmet_of_helm_hammerhand",
+            new CustomArtefactHelmetItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModFactions.ROHAN));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());

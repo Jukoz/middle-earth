@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.items.weapons.CustomDaggerWeaponItem;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
+import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.jukoz.me.utils.IEntityDataSaver;
 import net.jukoz.me.utils.PlayerMovementData;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
@@ -122,7 +123,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
         if(stackMainHand != null){
             if ((stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded))
-                    || (stackMainHand.getItem() instanceof CustomSiegeShieldItem)) {
+                    || (stackMainHand.getItem() instanceof CustomSiegeShieldItem)
+                    || (stackMainHand.getItem() instanceof CustomLongbowWeaponItem)) {
                 twoHanded = true;
             }
         }

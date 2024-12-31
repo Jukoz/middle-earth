@@ -16,6 +16,7 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.*;
@@ -24,9 +25,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(ItemRenderer.class)
 public abstract class ItemRendererMixin {
-    private static final ModelIdentifier TRIDENT = ModelIdentifier.ofInventoryVariant(Identifier.ofVanilla("trident"));
-
-    @Shadow @Final private ItemModels models;
 
     @Debug(export = true)
     @ModifyVariable(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",
@@ -35,22 +33,27 @@ public abstract class ItemRendererMixin {
         if(renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED) {
             if(SimpleBigItemModel.artefacts.contains(stack.getItem())
                     || SimpleBigItemModel.items.contains(stack.getItem())
+                    || SimpleBigItemModel.bigBows.contains(stack.getItem())
                     || SimpleSpearModel.items.contains(stack.getItem())
                     || SimpleBigItemModel.genericItems.contains(stack.getItem())) {
                 Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(stack.getItem());
+                if (SimpleBigItemModel.artefactsBroken.contains(stack.getItem()) && stack.getDamage() == stack.getMaxDamage() - 1){
+                    identifier = VariantsModelProvider.getInventoryModelBrokenItem(stack.getItem());
+                    return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
+                }
                 if (SimpleBigItemModel.artefactsGlowing.contains(stack.getItem())){
                     if (stack.getItem() instanceof  ArtefactCustomGlowingLongswordWeaponItem item && item.glowing){
                         identifier = VariantsModelProvider.getInventoryModelGlowingItem(item);
+                        return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
                     } else if (stack.getItem() instanceof  ArtefactCustomGlowingDaggerWeaponItem item && item.glowing){
                         identifier = VariantsModelProvider.getInventoryModelGlowingItem(item);
+                        return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
                     }
-                }
-                if (SimpleBigItemModel.artefactsBroken.contains(stack.getItem()) && stack.getDamage() == stack.getMaxDamage() - 1){
-                    identifier = VariantsModelProvider.getInventoryModelBrokenItem(stack.getItem());
                 }
                 return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
             }
         }
+
         if(isItemHot(stack)) {
             Identifier identifier = VariantsModelProvider.getHotModelIdentifierVariant(stack.getItem());
             return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);

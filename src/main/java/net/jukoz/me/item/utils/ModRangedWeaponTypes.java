@@ -4,20 +4,17 @@ import net.minecraft.util.StringIdentifiable;
 
 public enum ModRangedWeaponTypes implements StringIdentifiable {
 
-    BOW("bow", 4, -2.4f, 0.0F, false),
+    BOW("bow", false),
+    LONGBOW("longbow", true),
+
+    CROSSBOW("crossbow", false),
     ;
 
     public final String name;
-    public final float attack;
-    public final Float attackSpeed;
-    public final Float attackRange;
     public final Boolean twoHanded;
 
-    ModRangedWeaponTypes(String name, float attack, Float attackSpeed, Float attackRange, boolean twoHanded ){
+    ModRangedWeaponTypes(String name, boolean twoHanded ){
         this.name = name;
-        this.attack = attack;
-        this.attackSpeed = attackSpeed;
-        this.attackRange = attackRange;
         this.twoHanded = twoHanded;
     }
 

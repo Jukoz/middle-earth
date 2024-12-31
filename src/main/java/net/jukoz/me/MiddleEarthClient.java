@@ -270,6 +270,11 @@ public class MiddleEarthClient implements ClientModInitializer {
                 pluginContext.addModels(identifier);
             }
 
+            for(Item item : SimpleBigItemModel.bigBows) {
+                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
+                pluginContext.addModels(identifier);
+            }
+
             for(Item item : SimpleBigItemModel.artefacts) {
                 Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
                 pluginContext.addModels(identifier);

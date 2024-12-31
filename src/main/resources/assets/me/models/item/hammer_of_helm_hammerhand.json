@@ -1,0 +1,14 @@
+{
+  "parent": "me:item/big_weapon",
+  "textures": {
+    "layer0": "me:item/hammer_of_helm_hammerhand"
+  },
+  "overrides": [
+        {
+            "predicate": {
+                "broken": 1
+            },
+            "model": "me:item/hammer_of_helm_hammerhand_broken"
+        }
+    ]
+}
