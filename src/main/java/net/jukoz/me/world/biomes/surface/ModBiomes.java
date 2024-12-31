@@ -69,7 +69,8 @@ public class ModBiomes {
         createDunlandFoothillsBiome(context, MEBiomeKeys.DUNLAND_FOOTHILLS);
         createRhunBiome(context, MEBiomeKeys.EAST_BIGHT);
         createNurnBiome(context, MEBiomeKeys.EASTERN_NURN, 0);
-        createRhunBiome(context, MEBiomeKeys.EASTERN_RHOVANION);
+        createEasternRhovanionBiome(context, MEBiomeKeys.EASTERN_RHOVANION, 0);
+        createEasternRhovanionBiome(context, MEBiomeKeys.EASTERN_RHOVANION_FOREST, 1);
         createEmynMuilBiome(context, MEBiomeKeys.EMYN_MUIL);
         createEmynMuilBiome(context, MEBiomeKeys.EMYN_MUIL_CLIFFS);
         createEmynMuilBiome(context, MEBiomeKeys.EMYN_MUIL_PEAKS);
@@ -225,7 +226,8 @@ public class ModBiomes {
         createMordorMountainsBiome(context, MEBiomeKeys.SOUTHERN_EPHEL_DUATH);
         createMordorMountainsBiome(context, MEBiomeKeys.SOUTHERN_EPHEL_DUATH_BASE);
         createMordorMountainsBiome(context, MEBiomeKeys.SOUTHERN_EPHEL_DUATH_PEAKS);
-        createRhunBiome(context, MEBiomeKeys.SOUTHEAST_RHOVANION);
+        createSoutheastRhovanionBiome(context, MEBiomeKeys.SOUTHEAST_RHOVANION, 0);
+        createSoutheastRhovanionBiome(context, MEBiomeKeys.SOUTHEAST_RHOVANION_FIELDS, 1);
         createSouthernForochelBiome(context, MEBiomeKeys.SOUTHERN_FOROCHEL);
         createTheAngleBiome(context, MEBiomeKeys.THE_ANGLE);
         createTheOldForestBiome(context, MEBiomeKeys.THE_OLD_FOREST);
@@ -676,6 +678,37 @@ public class ModBiomes {
         ModBiomeFeatures.addAbundantPineTrees(vegetation);
         ModBiomeFeatures.addAbundantSpruceTrees(vegetation);
         ModBiomeFeatures.addCommonSpruceBushes(vegetation);
+
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
+    }
+
+    public static void createEasternRhovanionBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addRhunVegetation(generationSettings);
+        ModBiomeFeatures.addLimestoneBoulder(vegetation);
+        ModBiomeFeatures.addGrimGrass(vegetation);
+        ModBiomeFeatures.addDryDirtOre(vegetation);
+        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addOakBushes(vegetation);
+        ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addRareWilderGrass(vegetation);
+        ModBiomeFeatures.addSedumYellow(vegetation);
+
+        if(step == 0) {
+            ModBiomeFeatures.addRareBeechTrees(vegetation);
+        } else if (step == 1) {
+            ModBiomeFeatures.addFalseOatgrass(vegetation);
+            ModBiomeFeatures.addCoarseDirtOre(vegetation);
+            ModBiomeFeatures.addCommonBeechTrees(vegetation);
+            ModBiomeFeatures.addCommonOakTrees(vegetation);
+            ModBiomeFeatures.addBirchTrees(vegetation);
+            ModBiomeFeatures.addPineTrees(vegetation);
+            ModBiomeFeatures.addForestMoss(vegetation);
+            ModBiomeFeatures.addForestBlockMoss(vegetation);
+        }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
@@ -2408,6 +2441,36 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
+    public static void createSoutheastRhovanionBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addRhunVegetation(generationSettings);
+        ModBiomeFeatures.addBasaltBoulder(vegetation);
+        ModBiomeFeatures.addShriveledShrubs(vegetation);
+        ModBiomeFeatures.addGrimGrass(vegetation);
+        ModBiomeFeatures.addDryDirtOre(vegetation);
+        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addOakBushes(vegetation);
+        ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addRareWilderGrass(vegetation);
+        ModBiomeFeatures.addSedumYellow(vegetation);
+
+        if(step == 0) {
+            ModBiomeFeatures.addRareBeechTrees(vegetation);
+        } else if (step == 1) {
+            ModBiomeFeatures.addRedFlowers(vegetation);
+            ModBiomeFeatures.addRedFlowerGrowth(vegetation);
+            ModBiomeFeatures.addPoppyFlower(vegetation);
+            ModBiomeFeatures.addRoseBush(vegetation);
+            ModBiomeFeatures.addTuftGrass(vegetation);
+            ModBiomeFeatures.addRedHeather(vegetation);
+        }
+
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
+    }
+
     public static void createSouthernForochelBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);
@@ -3069,7 +3132,6 @@ public class ModBiomes {
         ModBiomeFeatures.addWildFlax(vegetation);
         ModBiomeFeatures.addWildLettuce(vegetation);
         ModBiomeFeatures.addWildOnion(vegetation);
-        ModBiomeFeatures.addStoneBoulder(vegetation);
     }
 
     public static void addShireVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {

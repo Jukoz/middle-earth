@@ -131,6 +131,13 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.UDUN, new SubBiome(144)
                 .addSubBiomeData(-1.0f, -0.31f, MEBiomeKeys.MORDOR_ASHEN_FOREST)
                 .addSubBiomeData(0.29f, 2.01f, MEBiomeKeys.MORDOR_HILL, true));
+
+        subBiomesMap.put(MEBiomeKeys.EASTERN_RHOVANION, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.35f, MEBiomeKeys.EASTERN_RHOVANION_FOREST)
+                .addSubBiomeData(0.34f, 2.01f, MEBiomeKeys.EASTERN_RHOVANION_FOREST));
+        subBiomesMap.put(MEBiomeKeys.SOUTHEAST_RHOVANION, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.EASTERN_RHOVANION_FOREST)
+                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.SOUTHEAST_RHOVANION_FIELDS));
     }
 
     public static boolean isSubBiome(RegistryKey<Biome> biomeRegistryKey) {

@@ -502,8 +502,14 @@ public class ModBiomeFeatures {
     public static void addMallos(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_MALLOS);
     }
+    public static void addPoppyFlower(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_POPPY);
+    }
     public static void addElanor(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_ELANOR);
+    }
+    public static void addRoseBush(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_ROSE_BUSH);
     }
 
     public static void addLightBlueFlowers(List<RegistryKey<PlacedFeature>> vegetation) {

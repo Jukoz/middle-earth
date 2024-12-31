@@ -54,6 +54,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> EAST_BIGHT = MEBiomeKeys.register("east_bight");
     public static final RegistryKey<Biome> EASTERN_NURN = MEBiomeKeys.register("eastern_nurn");
     public static final RegistryKey<Biome> EASTERN_RHOVANION = MEBiomeKeys.register("eastern_rhovanion");
+    public static final RegistryKey<Biome> EASTERN_RHOVANION_FOREST = MEBiomeKeys.register("eastern_rhovanion_forest");
     public static final RegistryKey<Biome> EMYN_MUIL = MEBiomeKeys.register("emyn_muil");
     public static final RegistryKey<Biome> EMYN_MUIL_CLIFFS = MEBiomeKeys.register("emyn_muil_cliffs");
     public static final RegistryKey<Biome> EMYN_MUIL_PEAKS = MEBiomeKeys.register("emyn_muil_peaks");
@@ -208,6 +209,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> SHIRE_HILLS = MEBiomeKeys.register("shire_hills");
     public static final RegistryKey<Biome> SHIRE_WOODS = MEBiomeKeys.register("shire_woods");
     public static final RegistryKey<Biome> SOUTHEAST_RHOVANION = MEBiomeKeys.register("southeast_rhovanion");
+    public static final RegistryKey<Biome> SOUTHEAST_RHOVANION_FIELDS = MEBiomeKeys.register("southeast_rhovanion_fields");
     public static final RegistryKey<Biome> SOUTHERN_DUNLAND = MEBiomeKeys.register("southern_dunland");
     public static final RegistryKey<Biome> SOUTHERN_FOROCHEL = MEBiomeKeys.register("southern_forochel");
     public static final RegistryKey<Biome> SOUTHERN_EPHEL_DUATH = MEBiomeKeys.register("southern_ephel_duath");

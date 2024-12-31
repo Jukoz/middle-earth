@@ -459,8 +459,12 @@ public class MapBiomeData {
         // RHOVANION
         addBiome(new BiomeData(MEBiomeKeys.EASTERN_RHOVANION, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7571933, defaultFog, 12440052, 591663, 8627523, 7052347)));
+        addBiome(new BiomeData(MEBiomeKeys.EASTERN_RHOVANION_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(7176133, 10926035, 12440052, 591663, 8627523, 6721596)));
         addBiome(new BiomeData(MEBiomeKeys.SOUTHEAST_RHOVANION, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(8954077, 11781343, 4814544, 460593, 7443043, 6982236)));
+                new BiomeColorsDTO(8954077, 11781343, 4814544, 460593, 7378251, 6982236)));
+        addBiome(new BiomeData(MEBiomeKeys.SOUTHEAST_RHOVANION_FIELDS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(8954077, 11781343, 4814544, 460593, 7708747, 7839335)));
         // ROHAN
         addBiome(new BiomeData(MEBiomeKeys.ROHAN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 12569978, 9677397)));
