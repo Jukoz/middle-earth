@@ -552,35 +552,39 @@ public class ModWeaponItems {
     //endregion
 
     //region ARTEFACTS
-    public static final Item DAGAMARTH = registerItemWithModel("dagamarth",
+    public static final Item DAGAMARTH = registerArtefact("dagamarth",
             new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
-    public static final Item HERUGRIM = registerItemWithModel("herugrim",
+    public static final Item HERUGRIM = registerArtefact("herugrim",
+            new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
+    public static final Item NAZGUL_SWORD = registerArtefact("nazgul_sword",
             new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
 
-    public static final Item MACE_OF_SAURON = registerItemWithModel("mace_of_sauron",
+    public static final Item HAMMER_OF_HELM_HAMMERHAND = registerArtefact("hammer_of_helm_hammerhand",
+            new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
+    public static final Item MACE_OF_SAURON = registerArtefact("mace_of_sauron",
             new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
 
-    public static final Item ANGUIREL = registerItemWithModel("anguirel",
+    public static final Item ANGUIREL = registerArtefact("anguirel",
             new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
-    public static final Item GLAMDRING = registerArtefactNoModel("glamdring",
-            new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), false, true, true);
-    public static final Item LONG_FORGOTTEN_LONGSWORD = registerItemWithModel("long_forgotten_longsword",
+    public static final Item GLAMDRING = registerGlowyArtefact("glamdring",
+            new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
+    public static final Item LONG_FORGOTTEN_LONGSWORD = registerArtefact("long_forgotten_longsword",
             new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
-    public static final Item LONGSWORD_OF_ELDER_KINGS = registerItemWithModel("longsword_of_elder_kings",
+    public static final Item LONGSWORD_OF_ELDER_KINGS = registerArtefact("longsword_of_elder_kings",
             new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
-    public static final Item NARSIL = registerArtefactNoModel("narsil",
-            new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true, true, false);
-    public static final Item NOLDORIN_LONGSWORD = registerItemWithModel("noldorin_longsword",
+    public static final Item NARSIL = registerArtefact("narsil",
             new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
-    public static final Item ORCRIST = registerArtefactNoModel("orcrist",
-            new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), false, true, true);
+    public static final Item NOLDORIN_LONGSWORD = registerArtefact("noldorin_longsword",
+            new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
+    public static final Item ORCRIST = registerGlowyArtefact("orcrist",
+            new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
 
-    public static final Item BARROW_BLADE = registerItemWithModel("barrow_blade",
+    public static final Item BARROW_BLADE = registerArtefact("barrow_blade",
             new MorgulKnifeItem(ModToolMaterials.NOBLE_STEEL), false);
-    public static final Item MORGUL_KNIFE = registerArtefactNoModel("morgul_knife",
-            new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE), false, false, false);
-    public static final Item STING = registerArtefactNoModel("sting",
-            new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL), false, false, true);
+    public static final Item MORGUL_KNIFE = registerArtefact("morgul_knife",
+            new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE), false);
+    public static final Item STING = registerGlowyArtefact("sting",
+            new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL), false);
 
     public static final Item AEGLOS = registerItemWithSpearModel("aeglos",
             new ArtefactCustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL));
@@ -595,9 +599,8 @@ public class ModWeaponItems {
             new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.NONE));
     //endregion
 
-    public static final Item HELD_BANNER = registerArtefactNoModel("held_banner",
-            new HeldBannerItem(new Item.Settings().maxCount(1)), false, false, false);
-
+    public static final Item HELD_BANNER = registerArtefact("held_banner",
+            new HeldBannerItem(new Item.Settings().maxCount(1)), false);
 
     private static Item registerItemWithModel(String name, Item item, boolean isDualModel) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
@@ -634,16 +637,21 @@ public class ModWeaponItems {
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
-    private static Item registerArtefactNoModel(String name, Item item, boolean brokenModel, boolean isDualModel, boolean glowy) {
+    private static Item registerGlowyArtefact(String name, Item item, boolean isDualModel) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
-        if(brokenModel){
-            SimpleBigItemModel.artefactsBroken.add(item);
-        }
+        SimpleBigItemModel.artefactsBroken.add(item);
         if (isDualModel){
             SimpleBigItemModel.artefacts.add(item);
         }
-        if (glowy){
-            SimpleBigItemModel.artefactsGlowing.add(item);
+        SimpleBigItemModel.artefactsGlowing.add(item);
+        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    private static Item registerArtefact(String name, Item item, boolean isDualModel) {
+        ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
+        SimpleBigItemModel.artefactsBroken.add(item);
+        if (isDualModel){
+            SimpleBigItemModel.artefacts.add(item);
         }
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }

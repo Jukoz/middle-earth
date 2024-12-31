@@ -62,11 +62,23 @@ public class ModModelPredicateProvider {
         registerPipeModel(ModToolItems.RIVERBEND_PIPE);
         registerPipeModel(ModToolItems.BRIMMINGBEND_PIPE);
         registerPipeModel(ModToolItems.LONGBOTTOM_PIPE);
-
     }
 
     private static void registerArtefactModels() {
+        registerArtefact(ModWeaponItems.DAGAMARTH);
+        registerArtefact(ModWeaponItems.HERUGRIM);
+        registerArtefact(ModWeaponItems.NAZGUL_SWORD);
+
+        registerArtefact(ModWeaponItems.HAMMER_OF_HELM_HAMMERHAND);
+        registerArtefact(ModWeaponItems.MACE_OF_SAURON);
+
+        registerArtefact(ModWeaponItems.ANGUIREL);
+        registerArtefact(ModWeaponItems.LONG_FORGOTTEN_LONGSWORD);
+        registerArtefact(ModWeaponItems.LONGSWORD_OF_ELDER_KINGS);
         registerArtefact(ModWeaponItems.NARSIL);
+        registerArtefact(ModWeaponItems.NOLDORIN_LONGSWORD);
+
+        registerArtefact(ModWeaponItems.BARROW_BLADE);
         registerArtefact(ModWeaponItems.MORGUL_KNIFE);
     }
 
@@ -141,6 +153,9 @@ public class ModModelPredicateProvider {
     }
 
     private static void registerGlowingArtefact(Item artefact) {
+        ModelPredicateProviderRegistry.register(artefact, Identifier.of("broken"),
+                (stack, world, entity, seed) -> ArtefactCustomLongswordWeaponItem.isUsable(stack) ? 0.0F : 1.0F);
+
         if (artefact instanceof ArtefactCustomGlowingLongswordWeaponItem item){
             ModelPredicateProviderRegistry.register(item, Identifier.of("glowing"),
                     (stack, world, entity, seed) -> ArtefactCustomGlowingLongswordWeaponItem.shouldBeGlowing(world, entity) ? 1.0F : 0.0F);
