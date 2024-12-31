@@ -4,9 +4,10 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 
-public class WizardHatModel<T extends LivingEntity> extends HelmetAddonModel<T> {
+public class HammerhandHelmModel<T extends LivingEntity> extends HelmetAddonModel<T> {
 
-    public WizardHatModel(ModelPart root) {
+
+    public HammerhandHelmModel(ModelPart root) {
         super(root);
     }
 
@@ -18,16 +19,13 @@ public class WizardHatModel<T extends LivingEntity> extends HelmetAddonModel<T> 
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        ModelPartData wizard = head.addChild("wizard", ModelPartBuilder.create().uv(0, 47).cuboid(-8.0F, -6.134F, -8.0F, 16.0F, 1.0F, 16.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 1.4F, -1.15F, -0.1745F, 0.0F, 0.0F));
+        ModelPartData addons = head.addChild("addons", ModelPartBuilder.create().uv(30, 17).cuboid(0.0F, -13.5F, -9.5F, 0.0F, 11.0F, 17.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -1.0F, 0.0F));
 
-        ModelPartData bone = wizard.addChild("bone", ModelPartBuilder.create().uv(1, 0).cuboid(-4.0F, -10.0F, -4.0F, 8.0F, 4.0F, 8.0F, new Dilation(0.5F))
-                .uv(33, 0).cuboid(-4.0F, -10.0F, -4.0F, 8.0F, 4.0F, 8.0F, new Dilation(0.9F)), ModelTransform.of(0.0F, -0.325F, 0.2F, 0.0436F, 0.0F, 0.0F));
+        ModelPartData hornRight = addons.addChild("horns_right", ModelPartBuilder.create().uv(0, 0).cuboid(0.1F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(-6.5F, -4.0F, 0.0F));
+        hornRight.addChild("horn_right", ModelPartBuilder.create().uv(50, 0).cuboid(-3.5F, -12.0F, 1.0F, 7.0F, 13.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.1396F));
 
-        ModelPartData hat = bone.addChild("hat", ModelPartBuilder.create(), ModelTransform.of(0.0F, 1.6F, -0.4F, -0.0175F, 0.0F, 0.0F));
-
-        hat.addChild("wizard_0", ModelPartBuilder.create().uv(24, 1).mirrored().cuboid(2.0F, -10.4886F, -2.2615F, 0.0F, 10.0F, 11.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(46, 12).cuboid(0.0F, -5.4886F, -2.2615F, 4.0F, 5.0F, 4.0F, new Dilation(0.5F)), ModelTransform.of(-2.0F, -13.0143F, 1.5539F, -0.5672F, 0.0F, 0.0F));
-        hat.addChild("wizard_1", ModelPartBuilder.create().uv(0, 12).cuboid(-3.0F, -5.5F, -3.0F, 6.0F, 4.0F, 6.0F, new Dilation(0.5F)), ModelTransform.of(0.0F, -9.5F, 0.0F, -0.0873F, 0.0F, 0.0F));
+        ModelPartData hornLeft = addons.addChild("horns_left", ModelPartBuilder.create().uv(0, 0).cuboid(11.1F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(-6.5F, -4.0F, 0.0F));
+        hornLeft.addChild("horn_left", ModelPartBuilder.create().uv(50, 13).mirrored().cuboid(-3.5F, -12.0F, 1.0F, 7.0F, 13.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(12.2F, 0.0F, 0.0F, 0.0F, 0.0F, -0.1396F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
@@ -35,6 +33,7 @@ public class WizardHatModel<T extends LivingEntity> extends HelmetAddonModel<T> 
 
         modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
         return TexturedModelData.of(modelData, 64, 64);
     }
 

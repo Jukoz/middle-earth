@@ -7,6 +7,7 @@ import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.items.armor.*;
+import net.jukoz.me.item.items.armor.artefact.CustomArtefactHelmetItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.armor.ModArmorMaterials;
 import net.jukoz.me.item.utils.armor.capes.ModCapes;
@@ -1542,7 +1543,7 @@ public class ModEquipmentItems {
                     ModSubFactions.GUNDABAD));
 
     public static final Item GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_trophy_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
+            new CustomArtefactHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     //endregion
 
@@ -1570,6 +1571,10 @@ public class ModEquipmentItems {
             new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, "_ornamented", CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4)).component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475)), ModSubFactions.EREBOR));
     public static final Item BROADHOOF_GOAT_PLATE_ARMOR = registerGeneratedItem("broadhoof_goat_plate_armor",
             new CustomAnimalArmorItem(ModArmorMaterials.PLATE, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10)), ModSubFactions.EREBOR));
+
+    public static final Item HELMET_OF_HELM_HAMMERHAND = registerCustomModelArmorPiece("helmet_of_helm_hammerhand",
+            new CustomArtefactHelmetItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModFactions.ROHAN));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());

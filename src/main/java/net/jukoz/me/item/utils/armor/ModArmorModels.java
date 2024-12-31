@@ -114,6 +114,8 @@ public class ModArmorModels {
         GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
         GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
         GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+
+        HELMET_OF_HELM_HAMMERHAND(ModEquipmentItems.HELMET_OF_HELM_HAMMERHAND, new HammerhandHelmModel<>(HammerhandHelmModel.getTexturedModelData().createModel())),
         ;
 
         private final Item item;
