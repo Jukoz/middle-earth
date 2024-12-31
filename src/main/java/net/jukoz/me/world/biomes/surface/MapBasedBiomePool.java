@@ -147,6 +147,8 @@ public class MapBasedBiomePool {
         add(new Color(0x7f7f81), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 94, MEBiomeDataConfigs.mountainModifier.heightModifier(0.81f)));
         add(new Color(0x5a9f5a), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x6a9b68), new MapBasedCustomBiome(MEBiomeKeys.EREGION, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x5B8A59), new MapBasedCustomBiome(MEBiomeKeys.EREGION_FOREST, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x75AD73), new MapBasedCustomBiome(MEBiomeKeys.EREGION_GLADE, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x109c6d), new MapBasedCustomBiome(MEBiomeKeys.ETHIR_ANDUIN, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x364b0c), new MapBasedCustomBiome(MEBiomeKeys.FANGORN, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x798370), new MapBasedCustomBiome(MEBiomeKeys.FANGORN_FOOTHILLS, 24, MEBiomeDataConfigs.foothillModifier));

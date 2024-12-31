@@ -59,7 +59,9 @@ public class ModVegetationPlacedFeatures {
 
     // region GROWTH
     public static final RegistryKey<PlacedFeature> AZALEA_GROWTH = registerKey("azalea_growth");
+    public static final RegistryKey<PlacedFeature> DRY_GROWTH = registerKey("dry_growth");
     public static final RegistryKey<PlacedFeature> IVY_GROWTH = registerKey("ivy_growth");
+    public static final RegistryKey<PlacedFeature> GREEN_GROWTH = registerKey("green_growth");
     public static final RegistryKey<PlacedFeature> FROZEN_GROWTH = registerKey("frozen_growth");
     public static final RegistryKey<PlacedFeature> LILAC_FLOWER_GROWTH = registerKey("lilac_flower_growth");
     public static final RegistryKey<PlacedFeature> RED_FLOWER_GROWTH = registerKey("red_flower_growth");
@@ -225,8 +227,10 @@ public class ModVegetationPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mirkwoodVines = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.MIRKWOOD_VINES);
 
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> growthAzalea = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.AZALEA_GROWTH);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> growthDry = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.DRY_GROWTH);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> growthIvy = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.IVY_GROWTH);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> growthFrozen = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FROZEN_GROWTH);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> growthGreen = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_GREEN_GROWTH);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> growthLilacFlower = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.LILAC_FLOWER_GROWTH);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> growthRedFlower = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.RED_FLOWER_GROWTH);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> growthYellowFlower = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.YELLOW_FLOWER_GROWTH);
@@ -358,8 +362,10 @@ public class ModVegetationPlacedFeatures {
 
         PlacedFeatures.register(featureRegisterable, AZALEA_GROWTH, growthAzalea, CountPlacementModifier.of(UniformIntProvider.create(204, 255)), PlacedFeatures.BOTTOM_TO_120_RANGE,
                 SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -13), BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, DRY_GROWTH, growthDry, CountPlacementModifier.of(UniformIntProvider.create(16, 32)), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, IVY_GROWTH, growthIvy, CountPlacementModifier.of(UniformIntProvider.create(16, 32)), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FROZEN_GROWTH, growthFrozen, CountPlacementModifier.of(UniformIntProvider.create(16, 32)), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, GREEN_GROWTH, growthGreen, CountPlacementModifier.of(UniformIntProvider.create(16, 32)), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, LILAC_FLOWER_GROWTH, growthLilacFlower, CountPlacementModifier.of(UniformIntProvider.create(16, 32)), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, RED_FLOWER_GROWTH, growthRedFlower, CountPlacementModifier.of(UniformIntProvider.create(16, 32)), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, YELLOW_FLOWER_GROWTH, growthYellowFlower, CountPlacementModifier.of(UniformIntProvider.create(16, 32)), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

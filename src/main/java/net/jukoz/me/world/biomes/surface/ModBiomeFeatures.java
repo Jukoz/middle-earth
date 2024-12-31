@@ -431,11 +431,17 @@ public class ModBiomeFeatures {
     public static void addAzaleaGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.AZALEA_GROWTH);
     }
-    public static void addIvyGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(ModVegetationPlacedFeatures.IVY_GROWTH);
+    public static void addDryGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.DRY_GROWTH);
     }
     public static void addFrozenGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FROZEN_GROWTH);
+    }
+    public static void addIvyGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.IVY_GROWTH);
+    }
+    public static void addGreenGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.GREEN_GROWTH);
     }
     public static void addLilacFlowerGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.LILAC_FLOWER_GROWTH);
@@ -577,7 +583,6 @@ public class ModBiomeFeatures {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_BROWN_GRASS);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_GREEN_SHRUB);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TAN_SHRUB);
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_YELLOW_FLOWER);
     }
     public static void addBulrushAndCattail(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SHORT_BULRUSH);

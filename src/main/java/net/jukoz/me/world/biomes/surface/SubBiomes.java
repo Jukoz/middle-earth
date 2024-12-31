@@ -38,6 +38,9 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.SHIRE_EDGE, new SubBiome(72)
                 .addSubBiomeData(-1.0f, -0.27f, MEBiomeKeys.SHIRE_WOODS)
                 .addSubBiomeData(0.32f, 2.01f, MEBiomeKeys.SHIRE_HILLS, true));
+        subBiomesMap.put(MEBiomeKeys.EREGION, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.08f, MEBiomeKeys.EREGION_FOREST)
+                .addSubBiomeData(0.28f, 2.01f, MEBiomeKeys.EREGION_GLADE));
 
         subBiomesMap.put(MEBiomeKeys.ANORIEN, new SubBiome(144)
                 .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.GONDOR_FOREST)

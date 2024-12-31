@@ -61,6 +61,8 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> EMYN_MUIL_POND = MEBiomeKeys.register("emyn_muil_pond");
     public static final RegistryKey<Biome> ENEDWAITH = MEBiomeKeys.register("enedwaith");
     public static final RegistryKey<Biome> EREGION = MEBiomeKeys.register("eregion");
+    public static final RegistryKey<Biome> EREGION_FOREST = MEBiomeKeys.register("eregion_forest");
+    public static final RegistryKey<Biome> EREGION_GLADE = MEBiomeKeys.register("eregion_glade");
     public static final RegistryKey<Biome> ETHIR_ANDUIN = MEBiomeKeys.register("ethir_anduin");
     public static final RegistryKey<Biome> FANGORN = MEBiomeKeys.register("fangorn");
     public static final RegistryKey<Biome> FANGORN_FOOTHILLS = MEBiomeKeys.register("fangorn_foothills");

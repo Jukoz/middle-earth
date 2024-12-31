@@ -162,6 +162,10 @@ public class MapBiomeData {
         // EREGION
         addBiome(new BiomeData(MEBiomeKeys.EREGION, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
                 new BiomeColorsDTO(7908853, 11393279, 5077445, 331050, 6858575, 6198343)));
+        addBiome(new BiomeData(MEBiomeKeys.EREGION_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
+                new BiomeColorsDTO(7709409, 11062768, 5077445, 331050, 6331720, 6066757)));
+        addBiome(new BiomeData(MEBiomeKeys.EREGION_GLADE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
+                new BiomeColorsDTO(8500733, 11787007, 5077445, 331050, 7648091, 6659660)));
         // ETHIR ANDUIN
         addBiome(new BiomeData(MEBiomeKeys.ETHIR_ANDUIN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 6400102, 6137428)));
