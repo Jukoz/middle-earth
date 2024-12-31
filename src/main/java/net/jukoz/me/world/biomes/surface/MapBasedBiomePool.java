@@ -288,6 +288,7 @@ public class MapBasedBiomePool {
         add(new Color(0x28422a), new MapBasedCustomBiome(MEBiomeKeys.TROLLSHAWS, 8, MEBiomeDataConfigs.landModifier));
         add(new Color(0x492e2e), new MapBasedCustomBiome(MEBiomeKeys.UDUN, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0xe1c085), new MapBasedCustomBiome(MEBiomeKeys.UMBAR, 7, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xC9DA7D), new MapBasedCustomBiome(MEBiomeKeys.UMBAR_WOODS, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x183c1c), new MapBasedCustomBiome(MEBiomeKeys.WEBBED_WOODS, 8, MEBiomeDataConfigs.mirkwoodModifier));
         add(new Color(0x8a8670), new MapBasedCustomBiome(MEBiomeKeys.WITHERED_HEATH, 8, MEBiomeDataConfigs.landModifier));
         add(new Color(0xc6edc0), new MapBasedCustomBiome(MEBiomeKeys.WHITE_MOUNTAINS_BASE, 47, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.9f).heightModifier(0.27f)));

@@ -36,6 +36,9 @@ public class ModBiomeFeatures {
     public static void addAcaciaTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.ACACIA_PLACED_TREE_KEY);
     }
+    public static void addCommonAcaciaTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.COMMON_ACACIA_PLACED_TREE_KEY);
+    }
     public static void addCommonBeechTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.COMMON_BEECH_PLACED_TREE_KEY);
     }
@@ -564,6 +567,9 @@ public class ModBiomeFeatures {
     public static void addPumiceColumnLarge(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PUMICE_COLUMN_LARGE);
     }
+    public static void addBamboo(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_BAMBOO);
+    }
     public static void addBeachGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_BEACH_GRASS);
     }
@@ -701,6 +707,9 @@ public class ModBiomeFeatures {
     }
     public static void addCommonTallGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_TALL_GRASS);
+    }
+    public static void addTemperateGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_TEMPERATE_GRASS);
     }
     public static void addToughBerries(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TOUGH_BERRY_BUSH);

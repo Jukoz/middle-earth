@@ -277,6 +277,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.TROLLSHAWS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.UDUN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.UMBAR),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.UMBAR_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WASTE_POND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WEBBED_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WEBBED_DARK_WOODS),

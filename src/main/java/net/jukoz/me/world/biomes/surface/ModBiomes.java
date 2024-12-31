@@ -237,7 +237,8 @@ public class ModBiomes {
         createTorogwaithBiome(context, MEBiomeKeys.TOROGWAITH);
         createTrollshawsBiome(context, MEBiomeKeys.TROLLSHAWS);
         createMordorBiome(context, MEBiomeKeys.UDUN);
-        createUmbarBiome(context, MEBiomeKeys.UMBAR);
+        createUmbarBiome(context, MEBiomeKeys.UMBAR, 0);
+        createUmbarBiome(context, MEBiomeKeys.UMBAR_WOODS, 1);
         createWastePondBiome(context, MEBiomeKeys.WASTE_POND);
         createWebbedMirkwoodBiome(context, MEBiomeKeys.WEBBED_WOODS, false);
         createWebbedMirkwoodBiome(context, MEBiomeKeys.WEBBED_DARK_WOODS, true);
@@ -2641,7 +2642,7 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
-    public static void createUmbarBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+    public static void createUmbarBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addHaradMobs(spawnSettings);
         ModSpawnSettingsBuilder.addRareWolves(spawnSettings);
@@ -2650,7 +2651,20 @@ public class ModBiomes {
 
         addHaradVegetation(generationSettings);
         ModBiomeFeatures.addGraniteBoulder(vegetation);
-        ModBiomeFeatures.addWildFlax(vegetation);
+        ModBiomeFeatures.addRareOakBushes(vegetation);
+
+        if(step == 0) {
+            ModBiomeFeatures.addTallGrass(vegetation);
+        } else if(step == 1) {
+            ModBiomeFeatures.addWildFlax(vegetation);
+            ModBiomeFeatures.addOakBushes(vegetation);
+            ModBiomeFeatures.addPalmTrees(vegetation);
+            ModBiomeFeatures.addCommonAcaciaTrees(vegetation);
+            ModBiomeFeatures.addRareBirchTrees(vegetation);
+            ModBiomeFeatures.addOakTrees(vegetation);
+            ModBiomeFeatures.addCommonOakTrees(vegetation);
+            ModBiomeFeatures.addBamboo(vegetation);
+        }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
@@ -2963,6 +2977,7 @@ public class ModBiomes {
     public static void addHaradVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
         ModBiomeFeatures.addDisks(undergroundOres);
         ModBiomeFeatures.addGrass(vegetation);
+        ModBiomeFeatures.addTemperateGrass(vegetation);
         vegetation.add(VegetationPlacedFeatures.PATCH_TALL_GRASS);
         vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
         ModBiomeFeatures.addHaradFoliage(vegetation);

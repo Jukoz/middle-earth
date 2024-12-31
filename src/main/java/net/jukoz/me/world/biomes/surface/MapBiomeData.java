@@ -525,6 +525,8 @@ public class MapBiomeData {
         // UMBAR
         addBiome(new BiomeData(MEBiomeKeys.UMBAR, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7254527, 12638463, 5212644, 333363, 11059059, 9284946), CaveType.HARAD));
+        addBiome(new BiomeData(MEBiomeKeys.UMBAR_WOODS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(7317996, 12308721, 5212644, 333363, 9876841, 8955470), CaveType.HARAD));
         // WEBBED WOODS
         addBiome(new BiomeData(MEBiomeKeys.WEBBED_WOODS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(6385822, 5198943, 4544130, 338483, 4478786, 4017979)));

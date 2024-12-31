@@ -138,6 +138,9 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.SOUTHEAST_RHOVANION, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.EASTERN_RHOVANION_FOREST)
                 .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.SOUTHEAST_RHOVANION_FIELDS));
+
+        subBiomesMap.put(MEBiomeKeys.UMBAR, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.36f, MEBiomeKeys.UMBAR_WOODS));
     }
 
     public static boolean isSubBiome(RegistryKey<Biome> biomeRegistryKey) {
