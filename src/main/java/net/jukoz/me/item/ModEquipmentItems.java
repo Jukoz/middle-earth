@@ -84,6 +84,11 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.CLOAK))
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
+    public static final Item ROBE = registerDyeableCape("robe",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROBE))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
+                    ModFactions.NONE));
 
     public static final Item BLACK_FUR_CLOAK = registerDyeableCape("black_fur_cloak",
             new CapeChestplateItem(new Item.Settings()
@@ -143,6 +148,11 @@ public class ModEquipmentItems {
     public static final Item BYCOCKET = registerDyeableArmorPiece("bycocket",
             new CustomHelmetItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
+                    ModFactions.NONE));
+
+    public static final Item WIZARD_HAT = registerDyeableCustomModelArmorPiece("wizard_hat",
+            new CustomHelmetItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
 
     public static final Item ARMING_COAT = registerDyeableArmorPiece("arming_coat",

@@ -603,6 +603,7 @@
   "item.me.white_fur": "White Fur",
 
   "item.me.surcoat": "Surcoat",
+  "item.me.robe": "Robe",
 
   "item.me.gondorian_captain_cape": "Gondorian Captain Cape",
   "item.me.gondorian_hero_cape": "Gondorian Hero Cape",
@@ -642,6 +643,7 @@
   "item.me.straw_hat": "Straw Hat",
   "item.me.woven_hat": "Woven Hat",
   "item.me.bycocket": "Bycocket",
+  "item.me.wizard_hat": "Wizard Hat",
 
   "item.me.arming_coat": "Arming Coat",
 
@@ -7221,6 +7223,8 @@
   "tooltip.me.cloak": "Cloak",
 
   "tooltip.me.surcoat": "Surcoat",
+
+  "tooltip.me.robe": "Robe",
 
   "tooltip.me.gondorian_captain_cape": "Gondorian Captain Cape",
   "tooltip.me.gondorian_hero_cape": "Gondorian Hero Cape",

@@ -16,6 +16,7 @@ public class ModArmorModels {
     public enum ModHelmetModels{
         STRAW_HAT(ModEquipmentItems.STRAW_HAT, new HatArmorAddonModel<>(HatArmorAddonModel.getTexturedModelData().createModel())),
         WOVEN_HAT(ModEquipmentItems.WOVEN_HAT, new HatArmorAddonModel<>(HatArmorAddonModel.getTexturedModelData().createModel())),
+        WIZARD_HAT(ModEquipmentItems.WIZARD_HAT, new WizardHatModel<>(WizardHatModel.getTexturedModelData().createModel())),
         KETTLE_HAT(ModEquipmentItems.KETTLE_HAT, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
         KETTLE_HAT_WITH_COIF(ModEquipmentItems.KETTLE_HAT_WITH_COIF, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
         KETTLE_HAT_WITH_CLOSED_COIF(ModEquipmentItems.KETTLE_HAT_WITH_CLOSED_COIF, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
@@ -174,6 +175,7 @@ public class ModArmorModels {
         CAPE(ModCapes.CAPE, ModCapeModels.MEDIUM_MODELS),
         SURCOAT(ModCapes.SURCOAT, ModCapeModels.SURCOAT_MODELS),
         CLOAK(ModCapes.CLOAK, ModCapeModels.WIDE_MODELS),
+        ROBE(ModCapes.ROBE, ModCapeModels.SURCOAT_MODELS),
 
         BLACK_FUR_CLOAK(ModCapes.BLACK_FUR_CLOAK, ModCapeModels.FUR_MODELS),
         BROWN_FUR_CLOAK(ModCapes.BROWN_FUR_CLOAK, ModCapeModels.FUR_MODELS),
