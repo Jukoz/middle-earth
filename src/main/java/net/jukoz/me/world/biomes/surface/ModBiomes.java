@@ -249,9 +249,9 @@ public class ModBiomes {
         createWebbedMirkwoodBiome(context, MEBiomeKeys.WEBBED_WOODS, false);
         createWebbedMirkwoodBiome(context, MEBiomeKeys.WEBBED_DARK_WOODS, true);
         createWitheredHeathBiome(context, MEBiomeKeys.WITHERED_HEATH);
-        createWhiteMountainsBiome(context, MEBiomeKeys.WHITE_MOUNTAINS_BASE);
-        createWhiteMountainsFaces(context, MEBiomeKeys.WHITE_MOUNTAINS, false);
-        createWhiteMountainsFaces(context, MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, true);
+        createWhiteMountainsBiome(context, MEBiomeKeys.WHITE_MOUNTAINS_BASE, 0);
+        createWhiteMountainsBiome(context, MEBiomeKeys.WHITE_MOUNTAINS, 1);
+        createWhiteMountainsBiome(context, MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, 2);
         createWoodlandRealmBiome(context, MEBiomeKeys.WOODLAND_REALM);
         createMirkwoodMountainsBiome(context, MEBiomeKeys.WOODLAND_FOOTHILLS, true);
         createMirkwoodMountainsBiome(context, MEBiomeKeys.WOODLAND_HILLS, true);
@@ -2896,27 +2896,47 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, 0.4f, true);
     }
 
-    public static void createWhiteMountainsBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+    public static void createWhiteMountainsBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         float temperature = 0.5f;
-        addNordicVegetation(generationSettings);
-        ModBiomeFeatures.addLarchTrees(vegetation);
-        ModBiomeFeatures.addPineTrees(vegetation);
-        ModBiomeFeatures.addScarceSpruceTrees(vegetation);
+
+        ModBiomeFeatures.addDisks(undergroundOres);
+        vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
+        vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
+        ModBiomeFeatures.addBracken(vegetation);
+        ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addGrass(vegetation);
         ModBiomeFeatures.addSpruceBushes(vegetation);
 
-        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, temperature, true);
-    }
+        if(step != 2) {
+            ModBiomeFeatures.addBrownBolete(vegetation);
+            ModBiomeFeatures.addMorsel(vegetation);
+            ModBiomeFeatures.addWhiteMushroom(vegetation);
+            ModBiomeFeatures.addWildBeetroot(vegetation);
+            ModBiomeFeatures.addWildPotato(vegetation);
+            vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
+            vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
+            vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
+            vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
+        }
 
-    public static void createWhiteMountainsFaces(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, boolean cold) {
-        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
-
-        addMountainVegetation(generationSettings);
-        float temperature = (cold) ? 0.5f : 0.5f;
+        if(step == 0) {
+            ModBiomeFeatures.addLarchTrees(vegetation);
+            ModBiomeFeatures.addPineTrees(vegetation);
+            ModBiomeFeatures.addScarceSpruceTrees(vegetation);
+            ModBiomeFeatures.addRareLebethronTrees(vegetation);
+        } else if(step == 1) {
+            ModBiomeFeatures.addVeryRareLebethronTrees(vegetation);
+            ModBiomeFeatures.addRareLarchTrees(vegetation);
+            ModBiomeFeatures.addSparsePineTrees(vegetation);
+            ModBiomeFeatures.addRareSpruceTrees(vegetation);
+        } else if(step == 2) {
+            ModBiomeFeatures.addVeryRareSpruceTrees(vegetation);
+            temperature = 0f;
+        }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, temperature, true);
     }
