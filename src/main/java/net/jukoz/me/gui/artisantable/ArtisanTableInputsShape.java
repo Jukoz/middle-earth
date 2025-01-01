@@ -86,6 +86,21 @@ public class ArtisanTableInputsShape {
             {InputType.ANY, InputType.ANY, InputType.ANY},
             {InputType.NONE, InputType.NONE, InputType.NONE}});
 
+    public static ArtisanTableInputsShape LIGHT_SHIELD = new ArtisanTableInputsShape("light_shield", new InputType[][]{
+            {InputType.NONE, InputType.ANY, InputType.NONE},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.NONE, InputType.ANY, InputType.NONE}});
+
+    public static ArtisanTableInputsShape MEDIUM_SHIELD = new ArtisanTableInputsShape("medium_shield", new InputType[][]{
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.NONE, InputType.ANY, InputType.NONE}});
+
+    public static ArtisanTableInputsShape HEAVY_SHIELD = new ArtisanTableInputsShape("heavy_shield", new InputType[][]{
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY}});
+
     public ArtisanTableInputsShape(String id, InputType[][] inputs) {
         this.id = id;
         this.inputs = inputs;

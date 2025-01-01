@@ -450,7 +450,7 @@ public class ModWeaponItems {
 
     public static final Item MORDOR_HEAVY_SHIELD = registerShield("mordor_heavy_shield",
             new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.MORDOR));
-    public static final Item MORDOR_PAINTED_EAVY_SHIELD = registerShield("mordor_painted_heavy_shield",
+    public static final Item MORDOR_PAINTED_HEAVY_SHIELD = registerShield("mordor_painted_heavy_shield",
             new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.MORDOR));
     public static final Item BLACK_NUMENOREAN_TOWER_SHIELD = registerShield("black_numenorean_tower_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));

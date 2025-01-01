@@ -5,6 +5,7 @@ import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.forge.MetalTypes;
 import net.jukoz.me.datageneration.custom.ArtisanTableRecipeJsonBuilder;
+import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
@@ -347,6 +348,894 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 Items.NETHERITE_SHOVEL.getDefaultStack(),
                 Items.NETHERITE_HOE.getDefaultStack(),
                 Optional.empty(), Disposition.NEUTRAL);
+        //endregion
+
+        //region SHIELDS
+        ItemStack ironShieldBorder = new ItemStack(ModResourceItems.SHIELD_BORDER);
+        ironShieldBorder.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MetalTypes.IRON.getName()))), getPattern()));
+
+        ItemStack bronzeShieldBorder = new ItemStack(ModResourceItems.SHIELD_BORDER);
+        bronzeShieldBorder.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BRONZE.getName()))), getPattern()));
+        
+        ItemStack crudeShieldBorder = new ItemStack(ModResourceItems.SHIELD_BORDER);
+        crudeShieldBorder.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.CRUDE.getName()))), getPattern()));
+
+        ItemStack steelShieldPlate = new ItemStack(ModResourceItems.SHIELD_PLATE);
+        steelShieldPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
+
+        ItemStack edhelSteelShieldPlate = new ItemStack(ModResourceItems.SHIELD_PLATE);
+        edhelSteelShieldPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
+
+        ItemStack khazadSteelShieldPlate = new ItemStack(ModResourceItems.SHIELD_PLATE);
+        khazadSteelShieldPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
+
+        ItemStack burzumSteelShieldPlate = new ItemStack(ModResourceItems.SHIELD_PLATE);
+        burzumSteelShieldPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, Items.SHIELD.getDefaultStack(), "medium_shield", Disposition.NEUTRAL)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(Items.SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.ROUND_SHIELD.getDefaultStack(), "medium_shield", Disposition.NEUTRAL)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.ROUND_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.HEATER_SHIELD.getDefaultStack(), "medium_shield", Disposition.NEUTRAL)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.HEATER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.KITE_SHIELD.getDefaultStack(), "medium_shield", Disposition.NEUTRAL)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.KITE_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GONDORIAN_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.GONDOR_BANNER_PATTERN)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.BLACK_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.BLACK_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GONDORIAN_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GONDORIAN_TOWER_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.GONDOR_BANNER_PATTERN)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.BLACK_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.BLACK_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GONDORIAN_TOWER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GONDORIAN_KINGS_GUARD_TOWER_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.GONDOR_BANNER_PATTERN)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.BLACK_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.BLACK_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GONDORIAN_KINGS_GUARD_TOWER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.LAST_ALLIANCE_HEIRLOOM_TOWER_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.GONDOR_BANNER_PATTERN)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.BLACK_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.BLACK_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.LAST_ALLIANCE_HEIRLOOM_TOWER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GONDORIAN_HERO_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.LEATHER)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GONDORIAN_HERO_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GONDORIAN_KNIGHT_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(ModResourceItems.GONDOR_BANNER_PATTERN)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelShieldPlate.getItem()), steelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GONDORIAN_KNIGHT_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(ModResourceItems.GONDOR_BANNER_PATTERN)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelShieldPlate.getItem()), steelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GOLD_NUGGET)
+                .input(Items.GREEN_DYE)
+                .input(Items.GOLD_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.ROHIRRIC_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.WHITE_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GREEN_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.GREEN_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.ROHIRRIC_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.ROHIRRIC_BUCKING_HORSE_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.ROHAN_BANNER_PATTERN)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GREEN_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.GREEN_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.ROHIRRIC_BUCKING_HORSE_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.ROHIRRIC_GALLOPING_HORSE_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.ROHAN_BANNER_PATTERN)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GREEN_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.GREEN_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.ROHIRRIC_GALLOPING_HORSE_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.ROHIRRIC_HORSE_HEAD_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.ROHAN_BANNER_PATTERN)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GREEN_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.GREEN_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.ROHIRRIC_HORSE_HEAD_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.ROHIRRIC_PLAINSMAN_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.YELLOW_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GREEN_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.GREEN_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.ROHIRRIC_PLAINSMAN_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.ROHIRRIC_TWIN_HORSES_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.ROHAN_BANNER_PATTERN)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GREEN_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.GREEN_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.ROHIRRIC_TWIN_HORSES_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.ROHIRRIC_EORLING_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(Items.YELLOW_DYE)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelShieldPlate.getItem()), steelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.ROHIRRIC_EORLING_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.ROHIRRIC_ORNAMENTED_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(ModResourceItems.ROHAN_BANNER_PATTERN)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelShieldPlate.getItem()), steelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GOLD_NUGGET)
+                .input(Items.LEATHER)
+                .input(Items.GOLD_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.ROHIRRIC_ORNAMENTED_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.ROHIRRIC_ROYAL_GUARD_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(Items.YELLOW_DYE)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelShieldPlate.getItem()), steelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.ROHIRRIC_ROYAL_GUARD_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.DALISH_BLUE_OVAL_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.BLUE_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.BLUE_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.BLUE_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.DALISH_BLUE_OVAL_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.DALISH_BARDING_OVAL_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.BLUE_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GOLD_NUGGET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.GOLD_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.DALISH_BARDING_OVAL_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.DALISH_BLUE_BRACED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.IRON_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.BLUE_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.BLUE_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.DALISH_BLUE_BRACED_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.DALISH_BARDING_BRACED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.IRON_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GOLD_NUGGET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.GOLD_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.DALISH_BARDING_BRACED_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.DALISH_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(Items.WHITE_DYE)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelShieldPlate.getItem()), steelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.DALISH_HEAVY_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.DALISH_BARDING_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(Items.BLUE_DYE)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelShieldPlate.getItem()), steelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.DALISH_BARDING_HEAVY_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.DALISH_ROYAL_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(Items.GOLD_NUGGET)
+                .input(Items.LIGHT_BLUE_DYE)
+                .input(Items.GOLD_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelShieldPlate.getItem()), steelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.DALISH_ROYAL_HEAVY_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.DALISH_ROYAL_ROUND_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(Items.GOLD_NUGGET)
+                .input(Items.LIGHT_BLUE_DYE)
+                .input(Items.GOLD_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelShieldPlate.getItem()), steelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GOLD_NUGGET)
+                .input(Items.LEATHER)
+                .input(Items.GOLD_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.DALISH_ROYAL_ROUND_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.DALISH_HEYDAY_ROUND_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(Items.ORANGE_DYE)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelShieldPlate.getItem()), steelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.DALISH_HEYDAY_ROUND_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.LORIEN_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.LEATHER)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.LORIEN_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.LORIEN_LAURELS_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.YELLOW_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.LORIEN_LAURELS_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.LORIEN_MALLORN_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.YELLOW_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.LORIEN_MALLORN_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GALADHRIM_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.EDHEL_STEEL_NUGGET)
+                .input(Items.YELLOW_DYE)
+                .input(ModResourceItems.EDHEL_STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelShieldPlate.getItem()), edhelSteelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.EDHEL_STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.EDHEL_STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GALADHRIM_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GALADHRIM_LORD_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.EDHEL_STEEL_NUGGET)
+                .input(Items.YELLOW_DYE)
+                .input(ModResourceItems.EDHEL_STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelShieldPlate.getItem()), edhelSteelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GOLD_NUGGET)
+                .input(Items.LEATHER)
+                .input(Items.GOLD_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GALADHRIM_LORD_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.EREBOR_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeShieldBorder.getItem()), bronzeShieldBorder.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.EREBOR_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.EREBOR_CROSS_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeShieldBorder.getItem()), bronzeShieldBorder.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.EREBOR_CROSS_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.EREBOR_PLATED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeShieldBorder.getItem()), bronzeShieldBorder.getComponentChanges()))
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.EREBOR_PLATED_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.EREBOR_ORNAMENTED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.GOLD_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeShieldBorder.getItem()), bronzeShieldBorder.getComponentChanges()))
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.EREBOR_ORNAMENTED_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.EREBOR_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.IRON_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeShieldBorder.getItem()), bronzeShieldBorder.getComponentChanges()))
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.EREBOR_REINFORCED_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.EREBOR_BUCKLER_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(ModResourceItems.BRONZE_INGOT)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelShieldPlate.getItem()), khazadSteelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.EREBOR_BUCKLER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.EREBOR_TOWER_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(ModResourceItems.KHAZAD_STEEL_INGOT)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelShieldPlate.getItem()), khazadSteelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.EREBOR_TOWER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.EREBOR_REINFORCED_TOWER_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(ModResourceItems.KHAZAD_STEEL_INGOT)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelShieldPlate.getItem()), khazadSteelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(ModResourceItems.KHAZAD_STEEL_INGOT)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.EREBOR_REINFORCED_TOWER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.EREBOR_ORNAMENTED_TOWER_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(Items.GOLD_NUGGET)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelShieldPlate.getItem()), khazadSteelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(Items.GOLD_NUGGET)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.EREBOR_ORNAMENTED_TOWER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.RAVENHILL_TOWER_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(ModResourceItems.KHAZAD_STEEL_INGOT)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelShieldPlate.getItem()), khazadSteelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.RAVENHILL_TOWER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.RAVENHILL_REINFORCED_TOWER_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(ModResourceItems.KHAZAD_STEEL_INGOT)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelShieldPlate.getItem()), khazadSteelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(ModResourceItems.KHAZAD_STEEL_INGOT)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.RAVENHILL_REINFORCED_TOWER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.RAVENHILL_ORNAMENTED_TOWER_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(Items.GOLD_NUGGET)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelShieldPlate.getItem()), khazadSteelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .input(Items.GOLD_NUGGET)
+                .input(ModResourceItems.KHAZAD_STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.RAVENHILL_ORNAMENTED_TOWER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.CRUDE_INGOT)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.CRUDE_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.CRUDE_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_WOODEN_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.GOOD)
+                .input(ModWeaponItems.MORDOR_WOODEN_SHIELD)
+                .input(ModResourceItems.MORDOR_BANNER_PATTERN)
+                .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_WOODEN_SHIELD),
+                        FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_WOODEN_SHIELD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_PAINTED_WOODEN_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_ROUND_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.CRUDE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.CRUDE_NUGGET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeShieldBorder.getItem()), crudeShieldBorder.getComponentChanges()))
+                .input(ModResourceItems.CRUDE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_ROUND_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_ROUND_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.MORDOR_BANNER_PATTERN)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.CRUDE_NUGGET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeShieldBorder.getItem()), crudeShieldBorder.getComponentChanges()))
+                .input(ModResourceItems.CRUDE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.MORDOR_BANNER_PATTERN),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.MORDOR_BANNER_PATTERN))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_PAINTED_ROUND_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_BLACK_ROUND_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(ModWeaponItems.MORDOR_PAINTED_ROUND_SHIELD)
+                .input(Items.BLACK_DYE)
+                .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_PAINTED_ROUND_SHIELD),
+                        FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_PAINTED_ROUND_SHIELD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_BLACK_ROUND_SHIELD).getPath() + "_artisan"));
+        
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_BRACED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.IRON_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.CRUDE_NUGGET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeShieldBorder.getItem()), crudeShieldBorder.getComponentChanges()))
+                .input(ModResourceItems.CRUDE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_BRACED_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_BRACED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(ModWeaponItems.MORDOR_BRACED_SHIELD)
+                .input(ModResourceItems.MORDOR_BANNER_PATTERN)
+                .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_BRACED_SHIELD),
+                        FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_BRACED_SHIELD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_PAINTED_BRACED_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_BLACK_BRACED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(ModWeaponItems.MORDOR_PAINTED_BRACED_SHIELD)
+                .input(Items.BLACK_DYE)
+                .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_PAINTED_BRACED_SHIELD),
+                        FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_PAINTED_BRACED_SHIELD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_BLACK_BRACED_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_LARGE_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.IRON_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.CRUDE_INGOT)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeShieldBorder.getItem()), crudeShieldBorder.getComponentChanges()))
+                .input(ModResourceItems.CRUDE_INGOT)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_LARGE_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_LARGE_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(ModWeaponItems.MORDOR_LARGE_SHIELD)
+                .input(ModResourceItems.MORDOR_BANNER_PATTERN)
+                .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_LARGE_SHIELD),
+                        FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_LARGE_SHIELD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_PAINTED_LARGE_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_BLACK_LARGE_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(ModWeaponItems.MORDOR_PAINTED_LARGE_SHIELD)
+                .input(Items.BLACK_DYE)
+                .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_PAINTED_LARGE_SHIELD),
+                        FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_PAINTED_LARGE_SHIELD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_BLACK_LARGE_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GONDORIAN_CONVERTED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(ModWeaponItems.GONDORIAN_SHIELD)
+                .input(ModResourceItems.MORDOR_BANNER_PATTERN)
+                .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.GONDORIAN_SHIELD),
+                        FabricRecipeProvider.conditionsFromItem(ModWeaponItems.GONDORIAN_SHIELD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GONDORIAN_CONVERTED_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_HEAVY_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModWeaponItems.MORDOR_HEAVY_SHIELD)
+                .input(ModResourceItems.MORDOR_BANNER_PATTERN)
+                .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_HEAVY_SHIELD),
+                        FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_HEAVY_SHIELD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_PAINTED_HEAVY_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.BLACK_NUMENOREAN_TOWER_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.RED_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(Items.BLACK_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                .input(Items.BLACK_DYE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.BLACK_NUMENOREAN_TOWER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_HEATER_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(ModResourceItems.CRUDE_NUGGET)
+                .input(ModResourceItems.CRUDE_INGOT)
+                .input(ModResourceItems.CRUDE_NUGGET)
+                .input(ModResourceItems.CRUDE_INGOT)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeShieldBorder.getItem()), crudeShieldBorder.getComponentChanges()))
+                .input(ModResourceItems.CRUDE_INGOT)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.URUK_HAI_HEATER_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.URUK_HAI_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_WHITE_HAND_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModWeaponItems.URUK_HAI_SHIELD)
+                .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
+                .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.URUK_HAI_SHIELD),
+                        FabricRecipeProvider.conditionsFromItem(ModWeaponItems.URUK_HAI_SHIELD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.URUK_HAI_WHITE_HAND_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_WHITE_PALMPRINT_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModWeaponItems.URUK_HAI_SHIELD)
+                .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
+                .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.URUK_HAI_SHIELD),
+                        FabricRecipeProvider.conditionsFromItem(ModWeaponItems.URUK_HAI_SHIELD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.URUK_HAI_WHITE_PALMPRINT_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_S_RUNE_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModWeaponItems.URUK_HAI_SHIELD)
+                .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
+                .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.URUK_HAI_SHIELD),
+                        FabricRecipeProvider.conditionsFromItem(ModWeaponItems.URUK_HAI_SHIELD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.URUK_HAI_S_RUNE_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_SIEGE_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.URUK_HAI_SIEGE_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.CRUDE_INGOT)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.CRUDE_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.CRUDE_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GUNDABAD_WOODEN_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_PAINTED_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.MISTY_MOUNTAINS_ORCS_BANNER_PATTERN)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.CRUDE_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.CRUDE_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GUNDABAD_PAINTED_WOODEN_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.MISTY_MOUNTAINS_ORCS_BANNER_PATTERN)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.CRUDE_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.CRUDE_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_PEAKS_PAINTED_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.MISTY_MOUNTAINS_ORCS_BANNER_PATTERN)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.CRUDE_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.CRUDE_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GUNDABAD_PEAKS_PAINTED_WOODEN_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.CRUDE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.CRUDE_NUGGET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeShieldBorder.getItem()), crudeShieldBorder.getComponentChanges()))
+                .input(ModResourceItems.CRUDE_INGOT)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_BORDER),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GUNDABAD_REINFORCED_SHIELD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.BURZUM_STEEL_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SHIELD_PLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GUNDABAD_HEAVY_SHIELD).getPath() + "_artisan"));
+
         //endregion
     }
 

@@ -95,8 +95,9 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
         categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, getTabTranslation("shields"), Items.SHIELD.getDefaultStack()));
         tabs.put(index, new ArrayList<>());
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("light_shield"), ModWeaponItems.ROUND_SHIELD.getDefaultStack()));
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("heavy_shield"), ModWeaponItems.URUK_HAI_WHITE_HAND_SHIELD.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("light_shield"), ModWeaponItems.GUNDABAD_WOODEN_SHIELD.getDefaultStack(), ArtisanTableInputsShape.LIGHT_SHIELD));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("medium_shield"), ModWeaponItems.ROUND_SHIELD.getDefaultStack(), ArtisanTableInputsShape.MEDIUM_SHIELD));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("heavy_shield"), ModWeaponItems.URUK_HAI_WHITE_HAND_SHIELD.getDefaultStack(), ArtisanTableInputsShape.HEAVY_SHIELD));
         index++;
 
         categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, getTabTranslation("misc"), ModEquipmentItems.STRAW_HAT.getDefaultStack()));
