@@ -138,24 +138,14 @@ public class MEBiomeDataConfigs {
             .addSlopeData(MAX_ANGLE, StoneBlockSets.GALONN.base());
 
     public static SlopeMap mordorMountains = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_DIRT)
-            .addSlopeData(30, ModBlocks.ASH_BLOCK)
-            .addSlopeData(42, Blocks.SMOOTH_BASALT)
-            .addSlopeData(56, StoneBlockSets.ASHEN_STONE.base())
+            .addSlopeData(30, ModBlocks.ASHEN_GRAVEL)
+            .addSlopeData(41, Blocks.SMOOTH_BASALT)
+            .addSlopeData(55, StoneBlockSets.ASHEN_STONE.base())
             .addSlopeData(MAX_ANGLE, Blocks.BLACKSTONE);
     public static SlopeMap mordorMountainsPeaks = new SlopeMap().addSlopeData(26, ModBlocks.ASHEN_GRAVEL)
             .addSlopeData(40, Blocks.SMOOTH_BASALT)
             .addSlopeData(54, StoneBlockSets.ASHEN_STONE.base())
             .addSlopeData(MAX_ANGLE, Blocks.BLACKSTONE);
-
-    public static SlopeMap southernMordorMountains = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_GRAVEL)
-            .addSlopeData(30, ModBlocks.ASH_BLOCK)
-            .addSlopeData(44, Blocks.SMOOTH_BASALT)
-            .addSlopeData(58, Blocks.DEEPSLATE)
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHEN_STONE.base());
-    public static SlopeMap southernMordorMountainsPeaks = new SlopeMap().addSlopeData(26, ModBlocks.ASH_BLOCK)
-            .addSlopeData(40, Blocks.SMOOTH_BASALT)
-            .addSlopeData(54, Blocks.TUFF)
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHEN_STONE.base());
 
     public static SlopeMap stoneHills = new SlopeMap().addSlopeData(33, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)

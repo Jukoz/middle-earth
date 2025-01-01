@@ -366,7 +366,7 @@ public class MapBiomeData {
                 new BiomeColorsDTO(2695203, 1905947, 6450777, 1513734, 3550502, 2695966), CaveType.ASHEN));
         addBiome(new BiomeData(MEBiomeKeys.MORDOR_HILL, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(2695203, 1905947, 6450777, 1513734, 3550502, 2695966), CaveType.ASHEN));
-        addBiome(new BiomeData(MEBiomeKeys.ERED_LITHUI_BASE, MEBiomeDataConfigs.mordorMountainsPeaks, MEBiomeDataConfigs.ashenStoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.ERED_LITHUI_BASE, MEBiomeDataConfigs.mordorMountains, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(3747117, 2629407, 6450777, 1513734, 5129527, 3486247), CaveType.ASHEN));
         addBiome(new BiomeData(MEBiomeKeys.ERED_LITHUI, MEBiomeDataConfigs.mordorMountainsPeaks, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(4142646, 3090215, 6450777, 1513734, 3550502, 2169880), CaveType.ASHEN));
@@ -503,11 +503,11 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.SHIRE_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8695029, 12637426, defaultWater, defaultWaterFog, 6662455, 5803292)));
         // SOUTHERN EPHEL DUATH
-        addBiome(new BiomeData(MEBiomeKeys.EPHEL_DUATH_BASE, MEBiomeDataConfigs.southernMordorMountains, MEBiomeDataConfigs.ashenStoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.EPHEL_DUATH_BASE, MEBiomeDataConfigs.mordorMountains, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(3747117, 2629407, 6450777, 1513734, 5129527, 3486247), CaveType.ASHEN));
-        addBiome(new BiomeData(MEBiomeKeys.EPHEL_DUATH, MEBiomeDataConfigs.southernMordorMountainsPeaks, MEBiomeDataConfigs.ashenStoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.EPHEL_DUATH, MEBiomeDataConfigs.mordorMountainsPeaks, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(4142646, 3090215, 6450777, 1513734, 3550502, 2169880), CaveType.ASHEN));
-        addBiome(new BiomeData(MEBiomeKeys.EPHEL_DUATH_PEAKS, MEBiomeDataConfigs.southernMordorMountainsPeaks, MEBiomeDataConfigs.ashenStoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.EPHEL_DUATH_PEAKS, MEBiomeDataConfigs.mordorMountainsPeaks, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(4142646, 3090215, 6450777, 1513734, 3550502, 2169880), CaveType.ASHEN));
         // SOUTHERN FOROCHEL
         addBiome(new BiomeData(MEBiomeKeys.SOUTHERN_FOROCHEL, MEBiomeDataConfigs.snowyPlains, MEBiomeDataConfigs.frozenLayers,
