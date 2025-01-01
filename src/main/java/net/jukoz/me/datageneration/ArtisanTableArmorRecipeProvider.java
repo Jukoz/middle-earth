@@ -2269,6 +2269,66 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
         //endregion
 
         //region EREBOR
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_SEGMENTED_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(bronzeArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(bronzeArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.LONGBEARD_SEGMENTED_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_LEATHER_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.LONGBEARD_LEATHER_HAUBERK).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_LEATHER_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.LONGBEARD_LEATHER_LEGGINGS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_PARTISAN_OUTFIT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModEquipmentItems.DWARVEN_MAIL_HAUBERK)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.LEATHER)
+                .input(Items.IRON_NUGGET)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.DWARVEN_MAIL_HAUBERK),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.DWARVEN_MAIL_HAUBERK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.LONGBEARD_PARTISAN_OUTFIT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_REINFORCED_LEATHER_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(ModEquipmentItems.DWARVEN_MAIL_HAUBERK)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.DWARVEN_MAIL_HAUBERK),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.DWARVEN_MAIL_HAUBERK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.LONGBEARD_REINFORCED_LEATHER_HAUBERK).getPath() + "_artisan"));
 
         //endregion
 
