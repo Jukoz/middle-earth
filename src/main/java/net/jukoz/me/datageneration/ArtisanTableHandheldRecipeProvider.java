@@ -28,6 +28,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 import java.util.Optional;
@@ -196,24 +197,32 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         createArtisanTableSwordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.MORDOR_ELITE_CLEAVER.getDefaultStack(), true, Disposition.EVIL);
         createArtisanTableSwordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.ISENGARD_ORC_CLEAVER.getDefaultStack(), false, Disposition.EVIL);
         createArtisanTableSwordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.URUK_HAI_FALCHION.getDefaultStack(), true, Disposition.EVIL);
+        createArtisanTableSwordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.GUNDABAD_FALCHION.getDefaultStack(), false, Disposition.EVIL);
+        createArtisanTableSwordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.GUNDABAD_ELITE_CLEAVER.getDefaultStack(), true, Disposition.EVIL);
 
         createArtisanTableDaggerRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.ORC_KNIFE.getDefaultStack(), false, Disposition.EVIL);
         createArtisanTableDaggerRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.MORDOR_DAGGER.getDefaultStack(), false, Disposition.EVIL);
         createArtisanTableDaggerRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.MORDOR_ELITE_DAGGER.getDefaultStack(), true, Disposition.EVIL);
         createArtisanTableDaggerRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.ISENGARD_ORC_DAGGER.getDefaultStack(), false, Disposition.EVIL);
         createArtisanTableDaggerRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.URUK_HAI_KNIFE.getDefaultStack(), true, Disposition.EVIL);
+        createArtisanTableDaggerRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.GUNDABAD_SHANK.getDefaultStack(), false, Disposition.EVIL);
+        createArtisanTableDaggerRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.GUNDABAD_ELITE_DAGGER.getDefaultStack(), true, Disposition.EVIL);
 
         createArtisanTableLongswordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.ORC_BROADBLADE.getDefaultStack(), false, Disposition.EVIL);
         createArtisanTableLongswordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.MORDOR_SCIMITAR.getDefaultStack(), false, Disposition.EVIL);
         createArtisanTableLongswordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.MORDOR_ELITE_WARBLADE.getDefaultStack(), true, Disposition.EVIL);
         createArtisanTableLongswordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.ISENGARD_ORC_WARBLADE.getDefaultStack(), false, Disposition.EVIL);
         createArtisanTableLongswordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.URUK_HAI_WARBLADE.getDefaultStack(), true, Disposition.EVIL);
+        createArtisanTableLongswordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.GUNDABAD_WARBLADE.getDefaultStack(), false, Disposition.EVIL);
+        createArtisanTableLongswordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.GUNDABAD_ELITE_SCIMITAR.getDefaultStack(), true, Disposition.EVIL);
 
         createArtisanTableAxeRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.ORC_AXE.getDefaultStack(), false, Optional.empty(), Disposition.EVIL);
         createArtisanTableAxeRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.MORDOR_AXE.getDefaultStack(), false, Optional.empty(), Disposition.EVIL);
         createArtisanTableAxeRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.MORDOR_ELITE_AXE.getDefaultStack(), true, Optional.empty(), Disposition.EVIL);
         createArtisanTableAxeRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.ISENGARD_ORC_AXE.getDefaultStack(), false, Optional.empty(), Disposition.EVIL);
         createArtisanTableAxeRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.URUK_HAI_AXE.getDefaultStack(), true, Optional.empty(), Disposition.EVIL);
+        createArtisanTableAxeRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.GUNDABAD_AXE.getDefaultStack(), false, Optional.empty(), Disposition.EVIL);
+        createArtisanTableAxeRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.GUNDABAD_ELITE_BATTLEAXE.getDefaultStack(), true, Optional.empty(), Disposition.EVIL);
 
         createArtisanTableSpearRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.BURZUM_STEEL_SPEAR.getDefaultStack(), false, Disposition.EVIL);
         createArtisanTableSpearRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.ORC_SPEAR.getDefaultStack(), false, Disposition.EVIL);
@@ -221,12 +230,42 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         createArtisanTableSpearRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.MORDOR_ELITE_SPEAR.getDefaultStack(), true, Disposition.EVIL);
         createArtisanTableSpearRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.ISENGARD_ORC_SPEAR.getDefaultStack(), false, Disposition.EVIL);
         createArtisanTableSpearRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.URUK_HAI_SPEAR.getDefaultStack(), true, Disposition.EVIL);
+        createArtisanTableSpearRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.GUNDABAD_SPEAR.getDefaultStack(), false, Disposition.EVIL);
+        createArtisanTableSpearRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.GUNDABAD_ELITE_SPEAR.getDefaultStack(), true, Disposition.EVIL);
 
         createArtisanTableBowRecipe(exporter, ModWeaponItems.GONDORIAN_BOW.getDefaultStack(), Disposition.GOOD);
-        createArtisanTableBowRecipe(exporter, ModWeaponItems.ROHIRRIC_BOW.getDefaultStack(), Disposition.GOOD);
-        createArtisanTableBowRecipe(exporter, ModWeaponItems.LORIEN_BOW.getDefaultStack(), Disposition.GOOD);
-        createArtisanTableBowRecipe(exporter, Items.BOW.getDefaultStack(), Disposition.NEUTRAL);
+        createArtisanTableLongbowRecipe(exporter, ModWeaponItems.GONDORIAN_LONGBOW.getDefaultStack(), Disposition.GOOD);
+        createArtisanTableNobleLongbowRecipe(exporter, ModWeaponItems.GONDORIAN_NOBLE_LONGBOW.getDefaultStack(), Disposition.GOOD);
 
+        createArtisanTableBowRecipe(exporter, ModWeaponItems.ROHIRRIC_BOW.getDefaultStack(), Disposition.GOOD);
+        createArtisanTableNobleBowRecipe(exporter, ModWeaponItems.ROHIRRIC_NOBLE_BOW.getDefaultStack(), Disposition.GOOD);
+        createArtisanTableLongbowRecipe(exporter, ModWeaponItems.ROHIRRIC_LONGBOW.getDefaultStack(), Disposition.GOOD);
+
+        createArtisanTableLongbowRecipe(exporter, ModWeaponItems.DALISH_LONGBOW.getDefaultStack(), Disposition.GOOD);
+        createArtisanTableNobleLongbowRecipe(exporter, ModWeaponItems.DALISH_HEYDAY_LONGBOW.getDefaultStack(), Disposition.GOOD);
+        createArtisanTableNobleLongbowRecipe(exporter, ModWeaponItems.DALISH_NOBLE_LONGBOW.getDefaultStack(), Disposition.GOOD);
+
+        createArtisanTableBowRecipe(exporter, ModWeaponItems.LORIEN_BOW.getDefaultStack(), Disposition.GOOD);
+        createArtisanTableLongbowRecipe(exporter, ModWeaponItems.LORIEN_LONGBOW.getDefaultStack(), Disposition.GOOD);
+        createArtisanTableNobleLongbowRecipe(exporter, ModWeaponItems.LORIEN_NOBLE_LONGBOW.getDefaultStack(), Disposition.GOOD);
+
+        createArtisanTableBowRecipe(exporter, ModWeaponItems.EREBOR_BOW.getDefaultStack(), Disposition.GOOD);
+        createArtisanTableNobleBowRecipe(exporter, ModWeaponItems.EREBOR_NOBLE_BOW.getDefaultStack(), Disposition.GOOD);
+        createArtisanTableCrossbowRecipe(exporter, ModWeaponItems.EREBOR_CROSSBOW.getDefaultStack(), Disposition.GOOD);
+        createArtisanTableNobleCrossbowRecipe(exporter, ModWeaponItems.EREBOR_NOBLE_CROSSBOW.getDefaultStack(), Disposition.GOOD);
+
+        createArtisanTableBowRecipe(exporter, ModWeaponItems.ORCISH_BOW.getDefaultStack(), Disposition.EVIL);
+
+        createArtisanTableBowRecipe(exporter, ModWeaponItems.MORDOR_BOW.getDefaultStack(), Disposition.EVIL);
+        createArtisanTableNobleLongbowRecipe(exporter, ModWeaponItems.MORDOR_ELITE_LONGBOW.getDefaultStack(), Disposition.EVIL);
+
+        createArtisanTableNobleBowRecipe(exporter, ModWeaponItems.URUK_HAI_BOW.getDefaultStack(), Disposition.EVIL);
+        createArtisanTableNobleCrossbowRecipe(exporter, ModWeaponItems.URUK_HAI_CROSSBOW.getDefaultStack(), Disposition.EVIL);
+
+        createArtisanTableBowRecipe(exporter, ModWeaponItems.GUNDABAD_BOW.getDefaultStack(), Disposition.EVIL);
+        createArtisanTableCrossbowRecipe(exporter, ModWeaponItems.GUNDABAD_CROSSBOW.getDefaultStack(), Disposition.EVIL);
+
+        createArtisanTableBowRecipe(exporter, Items.BOW.getDefaultStack(), Disposition.NEUTRAL);
         createArtisanTableCrossbowRecipe(exporter, Items.CROSSBOW.getDefaultStack(), Disposition.NEUTRAL);
         //endregion
 
@@ -430,10 +469,73 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
     }
 
+    private void createArtisanTableNobleBowRecipe(RecipeExporter exporter, ItemStack output, Disposition disposition) {
+        ItemStack rod = new ItemStack(ModResourceItems.ROD);
+        rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "bow", disposition)
+                .input(Items.STICK)
+                .input(Items.STRING)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
+                .input(Items.STRING)
+                .input(Items.STICK)
+                .input(Items.STRING)
+                .criterion(FabricRecipeProvider.hasItem(Items.STRING),
+                        FabricRecipeProvider.conditionsFromItem(Items.STRING))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
+    }
+
+    private void createArtisanTableLongbowRecipe(RecipeExporter exporter, ItemStack output, Disposition disposition) {
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "bow", disposition)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_fences")))
+                .input(Items.STRING)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_fences")))
+                .input(Items.STRING)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_fences")))
+                .input(Items.STRING)
+                .criterion(FabricRecipeProvider.hasItem(Items.STRING),
+                        FabricRecipeProvider.conditionsFromItem(Items.STRING))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
+    }
+
+    private void createArtisanTableNobleLongbowRecipe(RecipeExporter exporter, ItemStack output, Disposition disposition) {
+        ItemStack rod = new ItemStack(ModResourceItems.ROD);
+        rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "bow", disposition)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_fences")))
+                .input(Items.STRING)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
+                .input(Items.STRING)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_fences")))
+                .input(Items.STRING)
+                .criterion(FabricRecipeProvider.hasItem(Items.STRING),
+                        FabricRecipeProvider.conditionsFromItem(Items.STRING))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
+    }
+
     private void createArtisanTableCrossbowRecipe(RecipeExporter exporter, ItemStack output, Disposition disposition) {
         ItemStack rod = new ItemStack(ModResourceItems.ROD);
         rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 Identifier.of(MetalTypes.IRON.getName()))), getPattern()));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "crossbow", disposition)
+                .input(Items.STICK)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
+                .input(Items.STICK)
+                .input(Items.STRING)
+                .input(Blocks.TRIPWIRE_HOOK)
+                .input(Items.STRING)
+                .input(Items.STICK)
+                .criterion(FabricRecipeProvider.hasItem(Items.STRING),
+                        FabricRecipeProvider.conditionsFromItem(Items.STRING))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
+    }
+
+    private void createArtisanTableNobleCrossbowRecipe(RecipeExporter exporter, ItemStack output, Disposition disposition) {
+        ItemStack rod = new ItemStack(ModResourceItems.ROD);
+        rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "crossbow", disposition)
                 .input(Items.STICK)

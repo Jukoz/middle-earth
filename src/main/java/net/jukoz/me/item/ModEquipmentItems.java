@@ -1543,7 +1543,7 @@ public class ModEquipmentItems {
                     ModSubFactions.GUNDABAD));
 
     public static final Item GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_trophy_chestplate",
-            new CustomArtefactHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     //endregion
 

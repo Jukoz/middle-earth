@@ -44,11 +44,11 @@ public class ModWeaponItems {
     public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.STEEL), false);
     public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL), false);
+            new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL), true);
     public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("edhel_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL), false);
     public static final Item KHAZAD_STEEL_SWORD = registerItemWithModel("khazad_steel_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL), false);
+            new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL), true);
 
     public static final Item WOODEN_DAGGER = registerItemWithModel("wooden_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.WOOD), false);
