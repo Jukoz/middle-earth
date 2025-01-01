@@ -33,9 +33,6 @@ public class ModWeaponItems {
     public static List<Item> shields = new ArrayList<>();
 
     //region GENERIC
-    public static final Item JADE_SWORD = registerItemWithModel("jade_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.JADE), false);
-    
     public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
             new CustomSwordWeaponItem(ModToolMaterials.BRONZE), false);
     public static final Item CRUDE_FALCHION = registerItemWithModel("crude_falchion",
@@ -75,8 +72,6 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ToolMaterials.WOOD));
     public static final Item STONE_SPEAR = registerItemWithSpearModel("stone_spear",
             new CustomSpearWeaponItem(ToolMaterials.STONE));
-    public static final Item JADE_SPEAR = registerItemWithSpearModel("jade_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.JADE));
 
     public static final Item BRONZE_SPEAR = registerItemWithSpearModel("bronze_spear",
             new CustomSpearWeaponItem(ModToolMaterials.BRONZE));

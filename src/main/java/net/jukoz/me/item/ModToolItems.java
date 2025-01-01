@@ -50,15 +50,6 @@ public class ModToolItems {
     public static final Item MITHRIL_SMITHING_HAMMER = registerItemHandheld("mithril_smithing_hammer",
             new SmithingHammerItem(new Item.Settings(), ModToolMaterials.MITHRIL_HAMMER));
 
-    public static final Item JADE_PICKAXE = registerItemHandheld("jade_pickaxe",
-            new PickaxeItem(ModToolMaterials.JADE, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.JADE, 0.0f, -3.0f))));
-    public static final Item JADE_AXE = registerItemHandheld("jade_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.JADE));
-    public static final Item JADE_SHOVEL = registerItemHandheld("jade_shovel",
-            new ShovelItem(ModToolMaterials.JADE, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.JADE, 1.5f, -3.0f))));
-    public static final Item JADE_HOE = registerItemHandheld("jade_hoe",
-            new HoeItem(ModToolMaterials.JADE, new Item.Settings().attributeModifiers(HoeItem.createAttributeModifiers(ModToolMaterials.JADE, -2.0f, -1.0f))));
-    
     public static final Item BRONZE_PICKAXE = registerItemHandheld("bronze_pickaxe",
             new PickaxeItem(ModToolMaterials.BRONZE, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.BRONZE, 0.5f, -2.9f))));
     public static final Item BRONZE_AXE = registerItemHandheld("bronze_axe",
