@@ -9,6 +9,7 @@ import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
+import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.jukoz.me.resources.datas.npcs.pools.*;
 import net.jukoz.me.utils.LoggerUtil;
@@ -179,13 +180,14 @@ public class MiddleEarthFactions {
         DALE = new Faction("dale", true, Disposition.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            DalishNpcDataPool.DALE_MILITIA
+                            MiddleEarthNpcs.HUMAN_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             DalishNpcDataPool.DALE_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            DalishNpcDataPool.DALE_MILITIA
+                            DalishNpcDataPool.DALE_SOLDIER,
+                            DalishNpcDataPool.DALE_SOLDIER_ARCHER
                     ));
                     put(NpcRank.KNIGHT, List.of(
                             DalishNpcDataPool.DALE_MILITIA

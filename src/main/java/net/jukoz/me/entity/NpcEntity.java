@@ -3,6 +3,7 @@ package net.jukoz.me.entity;
 import net.jukoz.me.entity.goals.CustomBowAttackGoal;
 import net.jukoz.me.entity.goals.NpcTargetPlayerGoal;
 import net.jukoz.me.exceptions.FactionIdentifierException;
+import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
@@ -84,11 +85,18 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         if (this.getWorld() != null && !this.getWorld().isClient) {
             this.goalSelector.remove(this.meleeAttackGoal);
             this.goalSelector.remove(this.bowAttackGoal);
-            ItemStack itemStack = this.getStackInHand(ProjectileUtil.getHandPossiblyHolding(this, this.bow));
 
-            if (itemStack.isOf(this.bow)) {
+            ItemStack itemStack = this.getEquippedStack(EquipmentSlot.MAINHAND);
+            if (itemStack != null && itemStack.getItem() instanceof BowItem) {
+                this.bow = itemStack.getItem();
+            } else {
+                this.bow = null;
+            }
+
+            if (itemStack != null) {
                 this.bowAttackGoal.setAttackInterval(20);
                 this.goalSelector.add(2, this.bowAttackGoal);
+                LoggerUtil.logDebugMsg("Setting bow attack goal!");
             } else {
                 this.goalSelector.add(2, this.meleeAttackGoal);
             }
@@ -164,7 +172,14 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         double e = target.getBodyY(0.3333333333333333) - persistentProjectileEntity.getY();
         double f = target.getZ() - this.getZ();
         double g = Math.sqrt(d * d + f * f);
-        persistentProjectileEntity.setVelocity(d, e + g * 0.20000000298023224, f, 1.6F, (float)(14 - this.getWorld().getDifficulty().getId() * 4));
+
+        boolean isLongbow =(this.bow instanceof CustomLongbowWeaponItem);
+        float power = (isLongbow) ? 2.5F : 1.6f;
+        float uncertaintyBase = (isLongbow) ? 10 : 14;
+        float yVelocityModifier = (isLongbow) ?  0.10000000298023224f : 0.20000000298023224f;
+
+        persistentProjectileEntity.setVelocity(d, e + g * yVelocityModifier, f, power, (uncertaintyBase - this.getWorld().getDifficulty().getId() * 4));
+
         this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.getWorld().spawnEntity(persistentProjectileEntity);
     }
@@ -206,7 +221,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
             NpcGearData gearData = data.getGear();
             NpcUtil.equipAll(this, gearData);
         } catch (FactionIdentifierException e) {
-            LoggerUtil.logError("GondorHumanEntity::Couldn't find faction registry with [%s] for rank [%s]".formatted(factionId, npcRank.toString()));
+            LoggerUtil.logError("NpcEntity::Couldn't find faction registry with [%s] for rank [%s]".formatted(factionId, npcRank.toString()));
             throw new RuntimeException(e);
         }
     }
