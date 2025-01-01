@@ -190,13 +190,14 @@ public class MiddleEarthFactions {
                             DalishNpcDataPool.DALE_SOLDIER_ARCHER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            DalishNpcDataPool.DALE_MILITIA
+                            DalishNpcDataPool.DALE_KNIGHT,
+                            DalishNpcDataPool.DALE_KNIGHT_ARCHER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            DalishNpcDataPool.DALE_MILITIA
+                            DalishNpcDataPool.DALE_VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            DalishNpcDataPool.DALE_MILITIA
+                            DalishNpcDataPool.DALE_SERGEANT
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

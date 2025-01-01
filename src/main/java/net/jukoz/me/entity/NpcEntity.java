@@ -98,7 +98,6 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
                 disposition = Disposition.NEUTRAL; // Attacks everyone, no judgement made
             }
         }
-        LoggerUtil.logDebugMsg("Init goals : " + this.getName().getString() + " _ " + disposition);
         this.targetSelector.add(2, new NpcTargetPlayerGoal(this));
     }
 
@@ -154,16 +153,13 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
             }
             if(disposition != null){
                 PlayerData data = StateSaverAndLoader.getPlayerState(player);
-                LoggerUtil.logDebugMsg("npcEntity : can target player?");
                 if(data != null){
                     Disposition playerDisposition = data.getCurrentDisposition();
                     if(playerDisposition == disposition){
-                        LoggerUtil.logDebugMsg("npcEntity : has same disposition : " + disposition + " " + playerDisposition);
                         return false;
                     }
                     if(playerDisposition == null)
                         return true;
-                    LoggerUtil.logDebugMsg("npcEntity : has different disposition : " + disposition + " " + playerDisposition);
                     return true;
                 }
             }
