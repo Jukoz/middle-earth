@@ -9,33 +9,26 @@ import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
-import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
-import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.items.weapons.ranged.PebbleItem;
 import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
-import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class ShireHobbitEntity extends NpcEntity {
     private static float FLEE_DISTANCE = 8f;
@@ -84,13 +77,7 @@ public class ShireHobbitEntity extends NpcEntity {
         this.goalSelector.add(++i, new LookAroundGoal(this));
         i = 1;
         this.targetSelector.add(++i, new RevengeGoal(this).setGroupRevenge());
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
+        initGoodTargetSelector(i);
     }
 
     public static DefaultAttributeContainer.Builder setSoldierAttributes() {

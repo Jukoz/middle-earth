@@ -1,45 +1,20 @@
 package net.jukoz.me.entity.humans.gondor;
 
 import net.jukoz.me.entity.NpcEntity;
-import net.jukoz.me.entity.beasts.trolls.TrollEntity;
-import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
-import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
-import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
-import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
-import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
-import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
-import net.jukoz.me.exceptions.FactionIdentifierException;
-import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.resources.MiddleEarthFactions;
-import net.jukoz.me.resources.datas.factions.Faction;
-import net.jukoz.me.resources.datas.factions.FactionLookup;
-import net.jukoz.me.resources.datas.npcs.NpcData;
-import net.jukoz.me.resources.datas.npcs.NpcDataLookup;
-import net.jukoz.me.resources.datas.npcs.NpcUtil;
-import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
-import net.jukoz.me.utils.LoggerUtil;
-import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class GondorHumanEntity extends NpcEntity{
 
@@ -51,7 +26,6 @@ public class GondorHumanEntity extends NpcEntity{
             this.setBow(Items.BOW);
         } else if (name.contains("soldier")) {
             this.setRank(NpcRank.SOLDIER);
-            this.setBow(ModWeaponItems.GONDORIAN_BOW);
         }else if (name.contains("knight")) {
             this.setRank(NpcRank.KNIGHT);
         }else if (name.contains("veteran")) {
@@ -111,14 +85,8 @@ public class GondorHumanEntity extends NpcEntity{
     @Override
     protected void initGoals() {
         super.initGoals();
-        int i = 4;
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        int index = 4;
+        index = initGoodTargetSelector(index);
     }
 
     public GondorHumanVariant getVariant() {

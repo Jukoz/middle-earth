@@ -1,9 +1,27 @@
 package net.jukoz.me.entity;
 
+import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatEntity;
+import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.jukoz.me.entity.beasts.warg.WargEntity;
+import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
+import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.CustomBowAttackGoal;
 import net.jukoz.me.entity.goals.NpcTargetPlayerGoal;
+import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
+import net.jukoz.me.entity.humans.dale.DaleHumanEntity;
+import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
+import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
+import net.jukoz.me.entity.orcs.isengard.IsengardOrcEntity;
+import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
+import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
+import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
+import net.jukoz.me.entity.uruks.isengard.IsengardUrukHaiEntity;
+import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
+import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
+import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
@@ -11,12 +29,14 @@ import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.NpcUtil;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
+import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
@@ -25,6 +45,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -34,7 +55,7 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
-
+    private Disposition disposition;
     private Item bow;
     private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<NpcEntity>(this, 1.0, 16, 30.0f);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.5, false);
@@ -65,9 +86,8 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.goalSelector.add(2, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
-        this.targetSelector.add(1, new RevengeGoal(this, this.getClass()).setGroupRevenge());
+        this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
 
-        Disposition disposition;
         Identifier factionId = getFactionId();
         if(factionId == null)
             disposition = Disposition.NEUTRAL;
@@ -78,7 +98,8 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
                 disposition = Disposition.NEUTRAL; // Attacks everyone, no judgement made
             }
         }
-        this.targetSelector.add(2, new NpcTargetPlayerGoal(this, disposition));
+        LoggerUtil.logDebugMsg("Init goals : " + this.getName().getString() + " _ " + disposition);
+        this.targetSelector.add(2, new NpcTargetPlayerGoal(this));
     }
 
     public void updateAttackType() {
@@ -93,16 +114,18 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
                 this.bow = null;
             }
 
-            if (itemStack != null) {
+            if (this.bow != null) {
                 this.bowAttackGoal.setAttackInterval(20);
                 this.goalSelector.add(2, this.bowAttackGoal);
-                LoggerUtil.logDebugMsg("Setting bow attack goal!");
             } else {
                 this.goalSelector.add(2, this.meleeAttackGoal);
             }
         }
     }
 
+    public Disposition getDisposition(){
+        return disposition;
+    }
     public Item getBow(){
         return this.bow;
     }
@@ -117,6 +140,35 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     public void setRank(NpcRank rank) {
         this.rank = rank;
+    }
+
+    @Override
+    public boolean canTarget(LivingEntity target) {
+        if(target == null || getWorld().getDifficulty() == Difficulty.PEACEFUL){
+            return false;
+        }
+
+        if(target instanceof PlayerEntity player) {
+            if(player.isCreative()){
+                return false;
+            }
+            if(disposition != null){
+                PlayerData data = StateSaverAndLoader.getPlayerState(player);
+                LoggerUtil.logDebugMsg("npcEntity : can target player?");
+                if(data != null){
+                    Disposition playerDisposition = data.getCurrentDisposition();
+                    if(playerDisposition == disposition){
+                        LoggerUtil.logDebugMsg("npcEntity : has same disposition : " + disposition + " " + playerDisposition);
+                        return false;
+                    }
+                    if(playerDisposition == null)
+                        return true;
+                    LoggerUtil.logDebugMsg("npcEntity : has different disposition : " + disposition + " " + playerDisposition);
+                    return true;
+                }
+            }
+        }
+        return super.canTarget(target);
     }
 
     public static enum State {
@@ -224,5 +276,38 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
             LoggerUtil.logError("NpcEntity::Couldn't find faction registry with [%s] for rank [%s]".formatted(factionId, npcRank.toString()));
             throw new RuntimeException(e);
         }
+    }
+
+    public int initGoodTargetSelector(int i){
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, WargEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, IsengardOrcEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, IsengardUrukHaiEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+
+        return i;
+    }
+
+    public int initEvilTargetSelector(int i){
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DaleHumanEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, HorseEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BroadhoofGoatEntity.class, true));
+        return i;
     }
 }

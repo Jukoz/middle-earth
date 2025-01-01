@@ -79,18 +79,6 @@ public class MordorBlackUrukEntity extends UrukNpcEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.5);
     }
 
-    @Override
-    protected void initGoals() {
-        super.initGoals();
-        int i = 2;
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-    }
-
     public MordorBlackUrukVariant getVariant() {
         return MordorBlackUrukVariant.byId(this.getId());
     }

@@ -101,13 +101,7 @@ public class GaladhrimElfEntity extends NpcEntity{
     protected void initGoals() {
         super.initGoals();
         int i = 2;
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        initGoodTargetSelector(i);
     }
 
     public GaladhrimElfVariant getVariant() {
