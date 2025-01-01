@@ -91,6 +91,11 @@ public class ArtisanTableInputsShape {
             {InputType.ANY, InputType.ANY, InputType.ANY},
             {InputType.NONE, InputType.NONE, InputType.NONE}});
 
+    public static ArtisanTableInputsShape PIPE = new ArtisanTableInputsShape("pipe", new InputType[][]{
+            {InputType.NONE, InputType.NONE, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.NONE}});
+
     public static ArtisanTableInputsShape LIGHT_SHIELD = new ArtisanTableInputsShape("light_shield", new InputType[][]{
             {InputType.NONE, InputType.ANY, InputType.NONE},
             {InputType.ANY, InputType.ANY, InputType.ANY},

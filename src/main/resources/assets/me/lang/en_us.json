@@ -7064,9 +7064,10 @@
   "screen.me.artisan_table.medium_shield": "Medium Shield",
   "screen.me.artisan_table.heavy_shield": "Heavy Shield",
   "screen.me.artisan_table.misc": "Misc",
-  "screen.me.artisan_table.hats": "Hats",
+  "screen.me.artisan_table.hat": "Hat",
   "screen.me.artisan_table.hood": "Hood",
   "screen.me.artisan_table.cape": "Cape",
+  "screen.me.artisan_table.pipe": "Pipe",
 
 "#Comment": "Tooltips",
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",

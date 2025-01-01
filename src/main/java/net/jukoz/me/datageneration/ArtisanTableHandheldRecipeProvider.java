@@ -1237,6 +1237,61 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GUNDABAD_HEAVY_SHIELD).getPath() + "_artisan"));
 
         //endregion
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModToolItems.PIPE.getDefaultStack(), "pipe", Disposition.NEUTRAL)
+                .input(Items.STICK)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(Items.STICK),
+                        FabricRecipeProvider.conditionsFromItem(Items.STICK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModToolItems.PIPE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModToolItems.CLAYSHIRE_PIPE.getDefaultStack(), "pipe", Disposition.NEUTRAL)
+                .input(Items.STICK)
+                .input(Items.TERRACOTTA)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
+                .input(Items.TERRACOTTA)
+                .input(Items.TERRACOTTA)
+                .criterion(FabricRecipeProvider.hasItem(Items.STICK),
+                        FabricRecipeProvider.conditionsFromItem(Items.STICK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModToolItems.CLAYSHIRE_PIPE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModToolItems.RIVERBEND_PIPE.getDefaultStack(), "pipe", Disposition.NEUTRAL)
+                .input(Items.STICK)
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(Items.STICK),
+                        FabricRecipeProvider.conditionsFromItem(Items.STICK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModToolItems.RIVERBEND_PIPE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModToolItems.BRIMMINGBEND_PIPE.getDefaultStack(), "pipe", Disposition.NEUTRAL)
+                .input(Items.STICK)
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(Items.STICK),
+                        FabricRecipeProvider.conditionsFromItem(Items.STICK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModToolItems.BRIMMINGBEND_PIPE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModToolItems.LONGBOTTOM_PIPE.getDefaultStack(), "pipe", Disposition.NEUTRAL)
+                .input(Items.STICK)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .criterion(FabricRecipeProvider.hasItem(Items.STICK),
+                        FabricRecipeProvider.conditionsFromItem(Items.STICK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModToolItems.LONGBOTTOM_PIPE).getPath() + "_artisan"));
     }
 
     private void createToolSet(RecipeExporter exporter, MetalTypes metal, ItemStack outputPickaxe, ItemStack outputAxe, ItemStack outputShovel, ItemStack outputHoe, Optional<MetalTypes> rodMetal, Disposition disposition) {
