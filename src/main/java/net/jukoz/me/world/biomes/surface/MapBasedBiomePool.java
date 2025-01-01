@@ -147,6 +147,12 @@ public class MapBasedBiomePool {
         add(new Color(0x979799), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN, 81, MEBiomeDataConfigs.mountainModifier.heightModifier(0.57f)));
         add(new Color(0x7f7f81), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 94, MEBiomeDataConfigs.mountainModifier.heightModifier(0.81f)));
         add(new Color(0x5a9f5a), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, 7, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x272525), new MapBasedCustomBiome(MEBiomeKeys.EPHEL_DUATH, 71, MEBiomeDataConfigs.mountainModifier));
+        add(new Color(0x312e2e), new MapBasedCustomBiome(MEBiomeKeys.EPHEL_DUATH_BASE, 36, MEBiomeDataConfigs.mountainModifier.heightModifier(0.33f)));
+        add(new Color(0x1c1a1a), new MapBasedCustomBiome(MEBiomeKeys.EPHEL_DUATH_PEAKS, 91, MEBiomeDataConfigs.mountainModifier.heightModifier(0.38f)));
+        add(new Color(0x2d2a2a), new MapBasedCustomBiome(MEBiomeKeys.ERED_LITHUI_BASE, 36, MEBiomeDataConfigs.mountainModifier.heightModifier(0.33f)));
+        add(new Color(0x241f1f), new MapBasedCustomBiome(MEBiomeKeys.ERED_LITHUI, 73, MEBiomeDataConfigs.mountainModifier));
+        add(new Color(0x1a1717), new MapBasedCustomBiome(MEBiomeKeys.ERED_LITHUI_PEAKS, 93, MEBiomeDataConfigs.mountainModifier.heightModifier(0.38f).noiseModifier(0.97f)));
         add(new Color(0x6a9b68), new MapBasedCustomBiome(MEBiomeKeys.EREGION, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x5B8A59), new MapBasedCustomBiome(MEBiomeKeys.EREGION_FOREST, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x75AD73), new MapBasedCustomBiome(MEBiomeKeys.EREGION_GLADE, 4, MEBiomeDataConfigs.landModifier));
@@ -222,9 +228,6 @@ public class MapBasedBiomePool {
         add(new Color(0x3c2a2a), new MapBasedCustomBiome(MEBiomeKeys.MORDOR, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x423430), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_ASHEN_FOREST, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x3D3432), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_HILL, 13, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x2d2a2a), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS, 36, MEBiomeDataConfigs.mountainModifier.heightModifier(0.33f)));
-        add(new Color(0x241f1f), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_MOUNTAINS, 73, MEBiomeDataConfigs.mountainModifier));
-        add(new Color(0x1a1717), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_MOUNTAINS_PEAKS, 93, MEBiomeDataConfigs.mountainModifier.heightModifier(0.38f).noiseModifier(0.97f)));
         add(new Color(0x585247), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_WASTES, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x2d3a2c), new MapBasedCustomBiome(MEBiomeKeys.MORGUL_VALE, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x2B3B2A), new MapBasedCustomBiome(MEBiomeKeys.MORGUL_FOREST, 3, MEBiomeDataConfigs.landModifier));
@@ -232,7 +235,8 @@ public class MapBasedBiomePool {
         add(new Color(0x4e4a4a), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_GUNDABAD, 73, MEBiomeDataConfigs.mountainModifier.heightModifier(0.33f)));
         add(new Color(0x3e3b3b), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, 87, MEBiomeDataConfigs.mountainModifier.heightModifier(0.41f)));
         add(new Color(0x2a2828), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, 98, MEBiomeDataConfigs.mountainModifier.heightModifier(0.69f)));
-        add(new Color(0x60270d), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_DOOM, 90, MEBiomeDataConfigs.mountainModifier.heightModifier(0.36f).noiseModifier(1.0f).expansionWeight(new byte[]{2, 3})));
+        add(new Color(0x1A1515), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_DOOM, 92, MEBiomeDataConfigs.mountainModifier.heightModifier(0.38f).noiseModifier(0.97f)));
+        add(new Color(0x60270d), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_DOOM_PIT, 90, MEBiomeDataConfigs.mountainModifier.heightModifier(0.36f).noiseModifier(1.0f).expansionWeight(new byte[]{2, 3})));
         add(new Color(0x619b59), new MapBasedCustomBiome(MEBiomeKeys.NAN_CURUNIR, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0x6892c4), new MapBasedCustomBiome(MEBiomeKeys.NEN_HITHOEL, -4, MEBiomeDataConfigs.riverModifier));
         add(new Color(0x7e9e39), new MapBasedCustomBiome(MEBiomeKeys.NEN_HITHOEL_FOREST, 4, MEBiomeDataConfigs.landModifier.heightModifier(0.13f)));
@@ -282,9 +286,6 @@ public class MapBasedBiomePool {
         add(new Color(0xB0A83A), new MapBasedCustomBiome(MEBiomeKeys.SOUTHEAST_RHOVANION_FIELDS, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x79ba6f), new MapBasedCustomBiome(MEBiomeKeys.SOUTHERN_DUNLAND, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0xceb39c), new MapBasedCustomBiome(MEBiomeKeys.SOUTHERN_FOROCHEL, 4, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x272525), new MapBasedCustomBiome(MEBiomeKeys.SOUTHERN_EPHEL_DUATH, 71, MEBiomeDataConfigs.mountainModifier));
-        add(new Color(0x312e2e), new MapBasedCustomBiome(MEBiomeKeys.SOUTHERN_EPHEL_DUATH_BASE, 36, MEBiomeDataConfigs.mountainModifier.heightModifier(0.33f)));
-        add(new Color(0x1c1a1a), new MapBasedCustomBiome(MEBiomeKeys.SOUTHERN_EPHEL_DUATH_PEAKS, 91, MEBiomeDataConfigs.mountainModifier.heightModifier(0.38f)));
         add(new Color(0x7e954f), new MapBasedCustomBiome(MEBiomeKeys.THE_ANGLE, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x306d2a), new MapBasedCustomBiome(MEBiomeKeys.THE_OLD_FOREST, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x98ae71), new MapBasedCustomBiome(MEBiomeKeys.THE_WOLD, 4, MEBiomeDataConfigs.landModifier));
@@ -357,8 +358,8 @@ public class MapBasedBiomePool {
         wastePondBiomes.add(MEBiomeKeys.MORDOR);
         wastePondBiomes.add(MEBiomeKeys.MORDOR_ASHEN_FOREST);
         wastePondBiomes.add(MEBiomeKeys.MORDOR_HILL);
-        wastePondBiomes.add(MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS);
-        wastePondBiomes.add(MEBiomeKeys.SOUTHERN_EPHEL_DUATH_BASE);
+        wastePondBiomes.add(MEBiomeKeys.ERED_LITHUI_BASE);
+        wastePondBiomes.add(MEBiomeKeys.EPHEL_DUATH_BASE);
         wastePondBiomes.add(MEBiomeKeys.MORDOR_WASTES);
         wastePondBiomes.add(MEBiomeKeys.MORGUL_RIVER);
         wastePondBiomes.add(MEBiomeKeys.MORGUL_VALE);

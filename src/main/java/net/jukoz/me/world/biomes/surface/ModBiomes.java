@@ -77,11 +77,12 @@ public class ModBiomes {
         createEmynMuilBiome(context, MEBiomeKeys.EMYN_MUIL_PEAKS);
         createWastePondBiome(context, MEBiomeKeys.EMYN_MUIL_POND);
         createEnedwaithBiome(context, MEBiomeKeys.ENEDWAITH);
-        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, 0);
-        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN, 0);
-        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_BASE, 1);
-        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 2);
-        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, 3);
+        createMordorMountainsBiome(context, MEBiomeKeys.EPHEL_DUATH_BASE, 0);
+        createMordorMountainsBiome(context, MEBiomeKeys.EPHEL_DUATH, 1);
+        createMordorMountainsBiome(context, MEBiomeKeys.EPHEL_DUATH_PEAKS, 2);
+        createMordorMountainsBiome(context, MEBiomeKeys.ERED_LITHUI_BASE, 0);
+        createMordorMountainsBiome(context, MEBiomeKeys.ERED_LITHUI, 1);
+        createMordorMountainsBiome(context, MEBiomeKeys.ERED_LITHUI_PEAKS, 2);
         createEregionBiome(context, MEBiomeKeys.EREGION, 0);
         createEregionBiome(context, MEBiomeKeys.EREGION_FOREST, 1);
         createEregionBiome(context, MEBiomeKeys.EREGION_GLADE, 2);
@@ -133,6 +134,11 @@ public class ModBiomes {
         createLindonBiome(context, MEBiomeKeys.LINDON_FOREST, 3);
         createLindonBiome(context, MEBiomeKeys.LINDON_HIDDEN_BLOSSOM, 4);
         createLindonBiome(context, MEBiomeKeys.LINDON_MEADOW, 5);
+        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, 0);
+        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN, 0);
+        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_BASE, 1);
+        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 2);
+        createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, 3);
         createLakeBiome(context, MEBiomeKeys.LONG_LAKE);
         createMirkwoodSwampBiome(context, MEBiomeKeys.LONG_MARSHES);
         createLossarnach(context, MEBiomeKeys.LOSSARNACH, 0);
@@ -163,9 +169,6 @@ public class ModBiomes {
         createMordorBiome(context, MEBiomeKeys.MORDOR);
         createMordorAshenForestBiome(context, MEBiomeKeys.MORDOR_ASHEN_FOREST);
         createMordorHillBiome(context, MEBiomeKeys.MORDOR_HILL);
-        createMordorMountainsBiome(context, MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS);
-        createMordorMountainsBiome(context, MEBiomeKeys.MORDOR_MOUNTAINS);
-        createMordorMountainsBiome(context, MEBiomeKeys.MORDOR_MOUNTAINS_PEAKS);
         createMordorWastesBiome(context, MEBiomeKeys.MORDOR_WASTES);
         createMorgulVale(context, MEBiomeKeys.MORGUL_VALE);
         createMorgulForest(context, MEBiomeKeys.MORGUL_FOREST);
@@ -173,7 +176,8 @@ public class ModBiomes {
         createGreyMountainsBiome(context, MEBiomeKeys.MOUNT_GUNDABAD_BASE, 0);
         createGreyMountainsBiome(context, MEBiomeKeys.MOUNT_GUNDABAD, 1);
         createGreyMountainsBiome(context, MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, 1);
-        createMordorMountainsBiome(context, MEBiomeKeys.MOUNT_DOOM);
+        createMordorMountainsBiome(context, MEBiomeKeys.MOUNT_DOOM, 2);
+        createMordorMountainsBiome(context, MEBiomeKeys.MOUNT_DOOM_PIT, 2);
         createNanCurunirBiome(context, MEBiomeKeys.NAN_CURUNIR);
         createLakeBiome(context, MEBiomeKeys.NEN_HITHOEL);
         createTrollshawsBiome(context, MEBiomeKeys.NEN_HITHOEL_FOREST);
@@ -229,9 +233,6 @@ public class ModBiomes {
         createShireBiome(context, MEBiomeKeys.SHIRE_WOODS, 3);
         createShireBiome(context, MEBiomeKeys.SHIRE_FOREST, 4);
         createNorthDunlandBiome(context, MEBiomeKeys.SOUTHERN_DUNLAND, false);
-        createMordorMountainsBiome(context, MEBiomeKeys.SOUTHERN_EPHEL_DUATH);
-        createMordorMountainsBiome(context, MEBiomeKeys.SOUTHERN_EPHEL_DUATH_BASE);
-        createMordorMountainsBiome(context, MEBiomeKeys.SOUTHERN_EPHEL_DUATH_PEAKS);
         createSoutheastRhovanionBiome(context, MEBiomeKeys.SOUTHEAST_RHOVANION, 0);
         createSoutheastRhovanionBiome(context, MEBiomeKeys.SOUTHEAST_RHOVANION_FIELDS, 1);
         createSouthernForochelBiome(context, MEBiomeKeys.SOUTHERN_FOROCHEL);
@@ -1898,10 +1899,26 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, 0.7f, false, true);
     }
 
-    public static void createMordorMountainsBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+    public static void createMordorMountainsBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addWarg(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        if (step == 0) {
+            ModSpawnSettingsBuilder.addWarg(spawnSettings);
+            ModBiomeFeatures.addShriveledShrubs(vegetation);
+            ModBiomeFeatures.addCommonToughBerries(vegetation);
+            ModBiomeFeatures.addScorchedGrass(vegetation);
+            ModBiomeFeatures.addScorchedShrub(vegetation);
+        } else if(step == 1) {
+            ModSpawnSettingsBuilder.addWarg(spawnSettings);
+            ModBiomeFeatures.addScorchedGrass(vegetation);
+            ModBiomeFeatures.addShriveledShrubs(vegetation);
+            ModBiomeFeatures.addToughBerries(vegetation);
+        } else if(step == 2) {
+            ModBiomeFeatures.addBasaltPileRare(vegetation);
+        } else if(step == 3) {
+            vegetation.add(NetherPlacedFeatures.DELTA);
+        }
 
         ModBiomeFeatures.addAshBlockOre(vegetation);
         ModBiomeFeatures.addPumiceColumn(vegetation);
@@ -1913,8 +1930,7 @@ public class ModBiomes {
         ModBiomeFeatures.addAshenStoneDirtOre(vegetation);
         ModBiomeFeatures.addBasaltPile(vegetation);
         ModBiomeFeatures.addBlackStonePile(vegetation);
-        ModBiomeFeatures.addShriveledShrubs(vegetation);
-        ModBiomeFeatures.addCommonToughBerries(vegetation);
+
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, 0.7f, false, true);
     }
