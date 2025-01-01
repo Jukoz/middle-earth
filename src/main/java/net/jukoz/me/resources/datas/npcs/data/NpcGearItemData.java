@@ -35,7 +35,9 @@ public class NpcGearItemData {
     private Integer color = null;
     private Integer weight = null;
     private ModCapes cape = null;
+    private Integer capeColor = null;
     private ModHoods hood = null;
+    private Integer hoodColor = null;
     private Boolean isDown = null;
     private Boolean noCape = null;
     private Boolean noHood = null;
@@ -72,6 +74,11 @@ public class NpcGearItemData {
         this.noCape = true;
         return this;
     }
+    public NpcGearItemData withCape(ModCapes cape, int color) {
+        capeColor = color;
+        return withCape(cape);
+    }
+
     public NpcGearItemData withCape(ModCapes cape) {
         if(cape == null){
             this.noCape = true;
@@ -79,9 +86,14 @@ public class NpcGearItemData {
         this.cape = cape;
         return this;
     }
+
     public NpcGearItemData withoutHood() {
         this.noHood = true;
         return this;
+    }
+    public NpcGearItemData withHood(ModHoods hood, int color) {
+        hoodColor = color;
+        return withHood(hood);
     }
     public NpcGearItemData withHood(ModHoods hood) {
         if(hood == null){
@@ -127,7 +139,10 @@ public class NpcGearItemData {
         if(this.noCape != null && this.noCape && itemStack.getComponents().contains(ModDataComponentTypes.CAPE_DATA)){
             itemStack.remove(ModDataComponentTypes.CAPE_DATA);
         } else if (cape != null)
-            itemStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(cape));
+            if(capeColor != null)
+                itemStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCapeWithColor(cape, capeColor));
+            else
+                itemStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(cape));
         if(this.noHood != null && this.noHood && itemStack.getComponents().contains(ModDataComponentTypes.HOOD_DATA)){
             itemStack.remove(ModDataComponentTypes.HOOD_DATA);
         } else if(hood != null){
@@ -139,7 +154,10 @@ public class NpcGearItemData {
             } else if(isDown == null){
                 hoodState = Math.random() >= 0.5;
             }
-            itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, CustomDyeableDataComponent.DEFAULT_COLOR));
+            if(hoodColor != null)
+                itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, hoodColor));
+            else
+                itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, CustomDyeableDataComponent.DEFAULT_COLOR));
         }
         return itemStack;
     }
@@ -177,6 +195,10 @@ public class NpcGearItemData {
             nbt.putString("cape", gearItemData.cape.getName().toLowerCase());
         }
 
+        Integer capeColor = gearItemData.capeColor;
+        if(capeColor != null)
+            nbt.putInt("cape_color", capeColor);
+
         Boolean noHood = gearItemData.noHood;
         if(noHood != null)
             nbt.putBoolean("no_hood", noHood);
@@ -186,6 +208,10 @@ public class NpcGearItemData {
             if(gearItemData.isDown != null)
                 nbt.putBoolean("hood_is_down", gearItemData.isDown);
         }
+
+        Integer hoodColor = gearItemData.hoodColor;
+        if(hoodColor != null)
+            nbt.putInt("cape_color", hoodColor);
 
         return nbt;
     }
@@ -205,6 +231,9 @@ public class NpcGearItemData {
         if(nbt.get("cape") != null){
             npcGearItemData.cape = ModCapes.valueOf(nbt.getString("cape").toUpperCase());
         }
+        if(nbt.get("cape_color") != null){
+            npcGearItemData.capeColor = nbt.getInt("cape_color");
+        }
         if(nbt.get("no_hood") != null){
             npcGearItemData.noHood = nbt.getBoolean("no_hood");
         }
@@ -212,6 +241,9 @@ public class NpcGearItemData {
             npcGearItemData.hood = ModHoods.valueOf(nbt.getString("hood").toUpperCase());
             if(nbt.get("hood_is_down") != null)
                 npcGearItemData.isDown = nbt.getBoolean("hood_is_down");
+        }
+        if(nbt.get("hood_color") != null){
+            npcGearItemData.hoodColor = nbt.getInt("hood_color");
         }
         return npcGearItemData;
     }

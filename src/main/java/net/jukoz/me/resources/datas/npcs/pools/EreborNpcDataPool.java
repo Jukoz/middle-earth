@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.item.utils.armor.capes.ModCapes;
 import net.jukoz.me.resources.MiddleEarthNpcs;
 import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.NpcData;
@@ -11,6 +12,7 @@ import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearItemData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearSlotData;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -42,30 +44,11 @@ public class EreborNpcDataPool {
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(Items.LEATHER_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_TAN_FUR).withColor(LIGHT_RED))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_TAN_FUR).withColor(DARK_RED))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_BROWN_FUR).withColor(LIGHT_RED))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_BROWN_FUR).withColor(DARK_RED))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_BLACK_FUR).withColor(LIGHT_RED))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_BLACK_FUR).withColor(DARK_RED))
+                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_TAN_FUR).withColor(LIGHT_RED).withCape(ModCapes.SURCOAT, LIGHT_BLUE))
 
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_TAN_FUR).withColor(LIGHT_BLUE))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_TAN_FUR).withColor(DARK_BLUE))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_BROWN_FUR).withColor(LIGHT_BLUE))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_BROWN_FUR).withColor(DARK_BLUE))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_BLACK_FUR).withColor(LIGHT_BLUE))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_BLACK_FUR).withColor(DARK_BLUE))
-
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_TAN_FUR).withColor(LIGHT_BROWN))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_TAN_FUR).withColor(DARK_BROWN))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_BROWN_FUR).withColor(LIGHT_BROWN))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_BROWN_FUR).withColor(DARK_BROWN))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_BLACK_FUR).withColor(LIGHT_BROWN))
-                                .add(NpcGearItemData.create(ModEquipmentItems.DALISH_ARMING_COAT_BLACK_FUR).withColor(DARK_BROWN))
                         )
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.STURDY_BOOTS)))
-                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(ModToolItems.BRONZE_AXE)))
-                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModWeaponItems.EREBOR_SHIELD)))
+                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(Items.CROSSBOW)))
         ));
     }
 }
