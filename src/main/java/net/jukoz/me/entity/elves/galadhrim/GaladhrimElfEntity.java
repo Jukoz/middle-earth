@@ -1,6 +1,7 @@
 package net.jukoz.me.entity.elves.galadhrim;
 
 import net.jukoz.me.entity.NpcEntity;
+import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
@@ -17,6 +18,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -103,7 +105,13 @@ public class GaladhrimElfEntity extends NpcEntity{
         int i = 2;
         initGoodTargetSelector(i);
     }
-
+    @Override
+    protected void applyDamage(DamageSource source, float amount) {
+        if(source.getAttacker() instanceof GaladhrimElfEntity){
+            return;
+        }
+        super.applyDamage(source, amount);
+    }
     public GaladhrimElfVariant getVariant() {
         return GaladhrimElfVariant.byId(this.getId());
     }

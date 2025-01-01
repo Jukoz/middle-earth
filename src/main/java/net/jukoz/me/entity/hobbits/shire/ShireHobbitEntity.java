@@ -2,6 +2,7 @@ package net.jukoz.me.entity.hobbits.shire;
 
 import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
+import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
@@ -17,6 +18,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -99,6 +101,14 @@ public class ShireHobbitEntity extends NpcEntity {
 
     public ShireHobbitVariant getVariant() {
         return ShireHobbitVariant.byId(this.getId());
+    }
+
+    @Override
+    protected void applyDamage(DamageSource source, float amount) {
+        if(source.getAttacker() instanceof ShireHobbitEntity){
+            return;
+        }
+        super.applyDamage(source, amount);
     }
 
     @Override

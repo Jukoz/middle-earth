@@ -1,6 +1,7 @@
 package net.jukoz.me.entity.dwarves.longbeards;
 
 import net.jukoz.me.entity.NpcEntity;
+import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
@@ -22,6 +23,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
@@ -110,7 +112,13 @@ public class LongbeardDwarfEntity extends NpcEntity {
         int i = 2;
         initGoodTargetSelector(i);
     }
-
+    @Override
+    protected void applyDamage(DamageSource source, float amount) {
+        if(source.getAttacker() instanceof LongbeardDwarfEntity){
+            return;
+        }
+        super.applyDamage(source, amount);
+    }
     public LongbeardDwarfVariant getVariant() {
         return LongbeardDwarfVariant.byId(this.getId());
     }

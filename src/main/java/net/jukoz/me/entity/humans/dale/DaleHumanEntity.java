@@ -3,11 +3,13 @@ package net.jukoz.me.entity.humans.dale;
 import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.util.Identifier;
@@ -87,6 +89,13 @@ public class DaleHumanEntity extends NpcEntity{
         super.initGoals();
         int index = 4;
         index = initGoodTargetSelector(index);
+    }
+    @Override
+    protected void applyDamage(DamageSource source, float amount) {
+        if(source.getAttacker() instanceof DaleHumanEntity){
+            return;
+        }
+        super.applyDamage(source, amount);
     }
 
     public DaleHumanVariant getVariant() {

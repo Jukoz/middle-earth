@@ -1,6 +1,7 @@
 package net.jukoz.me.entity.humans.rohan;
 
 import net.jukoz.me.entity.NpcEntity;
+import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
@@ -9,6 +10,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.item.Items;
@@ -91,7 +93,13 @@ public class RohanHumanEntity extends NpcEntity {
         int index = 4;
         index = initGoodTargetSelector(index);
     }
-
+    @Override
+    protected void applyDamage(DamageSource source, float amount) {
+        if(source.getAttacker() instanceof RohanHumanEntity){
+            return;
+        }
+        super.applyDamage(source, amount);
+    }
     public RohanHumanVariant getVariant() {
         return RohanHumanVariant.byId(this.getId());
     }

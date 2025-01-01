@@ -82,12 +82,6 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(4, new LookAroundGoal(this));
-        this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
-
         Identifier factionId = getFactionId();
         if(factionId == null)
             disposition = Disposition.NEUTRAL;
@@ -98,6 +92,14 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
                 disposition = Disposition.NEUTRAL; // Attacks everyone, no judgement made
             }
         }
+
+        this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(2, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(4, new LookAroundGoal(this));
+        this.targetSelector.add(1, new RevengeGoal(this, this.getClass()));
+
+
         this.targetSelector.add(2, new NpcTargetPlayerGoal(this));
     }
 

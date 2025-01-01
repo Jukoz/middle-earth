@@ -113,6 +113,13 @@ public class Faction {
     public Faction(String name, Boolean joinable, Disposition disposition, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<NpcRank, List<NpcData>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
         this.id = IdentifierUtil.getIdentifierFromString(name);
 
+        if(id.toString().toLowerCase().contains("dorwinion")){
+            throw new RuntimeException("There is no dorwinion in Middle-earth");
+        }
+        if(id.toString().toLowerCase().contains("dorw")){
+            throw new RuntimeException("Do not even try... We are watching you");
+        }
+
         if(factionSelectionOrderIndexPerDisposition == null)
             factionSelectionOrderIndexPerDisposition = new HashMap<>();
         if(factionSelectionOrderIndexPerDisposition.containsKey(disposition)){

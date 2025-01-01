@@ -24,6 +24,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.HorseEntity;
@@ -99,7 +100,13 @@ public class BanditHumanEntity extends NpcEntity{
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DaleHumanEntity.class, true));
     }
-
+    @Override
+    protected void applyDamage(DamageSource source, float amount) {
+        if(source.getAttacker() instanceof BanditHumanEntity){
+            return;
+        }
+        super.applyDamage(source, amount);
+    }
     @Override
     protected Identifier getFactionId() {
         return MiddleEarthFactions.BANDIT.getId();
