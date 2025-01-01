@@ -46,6 +46,13 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.08f, MEBiomeKeys.EREGION_FOREST)
                 .addSubBiomeData(0.28f, 2.01f, MEBiomeKeys.EREGION_GLADE));
 
+        subBiomesMap.put(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, new SubBiome(56, 0.65f)
+                .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS)
+                .addSubBiomeData(0.3f, 2.01f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS));
+        subBiomesMap.put(MEBiomeKeys.BLUE_MOUNTAINS_BASE, new SubBiome(56, 0.65f)
+                .addSubBiomeData(-1.0f, -0.35f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS)
+                .addSubBiomeData(0.35f, 2.01f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS));
+
         subBiomesMap.put(MEBiomeKeys.ANORIEN, new SubBiome(144)
                 .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.GONDOR_FOREST)
                 .addSubBiomeData(0.39f, 2.01f, MEBiomeKeys.GONDOR_HILL, true));

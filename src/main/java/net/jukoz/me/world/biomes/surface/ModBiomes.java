@@ -42,6 +42,7 @@ public class ModBiomes {
         createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS_BASE, 1);
         createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS, 2);
         createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, 3);
+        createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS_WOODS, 4);
         createMordorWastesBiome(context, MEBiomeKeys.BROWN_LANDS);
         createMistyMountainsBiome(context, MEBiomeKeys.CARADHRAS_BASE, 0);
         createMistyMountainsBiome(context, MEBiomeKeys.CARADHRAS, 1);
@@ -456,22 +457,53 @@ public class ModBiomes {
         ModSpawnSettingsBuilder.addBroadhoofGoats(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
         float temperature = 0.5f;
+
+        ModBiomeFeatures.addGrass(vegetation);
+        ModBiomeFeatures.addDisks(undergroundOres);
+        vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
+        vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
+        ModBiomeFeatures.addBracken(vegetation);
+        ModBiomeFeatures.addWildGrass(vegetation);
+
+        if(step != 3) {
+            vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
+            vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
+            vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
+            vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
+            ModBiomeFeatures.addBrownBolete(vegetation);
+            ModBiomeFeatures.addMorsel(vegetation);
+            ModBiomeFeatures.addWhiteMushroom(vegetation);
+            ModBiomeFeatures.addWildBeetroot(vegetation);
+            ModBiomeFeatures.addWildPotato(vegetation);
+        }
+
         if(step == 0 || step == 1){
             ModBiomeFeatures.addCornflower(vegetation);
             ModBiomeFeatures.addBlueTuff(vegetation);
-            addNordicVegetation(generationSettings);
-            ModBiomeFeatures.addSparseLarchTrees(vegetation);
-            ModBiomeFeatures.addSparsePineTrees(vegetation);
-            ModBiomeFeatures.addScarceSpruceTrees(vegetation);
+            ModBiomeFeatures.addRareSpruceTrees(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
             if(step == 0){
                 ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
                 ModBiomeFeatures.addBlueTuffBoulder(vegetation);
             }
-        } else if (step == 2) {
+        } else if(step == 2) { // Base
             ModBiomeFeatures.addSparsePineTrees(vegetation);
-        }else if(step == 3){
+        } else if(step == 3){ // Peaks
             temperature = -0.1f;
+        } else if(step == 4) { // Woods
+            ModBiomeFeatures.addBlueTuffBoulder(vegetation);
+            ModBiomeFeatures.addFalseOatgrass(vegetation);
+            ModBiomeFeatures.addCornflower(vegetation);
+            ModBiomeFeatures.addBlueTuff(vegetation);
+            ModBiomeFeatures.addLarchTrees(vegetation);
+            ModBiomeFeatures.addCommonSpruceTrees(vegetation);
+            ModBiomeFeatures.addOakBushes(vegetation);
+            ModBiomeFeatures.addSpruceBushes(vegetation);
+            ModBiomeFeatures.addCommonPineTrees(vegetation);
+            ModBiomeFeatures.addCommonBlackPineTrees(vegetation);
+            ModBiomeFeatures.addCommonOakTrees(vegetation);
+            ModBiomeFeatures.addForestMoss(vegetation);
+            ModBiomeFeatures.addForestBlockMoss(vegetation);
         }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, temperature, true);

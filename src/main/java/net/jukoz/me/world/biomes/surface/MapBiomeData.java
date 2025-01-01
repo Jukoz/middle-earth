@@ -78,13 +78,15 @@ public class MapBiomeData {
                 new BiomeColorsDTO(7575257, 11255256, 5076939, defaultWaterFog, 5610326, 5543511)));
         // BLUE MOUNTAINS
         addBiome(new BiomeData(MEBiomeKeys.BLUE_MOUNTAINS, MEBiomeDataConfigs.blueMountains, MEBiomeDataConfigs.gonluinLayers,
-                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 6652524, 6652524)));
+                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 7903103, 6652524)));
         addBiome(new BiomeData(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, MEBiomeDataConfigs.blueMountainsBase, MEBiomeDataConfigs.gonluinLayers,
-                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 6652524, 6652524)));
+                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 7376759, 6652524)));
         addBiome(new BiomeData(MEBiomeKeys.BLUE_MOUNTAINS_BASE, MEBiomeDataConfigs.blueMountainsBase, MEBiomeDataConfigs.gonluinLayers,
-                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 5796446, 6652524)));
+                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 7376759, 6652524)));
         addBiome(new BiomeData(MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, MEBiomeDataConfigs.blueMountainsPeaks, MEBiomeDataConfigs.gonluinLayers,
-                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 4677202, 5270363)));
+                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 8495753, 5270363)));
+        addBiome(new BiomeData(MEBiomeKeys.BLUE_MOUNTAINS_WOODS, MEBiomeDataConfigs.blueMountainsBase, MEBiomeDataConfigs.gonluinLayers,
+                new BiomeColorsDTO(7509727, 11715307, defaultWater, defaultWaterFog, 6521706, 5996644)));
         // BROWN LANDS
         addBiome(new BiomeData(MEBiomeKeys.BROWN_LANDS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7570864, 8292235, 5075593, 1259598, 8032632, 7901046)));

@@ -83,6 +83,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BLUE_MOUNTAINS_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BLUE_MOUNTAINS_PEAKS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.BLUE_MOUNTAINS_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BROWN_LANDS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.CARADHRAS_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.CARADHRAS),
