@@ -76,6 +76,11 @@ public class ArtisanTableInputsShape {
             {InputType.ANY, InputType.NONE, InputType.ANY},
             {InputType.ANY, InputType.NONE, InputType.ANY}});
 
+    public static ArtisanTableInputsShape HAT = new ArtisanTableInputsShape("hat", new InputType[][]{
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.NONE, InputType.ANY},
+            {InputType.NONE, InputType.NONE, InputType.NONE}});
+
     public static ArtisanTableInputsShape CAPE = new ArtisanTableInputsShape("cape", new InputType[][]{
             {InputType.ANY, InputType.ANY, InputType.ANY},
             {InputType.ANY, InputType.ANY, InputType.ANY},
