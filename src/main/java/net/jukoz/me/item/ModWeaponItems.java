@@ -43,7 +43,7 @@ public class ModWeaponItems {
     public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL), true);
     public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("edhel_steel_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL), false);
+            new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL), true);
     public static final Item KHAZAD_STEEL_SWORD = registerItemWithModel("khazad_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL), true);
 
@@ -594,8 +594,8 @@ public class ModWeaponItems {
             new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.NONE));
     //endregion
 
-    public static final Item HELD_BANNER = registerArtefact("held_banner",
-            new HeldBannerItem(new Item.Settings().maxCount(1)), false);
+    public static final Item HELD_BANNER = registerItemNoModel("held_banner",
+            new HeldBannerItem(new Item.Settings().maxCount(1)));
 
     private static Item registerItemWithModel(String name, Item item, boolean isDualModel) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
@@ -604,6 +604,11 @@ public class ModWeaponItems {
         } else {
             SimpleHandheldItemModel.items.add(item);
         }
+        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    private static Item registerItemNoModel(String name, Item item) {
+        ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
