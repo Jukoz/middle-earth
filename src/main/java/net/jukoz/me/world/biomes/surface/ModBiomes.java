@@ -1744,8 +1744,24 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         float temperature = 0.35f;
-        addNordicVegetation(generationSettings);
+
+        ModBiomeFeatures.addDisks(undergroundOres);
+        vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
+        vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
+        ModBiomeFeatures.addBrownBolete(vegetation);
+        ModBiomeFeatures.addMorsel(vegetation);
+        ModBiomeFeatures.addWhiteMushroom(vegetation);
+
         if(step == 0) {
+            vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
+            vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
+            vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
+            vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
+            ModBiomeFeatures.addBracken(vegetation);
+            ModBiomeFeatures.addWildGrass(vegetation);
+            ModBiomeFeatures.addGrass(vegetation);
+            ModBiomeFeatures.addWildBeetroot(vegetation);
+            ModBiomeFeatures.addWildPotato(vegetation);
             ModBiomeFeatures.addGravelOre(vegetation);
             ModBiomeFeatures.addLarchTrees(vegetation);
             ModBiomeFeatures.addPineTrees(vegetation);
@@ -1753,10 +1769,14 @@ public class ModBiomes {
             ModBiomeFeatures.addCommonSpruceBushes(vegetation);
         } else if (step == 1){
             ModBiomeFeatures.addPowderSnowOre(vegetation);
+            ModBiomeFeatures.addStickySnow(vegetation);
+            ModBiomeFeatures.addFrozenGrass(vegetation);
+            ModBiomeFeatures.addFrozenShrub(vegetation);
             temperature = -0.3f;
         } else if (step == 2){
             ModSpawnSettingsBuilder.addRareWolves(spawnSettings);
             ModBiomeFeatures.addPowderSnowOre(vegetation);
+            ModBiomeFeatures.addFrozenGrass(vegetation);
             temperature = -0.6f;
         }
 

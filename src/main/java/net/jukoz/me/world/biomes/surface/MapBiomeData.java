@@ -353,7 +353,7 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.NORTHERN_MIRKWOOD_MARSHES, MEBiomeDataConfigs.mud, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(6849692, 8427421, 7111535, 1458241, 4546876, 4284215)));
         // MISTY MOUNTAINS
-        addBiome(new BiomeData(MEBiomeKeys.MISTY_MOUNTAINS_BASE, MEBiomeDataConfigs.mistyMountains, MEBiomeDataConfigs.mistyMountainsLayers,
+        addBiome(new BiomeData(MEBiomeKeys.MISTY_MOUNTAINS_BASE, MEBiomeDataConfigs.mistyMountainsBase, MEBiomeDataConfigs.mistyMountainsLayers,
                 new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 7777673, 7316862), CaveType.MISTIES));
         addBiome(new BiomeData(MEBiomeKeys.MISTY_MOUNTAINS, MEBiomeDataConfigs.mistyMountains, MEBiomeDataConfigs.mistyMountainsLayers,
                 new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 7777673, 7316862), CaveType.MISTIES));

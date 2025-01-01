@@ -89,7 +89,14 @@ public class MEBiomeDataConfigs {
             .addSlopeData(32, Blocks.STONE)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.LIMESTONE.base());
 
-    public static SlopeMap mistyMountains = new SlopeMap().addSlopeData(13, Blocks.GRASS_BLOCK)
+    public static SlopeMap mistyMountainsBase = new SlopeMap().addSlopeData(13, Blocks.GRASS_BLOCK)
+            .addSlopeData(16, Blocks.COARSE_DIRT)
+            .addSlopeData(22, Blocks.TUFF)
+            .addSlopeData(30, StoneBlockSets.DOLOMITE.base())
+            .addSlopeData(38, Blocks.STONE)
+            .addSlopeData(50, StoneBlockSets.GNEISS.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.ZIGILABAN.base());
+    public static SlopeMap mistyMountains = new SlopeMap().addSlopeData(14, ModBlocks.SNOWY_GRASS_BLOCK)
             .addSlopeData(16, Blocks.COARSE_DIRT)
             .addSlopeData(22, Blocks.TUFF)
             .addSlopeData(30, StoneBlockSets.DOLOMITE.base())
