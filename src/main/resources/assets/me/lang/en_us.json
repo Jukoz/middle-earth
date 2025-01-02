@@ -258,10 +258,6 @@
   "item.me.starlight_phial": "Starlight Phial",
 
 "#Comment:": "Item - Tools",
-  "item.me.jade_pickaxe": "Jade Pickaxe",
-  "item.me.jade_axe": "Jade Axe",
-  "item.me.jade_shovel": "Jade Shovel",
-  "item.me.jade_hoe": "Jade Hoe",
   "item.me.bronze_pickaxe": "Bronze Pickaxe",
   "item.me.bronze_axe": "Bronze Axe",
   "item.me.bronze_shovel": "Bronze Shovel",
@@ -503,7 +499,6 @@
 "#Comment:": "Item - Misc Weapons",
   "item.me.wooden_dagger": "Wooden Dagger",
   "item.me.stone_dagger": "Stone Dagger",
-  "item.me.jade_dagger": "Jade Dagger",
   "item.me.bronze_dagger": "Bronze Dagger",
   "item.me.golden_dagger": "Golden Dagger",
   "item.me.iron_dagger": "Iron Dagger",
@@ -516,7 +511,6 @@
   "item.me.diamond_dagger": "Diamond Dagger",
   "item.me.netherite_dagger": "Netherite Dagger",
 
-  "item.me.jade_sword": "Jade Sword",
   "item.me.bronze_sword": "Bronze Sword",
   "item.me.steel_sword": "Steel Sword",
   "item.me.crude_falchion": "Crude Falchion",
@@ -526,7 +520,6 @@
 
   "item.me.wooden_longsword": "Wooden Longsword",
   "item.me.stone_longsword": "Stone Longsword",
-  "item.me.jade_longsword": "Jade Longsword",
   "item.me.bronze_longsword": "Bronze Longsword",
   "item.me.golden_longsword": "Golden Longsword",
   "item.me.iron_longsword": "Iron Longsword",
@@ -540,7 +533,6 @@
 
   "item.me.wooden_spear": "Wooden Spear",
   "item.me.stone_spear": "Stone Spear",
-  "item.me.jade_spear": "Jade Spear",
   "item.me.bronze_spear": "Bronze Spear",
   "item.me.golden_spear": "Golden Spear",
   "item.me.iron_spear": "Iron Spear",
@@ -7110,11 +7102,13 @@
   "screen.me.artisan_table.mount_armor": "Mount Armor",
   "screen.me.artisan_table.shields": "Shields",
   "screen.me.artisan_table.light_shield": "Light Shield",
+  "screen.me.artisan_table.medium_shield": "Medium Shield",
   "screen.me.artisan_table.heavy_shield": "Heavy Shield",
   "screen.me.artisan_table.misc": "Misc",
-  "screen.me.artisan_table.hats": "Hats",
+  "screen.me.artisan_table.hat": "Hat",
   "screen.me.artisan_table.hood": "Hood",
   "screen.me.artisan_table.cape": "Cape",
+  "screen.me.artisan_table.pipe": "Pipe",
 
 "#Comment": "Tooltips",
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",

@@ -76,6 +76,11 @@ public class ArtisanTableInputsShape {
             {InputType.ANY, InputType.NONE, InputType.ANY},
             {InputType.ANY, InputType.NONE, InputType.ANY}});
 
+    public static ArtisanTableInputsShape HAT = new ArtisanTableInputsShape("hat", new InputType[][]{
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.NONE, InputType.ANY},
+            {InputType.NONE, InputType.NONE, InputType.NONE}});
+
     public static ArtisanTableInputsShape CAPE = new ArtisanTableInputsShape("cape", new InputType[][]{
             {InputType.ANY, InputType.ANY, InputType.ANY},
             {InputType.ANY, InputType.ANY, InputType.ANY},
@@ -85,6 +90,31 @@ public class ArtisanTableInputsShape {
             {InputType.ANY, InputType.ANY, InputType.ANY},
             {InputType.ANY, InputType.ANY, InputType.ANY},
             {InputType.NONE, InputType.NONE, InputType.NONE}});
+
+    public static ArtisanTableInputsShape PIPE = new ArtisanTableInputsShape("pipe", new InputType[][]{
+            {InputType.NONE, InputType.NONE, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.NONE}});
+
+    public static ArtisanTableInputsShape LIGHT_SHIELD = new ArtisanTableInputsShape("light_shield", new InputType[][]{
+            {InputType.NONE, InputType.ANY, InputType.NONE},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.NONE, InputType.ANY, InputType.NONE}});
+
+    public static ArtisanTableInputsShape MEDIUM_SHIELD = new ArtisanTableInputsShape("medium_shield", new InputType[][]{
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.NONE, InputType.ANY, InputType.NONE}});
+
+    public static ArtisanTableInputsShape HEAVY_SHIELD = new ArtisanTableInputsShape("heavy_shield", new InputType[][]{
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY}});
+
+    public static ArtisanTableInputsShape MOUNT_ARMOR = new ArtisanTableInputsShape("mount_armor", new InputType[][]{
+            {InputType.NONE, InputType.NONE, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY}});
 
     public ArtisanTableInputsShape(String id, InputType[][] inputs) {
         this.id = id;

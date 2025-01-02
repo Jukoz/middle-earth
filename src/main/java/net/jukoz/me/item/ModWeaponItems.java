@@ -33,9 +33,6 @@ public class ModWeaponItems {
     public static List<Item> shields = new ArrayList<>();
 
     //region GENERIC
-    public static final Item JADE_SWORD = registerItemWithModel("jade_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.JADE), false);
-    
     public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
             new CustomSwordWeaponItem(ModToolMaterials.BRONZE), false);
     public static final Item CRUDE_FALCHION = registerItemWithModel("crude_falchion",
@@ -44,11 +41,11 @@ public class ModWeaponItems {
     public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.STEEL), false);
     public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL), false);
+            new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL), true);
     public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("edhel_steel_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL), false);
+            new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL), true);
     public static final Item KHAZAD_STEEL_SWORD = registerItemWithModel("khazad_steel_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL), false);
+            new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL), true);
 
     public static final Item WOODEN_DAGGER = registerItemWithModel("wooden_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.WOOD), false);
@@ -75,8 +72,6 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ToolMaterials.WOOD));
     public static final Item STONE_SPEAR = registerItemWithSpearModel("stone_spear",
             new CustomSpearWeaponItem(ToolMaterials.STONE));
-    public static final Item JADE_SPEAR = registerItemWithSpearModel("jade_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.JADE));
 
     public static final Item BRONZE_SPEAR = registerItemWithSpearModel("bronze_spear",
             new CustomSpearWeaponItem(ModToolMaterials.BRONZE));
@@ -455,7 +450,7 @@ public class ModWeaponItems {
 
     public static final Item MORDOR_HEAVY_SHIELD = registerShield("mordor_heavy_shield",
             new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.MORDOR));
-    public static final Item MORDOR_PAINTED_EAVY_SHIELD = registerShield("mordor_painted_heavy_shield",
+    public static final Item MORDOR_PAINTED_HEAVY_SHIELD = registerShield("mordor_painted_heavy_shield",
             new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.MORDOR));
     public static final Item BLACK_NUMENOREAN_TOWER_SHIELD = registerShield("black_numenorean_tower_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
@@ -599,8 +594,8 @@ public class ModWeaponItems {
             new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.NONE));
     //endregion
 
-    public static final Item HELD_BANNER = registerArtefact("held_banner",
-            new HeldBannerItem(new Item.Settings().maxCount(1)), false);
+    public static final Item HELD_BANNER = registerItemNoModel("held_banner",
+            new HeldBannerItem(new Item.Settings().maxCount(1)));
 
     private static Item registerItemWithModel(String name, Item item, boolean isDualModel) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
@@ -609,6 +604,11 @@ public class ModWeaponItems {
         } else {
             SimpleHandheldItemModel.items.add(item);
         }
+        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    private static Item registerItemNoModel(String name, Item item) {
+        ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

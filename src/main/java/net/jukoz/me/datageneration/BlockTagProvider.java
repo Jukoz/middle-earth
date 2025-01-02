@@ -61,24 +61,24 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         swordEfficient.add(LeavesSets.blocks.toArray(new Block[0]));
 
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "saplings"))).add(Saplings.saplings.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "doors"))).add(Doors.doors.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "trapdoors"))).add(Trapdoors.trapdoors.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "buttons"))).add(Buttons.buttons.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "fences"))).add(Fences.fences.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "wooden_fences"))).add(Fences.fences.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "fence_gates"))).add(FenceGates.fenceGates.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "logs"))).add(Logs.logs.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "pressure_plates"))).add(PressurePlates.pressurePlates.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "walls"))).add(Walls.walls.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "planks"))).add(Planks.planks.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "crops"))).add(Crops.crops.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "saplings"))).add(Saplings.saplings.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "doors"))).add(Doors.doors.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "trapdoors"))).add(Trapdoors.trapdoors.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "buttons"))).add(Buttons.buttons.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fences"))).add(Fences.fences.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "wooden_fences"))).add(Fences.fences.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fence_gates"))).add(FenceGates.fenceGates.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "logs"))).add(Logs.logs.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "pressure_plates"))).add(PressurePlates.pressurePlates.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "walls"))).add(Walls.walls.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "planks"))).add(Planks.planks.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "crops"))).add(Crops.crops.toArray(new Block[0]));
 
         //Ores
-        TagKey<Block> iron_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "iron_ores"));
-        TagKey<Block> gold_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "gold_ores"));
-        TagKey<Block> copper_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "copper_ores"));
-        TagKey<Block> coal_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "coal_ores"));
+        TagKey<Block> iron_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of( "iron_ores"));
+        TagKey<Block> gold_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of( "gold_ores"));
+        TagKey<Block> copper_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of( "copper_ores"));
+        TagKey<Block> coal_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of( "coal_ores"));
 
         TagKey<Block> tin_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "tin_ores"));
         TagKey<Block> lead_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "lead_ores"));

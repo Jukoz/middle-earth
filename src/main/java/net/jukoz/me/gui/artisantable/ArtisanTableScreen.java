@@ -90,20 +90,22 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("chestplate"), ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE.getDefaultStack(), ArtisanTableInputsShape.CHESTPLATE));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("leggings"), ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS.getDefaultStack(), ArtisanTableInputsShape.LEGGINGS));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 3, getTabTranslation("boots"), ModEquipmentItems.RAVENHILL_WATCHWARDEN_BOOTS.getDefaultStack(), ArtisanTableInputsShape.BOOTS));
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 4, getTabTranslation("mount_armor"), ModEquipmentItems.ROHIRRIC_HORSE_ARMOR.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 4, getTabTranslation("mount_armor"), ModEquipmentItems.ROHIRRIC_HORSE_ARMOR.getDefaultStack(), ArtisanTableInputsShape.MOUNT_ARMOR));
         index++;
 
         categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, getTabTranslation("shields"), Items.SHIELD.getDefaultStack()));
         tabs.put(index, new ArrayList<>());
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("light_shield"), ModWeaponItems.ROUND_SHIELD.getDefaultStack()));
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("heavy_shield"), ModWeaponItems.URUK_HAI_WHITE_HAND_SHIELD.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("light_shield"), ModWeaponItems.GUNDABAD_WOODEN_SHIELD.getDefaultStack(), ArtisanTableInputsShape.LIGHT_SHIELD));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("medium_shield"), ModWeaponItems.ROUND_SHIELD.getDefaultStack(), ArtisanTableInputsShape.MEDIUM_SHIELD));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("heavy_shield"), ModWeaponItems.URUK_HAI_WHITE_HAND_SHIELD.getDefaultStack(), ArtisanTableInputsShape.HEAVY_SHIELD));
         index++;
 
         categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, getTabTranslation("misc"), ModEquipmentItems.STRAW_HAT.getDefaultStack()));
         tabs.put(index, new ArrayList<>());
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("hats"), ModEquipmentItems.STRAW_HAT.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("hat"), ModEquipmentItems.STRAW_HAT.getDefaultStack(), ArtisanTableInputsShape.HAT));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("hood"), ModEquipmentItems.HOOD.getDefaultStack(), ArtisanTableInputsShape.HOOD));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("cape"), ModEquipmentItems.CAPE.getDefaultStack(), ArtisanTableInputsShape.CAPE));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 3, getTabTranslation("pipe"), ModToolItems.CLAYSHIRE_PIPE.getDefaultStack(), ArtisanTableInputsShape.PIPE));
         index++;
 
         selectedCategory = categories.getFirst();
