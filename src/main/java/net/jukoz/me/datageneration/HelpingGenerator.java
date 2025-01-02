@@ -376,17 +376,10 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.verticalSlab());
             BlockDrops.blocks.add(set.stairs());
 
-            if(set.origin() != null && set.origin().toString().contains("wood")){
-                MineableAxe.blocks.add(set.block());
-                MineableAxe.blocks.add(set.slab());
-                MineableAxe.blocks.add(set.verticalSlab());
-                MineableAxe.blocks.add(set.stairs());
-            }  else {
-                MineablePickaxe.blocks.add(set.block());
-                MineablePickaxe.blocks.add(set.slab());
-                MineablePickaxe.blocks.add(set.verticalSlab());
-                MineablePickaxe.blocks.add(set.stairs());
-            }
+            MineableAxe.blocks.add(set.block());
+            MineableAxe.blocks.add(set.slab());
+            MineableAxe.blocks.add(set.verticalSlab());
+            MineableAxe.blocks.add(set.stairs());
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab set : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
