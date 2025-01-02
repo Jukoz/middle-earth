@@ -5,6 +5,7 @@ import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.OreRockSets;
 import net.jukoz.me.block.StoneBlockSets;
+import net.jukoz.me.world.features.columns.ClusterFeatureConfig;
 import net.jukoz.me.world.features.ores.SurfaceOreFeatureConfig;
 import net.jukoz.me.world.features.pillar.PillarFeatureConfig;
 import net.jukoz.me.world.gen.ModFeatures;
@@ -22,6 +23,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.VerticalSurfaceType;
+import net.minecraft.util.math.floatprovider.ClampedNormalFloatProvider;
 import net.minecraft.util.math.floatprovider.UniformFloatProvider;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.IntProvider;
@@ -62,6 +64,10 @@ public class CavesConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_TUFF = registerKey("ore_tuff");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_BASALT = registerKey("ore_basalt");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_BLACKSTONE = registerKey("ore_blackstone");
+
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DOLOMITE_CLUSTER = registerKey("dolomite_cluster");
+    //public static final RegistryKey<ConfiguredFeature<?, ?>> LARGE_DOLOMITE = registerKey("large_dolomite");
+    //public static final RegistryKey<ConfiguredFeature<?, ?>> POINTED_DOLOMITE = registerKey("pointed_dolomite");
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> PILLAR_BASALT = registerKey("pillar_basalt");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PILLAR_BLACKSTONE = registerKey("pillar_blackstone");
@@ -252,6 +258,11 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_TUFF, Feature.ORE, new OreFeatureConfig(tuffList, 42));
         ConfiguredFeatures.register(featureRegisterable, ORE_BASALT, Feature.ORE, new OreFeatureConfig(basaltList, 42));
         ConfiguredFeatures.register(featureRegisterable, ORE_BLACKSTONE, Feature.ORE, new OreFeatureConfig(blackstoneList, 42));
+
+        ConfiguredFeatures.register(featureRegisterable, DOLOMITE_CLUSTER, ModFeatures.CLUSTER, new ClusterFeatureConfig(12,
+                StoneBlockSets.DOLOMITE.base().getDefaultState(), ModBlocks.POINTED_DOLOMITE.getDefaultState(), UniformIntProvider.create(3, 6),
+                UniformIntProvider.create(2, 8), 1, 3, UniformIntProvider.create(2, 4), UniformFloatProvider.create(0.3F, 0.7F),
+                ClampedNormalFloatProvider.create(0.1F, 0.3F, 0.1F, 0.9F), 0.1F, 3, 8));
 
         ConfiguredFeatures.register(featureRegisterable, PILLAR_BASALT, ModFeatures.PILLAR, new PillarFeatureConfig(30, UniformIntProvider.create(3, 19),
                 UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),

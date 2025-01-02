@@ -249,6 +249,10 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> BASIC_CAVE = MEBiomeKeys.register("basic_cave");
     public static final RegistryKey<Biome> LUSH_CAVE = MEBiomeKeys.register("lush_cave");
     public static final RegistryKey<Biome> DRIPSTONE_CAVE = MEBiomeKeys.register("dripstone_cave");
+    public static final RegistryKey<Biome> DOLOMITE_CAVE = MEBiomeKeys.register("dolomite_cave");
+    public static final RegistryKey<Biome> GALONN_CAVE = MEBiomeKeys.register("galonn_cave");
+    public static final RegistryKey<Biome> IZHER_ABAN_CAVE = MEBiomeKeys.register("izher_aban_cave");
+    public static final RegistryKey<Biome> LIMESTONE_CAVE = MEBiomeKeys.register("limestone_cave");
     public static final RegistryKey<Biome> MUD_CAVE = MEBiomeKeys.register("mud_cave");
     public static final RegistryKey<Biome> FUNGUS_CAVE = MEBiomeKeys.register("fungus_cave");
     public static final RegistryKey<Biome> BASALT_CAVE = MEBiomeKeys.register("basalt_cave");

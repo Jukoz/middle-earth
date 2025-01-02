@@ -301,6 +301,10 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.BASIC_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LUSH_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DRIPSTONE_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DOLOMITE_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GALONN_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.IZHER_ABAN_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LIMESTONE_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MUD_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FUNGUS_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MITHRIL_CAVE),
@@ -466,7 +470,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
 
         float spaghettiNoise = Math.abs ((float) SimplexNoise.noise(
-                (float) blockPos.getX() / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), (float) blockPos.getY() / CAVE_STRETCH_V, (float) blockPos.getZ() / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), 57142));
+                (float) blockPos.getX() / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), (float) Math.tan((float) blockPos.getY() / CAVE_STRETCH_V), (float) blockPos.getZ() / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), 57142));
         float spaghettiNoise2 = Math.abs ((float) SimplexNoise.noise(
                 (float) (98153 + blockPos.getZ()) / SPAGHETTI_CAVE_STRETCH_H, (float) blockPos.getY() / CAVE_STRETCH_V, (float) blockPos.getX() / SPAGHETTI_CAVE_STRETCH_H, 0));
         float spaghettiNoise3 = Math.abs ((float) SimplexNoise.noise(

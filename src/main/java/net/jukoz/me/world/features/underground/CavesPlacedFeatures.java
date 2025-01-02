@@ -10,6 +10,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.intprovider.ClampedNormalIntProvider;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.YOffset;
@@ -49,10 +50,14 @@ public class CavesPlacedFeatures {
     public static final RegistryKey<PlacedFeature> ORE_TUFF = registerKey("ore_tuff");
     public static final RegistryKey<PlacedFeature> ORE_BASALT = registerKey("ore_basalt");
     public static final RegistryKey<PlacedFeature> ORE_BLACKSTONE = registerKey("ore_black_stone");
+    // endregion
+
+    public static final RegistryKey<PlacedFeature> DOLOMITE_CLUSTER = registerKey("dolomite_cluster");
+    //public static final RegistryKey<PlacedFeature> LARGE_DOLOMITE = registerKey("large_dolomite");
+    //public static final RegistryKey<PlacedFeature> POINTED_DOLOMITE = registerKey("pointed_dolomite");
 
     public static final RegistryKey<PlacedFeature> POOL_MUD = registerKey("pool_mud");
     public static final RegistryKey<PlacedFeature> DISK_MYCELIUM = registerKey("disk_mycelium");
-    // endregion
 
     public static final RegistryKey<PlacedFeature> DELTA = registerKey("delta");
 
@@ -146,6 +151,10 @@ public class CavesPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreBasalt = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_BASALT);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreBlackstone = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_BLACKSTONE);
 
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> dolomiteCluster = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.DOLOMITE_CLUSTER);
+        //RegistryEntry.Reference<ConfiguredFeature<?, ?>> largeDolomite = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.LARGE_DOLOMITE);
+        //RegistryEntry.Reference<ConfiguredFeature<?, ?>> pointedDolomite = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.POINTED_DOLOMITE);
+
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> poolMud = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.POOL_MUD);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> diskMycelium = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.DISK_MYCELIUM);
 
@@ -231,6 +240,11 @@ public class CavesPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, ORE_TUFF, oreTuff, modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(-32), YOffset.fixed(0))));
         PlacedFeatures.register(featureRegisterable, ORE_BASALT, oreBasalt, modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(-32), YOffset.fixed(0))));
         PlacedFeatures.register(featureRegisterable, ORE_BLACKSTONE, oreBlackstone, modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(-64), YOffset.fixed(-32))));
+
+        PlacedFeatures.register(featureRegisterable, DOLOMITE_CLUSTER, dolomiteCluster, CountPlacementModifier.of(UniformIntProvider.create(48, 96)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
+        //PlacedFeatures.register(featureRegisterable, LARGE_DOLOMITE, largeDolomite, CountPlacementModifier.of(UniformIntProvider.create(10, 48)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
+        //PlacedFeatures.register(featureRegisterable, POINTED_DOLOMITE, pointedDolomite, CountPlacementModifier.of(UniformIntProvider.create(192, 256)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE,
+        //        CountPlacementModifier.of(UniformIntProvider.create(1, 5)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
 
         PlacedFeatures.register(featureRegisterable, POOL_MUD, poolMud, modifiersWithCount(9, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(120))));
         PlacedFeatures.register(featureRegisterable, DISK_MYCELIUM, diskMycelium, modifiersWithCount(40, mushroomsRange));
