@@ -82,6 +82,7 @@ public class BanditHumanEntity extends NpcEntity{
     protected void initGoals() {
         super.initGoals();
         int i = 4;
+
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, WargEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
@@ -97,7 +98,6 @@ public class BanditHumanEntity extends NpcEntity{
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DaleHumanEntity.class, true));
     }
     @Override

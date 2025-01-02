@@ -1,5 +1,6 @@
 package net.jukoz.me.resources.datas.npcs.data;
 
+import io.netty.util.internal.MathUtil;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.ModEquipmentItems;
@@ -18,6 +19,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -25,7 +28,10 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NpcGearItemData {
@@ -33,11 +39,14 @@ public class NpcGearItemData {
     private final static String NO_CAPE_KEY = "no_cape";
     private Item item;
     private Integer color = null;
+    private List<Integer> colors = null;
     private Integer weight = null;
     private ModCapes cape = null;
     private Integer capeColor = null;
+    private List<Integer> capeColors = null;
     private ModHoods hood = null;
     private Integer hoodColor = null;
+    private List<Integer> hoodColors = null;
     private Boolean isDown = null;
     private Boolean noCape = null;
     private Boolean noHood = null;
@@ -70,12 +79,22 @@ public class NpcGearItemData {
         this.color = color;
         return this;
     }
+
+    public NpcGearItemData withColors(List<Integer> colors) {
+        this.colors = colors;
+        return this;
+    }
+
     public NpcGearItemData withoutCape() {
         this.noCape = true;
         return this;
     }
     public NpcGearItemData withCape(ModCapes cape, int color) {
         capeColor = color;
+        return withCape(cape);
+    }
+    public NpcGearItemData withCape(ModCapes cape, List<Integer> colors) {
+        this.capeColors = colors;
         return withCape(cape);
     }
 
@@ -93,6 +112,10 @@ public class NpcGearItemData {
     }
     public NpcGearItemData withHood(ModHoods hood, int color) {
         hoodColor = color;
+        return withHood(hood);
+    }
+    public NpcGearItemData withHood(ModHoods hood, List<Integer> colors) {
+        hoodColors = colors;
         return withHood(hood);
     }
     public NpcGearItemData withHood(ModHoods hood) {
@@ -135,12 +158,22 @@ public class NpcGearItemData {
                 itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color, true));
             else if(itemStack.isIn(ModTags.DYEABLE))
                 itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(this.color));
+        } else if(this.colors != null){
+            List<TagKey<Item>> tags = itemStack.streamTags().toList();
+            if(tags.contains(ItemTags.DYEABLE))
+                itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(getRandomColor(colors), true));
+            else if(itemStack.isIn(ModTags.DYEABLE))
+                itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(getRandomColor(colors)));
         }
         if(this.noCape != null && this.noCape && itemStack.getComponents().contains(ModDataComponentTypes.CAPE_DATA)){
             itemStack.remove(ModDataComponentTypes.CAPE_DATA);
         } else if (cape != null)
             if(capeColor != null)
                 itemStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCapeWithColor(cape, capeColor));
+            else if(capeColors != null){
+                LoggerUtil.logDebugMsg("item_slot : " + item.getName() + " " + capeColors);
+                itemStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCapeWithColor(cape, getRandomColor(capeColors)));
+            }
             else
                 itemStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(cape));
         if(this.noHood != null && this.noHood && itemStack.getComponents().contains(ModDataComponentTypes.HOOD_DATA)){
@@ -159,10 +192,20 @@ public class NpcGearItemData {
 
             if(hoodColor != null)
                 itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, hoodColor));
+            else if(hoodColors != null)
+                itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, getRandomColor(hoodColors)));
             else
                 itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, CustomDyeableDataComponent.DEFAULT_COLOR));
         }
         return itemStack;
+    }
+
+    private int getRandomColor(List<Integer> listToFetch) {
+        if(listToFetch != null){
+            int max = listToFetch.size();
+            return listToFetch.get(Random.create().nextBetween(0, max));
+        }
+        return Color.PINK.getRGB();
     }
 
     public Integer getWeight(){
@@ -190,6 +233,10 @@ public class NpcGearItemData {
         if(color != null)
             nbt.putInt("color", color);
 
+        List<Integer> colors = gearItemData.colors;
+        if(colors != null)
+            nbt.putIntArray("colors", colors);
+
         Boolean noCape = gearItemData.noCape;
         if(noCape != null)
             nbt.putBoolean("no_cape", noCape);
@@ -201,6 +248,10 @@ public class NpcGearItemData {
         Integer capeColor = gearItemData.capeColor;
         if(capeColor != null)
             nbt.putInt("cape_color", capeColor);
+
+        List<Integer> capeColors = gearItemData.capeColors;
+        if(capeColors != null)
+            nbt.putIntArray("cape_colors", capeColors);
 
         Boolean noHood = gearItemData.noHood;
         if(noHood != null)
@@ -214,7 +265,11 @@ public class NpcGearItemData {
 
         Integer hoodColor = gearItemData.hoodColor;
         if(hoodColor != null)
-            nbt.putInt("cape_color", hoodColor);
+            nbt.putInt("hoodColor", hoodColor);
+
+        List<Integer> hoodColors = gearItemData.hoodColors;
+        if(hoodColors != null)
+            nbt.putIntArray("hoodColors", hoodColors);
 
         return nbt;
     }
@@ -228,6 +283,14 @@ public class NpcGearItemData {
         if(nbt.get("color") != null){
             npcGearItemData.color = nbt.getInt("color");
         }
+        if(nbt.get("colors") != null){
+            int[] list = nbt.getIntArray("colors");
+            List<Integer> newColors = new ArrayList<>();
+            for(int i = 0; i < list.length; i++){
+                newColors.add(list[i]);
+            }
+            npcGearItemData.colors = newColors;
+        }
         if(nbt.get("no_cape") != null){
             npcGearItemData.noCape = nbt.getBoolean("no_cape");
         }
@@ -237,6 +300,15 @@ public class NpcGearItemData {
         if(nbt.get("cape_color") != null){
             npcGearItemData.capeColor = nbt.getInt("cape_color");
         }
+        if(nbt.get("cape_colors") != null){
+            int[] list = nbt.getIntArray("cape_colors");
+            List<Integer> newColors = new ArrayList<>();
+            for(int i = 0; i < list.length; i++){
+                newColors.add(list[i]);
+            }
+            npcGearItemData.capeColors = newColors;
+        }
+
         if(nbt.get("no_hood") != null){
             npcGearItemData.noHood = nbt.getBoolean("no_hood");
         }
@@ -247,6 +319,14 @@ public class NpcGearItemData {
         }
         if(nbt.get("hood_color") != null){
             npcGearItemData.hoodColor = nbt.getInt("hood_color");
+        }
+        if(nbt.get("hood_colors") != null){
+            int[] list = nbt.getIntArray("hood_colors");
+            List<Integer> newColors = new ArrayList<>();
+            for(int i = 0; i < list.length; i++){
+                newColors.add(list[i]);
+            }
+            npcGearItemData.hoodColors = newColors;
         }
         return npcGearItemData;
     }

@@ -455,8 +455,7 @@ public class MiddleEarthFactions {
                             BanditNpcDataPool.BANDIT_THUG
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            BanditNpcDataPool.BANDIT_THUG,
-                            BanditNpcDataPool.BANDIT_THIEF
+                            BanditNpcDataPool.BANDIT_THUG
                     ));
                     put(NpcRank.SOLDIER, List.of(
                             BanditNpcDataPool.BANDIT_THUG
