@@ -6,6 +6,12 @@
   "overrides": [
     {
       "predicate": {
+        "broken": 1
+      },
+      "model": "me:item/orcrist_broken"
+    },
+    {
+      "predicate": {
         "glowing": 1
       },
       "model": "me:item/orcrist_glowing"

@@ -128,17 +128,8 @@ public class MiddleEarthHeightMap {
 
     private static float getDefaultWeightHeight() {
         if(defaultWeightHeight == null) {
-            int x = 0;
-            int z = 0;
-            float topLeft = getImageHeight(x, z);
-
-            float topRight = getImageHeight(x + PIXEL_WEIGHT, z);
-            float bottomLeft = getImageHeight(x, z + PIXEL_WEIGHT);
-            float bottomRight = getImageHeight(x + PIXEL_WEIGHT, z + PIXEL_WEIGHT);
-            defaultWeightHeight =  getHeightBetween(new float[]{topLeft, topRight, bottomLeft, bottomRight},
-                    (float) (x % PIXEL_WEIGHT) / PIXEL_WEIGHT, (float) (z % PIXEL_WEIGHT) / PIXEL_WEIGHT);
+            defaultWeightHeight = getImageHeight(0, 0);
         }
-
         return defaultWeightHeight;
     }
 

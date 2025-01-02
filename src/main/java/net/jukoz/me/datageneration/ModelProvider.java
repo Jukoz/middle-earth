@@ -1227,6 +1227,18 @@ public class ModelProvider extends FabricModelProvider {
             itemModelGenerator.register(item, "_inventory", Models.HANDHELD);
         }
 
+        for (Item item : SimpleBigItemModel.bigBows) {
+            for (int i = 0; i < 3; i++) {
+                itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.LONGBOW);
+                itemModelGenerator.register(item, "_pulling_" + i + "_inventory", Models.HANDHELD);
+
+            }
+        }
+
+        for (Item item : SimpleBigItemModel.genericItems) {
+            itemModelGenerator.register(item, "_inventory", Models.HANDHELD);
+        }
+
         for (Item item : HotMetalsModel.items) {
             itemModelGenerator.register(item, "_hot", Models.GENERATED);
         }
@@ -1247,6 +1259,13 @@ public class ModelProvider extends FabricModelProvider {
             for (int i = 0; i < 3; i++) {
                 itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.BOW);
             }
+        }
+
+        for (Item item : SimpleCrossbowItemModel.items) {
+            for (int i = 0; i < 3; i++) {
+                itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.CROSSBOW);
+            }
+            itemModelGenerator.register(item, "_charged", CustomItemModels.CROSSBOW);
         }
 
         for (Item item : SimpleSpawnEggItemModel.items) {

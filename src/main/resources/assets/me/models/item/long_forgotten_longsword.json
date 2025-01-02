@@ -1,0 +1,14 @@
+{
+  "parent": "me:item/big_weapon",
+  "textures": {
+    "layer0": "me:item/long_forgotten_longsword"
+  },
+  "overrides": [
+        {
+            "predicate": {
+                "broken": 1
+            },
+            "model": "me:item/long_forgotten_longsword_broken"
+        }
+    ]
+}

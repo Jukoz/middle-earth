@@ -15,6 +15,7 @@ public class ModDyeablePieces {
 
     public static void addDyeablePieces() {
         dyeablePieces.put(ModEquipmentItems.BYCOCKET, false);
+        dyeablePieces.put(ModEquipmentItems.WIZARD_HAT, true);
         dyeablePieces.put(ModEquipmentItems.ARMING_COAT, true);
         dyeablePieces.put(ModEquipmentItems.ARMING_SKIRT, true);
         dyeablePieces.put(ModEquipmentItems.LEATHER_SKULLCAP, false);
@@ -44,6 +45,7 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.ELVEN_ARMING_SKIRT, true);
         dyeablePieces.put(ModEquipmentItems.ELVEN_OPEN_ARMING_SKIRT, true);
 
+        dyeablePieces.put(ModEquipmentItems.DWARVEN_MINER_HELMET, true);
         dyeablePieces.put(ModEquipmentItems.DWARVEN_GAMBESON, true);
         dyeablePieces.put(ModEquipmentItems.DWARVEN_MINER_GAMBESON, true);
 
@@ -53,6 +55,9 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.LONGBEARD_REINFORCED_LEATHER_HAUBERK, true);
         dyeablePieces.put(ModEquipmentItems.LONGBEARD_LEATHER_LEGGINGS, true);
 
+        dyeablePieces.put(ModEquipmentItems.EREBOR_LEATHER_HELMET, true);
+        dyeablePieces.put(ModEquipmentItems.EREBOR_BRACED_LEATHER_HELMET, true);
+        dyeablePieces.put(ModEquipmentItems.EREBOR_NASAL_LEATHER_HELMET, true);
         dyeablePieces.put(ModEquipmentItems.EREBOR_BRAWLER_CHESTPLATE, true);
         dyeablePieces.put(ModEquipmentItems.EREBOR_LONG_COAT, true);
         dyeablePieces.put(ModEquipmentItems.EREBOR_PADDED_MAIL_HAUBERK, true);
@@ -113,6 +118,7 @@ public class ModDyeablePieces {
         dyeableCapes.put(ModCapes.CAPE, true);
         dyeableCapes.put(ModCapes.CLOAK, false);
         dyeableCapes.put(ModCapes.SURCOAT, true);
+        dyeableCapes.put(ModCapes.ROBE, true);
         dyeableCapes.put(ModCapes.BLACK_FUR_CLOAK, true);
         dyeableCapes.put(ModCapes.BROWN_FUR_CLOAK, true);
         dyeableCapes.put(ModCapes.GRAY_FUR_CLOAK, true);

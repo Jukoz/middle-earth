@@ -7,6 +7,8 @@ import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -26,21 +28,13 @@ public class ArtefactCustomShieldItem extends CustomShieldItem implements MEEqui
     @Override
     public List<Text> getAdditionalShiftLines(ItemStack stack) {
         List<Text> list = new ArrayList<>(List.of());
-
-        if(!(stack.getDamage() < stack.getMaxDamage() - 1)){
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact_broken").formatted(Formatting.ITALIC).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact")).formatted(Formatting.AQUA));
-        } else {
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact").formatted(Formatting.AQUA));
-        }
-
-        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shield_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
-
+        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name));
         return list;
     }
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
+        appendBaseArtefactTooltip(tooltip, stack);
     }
 
     @Override

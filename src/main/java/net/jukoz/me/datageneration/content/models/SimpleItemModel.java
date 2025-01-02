@@ -1,8 +1,6 @@
 package net.jukoz.me.datageneration.content.models;
 
-import net.jukoz.me.item.ModDecorativeItems;
-import net.jukoz.me.item.ModFoodItems;
-import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.item.*;
 import net.minecraft.item.Item;
 
 import java.util.ArrayList;
@@ -19,15 +17,22 @@ public class SimpleItemModel {
 
             add(ModDecorativeItems.TROLL_STATUE);
 
+
+            //Crops
             add(ModFoodItems.TOMATO);
             add(ModFoodItems.BELL_PEPPER);
             add(ModFoodItems.CUCUMBER);
             add(ModFoodItems.LETTUCE);
             add(ModResourceItems.FLAX);
+
+            //Pipeweed stuff
             add(ModResourceItems.PIPEWEED);
+            add(ModResourceItems.DRIED_PIPEWEED);
 
             add(ModResourceItems.STRAW);
 
+
+            //Food Items
             add(ModFoodItems.BERRY_PIE);
             add(ModFoodItems.BOILED_EGG);
             add(ModFoodItems.FISH_STEW);

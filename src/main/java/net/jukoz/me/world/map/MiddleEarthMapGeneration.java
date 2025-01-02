@@ -7,8 +7,11 @@ import net.jukoz.me.world.biomes.surface.MapBasedCustomBiome;
 import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +26,8 @@ public class MiddleEarthMapGeneration {
     private static final float WATER_HEIGHT_MULTIPLIER = 1.0f;
     private static BufferedImage baseHeightImage;
     private static BufferedImage edgeHeightImage;
+    private static final boolean bakeMap = true; // Do we bake the map textures or not during launch
+
     public MiddleEarthMapGeneration() throws Exception {
         fileUtils = FileUtils.getInstance();
         generate();
@@ -38,9 +43,26 @@ public class MiddleEarthMapGeneration {
             throw new Exception(this + " : The image of the map in resource has created an error and operation cannot continue.");
         }
 
+        if(!bakeMap) { // Prod. mode for release
+            boolean pasted = true;
+            try{
+                URL resource = getClass().getClassLoader().getResource(MiddleEarthMapConfigs.INITIAL_MAP_FOLDER);
+                File srcFolder = new File(resource.toURI());
+                File destFolder = new File(MiddleEarthMapConfigs.MOD_DATA);
+
+                if(destFolder.list().length == 0) {
+                    org.apache.commons.io.FileUtils.copyDirectory(srcFolder, destFolder);
+                }
+
+            } catch(Exception e){
+                LoggerUtil.logError("Couldn't copy paste folders");
+                pasted = false;
+            }
+            if(pasted) return;
+        }
+
         LoggerUtil.logInfoMsg("Validating initial map BIOME colors;");
         if(!validateBaseColors(initialMap)) return;
-
 
         LoggerUtil.logInfoMsg("Validating BIOME generation availability;");
         int iterationToGenerate = (MiddleEarthMapConfigs.FORCE_GENERATION)
@@ -181,7 +203,7 @@ public class MiddleEarthMapGeneration {
                 }
             }
         } else {
-            fileUtils.saveImage(initialImage,MiddleEarthMapConfigs.BIOME_PATH.formatted(0), MiddleEarthMapConfigs.IMAGE_NAME.formatted(0,0), FileType.Png);
+            fileUtils.saveImage(initialImage, MiddleEarthMapConfigs.BIOME_PATH.formatted(0), MiddleEarthMapConfigs.IMAGE_NAME.formatted(0,0), FileType.Png);
         }
     }
 
