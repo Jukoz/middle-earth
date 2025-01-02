@@ -110,7 +110,6 @@ public class CavesConfiguredFeatures {
     static TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES);
     static BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHEN_STONE.base());
     static BlockMatchRuleTest calciteStoneTest = new BlockMatchRuleTest(Blocks.CALCITE);
-    static BlockMatchRuleTest frozenStoneTest = new BlockMatchRuleTest(StoneBlockSets.FROZEN_STONE.base());
     static BlockMatchRuleTest gonluinTest = new BlockMatchRuleTest(StoneBlockSets.GONLUIN.base());
     static BlockMatchRuleTest limestoneTest = new BlockMatchRuleTest(StoneBlockSets.LIMESTONE.base());
     static TagMatchRuleTest deepslateTest = new TagMatchRuleTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
@@ -146,15 +145,12 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(deepslateTest, Blocks.SMOOTH_SANDSTONE.getDefaultState()));
     static List<OreFeatureConfig.Target> snowList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.SNOW_BLOCK.getDefaultState()),
-            OreFeatureConfig.createTarget(frozenStoneTest, Blocks.SNOW_BLOCK.getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.SNOW_BLOCK.getDefaultState()));
     static List<OreFeatureConfig.Target> packedIceList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.PACKED_ICE.getDefaultState()),
-            OreFeatureConfig.createTarget(frozenStoneTest, Blocks.PACKED_ICE.getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.PACKED_ICE.getDefaultState()));
     static List<OreFeatureConfig.Target> blueIceList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.BLUE_ICE.getDefaultState()),
-            OreFeatureConfig.createTarget(frozenStoneTest, Blocks.BLUE_ICE.getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.BLUE_ICE.getDefaultState()));
     static List<OreFeatureConfig.Target> terracottaList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.TERRACOTTA.getDefaultState()),
@@ -172,7 +168,6 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(stoneTest, Blocks.COAL_ORE.getDefaultState()),
             OreFeatureConfig.createTarget(ashenStoneTest, OreRockSets.ASHEN.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(calciteStoneTest, OreRockSets.CALCITE.coal_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(frozenStoneTest, OreRockSets.FROZEN.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(gonluinTest, OreRockSets.GONLUIN.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(limestoneTest, OreRockSets.LIMESTONE.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_COAL_ORE.getDefaultState()));
@@ -180,7 +175,6 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(stoneTest, Blocks.COPPER_ORE.getDefaultState()),
             OreFeatureConfig.createTarget(ashenStoneTest, OreRockSets.ASHEN.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(calciteStoneTest, OreRockSets.CALCITE.copper_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(frozenStoneTest, OreRockSets.FROZEN.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(gonluinTest, OreRockSets.GONLUIN.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(limestoneTest, OreRockSets.LIMESTONE.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_COPPER_ORE.getDefaultState()));
@@ -201,7 +195,6 @@ public class CavesConfiguredFeatures {
     static List<OreFeatureConfig.Target> quartziteList = List.of(
             OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.QUARTZITE.base().getDefaultState()),
             OreFeatureConfig.createTarget(ashenStoneTest, StoneBlockSets.QUARTZITE.base().getDefaultState()),
-            OreFeatureConfig.createTarget(frozenStoneTest, StoneBlockSets.QUARTZITE.base().getDefaultState()),
             OreFeatureConfig.createTarget(gonluinTest, StoneBlockSets.QUARTZITE.base().getDefaultState()),
             OreFeatureConfig.createTarget(limestoneTest, StoneBlockSets.QUARTZITE.base().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.QUARTZITE.base().getDefaultState()));

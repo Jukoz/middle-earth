@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NNN",
+    "NNN",
+    " N "
+  ],
+  "key": {
+    "N": {
+      "item": "me:steel_nugget"
+    }
+  },
+  "result": {
+    "id": "me:scale",
+    "components": {
+      "minecraft:trim": {
+        "material": "me:steel",
+        "pattern": "me:smithing_part"
+      }
+    },
+    "count": 5
+  }
+}

@@ -63,7 +63,7 @@ public class ModBlocks {
     public static final Block CRACKED_GREEN_TUFF_PILLAR = registerStoneBlock("cracked_green_tuff_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
-    public static final Block FROZEN_PILLAR = registerStoneBlock("frozen_pillar",
+    public static final Block SCHIST_PILLAR = registerStoneBlock("schist_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
     public static final Block DOLOMITE_PILLAR = registerStoneBlock("dolomite_pillar",

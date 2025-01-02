@@ -7,6 +7,7 @@ import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import java.util.List;
 
@@ -17,6 +18,11 @@ public class CustomArtefactHelmetItem extends CustomHelmetItem {
 
     public CustomArtefactHelmetItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
         super(material, settings, subFaction);
+    }
+
+    @Override
+    public Text getName(ItemStack stack) {
+        return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
     }
 
     @Override
