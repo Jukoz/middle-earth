@@ -293,30 +293,25 @@ public class MiddleEarthFactions {
         MORDOR = new Faction("mordor", true, Disposition.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MordorNpcDataPool.MORDOR_ORC_SNAGA,
-                            MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
+                            MordorNpcDataPool.MORDOR_ORC_SNAGA
                     ));
                     put(NpcRank.MILITIA, List.of(
                             MordorNpcDataPool.MORDOR_ORC_SNAGA,
                             MordorNpcDataPool.MORDOR_ORC_MILITIA,
-                            MordorNpcDataPool.MORDOR_ORC_SCOUT,
-                            MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
+                            MordorNpcDataPool.MORDOR_ORC_SCOUT
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MordorNpcDataPool.MORDOR_ORC_SOLDIER,
-                            MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
+                            MordorNpcDataPool.MORDOR_ORC_SOLDIER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
-                            MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
+                            MordorNpcDataPool.MORDOR_BLACK_URUK_SOLDIER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
-                            MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
+                            MordorNpcDataPool.MORDOR_BLACK_URUK_VETERAN,
+                            MordorNpcDataPool.MORDOR_BLACK_URUK_VETERAN_ARCHER
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
-                            MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
+                            MordorNpcDataPool.MORDOR_BLACK_URUK_LEADER
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(

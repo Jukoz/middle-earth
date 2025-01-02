@@ -15,7 +15,6 @@ public class FactionLookup {
         return world.getRegistryManager().get(MiddleEarthFactions.FACTION_KEY).stream().toList();
     }
     public static Faction getFactionById(World world, Identifier id) throws FactionIdentifierException {
-        world.getServer().getWorld
         Faction faction = world.getRegistryManager().get(MiddleEarthFactions.FACTION_KEY).get(id);
         if(faction == null)
             throw new FactionIdentifierException();
