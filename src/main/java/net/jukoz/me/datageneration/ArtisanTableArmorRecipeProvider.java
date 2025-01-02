@@ -460,6 +460,17 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.HOOD).getPath() + "_artisan"));
 
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.TALL_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.STRING)
+                .input(ModResourceItems.FABRIC)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.TALL_HOOD).getPath() + "_artisan"));
+
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.BLACK_FUR_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
                 .input(ModResourceItems.FUR)
                 .input(ModEquipmentItems.HOOD)
