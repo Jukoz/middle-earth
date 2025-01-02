@@ -478,7 +478,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         float combinedSpaghettiNoise = Math.abs(spaghettiNoise) + Math.abs(spaghettiNoise2) + Math.abs(spaghettiNoise3);
         combinedSpaghettiNoise /= 3;
 
-        if(noise < 0.4f && noise3 < 0.75f && miniNoise < 0.8f && combinedSpaghettiNoise > 0.1f) {
+        if(noise < 0.4f && noise3 < 0.75f && miniNoise < 0.8f && combinedSpaghettiNoise > 0.09f) {
             chunk.setBlockState(blockPos, blockState, false);
         }
     }

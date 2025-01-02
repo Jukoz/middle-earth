@@ -30,7 +30,7 @@ public class ModBiomeSource extends BiomeSource {
             Codec.list(Biome.REGISTRY_CODEC).fieldOf("biomes").forGetter((biomeSource) -> biomeSource.biomes)).apply(instance, ModBiomeSource::new));
 
     private final List<RegistryEntry<Biome>> biomes;
-    private static final int CAVE_NOISE = 128;
+    private static final int CAVE_NOISE = 200;
     private static final int CAVE_OFFSET = 7220;
     public static final int SUB_BIOME_NOISE = 256;
     public static final int SUB_BIOME_OFFSET = 8240;
