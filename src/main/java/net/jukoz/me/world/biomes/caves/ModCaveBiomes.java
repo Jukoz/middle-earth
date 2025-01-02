@@ -5,6 +5,7 @@ import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.surface.BiomeData;
 import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
 import net.jukoz.me.world.features.vegetation.ModVegetationPlacedFeatures;
+import net.jukoz.me.world.spawners.ModSpawnSettingsBuilder;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -33,12 +34,13 @@ public class ModCaveBiomes {
     public static CaveBiomesMap haradCaves = new CaveBiomesMap();
 
     public static void init() {
+        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LIMESTONE_CAVE, new Vec2f(-1.0f,1.0f)));
         defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(0.0f,1.0f)));
         defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DOLOMITE_CAVE, new Vec2f(1.0f,1.0f)));
         defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.BASIC_CAVE, new Vec2f(0.0f,0.0f)));
-        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LUSH_CAVE, new Vec2f(-1.0f,-1.15f)));
-        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(0f,-1.15f)));
-        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.MUD_CAVE, new Vec2f(1.0f,-1.15f)));
+        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LUSH_CAVE, new Vec2f(-1.0f,-1.1f)));
+        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.MUD_CAVE, new Vec2f(0f,-1.1f)));
+        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(1.0f,-1.1f)));
 
         ashCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(1.0f,0.5f)));
         ashCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.BASALT_CAVE, new Vec2f(-1.0f,0.5f)));
@@ -72,11 +74,11 @@ public class ModCaveBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
         context.register(MEBiomeKeys.DOLOMITE_CAVE, createDolomiteCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(MEBiomeKeys.LIMESTONE_CAVE, createLimestoneCave(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
         context.register(MEBiomeKeys.GALONN_CAVE, createDripstoneCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
         context.register(MEBiomeKeys.IZHER_ABAN_CAVE, createDripstoneCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
-        context.register(MEBiomeKeys.LIMESTONE_CAVE, createDripstoneCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
         context.register(MEBiomeKeys.MUD_CAVE, createMudCaves(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 7435337, 7905386)));
@@ -154,6 +156,21 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.POINTED_DOLOMITE);
         undergroundOres.add(CavesPlacedFeatures.ORE_DOLOMITE_ABUNDANT);
         undergroundOres.add(CavesPlacedFeatures.ORE_OLD_DOLOMITE);
+        undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
+        addBasicFeatures(generationSettings, true);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true);
+    }
+
+    public static Biome createLimestoneCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        undergroundOres.add(CavesPlacedFeatures.LIMESTONE_CLUSTER);
+        undergroundOres.add(CavesPlacedFeatures.LARGE_LIMESTONE);
+        undergroundOres.add(CavesPlacedFeatures.POINTED_LIMESTONE);
+        undergroundOres.add(CavesPlacedFeatures.ORE_LIMESTONE_ABUNDANT);
+        undergroundOres.add(CavesPlacedFeatures.ORE_OLD_LIMESTONE);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
         addBasicFeatures(generationSettings, true);
 
@@ -326,6 +343,8 @@ public class ModCaveBiomes {
 
     public static Biome createBiome(BiomeColorsDTO biomeColors, SpawnSettings.Builder spawnSettings, GenerationSettings.LookupBackedBuilder generationSettings, float temperature, boolean precipitation) {
         ModCaveBiomeFeatures.addBats(spawnSettings);
+        ModCaveBiomeFeatures.addSpiders(spawnSettings);
+        ModCaveBiomeFeatures.addSilverFishes(spawnSettings);
 
         undergroundOres = undergroundOres.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();
         for (RegistryKey<PlacedFeature> feature: undergroundOres) {
