@@ -82,11 +82,11 @@ public class LongbeardDwarfEntity extends NpcEntity {
     }
     public static DefaultAttributeContainer.Builder setKnightAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 24.0)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.285f)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.75)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.5);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6);
     }
     public static DefaultAttributeContainer.Builder setVeteranAttributes() {
         return MobEntity.createMobAttributes()

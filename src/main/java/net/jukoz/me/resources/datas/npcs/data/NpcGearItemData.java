@@ -153,7 +153,10 @@ public class NpcGearItemData {
                 LoggerUtil.logError("NpcGearItemData:: [%s - %s] Cannot set the hood state to %s, it was forced to %s!".formatted(this.item.getName(), hood.getName(), isDown, this.isDown));
             } else if(isDown == null){
                 hoodState = Math.random() >= 0.5;
+            } else {
+                hoodState = this.isDown;
             }
+
             if(hoodColor != null)
                 itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, hoodColor));
             else

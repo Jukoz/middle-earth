@@ -219,22 +219,23 @@ public class MiddleEarthFactions {
         LONGBEARDS_EREBOR = new Faction(LONGBEARDS.getName().concat(".erebor"), true, Disposition.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            EreborNpcDataPool.EREBOR_MILITIA
+                            EreborNpcDataPool.EREBOR_MINER
                     ));
                     put(NpcRank.MILITIA, List.of(
+                            EreborNpcDataPool.EREBOR_MINER,
                             EreborNpcDataPool.EREBOR_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            EreborNpcDataPool.EREBOR_MILITIA
+                            EreborNpcDataPool.EREBOR_SOLDIER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            EreborNpcDataPool.EREBOR_MILITIA
+                            EreborNpcDataPool.EREBOR_BRAWLER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            EreborNpcDataPool.EREBOR_MILITIA
+                            EreborNpcDataPool.EREBOR_VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            EreborNpcDataPool.EREBOR_MILITIA
+                            EreborNpcDataPool.EREBOR_LEADER
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
