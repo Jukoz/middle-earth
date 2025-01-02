@@ -455,19 +455,20 @@ public class MiddleEarthFactions {
                             BanditNpcDataPool.BANDIT_THUG
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            BanditNpcDataPool.BANDIT_THUG
+                            BanditNpcDataPool.BANDIT_THUG,
+                            BanditNpcDataPool.BANDIT_THIEF
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            BanditNpcDataPool.BANDIT_THUG
+                            BanditNpcDataPool.BANDIT_MERCENARY
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            BanditNpcDataPool.BANDIT_THUG
+                            BanditNpcDataPool.BANDIT_CHIEFTAIN
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            BanditNpcDataPool.BANDIT_THUG
+                            BanditNpcDataPool.BANDIT_CHIEFTAIN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            BanditNpcDataPool.BANDIT_THUG
+                            BanditNpcDataPool.BANDIT_CHIEFTAIN
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(

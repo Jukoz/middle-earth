@@ -2,6 +2,7 @@ package net.jukoz.me.resources.datas.npcs.pools;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.utils.armor.capes.ModCapes;
 import net.jukoz.me.item.utils.armor.hoods.ModHoods;
@@ -34,12 +35,16 @@ public class BanditNpcDataPool {
     private final static int PINK = 0x5d2b52;
 
     public final static NpcData BANDIT_THUG;
-    public final static NpcData BANDIT_THIEF_GREEN;
-    public final static NpcData BANDIT_THIEF_DEFAULT;
+    public final static NpcData BANDIT_THIEF;
+    public final static NpcData BANDIT_MERCENARY;
+    public final static NpcData BANDIT_CHIEFTAIN;
 
     public static List<NpcData> fetchAll() {
         return List.of(
-                BANDIT_THUG
+                BANDIT_THUG,
+                BANDIT_THIEF,
+                BANDIT_MERCENARY,
+                BANDIT_CHIEFTAIN
         );
     }
 
@@ -114,13 +119,30 @@ public class BanditNpcDataPool {
                         )
         ));
 
-        BANDIT_THIEF_GREEN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "thief_green"), MiddleEarthRaces.HUMAN, List.of(
+        BANDIT_THIEF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "thief"), MiddleEarthRaces.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.BYCOCKET).withHood(ModHoods.HOOD, OLIVE_GREEN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.BYCOCKET).withHood(ModHoods.HOOD, allColors))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK_BROWN).withCape(ModCapes.CLOAK, OLIVE_GREEN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.LEATHER_VEST).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CLOAK, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.LEATHER_VEST).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CLOAK, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.LEATHER_VEST).withCape(ModCapes.CLOAK, allColors))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.LEATHER_SCALE_VEST).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CLOAK, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.LEATHER_SCALE_VEST).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CLOAK, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.LEATHER_SCALE_VEST).withCape(ModCapes.CLOAK, allColors))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.GAMBESON).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CLOAK, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GAMBESON).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CLOAK, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GAMBESON).withCape(ModCapes.CLOAK, allColors))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CLOAK, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CLOAK, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withCape(ModCapes.CLOAK, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CLOAK, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CLOAK, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withCape(ModCapes.CLOAK, allColors))
                         )
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModEquipmentItems.SHOES))
@@ -134,25 +156,128 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(2))
                         )
         ));
-        BANDIT_THIEF_DEFAULT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "thief_default"), MiddleEarthRaces.HUMAN, List.of(
+
+        BANDIT_MERCENARY = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "mercenary"), MiddleEarthRaces.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.BYCOCKET).withHood(ModHoods.HOOD, DEFAULT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_ORCISH_MAIL_COIF))
+                                .add(NpcGearItemData.create(ModEquipmentItems.KETTLE_HAT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.OPEN_FACE_HELMET))
+                                .add(NpcGearItemData.create(ModEquipmentItems.KETTLE_HAT_WITH_COIF))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK_BROWN).withCape(ModCapes.CLOAK, DEFAULT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CAPE, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CAPE, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withCape(ModCapes.CAPE, allColors))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CAPE, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CAPE, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST).withCape(ModCapes.CAPE, allColors))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CAPE, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CAPE, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT).withCape(ModCapes.CAPE, allColors))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CAPE, allColors).withCape(ModCapes.TAN_FUR))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CAPE, allColors).withCape(ModCapes.TAN_FUR))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT).withCape(ModCapes.CAPE, allColors).withCape(ModCapes.BLACK_FUR))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CAPE, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CAPE, allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE).withCape(ModCapes.CAPE, allColors))
                         )
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModEquipmentItems.SHOES))
                                 .add(NpcGearItemData.create(ModEquipmentItems.STURDY_BOOTS))
                         )
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModWeaponItems.IRON_DAGGER))
+                                .add(NpcGearItemData.create(ModWeaponItems.STEEL_SWORD))
+                                .add(NpcGearItemData.create(ModWeaponItems.STEEL_SPEAR))
+                                .add(NpcGearItemData.create(ModToolItems.STEEL_AXE))
+                                .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_SWORD))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_SWORD))
+                                .add(NpcGearItemData.create(ModWeaponItems.DALISH_SWORD))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModWeaponItems.IRON_DAGGER))
-                                .add(NpcGearItemData.create(Items.AIR).withWeight(2))
+                                .add(NpcGearItemData.create(Items.AIR).withWeight(4))
+                                .add(NpcGearItemData.create(ModWeaponItems.ROUND_SHIELD).withWeight(3))
+                                .add(NpcGearItemData.create(ModWeaponItems.HEATER_SHIELD).withWeight(3))
+                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_WOODEN_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_ROUND_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_BRACED_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.GUNDABAD_WOODEN_SHIELD))
                         )
         ));
+
+        BANDIT_CHIEFTAIN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "chieftain"), MiddleEarthRaces.HUMAN, List.of(
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_LEATHER_HELMET).withColor(DEFAULT).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_BRACED_LEATHER_HELMET).withColor(DEFAULT).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.SALLET).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_BRACED_HELMET).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.KETTLE_HAT_WITH_CLOSED_COIF).withWeight(4))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_SEEKER_HELMET).withColor(DARK_BROWN).withWeight(2))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_SEEKER_HELMET).withColor(LIGHT_BROWN).withWeight(2))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_SEEKER_HELMET).withColors(allColors))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_NASAL_LEATHER_HELMET).withColor(DEFAULT))
+
+                        )
+                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CAPE, DEFAULT).withCape(ModCapes.ORCISH_TAN_FUR_SURCOAT_WITH_BONE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CAPE, DEFAULT).withCape(ModCapes.ORCISH_TAN_FUR_SURCOAT_WITH_BONE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withCape(ModCapes.CLOAK, DEFAULT).withCape(ModCapes.ORCISH_BLACK_FUR_SURCOAT_WITH_BONE))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CAPE, DEFAULT).withCape(ModCapes.ORCISH_TAN_FUR_SURCOAT_WITH_BONE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CAPE, DEFAULT).withCape(ModCapes.ORCISH_TAN_FUR_SURCOAT_WITH_BONE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withCape(ModCapes.CLOAK, DEFAULT).withCape(ModCapes.ORCISH_BLACK_FUR_SURCOAT_WITH_BONE))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CAPE, allColors).withCape(ModCapes.ORCISH_TAN_FUR_SURCOAT_WITH_BONE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CAPE, allColors).withCape(ModCapes.ORCISH_TAN_FUR_SURCOAT_WITH_BONE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT).withCape(ModCapes.CAPE, allColors).withCape(ModCapes.ORCISH_BLACK_FUR_SURCOAT_WITH_BONE))
+                        )
+                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.MAIL_SKIRT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.DWARVEN_MAIL_COAT))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CAPE, DEFAULT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CAPE, DEFAULT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withCape(ModCapes.CLOAK, DEFAULT))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_REINFORCED_LEATHER_SKIRT).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CAPE, DEFAULT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_REINFORCED_LEATHER_SKIRT).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CAPE, DEFAULT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_REINFORCED_LEATHER_SKIRT).withCape(ModCapes.CLOAK, DEFAULT))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_LEATHER_LEGGINGS).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.CAPE, DEFAULT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_LEATHER_LEGGINGS).withColor(LIGHT_BROWN).withWeight(2).withCape(ModCapes.CAPE, DEFAULT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_LEATHER_LEGGINGS).withCape(ModCapes.CLOAK, DEFAULT))
+                        )
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.DWARVEN_REINFORCED_BOOTS))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_PLATE_BOOTS))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATED_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModWeaponItems.STEEL_SWORD))
+                                .add(NpcGearItemData.create(ModWeaponItems.STEEL_SPEAR))
+                                .add(NpcGearItemData.create(ModToolItems.STEEL_AXE))
+                                .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_SWORD))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_SWORD))
+                                .add(NpcGearItemData.create(ModWeaponItems.DALISH_SWORD))
+                        )
+                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(Items.AIR).withWeight(4))
+                                .add(NpcGearItemData.create(ModWeaponItems.ROUND_SHIELD).withWeight(3))
+                                .add(NpcGearItemData.create(ModWeaponItems.HEATER_SHIELD).withWeight(3))
+                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_WOODEN_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_ROUND_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_BRACED_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.GUNDABAD_WOODEN_SHIELD))
+                        )
+        ));
+
+
+
+
     }
 }
