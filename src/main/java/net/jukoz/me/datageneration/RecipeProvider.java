@@ -722,9 +722,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createSpearRecipeTag(exporter, Items.STICK, TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials")), ModWeaponItems.STONE_SPEAR);
         createSpearRecipe(exporter, Items.STICK, Items.DIAMOND, ModWeaponItems.DIAMOND_SPEAR);
 
-        createToolSetRecipes(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModToolItems.JADE_PICKAXE, ModToolItems.JADE_AXE, ModToolItems.JADE_SHOVEL, ModToolItems.JADE_HOE);
-        createSwordRecipe(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModWeaponItems.JADE_SWORD);
-        createSpearRecipe(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModWeaponItems.JADE_SPEAR);
 
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BRONZE_INGOT, ModToolItems.BRONZE_PICKAXE, ModToolItems.BRONZE_AXE, ModToolItems.BRONZE_SHOVEL, ModToolItems.BRONZE_HOE);
 

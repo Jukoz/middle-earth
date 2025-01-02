@@ -10,6 +10,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.gui.artisantable.ArtisanTableInputsShape;
 import net.jukoz.me.gui.artisantable.InputType;
 import net.jukoz.me.recipe.ArtisanRecipe;
+import net.jukoz.me.resources.datas.Disposition;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -22,12 +23,14 @@ public class ArtisanTableEmiRecipe implements EmiRecipe {
     private final List<EmiIngredient> inputs;
     private final List<EmiStack> output;
     private final ArtisanTableInputsShape shape;
+    private final Disposition disposition;
 
     public ArtisanTableEmiRecipe(ArtisanRecipe recipe){
         this.id = Identifier.of(MiddleEarth.MOD_ID, "/artisan_table" + "/" + Registries.ITEM.getId(recipe.getOutput().getItem()).getPath());
         this.inputs = recipe.getIngredients().stream().map(i -> EmiIngredient.of(i)).toList();
         this.output = List.of(EmiStack.of(recipe.getOutput()));
         this.shape = ArtisanTableInputsShape.getShape(recipe.category);
+        this.disposition = Disposition.valueOf(recipe.disposition.toUpperCase());
     }
 
     @Override
@@ -75,8 +78,9 @@ public class ArtisanTableEmiRecipe implements EmiRecipe {
             }
         }
 
-        widgets.addText(Text.translatable("screen." + MiddleEarth.MOD_ID +".artisan_table." + shape.getId()), 0, 56, 0, false);
+        widgets.addText(Text.translatable("screen." + MiddleEarth.MOD_ID +".artisan_table." + shape.getId()), 0, 63, 0, false);
+        widgets.addText(disposition.getName(), 0, 73, 0, false);
 
-        widgets.addSlot(output.getFirst(), 31, 65).recipeContext(this);
+        widgets.addSlot(output.getFirst(), 58, 65).recipeContext(this);
     }
 }
