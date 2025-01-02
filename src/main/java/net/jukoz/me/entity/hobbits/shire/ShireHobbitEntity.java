@@ -13,6 +13,7 @@ import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.items.weapons.ranged.PebbleItem;
 import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -53,6 +54,8 @@ public class ShireHobbitEntity extends NpcEntity {
     protected Identifier getFactionId() {
         return MiddleEarthFactions.SHIRE.getId();
     }
+    @Override
+    protected Identifier getRaceId() { return MiddleEarthRaces.HOBBIT.getId(); }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {

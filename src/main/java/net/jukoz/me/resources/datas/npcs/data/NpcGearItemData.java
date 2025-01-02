@@ -189,20 +189,20 @@ public class NpcGearItemData {
             } else {
                 hoodState = this.isDown;
             }
-
+            int newHoodColor = CustomDyeableDataComponent.DEFAULT_COLOR;
             if(hoodColor != null)
-                itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, hoodColor));
+                newHoodColor = hoodColor;
             else if(hoodColors != null)
-                itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, getRandomColor(hoodColors)));
-            else
-                itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, CustomDyeableDataComponent.DEFAULT_COLOR));
+                newHoodColor = getRandomColor(hoodColors);
+            itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, newHoodColor));
+            itemStack = HoodDataComponent.setHoodWithcolor(itemStack, hoodState, itemStack.get(ModDataComponentTypes.HOOD_DATA).hood(), newHoodColor);
         }
         return itemStack;
     }
 
     private int getRandomColor(List<Integer> listToFetch) {
         if(listToFetch != null){
-            int max = listToFetch.size();
+            int max = listToFetch.size() - 1;
             return listToFetch.get(Random.create().nextBetween(0, max));
         }
         return Color.PINK.getRGB();

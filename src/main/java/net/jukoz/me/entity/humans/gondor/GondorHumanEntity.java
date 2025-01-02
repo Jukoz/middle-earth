@@ -3,6 +3,7 @@ package net.jukoz.me.entity.humans.gondor;
 import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -41,7 +42,8 @@ public class GondorHumanEntity extends NpcEntity{
     protected Identifier getFactionId() {
         return MiddleEarthFactions.GONDOR.getId();
     }
-
+    @Override
+    protected Identifier getRaceId() { return MiddleEarthRaces.HUMAN.getId(); }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {

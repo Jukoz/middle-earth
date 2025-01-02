@@ -17,6 +17,7 @@ import net.jukoz.me.entity.uruks.isengard.IsengardUrukHaiEntity;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -52,6 +53,12 @@ public class BanditHumanEntity extends NpcEntity{
         }
     }
 
+    @Override
+    protected Identifier getFactionId() {
+        return MiddleEarthFactions.BANDIT.getId();
+    }
+    @Override
+    protected Identifier getRaceId() { return MiddleEarthRaces.HUMAN.getId(); }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
@@ -106,10 +113,6 @@ public class BanditHumanEntity extends NpcEntity{
             return;
         }
         super.applyDamage(source, amount);
-    }
-    @Override
-    protected Identifier getFactionId() {
-        return MiddleEarthFactions.BANDIT.getId();
     }
 
     public BanditHumanVariant getVariant() {

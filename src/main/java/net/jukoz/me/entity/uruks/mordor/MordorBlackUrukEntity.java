@@ -12,6 +12,7 @@ import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -48,6 +49,8 @@ public class MordorBlackUrukEntity extends UrukNpcEntity {
     protected Identifier getFactionId() {
         return MiddleEarthFactions.MORDOR.getId();
     }
+    @Override
+    protected Identifier getRaceId() { return MiddleEarthRaces.URUK.getId(); }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {

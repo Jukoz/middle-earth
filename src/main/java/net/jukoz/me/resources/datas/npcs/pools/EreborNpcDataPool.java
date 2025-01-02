@@ -35,6 +35,8 @@ public class EreborNpcDataPool {
     public final static NpcData EREBOR_MINER;
     public final static NpcData EREBOR_MILITIA;
     public final static NpcData EREBOR_SOLDIER;
+    public final static NpcData EREBOR_ARCHER;
+
     public final static NpcData EREBOR_BRAWLER;
     public final static NpcData EREBOR_VETERAN;
     public final static NpcData EREBOR_GATEWARDEN;
@@ -45,6 +47,7 @@ public class EreborNpcDataPool {
                 EREBOR_MINER,
                 EREBOR_MILITIA,
                 EREBOR_SOLDIER,
+                EREBOR_ARCHER,
                 EREBOR_BRAWLER,
                 EREBOR_VETERAN,
                 EREBOR_GATEWARDEN,
@@ -148,6 +151,39 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(ModWeaponItems.EREBOR_CROSS_SHIELD))
                                 .add(NpcGearItemData.create(ModWeaponItems.ROUND_SHIELD))
                                 .add(NpcGearItemData.create(ModWeaponItems.HEATER_SHIELD))
+                        )
+        ));
+
+        EREBOR_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "archer"), MiddleEarthRaces.DWARF, List.of(
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_HELMET).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_MAIL_COIF).withWeight(2))
+                                .add(NpcGearItemData.create(ModEquipmentItems.LONGBEARD_SEGMENTED_HELMET))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_LEATHER_HELMET))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_BRACED_LEATHER_HELMET))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_NASAL_LEATHER_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_PADDED_MAIL_HAUBERK).withCape(ModCapes.EREBOR_CAPE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_PADDED_MAIL_HAUBERK).withCape(ModCapes.SURCOAT, LIGHT_BLUE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_LONG_COAT).withColor(LIGHT_RED))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_LONG_COAT).withColor(LIGHT_RED).withCape(ModCapes.SURCOAT, LIGHT_BLUE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_BRAWLER_CHESTPLATE).withColor(LIGHT_BLUE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_BRAWLER_CHESTPLATE).withColor(DARK_RED).withCape(ModCapes.EREBOR_CAPE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_REINFORCED_LEATHER_HAUBERK).withColor(LIGHT_BLUE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_REINFORCED_COAT).withColor(LIGHT_BLUE).withCape(ModCapes.SURCOAT, LIGHT_BLUE))
+                        )
+                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_LEATHER_LEGGINGS).withColor(LIGHT_RED).withWeight(5))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_MAIL_COAT).withWeight(2))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_MAIL_LEGGINGS))
+                                .add(NpcGearItemData.create(ModEquipmentItems.LONGBEARD_LEATHER_LEGGINGS).withColor(LIGHT_RED))
+                        )
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.EREBOR_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_BOW).withWeight(3))
+                                .add(NpcGearItemData.create(Items.BOW))
                         )
         ));
 

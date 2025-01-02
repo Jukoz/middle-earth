@@ -11,6 +11,7 @@ import net.jukoz.me.entity.orcs.isengard.IsengardOrcEntity;
 import net.jukoz.me.entity.uruks.UrukNpcEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -46,6 +47,8 @@ public class IsengardUrukHaiEntity extends UrukNpcEntity {
     protected Identifier getFactionId() {
         return MiddleEarthFactions.ISENGARD.getId();
     }
+    @Override
+    protected Identifier getRaceId() { return MiddleEarthRaces.URUK.getId(); }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {

@@ -4,6 +4,7 @@ import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -44,6 +45,9 @@ public class RohanHumanEntity extends NpcEntity {
     protected Identifier getFactionId() {
         return MiddleEarthFactions.ROHAN.getId();
     }
+
+    @Override
+    protected Identifier getRaceId() { return MiddleEarthRaces.HUMAN.getId(); }
 
     @Nullable
     @Override

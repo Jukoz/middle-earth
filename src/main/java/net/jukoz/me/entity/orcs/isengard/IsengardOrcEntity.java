@@ -11,6 +11,7 @@ import net.jukoz.me.entity.orcs.OrcNpcEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EntityData;
@@ -51,6 +52,8 @@ public class IsengardOrcEntity extends OrcNpcEntity {
     protected Identifier getFactionId() {
         return MiddleEarthFactions.ISENGARD.getId();
     }
+    @Override
+    protected Identifier getRaceId() { return MiddleEarthRaces.ORC.getId(); }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {

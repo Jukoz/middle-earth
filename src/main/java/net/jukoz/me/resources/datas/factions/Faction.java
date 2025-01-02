@@ -234,10 +234,10 @@ public class Faction {
     return id.toString();
     }
 
-    public NpcData getRandomGear(World world, NpcRank npcRank) {
+    public NpcData getRandomGear(World world, NpcRank npcRank, Race race) {
         if(!this.npcDatasByRank.containsKey(npcRank))
             return null;
-        List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatas(world, getNpcPoolFromRank(npcRank));
+        List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatasFromRace(world, getNpcPoolFromRank(npcRank), race.getId());
         if(npcDataList.isEmpty())
             return null;
         Random random = new Random();

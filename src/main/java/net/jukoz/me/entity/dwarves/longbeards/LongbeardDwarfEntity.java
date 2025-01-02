@@ -13,6 +13,7 @@ import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
@@ -62,6 +63,9 @@ public class LongbeardDwarfEntity extends NpcEntity {
     protected Identifier getFactionId() {
         return MiddleEarthFactions.LONGBEARDS_EREBOR.getId();
     }
+    @Override
+    protected Identifier getRaceId() { return MiddleEarthRaces.DWARF.getId(); }
+
 
     @Nullable
     @Override

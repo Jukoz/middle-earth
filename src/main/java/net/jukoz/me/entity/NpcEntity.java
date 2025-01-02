@@ -23,12 +23,15 @@ import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.datas.RaceType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.NpcUtil;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
+import net.jukoz.me.resources.datas.races.Race;
+import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.*;
@@ -56,6 +59,7 @@ import java.util.function.Predicate;
 
 public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     private Disposition disposition;
+    private Identifier raceId;
     private Item bow;
     private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<NpcEntity>(this, 1.0, 16, 30.0f);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.5, false);
@@ -69,6 +73,9 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     }
 
     protected Identifier getFactionId(){
+        return null;
+    }
+    protected Identifier getRaceId(){
         return null;
     }
 
@@ -183,7 +190,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        tryToEquipGears(this.getRank(), getFactionId());
+        tryToEquipGears(this.getRank(), this.getRaceId(), getFactionId());
     }
 
     @Override
@@ -262,12 +269,13 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         super.applyDamage(source, amount);
     }
 
-    protected void tryToEquipGears(NpcRank npcRank, Identifier factionId) {
+    protected void tryToEquipGears(NpcRank npcRank, Identifier raceId, Identifier factionId) {
         if(factionId == null)
             return;
         try{
             Faction faction = FactionLookup.getFactionById(getWorld(), factionId);
-            NpcData data = faction.getRandomGear(getWorld(), npcRank);
+            Race race = RaceLookup.getRace(getWorld(), raceId);
+            NpcData data = faction.getRandomGear(getWorld(), npcRank, race);
             NpcGearData gearData = data.getGear();
             NpcUtil.equipAll(this, gearData);
         } catch (FactionIdentifierException e) {

@@ -226,7 +226,8 @@ public class MiddleEarthFactions {
                             EreborNpcDataPool.EREBOR_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            EreborNpcDataPool.EREBOR_SOLDIER
+                            EreborNpcDataPool.EREBOR_SOLDIER,
+                            EreborNpcDataPool.EREBOR_ARCHER
                     ));
                     put(NpcRank.KNIGHT, List.of(
                             EreborNpcDataPool.EREBOR_BRAWLER
@@ -292,15 +293,17 @@ public class MiddleEarthFactions {
         MORDOR = new Faction("mordor", true, Disposition.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
+                            MordorNpcDataPool.MORDOR_ORC_SNAGA,
                             MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
                     ));
                     put(NpcRank.MILITIA, List.of(
+                            MordorNpcDataPool.MORDOR_ORC_SNAGA,
                             MordorNpcDataPool.MORDOR_ORC_MILITIA,
+                            MordorNpcDataPool.MORDOR_ORC_SCOUT,
                             MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
+                            MordorNpcDataPool.MORDOR_ORC_SCOUT,
                             MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
