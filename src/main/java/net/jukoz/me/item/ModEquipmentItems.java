@@ -42,6 +42,11 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.HOOD))
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
+    public static final Item TALL_HOOD = registerDyeableHood("tall_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.TALL_HOOD))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
+                    ModFactions.NONE));
 
     public static final Item BLACK_FUR_HOOD = registerDyeableHood("black_fur_hood",
             new HoodHelmetItem(new Item.Settings()

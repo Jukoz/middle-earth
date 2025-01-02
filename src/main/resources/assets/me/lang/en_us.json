@@ -574,6 +574,7 @@
 
 "#Comment:": "Armours",
   "item.me.hood": "Hood",
+  "item.me.tall_hood": "Tall Hood",
 
   "item.me.black_fur_hood": "Black Fur Hood",
   "item.me.brown_fur_hood": "Brown Fur Hood",
@@ -7240,6 +7241,7 @@
 "#Comment": "Capes",
 
   "tooltip.me.hood": "Hood",
+  "tooltip.me.tall_hood": "Tall Hood",
 
   "tooltip.me.black_fur_hood": "Black Fur Hood",
   "tooltip.me.brown_fur_hood": "Brown Fur Hood",

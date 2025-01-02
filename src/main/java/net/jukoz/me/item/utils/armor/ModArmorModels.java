@@ -251,6 +251,7 @@ public class ModArmorModels {
 
     public enum ModHoodPairedModels implements StringIdentifiable {
         HOOD(ModHoods.HOOD, ModHoodModels.REGULAR_MODELS),
+        TALL_HOOD(ModHoods.TALL_HOOD, ModHoodModels.TALL_MODELS),
 
         BLACK_FUR_HOOD(ModHoods.BLACK_FUR_HOOD, ModHoodModels.FUR_MODELS),
         BROWN_FUR_HOOD(ModHoods.BROWN_FUR_HOOD, ModHoodModels.FUR_MODELS),
