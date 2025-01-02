@@ -719,9 +719,6 @@ public class ModBiomeFeatures {
     public static void addDryDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.DRY_DIRT_ORE);
     }
-    public static void addFrozenStone(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(OrePlacedFeatures.FROZEN_STONE_ORE);
-    }
     public static void addGraniteOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.GRANITE_ORE);
     }

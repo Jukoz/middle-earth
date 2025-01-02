@@ -171,16 +171,16 @@ public class StoneBlockSets {
 
     public static SimplePillarBlockSet OLD_IZHERABAN = registerStonePillarSet("old_izheraban", IZHERABAN.base.getHardness(), IZHERABAN.base.getBlastResistance(), null);
 
-    public static SimpleBlockSetMain FROZEN_STONE = registerMainStoneSet("frozen_stone", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
-    public static SimpleBlockSet FROZEN_COBBLESTONE = registerStoneSet("frozen_cobblestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, FROZEN_STONE.base);
+    public static SimpleBlockSetMain SCHIST = registerMainStoneSet("schist", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+    public static SimpleBlockSet COBBLED_SCHIST = registerStoneSet("cobbled_schist", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, SCHIST.base);
     //public static SimpleBlockSet MOSSY_FROZEN_COBBLESTONE = registerStoneSet("mossy_frozen_cobblestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, FROZEN_STONE.base);
-    public static SimpleBlockSet POLISHED_FROZEN_STONE = registerStoneSet("polished_frozen_stone", FROZEN_STONE.base.getHardness(), FROZEN_STONE.base.getBlastResistance(), FROZEN_STONE.base);
+    public static SimpleBlockSet POLISHED_SCHIST = registerStoneSet("polished_schist", SCHIST.base.getHardness(), SCHIST.base.getBlastResistance(), SCHIST.base);
     //public static SimpleBlockSet MOSSY_POLISHED_FROZEN_STONE = registerStoneSet("mossy_polished_frozen_stone", FROZEN_STONE.base.getHardness(), FROZEN_STONE.base.getBlastResistance(), POLISHED_FROZEN_STONE.base);
     //public static SimpleBlockSet CRACKED_POLISHED_FROZEN_STONE = registerStoneSet("cracked_polished_frozen_stone", FROZEN_STONE.base.getHardness(), FROZEN_STONE.base.getBlastResistance(), POLISHED_FROZEN_STONE.base);
-    public static SimpleBlockSet FROZEN_BRICKS = registerStoneSet("frozen_bricks", FROZEN_COBBLESTONE.base.getHardness(), FROZEN_COBBLESTONE.base.getBlastResistance(), POLISHED_FROZEN_STONE.base);
+    public static SimpleBlockSet SCHIST_BRICKS = registerStoneSet("schist_bricks", COBBLED_SCHIST.base.getHardness(), COBBLED_SCHIST.base.getBlastResistance(), POLISHED_SCHIST.base);
     //public static SimpleBlockSet MOSSY_FROZEN_STONE_BRICKS = registerStoneSet("mossy_frozen_stone_bricks", FROZEN_COBBLESTONE.base.getHardness(), FROZEN_COBBLESTONE.base.getBlastResistance(), FROZEN_BRICKS.base);
     //public static SimpleBlockSet CRACKED_FROZEN_STONE_BRICKS = registerStoneSet("cracked_frozen_stone_bricks", FROZEN_COBBLESTONE.base.getHardness(), FROZEN_COBBLESTONE.base.getBlastResistance(), FROZEN_BRICKS.base);
-    public static SimpleBlockSet FROZEN_TILES = registerStoneSet("frozen_tiles", FROZEN_COBBLESTONE.base.getHardness(), FROZEN_COBBLESTONE.base.getBlastResistance(), FROZEN_BRICKS.base);
+    public static SimpleBlockSet SCHIST_TILES = registerStoneSet("schist_tiles", COBBLED_SCHIST.base.getHardness(), COBBLED_SCHIST.base.getBlastResistance(), SCHIST_BRICKS.base);
     //public static SimpleBlockSet MOSSY_FROZEN_TILES = registerStoneSet("mossy_frozen_tiles", FROZEN_COBBLESTONE.base.getHardness(), FROZEN_COBBLESTONE.base.getBlastResistance(), FROZEN_TILES.base);
     //public static SimpleBlockSet CRACKED_FROZEN_TILES = registerStoneSet("cracked_frozen_tiles", FROZEN_COBBLESTONE.base.getHardness(), FROZEN_COBBLESTONE.base.getBlastResistance(), FROZEN_TILES.base);
 
@@ -500,7 +500,7 @@ public class StoneBlockSets {
 
             GONLUIN,
 
-            FROZEN_STONE,
+            SCHIST,
 
             DOLOMITE,
             
@@ -575,10 +575,10 @@ public class StoneBlockSets {
             MOSSY_GONLUIN_TILES,
             CRACKED_GONLUIN_TILES,
 
-            FROZEN_COBBLESTONE,
-            FROZEN_BRICKS,
-            FROZEN_TILES,
-            POLISHED_FROZEN_STONE,
+            COBBLED_SCHIST,
+            POLISHED_SCHIST,
+            SCHIST_BRICKS,
+            SCHIST_TILES,
 
             SMOOTH_CALCITE,
             MOSSY_SMOOTH_CALCITE,

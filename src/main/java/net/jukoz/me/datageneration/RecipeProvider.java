@@ -494,11 +494,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createPaneRecipe(exporter, Blocks.CUT_COPPER.asItem(), ModBlocks.COPPER_BARS, 16);
 
-        createCenterSurroundRecipe(exporter, Blocks.STONE.asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_STONE.base().asItem(), 8);
-        createCenterSurroundRecipe(exporter, Blocks.COBBLESTONE.asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_COBBLESTONE.base().asItem(), 8);
-        createCenterSurroundRecipe(exporter, Blocks.STONE_BRICKS.asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_BRICKS.base().asItem(), 8);
-        createCenterSurroundRecipe(exporter, StoneBlockSets.STONE_TILES.base().asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_TILES.base().asItem(), 8);
-
         createBrickRecipe(exporter, ModResourceItems.CITRINE_SHARD, ModBlocks.CITRINE_BLOCK, 1);
         createFilledRecipe(exporter, Items.GLOWSTONE, ModBlocks.GLOWSTONE_BLOCK, 1);
         createBrickRecipe(exporter, ModResourceItems.QUARTZ_SHARD, ModBlocks.QUARTZ_BLOCK, 1);

@@ -36,7 +36,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(MAX_ANGLE, Blocks.COBBLED_DEEPSLATE);
     public static SlopeMap blueMountainsPeaks = new SlopeMap()
             .addSlopeData(25, Blocks.SNOW_BLOCK)
-            .addSlopeData(33, StoneBlockSets.FROZEN_STONE.base())
+            .addSlopeData(33, StoneBlockSets.SCHIST.base())
             .addSlopeData(35, Blocks.ANDESITE)
             .addSlopeData(42, Blocks.TUFF)
             .addSlopeData(50, StoneBlockSets.BLUE_TUFF.base())
@@ -69,7 +69,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(56, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.DEEPSLATE);
     public static SlopeMap lonelyMountainPeak = new SlopeMap().addSlopeData(24, Blocks.SNOW_BLOCK)
-            .addSlopeData(36, StoneBlockSets.FROZEN_STONE.base())
+            .addSlopeData(36, StoneBlockSets.SCHIST.base())
             .addSlopeData(48, Blocks.STONE)
             .addSlopeData(60, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.DEEPSLATE);
@@ -98,7 +98,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(50, StoneBlockSets.GNEISS.base())
             .addSlopeData(MAX_ANGLE, StoneBlockSets.ZIGILABAN.base());
     public static SlopeMap mistiesPeaks = new SlopeMap().addSlopeData(36, Blocks.SNOW_BLOCK)
-            .addSlopeData(45, StoneBlockSets.FROZEN_STONE.base())
+            .addSlopeData(45, StoneBlockSets.SCHIST.base())
             .addSlopeData(MAX_ANGLE, StoneBlockSets.ZIGILABAN.base());
     public static SlopeMap caradhras = new SlopeMap().addSlopeData(12, Blocks.GRASS_BLOCK)
             .addSlopeData(16, Blocks.COARSE_DIRT)
@@ -108,7 +108,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(49, Blocks.GRANITE)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.HEMATITE.base());
     public static SlopeMap caradhrasPeaks = new SlopeMap().addSlopeData(36, Blocks.SNOW_BLOCK)
-            .addSlopeData(45, StoneBlockSets.FROZEN_STONE.base())
+            .addSlopeData(45, StoneBlockSets.SCHIST.base())
             .addSlopeData(MAX_ANGLE, StoneBlockSets.HEMATITE.base());
     public static SlopeMap celebdil = new SlopeMap().addSlopeData(12, Blocks.GRASS_BLOCK)
             .addSlopeData(16, Blocks.COARSE_DIRT)
@@ -118,7 +118,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(48, StoneBlockSets.GNEISS.base())
             .addSlopeData(MAX_ANGLE, StoneBlockSets.ZIGILABAN.base());
     public static SlopeMap celebdilPeaks = new SlopeMap().addSlopeData(36, Blocks.SNOW_BLOCK)
-            .addSlopeData(45, StoneBlockSets.FROZEN_STONE.base())
+            .addSlopeData(45, StoneBlockSets.SCHIST.base())
             .addSlopeData(MAX_ANGLE, StoneBlockSets.ZIGILABAN.base());
     public static SlopeMap fanuidhol = new SlopeMap().addSlopeData(12, Blocks.GRASS_BLOCK)
             .addSlopeData(16, Blocks.COARSE_DIRT)
@@ -128,7 +128,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(49, StoneBlockSets.LIMESTONE.base())
             .addSlopeData(MAX_ANGLE, StoneBlockSets.GALONN.base());
     public static SlopeMap fanuidholPeaks = new SlopeMap().addSlopeData(36, Blocks.SNOW_BLOCK)
-            .addSlopeData(45, StoneBlockSets.FROZEN_STONE.base())
+            .addSlopeData(45, StoneBlockSets.SCHIST.base())
             .addSlopeData(MAX_ANGLE, StoneBlockSets.GALONN.base());
 
     public static SlopeMap mordorMountains = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_DIRT)
@@ -192,7 +192,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(MAX_ANGLE, Blocks.CLAY);
 
     public static SlopeMap forodwaith = new SlopeMap().addSlopeData(30, Blocks.SNOW_BLOCK)
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.FROZEN_STONE.base());
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.SCHIST.base());
 
     public static SlopeMap mud = new SlopeMap().addSlopeData(25, Blocks.MUD)
             .addSlopeData(32, Blocks.DIRT)
@@ -227,7 +227,7 @@ public class MEBiomeDataConfigs {
     public static BlocksLayeringData ashenStoneLayers = new BlocksLayeringData().addLayerData(1.0f, StoneBlockSets.ASHEN_STONE.base());
 
     public static BlocksLayeringData frozenLayers = new BlocksLayeringData().addLayerData(0.5f, Blocks.STONE)
-            .addLayerData(0.5f, StoneBlockSets.FROZEN_STONE.base());
+            .addLayerData(0.5f, StoneBlockSets.SCHIST.base());
 
     public static BlocksLayeringData gonluinLayers = new BlocksLayeringData().addLayerData(0.5f, Blocks.STONE)
             .addLayerData(0.5f, StoneBlockSets.GONLUIN.base());
