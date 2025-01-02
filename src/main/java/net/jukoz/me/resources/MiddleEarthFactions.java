@@ -303,7 +303,7 @@ public class MiddleEarthFactions {
                             MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MordorNpcDataPool.MORDOR_ORC_SCOUT,
+                            MordorNpcDataPool.MORDOR_ORC_SOLDIER,
                             MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
