@@ -52,7 +52,7 @@ public class SimplePillarModel {
             add(new StonePillar(ModBlocks.GREEN_TUFF_PILLAR, StoneBlockSets.GREEN_TUFF_BRICKS.base()));
             add(new StonePillar(ModBlocks.CRACKED_GREEN_TUFF_PILLAR, ModBlocks.GREEN_TUFF_PILLAR));
 
-            add(new StonePillar(ModBlocks.FROZEN_PILLAR, StoneBlockSets.FROZEN_BRICKS.base()));
+            add(new StonePillar(ModBlocks.SCHIST_PILLAR, StoneBlockSets.SCHIST_BRICKS.base()));
 
             add(new StonePillar(ModBlocks.DOLOMITE_PILLAR, StoneBlockSets.DOLOMITE_BRICKS.base()));
             add(new StonePillar(ModBlocks.MOSSY_DOLOMITE_PILLAR, ModBlocks.DOLOMITE_PILLAR));
