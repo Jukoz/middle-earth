@@ -4387,5 +4387,163 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
 
         //endregion
 
+        //MOUNT ARMORS
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_HORSE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(steelArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(steelArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_HORSE_ARMOR).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_HORSE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(steelArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(steelArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ROHIRRIC_HORSE_ARMOR).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.DALISH_HORSE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(steelArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(steelArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.DALISH_HORSE_ARMOR).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_HORSE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(edhelSteelArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(edhelSteelArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.LORIEN_HORSE_ARMOR).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                .input(Items.LEATHER)
+                .input(Items.GOLD_INGOT)
+                .input(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR)
+                .input(Items.GOLD_INGOT)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.BROADHOOF_GOAT_PLATE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(khazadSteelArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(khazadSteelArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.BROADHOOF_GOAT_PLATE_ARMOR).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.WARG_LEATHER_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.WARG_LEATHER_ARMOR).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
+                .input(Items.LEATHER)
+                .input(Items.BONE)
+                .input(ModEquipmentItems.WARG_LEATHER_ARMOR)
+                .input(Items.BONE)
+                .input(Items.LEATHER)
+                .input(Items.BONE)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.WARG_LEATHER_ARMOR),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.WARG_LEATHER_ARMOR))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.WARG_MORDOR_MAIL_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.WARG_MORDOR_MAIL_ARMOR).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .input(ModEquipmentItems.WARG_MORDOR_MAIL_ARMOR)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.WARG_ISENGARD_PLATE_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.WARG_ISENGARD_PLATE_ARMOR).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.WARG_GUNDABAD_PLATE_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.WARG_GUNDABAD_PLATE_ARMOR).getPath() + "_artisan"));
+
     }
 }

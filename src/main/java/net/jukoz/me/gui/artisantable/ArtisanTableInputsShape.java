@@ -111,6 +111,11 @@ public class ArtisanTableInputsShape {
             {InputType.ANY, InputType.ANY, InputType.ANY},
             {InputType.ANY, InputType.ANY, InputType.ANY}});
 
+    public static ArtisanTableInputsShape MOUNT_ARMOR = new ArtisanTableInputsShape("mount_armor", new InputType[][]{
+            {InputType.NONE, InputType.NONE, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY}});
+
     public ArtisanTableInputsShape(String id, InputType[][] inputs) {
         this.id = id;
         this.inputs = inputs;
