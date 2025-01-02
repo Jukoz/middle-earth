@@ -47,6 +47,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         var wool = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("wool")));
 
+        var snapsGoatHorn = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("snaps_goat_horn")));
+
         var cobwebs = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "cobwebs")));
 
         mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
@@ -157,6 +159,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 needsDiamondTools.add(record.table());
                 needsDiamondTools.add(record.rocks());
             }
+            snapsGoatHorn.add(record.base());
         }
 
         cobwebs.add(Blocks.COBWEB);
@@ -266,6 +269,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
 
         needsDiamondTools.add(ModDecorativeBlocks.REINFORCED_CHEST);
+        mineableAxe.add(ModDecorativeBlocks.REINFORCED_CHEST);
 
         needsDiamondTools.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
