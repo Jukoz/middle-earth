@@ -1,9 +1,9 @@
 package net.jukoz.me.world.features.columns;
 
 import com.mojang.serialization.Codec;
+import net.jukoz.me.block.special.PointedDolomiteBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.PointedDripstoneBlock;
 import net.minecraft.block.enums.Thickness;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.FluidTags;
@@ -65,7 +65,7 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
             if (!optionalInt.isEmpty() || !optionalInt2.isEmpty()) {
                 boolean bl = random.nextFloat() < wetness;
                 CaveSurface caveSurface;
-                if (bl && optionalInt2.isPresent() && this.canWaterSpawn(world, pos.withY(optionalInt2.getAsInt()))) {
+                if (bl && optionalInt2.isPresent() && this.canWaterSpawn(world, pos.withY(optionalInt2.getAsInt()), config.blockState, config.pointedBlockState)) {
                     int i = optionalInt2.getAsInt();
                     caveSurface = ((CaveSurface)optional.get()).withFloor(OptionalInt.of(i - 1));
                     world.setBlockState(pos.withY(i), Blocks.WATER.getDefaultState(), 2);
@@ -148,8 +148,8 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
         if (canReplace(world.getBlockState(pos.offset(direction.getOpposite())))) {
             BlockPos.Mutable mutable = pos.mutableCopy();
             getDripstoneThickness(direction, height, merge, (state) -> {
-                if (state.isOf(Blocks.POINTED_DRIPSTONE)) {
-                    state = state.with(PointedDripstoneBlock.WATERLOGGED, world.isWater(mutable));
+                if (state.isOf(blockState.getBlock())) {
+                    state = state.with(PointedDolomiteBlock.WATERLOGGED, world.isWater(mutable));
                 }
 
                 world.setBlockState(mutable, state, 2);
@@ -182,7 +182,7 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
     }
 
     public static boolean canGenerate(WorldAccess world, BlockPos pos) {
-        return world.testBlockState(pos, DripstoneHelper::canGenerate);
+        return world.testBlockState(pos, ClusterFeature::canGenerate);
     }
 
     public static boolean canGenerateOrLava(WorldAccess world, BlockPos pos) {
@@ -190,11 +190,11 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
     }
 
     public static boolean canReplace(BlockState state) {
-        return state.isIn(BlockTags.STONE_ORE_REPLACEABLES);
+        return state.isIn(BlockTags.BASE_STONE_OVERWORLD);
     }
 
     private static BlockState getState(Direction direction, Thickness thickness, BlockState blockState) {
-        return (blockState.with(PointedDripstoneBlock.VERTICAL_DIRECTION, direction)).with(PointedDripstoneBlock.THICKNESS, thickness);
+        return (blockState.with(PointedDolomiteBlock.VERTICAL_DIRECTION, direction)).with(PointedDolomiteBlock.THICKNESS, thickness);
     }
 
     private boolean isLava(WorldView world, BlockPos pos) {
@@ -211,9 +211,9 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
         }
     }
 
-    private boolean canWaterSpawn(StructureWorldAccess world, BlockPos pos) {
+    private boolean canWaterSpawn(StructureWorldAccess world, BlockPos pos, BlockState stoneBlockState, BlockState pointedBlockState) {
         BlockState blockState = world.getBlockState(pos);
-        if (!blockState.isOf(Blocks.WATER) && !blockState.isOf(Blocks.DRIPSTONE_BLOCK) && !blockState.isOf(Blocks.POINTED_DRIPSTONE)) {
+        if (!blockState.isOf(Blocks.WATER) && !blockState.isOf(stoneBlockState.getBlock()) && !blockState.isOf(pointedBlockState.getBlock())) {
             if (world.getBlockState(pos.up()).getFluidState().isIn(FluidTags.WATER)) {
                 return false;
             } else {

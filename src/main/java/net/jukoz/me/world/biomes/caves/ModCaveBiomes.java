@@ -151,7 +151,7 @@ public class ModCaveBiomes {
 
         undergroundOres.add(UndergroundPlacedFeatures.LARGE_DRIPSTONE);
         undergroundOres.add(CavesPlacedFeatures.DOLOMITE_CLUSTER);
-        undergroundOres.add(UndergroundPlacedFeatures.POINTED_DRIPSTONE);
+        undergroundOres.add(CavesPlacedFeatures.POINTED_DOLOMITE);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
         addBasicFeatures(generationSettings, true);
 
