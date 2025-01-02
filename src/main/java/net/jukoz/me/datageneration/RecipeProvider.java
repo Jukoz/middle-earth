@@ -90,6 +90,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             } else if (record.toString().contains("cobbled_") || record.toString().contains("cobblestone")) {
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
                 createSmeltingRecipeIdentifier(exporter, record.base().asItem(), record.source().asItem());
+            } else if (record.toString().contains("old_") && !record.toString().contains("old_bricks")) {
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
             } else if (record.source() != null) {
                 createBrickRecipe(exporter, record.source().asItem(), record.base(), 4);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
@@ -493,11 +495,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createPaneRecipe(exporter, Blocks.WHITE_WOOL.asItem(), ModBlocks.NET, 16);
 
         createPaneRecipe(exporter, Blocks.CUT_COPPER.asItem(), ModBlocks.COPPER_BARS, 16);
-
-        createCenterSurroundRecipe(exporter, Blocks.STONE.asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_STONE.base().asItem(), 8);
-        createCenterSurroundRecipe(exporter, Blocks.COBBLESTONE.asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_COBBLESTONE.base().asItem(), 8);
-        createCenterSurroundRecipe(exporter, Blocks.STONE_BRICKS.asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_BRICKS.base().asItem(), 8);
-        createCenterSurroundRecipe(exporter, StoneBlockSets.STONE_TILES.base().asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_TILES.base().asItem(), 8);
 
         createBrickRecipe(exporter, ModResourceItems.CITRINE_SHARD, ModBlocks.CITRINE_BLOCK, 1);
         createFilledRecipe(exporter, Items.GLOWSTONE, ModBlocks.GLOWSTONE_BLOCK, 1);

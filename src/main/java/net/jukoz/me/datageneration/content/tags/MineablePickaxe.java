@@ -139,7 +139,7 @@ public class MineablePickaxe {
 
             add(ModBlocks.DEEPSLATE_PILLAR);
 
-            add(ModBlocks.FROZEN_PILLAR);
+            add(ModBlocks.SCHIST_PILLAR);
 
             add(ModBlocks.DOLOMITE_PILLAR);
             add(ModBlocks.MOSSY_DOLOMITE_PILLAR);

@@ -69,7 +69,7 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet CALCITE_BRICKWORK = registerStoneSet("calcite_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
-    public static SimpleBlockSet OLD_CALCITE = registerStoneSet("old_calcite", Blocks.CALCITE.getHardness(), Blocks.CALCITE.getBlastResistance(), null);
+    public static SimpleBlockSet OLD_CALCITE = registerStoneSet("old_calcite", Blocks.CALCITE.getHardness(), Blocks.CALCITE.getBlastResistance(), COBBLED_CALCITE.base);
 
     public static SimpleBlockSetMain DOLOMITE = registerMainStoneSet("dolomite", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet SMOOTH_DOLOMITE = registerStoneSet("smooth_dolomite", DOLOMITE.base.getHardness(), DOLOMITE.base.getBlastResistance(), DOLOMITE.base);
@@ -89,7 +89,7 @@ public class StoneBlockSets {
     
     public static SimpleBlockSet DOLOMITE_BRICKWORK = registerStoneSet("dolomite_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
-    public static SimplePillarBlockSet OLD_DOLOMITE = registerStonePillarSet("old_dolomite", DOLOMITE.base.getHardness(), DOLOMITE.base.getBlastResistance(), null);
+    public static SimplePillarBlockSet OLD_DOLOMITE = registerStonePillarSet("old_dolomite", DOLOMITE.base.getHardness(), DOLOMITE.base.getBlastResistance(), COBBLED_DOLOMITE.base);
     
     public static SimpleBlockSetMain IRONSTONE = registerMainStoneSet("ironstone", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet SMOOTH_IRONSTONE = registerStoneSet("smooth_ironstone", IRONSTONE.base.getHardness(), IRONSTONE.base.getBlastResistance(), IRONSTONE.base);
@@ -169,18 +169,18 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet IZHERABAN_BRICKWORK = registerStoneSet("izheraban_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
-    public static SimplePillarBlockSet OLD_IZHERABAN = registerStonePillarSet("old_izheraban", IZHERABAN.base.getHardness(), IZHERABAN.base.getBlastResistance(), null);
+    public static SimplePillarBlockSet OLD_IZHERABAN = registerStonePillarSet("old_izheraban", IZHERABAN.base.getHardness(), IZHERABAN.base.getBlastResistance(), COBBLED_IZHERABAN.base);
 
-    public static SimpleBlockSetMain FROZEN_STONE = registerMainStoneSet("frozen_stone", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
-    public static SimpleBlockSet FROZEN_COBBLESTONE = registerStoneSet("frozen_cobblestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, FROZEN_STONE.base);
+    public static SimpleBlockSetMain SCHIST = registerMainStoneSet("schist", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+    public static SimpleBlockSet COBBLED_SCHIST = registerStoneSet("cobbled_schist", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, SCHIST.base);
     //public static SimpleBlockSet MOSSY_FROZEN_COBBLESTONE = registerStoneSet("mossy_frozen_cobblestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, FROZEN_STONE.base);
-    public static SimpleBlockSet POLISHED_FROZEN_STONE = registerStoneSet("polished_frozen_stone", FROZEN_STONE.base.getHardness(), FROZEN_STONE.base.getBlastResistance(), FROZEN_STONE.base);
+    public static SimpleBlockSet POLISHED_SCHIST = registerStoneSet("polished_schist", SCHIST.base.getHardness(), SCHIST.base.getBlastResistance(), SCHIST.base);
     //public static SimpleBlockSet MOSSY_POLISHED_FROZEN_STONE = registerStoneSet("mossy_polished_frozen_stone", FROZEN_STONE.base.getHardness(), FROZEN_STONE.base.getBlastResistance(), POLISHED_FROZEN_STONE.base);
     //public static SimpleBlockSet CRACKED_POLISHED_FROZEN_STONE = registerStoneSet("cracked_polished_frozen_stone", FROZEN_STONE.base.getHardness(), FROZEN_STONE.base.getBlastResistance(), POLISHED_FROZEN_STONE.base);
-    public static SimpleBlockSet FROZEN_BRICKS = registerStoneSet("frozen_bricks", FROZEN_COBBLESTONE.base.getHardness(), FROZEN_COBBLESTONE.base.getBlastResistance(), POLISHED_FROZEN_STONE.base);
+    public static SimpleBlockSet SCHIST_BRICKS = registerStoneSet("schist_bricks", COBBLED_SCHIST.base.getHardness(), COBBLED_SCHIST.base.getBlastResistance(), POLISHED_SCHIST.base);
     //public static SimpleBlockSet MOSSY_FROZEN_STONE_BRICKS = registerStoneSet("mossy_frozen_stone_bricks", FROZEN_COBBLESTONE.base.getHardness(), FROZEN_COBBLESTONE.base.getBlastResistance(), FROZEN_BRICKS.base);
     //public static SimpleBlockSet CRACKED_FROZEN_STONE_BRICKS = registerStoneSet("cracked_frozen_stone_bricks", FROZEN_COBBLESTONE.base.getHardness(), FROZEN_COBBLESTONE.base.getBlastResistance(), FROZEN_BRICKS.base);
-    public static SimpleBlockSet FROZEN_TILES = registerStoneSet("frozen_tiles", FROZEN_COBBLESTONE.base.getHardness(), FROZEN_COBBLESTONE.base.getBlastResistance(), FROZEN_BRICKS.base);
+    public static SimpleBlockSet SCHIST_TILES = registerStoneSet("schist_tiles", COBBLED_SCHIST.base.getHardness(), COBBLED_SCHIST.base.getBlastResistance(), SCHIST_BRICKS.base);
     //public static SimpleBlockSet MOSSY_FROZEN_TILES = registerStoneSet("mossy_frozen_tiles", FROZEN_COBBLESTONE.base.getHardness(), FROZEN_COBBLESTONE.base.getBlastResistance(), FROZEN_TILES.base);
     //public static SimpleBlockSet CRACKED_FROZEN_TILES = registerStoneSet("cracked_frozen_tiles", FROZEN_COBBLESTONE.base.getHardness(), FROZEN_COBBLESTONE.base.getBlastResistance(), FROZEN_TILES.base);
 
@@ -202,7 +202,7 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet LIMESTONE_BRICKWORK = registerStoneSet("limestone_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
-    public static SimplePillarBlockSet OLD_LIMESTONE = registerStonePillarSet("old_limestone", LIMESTONE.base.getHardness(), LIMESTONE.base.getBlastResistance(), null);
+    public static SimplePillarBlockSet OLD_LIMESTONE = registerStonePillarSet("old_limestone", LIMESTONE.base.getHardness(), LIMESTONE.base.getBlastResistance(), COBBLED_LIMESTONE.base);
 
     public static SimpleBlockSetMain GALONN = registerMainStoneSet("galonn", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet SMOOTH_GALONN = registerStoneSet("smooth_galonn", GALONN.base.getHardness(), GALONN.base.getBlastResistance(), GALONN.base);
@@ -222,7 +222,7 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet GALONN_BRICKWORK = registerStoneSet("galonn_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
-    public static SimplePillarBlockSet OLD_GALONN = registerStonePillarSet("old_galonn", GALONN.base.getHardness(), GALONN.base.getBlastResistance(), null);
+    public static SimplePillarBlockSet OLD_GALONN = registerStonePillarSet("old_galonn", GALONN.base.getHardness(), GALONN.base.getBlastResistance(), COBBLED_GALONN.base);
 
     public static SimpleBlockSetMain GABBRO = registerMainStoneSet("gabbro", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     //public static SimpleBlockSet COBBLED_GABBRO = registerStoneSet("cobbled_gabbro", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, GABBRO.base);
@@ -263,7 +263,7 @@ public class StoneBlockSets {
     
     public static SimpleBlockSet STONE_BRICKWORK = registerStoneSet("stone_brickwork", Blocks.STONE_BRICKS.getHardness(), Blocks.STONE_BRICKS.getBlastResistance(), null);
     
-    public static SimpleBlockSet OLD_STONE = registerStoneSet("old_stone", Blocks.STONE.getHardness(), Blocks.STONE.getBlastResistance(), null);
+    public static SimpleBlockSet OLD_STONE = registerStoneSet("old_stone", Blocks.STONE.getHardness(), Blocks.STONE.getBlastResistance(), Blocks.COBBLESTONE);
 
     public static SimpleBlockSet MOSSY_COBBLED_DEEPSLATE = registerStoneSet("mossy_cobbled_deepslate", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, Blocks.COBBLED_DEEPSLATE);
     public static SimpleBlockSet SMOOTH_DEEPSLATE = registerStoneSet("smooth_deepslate", Blocks.DEEPSLATE.getHardness(), Blocks.DEEPSLATE.getBlastResistance(), Blocks.DEEPSLATE);
@@ -276,7 +276,7 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet DEEPSLATE_BRICKWORK = registerStoneSet("deepslate_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
-    public static SimpleBlockSet OLD_DEEPSLATE = registerStoneSet("old_deepslate", Blocks.DEEPSLATE.getHardness(), Blocks.DEEPSLATE.getBlastResistance(), null);
+    public static SimpleBlockSet OLD_DEEPSLATE = registerStoneSet("old_deepslate", Blocks.DEEPSLATE.getHardness(), Blocks.DEEPSLATE.getBlastResistance(), Blocks.COBBLED_DEEPSLATE);
 
     public static SimpleBlockSetMain BLUE_TUFF = registerMainStoneSet("blue_tuff", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet COBBLED_BLUE_TUFF = registerStoneSet("cobbled_blue_tuff", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, BLUE_TUFF.base);
@@ -323,7 +323,7 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet ANDESITE_BRICKWORK = registerStoneSet("andesite_brickwork", ANDESITE_BRICKS.base.getHardness(), ANDESITE_BRICKS.base.getBlastResistance(), null);
     
-    public static SimpleBlockSet OLD_ANDESITE = registerStoneSet("old_andesite", Blocks.ANDESITE.getHardness(), Blocks.ANDESITE.getBlastResistance(), null);
+    public static SimpleBlockSet OLD_ANDESITE = registerStoneSet("old_andesite", Blocks.ANDESITE.getHardness(), Blocks.ANDESITE.getBlastResistance(), COBBLED_ANDESITE.base);
 
     public static SimpleBlockSet SMOOTH_GRANITE = registerStoneSet("smooth_granite", Blocks.GRANITE.getHardness(), Blocks.GRANITE.getBlastResistance(), Blocks.GRANITE);
     public static SimpleBlockSet MOSSY_SMOOTH_GRANITE = registerStoneSet("mossy_smooth_granite", SMOOTH_GRANITE.base.getHardness(), SMOOTH_GRANITE.base.getBlastResistance(), SMOOTH_GRANITE.base);
@@ -341,7 +341,7 @@ public class StoneBlockSets {
     
     public static SimpleBlockSet GRANITE_BRICKWORK = registerStoneSet("granite_brickwork", GRANITE_BRICKS.base.getHardness(), GRANITE_BRICKS.base.getBlastResistance(), null);
 
-    public static SimpleBlockSet OLD_GRANITE = registerStoneSet("old_granite", Blocks.GRANITE.getHardness(), Blocks.GRANITE.getBlastResistance(), null);
+    public static SimpleBlockSet OLD_GRANITE = registerStoneSet("old_granite", Blocks.GRANITE.getHardness(), Blocks.GRANITE.getBlastResistance(), COBBLED_GRANITE.base);
     
     public static SimpleBlockSet SMOOTH_DIORITE = registerStoneSet("smooth_diorite", Blocks.DIORITE.getHardness(), Blocks.DIORITE.getBlastResistance(), Blocks.DIORITE);
     public static SimpleBlockSet MOSSY_SMOOTH_DIORITE = registerStoneSet("mossy_smooth_diorite", SMOOTH_DIORITE.base.getHardness(), SMOOTH_DIORITE.base.getBlastResistance(), SMOOTH_DIORITE.base);
@@ -359,7 +359,7 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet DIORITE_BRICKWORK = registerStoneSet("diorite_brickwork", DIORITE_BRICKS.base.getHardness(), DIORITE_BRICKS.base.getBlastResistance(), null);
 
-    public static SimpleBlockSet OLD_DIORITE = registerStoneSet("old_diorite", Blocks.DIORITE.getHardness(), Blocks.DIORITE.getBlastResistance(), null);
+    public static SimpleBlockSet OLD_DIORITE = registerStoneSet("old_diorite", Blocks.DIORITE.getHardness(), Blocks.DIORITE.getBlastResistance(), COBBLED_DIORITE.base);
     
     public static SimpleBlockSet SMOOTH_TUFF = registerStoneSet("smooth_tuff", Blocks.TUFF.getHardness(), Blocks.TUFF.getBlastResistance(), Blocks.TUFF);
     public static SimpleBlockSet MOSSY_SMOOTH_TUFF = registerStoneSet("mossy_smooth_tuff", Blocks.TUFF.getHardness(), Blocks.TUFF.getBlastResistance(), Blocks.TUFF);
@@ -376,8 +376,7 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet TUFF_BRICKWORK = registerStoneSet("tuff_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
-
-    public static SimpleBlockSet OLD_TUFF = registerStoneSet("old_tuff", Blocks.TUFF.getHardness(), Blocks.TUFF.getBlastResistance(), null);
+    public static SimpleBlockSet OLD_TUFF = registerStoneSet("old_tuff", Blocks.TUFF.getHardness(), Blocks.TUFF.getBlastResistance(), COBBLED_TUFF.base);
 
     public static SimpleBlockSet SMOOTH_BLACKSTONE = registerStoneSet("smooth_blackstone", Blocks.BLACKSTONE.getHardness(), Blocks.BLACKSTONE.getBlastResistance(), Blocks.BLACKSTONE);
     public static SimpleBlockSet MOSSY_SMOOTH_BLACKSTONE = registerStoneSet("mossy_smooth_blackstone", SMOOTH_BLACKSTONE.base.getHardness(), SMOOTH_BLACKSTONE.base.getBlastResistance(), SMOOTH_BLACKSTONE.base);
@@ -393,7 +392,7 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet BLACKSTONE_BRICKWORK = registerStoneSet("blackstone_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
-    public static SimpleBlockSet OLD_BLACKSTONE = registerStoneSet("old_blackstone", Blocks.BLACKSTONE.getHardness(), Blocks.BLACKSTONE.getBlastResistance(), null);
+    public static SimpleBlockSet OLD_BLACKSTONE = registerStoneSet("old_blackstone", Blocks.BLACKSTONE.getHardness(), Blocks.BLACKSTONE.getBlastResistance(), COBBLED_BLACKSTONE.base);
 
     public static SimpleBlockSet MOSSY_SMOOTH_BASALT = registerStoneSet("mossy_smooth_basalt", Blocks.SMOOTH_BASALT.getHardness(), Blocks.SMOOTH_BASALT.getBlastResistance(), Blocks.SMOOTH_BASALT);
     public static SimpleBlockSet CRACKED_SMOOTH_BASALT = registerStoneSet("cracked_smooth_basalt", Blocks.SMOOTH_BASALT.getHardness(), Blocks.SMOOTH_BASALT.getBlastResistance(), Blocks.SMOOTH_BASALT);
@@ -410,7 +409,7 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet BASALT_BRICKWORK = registerStoneSet("basalt_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
-    public static SimpleBlockSet OLD_BASALT = registerStoneSet("old_basalt", Blocks.BASALT.getHardness(), Blocks.BASALT.getBlastResistance(), null);
+    public static SimpleBlockSet OLD_BASALT = registerStoneSet("old_basalt", Blocks.BASALT.getHardness(), Blocks.BASALT.getBlastResistance(), COBBLED_BASALT.base);
 
     public static SimpleBlockSetMain QUARTZITE = registerMainStoneSet("quartzite", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet COBBLED_QUARTZITE = registerStoneSet("cobbled_quartzite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, QUARTZITE.base);
@@ -465,7 +464,7 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet MEDGON_BRICKWORK = registerStoneSet("medgon_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
-    public static SimpleBlockSet OLD_MEDGON = registerStoneSet("old_medgon", MEDGON.base.getHardness(), MEDGON.base.getBlastResistance(), null);
+    public static SimpleBlockSet OLD_MEDGON = registerStoneSet("old_medgon", MEDGON.base.getHardness(), MEDGON.base.getBlastResistance(), COBBLED_MEDGON.base);
 
     public static SimpleBlockSet MIXED_STONES = registerStoneSet("mixed_stones", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet MOSSY_MIXED_STONES = registerStoneSet("mossy_mixed_stones", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, MIXED_STONES.base);
@@ -479,7 +478,6 @@ public class StoneBlockSets {
     public static SimpleBlockSet TAN_CLAY_BRICKS = registerStoneSet("tan_clay_bricks", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet TAN_CLAY_TILES = registerStoneSet("tan_clay_tiles", STONE_HARDNESS, STONE_BLAST_RESISTANCE, TAN_CLAY_BRICKS.base);
 
-
     public static SimpleBlockSet TAN_CLAY_BRICKWORK = registerStoneSet("tan_clay_brickwork", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
 
     public static SimpleBlockSet WHITE_DAUB = registerStoneSet("white_daub", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
@@ -491,7 +489,6 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet OLD_BRICKS = registerStoneSet("old_bricks", Blocks.BRICKS.getHardness(), Blocks.BRICKS.getBlastResistance(), null);
 
-
     public static SimpleBlockSetMain[] setsMain = new SimpleBlockSetMain[] {
 
             ASHEN_STONE,
@@ -500,7 +497,7 @@ public class StoneBlockSets {
 
             GONLUIN,
 
-            FROZEN_STONE,
+            SCHIST,
 
             DOLOMITE,
             
@@ -575,10 +572,10 @@ public class StoneBlockSets {
             MOSSY_GONLUIN_TILES,
             CRACKED_GONLUIN_TILES,
 
-            FROZEN_COBBLESTONE,
-            FROZEN_BRICKS,
-            FROZEN_TILES,
-            POLISHED_FROZEN_STONE,
+            COBBLED_SCHIST,
+            POLISHED_SCHIST,
+            SCHIST_BRICKS,
+            SCHIST_TILES,
 
             SMOOTH_CALCITE,
             MOSSY_SMOOTH_CALCITE,

@@ -1,3 +1,6 @@
 {
-  "parent": "me:block/gilded_big_brazier_lit"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "me:item/gilded_big_brazier"
+  }
 }
