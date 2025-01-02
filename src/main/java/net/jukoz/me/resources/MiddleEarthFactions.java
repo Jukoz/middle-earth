@@ -424,7 +424,7 @@ public class MiddleEarthFactions {
                             ShireNpcDataPool.SHIRE_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            ShireNpcDataPool.SHIRE_MILITIA
+                            ShireNpcDataPool.SHIRE_SHIRRIF
                     ));
                     put(NpcRank.KNIGHT, List.of(
                             ShireNpcDataPool.SHIRE_MILITIA
