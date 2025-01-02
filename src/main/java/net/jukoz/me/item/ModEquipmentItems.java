@@ -1294,7 +1294,7 @@ public class ModEquipmentItems {
     public static final Item BLACK_URUK_PLATE_HELMET = registerArmorPiece("black_uruk_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item BLACK_FACE_URUK_PLATE_HELMET = registerArmorPiece("black_uruk_face_plate_helmet",
+    public static final Item BLACK_URUK_FACE_PLATE_HELMET = registerArmorPiece("black_uruk_face_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item BLACK_URUK_PLATE_CHESTPLATE = registerCustomModelArmorPiece("black_uruk_plate_chestplate",
