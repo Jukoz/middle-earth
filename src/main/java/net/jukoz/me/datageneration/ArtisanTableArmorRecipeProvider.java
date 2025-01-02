@@ -2292,6 +2292,19 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.LONGBEARD_LEATHER_HAUBERK).getPath() + "_artisan"));
 
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_WANDERER_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.IRON_NUGGET)
+                .input(Items.LEATHER)
+                .input(Items.IRON_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.LONGBEARD_WANDERER_COAT).getPath() + "_artisan"));
+
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_LEATHER_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                 .input(Items.LEATHER)
                 .input(ModResourceItems.BRONZE_NUGGET)
@@ -2329,6 +2342,498 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.DWARVEN_MAIL_HAUBERK),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.DWARVEN_MAIL_HAUBERK))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.LONGBEARD_REINFORCED_LEATHER_HAUBERK).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .input(Items.IRON_INGOT)
+                .input(Items.LEATHER)
+                .input(Items.IRON_INGOT)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_LEATHER_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_BRACED_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .input(Items.IRON_INGOT)
+                .input(Items.LEATHER)
+                .input(Items.IRON_INGOT)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_BRACED_LEATHER_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_NASAL_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .input(Items.IRON_INGOT)
+                .input(Items.LEATHER)
+                .input(Items.IRON_INGOT)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_NASAL_LEATHER_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_LEATHER_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_LEATHER_LEGGINGS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_MAIL_COIF.getDefaultStack(), "helmet", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_MAIL_COIF).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GILDED_MAIL_COIF.getDefaultStack(), "leggings", Disposition.GOOD)
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(ModEquipmentItems.EREBOR_MAIL_COIF)
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .input(ModResourceItems.BRONZE_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_MAIL_COIF),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_COIF))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_GILDED_MAIL_COIF).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                .input(Items.IRON_NUGGET)
+                .input(Items.IRON_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ironHelmetPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironHelmetPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_MAIL_HAUBERK).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_PADDED_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(ModEquipmentItems.EREBOR_MAIL_HAUBERK)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.BRONZE_INGOT)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_PADDED_MAIL_HAUBERK).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_MAIL_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_MAIL_COAT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_MAIL_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_MAIL_LEGGINGS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_MAIL_CHAUSSES.getDefaultStack(), "boots", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_MAIL_CHAUSSES).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.IRON_INGOT)
+                .input(Items.IRON_INGOT)
+                .criterion(FabricRecipeProvider.hasItem(Items.IRON_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(Items.IRON_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_BOOTS).getPath() + "_artisan"));
+
+        //t4
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelHelmetPlate.getItem()), khazadSteelHelmetPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(khazadSteelHelmetPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(khazadSteelHelmetPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_GILDED_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .input(ModEquipmentItems.EREBOR_GILDED_MAIL_COIF)
+                .input(ModEquipmentItems.RAVENHILL_HELMET)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.RAVENHILL_HELMET),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.RAVENHILL_HELMET))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_GILDED_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(khazadSteelScaleMail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(khazadSteelScaleMail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_SCALE_HAUBERK).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_LONG_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
+                .input(ModEquipmentItems.EREBOR_MAIL_HAUBERK)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.FABRIC)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_LONG_COAT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_BRAWLER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .input(ModEquipmentItems.EREBOR_MAIL_HAUBERK)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.LEATHER)
+                .input(Items.BLUE_DYE)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_BRAWLER_CHESTPLATE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_REINFORCED_LEATHER_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(ModEquipmentItems.EREBOR_MAIL_HAUBERK)
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_REINFORCED_LEATHER_HAUBERK).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_REINFORCED_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .input(ModEquipmentItems.EREBOR_MAIL_HAUBERK)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.LEATHER)
+                .input(Items.BLUE_DYE)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_REINFORCED_COAT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_REINFORCED_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
+                .input(ModEquipmentItems.EREBOR_MAIL_HAUBERK)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_REINFORCED_MAIL_HAUBERK).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_SCALE_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(khazadSteelScaleMail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(khazadSteelScaleMail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_SCALE_COAT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_SCALE_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(khazadSteelScaleMail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(khazadSteelScaleMail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_SCALE_LEGGINGS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(khazadSteelArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(khazadSteelArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_BOOTS).getPath() + "_artisan"));
+        //t5
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelHelmetPlate.getItem()), khazadSteelHelmetPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(khazadSteelHelmetPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(khazadSteelHelmetPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_PLATE_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .input(ModEquipmentItems.EREBOR_SCALE_HAUBERK)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_SCALE_HAUBERK),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_SCALE_HAUBERK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_PLATE_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(ModEquipmentItems.EREBOR_SCALE_LEGGINGS)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_SCALE_LEGGINGS),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_SCALE_LEGGINGS))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_PLATE_LEGGINGS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(khazadSteelArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(khazadSteelArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_PLATE_BOOTS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .input(ModEquipmentItems.EREBOR_PLATE_HELMET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .input(Items.GOLD_NUGGET)
+                .input(Items.GOLD_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_HELMET),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_HELMET))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_GUARD_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GATEWARDEN_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(ModEquipmentItems.EREBOR_PLATE_HELMET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.BRONZE_INGOT)
+                .input(ModResourceItems.BRONZE_INGOT)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_HELMET),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_HELMET))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_GATEWARDEN_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GATEWARDEN_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .input(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE)
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(Items.BLUE_DYE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_GATEWARDEN_CHESTPLATE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GATEWARDEN_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(ModEquipmentItems.EREBOR_PLATE_LEGGINGS)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_GATEWARDEN_LEGGINGS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GATEWARDEN_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(khazadSteelArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(khazadSteelArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_GATEWARDEN_BOOTS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_WATCHWARDEN_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(ModEquipmentItems.EREBOR_PLATE_HELMET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_HELMET),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_HELMET))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_WATCHWARDEN_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(ModEquipmentItems.EREBOR_PLATE_LEGGINGS)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_WATCHWARDEN_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(khazadSteelArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(khazadSteelArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_WATCHWARDEN_BOOTS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_CAPTAIN_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .input(Items.GOAT_HORN)
+                .input(ModEquipmentItems.EREBOR_GUARD_HELMET)
+                .input(Items.GOAT_HORN)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_GUARD_HELMET),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_GUARD_HELMET))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_CAPTAIN_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_SENTINEL_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                .input(Items.FEATHER)
+                .input(ModEquipmentItems.RAVENHILL_WATCHWARDEN_HELMET)
+                .input(Items.FEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_HELMET),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_HELMET))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_SENTINEL_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_SENTINEL_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .input(ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_SENTINEL_CHESTPLATE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_SENTINEL_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_SENTINEL_LEGGINGS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_SENTINEL_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(khazadSteelArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(khazadSteelArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_SENTINEL_BOOTS).getPath() + "_artisan"));
+
+        //capes
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.STRING)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BLUE_DYE)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BLUE_DYE)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_CAPE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_SENTINEL_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.STRING)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.GRAY_DYE)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.GRAY_DYE)
+                .input(Items.YELLOW_DYE)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.YELLOW_DYE)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_SENTINEL_CAPE).getPath() + "_artisan"));
 
         //endregion
 
