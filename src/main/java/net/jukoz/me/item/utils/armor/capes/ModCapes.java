@@ -13,7 +13,7 @@ public enum ModCapes implements StringIdentifiable {
     CAPE(0,"cape"),
     SURCOAT(1,"surcoat"),
     CLOAK(2,"cloak"),
-    ROBE(3,"robe"),
+    WANDERER_ROBES(3,"wanderer_robes"),
 
     BLACK_FUR_CLOAK(4,"black_fur_cloak"),
     BROWN_FUR_CLOAK(5,"brown_fur_cloak"),

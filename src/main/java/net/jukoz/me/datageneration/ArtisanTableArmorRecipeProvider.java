@@ -195,7 +195,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(Items.WHITE_WOOL))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.BYCOCKET).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.WIZARD_HAT.getDefaultStack(), "hat", Disposition.NEUTRAL)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.WANDERER_HAT.getDefaultStack(), "hat", Disposition.NEUTRAL)
                 .input(ModResourceItems.FABRIC)
                 .input(Items.LEATHER)
                 .input(ModResourceItems.FABRIC)
@@ -203,7 +203,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .input(ModResourceItems.FABRIC)
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
-                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.WIZARD_HAT).getPath() + "_artisan"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.WANDERER_HAT).getPath() + "_artisan"));
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ARMING_COAT.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
                 .input(ModResourceItems.FABRIC)
@@ -558,7 +558,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.CLOAK).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ROBE.getDefaultStack(), "cape", Disposition.NEUTRAL)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.WANDERER_ROBES.getDefaultStack(), "cape", Disposition.NEUTRAL)
                 .input(ModResourceItems.FABRIC)
                 .input(Items.LEATHER)
                 .input(ModResourceItems.FABRIC)
@@ -570,7 +570,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .input(ModResourceItems.FABRIC)
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
-                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ROBE).getPath() + "_artisan"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.WANDERER_ROBES).getPath() + "_artisan"));
 
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.BLACK_FUR_CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
