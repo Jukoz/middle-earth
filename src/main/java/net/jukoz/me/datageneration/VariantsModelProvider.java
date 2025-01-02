@@ -37,7 +37,6 @@ public class VariantsModelProvider {
         }else {
             predicate = "2";
         }
-        System.out.println("Pull: " + progress + " : " + predicate);
         return Registries.ITEM.getId(item).withPrefixedPath("item/").withSuffixedPath("_pulling_" + predicate + "_inventory");
     }
 }
