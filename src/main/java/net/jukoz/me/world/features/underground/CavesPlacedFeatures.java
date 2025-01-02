@@ -291,7 +291,7 @@ public class CavesPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, ORE_LAPIS_ABUNDANT, lapisOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(MiddleEarthChunkGenerator.DEEPSLATE_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_LEAD, leadOre, modifiersWithCount(9, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-48), YOffset.fixed(16))));
         PlacedFeatures.register(featureRegisterable, ORE_QUARTZITE, quartziteOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(60))));
-        PlacedFeatures.register(featureRegisterable, ORE_IRON, ironOre, modifiersWithCount(12, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL))));
+        PlacedFeatures.register(featureRegisterable, ORE_IRON, ironOre, modifiersWithCount(12, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL + 12))));
         PlacedFeatures.register(featureRegisterable, ORE_SILVER, silverOre, modifiersWithCount(3, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-64), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_JADE, jadeOre, modifiersWithCount(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-40), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_GOLD, goldOre, List.of(PlacedFeatures.createCountExtraModifier(1, 0.5f, 1), SquarePlacementModifier.of(),
