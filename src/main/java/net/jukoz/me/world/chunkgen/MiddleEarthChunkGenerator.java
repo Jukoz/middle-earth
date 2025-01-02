@@ -56,6 +56,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public static final int mapMultiplier = (int) Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION + MiddleEarthMapConfigs.PIXEL_WEIGHT - 2);
     public static final Vec2f mountDoom = new Vec2f(2131.5f, 1715.2f).multiply(mapMultiplier);
     private static final int CAVE_STRETCH_H = 60;
+    private static final int SPAGHETTI_CAVE_STRETCH_H = 90;
     private static final int CAVE_STRETCH_V = 50;
 
     RegistryEntryLookup<Biome> biomeRegistry;
@@ -332,6 +333,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
+
         for(int x = 0; x < 16; x++) {
             for(int z = 0; z < 16; z++) {
                 int posX = (chunk.getPos().x * 16) + x;
@@ -462,7 +464,17 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         float noise3 = (float) SimplexNoise.noise((float) blockPos.getX() / 90, (float) blockPos.getY() / 60, (float) blockPos.getZ() / 90);
         float miniNoise = (float) SimplexNoise.noise((float) blockPos.getX() / 40, (float) blockPos.getY() / 30, (float) blockPos.getZ() / 40);
 
-        if(noise < 0.4f && noise3 < 0.75f && miniNoise < 0.8f) { //
+
+        float spaghettiNoise = Math.abs ((float) SimplexNoise.noise(
+                (float) blockPos.getX() / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), (float) blockPos.getY() / CAVE_STRETCH_V, (float) blockPos.getZ() / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), 57142));
+        float spaghettiNoise2 = Math.abs ((float) SimplexNoise.noise(
+                (float) (98153 + blockPos.getZ()) / SPAGHETTI_CAVE_STRETCH_H, (float) blockPos.getY() / CAVE_STRETCH_V, (float) blockPos.getX() / SPAGHETTI_CAVE_STRETCH_H, 0));
+        float spaghettiNoise3 = Math.abs ((float) SimplexNoise.noise(
+                (float) (1243624 + blockPos.getZ()) / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), (float) blockPos.getY() / CAVE_STRETCH_V, (float) blockPos.getX() / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), 0));
+        float combinedSpaghettiNoise = Math.abs(spaghettiNoise) + Math.abs(spaghettiNoise2) + Math.abs(spaghettiNoise3);
+        combinedSpaghettiNoise /= 3;
+
+        if(noise < 0.4f && noise3 < 0.75f && miniNoise < 0.8f && combinedSpaghettiNoise > 0.1f) {
             chunk.setBlockState(blockPos, blockState, false);
         }
     }
