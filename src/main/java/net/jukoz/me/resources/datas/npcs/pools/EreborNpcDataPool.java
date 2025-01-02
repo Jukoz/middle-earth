@@ -37,6 +37,7 @@ public class EreborNpcDataPool {
     public final static NpcData EREBOR_SOLDIER;
     public final static NpcData EREBOR_BRAWLER;
     public final static NpcData EREBOR_VETERAN;
+    public final static NpcData EREBOR_GATEWARDEN;
     public final static NpcData EREBOR_LEADER;
 
     public static List<NpcData> fetchAll() {
@@ -46,6 +47,7 @@ public class EreborNpcDataPool {
                 EREBOR_SOLDIER,
                 EREBOR_BRAWLER,
                 EREBOR_VETERAN,
+                EREBOR_GATEWARDEN,
                 EREBOR_LEADER
         );
     }
@@ -201,11 +203,38 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(ModWeaponItems.EREBOR_NOBLE_AXE).withWeight(3))
                                 .add(NpcGearItemData.create(ModWeaponItems.EREBOR_NOBLE_LONGSWORD))
                                 .add(NpcGearItemData.create(ModWeaponItems.EREBOR_NOBLE_SPEAR))
-                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_BOW).withWeight(10))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModWeaponItems.EREBOR_REINFORCED_TOWER_SHIELD))
                                 .add(NpcGearItemData.create(ModWeaponItems.EREBOR_REINFORCED_SHIELD).withWeight(5))
+                        )
+        ));
+
+        EREBOR_GATEWARDEN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "gatewarden"), MiddleEarthRaces.DWARF, List.of(
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_GATEWARDEN_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_GATEWARDEN_CHESTPLATE).withCape(ModCapes.EREBOR_CAPE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_GATEWARDEN_CHESTPLATE).withCape(ModCapes.SURCOAT, LIGHT_BLUE))
+                        )
+                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_GATEWARDEN_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_GATEWARDEN_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_NOBLE_SWORD).withWeight(3))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_NOBLE_AXE).withWeight(3))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_NOBLE_SPEAR).withWeight(2))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_NOBLE_LONGSWORD))
+                        )
+                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_ORNAMENTED_TOWER_SHIELD).withWeight(3))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_REINFORCED_TOWER_SHIELD).withWeight(3))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_BUCKLER_SHIELD))
                         )
         ));
 

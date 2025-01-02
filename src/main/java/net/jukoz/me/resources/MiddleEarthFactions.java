@@ -232,7 +232,8 @@ public class MiddleEarthFactions {
                             EreborNpcDataPool.EREBOR_BRAWLER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            EreborNpcDataPool.EREBOR_VETERAN
+                            EreborNpcDataPool.EREBOR_VETERAN,
+                            EreborNpcDataPool.EREBOR_GATEWARDEN
                     ));
                     put(NpcRank.LEADER, List.of(
                             EreborNpcDataPool.EREBOR_LEADER
@@ -262,16 +263,19 @@ public class MiddleEarthFactions {
                             LorienNpcDataPool.LOTHLORIEN_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            LorienNpcDataPool.LOTHLORIEN_MILITIA
+                            LorienNpcDataPool.LOTHLORIEN_RANGER,
+                            LorienNpcDataPool.LOTHLORIEN_RANGER_ARCHER,
+                            LorienNpcDataPool.LOTHLORIEN_SOLDIER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            LorienNpcDataPool.LOTHLORIEN_MILITIA
+                            LorienNpcDataPool.LOTHLORIEN_KNIGHT,
+                            LorienNpcDataPool.LOTHLORIEN_KNIGHT_ARCHER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            LorienNpcDataPool.LOTHLORIEN_MILITIA
+                            LorienNpcDataPool.LOTHLORIEN_VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            LorienNpcDataPool.LOTHLORIEN_MILITIA
+                            LorienNpcDataPool.LOTHLORIEN_LORD
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
