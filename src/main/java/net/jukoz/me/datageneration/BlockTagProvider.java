@@ -218,24 +218,32 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         climbable.add(ModBlocks.NET);
 
         needsStoneTools.add(OreRockSets.GONLUIN.copper_ore());
+        needsStoneTools.add(OreRockSets.GONLUIN.coal_ore());
         needsStoneTools.add(OreRockSets.GONLUIN.tin_ore());
-
-        needsStoneTools.add(OreRockSets.FROZEN.copper_ore());
-
+        
         needsStoneTools.add(OreRockSets.ASHEN.copper_ore());
+        needsStoneTools.add(OreRockSets.ASHEN.coal_ore());
         needsStoneTools.add(OreRockSets.ASHEN.tin_ore());
 
         needsStoneTools.add(OreRockSets.LIMESTONE.copper_ore());
+        needsStoneTools.add(OreRockSets.LIMESTONE.coal_ore());
         needsStoneTools.add(OreRockSets.LIMESTONE.tin_ore());
 
         needsStoneTools.add(OreRockSets.CALCITE.copper_ore());
+        needsStoneTools.add(OreRockSets.CALCITE.coal_ore());
         needsStoneTools.add(OreRockSets.CALCITE.tin_ore());
+
+        needsStoneTools.add(OreRockSets.SLATE.copper_ore());
+        needsStoneTools.add(OreRockSets.SLATE.coal_ore());
+        needsStoneTools.add(OreRockSets.SLATE.tin_ore());
+
+        needsStoneTools.add(OreRockSets.IRONSTONE.copper_ore());
+        needsStoneTools.add(OreRockSets.IRONSTONE.coal_ore());
+        needsStoneTools.add(OreRockSets.IRONSTONE.tin_ore());
 
         needsStoneTools.add(OreRockSets.STONE.tin_ore());
 
         needsStoneTools.add(OreRockSets.DEEPSLATE.tin_ore());
-        needsStoneTools.add(OreRockSets.DEEPSLATE.lead_ore());
-
         needsStoneTools.add(OreRockSets.DEEPSLATE.lead_ore());
 
         needsIronTools.add(OreRockSets.NURGON.tin_ore());

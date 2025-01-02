@@ -1,3 +1,6 @@
 {
-  "parent": "me:block/small_brazier_lit"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "me:item/small_brazier"
+  }
 }
