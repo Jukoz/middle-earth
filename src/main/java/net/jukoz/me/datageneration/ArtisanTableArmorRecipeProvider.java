@@ -2842,7 +2842,461 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
         //region ORCS
 
         //region GENERIC
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LEATHER_STRAP.getDefaultStack(), "chestplate", Disposition.EVIL)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_LEATHER_STRAP).getPath() + "_artisan"));
 
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_SANDALS.getDefaultStack(), "boots", Disposition.EVIL)
+                .input(Items.STICK)
+                .input(Items.STICK)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_SANDALS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_ORCISH_MAIL_COIF.getDefaultStack(), "helmet", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RUSTED_ORCISH_MAIL_COIF).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST.getDefaultStack(), "chestplate", Disposition.EVIL)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_ORCISH_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RUSTED_ORCISH_MAIL_HAUBERK).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_ORCISH_MAIL_SHIRT.getDefaultStack(), "chestplate", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RUSTED_ORCISH_MAIL_SHIRT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_LEATHER_SKIRT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_STRIP_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_STRIP_LEATHER_SKIRT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LEG_BRACER.getDefaultStack(), "leggings", Disposition.EVIL)
+                .input(Items.LEATHER)
+                .input(Items.IRON_NUGGET)
+                .input(Items.LEATHER)
+                .input(Items.IRON_NUGGET)
+                .input(Items.IRON_NUGGET)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_LEG_BRACER).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_ORCISH_MAIL_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RUSTED_ORCISH_MAIL_COAT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_ORCISH_REINFORCED_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RUSTED_ORCISH_REINFORCED_LEATHER_SKIRT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_ORCISH_REINFORCED_STRIP_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RUSTED_ORCISH_REINFORCED_STRIP_LEATHER_SKIRT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BLACK_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_BLACK_FUR_BOOTS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BROWN_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_BROWN_FUR_BOOTS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_GRAY_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_GRAY_FUR_BOOTS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_TAN_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_TAN_FUR_BOOTS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_WHITE_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_WHITE_FUR_BOOTS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BRACED_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironHelmetPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironHelmetPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_BRACED_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironHelmetPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironHelmetPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_MAIL_COIF.getDefaultStack(), "helmet", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_MAIL_COIF).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_MAIL_HAUBERK).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_MAIL_SHIRT.getDefaultStack(), "chestplate", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_MAIL_SHIRT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_MAIL_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_MAIL_COAT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_REINFORCED_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_REINFORCED_LEATHER_SKIRT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_REINFORCED_STRIP_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_REINFORCED_STRIP_LEATHER_SKIRT).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_SALLET.getDefaultStack(), "helmet", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(burzumSteelHelmetPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(burzumSteelHelmetPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_SALLET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(burzumSteelScaleMail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(burzumSteelScaleMail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_SCALE_VEST.getDefaultStack(), "chestplate", Disposition.EVIL)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(burzumSteelScaleMail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(burzumSteelScaleMail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_SCALE_VEST).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_REINFORCED_LEG_BRACER.getDefaultStack(), "leggings", Disposition.EVIL)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(burzumSteelArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(burzumSteelArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_REINFORCED_LEG_BRACER).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BRACED_SANDALS.getDefaultStack(), "boots", Disposition.EVIL)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges())).input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+
+                .criterion(FabricRecipeProvider.hasItem(burzumSteelArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(burzumSteelArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_BRACED_SANDALS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_CAPE.getDefaultStack(), "cape", Disposition.EVIL)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BONE)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BONE)
+                .input(Items.BONE)
+                .input(Items.BONE)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_CAPE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LONG_CAPE.getDefaultStack(), "cape", Disposition.EVIL)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BONE)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_LONG_CAPE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_SHOULDERS.getDefaultStack(), "cape", Disposition.EVIL)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.RED_DYE)
+                .input(ModResourceItems.FABRIC)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_SHOULDERS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BLACK_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(Items.BONE)
+                .input(ModResourceItems.FUR)
+                .input(Items.STRING)
+                .input(Items.BONE)
+                .input(Items.STRING)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_BLACK_FUR_SURCOAT_WITH_BONE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BROWN_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(Items.BONE)
+                .input(ModResourceItems.FUR)
+                .input(Items.STRING)
+                .input(Items.BONE)
+                .input(Items.STRING)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_BROWN_FUR_SURCOAT_WITH_BONE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_GRAY_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(Items.BONE)
+                .input(ModResourceItems.FUR)
+                .input(Items.STRING)
+                .input(Items.BONE)
+                .input(Items.STRING)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_GRAY_FUR_SURCOAT_WITH_BONE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_TAN_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(Items.BONE)
+                .input(ModResourceItems.FUR)
+                .input(Items.STRING)
+                .input(Items.BONE)
+                .input(Items.STRING)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_TAN_FUR_SURCOAT_WITH_BONE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_WHITE_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(ModResourceItems.FUR)
+                .input(Items.BONE)
+                .input(ModResourceItems.FUR)
+                .input(Items.STRING)
+                .input(Items.BONE)
+                .input(Items.STRING)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_WHITE_FUR_SURCOAT_WITH_BONE).getPath() + "_artisan"));
         //endregion
 
         //region MORDOR
