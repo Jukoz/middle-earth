@@ -42,6 +42,11 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.HOOD))
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
+    public static final Item TALL_HOOD = registerDyeableHood("tall_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.TALL_HOOD))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
+                    ModFactions.NONE));
 
     public static final Item BLACK_FUR_HOOD = registerDyeableHood("black_fur_hood",
             new HoodHelmetItem(new Item.Settings()
@@ -85,9 +90,9 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.CLOAK))
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    public static final Item ROBE = registerDyeableCape("robe",
+    public static final Item WANDERER_ROBES = registerDyeableCape("wanderer_robes",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROBE))
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.WANDERER_ROBES))
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
 
@@ -151,7 +156,7 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
                     ModFactions.NONE));
 
-    public static final Item WIZARD_HAT = registerDyeableCustomModelArmorPiece("wizard_hat",
+    public static final Item WANDERER_HAT = registerDyeableCustomModelArmorPiece("wanderer_hat",
             new CustomHelmetItem(ModArmorMaterials.FABRIC_T1, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
@@ -1340,6 +1345,16 @@ public class ModEquipmentItems {
     public static final Item NAZGUL_ROBES = registerCape("nazgul_robes",
             new CapeChestplateItem(new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.NAZGUL_ROBES)),
+                    ModFactions.MORDOR));
+
+    public static final Item RINGWRAITH_MAIL_HAUBERK = registerArmorPiece("ringwraith_mail_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RINGWRAITH_LEGGINGS = registerArmorPiece("ringwraith_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RINGWRAITH_BOOTS = registerArmorPiece("ringwraith_boots",
+            new CustomBootsItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
                     ModFactions.MORDOR));
     //endregion
 
