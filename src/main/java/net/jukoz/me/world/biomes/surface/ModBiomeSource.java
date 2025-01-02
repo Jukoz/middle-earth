@@ -56,9 +56,10 @@ public class ModBiomeSource extends BiomeSource {
         return ModCaveBiomes.getBiome(new Vec2f(temperature, humidity), surfaceBiome);
     }
 
-    public static double getSubBiomeNoise(int x, int z) {
-        double perlin = 1 * BlendedNoise.noise((double) x / SUB_BIOME_NOISE, (double) z / SUB_BIOME_NOISE);
-        perlin += 0.5f * BlendedNoise.noise((double) x * 2 / SUB_BIOME_NOISE, (double) z * 2 / SUB_BIOME_NOISE);
+    public static double getSubBiomeNoise(int x, int z, float frequency) {
+        float noiseFrequency = (SUB_BIOME_NOISE * frequency);
+        double perlin = 1 * BlendedNoise.noise((double) x / noiseFrequency, (double) z / noiseFrequency);
+        perlin += 0.5f * BlendedNoise.noise((double) x * 2 / noiseFrequency, (double) z * 2 / noiseFrequency);
         perlin = perlin / (1 + 0.5f); // 2 octaves
         return perlin;
     }
@@ -66,7 +67,7 @@ public class ModBiomeSource extends BiomeSource {
     private RegistryKey<Biome> getSubBiome(int x, int z, BiomeData surfaceBiome) {
         SubBiome subBiome = SubBiomes.getSubBiome(surfaceBiome.getBiomeRegistryKey());
         if(subBiome != null) {
-            double perlin = getSubBiomeNoise(x, z);
+            double perlin = getSubBiomeNoise(x, z, subBiome.getFrequency());
             SubBiome.SubBiomeData biomeData = SubBiomes.subBiomesMap.get(surfaceBiome.getBiomeRegistryKey()).getBiomeAtNoise((float) perlin);
             if (biomeData != null) return biomeData.biome;
         }
@@ -92,7 +93,7 @@ public class ModBiomeSource extends BiomeSource {
             float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
             SubBiome subBiome = SubBiomes.getSubBiome(biomeHeightData.getBiomeKey());
             if(subBiome != null) {
-                double perlin = ModBiomeSource.getSubBiomeNoise(i, k);
+                double perlin = ModBiomeSource.getSubBiomeNoise(i, k, subBiome.getFrequency());
                 double additionalHeight = subBiome.getAdditionalHeight((float) perlin);
                 additionalHeight *= MiddleEarthMapRuntime.getInstance().getEdge(i, k);
                 height += (float) additionalHeight;

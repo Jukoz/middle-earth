@@ -1,7 +1,6 @@
 package net.jukoz.me.world.biomes;
 
 import net.jukoz.me.block.ModBlocks;
-import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.Blocks;
 
@@ -68,10 +67,10 @@ public class MEBiomeDataConfigs {
             .addSlopeData(44, Blocks.STONE)
             .addSlopeData(56, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.DEEPSLATE);
-    public static SlopeMap lonelyMountainPeak = new SlopeMap().addSlopeData(24, Blocks.SNOW_BLOCK)
-            .addSlopeData(36, StoneBlockSets.FROZEN_STONE.base())
-            .addSlopeData(48, Blocks.STONE)
-            .addSlopeData(60, Blocks.TUFF)
+    public static SlopeMap lonelyMountainPeak = new SlopeMap().addSlopeData(22, Blocks.SNOW_BLOCK)
+            .addSlopeData(30, StoneBlockSets.FROZEN_STONE.base())
+            .addSlopeData(44, Blocks.STONE)
+            .addSlopeData(56, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.DEEPSLATE);
 
     public static SlopeMap ironHills = new SlopeMap().addSlopeData(32, Blocks.GRASS_BLOCK)
@@ -90,7 +89,14 @@ public class MEBiomeDataConfigs {
             .addSlopeData(32, Blocks.STONE)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.LIMESTONE.base());
 
-    public static SlopeMap mistyMountains = new SlopeMap().addSlopeData(13, Blocks.GRASS_BLOCK)
+    public static SlopeMap mistyMountainsBase = new SlopeMap().addSlopeData(13, Blocks.GRASS_BLOCK)
+            .addSlopeData(16, Blocks.COARSE_DIRT)
+            .addSlopeData(22, Blocks.TUFF)
+            .addSlopeData(30, StoneBlockSets.DOLOMITE.base())
+            .addSlopeData(38, Blocks.STONE)
+            .addSlopeData(50, StoneBlockSets.GNEISS.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.ZIGILABAN.base());
+    public static SlopeMap mistyMountains = new SlopeMap().addSlopeData(14, ModBlocks.SNOWY_GRASS_BLOCK)
             .addSlopeData(16, Blocks.COARSE_DIRT)
             .addSlopeData(22, Blocks.TUFF)
             .addSlopeData(30, StoneBlockSets.DOLOMITE.base())
@@ -132,24 +138,14 @@ public class MEBiomeDataConfigs {
             .addSlopeData(MAX_ANGLE, StoneBlockSets.GALONN.base());
 
     public static SlopeMap mordorMountains = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_DIRT)
-            .addSlopeData(30, ModBlocks.ASH_BLOCK)
-            .addSlopeData(42, Blocks.SMOOTH_BASALT)
-            .addSlopeData(56, StoneBlockSets.ASHEN_STONE.base())
+            .addSlopeData(30, ModBlocks.ASHEN_GRAVEL)
+            .addSlopeData(41, Blocks.SMOOTH_BASALT)
+            .addSlopeData(55, StoneBlockSets.ASHEN_STONE.base())
             .addSlopeData(MAX_ANGLE, Blocks.BLACKSTONE);
     public static SlopeMap mordorMountainsPeaks = new SlopeMap().addSlopeData(26, ModBlocks.ASHEN_GRAVEL)
             .addSlopeData(40, Blocks.SMOOTH_BASALT)
             .addSlopeData(54, StoneBlockSets.ASHEN_STONE.base())
             .addSlopeData(MAX_ANGLE, Blocks.BLACKSTONE);
-
-    public static SlopeMap southernMordorMountains = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_GRAVEL)
-            .addSlopeData(30, ModBlocks.ASH_BLOCK)
-            .addSlopeData(44, Blocks.SMOOTH_BASALT)
-            .addSlopeData(58, Blocks.DEEPSLATE)
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHEN_STONE.base());
-    public static SlopeMap southernMordorMountainsPeaks = new SlopeMap().addSlopeData(26, ModBlocks.ASH_BLOCK)
-            .addSlopeData(40, Blocks.SMOOTH_BASALT)
-            .addSlopeData(54, Blocks.TUFF)
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHEN_STONE.base());
 
     public static SlopeMap stoneHills = new SlopeMap().addSlopeData(33, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
@@ -157,20 +153,23 @@ public class MEBiomeDataConfigs {
             .addSlopeData(MAX_ANGLE, Blocks.TUFF);
 
     public static SlopeMap whiteMountains = new SlopeMap()
-            .addSlopeData(22f, Blocks.GRASS_BLOCK)
-            .addSlopeData(25, Blocks.COARSE_DIRT)
-            .addSlopeData(37, Blocks.STONE)
-            .addSlopeData(48, StoneBlockSets.DOLOMITE.base())
-            .addSlopeData(60, Blocks.DIORITE)
+            .addSlopeData(21f, Blocks.GRASS_BLOCK)
+            .addSlopeData(24, Blocks.COARSE_DIRT)
+            .addSlopeData(32, Blocks.STONE)
+            .addSlopeData(40, StoneBlockSets.DOLOMITE.base())
+            .addSlopeData(50, Blocks.DIORITE)
             .addSlopeData(MAX_ANGLE, Blocks.CALCITE);
     public static SlopeMap whitePeaks = new SlopeMap()
             .addSlopeData(24, Blocks.SNOW_BLOCK)
             .addSlopeData(36, Blocks.DEEPSLATE)
-            .addSlopeData(45, Blocks.TUFF)
-            .addSlopeData(54, Blocks.CALCITE)
+            .addSlopeData(42, Blocks.TUFF)
+            .addSlopeData(50, Blocks.CALCITE)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
 
     public static SlopeMap grassPlains = new SlopeMap().addSlopeData(25, Blocks.GRASS_BLOCK)
+            .addSlopeData(36, Blocks.COARSE_DIRT)
+            .addSlopeData(MAX_ANGLE, Blocks.STONE);
+    public static SlopeMap snowyPlains = new SlopeMap().addSlopeData(25, ModBlocks.SNOWY_GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
     public static SlopeMap sandShores = new SlopeMap().addSlopeData(27, Blocks.SAND)
@@ -281,7 +280,7 @@ public class MEBiomeDataConfigs {
     public static BiomeGenerationData shireModifier = new BiomeGenerationData().expansionWeight(LAND_WEIGHT).noiseModifier(FOOTHILL_NOISE_MODIFIER).heightModifier(FOOTHILL_HEIGHT_MODIFIER);
     public static BiomeGenerationData mountainModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(MOUNTAIN_NOISE_MODIFIER).heightModifier(MOUNTAIN_HEIGHT_MODIFIER);
     public static BiomeGenerationData mordorMountainModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(1.47f).heightModifier(MOUNTAIN_HEIGHT_MODIFIER);
-    public static BiomeGenerationData bmModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(MOUNTAIN_NOISE_MODIFIER).heightModifier(0.36f);
+    public static BiomeGenerationData bmModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(MOUNTAIN_NOISE_MODIFIER + 0.13f).heightModifier(0.36f);
     public static BiomeGenerationData bmPeaksModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(1.47f).heightModifier(0.33f);
     public static BiomeGenerationData mirkwoodModifier = new BiomeGenerationData().expansionWeight(LAND_WEIGHT).noiseModifier(0.51f).heightModifier(0.4f);
     public static BiomeGenerationData emynMuilModifier = new BiomeGenerationData().expansionWeight(LAND_WEIGHT).noiseModifier(1.2f).heightModifier(0.67f);
