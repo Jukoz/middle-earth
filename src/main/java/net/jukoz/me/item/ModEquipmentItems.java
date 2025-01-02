@@ -1341,6 +1341,16 @@ public class ModEquipmentItems {
             new CapeChestplateItem(new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.NAZGUL_ROBES)),
                     ModFactions.MORDOR));
+
+    public static final Item RINGWRAITH_MAIL_HAUBERK = registerArmorPiece("ringwraith_mail_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RINGWRAITH_LEGGINGS = registerArmorPiece("ringwraith_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item RINGWRAITH_BOOTS = registerArmorPiece("ringwraith_boots",
+            new CustomBootsItem(ModArmorMaterials.STEEL_T5, new Item.Settings(),
+                    ModFactions.MORDOR));
     //endregion
 
     //region ISENGARD
