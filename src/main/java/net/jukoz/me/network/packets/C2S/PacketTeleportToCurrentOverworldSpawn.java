@@ -1,6 +1,7 @@
 package net.jukoz.me.network.packets.C2S;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.items.StarlightPhialItem;
 import net.jukoz.me.network.contexts.ServerPacketContext;
 import net.jukoz.me.network.packets.ClientToServerPacket;
 import net.jukoz.me.resources.StateSaverAndLoader;
@@ -11,6 +12,7 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
@@ -38,6 +40,8 @@ public class PacketTeleportToCurrentOverworldSpawn extends ClientToServerPacket<
             context.player().getServer().execute(() -> {
                 if(ModDimensions.isInMiddleEarth(context.player().getWorld())){
                     ModDimensions.teleportPlayerToOverworld(context.player());
+                    if(!context.player().isCreative() && context.player().getMainHandStack().getItem() instanceof StarlightPhialItem)
+                        context.player().getStackInHand(Hand.MAIN_HAND).decrement(1);
                 }
             });
         } catch (Exception e){

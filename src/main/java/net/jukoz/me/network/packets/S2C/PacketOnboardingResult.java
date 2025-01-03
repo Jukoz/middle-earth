@@ -50,6 +50,9 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
     @Override
     @Environment(EnvType.CLIENT)
     public void process(ClientPacketContext context) {
+        if(!canReturnToOverworld){
+            return;
+        }
         float delay = delayOnTeleportationConfirm;
         if(context.player().isInCreativeMode())
             delay = 0;
