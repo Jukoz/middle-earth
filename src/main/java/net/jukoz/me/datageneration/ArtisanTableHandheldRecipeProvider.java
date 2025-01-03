@@ -1249,7 +1249,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(Items.STICK))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModToolItems.PIPE).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModToolItems.CLAYSHIRE_PIPE.getDefaultStack(), "pipe", Disposition.NEUTRAL)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModToolItems.CLAY_PIPE.getDefaultStack(), "pipe", Disposition.NEUTRAL)
                 .input(Items.STICK)
                 .input(Items.TERRACOTTA)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
@@ -1258,7 +1258,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 .input(Items.TERRACOTTA)
                 .criterion(FabricRecipeProvider.hasItem(Items.STICK),
                         FabricRecipeProvider.conditionsFromItem(Items.STICK))
-                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModToolItems.CLAYSHIRE_PIPE).getPath() + "_artisan"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModToolItems.CLAY_PIPE).getPath() + "_artisan"));
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModToolItems.RIVERBEND_PIPE.getDefaultStack(), "pipe", Disposition.NEUTRAL)
                 .input(Items.STICK)
