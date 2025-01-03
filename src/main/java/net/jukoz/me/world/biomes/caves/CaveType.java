@@ -2,10 +2,11 @@ package net.jukoz.me.world.biomes.caves;
 
 public enum CaveType {
     DEFAULT,
-    MISTIES,
-    MOUNTAINS,
+    ASHEN,
     ELVEN,
     FOROD,
-    ASHEN,
-    HARAD
+    HARAD,
+    LONELY_MOUNTAIN,
+    MISTIES,
+    MOUNTAINS
 }

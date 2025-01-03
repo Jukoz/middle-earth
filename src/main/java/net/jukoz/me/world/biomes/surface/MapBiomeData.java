@@ -285,13 +285,13 @@ public class MapBiomeData {
                 new BiomeColorsDTO(8827134, 12771327, defaultShoreWater, defaultWaterFog, 9090684, 8168815), CaveType.ELVEN));
         // LONELY MOUNTAINS
         addBiome(new BiomeData(MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, MEBiomeDataConfigs.lonelyMountain, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 7321722, 6858353), CaveType.MOUNTAINS));
+                new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 7321722, 6858353), CaveType.LONELY_MOUNTAIN));
         addBiome(new BiomeData(MEBiomeKeys.LONELY_MOUNTAIN, MEBiomeDataConfigs.lonelyMountain, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 7188600, 6529388), CaveType.MOUNTAINS));
+                new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 7188600, 6529388), CaveType.LONELY_MOUNTAIN));
         addBiome(new BiomeData(MEBiomeKeys.LONELY_MOUNTAIN_BASE, MEBiomeDataConfigs.lonelyMountain, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(hillySky, 12637183, defaultWater, defaultWaterFog, 6927733, 6005862), CaveType.MOUNTAINS));
+                new BiomeColorsDTO(hillySky, 12637183, defaultWater, defaultWaterFog, 6927733, 6005862), CaveType.LONELY_MOUNTAIN));
         addBiome(new BiomeData(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, MEBiomeDataConfigs.lonelyMountainPeak, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 8106628, 6987890), CaveType.MOUNTAINS));
+                new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 8106628, 6987890), CaveType.LONELY_MOUNTAIN));
         addBiome(new BiomeData(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
         // LONG MARSHES

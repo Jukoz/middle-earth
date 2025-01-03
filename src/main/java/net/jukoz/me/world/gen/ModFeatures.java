@@ -5,6 +5,8 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.features.boulder.BigBoulderFeature;
 import net.jukoz.me.world.features.boulder.BigBoulderFeatureConfig;
 import net.jukoz.me.world.features.columns.*;
+import net.jukoz.me.world.features.ores.ModOreFeature;
+import net.jukoz.me.world.features.ores.ModOreFeatureConfig;
 import net.jukoz.me.world.features.ores.SurfaceOreFeature;
 import net.jukoz.me.world.features.pillar.PillarFeature;
 import net.jukoz.me.world.features.pillar.PillarFeatureConfig;
@@ -23,6 +25,7 @@ public class ModFeatures {
     public static Feature<CaveColumnFeatureConfig> CAVE_COLUMN = register("cave_columns", new CaveColumnFeature(CaveColumnFeatureConfig.CODEC));
     public static Feature<ColumnsFeatureConfig> COLUMNS = register("columns", new ColumnsFeature(ColumnsFeatureConfig.CODEC));
     public static Feature<BigBoulderFeatureConfig> BIG_BOULDER = register("big_boulder", new BigBoulderFeature(BigBoulderFeatureConfig.CODEC));
+    public static Feature<ModOreFeatureConfig> ORE = register("ore", new ModOreFeature(ModOreFeatureConfig.CODEC));
 
     public static void init() {
         LoggerUtil.logInfoMsg("Registering new features");

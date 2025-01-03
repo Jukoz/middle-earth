@@ -8,6 +8,7 @@ import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.block.special.DroopingIciclesBlock;
 import net.jukoz.me.world.features.columns.ClusterFeatureConfig;
 import net.jukoz.me.world.features.columns.SmallPointedStoneFeatureConfig;
+import net.jukoz.me.world.features.ores.ModOreFeatureConfig;
 import net.jukoz.me.world.features.ores.SurfaceOreFeatureConfig;
 import net.jukoz.me.world.features.pillar.PillarFeatureConfig;
 import net.jukoz.me.world.gen.ModFeatures;
@@ -62,6 +63,10 @@ public class CavesConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_BLUE_ICE = registerKey("ore_blue_ice");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GALONN = registerKey("ore_galonn");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_OLD_GALONN = registerKey("ore_old_galonn");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GREEN_TUFF = registerKey("ore_green_tuff");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GILDED_GREEN_TUFF = registerKey("ore_gilded_green_tuff");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GOLD_GREEN_TUFF = registerKey("ore_gold_green_tuff");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GOLDEN_GREEN_TUFF = registerKey("ore_golden_green_tuff");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_IZHER_ABAN = registerKey("ore_izher_aban");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_OLD_IZHER_ABAN = registerKey("ore_old_izher_aban");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_LIMESTONE = registerKey("ore_limestone");
@@ -142,6 +147,7 @@ public class CavesConfiguredFeatures {
     static TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES);
     static BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHEN_STONE.base());
     static BlockMatchRuleTest dolomiteTest = new BlockMatchRuleTest(StoneBlockSets.DOLOMITE.base());
+    static BlockMatchRuleTest greenTuffTest = new BlockMatchRuleTest(StoneBlockSets.GREEN_TUFF.base());
     static BlockMatchRuleTest galonnTest = new BlockMatchRuleTest(StoneBlockSets.GALONN.base());
     static BlockMatchRuleTest izherAbanTest = new BlockMatchRuleTest(StoneBlockSets.IZHERABAN.base());
     static BlockMatchRuleTest calciteStoneTest = new BlockMatchRuleTest(Blocks.CALCITE);
@@ -183,6 +189,15 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.OLD_GALONN.base().getDefaultState()),
             OreFeatureConfig.createTarget(limestoneTest, StoneBlockSets.OLD_GALONN.base().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.OLD_GALONN.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> greenTuffList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GREEN_TUFF.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GREEN_TUFF.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> gildedGreenTuffList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GILDED_GREEN_TUFF.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GILDED_GREEN_TUFF.base().getDefaultState()));
+    static List<ModOreFeatureConfig.Target> goldenGreenTuffList = List.of(
+            ModOreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GILDED_GREEN_TUFF.base().getDefaultState()),
+            ModOreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GILDED_GREEN_TUFF.base().getDefaultState()));
     static List<OreFeatureConfig.Target> izherAbanList = List.of(
             OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.IZHERABAN.base().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.IZHERABAN.base().getDefaultState()));
@@ -226,6 +241,7 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(stoneTest, Blocks.COAL_ORE.getDefaultState()),
             OreFeatureConfig.createTarget(dolomiteTest, Blocks.COAL_ORE.getDefaultState()),
             OreFeatureConfig.createTarget(galonnTest, OreRockSets.LIMESTONE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(greenTuffTest, Blocks.COAL_ORE.getDefaultState()),
             OreFeatureConfig.createTarget(izherAbanTest, OreRockSets.LIMESTONE.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(ashenStoneTest, OreRockSets.ASHEN.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(calciteStoneTest, OreRockSets.CALCITE.coal_ore().getDefaultState()),
@@ -236,6 +252,7 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(stoneTest, Blocks.COPPER_ORE.getDefaultState()),
             OreFeatureConfig.createTarget(dolomiteTest, Blocks.COPPER_ORE.getDefaultState()),
             OreFeatureConfig.createTarget(galonnTest, OreRockSets.LIMESTONE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(greenTuffTest, Blocks.COPPER_ORE.getDefaultState()),
             OreFeatureConfig.createTarget(izherAbanTest, OreRockSets.LIMESTONE.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(ashenStoneTest, OreRockSets.ASHEN.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(calciteStoneTest, OreRockSets.CALCITE.copper_ore().getDefaultState()),
@@ -246,6 +263,7 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(stoneTest, OreRockSets.STONE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(dolomiteTest, OreRockSets.STONE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(galonnTest, OreRockSets.LIMESTONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(greenTuffTest, OreRockSets.STONE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(izherAbanTest, OreRockSets.LIMESTONE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(ashenStoneTest, OreRockSets.ASHEN.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(calciteStoneTest, OreRockSets.CALCITE.tin_ore().getDefaultState()),
@@ -315,6 +333,9 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_BLUE_ICE, Feature.ORE, new OreFeatureConfig(blueIceList, 33));
         ConfiguredFeatures.register(featureRegisterable, ORE_GALONN, Feature.ORE, new OreFeatureConfig(galonnList, 64));
         ConfiguredFeatures.register(featureRegisterable, ORE_OLD_GALONN, Feature.ORE, new OreFeatureConfig(oldGalonnList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GREEN_TUFF, Feature.ORE, new OreFeatureConfig(greenTuffList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GILDED_GREEN_TUFF, Feature.ORE, new OreFeatureConfig(gildedGreenTuffList, 40));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GOLDEN_GREEN_TUFF, ModFeatures.ORE, new ModOreFeatureConfig(goldenGreenTuffList, Blocks.RAW_GOLD_BLOCK.getDefaultState(), 42, 0.0f));
         ConfiguredFeatures.register(featureRegisterable, ORE_IZHER_ABAN, Feature.ORE, new OreFeatureConfig(izherAbanList, 64));
         ConfiguredFeatures.register(featureRegisterable, ORE_OLD_IZHER_ABAN, Feature.ORE, new OreFeatureConfig(oldIzherAbanList, 42));
         ConfiguredFeatures.register(featureRegisterable, ORE_LIMESTONE, Feature.ORE, new OreFeatureConfig(limestoneList, 64));
@@ -417,7 +438,8 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_IRON, Feature.ORE, new OreFeatureConfig(ironList, 10, 0.3f));
         ConfiguredFeatures.register(featureRegisterable, ORE_SILVER, Feature.ORE, new OreFeatureConfig(silverList, 7, 0.5f));
         ConfiguredFeatures.register(featureRegisterable, ORE_JADE, Feature.ORE, new OreFeatureConfig(jadeList, 16, 0.5f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, Feature.ORE, new OreFeatureConfig(goldList, 5, 0.45f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, Feature.ORE, new OreFeatureConfig(goldList, 5, 0.42f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD_GREEN_TUFF, Feature.SCATTERED_ORE, new OreFeatureConfig(greenTuffTest, Blocks.RAW_GOLD_BLOCK.getDefaultState(), 1, 1.0f));
         ConfiguredFeatures.register(featureRegisterable, ORE_EMERALD, Feature.ORE, new OreFeatureConfig(emeraldList, 3, 0.6f));
         ConfiguredFeatures.register(featureRegisterable, ORE_MITHRIL, Feature.SCATTERED_ORE, new OreFeatureConfig(medgonTest, OreRockSets.MEDGON.mithril_ore().getDefaultState(), 1, 1.0f));
 

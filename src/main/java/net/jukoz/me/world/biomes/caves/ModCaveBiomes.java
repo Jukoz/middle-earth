@@ -31,7 +31,7 @@ public class ModCaveBiomes {
     public static CaveBiomesMap elvenCaves = new CaveBiomesMap();
     public static CaveBiomesMap forodCaves = new CaveBiomesMap();
     public static CaveBiomesMap mountainCaves = new CaveBiomesMap();
-    public static CaveBiomesMap ereborCaves = new CaveBiomesMap();
+    public static CaveBiomesMap lonelyMountainCaves = new CaveBiomesMap();
     public static CaveBiomesMap haradCaves = new CaveBiomesMap();
 
     public static void init() {
@@ -50,6 +50,14 @@ public class ModCaveBiomes {
         elvenCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LUSH_CAVE, new Vec2f(-1.0f,-1.1f)));
         elvenCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.MUD_CAVE, new Vec2f(0f,-1.1f)));
         elvenCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(1.0f,-1.1f)));
+
+        lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.IZHER_ABAN_CAVE, new Vec2f(-1.0f,1.0f)));
+        lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(0.0f,1.0f)));
+        lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DOLOMITE_CAVE, new Vec2f(1.0f,1.0f)));
+        lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.GILDED_CAVE, new Vec2f(0.0f,0.0f)));
+        lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.BASIC_CAVE, new Vec2f(1.0f,-1.0f)));
+        lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LUSH_CAVE, new Vec2f(-1.25f,-1.1f)));
+        lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(0f,-1.1f)));
 
         mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.IZHER_ABAN_CAVE, new Vec2f(-1.0f,1.0f)));
         mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LIMESTONE_CAVE, new Vec2f(0.0f,1.0f)));
@@ -75,10 +83,11 @@ public class ModCaveBiomes {
         if(surfaceBiome.getCaveType() != null)
             return switch (surfaceBiome.getCaveType()) {
                 case ASHEN -> ashCaves.getClosestBiome(coordinates);
-                case HARAD -> haradCaves.getClosestBiome(coordinates);
-                case MISTIES, MOUNTAINS -> mountainCaves.getClosestBiome(coordinates);
                 case ELVEN -> elvenCaves.getClosestBiome(coordinates);
                 case FOROD -> forodCaves.getClosestBiome(coordinates);
+                case HARAD -> haradCaves.getClosestBiome(coordinates);
+                case MISTIES, MOUNTAINS -> mountainCaves.getClosestBiome(coordinates);
+                case LONELY_MOUNTAIN -> lonelyMountainCaves.getClosestBiome(coordinates);
                 default -> defaultCaves.getClosestBiome(coordinates);
             };
         return defaultCaves.getClosestBiome(coordinates);
@@ -94,6 +103,8 @@ public class ModCaveBiomes {
         context.register(MEBiomeKeys.DOLOMITE_CAVE, createDolomiteCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
         context.register(MEBiomeKeys.GALONN_CAVE, createGalonnCave(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(MEBiomeKeys.GILDED_CAVE, createGildedCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
         context.register(MEBiomeKeys.IZHER_ABAN_CAVE, createIzherAbanCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
@@ -191,6 +202,20 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.ORE_GALONN);
         undergroundOres.add(CavesPlacedFeatures.ORE_OLD_GALONN);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
+        addBasicFeatures(generationSettings, true);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+    }
+
+    public static Biome createGildedCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        undergroundOres.add(CavesPlacedFeatures.ORE_GREEN_TUFF);
+        undergroundOres.add(CavesPlacedFeatures.ORE_GILDED_GREEN_TUFF);
+        //generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, CavesPlacedFeatures.ORE_GOLD_GREEN_TUFF);
+        undergroundOres.add(CavesPlacedFeatures.ORE_GOLD_RARE);
+
         addBasicFeatures(generationSettings, true);
 
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
