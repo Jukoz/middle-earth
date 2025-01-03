@@ -16,7 +16,7 @@ public class ModFoodItems {
 
     public static final Item LEMBAS = registerItem("lembas",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(20).saturationModifier(20).build())));
+                    new FoodComponent.Builder().nutrition(20).saturationModifier(1).build())));
 
     public static final Item RAW_SWAN = registerItem("raw_swan",
             new Item(new Item.Settings().food(
@@ -107,6 +107,11 @@ public class ModFoodItems {
     public static final Item VEGETABLE_SOUP = registerItem("vegetable_soup",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(6).saturationModifier(0.6f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
+
+    public static final Item SACK_OF_HORSEFEED = registerItem("sack_of_horsefeed",
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(7).saturationModifier(0.4f).build())));
+
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.FOOD_CONTENTS.add(item.getDefaultStack());
