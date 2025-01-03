@@ -120,11 +120,19 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     public void getEquippedStack(EquipmentSlot slot, CallbackInfoReturnable<ItemStack> cir) {
         boolean twoHanded = false;
         ItemStack stackMainHand = this.getInventory().getMainHandStack();
+        ItemStack stackOffHand = this.getInventory().getStack(PlayerInventory.OFF_HAND_SLOT);
 
         if(stackMainHand != null){
             if ((stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded))
                     || (stackMainHand.getItem() instanceof CustomSiegeShieldItem)
                     || (stackMainHand.getItem() instanceof CustomLongbowWeaponItem)) {
+                twoHanded = true;
+            }
+        }
+        if(stackOffHand != null){
+            if ((stackOffHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackOffHand.getItem()).type.twoHanded))
+                    || (stackOffHand.getItem() instanceof CustomSiegeShieldItem)
+                    || (stackOffHand.getItem() instanceof CustomLongbowWeaponItem)) {
                 twoHanded = true;
             }
         }
