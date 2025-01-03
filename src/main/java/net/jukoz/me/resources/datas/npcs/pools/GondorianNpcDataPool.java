@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.resources.MiddleEarthNpcs;
 import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
@@ -11,20 +12,14 @@ import net.jukoz.me.resources.datas.npcs.data.NpcGearItemData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearSlotData;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 
 public class GondorianNpcDataPool {
-    public final static NpcData GONDOR_MILITIA;
-    public final static NpcData GONDOR_SOLDIER;
-    public final static NpcData GONDOR_KNIGHT;
-    public final static NpcData GONDOR_VETERAN;
-    public final static NpcData GONDOR_FOUNTAIN_GUARDS;
-    public final static NpcData GONDOR_CITADEL_GUARDS;
-    public final static NpcData GONDOR_KING_GUARDS;
-    public final static NpcData GONDOR_LEADER;
-
+    private final static String FACTION_BASE = "gondor.";
 
     private final static int LIGHT_BLUE = 0x2b3965;
     private final static int DARK_BLUE = 0x182038;
@@ -37,7 +32,28 @@ public class GondorianNpcDataPool {
     private final static int LIGHT_GREEN = 0x435353;
     private final static int DARK_GREEN = 0x262f2f;
 
-    private final static String FACTION_BASE = "gondor.";
+    public final static NpcData GONDOR_MILITIA;
+    public final static NpcData GONDOR_SOLDIER;
+    public final static NpcData GONDOR_KNIGHT;
+    public final static NpcData GONDOR_VETERAN;
+    public final static NpcData GONDOR_FOUNTAIN_GUARDS;
+    public final static NpcData GONDOR_CITADEL_GUARDS;
+    public final static NpcData GONDOR_KING_GUARDS;
+    public final static NpcData GONDOR_LEADER;
+
+
+    public static List<NpcData> fetchAll() {
+        return List.of(
+                GONDOR_MILITIA,
+                GONDOR_SOLDIER,
+                GONDOR_KNIGHT,
+                GONDOR_VETERAN,
+                GONDOR_FOUNTAIN_GUARDS,
+                GONDOR_CITADEL_GUARDS,
+                GONDOR_KING_GUARDS,
+                GONDOR_LEADER
+                );
+    }
 
     static {
         GONDOR_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), MiddleEarthRaces.HUMAN, List.of(

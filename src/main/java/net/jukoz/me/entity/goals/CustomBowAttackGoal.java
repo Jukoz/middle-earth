@@ -1,5 +1,6 @@
 package net.jukoz.me.entity.goals;
 
+import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RangedAttackMob;
@@ -140,7 +141,11 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
                     int i = this.actor.getItemUseTime();
                     if (i >= 20) {
                         this.actor.clearActiveItem();
-                        this.actor.shootAt(livingEntity, BowItem.getPullProgress(i));
+                        try{
+                            this.actor.shootAt(livingEntity, BowItem.getPullProgress(i));
+                        } catch (IllegalArgumentException e){
+                            this.actor.shootAt(livingEntity, CustomLongbowWeaponItem.getPullProgressLongbow(i));
+                        }
                         this.cooldown = this.attackInterval;
                     }
                 }

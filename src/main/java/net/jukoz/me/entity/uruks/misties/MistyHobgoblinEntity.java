@@ -8,9 +8,11 @@ import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.uruks.UrukNpcEntity;
+import net.jukoz.me.entity.uruks.isengard.IsengardUrukHaiEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -19,6 +21,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -45,6 +48,8 @@ public class MistyHobgoblinEntity extends UrukNpcEntity {
     protected Identifier getFactionId() {
         return MiddleEarthFactions.MISTY_MOUNTAINS_GOBLINS.getId();
     }
+    @Override
+    protected Identifier getRaceId() { return MiddleEarthRaces.URUK.getId(); }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
@@ -78,19 +83,13 @@ public class MistyHobgoblinEntity extends UrukNpcEntity {
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.5);
     }
-
     @Override
-    protected void initGoals() {
-        super.initGoals();
-        int i = 2;
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+    protected void applyDamage(DamageSource source, float amount) {
+        if(source.getAttacker() instanceof MistyHobgoblinEntity){
+            return;
+        }
+        super.applyDamage(source, amount);
     }
-
     public MistyHobgoblinVariant getVariant() {
         return MistyHobgoblinVariant.byId(this.getId());
     }
