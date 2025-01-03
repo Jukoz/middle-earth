@@ -499,6 +499,7 @@ public class ModRegistries {
         registry.add(ModFoodItems.BERRY_PIE, 1.0F);
         registry.add(ModFoodItems.VEGETABLE_SKEWER, 1.0F);
         registry.add(ModFoodItems.VEGETABLE_SOUP, 1.0F);
+        registry.add(ModFoodItems.SACK_OF_HORSEFEED, 1.0F);
 
         registry.add(ModResourceItems.STRAW, 0.3F);
 
