@@ -162,7 +162,7 @@ public class ModToolItems {
     */
 
     public static final Item PIPE = registerItem2dGUI3dPerson("pipe", new PipeItem(new Item.Settings().maxCount(1), 3));
-    public static final Item CLAYSHIRE_PIPE = registerItem2dGUI3dPerson("clayshire_pipe", new PipeItem(new Item.Settings().maxCount(1), 3));
+    public static final Item CLAY_PIPE = registerItem2dGUI3dPerson("clay_pipe", new PipeItem(new Item.Settings().maxCount(1), 3));
     public static final Item RIVERBEND_PIPE = registerItem2dGUI3dPerson("riverbend_pipe", new PipeItem(new Item.Settings().maxCount(1), 3 ));
     public static final Item BRIMMINGBEND_PIPE = registerItem2dGUI3dPerson("brimmingbend_pipe", new PipeItem(new Item.Settings().maxCount(1), 5));
     public static final Item LONGBOTTOM_PIPE = registerItem2dGUI3dPerson("longbottom_pipe", new PipeItem(new Item.Settings().maxCount(1), 5));
