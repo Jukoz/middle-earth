@@ -105,7 +105,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
-        this.goalSelector.add(3, new MeleeAttackGoal(this, 1, false));
+        this.goalSelector.add(3, new MeleeAttackGoal(this, 2.5, false));
         this.goalSelector.add(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 1.0, TEMPTING_INGREDIENT, false));

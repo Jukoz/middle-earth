@@ -79,7 +79,7 @@ public class WargEntity extends AbstractBeastEntity {
 
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 24.0d)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
@@ -110,7 +110,7 @@ public class WargEntity extends AbstractBeastEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
-        this.goalSelector.add(3, new MeleeAttackGoal(this, 1, false));
+        this.goalSelector.add(3, new MeleeAttackGoal(this, 2, false));
         this.goalSelector.add(4, new ChargeAttackGoal(this, this.getDisposition(), maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 1.0, TEMPTING_INGREDIENT, false));
@@ -300,12 +300,11 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected void setupAnimationStates() {
         if(this.isSitting()) {
-            this.stopSittingAnimationState.stop();
             this.startSittingAnimationState.startIfNotRunning(this.age);
         }
-        else {
+        if(!this.isSitting() && this.startSittingAnimationState.isRunning()) {
             this.startSittingAnimationState.stop();
-            this.stopSittingAnimationState.startIfNotRunning(this.age);
+            this.stopSittingAnimationState.start(this.age);
         }
     }
 
