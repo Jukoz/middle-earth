@@ -2,13 +2,13 @@
   "pools": [
     {
       "rolls": {
-        "min": 1,
-        "max": 3
+        "min": 0,
+        "max": 2
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:rotten_flesh"
+          "name": "me:ash"
         }
       ]
     },
@@ -20,7 +20,55 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "me:dry_growth"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:granite_rocks"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
           "name": "me:dirty_bone"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bone"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:copper_coin"
         }
       ]
     },
@@ -32,55 +80,19 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:tough_berries"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 1,
-        "max": 3
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:maggoty_bread"
+          "name": "me:bronze_ingot"
         }
       ]
     },
     {
       "rolls": {
         "min": 0,
-        "max": 1
+        "max": 5
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:mordor_banner_pattern"
-        }
-      ]
-    },
-	{
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:skeleton_skull"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 1,
-        "max": 4
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:ash_block"
+          "name": "me:bronze_nugget"
         }
       ]
     }
