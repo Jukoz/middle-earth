@@ -7357,7 +7357,6 @@
   "spawn.me.rohan.the_wold" : "北高原",
   "spawn.me.dale.capital" : "河谷城",
   "spawn.me.dale.esgaroth" : "埃斯加洛斯",
-  "spawn.me.longbeards.erebor.outskirts" : "埃瑞博外围",
   "spawn.me.longbeards.erebor.ravenhill" : "渡鸦岭",
   "spawn.me.longbeards.erebor.iron_hills" : "铁丘陵",
   "spawn.me.longbeards.erebor.iron_hills_spring" : "铁丘陵水源",
@@ -7633,5 +7632,39 @@
   "tag.item.me.tin": "锡",
   "tag.item.me.tin_ores": "锡矿石",
   "tag.item.me.warg_food": "座狼饲料",
-  "tag.item.me.worm": "蠕虫"
+  "tag.item.me.worm": "蠕虫",
+
+  "#Comment": "图画",
+  "painting.me.dwarf_portrait.author": "Boenndal",
+  "painting.me.dwarf_portrait.title": "矮人肖像",
+
+  "painting.me.hobbit_portrait.author": "Boenndal",
+  "painting.me.hobbit_portrait.title": "霍比特肖像",
+
+  "painting.me.human_portrait.author": "Boenndal",
+  "painting.me.human_portrait.title": "人类肖像",
+
+  "painting.me.orc_portrait.author": "Boenndal",
+  "painting.me.orc_portrait.title": "奥克肖像",
+
+  "painting.me.note_board.author": "Boenndal",
+  "painting.me.note_board.title": "告示板",
+
+  "painting.me.pan_board.author": "Boenndal",
+  "painting.me.pan_board.title": "厨具架",
+
+  "painting.me.rohirric_tapestry.author": "Boenndal",
+  "painting.me.rohirric_tapestry.title": "洛汗壁毯",
+
+  "painting.me.small_mirror.author": "Boenndal",
+  "painting.me.small_mirror.title": "小镜子",
+
+  "painting.me.tall_mirror.author": "Boenndal",
+  "painting.me.tall_mirror.title": "高镜子",
+
+  "painting.me.prancing_pony.author": "Boenndal",
+  "painting.me.prancing_pony.title": "跃马",
+
+  "painting.me.tool_board.author": "Boenndal",
+  "painting.me.tool_board.title": "工具架"
 }
