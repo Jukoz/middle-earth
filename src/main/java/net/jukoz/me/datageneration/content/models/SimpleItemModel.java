@@ -44,6 +44,7 @@ public class SimpleItemModel {
             add(ModFoodItems.VEGETABLE_SKEWER);
             add(ModFoodItems.COOKED_VEGETABLE_SKEWER);
             add(ModFoodItems.VEGETABLE_SOUP);
+            add(ModFoodItems.SACK_OF_HORSEFEED);
             add(ModFoodItems.RAW_VENISON);
             add(ModFoodItems.COOKED_VENISON);
             add(ModFoodItems.RAW_HORSE);
