@@ -1,5 +1,5 @@
 {
-	"parent": "me:item/black_numenorean_spear",
+	"parent": "me:item/aeglos",
 	"display": {
 		"thirdperson_righthand": {
 			"translation": [0, 6, 1.25],
