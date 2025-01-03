@@ -473,6 +473,15 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableAxe.add(ModBlocks.MANGROVE_WOOD_VERTICAL_SLAB);
         mineableAxe.add(ModBlocks.CHERRY_WOOD_VERTICAL_SLAB);
 
+        mineableAxe.add(ModBlocks.OAK_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.SPRUCE_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.BIRCH_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.JUNGLE_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.ACACIA_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.DARK_OAK_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.MANGROVE_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.CHERRY_WOOD_STAIRS);
+
         mineableAxe.add(ModBlocks.STRIPPED_OAK_WOOD_VERTICAL_SLAB);
         mineableAxe.add(ModBlocks.STRIPPED_SPRUCE_WOOD_VERTICAL_SLAB);
         mineableAxe.add(ModBlocks.STRIPPED_BIRCH_WOOD_VERTICAL_SLAB);
