@@ -1672,6 +1672,23 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         CookingRecipeJsonBuilder.createSmoking(Ingredient.fromTag(TagKey.of(RegistryKeys.ITEM, Identifier.of("logs"))), RecipeCategory.BUILDING_BLOCKS, WoodBlockSets.SCORCHED.log(), 0.35f, 100)
                 .criterion(FabricRecipeProvider.hasItem(Items.OAK_LOG),
                         FabricRecipeProvider.conditionsFromItem(Items.OAK_LOG)).offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(WoodBlockSets.SCORCHED.log()).getPath() + "_from_smoking"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.SHORT_ICICLES, 4)
+                .pattern("III")
+                .pattern(" I ")
+                .input('I', Items.ICE)
+                .criterion(FabricRecipeProvider.hasItem(Items.ICE),
+                        FabricRecipeProvider.conditionsFromItem(Items.ICE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.DROOPING_ICICLES, 4)
+                .pattern("III")
+                .pattern("III")
+                .pattern(" I ")
+                .input('I', Items.ICE)
+                .criterion(FabricRecipeProvider.hasItem(Items.ICE),
+                        FabricRecipeProvider.conditionsFromItem(Items.ICE))
+                .offerTo(exporter);
         //endregion
 
         //region SMOKING-ONLY
