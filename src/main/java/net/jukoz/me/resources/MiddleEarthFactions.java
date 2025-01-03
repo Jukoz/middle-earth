@@ -48,6 +48,8 @@ public class MiddleEarthFactions {
     public final static Faction SHIRE;
     // [BANDIT]
     public final static Faction BANDIT;
+
+
     public static void register(){
         LoggerUtil.logDebugMsg("Registering Dynamic Factions for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(FACTION_KEY, Faction.CODEC);
@@ -296,6 +298,7 @@ public class MiddleEarthFactions {
                             MordorNpcDataPool.MORDOR_ORC_SNAGA
                     ));
                     put(NpcRank.MILITIA, List.of(
+                            MordorNpcDataPool.MORDOR_BLACK_NUMENOREAN,
                             MordorNpcDataPool.MORDOR_ORC_SNAGA
                     ));
                     put(NpcRank.SOLDIER, List.of(
@@ -372,27 +375,22 @@ public class MiddleEarthFactions {
         ISENGARD = new Faction("isengard", true, Disposition.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
-                            IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
+                            IsengardNpcDataPool.ISENGARD_ORC_SNAGA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
-                            IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
+                            IsengardNpcDataPool.ISENGARD_ORC_SNAGA,
+                            IsengardNpcDataPool.ISENGARD_ORTHANC_GUARD
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
-                            IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
+                            IsengardNpcDataPool.ISENGARD_ORC_WARRIOR
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
                             IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
                             IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
                     ));
                     put(NpcRank.LEADER, List.of(
-                            IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
                             IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
                     ));
                 }},

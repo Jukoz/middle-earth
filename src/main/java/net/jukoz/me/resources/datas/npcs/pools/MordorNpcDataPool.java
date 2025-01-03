@@ -29,6 +29,7 @@ public class MordorNpcDataPool {
 
     private static List<Integer> allColors;
 
+    public final static NpcData MORDOR_BLACK_NUMENOREAN;
     public final static NpcData MORDOR_ORC_SNAGA;
     public final static NpcData MORDOR_ORC_MILITIA;
     public final static NpcData MORDOR_ORC_SCOUT;
@@ -41,6 +42,7 @@ public class MordorNpcDataPool {
 
     public static List<NpcData> fetchAll() {
         return List.of(
+                MORDOR_BLACK_NUMENOREAN,
                 MORDOR_ORC_SNAGA,
                 MORDOR_ORC_MILITIA,
                 MORDOR_ORC_SCOUT,
@@ -53,6 +55,28 @@ public class MordorNpcDataPool {
     }
     static {
         allColors = List.of(DARK_RED, DARK_BROWN, DARK);
+
+        MORDOR_BLACK_NUMENOREAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "black_numenorean"), MiddleEarthRaces.HUMAN, List.of(
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET).withWeight(4))
+                        )
+                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE).withCape(ModCapes.MORDOR_BLACK_NUMENOREAN_CAPE))
+                        )
+                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModWeaponItems.BLACK_NUMENOREAN_SPEAR))
+                        )
+                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModWeaponItems.BLACK_NUMENOREAN_TOWER_SHIELD))
+                        )
+        ));
+
         MORDOR_ORC_SNAGA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "orc_snaga"), MiddleEarthRaces.ORC, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
