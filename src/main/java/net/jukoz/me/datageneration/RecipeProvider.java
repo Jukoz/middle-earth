@@ -1689,6 +1689,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(Items.ICE),
                         FabricRecipeProvider.conditionsFromItem(Items.ICE))
                 .offerTo(exporter);
+
+        createCenterSurroundRecipe(exporter, Blocks.TUFF.asItem(), Items.COPPER_INGOT, StoneBlockSets.GREEN_TUFF.base().asItem(), 8);
         //endregion
 
         //region SMOKING-ONLY
