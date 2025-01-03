@@ -761,7 +761,7 @@ public class ModBlocks {
     public static final Block TREATED_STEEL_BARS = registerMiscBlock("treated_steel_bars",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.IRON_BARS)), true);
 
-    public static final Block SILVERS_BARS = registerMiscBlock("silver_bars",
+    public static final Block SILVER_BARS = registerMiscBlock("silver_bars",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.METAL)), true);
 
     public static final Block GILDED_BARS = registerMiscBlock("gilded_bars",

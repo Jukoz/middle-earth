@@ -943,7 +943,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.STEEL_INGOT))
                 .offerTo(exporter);
 
-        createPaneRecipe(exporter, ModResourceItems.SILVER_INGOT, ModBlocks.SILVERS_BARS, 16);
+        createPaneRecipe(exporter, ModResourceItems.SILVER_INGOT, ModBlocks.SILVER_BARS, 16);
         createPaneRecipe(exporter, Items.GOLD_INGOT, ModBlocks.GILDED_BARS, 16);
 
         createCenterSurroundRecipe(exporter, StoneBlockSets.WHITE_DAUB.base().asItem(), Items.BLACK_DYE, StoneBlockSets.DARK_DAUB.base().asItem(), 8);

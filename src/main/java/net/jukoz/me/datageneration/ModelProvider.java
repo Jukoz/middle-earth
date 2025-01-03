@@ -723,6 +723,8 @@ public class ModelProvider extends FabricModelProvider {
 
         registerPaneModel(blockStateModelGenerator, ModBlocks.TREATED_STEEL_BARS);
 
+        registerPaneModel(blockStateModelGenerator, ModBlocks.SILVER_BARS);
+
         registerOrientableTrapdoorLadder(blockStateModelGenerator, ModDecorativeBlocks.ROPE_LADDER);
 
         blockStateModelGenerator.registerWallPlant(ModNatureBlocks.AZALEA_FLOWER_GROWTH);
