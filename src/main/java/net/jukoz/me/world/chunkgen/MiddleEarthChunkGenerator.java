@@ -2,6 +2,8 @@ package net.jukoz.me.world.chunkgen;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
@@ -56,6 +58,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public static final int mapMultiplier = (int) Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION + MiddleEarthMapConfigs.PIXEL_WEIGHT - 2);
     public static final Vec2f mountDoom = new Vec2f(2131.5f, 1715.2f).multiply(mapMultiplier);
     private static final int CAVE_STRETCH_H = 60;
+    private static final int SPAGHETTI_CAVE_STRETCH_H = 90;
     private static final int CAVE_STRETCH_V = 50;
 
     RegistryEntryLookup<Biome> biomeRegistry;
@@ -300,6 +303,12 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.BASIC_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LUSH_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DRIPSTONE_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DOLOMITE_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GALONN_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GILDED_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.IZHER_ABAN_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LIMESTONE_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MOUNTAIN_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MUD_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FUNGUS_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MITHRIL_CAVE),
@@ -332,6 +341,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
+
         for(int x = 0; x < 16; x++) {
             for(int z = 0; z < 16; z++) {
                 int posX = (chunk.getPos().x * 16) + x;
@@ -400,6 +410,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                         trySetBlock(chunk, chunk.getPos().getBlockPos(x, currentHeight++, z), layerData.block.getDefaultState());
                     }
                 }
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 2), z), customHeightBiomeHeightData.getBiome().getBlocksLayering().layers.getFirst().block.getDefaultState(), false);
                 BlockState surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().slopeDatas.getFirst().block.getDefaultState();
                 BlockState underSurfaceBlock;
 
@@ -409,7 +420,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     underSurfaceBlock = surfaceBlock;
                 } else {
                     surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().getBlockAtAngle(slopeAngle).getDefaultState();
-                    if(surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState()) underSurfaceBlock = Blocks.DIRT.getDefaultState();
+                    if(surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState() || surfaceBlock == ModBlocks.SNOWY_GRASS_BLOCK.getDefaultState()) underSurfaceBlock = Blocks.DIRT.getDefaultState();
                     else underSurfaceBlock = surfaceBlock;
                 }
 
@@ -462,7 +473,17 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         float noise3 = (float) SimplexNoise.noise((float) blockPos.getX() / 90, (float) blockPos.getY() / 60, (float) blockPos.getZ() / 90);
         float miniNoise = (float) SimplexNoise.noise((float) blockPos.getX() / 40, (float) blockPos.getY() / 30, (float) blockPos.getZ() / 40);
 
-        if(noise < 0.4f && noise3 < 0.75f && miniNoise < 0.8f) { //
+
+        float spaghettiNoise = Math.abs ((float) SimplexNoise.noise(
+                (float) blockPos.getX() / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), (float) Math.tan((float) blockPos.getY() / CAVE_STRETCH_V), (float) blockPos.getZ() / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), 57142));
+        float spaghettiNoise2 = Math.abs ((float) SimplexNoise.noise(
+                (float) (98153 + blockPos.getZ()) / SPAGHETTI_CAVE_STRETCH_H, (float) blockPos.getY() / CAVE_STRETCH_V, (float) blockPos.getX() / SPAGHETTI_CAVE_STRETCH_H, 0));
+        float spaghettiNoise3 = Math.abs ((float) SimplexNoise.noise(
+                (float) (1243624 + blockPos.getZ()) / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), (float) blockPos.getY() / CAVE_STRETCH_V, (float) blockPos.getX() / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), 0));
+        float combinedSpaghettiNoise = Math.abs(spaghettiNoise) + Math.abs(spaghettiNoise2) + Math.abs(spaghettiNoise3);
+        combinedSpaghettiNoise /= 3;
+
+        if(noise < 0.4f && noise3 < 0.75f && miniNoise < 0.8f && combinedSpaghettiNoise > 0.09f) {
             chunk.setBlockState(blockPos, blockState, false);
         }
     }

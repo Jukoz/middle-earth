@@ -7633,5 +7633,39 @@
   "tag.item.me.tin": "Tin",
   "tag.item.me.tin_ores": "Tin Ores",
   "tag.item.me.warg_food": "Warg Food",
-  "tag.item.me.worm": "Worm"
+  "tag.item.me.worm": "Worm",
+
+"#Comment": "Paintings",
+  "painting.me.dwarf_portrait.author": "Boenndal",
+  "painting.me.dwarf_portrait.title": "Dwarf Portrait",
+
+  "painting.me.hobbit_portrait.author": "Boenndal",
+  "painting.me.hobbit_portrait.title": "Hobbit Portrait",
+
+  "painting.me.human_portrait.author": "Boenndal",
+  "painting.me.human_portrait.title": "Human Portrait",
+
+  "painting.me.orc_portrait.author": "Boenndal",
+  "painting.me.orc_portrait.title": "Orc Portrait",
+
+  "painting.me.note_board.author": "Boenndal",
+  "painting.me.note_board.title": "Note Board",
+
+  "painting.me.pan_board.author": "Boenndal",
+  "painting.me.pan_board.title": "Pan Board",
+
+  "painting.me.rohirric_tapestry.author": "Boenndal",
+  "painting.me.rohirric_tapestry.title": "Rohirric Tapestry",
+
+  "painting.me.small_mirror.author": "Boenndal",
+  "painting.me.small_mirror.title": "Small Mirror",
+
+  "painting.me.tall_mirror.author": "Boenndal",
+  "painting.me.tall_mirror.title": "Tall Mirror",
+
+  "painting.me.prancing_pony.author": "Boenndal",
+  "painting.me.prancing_pony.title": "Prancing Pony",
+
+  "painting.me.tool_board.author": "Boenndal",
+  "painting.me.tool_board.title": "Tool Board"
 }
