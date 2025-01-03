@@ -42,7 +42,7 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
         return this.getMaterial().getAttackDamage();
     }
 
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    /*public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
         return TypedActionResult.success(itemStack, world.isClient());
@@ -87,5 +87,5 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
         }
 
         playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
-    }
+    }*/
 }
