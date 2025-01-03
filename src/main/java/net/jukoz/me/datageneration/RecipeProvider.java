@@ -113,6 +113,38 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createWallsRecipe(exporter, record.base(), record.wall());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.base(), 1);
         }
+
+        for (StoneBlockSets.SimplePillarBlockSet record : StoneBlockSets.pillarSets) {
+            if (record.toString().contains("mossy_")) {
+                createMossyRecipe(exporter, record.source(), record.base());
+            } else if (record.toString().contains("cracked_") || record.toString().contains("smooth_")) {
+                createSmeltingRecipe(exporter, record.source().asItem(), record.base().asItem());
+            } else if (record.toString().contains("cobbled_") || record.toString().contains("cobblestone")) {
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
+                createSmeltingRecipeIdentifier(exporter, record.base().asItem(), record.source().asItem());
+            } else if (record.toString().contains("old_") && !record.toString().contains("old_bricks")) {
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
+            } else if (record.source() != null) {
+                createBrickRecipe(exporter, record.source().asItem(), record.base(), 4);
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.source(), 2);
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.verticalSlab(), record.source(), 2);
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.source());
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.source());
+            }
+
+            createSlabsRecipe(exporter, record.base(), record.slab());
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.base(), 2);
+            createVerticalSlabsRecipe(exporter, record.slab(), record.verticalSlab());
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.verticalSlab(), record.base(), 2);
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.verticalSlab(), record.slab(), 1);
+            createSlabsFromVerticalRecipe(exporter, record.verticalSlab(), record.slab());
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.verticalSlab(), 1);
+            createStairsRecipe(exporter, record.base(), record.stairs());
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.base(), 1);
+            createWallsRecipe(exporter, record.base(), record.wall());
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.base(), 1);
+        }
         //endregion
 
         //region WOOD RECIPES

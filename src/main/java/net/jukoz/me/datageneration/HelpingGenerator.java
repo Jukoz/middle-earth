@@ -85,6 +85,7 @@ public class HelpingGenerator {
             Walls.walls.add(set.wall());
         }
 
+
         for (StoneBlockSets.SimplePillarBlockSet set : StoneBlockSets.pillarSets) {
             SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.base()));
             if (set.base().toString().contains("cobble") && !set.base().toString().contains("mossy")) {
