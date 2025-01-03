@@ -165,13 +165,14 @@ public class MapBasedBiomePool {
         add(new Color(0xececec), new MapBasedCustomBiome(MEBiomeKeys.FORODWAITH, 14, MEBiomeDataConfigs.landModifier));
         add(new Color(0x4ad58a), new MapBasedCustomBiome(MEBiomeKeys.LINDON_SHORES_CLIFFS, 30, MEBiomeDataConfigs.landModifier.heightModifier(0.76f)));
         add(new Color(0xdee3bf), new MapBasedCustomBiome(MEBiomeKeys.LINDON_SHORES, 0, MEBiomeDataConfigs.landModifier.heightModifier(0.97f).heightModifier(0.1f).noiseModifier(0.05f)));
-        add(new Color(0x5bbd55), new MapBasedCustomBiome(MEBiomeKeys.GONDOR, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x5BB456), new MapBasedCustomBiome(MEBiomeKeys.GONDOR, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x50A94B), new MapBasedCustomBiome(MEBiomeKeys.GONDOR_FOREST, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x5BAB57), new MapBasedCustomBiome(MEBiomeKeys.GONDOR_HILL, 12, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x382424), new MapBasedCustomBiome(MEBiomeKeys.GORGOROTH, 6, MEBiomeDataConfigs.plainsModifier));
         add(new Color(0x3B2826), new MapBasedCustomBiome(MEBiomeKeys.GORGOROTH_ASHEN_WOODS, 6, MEBiomeDataConfigs.plainsModifier));
         add(new Color(0x593B38), new MapBasedCustomBiome(MEBiomeKeys.GORGOROTH_DELTA, 6, MEBiomeDataConfigs.plainsModifier));
         add(new Color(0x5c935c), new MapBasedCustomBiome(MEBiomeKeys.GREY_PLAINS, 6, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x557A55), new MapBasedCustomBiome(MEBiomeKeys.GREY_ASHEN_WOODS, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x7d7171), new MapBasedCustomBiome(MEBiomeKeys.GREY_MOUNTAINS_BASE, 30, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
         add(new Color(0x6e6262), new MapBasedCustomBiome(MEBiomeKeys.GREY_MOUNTAINS, 61, MEBiomeDataConfigs.mountainModifier.heightModifier(0.355f)));
         add(new Color(0x635a5a), new MapBasedCustomBiome(MEBiomeKeys.GREY_MOUNTAINS_PEAKS, 88, MEBiomeDataConfigs.mountainModifier.heightModifier(0.59f).noiseModifier(1.3f)));

@@ -289,6 +289,9 @@ public class ModBiomeFeatures {
     public static void addScorchedTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.SCORCHED_TREE_PLACED_TREE_KEY);
     }
+    public static void addCommonScorchedTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.COMMON_SCORCHED_TREE_PLACED_TREE_KEY);
+    }
     public static void addAbundantScorchedTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.ABUNDANT_SCORCHED_TREE_PLACED_TREE_KEY);
     }
