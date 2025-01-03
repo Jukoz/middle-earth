@@ -296,11 +296,11 @@ public class MiddleEarthFactions {
                             MordorNpcDataPool.MORDOR_ORC_SNAGA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MordorNpcDataPool.MORDOR_ORC_SNAGA,
-                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
-                            MordorNpcDataPool.MORDOR_ORC_SCOUT
+                            MordorNpcDataPool.MORDOR_ORC_SNAGA
                     ));
                     put(NpcRank.SOLDIER, List.of(
+                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
+                            MordorNpcDataPool.MORDOR_ORC_SCOUT,
                             MordorNpcDataPool.MORDOR_ORC_SOLDIER
                     ));
                     put(NpcRank.KNIGHT, List.of(
@@ -334,28 +334,23 @@ public class MiddleEarthFactions {
         MISTY_MOUNTAINS_GOBLINS = new Faction("misty_mountains_goblins", true, Disposition.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
-                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
+                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_SNAGA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
-                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
+                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_SNAGA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
-                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
+                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_WARRIOR,
+                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_ARCHER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
-                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
+                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_SOLDIER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
-                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
+                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
-                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
+                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_LEADER
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

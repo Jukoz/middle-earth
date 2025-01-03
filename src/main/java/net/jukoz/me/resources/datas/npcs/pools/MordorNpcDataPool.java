@@ -47,8 +47,8 @@ public class MordorNpcDataPool {
                 MORDOR_ORC_SOLDIER,
                 MORDOR_BLACK_URUK_SOLDIER,
                 MORDOR_BLACK_URUK_VETERAN,
-                MORDOR_BLACK_URUK_LEADER,
-                MORDOR_BLACK_URUK_VETERAN_ARCHER
+                MORDOR_BLACK_URUK_VETERAN_ARCHER,
+                MORDOR_BLACK_URUK_LEADER
         );
     }
     static {
@@ -90,9 +90,9 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(ModWeaponItems.CRUDE_FALCHION))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_WOODEN_SHIELD).withWeight(3))
-                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_PAINTED_WOODEN_SHIELD).withWeight(2))
-                                .add(NpcGearItemData.create(Items.AIR))
+                                .add(NpcGearItemData.create(Items.AIR).withWeight(3))
+                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_WOODEN_SHIELD).withWeight(2))
+                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_PAINTED_WOODEN_SHIELD))
                         )
         ));
 
