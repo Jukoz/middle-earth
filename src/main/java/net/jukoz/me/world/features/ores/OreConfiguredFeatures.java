@@ -46,6 +46,8 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> DRY_DIRT_ORE = registerKey("dry_dirt_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FOREST_MOSS_DISK = registerKey("forest_moss_disk");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRAVEL_ORE = registerKey("gravel_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SNOWY_DIRT_ORE = registerKey("snowy_dirt_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SNOWY_GRASS_ORE = registerKey("snowy_grass_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRANITE_ORE = registerKey("granite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> STONE_GRASS_ORE = registerKey("stone_grass_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SAND_TO_GRASS_ORE = registerKey("sand_to_grass_ore");
@@ -160,6 +162,12 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, GRAVEL_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.GRAVEL.getDefaultState(), 48, 0.4f));
+
+        ConfiguredFeatures.register(featureRegisterable, SNOWY_DIRT_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, ModBlocks.SNOWY_DIRT.getDefaultState(), 48, 0.4f));
+
+        ConfiguredFeatures.register(featureRegisterable, SNOWY_GRASS_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, ModBlocks.SNOWY_GRASS_BLOCK.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, GRANITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.GRANITE.getDefaultState(), 64, 0.4f));

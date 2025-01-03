@@ -62,6 +62,18 @@ public class MEBiomeDataConfigs {
             .addSlopeData(56, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.SMOOTH_BASALT);
 
+    public static SlopeMap mountGundabad = new SlopeMap().addSlopeData(28, Blocks.GRASS_BLOCK)
+            .addSlopeData(32, Blocks.COARSE_DIRT)
+            .addSlopeData(45, Blocks.STONE)
+            .addSlopeData(56, Blocks.TUFF)
+            .addSlopeData(MAX_ANGLE, Blocks.SMOOTH_BASALT);
+
+    public static SlopeMap mountGundabadPeaks = new SlopeMap().addSlopeData(32, Blocks.SNOW_BLOCK)
+            .addSlopeData(41, StoneBlockSets.SCHIST.base())
+            .addSlopeData(47, Blocks.STONE)
+            .addSlopeData(56, Blocks.TUFF)
+            .addSlopeData(MAX_ANGLE, Blocks.SMOOTH_BASALT);
+
     public static SlopeMap lonelyMountain = new SlopeMap().addSlopeData(33, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
             .addSlopeData(44, Blocks.STONE)
@@ -191,6 +203,12 @@ public class MEBiomeDataConfigs {
             .addSlopeData(33, Blocks.COARSE_DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.CLAY);
 
+    public static SlopeMap gulfOfLhunShoreCliffsLayers = new SlopeMap()
+            .addSlopeData(26, Blocks.GRASS_BLOCK)
+            .addSlopeData(28, Blocks.GRAVEL)
+            .addSlopeData(33, Blocks.COARSE_DIRT)
+            .addSlopeData(MAX_ANGLE, Blocks.CLAY);
+
     public static SlopeMap forodwaith = new SlopeMap().addSlopeData(30, Blocks.SNOW_BLOCK)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.SCHIST.base());
 
@@ -239,6 +257,9 @@ public class MEBiomeDataConfigs {
 
     public static BlocksLayeringData gondorLayers = new BlocksLayeringData().addLayerData(0.5f, Blocks.STONE)
             .addLayerData(0.5f, Blocks.CALCITE);
+
+    public static BlocksLayeringData ironhills = new BlocksLayeringData().addLayerData(0.35f, Blocks.STONE)
+            .addLayerData(0.65f, StoneBlockSets.IRONSTONE.base());
 
     public static BlocksLayeringData greyMountainsLayers = new BlocksLayeringData().addLayerData(0.58f, Blocks.STONE)
             .addLayerData(0.02f, Blocks.SMOOTH_BASALT)
