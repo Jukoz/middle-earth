@@ -69,6 +69,12 @@ public class MineableAxe {
 
             add(ModDecorativeBlocks.THIN_BARREL);
             add(ModDecorativeBlocks.SMALL_CRATE);
+
+            add(ModNatureBlocks.BROWN_BOLETE_BLOCK);
+            add(ModNatureBlocks.CAVE_AMANITA_BLOCK);
+            add(ModNatureBlocks.DEEP_FIRECAP_BLOCK);
+            add(ModNatureBlocks.SKY_FIRECAP_BLOCK);
+            add(ModNatureBlocks.YELLOW_AMANITA_BLOCK);
         }
     };
 }

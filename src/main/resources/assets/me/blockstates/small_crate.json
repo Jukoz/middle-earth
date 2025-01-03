@@ -29,6 +29,18 @@
     "facing=west,open=true": {
       "model": "me:block/small_crate_open",
       "y": 270
+    },
+    "facing=up,open=true": {
+      "model": "me:block/small_crate_open"
+    },
+    "facing=up,open=false": {
+      "model": "me:block/small_crate"
+    },
+    "facing=down,open=true": {
+      "model": "me:block/small_crate_open"
+    },
+    "facing=down,open=false": {
+      "model": "me:block/small_crate"
     }
   }
 }
