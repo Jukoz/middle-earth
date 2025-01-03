@@ -141,7 +141,7 @@ public class ModNatureBlocks {
             new DesertPlantBlock(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.BROWN)), true);
     public static final Block BRACKEN = registerBlock("bracken",
-            new CustomPlantBlock(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+            new CustomPlantBlock(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ)
                     .mapColor(DyeColor.GREEN)), true);
 
     public static final Block MALLOS = registerBlock("mallos",
