@@ -51,6 +51,11 @@ public class SpearEntity extends PersistentProjectileEntity {
     }
 
     @Override
+    protected boolean tryPickup(PlayerEntity player) {
+        return super.tryPickup(player) || this.isNoClip() && this.isOwner(player) && player.getInventory().insertStack(this.asItemStack());
+    }
+
+    @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
         ServerWorld serverWorld;
         Entity entity = entityHitResult.getEntity();
