@@ -7,7 +7,10 @@ import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
 import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeaponItem;
 import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingLongswordWeaponItem;
 import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomLongswordWeaponItem;
+import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.minecraft.client.render.item.ItemModels;
@@ -17,6 +20,8 @@ import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.*;
@@ -41,13 +46,30 @@ public abstract class ItemRendererMixin {
                     identifier = VariantsModelProvider.getInventoryModelBrokenItem(stack.getItem());
                     return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
                 }
-                if (SimpleBigItemModel.artefactsGlowing.contains(stack.getItem())){
+
+                if (SimpleBigItemModel.artefactsGlowing.contains(stack.getItem())) {
                     if (stack.getItem() instanceof  ArtefactCustomGlowingLongswordWeaponItem item && item.glowing){
                         identifier = VariantsModelProvider.getInventoryModelGlowingItem(item);
                         return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
                     } else if (stack.getItem() instanceof  ArtefactCustomGlowingDaggerWeaponItem item && item.glowing){
                         identifier = VariantsModelProvider.getInventoryModelGlowingItem(item);
                         return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
+                    }
+                } else if(SimpleBigItemModel.bigBows.contains(stack.getItem())) {
+                    if(stack.getItem() instanceof BowItem bowWeaponItem) {
+                        PlayerEntity playerEntity = MinecraftClient.getInstance().player;
+                        if(playerEntity.getActiveItem() == stack) {
+                            float pull = BowItem.getPullProgress(playerEntity.getItemUseTime());
+                            if(stack.getItem() instanceof CustomLongbowWeaponItem) {
+                                pull = CustomLongbowWeaponItem.getPullProgressLongbow((int) (playerEntity.getItemUseTime() * 0.92f));
+                            }
+
+                            if(pull > 0) {
+                                identifier = VariantsModelProvider.getPullLongbowModel(bowWeaponItem, pull);
+                                BakedModel bakedModel = MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
+                                return bakedModel;
+                            }
+                        }
                     }
                 }
                 return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
