@@ -78,15 +78,15 @@ public class MapBiomeData {
                 new BiomeColorsDTO(7575257, 11255256, 5076939, defaultWaterFog, 5610326, 5543511)));
         // BLUE MOUNTAINS
         addBiome(new BiomeData(MEBiomeKeys.BLUE_MOUNTAINS, MEBiomeDataConfigs.blueMountains, MEBiomeDataConfigs.gonluinLayers,
-                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 7903103, 6652524)));
+                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 7903103, 6652524), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, MEBiomeDataConfigs.blueMountainsBase, MEBiomeDataConfigs.gonluinLayers,
-                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 7376759, 6652524)));
+                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 7376759, 6652524), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.BLUE_MOUNTAINS_BASE, MEBiomeDataConfigs.blueMountainsBase, MEBiomeDataConfigs.gonluinLayers,
-                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 7376759, 6652524)));
+                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 7376759, 6652524), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, MEBiomeDataConfigs.blueMountainsPeaks, MEBiomeDataConfigs.gonluinLayers,
-                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 8495753, 5270363)));
+                new BiomeColorsDTO(7905261, 12241911, defaultWater, defaultWaterFog, 8495753, 5270363), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.BLUE_MOUNTAINS_WOODS, MEBiomeDataConfigs.blueMountainsBase, MEBiomeDataConfigs.gonluinLayers,
-                new BiomeColorsDTO(7509727, 11715307, defaultWater, defaultWaterFog, 6521706, 5996644)));
+                new BiomeColorsDTO(7509727, 11715307, defaultWater, defaultWaterFog, 6521706, 5996644), CaveType.MOUNTAINS));
         // BROWN LANDS
         addBiome(new BiomeData(MEBiomeKeys.BROWN_LANDS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7570864, 8292235, 5075593, 1259598, 8032632, 7901046)));
@@ -236,11 +236,11 @@ public class MapBiomeData {
                 new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 9087338, 9218155)));
         // IRON HILLS
         addBiome(new BiomeData(MEBiomeKeys.IRON_HILLS, MEBiomeDataConfigs.ironHills, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(10140415, 13031679, defaultWater, defaultWaterFog, 6922099, 7119988)));
+                new BiomeColorsDTO(10140415, 13031679, defaultWater, defaultWaterFog, 6922099, 7119988), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.IRON_HILLS_BASE, MEBiomeDataConfigs.ironHills, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(8761343, defaultFog, defaultWater, defaultWaterFog, 7187321, 6793328)));
+                new BiomeColorsDTO(8761343, defaultFog, defaultWater, defaultWaterFog, 7187321, 6793328), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.IRON_HILLS_PEAKS, MEBiomeDataConfigs.ironHills, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(8761343, defaultFog, defaultWater, defaultWaterFog, 7187321, 6793328)));
+                new BiomeColorsDTO(8761343, defaultFog, defaultWater, defaultWaterFog, 7187321, 6793328), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.IRON_HILLS_PLAINS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(hillySky, 12637183, defaultWater, defaultWaterFog, 7713657, 7580788)));
         addBiome(new BiomeData(MEBiomeKeys.NORTHERN_RHOVANION_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
@@ -286,13 +286,13 @@ public class MapBiomeData {
                 new BiomeColorsDTO(8827134, 12771327, defaultWater, defaultWaterFog, 7584106, 6725722)));
         // LONELY MOUNTAINS
         addBiome(new BiomeData(MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, MEBiomeDataConfigs.lonelyMountain, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 7321722, 6858353)));
+                new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 7321722, 6858353), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.LONELY_MOUNTAIN, MEBiomeDataConfigs.lonelyMountain, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 7188600, 6529388)));
+                new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 7188600, 6529388), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.LONELY_MOUNTAIN_BASE, MEBiomeDataConfigs.lonelyMountain, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(hillySky, 12637183, defaultWater, defaultWaterFog, 6927733, 6005862)));
+                new BiomeColorsDTO(hillySky, 12637183, defaultWater, defaultWaterFog, 6927733, 6005862), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, MEBiomeDataConfigs.lonelyMountainPeak, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 8106628, 6987890)));
+                new BiomeColorsDTO(hillySky, 13031679, defaultWater, defaultWaterFog, 8106628, 6987890), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
         // LONG MARSHES
@@ -333,13 +333,13 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.MIRKWOOD_EDGE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7578800, 7897724, 7111535, 338483, 4546876, 4284215)));
         addBiome(new BiomeData(MEBiomeKeys.MIRKWOOD_FOOTHILLS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(6849446, 6780008, 7111535, 338483, 4151612, 3823415)));
+                new BiomeColorsDTO(6849446, 6780008, 7111535, 338483, 4151612, 3823415), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.MIRKWOOD_MOUNTAINS_BASE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(6849446, 6780008, 7111535, 338483, 4151612, 3823415)));
+                new BiomeColorsDTO(6849446, 6780008, 7111535, 338483, 4151612, 3823415), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.MIRKWOOD_MOUNTAINS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(6849446, 6780008, 7111535, 338483, 4151612, 3823415)));
+                new BiomeColorsDTO(6849446, 6780008, 7111535, 338483, 4151612, 3823415), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.MIRKWOOD_MOUNTAINS_PEAKS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(7972607, 9873053, 7111535, 338483, 4678724, 4482114)));
+                new BiomeColorsDTO(7972607, 9873053, 7111535, 338483, 4678724, 4482114), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.DARK_MIRKWOOD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(5269900, 4806731, 4544130, 338483, 4151612, 3823415)));
         addBiome(new BiomeData(MEBiomeKeys.DARK_MIRKWOOD_EDGE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
@@ -388,11 +388,11 @@ public class MapBiomeData {
                 new BiomeColorsDTO(4142646, 3090215, 6450777, 1513734, 3550502, 2169880), CaveType.ASHEN));
         // MOUNT GUNDABAD
         addBiome(new BiomeData(MEBiomeKeys.MOUNT_GUNDABAD_BASE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583)));
+                new BiomeColorsDTO(8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583), CaveType.MISTIES));
         addBiome(new BiomeData(MEBiomeKeys.MOUNT_GUNDABAD, MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583)));
+                new BiomeColorsDTO(8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583), CaveType.MISTIES));
         addBiome(new BiomeData(MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583)));
+                new BiomeColorsDTO(8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583), CaveType.MISTIES));
         // NAN CURUNIR
         addBiome(new BiomeData(MEBiomeKeys.NAN_CURUNIR, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, 5076423, defaultWaterFog, 5406786, 4554563)));
@@ -549,11 +549,11 @@ public class MapBiomeData {
                 new BiomeColorsDTO(9479110, 11780310, 5141697, 460593, 8881498, 10328434)));
         // WHITE MOUNTAINS
         addBiome(new BiomeData(MEBiomeKeys.WHITE_MOUNTAINS_BASE, MEBiomeDataConfigs.whiteMountains, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(hillySky, 12638463, defaultWater, defaultWaterFog, 7185769, 6857066)));
+                new BiomeColorsDTO(hillySky, 12638463, defaultWater, defaultWaterFog, 7185769, 6857066), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.WHITE_MOUNTAINS, MEBiomeDataConfigs.whiteMountains, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(hillySky, 12638463, defaultWater, defaultWaterFog, 7183466, 7513204)));
+                new BiomeColorsDTO(hillySky, 12638463, defaultWater, defaultWaterFog, 7183466, 7513204), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, MEBiomeDataConfigs.whitePeaks, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(hillySky, 12638463, defaultWater, defaultWaterFog, 7185769, 6857066)));
+                new BiomeColorsDTO(hillySky, 12638463, defaultWater, defaultWaterFog, 7185769, 6857066), CaveType.MOUNTAINS));
         // WOODLANDS
         addBiome(new BiomeData(MEBiomeKeys.WOODLAND_REALM, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
                 new BiomeColorsDTO(8497918, 10666932, 4492967, 471355, 3960119, 3370029)));

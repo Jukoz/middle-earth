@@ -42,6 +42,14 @@ public class ModCaveBiomes {
         defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.MUD_CAVE, new Vec2f(0f,-1.1f)));
         defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(1.0f,-1.1f)));
 
+        mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.IZHER_ABAN_CAVE, new Vec2f(-1.0f,1.0f)));
+        mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LIMESTONE_CAVE, new Vec2f(0.0f,1.0f)));
+        mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DOLOMITE_CAVE, new Vec2f(1.0f,1.0f)));
+        mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(1.0f,0.0f)));
+        mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.BASIC_CAVE, new Vec2f(0.0f,0.0f)));
+        mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LUSH_CAVE, new Vec2f(-1.25f,-1.1f)));
+        mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(0f,-1.1f)));
+
         ashCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(1.0f,0.5f)));
         ashCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.BASALT_CAVE, new Vec2f(-1.0f,0.5f)));
         ashCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.MAGMA_CAVE, new Vec2f(0.0f,-1.0f)));
@@ -59,6 +67,7 @@ public class ModCaveBiomes {
             return switch (surfaceBiome.getCaveType()) {
                 case ASHEN -> ashCaves.getClosestBiome(coordinates);
                 case HARAD -> haradCaves.getClosestBiome(coordinates);
+                case MISTIES, MOUNTAINS -> mountainCaves.getClosestBiome(coordinates);
                 case FOROD -> forodCaves.getClosestBiome(coordinates);
                 default -> defaultCaves.getClosestBiome(coordinates);
             };
@@ -169,8 +178,8 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.IZHER_ABAN_CLUSTER);
         undergroundOres.add(CavesPlacedFeatures.LARGE_IZHER_ABAN);
         undergroundOres.add(CavesPlacedFeatures.POINTED_IZHER_ABAN);
-        undergroundOres.add(CavesPlacedFeatures.ORE_DOLOMITE_ABUNDANT);
-        undergroundOres.add(CavesPlacedFeatures.ORE_OLD_DOLOMITE);
+        undergroundOres.add(CavesPlacedFeatures.ORE_IZHER_ABAN);
+        undergroundOres.add(CavesPlacedFeatures.ORE_OLD_IZHER_ABAN);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
         addBasicFeatures(generationSettings, true);
 

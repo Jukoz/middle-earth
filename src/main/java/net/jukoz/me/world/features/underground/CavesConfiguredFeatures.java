@@ -64,6 +64,8 @@ public class CavesConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_DRY_DIRT = registerKey("ore_dry_dirt");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_PACKED_ICE = registerKey("ore_packed_ice");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_BLUE_ICE = registerKey("ore_blue_ice");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_IZHER_ABAN = registerKey("ore_izher_aban");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_OLD_IZHER_ABAN = registerKey("ore_old_izher_aban");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_LIMESTONE = registerKey("ore_limestone");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_OLD_LIMESTONE = registerKey("ore_old_limestone");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SAND = registerKey("ore_sand");
@@ -168,6 +170,12 @@ public class CavesConfiguredFeatures {
     static List<OreFeatureConfig.Target> dryDirtList = List.of(
             OreFeatureConfig.createTarget(stoneTest, ModBlocks.DRY_DIRT.getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, ModBlocks.DRY_DIRT.getDefaultState()));
+    static List<OreFeatureConfig.Target> izherAbanList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.IZHERABAN.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.IZHERABAN.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> oldIzherAbanList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.OLD_IZHERABAN.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.OLD_IZHERABAN.base().getDefaultState()));
     static List<OreFeatureConfig.Target> limestoneList = List.of(
             OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.LIMESTONE.base().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.LIMESTONE.base().getDefaultState()));
@@ -283,6 +291,8 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_DRY_DIRT, Feature.ORE, new OreFeatureConfig(dryDirtList, 37));
         ConfiguredFeatures.register(featureRegisterable, ORE_PACKED_ICE, Feature.ORE, new OreFeatureConfig(packedIceList, 33));
         ConfiguredFeatures.register(featureRegisterable, ORE_BLUE_ICE, Feature.ORE, new OreFeatureConfig(blueIceList, 33));
+        ConfiguredFeatures.register(featureRegisterable, ORE_IZHER_ABAN, Feature.ORE, new OreFeatureConfig(izherAbanList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_IZHER_ABAN, Feature.ORE, new OreFeatureConfig(oldIzherAbanList, 42));
         ConfiguredFeatures.register(featureRegisterable, ORE_LIMESTONE, Feature.ORE, new OreFeatureConfig(limestoneList, 64));
         ConfiguredFeatures.register(featureRegisterable, ORE_OLD_LIMESTONE, Feature.ORE, new OreFeatureConfig(oldLimestoneList, 42));
         ConfiguredFeatures.register(featureRegisterable, ORE_SAND, Feature.ORE, new OreFeatureConfig(sandList, 48));
@@ -310,6 +320,22 @@ public class CavesConfiguredFeatures {
                         EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
                         RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1))))));
 
+        ConfiguredFeatures.register(featureRegisterable, IZHER_ABAN_CLUSTER, ModFeatures.CLUSTER, new ClusterFeatureConfig(12,
+                StoneBlockSets.IZHERABAN.base().getDefaultState(), ModBlocks.POINTED_IZHERABAN.getDefaultState(), UniformIntProvider.create(3, 6),
+                UniformIntProvider.create(2, 8), 1, 3, UniformIntProvider.create(2, 4), UniformFloatProvider.create(0.3F, 0.7F),
+                ClampedNormalFloatProvider.create(0.1F, 0.3F, 0.1F, 0.9F), 0.1F, 3, 8));
+        ConfiguredFeatures.register(featureRegisterable, LARGE_IZHER_ABAN, ModFeatures.PILLAR, new PillarFeatureConfig(30, UniformIntProvider.create(3, 19),
+                UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),
+                UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f, StoneBlockSets.IZHERABAN.base().getDefaultState()));
+        ConfiguredFeatures.register(featureRegisterable, POINTED_IZHER_ABAN, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfig(RegistryEntryList.of(
+                PlacedFeatures.createEntry(ModFeatures.SMALL_POINTED_STONE,
+                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSets.IZHERABAN.base().getDefaultState(), ModBlocks.POINTED_IZHERABAN.getDefaultState(), 0.7F, 0.5F, 0.5F),
+                        EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
+                        RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1))), PlacedFeatures.createEntry(
+                        ModFeatures.SMALL_POINTED_STONE,
+                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSets.IZHERABAN.base().getDefaultState(), ModBlocks.POINTED_IZHERABAN.getDefaultState(), 0.7F, 0.5F, 0.5F),
+                        EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
+                        RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1))))));
 
         ConfiguredFeatures.register(featureRegisterable, LIMESTONE_CLUSTER, ModFeatures.CLUSTER, new ClusterFeatureConfig(12,
                 StoneBlockSets.LIMESTONE.base().getDefaultState(), ModBlocks.POINTED_LIMESTONE.getDefaultState(), UniformIntProvider.create(3, 6),
