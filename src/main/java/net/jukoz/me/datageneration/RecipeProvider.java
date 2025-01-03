@@ -164,9 +164,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createSlabsRecipe(exporter, record.strippedWood(), record.strippedWoodSlab());
 
             createVerticalSlabsRecipe(exporter, record.planksSlab(), record.planksVerticalSlab());
-            createSlabsFromVerticalRecipe(exporter, record.planksVerticalSlab(), record.strippedWoodSlab());
+            createSlabsFromVerticalRecipe(exporter, record.planksVerticalSlab(), record.planksSlab());
             createVerticalSlabsRecipe(exporter, record.woodSlab(), record.woodVerticalSlab());
-            createSlabsFromVerticalRecipe(exporter, record.woodVerticalSlab(), record.strippedWoodSlab());
+            createSlabsFromVerticalRecipe(exporter, record.woodVerticalSlab(), record.woodSlab());
             createVerticalSlabsRecipe(exporter, record.strippedWoodSlab(), record.strippedWoodVerticalSlab());
             createSlabsFromVerticalRecipe(exporter, record.strippedWoodVerticalSlab(), record.strippedWoodSlab());
 
