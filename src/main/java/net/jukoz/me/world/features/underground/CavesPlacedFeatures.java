@@ -45,8 +45,10 @@ public class CavesPlacedFeatures {
     public static final RegistryKey<PlacedFeature> ORE_OLD_DOLOMITE = registerKey("ore_old_dolomite");
     public static final RegistryKey<PlacedFeature> ORE_DOLOMITE_ABUNDANT = registerKey("ore_dolomite_abundant");
     public static final RegistryKey<PlacedFeature> ORE_DRY_DIRT = registerKey("ore_dry_dirt");
+    public static final RegistryKey<PlacedFeature> ORE_GABBRO = registerKey("ore_gabbro");
     public static final RegistryKey<PlacedFeature> ORE_GALONN = registerKey("ore_galonn");
     public static final RegistryKey<PlacedFeature> ORE_OLD_GALONN = registerKey("ore_old_galonn");
+    public static final RegistryKey<PlacedFeature> ORE_GNEISS = registerKey("ore_gneiss");
     public static final RegistryKey<PlacedFeature> ORE_GREEN_TUFF = registerKey("ore_green_tuff");
     public static final RegistryKey<PlacedFeature> ORE_GILDED_GREEN_TUFF = registerKey("ore_gilded_green_tuff");
     public static final RegistryKey<PlacedFeature> ORE_GOLD_GREEN_TUFF = registerKey("ore_gold_green_tuff");
@@ -62,6 +64,7 @@ public class CavesPlacedFeatures {
     public static final RegistryKey<PlacedFeature> ORE_OBSIDIAN = registerKey("ore_obsidian");
     public static final RegistryKey<PlacedFeature> ORE_SAND = registerKey("ore_sand");
     public static final RegistryKey<PlacedFeature> ORE_SANDSTONE = registerKey("ore_sandstone");
+    public static final RegistryKey<PlacedFeature> ORE_SCHIST = registerKey("ore_schist");
     public static final RegistryKey<PlacedFeature> ORE_SNOW = registerKey("ore_snow");
     public static final RegistryKey<PlacedFeature> ORE_TERRACOTTA = registerKey("ore_terracotta");
     public static final RegistryKey<PlacedFeature> ORE_TUFF = registerKey("ore_tuff");
@@ -176,8 +179,10 @@ public class CavesPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreDryDirt = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_DRY_DIRT);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreBlueIce = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_BLUE_ICE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> orePackedIce = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_PACKED_ICE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreGabbro = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_GABBRO);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreGalonn = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_GALONN);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreOldGalonn = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_OLD_GALONN);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreGneiss = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_GNEISS);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreGreenTuff = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_GREEN_TUFF);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreGildedGreenTuff = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_GILDED_GREEN_TUFF);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreGoldGreenTuff = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_GOLD_GREEN_TUFF);
@@ -188,6 +193,7 @@ public class CavesPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreOldLimestone = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_OLD_LIMESTONE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreSand = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_SAND);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreSandstone = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_SANDSTONE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreSchist = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_SCHIST);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreSnow = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_SNOW);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreTerracotta = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_TERRACOTTA);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreTuff = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_TUFF);
@@ -294,8 +300,10 @@ public class CavesPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, ORE_DRY_DIRT, oreDryDirt, modifiersWithCount(12, HeightRangePlacementModifier.uniform(YOffset.fixed(8), YOffset.fixed(100))));
         PlacedFeatures.register(featureRegisterable, ORE_BLUE_ICE, oreBlueIce, modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(8), YOffset.fixed(100))));
         PlacedFeatures.register(featureRegisterable, ORE_PACKED_ICE, orePackedIce, modifiersWithCount(13, HeightRangePlacementModifier.uniform(YOffset.fixed(8), YOffset.fixed(100))));
+        PlacedFeatures.register(featureRegisterable, ORE_GABBRO, oreGabbro, modifiersWithCount(23, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(300))));
         PlacedFeatures.register(featureRegisterable, ORE_GALONN, oreGalonn, modifiersWithCount(21, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(300))));
         PlacedFeatures.register(featureRegisterable, ORE_OLD_GALONN, oreOldGalonn, modifiersWithCount(24, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(300))));
+        PlacedFeatures.register(featureRegisterable, ORE_GNEISS, oreGneiss, modifiersWithCount(23, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(300))));
         PlacedFeatures.register(featureRegisterable, ORE_GREEN_TUFF, oreGreenTuff, modifiersWithCount(45, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(300))));
         PlacedFeatures.register(featureRegisterable, ORE_GILDED_GREEN_TUFF, oreGildedGreenTuff, modifiersWithCount(18, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(300))));
         PlacedFeatures.register(featureRegisterable, ORE_GOLD_GREEN_TUFF, oreGoldGreenTuff, modifiersWithCount(34, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(300))));
@@ -306,6 +314,7 @@ public class CavesPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, ORE_LIMESTONE_ABUNDANT, oreLimestone, modifiersWithCount(23, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(300))));
         PlacedFeatures.register(featureRegisterable, ORE_SAND, oreSand, modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(0), YOffset.fixed(100))));
         PlacedFeatures.register(featureRegisterable, ORE_SANDSTONE, oreSandstone, modifiersWithCount(14, HeightRangePlacementModifier.uniform(YOffset.fixed(0), YOffset.fixed(100))));
+        PlacedFeatures.register(featureRegisterable, ORE_SCHIST, oreSchist, modifiersWithCount(23, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(300))));
         PlacedFeatures.register(featureRegisterable, ORE_SNOW, oreSnow, modifiersWithCount(18, HeightRangePlacementModifier.uniform(YOffset.fixed(0), YOffset.fixed(100))));
         PlacedFeatures.register(featureRegisterable, ORE_TERRACOTTA, oreTerracotta, modifiersWithCount(17, HeightRangePlacementModifier.uniform(YOffset.fixed(0), YOffset.fixed(100))));
         PlacedFeatures.register(featureRegisterable, ORE_TUFF, oreTuff, modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(-32), YOffset.fixed(0))));

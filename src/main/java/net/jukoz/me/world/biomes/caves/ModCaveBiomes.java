@@ -55,7 +55,7 @@ public class ModCaveBiomes {
         lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(0.0f,1.0f)));
         lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DOLOMITE_CAVE, new Vec2f(1.0f,1.0f)));
         lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.GILDED_CAVE, new Vec2f(0.0f,0.0f)));
-        lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.BASIC_CAVE, new Vec2f(1.0f,-1.0f)));
+        lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.MOUNTAIN_CAVE, new Vec2f(1.0f,-1.0f)));
         lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LUSH_CAVE, new Vec2f(-1.25f,-1.1f)));
         lonelyMountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(0f,-1.1f)));
 
@@ -63,7 +63,8 @@ public class ModCaveBiomes {
         mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LIMESTONE_CAVE, new Vec2f(0.0f,1.0f)));
         mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DOLOMITE_CAVE, new Vec2f(1.0f,1.0f)));
         mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(1.0f,0.0f)));
-        mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.BASIC_CAVE, new Vec2f(0.0f,0.0f)));
+        mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.MOUNTAIN_CAVE, new Vec2f(0.0f,0.0f)));
+        mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.BASIC_CAVE, new Vec2f(0.0f,-1.0f)));
         mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LUSH_CAVE, new Vec2f(-1.25f,-1.1f)));
         mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(0f,-1.1f)));
 
@@ -95,6 +96,8 @@ public class ModCaveBiomes {
 
     public static void bootstrap(Registerable<Biome> context) {
         context.register(MEBiomeKeys.BASIC_CAVE, createBasicCave(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(MEBiomeKeys.MOUNTAIN_CAVE, createMountainCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
         context.register(MEBiomeKeys.LUSH_CAVE, createLushCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 8703593, 8703593)));
@@ -132,6 +135,19 @@ public class ModCaveBiomes {
     public static Biome createBasicCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addBasicFeatures(generationSettings, true);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+    }
+
+    public static Biome createMountainCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        undergroundOres.add(CavesPlacedFeatures.ORE_GABBRO);
+        undergroundOres.add(CavesPlacedFeatures.ORE_GNEISS);
+        undergroundOres.add(CavesPlacedFeatures.ORE_SCHIST);
 
         addBasicFeatures(generationSettings, true);
 

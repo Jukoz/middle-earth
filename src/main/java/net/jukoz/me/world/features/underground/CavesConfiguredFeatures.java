@@ -61,8 +61,10 @@ public class CavesConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_DRY_DIRT = registerKey("ore_dry_dirt");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_PACKED_ICE = registerKey("ore_packed_ice");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_BLUE_ICE = registerKey("ore_blue_ice");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GABBRO = registerKey("ore_gabbro");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GALONN = registerKey("ore_galonn");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_OLD_GALONN = registerKey("ore_old_galonn");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GNEISS = registerKey("ore_gneiss");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GREEN_TUFF = registerKey("ore_green_tuff");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GILDED_GREEN_TUFF = registerKey("ore_gilded_green_tuff");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GOLD_GREEN_TUFF = registerKey("ore_gold_green_tuff");
@@ -73,6 +75,7 @@ public class CavesConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_OLD_LIMESTONE = registerKey("ore_old_limestone");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SAND = registerKey("ore_sand");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SANDSTONE = registerKey("ore_sandstone");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SCHIST = registerKey("ore_schist");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SNOW = registerKey("ore_snow");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_TERRACOTTA = registerKey("ore_terracotta");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_TUFF = registerKey("ore_tuff");
@@ -181,6 +184,9 @@ public class CavesConfiguredFeatures {
     static List<OreFeatureConfig.Target> dryDirtList = List.of(
             OreFeatureConfig.createTarget(stoneTest, ModBlocks.DRY_DIRT.getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, ModBlocks.DRY_DIRT.getDefaultState()));
+    static List<OreFeatureConfig.Target> gabbroList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GABBRO.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GABBRO.base().getDefaultState()));
     static List<OreFeatureConfig.Target> galonnList = List.of(
             OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GALONN.base().getDefaultState()),
             OreFeatureConfig.createTarget(limestoneTest, StoneBlockSets.GALONN.base().getDefaultState()),
@@ -189,6 +195,9 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.OLD_GALONN.base().getDefaultState()),
             OreFeatureConfig.createTarget(limestoneTest, StoneBlockSets.OLD_GALONN.base().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.OLD_GALONN.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> gneissList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GNEISS.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GNEISS.base().getDefaultState()));
     static List<OreFeatureConfig.Target> greenTuffList = List.of(
             OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GREEN_TUFF.base().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GREEN_TUFF.base().getDefaultState()));
@@ -210,6 +219,9 @@ public class CavesConfiguredFeatures {
     static List<OreFeatureConfig.Target> oldLimestoneList = List.of(
             OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.OLD_LIMESTONE.base().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.OLD_LIMESTONE.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> schistList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.SCHIST.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.SCHIST.base().getDefaultState()));
     static List<OreFeatureConfig.Target> sandList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.SAND.getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.SAND.getDefaultState()));
@@ -331,8 +343,10 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_DRY_DIRT, Feature.ORE, new OreFeatureConfig(dryDirtList, 37));
         ConfiguredFeatures.register(featureRegisterable, ORE_PACKED_ICE, Feature.ORE, new OreFeatureConfig(packedIceList, 33));
         ConfiguredFeatures.register(featureRegisterable, ORE_BLUE_ICE, Feature.ORE, new OreFeatureConfig(blueIceList, 33));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GABBRO, Feature.ORE, new OreFeatureConfig(gabbroList, 64));
         ConfiguredFeatures.register(featureRegisterable, ORE_GALONN, Feature.ORE, new OreFeatureConfig(galonnList, 64));
         ConfiguredFeatures.register(featureRegisterable, ORE_OLD_GALONN, Feature.ORE, new OreFeatureConfig(oldGalonnList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GNEISS, Feature.ORE, new OreFeatureConfig(gneissList, 64));
         ConfiguredFeatures.register(featureRegisterable, ORE_GREEN_TUFF, Feature.ORE, new OreFeatureConfig(greenTuffList, 64));
         ConfiguredFeatures.register(featureRegisterable, ORE_GILDED_GREEN_TUFF, Feature.ORE, new OreFeatureConfig(gildedGreenTuffList, 40));
         ConfiguredFeatures.register(featureRegisterable, ORE_GOLDEN_GREEN_TUFF, ModFeatures.ORE, new ModOreFeatureConfig(goldenGreenTuffList, Blocks.RAW_GOLD_BLOCK.getDefaultState(), 42, 0.0f));
@@ -342,6 +356,7 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_OLD_LIMESTONE, Feature.ORE, new OreFeatureConfig(oldLimestoneList, 42));
         ConfiguredFeatures.register(featureRegisterable, ORE_SAND, Feature.ORE, new OreFeatureConfig(sandList, 48));
         ConfiguredFeatures.register(featureRegisterable, ORE_SANDSTONE, Feature.ORE, new OreFeatureConfig(sandStoneList, 37));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SCHIST, Feature.ORE, new OreFeatureConfig(schistList, 48));
         ConfiguredFeatures.register(featureRegisterable, ORE_SNOW, Feature.ORE, new OreFeatureConfig(snowList, 48));
         ConfiguredFeatures.register(featureRegisterable, ORE_TERRACOTTA, Feature.ORE, new OreFeatureConfig(terracottaList, 42));
         ConfiguredFeatures.register(featureRegisterable, ORE_TUFF, Feature.ORE, new OreFeatureConfig(tuffList, 42));
