@@ -90,6 +90,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             } else if (record.toString().contains("cobbled_") || record.toString().contains("cobblestone")) {
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
                 createSmeltingRecipeIdentifier(exporter, record.base().asItem(), record.source().asItem());
+            } else if (record.toString().contains("old_") && !record.toString().contains("old_bricks")) {
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
             } else if (record.source() != null) {
                 createBrickRecipe(exporter, record.source().asItem(), record.base(), 4);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
@@ -494,11 +496,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createPaneRecipe(exporter, Blocks.CUT_COPPER.asItem(), ModBlocks.COPPER_BARS, 16);
 
-        createCenterSurroundRecipe(exporter, Blocks.STONE.asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_STONE.base().asItem(), 8);
-        createCenterSurroundRecipe(exporter, Blocks.COBBLESTONE.asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_COBBLESTONE.base().asItem(), 8);
-        createCenterSurroundRecipe(exporter, Blocks.STONE_BRICKS.asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_BRICKS.base().asItem(), 8);
-        createCenterSurroundRecipe(exporter, StoneBlockSets.STONE_TILES.base().asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_TILES.base().asItem(), 8);
-
         createBrickRecipe(exporter, ModResourceItems.CITRINE_SHARD, ModBlocks.CITRINE_BLOCK, 1);
         createFilledRecipe(exporter, Items.GLOWSTONE, ModBlocks.GLOWSTONE_BLOCK, 1);
         createBrickRecipe(exporter, ModResourceItems.QUARTZ_SHARD, ModBlocks.QUARTZ_BLOCK, 1);
@@ -725,9 +722,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createSpearRecipeTag(exporter, Items.STICK, TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials")), ModWeaponItems.STONE_SPEAR);
         createSpearRecipe(exporter, Items.STICK, Items.DIAMOND, ModWeaponItems.DIAMOND_SPEAR);
 
-        createToolSetRecipes(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModToolItems.JADE_PICKAXE, ModToolItems.JADE_AXE, ModToolItems.JADE_SHOVEL, ModToolItems.JADE_HOE);
-        createSwordRecipe(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModWeaponItems.JADE_SWORD);
-        createSpearRecipe(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModWeaponItems.JADE_SPEAR);
 
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BRONZE_INGOT, ModToolItems.BRONZE_PICKAXE, ModToolItems.BRONZE_AXE, ModToolItems.BRONZE_SHOVEL, ModToolItems.BRONZE_HOE);
 
@@ -1678,6 +1672,25 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         CookingRecipeJsonBuilder.createSmoking(Ingredient.fromTag(TagKey.of(RegistryKeys.ITEM, Identifier.of("logs"))), RecipeCategory.BUILDING_BLOCKS, WoodBlockSets.SCORCHED.log(), 0.35f, 100)
                 .criterion(FabricRecipeProvider.hasItem(Items.OAK_LOG),
                         FabricRecipeProvider.conditionsFromItem(Items.OAK_LOG)).offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(WoodBlockSets.SCORCHED.log()).getPath() + "_from_smoking"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.SHORT_ICICLES, 4)
+                .pattern("III")
+                .pattern(" I ")
+                .input('I', Items.ICE)
+                .criterion(FabricRecipeProvider.hasItem(Items.ICE),
+                        FabricRecipeProvider.conditionsFromItem(Items.ICE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.DROOPING_ICICLES, 4)
+                .pattern("III")
+                .pattern("III")
+                .pattern(" I ")
+                .input('I', Items.ICE)
+                .criterion(FabricRecipeProvider.hasItem(Items.ICE),
+                        FabricRecipeProvider.conditionsFromItem(Items.ICE))
+                .offerTo(exporter);
+
+        createCenterSurroundRecipe(exporter, Blocks.TUFF.asItem(), Items.COPPER_INGOT, StoneBlockSets.GREEN_TUFF.base().asItem(), 8);
         //endregion
 
         //region SMOKING-ONLY

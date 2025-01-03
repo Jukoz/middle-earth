@@ -3,8 +3,10 @@ package net.jukoz.me.resources.datas.npcs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.util.NbtType;
+import net.jukoz.me.resources.datas.factions.FactionUtil;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.resources.datas.races.Race;
+import net.jukoz.me.resources.datas.races.RaceUtil;
 import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.EquipmentSlot;
@@ -78,6 +80,17 @@ public class NpcData {
     public NpcGearData getGear() {
         if(gearDatas == null)
             return null;
+
+
+        List<NpcGearData> availableGearData = new ArrayList<>();
+
+        for(NpcGearData data : gearDatas){
+
+
+
+        }
+
+
         if(gearDatas.size() == 1)
             return gearDatas.getFirst();
 

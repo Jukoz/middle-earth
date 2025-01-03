@@ -2,8 +2,6 @@ package net.jukoz.me.mixin.client;
 
 import net.jukoz.me.item.ModDecorativeItems;
 import net.jukoz.me.item.ModWeaponItems;
-import net.jukoz.me.item.items.HeldBannerItem;
-import net.jukoz.me.item.items.weapons.CustomSpearWeaponItem;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
 import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.jukoz.me.utils.IEntityDataSaver;

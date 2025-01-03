@@ -37,7 +37,7 @@ public class CustomShieldItem extends ShieldItem implements MEEquipmentTooltip {
     public List<Text> getAdditionalShiftLines(ItemStack stack) {
         List<Text> list = new ArrayList<>(List.of());
 
-        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shield_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
+        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name));
 
         return list;
     }

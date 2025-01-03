@@ -68,8 +68,6 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 cobbleDrops(block, StoneBlockSets.COBBLED_DOLOMITE.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("quartzite")) {
                 cobbleDrops(block, StoneBlockSets.COBBLED_QUARTZITE.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("frozen_stone")) {
-                cobbleDrops(block, StoneBlockSets.FROZEN_COBBLESTONE.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("ashen_stone")) {
                 cobbleDrops(block, StoneBlockSets.ASHEN_COBBLESTONE.base());
             } else if (Registries.BLOCK.getId(block).getPath().contains("_door")) {
@@ -180,6 +178,9 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         largeDoorDrop(ModDecorativeBlocks.GREAT_ORCISH_GATE);
 
         cobbleDrops(ModBlocks.SNOWY_GRASS_BLOCK, ModBlocks.DRY_DIRT);
+
+        cobbleDrops(ModNatureBlocks.OLD_PODZOL, Blocks.DIRT);
+        cobbleDrops(ModNatureBlocks.LORIEN_PODZOL, Blocks.DIRT);
 
         for (SimpleRocksModel.Rocks rock : SimpleRocksModel.rocks) {
             rocksDrop(rock.rocks());

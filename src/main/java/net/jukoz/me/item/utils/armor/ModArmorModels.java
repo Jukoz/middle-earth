@@ -16,6 +16,7 @@ public class ModArmorModels {
     public enum ModHelmetModels{
         STRAW_HAT(ModEquipmentItems.STRAW_HAT, new HatArmorAddonModel<>(HatArmorAddonModel.getTexturedModelData().createModel())),
         WOVEN_HAT(ModEquipmentItems.WOVEN_HAT, new HatArmorAddonModel<>(HatArmorAddonModel.getTexturedModelData().createModel())),
+        WANDERER_HAT(ModEquipmentItems.WANDERER_HAT, new WizardHatModel<>(WizardHatModel.getTexturedModelData().createModel())),
         KETTLE_HAT(ModEquipmentItems.KETTLE_HAT, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
         KETTLE_HAT_WITH_COIF(ModEquipmentItems.KETTLE_HAT_WITH_COIF, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
         KETTLE_HAT_WITH_CLOSED_COIF(ModEquipmentItems.KETTLE_HAT_WITH_CLOSED_COIF, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
@@ -113,6 +114,8 @@ public class ModArmorModels {
         GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
         GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
         GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+
+        HELMET_OF_HELM_HAMMERHAND(ModEquipmentItems.HELMET_OF_HELM_HAMMERHAND, new HammerhandHelmModel<>(HammerhandHelmModel.getTexturedModelData().createModel())),
         ;
 
         private final Item item;
@@ -174,6 +177,7 @@ public class ModArmorModels {
         CAPE(ModCapes.CAPE, ModCapeModels.MEDIUM_MODELS),
         SURCOAT(ModCapes.SURCOAT, ModCapeModels.SURCOAT_MODELS),
         CLOAK(ModCapes.CLOAK, ModCapeModels.WIDE_MODELS),
+        WANDERER_ROBES(ModCapes.WANDERER_ROBES, ModCapeModels.SURCOAT_MODELS),
 
         BLACK_FUR_CLOAK(ModCapes.BLACK_FUR_CLOAK, ModCapeModels.FUR_MODELS),
         BROWN_FUR_CLOAK(ModCapes.BROWN_FUR_CLOAK, ModCapeModels.FUR_MODELS),
@@ -247,6 +251,7 @@ public class ModArmorModels {
 
     public enum ModHoodPairedModels implements StringIdentifiable {
         HOOD(ModHoods.HOOD, ModHoodModels.REGULAR_MODELS),
+        TALL_HOOD(ModHoods.TALL_HOOD, ModHoodModels.TALL_MODELS),
 
         BLACK_FUR_HOOD(ModHoods.BLACK_FUR_HOOD, ModHoodModels.FUR_MODELS),
         BROWN_FUR_HOOD(ModHoods.BROWN_FUR_HOOD, ModHoodModels.FUR_MODELS),

@@ -16,18 +16,19 @@ public class OreRockSets {
     public static final float NURGON_STRENGTH = 3.0f;
     public static final float MEDGON_STRENGTH = 4.0f;
 
-
     public static OreRockSet STONE = registerOreSet("", STONE_STRENGTH,
             List.of(ORES.TIN_ORE), Blocks.STONE);
     public static OreRockSet GONLUIN = registerOreSet("gonluin_", STONE_STRENGTH,
             Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSets.GONLUIN.base());
-    public static OreRockSet FROZEN = registerOreSet("frozen_", STONE_STRENGTH,
-            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE), StoneBlockSets.FROZEN_STONE.base());
     public static OreRockSet ASHEN = registerOreSet("ashen_", STONE_STRENGTH,
             Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSets.ASHEN_STONE.base());
     public static OreRockSet LIMESTONE = registerOreSet("limestone_", STONE_STRENGTH,
             Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSets.LIMESTONE.base());
     public static OreRockSet CALCITE = registerOreSet("calcite_", STONE_STRENGTH,
+            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), Blocks.CALCITE);
+    public static OreRockSet SLATE = registerOreSet("slate_", STONE_STRENGTH,
+            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), Blocks.CALCITE);
+    public static OreRockSet IRONSTONE = registerOreSet("ironstone_", STONE_STRENGTH,
             Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), Blocks.CALCITE);
 
     public static OreRockSet DEEPSLATE = registerOreSet("deepslate_", DEEPSLATE_STRENGTH,
@@ -42,10 +43,11 @@ public class OreRockSets {
     public static OreRockSet[] sets = new OreRockSet[] {
             STONE,
             GONLUIN,
-            FROZEN,
             ASHEN,
             LIMESTONE,
             CALCITE,
+            SLATE,
+            IRONSTONE,
             DEEPSLATE,
             NURGON,
             MEDGON,

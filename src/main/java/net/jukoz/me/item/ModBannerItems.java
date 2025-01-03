@@ -32,8 +32,6 @@ public class ModBannerItems {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(getIsengardBanner(bannerPatternLookup));
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(getMistyMountainsGoblinsBanner(bannerPatternLookup));
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(getMordorBanner(bannerPatternLookup));
-        // Neutral
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(getBanditBanner(bannerPatternLookup));
     }
 
     public static List<ItemStack> getList(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
@@ -49,8 +47,6 @@ public class ModBannerItems {
             BANNERS.add(getIsengardBanner(bannerPatternLookup));
             BANNERS.add(getMistyMountainsGoblinsBanner(bannerPatternLookup));
             BANNERS.add(getMordorBanner(bannerPatternLookup));
-            // Neutral
-            BANNERS.add(getBanditBanner(bannerPatternLookup));
         }
         return BANNERS;
     }
@@ -98,11 +94,6 @@ public class ModBannerItems {
     public static ItemStack getDaleBanner(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
         Text translationKey = Text.translatable("block.me.dale_banner").formatted(Formatting.GOLD);
         return formatBanner(new ItemStack(Items.WHITE_BANNER), MiddleEarthFactions.DALE.getBannerPatternComponents(bannerPatternLookup), translationKey);
-    }
-
-    public static ItemStack getBanditBanner(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
-        Text translationKey = Text.translatable("block.me.bandit_banner").formatted(Formatting.GOLD);
-        return formatBanner(new ItemStack(Items.WHITE_BANNER), MiddleEarthFactions.BANDIT.getBannerPatternComponents(bannerPatternLookup), translationKey);
     }
 
     public static ItemStack formatBanner(ItemStack itemStack, BannerPatternsComponent bannerPatternsComponent, Text translationKey) {

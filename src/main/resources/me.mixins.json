@@ -15,9 +15,9 @@
     "PigEntityMixin",
     "PlayerEntityMixin",
     "PlayerMixin",
-    "ServerPlayerEntityMixin",
     "PotionEntityMixin",
     "RepairItemRecipeMixin",
+    "ServerPlayerEntityMixin",
     "ServerPlayNetworkHandlerMixin",
     "ServerWorldMixin",
     "ShearItemMixin",
@@ -28,9 +28,11 @@
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
     "client.BipedEntityModelMixin",
+    "client.HeldItemRendererMixin",
     "client.InGameHudMixin",
     "client.ItemRendererMixin",
-    "client.MouseMixin"
+    "client.MouseMixin",
+    "client.PlayerEntityRendererMixin"
   ],
   "server": [
   ],

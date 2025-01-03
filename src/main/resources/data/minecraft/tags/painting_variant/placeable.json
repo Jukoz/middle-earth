@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "me:dwarf_portrait",
+    "me:hobbit_portrait",
+    "me:human_portrait",
+    "me:orc_portrait",
+    "me:note_board",
+    "me:pan_board",
+    "me:rohirric_tapestry",
+    "me:small_mirror",
+    "me:tall_mirror",
+    "me:prancing_pony",
+    "me:tool_board"
+  ]
+}

@@ -270,6 +270,17 @@ public class MiddleEarthClient implements ClientModInitializer {
                 pluginContext.addModels(identifier);
             }
 
+            for(Item item : SimpleBigItemModel.bigBows) {
+                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
+                pluginContext.addModels(identifier);
+                identifier = VariantsModelProvider.getInventoryLongbowModelIdentifierVariant(item, 0);
+                pluginContext.addModels(identifier);
+                identifier = VariantsModelProvider.getInventoryLongbowModelIdentifierVariant(item, 1);
+                pluginContext.addModels(identifier);
+                identifier = VariantsModelProvider.getInventoryLongbowModelIdentifierVariant(item, 2);
+                pluginContext.addModels(identifier);
+            }
+
             for(Item item : SimpleBigItemModel.artefacts) {
                 Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
                 pluginContext.addModels(identifier);
@@ -477,6 +488,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BLACK_PINE.ladder(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WILLOW.ladder(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.SCORCHED.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.MUSHROOM.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.DARK_MUSHROOM.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.GRAY_MUSHROOM.ladder(), RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.TREATED_WOOD_LADDER, RenderLayer.getCutout());
 

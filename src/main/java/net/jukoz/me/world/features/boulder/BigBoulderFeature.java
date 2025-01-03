@@ -1,9 +1,12 @@
 package net.jukoz.me.world.features.boulder;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
@@ -12,6 +15,8 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
 
 
 public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
+    private static final ImmutableList<Block> CANNOT_PLACE_ON_BLOCKS;
+    private static final ImmutableList<Block> CANNOT_REPLACE_BLOCKS;
 
     public BigBoulderFeature(Codec<BigBoulderFeatureConfig> configCodec) {
         super(configCodec);
@@ -24,7 +29,7 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
         Random random = context.getRandom();
 
         BlockState underBlock = structureWorldAccess.getBlockState(blockPos.down());
-        if(underBlock == StoneBlockSets.COBBLED_NURGON.base().getDefaultState() || underBlock == StoneBlockSets.SMOOTH_MEDGON.base().getDefaultState()) {
+        if(underBlock.isIn(BlockTags.LEAVES) || CANNOT_PLACE_ON_BLOCKS.contains(underBlock.getBlock())) {
             return false;
         }
 
@@ -39,7 +44,10 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
         for(int x = (int) -forSize; x <= forSize; ++x) {
             for(int z = (int) -forSize; z <= forSize; ++z) {
                 for(int y = (int) -baseHeight-3; y <= baseHeight+3; ++y) {
-                    if (this.isPointInside(x, y, z, length, width, baseHeight, angle, config.randomness, random)) {
+                    BlockState mutableBlockState = structureWorldAccess.getBlockState(blockPos.mutableCopy().add(x, y, z));
+                    if(mutableBlockState.isIn(BlockTags.LOGS) || CANNOT_REPLACE_BLOCKS.contains(mutableBlockState.getBlock())) {
+                        continue;
+                    } else if (this.isPointInside(x, y, z, length, width, baseHeight, angle, config.randomness, random)) {
                         BlockState blockState = config.blockStates.get(random.nextBetween(0, config.blockStates.size() - 1));
                         this.setBlockState(structureWorldAccess, blockPos.mutableCopy().add(x, y, z), blockState);
                     }
@@ -67,5 +75,12 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
         float deltaZ = (float)(rotatedZ*rotatedZ) / squareWidth;
 
         return (deltaX + deltaY + deltaZ <= 1);
+    }
+
+    static {
+        CANNOT_PLACE_ON_BLOCKS = ImmutableList.of(Blocks.LAVA, Blocks.BEDROCK, Blocks.WATER, StoneBlockSets.COBBLED_NURGON.base(),
+                StoneBlockSets.SMOOTH_MEDGON.base(), Blocks.CHEST, Blocks.SPAWNER);
+        CANNOT_REPLACE_BLOCKS = ImmutableList.of(Blocks.BEDROCK, StoneBlockSets.COBBLED_NURGON.base(),
+                StoneBlockSets.SMOOTH_MEDGON.base(), Blocks.CHEST, Blocks.SPAWNER);
     }
 }

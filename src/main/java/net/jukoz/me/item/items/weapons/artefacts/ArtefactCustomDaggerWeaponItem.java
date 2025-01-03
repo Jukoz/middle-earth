@@ -15,6 +15,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -40,19 +41,8 @@ public class ArtefactCustomDaggerWeaponItem extends CustomDaggerWeaponItem {
     }
 
     @Override
-    public List<Text> getAdditionalShiftLines(ItemStack stack) {
-        List<Text> list = new ArrayList<>(List.of());
-
-        if(!(stack.getDamage() < stack.getMaxDamage() - 1)){
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact_broken").formatted(Formatting.ITALIC).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact")).formatted(Formatting.AQUA));
-        } else {
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact").formatted(Formatting.AQUA));
-        }
-
-        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
-        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".backstab"));
-
-        return list;
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        appendBaseArtefactTooltip(tooltip, stack);
     }
 
     @Override

@@ -266,14 +266,35 @@ public class ModRegistries {
         registry.add(ModBlocks.RED_WOOL_STAIRS, 100);
         registry.add(ModBlocks.BLACK_WOOL_STAIRS, 100);
 
-        registry.add(ModWeaponItems.ROHIRRIC_BOW, 300);
-        registry.add(ModWeaponItems.LORIEN_BOW, 300);
         registry.add(ModWeaponItems.GONDORIAN_BOW, 300);
-        //registry.add(ModWeaponItems.UMBAR_BOW, 300);
-        //registry.add(ModWeaponItems.DALISH_BOW, 300);
+        registry.add(ModWeaponItems.GONDORIAN_LONGBOW, 400);
+        registry.add(ModWeaponItems.GONDORIAN_NOBLE_LONGBOW, 400);
+
+        registry.add(ModWeaponItems.ROHIRRIC_BOW, 300);
+        registry.add(ModWeaponItems.ROHIRRIC_NOBLE_BOW, 300);
+        registry.add(ModWeaponItems.ROHIRRIC_LONGBOW, 400);
+
+        registry.add(ModWeaponItems.LORIEN_BOW, 300);
+        registry.add(ModWeaponItems.LORIEN_LONGBOW, 400);
+        registry.add(ModWeaponItems.LORIEN_NOBLE_LONGBOW, 400);
+
+        registry.add(ModWeaponItems.EREBOR_BOW, 300);
+        registry.add(ModWeaponItems.EREBOR_NOBLE_BOW, 300);
+        registry.add(ModWeaponItems.EREBOR_CROSSBOW, 400);
+        registry.add(ModWeaponItems.EREBOR_NOBLE_CROSSBOW, 400);
+
+        registry.add(ModWeaponItems.ORCISH_BOW, 300);
+
+        registry.add(ModWeaponItems.MORDOR_BOW, 300);
+        registry.add(ModWeaponItems.MORDOR_ELITE_LONGBOW, 400);
+
+        registry.add(ModWeaponItems.URUK_HAI_BOW, 300);
+        registry.add(ModWeaponItems.URUK_HAI_CROSSBOW, 400);
+
+        registry.add(ModWeaponItems.GUNDABAD_BOW, 300);
+        registry.add(ModWeaponItems.GUNDABAD_CROSSBOW, 400);
 
         registry.add(ModWeaponItems.WOODEN_DAGGER, 150);
-        //registry.add(ModWeaponItems.DUNLAND_CLUB, 300);
 
         registry.add(ModDecorativeBlocks.OAK_STOOL, 300);
         registry.add(ModDecorativeBlocks.OAK_BENCH, 300);

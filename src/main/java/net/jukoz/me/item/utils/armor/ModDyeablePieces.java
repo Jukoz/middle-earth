@@ -15,6 +15,7 @@ public class ModDyeablePieces {
 
     public static void addDyeablePieces() {
         dyeablePieces.put(ModEquipmentItems.BYCOCKET, false);
+        dyeablePieces.put(ModEquipmentItems.WANDERER_HAT, true);
         dyeablePieces.put(ModEquipmentItems.ARMING_COAT, true);
         dyeablePieces.put(ModEquipmentItems.ARMING_SKIRT, true);
         dyeablePieces.put(ModEquipmentItems.LEATHER_SKULLCAP, false);
@@ -117,6 +118,7 @@ public class ModDyeablePieces {
         dyeableCapes.put(ModCapes.CAPE, true);
         dyeableCapes.put(ModCapes.CLOAK, false);
         dyeableCapes.put(ModCapes.SURCOAT, true);
+        dyeableCapes.put(ModCapes.WANDERER_ROBES, true);
         dyeableCapes.put(ModCapes.BLACK_FUR_CLOAK, true);
         dyeableCapes.put(ModCapes.BROWN_FUR_CLOAK, true);
         dyeableCapes.put(ModCapes.GRAY_FUR_CLOAK, true);
@@ -126,6 +128,7 @@ public class ModDyeablePieces {
         dyeableCapes.put(ModCapes.ORCISH_SHOULDERS, false);
 
         dyeableHoods.put(ModHoods.HOOD, false);
+        dyeableHoods.put(ModHoods.TALL_HOOD, false);
         dyeableHoods.put(ModHoods.BLACK_FUR_HOOD, true);
         dyeableHoods.put(ModHoods.BROWN_FUR_HOOD, true);
         dyeableHoods.put(ModHoods.GRAY_FUR_HOOD, true);

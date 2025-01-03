@@ -18,6 +18,7 @@ import net.jukoz.me.block.special.statues.StatueBlock;
 import net.jukoz.me.block.special.toggeable_lights.*;
 import net.jukoz.me.block.special.torches.METorchBlock;
 import net.jukoz.me.block.special.torches.MEWallTorchBlock;
+import net.jukoz.me.block.special.torches.OrcSconceBlock;
 import net.jukoz.me.block.special.wood_pile.WoodPileBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
@@ -504,7 +505,7 @@ public class ModDecorativeBlocks {
             new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block ORCISH_SCONCE = registerBlock("orcish_sconce",
-            new METorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new OrcSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block ORCISH_WALL_SCONCE = registerBlock("orcish_wall_sconce",
             new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 

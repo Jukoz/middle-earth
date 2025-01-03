@@ -30,7 +30,7 @@ public class ModBiomeSource extends BiomeSource {
             Codec.list(Biome.REGISTRY_CODEC).fieldOf("biomes").forGetter((biomeSource) -> biomeSource.biomes)).apply(instance, ModBiomeSource::new));
 
     private final List<RegistryEntry<Biome>> biomes;
-    private static final int CAVE_NOISE = 128;
+    private static final int CAVE_NOISE = 360;
     private static final int CAVE_OFFSET = 7220;
     public static final int SUB_BIOME_NOISE = 256;
     public static final int SUB_BIOME_OFFSET = 8240;
@@ -56,9 +56,10 @@ public class ModBiomeSource extends BiomeSource {
         return ModCaveBiomes.getBiome(new Vec2f(temperature, humidity), surfaceBiome);
     }
 
-    public static double getSubBiomeNoise(int x, int z) {
-        double perlin = 1 * BlendedNoise.noise((double) x / SUB_BIOME_NOISE, (double) z / SUB_BIOME_NOISE);
-        perlin += 0.5f * BlendedNoise.noise((double) x * 2 / SUB_BIOME_NOISE, (double) z * 2 / SUB_BIOME_NOISE);
+    public static double getSubBiomeNoise(int x, int z, float frequency) {
+        float noiseFrequency = (SUB_BIOME_NOISE * frequency);
+        double perlin = 1 * BlendedNoise.noise((double) x / noiseFrequency, (double) z / noiseFrequency);
+        perlin += 0.5f * BlendedNoise.noise((double) x * 2 / noiseFrequency, (double) z * 2 / noiseFrequency);
         perlin = perlin / (1 + 0.5f); // 2 octaves
         return perlin;
     }
@@ -66,7 +67,7 @@ public class ModBiomeSource extends BiomeSource {
     private RegistryKey<Biome> getSubBiome(int x, int z, BiomeData surfaceBiome) {
         SubBiome subBiome = SubBiomes.getSubBiome(surfaceBiome.getBiomeRegistryKey());
         if(subBiome != null) {
-            double perlin = getSubBiomeNoise(x, z);
+            double perlin = getSubBiomeNoise(x, z, subBiome.getFrequency());
             SubBiome.SubBiomeData biomeData = SubBiomes.subBiomesMap.get(surfaceBiome.getBiomeRegistryKey()).getBiomeAtNoise((float) perlin);
             if (biomeData != null) return biomeData.biome;
         }
@@ -88,11 +89,16 @@ public class ModBiomeSource extends BiomeSource {
         BiomeData biome = biomeHeightData.getBiome();
         RegistryKey<Biome> processedBiome;
 
-        if(!MapBasedBiomePool.waterBiomes.contains(biome.getBiomeRegistryKey())) {
-            float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
+        float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
+        if(j <= CavesPlacedFeatures.MAX_MITHRIL_HEIGHT && biome.getCaveType() == CaveType.MISTIES) {
+            processedBiome = MEBiomeKeys.MITHRIL_CAVE;
+        } else if(j < (height - 16)) {
+            processedBiome = getCaveBiome(i, k, biome);
+        }
+        else if(!MapBasedBiomePool.waterBiomes.contains(biome.getBiomeRegistryKey())) {
             SubBiome subBiome = SubBiomes.getSubBiome(biomeHeightData.getBiomeKey());
             if(subBiome != null) {
-                double perlin = ModBiomeSource.getSubBiomeNoise(i, k);
+                double perlin = ModBiomeSource.getSubBiomeNoise(i, k, subBiome.getFrequency());
                 double additionalHeight = subBiome.getAdditionalHeight((float) perlin);
                 additionalHeight *= MiddleEarthMapRuntime.getInstance().getEdge(i, k);
                 height += (float) additionalHeight;
@@ -105,8 +111,6 @@ public class ModBiomeSource extends BiomeSource {
                 if(j < (height - 16)) processedBiome = getCaveBiome(i, k, biome);
                 else if(height < MiddleEarthChunkGenerator.WATER_HEIGHT) processedBiome = MapBasedBiomePool.deadMarshesWater.getBiomeKey();
                 else processedBiome = MapBasedBiomePool.deadMarshes.getBiomeKey();
-            } else if(j < (height - 16)) {
-                processedBiome = getCaveBiome(i, k, biome);
             } else if(height <= biomeHeightData.getWaterHeight() + 1.25f) { // TODO : This is really rough, need to be more dynamic
                 if(MapBasedBiomePool.coastalBiomes.contains(biome.getBiomeRegistryKey())){
                     processedBiome = MapBasedBiomePool.oceanCoast.getBiomeKey();

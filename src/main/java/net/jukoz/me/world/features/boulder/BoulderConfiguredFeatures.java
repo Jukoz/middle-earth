@@ -62,6 +62,10 @@ public class BoulderConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_SMOOTH_DOLOMITE = registerKey("medium_boulder_smooth_dolomite");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_SMOOTH_DOLOMITE = registerKey("big_boulder_smooth_dolomite");
 
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SMALL_BOULDER_GALONN = registerKey("small_boulder_galonn");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_GALONN = registerKey("medium_boulder_galonn");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_GALONN = registerKey("big_boulder_galonn");
+
     public static final RegistryKey<ConfiguredFeature<?, ?>> SMALL_BOULDER_GNEISS = registerKey("small_boulder_gneiss");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_GNEISS = registerKey("medium_boulder_gneiss");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_GNEISS = registerKey("big_boulder_gneiss");
@@ -161,6 +165,12 @@ public class BoulderConfiguredFeatures {
             StoneBlockSets.CRACKED_SMOOTH_DOLOMITE.base().getDefaultState(),
             StoneBlockSets.MOSSY_SMOOTH_DOLOMITE.base().getDefaultState());
 
+    private static final List<BlockState> galonn = Arrays.asList(
+            StoneBlockSets.GALONN.base().getDefaultState(),
+            StoneBlockSets.GALONN.base().getDefaultState(),
+            StoneBlockSets.CRACKED_SMOOTH_GALONN.base().getDefaultState(),
+            StoneBlockSets.MOSSY_SMOOTH_GALONN.base().getDefaultState());
+
     private static final List<BlockState> gneiss = Arrays.asList(
             StoneBlockSets.GNEISS.base().getDefaultState(),
             StoneBlockSets.GNEISS.base().getDefaultState(),
@@ -185,8 +195,8 @@ public class BoulderConfiguredFeatures {
     private static final List<BlockState> limeStone = Arrays.asList(
             StoneBlockSets.LIMESTONE.base().getDefaultState(),
             StoneBlockSets.LIMESTONE.base().getDefaultState(),
-            StoneBlockSets.COBBLED_LIMESTONE.base().getDefaultState(),
-            StoneBlockSets.MOSSY_COBBLED_LIMESTONE.base().getDefaultState());
+            StoneBlockSets.CRACKED_SMOOTH_LIMESTONE.base().getDefaultState(),
+            StoneBlockSets.MOSSY_SMOOTH_LIMESTONE.base().getDefaultState());
 
     private static final List<BlockState> mossyStone = Arrays.asList(
             Blocks.STONE.getDefaultState(),
@@ -287,6 +297,13 @@ public class BoulderConfiguredFeatures {
                 new BigBoulderFeatureConfig(mediumWidth, mediumLength, mediumHeight, mediumRandomSize, mediumRandomness, smoothDolomite));
         ConfiguredFeatures.register(featureRegisterable, BIG_BOULDER_SMOOTH_DOLOMITE, ModFeatures.BIG_BOULDER,
                 new BigBoulderFeatureConfig(bigWidth, bigLength, bigHeight, bigRandomSize, bigRandomness, smoothDolomite));
+
+        ConfiguredFeatures.register(featureRegisterable, SMALL_BOULDER_GALONN, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(smallWidth, smallLength, smallHeight, smallRandomSize, smallRandomness, galonn));
+        ConfiguredFeatures.register(featureRegisterable, MEDIUM_BOULDER_GALONN, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(mediumWidth, mediumLength, mediumHeight, mediumRandomSize, mediumRandomness, galonn));
+        ConfiguredFeatures.register(featureRegisterable, BIG_BOULDER_GALONN, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(bigWidth, bigLength, bigHeight, bigRandomSize, bigRandomness, galonn));
 
         ConfiguredFeatures.register(featureRegisterable, SMALL_BOULDER_GNEISS, ModFeatures.BIG_BOULDER,
                 new BigBoulderFeatureConfig(smallWidth, smallLength, smallHeight, smallRandomSize, smallRandomness, gneiss));

@@ -1,6 +1,7 @@
 package net.jukoz.me.entity.dwarves.longbeards;
 
 import net.jukoz.me.entity.NpcEntity;
+import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
@@ -12,6 +13,7 @@ import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
@@ -22,6 +24,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
@@ -60,6 +63,9 @@ public class LongbeardDwarfEntity extends NpcEntity {
     protected Identifier getFactionId() {
         return MiddleEarthFactions.LONGBEARDS_EREBOR.getId();
     }
+    @Override
+    protected Identifier getRaceId() { return MiddleEarthRaces.DWARF.getId(); }
+
 
     @Nullable
     @Override
@@ -80,11 +86,11 @@ public class LongbeardDwarfEntity extends NpcEntity {
     }
     public static DefaultAttributeContainer.Builder setKnightAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 24.0)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.285f)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.75)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.5);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6);
     }
     public static DefaultAttributeContainer.Builder setVeteranAttributes() {
         return MobEntity.createMobAttributes()
@@ -108,15 +114,15 @@ public class LongbeardDwarfEntity extends NpcEntity {
         super.initGoals();
 
         int i = 2;
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        initGoodTargetSelector(i);
     }
-
+    @Override
+    protected void applyDamage(DamageSource source, float amount) {
+        if(source.getAttacker() instanceof LongbeardDwarfEntity){
+            return;
+        }
+        super.applyDamage(source, amount);
+    }
     public LongbeardDwarfVariant getVariant() {
         return LongbeardDwarfVariant.byId(this.getId());
     }

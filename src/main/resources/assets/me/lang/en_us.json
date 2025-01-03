@@ -258,10 +258,6 @@
   "item.me.starlight_phial": "Starlight Phial",
 
 "#Comment:": "Item - Tools",
-  "item.me.jade_pickaxe": "Jade Pickaxe",
-  "item.me.jade_axe": "Jade Axe",
-  "item.me.jade_shovel": "Jade Shovel",
-  "item.me.jade_hoe": "Jade Hoe",
   "item.me.bronze_pickaxe": "Bronze Pickaxe",
   "item.me.bronze_axe": "Bronze Axe",
   "item.me.bronze_shovel": "Bronze Shovel",
@@ -359,6 +355,8 @@
   "item.me.orc_spear": "Orc Spear",
   "item.me.orc_axe": "Orc Axe",
 
+  "item.me.orcish_bow": "Orcish Bow",
+
 "#Comment:": "Item - Erebor",
   "item.me.erebor_sword": "Erebor Sword",
   "item.me.erebor_noble_sword": "Erebor Noble Sword",
@@ -370,6 +368,11 @@
   "item.me.erebor_noble_axe": "Erebor Noble Axe",
   "item.me.erebor_spear": "Erebor Spear",
   "item.me.erebor_noble_spear": "Erebor Noble Spear",
+
+  "item.me.erebor_bow": "Erebor Bow",
+  "item.me.erebor_noble_bow": "Erebor Noble Bow",
+  "item.me.erebor_crossbow": "Erebor Crossbow",
+  "item.me.erebor_noble_crossbow": "Erebor Noble Crossbow",
 
 "#Comment:": "Item - Gondor",
   "item.me.gondorian_sword": "Gondorian Sword",
@@ -383,7 +386,10 @@
   "item.me.gondorian_spear": "Gondorian Spear",
   "item.me.gondorian_noble_spear": "Gondorian Noble Spear",
   "item.me.gondorian_fountain_guard_spear": "Gondorian Fountain Guard Spear",
+
   "item.me.gondorian_bow": "Gondorian Bow",
+  "item.me.gondorian_longbow": "Gondorian Longbow",
+  "item.me.gondorian_noble_longbow": "Gondorian Noble Longbow",
 
 "#Comment:": "Item - Lorien",
   "item.me.lorien_sword": "Lórien Sword",
@@ -396,7 +402,10 @@
   "item.me.lorien_noble_axe": "Lórien Noble Axe",
   "item.me.lorien_spear": "Lórien Spear",
   "item.me.lorien_noble_spear": "Lórien Noble Spear",
+
   "item.me.lorien_bow": "Lórien Bow",
+  "item.me.lorien_longbow": "Lórien Longbow",
+  "item.me.lorien_noble_longbow": "Lórien Noble Longbow",
 
 "#Comment:": "Item - Rohan",
   "item.me.rohirric_sword": "Rohirric Sword",
@@ -409,7 +418,10 @@
   "item.me.rohirric_noble_axe": "Rohirric Noble Axe",
   "item.me.rohirric_spear": "Rohirric Spear",
   "item.me.rohirric_noble_spear": "Rohirric Noble Spear",
+
   "item.me.rohirric_bow": "Rohirric Bow",
+  "item.me.rohirric_noble_bow": "Rohirric Noble Bow",
+  "item.me.rohirric_longbow": "Rohirric Longbow",
 
 "#Comment:": "Item - Dalish",
   "item.me.dalish_sword": "Dalish Sword",
@@ -429,6 +441,10 @@
   "item.me.dalish_heyday_spear": "Dalish Heyday Spear",
   "item.me.dalish_noble_spear": "Dalish Noble Spear",
 
+  "item.me.dalish_longbow": "Dalish Longbow",
+  "item.me.dalish_heyday_longbow": "Dalish Heyday Longbow",
+  "item.me.dalish_noble_longbow": "Dalish Noble Longbow",
+
 "#Comment:": "Item - Mordor",
   "item.me.mordor_falchion": "Mordor Falchion",
   "item.me.mordor_elite_cleaver": "Mordor Elite Cleaver",
@@ -440,6 +456,9 @@
   "item.me.mordor_elite_spear": "Mordor Elite Spear",
   "item.me.mordor_axe": "Mordor Axe",
   "item.me.mordor_elite_axe": "Mordor Elite Axe",
+
+  "item.me.mordor_bow": "Mordor Bow",
+  "item.me.mordor_elite_longbow": "Mordor Elite Longbow",
 
   "item.me.black_numenorean_sword": "Black Númenórean Sword",
   "item.me.black_numenorean_longsword": "Black Númenórean Longsword",
@@ -459,6 +478,9 @@
   "item.me.isengard_orc_axe": "Isengard Orc Axe",
   "item.me.uruk_hai_axe": "Uruk-Hai Axe",
 
+  "item.me.uruk_hai_bow": "Uruk-Hai Bow",
+  "item.me.uruk_hai_crossbow": "Uruk-Hai Crossbow",
+
 "#Comment:": "Item - Gundabad",
   "item.me.gundabad_falchion": "Gundabad Falchion",
   "item.me.gundabad_elite_cleaver": "Gundabad Elite Cleaver",
@@ -471,10 +493,12 @@
   "item.me.gundabad_axe": "Gundabad Axe",
   "item.me.gundabad_elite_battleaxe": "Gundabad Elite Battleaxe",
 
+  "item.me.gundabad_bow": "Gundabad Bow",
+  "item.me.gundabad_crossbow": "Gundabad Crossbow",
+
 "#Comment:": "Item - Misc Weapons",
   "item.me.wooden_dagger": "Wooden Dagger",
   "item.me.stone_dagger": "Stone Dagger",
-  "item.me.jade_dagger": "Jade Dagger",
   "item.me.bronze_dagger": "Bronze Dagger",
   "item.me.golden_dagger": "Golden Dagger",
   "item.me.iron_dagger": "Iron Dagger",
@@ -487,7 +511,6 @@
   "item.me.diamond_dagger": "Diamond Dagger",
   "item.me.netherite_dagger": "Netherite Dagger",
 
-  "item.me.jade_sword": "Jade Sword",
   "item.me.bronze_sword": "Bronze Sword",
   "item.me.steel_sword": "Steel Sword",
   "item.me.crude_falchion": "Crude Falchion",
@@ -497,7 +520,6 @@
 
   "item.me.wooden_longsword": "Wooden Longsword",
   "item.me.stone_longsword": "Stone Longsword",
-  "item.me.jade_longsword": "Jade Longsword",
   "item.me.bronze_longsword": "Bronze Longsword",
   "item.me.golden_longsword": "Golden Longsword",
   "item.me.iron_longsword": "Iron Longsword",
@@ -511,7 +533,6 @@
 
   "item.me.wooden_spear": "Wooden Spear",
   "item.me.stone_spear": "Stone Spear",
-  "item.me.jade_spear": "Jade Spear",
   "item.me.bronze_spear": "Bronze Spear",
   "item.me.golden_spear": "Golden Spear",
   "item.me.iron_spear": "Iron Spear",
@@ -524,19 +545,36 @@
   "item.me.netherite_spear": "Netherite Spear",
 
 "#Comment:": "Item - Artefacts",
+  "item.me.dagamarth": "Dagamarth",
+  "item.me.herugrim": "Herugrim",
+  "item.me.nazgul_sword": "Nazgûl sword",
+
+  "item.me.hammer_of_helm_hammerhand": "Hammer of Helm Hammerhand",
+  "item.me.mace_of_sauron": "Mace of Sauron",
+
+  "item.me.anguirel": "Anguirel",
+  "item.me.glamdring": "Glamdring",
+  "item.me.long_forgotten_longsword": "Long-forgotten Longsword",
+  "item.me.longsword_of_elder_kings": "Longsword Of Elder Kings",
+  "item.me.narsil": "Narsil",
+  "item.me.noldorin_longsword": "Noldorin Longsword",
   "item.me.orcrist": "Orcrist",
 
-  "item.me.glamdring": "Glamdring",
-  "item.me.narsil": "Narsil",
-
+  "item.me.barrow_blade": "Barrow Blade",
   "item.me.sting": "Sting",
   "item.me.morgul_knife": "Morgul Knife",
 
+  "item.me.aeglos": "Aeglos",
+
   "item.me.anorthann": "Anorthann",
   "item.me.cuthann": "Cûthann",
+  "item.me.shield_of_durins_guard": "Shield of Durin's Guard",
+
+  "item.me.helmet_of_helm_hammerhand": "Helmet of Helm Hammerhand",
 
 "#Comment:": "Armours",
   "item.me.hood": "Hood",
+  "item.me.tall_hood": "Tall Hood",
 
   "item.me.black_fur_hood": "Black Fur Hood",
   "item.me.brown_fur_hood": "Brown Fur Hood",
@@ -560,6 +598,7 @@
   "item.me.white_fur": "White Fur",
 
   "item.me.surcoat": "Surcoat",
+  "item.me.wanderer_robes": "Wanderer Robes",
 
   "item.me.gondorian_captain_cape": "Gondorian Captain Cape",
   "item.me.gondorian_hero_cape": "Gondorian Hero Cape",
@@ -599,6 +638,7 @@
   "item.me.straw_hat": "Straw Hat",
   "item.me.woven_hat": "Woven Hat",
   "item.me.bycocket": "Bycocket",
+  "item.me.wanderer_hat": "Wanderer Hat",
 
   "item.me.arming_coat": "Arming Coat",
 
@@ -973,6 +1013,10 @@
   "item.me.nazgul_hood": "Nazgûl Hood",
   "item.me.nazgul_robes": "Nazgûl Robes",
 
+  "item.me.ringwraith_mail_hauberk": "Ringwraith Mail Hauberk",
+  "item.me.ringwraith_leggings": "Ringwraith Leggings",
+  "item.me.ringwraith_boots": "Ringwraith Boots",
+
   "item.me.uruk_hai_leather_scout_cap": "Uruk-Hai Leather Scout Cap",
 
   "item.me.uruk_hai_light_helmet": "Uruk-Hai Light Helmet",
@@ -1206,8 +1250,6 @@
   "item.me.gundabad_reinforced_shield": "Gundabad Reinforced Shield",
 
   "item.me.gundabad_heavy_shield": "Gundabad Heavy Shield",
-
-  "item.me.misty_mountains_shield": "Misty Mountains Shield",
 
   "item.me.held_banner": "Held Banner",
 
@@ -2364,7 +2406,116 @@
   "block.me.blackstone_table": "Blackstone Table",
   "block.me.blackstone_chair": "Blackstone Chair",
 
-  "#Comment:": "Block - Limestone",
+"#Comment:": "Block - Schist",
+  "block.me.pointed_schist": "Pointed Schist",
+
+  "block.me.old_schist": "Old Schist",
+  "block.me.old_schist_slab": "Old Schist Slab",
+  "block.me.old_schist_vertical_slab": "Old Schist Vertical Slab",
+  "block.me.old_schist_stairs": "Old Schist Stairs",
+  "block.me.old_schist_wall": "Old Schist Wall",
+
+  "block.me.smooth_schist": "Smooth Schist",
+  "block.me.smooth_schist_slab": "Smooth Schist Slab",
+  "block.me.smooth_schist_vertical_slab": "Smooth Schist Vertical Slab",
+  "block.me.smooth_schist_stairs": "Smooth Schist Stairs",
+  "block.me.smooth_schist_wall": "Smooth Schist Wall",
+  "block.me.mossy_smooth_schist": "Mossy Smooth Schist",
+  "block.me.mossy_smooth_schist_slab": "Mossy Smooth Schist Slab",
+  "block.me.mossy_smooth_schist_vertical_slab": "Mossy Smooth Schist Vertical Slab",
+  "block.me.mossy_smooth_schist_stairs": "Mossy Smooth Schist Stairs",
+  "block.me.mossy_smooth_schist_wall": "Mossy Smooth Schist Wall",
+  "block.me.cracked_smooth_schist": "Cracked Smooth Schist",
+  "block.me.cracked_smooth_schist_slab": "Cracked Smooth Schist Slab",
+  "block.me.cracked_smooth_schist_vertical_slab": "Cracked Smooth Schist Vertical Slab",
+  "block.me.cracked_smooth_schist_stairs": "Cracked Smooth Schist Stairs",
+  "block.me.cracked_smooth_schist_wall": "Cracked Smooth Schist Wall",
+  "block.me.cobbled_schist": "Cobbled Schist",
+  "block.me.cobbled_schist_slab": "Cobbled Schist Slab",
+  "block.me.cobbled_schist_vertical_slab": "Cobbled Schist Vertical Slab",
+  "block.me.cobbled_schist_stairs": "Cobbled Schist Stairs",
+  "block.me.cobbled_schist_wall": "Cobbled Schist Wall",
+  "block.me.mossy_cobbled_schist": "Mossy Cobbled Schist",
+  "block.me.mossy_cobbled_schist_slab": "Mossy Cobbled Schist Slab",
+  "block.me.mossy_cobbled_schist_vertical_slab": "Mossy Cobbled Schist Vertical Slab",
+  "block.me.mossy_cobbled_schist_stairs": "Mossy Cobbled Schist Stairs",
+  "block.me.mossy_cobbled_schist_wall": "Mossy Cobbled Schist Wall",
+  "block.me.schist": "Schist",
+  "block.me.schist_slab": "Schist Slab",
+  "block.me.schist_vertical_slab": "Schist Vertical Slab",
+  "block.me.schist_stairs": "Schist Stairs",
+  "block.me.schist_wall": "Schist Wall",
+  "block.me.schist_pillar": "Schist Pillar",
+  "block.me.mossy_schist_pillar": "Mossy Schist Pillar",
+  "block.me.cracked_schist_pillar": "Cracked Schist Pillar",
+  "block.me.schist_bricks": "Schist Bricks",
+  "block.me.schist_bricks_slab": "Schist Bricks Slab",
+  "block.me.schist_bricks_vertical_slab": "Schist Bricks Vertical Slab",
+  "block.me.schist_bricks_stairs": "Schist Bricks Stairs",
+  "block.me.schist_bricks_wall": "Schist Bricks Wall",
+  "block.me.mossy_schist_bricks": "Mossy Schist Bricks",
+  "block.me.mossy_schist_bricks_slab": "Mossy Schist Bricks Slab",
+  "block.me.mossy_schist_bricks_vertical_slab": "Mossy Schist Bricks Vertical Slab",
+  "block.me.mossy_schist_bricks_stairs": "Mossy Schist Bricks Stairs",
+  "block.me.mossy_schist_bricks_wall": "Mossy Schist Bricks Wall",
+  "block.me.cracked_schist_bricks": "Cracked Schist Bricks",
+  "block.me.cracked_schist_bricks_slab": "Cracked Schist Bricks Slab",
+  "block.me.cracked_schist_bricks_vertical_slab": "Cracked Schist Bricks Vertical Slab",
+  "block.me.cracked_schist_bricks_stairs": "Cracked Schist Bricks Stairs",
+  "block.me.cracked_schist_bricks_wall": "Cracked Schist Bricks Wall",
+  "block.me.schist_tiles": "Schist Tiles",
+  "block.me.schist_tiles_slab": "Schist Tiles Slab",
+  "block.me.schist_tiles_vertical_slab": "Schist Tiles Vertical Slab",
+  "block.me.schist_tiles_stairs": "Schist Tiles Stairs",
+  "block.me.schist_tiles_wall": "Schist Tiles Wall",
+  "block.me.mossy_schist_tiles": "Mossy Schist Tiles",
+  "block.me.mossy_schist_tiles_slab": "Mossy Schist Tiles Slab",
+  "block.me.mossy_schist_tiles_vertical_slab": "Mossy Schist Tiles Vertical Slab",
+  "block.me.mossy_schist_tiles_stairs": "Mossy Schist Tiles Stairs",
+  "block.me.mossy_schist_tiles_wall": "Mossy Schist Tiles Wall",
+  "block.me.cracked_schist_tiles": "Cracked Schist Tiles",
+  "block.me.cracked_schist_tiles_slab": "Cracked Schist Tiles Slab",
+  "block.me.cracked_schist_tiles_vertical_slab": "Cracked Schist Tiles Vertical Slab",
+  "block.me.cracked_schist_tiles_stairs": "Cracked Schist Tiles Stairs",
+  "block.me.cracked_schist_tiles_wall": "Cracked Schist Tiles Wall",
+  "block.me.polished_schist": "Polished Schist",
+  "block.me.polished_schist_slab": "Polished Schist Slab",
+  "block.me.polished_schist_vertical_slab": "Polished Schist Vertical Slab",
+  "block.me.polished_schist_stairs": "Polished Schist Stairs",
+  "block.me.polished_schist_wall": "Polished Schist Wall",
+  "block.me.mossy_polished_schist": "Mossy Polished Schist",
+  "block.me.mossy_polished_schist_slab": "Mossy Polished Schist Slab",
+  "block.me.mossy_polished_schist_vertical_slab": "Mossy Polished Schist Vertical Slab",
+  "block.me.mossy_polished_schist_stairs": "Mossy Polished Schist Stairs",
+  "block.me.mossy_polished_schist_wall": "Mossy Polished Schist Wall",
+  "block.me.cracked_polished_schist": "Cracked Polished Schist",
+  "block.me.cracked_polished_schist_slab": "Cracked Polished Schist Slab",
+  "block.me.cracked_polished_schist_vertical_slab": "Cracked Polished Schist Vertical Slab",
+  "block.me.cracked_polished_schist_stairs": "Cracked Polished Schist Stairs",
+  "block.me.cracked_polished_schist_wall": "Cracked Polished Schist Wall",
+  "block.me.chiseled_polished_schist": "Chiseled Polished Schist",
+  "block.me.chiseled_schist_bricks": "Chiseled Schist Bricks",
+  "block.me.chiseled_schist": "Chiseled Schist",
+  "block.me.chiseled_schist_tiles": "Chiseled Schist Tiles",
+  "block.me.chiseled_smooth_schist": "Chiseled Smooth Schist",
+
+  "block.me.schist_brickwork": "Schist Brickwork",
+  "block.me.schist_brickwork_slab": "Schist Brickwork Slab",
+  "block.me.schist_brickwork_vertical_slab": "Schist Brickwork Vertical Slab",
+  "block.me.schist_brickwork_stairs": "Schist Brickwork Stairs",
+  "block.me.schist_brickwork_wall": "Schist Brickwork Wall",
+
+  "block.me.schist_pressure_plate": "Schist Pressure Plate",
+  "block.me.schist_button": "Schist Button",
+  "block.me.schist_trapdoor": "Schist Trapdoor",
+
+  "block.me.schist_rocks": "Schist Rocks",
+
+  "block.me.schist_stool": "Schist Stool",
+  "block.me.schist_table": "Schist Table",
+  "block.me.schist_chair": "Schist Chair",
+
+"#Comment:": "Block - Limestone",
   "block.me.pointed_limestone": "Pointed Limestone",
 
   "block.me.old_limestone": "Old Limestone",
@@ -4031,78 +4182,6 @@
   "block.me.medgon_table": "Medgon Table",
   "block.me.medgon_chair": "Medgon Chair",
 
-"#Comment:": "Block - Frozen Stone",
-  "block.me.frozen_cobblestone": "Frozen Cobblestone",
-  "block.me.frozen_cobblestone_slab": "Frozen Cobblestone Slab",
-  "block.me.frozen_cobblestone_vertical_slab": "Frozen Cobblestone Vertical Slab",
-  "block.me.frozen_cobblestone_stairs": "Frozen Stone Cobblestone Stairs",
-  "block.me.frozen_cobblestone_wall": "Frozen Cobblestone Wall",
-  "block.me.frozen_stone": "Frozen Stone",
-  "block.me.frozen_stone_slab": "Frozen Stone Slab",
-  "block.me.frozen_stone_vertical_slab": "Frozen Stone Vertical Slab",
-  "block.me.frozen_stone_stairs": "Frozen Stone Stairs",
-  "block.me.frozen_stone_wall": "Frozen Stone Wall",
-  "block.me.frozen_pillar": "Frozen Pillar",
-  "block.me.mossy_frozen_pillar": "Mossy Frozen Pillar",
-  "block.me.cracked_frozen_pillar": "Cracked Frozen Pillar",
-  "block.me.frozen_bricks": "Frozen Bricks",
-  "block.me.frozen_bricks_slab": "Frozen Bricks Slab",
-  "block.me.frozen_bricks_vertical_slab": "Frozen Bricks Vertical Slab",
-  "block.me.frozen_bricks_stairs": "Frozen Bricks Stairs",
-  "block.me.frozen_bricks_wall": "Frozen Bricks Wall",
-  "block.me.mossy_frozen_bricks": "Mossy Frozen Bricks",
-  "block.me.mossy_frozen_bricks_slab": "Mossy Frozen Bricks Slab",
-  "block.me.mossy_frozen_bricks_vertical_slab": "Mossy Frozen Bricks Vertical Slab",
-  "block.me.mossy_frozen_bricks_stairs": "Mossy Frozen Bricks Stairs",
-  "block.me.mossy_frozen_bricks_wall": "Mossy Frozen Bricks Wall",
-  "block.me.cracked_frozen_bricks": "Cracked Frozen Bricks",
-  "block.me.cracked_frozen_bricks_slab": "Cracked Frozen Bricks Slab",
-  "block.me.cracked_frozen_bricks_vertical_slab": "Cracked Frozen Bricks Vertical Slab",
-  "block.me.cracked_frozen_bricks_stairs": "Cracked Frozen Bricks Stairs",
-  "block.me.cracked_frozen_bricks_wall": "Cracked Frozen Bricks Wall",
-  "block.me.frozen_tiles": "Frozen Tiles",
-  "block.me.frozen_tiles_slab": "Frozen Tiles Slab",
-  "block.me.frozen_tiles_vertical_slab": "Frozen Tiles Vertical Slab",
-  "block.me.frozen_tiles_stairs": "Frozen Tiles Stairs",
-  "block.me.frozen_tiles_wall": "Frozen Tiles Wall",
-  "block.me.mossy_frozen_tiles": "Mossy Frozen Tiles",
-  "block.me.mossy_frozen_tiles_slab": "Mossy Frozen Tiles Slab",
-  "block.me.mossy_frozen_tiles_vertical_slab": "Mossy Frozen Tiles Vertical Slab",
-  "block.me.mossy_frozen_tiles_stairs": "Mossy Frozen Tiles Stairs",
-  "block.me.mossy_frozen_tiles_wall": "Mossy Frozen Tiles Wall",
-  "block.me.cracked_frozen_tiles": "Cracked Frozen Tiles",
-  "block.me.cracked_frozen_tiles_slab": "Cracked Frozen Tiles Slab",
-  "block.me.cracked_frozen_tiles_vertical_slab": "Cracked Frozen Tiles Vertical Slab",
-  "block.me.cracked_frozen_tiles_stairs": "Cracked Frozen Tiles Stairs",
-  "block.me.cracked_frozen_tiles_wall": "Cracked Frozen Tiles Wall",
-  "block.me.polished_frozen_stone": "Polished Frozen Stone",
-  "block.me.polished_frozen_stone_slab": "Polished Frozen Stone Slab",
-  "block.me.polished_frozen_stone_vertical_slab": "Polished Frozen Stone Vertical Slab",
-  "block.me.polished_frozen_stone_stairs": "Polished Frozen Stone Stairs",
-  "block.me.polished_frozen_stone_wall": "Polished Frozen Stone Wall",
-  "block.me.mossy_polished_frozen_stone": "Mossy Polished Frozen Stone",
-  "block.me.mossy_polished_frozen_stone_slab": "Mossy Polished Frozen Stone Slab",
-  "block.me.mossy_polished_frozen_stone_vertical_slab": "Mossy Polished Frozen Stone Vertical Slab",
-  "block.me.mossy_polished_frozen_stone_stairs": "Mossy Polished Frozen Stone Stairs",
-  "block.me.mossy_polished_frozen_stone_wall": "Mossy Polished Frozen Stone Wall",
-  "block.me.cracked_polished_frozen_stone": "Cracked Polished Frozen Stone",
-  "block.me.cracked_polished_frozen_stone_slab": "Cracked Polished Frozen Stone Slab",
-  "block.me.cracked_polished_frozen_stone_vertical_slab": "Cracked Polished Frozen Stone Vertical Slab",
-  "block.me.cracked_polished_frozen_stone_stairs": "Cracked Polished Frozen Stone Stairs",
-  "block.me.cracked_polished_frozen_stone_wall": "Cracked Polished Frozen Stone Wall",
-  "block.me.chiseled_polished_frozen_stone": "Chiseled Polished Frozen Stone",
-  "block.me.chiseled_frozen_bricks": "Chiseled Frozen Bricks",
-
-  "block.me.frozen_stone_pressure_plate": "Frozen Stone Pressure Plate",
-  "block.me.frozen_stone_button": "Frozen Stone Button",
-  "block.me.frozen_stone_trapdoor": "Frozen Stone Trapdoor",
-
-  "block.me.frozen_stone_rocks": "Frozen Stone Rocks",
-
-  "block.me.frozen_stone_stool": "Frozen Stone Stool",
-  "block.me.frozen_stone_table": "Frozen Stone Table",
-  "block.me.frozen_stone_chair": "Frozen Stone Chair",
-
 "#Comment:": "Block - Mixed Stones",
   "block.me.mixed_stones": "Mixed Stones",
   "block.me.mixed_stones_slab": "Mixed Stones Slab",
@@ -5576,6 +5655,7 @@
   "block.me.treated_wood_carved_beam_slab": "Treated Wood Carved Beam Slab",
   "block.me.treated_wood_carved_beam_vertical_slab": "Treated Wood Beam Carved Vertical Slab",
   "block.me.treated_wood_carved_beam_stairs": "Treated Wood Carved Beam Stairs",
+
   "block.me.treated_wood_carved_beam_wall": "Treated Wood Carved Beam Wall",
 
   "block.me.treated_wood_panels": "Treated Wood Panels",
@@ -5942,24 +6022,27 @@
 "#Comment:": "Block - Coal ores",
   "block.me.gonluin_coal_ore": "Gonluin Coal Ore",
   "block.me.ashen_coal_ore": "Ashen Coal Ore",
-  "block.me.frozen_coal_ore": "Frozen Coal Ore",
   "block.me.calcite_coal_ore": "Calcite Coal Ore",
   "block.me.limestone_coal_ore": "Limestone Coal Ore",
+  "block.me.slate_coal_ore": "Slate Coal Ore",
+  "block.me.ironstone_coal_ore": "Ironstone Coal Ore",
 
 "#Comment:": "Block - Copper ores",
   "block.me.gonluin_copper_ore": "Gonluin Copper Ore",
   "block.me.ashen_copper_ore": "Ashen Copper Ore",
-  "block.me.frozen_copper_ore": "Frozen Copper Ore",
   "block.me.calcite_copper_ore": "Calcite Copper Ore",
   "block.me.limestone_copper_ore": "Limestone Copper Ore",
+  "block.me.slate_copper_ore": "Slate Copper Ore",
+  "block.me.ironstone_copper_ore": "Ironstone Copper Ore",
 
 "#Comment:": "Block - Tin Blocks",
   "block.me.tin_ore": "Tin Ore",
   "block.me.gonluin_tin_ore": "Gonluin Tin Ore",
   "block.me.ashen_tin_ore": "Ashen Tin Ore",
-  "block.me.frozen_tin_ore": "Frozen Tin Ore",
   "block.me.calcite_tin_ore": "Calcite Tin Ore",
   "block.me.limestone_tin_ore": "Limestone Tin Ore",
+  "block.me.slate_tin_ore": "Slate Tin Ore",
+  "block.me.ironstone_tin_ore": "Ironstone Tin Ore",
   "block.me.deepslate_tin_ore": "Deepslate Tin Ore",
   "block.me.nurgon_tin_ore": "Núrgon Tin Ore",
   "block.me.tin_block": "Tin Block",
@@ -6325,7 +6408,6 @@
   "block.me.isengard_banner": "Isengard Banner",
   "block.me.misty_mountains_goblins_banner": "Misty Mountains Goblins Banner",
   "block.me.mordor_banner": "Mordor Banner",
-  "block.me.bandit_banner": "Bandit Banner",
 
   "block.me.banner.tree.black": "Black Tree",
   "block.me.banner.tree.blue": "Blue Tree",
@@ -7024,17 +7106,18 @@
   "screen.me.artisan_table.mount_armor": "Mount Armor",
   "screen.me.artisan_table.shields": "Shields",
   "screen.me.artisan_table.light_shield": "Light Shield",
+  "screen.me.artisan_table.medium_shield": "Medium Shield",
   "screen.me.artisan_table.heavy_shield": "Heavy Shield",
   "screen.me.artisan_table.misc": "Misc",
-  "screen.me.artisan_table.hats": "Hats",
+  "screen.me.artisan_table.hat": "Hat",
   "screen.me.artisan_table.hood": "Hood",
   "screen.me.artisan_table.cape": "Cape",
+  "screen.me.artisan_table.pipe": "Pipe",
 
 "#Comment": "Tooltips",
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",
   "tooltip.me.alt" : "Hold §3ALT§f to see custom parts information.",
   "tooltip.me.weapon_type" : "§eType: §f",
-  "tooltip.me.shield_type" : "§eType: §f",
   "tooltip.me.faction" : "§6Faction: §f",
   "tooltip.me.sub_faction" : "§7Sub Faction: §f",
   "tooltip.me.customizations" : "§6Custom Parts: §f",
@@ -7042,7 +7125,7 @@
   "tooltip.me.dyed" : "Dyed: ",
   "tooltip.me.artisan" : "Artisan: ",
   "tooltip.me.blocks_range" : " Blocks",
-  "tooltip.me.backstab" : "§7 +50% damage when backstabbing",
+  "tooltip.me.backstab" : "§7+50% damage when backstabbing",
   "tooltip.me.door_size" : "Door size: ",
 
   "tooltip.me.tier_clothing" : "§fClothing",
@@ -7054,13 +7137,17 @@
   "tooltip.me.tier_mithril" : "§bMithril",
 
   "tooltip.me.artefact" : "Artefact",
-  "tooltip.me.artefact_broken" : "Broken ",
+  "tooltip.me.broken" : "Broken",
 
   "tooltip.me.sword" : "Sword",
   "tooltip.me.axe" : "Axe",
   "tooltip.me.dagger" : "Dagger",
   "tooltip.me.spear" : "Spear",
   "tooltip.me.longsword" : "Longsword",
+
+  "tooltip.me.bow" : "Bow",
+  "tooltip.me.longbow" : "Longbow",
+  "tooltip.me.crossbow" : "Crossbow",
 
   "tooltip.me.light_shield" : "§fLight Shield",
   "tooltip.me.medium_shield" : "§9Medium Shield",
@@ -7153,6 +7240,7 @@
 "#Comment": "Capes",
 
   "tooltip.me.hood": "Hood",
+  "tooltip.me.tall_hood": "Tall Hood",
 
   "tooltip.me.black_fur_hood": "Black Fur Hood",
   "tooltip.me.brown_fur_hood": "Brown Fur Hood",
@@ -7177,6 +7265,8 @@
   "tooltip.me.cloak": "Cloak",
 
   "tooltip.me.surcoat": "Surcoat",
+
+  "tooltip.me.wanderer_robes": "Wanderer Robes",
 
   "tooltip.me.gondorian_captain_cape": "Gondorian Captain Cape",
   "tooltip.me.gondorian_hero_cape": "Gondorian Hero Cape",
@@ -7268,7 +7358,6 @@
   "spawn.me.rohan.the_wold" : "The Wold",
   "spawn.me.dale.capital" : "Dale Capital",
   "spawn.me.dale.esgaroth" : "Esgaroth",
-  "spawn.me.longbeards.erebor.outskirts" : "Outskirts",
   "spawn.me.longbeards.erebor.ravenhill" : "Ravenhill",
   "spawn.me.longbeards.erebor.iron_hills" : "Iron Hills",
   "spawn.me.longbeards.erebor.iron_hills_spring" : "Iron Hills Spring",
@@ -7296,6 +7385,56 @@
 
 "#Comment:": "Race Tooltip",
   "race_tooltip.me.attribute_header" : "Attributes : ",
+
+"#Comment:": "Lore Tooltips",
+  "tooltip.me.dagamarth_lore_0" : "A storied blade forged by Narvi and Celebrimbor,",
+  "tooltip.me.dagamarth_lore_1" : "thought lost.",
+  "tooltip.me.herugrim_lore_0" : "A sword set with green jewels, passed down through",
+  "tooltip.me.herugrim_lore_1" : "the line of Eorl for generations.",
+  "tooltip.me.nazgul_sword_lore_0" : "Cold as death,",
+  "tooltip.me.nazgul_sword_lore_1" : "with a wicked point.",
+
+  "tooltip.me.mace_of_sauron_lore_0" : "Wielded by the Dark Lord,",
+  "tooltip.me.mace_of_sauron_lore_1" : "this weapon has claimed many lives.",
+  "tooltip.me.hammer_of_helm_hammerhand_lore_0" : "Once wielded by a King of Rohan,",
+  "tooltip.me.hammer_of_helm_hammerhand_lore_1" : "who fell in the Deep.",
+
+  "tooltip.me.anguirel_lore_0" : "A unique black blade forged in",
+  "tooltip.me.anguirel_lore_1" : "elder days from a meteorite.",
+  "tooltip.me.glamdring_lore_0" : "The Foe-Hammer, mate of Orcrist,",
+  "tooltip.me.glamdring_lore_1" : "once borne by the King of Gondolin.",
+  "tooltip.me.long_forgotten_longsword_lore_0" : "A mysterious melted and shattered",
+  "tooltip.me.long_forgotten_longsword_lore_1" : "longsword.",
+  "tooltip.me.longsword_of_elder_kings_lore_0" : "A well-crafted blade,",
+  "tooltip.me.longsword_of_elder_kings_lore_1" : "said to have belonged to the King of Nargothrond.",
+  "tooltip.me.narsil_lore_0" : "The Red and White Flame, borne by the King of the Dúnedain.",
+  "tooltip.me.narsil_lore_1" : "It was broken upon the slopes of Mount Doom.",
+  "tooltip.me.noldorin_longsword_lore_0" : "Such blades were once borne into battle by",
+  "tooltip.me.noldorin_longsword_lore_1" : "the Noldor in ages past.",
+  "tooltip.me.orcrist_lore_0" : "The Goblin-Cleaver, mate of Glamdring,",
+  "tooltip.me.orcrist_lore_1" : "once used by Thorin Oakenshield.",
+
+  "tooltip.me.barrow_blade_lore_0" : "Leaf-shaped and set with fiery jewels,",
+  "tooltip.me.barrow_blade_lore_1" : "these were made for the princes of Cardolan.",
+  "tooltip.me.morgul_knife_lore_0" : "A knife forged with wicked sorcery,",
+  "tooltip.me.morgul_knife_lore_1" : "often carried by the Ringwraiths.",
+  "tooltip.me.sting_lore_0" : "An elvish knife, made in Gondolin long ago,",
+  "tooltip.me.sting_lore_1" : "carried by Bilbo Baggins of the Shire.",
+
+  "tooltip.me.aeglos_lore_0" : "Called \"Snow-Point\", this legendary spear was carried into battle by",
+  "tooltip.me.aeglos_lore_1" : "King Gil-galad through many ages.",
+
+  "tooltip.me.cuthann_lore_0" : "The Shield of the Moon, mate to Anorthann,",
+  "tooltip.me.cuthann_lore_1" : "forged long ago in Nargothrond.",
+  "tooltip.me.anorthann_lore_0" : "The Shield of the Sun, mate to Cúthann,",
+  "tooltip.me.anorthann_lore_1" : "forged long ago in Nargothrond.",
+  "tooltip.me.shield_of_durins_guard_lore_0" : "A mithril-trimmed shield bearing the proud",
+  "tooltip.me.shield_of_durins_guard_lore_1" : "icon of Durin's line.",
+  "tooltip.me.shield_of_the_king_under_the_mountain_lore_0" : "An iconic shield emblazoned with a",
+  "tooltip.me.shield_of_the_king_under_the_mountain_lore_1" : "gilded raven.",
+
+  "tooltip.me.helmet_of_helm_hammerhand_lore_0" : "Helm of a mighty King of Rohan,",
+  "tooltip.me.helmet_of_helm_hammerhand_lore_1" : "sign of great power.",
 
 "#Comment:": "Faction descriptions",
   "description.me.gondor.description_0" : "A last bastion for the Men of the West, the Kings of Gondor long stood watch over the neighbouring darkness. Though their line is broken, the stalwart Gondorians stand strong and fight to keep Mordor at bay.",
@@ -7494,5 +7633,39 @@
   "tag.item.me.tin": "Tin",
   "tag.item.me.tin_ores": "Tin Ores",
   "tag.item.me.warg_food": "Warg Food",
-  "tag.item.me.worm": "Worm"
+  "tag.item.me.worm": "Worm",
+
+"#Comment": "Paintings",
+  "painting.me.dwarf_portrait.author": "Boenndal",
+  "painting.me.dwarf_portrait.title": "Dwarf Portrait",
+
+  "painting.me.hobbit_portrait.author": "Boenndal",
+  "painting.me.hobbit_portrait.title": "Hobbit Portrait",
+
+  "painting.me.human_portrait.author": "Boenndal",
+  "painting.me.human_portrait.title": "Human Portrait",
+
+  "painting.me.orc_portrait.author": "Boenndal",
+  "painting.me.orc_portrait.title": "Orc Portrait",
+
+  "painting.me.note_board.author": "Boenndal",
+  "painting.me.note_board.title": "Note Board",
+
+  "painting.me.pan_board.author": "Boenndal",
+  "painting.me.pan_board.title": "Pan Board",
+
+  "painting.me.rohirric_tapestry.author": "Boenndal",
+  "painting.me.rohirric_tapestry.title": "Rohirric Tapestry",
+
+  "painting.me.small_mirror.author": "Boenndal",
+  "painting.me.small_mirror.title": "Small Mirror",
+
+  "painting.me.tall_mirror.author": "Boenndal",
+  "painting.me.tall_mirror.title": "Tall Mirror",
+
+  "painting.me.prancing_pony.author": "Boenndal",
+  "painting.me.prancing_pony.title": "Prancing Pony",
+
+  "painting.me.tool_board.author": "Boenndal",
+  "painting.me.tool_board.title": "Tool Board"
 }

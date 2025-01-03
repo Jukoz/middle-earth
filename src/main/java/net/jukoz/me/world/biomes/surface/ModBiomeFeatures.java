@@ -36,6 +36,9 @@ public class ModBiomeFeatures {
     public static void addAcaciaTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.ACACIA_PLACED_TREE_KEY);
     }
+    public static void addCommonAcaciaTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.COMMON_ACACIA_PLACED_TREE_KEY);
+    }
     public static void addCommonBeechTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.COMMON_BEECH_PLACED_TREE_KEY);
     }
@@ -47,6 +50,9 @@ public class ModBiomeFeatures {
     }
     public static void addVeryRareBeechTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.VERY_RARE_BEECH_PLACED_TREE_KEY);
+    }
+    public static void addCommonBirchTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.COMMON_BIRCH_PLACED_TREE_KEY);
     }
     public static void addBirchTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.BIRCH_PLACED_TREE_KEY);
@@ -118,6 +124,9 @@ public class ModBiomeFeatures {
         vegetation.add(ModTreePlacedFeatures.RARE_BLACK_LEBETHRON_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.RARE_WHITE_LEBETHRON_PLACED_TREE_KEY);
     }
+    public static void addVeryRareLebethronTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.VERY_RARE_BLACK_LEBETHRON_PLACED_TREE_KEY);
+    }
     public static void addMallornTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MALLORN_PLACED_TREE_KEY);
     }
@@ -130,6 +139,9 @@ public class ModBiomeFeatures {
     public static void addMallornBushes(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MALLORN_BUSH_PLACED_TREE_KEY);
     }
+    public static void addMallornFloweringBushes(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.MALLORN_FLOWERING_BUSH_PLACED_TREE_KEY);
+    }
     public static void addMapleTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MAPLE_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.YELLOW_MAPLE_PLACED_TREE_KEY);
@@ -138,6 +150,30 @@ public class ModBiomeFeatures {
         vegetation.add(ModTreePlacedFeatures.SILVER_MAPLE_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.SILVER_YELLOW_MAPLE_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.SILVER_ORANGE_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SILVER_RED_MAPLE_PLACED_TREE_KEY);
+    }
+    public static void addMapleTree(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SCARCE_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SCARCE_SILVER_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SILVER_MAPLE_PLACED_TREE_KEY);
+    }
+    public static void addYellowMapleTree(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SCARCE_YELLOW_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SCARCE_SILVER_YELLOW_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.YELLOW_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SILVER_YELLOW_MAPLE_PLACED_TREE_KEY);
+    }
+    public static void addOrangeMapleTree(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SCARCE_ORANGE_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SCARCE_SILVER_ORANGE_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.ORANGE_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SILVER_ORANGE_MAPLE_PLACED_TREE_KEY);
+    }
+    public static void addRedMapleTree(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SCARCE_RED_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.SCARCE_SILVER_RED_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.RED_MAPLE_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.SILVER_RED_MAPLE_PLACED_TREE_KEY);
     }
     public static void addScarceMapleTrees(List<RegistryKey<PlacedFeature>> vegetation) {
@@ -170,6 +206,9 @@ public class ModBiomeFeatures {
     public static void addCommonOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.COMMON_OAK_PLACED_TREE_KEY);
     }
+    public static void addFrequentOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.ABUNDANT_OAK_PLACED_TREE_KEY);
+    }
     public static void addRareOakBushes(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.OAK_BUSH_RARE_PLACED_TREE_KEY);
     }
@@ -201,6 +240,9 @@ public class ModBiomeFeatures {
     public static void addPalmTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.PALM_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.WHITE_PALM_PLACED_TREE_KEY);
+    }
+    public static void addWhitePalmTree(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.UNCOMMON_WHITE_PALM_PLACED_TREE_KEY);
     }
 
     public static void addAbundantPineTrees(List<RegistryKey<PlacedFeature>> vegetation) {
@@ -236,6 +278,19 @@ public class ModBiomeFeatures {
     }
     public static void addDeadBlackPineTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.DEAD_BLACK_PINE_PLACED_TREE_KEY);
+    }
+    public static void addCommonDeadBlackPineTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.COMMON_DEAD_BLACK_PINE_PLACED_TREE_KEY);
+    }
+    public static void addAbundantDeadBlackPineTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.ABUNDANT_DEAD_BLACK_PINE_PLACED_TREE_KEY);
+    }
+
+    public static void addScorchedTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SCORCHED_TREE_PLACED_TREE_KEY);
+    }
+    public static void addAbundantScorchedTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.ABUNDANT_SCORCHED_TREE_PLACED_TREE_KEY);
     }
 
     public static void addAbundantSpruceTrees(List<RegistryKey<PlacedFeature>> vegetation) {
@@ -318,6 +373,11 @@ public class ModBiomeFeatures {
         vegetation.add(BoulderPlacedFeatures.MEDIUM_BOULDER_SMOOTH_DOLOMITE);
         vegetation.add(BoulderPlacedFeatures.BIG_BOULDER_SMOOTH_DOLOMITE);
     }
+    public static void addGalonnBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(BoulderPlacedFeatures.SMALL_BOULDER_GALONN);
+        vegetation.add(BoulderPlacedFeatures.MEDIUM_BOULDER_GALONN);
+        vegetation.add(BoulderPlacedFeatures.BIG_BOULDER_GALONN);
+    }
     public static void addGneissBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(BoulderPlacedFeatures.SMALL_BOULDER_GNEISS);
         vegetation.add(BoulderPlacedFeatures.MEDIUM_BOULDER_GNEISS);
@@ -364,15 +424,27 @@ public class ModBiomeFeatures {
     // region FIELDS
     public static void addHeatherField(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FIELD_HEATHER);
-    }
     // endregion
+    }
+    public static void addMirkwoodVines(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.MIRKWOOD_VINES);
+    }
 
     // region GROWTH
     public static void addAzaleaGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.AZALEA_GROWTH);
     }
+    public static void addDryGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.DRY_GROWTH);
+    }
+    public static void addFrozenGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FROZEN_GROWTH);
+    }
     public static void addIvyGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.IVY_GROWTH);
+    }
+    public static void addGreenGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.GREEN_GROWTH);
     }
     public static void addLilacFlowerGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.LILAC_FLOWER_GROWTH);
@@ -406,11 +478,17 @@ public class ModBiomeFeatures {
     public static void addAzureBluetFlower(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_AZURE_BLUET);
     }
+    public static void addRareAzureBluetFlower(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_AZURE_BLUET_RARE);
+    }
     public static void addBlueOrchidFlower(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_BLUE_ORCHID);
     }
     public static void addCornflower(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_CORNFLOWER);
+    }
+    public static void addCornflowerCommon(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_CORNFLOWER_COMMON);
     }
     public static void addFlowerGreenJewel(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_GREEN_JEWEL);
@@ -436,12 +514,46 @@ public class ModBiomeFeatures {
     public static void addMallos(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_MALLOS);
     }
+    public static void addPoppyFlower(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_POPPY);
+    }
     public static void addElanor(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_ELANOR);
+    }
+    public static void addRoseBush(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_ROSE_BUSH);
+    }
+
+    public static void addLightBlueFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWERS_LIGHT_BLUE);
+    }
+    public static void addMagentaFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWERS_MAGENTA);
+    }
+    public static void addOrangeFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWERS_ORANGE);
+    }
+    public static void addPinkFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWERS_PINK);
+    }
+    public static void addPurpleFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWERS_PURPLE);
+    }
+    public static void addRedFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWERS_RED);
+    }
+    public static void addWhiteFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWERS_WHITE);
+    }
+    public static void addYellowFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWERS_YELLOW);
     }
 
     public static void addBasaltPile(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_BASALT);
+    }
+    public static void addBasaltPileRare(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_BASALT_RARE);
     }
     public static void addBlackStonePile(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_BLACKSTONE);
@@ -464,11 +576,16 @@ public class ModBiomeFeatures {
     public static void addPumiceColumnLarge(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PUMICE_COLUMN_LARGE);
     }
+    public static void addBamboo(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_BAMBOO);
+    }
+    public static void addBeachGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_BEACH_GRASS);
+    }
     public static void addHaradFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_BROWN_GRASS);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_GREEN_SHRUB);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TAN_SHRUB);
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_YELLOW_FLOWER);
     }
     public static void addBulrushAndCattail(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SHORT_BULRUSH);
@@ -480,6 +597,9 @@ public class ModBiomeFeatures {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COASTAL_PANIC_GRASS);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_HOROKAKA);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_GIANT_HOROKAKA);
+    }
+    public static void addCobwebs(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_COBWEB);
     }
     public static void addCorruptedMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_CORRUPTED_MOSS);
@@ -498,8 +618,20 @@ public class ModBiomeFeatures {
     public static void addDyingGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_DYING_GRASS);
     }
+    public static void addFallenLeaves(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FALLEN_LEAVES);
+    }
+    public static void addFallenMallornLeaves(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FALLEN_MALLORN_LEAVES);
+    }
+    public static void addFallenMirkwoodLeaves(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FALLEN_MIRKWOOD_LEAVES);
+    }
     public static void addFalseOatgrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_FALSE_OATGRASS);
+    }
+    public static void addFloatingIce(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FLOATING_ICE);
     }
     public static void addForestMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_FOREST_MOSS);
@@ -508,12 +640,24 @@ public class ModBiomeFeatures {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_FOREST_MOSS_CARPET);
         vegetation.add(OrePlacedFeatures.FOREST_MOSS_DISK);
     }
-
+    public static void addFrozenGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FROZEN_GRASS);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FROZEN_TUFT);
+    }
+    public static void addFrozenShrub(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FROZEN_SHRUB);
+    }
     public static void addRareForestMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_RARE_FOREST_MOSS);
     }
     public static void addGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_GRASS);
+    }
+    public static void addGreenShrub(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_GREEN_SHRUB);
+    }
+    public static void addGrimGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_GRIM_GRASS);
     }
     public static void addCommonHeath(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_HEATH);
@@ -530,12 +674,35 @@ public class ModBiomeFeatures {
     public static void addRareHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_RARE_HEATHER);
     }
+    public static void addDeadHeather(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_DEAD_HEATHER);
+    }
     public static void addHorokaka(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_HOROKAKA);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_GIANT_HOROKAKA);
     }
     public static void addRedHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_RED_HEATHER);
+    }
+    public static void addScorchedGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SCORCHED_GRASS);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SCORCHED_TUFT);
+    }
+    public static void addScorchedShrub(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SCORCHED_SHRUB);
+    }
+    public static void addCommonScorchedGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_SCORCHED_GRASS);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_SCORCHED_TUFT);
+    }
+    public static void addCommonScorchedShrub(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_SCORCHED_SHRUB);
+    }
+    public static void addSedum(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SEDUM);
+    }
+    public static void addSedumYellow(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SEDUM_YELLOW);
     }
     public static void addShriveledShrubs(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SHRIVELED_SHRUB);
@@ -548,6 +715,9 @@ public class ModBiomeFeatures {
     }
     public static void addCommonTallGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_TALL_GRASS);
+    }
+    public static void addTemperateGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_TEMPERATE_GRASS);
     }
     public static void addToughBerries(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TOUGH_BERRY_BUSH);
@@ -573,14 +743,23 @@ public class ModBiomeFeatures {
     public static void addMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_MOSS);
     }
+    public static void addMossCarpet(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_MOSS_CARPET);
+    }
     public static void addReedsFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_REEDS);
     }
     public static void addStickySnow(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_STICKY_SNOW);
     }
+    public static void addSpiderEggs(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SPIDER_EGGS);
+    }
     public static void addWheatGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_WHEAT_GRASS);
+    }
+    public static void addSparseWheatGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SPARSE_WHEAT_GRASS);
     }
     public static void addCommonWheatGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_WHEAT_GRASS);
@@ -668,14 +847,23 @@ public class ModBiomeFeatures {
     public static void addAshenDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.ASHEN_DIRT_ORE);
     }
-    public static void addAshenDirtStoneOre(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(OrePlacedFeatures.ASHEN_DIRT_STONE_ORE);
+    public static void addAshenStoneDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ASHEN_STONE_DIRT_ORE);
+    }
+    public static void addAshenStoneDirtCommonOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ASHEN_STONE_DIRT_COMMON_ORE);
     }
     public static void addAshenGravelOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.ASHEN_GRAVEL);
     }
     public static void addAshenSandOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.ASHEN_SAND);
+    }
+    public static void addAshenGravelDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ASHEN_GRAVEL_DIRT);
+    }
+    public static void addAshenGravelSandOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ASHEN_GRAVEL_SAND);
     }
     public static void addAshenStoneGravelOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.ASHEN_STONE_GRAVEL);
@@ -710,6 +898,9 @@ public class ModBiomeFeatures {
     public static void addDirtToGrassOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.DIRT_TO_GRASS_ORE);
     }
+    public static void addDirtyRootsOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.DIRTY_ROOTS_ORE);
+    }
     public static void addDolomiteOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.DOLOMITE_ORE);
     }
@@ -718,9 +909,6 @@ public class ModBiomeFeatures {
     }
     public static void addDryDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.DRY_DIRT_ORE);
-    }
-    public static void addFrozenStone(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(OrePlacedFeatures.FROZEN_STONE_ORE);
     }
     public static void addGraniteOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.GRANITE_ORE);
@@ -731,11 +919,17 @@ public class ModBiomeFeatures {
     public static void addStoneGrassOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.STONE_GRASS_ORE);
     }
+    public static void addSandToGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.SAND_TO_GRASS_ORE);
+    }
     public static void addStoneGrassAbundantOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.STONE_GRASS_ABUNDANT_ORE);
     }
     public static void addLimestoneOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.LIMESTONE_ORE);
+    }
+    public static void addLorienPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.LORIEN_PODZOL_ORE);
     }
     public static void addMireOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.MIRE_ORE);
@@ -752,11 +946,17 @@ public class ModBiomeFeatures {
     public static void addPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.PODZOL_ORE);
     }
+    public static void addAbundantPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ABUNDANT_PODZOL_ORE);
+    }
     public static void addPowderSnowOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.POWDER_SNOW_ORE);
     }
     public static void addOldPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.OLD_PODZOL_ORE);
+    }
+    public static void addStoneOldPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.STONE_OLD_PODZOL_ORE);
     }
     public static void addSandOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.SAND_ORE);

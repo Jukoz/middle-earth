@@ -2,6 +2,7 @@ package net.jukoz.me.entity.uruks.mordor;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.jukoz.me.item.items.weapons.ranged.CustomBowWeaponItem;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.LivingEntity;
@@ -21,18 +22,19 @@ public class MordorBlackUrukModel<T extends MobEntity>
 
     @Override
     public void animateModel(T mobEntity, float f, float g, float h) {
-        this.rightArmPose = ArmPose.EMPTY;
-        this.leftArmPose = ArmPose.EMPTY;
+        this.rightArmPose = BipedEntityModel.ArmPose.EMPTY;
+        this.leftArmPose = BipedEntityModel.ArmPose.EMPTY;
         ItemStack itemStack = ((LivingEntity)mobEntity).getStackInHand(Hand.MAIN_HAND);
-        if (itemStack.isOf(Items.BOW) && ((MobEntity)mobEntity).isAttacking()) {
+        if ((itemStack.isOf(Items.BOW) || itemStack.getItem() instanceof CustomBowWeaponItem) && ((MobEntity)mobEntity).isAttacking()) {
             if (((MobEntity)mobEntity).getMainArm() == Arm.RIGHT) {
-                this.rightArmPose = ArmPose.BOW_AND_ARROW;
+                this.rightArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;
             } else {
-                this.leftArmPose = ArmPose.BOW_AND_ARROW;
+                this.leftArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;
             }
         }
         super.animateModel(mobEntity, f, g, h);
     }
+
 
     /*@Override
     public void setAngles(T mobEntity, float f, float g, float h, float i, float j) {
