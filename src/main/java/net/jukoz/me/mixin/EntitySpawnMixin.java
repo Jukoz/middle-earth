@@ -5,11 +5,15 @@ import net.jukoz.me.world.spawners.SpawnerNPCs;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.spawner.SpecialSpawner;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Mixin(ServerWorld.class)
@@ -23,4 +27,13 @@ public class EntitySpawnMixin {
         newSpawners.add(new SpawnerNPCs());
         return ImmutableList.copyOf(newSpawners);
     }
+
+    // Keep this method in case of CPR for spawners
+    /*@Shadow private List<SpecialSpawner> spawners;
+    @Inject(method = "tickSpawners", at = @At(value = "HEAD"))
+    public void tickSpawners(boolean spawnMonsters, boolean spawnAnimals, CallbackInfo ci) {
+        for(SpecialSpawner specialSpawner1 : spawners) {
+            System.out.println("Tick Spawner: " + specialSpawner1.toString());
+        }
+    }*/
 }
