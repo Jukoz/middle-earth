@@ -37,7 +37,7 @@ public class PipeItem extends Item {
 
     @Override
     public int getItemBarColor(ItemStack stack) {
-        return 0xFF0000;
+        return 0x01e81b0;
     }
 
     @Override
