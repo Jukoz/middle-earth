@@ -226,8 +226,7 @@ public class MEBiomeDataConfigs {
 
     public static BlocksLayeringData ashenStoneLayers = new BlocksLayeringData().addLayerData(1.0f, StoneBlockSets.ASHEN_STONE.base());
 
-    public static BlocksLayeringData frozenLayers = new BlocksLayeringData().addLayerData(0.5f, Blocks.STONE)
-            .addLayerData(0.5f, StoneBlockSets.SCHIST.base());
+    public static BlocksLayeringData frozenLayers = new BlocksLayeringData().addLayerData(1.0f, Blocks.STONE);
 
     public static BlocksLayeringData gonluinLayers = new BlocksLayeringData().addLayerData(0.5f, Blocks.STONE)
             .addLayerData(0.5f, StoneBlockSets.GONLUIN.base());
@@ -239,15 +238,13 @@ public class MEBiomeDataConfigs {
             .addLayerData(0.1f, Blocks.SANDSTONE);
 
     public static BlocksLayeringData gondorLayers = new BlocksLayeringData().addLayerData(0.5f, Blocks.STONE)
-            .addLayerData(0.4f, Blocks.CALCITE)
-            .addLayerData(0.1f, Blocks.DIORITE);
+            .addLayerData(0.5f, Blocks.CALCITE);
 
-    public static BlocksLayeringData greyMountainsLayers = new BlocksLayeringData().addLayerData(0.5f, Blocks.STONE)
-            .addLayerData(0.1f, Blocks.SMOOTH_BASALT)
+    public static BlocksLayeringData greyMountainsLayers = new BlocksLayeringData().addLayerData(0.58f, Blocks.STONE)
+            .addLayerData(0.02f, Blocks.SMOOTH_BASALT)
             .addLayerData(0.4f, StoneBlockSets.ASHEN_STONE.base());
 
-    public static BlocksLayeringData mistyMountainsLayers = new BlocksLayeringData().addLayerData(0.9f, Blocks.STONE)
-            .addLayerData(0.1f, StoneBlockSets.DOLOMITE.base());
+    public static BlocksLayeringData mistyMountainsLayers = new BlocksLayeringData().addLayerData(1.0f, Blocks.STONE);
 
     // endregion
 

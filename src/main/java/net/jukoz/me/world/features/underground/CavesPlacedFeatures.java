@@ -14,6 +14,7 @@ import net.minecraft.util.math.floatprovider.UniformFloatProvider;
 import net.minecraft.util.math.intprovider.ClampedNormalIntProvider;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
@@ -33,34 +34,41 @@ public class CavesPlacedFeatures {
     // endregion
 
     // region ORES
+    public static final RegistryKey<PlacedFeature> ORE_ASH = registerKey("ore_ash");
+    public static final RegistryKey<PlacedFeature> ORE_ASHEN_DIRT = registerKey("ore_ashen_dirt");
+    public static final RegistryKey<PlacedFeature> ORE_BASALT = registerKey("ore_basalt");
+    public static final RegistryKey<PlacedFeature> ORE_BLACKSTONE = registerKey("ore_black_stone");
+    public static final RegistryKey<PlacedFeature> ORE_BLUE_ICE = registerKey("ore_blue_ice");
+    public static final RegistryKey<PlacedFeature> ORE_PACKED_ICE = registerKey("ore_packed_ice");
+    public static final RegistryKey<PlacedFeature> ORE_DIRT = registerKey("ore_dirt");
     public static final RegistryKey<PlacedFeature> ORE_DOLOMITE = registerKey("ore_dolomite");
     public static final RegistryKey<PlacedFeature> ORE_OLD_DOLOMITE = registerKey("ore_old_dolomite");
     public static final RegistryKey<PlacedFeature> ORE_DOLOMITE_ABUNDANT = registerKey("ore_dolomite_abundant");
-    public static final RegistryKey<PlacedFeature> ORE_MAGMA = registerKey("ore_magma");
-    public static final RegistryKey<PlacedFeature> ORE_MAGMA_ABUNDANT = registerKey("ore_magma_abundant");
-    public static final RegistryKey<PlacedFeature> ORE_OBSIDIAN = registerKey("ore_obsidian");
-    public static final RegistryKey<PlacedFeature> ORE_DIRT = registerKey("ore_dirt");
-    public static final RegistryKey<PlacedFeature> ORE_MUD = registerKey("ore_mud");
-    public static final RegistryKey<PlacedFeature> ORE_ASH = registerKey("ore_ash");
-    public static final RegistryKey<PlacedFeature> ORE_ASHEN_DIRT = registerKey("ore_ashen_dirt");
     public static final RegistryKey<PlacedFeature> ORE_DRY_DIRT = registerKey("ore_dry_dirt");
-    public static final RegistryKey<PlacedFeature> ORE_BLUE_ICE = registerKey("ore_blue_ice");
-    public static final RegistryKey<PlacedFeature> ORE_PACKED_ICE = registerKey("ore_packed_ice");
+    public static final RegistryKey<PlacedFeature> ORE_IZHER_ABAN = registerKey("ore_izher_aban");
+    public static final RegistryKey<PlacedFeature> ORE_OLD_IZHER_ABAN = registerKey("ore_old_izher_aban");
+    public static final RegistryKey<PlacedFeature> ORE_IZHER_ABAN_ABUNDANT = registerKey("ore_izher_aban_abundant");
     public static final RegistryKey<PlacedFeature> ORE_LIMESTONE = registerKey("ore_limestone");
     public static final RegistryKey<PlacedFeature> ORE_OLD_LIMESTONE = registerKey("ore_old_limestone");
     public static final RegistryKey<PlacedFeature> ORE_LIMESTONE_ABUNDANT = registerKey("ore_limestone_abundant");
+    public static final RegistryKey<PlacedFeature> ORE_MAGMA = registerKey("ore_magma");
+    public static final RegistryKey<PlacedFeature> ORE_MAGMA_ABUNDANT = registerKey("ore_magma_abundant");
+    public static final RegistryKey<PlacedFeature> ORE_MUD = registerKey("ore_mud");
+    public static final RegistryKey<PlacedFeature> ORE_OBSIDIAN = registerKey("ore_obsidian");
     public static final RegistryKey<PlacedFeature> ORE_SAND = registerKey("ore_sand");
     public static final RegistryKey<PlacedFeature> ORE_SANDSTONE = registerKey("ore_sandstone");
     public static final RegistryKey<PlacedFeature> ORE_SNOW = registerKey("ore_snow");
     public static final RegistryKey<PlacedFeature> ORE_TERRACOTTA = registerKey("ore_terracotta");
     public static final RegistryKey<PlacedFeature> ORE_TUFF = registerKey("ore_tuff");
-    public static final RegistryKey<PlacedFeature> ORE_BASALT = registerKey("ore_basalt");
-    public static final RegistryKey<PlacedFeature> ORE_BLACKSTONE = registerKey("ore_black_stone");
     // endregion
 
     public static final RegistryKey<PlacedFeature> DOLOMITE_CLUSTER = registerKey("dolomite_cluster");
     public static final RegistryKey<PlacedFeature> LARGE_DOLOMITE = registerKey("large_dolomite");
     public static final RegistryKey<PlacedFeature> POINTED_DOLOMITE = registerKey("pointed_dolomite");
+
+    public static final RegistryKey<PlacedFeature> IZHER_ABAN_CLUSTER = registerKey("izher_aban_cluster");
+    public static final RegistryKey<PlacedFeature> LARGE_IZHER_ABAN = registerKey("large_izher_aban");
+    public static final RegistryKey<PlacedFeature> POINTED_IZHER_ABAN = registerKey("pointed_izher_aban");
 
     public static final RegistryKey<PlacedFeature> LIMESTONE_CLUSTER = registerKey("limestone_cluster");
     public static final RegistryKey<PlacedFeature> LARGE_LIMESTONE = registerKey("large_limestone");
@@ -118,6 +126,10 @@ public class CavesPlacedFeatures {
     public static final RegistryKey<PlacedFeature> TREE_YELLOW_AMANITA = registerKey("tree_yellow_amanita");
     public static final RegistryKey<PlacedFeature> GLOWWORM_WEBBING = registerKey("glowworm_webbing");
     // endregion
+    public static final RegistryKey<PlacedFeature> DROOPING_ICICLES = registerKey("drooping_icicles");
+    public static final RegistryKey<PlacedFeature> SHORT_ICICLES = registerKey("short_icicles");
+    public static final RegistryKey<PlacedFeature> STICKY_ICE = registerKey("sticky_ice");
+    public static final RegistryKey<PlacedFeature> STICKY_SNOW = registerKey("sticky_snow");
 
     // region LUSH
     public static final RegistryKey<PlacedFeature> LUSH_CAVES_CEILING_VEGETATION = registerKey("lush_caves_ceiling_vegetation");
@@ -167,6 +179,10 @@ public class CavesPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dolomiteCluster = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.DOLOMITE_CLUSTER);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> largeDolomite = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.LARGE_DOLOMITE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> pointedDolomite = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.POINTED_DOLOMITE);
+
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> izherAbanCluster = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.IZHER_ABAN_CLUSTER);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> largeIzherAban = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.LARGE_IZHER_ABAN);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> pointedIzherAban = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.POINTED_IZHER_ABAN);
 
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> limestoneCluster = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.LIMESTONE_CLUSTER);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> largeLimestone = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.LARGE_LIMESTONE);
@@ -218,6 +234,10 @@ public class CavesPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> yellowAmanitaTree = registryEntryLookup.getOrThrow(MushroomTreeConfiguredFeatures.YELLOW_AMANITA_TREE_KEY);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> glowwormWebbing = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.GLOWWORM_WEBBING);
         // endregion
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> droopingIcicles = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.DROOPING_ICICLES);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> shortIcicles = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.SHORT_ICICLES);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> stickyIce = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.STICKY_ICE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> stickySnow = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.STICKY_SNOW);
 
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> caveVine = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.CAVE_VINE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mossPatch = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.MOSS_PATCH);
@@ -266,6 +286,11 @@ public class CavesPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, DOLOMITE_CLUSTER, dolomiteCluster, CountPlacementModifier.of(UniformIntProvider.create(48, 96)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, LARGE_DOLOMITE, largeDolomite, CountPlacementModifier.of(UniformIntProvider.create(10, 48)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, POINTED_DOLOMITE, pointedDolomite, CountPlacementModifier.of(UniformIntProvider.create(192, 256)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE,
+                CountPlacementModifier.of(UniformIntProvider.create(1, 5)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
+
+        PlacedFeatures.register(featureRegisterable, IZHER_ABAN_CLUSTER, izherAbanCluster, CountPlacementModifier.of(UniformIntProvider.create(48, 96)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, LARGE_IZHER_ABAN, largeIzherAban, CountPlacementModifier.of(UniformIntProvider.create(10, 48)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, POINTED_IZHER_ABAN, pointedIzherAban, CountPlacementModifier.of(UniformIntProvider.create(192, 256)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE,
                 CountPlacementModifier.of(UniformIntProvider.create(1, 5)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
 
         PlacedFeatures.register(featureRegisterable, LIMESTONE_CLUSTER, limestoneCluster, CountPlacementModifier.of(UniformIntProvider.create(48, 96)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
@@ -337,6 +362,17 @@ public class CavesPlacedFeatures {
                 EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)),
                 BiomePlacementModifier.of());
         // endregion
+
+        PlacedFeatures.register(featureRegisterable, DROOPING_ICICLES, droopingIcicles, CountPlacementModifier.of(37), SquarePlacementModifier.of(), HeightRangePlacementModifier.trapezoid(YOffset.fixed(-48), YOffset.fixed(64)),
+                EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)),
+                BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, SHORT_ICICLES, shortIcicles, CountPlacementModifier.of(49), SquarePlacementModifier.of(), HeightRangePlacementModifier.trapezoid(YOffset.fixed(-48), YOffset.fixed(64)),
+                EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)),
+                BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, STICKY_ICE, stickyIce, CountPlacementModifier.of(UniformIntProvider.create(204, 250)), PlacedFeatures.BOTTOM_TO_120_RANGE,
+                SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -13), BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, STICKY_SNOW, stickySnow, CountPlacementModifier.of(UniformIntProvider.create(204, 250)), PlacedFeatures.BOTTOM_TO_120_RANGE,
+                SquarePlacementModifier.of(), SurfaceThresholdFilterPlacementModifier.of(Heightmap.Type.OCEAN_FLOOR_WG, Integer.MIN_VALUE, -13), BiomePlacementModifier.of());
 
         PlacedFeatures.register(featureRegisterable, CAVE_VINES, caveVine, CountPlacementModifier.of(188), SquarePlacementModifier.of(), lushRange, EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)), BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, LUSH_CAVES_VEGETATION, mossPatch, CountPlacementModifier.of(125), SquarePlacementModifier.of(), lushRange, EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1)), BiomePlacementModifier.of());
