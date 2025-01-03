@@ -191,10 +191,9 @@ public class NpcGearItemData {
             int newHoodColor = CustomDyeableDataComponent.DEFAULT_COLOR;
             if(hoodColor != null)
                 newHoodColor = hoodColor;
-            else if(hoodColors != null)
+            if(hoodColors != null)
                 newHoodColor = getRandomColor(hoodColors);
             itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, newHoodColor));
-            itemStack = HoodDataComponent.setHoodWithcolor(itemStack, hoodState, itemStack.get(ModDataComponentTypes.HOOD_DATA).hood(), newHoodColor);
         }
         return itemStack;
     }
@@ -264,11 +263,11 @@ public class NpcGearItemData {
 
         Integer hoodColor = gearItemData.hoodColor;
         if(hoodColor != null)
-            nbt.putInt("hoodColor", hoodColor);
+            nbt.putInt("hood_color", hoodColor);
 
         List<Integer> hoodColors = gearItemData.hoodColors;
         if(hoodColors != null)
-            nbt.putIntArray("hoodColors", hoodColors);
+            nbt.putIntArray("hood_colors", hoodColors);
 
         return nbt;
     }
