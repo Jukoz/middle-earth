@@ -30,7 +30,7 @@ public class ModBiomeSource extends BiomeSource {
             Codec.list(Biome.REGISTRY_CODEC).fieldOf("biomes").forGetter((biomeSource) -> biomeSource.biomes)).apply(instance, ModBiomeSource::new));
 
     private final List<RegistryEntry<Biome>> biomes;
-    private static final int CAVE_NOISE = 128;
+    private static final int CAVE_NOISE = 360;
     private static final int CAVE_OFFSET = 7220;
     public static final int SUB_BIOME_NOISE = 256;
     public static final int SUB_BIOME_OFFSET = 8240;
@@ -89,8 +89,13 @@ public class ModBiomeSource extends BiomeSource {
         BiomeData biome = biomeHeightData.getBiome();
         RegistryKey<Biome> processedBiome;
 
-        if(!MapBasedBiomePool.waterBiomes.contains(biome.getBiomeRegistryKey())) {
-            float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
+        float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
+        if(j <= CavesPlacedFeatures.MAX_MITHRIL_HEIGHT && biome.getCaveType() == CaveType.MISTIES) {
+            processedBiome = MEBiomeKeys.MITHRIL_CAVE;
+        } else if(j < (height - 16)) {
+            processedBiome = getCaveBiome(i, k, biome);
+        }
+        else if(!MapBasedBiomePool.waterBiomes.contains(biome.getBiomeRegistryKey())) {
             SubBiome subBiome = SubBiomes.getSubBiome(biomeHeightData.getBiomeKey());
             if(subBiome != null) {
                 double perlin = ModBiomeSource.getSubBiomeNoise(i, k, subBiome.getFrequency());
@@ -106,8 +111,6 @@ public class ModBiomeSource extends BiomeSource {
                 if(j < (height - 16)) processedBiome = getCaveBiome(i, k, biome);
                 else if(height < MiddleEarthChunkGenerator.WATER_HEIGHT) processedBiome = MapBasedBiomePool.deadMarshesWater.getBiomeKey();
                 else processedBiome = MapBasedBiomePool.deadMarshes.getBiomeKey();
-            } else if(j < (height - 16)) {
-                processedBiome = getCaveBiome(i, k, biome);
             } else if(height <= biomeHeightData.getWaterHeight() + 1.25f) { // TODO : This is really rough, need to be more dynamic
                 if(MapBasedBiomePool.coastalBiomes.contains(biome.getBiomeRegistryKey())){
                     processedBiome = MapBasedBiomePool.oceanCoast.getBiomeKey();
