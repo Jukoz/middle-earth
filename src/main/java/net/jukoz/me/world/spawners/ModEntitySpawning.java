@@ -197,6 +197,7 @@ public class ModEntitySpawning {
 
         spawns.put(MEBiomeKeys.ANORIEN, gondorAndMordor);
         spawns.put(MEBiomeKeys.ANORIEN_RIVERSIDE, gondorAndMordor);
+        spawns.put(MEBiomeKeys.PELENNOR_FIELDS, gondorSpawnSettings);
         spawns.put(MEBiomeKeys.LOSSARNACH, ruralGondorSpawnSettings);
         spawns.put(MEBiomeKeys.LOSSARNACH_VALLEY, ruralGondorSpawnSettings);
         spawns.put(MEBiomeKeys.LEBENNIN, ruralGondorSpawnSettings);
@@ -205,7 +206,7 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.GONDOR_HILL, ruralGondorSpawnSettings);
         spawns.put(MEBiomeKeys.BELFALAS, gondorSpawnSettings);
         spawns.put(MEBiomeKeys.BELFALAS_HILLS, ruralGondorSpawnSettings);
-        spawns.put(MEBiomeKeys.BLACKROOT_VALE, gondorAndMordor);
+        spawns.put(MEBiomeKeys.BLACKROOT_VALE, gondorSpawnSettings);
 
         spawns.put(MEBiomeKeys.ITHILIEN, gondorGarrisonAndMordor);
         spawns.put(MEBiomeKeys.ITHILIEN_GLADE, gondorGarrisonAndMordor);

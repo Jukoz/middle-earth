@@ -312,6 +312,7 @@ public class ModBiomes {
 
         addGondorVegetation(generationSettings);
         ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addWildLettuce(vegetation);
         ModBiomeFeatures.addOakBushes(vegetation);
         ModBiomeFeatures.addTuftGrass(vegetation);
         ModBiomeFeatures.addDioriteBoulder(vegetation);
@@ -367,6 +368,7 @@ public class ModBiomes {
         if(step == 0) { // Plains
             addGondorVegetation(generationSettings);
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+            ModBiomeFeatures.addWildLettuce(vegetation);
             ModBiomeFeatures.addRareBirchTrees(vegetation);
             ModBiomeFeatures.addRareOakBushes(vegetation);
             ModBiomeFeatures.addLightBlueFlowers(vegetation);
@@ -538,9 +540,11 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         if (step == 0){
+            ModSpawnSettingsBuilder.addCats(spawnSettings);
             ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
             addDefaultVegetation(generationSettings);
             ModBiomeFeatures.addCornflower(vegetation);
+            ModBiomeFeatures.addWildLettuce(vegetation);
             ModBiomeFeatures.addCoarseDirtOre(vegetation);
             ModBiomeFeatures.addGravelOre(vegetation);
             ModBiomeFeatures.addVeryRareSpruceTrees(vegetation);
@@ -1170,6 +1174,7 @@ public class ModBiomes {
     public static void createHaradBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addHaradMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addArmadillo(spawnSettings);
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
@@ -1187,6 +1192,7 @@ public class ModBiomes {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addHaradMobs(spawnSettings);
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
+        ModSpawnSettingsBuilder.addCats(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addHaradVegetation(generationSettings);
@@ -1430,6 +1436,7 @@ public class ModBiomes {
         ModBiomeFeatures.addOakBushes(vegetation);
 
         if(step == 0) { // Plains
+            ModSpawnSettingsBuilder.addCats(spawnSettings);
             ModBiomeFeatures.addLightBlueFlowers(vegetation);
             ModBiomeFeatures.addRareBeechTrees(vegetation);
             ModBiomeFeatures.addVeryRareLebethronTrees(vegetation);
@@ -1595,6 +1602,8 @@ public class ModBiomes {
         ModBiomeFeatures.addTuftGrass(vegetation);
 
         if(step == 0) { // Plains
+            ModSpawnSettingsBuilder.addCats(spawnSettings);
+            ModBiomeFeatures.addWildLettuce(vegetation);
             ModBiomeFeatures.addYellowFlowers(vegetation);
             ModBiomeFeatures.addOrangeFlowers(vegetation);
             ModBiomeFeatures.addRedFlowers(vegetation);
@@ -2570,6 +2579,7 @@ public class ModBiomes {
         if (step == 0) { //  Plains
             ModBiomeFeatures.addCommonWheatGrass(vegetation);
             ModBiomeFeatures.addSedumYellow(vegetation);
+            ModBiomeFeatures.addWildLettuce(vegetation);
             ModBiomeFeatures.addDryGrass(vegetation);
             ModBiomeFeatures.addTallGrass(vegetation);
             ModBiomeFeatures.addDolomiteBoulder(vegetation);
@@ -2617,7 +2627,9 @@ public class ModBiomes {
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             if(step == 1) {
                 ModBiomeFeatures.addOakTrees(vegetation);
+                ModSpawnSettingsBuilder.addCats(spawnSettings);
             } else if(step == 0) {
+                ModSpawnSettingsBuilder.addCats(spawnSettings);
                 ModBiomeFeatures.addStrawberries(vegetation);
                 ModBiomeFeatures.addRareOakBushes(vegetation);
             } else {
@@ -2875,6 +2887,7 @@ public class ModBiomes {
         ModSpawnSettingsBuilder.addHaradMobs(spawnSettings);
         ModSpawnSettingsBuilder.addRareWolves(spawnSettings);
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
+        ModSpawnSettingsBuilder.addCats(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addHaradVegetation(generationSettings);
@@ -3067,11 +3080,13 @@ public class ModBiomes {
     public static void createPelennorFields(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addCats(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addGondorVegetation(generationSettings);
         ModBiomeFeatures.addDioriteBoulder(vegetation);
         ModBiomeFeatures.addRareWilderGrass(vegetation);
+        ModBiomeFeatures.addWildLettuce(vegetation);
         ModBiomeFeatures.addTuftGrass(vegetation);
         ModBiomeFeatures.addSedum(vegetation);
 

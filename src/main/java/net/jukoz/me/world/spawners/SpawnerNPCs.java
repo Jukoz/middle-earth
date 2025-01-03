@@ -1,6 +1,7 @@
 package net.jukoz.me.world.spawners;
 
 import net.jukoz.me.entity.NpcEntity;
+import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityData;
@@ -62,7 +63,7 @@ public class SpawnerNPCs implements SpecialSpawner {
 
                 int x = targetBlockPos.getX() + (int)(distance * Math.cos(randomAngle));
                 int z = targetBlockPos.getZ() + (int)(distance * Math.sin(randomAngle));
-                targetBlockPos = new BlockPos(x, 1 + getHighestYAtXZ(world, x, z), z);
+                targetBlockPos = new BlockPos(x, ModDimensions.getDimensionHeight(x, z).y, z);
 
                 if(world.getBiome(targetBlockPos).getKey().isEmpty()) continue;
                 RegistryKey<Biome> biomeRegistryKey = world.getBiome(targetBlockPos).getKey().get();
@@ -110,7 +111,7 @@ public class SpawnerNPCs implements SpecialSpawner {
     }
 
     public static int getHighestYAtXZ(World world, int x, int z) {
-        return world.getChunk(new BlockPos(x, 0, z)).sampleHeightmap(Heightmap.Type.MOTION_BLOCKING, x, z);
+        return world.getChunk(new BlockPos(x, 0, z)).sampleHeightmap(Heightmap.Type.WORLD_SURFACE_WG, x, z);
     }
 
     private static boolean canSpawnAt(BlockView world, BlockPos pos, EntityType type, BlockState blockState) {

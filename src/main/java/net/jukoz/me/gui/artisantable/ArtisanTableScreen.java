@@ -105,7 +105,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("hat"), ModEquipmentItems.STRAW_HAT.getDefaultStack(), ArtisanTableInputsShape.HAT));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("hood"), ModEquipmentItems.HOOD.getDefaultStack(), ArtisanTableInputsShape.HOOD));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("cape"), ModEquipmentItems.CAPE.getDefaultStack(), ArtisanTableInputsShape.CAPE));
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 3, getTabTranslation("pipe"), ModToolItems.CLAYSHIRE_PIPE.getDefaultStack(), ArtisanTableInputsShape.PIPE));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 3, getTabTranslation("pipe"), ModToolItems.CLAY_PIPE.getDefaultStack(), ArtisanTableInputsShape.PIPE));
         index++;
 
         selectedCategory = categories.getFirst();

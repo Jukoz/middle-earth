@@ -48,11 +48,19 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
             if (itemStack.isEmpty()) continue;
             i++;
         }
+
         if(i != this.inputs.size()) return false;
 
         for (int j = 0; j < inputs.size(); j++) {
-            for (ItemStack itemStack2 : inputs.get(j).getMatchingStacks()) {
-                if (!ItemStack.areItemsAndComponentsEqual(itemStack2, input.getStackInSlot(j))) return false;
+            Ingredient ingredient = this.inputs.get(j);
+            if (!ingredient.test(input.getStackInSlot(j))) {
+                return false;
+            }
+
+            if (ingredient.getMatchingStacks().length == 1){
+                for (ItemStack itemStack2 : ingredient.getMatchingStacks()) {
+                    if (!ItemStack.areItemsAndComponentsEqual(itemStack2, input.getStackInSlot(j))) return false;
+                }
             }
         }
 

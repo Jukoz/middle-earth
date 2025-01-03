@@ -3,12 +3,16 @@ package net.jukoz.me.item.items;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.sound.ModSounds;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.packet.s2c.play.ParticleS2CPacket;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -28,6 +32,20 @@ public class PipeItem extends Item {
     public PipeItem(Item.Settings settings, int amountOfUses) {
         super(settings.maxDamage(amountOfUses));
         usesPerLeaf = amountOfUses;
+    }
+
+
+    @Override
+    public int getItemBarColor(ItemStack stack) {
+        return 0x01e81b0;
+    }
+
+    @Override
+    public int getItemBarStep(ItemStack stack) {
+        if (stack.isDamageable()) {
+            return Math.round(13.0F - (float) stack.getDamage() * 13.0F / (float) stack.getMaxDamage());
+        }
+        return super.getItemBarStep(stack);
     }
 
     @Override
@@ -75,12 +93,21 @@ public class PipeItem extends Item {
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
         if (smoking) {
             int totalTicks = USAGE_TIME - remainingUseTicks;
-            int frequency = Math.max(4, (int) Math.pow((USAGE_TIME - totalTicks) / 10.0, 2));            if (remainingUseTicks % frequency == 0) {
-                world.addParticle(ParticleTypes.SMOKE,
-                        user.getX() + user.getRotationVec(1.0F).x * 0.5,
-                        user.getY() + user.getEyeHeight(user.getPose()) + user.getRotationVec(1.0F).y * 0.5 + 0.04,
-                        user.getZ() + user.getRotationVec(1.0F).z * 0.5,
-                        0, 0.02, 0);
+            int frequency = Math.max(4, (int) Math.pow((USAGE_TIME - totalTicks) / 10.0, 2));
+            if (remainingUseTicks % frequency == 0) {
+                if (!world.isClient && world instanceof ServerWorld serverWorld) {
+                    serverWorld.spawnParticles(
+                            ParticleTypes.SMOKE,
+                            user.getX() + user.getRotationVec(1.0F).x * 0.5,
+                            user.getY() + user.getEyeHeight(user.getPose()) + user.getRotationVec(1.0F).y * 0.5 + 0.04,
+                            user.getZ() + user.getRotationVec(1.0F).z * 0.5,
+                            1, // Number of particles
+                            0, // Offset X
+                            0.02, // Offset Y
+                            0, // Offset Z
+                            0 // Speed
+                    );
+                }
             }
         }
     }
