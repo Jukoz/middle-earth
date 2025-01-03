@@ -31,26 +31,20 @@ public class OrcishTreatedAnvilblock extends AbstractTreatedAnvilBlock {
         switch (state.get(FACING)){
             case NORTH, SOUTH -> {
                 return Stream.of(
-                        Block.createCuboidShape(10, 7, 4, 12, 10, 12),
-                        Block.createCuboidShape(4, 7, 4, 6, 10, 12),
-                        Block.createCuboidShape(3, 0, 3, 13, 7, 13),
-                        Block.createCuboidShape(5, 7, 5, 11, 13, 11),
-                        Block.createCuboidShape(4, 13, 5, 12, 16, 11),
+                        Block.createCuboidShape(3, 0, 3, 13, 10, 13),
                         Block.createCuboidShape(1, 14, 7, 4, 16, 9),
+                        Block.createCuboidShape(4, 13, 5, 12, 16, 11),
                         Block.createCuboidShape(12, 14, 7, 15, 16, 9),
-                        Block.createCuboidShape(7, 7, 4, 9, 11, 12)
+                        Block.createCuboidShape(5, 7, 5, 11, 13, 11)
                 ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
             }
             case EAST, WEST -> {
                 return Stream.of(
-                        Block.createCuboidShape(4, 7, 4, 12, 10, 6),
-                        Block.createCuboidShape(4, 7, 10, 12, 10, 12),
-                        Block.createCuboidShape(3, 0, 3, 13, 7, 13),
-                        Block.createCuboidShape(5, 7, 5, 11, 13, 11),
-                        Block.createCuboidShape(5, 13, 4, 11, 16, 12),
+                        Block.createCuboidShape(3, 0, 3, 13, 10, 13),
                         Block.createCuboidShape(7, 14, 12, 9, 16, 15),
+                        Block.createCuboidShape(5, 13, 4, 11, 16, 12),
                         Block.createCuboidShape(7, 14, 1, 9, 16, 4),
-                        Block.createCuboidShape(4, 7, 7, 12, 11, 9)
+                        Block.createCuboidShape(5, 7, 5, 11, 13, 11)
                 ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
             }
             default -> {

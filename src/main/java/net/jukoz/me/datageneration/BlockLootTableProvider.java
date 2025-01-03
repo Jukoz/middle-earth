@@ -179,6 +179,9 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
         cobbleDrops(ModBlocks.SNOWY_GRASS_BLOCK, ModBlocks.DRY_DIRT);
 
+        cobbleDrops(ModNatureBlocks.OLD_PODZOL, Blocks.DIRT);
+        cobbleDrops(ModNatureBlocks.LORIEN_PODZOL, Blocks.DIRT);
+
         for (SimpleRocksModel.Rocks rock : SimpleRocksModel.rocks) {
             rocksDrop(rock.rocks());
         }

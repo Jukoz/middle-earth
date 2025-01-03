@@ -33,16 +33,14 @@ public class TreatedAnvilblock extends AbstractTreatedAnvilBlock {
                 return Stream.of(
                         Block.createCuboidShape(1, 0, 1, 15, 6, 15),
                         Block.createCuboidShape(1, 12, 4, 15, 16, 12),
-                        Block.createCuboidShape(3, 6, 3, 13, 8, 13),
-                        Block.createCuboidShape(4, 8, 5, 12, 12, 11)
+                        Block.createCuboidShape(4, 6, 5, 12, 12, 11)
                 ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
             }
             case EAST, WEST -> {
                 return Stream.of(
                         Block.createCuboidShape(1, 0, 1, 15, 6, 15),
                         Block.createCuboidShape(4, 12, 1, 12, 16, 15),
-                        Block.createCuboidShape(3, 6, 3, 13, 8, 13),
-                        Block.createCuboidShape(5, 8, 4, 11, 12, 12)
+                        Block.createCuboidShape(5, 6, 4, 11, 12, 12)
                 ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
             }
             default -> {

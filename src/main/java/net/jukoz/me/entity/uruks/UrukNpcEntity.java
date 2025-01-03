@@ -9,4 +9,11 @@ public class UrukNpcEntity extends NpcEntity {
     protected UrukNpcEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
     }
+
+    @Override
+    protected void initGoals() {
+        super.initGoals();
+        int index = 4;
+        index = initEvilTargetSelector(index);
+    }
 }
