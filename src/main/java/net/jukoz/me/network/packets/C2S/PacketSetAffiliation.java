@@ -1,6 +1,7 @@
 package net.jukoz.me.network.packets.C2S;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.items.StarlightPhialItem;
 import net.jukoz.me.network.contexts.ServerPacketContext;
 import net.jukoz.me.network.packets.ClientToServerPacket;
 import net.jukoz.me.resources.datas.factions.Faction;
@@ -12,6 +13,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 
 public class PacketSetAffiliation extends ClientToServerPacket<PacketSetAffiliation>
@@ -55,6 +57,8 @@ public class PacketSetAffiliation extends ClientToServerPacket<PacketSetAffiliat
                 Faction faction = FactionLookup.getFactionById(context.player().getWorld(), factionId);
                 Identifier spawnId = Identifier.of(spawnName);
                 FactionUtil.updateFaction(context.player(), faction, spawnId);
+                if(!context.player().isCreative() && context.player().getMainHandStack().getItem() instanceof StarlightPhialItem)
+                    context.player().getStackInHand(Hand.MAIN_HAND).decrement(1);
             } catch (Exception e){
                 LoggerUtil.logError("AffiliationPacket::Tried getting affiliation packet and couldn't fetch any.", e);
             }

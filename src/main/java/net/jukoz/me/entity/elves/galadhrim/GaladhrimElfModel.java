@@ -3,6 +3,7 @@ package net.jukoz.me.entity.elves.galadhrim;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.item.items.weapons.ranged.CustomBowWeaponItem;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.CrossbowPosing;
@@ -29,7 +30,7 @@ public class GaladhrimElfModel<T extends MobEntity>
         this.rightArmPose = BipedEntityModel.ArmPose.EMPTY;
         this.leftArmPose = BipedEntityModel.ArmPose.EMPTY;
         ItemStack itemStack = ((LivingEntity)mobEntity).getStackInHand(Hand.MAIN_HAND);
-        if (itemStack.getItem() instanceof BowItem && ((MobEntity)mobEntity).isAttacking()) {
+        if ((itemStack.isOf(Items.BOW) || itemStack.getItem() instanceof CustomBowWeaponItem) && ((MobEntity)mobEntity).isAttacking()) {
             if (((MobEntity)mobEntity).getMainArm() == Arm.RIGHT) {
                 this.rightArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;
             } else {

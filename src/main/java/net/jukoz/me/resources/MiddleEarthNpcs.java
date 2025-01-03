@@ -45,46 +45,36 @@ public class MiddleEarthNpcs {
         register(context, npcRegistryEntryLookup, HOBBIT_CIVILIAN);
         register(context, npcRegistryEntryLookup, ORC_CIVILIAN);
         register(context, npcRegistryEntryLookup, URUK_CIVILIAN);
+
         // [GONDOR]
-        register(context, npcRegistryEntryLookup, GondorianNpcDataPool.GONDOR_MILITIA);
-        register(context, npcRegistryEntryLookup, GondorianNpcDataPool.GONDOR_SOLDIER);
-        register(context, npcRegistryEntryLookup, GondorianNpcDataPool.GONDOR_KNIGHT);
-        register(context, npcRegistryEntryLookup, GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARDS);
-        register(context, npcRegistryEntryLookup, GondorianNpcDataPool.GONDOR_CITADEL_GUARDS);
-        register(context, npcRegistryEntryLookup, GondorianNpcDataPool.GONDOR_KING_GUARDS);
-        register(context, npcRegistryEntryLookup, GondorianNpcDataPool.GONDOR_VETERAN);
-        register(context, npcRegistryEntryLookup, GondorianNpcDataPool.GONDOR_LEADER);
+        registerAll(context, npcRegistryEntryLookup, GondorianNpcDataPool.fetchAll());
         // [ROHAN]
-        register(context, npcRegistryEntryLookup, RohirricNpcDataPool.ROHAN_MILITIA);
-        register(context, npcRegistryEntryLookup, RohirricNpcDataPool.ROHAN_SOLDIER);
-        register(context, npcRegistryEntryLookup, RohirricNpcDataPool.ROHAN_KNIGHT);
-        register(context, npcRegistryEntryLookup, RohirricNpcDataPool.ROHAN_ROYAL_GUARD);
-        register(context, npcRegistryEntryLookup, RohirricNpcDataPool.ROHAN_EORLING_MARSHAL);
-        register(context, npcRegistryEntryLookup, RohirricNpcDataPool.ROHAN_HORSE_LORD);
+        registerAll(context, npcRegistryEntryLookup, RohirricNpcDataPool.fetchAll());
         // [DALE]
-        register(context, npcRegistryEntryLookup, DalishNpcDataPool.DALE_MILITIA);
-        // [LONGBEARDS]
-        // [EREBOR]
-        register(context, npcRegistryEntryLookup, EreborNpcDataPool.EREBOR_MILITIA);
+        registerAll(context, npcRegistryEntryLookup, DalishNpcDataPool.fetchAll());
+        // [LONGBEARDS] - [EREBOR]
+        registerAll(context, npcRegistryEntryLookup, EreborNpcDataPool.fetchAll());
         // [LOTHLORIEN]
-        register(context, npcRegistryEntryLookup, LorienNpcDataPool.LOTHLORIEN_MILITIA);
+        registerAll(context, npcRegistryEntryLookup, LorienNpcDataPool.fetchAll());
         // [MORDOR]
-        register(context, npcRegistryEntryLookup, MordorNpcDataPool.MORDOR_ORC_MILITIA);
-        register(context, npcRegistryEntryLookup, MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA);
+        registerAll(context, npcRegistryEntryLookup, MordorNpcDataPool.fetchAll());
         // [MISTY MOUNTAINS GOBLINS]
-        register(context, npcRegistryEntryLookup, MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA);
-        register(context, npcRegistryEntryLookup, MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA);
+        registerAll(context, npcRegistryEntryLookup, MistyMountainsGoblinsNpcDataPool.fetchAll());
         // [ISENGARD]
-        register(context, npcRegistryEntryLookup, IsengardNpcDataPool.ISENGARD_ORC_MILITIA);
-        register(context, npcRegistryEntryLookup, IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA);
+        registerAll(context, npcRegistryEntryLookup, IsengardNpcDataPool.fetchAll());
         // [SHIRE]
-        register(context, npcRegistryEntryLookup, ShireNpcDataPool.SHIRE_MILITIA);
+        registerAll(context, npcRegistryEntryLookup, ShireNpcDataPool.fetchAll());
         // [BANDIT]
-        register(context, npcRegistryEntryLookup, BanditNpcDataPool.BANDIT_THUG);
-        register(context, npcRegistryEntryLookup, BanditNpcDataPool.BANDIT_THIEF);
+        registerAll(context, npcRegistryEntryLookup, BanditNpcDataPool.fetchAll());
     }
 
-    private static NpcData register(Registerable<NpcData> context, RegistryEntryLookup<NpcData> npcRegistryEntryLookup, NpcData npcData) {
+    private static void registerAll(Registerable<NpcData> context, RegistryEntryLookup<NpcData> npcRegistryEntryLookup, List<NpcData> npcDatas) {
+        for(NpcData data : npcDatas){
+            register(context, npcRegistryEntryLookup, data);
+        }
+    }
+
+    public static NpcData register(Registerable<NpcData> context, RegistryEntryLookup<NpcData> npcRegistryEntryLookup, NpcData npcData) {
         RegistryKey<NpcData> npcRegistryKey = of(npcData.getName());
         String name = npcRegistryKey.getValue().getPath();
         RegistryKey<NpcData> npcKey = RegistryKey.of(NPC_KEY, Identifier.of(MiddleEarth.MOD_ID,name));
