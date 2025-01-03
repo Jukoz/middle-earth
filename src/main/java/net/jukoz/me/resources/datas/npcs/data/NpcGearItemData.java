@@ -171,7 +171,6 @@ public class NpcGearItemData {
             if(capeColor != null)
                 itemStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCapeWithColor(cape, capeColor));
             else if(capeColors != null){
-                LoggerUtil.logDebugMsg("item_slot : " + item.getName() + " " + capeColors);
                 itemStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCapeWithColor(cape, getRandomColor(capeColors)));
             }
             else
