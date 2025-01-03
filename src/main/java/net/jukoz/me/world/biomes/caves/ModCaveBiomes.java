@@ -28,6 +28,7 @@ public class ModCaveBiomes {
 
     public static CaveBiomesMap defaultCaves = new CaveBiomesMap();
     public static CaveBiomesMap ashCaves = new CaveBiomesMap();
+    public static CaveBiomesMap elvenCaves = new CaveBiomesMap();
     public static CaveBiomesMap forodCaves = new CaveBiomesMap();
     public static CaveBiomesMap mountainCaves = new CaveBiomesMap();
     public static CaveBiomesMap ereborCaves = new CaveBiomesMap();
@@ -41,6 +42,14 @@ public class ModCaveBiomes {
         defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LUSH_CAVE, new Vec2f(-1.0f,-1.1f)));
         defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.MUD_CAVE, new Vec2f(0f,-1.1f)));
         defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(1.0f,-1.1f)));
+
+        elvenCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LIMESTONE_CAVE, new Vec2f(-1.0f,1.0f)));
+        elvenCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.BASIC_CAVE, new Vec2f(0.0f,1.0f)));
+        elvenCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(1.0f,1.0f)));
+        elvenCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.GALONN_CAVE, new Vec2f(0.0f,0.0f)));
+        elvenCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LUSH_CAVE, new Vec2f(-1.0f,-1.1f)));
+        elvenCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.MUD_CAVE, new Vec2f(0f,-1.1f)));
+        elvenCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(1.0f,-1.1f)));
 
         mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.IZHER_ABAN_CAVE, new Vec2f(-1.0f,1.0f)));
         mountainCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LIMESTONE_CAVE, new Vec2f(0.0f,1.0f)));
@@ -68,6 +77,7 @@ public class ModCaveBiomes {
                 case ASHEN -> ashCaves.getClosestBiome(coordinates);
                 case HARAD -> haradCaves.getClosestBiome(coordinates);
                 case MISTIES, MOUNTAINS -> mountainCaves.getClosestBiome(coordinates);
+                case ELVEN -> elvenCaves.getClosestBiome(coordinates);
                 case FOROD -> forodCaves.getClosestBiome(coordinates);
                 default -> defaultCaves.getClosestBiome(coordinates);
             };
@@ -83,7 +93,7 @@ public class ModCaveBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
         context.register(MEBiomeKeys.DOLOMITE_CAVE, createDolomiteCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
-        context.register(MEBiomeKeys.GALONN_CAVE, createDripstoneCave(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.GALONN_CAVE, createGalonnCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
         context.register(MEBiomeKeys.IZHER_ABAN_CAVE, createIzherAbanCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
@@ -165,6 +175,21 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.POINTED_DOLOMITE);
         undergroundOres.add(CavesPlacedFeatures.ORE_DOLOMITE_ABUNDANT);
         undergroundOres.add(CavesPlacedFeatures.ORE_OLD_DOLOMITE);
+        undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
+        addBasicFeatures(generationSettings, true);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+    }
+
+    public static Biome createGalonnCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        undergroundOres.add(CavesPlacedFeatures.GALONN_CLUSTER);
+        undergroundOres.add(CavesPlacedFeatures.LARGE_GALONN);
+        undergroundOres.add(CavesPlacedFeatures.POINTED_GALONN);
+        undergroundOres.add(CavesPlacedFeatures.ORE_GALONN);
+        undergroundOres.add(CavesPlacedFeatures.ORE_OLD_GALONN);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
         addBasicFeatures(generationSettings, true);
 

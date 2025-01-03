@@ -4,6 +4,7 @@ public enum CaveType {
     DEFAULT,
     MISTIES,
     MOUNTAINS,
+    ELVEN,
     FOROD,
     ASHEN,
     HARAD

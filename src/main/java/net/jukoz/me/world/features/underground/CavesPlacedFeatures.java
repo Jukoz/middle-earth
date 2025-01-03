@@ -45,6 +45,8 @@ public class CavesPlacedFeatures {
     public static final RegistryKey<PlacedFeature> ORE_OLD_DOLOMITE = registerKey("ore_old_dolomite");
     public static final RegistryKey<PlacedFeature> ORE_DOLOMITE_ABUNDANT = registerKey("ore_dolomite_abundant");
     public static final RegistryKey<PlacedFeature> ORE_DRY_DIRT = registerKey("ore_dry_dirt");
+    public static final RegistryKey<PlacedFeature> ORE_GALONN = registerKey("ore_galonn");
+    public static final RegistryKey<PlacedFeature> ORE_OLD_GALONN = registerKey("ore_old_galonn");
     public static final RegistryKey<PlacedFeature> ORE_IZHER_ABAN = registerKey("ore_izher_aban");
     public static final RegistryKey<PlacedFeature> ORE_OLD_IZHER_ABAN = registerKey("ore_old_izher_aban");
     public static final RegistryKey<PlacedFeature> ORE_LIMESTONE = registerKey("ore_limestone");
@@ -64,6 +66,10 @@ public class CavesPlacedFeatures {
     public static final RegistryKey<PlacedFeature> DOLOMITE_CLUSTER = registerKey("dolomite_cluster");
     public static final RegistryKey<PlacedFeature> LARGE_DOLOMITE = registerKey("large_dolomite");
     public static final RegistryKey<PlacedFeature> POINTED_DOLOMITE = registerKey("pointed_dolomite");
+
+    public static final RegistryKey<PlacedFeature> GALONN_CLUSTER = registerKey("galonn_cluster");
+    public static final RegistryKey<PlacedFeature> LARGE_GALONN = registerKey("large_galonn");
+    public static final RegistryKey<PlacedFeature> POINTED_GALONN = registerKey("pointed_galonn");
 
     public static final RegistryKey<PlacedFeature> IZHER_ABAN_CLUSTER = registerKey("izher_aban_cluster");
     public static final RegistryKey<PlacedFeature> LARGE_IZHER_ABAN = registerKey("large_izher_aban");
@@ -165,6 +171,8 @@ public class CavesPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreDryDirt = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_DRY_DIRT);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreBlueIce = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_BLUE_ICE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> orePackedIce = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_PACKED_ICE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreGalonn = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_GALONN);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreOldGalonn = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_OLD_GALONN);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreIzherAban = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_IZHER_ABAN);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreOldIzherAban = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_OLD_IZHER_ABAN);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreLimestone = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_LIMESTONE);
@@ -180,6 +188,10 @@ public class CavesPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dolomiteCluster = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.DOLOMITE_CLUSTER);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> largeDolomite = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.LARGE_DOLOMITE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> pointedDolomite = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.POINTED_DOLOMITE);
+
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> galonnCluster = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.GALONN_CLUSTER);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> largeGalonn = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.LARGE_GALONN);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> pointedGalonn = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.POINTED_GALONN);
 
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> izherAbanCluster = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.IZHER_ABAN_CLUSTER);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> largeIzherAban = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.LARGE_IZHER_ABAN);
@@ -273,6 +285,8 @@ public class CavesPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, ORE_DRY_DIRT, oreDryDirt, modifiersWithCount(12, HeightRangePlacementModifier.uniform(YOffset.fixed(8), YOffset.fixed(100))));
         PlacedFeatures.register(featureRegisterable, ORE_BLUE_ICE, oreBlueIce, modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(8), YOffset.fixed(100))));
         PlacedFeatures.register(featureRegisterable, ORE_PACKED_ICE, orePackedIce, modifiersWithCount(13, HeightRangePlacementModifier.uniform(YOffset.fixed(8), YOffset.fixed(100))));
+        PlacedFeatures.register(featureRegisterable, ORE_GALONN, oreGalonn, modifiersWithCount(21, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(320))));
+        PlacedFeatures.register(featureRegisterable, ORE_OLD_GALONN, oreOldGalonn, modifiersWithCount(24, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(320))));
         PlacedFeatures.register(featureRegisterable, ORE_IZHER_ABAN, oreIzherAban, modifiersWithCount(21, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(320))));
         PlacedFeatures.register(featureRegisterable, ORE_OLD_IZHER_ABAN, oreOldIzherAban, modifiersWithCount(24, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(320))));
         PlacedFeatures.register(featureRegisterable, ORE_LIMESTONE, oreLimestone, modifiersWithCount(4, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(320))));
@@ -289,6 +303,11 @@ public class CavesPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, DOLOMITE_CLUSTER, dolomiteCluster, CountPlacementModifier.of(UniformIntProvider.create(48, 96)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, LARGE_DOLOMITE, largeDolomite, CountPlacementModifier.of(UniformIntProvider.create(10, 48)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, POINTED_DOLOMITE, pointedDolomite, CountPlacementModifier.of(UniformIntProvider.create(192, 256)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE,
+                CountPlacementModifier.of(UniformIntProvider.create(1, 5)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
+
+        PlacedFeatures.register(featureRegisterable, GALONN_CLUSTER, galonnCluster, CountPlacementModifier.of(UniformIntProvider.create(48, 96)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, LARGE_GALONN, largeGalonn, CountPlacementModifier.of(UniformIntProvider.create(10, 48)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, POINTED_GALONN, pointedGalonn, CountPlacementModifier.of(UniformIntProvider.create(192, 256)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE,
                 CountPlacementModifier.of(UniformIntProvider.create(1, 5)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
 
         PlacedFeatures.register(featureRegisterable, IZHER_ABAN_CLUSTER, izherAbanCluster, CountPlacementModifier.of(UniformIntProvider.create(48, 96)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
