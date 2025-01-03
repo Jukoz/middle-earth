@@ -177,7 +177,7 @@ public class MistyMountainsGoblinsNpcDataPool {
                         )
         ));
 
-        MISTY_HOBGOBLIN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "hobgoblin_soldierr"), MiddleEarthRaces.URUK, List.of(
+        MISTY_HOBGOBLIN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "hobgoblin_soldier"), MiddleEarthRaces.URUK, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_SOLDIER_HELMET).withWeight(4))
