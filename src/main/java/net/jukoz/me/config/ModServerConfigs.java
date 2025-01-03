@@ -20,6 +20,9 @@ public class ModServerConfigs {
     public static boolean ENABLE_RETURN_TO_OVERWORLD;
     /** Allows broadhoof goats to be mounted by players and npcs. **/
     public static boolean ENABLE_MOUNT_BROADHOOF_GOAT;
+    /** Allows to craft golden carrots and golden apples in Middle-earth**/
+    public static boolean ENABLE_GOLDEN_FOOD_RECIPES;
+
     public static void registerConfigs() {
         configs = new ModConfigProvider();
         createServerConfigs();
@@ -54,6 +57,11 @@ public class ModServerConfigs {
         configs.addComment("Mount configurations");
         configs.addDescription("Should players and NPCs be allowed to ride broadhoof goats?");
         configs.addKeyValuePair(new Pair<>("enableMountBroadhoofGoat", true), "boolean");
+
+        // Food configurations
+        configs.addComment("Food configurations");
+        configs.addDescription("Should players be allowed to craft golden apples and golden carrots in Middle-earth?");
+        configs.addKeyValuePair(new Pair<>("enableGoldenFoodRecipes", false), "boolean");
     }
 
     private static void assignServerConfigs() {
@@ -66,6 +74,7 @@ public class ModServerConfigs {
         DELAY_ON_TELEPORT_CONFIRMATION = CONFIG.getOrDefault("delayOnTeleportConfirmation", 3);
         // Mount configurations
         ENABLE_MOUNT_BROADHOOF_GOAT = CONFIG.getOrDefault("enableMountBroadhoofGoat", true);
+        ENABLE_GOLDEN_FOOD_RECIPES = CONFIG.getOrDefault("enableGoldenFoodRecipes", false);
 
         LoggerUtil.logDebugMsg("All server configs (" + configs.getConfigsList().size() + ") have been set properly");
     }

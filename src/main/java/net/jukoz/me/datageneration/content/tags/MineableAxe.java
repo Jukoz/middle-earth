@@ -1,9 +1,11 @@
 package net.jukoz.me.datageneration.content.tags;
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.client.render.RenderLayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +71,23 @@ public class MineableAxe {
 
             add(ModDecorativeBlocks.THIN_BARREL);
             add(ModDecorativeBlocks.SMALL_CRATE);
+
+            add(ModNatureBlocks.BROWN_BOLETE_BLOCK);
+            add(ModNatureBlocks.CAVE_AMANITA_BLOCK);
+            add(ModNatureBlocks.DEEP_FIRECAP_BLOCK);
+            add(ModNatureBlocks.SKY_FIRECAP_BLOCK);
+            add(ModNatureBlocks.YELLOW_AMANITA_BLOCK);
+
+            add(ModNatureBlocks.AZALEA_FLOWER_GROWTH);
+            add(ModNatureBlocks.DRY_GROWTH);
+            add(ModNatureBlocks.FROZEN_GROWTH);
+            add(ModNatureBlocks.GREEN_GROWTH);
+            add(ModNatureBlocks.IVY_GROWTH);
+            add(ModNatureBlocks.LILAC_FLOWER_GROWTH);
+            add(ModNatureBlocks.PINK_FLOWER_GROWTH);
+            add(ModNatureBlocks.RED_FLOWER_GROWTH);
+            add(ModNatureBlocks.WHITE_FLOWER_GROWTH);
+            add(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
         }
     };
 }

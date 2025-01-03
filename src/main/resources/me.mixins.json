@@ -9,6 +9,7 @@
     "BlockMixin",
     "ChunkGenerationStepMixin",
     "ChunkGeneratorMixin",
+    "CraftingMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
     "FoliagePlacerTypeInvoker",
