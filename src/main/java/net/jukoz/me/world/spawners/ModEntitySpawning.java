@@ -155,7 +155,9 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.ENEDWAITH, goblinsAndBandits);
         spawns.put(MEBiomeKeys.MISTY_MOUNTAINS, goblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_MOUNTAINS, wildGoblinsSpawnSettings);
+        spawns.put(MEBiomeKeys.GREY_MOUNTAINS_BASE, wildGoblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_PLAINS, goblinsAndLongbeards);
+        spawns.put(MEBiomeKeys.GREY_ASHEN_WOODS, goblinsAndLongbeards);
 
         spawns.put(MEBiomeKeys.ISENGARD, isengardSpawnSettings);
         spawns.put(MEBiomeKeys.NAN_CURUNIR, isengardSpawnSettings);
