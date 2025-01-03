@@ -385,13 +385,15 @@ public class MiddleEarthFactions {
                             IsengardNpcDataPool.ISENGARD_ORC_WARRIOR
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
+                            IsengardNpcDataPool.ISENGARD_URUK_HAI_SOLDIER,
+                            IsengardNpcDataPool.ISENGARD_URUK_HAI_SCOUT
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
+                            IsengardNpcDataPool.ISENGARD_URUK_HAI_VETERAN,
+                            IsengardNpcDataPool.ISENGARD_URUK_HAI_BERSERKER
                     ));
                     put(NpcRank.LEADER, List.of(
-                            IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
+                            IsengardNpcDataPool.ISENGARD_URUK_HAI_LEADER
                     ));
                 }},
             // TODO : add humans? No proper assets for them
