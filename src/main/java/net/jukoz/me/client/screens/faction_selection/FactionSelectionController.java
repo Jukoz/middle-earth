@@ -308,6 +308,7 @@ public class FactionSelectionController {
             BlockPos overworldBlockPos = player.getBlockPos();
             ClientPlayNetworking.send(new PacketSetSpawnData(overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ()));
         }
+        screen.close();
     }
 
     public Disposition getCurrentDisposition(){

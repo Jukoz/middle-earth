@@ -104,8 +104,8 @@ public class ModBiomes {
         createGorgorothBiome(context, MEBiomeKeys.GORGOROTH_ASHEN_WOODS, 1);
         createGorgorothBiome(context, MEBiomeKeys.GORGOROTH_DELTA, 2);
         createGreyMountainsBiome(context, MEBiomeKeys.GREY_MOUNTAINS_BASE, 0);
-        createGreyMountainsBiome(context, MEBiomeKeys.GREY_MOUNTAINS, 0);
-        createGreyMountainsBiome(context, MEBiomeKeys.GREY_MOUNTAINS_PEAKS, 1);
+        createGreyMountainsBiome(context, MEBiomeKeys.GREY_MOUNTAINS, 1);
+        createGreyMountainsBiome(context, MEBiomeKeys.GREY_MOUNTAINS_PEAKS, 2);
         createGreyPlainsBiome(context, MEBiomeKeys.GREY_PLAINS, 0);
         createGreyPlainsBiome(context, MEBiomeKeys.GREY_ASHEN_WOODS, 1);
         createGreyPlainsTaiga(context, MEBiomeKeys.GUNDABAD_PLAINS);
@@ -1084,11 +1084,34 @@ public class ModBiomes {
 
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addAbundantTuffOre(vegetation);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_TUFT_GRASS);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_DYING_GRASS);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_DRY_GRASS);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_HEATH);
         if(step == 0) {
-            addNordicVegetation(generationSettings);
             addNordicTrees(generationSettings);
+            addNordicVegetation(generationSettings);
+            ModBiomeFeatures.addShriveledShrubs(vegetation);
+            ModBiomeFeatures.addSnowyDirt(vegetation);
+            ModBiomeFeatures.addFalseOatgrass(vegetation);
         }
-
+        if(step == 1) {
+            addNordicTrees(generationSettings);
+            addNordicVegetation(generationSettings);
+            ModBiomeFeatures.addSnowyGrass(vegetation);
+            ModBiomeFeatures.addSnowyDirt(vegetation);
+            ModBiomeFeatures.addFrozenGrass(vegetation);
+            ModBiomeFeatures.addFrozenShrub(vegetation);
+            ModBiomeFeatures.addShriveledShrubs(vegetation);
+        }
+        if(step == 2) {
+            ModBiomeFeatures.addPowderSnowOre(vegetation);
+            ModBiomeFeatures.addSnowyGrass(vegetation);
+            ModBiomeFeatures.addSnowyDirt(vegetation);
+            ModBiomeFeatures.addFrozenGrass(vegetation);
+            ModBiomeFeatures.addFrozenShrub(vegetation);
+            ModBiomeFeatures.addShriveledShrubs(vegetation);
+        }
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 

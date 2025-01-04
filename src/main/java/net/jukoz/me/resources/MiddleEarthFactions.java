@@ -170,7 +170,7 @@ public class MiddleEarthFactions {
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "rohan.edoras"), new Vector2d(1745, 1695)),
-                        new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "rohan.helms_deep"), new Vector2d(1485, 1570)), // Westfold
+                        new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "rohan.helms_deep"), new Vector2d(1470, 1555)), // Westfold
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "rohan.westemnet"), new Vector2d(1525, 1525)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "rohan.aldburg"), new Vector2d(1600, 1660)), // Eastfold
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "rohan.eastemnet"), new Vector2d(1715, 1575)),
