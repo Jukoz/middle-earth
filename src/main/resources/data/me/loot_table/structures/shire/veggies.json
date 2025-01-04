@@ -2,13 +2,13 @@
   "pools": [
     {
       "rolls": {
-        "min": 2,
+        "min": 1,
         "max": 4
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:strawberry"
+          "name": "minecraft:carrot"
         }
       ]
     },
@@ -20,43 +20,31 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:sugar"
+          "name": "minecraft:potato"
         }
       ]
     },
     {
       "rolls": {
         "min": 1,
-        "max": 2
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:pumpkin_pie"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
         "max": 3
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:apple"
+          "name": "minecraft:beetroot"
         }
       ]
     },
     {
       "rolls": {
-        "min": 0,
+        "min": 1,
         "max": 3
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:cookie"
+          "name": "me:lettuce"
         }
       ]
     },
@@ -68,7 +56,31 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:milk_bucket"
+          "name": "me:leek"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:onion"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:garlic"
         }
       ]
     }

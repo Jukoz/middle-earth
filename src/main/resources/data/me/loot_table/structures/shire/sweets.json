@@ -1,36 +1,50 @@
 {
-  "type": "minecraft:chest",
   "pools": [
     {
-      "rolls": 1,
+      "rolls": {
+        "min": 2,
+        "max": 4
+      },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:bow"
+          "name": "me:strawberry"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 2,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sugar"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pumpkin_pie"
         }
       ]
     },
     {
       "rolls": {
         "min": 1,
-        "max": 5
+        "max": 2
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:arrow"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 1,
-        "max": 3
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:stick"
+          "name": "me:berry_pie"
         }
       ]
     },
@@ -42,19 +56,19 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:feather"
+          "name": "minecraft:apple"
         }
       ]
     },
     {
       "rolls": {
         "min": 0,
-        "max": 3
+        "max": 1
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:flint"
+          "name": "minecraft:milk_bucket"
         }
       ]
     }

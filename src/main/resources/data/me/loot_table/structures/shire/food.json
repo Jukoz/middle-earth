@@ -2,8 +2,8 @@
   "pools": [
     {
       "rolls": {
-        "min": 1,
-        "max": 3
+        "min": 0,
+        "max": 2
       },
       "entries": [
         {
@@ -14,17 +14,17 @@
     },
     {
       "rolls": {
-        "min": 2,
-        "max": 4
+        "min": 1,
+        "max": 3
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:bread"
+          "name": "minecraft:potato"
         }
       ]
     },
-	{
+    {
       "rolls": {
         "min": 0,
         "max": 2
@@ -32,33 +32,10 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:garlic"
+          "name": "minecraft:beetroot"
         }
       ]
-    },
-	{
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:boiled_egg"
-        }
-      ]
-    },
-	{
-      "rolls": {
-        "min": 0,
-        "max": 2
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:hay_block"
-        }
-      ]
+    }
     },
     {
       "rolls": {
@@ -68,8 +45,56 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:apple"
+          "name": "minecraft:bread"
         }
+      ]
+    }
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cooked_chicken"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cooked_porkchop"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pumpkin_pie"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:strawberry" }
       ]
     }
   ]

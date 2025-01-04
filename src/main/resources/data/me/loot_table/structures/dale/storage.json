@@ -2,37 +2,61 @@
   "pools": [
     {
       "rolls": {
-        "min": 1,
-        "max": 3
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:carrot"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 2,
-        "max": 4
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bread"
-        }
-      ]
-    },
-	{
-      "rolls": {
         "min": 0,
         "max": 2
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:garlic"
+          "name": "me:copper_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:net"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:fur"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 1,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:reeds"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:fabric"
         }
       ]
     },
@@ -44,31 +68,31 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:boiled_egg"
-        }
-      ]
-    },
-	{
-      "rolls": {
-        "min": 0,
-        "max": 2
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:hay_block"
+          "name": "minecraft:fishing_rod"
         }
       ]
     },
     {
       "rolls": {
-        "min": 1,
-        "max": 3
+        "min": 0,
+        "max": 1
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:apple"
+          "name": "minecraft:bell"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:bell_banner_pattern"
         }
       ]
     }
