@@ -1,12 +1,12 @@
 {
-  "name": "me:longbeard_houses",
+  "name": "me:longbeards_watch_tower",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:longbeard_house",
+        "location": "me:longbeards_watch_tower",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

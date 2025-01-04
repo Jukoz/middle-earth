@@ -117,7 +117,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:cooked_cod"
+          "name": "minecraft:cooked_cod"
         }
       ]
     },
