@@ -45,7 +45,6 @@
     "java": ">=21"
   },
   "recommends": {
-    "roughlyenoughitems": "*",
     "modmenu": "*",
     "emi": "*"
   },
