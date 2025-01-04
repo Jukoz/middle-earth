@@ -288,7 +288,7 @@
   "item.me.mithril_shovel": "秘银锹",
   "item.me.mithril_hoe": "秘银锄",
   "item.me.pipe": "烟斗",
-  "item.me.clayshire_pipe": "黏土烟斗",
+  "item.me.clay_pipe": "黏土烟斗",
   "item.me.riverbend_pipe": "河弯烟斗",
   "item.me.brimmingbend_pipe": "盈水烟斗",
   "item.me.longbottom_pipe": "长谷烟斗",
@@ -1293,6 +1293,7 @@
   "item.me.vegetable_skewer": "生菜串",
   "item.me.cooked_vegetable_skewer": "熟菜串",
   "item.me.vegetable_soup": "蔬菜汤",
+  "item.me.sack_of_horsefeed": "一袋马饲料",
 
   "item.me.glowworm_bottle": "萤火虫瓶",
 
