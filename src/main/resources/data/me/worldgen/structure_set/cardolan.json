@@ -23,10 +23,6 @@
 	{
       "structure": "me:granite_ruin_arch",
       "weight": 2
-    },
-	{
-      "structure": "me:traveler_camp",
-      "weight": 2
     }
   ],
   "placement": {

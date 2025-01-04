@@ -2,14 +2,10 @@
   "structures": [
 	{
       "structure": "me:dale_house",
-      "weight": 4
-    },
-	{
-      "structure": "me:dale_watch_tower",
       "weight": 2
     },
 	{
-      "structure": "me:larch_windmill",
+      "structure": "me:dale_watch_tower",
       "weight": 1
     }
   ],

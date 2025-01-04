@@ -11,16 +11,12 @@
 	{
       "structure": "me:dolomite_ruin_arch",
       "weight": 2
-    },
-	{
-      "structure": "me:traveler_camp",
-      "weight": 2
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "spacing": 18,
-    "separation": 8,
+    "spacing": 19,
+    "separation": 9,
     "salt": 152348785
   }
 }

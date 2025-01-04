@@ -7,10 +7,6 @@
 	{
       "structure": "me:gondor_watch_tower",
       "weight": 2
-    },
-	{
-      "structure": "me:larch_windmill",
-      "weight": 1
     }
   ],
   "placement": {
