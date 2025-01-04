@@ -32,7 +32,7 @@ public class MiddleEarthMapGeneration {
     private static final float WATER_HEIGHT_MULTIPLIER = 1.0f;
     private static BufferedImage baseHeightImage;
     private static BufferedImage edgeHeightImage;
-    private static final boolean bakeMap = false; // Do we bake the map textures or not during launch
+    private static final boolean bakeMap = true; // Do we bake the map textures or not during launch
 
     public MiddleEarthMapGeneration() throws Exception {
         fileUtils = FileUtils.getInstance();
