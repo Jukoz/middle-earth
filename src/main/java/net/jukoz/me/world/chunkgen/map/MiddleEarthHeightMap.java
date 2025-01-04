@@ -1,10 +1,12 @@
 package net.jukoz.me.world.chunkgen.map;
 
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.world.biomes.surface.*;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
+import net.minecraft.server.world.ServerWorld;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -31,8 +33,21 @@ public class MiddleEarthHeightMap {
     private static MiddleEarthMapRuntime middleEarthMapRuntime;
     private static Float defaultWeightHeight = null;
 
+    private static Long SEED;
     public MiddleEarthHeightMap(){
         middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
+    }
+
+    public static void setSeed(long newSeed){
+        if(SEED == null || newSeed != SEED){
+            SEED = newSeed;
+        }
+    }
+
+    public static Long getSeed(){
+        if(SEED == null)
+            return 0L;
+        return SEED;
     }
 
     private static float getImageHeight(int xWorld, int zWorld) {
@@ -71,6 +86,8 @@ public class MiddleEarthHeightMap {
     }
 
     public static double getPerlinHeight(int x, int z) {
+        x += getSeed();
+        z += getSeed();
         double perlin = 1 * BlendedNoise.noise((double) x / PERLIN_STRETCH_X,(double) z / PERLIN_STRETCH_Y);
         perlin += 0.5f * BlendedNoise.noise((double) x * 2 / PERLIN_STRETCH_X,(double) z * 2 / PERLIN_STRETCH_Y);
         perlin += 0.25f * BlendedNoise.noise((double) x * 4 / PERLIN_STRETCH_X,(double) z * 4 / PERLIN_STRETCH_Y);

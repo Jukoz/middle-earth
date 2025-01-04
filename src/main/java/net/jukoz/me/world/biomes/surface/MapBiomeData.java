@@ -209,7 +209,7 @@ public class MapBiomeData {
                 new BiomeColorsDTO(8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.GREY_MOUNTAINS, MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.greyMountainsLayers,
                 new BiomeColorsDTO(8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583), CaveType.MOUNTAINS));
-        addBiome(new BiomeData(MEBiomeKeys.GREY_MOUNTAINS_PEAKS, MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.greyMountainsLayers,
+        addBiome(new BiomeData(MEBiomeKeys.GREY_MOUNTAINS_PEAKS, MEBiomeDataConfigs.greyMountainPeaks, MEBiomeDataConfigs.greyMountainsLayers,
                 new BiomeColorsDTO(8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583), CaveType.MOUNTAINS));
         // GUNDABAD
         addBiome(new BiomeData(MEBiomeKeys.GUNDABAD_PLAINS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
