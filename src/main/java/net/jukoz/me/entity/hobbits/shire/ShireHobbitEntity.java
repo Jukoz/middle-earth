@@ -1,6 +1,7 @@
 package net.jukoz.me.entity.hobbits.shire;
 
 import net.jukoz.me.entity.NpcEntity;
+import net.jukoz.me.entity.goals.NpcTargetPlayerGoal;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
@@ -10,10 +11,13 @@ import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
+import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.items.weapons.ranged.PebbleItem;
 import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.MiddleEarthRaces;
+import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -67,6 +71,17 @@ public class ShireHobbitEntity extends NpcEntity {
 
     @Override
     protected void initGoals() {
+        Identifier factionId = getFactionId();
+        if(factionId == null)
+            disposition = Disposition.NEUTRAL;
+        else {
+            try {
+                disposition = FactionLookup.getFactionById(getWorld(), factionId).getDisposition();
+            } catch (FactionIdentifierException e) {
+                disposition = Disposition.NEUTRAL; // Attacks everyone, no judgement made
+            }
+        }
+
         int i = 0;
         this.goalSelector.add(++i, new SwimGoal(this));
         this.goalSelector.add(++i, new FleeEntityGoal<>(this, TrollEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));

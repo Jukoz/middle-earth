@@ -42,15 +42,15 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.ROHIRRIM_LEADER, 9132338, 32526, new Item.Settings()));
 
     public static final Item DALISH_MILITIA_SPAWN_EGG = registerItem("dalish_militia_spawn_egg",
-            new SpawnEggItem(ModEntities.DALISH_MILITIA, 9172338, 32576, new Item.Settings()));
+            new SpawnEggItem(ModEntities.DALISH_MILITIA, 0x5c88d5, 0xd5ae2d, new Item.Settings()));
     public static final Item DALISH_SOLDIER_SPAWN_EGG = registerItem("dalish_soldier_spawn_egg",
-            new SpawnEggItem(ModEntities.DALISH_SOLDIER, 9172338, 32576, new Item.Settings()));
+            new SpawnEggItem(ModEntities.DALISH_SOLDIER, 0x5c88d5, 0xd5ae2d, new Item.Settings()));
     public static final Item DALISH_KNIGHT_SPAWN_EGG = registerItem("dalish_knight_spawn_egg",
-            new SpawnEggItem(ModEntities.DALISH_KNIGHT, 9172338, 32576, new Item.Settings()));
+            new SpawnEggItem(ModEntities.DALISH_KNIGHT, 0x5c88d5, 0xd5ae2d, new Item.Settings()));
     public static final Item DALISH_VETERAN_SPAWN_EGG = registerItem("dalish_veteran_spawn_egg",
-            new SpawnEggItem(ModEntities.DALISH_VETERAN, 9172338, 32576, new Item.Settings()));
+            new SpawnEggItem(ModEntities.DALISH_VETERAN, 0x5c88d5, 0xd5ae2d, new Item.Settings()));
     public static final Item DALISH_LEADER_SPAWN_EGG = registerItem("dalish_leader_spawn_egg",
-            new SpawnEggItem(ModEntities.DALISH_LEADER, 9172338, 32576, new Item.Settings()));
+            new SpawnEggItem(ModEntities.DALISH_LEADER, 0x5c88d5, 0xd5ae2d, new Item.Settings()));
 
     public static final Item LONGBEARD_MILITIA_SPAWN_EGG = registerItem("longbeard_militia_spawn_egg",
             new SpawnEggItem(ModEntities.LONGBEARD_MILITIA, 4541263, 8090735, new Item.Settings()));
@@ -86,26 +86,26 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.MORDOR_BLACK_URUK_LEADER, 4209210, 7682104, new Item.Settings()));
 
     public static final Item MISTY_GOBLIN_SNAGA_SPAWN_EGG = registerItem("misty_goblin_snaga_spawn_egg",
-            new SpawnEggItem(ModEntities.MISTY_GOBLIN_SNAGA, 4209210, 7682104, new Item.Settings()));
+            new SpawnEggItem(ModEntities.MISTY_GOBLIN_SNAGA, 0x835449, 0x3f1817, new Item.Settings()));
     public static final Item MISTY_GOBLIN_WARRIOR_SPAWN_EGG = registerItem("misty_goblin_warrior_spawn_egg",
-            new SpawnEggItem(ModEntities.MISTY_GOBLIN_WARRIOR, 4209210, 7682104, new Item.Settings()));
+            new SpawnEggItem(ModEntities.MISTY_GOBLIN_WARRIOR, 0x835449, 0x3f1817, new Item.Settings()));
     public static final Item MISTY_HOBGOBLIN_SOLDIER_SPAWN_EGG = registerItem("misty_hobgoblin_soldier_spawn_egg",
-            new SpawnEggItem(ModEntities.MISTY_HOBGOBLIN_SOLDIER, 4209210, 7682104, new Item.Settings()));
+            new SpawnEggItem(ModEntities.MISTY_HOBGOBLIN_SOLDIER, 0x835449, 0x3f1817, new Item.Settings()));
     public static final Item MISTY_HOBGOBLIN_veteran_SPAWN_EGG = registerItem("misty_hobgoblin_veteran_spawn_egg",
-            new SpawnEggItem(ModEntities.MISTY_HOBGOBLIN_VETERAN, 4209210, 7682104, new Item.Settings()));
+            new SpawnEggItem(ModEntities.MISTY_HOBGOBLIN_VETERAN, 0x835449, 0x3f1817, new Item.Settings()));
     public static final Item MISTY_HOBGOBLIN_leader_SPAWN_EGG = registerItem("misty_hobgoblin_leader_spawn_egg",
-            new SpawnEggItem(ModEntities.MISTY_HOBGOBLIN_LEADER, 4209210, 7682104, new Item.Settings()));
+            new SpawnEggItem(ModEntities.MISTY_HOBGOBLIN_LEADER, 0x835449, 0x3f1817, new Item.Settings()));
 
     public static final Item ISENGARD_ORC_SNAGA_SPAWN_EGG = registerItem("isengard_orc_snaga_spawn_egg",
-            new SpawnEggItem(ModEntities.ISENGARD_ORC_SNAGA, 4209250, 7682504, new Item.Settings()));
+            new SpawnEggItem(ModEntities.ISENGARD_ORC_SNAGA, 0x751200 ,0xc7b8a9, new Item.Settings()));
     public static final Item ISENGARD_ORC_WARRIOR_SPAWN_EGG = registerItem("isengard_orc_warrior_spawn_egg",
-            new SpawnEggItem(ModEntities.ISENGARD_ORC_WARRIOR, 4209250, 7682504, new Item.Settings()));
+            new SpawnEggItem(ModEntities.ISENGARD_ORC_WARRIOR,  0x751200 ,0xc7b8a9, new Item.Settings()));
     public static final Item ISENGARD_URUK_HAI_SOLDIER_SPAWN_EGG = registerItem("isengard_uruk_hai_soldier_spawn_egg",
-            new SpawnEggItem(ModEntities.ISENGARD_URUK_HAI_SOLDIER, 4209250, 7682504, new Item.Settings()));
+            new SpawnEggItem(ModEntities.ISENGARD_URUK_HAI_SOLDIER,  0x751200 ,0xc7b8a9, new Item.Settings()));
     public static final Item ISENGARD_URUK_HAI_veteran_SPAWN_EGG = registerItem("isengard_uruk_hai_veteran_spawn_egg",
-            new SpawnEggItem(ModEntities.ISENGARD_URUK_HAI_VETERAN, 4209250, 7682504, new Item.Settings()));
+            new SpawnEggItem(ModEntities.ISENGARD_URUK_HAI_VETERAN,  0x751200 ,0xc7b8a9, new Item.Settings()));
     public static final Item ISENGARD_URUK_HAI_leader_SPAWN_EGG = registerItem("isengard_uruk_hai_leader_spawn_egg",
-            new SpawnEggItem(ModEntities.ISENGARD_URUK_HAI_LEADER, 4209250, 7682504, new Item.Settings()));
+            new SpawnEggItem(ModEntities.ISENGARD_URUK_HAI_LEADER,  0x751200 ,0xc7b8a9, new Item.Settings()));
 
     public static final Item BANDIT_MILITIA_SPAWN_EGG = registerItem("bandit_militia_spawn_egg",
             new SpawnEggItem(ModEntities.BANDIT_MILITIA, 4541263, 9132338, new Item.Settings()));
