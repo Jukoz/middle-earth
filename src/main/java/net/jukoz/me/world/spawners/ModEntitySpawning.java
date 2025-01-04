@@ -153,11 +153,15 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.EREGION_FOREST, goblinsAndBandits);
         spawns.put(MEBiomeKeys.EREGION_GLADE, goblinsAndBandits);
         spawns.put(MEBiomeKeys.ENEDWAITH, goblinsAndBandits);
+        spawns.put(MEBiomeKeys.MOUNT_GUNDABAD_BASE, goblinsSpawnSettings);
+        spawns.put(MEBiomeKeys.MOUNT_GUNDABAD, goblinsSpawnSettings);
+        spawns.put(MEBiomeKeys.GUNDABAD_PLAINS, goblinsSpawnSettings);
         spawns.put(MEBiomeKeys.MISTY_MOUNTAINS, goblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_MOUNTAINS, wildGoblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_MOUNTAINS_BASE, wildGoblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_PLAINS, goblinsAndLongbeards);
         spawns.put(MEBiomeKeys.GREY_ASHEN_WOODS, goblinsAndLongbeards);
+        spawns.put(MEBiomeKeys.DESOLATED_LANDS, goblinsAndLongbeards);
 
         spawns.put(MEBiomeKeys.ISENGARD, isengardSpawnSettings);
         spawns.put(MEBiomeKeys.NAN_CURUNIR, isengardSpawnSettings);
@@ -208,6 +212,7 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.BELFALAS_HILLS, ruralGondorSpawnSettings);
         spawns.put(MEBiomeKeys.BLACKROOT_VALE, gondorSpawnSettings);
 
+        spawns.put(MEBiomeKeys.OSGILIATH, gondorAndMordor);
         spawns.put(MEBiomeKeys.ITHILIEN, gondorGarrisonAndMordor);
         spawns.put(MEBiomeKeys.ITHILIEN_GLADE, gondorGarrisonAndMordor);
         spawns.put(MEBiomeKeys.ITHILIEN_WASTES, wildMordorSpawnSettings);
@@ -217,7 +222,6 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.DAGORLAD, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.GORGOROTH, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.GORGOROTH_ASHEN_WOODS, mordorSpawnSettings);
-        spawns.put(MEBiomeKeys.GORGOROTH_DELTA, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR_ASHEN_FOREST, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.MORDOR_HILL, mordorSpawnSettings);
