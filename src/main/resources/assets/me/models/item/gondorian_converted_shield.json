@@ -136,7 +136,7 @@
 		}
 	},
 	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/gondorian_shield_blocking"}
+		{"predicate": {"blocking": 1}, "model": "me:item/gondorian_converted_shield_blocking"}
 	],
 	"groups": [
 		{
