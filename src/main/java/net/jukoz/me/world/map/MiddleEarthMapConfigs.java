@@ -22,6 +22,7 @@ public class MiddleEarthMapConfigs {
     public static final int PIXEL_WEIGHT = 4;
     public static final int FULL_MAP_SIZE = (int) (REGION_SIZE * Math.pow(2, MAP_ITERATION) * PIXEL_WEIGHT);
 
+    public static final String MOD_DATA_ROOT = "data/me/";
     public static final String MOD_DATA = "data/me/%s".formatted(MiddleEarth.MOD_VERSION);
     public static final String BIOME_PATH = "%s/biomes/i_%s".formatted(MOD_DATA, "%s");
     public static final String HEIGHT_PATH = "%s/heights/i_%s".formatted(MOD_DATA, MAP_ITERATION);

@@ -48,7 +48,9 @@ public class MiddleEarthMapGeneration {
             try{
                 URL resource = getClass().getClassLoader().getResource(MiddleEarthMapConfigs.INITIAL_MAP_FOLDER);
                 File srcFolder = new File(resource.toURI());
+                File rootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_ROOT);
                 File destFolder = new File(MiddleEarthMapConfigs.MOD_DATA);
+                rootFolder.mkdirs();
                 destFolder.mkdirs();
 
                 if(destFolder.list().length == 0) {
