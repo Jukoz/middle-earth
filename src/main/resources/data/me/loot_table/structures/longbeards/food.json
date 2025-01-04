@@ -1,14 +1,39 @@
 {
+  "type": "minecraft:chest",
   "pools": [
     {
       "rolls": {
         "min": 1,
-        "max": 5
+        "max": 4
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:tuff"
+          "name": "minecraft:bread"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cooked_beef"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:rabbit_stew"
         }
       ]
     },
@@ -20,7 +45,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:coal"
+          "name": "minecraft:cooked_porkchop"
         }
       ]
     },
@@ -32,7 +57,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:dwarven_lantern"
+          "name": "me:cooked_meat_skewer"
         }
       ]
     },
@@ -44,31 +69,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:khazad_steel_nugget"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 2
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:spruce_log"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:gold_nugget"
+          "name": "minecraft:cooked_chicken"
         }
       ]
     }

@@ -52,6 +52,18 @@
     {
       "rolls": {
         "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:flax_seeds"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
         "max": 1
       },
       "entries": [
@@ -81,7 +93,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:mallos"
+          "name": "me:elanor"
         }
       ]
     },

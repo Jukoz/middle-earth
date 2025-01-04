@@ -48,6 +48,30 @@
         }
       ]
     },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:cooked_vegetable_skewer"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:vegetable_soup"
+        }
+      ]
+    },
     {
       "rolls": {
         "min": 1,
