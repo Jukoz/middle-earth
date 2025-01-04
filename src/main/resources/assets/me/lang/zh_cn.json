@@ -608,8 +608,8 @@
   "item.me.gundabad_axe": "贡达巴德斧",
   "item.me.gundabad_elite_battleaxe": "贡达巴德精锐战斧",
 
-  "item.me.gundabad_bow": "Gundabad 弓",
-  "item.me.gundabad_crossbow": "Gundabad 弩",
+  "item.me.gundabad_bow": "贡达巴德弓",
+  "item.me.gundabad_crossbow": "贡达巴德弩",
 
   "#Comment:": "物品 - 杂项武器",
   "item.me.wooden_dagger": "木匕首",
@@ -7462,6 +7462,7 @@
   "spawn.me.gondor.pelargir" : "佩拉基尔",
   "spawn.me.gondor.lebennin" : "莱本宁",
   "spawn.me.gondor.ringlo_vale" : "凛格罗谷地",
+  "spawn.me.gondor.lamedon" : "拉梅顿",
   "spawn.me.gondor.dol_amroth" : "多阿姆洛斯",
   "spawn.me.gondor.morthond_vale" : "墨松德山谷",
   "spawn.me.rohan.edoras" : "埃多拉斯",
