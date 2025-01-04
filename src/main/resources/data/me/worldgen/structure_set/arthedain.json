@@ -1,0 +1,14 @@
+{
+  "structures": [
+	{
+      "structure": "me:larch_windmill",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 22,
+    "separation": 11,
+    "salt": 129835169
+  }
+}

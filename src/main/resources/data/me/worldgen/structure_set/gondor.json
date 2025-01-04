@@ -2,13 +2,21 @@
   "structures": [
 	{
       "structure": "me:gondor_house",
+      "weight": 4
+    },
+	{
+      "structure": "me:gondor_watch_tower",
+      "weight": 2
+    },
+	{
+      "structure": "me:larch_windmill",
       "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "spacing": 20,
-    "separation": 10,
+    "spacing": 24,
+    "separation": 12,
     "salt": 128736459
   }
 }

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "me:lothlorien"
+    "me:lothlorien",
+    "me:lothlorien_glade"
   ]
 }
