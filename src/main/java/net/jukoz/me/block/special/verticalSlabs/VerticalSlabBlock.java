@@ -182,6 +182,11 @@ public class VerticalSlabBlock extends Block implements Waterloggable {
         return super.mirror(state, mirror);
     }
 
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
     public static boolean isVerticalSlab(BlockState state) {
         return state.getBlock() instanceof VerticalSlabBlock;
     }

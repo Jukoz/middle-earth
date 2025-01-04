@@ -1,6 +1,7 @@
 package net.jukoz.me.resources.datas.races;
 
 import net.jukoz.me.resources.StateSaverAndLoader;
+import net.jukoz.me.resources.datas.RaceType;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,5 +26,19 @@ public class RaceUtil {
             race.applyAttributes(player);
             data.setRace(race.getId());
         }
+    }
+
+    public static Race getRace(PlayerEntity player){
+        PlayerData data = StateSaverAndLoader.getPlayerState(player);
+        if(data == null) return null;
+        return data.getRace(player.getWorld());
+    }
+
+    public static RaceType getRaceType(PlayerEntity player){
+        Race race = getRace(player);
+        if(race != null)
+            return race.getRaceType();
+        else
+            return null;
     }
 }

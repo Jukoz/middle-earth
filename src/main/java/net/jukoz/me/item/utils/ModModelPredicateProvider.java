@@ -57,7 +57,7 @@ public class ModModelPredicateProvider {
         registerCrossbow(ModWeaponItems.GUNDABAD_CROSSBOW);
     }
     private static void registerPipeModels() {
-        registerPipeModel(ModToolItems.CLAYSHIRE_PIPE);
+        registerPipeModel(ModToolItems.CLAY_PIPE);
         registerPipeModel(ModToolItems.PIPE);
         registerPipeModel(ModToolItems.RIVERBEND_PIPE);
         registerPipeModel(ModToolItems.BRIMMINGBEND_PIPE);

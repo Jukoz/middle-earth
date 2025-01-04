@@ -969,7 +969,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.RAVENHILL_ORNAMENTED_TOWER_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.EVIL)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(ModResourceItems.CRUDE_INGOT)
@@ -979,14 +979,14 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.CRUDE_INGOT))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_WOODEN_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.EVIL)
                 .input(ModWeaponItems.MORDOR_WOODEN_SHIELD)
                 .input(ModResourceItems.MORDOR_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_WOODEN_SHIELD),
                         FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_WOODEN_SHIELD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_PAINTED_WOODEN_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_ROUND_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_ROUND_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(ModResourceItems.CRUDE_NUGGET)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -998,7 +998,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_ROUND_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_ROUND_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_ROUND_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(ModResourceItems.MORDOR_BANNER_PATTERN)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1010,14 +1010,14 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.MORDOR_BANNER_PATTERN))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_PAINTED_ROUND_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_BLACK_ROUND_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_BLACK_ROUND_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(ModWeaponItems.MORDOR_PAINTED_ROUND_SHIELD)
                 .input(Items.BLACK_DYE)
                 .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_PAINTED_ROUND_SHIELD),
                         FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_PAINTED_ROUND_SHIELD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_BLACK_ROUND_SHIELD).getPath() + "_artisan"));
         
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_BRACED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_BRACED_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(Items.IRON_NUGGET)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1029,21 +1029,21 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_BRACED_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_BRACED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_BRACED_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(ModWeaponItems.MORDOR_BRACED_SHIELD)
                 .input(ModResourceItems.MORDOR_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_BRACED_SHIELD),
                         FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_BRACED_SHIELD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_PAINTED_BRACED_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_BLACK_BRACED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_BLACK_BRACED_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(ModWeaponItems.MORDOR_PAINTED_BRACED_SHIELD)
                 .input(Items.BLACK_DYE)
                 .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_PAINTED_BRACED_SHIELD),
                         FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_PAINTED_BRACED_SHIELD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_BLACK_BRACED_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_LARGE_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_LARGE_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(Items.IRON_NUGGET)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1055,28 +1055,28 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_LARGE_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_LARGE_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_LARGE_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(ModWeaponItems.MORDOR_LARGE_SHIELD)
                 .input(ModResourceItems.MORDOR_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_LARGE_SHIELD),
                         FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_LARGE_SHIELD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_PAINTED_LARGE_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_BLACK_LARGE_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_BLACK_LARGE_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(ModWeaponItems.MORDOR_PAINTED_LARGE_SHIELD)
                 .input(Items.BLACK_DYE)
                 .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_PAINTED_LARGE_SHIELD),
                         FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_PAINTED_LARGE_SHIELD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_BLACK_LARGE_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GONDORIAN_CONVERTED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GONDORIAN_CONVERTED_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(ModWeaponItems.GONDORIAN_SHIELD)
                 .input(ModResourceItems.MORDOR_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.GONDORIAN_SHIELD),
                         FabricRecipeProvider.conditionsFromItem(ModWeaponItems.GONDORIAN_SHIELD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GONDORIAN_CONVERTED_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", Disposition.EVIL)
                 .input(ModResourceItems.BURZUM_STEEL_NUGGET)
                 .input(ModResourceItems.BURZUM_STEEL_NUGGET)
                 .input(ModResourceItems.BURZUM_STEEL_NUGGET)
@@ -1090,14 +1090,14 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_HEAVY_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.MORDOR_PAINTED_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", Disposition.EVIL)
                 .input(ModWeaponItems.MORDOR_HEAVY_SHIELD)
                 .input(ModResourceItems.MORDOR_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.MORDOR_HEAVY_SHIELD),
                         FabricRecipeProvider.conditionsFromItem(ModWeaponItems.MORDOR_HEAVY_SHIELD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.MORDOR_PAINTED_HEAVY_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.BLACK_NUMENOREAN_TOWER_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.BLACK_NUMENOREAN_TOWER_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(Items.RED_DYE)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1109,7 +1109,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.BLACK_NUMENOREAN_TOWER_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_HEATER_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_HEATER_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(ModResourceItems.CRUDE_NUGGET)
                 .input(ModResourceItems.CRUDE_INGOT)
                 .input(ModResourceItems.CRUDE_NUGGET)
@@ -1121,7 +1121,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.URUK_HAI_HEATER_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_SHIELD.getDefaultStack(), "heavy_shield", Disposition.EVIL)
                 .input(ModResourceItems.BURZUM_STEEL_NUGGET)
                 .input(ModResourceItems.BURZUM_STEEL_NUGGET)
                 .input(ModResourceItems.BURZUM_STEEL_NUGGET)
@@ -1135,28 +1135,28 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.URUK_HAI_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_WHITE_HAND_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_WHITE_HAND_SHIELD.getDefaultStack(), "heavy_shield", Disposition.EVIL)
                 .input(ModWeaponItems.URUK_HAI_SHIELD)
                 .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.URUK_HAI_SHIELD),
                         FabricRecipeProvider.conditionsFromItem(ModWeaponItems.URUK_HAI_SHIELD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.URUK_HAI_WHITE_HAND_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_WHITE_PALMPRINT_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_WHITE_PALMPRINT_SHIELD.getDefaultStack(), "heavy_shield", Disposition.EVIL)
                 .input(ModWeaponItems.URUK_HAI_SHIELD)
                 .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.URUK_HAI_SHIELD),
                         FabricRecipeProvider.conditionsFromItem(ModWeaponItems.URUK_HAI_SHIELD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.URUK_HAI_WHITE_PALMPRINT_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_S_RUNE_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_S_RUNE_SHIELD.getDefaultStack(), "heavy_shield", Disposition.EVIL)
                 .input(ModWeaponItems.URUK_HAI_SHIELD)
                 .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModWeaponItems.URUK_HAI_SHIELD),
                         FabricRecipeProvider.conditionsFromItem(ModWeaponItems.URUK_HAI_SHIELD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.URUK_HAI_S_RUNE_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_SIEGE_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.URUK_HAI_SIEGE_SHIELD.getDefaultStack(), "heavy_shield", Disposition.EVIL)
                 .input(ModResourceItems.BURZUM_STEEL_NUGGET)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
                 .input(ModResourceItems.BURZUM_STEEL_NUGGET)
@@ -1170,7 +1170,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_PLATE))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.URUK_HAI_SIEGE_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.EVIL)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(ModResourceItems.CRUDE_INGOT)
@@ -1180,7 +1180,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.CRUDE_INGOT))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GUNDABAD_WOODEN_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_PAINTED_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_PAINTED_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.EVIL)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(ModResourceItems.MISTY_MOUNTAINS_ORCS_BANNER_PATTERN)
@@ -1190,7 +1190,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.CRUDE_INGOT))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GUNDABAD_PAINTED_WOODEN_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.EVIL)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(ModResourceItems.MISTY_MOUNTAINS_ORCS_BANNER_PATTERN)
@@ -1200,7 +1200,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.CRUDE_INGOT))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_PEAKS_PAINTED_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_PEAKS_PAINTED_WOODEN_SHIELD.getDefaultStack(), "light_shield", Disposition.EVIL)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(ModResourceItems.MISTY_MOUNTAINS_ORCS_BANNER_PATTERN)
@@ -1210,7 +1210,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.CRUDE_INGOT))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GUNDABAD_PEAKS_PAINTED_WOODEN_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", Disposition.EVIL)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input(ModResourceItems.CRUDE_NUGGET)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1222,7 +1222,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.SHIELD_BORDER))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModWeaponItems.GUNDABAD_REINFORCED_SHIELD).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModWeaponItems.GUNDABAD_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", Disposition.EVIL)
                 .input(ModResourceItems.BURZUM_STEEL_NUGGET)
                 .input(ModResourceItems.BURZUM_STEEL_NUGGET)
                 .input(ModResourceItems.BURZUM_STEEL_NUGGET)
@@ -1249,7 +1249,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(Items.STICK))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModToolItems.PIPE).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModToolItems.CLAYSHIRE_PIPE.getDefaultStack(), "pipe", Disposition.NEUTRAL)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModToolItems.CLAY_PIPE.getDefaultStack(), "pipe", Disposition.NEUTRAL)
                 .input(Items.STICK)
                 .input(Items.TERRACOTTA)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
@@ -1258,7 +1258,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 .input(Items.TERRACOTTA)
                 .criterion(FabricRecipeProvider.hasItem(Items.STICK),
                         FabricRecipeProvider.conditionsFromItem(Items.STICK))
-                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModToolItems.CLAYSHIRE_PIPE).getPath() + "_artisan"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModToolItems.CLAY_PIPE).getPath() + "_artisan"));
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModToolItems.RIVERBEND_PIPE.getDefaultStack(), "pipe", Disposition.NEUTRAL)
                 .input(Items.STICK)

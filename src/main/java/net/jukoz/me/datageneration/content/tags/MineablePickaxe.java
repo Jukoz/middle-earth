@@ -297,6 +297,8 @@ public class MineablePickaxe {
 
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
 
+            add(ModBlocks.SILVER_BARS);
+
             add(ModBlocks.COPPER_BARS);
             add(ModBlocks.EXPOSED_COPPER_BARS);
             add(ModBlocks.WEATHERED_COPPER_BARS);

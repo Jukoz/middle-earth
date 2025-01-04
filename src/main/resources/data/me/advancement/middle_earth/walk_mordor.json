@@ -11,10 +11,19 @@
               "location": {
                 "biomes": [
                   "me:mordor",
-                  "me:mordor_mountains",
-                  "me:mordor_mountains_foothills",
+                  "me:mordor_ashen_forest",
+                  "me:mordor_hill",
                   "me:mordor_wastes",
-                  "me:nurn"
+                  "me:gorgoroth",
+                  "me:gorgoroth_ashen_woods",
+                  "me:gorgoroth_delta",
+                  "me:nurn",
+                  "me:nurn_forest",
+                  "me:nurn_hill",
+                  "me:nurn_edge",
+                  "me:nurn_edge_woods",
+                  "me:nurn_river",
+                  "me:nurn_sea"
                 ]
               }
             }
