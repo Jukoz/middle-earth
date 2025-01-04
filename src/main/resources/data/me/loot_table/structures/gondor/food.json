@@ -48,6 +48,18 @@
         }
       ]
     },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:lettuce"
+        }
+      ]
+    },
     {
       "rolls": {
         "min": 1,

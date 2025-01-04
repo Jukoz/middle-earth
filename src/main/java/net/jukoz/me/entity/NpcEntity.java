@@ -58,7 +58,7 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
-    private Disposition disposition;
+    protected Disposition disposition;
     private Identifier raceId;
     private Item bow;
     private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<NpcEntity>(this, 1.0, 16, 30.0f);

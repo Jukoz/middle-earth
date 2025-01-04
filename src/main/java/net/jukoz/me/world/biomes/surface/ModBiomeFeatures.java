@@ -289,6 +289,9 @@ public class ModBiomeFeatures {
     public static void addScorchedTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.SCORCHED_TREE_PLACED_TREE_KEY);
     }
+    public static void addCommonScorchedTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.COMMON_SCORCHED_TREE_PLACED_TREE_KEY);
+    }
     public static void addAbundantScorchedTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.ABUNDANT_SCORCHED_TREE_PLACED_TREE_KEY);
     }
@@ -915,6 +918,12 @@ public class ModBiomeFeatures {
     }
     public static void addGravelOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.GRAVEL_ORE);
+    }
+    public static void addSnowyDirt(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.SNOWY_DIRT_ORE);
+    }
+    public static void addSnowyGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.SNOWY_GRASS_ORE);
     }
     public static void addStoneGrassOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.STONE_GRASS_ORE);

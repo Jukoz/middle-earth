@@ -32,6 +32,18 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "minecraft:jungle_sapling"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
           "name": "minecraft:torch"
         }
       ]

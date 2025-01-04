@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "me:old_cardolan",  
+	"me:old_arthedain",
+	"me:anduin_vales",
+	"me:dale",
+	"me:rohan",
+	"me:anorien",
+	"me:lossarnach",
+	"me:lebennin",
+	"me:belfalas",
+	"me:gondor"
+  ]
+}

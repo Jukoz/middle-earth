@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "me:mordor",
+    "me:morgul_vale",
+    "me:nurn",
+    "me:nurn_edge",
+    "me:udun",
+    "me:gorgoroth"
+  ]
+}

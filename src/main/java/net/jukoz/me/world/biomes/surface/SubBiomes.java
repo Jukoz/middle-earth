@@ -53,9 +53,9 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.35f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS)
                 .addSubBiomeData(0.35f, 2.01f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS));
 
-        subBiomesMap.put(MEBiomeKeys.ANORIEN, new SubBiome(144)
+        subBiomesMap.put(MEBiomeKeys.ANORIEN, new SubBiome(32)
                 .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.GONDOR_FOREST)
-                .addSubBiomeData(0.39f, 2.01f, MEBiomeKeys.GONDOR_HILL, true));
+                .addSubBiomeData(0.36f, 2.01f, MEBiomeKeys.GONDOR_HILL, true));
         subBiomesMap.put(MEBiomeKeys.PELENNOR_FIELDS, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.41f, MEBiomeKeys.GONDOR_FOREST)
                 .addSubBiomeData(0.42f, 2.01f, MEBiomeKeys.GONDOR_FOREST));
@@ -114,6 +114,9 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.GREY_PLAINS, new SubBiome(96)
                 .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.NORTHERN_RHOVANION_FOREST)
                 .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.NORTHERN_RHOVANION_HILLS, true));
+        subBiomesMap.put(MEBiomeKeys.GREY_MOUNTAINS_BASE, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.36f, MEBiomeKeys.GREY_ASHEN_WOODS)
+                .addSubBiomeData(0.35f, 2.01f, MEBiomeKeys.GREY_ASHEN_WOODS));
         subBiomesMap.put(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, new SubBiome(96)
                 .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.NORTHERN_RHOVANION_FOREST)
                 .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.NORTHERN_RHOVANION_HILLS, true));

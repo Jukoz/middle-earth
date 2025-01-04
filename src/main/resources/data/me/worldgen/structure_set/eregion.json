@@ -1,0 +1,22 @@
+{
+  "structures": [
+	{
+      "structure": "me:limestone_ruin",
+      "weight": 1
+    },
+	{
+      "structure": "me:limestone_well",
+      "weight": 1
+    },
+	{
+      "structure": "me:dolomite_house_ruin",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 17,
+    "separation": 8,
+    "salt": 174523723
+  }
+}

@@ -3,7 +3,6 @@ package net.jukoz.me.world.chunkgen;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.ModBlocks;
-import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
@@ -131,7 +130,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.FANUIDHOL_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FANUIDHOL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FANUIDHOL_PEAKS),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.FOREST_RIVER),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD_RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREAT_RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GUNDABAD_PLAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FORODWAITH),
@@ -148,6 +147,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREY_MOUNTAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREY_MOUNTAINS_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREY_MOUNTAINS_PEAKS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GREY_ASHEN_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREY_PLAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD_DESERT),
@@ -341,7 +341,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
-
+        MiddleEarthHeightMap.setSeed(region.getSeed());
         for(int x = 0; x < 16; x++) {
             for(int z = 0; z < 16; z++) {
                 int posX = (chunk.getPos().x * 16) + x;

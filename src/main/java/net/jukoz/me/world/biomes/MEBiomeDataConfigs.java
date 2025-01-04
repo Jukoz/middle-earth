@@ -56,10 +56,27 @@ public class MEBiomeDataConfigs {
             .addSlopeData(37, ModBlocks.ASHEN_GRAVEL)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHEN_STONE.base());
 
-    public static SlopeMap greyMountains = new SlopeMap().addSlopeData(26, Blocks.GRASS_BLOCK)
-            .addSlopeData(29, Blocks.COARSE_DIRT)
+    public static SlopeMap greyMountains = new SlopeMap().addSlopeData(28, Blocks.GRASS_BLOCK)
+            .addSlopeData(32, Blocks.COARSE_DIRT)
             .addSlopeData(45, Blocks.STONE)
-            .addSlopeData(60, Blocks.TUFF)
+            .addSlopeData(56, Blocks.TUFF)
+            .addSlopeData(MAX_ANGLE, Blocks.SMOOTH_BASALT);
+
+    public static SlopeMap greyMountainPeaks = new SlopeMap().addSlopeData(32, Blocks.SNOW_BLOCK)
+            .addSlopeData(41, StoneBlockSets.SCHIST.base())
+            .addSlopeData(47, Blocks.STONE)
+            .addSlopeData(56, Blocks.TUFF)
+            .addSlopeData(MAX_ANGLE, Blocks.SMOOTH_BASALT);
+    public static SlopeMap mountGundabad = new SlopeMap().addSlopeData(28, Blocks.GRASS_BLOCK)
+            .addSlopeData(32, Blocks.COARSE_DIRT)
+            .addSlopeData(45, Blocks.STONE)
+            .addSlopeData(56, Blocks.TUFF)
+            .addSlopeData(MAX_ANGLE, Blocks.SMOOTH_BASALT);
+
+    public static SlopeMap mountGundabadPeaks = new SlopeMap().addSlopeData(32, Blocks.SNOW_BLOCK)
+            .addSlopeData(41, StoneBlockSets.SCHIST.base())
+            .addSlopeData(47, Blocks.STONE)
+            .addSlopeData(56, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.SMOOTH_BASALT);
 
     public static SlopeMap lonelyMountain = new SlopeMap().addSlopeData(33, Blocks.GRASS_BLOCK)
@@ -191,6 +208,14 @@ public class MEBiomeDataConfigs {
             .addSlopeData(33, Blocks.COARSE_DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.CLAY);
 
+    public static SlopeMap gulfOfLhunShoreCliffsLayers = new SlopeMap()
+            .addSlopeData(26, Blocks.GRASS_BLOCK)
+            .addSlopeData(28, Blocks.GRAVEL)
+            .addSlopeData(33, Blocks.COARSE_DIRT)
+            .addSlopeData(38, Blocks.COARSE_DIRT)
+            .addSlopeData(47, StoneBlockSets.GALONN.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.LIMESTONE.base());
+
     public static SlopeMap forodwaith = new SlopeMap().addSlopeData(30, Blocks.SNOW_BLOCK)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.SCHIST.base());
 
@@ -239,6 +264,9 @@ public class MEBiomeDataConfigs {
 
     public static BlocksLayeringData gondorLayers = new BlocksLayeringData().addLayerData(0.5f, Blocks.STONE)
             .addLayerData(0.5f, Blocks.CALCITE);
+
+    public static BlocksLayeringData ironhills = new BlocksLayeringData().addLayerData(0.35f, Blocks.STONE)
+            .addLayerData(0.65f, StoneBlockSets.IRONSTONE.base());
 
     public static BlocksLayeringData greyMountainsLayers = new BlocksLayeringData().addLayerData(0.58f, Blocks.STONE)
             .addLayerData(0.02f, Blocks.SMOOTH_BASALT)

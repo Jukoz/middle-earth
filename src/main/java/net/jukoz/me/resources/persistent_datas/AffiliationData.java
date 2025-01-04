@@ -6,7 +6,9 @@ import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jukoz.me.world.dimension.ModDimensions;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -30,6 +32,10 @@ public class AffiliationData {
 
     public Vec3d getSpawnMiddleEarthCoordinate(World world){
         try{
+            MinecraftServer server = world.getServer();
+            if(server != null)
+                MiddleEarthHeightMap.setSeed(server.getOverworld().getSeed());
+
             Faction foundFaction = FactionLookup.getFactionById(world,faction);
             SpawnData spawnData = foundFaction.getSpawnData().findSpawn(spawnId);
             BlockPos blockpos = spawnData.getBlockPos();

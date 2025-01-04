@@ -53,11 +53,14 @@ public class MiddleEarthMapRuntime {
         return region.getBiome(getImageCoordinates(posX, posZ));
     }
 
+    private final Color OUT_OF_BORDER_COLOR = new Color(35, 48, 55);
     public Color getHeight(int posX, int posZ) {
-        if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return null;
+        if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)){
+            return OUT_OF_BORDER_COLOR;
+        }
 
         MiddleEarthMapRegion region = getRegionToUse(middleEarthMapUtils.getRegionByWorldCoordinate(posX, posZ));
-        if(region == null) return new Color(0);
+        if(region == null) return OUT_OF_BORDER_COLOR;
 
         Vector2i coords = getImageCoordinates(posX, posZ);
         return region.getHeightColor(coords);

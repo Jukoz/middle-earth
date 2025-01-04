@@ -1,0 +1,22 @@
+{
+  "structures": [
+	{
+      "structure": "me:dolomite_ruin_arch",
+      "weight": 2
+    },
+	{
+      "structure": "me:dolomite_house_ruin",
+      "weight": 1
+    },
+	{
+      "structure": "me:dolomite_ruin_arch",
+      "weight": 2
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 19,
+    "separation": 9,
+    "salt": 152348785
+  }
+}

@@ -76,7 +76,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> FANUIDHOL_BASE = MEBiomeKeys.register("fanuidhol_base");
     public static final RegistryKey<Biome> FANUIDHOL = MEBiomeKeys.register("fanuidhol");
     public static final RegistryKey<Biome> FANUIDHOL_PEAKS = MEBiomeKeys.register("fanuidhol_peaks");
-    public static final RegistryKey<Biome> FOREST_RIVER = MEBiomeKeys.register("mirkwood_river");
+    public static final RegistryKey<Biome> MIRKWOOD_RIVER = MEBiomeKeys.register("mirkwood_river");
     public static final RegistryKey<Biome> FORODWAITH = MEBiomeKeys.register("forodwaith");
     public static final RegistryKey<Biome> FROZEN_OCEAN = MEBiomeKeys.register("frozen_ocean");
     public static final RegistryKey<Biome> FROZEN_POND = MEBiomeKeys.register("frozen_pond");
@@ -91,6 +91,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> GREY_MOUNTAINS = MEBiomeKeys.register("grey_mountains");
     public static final RegistryKey<Biome> GREY_MOUNTAINS_BASE = MEBiomeKeys.register("grey_mountains_base");
     public static final RegistryKey<Biome> GREY_MOUNTAINS_PEAKS = MEBiomeKeys.register("grey_mountains_peaks");
+    public static final RegistryKey<Biome> GREY_ASHEN_WOODS = MEBiomeKeys.register("grey_ashen_woods");
     public static final RegistryKey<Biome> GREY_PLAINS = MEBiomeKeys.register("grey_plains");
     public static final RegistryKey<Biome> HARAD = MEBiomeKeys.register("harad");
     public static final RegistryKey<Biome> HARAD_DESERT = MEBiomeKeys.register("harad_desert");

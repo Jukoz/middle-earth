@@ -154,6 +154,7 @@ public class CavesConfiguredFeatures {
     static BlockMatchRuleTest galonnTest = new BlockMatchRuleTest(StoneBlockSets.GALONN.base());
     static BlockMatchRuleTest izherAbanTest = new BlockMatchRuleTest(StoneBlockSets.IZHERABAN.base());
     static BlockMatchRuleTest calciteStoneTest = new BlockMatchRuleTest(Blocks.CALCITE);
+    static BlockMatchRuleTest ironStoneTest = new BlockMatchRuleTest(StoneBlockSets.IRONSTONE.base());
     static BlockMatchRuleTest gonluinTest = new BlockMatchRuleTest(StoneBlockSets.GONLUIN.base());
     static BlockMatchRuleTest limestoneTest = new BlockMatchRuleTest(StoneBlockSets.LIMESTONE.base());
     static TagMatchRuleTest deepslateTest = new TagMatchRuleTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
@@ -257,6 +258,7 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(izherAbanTest, OreRockSets.LIMESTONE.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(ashenStoneTest, OreRockSets.ASHEN.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(calciteStoneTest, OreRockSets.CALCITE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ironStoneTest, OreRockSets.IRONSTONE.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(gonluinTest, OreRockSets.GONLUIN.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(limestoneTest, OreRockSets.LIMESTONE.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_COAL_ORE.getDefaultState()));
@@ -268,6 +270,7 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(izherAbanTest, OreRockSets.LIMESTONE.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(ashenStoneTest, OreRockSets.ASHEN.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(calciteStoneTest, OreRockSets.CALCITE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ironStoneTest, OreRockSets.IRONSTONE.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(gonluinTest, OreRockSets.GONLUIN.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(limestoneTest, OreRockSets.LIMESTONE.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_COPPER_ORE.getDefaultState()));
@@ -279,6 +282,7 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(izherAbanTest, OreRockSets.LIMESTONE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(ashenStoneTest, OreRockSets.ASHEN.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(calciteStoneTest, OreRockSets.CALCITE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ironStoneTest, OreRockSets.IRONSTONE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(gonluinTest, OreRockSets.GONLUIN.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(limestoneTest, OreRockSets.LIMESTONE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, OreRockSets.DEEPSLATE.tin_ore().getDefaultState()),

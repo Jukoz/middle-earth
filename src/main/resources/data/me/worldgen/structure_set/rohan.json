@@ -2,13 +2,17 @@
   "structures": [
 	{
       "structure": "me:rohan_house",
-      "weight": 1
+      "weight": 4
+    },
+	{
+      "structure": "me:rohan_watch_tower",
+      "weight": 2
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "spacing": 14,
-    "separation": 7,
+    "spacing": 21,
+    "separation": 10,
     "salt": 129781513
   }
 }

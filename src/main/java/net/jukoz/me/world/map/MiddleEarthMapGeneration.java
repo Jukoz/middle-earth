@@ -26,7 +26,7 @@ public class MiddleEarthMapGeneration {
     private static final float WATER_HEIGHT_MULTIPLIER = 1.0f;
     private static BufferedImage baseHeightImage;
     private static BufferedImage edgeHeightImage;
-    private static final boolean bakeMap = true; // Do we bake the map textures or not during launch
+    private static final boolean bakeMap = false; // Do we bake the map textures or not during launch
 
     public MiddleEarthMapGeneration() throws Exception {
         fileUtils = FileUtils.getInstance();
@@ -49,6 +49,7 @@ public class MiddleEarthMapGeneration {
                 URL resource = getClass().getClassLoader().getResource(MiddleEarthMapConfigs.INITIAL_MAP_FOLDER);
                 File srcFolder = new File(resource.toURI());
                 File destFolder = new File(MiddleEarthMapConfigs.MOD_DATA);
+                destFolder.mkdirs();
 
                 if(destFolder.list().length == 0) {
                     org.apache.commons.io.FileUtils.copyDirectory(srcFolder, destFolder);
