@@ -342,7 +342,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
-
+        MiddleEarthHeightMap.setSeed(region.getSeed());
         for(int x = 0; x < 16; x++) {
             for(int z = 0; z < 16; z++) {
                 int posX = (chunk.getPos().x * 16) + x;

@@ -51,12 +51,17 @@ public class ModBiomeSource extends BiomeSource {
     }
 
     private RegistryKey<Biome> getCaveBiome(int x, int z, BiomeData surfaceBiome) {
+        long seed = MiddleEarthHeightMap.getSeed();
+        x += MiddleEarthHeightMap.getSeed();
+        z += MiddleEarthHeightMap.getSeed();
         float temperature = (float) SimplexNoise.noise((double) x / CAVE_NOISE,  (double) z / CAVE_NOISE);
         float humidity = (float) SimplexNoise.noise((double) (x + CAVE_OFFSET) / CAVE_NOISE, (double)(z + CAVE_OFFSET) / CAVE_NOISE);
         return ModCaveBiomes.getBiome(new Vec2f(temperature, humidity), surfaceBiome);
     }
 
     public static double getSubBiomeNoise(int x, int z, float frequency) {
+        x += MiddleEarthHeightMap.getSeed();
+        z += MiddleEarthHeightMap.getSeed();
         float noiseFrequency = (SUB_BIOME_NOISE * frequency);
         double perlin = 1 * BlendedNoise.noise((double) x / noiseFrequency, (double) z / noiseFrequency);
         perlin += 0.5f * BlendedNoise.noise((double) x * 2 / noiseFrequency, (double) z * 2 / noiseFrequency);
