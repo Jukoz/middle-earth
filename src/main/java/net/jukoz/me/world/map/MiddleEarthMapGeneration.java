@@ -7,7 +7,6 @@ import net.jukoz.me.world.biomes.surface.MapBasedCustomBiome;
 import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -49,8 +48,10 @@ public class MiddleEarthMapGeneration {
                 URL resource = getClass().getClassLoader().getResource(MiddleEarthMapConfigs.INITIAL_MAP_FOLDER);
                 File srcFolder = new File(resource.toURI());
                 File rootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_ROOT);
+                File modRootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_MOD_ROOT);
                 File destFolder = new File(MiddleEarthMapConfigs.MOD_DATA);
                 rootFolder.mkdirs();
+                modRootFolder.mkdirs();
                 destFolder.mkdirs();
 
                 if(destFolder.list().length == 0) {
