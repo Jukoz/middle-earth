@@ -234,8 +234,8 @@ public class MapBasedBiomePool {
         add(new Color(0x2B3B2A), new MapBasedCustomBiome(MEBiomeKeys.MORGUL_FOREST, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x635e5e), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_GUNDABAD_BASE, 39, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
         add(new Color(0x4e4a4a), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_GUNDABAD, 73, MEBiomeDataConfigs.mountainModifier.heightModifier(0.33f)));
-        add(new Color(0x3e3b3b), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, 87, MEBiomeDataConfigs.mountainModifier.heightModifier(0.41f)));
-        add(new Color(0x2a2828), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, 98, MEBiomeDataConfigs.mountainModifier.heightModifier(0.69f)));
+        add(new Color(0x3e3b3b), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, 85, MEBiomeDataConfigs.mountainModifier.heightModifier(0.41f)));
+        add(new Color(0x2a2828), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, 94, MEBiomeDataConfigs.mountainModifier.heightModifier(0.69f)));
         add(new Color(0x1A1515), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_DOOM, 92, MEBiomeDataConfigs.mountainModifier.heightModifier(0.38f).noiseModifier(0.97f)));
         add(new Color(0x60270d), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_DOOM_PIT, 90, MEBiomeDataConfigs.mountainModifier.heightModifier(0.36f).noiseModifier(1.0f).expansionWeight(new byte[]{2, 3})));
         add(new Color(0x619b59), new MapBasedCustomBiome(MEBiomeKeys.NAN_CURUNIR, 5, MEBiomeDataConfigs.landModifier));
