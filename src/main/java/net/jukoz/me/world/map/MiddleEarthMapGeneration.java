@@ -7,10 +7,17 @@ import net.jukoz.me.world.biomes.surface.MapBasedCustomBiome;
 import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
 
+import javax.imageio.IIOException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -45,21 +52,35 @@ public class MiddleEarthMapGeneration {
         if(!bakeMap) { // Prod. mode for release
             boolean pasted = true;
             try{
-                URL resource = getClass().getClassLoader().getResource(MiddleEarthMapConfigs.INITIAL_MAP_FOLDER);
-                File srcFolder = new File(resource.toURI());
-                File rootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_ROOT);
-                File modRootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_MOD_ROOT);
-                File destFolder = new File(MiddleEarthMapConfigs.MOD_DATA);
-                rootFolder.mkdirs();
-                modRootFolder.mkdirs();
-                destFolder.mkdirs();
+                URL resource = getClass().getResource("/" + MiddleEarthMapConfigs.INITIAL_MAP_FOLDER);
+                File srcFolder2 = null;
 
-                if(destFolder.list().length == 0) {
-                    org.apache.commons.io.FileUtils.copyDirectory(srcFolder, destFolder);
+                InputStream istream;
+                try {
+                    istream = resource.openStream();
+
+                    srcFolder2 = new File(resource.getPath());
+                    srcFolder2.mkdirs();
+
+                    File rootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_ROOT);
+                    File modRootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_MOD_ROOT);
+                    File destFolder = new File(MiddleEarthMapConfigs.MOD_DATA);
+                    rootFolder.mkdirs();
+                    modRootFolder.mkdirs();
+                    destFolder.mkdirs();
+
+                    if(destFolder.list().length == 0) {
+                        Files.copy(istream, destFolder.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    }
+
+                    istream.close();
+
+                } catch (IOException e) {
+                    throw new IIOException("Can't get input stream from URL!", e);
                 }
 
             } catch(Exception e){
-                LoggerUtil.logError("Couldn't copy paste folders");
+                LoggerUtil.logError("Couldn't copy paste folders", e);
                 pasted = false;
             }
             if(pasted) return;
