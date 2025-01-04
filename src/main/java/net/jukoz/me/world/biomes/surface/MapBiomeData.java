@@ -577,7 +577,7 @@ public class MapBiomeData {
    }
 
     private static void loadGenericRivers(){
-        addBiome(new BiomeData(MEBiomeKeys.FOREST_RIVER, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.MIRKWOOD_RIVER, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(6981536, 8821922, 7111535, 1458241, 4546876, 4284215)));
         addBiome(new BiomeData(MEBiomeKeys.GREAT_RIVER, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(waterSky, 12638463, defaultWater, defaultWaterFog, 10995507, 7181907)));

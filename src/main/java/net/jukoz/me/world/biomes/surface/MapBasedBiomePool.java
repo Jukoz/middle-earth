@@ -86,7 +86,7 @@ public class MapBasedBiomePool {
         add(new Color(0x585e82), new MapBasedCustomBiome(MEBiomeKeys.NURN_SEA, -12, MEBiomeDataConfigs.oceanModifier));
         add(new Color(0x4b6ac7), new MapBasedCustomBiome(MEBiomeKeys.OCEAN_COAST, -11, MEBiomeDataConfigs.oceanModifier));
         add(new Color(0x5381ba), new MapBasedCustomBiome(MEBiomeKeys.RIVER, -6, MEBiomeDataConfigs.smallRiverModifier));
-        add(new Color(0x4d7789), new MapBasedCustomBiome(MEBiomeKeys.FOREST_RIVER, -6, MEBiomeDataConfigs.smallRiverModifier));
+        add(new Color(0x4d7789), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_RIVER, -6, MEBiomeDataConfigs.smallRiverModifier));
         add(new Color(0x42619d), new MapBasedCustomBiome(MEBiomeKeys.SEA_OF_RHUN, -8, MEBiomeDataConfigs.oceanModifier));
         add(new Color(0x144f32), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_MARSHES, 3, MEBiomeDataConfigs.landModifier));
 
@@ -325,7 +325,7 @@ public class MapBasedBiomePool {
         waterBiomes.add(MEBiomeKeys.OCEAN);
         waterBiomes.add(MEBiomeKeys.OCEAN_COAST);
         waterBiomes.add(MEBiomeKeys.RIVER);
-        waterBiomes.add(MEBiomeKeys.FOREST_RIVER);
+        waterBiomes.add(MEBiomeKeys.MIRKWOOD_RIVER);
         waterBiomes.add(MEBiomeKeys.SEA_OF_RHUN);
 
         anduinWaterBiomes.add(MEBiomeKeys.GREAT_RIVER);

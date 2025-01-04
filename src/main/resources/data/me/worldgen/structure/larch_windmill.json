@@ -1,10 +1,10 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#me:has_structure/shire_edge_biomes",
+  "biomes": "#me:has_structure/larch_windmill_biomes",
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
-  "start_pool": "me:hobbit_windmill_andesite",
+  "start_pool": "me:larch_windmill",
   "size": 1,
   "start_height": {
     "absolute": -5

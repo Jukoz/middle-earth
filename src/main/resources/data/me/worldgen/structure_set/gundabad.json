@@ -2,10 +2,14 @@
   "structures": [
 	{
       "structure": "me:gundabad_camp",
-      "weight": 2
+      "weight": 4
     },
 	{
       "structure": "me:gundabad_watch_tower",
+      "weight": 2
+    },
+	{
+      "structure": "me:andesite_ruin_tower",
       "weight": 1
     }
   ],
@@ -13,6 +17,6 @@
     "type": "minecraft:random_spread",
     "spacing": 20,
     "separation": 9,
-    "salt": 12813254
+    "salt": 128193254
   }
 }

@@ -1,0 +1,38 @@
+{
+  "structures": [
+	{
+      "structure": "me:granite_ruin",
+      "weight": 2
+    },
+	{
+      "structure": "me:dolomite_house_ruin",
+      "weight": 1
+    },
+		{
+      "structure": "me:granite_ruin",
+      "weight": 2
+    },
+	{
+      "structure": "me:granite_ruin_brick_house",
+      "weight": 2
+    },
+	{
+      "structure": "me:granite_ruin_tower",
+      "weight": 1
+    },
+	{
+      "structure": "me:granite_ruin_arch",
+      "weight": 2
+    },
+	{
+      "structure": "me:traveler_camp",
+      "weight": 2
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 17,
+    "separation": 8,
+    "salt": 1646278469
+  }
+}

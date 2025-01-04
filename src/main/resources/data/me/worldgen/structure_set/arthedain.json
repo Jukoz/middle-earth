@@ -3,12 +3,24 @@
 	{
       "structure": "me:larch_windmill",
       "weight": 1
+    },
+	{
+      "structure": "me:traveler_camp",
+      "weight": 1
+    },
+	{
+      "structure": "me:limestone_ruin",
+      "weight": 1
+    },
+	{
+      "structure": "me:limestone_well",
+      "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
     "spacing": 20,
     "separation": 10,
-    "salt": 129835169
+    "salt": 127832169
   }
 }

@@ -162,7 +162,7 @@ public class ModBiomes {
         createMirkwoodMountainsBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS_PEAKS, false);
         createMirkwoodSwampBiome(context, MEBiomeKeys.MIRKWOOD_SWAMP);
         createMirkwoodSwampBiome(context, MEBiomeKeys.MIRKWOOD_MARSHES);
-        createMirkwoodSwampBiome(context, MEBiomeKeys.FOREST_RIVER);
+        createMirkwoodSwampBiome(context, MEBiomeKeys.MIRKWOOD_RIVER);
         createRiverBiome(context, MEBiomeKeys.GREAT_RIVER);
         createMistyMountainsBiome(context, MEBiomeKeys.MISTY_MOUNTAINS_BASE, 0);
         createMistyMountainsBiome(context, MEBiomeKeys.MISTY_MOUNTAINS, 1);

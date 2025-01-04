@@ -76,7 +76,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> FANUIDHOL_BASE = MEBiomeKeys.register("fanuidhol_base");
     public static final RegistryKey<Biome> FANUIDHOL = MEBiomeKeys.register("fanuidhol");
     public static final RegistryKey<Biome> FANUIDHOL_PEAKS = MEBiomeKeys.register("fanuidhol_peaks");
-    public static final RegistryKey<Biome> FOREST_RIVER = MEBiomeKeys.register("mirkwood_river");
+    public static final RegistryKey<Biome> MIRKWOOD_RIVER = MEBiomeKeys.register("mirkwood_river");
     public static final RegistryKey<Biome> FORODWAITH = MEBiomeKeys.register("forodwaith");
     public static final RegistryKey<Biome> FROZEN_OCEAN = MEBiomeKeys.register("frozen_ocean");
     public static final RegistryKey<Biome> FROZEN_POND = MEBiomeKeys.register("frozen_pond");
