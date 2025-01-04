@@ -417,16 +417,16 @@ public class MiddleEarthFactions {
                             ShireNpcDataPool.SHIRE_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            ShireNpcDataPool.SHIRE_SHIRRIF
+                            ShireNpcDataPool.SHIRE_SHIRRIFF
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            ShireNpcDataPool.SHIRE_MILITIA
+                            ShireNpcDataPool.SHIRE_SHIRRIFF
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            ShireNpcDataPool.SHIRE_MILITIA
+                            ShireNpcDataPool.SHIRE_SHIRRIFF
                     ));
                     put(NpcRank.LEADER, List.of(
-                            ShireNpcDataPool.SHIRE_MILITIA
+                            ShireNpcDataPool.SHIRE_SHIRRIFF
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
