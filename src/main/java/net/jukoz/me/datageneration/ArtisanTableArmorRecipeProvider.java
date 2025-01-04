@@ -25,6 +25,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
@@ -3216,21 +3217,21 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_CAPE.getDefaultStack(), "cape", Disposition.EVIL)
                 .input(ModResourceItems.FABRIC)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(ModResourceItems.FABRIC)
                 .input(ModResourceItems.FABRIC)
                 .input(ModResourceItems.FABRIC)
                 .input(ModResourceItems.FABRIC)
-                .input(Items.BONE)
-                .input(Items.BONE)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ORCISH_CAPE).getPath() + "_artisan"));
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LONG_CAPE.getDefaultStack(), "cape", Disposition.EVIL)
                 .input(ModResourceItems.FABRIC)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(ModResourceItems.FABRIC)
                 .input(ModResourceItems.FABRIC)
                 .input(ModResourceItems.FABRIC)
@@ -3258,10 +3259,10 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .input(ModResourceItems.FUR)
                 .input(ModResourceItems.FUR)
                 .input(ModResourceItems.FUR)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(ModResourceItems.FUR)
                 .input(Items.STRING)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(Items.STRING)
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
@@ -3272,10 +3273,10 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .input(ModResourceItems.FUR)
                 .input(ModResourceItems.FUR)
                 .input(ModResourceItems.FUR)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(ModResourceItems.FUR)
                 .input(Items.STRING)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(Items.STRING)
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
@@ -3286,10 +3287,10 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .input(ModResourceItems.FUR)
                 .input(ModResourceItems.FUR)
                 .input(ModResourceItems.FUR)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(ModResourceItems.FUR)
                 .input(Items.STRING)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(Items.STRING)
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
@@ -3300,10 +3301,10 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .input(ModResourceItems.FUR)
                 .input(ModResourceItems.FUR)
                 .input(ModResourceItems.FUR)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(ModResourceItems.FUR)
                 .input(Items.STRING)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(Items.STRING)
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
@@ -3314,10 +3315,10 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .input(ModResourceItems.FUR)
                 .input(ModResourceItems.FUR)
                 .input(ModResourceItems.FUR)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(ModResourceItems.FUR)
                 .input(Items.STRING)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(Items.STRING)
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FUR),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.FUR))
@@ -4153,8 +4154,8 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
         //region MISTIES
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_BONE_PAULDRON.getDefaultStack(), "chestplate", Disposition.EVIL)
                 .input(Items.LEATHER)
-                .input(Items.BONE)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(Items.LEATHER)
                 .input(Items.LEATHER)
                 .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
@@ -4174,7 +4175,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT.getDefaultStack(), "chestplate", Disposition.EVIL)
                 .input(Items.LEATHER)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(Items.LEATHER)
                 .input(Items.LEATHER)
                 .input(Items.LEATHER)
@@ -4273,7 +4274,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_REINFORCED_LEATHER_SCALE_COAT.getDefaultStack(), "chestplate", Disposition.EVIL)
                 .input(Items.LEATHER)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                 .input(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -4498,11 +4499,11 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
                 .input(Items.LEATHER)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(ModEquipmentItems.WARG_LEATHER_ARMOR)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(Items.LEATHER)
-                .input(Items.BONE)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                 .input(Items.LEATHER)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.WARG_LEATHER_ARMOR),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.WARG_LEATHER_ARMOR))
