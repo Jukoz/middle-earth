@@ -1,0 +1,18 @@
+{
+  "structures": [
+	{
+      "structure": "me:longbeard_house",
+      "weight": 2
+    },
+	{
+      "structure": "me:longbeard_watch_tower",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 22,
+    "separation": 11,
+    "salt": 127248587
+  }
+}

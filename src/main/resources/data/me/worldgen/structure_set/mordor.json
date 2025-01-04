@@ -1,22 +1,18 @@
 {
   "structures": [
-    {
-      "structure": "me:mordor_camp",
-      "weight": 1
-    },
 	{
-      "structure": "me:mordor_house",
+      "structure": "me:mordor_camp",
       "weight": 2
     },
 	{
-      "structure": "me:mordor_banner",
+      "structure": "me:mordor_watch_tower",
       "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "spacing": 16,
-    "separation": 8,
+    "spacing": 23,
+    "separation": 12,
     "salt": 12986271354
   }
 }

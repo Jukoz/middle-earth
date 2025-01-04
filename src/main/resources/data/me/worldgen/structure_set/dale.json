@@ -1,0 +1,22 @@
+{
+  "structures": [
+	{
+      "structure": "me:dale_house",
+      "weight": 4
+    },
+	{
+      "structure": "me:dale_watch_tower",
+      "weight": 2
+    },
+	{
+      "structure": "me:larch_windmill",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 23,
+    "separation": 12,
+    "salt": 15327831
+  }
+}

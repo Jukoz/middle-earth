@@ -6,7 +6,7 @@
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:hobbit_hole_1",
+        "location": "me:hobbit_hole",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }
