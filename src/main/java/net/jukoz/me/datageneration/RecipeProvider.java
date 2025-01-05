@@ -905,7 +905,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .pattern("TPS")
                 .input('P', TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                 .input('S', Items.STICK)
-                .input('F', ModResourceItems.FABRIC)
+                .input('F', Items.LEATHER)
                 .input('T', ModResourceItems.TIN_INGOT)
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.TIN_INGOT),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.TIN_INGOT))
