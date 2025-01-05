@@ -258,7 +258,9 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
         if (this.world.getBlockState(this.pos).get(ForgeBlock.PART) == ForgePart.TOP) return false;
 
-        return slot != OUTPUT_SLOT;
+        if (dir == Direction.DOWN && slot < 5) return false;
+
+        return true;
     }
 
     @Override
