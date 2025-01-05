@@ -46,7 +46,10 @@ public class SeatEntity extends VehicleEntity {
         World world = passenger.getWorld();
         BlockPos pos = this.getBlockPos();
         if (world.getBlockState(pos).isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")))){
-            pos = pos.offset(world.getBlockState(pos).get(Properties.HORIZONTAL_FACING));
+            BlockPos offsetPos = pos.offset(world.getBlockState(pos).get(Properties.HORIZONTAL_FACING));
+            if (world.getBlockState(offsetPos).isReplaceable()){
+                pos = offsetPos;
+            }
         }
         passenger.requestTeleport(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
     }

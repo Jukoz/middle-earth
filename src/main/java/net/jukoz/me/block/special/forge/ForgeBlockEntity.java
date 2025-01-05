@@ -246,6 +246,10 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        if (this.world.getBlockState(this.pos).get(ForgeBlock.PART) == ForgePart.TOP) return false;
+
+        if (mode == 0 && dir != null) return false;
+
         if (slot == FUEL_SLOT) {
             return isFuel(stack.getItem());
         }
@@ -254,7 +258,11 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        return slot != OUTPUT_SLOT;
+        if (this.world.getBlockState(this.pos).get(ForgeBlock.PART) == ForgePart.TOP) return false;
+
+        if (dir == Direction.DOWN && slot < 5) return false;
+
+        return true;
     }
 
     @Override

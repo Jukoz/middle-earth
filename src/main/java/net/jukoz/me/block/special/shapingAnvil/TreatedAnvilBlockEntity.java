@@ -319,7 +319,7 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-        return true;
+        return getStack(0).isEmpty();
     }
 
     @Override
