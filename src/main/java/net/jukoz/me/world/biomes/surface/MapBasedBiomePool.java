@@ -314,11 +314,13 @@ public class MapBasedBiomePool {
         riverbiomes.add(MEBiomeKeys.FROZEN_RIVER);
 
         waterBiomes.add(MEBiomeKeys.BELFALAS_BEACH);
+        waterBiomes.add(MEBiomeKeys.CORSAIR_COASTS);
         waterBiomes.add(MEBiomeKeys.LEBENNIN_SHORES);
         waterBiomes.add(MEBiomeKeys.DEAD_MARSHES_WATER);
         waterBiomes.add(MEBiomeKeys.EMYN_MUIL_POND);
         waterBiomes.add(MEBiomeKeys.FROZEN_POND);
         waterBiomes.add(MEBiomeKeys.FROZEN_OCEAN);
+        waterBiomes.add(MEBiomeKeys.HARONDOR);
         waterBiomes.add(MEBiomeKeys.LONG_LAKE);
         waterBiomes.add(MEBiomeKeys.NURN_RIVER);
         waterBiomes.add(MEBiomeKeys.NURN_SEA);
@@ -327,6 +329,7 @@ public class MapBasedBiomePool {
         waterBiomes.add(MEBiomeKeys.RIVER);
         waterBiomes.add(MEBiomeKeys.MIRKWOOD_RIVER);
         waterBiomes.add(MEBiomeKeys.SEA_OF_RHUN);
+        waterBiomes.add(MEBiomeKeys.UMBAR);
 
         anduinWaterBiomes.add(MEBiomeKeys.GREAT_RIVER);
         anduinWaterBiomes.add(MEBiomeKeys.NEN_HITHOEL);
@@ -346,11 +349,8 @@ public class MapBasedBiomePool {
         mirkwoodSwampBiomes.add(MEBiomeKeys.WEBBED_DARK_WOODS);
         mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD_EDGE);
 
-        oasisBiomes.add(MEBiomeKeys.CORSAIR_COASTS);
-        oasisBiomes.add(MEBiomeKeys.HARONDOR);
         oasisBiomes.add(MEBiomeKeys.HARAD);
         oasisBiomes.add(MEBiomeKeys.HARAD_DESERT);
-        oasisBiomes.add(MEBiomeKeys.UMBAR);
 
         wastePondBiomes.add(MEBiomeKeys.DAGORLAD);
         wastePondBiomes.add(MEBiomeKeys.GORGOROTH);
