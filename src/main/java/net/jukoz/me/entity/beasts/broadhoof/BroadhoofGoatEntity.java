@@ -202,6 +202,11 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
+    public boolean canCarryChest() {
+        return false;
+    }
+
+    @Override
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
         float f = this.limbAnimator.getSpeed();
         float g = this.limbAnimator.getPos() * (MathHelper.PI / 180) * 18;
