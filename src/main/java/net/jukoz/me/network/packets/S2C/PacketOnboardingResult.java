@@ -50,13 +50,13 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
     @Override
     @Environment(EnvType.CLIENT)
     public void process(ClientPacketContext context) {
-        if(!canReturnToOverworld){
-            return;
-        }
         float delay = delayOnTeleportationConfirm;
         if(context.player().isInCreativeMode())
             delay = 0;
         if(ModDimensions.isInMiddleEarth(context.player().getWorld())){
+            if(!canReturnToOverworld){
+                return;
+            }
             MinecraftClient client = MinecraftClient.getInstance();
             client.setScreen(new ReturnConfirmationScreen(delay));
         } else if(ModDimensions.isInOverworld(context.player().getWorld())){
