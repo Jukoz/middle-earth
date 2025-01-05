@@ -375,15 +375,6 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
 
-        if(!this.getWorld().isClient()) {
-            Disposition playerDisposition = StateSaverAndLoader.getPlayerState(player).getCurrentDisposition();
-            RaceType playerRace = StateSaverAndLoader.getPlayerState(player).getRaceType(this.getWorld());
-
-            if(playerDisposition != this.getDisposition() || playerRace == RaceType.NONE || (this.getRaceType() != null && !this.getRaceType().contains(playerRace))) {
-                return ActionResult.FAIL;
-            }
-        }
-
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && this.isTamable()) {
