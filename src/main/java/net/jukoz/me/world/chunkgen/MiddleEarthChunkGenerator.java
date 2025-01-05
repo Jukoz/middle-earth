@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.StoneBlockSets;
+import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
 import net.jukoz.me.world.biomes.BlocksLayeringData;
@@ -443,8 +444,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     }
                 }
 
-
-                ProceduralStructures.generateStructures(customHeightBiomeHeightData, chunk, posX, (int) (DIRT_HEIGHT + height), posZ);
+                if(ModServerConfigs.ENABLE_PROCEDURAL_STRUCTURES) {
+                    ProceduralStructures.generateStructures(customHeightBiomeHeightData, chunk, posX, (int) (DIRT_HEIGHT + height), posZ);
+                }
             }
         }
     }
