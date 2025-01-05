@@ -65,6 +65,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
                     ItemStack inputCopy = input.getStackInSlot(j).copy();
                     inputCopy.remove(DataComponentTypes.PROFILE);
                     inputCopy.remove(DataComponentTypes.MAX_DAMAGE);
+                    inputCopy.remove(DataComponentTypes.INSTRUMENT);
                     inputCopy.remove(ModDataComponentTypes.DYE_DATA);
 
                     ItemStack inputCopy2 = itemStack2.copy();
