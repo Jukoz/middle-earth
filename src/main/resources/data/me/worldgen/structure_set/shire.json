@@ -1,0 +1,26 @@
+{
+  "structures": [
+    {
+      "structure": "me:hobbit_houses",
+      "weight": 7
+    },
+	{
+      "structure": "me:hobbit_windmill_andesite",
+      "weight": 1
+    },
+	{
+      "structure": "me:hobbit_windmill_brick",
+      "weight": 1
+    },
+	{
+      "structure": "me:hobbit_holes",
+      "weight": 3
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 18,
+    "separation": 8,
+    "salt": 137345924
+  }
+}

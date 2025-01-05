@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "me:bow",
+    "me:bow_down",
+    "me:bow_flat_bottom",
+    "me:bow_flat_center",
+    "me:bow_flat_top",
+    "me:bow_long",
+    "me:bow_up"
+  ]
+}

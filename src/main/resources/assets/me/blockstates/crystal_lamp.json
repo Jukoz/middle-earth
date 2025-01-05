@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=true,hanging=false": {
+      "model": "me:block/crystal_lamp"
+    },
+    "lit=true,hanging=true": {
+      "model": "me:block/crystal_lamp_hanging"
+    },
+    "lit=false,hanging=false": {
+      "model": "me:block/crystal_lamp_unlit"
+    },
+    "lit=false,hanging=true": {
+      "model": "me:block/crystal_lamp_hanging_unlit"
+    }
+  }
+}

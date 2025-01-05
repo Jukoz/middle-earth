@@ -1,0 +1,50 @@
+{
+  "parent": "me:middle_earth/root",
+  "criteria": {
+    "mirkwood": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "me:dark_mirkwood",
+                  "me:dark_mirkwood_edge",
+                  "me:mirkwood",
+                  "me:mirkwood_foothills",
+                  "me:mirkwood_mountains",
+                  "me:mirkwood_swamp",
+                  "me:mirkwood_edge"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_mirkwood.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:mirkwood_log"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_mirkwood.title"
+    }
+  },
+  "requirements": [
+    [
+      "mirkwood"
+    ]
+  ]
+}

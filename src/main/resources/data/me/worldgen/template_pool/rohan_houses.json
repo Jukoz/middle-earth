@@ -3,19 +3,10 @@
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 3,
+      "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:rohan_house_1",
-        "projection": "rigid",
-        "processors": "minecraft:empty"
-      }
-    },
-	{
-      "weight": 2,
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "me:rohan_house_2",
+        "location": "me:rohan_house",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

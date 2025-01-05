@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "me:block/lorien_podzol"
+      },
+      {
+        "model": "me:block/lorien_podzol",
+        "y": 90
+      },
+      {
+        "model": "me:block/lorien_podzol",
+        "y": 180
+      },
+      {
+        "model": "me:block/lorien_podzol",
+        "y": 270
+      }
+    ]
+  }
+}

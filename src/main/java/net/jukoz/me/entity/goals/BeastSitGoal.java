@@ -1,17 +1,17 @@
 package net.jukoz.me.entity.goals;
 
-import net.jukoz.me.entity.beasts.BeastEntity;
-import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.jukoz.me.entity.beasts.AbstractBeastEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
 public class BeastSitGoal extends Goal {
-    private final BeastEntity mob;
+    private final AbstractBeastEntity mob;
 
-    public BeastSitGoal(BeastEntity mob) {
+    public BeastSitGoal(AbstractBeastEntity mob) {
         this.mob = mob;
-        this.setControls(EnumSet.of(Goal.Control.JUMP, Goal.Control.MOVE));
+        this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
     }
 
     @Override
@@ -28,6 +28,13 @@ public class BeastSitGoal extends Goal {
             return false;
         }
         if (!this.mob.isOnGround()) {
+            return false;
+        }
+        LivingEntity livingEntity = this.mob.getOwner();
+        if (livingEntity == null) {
+            return true;
+        }
+        if (this.mob.squaredDistanceTo(livingEntity) < 144.0 && livingEntity.getAttacker() != null) {
             return false;
         }
         return this.mob.isSitting();

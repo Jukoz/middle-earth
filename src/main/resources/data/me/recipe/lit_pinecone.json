@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:torch"
+    },
+    {
+      "item": "me:pinecone"
+    },
+    {
+      "item": "me:pinecone"
+    },
+    {
+      "item": "me:pinecone"
+    }
+  ],
+  "result": {
+    "id": "me:lit_pinecone",
+    "count": 3
+  }
+}

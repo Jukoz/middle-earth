@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "me:epmosto_mithril_ore"
-  },
-  "result": "me:mithril_ingot",
-  "experience": 2,
-  "cookingtime": 175
-}

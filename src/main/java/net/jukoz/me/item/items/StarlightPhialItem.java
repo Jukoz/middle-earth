@@ -1,5 +1,7 @@
 package net.jukoz.me.item.items;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.jukoz.me.network.packets.C2S.PacketOnboardingRequest;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -14,14 +16,10 @@ public class StarlightPhialItem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        if(!ModDimensions.isInMiddleEarth(world)) {
-            if (!user.isCreative()) {
-                //user.getInventory().removeStack(user.getActiveHand().ordinal());
-                user.getStackInHand(hand).decrement(1);
-            }
-            ModDimensions.teleportPlayerToME(user);
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        if(world.isClient){
+            ClientPlayNetworking.send(new PacketOnboardingRequest());
         }
-        return super.use(world, user, hand);
+        return TypedActionResult.success(player.getStackInHand(hand));
     }
 }

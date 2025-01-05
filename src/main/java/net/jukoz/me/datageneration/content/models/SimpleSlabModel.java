@@ -12,8 +12,13 @@ public class SimpleSlabModel {
     public static List<Slab> slabs = new ArrayList<>() {
         {
             add(new Slab(ModBlocks.REED_BLOCK, ModBlocks.REED_SLAB));
+            add(new Slab(ModBlocks.MIRE, ModBlocks.MIRE_SLAB));
             add(new Slab(ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_SLAB));
+            add(new Slab(ModBlocks.DIRTY_ROOTS, ModBlocks.DIRTY_ROOTS_SLAB));
             add(new Slab(ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT_SLAB));
+            add(new Slab(ModBlocks.COBBLY_ASHEN_DIRT, ModBlocks.COBBLY_ASHEN_DIRT_SLAB));
+            add(new Slab(ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_SLAB));
+            add(new Slab(ModBlocks.SNOWY_DIRT, ModBlocks.SNOWY_DIRT_SLAB));
             add(new Slab(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB));
             add(new Slab(ModBlocks.CUT_LEAD, ModBlocks.CUT_LEAD_SLAB));
             add(new Slab(ModBlocks.CUT_SILVER, ModBlocks.CUT_SILVER_SLAB));
@@ -64,10 +69,10 @@ public class SimpleSlabModel {
             add(new Slab(Blocks.COARSE_DIRT, ModBlocks.COARSE_DIRT_SLAB));
             add(new Slab(Blocks.ROOTED_DIRT, ModBlocks.ROOTED_DIRT_SLAB));
             add(new Slab(Blocks.MUD, ModBlocks.MUD_SLAB));
+            add(new Slab(Blocks.MOSS_BLOCK, ModBlocks.MOSS_SLAB));
 
             add(new Slab(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_SLAB));
             add(new Slab(Blocks.CALCITE, ModBlocks.CALCITE_SLAB));
-            add(new Slab(Blocks.TUFF, ModBlocks.TUFF_SLAB));
             add(new Slab(Blocks.SMOOTH_BASALT, ModBlocks.SMOOTH_BASALT_SLAB));
 
             add(new Slab(Blocks.BLACK_WOOL, ModBlocks.BLACK_WOOL_SLAB));

@@ -2,7 +2,8 @@ package net.jukoz.me.particles.custom;
 
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
+import org.jetbrains.annotations.Nullable;
 
 public class LeavesParticle extends CherryLeavesParticle {
 
@@ -11,16 +12,17 @@ public class LeavesParticle extends CherryLeavesParticle {
         super(world, x, y, z, spriteProvider);
     }
 
-    public static class Factory implements ParticleFactory<DefaultParticleType> {
+    public static class Factory implements ParticleFactory<SimpleParticleType> {
         private final SpriteProvider sprites;
 
         public Factory(SpriteProvider spriteSet) {
             this.sprites = spriteSet;
         }
 
-        public Particle createParticle(DefaultParticleType particleType, ClientWorld level, double x, double y, double z,
-                                       double dx, double dy, double dz) {
-            return new LeavesParticle(level, x, y, z, this.sprites);
+        @Nullable
+        @Override
+        public Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+            return new LeavesParticle(world, x, y, z, this.sprites);
         }
     }
 

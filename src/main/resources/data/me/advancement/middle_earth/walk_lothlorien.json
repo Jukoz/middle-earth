@@ -1,0 +1,45 @@
+{
+  "parent": "me:middle_earth/root",
+  "criteria": {
+    "lothlorien": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "me:lothlorien",
+                  "me:lorien_edge"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_lothlorien.description"
+    },
+    "frame": "task",
+    "icon": {
+      "count": 1,
+      "id": "me:mallorn_leaves"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_lothlorien.title"
+    }
+  },
+  "requirements": [
+    [
+      "lothlorien"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

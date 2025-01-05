@@ -1,0 +1,9 @@
+{
+  "asset_name": "bronze",
+  "description": {
+    "color": "#A37D4E",
+    "translate": "trim_material.me.bronze"
+  },
+  "ingredient": "me:bronze_ingot",
+  "item_model_index": 0.005
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/orcish_treated_anvil",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/orcish_treated_anvil"
+    },
+    "facing=south": {
+      "model": "me:block/orcish_treated_anvil",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/orcish_treated_anvil",
+      "y": 270
+    }
+  }
+}

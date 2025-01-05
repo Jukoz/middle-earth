@@ -1,0 +1,11 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "me:item/mordor_oval_shield_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"2": "me:item/mordor_painted_wooden_shield"
+	},
+	"overrides": [
+		{"predicate": {"blocking": 1}, "model": "me:item/mordor_painted_wooden_shield_blocking"}
+	]
+}

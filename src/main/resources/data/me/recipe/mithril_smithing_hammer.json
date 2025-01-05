@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "MGM",
+    " G "
+  ],
+  "key": {
+    "G": {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:rod"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    "M": {
+      "item": "me:steel_ingot"
+    }
+  },
+  "result": {
+    "id": "me:mithril_smithing_hammer",
+    "count": 1
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "parent": "me:smithing/steel",
+  "criteria": {
+    "treated_anvil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:treated_anvil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.treated_anvil.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:treated_anvil"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.treated_anvil.title"
+    }
+  },
+  "requirements": [
+    [
+      "treated_anvil"
+    ]
+  ]
+}

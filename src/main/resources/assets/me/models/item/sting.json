@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "me:item/sting"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "broken": 1
+      },
+      "model": "me:item/sting_broken"
+    },
+    {
+      "predicate": {
+        "glowing": 1
+      },
+      "model": "me:item/sting_glowing"
+    }
+  ]
+}

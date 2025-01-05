@@ -2,6 +2,7 @@ package net.jukoz.me.entity.goals;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
+import net.jukoz.me.item.ModDataComponentTypes;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.NoPenaltyTargeting;
 import net.minecraft.entity.ai.goal.Goal;
@@ -52,8 +53,8 @@ public class PheasantStartledGoal extends Goal {
             return false;
         }
 
-        boolean wearingCloak =  player.getEquippedStack(EquipmentSlot.CHEST).isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "cloaks")))
-                && player.getEquippedStack(EquipmentSlot.HEAD).isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "cloaks")));
+        boolean wearingCloak =  player.getEquippedStack(EquipmentSlot.CHEST).get(ModDataComponentTypes.CAPE_DATA) != null
+                && player.getEquippedStack(EquipmentSlot.HEAD).get(ModDataComponentTypes.HOOD_DATA) != null;
 
         return !(player == null || wearingCloak || player.isSneaking() || !pheasant.isOnGround());
     }

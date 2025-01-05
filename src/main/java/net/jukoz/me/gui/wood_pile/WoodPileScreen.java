@@ -10,7 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class WoodPileScreen extends HandledScreen<WoodPileScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier("minecraft:textures/gui/container/dispenser.png");
+    private static final Identifier TEXTURE = Identifier.of("minecraft:textures/gui/container/dispenser.png");
 
 
     public WoodPileScreen(WoodPileScreenHandler handler, PlayerInventory inventory, Text title) {
@@ -35,7 +35,7 @@ public class WoodPileScreen extends HandledScreen<WoodPileScreenHandler> {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        renderBackground(context);
+        renderBackground(context, mouseX, mouseY, delta);
         super.render(context, mouseX, mouseY, delta);
         drawMouseoverTooltip(context, mouseX, mouseY);
     }

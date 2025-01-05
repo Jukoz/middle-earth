@@ -1,10 +1,15 @@
 package net.jukoz.me.gui.artisantable;
 
 import com.google.common.collect.Lists;
+import com.mojang.authlib.GameProfile;
 import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.block.special.forge.MultipleStackRecipeInput;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.recipe.ArtisanRecipe;
 import net.jukoz.me.recipe.ModRecipes;
+import net.jukoz.me.resources.datas.Disposition;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -12,35 +17,42 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.*;
+import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.screen.Property;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ArtisanTableScreenHandler extends ScreenHandler {
     private final ScreenHandlerContext context;
     private final Property selectedRecipe;
     private final World world;
-    private List availableRecipes;
+    private List<RecipeEntry<ArtisanRecipe>> availableRecipes;
     private ItemStack inputStack;
     long lastTakeTime;
-    final Slot inputSlot0;
-    final Slot inputSlot1;
-    final Slot inputSlot2;
-    final Slot inputSlot3;
-    final Slot inputSlot4;
-    final Slot inputSlot5;
+    private ArtisanTableSlot[][] inputSlots;
     final Slot outputSlot;
     Runnable contentsChangedListener;
     public final Inventory input;
     final CraftingResultInventory output;
+    private PlayerEntity playerEntity;
+    private ArtisanTableInputsShape inputsShape = null;
 
-    public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory) {
+    private String disposition;
+
+    public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory, String disposition) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
+        this.disposition = disposition;
     }
 
     public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory, final ScreenHandlerContext context) {
@@ -50,7 +62,10 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.inputStack = ItemStack.EMPTY;
         this.contentsChangedListener = () -> {
         };
-        this.input = new SimpleInventory(6) {
+
+        this.disposition = "neutral";
+
+        this.input = new SimpleInventory(9) {
             public void markDirty() {
                 super.markDirty();
                 ArtisanTableScreenHandler.this.onContentChanged(this);
@@ -61,13 +76,15 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.context = context;
         this.world = playerInventory.player.getWorld();
 
-        this.inputSlot0 = this.addSlot(new Slot(this.input, 0, 31, 14));
-        this.inputSlot1 = this.addSlot(new Slot(this.input, 1, 12, 34));
-        this.inputSlot2 = this.addSlot(new Slot(this.input, 2, 31, 34));
-        this.inputSlot3 = this.addSlot(new Slot(this.input, 3, 50, 34));
-        this.inputSlot4 = this.addSlot(new Slot(this.input, 4, 21, 53));
-        this.inputSlot5 = this.addSlot(new Slot(this.input, 5, 41, 53));
-        this.outputSlot = this.addSlot(new Slot(this.output, 6, 184, 33) {
+        inputSlots = new ArtisanTableSlot[3][3];
+        int index = 0;
+        for(int y = 0; y < 3; y++) {
+            for(int x = 0; x < 3; x++) {
+                inputSlots[y][x] = (ArtisanTableSlot) this.addSlot(new ArtisanTableSlot(this.input, index++, 13 + 18*x, 16 + 18*y));
+            }
+        }
+
+        this.outputSlot = this.addSlot(new Slot(this.output, 9, 165, 33) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return false;
@@ -75,35 +92,34 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
             @Override
             public void onTakeItem(PlayerEntity player, ItemStack itemStack) {
-                itemStack.onCraft(player.getWorld(), player, itemStack.getCount());
+                itemStack.onCraftByPlayer(player.getWorld(), player, itemStack.getCount());
                 ArtisanTableScreenHandler.this.output.unlockLastRecipe(player, this.getInputStacks());
-                itemStack = ArtisanTableScreenHandler.this.inputSlot0.takeStack(1);
-                ArtisanTableScreenHandler.this.inputSlot1.takeStack(1);
-                ArtisanTableScreenHandler.this.inputSlot2.takeStack(1);
-                ArtisanTableScreenHandler.this.inputSlot3.takeStack(1);
-                ArtisanTableScreenHandler.this.inputSlot4.takeStack(1);
-                ArtisanTableScreenHandler.this.inputSlot5.takeStack(1);
+
+                for(int y = 0; y < 3; y++) {
+                    for(int x = 0; x < 3; x++) {
+                        ArtisanTableSlot slot = inputSlots[y][x];
+                        if(x == 0 && y == 0) itemStack = slot.takeStack(1);
+                        else slot.takeStack(1);
+                    }
+                }
 
                 if (!itemStack.isEmpty()) {
-                    ArtisanTableScreenHandler.this.populateResult();
+                    ArtisanTableScreenHandler.this.populateResult(player);
                 }
-                context.run((world, pos) -> {
-                    long l = world.getTime();
-                    if (ArtisanTableScreenHandler.this.lastTakeTime != l) {
-                        world.playSound(null, (BlockPos)pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0f, 1.0f);
-                        ArtisanTableScreenHandler.this.lastTakeTime = l;
-                    }
-                });
+
+                long l = world.getTime();
+                if (ArtisanTableScreenHandler.this.lastTakeTime != l) {
+                    world.playSound(null, (BlockPos)player.getBlockPos(), SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                    ArtisanTableScreenHandler.this.lastTakeTime = l;
+                }
+
                 super.onTakeItem(player, itemStack);
             }
 
             private List<ItemStack> getInputStacks() {
-                return List.of(ArtisanTableScreenHandler.this.inputSlot0.getStack(),
-                        ArtisanTableScreenHandler.this.inputSlot1.getStack(),
-                        ArtisanTableScreenHandler.this.inputSlot2.getStack(),
-                        ArtisanTableScreenHandler.this.inputSlot3.getStack(),
-                        ArtisanTableScreenHandler.this.inputSlot4.getStack(),
-                        ArtisanTableScreenHandler.this.inputSlot5.getStack());
+                return Arrays.stream(inputSlots)
+                        .flatMap(slots -> Arrays.stream(slots).map(Slot::getStack))
+                        .collect(Collectors.toList());
             }
         });
 
@@ -117,7 +133,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         return this.selectedRecipe.get();
     }
 
-    public List<ArtisanRecipe> getAvailableRecipes() {
+    public List<RecipeEntry<ArtisanRecipe>> getAvailableRecipes() {
         return this.availableRecipes;
     }
 
@@ -126,17 +142,19 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     public boolean canCraft() {
-        return this.inputSlot0.hasStack() && !this.availableRecipes.isEmpty();
+        return !this.availableRecipes.isEmpty();
     }
 
     public boolean canUse(PlayerEntity player) {
+        this.playerEntity = player;
         return canUse(this.context, player, ModDecorativeBlocks.ARTISAN_TABLE);
     }
 
     public boolean onButtonClick(PlayerEntity player, int id) {
+        this.playerEntity = player;
         if (this.isInBounds(id)) {
             this.selectedRecipe.set(id);
-            this.populateResult();
+            this.populateResult(player);
         }
         return true;
     }
@@ -146,26 +164,81 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     public void onContentChanged(Inventory inventory) {
-        ItemStack itemStack = this.inputSlot0.getStack();
+        ItemStack itemStack = this.inputSlots[0][0].getStack();
         this.inputStack = itemStack.copy();
-        this.updateInput(inventory, itemStack);
+        this.updateInput(inventory);
     }
 
-    private void updateInput(Inventory input, ItemStack stack) {
-        this.availableRecipes.clear();
-        this.selectedRecipe.set(-1);
-        this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
-        if (!stack.isEmpty()) {
-            this.availableRecipes = this.world.getRecipeManager().getAllMatches(ModRecipes.ARTISAN_TABLE, input, this.world);
+    public void changeTab(String shapeId) {
+        if(playerEntity != null) {
+            this.dropInventory(this.playerEntity, this.input);
+        }
+
+        ArtisanTableInputsShape inputsShape = ArtisanTableInputsShape.getShape(shapeId);
+        if(inputsShape == null) return;
+        this.inputsShape = inputsShape;
+        for(int y = 0; y < 3; y++) {
+            for(int x = 0; x < 3; x++) {
+                ArtisanTableSlot slot = inputSlots[y][x];
+                InputType inputType = this.inputsShape.getInputType(x,y);
+                if(inputType == null) continue;
+                else if(inputType == InputType.NONE) slot.setEnabled(false);
+                else slot.setEnabled(true);
+                slot.setInputType(inputType);
+            }
         }
     }
 
-    void populateResult() {
+    private void updateInput(Inventory inventory) {
+        String currentCategory = this.inputsShape.getId();
+        if(currentCategory == null) return;
+
+        List<ItemStack> inputs = new ArrayList<>();
+        for (int i = 0; i < inventory.size(); i++) {
+            ArtisanTableSlot slot = inputSlots[i / 3][i % 3];
+            if(slot.isEnabled()) {
+                inputs.add(inventory.getStack(i));
+            }
+        }
+        this.availableRecipes.clear();
+        this.selectedRecipe.set(-1);
+        this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
+        if (!inputs.isEmpty()) {
+            this.availableRecipes = this.world.getRecipeManager().getAllMatches(ModRecipes.ARTISAN_TABLE, new MultipleStackRecipeInput(inputs), this.world);
+        }
+
+        ArrayList<RecipeEntry<ArtisanRecipe>> filteredRecipes = new ArrayList<>();
+        for(RecipeEntry<ArtisanRecipe> recipeEntry : this.availableRecipes) {
+            if (recipeEntry.value().category.equals(currentCategory)){
+                if (Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.NEUTRAL){
+                    filteredRecipes.add(recipeEntry);
+                } else if(Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.valueOf(this.disposition.toUpperCase())) {
+                    filteredRecipes.add(recipeEntry);
+                }
+            }
+        }
+        this.availableRecipes = filteredRecipes;
+    }
+
+    void populateResult(PlayerEntity player) {
+        this.playerEntity = player;
         if (!this.availableRecipes.isEmpty() && this.isInBounds(this.selectedRecipe.get())) {
-            ArtisanRecipe artisanRecipe = (ArtisanRecipe)this.availableRecipes.get(this.selectedRecipe.get());
-            ItemStack itemStack = artisanRecipe.craft(this.input, this.world.getRegistryManager());
+            List<ItemStack> inputs = new ArrayList<>();
+            for (int i = 0; i < this.input.size(); i++) {
+                inputs.add(this.input.getStack(i));
+            }
+            RecipeEntry<ArtisanRecipe> recipeEntry = this.availableRecipes.get(this.selectedRecipe.get());
+
+            ItemStack itemStack = recipeEntry.value().craft(new MultipleStackRecipeInput(inputs), this.world.getRegistryManager());
+            itemStack.set(DataComponentTypes.PROFILE, new ProfileComponent(new GameProfile(player.getUuid(), player.getName().getString())));
+
+            if (itemStack.get(DataComponentTypes.MAX_DAMAGE) != null){
+                int maxDamage = (int) (itemStack.getMaxDamage() + itemStack.getMaxDamage() * 0.25);
+                itemStack.set(DataComponentTypes.MAX_DAMAGE, maxDamage);
+            }
+
             if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
-                this.output.setLastRecipe(artisanRecipe);
+                this.output.setLastRecipe(recipeEntry);
                 this.outputSlot.setStackNoCallbacks(itemStack);
             } else {
                 this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
@@ -189,6 +262,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     public ItemStack quickMove(PlayerEntity player, int slot) {
+        this.playerEntity = player;
         ItemStack stack = ItemStack.EMPTY;
         Slot invSlot = this.slots.get(slot);
 
@@ -197,7 +271,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             Item item = originalStack.getItem();
             stack = originalStack.copy();
             if (slot == 6){
-                item.onCraft(originalStack, player.getWorld(), player);
+                item.onCraft(originalStack, player.getWorld());
                 if (!this.insertItem(originalStack, 7, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
@@ -224,9 +298,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     public void onClosed(PlayerEntity player) {
         super.onClosed(player);
         this.output.removeStack(6);
-        this.context.run((world, pos) -> {
-            this.dropInventory(player, this.input);
-        });
+        this.dropInventory(player, this.input);
     }
     private void addPlayerInventory(PlayerInventory playerInventory) {
         for (int i = 0; i < 3; ++i) {

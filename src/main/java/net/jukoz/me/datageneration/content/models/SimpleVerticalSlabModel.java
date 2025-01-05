@@ -102,7 +102,9 @@ public class SimpleVerticalSlabModel {
             add(new VerticalSlab(Blocks.WAXED_OXIDIZED_CUT_COPPER, Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB, ModBlocks.WAXED_OXIDIZED_CUT_COPPER_VERTICAL_SLAB));
 
             add(new VerticalSlab(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_SLAB, ModBlocks.PACKED_MUD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.TUFF, ModBlocks.TUFF_SLAB, ModBlocks.TUFF_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.TUFF, Blocks.TUFF_SLAB, ModBlocks.TUFF_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.POLISHED_TUFF, Blocks.POLISHED_TUFF_SLAB, ModBlocks.POLISHED_TUFF_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.TUFF_BRICKS, Blocks.TUFF_BRICK_SLAB, ModBlocks.TUFF_BRICK_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.CALCITE, ModBlocks.CALCITE_SLAB, ModBlocks.CALCITE_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.SMOOTH_BASALT, ModBlocks.SMOOTH_BASALT_SLAB, ModBlocks.SMOOTH_BASALT_VERTICAL_SLAB));
 

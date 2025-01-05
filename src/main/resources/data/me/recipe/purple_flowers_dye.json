@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "me:purple_flowers"
+    }
+  ],
+  "result": {
+    "id": "minecraft:purple_dye"
+  }
+}

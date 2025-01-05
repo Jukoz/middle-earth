@@ -1,8 +1,9 @@
 package net.jukoz.me.entity.hobbits.shire;
 
 import net.jukoz.me.entity.NpcEntity;
+import net.jukoz.me.entity.goals.NpcTargetPlayerGoal;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
-import net.jukoz.me.entity.nazguls.NazgulEntity;
+import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
@@ -10,24 +11,26 @@ import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
-import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.item.ModResourceItems;
-import net.jukoz.me.item.ModWeaponItems;
-import net.jukoz.me.item.items.PebbleItem;
+import net.jukoz.me.item.items.weapons.ranged.PebbleItem;
+import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthRaces;
+import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeableItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -43,19 +46,24 @@ public class ShireHobbitEntity extends NpcEntity {
         super(entityType, world);
         String name = this.getDefaultName().toString();
         if(name.contains("civilian")){
-            this.setRank(RANK.CIVILIAN);
+            this.setRank(NpcRank.CIVILIAN);
         }else if(name.contains("bounder")){
-            this.setRank(RANK.MILITIA);
+            this.setRank(NpcRank.MILITIA);
             this.setBow(Items.BOW);
         }else if (name.contains("shirriff")) {
-            this.setRank(RANK.SOLDIER);
+            this.setRank(NpcRank.SOLDIER);
         }
     }
-
+    @Override
+    protected Identifier getFactionId() {
+        return MiddleEarthFactions.SHIRE.getId();
+    }
+    @Override
+    protected Identifier getRaceId() { return MiddleEarthRaces.HOBBIT.getId(); }
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        entityData = super.initialize(world, difficulty, spawnReason, entityData);
         Random random = world.getRandom();
         this.initEquipment(random, difficulty);
         return entityData;
@@ -63,6 +71,17 @@ public class ShireHobbitEntity extends NpcEntity {
 
     @Override
     protected void initGoals() {
+        Identifier factionId = getFactionId();
+        if(factionId == null)
+            disposition = Disposition.NEUTRAL;
+        else {
+            try {
+                disposition = FactionLookup.getFactionById(getWorld(), factionId).getDisposition();
+            } catch (FactionIdentifierException e) {
+                disposition = Disposition.NEUTRAL; // Attacks everyone, no judgement made
+            }
+        }
+
         int i = 0;
         this.goalSelector.add(++i, new SwimGoal(this));
         this.goalSelector.add(++i, new FleeEntityGoal<>(this, TrollEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
@@ -72,21 +91,13 @@ public class ShireHobbitEntity extends NpcEntity {
         this.goalSelector.add(++i, new FleeEntityGoal<>(this, MistyGoblinEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
         this.goalSelector.add(++i, new FleeEntityGoal<>(this, BanditHumanEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
         this.goalSelector.add(++i, new FleeEntityGoal<>(this, MirkwoodSpiderEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
-        this.goalSelector.add(++i, new FleeEntityGoal<>(this, NazgulEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
         this.goalSelector.add(++i, new ProjectileAttackGoal(this, 1.0, 12, 24, 20.0f));
         this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(++i, new LookAroundGoal(this));
         i = 1;
         this.targetSelector.add(++i, new RevengeGoal(this).setGroupRevenge());
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
+        initGoodTargetSelector(i);
     }
 
     public static DefaultAttributeContainer.Builder setSoldierAttributes() {
@@ -106,76 +117,20 @@ public class ShireHobbitEntity extends NpcEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.5);
     }
 
-    @Override
-    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        super.initEquipment(random, localDifficulty);
-
-        switch (this.getRank()){
-            case CIVILIAN -> civilianEquipement(random);
-            case MILITIA -> militiaEquipment(random);
-            case SOLDIER -> soldierEquipment(random);
-        }
-    }
-
-    private void civilianEquipement(Random random){
-        float randomVal = random.nextFloat();
-        if(randomVal < 0.03f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
-        } else if (randomVal < 0.15f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModResourceItems.PEBBLE));
-        } else if(randomVal < 0.20f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.APPLE));
-        }  else if(randomVal < 0.25f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.CARROT));
-        }
-
-        randomVal = random.nextFloat();
-        if (randomVal < 0.15f) {
-            int[] colors = {
-                    0x375c23,
-                    0x535c23,
-                    0x665723
-            };
-            int colorIndex = random.nextInt(3);
-            DyeableItem itemHood = (DyeableItem)ModEquipmentItems.CLOAK_HOOD;
-            DyeableItem item = (DyeableItem)ModEquipmentItems.CLOAK;
-            ItemStack stack = new ItemStack((Item)item);
-            item.setColor(stack, colors[colorIndex]);
-
-            if(randomVal < 0.07f) {
-                ItemStack stackHood = new ItemStack((Item)itemHood);
-                itemHood.setColor(stackHood, colors[colorIndex]);
-                equipStack(EquipmentSlot.HEAD, stackHood);
-            }
-            equipStack(EquipmentSlot.CHEST, stack);
-        }
-    }
-
-    private void militiaEquipment(Random random){
-        if(random.nextFloat() < 0.5f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
-        }
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GAMBESON));
-        equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.IRON_DAGGER));
-    }
-
-    private void soldierEquipment(Random random){
-        float  randomVal = random.nextFloat();
-        equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-        if(randomVal < 0.50f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIFF_HAT_BROWN));
-        } else {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIFF_HAT_GREEN));
-        }
-    }
-
-
     public ShireHobbitVariant getVariant() {
         return ShireHobbitVariant.byId(this.getId());
     }
 
     @Override
-    public void attack(LivingEntity target, float pullProgress) {
+    protected void applyDamage(DamageSource source, float amount) {
+        if(source.getAttacker() instanceof ShireHobbitEntity){
+            return;
+        }
+        super.applyDamage(source, amount);
+    }
+
+    @Override
+    public void shootAt(LivingEntity target, float pullProgress) {
         Item item = ModResourceItems.PEBBLE;
         ItemStack itemStack = new ItemStack(item);
         double d = target.getX() - this.getX();

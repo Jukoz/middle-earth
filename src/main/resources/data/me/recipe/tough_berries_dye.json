@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "me:tough_berries"
+    }
+  ],
+  "result": {
+    "id": "minecraft:black_dye"
+  }
+}

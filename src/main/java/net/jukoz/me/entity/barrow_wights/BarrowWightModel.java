@@ -12,7 +12,7 @@ import net.minecraft.util.math.MathHelper;
 @Environment(value = EnvType.CLIENT)
 public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
 
-    private final ModelPart root;
+    private final ModelPart wight;
     private final ModelPart head;
     private final ModelPart bottomJaw;
     private final ModelPart body;
@@ -24,25 +24,27 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
     private static float RAD = (float)Math.PI/180;
 
     public BarrowWightModel(ModelPart root) {
-        this.root = root;
-        this.body = root.getChild("body");
-        this.head = root.getChild("head");
+        this.wight = root.getChild("wight");
+        this.body = wight.getChild("body");
+        this.head = wight.getChild("head");
         this.bottomJaw = head.getChild("bottomJaw");
-        this.leftArm = root.getChild("leftArm");
-        this.rightArm = root.getChild("rightArm");
-        this.leftLeg = root.getChild("leftLeg");
-        this.rightLeg = root.getChild("rightLeg");
+        this.leftArm = wight.getChild("leftArm");
+        this.rightArm = wight.getChild("rightArm");
+        this.leftLeg = wight.getChild("leftLeg");
+        this.rightLeg = wight.getChild("rightLeg");
     }
 
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        ModelPartData head = modelPartData.addChild("head", ModelPartBuilder.create().uv(0, 52).cuboid(-4.0F, -4.35F, -10.1324F, 8.0F, 6.0F, 8.0F, new Dilation(0.1F)).uv(69, 7).cuboid(-3.5F, -4.6F, -9.6324F, 7.0F, 6.0F, 0.0F, new Dilation(0.0F)).uv(47, 0).cuboid(-4.0F, 1.8943F, -10.1206F, 8.0F, 1.0F, 6.0F, new Dilation(0.1F)).uv(0, 28).cuboid(-4.0F, -4.4443F, -10.5F, 8.0F, 10.0F, 10.0F, new Dilation(0.2F)), ModelTransform.pivot(0.0F, -30.0557F, -1.0F));
+        ModelPartData wight = modelPartData.addChild("wight", ModelPartBuilder.create(), ModelTransform.of(0.0F, 24.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+
+        ModelPartData head = wight.addChild("head", ModelPartBuilder.create().uv(0, 52).cuboid(-4.0F, -4.35F, -10.1324F, 8.0F, 6.0F, 8.0F, new Dilation(0.1F)).uv(69, 7).cuboid(-3.5F, -4.6F, -9.6324F, 7.0F, 6.0F, 0.0F, new Dilation(0.0F)).uv(47, 0).cuboid(-4.0F, 1.8943F, -10.1206F, 8.0F, 1.0F, 6.0F, new Dilation(0.1F)).uv(0, 28).cuboid(-4.0F, -4.4443F, -10.5F, 8.0F, 10.0F, 10.0F, new Dilation(0.2F)), ModelTransform.pivot(0.0F, -30.0557F, -1.0F));
 
         ModelPartData bottomJaw = head.addChild("bottomJaw", ModelPartBuilder.create().uv(62, 44).cuboid(-3.99F, -1.6614F, -5.9F, 7.98F, 2.0F, 6.0F, new Dilation(0.0F)).uv(72, 37).cuboid(-3.99F, 0.3386F, -6.0F, 7.98F, 1.0F, 6.0F, new Dilation(0.0F)), ModelTransform.of(0.01F, 2.0557F, -4.3F, 0.2182F, 0.0F, 0.0F));
 
-        ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create().uv(0, 18).cuboid(-10.0F, -6.9088F, -11.0419F, 20.0F, 3.0F, 7.0F, new Dilation(0.0F)).uv(36, 28).cuboid(-5.0F, 4.6614F, -5.0419F, 10.0F, 8.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -26.6614F, 6.1294F));
+        ModelPartData body = wight.addChild("body", ModelPartBuilder.create().uv(0, 18).cuboid(-10.0F, -6.9088F, -11.0419F, 20.0F, 3.0F, 7.0F, new Dilation(0.0F)).uv(36, 28).cuboid(-5.0F, 4.6614F, -5.0419F, 10.0F, 8.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -26.6614F, 6.1294F));
 
         ModelPartData shoulderCloak_r1 = body.addChild("shoulderCloak_r1", ModelPartBuilder.create().uv(0, 0).cuboid(-9.91F, -20.0F, -4.5F, 20.0F, 11.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 14.6614F, -3.1294F, 0.1745F, 0.0F, 0.0F));
 
@@ -66,17 +68,17 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
 
         ModelPartData torso_r1 = body.addChild("torso_r1", ModelPartBuilder.create().uv(57, 55).cuboid(-4.0F, -6.0F, -2.5F, 8.0F, 12.0F, 5.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0067F, -2.5449F, 0.3491F, 0.0F, 0.0F));
 
-        ModelPartData leftArm = modelPartData.addChild("leftArm", ModelPartBuilder.create(), ModelTransform.of(8.0F, -31.0F, 0.0F, -0.1745F, 0.0F, 0.0F));
+        ModelPartData leftArm = wight.addChild("leftArm", ModelPartBuilder.create(), ModelTransform.of(8.0F, -31.0F, 0.0F, -0.1745F, 0.0F, 0.0F));
 
         ModelPartData cube_r1 = leftArm.addChild("cube_r1", ModelPartBuilder.create().uv(32, 60).cuboid(-1.5F, -13.0F, -13.1401F, 3.0F, 26.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.494F, 12.0F, 11.1401F, 0.0F, 0.0436F, 0.0F));
 
-        ModelPartData rightArm = modelPartData.addChild("rightArm", ModelPartBuilder.create(), ModelTransform.of(-8.0F, -31.0F, 0.0F, -0.1745F, 0.0F, 0.0F));
+        ModelPartData rightArm = wight.addChild("rightArm", ModelPartBuilder.create(), ModelTransform.of(-8.0F, -31.0F, 0.0F, -0.1745F, 0.0F, 0.0F));
 
         ModelPartData cube_r2 = rightArm.addChild("cube_r2", ModelPartBuilder.create().uv(44, 60).cuboid(-1.5F, -13.0F, -13.5F, 3.0F, 26.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 12.0F, 11.5F, 0.0F, 0.0F, 0.0F));
 
-        ModelPartData leftLeg = modelPartData.addChild("leftLeg", ModelPartBuilder.create().uv(0, 66).cuboid(-2.2296F, -1.0567F, -1.4252F, 3.0F, 14.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(4.0F, -13.0F, 6.0F));
+        ModelPartData leftLeg = wight.addChild("leftLeg", ModelPartBuilder.create().uv(0, 66).cuboid(-2.2296F, -1.0567F, -1.4252F, 3.0F, 14.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(4.0F, -13.0F, 6.0F));
 
-        ModelPartData rightLeg = modelPartData.addChild("rightLeg", ModelPartBuilder.create().uv(12, 66).cuboid(-1.7296F, -2.0567F, -1.4252F, 3.0F, 14.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(-3.0F, -12.0F, 6.0F));
+        ModelPartData rightLeg = wight.addChild("rightLeg", ModelPartBuilder.create().uv(12, 66).cuboid(-1.7296F, -2.0567F, -1.4252F, 3.0F, 14.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(-3.0F, -12.0F, 6.0F));
 
         return TexturedModelData.of(modelData, 128, 128);
     }
@@ -84,9 +86,8 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
     @Override
     public void setAngles(BarrowWightEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         if(!entity.getWorld().isClient) return;
+        this.getPart().traverse().forEach(ModelPart::resetTransform);
 
-
-        this.getPart().traverse().forEach(ModelPart::resetTransform); // resets all limbs before animation. eahc run of animationstate update sets next frame...
         this.head.pitch = headPitch * RAD;
         this.head.yaw = netHeadYaw * RAD;
 
@@ -142,15 +143,13 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        //quick matrix translation to fix floating wight .-.
-        matrices.translate(0f, 1.5f, 0f);
-        root.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+        wight.render(matrices, vertices, light, overlay, color);
     }
 
     @Override
     public ModelPart getPart() {
-        return this.root;
+        return this.wight;
     }
 
     private float getRadSin(float degree){

@@ -1,0 +1,38 @@
+{
+  "parent": "me:smithing/root",
+  "criteria": {
+    "bellows": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:bellows"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.bellows.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:bellows"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.bellows.title"
+    }
+  },
+  "requirements": [
+    [
+      "bellows"
+    ]
+  ]
+}

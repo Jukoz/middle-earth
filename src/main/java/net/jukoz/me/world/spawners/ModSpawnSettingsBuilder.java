@@ -11,7 +11,6 @@ public class ModSpawnSettingsBuilder {
     }
     public static void addOceanAnimals(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.COD, 10, 1, 5));
-        builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(ModEntities.CRAB, 7, 1, 4));
         builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.SQUID, 6, 1, 4));
         builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.TURTLE, 4, 1, 2));
         builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.DOLPHIN, 3, 1, 2));
@@ -38,12 +37,21 @@ public class ModSpawnSettingsBuilder {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.RABBIT, 3, 1, 5));
     }
 
+    public static void addCats(SpawnSettings.Builder builder) {
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.CAT, 3, 1, 3));
+    }
     public static void addWolves(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WOLF, 3, 1, 3));
+    }
+    public static void addRareWolves(SpawnSettings.Builder builder) {
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WOLF, 1, 1, 2));
     }
 
     public static void addMountainsMobs(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.GOAT, 4, 1, 3));
+    }
+    public static void addBroadhoofGoats(SpawnSettings.Builder builder) {
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.BROADHOOF_GOAT, 4, 1, 3));
     }
 
     public static void addNordicMobs(SpawnSettings.Builder builder) {
@@ -70,6 +78,9 @@ public class ModSpawnSettingsBuilder {
         addPheasant(builder);
     }
 
+    public static void addArmadillo(SpawnSettings.Builder builder) {
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.ARMADILLO, 3, 1, 3));
+    }
     public static void addHaradMobs(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.RABBIT, 3, 1, 4));
     }
@@ -85,14 +96,9 @@ public class ModSpawnSettingsBuilder {
     public static void addPheasant(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.PHEASANT, 6, 1, 2));
     }
-    public static void addDuck(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.DUCK, 10, 1, 4));
-    }
+
     public static void addSwan(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.SWAN, 7, 1, 3));
-    }
-    public static void addGoose(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.GOOSE, 8, 1, 3));
     }
 
     public static void addDeer(SpawnSettings.Builder builder) {

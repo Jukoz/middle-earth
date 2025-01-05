@@ -1,5 +1,6 @@
 package net.jukoz.me.block.special;
 
+import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.*;
@@ -17,6 +18,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.World;
 
 public class GlowWormBlock extends AbstractPlantBlock {
+    public static final MapCodec<GlowWormBlock> CODEC = GlowWormBlock.createCodec(GlowWormBlock::new);
     public static final VoxelShape SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
 
     public GlowWormBlock(AbstractBlock.Settings settings) {
@@ -24,7 +26,8 @@ public class GlowWormBlock extends AbstractPlantBlock {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        Hand hand = player.getActiveHand();
         ItemStack itemStack = player.getStackInHand(hand);
 
         if (itemStack.isOf(Items.GLASS_BOTTLE)) {
@@ -42,5 +45,10 @@ public class GlowWormBlock extends AbstractPlantBlock {
 
     protected AbstractPlantStemBlock getStem() {
         return (AbstractPlantStemBlock) ModNatureBlocks.GLOWWORM_WEBBING;
+    }
+
+    @Override
+    protected MapCodec<GlowWormBlock> getCodec() {
+        return CODEC;
     }
 }

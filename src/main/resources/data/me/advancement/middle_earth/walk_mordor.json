@@ -1,0 +1,57 @@
+{
+  "parent": "me:middle_earth/root",
+  "criteria": {
+    "me:mordor": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "me:mordor",
+                  "me:mordor_ashen_forest",
+                  "me:mordor_hill",
+                  "me:mordor_wastes",
+                  "me:gorgoroth",
+                  "me:gorgoroth_ashen_woods",
+                  "me:gorgoroth_delta",
+                  "me:nurn",
+                  "me:nurn_forest",
+                  "me:nurn_hill",
+                  "me:nurn_edge",
+                  "me:nurn_edge_woods",
+                  "me:nurn_river",
+                  "me:nurn_sea"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_mordor.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:ashen_stone"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_mordor.title"
+    }
+  },
+  "requirements": [
+    [
+      "me:mordor"
+    ]
+  ]
+}

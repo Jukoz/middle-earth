@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "me:ash_block"
+    }
+  ],
+  "result": {
+    "id": "me:ash",
+    "count": 4
+  }
+}

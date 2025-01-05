@@ -1,0 +1,68 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:dirty_bone",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:enchanted_count_increase",
+              "count": 1,
+              "limit": 2,
+              "enchantment": "minecraft:looting"
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:fang",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:fur",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:enchanted_count_increase",
+              "count": 1,
+              "limit": 2,
+              "enchantment": "minecraft:looting"
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

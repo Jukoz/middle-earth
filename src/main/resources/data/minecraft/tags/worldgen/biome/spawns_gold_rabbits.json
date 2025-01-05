@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:desert",
     "me:harad_desert",
     "me:harad",
     "me:corsair_coasts",

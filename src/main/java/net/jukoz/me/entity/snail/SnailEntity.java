@@ -3,6 +3,7 @@ package net.jukoz.me.entity.snail;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
 import net.minecraft.block.*;
+import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
@@ -17,6 +18,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -28,7 +30,7 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class SnailEntity extends AnimalEntity {
-
+    public final AnimationState crawlingAnimationState = new AnimationState();
     public static final int CLIMBING_TIME_TRANSITION = 12;
     private static final TrackedData<Byte> SNAIL_FLAGS;
     private int climbingTicks = 0;
@@ -150,7 +152,7 @@ public class SnailEntity extends AnimalEntity {
     }
 
     @Override
-    protected void jump() {
+    public void jump() {
         // Snail is not able to jump
     }
 
@@ -158,9 +160,9 @@ public class SnailEntity extends AnimalEntity {
         return new SpiderNavigation(this, world);
     }
 
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(SNAIL_FLAGS, (byte)0);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(SNAIL_FLAGS, (byte)0);
     }
 
     @Override
@@ -185,6 +187,8 @@ public class SnailEntity extends AnimalEntity {
         if(isClimbing()) {
             this.setVelocity(0, 0.01, 0);
         }
+
+        this.crawlingAnimationState.startIfNotRunning(this.age);
     }
 
     @Override
@@ -196,6 +200,11 @@ public class SnailEntity extends AnimalEntity {
         } else {
             this.climbingTicks = Math.max(0, this.climbingTicks - 1);
         }
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return false;
     }
 
     public boolean isClimbing() {

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/lily_pad",
+  "textures": {
+    "particle": "me:block/fallen_mirkwood_leaves",
+    "texture": "me:block/fallen_mirkwood_leaves"
+  }
+}

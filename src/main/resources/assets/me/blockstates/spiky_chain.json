@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "me:block/spiky_chain",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "me:block/spiky_chain"
+    },
+    "axis=z": {
+      "model": "me:block/spiky_chain",
+      "x": 90
+    }
+  }
+}

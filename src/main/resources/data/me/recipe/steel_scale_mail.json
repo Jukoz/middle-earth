@@ -1,0 +1,123 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:mail_ring"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:mail_ring"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:mail_ring"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:mail_ring"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    }
+  ],
+  "result": {
+    "id": "me:scale_mail",
+    "components": {
+      "minecraft:trim": {
+        "material": "me:steel",
+        "pattern": "me:smithing_part"
+      }
+    }
+  }
+}

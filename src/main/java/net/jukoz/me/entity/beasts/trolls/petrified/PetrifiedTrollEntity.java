@@ -35,7 +35,7 @@ public class PetrifiedTrollEntity extends MobEntity {
     }
 
     @Override
-    public boolean canBeLeashedBy(PlayerEntity player) {
+    public boolean canBeLeashed() {
         return false;
     }
 

@@ -1,6 +1,5 @@
 package net.jukoz.me.datageneration.content.models;
 
-import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.minecraft.block.Block;
 
@@ -33,10 +32,22 @@ public class TintableCrossModel {
             add(ModNatureBlocks.GLOWWORM_MAIN);
             add(ModNatureBlocks.GLOWWORM_WEBBING);
 
+            add(ModNatureBlocks.MIRKWOOD_VINES);
+            add(ModNatureBlocks.MIRKWOOD_VINES_PLANT);
+
             add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
             add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.ELANOR);
             add(ModNatureBlocks.YELLOW_FLOWER);
 
+            add(ModNatureBlocks.LIGHT_BLUE_FLOWERS);
+            add(ModNatureBlocks.MAGENTA_FLOWERS);
+            add(ModNatureBlocks.ORANGE_FLOWERS);
+            add(ModNatureBlocks.PINK_FLOWERS);
+            add(ModNatureBlocks.PURPLE_FLOWERS);
+            add(ModNatureBlocks.RED_FLOWERS);
+            add(ModNatureBlocks.WHITE_FLOWERS);
+            add(ModNatureBlocks.YELLOW_FLOWERS);
         }
     };
     public static List<Block> tintedBlocks = new ArrayList<>() {
@@ -52,16 +63,34 @@ public class TintableCrossModel {
         {
             add(ModNatureBlocks.BROWN_GRASS);
             add(ModNatureBlocks.GREEN_SHRUB);
+            add(ModNatureBlocks.SMALL_DRY_SHRUB);
+            add(ModNatureBlocks.FROZEN_SHRUB);
             add(ModNatureBlocks.TAN_SHRUB);
 
             add(ModNatureBlocks.DRY_GRASS);
             add(ModNatureBlocks.DYING_GRASS);
+            add(ModNatureBlocks.FROZEN_GRASS);
+            add(ModNatureBlocks.GRIM_GRASS);
+            add(ModNatureBlocks.TEMPERATE_GRASS);
+            add(ModNatureBlocks.FROZEN_TUFT);
             add(ModNatureBlocks.HEATHER);
-            add(ModNatureBlocks.HEATHER_BUSH);
             add(ModNatureBlocks.RED_HEATHER);
+            add(ModNatureBlocks.DEAD_HEATHER);
+            add(ModNatureBlocks.DRY_HEATHER);
+            add(ModNatureBlocks.HEATH);
             add(ModNatureBlocks.WILDERGRASS);
             add(ModNatureBlocks.BEACH_GRASS);
             add(ModNatureBlocks.COASTAL_PANIC_GRASS);
+            add(ModNatureBlocks.SEDUM);
+            add(ModNatureBlocks.YELLOW_SEDUM);
+            add(ModNatureBlocks.SHORT_CATTAILS);
+            add(ModNatureBlocks.SHORT_BULRUSH);
+
+            add(ModNatureBlocks.SHRIVELED_SHRUB);
+
+            add(ModNatureBlocks.SCORCHED_GRASS);
+            add(ModNatureBlocks.SCORCHED_TUFT);
+            add(ModNatureBlocks.SCORCHED_SHRUB);
         }
     };
 }

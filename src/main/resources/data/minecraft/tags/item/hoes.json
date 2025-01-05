@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#fabric:hoes",
+      "required": false
+    },
+    "me:khazad_steel_hoe",
+    "me:crude_hoe",
+    "me:burzum_steel_hoe",
+    "me:edhel_steel_hoe",
+    "me:steel_hoe",
+    "me:bronze_hoe",
+    "me:mithril_hoe"
+  ]
+}

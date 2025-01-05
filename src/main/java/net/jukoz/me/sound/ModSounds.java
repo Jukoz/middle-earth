@@ -8,15 +8,19 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 public class ModSounds {
+    public static SoundEvent BELLOWS_PUSH = registerSoundEvent("bellows_push");
     public static SoundEvent NAZGUL_FADE = registerSoundEvent("nazgul_fade");
     public static SoundEvent NAZGUL_SCREAM = registerSoundEvent("nazgul_scream");
+    public static SoundEvent PIPE_EXHALE = registerSoundEvent("pipe_exhale");
+    public static SoundEvent PIPE_REFILL = registerSoundEvent("pipe_refill");
+    public static SoundEvent PIPE_IGNITE = registerSoundEvent( "pipe_ignite");
 
     private static SoundEvent registerSoundEvent(String name) {
-        Identifier id = new Identifier(MiddleEarth.MOD_ID, name);
+        Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
 
     public static void registerModSounds() {
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod SoundEvents for " + MiddleEarth.MOD_ID);
     }
 }

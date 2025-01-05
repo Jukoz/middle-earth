@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "tag": "me:silver_ores"
-  },
-  "result": "me:silver_ingot",
-  "experience": 1,
-  "cookingtime": 100
-}

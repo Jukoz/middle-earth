@@ -2,7 +2,6 @@ package net.jukoz.me.entity.pheasant;
 
 import com.google.common.collect.Maps;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollEntity;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -25,9 +24,9 @@ public class PheasantRenderer extends MobEntityRenderer<PheasantEntity, Pheasant
     public static final Map<PheasantVariant, Identifier> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(PheasantVariant.class), (map) -> {
                 map.put(PheasantVariant.MALE,
-                        new Identifier(MiddleEarth.MOD_ID, PATH + "pheasant1m.png"));
+                        Identifier.of(MiddleEarth.MOD_ID, PATH + "pheasant1m.png"));
                 map.put(PheasantVariant.FEMALE,
-                        new Identifier(MiddleEarth.MOD_ID, PATH + "pheasant1f.png"));
+                        Identifier.of(MiddleEarth.MOD_ID, PATH + "pheasant1f.png"));
             });
 
     @Override

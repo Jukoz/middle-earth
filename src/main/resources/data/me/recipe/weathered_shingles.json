@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SS",
+    "SS"
+  ],
+  "key": {
+    "S": {
+      "tag": "me:shingles"
+    }
+  },
+  "result": {
+    "id": "me:weathered_shingles",
+    "count": 4
+  }
+}

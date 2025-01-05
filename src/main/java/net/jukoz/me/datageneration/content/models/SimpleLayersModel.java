@@ -11,6 +11,10 @@ public class SimpleLayersModel {
     public record Layers(Block origin, Block layers) {}
     public static List<SimpleLayersModel.Layers> layers = new ArrayList<>() {
         {
+            add(new SimpleLayersModel.Layers(ModBlocks.BLACK_SAND, ModBlocks.BLACK_SAND_LAYER));
+            add(new SimpleLayersModel.Layers(ModBlocks.WHITE_SAND, ModBlocks.WHITE_SAND_LAYER));
+            add(new SimpleLayersModel.Layers(ModBlocks.ASHEN_SAND, ModBlocks.ASHEN_SAND_LAYER));
+            add(new SimpleLayersModel.Layers(ModBlocks.ASHEN_GRAVEL, ModBlocks.ASHEN_GRAVEL_LAYER));
         }
     };
 
@@ -18,8 +22,6 @@ public class SimpleLayersModel {
         {
             add(new SimpleLayersModel.Layers(Blocks.GRAVEL, ModBlocks.GRAVEL_LAYER));
             add(new SimpleLayersModel.Layers(Blocks.SAND, ModBlocks.SAND_LAYER));
-            add(new SimpleLayersModel.Layers(ModBlocks.BLACK_SAND, ModBlocks.BLACK_SAND_LAYER));
-            add(new SimpleLayersModel.Layers(ModBlocks.WHITE_SAND, ModBlocks.WHITE_SAND_LAYER));
         }
     };
 }

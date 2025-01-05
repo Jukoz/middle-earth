@@ -1,0 +1,20 @@
+{
+  "parent": "me:item/big_weapon",
+  "textures": {
+    "layer0": "me:item/orcrist"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "broken": 1
+      },
+      "model": "me:item/orcrist_broken"
+    },
+    {
+      "predicate": {
+        "glowing": 1
+      },
+      "model": "me:item/orcrist_glowing"
+    }
+  ]
+}

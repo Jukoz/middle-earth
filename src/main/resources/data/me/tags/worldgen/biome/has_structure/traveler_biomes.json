@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "me:old_cardolan",
+    "me:old_cardolan_forest",    
+	"me:old_arthedain",
+	"me:anduin_vales",
+	"me:eregion"
+  ]
+}

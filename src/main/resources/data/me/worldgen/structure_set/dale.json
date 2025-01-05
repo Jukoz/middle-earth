@@ -1,0 +1,18 @@
+{
+  "structures": [
+	{
+      "structure": "me:dale_house",
+      "weight": 2
+    },
+	{
+      "structure": "me:dale_watch_tower",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 21,
+    "separation": 10,
+    "salt": 15327831
+  }
+}

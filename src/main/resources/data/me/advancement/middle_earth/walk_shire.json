@@ -1,0 +1,46 @@
+{
+  "parent": "me:middle_earth/root",
+  "criteria": {
+    "me:shire": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "me:shire",
+                  "me:shire_woods",
+                  "me:shire_edge"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_shire.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:white_daub_hobbit_window_pane"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_shire.title"
+    }
+  },
+  "requirements": [
+    [
+      "me:shire"
+    ]
+  ]
+}

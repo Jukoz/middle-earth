@@ -1,7 +1,6 @@
 package net.jukoz.me.entity.goals;
 
-import net.jukoz.me.entity.beasts.BeastEntity;
-import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -10,11 +9,11 @@ import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import java.util.EnumSet;
 
 public class BeastTrackOwnerAttackerGoal extends TrackTargetGoal {
-    private final BeastEntity mob;
+    private final AbstractBeastEntity mob;
     private LivingEntity attacker;
     private int lastAttackedTime;
 
-    public BeastTrackOwnerAttackerGoal(BeastEntity mob) {
+    public BeastTrackOwnerAttackerGoal(AbstractBeastEntity mob) {
         super(mob, false);
         this.mob = mob;
         this.setControls(EnumSet.of(Goal.Control.TARGET));
@@ -23,6 +22,9 @@ public class BeastTrackOwnerAttackerGoal extends TrackTargetGoal {
     @Override
     public boolean canStart() {
         if (!this.mob.isTame() || this.mob.isSitting()) {
+            return false;
+        }
+        if(!this.mob.shouldAttackWhenMounted() && this.mob.hasControllingPassenger()) {
             return false;
         }
         LivingEntity livingEntity = this.mob.getOwner();

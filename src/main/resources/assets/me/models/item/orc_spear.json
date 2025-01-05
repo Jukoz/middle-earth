@@ -1,0 +1,232 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "me:item/spear",
+	"texture_size": [32, 48],
+	"textures": {
+		"16": "me:item/orc_spear"
+	},
+	"elements": [
+		{
+			"name": "Shaft",
+			"from": [8, 0, 8],
+			"to": [8.5, 23.5, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 23, 8.5]},
+			"faces": {
+				"north": {"uv": [0.5, 0.33333, 1, 16], "texture": "#16"},
+				"east": {"uv": [0, 0.33333, 0.5, 16], "texture": "#16"},
+				"south": {"uv": [1.5, 0.33333, 2, 16], "texture": "#16"},
+				"west": {"uv": [1, 0.33333, 1.5, 16], "texture": "#16"},
+				"up": {"uv": [1, 0.33333, 0.5, 0], "texture": "#16"},
+				"down": {"uv": [1.5, 0, 1, 0.33333], "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_0",
+			"from": [8.025, 21.97497, 5.50003],
+			"to": [8.475, 22.97496, 6.00003],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [10, 1.66667, 11, 2], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [11, 1.66667, 10, 2], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [10, 1.66667, 11, 2], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [10, 1.66667, 11, 2], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [10.5, 1.66667, 11, 2], "texture": "#16"},
+				"down": {"uv": [10, 1.66667, 10.5, 2], "rotation": 180, "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_1",
+			"from": [8.025, 20.97497, 6.00003],
+			"to": [8.475, 21.97497, 7.00003],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [9, 2, 10, 2.33333], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [10, 2, 9, 2.66667], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [9, 2.33333, 10, 2.66667], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [9, 2, 10, 2.66667], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [9.5, 2, 10, 2.66667], "texture": "#16"},
+				"down": {"uv": [9, 2, 9.5, 2.66667], "rotation": 180, "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_2",
+			"from": [8.025, 21.97497, 6.00003],
+			"to": [8.475, 22.47496, 6.50003],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [10, 2, 10.5, 2.33333], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [10.5, 2, 10, 2.33333], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [10, 2, 10.5, 2.33333], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [10, 2, 10.5, 2.33333], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [10, 2, 10.5, 2.33333], "texture": "#16"},
+				"down": {"uv": [10, 2, 10.5, 2.33333], "rotation": 180, "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_3",
+			"from": [8.025, 19.97497, 6.50003],
+			"to": [8.475, 20.97497, 8.00002],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [8, 2.33333, 9, 2.66667], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [9, 2.33333, 8, 3.33333], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [8, 3, 9, 3.33333], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [8, 2.33333, 9, 3.33333], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [8.5, 2.33333, 9, 3.33333], "texture": "#16"},
+				"down": {"uv": [8, 2.33333, 8.5, 3.33333], "rotation": 180, "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_4",
+			"from": [8.025, 19.47498, 7.00003],
+			"to": [8.475, 19.97497, 9.00002],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [7.5, 2.66667, 8, 3], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [8, 2.66667, 7.5, 4], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [7.5, 3.66667, 8, 4], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [7.5, 2.66667, 8, 4], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [7.5, 2.66667, 8, 4], "texture": "#16"},
+				"down": {"uv": [7.5, 2.66667, 8, 4], "rotation": 180, "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_5",
+			"from": [8.025, 20.97497, 7.00003],
+			"to": [8.475, 21.47497, 7.50002],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [9, 2.66667, 9.5, 3], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [9.5, 2.66667, 9, 3], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [9, 2.66667, 9.5, 3], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [9, 2.66667, 9.5, 3], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [9, 2.66667, 9.5, 3], "texture": "#16"},
+				"down": {"uv": [9, 2.66667, 9.5, 3], "rotation": 180, "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_6",
+			"from": [8.025, 16.47499, 7.50002],
+			"to": [8.475, 16.97499, 9.00002],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [4.5, 3, 5, 3.33333], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [5, 3, 4.5, 4], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [4.5, 3.66667, 5, 4], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [4.5, 3, 5, 4], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [4.5, 3, 5, 4], "texture": "#16"},
+				"down": {"uv": [4.5, 3, 5, 4], "rotation": 180, "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_7",
+			"from": [8.025, 18.97498, 7.50002],
+			"to": [8.475, 19.47498, 9.50002],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [7, 3, 7.5, 3.33333], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [7.5, 3, 7, 4.33333], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [7, 4, 7.5, 4.33333], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [7, 3, 7.5, 4.33333], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [7, 3, 7.5, 4.33333], "texture": "#16"},
+				"down": {"uv": [7, 3, 7.5, 4.33333], "rotation": 180, "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_8",
+			"from": [8.025, 16.97499, 8.00002],
+			"to": [8.475, 17.47498, 9.50002],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [5, 3.33333, 5.5, 3.66667], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [5.5, 3.33333, 5, 4.33333], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [5, 4, 5.5, 4.33333], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [5, 3.33333, 5.5, 4.33333], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [5, 3.33333, 5.5, 4.33333], "texture": "#16"},
+				"down": {"uv": [5, 3.33333, 5.5, 4.33333], "rotation": 180, "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_9",
+			"from": [8.025, 18.47498, 8.00002],
+			"to": [8.475, 18.97498, 10.00001],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [6.5, 3.33333, 7, 3.66667], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [7, 3.33333, 6.5, 4.66667], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [6.5, 4.33333, 7, 4.66667], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [6.5, 3.33333, 7, 4.66667], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [6.5, 3.33333, 7, 4.66667], "texture": "#16"},
+				"down": {"uv": [6.5, 3.33333, 7, 4.66667], "rotation": 180, "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_10",
+			"from": [8.025, 19.97497, 8.00002],
+			"to": [8.475, 20.47497, 8.50002],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [8, 3.33333, 8.5, 3.66667], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [8.5, 3.33333, 8, 3.66667], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [8, 3.33333, 8.5, 3.66667], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [8, 3.33333, 8.5, 3.66667], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [8, 3.33333, 8.5, 3.66667], "texture": "#16"},
+				"down": {"uv": [8, 3.33333, 8.5, 3.66667], "rotation": 180, "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_11",
+			"from": [8.025, 17.47498, 8.50002],
+			"to": [8.475, 18.47498, 10.00001],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [5.5, 3.66667, 6.5, 4], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [6.5, 3.66667, 5.5, 4.66667], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [5.5, 4.33333, 6.5, 4.66667], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [5.5, 3.66667, 6.5, 4.66667], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [6, 3.66667, 6.5, 4.66667], "texture": "#16"},
+				"down": {"uv": [5.5, 3.66667, 6, 4.66667], "rotation": 180, "texture": "#16"}
+			}
+		},
+		{
+			"name": "orc_spear_type_A_12",
+			"from": [8.025, 17.97498, 10.00001],
+			"to": [8.475, 18.47498, 10.50001],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 19.59998, 8.00002]},
+			"faces": {
+				"north": {"uv": [6, 4.66667, 6.5, 5], "rotation": 270, "texture": "#16"},
+				"east": {"uv": [6.5, 4.66667, 6, 5], "rotation": 90, "texture": "#16"},
+				"south": {"uv": [6, 4.66667, 6.5, 5], "rotation": 270, "texture": "#16"},
+				"west": {"uv": [6, 4.66667, 6.5, 5], "rotation": 270, "texture": "#16"},
+				"up": {"uv": [6, 4.66667, 6.5, 5], "texture": "#16"},
+				"down": {"uv": [6, 4.66667, 6.5, 5], "rotation": 180, "texture": "#16"}
+			}
+		}
+	],
+	"overrides": [
+		{"predicate": {"holding": 1}, "model": "me:item/orc_spear_holding"}
+	],
+	"groups": [
+		{
+			"name": "Spear",
+			"origin": [8.5, 31, 8.5],
+			"color": 0,
+			"children": [
+				0,
+				{
+					"name": "Head",
+					"origin": [8, 39.832, 5.17],
+					"color": 0,
+					"children": [
+						{
+							"name": "orc_spear_type_A",
+							"origin": [8, 8, 8],
+							"color": 0,
+							"children": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+						}
+					]
+				}
+			]
+		}
+	]
+}

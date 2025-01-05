@@ -1,6 +1,7 @@
 package net.jukoz.me.world.features.tree;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.world.features.tree.roots.MirkwoodRootPlacer;
 import net.minecraft.registry.Registries;
@@ -13,7 +14,7 @@ public class ModRootPlacerType {
     public static final RootPlacerType<MirkwoodRootPlacer> MIRKWOOD_ROOT_PLACER = register(
             "mirkwood_root_placer", MirkwoodRootPlacer.CODEC);
 
-    private static <P extends RootPlacer> RootPlacerType register(String id, Codec<P> codec) {
-        return Registry.register(Registries.ROOT_PLACER_TYPE, new Identifier(MiddleEarth.MOD_ID, id), new RootPlacerType(codec));
+    private static <P extends RootPlacer> RootPlacerType register(String id, MapCodec<P> codec) {
+        return Registry.register(Registries.ROOT_PLACER_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), new RootPlacerType(codec));
     }
 }

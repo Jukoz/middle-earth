@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#fabric:pickaxes",
+      "required": false
+    },
+    "me:khazad_steel_pickaxe",
+    "me:crude_pickaxe",
+    "me:burzum_steel_pickaxe",
+    "me:edhel_steel_pickaxe",
+    "me:steel_pickaxe",
+    "me:bronze_pickaxe",
+    "me:mithril_pickaxe"
+  ]
+}

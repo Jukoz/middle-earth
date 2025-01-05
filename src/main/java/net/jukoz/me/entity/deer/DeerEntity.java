@@ -13,6 +13,9 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -30,6 +33,11 @@ public class DeerEntity extends AnimalEntity {
 
     public DeerEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return stack.isOf(Items.WHEAT);
     }
 
     @Override
@@ -71,11 +79,6 @@ public class DeerEntity extends AnimalEntity {
         if(this.getWorld().isClient()) {
             setupAnimationStates();
         }
-    }
-
-    @Override
-    public double getMountedHeightOffset() {
-        return (double)this.getHeight() * 0.6;
     }
 
     @Nullable

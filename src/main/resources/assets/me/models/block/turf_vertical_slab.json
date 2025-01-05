@@ -1,0 +1,7 @@
+{
+  "parent": "me:block/vertical_slab_tint",
+  "textures": {
+    "all": "me:block/turf",
+    "particle": "me:block/turf"
+  }
+}

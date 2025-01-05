@@ -9,7 +9,6 @@ import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
-import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
@@ -34,6 +33,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -86,7 +86,6 @@ public class BarrowWightEntity extends HostileEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
@@ -94,11 +93,10 @@ public class BarrowWightEntity extends HostileEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.getDataTracker().startTracking(CAN_SCREAM, true);
-        this.getDataTracker().startTracking(SCREAMING_TIME, 0);
-
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(CAN_SCREAM, true);
+        builder.add(SCREAMING_TIME, 0);
     }
 
     public boolean canScream() {
@@ -211,8 +209,9 @@ public class BarrowWightEntity extends HostileEntity {
         return 0.1f;
     }
 
-    protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
-        super.dropEquipment(source, lootingMultiplier, allowDrops);
+    @Override
+    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
+        super.dropEquipment(world, source, causedByPlayer);
         Entity entity = source.getAttacker();
         if (entity instanceof CreeperEntity creeperEntity) {
             if (creeperEntity.shouldDropHead()) {
@@ -221,7 +220,6 @@ public class BarrowWightEntity extends HostileEntity {
             }
         }
     }
-
     public BarrowWightVariant getVariant() {
         return BarrowWightVariant.BASIC;
     }

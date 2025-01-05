@@ -1,0 +1,36 @@
+{
+  "parent": "me:middle_earth/walk_shire",
+  "criteria": {
+    "me:strawberry": {
+      "conditions": {
+        "items": [
+          {
+            "items": "me:strawberry"
+          }
+        ]
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.middle_earth.strawberry.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:strawberry"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.strawberry.title"
+    }
+  },
+  "requirements": [
+    [
+      "me:strawberry"
+    ]
+  ]
+}

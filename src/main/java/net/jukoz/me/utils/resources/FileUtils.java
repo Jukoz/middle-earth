@@ -1,15 +1,21 @@
 package net.jukoz.me.utils.resources;
 
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
+import net.jukoz.me.world.map.MiddleEarthMapConfigs;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
+import org.joml.Vector2i;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.net.URISyntaxException;
 
 public class FileUtils {
 
@@ -48,56 +54,64 @@ public class FileUtils {
         }
     }
 
+    private static final Vector2i[] directions = {new Vector2i(-1, 1), new Vector2i(0, 1), new Vector2i(1, 1),
+                                            new Vector2i(-1, 0), new Vector2i(1, 0),
+                                            new Vector2i(-1, -1), new Vector2i(0, -1), new Vector2i(1, -1)};
+    public BufferedImage getRunImageWithBorders(int x, int y, int padding) {
+        String basePath = MiddleEarthMapConfigs.BIOME_PATH.formatted(MiddleEarthMapConfigs.MAP_ITERATION);
+        String centerPath = basePath + MiddleEarthMapConfigs.IMAGE_NAME.formatted(x, y);
+        BufferedImage centerImage = getRunImage(centerPath);
+        if(centerImage == null) return null;
+
+        int width = centerImage.getWidth();
+        int height = centerImage.getHeight();
+
+        BufferedImage imageWithBorders = new BufferedImage(width + 2*padding, height + 2*padding, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = imageWithBorders.createGraphics();
+
+        graphics.setColor(MapBasedBiomePool.DEFAULT_COLOR);
+        graphics.fillRect(0, 0, width + 2*padding, height + 2*padding);
+        graphics.drawImage(centerImage, padding, padding, null);
+
+        for(Vector2i direction : directions) {
+            String edgePath = basePath + MiddleEarthMapConfigs.IMAGE_NAME.formatted(x + direction.x, y + direction.y);
+            BufferedImage edgeImage = getRunImage(edgePath);
+            if(edgeImage != null) {
+                graphics.drawImage(edgeImage, padding + (width * direction.x), padding + (height * direction.y), null);
+            }
+        }
+        graphics.dispose();
+
+        return imageWithBorders;
+    }
+
     public void saveImage(BufferedImage bufferedImage, String path, String fileName, FileType fileType) {
         try{
             new File(path).mkdirs();
             File f = new File(path + fileName);
             ImageIO.write(bufferedImage, fileType.extension, f);
         } catch(Exception e){
-            LoggerUtil.getInstance().logError("Image Utils couldn't save image for {0}.".formatted(path + fileName));
+            LoggerUtil.logError("Image Utils couldn't save image for {0}.".formatted(path + fileName));
         }
     }
 
+    public static boolean isLanguageFileExist(String languageCode) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        ResourceManager resourceManager = client.getResourceManager();
+        Identifier path = Identifier.of(MiddleEarth.MOD_ID, String.format("lang/%s.json", languageCode));
+        return resourceManager.getResource(path).isPresent();
+    }
 
-    /**
-     * TODO : Optimise this part, it the longest process in World-Gen
-     */
-    public static BufferedImage blur(BufferedImage image, int brushSize, float ratio) {
-        // Create new expended image :
-        int width = image.getWidth();
-        int height = image.getHeight();
-        int newWidth = width + (2 * brushSize);
-        int newHeight = height + (2 * brushSize);
+    public ClassLoader getClassLoader() {
+        return classLoader;
+    }
 
-        BufferedImage expendedImage = new BufferedImage(newWidth, newHeight, image.getType());
-        // Copy image content
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                expendedImage.setRGB(x + brushSize, y + brushSize, image.getRGB(x, y));
-            }
+    public File getFolder(String path) {
+        try{
+            return new File(classLoader.getResource(path).toURI());
+        } catch (URISyntaxException e) {
+            LoggerUtil.logError("FileUtils::getFolder", e);
+            return null;
         }
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < brushSize; x++) {
-                expendedImage.setRGB(x, y + brushSize, image.getRGB(0, y)); // Left edge
-                expendedImage.setRGB(width + brushSize + x, y + brushSize, image.getRGB(width - 1, y)); // Right edge
-            }
-        }
-
-        for (int x = 0; x < width + 2 * brushSize; x++) {
-            for (int y = 0; y < brushSize; y++) {
-                expendedImage.setRGB(x, y, expendedImage.getRGB(x, brushSize)); // Top edge
-                expendedImage.setRGB(x, height + brushSize + y, expendedImage.getRGB(x, height + brushSize - 1)); // Bottom edge
-            }
-        }
-
-        float[] blurKernel = new float[brushSize * brushSize];
-        Arrays.fill(blurKernel, ratio);
-        Kernel kernel = new Kernel(brushSize, brushSize, blurKernel);
-        ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
-
-        expendedImage = op.filter(expendedImage, null);
-
-
-        return expendedImage.getSubimage(brushSize, brushSize, width, height);
     }
 }

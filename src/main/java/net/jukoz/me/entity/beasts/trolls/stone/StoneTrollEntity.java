@@ -2,6 +2,8 @@ package net.jukoz.me.entity.beasts.trolls.stone;
 
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.jukoz.me.entity.goals.BeastTargetPlayerGoal;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -9,8 +11,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.passive.AbstractDonkeyEntity;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
@@ -26,12 +27,12 @@ public class StoneTrollEntity extends TrollEntity {
     public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public static final List<RegistryKey<Biome>> darkBiomes = List.of(
             MEBiomeKeys.MORDOR,
-            MEBiomeKeys.MORDOR_MOUNTAINS,
+            MEBiomeKeys.ERED_LITHUI,
             MEBiomeKeys.MORDOR_WASTES
     );
     private final int PETRIFYING_DURATION = 600;
 
-    public StoneTrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    public StoneTrollEntity(EntityType<? extends StoneTrollEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -40,12 +41,13 @@ public class StoneTrollEntity extends TrollEntity {
         super.initGoals();
         this.goalSelector.add(0, new AvoidSunlightGoal(this));
         this.goalSelector.add(1, new EscapeSunlightGoal(this, 1.2d));
+        this.targetSelector.add(4, new BeastTargetPlayerGoal(this, this.getDisposition()));
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(PETRIFYING, PETRIFYING_DURATION);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(PETRIFYING, PETRIFYING_DURATION);
     }
 
     @Override
@@ -69,6 +71,11 @@ public class StoneTrollEntity extends TrollEntity {
         positionUpdater.accept(passenger, this.getX() + vec3d.x, this.getY() + this.getMountedHeightOffset(), this.getZ() + vec3d.z);
     }
 
+    @Override
+    protected Disposition getDisposition() {
+        return Disposition.EVIL;
+    }
+
     public void setPetrifying(int petrifying) {
         this.dataTracker.set(PETRIFYING, petrifying);
     }
@@ -90,11 +97,11 @@ public class StoneTrollEntity extends TrollEntity {
     }
 
     @Override
-    public Item getBondingItem() {
+    public boolean isBondingItem(ItemStack itemStack) {
         if(!this.isPetrified()) {
-            return super.getBondingItem();
+            return super.isBondingItem(itemStack);
         }
-        return null;
+        return false;
     }
 
     @Override

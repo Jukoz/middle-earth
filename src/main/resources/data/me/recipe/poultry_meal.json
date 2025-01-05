@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "me:cooked_poultry"
+    },
+    {
+      "tag": "me:vegetable"
+    },
+    {
+      "tag": "me:vegetable"
+    },
+    {
+      "tag": "me:vegetable"
+    },
+    {
+      "item": "minecraft:bowl"
+    }
+  ],
+  "result": {
+    "id": "me:poultry_meal"
+  }
+}

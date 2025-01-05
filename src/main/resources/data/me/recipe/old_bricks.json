@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "S"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:brick_slab"
+    }
+  },
+  "result": {
+    "id": "me:old_bricks",
+    "count": 1
+  }
+}

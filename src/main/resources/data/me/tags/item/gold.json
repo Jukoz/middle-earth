@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:gold_ingot",
+    "minecraft:raw_gold",
+    "minecraft:gold_ore",
+    "minecraft:deepslate_gold_ore",
+    "me:medgon_gold_ore",
+    "me:nurgon_gold_ore"
+  ]
+}

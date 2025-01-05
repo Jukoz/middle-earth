@@ -1,27 +1,42 @@
 package net.jukoz.me.entity.goals;
 
-import net.jukoz.me.entity.beasts.BeastEntity;
+import net.jukoz.me.entity.beasts.AbstractBeastEntity;
+import net.jukoz.me.resources.StateSaverAndLoader;
+import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNode;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class ChargeAttackGoal extends Goal {
-    private BeastEntity mob;
+    private AbstractBeastEntity mob;
     private final int MAX_COOLDOWN;
     private int checkCanNavigateCooldown;
+    private Disposition beastDisposition;
 
-    public ChargeAttackGoal(BeastEntity mob, int maxCooldown) {
+    public ChargeAttackGoal(AbstractBeastEntity mob, Disposition beastDisposition, int maxCooldown) {
         this.mob = mob;
+        this.beastDisposition = beastDisposition;
         this.MAX_COOLDOWN = maxCooldown;
     }
 
     @Override
     public boolean canStart() {
+        if(this.mob.getTarget() != null && this.mob.getTarget() instanceof PlayerEntity player) {
+            PlayerData data = StateSaverAndLoader.getPlayerState(player);
+            Disposition playerDisposition = data.getCurrentDisposition();
+            if(playerDisposition == null)
+                return true;
+            if(playerDisposition == beastDisposition){
+                return false;
+            }
+        }
+
         return this.mob.getChargeTimeout() == 0 &&
                 (mob.getTarget() != null) &&
                 this.mob.getRandom().nextInt(ChargeAttackGoal.toGoalTicks(40)) == 0 &&
-                this.mob.squaredDistanceTo(mob.getTarget()) >= 30 &&
                 canNavigateToEntity(this.mob.getTarget()) &&
                 this.mob.canCharge();
     }

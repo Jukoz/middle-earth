@@ -1,0 +1,39 @@
+{
+  "display": {
+    "icon": {
+      "id": "me:bronze_ingot",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.smithing.bronze_ingot.title"
+    },
+    "description": {
+      "translate": "advancements.smithing.bronze_ingot.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "me:smithing/bellows",
+  "criteria": {
+    "bronze_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:bronze_ingot"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bronze_ingot"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

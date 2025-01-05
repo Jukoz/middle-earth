@@ -1,0 +1,15 @@
+{
+	"parent": "me:item/dalish_heyday_spear",
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 6, 1.25],
+			"rotation": [-180, 0, 0],
+			"scale": [2, 2, 2]
+		},
+		"thirdperson_lefthand": {
+			"translation": [0, 6, 1.25],
+			"rotation": [-180, 0, 0],
+			"scale": [2, 2, 2]
+		}
+	}
+}

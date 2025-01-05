@@ -13,10 +13,11 @@ import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class SnowTrollEntity extends TrollEntity {
-    public SnowTrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    public SnowTrollEntity(EntityType<? extends SnowTrollEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -28,14 +29,14 @@ public class SnowTrollEntity extends TrollEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 0.65)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 28.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 14.0)
-                .add(EntityAttributes.HORSE_JUMP_STRENGTH, 0.0);
+                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 0.0);
     }
 
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new MeleeAttackGoal(this, 0.9f, false));
-        this.goalSelector.add(3, new ChargeAttackGoal(this, maxChargeCooldown()));
+        this.goalSelector.add(3, new ChargeAttackGoal(this, null, maxChargeCooldown()));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(6, new LookAroundGoal(this));
@@ -47,7 +48,7 @@ public class SnowTrollEntity extends TrollEntity {
     }
 
     @Override
-    public Item getBondingItem() {
-        return null;
+    public boolean isBondingItem(ItemStack itemStack) {
+        return false;
     }
 }

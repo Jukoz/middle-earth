@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "V",
+    "M",
+    "S"
+  ],
+  "key": {
+    "M": {
+      "tag": "me:raw_meat"
+    },
+    "V": {
+      "tag": "me:vegetable"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "me:meat_skewer",
+    "count": 1
+  }
+}

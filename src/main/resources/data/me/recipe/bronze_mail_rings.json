@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " N ",
+    "N N",
+    " N "
+  ],
+  "key": {
+    "N": {
+      "item": "me:bronze_nugget"
+    }
+  },
+  "result": {
+    "id": "me:mail_ring",
+    "components": {
+      "minecraft:trim": {
+        "material": "me:bronze",
+        "pattern": "me:smithing_part"
+      }
+    },
+    "count": 4
+  }
+}

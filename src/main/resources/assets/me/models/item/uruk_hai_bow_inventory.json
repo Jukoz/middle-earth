@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "me:item/uruk_hai_bow_inventory"
+  }
+}

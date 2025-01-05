@@ -1,0 +1,6 @@
+{
+  "parent": "me:item/big_weapon",
+  "textures": {
+    "layer0": "me:item/longsword_of_elder_kings_broken"
+  }
+}

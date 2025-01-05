@@ -1,13 +1,13 @@
 package net.jukoz.me.entity.snail;
 
-import net.jukoz.me.entity.crab.CrabVariant;
-
 import java.util.Arrays;
 import java.util.Comparator;
 
 public enum SnailVariant {
-    WHITE(0),
-    GREEN(1);
+    GREEN(0),
+    PALE_GREEN(1),
+    BROWN(2),
+    GRAY(3);
 
     private static final SnailVariant[] BY_ID = Arrays.stream(values()).sorted(
             Comparator.comparingInt(SnailVariant::getId)).toArray(SnailVariant[]::new);

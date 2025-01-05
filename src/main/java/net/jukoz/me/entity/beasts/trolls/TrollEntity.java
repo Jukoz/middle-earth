@@ -2,7 +2,7 @@ package net.jukoz.me.entity.beasts.trolls;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
-import net.jukoz.me.entity.beasts.BeastEntity;
+import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.*;
@@ -12,8 +12,9 @@ import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
 import net.jukoz.me.item.ModFoodItems;
-import net.jukoz.me.item.items.TrollArmorItem;
-import net.minecraft.advancement.criterion.Criteria;
+import net.jukoz.me.resources.StateSaverAndLoader;
+import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -22,9 +23,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -32,14 +31,14 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
 import java.util.List;
 
-public class TrollEntity extends BeastEntity {
+public class TrollEntity extends AbstractBeastEntity {
     private int throwCooldown = 100;
     public final AnimationState throwingAnimationState = new AnimationState();
 
@@ -50,13 +49,13 @@ public class TrollEntity extends BeastEntity {
     public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 
-    // Temporary disabled until next update
+    /* Temporary disabled until next update
     @Override
     public boolean hasArmorSlot() {
         return false;
-    }
+    }*/
 
-    public TrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    public TrollEntity(EntityType<? extends TrollEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -68,34 +67,32 @@ public class TrollEntity extends BeastEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 0.9)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 28.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 10.0)
-                .add(EntityAttributes.HORSE_JUMP_STRENGTH, 0.0);
+                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 0.0);
     }
 
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, 0.9f, false));
-        this.goalSelector.add(5, new ChargeAttackGoal(this, maxChargeCooldown()));
-        this.goalSelector.add(6, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(9, new LookAroundGoal(this));
-        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((BeastEntity) this));
-        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
-        this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
-        this.targetSelector.add(4, new TargetPlayerGoal(this));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
-        this.targetSelector.add(7, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
-        this.targetSelector.add(8, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-        this.targetSelector.add(9, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.goalSelector.add(3, new MeleeAttackGoal(this, 0.9f, false));
+        this.goalSelector.add(4, new ChargeAttackGoal(this, this.getDisposition(), maxChargeCooldown()));
+        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(7, new LookAroundGoal(this));
+        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
+        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity)this));
+        this.targetSelector.add(3, new BeastRevengeGoal(this, new Class[0]));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
+        this.targetSelector.add(6, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
+        this.targetSelector.add(7, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
+        this.targetSelector.add(8, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
+        this.targetSelector.add(9, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        this.targetSelector.add(0, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(THROWING, false);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(THROWING, false);
     }
 
     @Override
@@ -108,7 +105,18 @@ public class TrollEntity extends BeastEntity {
 
     @Override
     protected void setupAnimationStates() {
-        super.setupAnimationStates();
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+            this.idleAnimationState.start(this.age);
+        } else {
+            --this.idleAnimationTimeout;
+        }
+        if(this.isSitting()) {
+            this.sittingAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.sittingAnimationState.stop();
+        }
 
         if(this.isThrowing() && this.throwingAnimationTimeout <= 0) {
             this.throwingAnimationTimeout = 100;
@@ -161,14 +169,20 @@ public class TrollEntity extends BeastEntity {
                 this.bondingTimeout--;
             }
         }
+    }
 
-        if (this.getWorld().isClient) {
-            setupAnimationStates();
-        }
+    @Override
+    protected Disposition getDisposition() {
+        return Disposition.EVIL;
+    }
+
+    @Override
+    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
+        return (float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f;
     }
 
     public boolean isCommandItem(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
     }
 
     @Override
@@ -182,14 +196,10 @@ public class TrollEntity extends BeastEntity {
                 if (!itemStack.isEmpty()) {
                     NbtCompound nbtCompound = new NbtCompound();
                     nbtCompound.putByte("Slot", (byte)i);
-                    itemStack.writeNbt(nbtCompound);
-                    nbtList.add(nbtCompound);
+                    nbtList.add(itemStack.encode(this.getRegistryManager(), nbtCompound));
                 }
             }
             nbt.put("Items", nbtList);
-        }
-        if (!this.items.getStack(1).isEmpty()) {
-            nbt.put("ArmorItem", this.items.getStack(1).writeNbt(new NbtCompound()));
         }
     }
 
@@ -205,25 +215,45 @@ public class TrollEntity extends BeastEntity {
                 NbtCompound nbtCompound = nbtList.getCompound(i);
                 int j = nbtCompound.getByte("Slot") & 255;
                 if (j >= 2 && j < this.items.size()) {
-                    this.items.setStack(j, ItemStack.fromNbt(nbtCompound));
+                    this.items.setStack(j, ItemStack.fromNbt(getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY));
                 }
             }
         }
-        if (nbt.contains("ArmorItem", 10)) {
-            ItemStack itemStack = ItemStack.fromNbt(nbt.getCompound("ArmorItem"));
-            if (!itemStack.isEmpty() && this.isHorseArmor(itemStack)) {
-                this.items.setStack(1, itemStack);
-            }
-        }
-
         if (nbt.contains("SaddleItem", 10)) {
-            ItemStack itemStack = ItemStack.fromNbt(nbt.getCompound("SaddleItem"));
+            ItemStack itemStack = (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbt.getCompound("SaddleItem")).orElse(ItemStack.EMPTY);
             if (itemStack.isOf(Items.SADDLE)) {
                 this.items.setStack(0, itemStack);
             }
         }
 
-        this.updateSaddle();
+        this.updateSaddledFlag();
+    }
+
+    @Override
+    public boolean tryAttack(Entity target) {
+        this.attackTicksLeft = ATTACK_COOLDOWN;
+        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        float f = this.getAttackDamage();
+        float g = (int)f > 0 ? f / 2.0f + (float)this.random.nextInt((int)f) : f;
+        boolean bl = target.damage(this.getDamageSources().mobAttack(this), g);
+        if (bl) {
+            double d;
+            if (target instanceof LivingEntity) {
+                LivingEntity livingEntity = (LivingEntity)target;
+                d = livingEntity.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
+            } else {
+                d = 0.0;
+            }
+            double e = Math.max(0.0, 1.0 - d);
+            target.setVelocity(target.getVelocity().multiply(1f + (0.8f * e))); //.add(0.0, (double)0.1f * e, 0.0));
+        }
+        this.playSound(SoundEvents.ENTITY_HOGLIN_ATTACK, 1.5f, 0.8f);
+        return bl;
+    }
+
+    @Override
+    public boolean shouldAttackWhenMounted() {
+        return true;
     }
 
     public boolean canThrow() {
@@ -244,44 +274,50 @@ public class TrollEntity extends BeastEntity {
     }
 
     @Override
-    public Item getBondingItem() {
-        return ModFoodItems.COOKED_HORSE;
+    public boolean isBondingItem(ItemStack itemStack) {
+        return false;
     }
 
     public int getBondingTimeout() {
         return bondingTimeout;
     }
-
-    @Override
-    public void tryBonding(PlayerEntity player) {
-        if(this.bondingTimeout <= 0) {
-            if(random.nextFloat() <= 0.4f) {
-                this.bondingTries++;
-                if(bondingTries == 3) {
-                    if (player instanceof ServerPlayerEntity) {
-                        this.setOwnerUuid(player.getUuid());
-                        this.setTame(true);
-                        this.setTarget(null);
-                        Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
-                    }
-                    this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
-
-                    this.chargeTimeout = 0;
-                }
-            }
-            player.getStackInHand(player.getActiveHand()).decrement(1);
-            this.bondingTimeout = 40;
-        }
-
+    public void setBondingTimeout(int bondingTimeout) {
+        this.bondingTimeout = bondingTimeout;
     }
 
     @Override
-    public boolean isHorseArmor(ItemStack item) {
-        return item.getItem() instanceof TrollArmorItem;
+    public void tryBonding(PlayerEntity player) {
+
+        if(player.isCreative()) {
+            tameBeast(player);
+            this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+            this.setChargeTimeout(0);
+        }
+        else if(this.getBondingTimeout() <= 0) {
+            if(random.nextFloat() <= 0.4f) {
+                this.bondingTries++;
+                if(bondingTries == 3) {
+                    tameBeast(player);
+                    this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+                    this.setChargeTimeout(0);
+                }
+            }
+            player.getStackInHand(player.getActiveHand()).decrement(1);
+            this.setBondingTimeout(40);
+
+        }
     }
 
     public void throwAttack() {
         Entity target = this.getTarget();
+        if(target instanceof PlayerEntity player) {
+            PlayerData data = StateSaverAndLoader.getPlayerState(player);
+            Disposition playerDisposition = data.getCurrentDisposition();
+            if(playerDisposition == this.getDisposition()){
+                return;
+            }
+        }
+
         if(target != null && !this.getWorld().isClient) {
             this.setThrowing(false);
 

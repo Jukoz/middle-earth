@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "INI",
+    "NCN",
+    "INI"
+  ],
+  "key": {
+    "I": {
+      "tag": "me:steel_ingots"
+    },
+    "N": {
+      "tag": "me:steel_nuggets"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    }
+  },
+  "result": {
+    "id": "me:reinforced_chest",
+    "count": 1
+  }
+}
