@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class FileUtils {
 
@@ -99,5 +100,18 @@ public class FileUtils {
         ResourceManager resourceManager = client.getResourceManager();
         Identifier path = Identifier.of(MiddleEarth.MOD_ID, String.format("lang/%s.json", languageCode));
         return resourceManager.getResource(path).isPresent();
+    }
+
+    public ClassLoader getClassLoader() {
+        return classLoader;
+    }
+
+    public File getFolder(String path) {
+        try{
+            return new File(classLoader.getResource(path).toURI());
+        } catch (URISyntaxException e) {
+            LoggerUtil.logError("FileUtils::getFolder", e);
+            return null;
+        }
     }
 }
