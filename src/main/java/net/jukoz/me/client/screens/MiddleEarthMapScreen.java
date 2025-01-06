@@ -190,7 +190,7 @@ public class MiddleEarthMapScreen extends Screen {
             return;
         Vector2d playerRatio = mapWidget.getMapPointFromWorldCoordinate(new Vector2d(player.getPos().getX(), player.getPos().getZ()));
         int margin = (isFullscreen) ? 0 : MARGIN;
-        double x = Math.max(startX + margin + 4, Math.min(endX - 4 - margin, playerRatio.x));
+        double x = Math.max(startX + margin + 4, Math.min(endX - 4 - ((isFullscreen) ? NORMAL_BUTTON_SIZE.x : MARGIN), playerRatio.x));
         double y = Math.max(startY + margin + 4, Math.min(endY - 4 - margin, playerRatio.y));
 
 

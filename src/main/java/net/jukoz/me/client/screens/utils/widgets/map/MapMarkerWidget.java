@@ -32,7 +32,7 @@ public class MapMarkerWidget extends ModWidget {
     private static Text TITLE;
     private List<Text> content;
     private List<MapMarkerWidget> childs = new ArrayList<>();
-
+    private int minY;
     public MapMarkerWidget(String name, ButtonWidget.PressAction onPress) {
         super();
         markerButton = ButtonWidget.builder(Text.of(name), onPress).build();
@@ -41,8 +41,6 @@ public class MapMarkerWidget extends ModWidget {
         isArrow = false;
         isSelected = false;
     }
-
-
 
     public void setType(MapMarkerType type){
         this.type = type;
