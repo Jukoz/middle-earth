@@ -576,7 +576,7 @@ public class ModWeaponItems {
             new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true);
 
     public static final Item BARROW_BLADE = registerArtefact("barrow_blade",
-            new MorgulKnifeItem(ModToolMaterials.NOBLE_STEEL), false);
+            new ArtefactCustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL), false);
     public static final Item MORGUL_KNIFE = registerArtefact("morgul_knife",
             new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE), false);
     public static final Item STING = registerGlowyArtefact("sting",
