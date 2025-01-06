@@ -37,7 +37,7 @@ public class FactionSelectionMapWidget extends MapWidget {
         for(int i = 0; i< maxSpawnCount[0]; i++){
             int finalIndex = i;
             spawnMapMarkers[i] = new MapMarkerWidget("SpawnButton_" + i, x -> selectSpawn(finalIndex),
-                    new Rectangle2D.Double(0, 0, uiCurrentWidth, uiCurrentHeight - 11));
+                    new Rectangle2D.Double(0, 0, uiWidth, uiHeight - 11));
             spawnMapMarkers[i].setType(MapMarkerType.DYNAMIC_SPAWN);
         }
         updateSelectedSpawn(controller.getCurrentSpawnIndex());
