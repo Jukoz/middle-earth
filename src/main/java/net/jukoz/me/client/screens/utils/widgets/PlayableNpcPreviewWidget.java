@@ -269,7 +269,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
                 }
             }
         }
-        return true;
+        return false;
     }
 
     @Override

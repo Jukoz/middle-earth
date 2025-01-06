@@ -14,6 +14,7 @@ import net.minecraft.util.Identifier;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,14 +33,15 @@ public class MapMarkerWidget extends ModWidget {
     private static Text TITLE;
     private List<Text> content;
     private List<MapMarkerWidget> childs = new ArrayList<>();
-    private int minY;
-    public MapMarkerWidget(String name, ButtonWidget.PressAction onPress) {
+    private Rectangle2D borders;
+    public MapMarkerWidget(String name, ButtonWidget.PressAction onPress, Rectangle2D borders) {
         super();
         markerButton = ButtonWidget.builder(Text.of(name), onPress).build();
         type = MapMarkerType.NONE;
         arrowType = MapArrowType.NORMAL;
         isArrow = false;
         isSelected = false;
+        this.borders = borders;
     }
 
     public void setType(MapMarkerType type){
@@ -62,7 +64,7 @@ public class MapMarkerWidget extends ModWidget {
 
     private void computeCentered(MapWidget mapWidget, Vector2d centerUvs){
         if(centerUvs == null) return;
-        UiDirections outOfBoundDirection = mapWidget.isOutsideBounds(centerUvs, type.size.x /2, type.size.y / 2);
+        UiDirections outOfBoundDirection = mapWidget.isOutsideBounds(centerUvs, type.size.x /2, type.size.y / 2, borders);
 
         centerUvs.x -= type.size.x / 2.0;
         centerUvs.y -= type.size.y / 2.0;
@@ -80,10 +82,10 @@ public class MapMarkerWidget extends ModWidget {
         int sizeY = arrowType.size.y;
 
         // Hardcoded, since values are uneven, some randomness can happen
-        int minX = mapWidget.startX - (sizeX / 2) + 1;
-        int minY = mapWidget.startY - (sizeX / 2) + 1;
-        int maxX = mapWidget.startX + mapWidget.uiWidth - sizeX - (sizeX / 4);
-        int maxY = mapWidget.startY + mapWidget.uiHeight - sizeY - (sizeY / 4);
+        int minX = (int) (mapWidget.startX + borders.getX() - (sizeX / 2) + 1);
+        int minY = (int) (mapWidget.startY + borders.getY() - (sizeX / 2) + 1);
+        int maxX = (int) (mapWidget.startX + borders.getX() + borders.getWidth() - sizeX - (sizeX / 4));
+        int maxY = (int) (mapWidget.startY + borders.getY() + borders.getHeight() - sizeY - (sizeY / 4));
 
         runtimeStartCoordinates = new Vector2i(
                 Math.min(maxX, Math.max(minX, (int) starts.x)),

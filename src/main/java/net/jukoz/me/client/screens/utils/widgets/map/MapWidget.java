@@ -17,6 +17,7 @@ import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -425,6 +426,34 @@ public class MapWidget extends ModWidget {
         boolean outOfBoundSouth = uvs.y + offsetY  > startY + getHeight();
         boolean outOfBoundEast = uvs.x + offsetX > startX + getWidth();
         boolean outOfBoundWest = uvs.x - offsetX < startX;
+
+        if(outOfBoundNorth){
+            if(outOfBoundEast)
+                return UiDirections.NORTH_EAST;
+            if(outOfBoundWest)
+                return UiDirections.NORTH_WEST;
+            return UiDirections.NORTH;
+        }
+        if(outOfBoundSouth){
+            if(outOfBoundEast)
+                return UiDirections.SOUTH_EAST;
+            if(outOfBoundWest)
+                return UiDirections.SOUTH_WEST;
+            return UiDirections.SOUTH;
+        }
+        if(outOfBoundEast)
+            return UiDirections.EAST;
+        if(outOfBoundWest)
+            return UiDirections.WEST;
+
+        return UiDirections.NONE;
+    }
+
+    public UiDirections isOutsideBounds(Vector2d uvs, int offsetX, int offsetY, Rectangle2D borders) {
+        boolean outOfBoundNorth = uvs.y - offsetY < startY + borders.getY();
+        boolean outOfBoundSouth = uvs.y + offsetY  > startY + borders.getY() + borders.getHeight();
+        boolean outOfBoundEast = uvs.x + offsetX > startX + borders.getX() + getWidth();
+        boolean outOfBoundWest = uvs.x - offsetX < startX  + borders.getX();
 
         if(outOfBoundNorth){
             if(outOfBoundEast)
