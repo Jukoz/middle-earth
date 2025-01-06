@@ -13,15 +13,9 @@ import net.jukoz.me.event.KeyInputHandler;
 import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicWorldCoordinate;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.ModColors;
-import net.jukoz.me.world.biomes.MEBiomeDataConfigs;
-import net.jukoz.me.world.biomes.MEBiomeKeys;
-import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.jukoz.me.world.biomes.surface.MapBasedCustomBiome;
-import net.jukoz.me.world.biomes.surface.ModBiomeSource;
-import net.jukoz.me.world.biomes.surface.ModBiomes;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.dimension.ModDimensions;
-import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -68,6 +62,7 @@ public class MiddleEarthMapScreen extends Screen {
         super(MAP_TITLE_TEXT);
         backgroundContainerWidget = new BackgroundContainerWidget(BackgroundContainerTypes.FULLSCREEN_MAP);
     }
+
 
 
     @Override
@@ -181,6 +176,7 @@ public class MiddleEarthMapScreen extends Screen {
         startY = (context.getScaledWindowHeight() / 2) - (HEIGHT / 2);
         endY = startY + HEIGHT;
 
+
         context.drawTexture(BACKGROUND_TEXTURE, startX, startY, 0, 0,  WIDTH, HEIGHT);
         mapWidget.drawCentered(context, centerX, startY + MARGIN);
         drawFullscreenToggleButton(context);
@@ -192,12 +188,17 @@ public class MiddleEarthMapScreen extends Screen {
     private void drawPlayer(DrawContext context, AbstractClientPlayerEntity player) {
         if(!ModDimensions.isInMiddleEarth(player.getWorld()))
             return;
-        // TODO : make it a proper map marker, this is temporary
         Vector2d playerRatio = mapWidget.getMapPointFromWorldCoordinate(new Vector2d(player.getPos().getX(), player.getPos().getZ()));
         int margin = (isFullscreen) ? 0 : MARGIN;
-        double x = Math.max(startX + margin, Math.min(endX - 4 - margin, playerRatio.x));
-        double y = Math.max(startY + margin, Math.min(endY - 4 - margin, playerRatio.y));
-        context.drawTexture(MAP_UI_TEXTURE, (int) x, (int) y, 251, 2, 4, 4);
+        double x = Math.max(startX + margin + 4, Math.min(endX - 4 - margin, playerRatio.x));
+        double y = Math.max(startY + margin + 4, Math.min(endY - 4 - margin, playerRatio.y));
+
+
+        // TODO (?) : show the head?
+        //PlayerSkinDrawer.draw(context, player.getSkinTextures(), (int)x, (int)y, 4);
+        //PlayerSkinDrawer.draw(context, minecraft.getSkinProvider().getSkinTexturesSupplier(new GameProfile(UUID.fromString(this.uuid),this.name)).get(),x,y);
+
+        context.drawTexture(MAP_UI_TEXTURE, (int)x- 4, (int) y- 4, 154, 1, 8, 8);
     }
 
     private void drawFullscreenToggleButton(DrawContext context){
