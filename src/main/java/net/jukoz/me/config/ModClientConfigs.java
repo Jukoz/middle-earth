@@ -1,11 +1,16 @@
 package net.jukoz.me.config;
 
+import com.mojang.datafixers.util.Pair;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
 
 public class ModClientConfigs {
     public static SimpleConfig CONFIG;
     private final static String PATH = MiddleEarth.MOD_ID + "/config-client";
+
+    /**Should you see the map overlay button in the middle-earth map gui**/
+    public static boolean ENABLE_MAP_OVERLAY;
+
     private static ModConfigProvider configs;
 
     public static void registerConfigs() {
@@ -19,10 +24,14 @@ public class ModClientConfigs {
         configs.addSection("Client Configs");
         configs.addComment("This file stores client configuration options for the Middle-earth mod.");
         configs.addLineJump();
-        configs.addComment("We do not have any client side configuration available.");
+        configs.addComment("GUI configurations");
+        configs.addDescription("Should you see the map overlay button in the middle-earth map gui?");
+        configs.addKeyValuePair(new Pair<>("enable_map_overlay", false), "boolean");
+        configs.addLineJump();
     }
 
     private static void assignClientConfigs() {
+        ENABLE_MAP_OVERLAY = CONFIG.getOrDefault("enable_map_overlay", false);
         LoggerUtil.logDebugMsg("All client configs (" + configs.getConfigsList().size() + ") have been set properly");
     }
 }
