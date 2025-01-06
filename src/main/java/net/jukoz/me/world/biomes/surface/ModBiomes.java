@@ -157,9 +157,9 @@ public class ModBiomes {
         createMirkwoodBiome(context, MEBiomeKeys.MIRKWOOD, true, false);
         createMirkwoodBiome(context, MEBiomeKeys.MIRKWOOD_EDGE, false, false);
         createMirkwoodBiome(context, MEBiomeKeys.MIRKWOOD_FOOTHILLS, true, false);
-        createMirkwoodBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS_BASE, true, false);
-        createMirkwoodBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS, false, false);
-        createMirkwoodMountainsBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS_PEAKS, false);
+        createMirkwoodMountainsBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS_BASE, 0);
+        createMirkwoodMountainsBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS, 1);
+        createMirkwoodMountainsBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS_PEAKS, 2);
         createMirkwoodSwampBiome(context, MEBiomeKeys.MIRKWOOD_SWAMP);
         createMirkwoodSwampBiome(context, MEBiomeKeys.MIRKWOOD_MARSHES);
         createMirkwoodSwampBiome(context, MEBiomeKeys.MIRKWOOD_RIVER);
@@ -1744,30 +1744,39 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
-    public static void createWebbedMirkwoodBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, boolean dark) {
+    public static void createMirkwoodMountainsBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addWolves(spawnSettings);
-
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
-        addMirkwoodVegetation(generationSettings);
-        ModBiomeFeatures.addMirkwoodRoots(vegetation);
-        ModBiomeFeatures.addDeadHeather(vegetation);
-        ModBiomeFeatures.addMudOre(vegetation);
-        ModBiomeFeatures.addRareMorsel(vegetation);
-        ModBiomeFeatures.addRareWhiteMushroom(vegetation);
-        ModBiomeFeatures.addCobwebs(vegetation);
-        ModBiomeFeatures.addSpiderEggs(vegetation);
+        float temperature = 0.3f;
 
-        addMegaMirkwoodTrees(generationSettings);
-        ModBiomeFeatures.addSmallMirkwoodTrees(vegetation);
-        ModBiomeFeatures.addCorruptedMoss(vegetation);
-        if(!dark) {
-            ModBiomeFeatures.addForestMoss(vegetation);
-            ModBiomeFeatures.addForestBlockMoss(vegetation);
+        if(step == 0) {
+            ModSpawnSettingsBuilder.addWolves(spawnSettings);
+            addMirkwoodVegetation(generationSettings);
+            ModBiomeFeatures.addMirkwoodRoots(vegetation);
+            ModBiomeFeatures.addMudOre(vegetation);
+            ModBiomeFeatures.addRareMorsel(vegetation);
+            ModBiomeFeatures.addRareWhiteMushroom(vegetation);
+            ModBiomeFeatures.addDeadHeather(vegetation);
+            addMegaMirkwoodTrees(generationSettings);
+            ModBiomeFeatures.addSmallMirkwoodTrees(vegetation);
+            ModBiomeFeatures.addCorruptedMoss(vegetation);
+        } else if (step == 1) {
+            addMirkwoodVegetation(generationSettings);
+            ModBiomeFeatures.addMirkwoodRoots(vegetation);
+            ModBiomeFeatures.addMudOre(vegetation);
+            ModBiomeFeatures.addBracken(vegetation);
+            ModBiomeFeatures.addCommonOakBush(vegetation);
+        } else if (step == 2) {
+            ModBiomeFeatures.addFrozenGrass(vegetation);
+            ModBiomeFeatures.addFrozenShrub(vegetation);
+            temperature = 0.0f;
+            ModBiomeFeatures.addGraniteOre(vegetation);
+            ModBiomeFeatures.addDripstoneOre(vegetation);
+            ModBiomeFeatures.addTuffOre(vegetation);
         }
 
-        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, temperature, true);
     }
 
     public static void createMirkwoodMountainsBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, boolean foothill) {
@@ -1794,6 +1803,32 @@ public class ModBiomes {
         }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, temperature, true);
+    }
+
+    public static void createWebbedMirkwoodBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, boolean dark) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addWolves(spawnSettings);
+
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addMirkwoodVegetation(generationSettings);
+        ModBiomeFeatures.addMirkwoodRoots(vegetation);
+        ModBiomeFeatures.addDeadHeather(vegetation);
+        ModBiomeFeatures.addMudOre(vegetation);
+        ModBiomeFeatures.addRareMorsel(vegetation);
+        ModBiomeFeatures.addRareWhiteMushroom(vegetation);
+        ModBiomeFeatures.addCobwebs(vegetation);
+        ModBiomeFeatures.addSpiderEggs(vegetation);
+
+        addMegaMirkwoodTrees(generationSettings);
+        ModBiomeFeatures.addSmallMirkwoodTrees(vegetation);
+        ModBiomeFeatures.addCorruptedMoss(vegetation);
+        if(!dark) {
+            ModBiomeFeatures.addForestMoss(vegetation);
+            ModBiomeFeatures.addForestBlockMoss(vegetation);
+        }
+
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
     public static void createMirkwoodSwampBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {

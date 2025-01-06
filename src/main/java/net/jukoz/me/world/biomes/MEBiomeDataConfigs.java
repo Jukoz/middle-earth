@@ -61,7 +61,6 @@ public class MEBiomeDataConfigs {
             .addSlopeData(45, Blocks.STONE)
             .addSlopeData(56, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.SMOOTH_BASALT);
-
     public static SlopeMap greyMountainPeaks = new SlopeMap().addSlopeData(32, Blocks.SNOW_BLOCK)
             .addSlopeData(41, StoneBlockSets.SCHIST.base())
             .addSlopeData(47, Blocks.STONE)
@@ -79,12 +78,22 @@ public class MEBiomeDataConfigs {
             .addSlopeData(56, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.SMOOTH_BASALT);
 
+    public static SlopeMap mirkwoodMountains = new SlopeMap().addSlopeData(28, Blocks.GRASS_BLOCK)
+            .addSlopeData(32, Blocks.COARSE_DIRT)
+            .addSlopeData(45, Blocks.STONE)
+            .addSlopeData(54, StoneBlockSets.LIMESTONE.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.GALONN.base());
+    public static SlopeMap mirkwoodMountainPeaks = new SlopeMap().addSlopeData(32, Blocks.SNOW_BLOCK)
+            .addSlopeData(41, StoneBlockSets.SCHIST.base())
+            .addSlopeData(47, Blocks.STONE)
+            .addSlopeData(54, StoneBlockSets.LIMESTONE.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.GALONN.base());
+
     public static SlopeMap lonelyMountain = new SlopeMap().addSlopeData(33, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
             .addSlopeData(44, Blocks.STONE)
             .addSlopeData(56, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.DEEPSLATE);
-
     public static SlopeMap lonelyMountainPeak = new SlopeMap().addSlopeData(24, Blocks.SNOW_BLOCK)
             .addSlopeData(36, StoneBlockSets.SCHIST.base())
             .addSlopeData(48, Blocks.STONE)

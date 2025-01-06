@@ -113,7 +113,7 @@ public class ModBiomeSource extends BiomeSource {
                 processedBiome = MEBiomeKeys.MITHRIL_CAVE;
             } else if(biome.getBiomeRegistryKey() == MapBasedBiomePool.deadMarshes.getBiomeKey() || biome.getBiomeRegistryKey() == MapBasedBiomePool.deadMarshesWater.getBiomeKey()) {
                 height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthChunkGenerator.getMarshesHeight(i, k, height);
-                if(j < (height - 16)) processedBiome = getCaveBiome(i, k, biome);
+                if(j < (height - 20)) processedBiome = getCaveBiome(i, k, biome);
                 else if(height < MiddleEarthChunkGenerator.WATER_HEIGHT) processedBiome = MapBasedBiomePool.deadMarshesWater.getBiomeKey();
                 else processedBiome = MapBasedBiomePool.deadMarshes.getBiomeKey();
             } else if(height <= biomeHeightData.getWaterHeight() + 1.25f) { // TODO : This is really rough, need to be more dynamic
