@@ -1161,10 +1161,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .pattern("NIN")
                 .input('N', ModResourceItems.BRONZE_NUGGET)
                 .input('I', ModResourceItems.BRONZE_INGOT)
-                .input('L', Items.GLOWSTONE)
-                .input('G', Items.GLASS)
-                .criterion(FabricRecipeProvider.hasItem(Items.GLOWSTONE),
-                        FabricRecipeProvider.conditionsFromItem(Items.GLOWSTONE))
+                .input('L', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
+                .input('G', ModResourceItems.QUARTZ_SHARD)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.QUARTZ_SHARD),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.QUARTZ_SHARD))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeItems.SCONCE, 4)
