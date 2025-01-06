@@ -1768,6 +1768,8 @@ public class ModBiomes {
             ModBiomeFeatures.addBracken(vegetation);
             ModBiomeFeatures.addCommonOakBush(vegetation);
         } else if (step == 2) {
+            ModBiomeFeatures.addSnowOre(vegetation);
+            ModBiomeFeatures.addStickySnow(vegetation);
             ModBiomeFeatures.addFrozenGrass(vegetation);
             ModBiomeFeatures.addFrozenShrub(vegetation);
             temperature = 0.0f;

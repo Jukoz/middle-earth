@@ -78,8 +78,8 @@ public class MEBiomeDataConfigs {
             .addSlopeData(56, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.SMOOTH_BASALT);
 
-    public static SlopeMap mirkwoodMountains = new SlopeMap().addSlopeData(28, Blocks.GRASS_BLOCK)
-            .addSlopeData(32, Blocks.COARSE_DIRT)
+    public static SlopeMap mirkwoodMountains = new SlopeMap().addSlopeData(29, Blocks.GRASS_BLOCK)
+            .addSlopeData(33, Blocks.COARSE_DIRT)
             .addSlopeData(45, Blocks.STONE)
             .addSlopeData(54, StoneBlockSets.LIMESTONE.base())
             .addSlopeData(MAX_ANGLE, StoneBlockSets.GALONN.base());
@@ -265,8 +265,8 @@ public class MEBiomeDataConfigs {
     public static BlocksLayeringData gonluinLayers = new BlocksLayeringData().addLayerData(0.5f, Blocks.STONE)
             .addLayerData(0.5f, StoneBlockSets.GONLUIN.base());
 
-    public static BlocksLayeringData limeStoneLayers = new BlocksLayeringData().addLayerData(0.5f, Blocks.STONE)
-            .addLayerData(0.5f, StoneBlockSets.LIMESTONE.base());
+    public static BlocksLayeringData limeStoneLayers = new BlocksLayeringData().addLayerData(0.37f, Blocks.STONE)
+            .addLayerData(0.63f, StoneBlockSets.LIMESTONE.base());
 
     public static BlocksLayeringData sandstoneLayers = new BlocksLayeringData().addLayerData(0.9f, Blocks.STONE)
             .addLayerData(0.1f, Blocks.SANDSTONE);

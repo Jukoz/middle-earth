@@ -219,10 +219,10 @@ public class MapBasedBiomePool {
         add(new Color(0x0a360f), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD, 8, MEBiomeDataConfigs.mirkwoodModifier));
         add(new Color(0x123B16), new MapBasedCustomBiome(MEBiomeKeys.WEBBED_DARK_WOODS, 8, MEBiomeDataConfigs.mirkwoodModifier));
         add(new Color(0x124918), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_EDGE, 5, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x2e5332), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_FOOTHILLS, 32, MEBiomeDataConfigs.foothillModifier.heightModifier(0.28f)));
-        add(new Color(0x4c554d), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_MOUNTAINS_BASE, 56, MEBiomeDataConfigs.mountainModifier));
-        add(new Color(0x5a655b), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_MOUNTAINS,80,  MEBiomeDataConfigs.mountainModifier));
-        add(new Color(0x6c7a6e), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_MOUNTAINS_PEAKS, 120, MEBiomeDataConfigs.mountainModifier));
+        add(new Color(0x2e5332), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_FOOTHILLS, 25, MEBiomeDataConfigs.foothillModifier.noiseModifier(1.13f).heightModifier(0.28f)));
+        add(new Color(0x4c554d), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_MOUNTAINS_BASE, 48, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.97f).heightModifier(0.41f)));
+        add(new Color(0x5a655b), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_MOUNTAINS,77,  MEBiomeDataConfigs.mountainModifier.heightModifier(0.52f)));
+        add(new Color(0x6c7a6e), new MapBasedCustomBiome(MEBiomeKeys.MIRKWOOD_MOUNTAINS_PEAKS, 89, MEBiomeDataConfigs.mountainModifier.heightModifier(0.69f)));
         add(new Color(0x81837d), new MapBasedCustomBiome(MEBiomeKeys.MISTY_MOUNTAINS_BASE, 37, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
         add(new Color(0x797979), new MapBasedCustomBiome(MEBiomeKeys.MISTY_MOUNTAINS, 70, MEBiomeDataConfigs.mountainModifier.heightModifier(0.34f)));
         add(new Color(0x6e6e6e), new MapBasedCustomBiome(MEBiomeKeys.MISTY_MOUNTAINS_PEAKS, 90, MEBiomeDataConfigs.mountainModifier.heightModifier(0.39f)));
