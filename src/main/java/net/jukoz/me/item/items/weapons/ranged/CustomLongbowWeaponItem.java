@@ -62,7 +62,7 @@ public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentToolt
                     if (world instanceof ServerWorld) {
                         ServerWorld serverWorld = (ServerWorld)world;
                         if (!list.isEmpty()) {
-                            this.shootAll(serverWorld, playerEntity, playerEntity.getActiveHand(), stack, list, f * 6.0F, 1.0F, f == 1.0F, (LivingEntity)null);
+                            this.shootAll(serverWorld, playerEntity, playerEntity.getActiveHand(), stack, list, f * 5.0F, 1.0F, f == 1.0F, (LivingEntity)null);
                         }
                     }
 
