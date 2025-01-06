@@ -73,7 +73,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createWallsRecipe(exporter, record.base(), record.wall());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.base(), 1);
 
-            createTrapdoorRecipe(exporter, record.base(), record.trapdoor());
+            createFilledRecipe(exporter, record.base().asItem(), record.trapdoor(), 3);
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.trapdoor(), record.base());
 
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.rocks(), record.base(), 4);
 
@@ -406,7 +407,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         }
 
         for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.vanillaStoneTrapdoors) {
-            createTrapdoorRecipe(exporter, trapdoor.block(), trapdoor.trapdoor());
+            createFilledRecipe(exporter, trapdoor.block().asItem(), trapdoor.trapdoor(),3);
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, trapdoor.trapdoor(), trapdoor.block());
         }
 
         for (SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools) {
