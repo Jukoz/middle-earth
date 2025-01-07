@@ -23,9 +23,11 @@ import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.datas.DispositionUtil;
 import net.jukoz.me.resources.datas.RaceType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.resources.datas.factions.FactionUtil;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.NpcUtil;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
@@ -38,6 +40,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,6 +48,7 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
@@ -267,6 +271,36 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     @Override
     protected void applyDamage(DamageSource source, float amount) {
         super.applyDamage(source, amount);
+    }
+
+
+    @Override
+    protected void dropXp(@Nullable Entity attacker) {
+        if(attacker instanceof PlayerEntity player){
+            Disposition playerDisposition = DispositionUtil.getDisposition(player);
+            if(playerDisposition != null && playerDisposition == getDisposition()) {
+                return;
+            }
+        }
+        super.dropXp(attacker);
+    }
+
+    @Override
+    protected void dropLoot(DamageSource damageSource, boolean causedByPlayer) {
+        if(causedByPlayer){
+            if(damageSource.getAttacker() instanceof PlayerEntity player){
+                Disposition playerDisposition = DispositionUtil.getDisposition(player);
+                if(playerDisposition != null && playerDisposition == getDisposition()) {
+                    return;
+                }
+            }
+        }
+        super.dropLoot(damageSource, causedByPlayer);
+    }
+
+    @Override
+    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
+        return;
     }
 
     protected void tryToEquipGears(NpcRank npcRank, Identifier raceId, Identifier factionId) {
