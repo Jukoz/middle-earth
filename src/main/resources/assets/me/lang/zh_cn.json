@@ -7717,6 +7717,8 @@
   "#Comment": "按键绑定",
   "key.category.me.me": "中洲",
   "key.me.hood_state_toggle": "切换兜帽状态",
+  "key.me.map_teleport": "在地图界面中传送",
+  "key.me.map_fullscreen_toggle": "切换地图全屏显示",
 
   "#Comment": "模组联动-模组菜单",
   "modmenu.nameTranslation.me": "中洲",
