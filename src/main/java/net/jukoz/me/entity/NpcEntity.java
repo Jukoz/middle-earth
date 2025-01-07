@@ -276,6 +276,8 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
             Faction faction = FactionLookup.getFactionById(getWorld(), factionId);
             Race race = RaceLookup.getRace(getWorld(), raceId);
             NpcData data = faction.getRandomGear(getWorld(), npcRank, race);
+            if(data == null)
+                return;
             NpcGearData gearData = data.getGear();
             NpcUtil.equipAll(this, gearData);
         } catch (FactionIdentifierException e) {
