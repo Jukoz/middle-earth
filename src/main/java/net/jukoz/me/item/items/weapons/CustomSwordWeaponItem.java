@@ -77,6 +77,7 @@ public class CustomSwordWeaponItem extends SwordItem implements MEEquipmentToolt
         if(Registries.ITEM.getId(this).getPath().contains("_noble")
                 || Registries.ITEM.getId(this).getPath().contains("_elite")
                 || Registries.ITEM.getId(this).getPath().contains("uruk_hai")
+                || Registries.ITEM.getId(this).getPath().contains("heyday")
                 || Registries.ITEM.getId(this).getPath().contains("numenorean")){
             return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
         }
