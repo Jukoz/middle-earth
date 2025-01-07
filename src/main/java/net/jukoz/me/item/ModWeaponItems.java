@@ -2,6 +2,9 @@ package net.jukoz.me.item;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.datageneration.content.models.*;
+import net.jukoz.me.datageneration.content.tags.Bows;
+import net.jukoz.me.datageneration.content.tags.Crossbows;
+import net.jukoz.me.datageneration.content.tags.Swords;
 import net.jukoz.me.item.items.HeldBannerItem;
 import net.jukoz.me.item.items.shields.ArtefactCustomShieldItem;
 import net.jukoz.me.item.items.shields.CustomBannerShieldItem;
@@ -621,6 +624,7 @@ public class ModWeaponItems {
         } else {
             SimpleHandheldItemModel.items.add(item);
         }
+        Swords.swords.add(item);
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
@@ -632,6 +636,7 @@ public class ModWeaponItems {
     private static Item registerItemWithSpearModel(String name, Item item) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleSpearModel.items.add(item);
+        Swords.swords.add(item);
 
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
@@ -639,18 +644,24 @@ public class ModWeaponItems {
     private static Item registerBowItem(String name, Item item) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBowItemModel.items.add(item);
+        Bows.bows.add(item);
+
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerBigBowItem(String name, Item item) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBigItemModel.bigBows.add(item);
+        Bows.bows.add(item);
+
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerCrossbowItem(String name, Item item) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleCrossbowItemModel.items.add(item);
+        Crossbows.crossbows.add(item);
+
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
@@ -661,6 +672,8 @@ public class ModWeaponItems {
             SimpleBigItemModel.artefacts.add(item);
         }
         SimpleBigItemModel.artefactsGlowing.add(item);
+        Swords.swords.add(item);
+
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
@@ -670,6 +683,8 @@ public class ModWeaponItems {
         if (isDualModel){
             SimpleBigItemModel.artefacts.add(item);
         }
+        Swords.swords.add(item);
+
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
