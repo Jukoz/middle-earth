@@ -8,9 +8,12 @@ import net.jukoz.me.client.screens.utils.widgets.ModWidget;
 import net.jukoz.me.client.screens.utils.widgets.backgrounds.BackgroundContainerWidget;
 import net.jukoz.me.client.screens.utils.widgets.backgrounds.types.BackgroundContainerTypes;
 import net.jukoz.me.client.screens.utils.widgets.map.FullscreenToggeableMapWidget;
+import net.jukoz.me.config.ModClientConfigs;
+import net.jukoz.me.event.KeyInputHandler;
 import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicWorldCoordinate;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.ModColors;
+import net.jukoz.me.world.biomes.surface.MapBasedCustomBiome;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;
@@ -41,22 +44,25 @@ public class MiddleEarthMapScreen extends Screen {
     private static final int WIDTH = 208;
     private static final int HEIGHT = 208;
     public static final int MARGIN = 5;
-    private boolean isFullscreen = false;
+    private static boolean isFullscreen = false;
 
-    private int startX = 0;
-    private int endX = 0;
-    private int startY = 0;
-    private int endY = 0;
+    private static int startX = 0;
+    private static int endX = 0;
+    private static int startY = 0;
+    private static int endY = 0;
 
     private ButtonWidget fullscreenButton;
+    private ButtonWidget overlayToggleButton;
     private ButtonWidget zoomInButton;
     private ButtonWidget zoomOutButton;
 
+    private int mouseX, mouseY;
     AbstractClientPlayerEntity player;
     public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
         backgroundContainerWidget = new BackgroundContainerWidget(BackgroundContainerTypes.FULLSCREEN_MAP);
     }
+
 
 
     @Override
@@ -77,6 +83,14 @@ public class MiddleEarthMapScreen extends Screen {
         fullscreenButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
         addDrawableChild(fullscreenButton);
 
+        overlayToggleButton = ButtonWidget.builder(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.button.map_overlay_toggle"), x -> {
+            mapWidget.setOverlayState(!mapWidget.isOverlayEnabled());
+        }).build();
+        overlayToggleButton.active = ModClientConfigs.ENABLE_MAP_OVERLAY;
+        mapWidget.setOverlayState(overlayToggleButton.active);
+        overlayToggleButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
+        addDrawableChild(overlayToggleButton);
+
         // Zoom in button register
         zoomInButton = ButtonWidget.builder(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.button.zoom_in"), x -> {
             mapWidget.zoomClick();
@@ -90,6 +104,7 @@ public class MiddleEarthMapScreen extends Screen {
         }).build();
         zoomOutButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
         addDrawableChild(zoomOutButton);
+
     }
 
     @Override
@@ -99,6 +114,8 @@ public class MiddleEarthMapScreen extends Screen {
         } else {
             renderNormal(context);
         }
+        this.mouseX = mouseX;
+        this.mouseY = mouseY;
         showCursorInformationTooltip(context, mouseX, mouseY);
     }
 
@@ -112,8 +129,12 @@ public class MiddleEarthMapScreen extends Screen {
                 double z = Math.round((mapRatio.y * MiddleEarthMapConfigs.FULL_MAP_SIZE) * 10) / 10.0;
                 texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.coordinates_label").formatted(Formatting.GRAY)
                         .append(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.coordinates_content", x, z).formatted(Formatting.WHITE)));
+
+                MapBasedCustomBiome biome = mapWidget.getBiomeAt((int) (mapRatio.x * MiddleEarthMapConfigs.REGION_SIZE), (int) (mapRatio.y * MiddleEarthMapConfigs.REGION_SIZE));
+                texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.biome_label").formatted(Formatting.GRAY)
+                        .append(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.biome_content", Text.translatable(biome.getBiome().getBiomeRegistryKey().getValue().toTranslationKey("biome"))).formatted(Formatting.WHITE)));
                 if(player.hasPermissionLevel(2)){
-                    texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.teleport_keybind").formatted(Formatting.ITALIC).withColor(ModColors.PENDING.color));
+                    texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.teleport_keybind", KeyInputHandler.mapTeleportKey.getBoundKeyLocalizedText().getString()).formatted(Formatting.ITALIC).withColor(ModColors.PENDING.color));
                 }
                 context.drawTooltip(textRenderer, texts, mouseX, mouseY);
             }
@@ -143,6 +164,7 @@ public class MiddleEarthMapScreen extends Screen {
 
         mapWidget.drawFullscreen(context, MARGIN);
         drawFullscreenToggleButton(context);
+        drawMapOverlayToggleButton(context);
         drawZoomButtons(context);
         drawPlayer(context, player);
     }
@@ -154,9 +176,11 @@ public class MiddleEarthMapScreen extends Screen {
         startY = (context.getScaledWindowHeight() / 2) - (HEIGHT / 2);
         endY = startY + HEIGHT;
 
+
         context.drawTexture(BACKGROUND_TEXTURE, startX, startY, 0, 0,  WIDTH, HEIGHT);
         mapWidget.drawCentered(context, centerX, startY + MARGIN);
         drawFullscreenToggleButton(context);
+        drawMapOverlayToggleButton(context);
         drawZoomButtons(context);
         drawPlayer(context, player);
     }
@@ -164,12 +188,17 @@ public class MiddleEarthMapScreen extends Screen {
     private void drawPlayer(DrawContext context, AbstractClientPlayerEntity player) {
         if(!ModDimensions.isInMiddleEarth(player.getWorld()))
             return;
-        // TODO : make it a proper map marker, this is temporary
         Vector2d playerRatio = mapWidget.getMapPointFromWorldCoordinate(new Vector2d(player.getPos().getX(), player.getPos().getZ()));
         int margin = (isFullscreen) ? 0 : MARGIN;
-        double x = Math.max(startX + margin, Math.min(endX - 4 - margin, playerRatio.x));
-        double y = Math.max(startY + margin, Math.min(endY - 4 - margin, playerRatio.y));
-        context.drawTexture(MAP_UI_TEXTURE, (int) x, (int) y, 251, 2, 4, 4);
+        double x = Math.max(startX + margin + 4, Math.min(endX - 4 - ((isFullscreen) ? NORMAL_BUTTON_SIZE.x : MARGIN), playerRatio.x));
+        double y = Math.max(startY + margin + 4, Math.min(endY - 4 - margin, playerRatio.y));
+
+
+        // TODO (?) : show the head?
+        //PlayerSkinDrawer.draw(context, player.getSkinTextures(), (int)x, (int)y, 4);
+        //PlayerSkinDrawer.draw(context, minecraft.getSkinProvider().getSkinTexturesSupplier(new GameProfile(UUID.fromString(this.uuid),this.name)).get(),x,y);
+
+        context.drawTexture(MAP_UI_TEXTURE, (int)x- 4, (int) y- 4, 154, 1, 8, 8);
     }
 
     private void drawFullscreenToggleButton(DrawContext context){
@@ -185,6 +214,17 @@ public class MiddleEarthMapScreen extends Screen {
             fullscreenButton.setPosition(endX, startY);
             context.drawTexture(MAP_UI_TEXTURE, endX, startY, 18, fullscreenToggleButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
         }
+    }
+
+    private void drawMapOverlayToggleButton(DrawContext context){
+        int overlayToggleButtonUvY = (overlayToggleButton.isHovered() || overlayToggleButton.isFocused()) ? 69 : 52;
+        if(!overlayToggleButton.active)
+            overlayToggleButtonUvY = 86;
+
+        int x = fullscreenButton.getX();
+        int y = fullscreenButton.getY() + NORMAL_BUTTON_SIZE.y;
+        overlayToggleButton.setPosition(x, y);
+        context.drawTexture(MAP_UI_TEXTURE, x, y, 1, overlayToggleButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
     }
 
     private void drawZoomButtons(DrawContext context){
@@ -223,6 +263,12 @@ public class MiddleEarthMapScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if(KeyInputHandler.mapTeleportKey.matchesKey(keyCode, modifiers)){
+            teleportToCursor(mouseX, mouseY);
+        }
+        if(KeyInputHandler.mapFullscreenToggle.matchesKey(keyCode, modifiers)){
+            isFullscreen = !isFullscreen;
+        }
         if(keyCode == KeyEvent.VK_CODE_INPUT && !ModWidget.getFocusEnabled()){
             ModWidget.enableFocus(true);
             return true;
@@ -233,8 +279,11 @@ public class MiddleEarthMapScreen extends Screen {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         mapWidget.mouseClicked(mouseX, mouseY, button);
-        if(button == 1){
+        if(KeyInputHandler.mapTeleportKey.matchesMouse(button)){
             teleportToCursor(mouseX, mouseY);
+        }
+        if(KeyInputHandler.mapFullscreenToggle.matchesMouse(button)){
+            isFullscreen = !isFullscreen;
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }

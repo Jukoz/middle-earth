@@ -7,6 +7,7 @@ import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.item.BowItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.item.tooltip.TooltipType;
@@ -19,24 +20,27 @@ import java.util.function.Predicate;
 public class CustomBowWeaponItem extends BowItem implements MEEquipmentTooltip {
     private final ModFactions faction;
     private final ModSubFactions subFaction;
-    public ModRangedWeaponTypes type = ModRangedWeaponTypes.BOW;
+    public ModRangedWeaponTypes type;
 
-    public CustomBowWeaponItem(Settings settings) {
-        super(settings);
+    public CustomBowWeaponItem(ModRangedWeaponTypes type) {
+        super(new Item.Settings().maxDamage(type.durability));
         this.faction = null;
         this.subFaction = null;
+        this.type = type;
     }
 
-    public CustomBowWeaponItem(ModFactions faction, Settings settings) {
-        super(settings);
+    public CustomBowWeaponItem(ModFactions faction, ModRangedWeaponTypes type) {
+        super(new Item.Settings().maxDamage(type.durability));
         this.faction = faction;
         this.subFaction = null;
+        this.type = type;
     }
 
-    public CustomBowWeaponItem(ModSubFactions subFaction, Settings settings) {
-        super(settings);
+    public CustomBowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type) {
+        super(new Item.Settings().maxDamage(type.durability));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
+        this.type = type;
     }
 
     public Predicate<ItemStack> getProjectiles() {

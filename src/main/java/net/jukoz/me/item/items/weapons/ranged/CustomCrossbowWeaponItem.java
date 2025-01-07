@@ -7,6 +7,7 @@ import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.CrossbowItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
@@ -18,24 +19,27 @@ import java.util.function.Predicate;
 public class CustomCrossbowWeaponItem extends CrossbowItem implements MEEquipmentTooltip {
     private final ModFactions faction;
     private final ModSubFactions subFaction;
-    public ModRangedWeaponTypes type = ModRangedWeaponTypes.CROSSBOW;
+    public ModRangedWeaponTypes type;
 
-    public CustomCrossbowWeaponItem(Settings settings) {
-        super(settings);
+    public CustomCrossbowWeaponItem(ModRangedWeaponTypes type) {
+        super(new Item.Settings().maxDamage(type.durability));
         this.faction = null;
         this.subFaction = null;
+        this.type = type;
     }
 
-    public CustomCrossbowWeaponItem(ModFactions faction, Settings settings) {
-        super(settings);
+    public CustomCrossbowWeaponItem(ModFactions faction, ModRangedWeaponTypes type) {
+        super(new Item.Settings().maxDamage(type.durability));
         this.faction = faction;
         this.subFaction = null;
+        this.type = type;
     }
 
-    public CustomCrossbowWeaponItem(ModSubFactions subFaction, Settings settings) {
-        super(settings);
+    public CustomCrossbowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type) {
+        super(new Item.Settings().maxDamage(type.durability));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
+        this.type = type;
     }
 
     public Predicate<ItemStack> getHeldProjectiles() {
