@@ -1,13 +1,25 @@
 package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.screens.MiddleEarthMapScreen;
 import net.jukoz.me.client.screens.utils.widgets.ModWidget;
 import net.jukoz.me.client.screens.utils.widgets.UiDirections;
+import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.utils.resources.FileUtils;
+import net.jukoz.me.world.biomes.surface.BiomeData;
+import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
+import net.jukoz.me.world.biomes.surface.MapBasedCustomBiome;
+import net.jukoz.me.world.chunkgen.map.ImageUtils;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class MapWidget extends ModWidget {
     protected final static double MAP_TO_WORLD_RATIO = (double) MiddleEarthMapConfigs.REGION_SIZE / MiddleEarthMapConfigs.FULL_MAP_SIZE;
@@ -28,6 +40,10 @@ public class MapWidget extends ModWidget {
     private Vector2d nextUvs = null;
     private float cooldown = 0;
 
+    protected boolean isOverlayEnabled = false;
+
+    BufferedImage mapImage;
+
     public MapWidget(int mapWidth, int mapHeight) {
         this.uiWidth = mapWidth;
         this.uiHeight = mapHeight;
@@ -38,6 +54,11 @@ public class MapWidget extends ModWidget {
         zoomTarget = zoomLevel;
         if(currentPointRatio == null)
             currentPointRatio = new Vector2d(.5, .5);
+        try{
+            mapImage = ImageUtils.fetchResourceImage(FileUtils.getInstance().getClassLoader(), MiddleEarthMapConfigs.INITIAL_IMAGE);
+        } catch (IOException e) {
+            LoggerUtil.logDebugMsg("MapWidget::Couldn't find %s".formatted(MiddleEarthMapConfigs.INITIAL_IMAGE));
+        }
 
         if(uvX == null || uvY == null){
             uvX = 0.0;
@@ -61,7 +82,16 @@ public class MapWidget extends ModWidget {
     protected Identifier getMapTexture(){
         return Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
     }
+    protected Identifier getOverlayMapTexture(){
+        return Identifier.of(MiddleEarth.MOD_ID,"textures/map_overlay.png");
+    }
+    public void setOverlayState(boolean state){
+        isOverlayEnabled = state;
+    }
 
+    public boolean isOverlayEnabled(){
+        return isOverlayEnabled;
+    }
 
     public boolean haveForcedMapTarget(){
         return isForcingTargetMovement;
@@ -110,11 +140,26 @@ public class MapWidget extends ModWidget {
           computeForcedMovement();
         }
         drawMapTexture(context, startX, startY);
+        if(isOverlayEnabled){
+            drawOverlayMapTexture(context, startX, startY);
+        }
     }
 
     protected void drawMapTexture(DrawContext context, int startX, int startY) {
         int size = Math.max(getCurrentWidth(), getCurrentHeight());
+
         context.drawTexture(getMapTexture(),
+                startX, startY,
+                uvX.floatValue(), uvY.floatValue(),
+                getWidth(), getHeight(),
+                size, size
+        );
+    }
+
+    protected void drawOverlayMapTexture(DrawContext context, int startX, int startY) {
+        int size = Math.max(getCurrentWidth(), getCurrentHeight());
+
+        context.drawTexture(getOverlayMapTexture(),
                 startX, startY,
                 uvX.floatValue(), uvY.floatValue(),
                 getWidth(), getHeight(),
@@ -402,5 +447,44 @@ public class MapWidget extends ModWidget {
             return UiDirections.WEST;
 
         return UiDirections.NONE;
+    }
+
+    public UiDirections isOutsideBounds(Vector2d uvs, int offsetX, int offsetY, Rectangle2D borders) {
+        boolean outOfBoundNorth = uvs.y - offsetY < startY + borders.getY();
+        boolean outOfBoundSouth = uvs.y + offsetY  > startY + borders.getY() + borders.getHeight();
+        boolean outOfBoundEast = uvs.x + offsetX > startX + borders.getX() + getWidth();
+        boolean outOfBoundWest = uvs.x - offsetX < startX  + borders.getX();
+
+        if(outOfBoundNorth){
+            if(outOfBoundEast)
+                return UiDirections.NORTH_EAST;
+            if(outOfBoundWest)
+                return UiDirections.NORTH_WEST;
+            return UiDirections.NORTH;
+        }
+        if(outOfBoundSouth){
+            if(outOfBoundEast)
+                return UiDirections.SOUTH_EAST;
+            if(outOfBoundWest)
+                return UiDirections.SOUTH_WEST;
+            return UiDirections.SOUTH;
+        }
+        if(outOfBoundEast)
+            return UiDirections.EAST;
+        if(outOfBoundWest)
+            return UiDirections.WEST;
+
+        return UiDirections.NONE;
+    }
+
+    public MapBasedCustomBiome getBiomeAt(int x, int y) {
+        try{
+            MapBasedCustomBiome biome = MapBasedBiomePool.getBiomeByColor(mapImage.getRGB(x, y));
+            if(biome == null)
+                return MapBasedBiomePool.defaultBiome;
+            else return biome;
+        } catch (Exception e) {
+            return MapBasedBiomePool.defaultBiome;
+        }
     }
 }

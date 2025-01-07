@@ -5,28 +5,28 @@ import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 public class FullscreenToggeableMapWidget extends MapWidget{
-    private Vector2i fullscreenSize;
+    private static Vector2i fullscreenSize;
     public FullscreenToggeableMapWidget(int mapWidth, int mapHeight) {
         super(mapWidth, mapHeight);
     }
     public void drawFullscreen(DrawContext context, int sideMargins) {
         Vector2i newFullscreenSize = new Vector2i((context.getScaledWindowWidth() - (sideMargins * 2)), (context.getScaledWindowHeight()  - (sideMargins * 2)));
-        if(this.fullscreenSize == null){
+        if(fullscreenSize == null){
             setNewFullscreenState(newFullscreenSize);
         } else {
-            this.fullscreenSize = newFullscreenSize;
+            fullscreenSize = newFullscreenSize;
         }
         super.draw(context, sideMargins, sideMargins);
     }
     public void drawCentered(DrawContext context, int centerX, int startY) {
-        if(this.fullscreenSize != null){
+        if(fullscreenSize != null){
             setNewFullscreenState(null);
         }
         super.drawCentered(context, centerX, startY);
     }
     private void setNewFullscreenState(Vector2i newSize) {
         Vector2d mapCenter = getCurrentMapCenterRatio();
-        this.fullscreenSize = newSize;
+        fullscreenSize = newSize;
         this.uiCurrentWidth = getWidth() * zoomLevel;
         this.uiCurrentHeight = getHeight() * zoomLevel;
         instantCenterOnRatio(mapCenter);
