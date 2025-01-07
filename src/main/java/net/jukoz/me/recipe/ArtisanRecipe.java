@@ -6,7 +6,10 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.special.forge.MultipleStackRecipeInput;
+import net.jukoz.me.item.ModDataComponentTypes;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
@@ -59,7 +62,16 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
 
             if (ingredient.getMatchingStacks().length == 1){
                 for (ItemStack itemStack2 : ingredient.getMatchingStacks()) {
-                    if (!ItemStack.areItemsAndComponentsEqual(itemStack2, input.getStackInSlot(j))) return false;
+                    ItemStack inputCopy = input.getStackInSlot(j).copy();
+                    inputCopy.remove(DataComponentTypes.PROFILE);
+                    inputCopy.remove(DataComponentTypes.MAX_DAMAGE);
+                    inputCopy.remove(DataComponentTypes.INSTRUMENT);
+                    inputCopy.remove(ModDataComponentTypes.DYE_DATA);
+
+                    ItemStack inputCopy2 = itemStack2.copy();
+                    inputCopy2.remove(DataComponentTypes.MAX_DAMAGE);
+
+                    if (!ItemStack.areItemsAndComponentsEqual(inputCopy2, inputCopy)) return false;
                 }
             }
         }

@@ -1,56 +1,13 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "ingredients": [
-    {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:mail_ring"
-      },
-      "components": {
-        "minecraft:trim": {
-          "material": "minecraft:iron",
-          "pattern": "me:smithing_part"
-        }
-      }
-    },
-    {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:mail_ring"
-      },
-      "components": {
-        "minecraft:trim": {
-          "material": "minecraft:iron",
-          "pattern": "me:smithing_part"
-        }
-      }
-    },
-    {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:mail_ring"
-      },
-      "components": {
-        "minecraft:trim": {
-          "material": "minecraft:iron",
-          "pattern": "me:smithing_part"
-        }
-      }
-    },
-    {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:mail_ring"
-      },
-      "components": {
-        "minecraft:trim": {
-          "material": "minecraft:iron",
-          "pattern": "me:smithing_part"
-        }
-      }
-    },
-    {
+  "pattern": [
+    " N ",
+    "NNN",
+    " N "
+  ],
+  "key": {
+    "N": {
       "fabric:type": "fabric:components",
       "base": {
         "item": "me:mail_ring"
@@ -62,7 +19,7 @@
         }
       }
     }
-  ],
+  },
   "result": {
     "id": "me:mail",
     "components": {

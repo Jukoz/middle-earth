@@ -16,8 +16,10 @@ import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.RaceType;
+import net.jukoz.me.resources.datas.races.RaceUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
@@ -180,6 +182,14 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
+
+        if(!this.getWorld().isClient() && !player.isCreative()) {
+            RaceType playerRace = RaceUtil.getRaceType(player);
+
+            if(playerRace == RaceType.NONE || (this.getRaceType() != null && !this.getRaceType().contains(playerRace))) {
+                return ActionResult.FAIL;
+            }
+        }
 
         if(this.isTame()) {
             if (this.isBreedingItem(itemStack)) {
