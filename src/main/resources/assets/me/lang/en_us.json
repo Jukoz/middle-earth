@@ -7683,6 +7683,8 @@
   "ui.me.map_screen.tooltip.coordinates_title": "Coordinates",
   "ui.me.map_screen.tooltip.coordinates_label": "[x,z] ",
   "ui.me.map_screen.tooltip.coordinates_content": "%s, %s",
+  "ui.me.map_screen.tooltip.biome_label": "[Biome] ",
+  "ui.me.map_screen.tooltip.biome_content": "%s",
   "ui.me.map_screen.tooltip.teleport_keybind": "[%s] to teleport",
   "ui.me.map_screen.map_title_text": "Middle-earth Map",
 

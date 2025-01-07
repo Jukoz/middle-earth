@@ -131,8 +131,8 @@ public class MiddleEarthMapScreen extends Screen {
                         .append(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.coordinates_content", x, z).formatted(Formatting.WHITE)));
 
                 MapBasedCustomBiome biome = mapWidget.getBiomeAt((int) (mapRatio.x * MiddleEarthMapConfigs.REGION_SIZE), (int) (mapRatio.y * MiddleEarthMapConfigs.REGION_SIZE));
-                texts.add(Text.translatable("[Biome] ").formatted(Formatting.GRAY)
-                        .append(Text.translatable(biome.getBiome().getBiomeRegistryKey().getValue().toTranslationKey("biome")).formatted(Formatting.WHITE)));
+                texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.biome_label").formatted(Formatting.GRAY)
+                        .append(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.biome_content", Text.translatable(biome.getBiome().getBiomeRegistryKey().getValue().toTranslationKey("biome"))).formatted(Formatting.WHITE)));
                 if(player.hasPermissionLevel(2)){
                     texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.teleport_keybind", KeyInputHandler.mapTeleportKey.getBoundKeyLocalizedText().getString()).formatted(Formatting.ITALIC).withColor(ModColors.PENDING.color));
                 }
