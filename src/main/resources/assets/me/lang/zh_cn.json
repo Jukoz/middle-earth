@@ -7678,11 +7678,14 @@
 
   "#Comment:": "中洲地图界面",
   "ui.me.map_screen.button.fullscreen_toggle": "切换全屏按钮",
+  "ui.me.map_screen.button.map_overlay_toggle": "切换地图遮罩按钮",
   "ui.me.map_screen.button.zoom_in": "放大按钮",
   "ui.me.map_screen.button.zoom_out": "缩小按钮",
   "ui.me.map_screen.tooltip.coordinates_title": "坐标",
   "ui.me.map_screen.tooltip.coordinates_label": "[x,z] ",
   "ui.me.map_screen.tooltip.coordinates_content": "%s, %s",
+  "ui.me.map_screen.tooltip.biome_label": "[群系] ",
+  "ui.me.map_screen.tooltip.biome_content": "%s",
   "ui.me.map_screen.tooltip.teleport_keybind": "右键点击传送",
   "ui.me.map_screen.map_title_text": "中洲地图",
 
@@ -7714,6 +7717,8 @@
   "#Comment": "按键绑定",
   "key.category.me.me": "中洲",
   "key.me.hood_state_toggle": "切换兜帽状态",
+  "key.me.map_teleport": "在地图界面中传送",
+  "key.me.map_fullscreen_toggle": "切换地图全屏显示",
 
   "#Comment": "模组联动-模组菜单",
   "modmenu.nameTranslation.me": "中洲",
