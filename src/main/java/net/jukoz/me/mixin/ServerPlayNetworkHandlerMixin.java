@@ -28,7 +28,6 @@ public class ServerPlayNetworkHandlerMixin {
             if ((stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded))
                     || (stackMainHand.getItem() instanceof CustomSiegeShieldItem)
                     || (stackMainHand.getItem() instanceof CustomLongbowWeaponItem)) {
-                System.out.println("yeet RIGHT");
                 ci.cancel();
             }
         }
