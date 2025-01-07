@@ -5,6 +5,7 @@ import net.jukoz.me.entity.seat.SeatEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -48,7 +49,7 @@ public class SeatBlock extends Block {
 
         if(world.isClient) {
             return ActionResult.CONSUME;
-        } else if(player.isSneaking() || player.isSpectator()) {
+        } else if(player.isSneaking() || player.isSpectator() || player.hasVehicle()) {
             return ActionResult.FAIL;
         } else if (player.shouldCancelInteraction()) {
             return ActionResult.SUCCESS;
