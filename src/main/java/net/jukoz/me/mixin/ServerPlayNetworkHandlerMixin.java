@@ -23,12 +23,17 @@ public class ServerPlayNetworkHandlerMixin {
             target = "Lnet/minecraft/server/network/ServerPlayerEntity;getStackInHand(Lnet/minecraft/util/Hand;)Lnet/minecraft/item/ItemStack;"), cancellable = true)
     public void onPlayerAction(PlayerActionC2SPacket packet, CallbackInfo ci) {
         ItemStack stackMainHand = this.player.getStackInHand(Hand.MAIN_HAND);
+        ItemStack stackOffHand = this.player.getStackInHand(Hand.OFF_HAND);
         if(stackMainHand != null){
             if ((stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded))
                     || (stackMainHand.getItem() instanceof CustomSiegeShieldItem)
                     || (stackMainHand.getItem() instanceof CustomLongbowWeaponItem)) {
+                System.out.println("yeet RIGHT");
                 ci.cancel();
             }
+        }
+        if(stackOffHand.isEmpty()){
+            ci.cancel();
         }
     }
 }
