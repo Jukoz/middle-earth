@@ -321,6 +321,11 @@ public class HelpingGenerator {
             Doors.doors.add(set.door());
             Trapdoors.trapdoors.add(set.trapdoor());
             WoodenSlabs.woodenSlabs.add(set.planksSlab());
+
+            SimpleWoodStoolModel.stools.add(set.stool());
+            SimpleWoodBenchModel.benchs.add(set.bench());
+            SimpleWoodTableModel.tables.add(set.table());
+            SimpleWoodChairModel.chairs.add(set.chair());
         }
 
         for (OtherBlockSets.RoofBlockSet set : OtherBlockSets.sets) {
