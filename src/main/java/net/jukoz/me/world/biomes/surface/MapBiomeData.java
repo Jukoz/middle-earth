@@ -489,9 +489,9 @@ public class MapBiomeData {
                 new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 11913598, 9873760)));
         // SARN GEBIR SHORES
         addBiome(new BiomeData(MEBiomeKeys.SARN_GEBIR_SHORES, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(10140415, 13031679, defaultWater, defaultWaterFog, 6922099, 7119988)));
+                new BiomeColorsDTO(6980296, 10402016, defaultWater, defaultWaterFog, 9666387, 9731143)));
         addBiome(new BiomeData(MEBiomeKeys.SARN_GEBIR_WILDLANDS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(10140415, 13031679, defaultWater, defaultWaterFog, 6922099, 7119988)));
+                new BiomeColorsDTO(6980296, 10402016, defaultWater, defaultWaterFog, 9666387, 9731143)));
         // SHIRE
         addBiome(new BiomeData(MEBiomeKeys.SHIRE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8695029, 12637426, defaultWater, defaultWaterFog, 8704848, 6858783)));

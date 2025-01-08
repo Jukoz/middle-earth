@@ -226,8 +226,8 @@ public class ModBiomes {
         createRohanBiome(context, MEBiomeKeys.ROHAN_FOREST, 1);
         createRohanBiome(context, MEBiomeKeys.ROHAN_HILLS, 2);
         createLakeBiome(context, MEBiomeKeys.SEA_OF_RHUN);
-        createIronHillsBiome(context, MEBiomeKeys.SARN_GEBIR_SHORES, false);
-        createIronHillsBiome(context, MEBiomeKeys.SARN_GEBIR_WILDLANDS, false);
+        createSarnGebir(context, MEBiomeKeys.SARN_GEBIR_SHORES, 1);
+        createSarnGebir(context, MEBiomeKeys.SARN_GEBIR_WILDLANDS, 0);
         createShireBiome(context, MEBiomeKeys.SHIRE, 0);
         createShireBiome(context, MEBiomeKeys.SHIRE_EDGE, 1);
         createShireBiome(context, MEBiomeKeys.SHIRE_HILLS, 2);
@@ -2721,6 +2721,62 @@ public class ModBiomes {
             ModBiomeFeatures.addPineTrees(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
             ModBiomeFeatures.addRareSpruceTrees(vegetation);
+        }
+
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
+    }
+
+    public static void createSarnGebir(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        ModBiomeFeatures.addDisks(undergroundOres);
+        ModBiomeFeatures.addGrass(vegetation);
+        vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
+        vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
+        vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
+        vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
+        vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
+        vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+        ModBiomeFeatures.addFlowerGreenJewel(vegetation);
+        ModBiomeFeatures.addWildFlax(vegetation);
+        ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addWildLeek(vegetation);
+        ModBiomeFeatures.addWildLettuce(vegetation);
+        ModBiomeFeatures.addWildOnion(vegetation);
+        ModBiomeFeatures.addCoarseDirtOre(vegetation);
+        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addDeadHeather(vegetation);
+        ModBiomeFeatures.addDyingGrass(vegetation);
+        ModBiomeFeatures.addGraniteBoulder(vegetation);
+        ModBiomeFeatures.addStoneBoulder(vegetation);
+        ModBiomeFeatures.addDeadRushes(vegetation);
+        ModBiomeFeatures.addCommonOakBush(vegetation);
+        ModBiomeFeatures.addLarchTrees(vegetation);
+        ModBiomeFeatures.addCommonBeechTrees(vegetation);
+        ModBiomeFeatures.addCommonOakTrees(vegetation);
+        ModBiomeFeatures.addGreenMapleTree(vegetation);
+
+        if(step == 0) { // Forest
+            ModSpawnSettingsBuilder.addDeer(spawnSettings);
+            ModSpawnSettingsBuilder.addRabbits(spawnSettings);
+            ModSpawnSettingsBuilder.addRareWolves(spawnSettings);
+            vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
+            vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
+            ModBiomeFeatures.addBracken(vegetation);
+            ModBiomeFeatures.addFalseOatgrass(vegetation);
+            ModBiomeFeatures.addOldPodzolOre(vegetation);
+            ModBiomeFeatures.addPodzolOre(vegetation);
+            ModBiomeFeatures.addRareMorsel(vegetation);
+            ModBiomeFeatures.addCommonDarkOakTrees(vegetation);
+            ModBiomeFeatures.addCommonPineTrees(vegetation);
+            ModBiomeFeatures.addBlackPineTrees(vegetation);
+            ModBiomeFeatures.addSpruceTrees(vegetation);
+            ModBiomeFeatures.addForestMoss(vegetation);
+        } else if(step == 1) { // Shores
+            ModBiomeFeatures.addGrassToStoneOre(vegetation);
+            ModBiomeFeatures.addTuftGrass(vegetation);
+            ModBiomeFeatures.addDarkOakTrees(vegetation);
         }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
