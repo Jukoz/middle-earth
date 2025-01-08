@@ -51,7 +51,6 @@ public class ModBiomeSource extends BiomeSource {
     }
 
     private RegistryKey<Biome> getCaveBiome(int x, int z, BiomeData surfaceBiome) {
-        long seed = MiddleEarthHeightMap.getSeed();
         x += MiddleEarthHeightMap.getSeed();
         z += MiddleEarthHeightMap.getSeed();
         float temperature = (float) SimplexNoise.noise((double) x / CAVE_NOISE,  (double) z / CAVE_NOISE);
