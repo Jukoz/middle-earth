@@ -7679,6 +7679,7 @@
 "#Comment:": "UI Middle-earth Map Screen",
   "ui.me.map_screen.button.fullscreen_toggle": "Toggle Fullscreen Button",
   "ui.me.map_screen.button.map_overlay_toggle": "Map Overlay Toggle Button",
+  "ui.me.map_screen.button.recenter_on_player": "Recenter on Player Button",
   "ui.me.map_screen.button.zoom_in": "Zoom In Button",
   "ui.me.map_screen.button.zoom_out": "Zoom Out Button",
   "ui.me.map_screen.tooltip.coordinates_title": "Coordinates",
