@@ -123,8 +123,4 @@ public class AttributeData {
     public boolean isBuffReversed(Identifier id){
         return buffReverseIdentifiers.contains(id);
     }
-
-    public void reset(PlayerEntity player) {
-
-    }
 }

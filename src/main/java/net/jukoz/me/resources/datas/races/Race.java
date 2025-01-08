@@ -174,8 +174,4 @@ public class Race {
         }
         context.drawTooltip(renderer, texts, x, y);
     }
-
-    public void resetAttributes(PlayerEntity player) {
-        attributeData.reset(player);
-    }
 }

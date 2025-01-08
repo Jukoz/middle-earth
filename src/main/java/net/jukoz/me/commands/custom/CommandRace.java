@@ -191,19 +191,20 @@ public class CommandRace {
         ServerPlayerEntity targetPlayer = EntityArgumentType.getPlayer(context, PLAYER);
         ServerPlayerEntity source = context.getSource().getPlayer();
 
-        if(source != null && targetPlayer != null) {
-            PlayerData playerData = StateSaverAndLoader.getPlayerState(targetPlayer);
-            if(playerData != null){
-                RaceUtil.updateRace(targetPlayer, null);
+        PlayerData playerData = StateSaverAndLoader.getPlayerState(targetPlayer);
+        if(playerData != null){
+            RaceUtil.updateRace(targetPlayer, null);
+            if(source != null && targetPlayer != null) {
                 MutableText sourceText = Text.translatable("command.me.race.reset.target.success", targetPlayer.getName());
                 targetPlayer.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
-                MutableText targetText = Text.translatable("command.me.race.reset.success");
-                targetPlayer.sendMessage(targetText.withColor(ModColors.SUCCESS.color));
-                return 0;
             }
-            MutableText sourceText = Text.translatable("command.me.race.reset.target.fail", targetPlayer.getName());
-            source.sendMessage(sourceText.withColor(ModColors.WARNING.color));
+            MutableText targetText = Text.translatable("command.me.race.reset.success");
+            targetPlayer.sendMessage(targetText.withColor(ModColors.SUCCESS.color));
+            return 0;
         }
+        MutableText sourceText = Text.translatable("command.me.race.reset.target.fail", targetPlayer.getName());
+        source.sendMessage(sourceText.withColor(ModColors.WARNING.color));
+
         return 0;
     }
 }
