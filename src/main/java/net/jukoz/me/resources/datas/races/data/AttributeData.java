@@ -10,6 +10,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
@@ -121,5 +122,9 @@ public class AttributeData {
 
     public boolean isBuffReversed(Identifier id){
         return buffReverseIdentifiers.contains(id);
+    }
+
+    public void reset(PlayerEntity player) {
+
     }
 }
