@@ -229,7 +229,7 @@ public class MapBasedBiomePool {
         add(new Color(0x3c2a2a), new MapBasedCustomBiome(MEBiomeKeys.MORDOR, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x423430), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_ASHEN_FOREST, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x3D3432), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_HILL, 13, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x585247), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_WASTES, 3, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x4F483D), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_WASTES, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x2d3a2c), new MapBasedCustomBiome(MEBiomeKeys.MORGUL_VALE, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x2B3B2A), new MapBasedCustomBiome(MEBiomeKeys.MORGUL_FOREST, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x635e5e), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_GUNDABAD_BASE, 39, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
@@ -352,6 +352,7 @@ public class MapBasedBiomePool {
         oasisBiomes.add(MEBiomeKeys.HARAD);
         oasisBiomes.add(MEBiomeKeys.HARAD_DESERT);
 
+        wastePondBiomes.add(MEBiomeKeys.BROWN_LANDS);
         wastePondBiomes.add(MEBiomeKeys.DAGORLAD);
         wastePondBiomes.add(MEBiomeKeys.GORGOROTH);
         wastePondBiomes.add(MEBiomeKeys.GORGOROTH_ASHEN_WOODS);

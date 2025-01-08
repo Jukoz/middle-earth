@@ -88,8 +88,8 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.BLUE_MOUNTAINS_WOODS, MEBiomeDataConfigs.blueMountainsBase, MEBiomeDataConfigs.gonluinLayers,
                 new BiomeColorsDTO(7509727, 11715307, defaultWater, defaultWaterFog, 6521706, 5996644), CaveType.MOUNTAINS));
         // BROWN LANDS
-        addBiome(new BiomeData(MEBiomeKeys.BROWN_LANDS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(7570864, 8292235, 5075593, 1259598, 8032632, 7901046)));
+        addBiome(new BiomeData(MEBiomeKeys.BROWN_LANDS, MEBiomeDataConfigs.ashenDirt, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(5460048, 4999240, 5860962, 731161, 6252369, 4735297)));
         // CARADHRAS
         addBiome(new BiomeData(MEBiomeKeys.CARADHRAS_BASE, MEBiomeDataConfigs.caradhras, MEBiomeDataConfigs.mistyMountainsLayers,
                 new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 7777673, 7316862), CaveType.MISTIES));
