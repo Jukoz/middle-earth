@@ -40,7 +40,7 @@ public class MapWidget extends ModWidget {
     private Vector2d nextUvs = null;
     private float cooldown = 0;
 
-    protected boolean isOverlayEnabled = false;
+    protected static boolean isOverlayEnabled = false;
 
     BufferedImage mapImage;
 

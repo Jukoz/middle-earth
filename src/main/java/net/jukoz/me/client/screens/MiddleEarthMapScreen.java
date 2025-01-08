@@ -89,7 +89,6 @@ public class MiddleEarthMapScreen extends Screen {
             mapWidget.setOverlayState(!mapWidget.isOverlayEnabled());
         }).build();
         overlayToggleButton.active = ModClientConfigs.ENABLE_MAP_OVERLAY;
-        mapWidget.setOverlayState(overlayToggleButton.active);
         overlayToggleButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
         addDrawableChild(overlayToggleButton);
 
