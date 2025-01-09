@@ -206,6 +206,9 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> PELENNOR_FIELDS = MEBiomeKeys.register("pelennor_fields");
     public static final RegistryKey<Biome> POND = MEBiomeKeys.register("pond");
     public static final RegistryKey<Biome> RHUN = MEBiomeKeys.register("rhun");
+    public static final RegistryKey<Biome> RHUN_FIELD = MEBiomeKeys.register("rhun_field");
+    public static final RegistryKey<Biome> RHUN_FOREST = MEBiomeKeys.register("rhun_forest");
+    public static final RegistryKey<Biome> RHUN_HIDDEN_BLOSSOM = MEBiomeKeys.register("rhun_hidden_blossom");
     public static final RegistryKey<Biome> SEA_OF_RHUN = MEBiomeKeys.register("sea_of_rhun");
     public static final RegistryKey<Biome> RIVER = MEBiomeKeys.register("river");
     public static final RegistryKey<Biome> RIVER_RUNNING = MEBiomeKeys.register("river_running");

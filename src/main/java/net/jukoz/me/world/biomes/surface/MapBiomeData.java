@@ -470,7 +470,13 @@ public class MapBiomeData {
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8628846, 8169054)));
         // RHUN
         addBiome(new BiomeData(MEBiomeKeys.RHUN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(8041727, 12773631, 4618980, defaultWaterFog, 10995507, 7181907)));
+                new BiomeColorsDTO(8041727, 12773631, 4618980, defaultWaterFog, 10995507, 8165203)));
+        addBiome(new BiomeData(MEBiomeKeys.RHUN_FIELD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(8041727, 12773631, 4618980, defaultWaterFog, 12439605, 8427347)));
+        addBiome(new BiomeData(MEBiomeKeys.RHUN_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(7316455, 12049136, 4618980, defaultWaterFog, 10007856, 7901520)));
+        addBiome(new BiomeData(MEBiomeKeys.RHUN_HIDDEN_BLOSSOM, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(8041727, 12773631, 4618980, defaultWaterFog, 11456565, 8427347)));
         // RHOVANION
         addBiome(new BiomeData(MEBiomeKeys.EASTERN_RHOVANION, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7571933, defaultFog, 12440052, 591663, 8627523, 7052347)));

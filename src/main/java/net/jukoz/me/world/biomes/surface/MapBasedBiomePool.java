@@ -269,7 +269,10 @@ public class MapBasedBiomePool {
         add(new Color(0x71834d), new MapBasedCustomBiome(MEBiomeKeys.OLD_RHUDAUR_HILL, 28, MEBiomeDataConfigs.landModifier));
         add(new Color(0x41a03b), new MapBasedCustomBiome(MEBiomeKeys.OSGILIATH, 4, MEBiomeDataConfigs.plainsModifier));
         add(new Color(0x58cc51), new MapBasedCustomBiome(MEBiomeKeys.PELENNOR_FIELDS, 4, MEBiomeDataConfigs.plainsModifier));
-        add(new Color(0xacb071), new MapBasedCustomBiome(MEBiomeKeys.RHUN, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xacb071), new MapBasedCustomBiome(MEBiomeKeys.RHUN, 5, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xBBC075), new MapBasedCustomBiome(MEBiomeKeys.RHUN_FIELD, 5, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x95A166), new MapBasedCustomBiome(MEBiomeKeys.RHUN_FOREST, 6, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xC0BF80), new MapBasedCustomBiome(MEBiomeKeys.RHUN_HIDDEN_BLOSSOM, 9, MEBiomeDataConfigs.landModifier));
         add(new Color(0x9bc1a0), new MapBasedCustomBiome(MEBiomeKeys.HIGH_MOOR_VALE, 3, MEBiomeDataConfigs.landModifier.noiseModifier(0.1f).heightModifier(0.99f)));
         add(new Color(0x89ab8e), new MapBasedCustomBiome(MEBiomeKeys.HIGH_MOOR, 36, MEBiomeDataConfigs.landModifier.noiseModifier(0.3f).heightModifier(0.66f)));
         add(new Color(0x7e9d82), new MapBasedCustomBiome(MEBiomeKeys.HIGH_MOOR_HILLS, 43, MEBiomeDataConfigs.landModifier.noiseModifier(0.4f).heightModifier(0.34f)));

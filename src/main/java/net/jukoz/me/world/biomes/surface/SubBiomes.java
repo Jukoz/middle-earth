@@ -159,6 +159,11 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.EASTERN_RHOVANION_FOREST)
                 .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.SOUTHEAST_RHOVANION_FIELDS));
 
+        subBiomesMap.put(MEBiomeKeys.RHUN, new SubBiome(48, 1.3f)
+                .addSubBiomeData(-1.0f, -0.31f, MEBiomeKeys.RHUN_FIELD)
+                .addSubBiomeData(0.22f, 0.45f, MEBiomeKeys.RHUN_FOREST)
+                .addSubBiomeData(0.45f, 2.0f, MEBiomeKeys.RHUN_HIDDEN_BLOSSOM));
+
         subBiomesMap.put(MEBiomeKeys.UMBAR, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.36f, MEBiomeKeys.UMBAR_WOODS));
     }
