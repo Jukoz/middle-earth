@@ -302,8 +302,9 @@ public class MapBasedBiomePool {
         add(new Color(0xc6edc0), new MapBasedCustomBiome(MEBiomeKeys.WHITE_MOUNTAINS_BASE, 47, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.9f).heightModifier(0.27f)));
         add(new Color(0xdbf5d7), new MapBasedCustomBiome(MEBiomeKeys.WHITE_MOUNTAINS, 68, MEBiomeDataConfigs.mountainModifier.noiseModifier(1.05f).heightModifier(0.46f)));
         add(new Color(0xf2fff0), new MapBasedCustomBiome(MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, 89, MEBiomeDataConfigs.mountainModifier.heightModifier(0.57f)));
-        add(new Color(0x16661f), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_REALM, 5, MEBiomeDataConfigs.mountainModifier));
+        add(new Color(0x16661f), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_REALM, 5, MEBiomeDataConfigs.woodlandModifier));
         add(new Color(0x316b2e), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_FOOTHILLS, 45, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.47f).heightModifier(0.45f)));
+        add(new Color(0x367E33), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_GLADE, 5, MEBiomeDataConfigs.woodlandModifier));
         add(new Color(0x4f7c4c), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_HILLS, 74, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.56f).heightModifier(0.56f)));
 
         coastalBiomes.add(MEBiomeKeys.LINDON_SHORES_CLIFFS);
@@ -353,6 +354,7 @@ public class MapBasedBiomePool {
         mirkwoodSwampBiomes.add(MEBiomeKeys.WEBBED_DARK_WOODS);
         mirkwoodSwampBiomes.add(MEBiomeKeys.WOODLAND_REALM);
         mirkwoodSwampBiomes.add(MEBiomeKeys.WOODLAND_HILLS);
+        mirkwoodSwampBiomes.add(MEBiomeKeys.WOODLAND_GLADE);
         mirkwoodSwampBiomes.add(MEBiomeKeys.WOODLAND_FOOTHILLS);
 
         oasisBiomes.add(MEBiomeKeys.HARAD);

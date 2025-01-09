@@ -254,9 +254,10 @@ public class ModBiomes {
         createWhiteMountainsBiome(context, MEBiomeKeys.WHITE_MOUNTAINS_BASE, 0);
         createWhiteMountainsBiome(context, MEBiomeKeys.WHITE_MOUNTAINS, 1);
         createWhiteMountainsBiome(context, MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, 2);
-        createWoodlandRealmBiome(context, MEBiomeKeys.WOODLAND_REALM);
+        createWoodlandRealmBiome(context, MEBiomeKeys.WOODLAND_REALM, 0);
+        createWoodlandRealmBiome(context, MEBiomeKeys.WOODLAND_GLADE, 1);
         createMirkwoodMountainsBiome(context, MEBiomeKeys.WOODLAND_FOOTHILLS, true);
-        createMirkwoodMountainsBiome(context, MEBiomeKeys.WOODLAND_HILLS, 1);
+        createMirkwoodMountainsBiome(context, MEBiomeKeys.WOODLAND_HILLS, true);
     }
 
     public static void createAnduinBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, boolean forest) {
@@ -1791,6 +1792,7 @@ public class ModBiomes {
             ModBiomeFeatures.addCorruptedMoss(vegetation);
         } else {
             addMirkwoodTrees(generationSettings);
+            ModBiomeFeatures.addRareMegaMirkwoodTrees(vegetation);
             if(!dark) {
                 ModBiomeFeatures.addForestMoss(vegetation);
                 ModBiomeFeatures.addForestBlockMoss(vegetation);
@@ -3208,7 +3210,7 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, temperature, true);
     }
 
-    public static void createWoodlandRealmBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+    public static void createWoodlandRealmBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
         ModSpawnSettingsBuilder.addDeer(spawnSettings);
@@ -3216,6 +3218,8 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addMirkwoodVegetation(generationSettings);
+        ModBiomeFeatures.addGreenShrub(vegetation);
+        ModBiomeFeatures.addIvyGrowth(vegetation);
         ModBiomeFeatures.addBracken(vegetation);
         ModBiomeFeatures.addForestMoss(vegetation);
         ModBiomeFeatures.addFlowerGreenJewel(vegetation);
@@ -3223,7 +3227,17 @@ public class ModBiomes {
         ModBiomeFeatures.addLimestoneBoulder(vegetation);
         vegetation.add(VegetationPlacedFeatures.FLOWER_FOREST_FLOWERS);
         ModBiomeFeatures.addRareMorsel(vegetation);
-        addMirkwoodTrees(generationSettings);
+        ModBiomeFeatures.addWheatGrass(vegetation);
+        if(step == 0) { // Forest
+            addMirkwoodTrees(generationSettings);
+            ModBiomeFeatures.addRareMegaMirkwoodTrees(vegetation);
+        } else if(step == 1) { // Glade
+            vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
+            ModBiomeFeatures.addRedHeather(vegetation);
+            ModBiomeFeatures.addRedFlowers(vegetation);
+            ModBiomeFeatures.addPoppyFlower(vegetation);
+            ModBiomeFeatures.addTuftGrass(vegetation);
+        }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }

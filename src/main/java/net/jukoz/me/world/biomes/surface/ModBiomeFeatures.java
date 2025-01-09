@@ -202,6 +202,9 @@ public class ModBiomeFeatures {
         vegetation.add(ModTreePlacedFeatures.MEGA_MIRKWOOD_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.SPARSE_MIRKWOOD_PLACED_TREE_KEY);
     }
+    public static void addRareMegaMirkwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.RARE_MEGA_MIRKWOOD_PLACED_TREE_KEY);
+    }
 
     public static void addCommonOakBush(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.OAK_BUSH_COMMON_PLACED_TREE_KEY);

@@ -243,6 +243,7 @@ public class MEBiomeKeys extends BiomeKeys {
 
     public static final RegistryKey<Biome> WOODLAND_REALM = MEBiomeKeys.register("woodland_realm");
     public static final RegistryKey<Biome> WOODLAND_FOOTHILLS= MEBiomeKeys.register("woodland_foothills");
+    public static final RegistryKey<Biome> WOODLAND_GLADE = MEBiomeKeys.register("woodland_glade");
     public static final RegistryKey<Biome> WOODLAND_HILLS = MEBiomeKeys.register("woodland_hills");
     // endregion
 
