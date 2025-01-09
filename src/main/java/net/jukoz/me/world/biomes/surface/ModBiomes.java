@@ -256,7 +256,7 @@ public class ModBiomes {
         createWhiteMountainsBiome(context, MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, 2);
         createWoodlandRealmBiome(context, MEBiomeKeys.WOODLAND_REALM);
         createMirkwoodMountainsBiome(context, MEBiomeKeys.WOODLAND_FOOTHILLS, true);
-        createMirkwoodMountainsBiome(context, MEBiomeKeys.WOODLAND_HILLS, true);
+        createMirkwoodMountainsBiome(context, MEBiomeKeys.WOODLAND_HILLS, 1);
     }
 
     public static void createAnduinBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, boolean forest) {
