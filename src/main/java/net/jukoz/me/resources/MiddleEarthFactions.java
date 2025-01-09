@@ -231,7 +231,7 @@ public class MiddleEarthFactions {
                             EreborNpcDataPool.EREBOR_ARCHER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            EreborNpcDataPool.EREBOR_BRAWLER
+                            EreborNpcDataPool.EREBOR_ELITE
                     ));
                     put(NpcRank.VETERAN, List.of(
                             EreborNpcDataPool.EREBOR_VETERAN,

@@ -3,6 +3,7 @@ package net.jukoz.me.entity.uruks.misties;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.item.items.weapons.ranged.CustomBowWeaponItem;
+import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.LivingEntity;
@@ -24,9 +25,9 @@ public class MistyHobgoblinModel<T extends MobEntity>
     public void animateModel(T mobEntity, float f, float g, float h) {
         this.rightArmPose = BipedEntityModel.ArmPose.EMPTY;
         this.leftArmPose = BipedEntityModel.ArmPose.EMPTY;
-        ItemStack itemStack = ((LivingEntity)mobEntity).getStackInHand(Hand.MAIN_HAND);
-        if ((itemStack.isOf(Items.BOW) || itemStack.getItem() instanceof CustomBowWeaponItem) && ((MobEntity)mobEntity).isAttacking()) {
-            if (((MobEntity)mobEntity).getMainArm() == Arm.RIGHT) {
+        ItemStack itemStack = (mobEntity).getStackInHand(Hand.MAIN_HAND);
+        if ((itemStack.isOf(Items.BOW) || itemStack.getItem() instanceof CustomLongbowWeaponItem || itemStack.getItem() instanceof CustomBowWeaponItem) && (mobEntity).isAttacking()) {
+            if (mobEntity.getMainArm() == Arm.RIGHT) {
                 this.rightArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;
             } else {
                 this.leftArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;

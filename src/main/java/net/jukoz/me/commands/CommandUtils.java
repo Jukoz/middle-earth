@@ -34,7 +34,7 @@ public class CommandUtils {
         dispatcher.register(literal(ModCommands.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)) // Require OP
                 .then(literal(baseCommand)
-                        .then(argument(player, EntityArgumentType.player())
-                                .then(executes2))));
+                    .then(argument(player, EntityArgumentType.player())
+                            .then(executes2))));
     }
 }

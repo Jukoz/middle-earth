@@ -6,6 +6,7 @@ import net.jukoz.me.commands.ModCommands;
 import net.jukoz.me.config.ModClientConfigs;
 import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.event.ModEvents;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.utils.ModItemGroups;
@@ -44,7 +45,7 @@ public class MiddleEarth implements ModInitializer {
 		LoggerUtil.logInfoMsg("================ MiddleEarth ================");
 
 		ModServerNetworkHandler.register(new ConnectionToClient());
-
+		ModEvents.register();
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();
 

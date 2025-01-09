@@ -26,12 +26,12 @@ public class ModClientConfigs {
         configs.addLineJump();
         configs.addComment("GUI configurations");
         configs.addDescription("Should you see the map overlay button in the middle-earth map gui?");
-        configs.addKeyValuePair(new Pair<>("enable_map_overlay", false), "boolean");
+        configs.addKeyValuePair(new Pair<>("enableMapOverlay", false), "boolean");
         configs.addLineJump();
     }
 
     private static void assignClientConfigs() {
-        ENABLE_MAP_OVERLAY = CONFIG.getOrDefault("enable_map_overlay", false);
+        ENABLE_MAP_OVERLAY = CONFIG.getOrDefault("enableMapOverlay", false);
         LoggerUtil.logDebugMsg("All client configs (" + configs.getConfigsList().size() + ") have been set properly");
     }
 }
