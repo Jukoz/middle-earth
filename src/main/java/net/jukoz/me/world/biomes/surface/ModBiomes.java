@@ -141,7 +141,7 @@ public class ModBiomes {
         createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 2);
         createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, 3);
         createLakeBiome(context, MEBiomeKeys.LONG_LAKE);
-        createMirkwoodSwampBiome(context, MEBiomeKeys.LONG_MARSHES);
+        createMirkwoodSwampBiome(context, MEBiomeKeys.LONG_MARSHES, false);
         createLossarnach(context, MEBiomeKeys.LOSSARNACH, 0);
         createLossarnachCherryBlossom(context, MEBiomeKeys.LOSSARNACH_CHERRY_BLOSSOM);
         createLossarnach(context, MEBiomeKeys.LOSSARNACH_VALLEY, 1);
@@ -160,9 +160,9 @@ public class ModBiomes {
         createMirkwoodMountainsBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS_BASE, 0);
         createMirkwoodMountainsBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS, 1);
         createMirkwoodMountainsBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS_PEAKS, 2);
-        createMirkwoodSwampBiome(context, MEBiomeKeys.MIRKWOOD_SWAMP);
-        createMirkwoodSwampBiome(context, MEBiomeKeys.MIRKWOOD_MARSHES);
-        createMirkwoodSwampBiome(context, MEBiomeKeys.MIRKWOOD_RIVER);
+        createMirkwoodSwampBiome(context, MEBiomeKeys.MIRKWOOD_SWAMP, true);
+        createMirkwoodSwampBiome(context, MEBiomeKeys.MIRKWOOD_MARSHES, false);
+        createMirkwoodSwampBiome(context, MEBiomeKeys.MIRKWOOD_RIVER, true);
         createRiverBiome(context, MEBiomeKeys.GREAT_RIVER);
         createMistyMountainsBiome(context, MEBiomeKeys.MISTY_MOUNTAINS_BASE, 0);
         createMistyMountainsBiome(context, MEBiomeKeys.MISTY_MOUNTAINS, 1);
@@ -186,8 +186,8 @@ public class ModBiomes {
         createNindalf(context, MEBiomeKeys.NINDALF);
         createNorthDownsBiome(context, MEBiomeKeys.NORTH_DOWNS);
         createNorthDunlandBiome(context, MEBiomeKeys.NORTHERN_DUNLAND, true);
-        createMirkwoodSwampBiome(context, MEBiomeKeys.NORTHERN_MIRKWOOD_SWAMP);
-        createMirkwoodSwampBiome(context, MEBiomeKeys.NORTHERN_MIRKWOOD_MARSHES);
+        createMirkwoodSwampBiome(context, MEBiomeKeys.NORTHERN_MIRKWOOD_SWAMP, true);
+        createMirkwoodSwampBiome(context, MEBiomeKeys.NORTHERN_MIRKWOOD_MARSHES, false);
         createNorthernWastelands(context, MEBiomeKeys.NORTHERN_WASTELANDS);
         createNurnBiome(context, MEBiomeKeys.NURN, 0);
         createNurnBiome(context, MEBiomeKeys.NURN_FOREST, 1);
@@ -1891,10 +1891,9 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
-    public static void createMirkwoodSwampBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+    public static void createMirkwoodSwampBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, boolean water) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addSwampMobs(spawnSettings);
-
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addMirkwoodVegetation(generationSettings);
@@ -1905,6 +1904,17 @@ public class ModBiomes {
         ModBiomeFeatures.addWheatGrass(vegetation);
         ModBiomeFeatures.addMireOre(vegetation);
         ModBiomeFeatures.addMudOre(vegetation);
+        ModBiomeFeatures.addAbundantMudOre(undergroundOres);
+        ModBiomeFeatures.addBlueOrchidFlower(undergroundOres);
+        ModBiomeFeatures.addCommonTallGrass(undergroundOres);
+        ModBiomeFeatures.addBulrushAndCattail(undergroundOres);
+
+        if(water) {
+            ModBiomeFeatures.addDuckweed(undergroundOres);
+            ModBiomeFeatures.addLilyPads(undergroundOres);
+            ModBiomeFeatures.addSmallLilyPads(undergroundOres);
+            undergroundOres.add(VegetationPlacedFeatures.PATCH_WATERLILY);
+        }
 
         addMirkwoodTrees(generationSettings);
         ModBiomeFeatures.addWillowTrees(vegetation);
@@ -3232,6 +3242,7 @@ public class ModBiomes {
             addMirkwoodTrees(generationSettings);
             ModBiomeFeatures.addRareMegaMirkwoodTrees(vegetation);
         } else if(step == 1) { // Glade
+            vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
             ModBiomeFeatures.addRedHeather(vegetation);
             ModBiomeFeatures.addRedFlowers(vegetation);

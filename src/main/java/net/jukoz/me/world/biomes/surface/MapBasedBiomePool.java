@@ -347,7 +347,6 @@ public class MapBasedBiomePool {
         mirkwoodSwampBiomes.add(MEBiomeKeys.DARK_ANDUIN_VALES);
         mirkwoodSwampBiomes.add(MEBiomeKeys.DOL_GULDUR);
         mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD);
-        mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD_SWAMP);
         mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD_EDGE);
         mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD_MARSHES);
         mirkwoodSwampBiomes.add(MEBiomeKeys.NORTHERN_MIRKWOOD_MARSHES);

@@ -106,7 +106,7 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.MIRKWOOD, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.33f, MEBiomeKeys.WEBBED_WOODS));
         subBiomesMap.put(MEBiomeKeys.WOODLAND_REALM, new SubBiome()
-                .addSubBiomeData(-1.0f, -0.35f, MEBiomeKeys.WOODLAND_GLADE)
+                .addSubBiomeData(-1.0f, -0.36f, MEBiomeKeys.WOODLAND_GLADE)
                 .addSubBiomeData(0.37f, 1.0f, MEBiomeKeys.WOODLAND_GLADE));
         subBiomesMap.put(MEBiomeKeys.DARK_MIRKWOOD, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.WEBBED_DARK_WOODS));
