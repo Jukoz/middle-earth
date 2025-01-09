@@ -346,8 +346,14 @@ public class MapBasedBiomePool {
         mirkwoodSwampBiomes.add(MEBiomeKeys.DARK_ANDUIN_VALES);
         mirkwoodSwampBiomes.add(MEBiomeKeys.DOL_GULDUR);
         mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD);
-        mirkwoodSwampBiomes.add(MEBiomeKeys.WEBBED_DARK_WOODS);
+        mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD_SWAMP);
         mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD_EDGE);
+        mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD_MARSHES);
+        mirkwoodSwampBiomes.add(MEBiomeKeys.NORTHERN_MIRKWOOD_MARSHES);
+        mirkwoodSwampBiomes.add(MEBiomeKeys.WEBBED_DARK_WOODS);
+        mirkwoodSwampBiomes.add(MEBiomeKeys.WOODLAND_REALM);
+        mirkwoodSwampBiomes.add(MEBiomeKeys.WOODLAND_HILLS);
+        mirkwoodSwampBiomes.add(MEBiomeKeys.WOODLAND_FOOTHILLS);
 
         oasisBiomes.add(MEBiomeKeys.HARAD);
         oasisBiomes.add(MEBiomeKeys.HARAD_DESERT);
