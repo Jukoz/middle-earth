@@ -18,6 +18,7 @@
     "PlayerEntityMixin",
     "PlayerMixin",
     "PotionEntityMixin",
+    "PowderSnowBlockMixin",
     "RepairItemRecipeMixin",
     "ServerPlayerEntityMixin",
     "ServerPlayNetworkHandlerMixin",

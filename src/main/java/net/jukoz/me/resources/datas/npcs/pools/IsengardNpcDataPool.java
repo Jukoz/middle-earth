@@ -163,6 +163,7 @@ public class IsengardNpcDataPool {
         ISENGARD_URUK_HAI_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "uruk_hai_soldier"), MiddleEarthRaces.URUK, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_PLATE_HELMET).withWeight(5))
                                 .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_LEATHER_SCOUT_CAP).withColors(allColors).withWeight(4))
                                 .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_LIGHT_HELMET).withWeight(2))
                                 .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_REINFORCED_HELMET))
@@ -193,9 +194,10 @@ public class IsengardNpcDataPool {
 
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_WOODEN_SHIELD))
-                                .add(NpcGearItemData.create(ModWeaponItems.GUNDABAD_WOODEN_SHIELD))
-                                .add(NpcGearItemData.create(ModWeaponItems.ROUND_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.URUK_HAI_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.URUK_HAI_S_RUNE_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.URUK_HAI_WHITE_HAND_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.URUK_HAI_WHITE_PALMPRINT_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
                         )
         ));
@@ -206,6 +208,9 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_LEATHER_SCOUT_CAP).withColors(allColors).withWeight(4))
                                 .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_REINFORCED_HELMET))
                                 .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_SOLDIER_HELMET))
+                                .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_LIGHT_HELMET))
+                                .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_PAINTED_REINFORCED_HELMET))
+                                .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_PAINTED_LIGHT_HELMET))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_LEATHER_HAUBERK))
@@ -226,8 +231,7 @@ public class IsengardNpcDataPool {
         ISENGARD_URUK_HAI_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "uruk_hai_veteran"), MiddleEarthRaces.URUK, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_PAINTED_REINFORCED_HELMET))
-                                .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_PAINTED_LIGHT_HELMET))
+                                .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_PAINTED_PLATE_HELMET).withWeight(5))
                                 .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_PAINTED_SAPPER_HELMET))
                                 .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_PAINTED_SOLDIER_HELMET))
                                 .add(NpcGearItemData.create(ModEquipmentItems.URUK_HAI_COMMANDER_HELMET))

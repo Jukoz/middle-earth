@@ -40,7 +40,7 @@ public class MapWidget extends ModWidget {
     private Vector2d nextUvs = null;
     private float cooldown = 0;
 
-    protected boolean isOverlayEnabled = false;
+    protected static boolean isOverlayEnabled = false;
 
     BufferedImage mapImage;
 
@@ -321,7 +321,7 @@ public class MapWidget extends ModWidget {
         double ratioY = (uvY + (getHeight() * 0.5)) / maxSize;
         return new Vector2d(ratioX, ratioY);
     }
-    protected void instantCenterOnRatio(Vector2d mapCenter) {
+    public void instantCenterOnRatio(Vector2d mapCenter) {
         int maxSize = Math.max(getCurrentWidth(), getCurrentHeight());
         double newUvX = (maxSize * mapCenter.x) - (getWidth() * 0.5);
         double newUvY = (maxSize * mapCenter.y) - (getHeight() * 0.5);

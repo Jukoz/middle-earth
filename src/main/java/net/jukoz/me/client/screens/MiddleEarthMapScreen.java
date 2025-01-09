@@ -55,6 +55,7 @@ public class MiddleEarthMapScreen extends Screen {
     private ButtonWidget overlayToggleButton;
     private ButtonWidget zoomInButton;
     private ButtonWidget zoomOutButton;
+    private ButtonWidget recenterButton;
 
     private int mouseX, mouseY;
     AbstractClientPlayerEntity player;
@@ -83,13 +84,23 @@ public class MiddleEarthMapScreen extends Screen {
         fullscreenButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
         addDrawableChild(fullscreenButton);
 
+        // Overlay toggle
         overlayToggleButton = ButtonWidget.builder(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.button.map_overlay_toggle"), x -> {
             mapWidget.setOverlayState(!mapWidget.isOverlayEnabled());
         }).build();
         overlayToggleButton.active = ModClientConfigs.ENABLE_MAP_OVERLAY;
-        mapWidget.setOverlayState(overlayToggleButton.active);
         overlayToggleButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
         addDrawableChild(overlayToggleButton);
+
+        // Recenter on player
+        recenterButton = ButtonWidget.builder(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.button.recenter_on_player"), x -> {
+            Vector2d playerCoords =  new Vector2d(player.getPos().getX(), player.getPos().getZ());
+            playerCoords.x /= MiddleEarthMapConfigs.FULL_MAP_SIZE;
+            playerCoords.y /= MiddleEarthMapConfigs.FULL_MAP_SIZE;
+            mapWidget.instantCenterOnRatio(playerCoords);
+        }).build();
+        recenterButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
+        addDrawableChild(recenterButton);
 
         // Zoom in button register
         zoomInButton = ButtonWidget.builder(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.button.zoom_in"), x -> {
@@ -114,6 +125,7 @@ public class MiddleEarthMapScreen extends Screen {
         } else {
             renderNormal(context);
         }
+        ModWidget.updateMouse(mouseX, mouseY);
         this.mouseX = mouseX;
         this.mouseY = mouseY;
         showCursorInformationTooltip(context, mouseX, mouseY);
@@ -150,6 +162,7 @@ public class MiddleEarthMapScreen extends Screen {
             double y = mapRatio.y * MiddleEarthMapConfigs.FULL_MAP_SIZE;
 
             ClientPlayNetworking.send(new PacketTeleportToDynamicWorldCoordinate(x, y));
+            this.close();
         }
     }
 
@@ -165,6 +178,7 @@ public class MiddleEarthMapScreen extends Screen {
         mapWidget.drawFullscreen(context, MARGIN);
         drawFullscreenToggleButton(context);
         drawMapOverlayToggleButton(context);
+        drawRecenterButton(context);
         drawZoomButtons(context);
         drawPlayer(context, player);
     }
@@ -181,6 +195,7 @@ public class MiddleEarthMapScreen extends Screen {
         mapWidget.drawCentered(context, centerX, startY + MARGIN);
         drawFullscreenToggleButton(context);
         drawMapOverlayToggleButton(context);
+        drawRecenterButton(context);
         drawZoomButtons(context);
         drawPlayer(context, player);
     }
@@ -202,7 +217,7 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private void drawFullscreenToggleButton(DrawContext context){
-        int fullscreenToggleButtonUvY = (fullscreenButton.isHovered() || fullscreenButton.isFocused()) ? 18 : 1;
+        int fullscreenToggleButtonUvY = ((ModWidget.isMouseOver(fullscreenButton) || fullscreenButton.isFocused()) ? 18 : 1);
         if(!fullscreenButton.active)
             fullscreenToggleButtonUvY = 35;
         if(isFullscreen){
@@ -217,7 +232,7 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private void drawMapOverlayToggleButton(DrawContext context){
-        int overlayToggleButtonUvY = (overlayToggleButton.isHovered() || overlayToggleButton.isFocused()) ? 69 : 52;
+        int overlayToggleButtonUvY = (ModWidget.isMouseOver(overlayToggleButton) || overlayToggleButton.isFocused()) ? 69 : 52;
         if(!overlayToggleButton.active)
             overlayToggleButtonUvY = 86;
 
@@ -227,14 +242,27 @@ public class MiddleEarthMapScreen extends Screen {
         context.drawTexture(MAP_UI_TEXTURE, x, y, 1, overlayToggleButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
     }
 
+    private void drawRecenterButton(DrawContext context){
+        recenterButton.active = (ModDimensions.isInMiddleEarth(player.getWorld()));
+
+        int recenterButtonUvY = (ModWidget.isMouseOver(recenterButton) || recenterButton.isFocused()) ? 18 : 1;
+        if(!recenterButton.active)
+            recenterButtonUvY = 35;
+
+        int x = fullscreenButton.getX();
+        int y = zoomInButton.getY() - NORMAL_BUTTON_SIZE.y;
+        recenterButton.setPosition(x, y);
+        context.drawTexture(MAP_UI_TEXTURE, x, y, 52, recenterButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+    }
+
     private void drawZoomButtons(DrawContext context){
         int zoomInButtonUvX = 86;
-        int zoomInButtonUvY = (zoomInButton.isHovered() || zoomInButton.isFocused()) ? 18 : 1;
+        int zoomInButtonUvY = (ModWidget.isMouseOver(zoomInButton) || zoomInButton.isFocused()) ? 18 : 1;
         zoomInButton.active = mapWidget.canZoomIn();
         if(!zoomInButton.active)
             zoomInButtonUvY = 35;
         int zoomOutButtonUvX = 69;
-        int zoomOutButtonUvY = (zoomOutButton.isHovered() || zoomOutButton.isFocused()) ? 18 : 1;
+        int zoomOutButtonUvY = (ModWidget.isMouseOver(zoomOutButton)|| zoomOutButton.isFocused()) ? 18 : 1;
         zoomOutButton.active = mapWidget.canZoomOut();
         if(!zoomOutButton.active)
             zoomOutButtonUvY = 35;
@@ -265,6 +293,7 @@ public class MiddleEarthMapScreen extends Screen {
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if(KeyInputHandler.mapTeleportKey.matchesKey(keyCode, modifiers)){
             teleportToCursor(mouseX, mouseY);
+            return true;
         }
         if(KeyInputHandler.mapFullscreenToggle.matchesKey(keyCode, modifiers)){
             isFullscreen = !isFullscreen;
@@ -281,6 +310,7 @@ public class MiddleEarthMapScreen extends Screen {
         mapWidget.mouseClicked(mouseX, mouseY, button);
         if(KeyInputHandler.mapTeleportKey.matchesMouse(button)){
             teleportToCursor(mouseX, mouseY);
+            return true;
         }
         if(KeyInputHandler.mapFullscreenToggle.matchesMouse(button)){
             isFullscreen = !isFullscreen;

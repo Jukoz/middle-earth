@@ -1,6 +1,7 @@
 package net.jukoz.me.client.screens.utils.widgets;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.widget.ButtonWidget;
 
 public abstract class ModWidget {
     protected static final int MARGIN = 4;
@@ -28,6 +29,11 @@ public abstract class ModWidget {
         return mouseX >= startX && mouseX <= startX + sizeX
                 && mouseY >= startY && mouseY <= startY + sizeY;
     }
+
+    public static boolean isMouseOver(ButtonWidget widget) {
+        return isMouseOver(widget.getWidth(), widget.getHeight(), widget.getX(), widget.getY());
+    }
+
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         return true;

@@ -6,6 +6,7 @@ import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.factions.FactionUtil;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceUtil;
+import net.jukoz.me.resources.datas.races.data.AttributeData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
@@ -69,14 +70,13 @@ public class ModDimensions {
                     ((ServerPlayerEntity) player).setSpawnPoint(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true, true);
                 if(welcomeNeeded)
                     FactionUtil.sendOnFactionJoinMessage(player);
-                if(ModServerConfigs.ENABLE_RACE_SWAP_ON_DIMENSION_SWAP){
-                    PlayerData data = StateSaverAndLoader.getPlayerState(player);
-                    if(data != null){
-                        Race playerRace = data.getRace(player.getWorld());
-                        if(playerRace != null)
-                            RaceUtil.updateRace(player, playerRace);
-                    }
+                PlayerData data = StateSaverAndLoader.getPlayerState(player);
+                if(data != null){
+                    Race playerRace = data.getRace(player.getWorld());
+                    if(playerRace != null)
+                        RaceUtil.updateRace(player, playerRace, false);
                 }
+
             }
         }
     }
@@ -107,10 +107,8 @@ public class ModDimensions {
                 ((ServerPlayerEntity) player).teleport(serverWorld, coordinate.getX() , coordinate.getY(), coordinate.getZ(), 0, 0);
                 player.refreshPositionAfterTeleport(coordinate.getX() , coordinate.getY(), coordinate.getZ());
 
-                if(ModServerConfigs.ENABLE_RACE_SWAP_ON_DIMENSION_SWAP){
-                    Race playerRace = data.getRace(player.getWorld());
-                    if(playerRace != null)
-                        playerRace.reverseAttributes(player);
+                if(!ModServerConfigs.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){
+                    AttributeData.reset(player);
                 }
                 return true;
             }
