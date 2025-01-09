@@ -36,9 +36,9 @@ public class CommandOnboarding {
     private static final String PLAYER = "player";
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         // [OPEN]
-        CommandUtils.simpleCommand(dispatcher, ONBOARDING_BASE_COMMAND, literal(OPEN)
-                .executes(CommandOnboarding::open), PLAYER, literal(OPEN)
-                .executes(CommandOnboarding::openForTarget));
+        CommandUtils.simpleCommand(dispatcher, ONBOARDING_BASE_COMMAND,
+                literal(OPEN).executes(CommandOnboarding::open),
+                PLAYER, literal(OPEN).executes(CommandOnboarding::openForTarget));
     }
 
     private static int open(CommandContext<ServerCommandSource> context) {
@@ -52,12 +52,11 @@ public class CommandOnboarding {
     }
 
     private static int openForTarget(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        if(context.getSource().isExecutedByPlayer()) {
-            ServerPlayerEntity targetPlayer = EntityArgumentType.getPlayer(context, PLAYER);
-            if(targetPlayer != null){
-                ServerPlayNetworking.send(targetPlayer, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION));
-            }
+        ServerPlayerEntity targetPlayer = EntityArgumentType.getPlayer(context, PLAYER);
+        if(targetPlayer != null){
+            ServerPlayNetworking.send(targetPlayer, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION));
         }
+
         return 0;
     }
 }

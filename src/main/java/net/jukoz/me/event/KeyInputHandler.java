@@ -53,15 +53,15 @@ public class KeyInputHandler {
 
         mapTeleportKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 ME_KEY_MAP_TELEPORT,
-                InputUtil.Type.MOUSE,
-                GLFW.GLFW_MOUSE_BUTTON_1,
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_N,
                 ME_KEY_CATEGORY
         ));
 
         mapFullscreenToggle = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 ME_KEY_MAP_FULLSCREEN_TOGGLE,
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_F,
+                GLFW.GLFW_KEY_M,
                 ME_KEY_CATEGORY
         ));
 
