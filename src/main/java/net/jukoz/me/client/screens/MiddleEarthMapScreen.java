@@ -97,7 +97,6 @@ public class MiddleEarthMapScreen extends Screen {
             Vector2d playerCoords =  new Vector2d(player.getPos().getX(), player.getPos().getZ());
             playerCoords.x /= MiddleEarthMapConfigs.FULL_MAP_SIZE;
             playerCoords.y /= MiddleEarthMapConfigs.FULL_MAP_SIZE;
-            LoggerUtil.logDebugMsg("Ratio is %s, %s".formatted(playerCoords.x, playerCoords.y));
             mapWidget.instantCenterOnRatio(playerCoords);
         }).build();
         recenterButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);

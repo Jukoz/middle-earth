@@ -47,7 +47,7 @@ public class PacketSetRace extends ClientToServerPacket<PacketSetRace>
         MinecraftServer server = context.player().getServer();
         server.execute(() -> {
             try{
-                RaceUtil.updateRace(context.player(), RaceLookup.getRace(context.player().getWorld(), IdentifierUtil.getIdentifierFromString(race)));
+                RaceUtil.updateRace(context.player(), RaceLookup.getRace(context.player().getWorld(), IdentifierUtil.getIdentifierFromString(race)), true);
             } catch (Exception e){
                 LoggerUtil.logError("PacketSetRace::Tried setting race for player.", e);
             }
