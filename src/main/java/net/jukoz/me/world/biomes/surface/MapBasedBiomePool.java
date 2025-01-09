@@ -299,9 +299,9 @@ public class MapBasedBiomePool {
         add(new Color(0xC9DA7D), new MapBasedCustomBiome(MEBiomeKeys.UMBAR_WOODS, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x183c1c), new MapBasedCustomBiome(MEBiomeKeys.WEBBED_WOODS, 8, MEBiomeDataConfigs.mirkwoodModifier));
         add(new Color(0x8a8670), new MapBasedCustomBiome(MEBiomeKeys.WITHERED_HEATH, 8, MEBiomeDataConfigs.landModifier));
-        add(new Color(0xc6edc0), new MapBasedCustomBiome(MEBiomeKeys.WHITE_MOUNTAINS_BASE, 47, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.9f).heightModifier(0.27f)));
-        add(new Color(0xdbf5d7), new MapBasedCustomBiome(MEBiomeKeys.WHITE_MOUNTAINS, 68, MEBiomeDataConfigs.mountainModifier.noiseModifier(1.05f).heightModifier(0.46f)));
-        add(new Color(0xf2fff0), new MapBasedCustomBiome(MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, 89, MEBiomeDataConfigs.mountainModifier.heightModifier(0.57f)));
+        add(new Color(0xc6edc0), new MapBasedCustomBiome(MEBiomeKeys.WHITE_MOUNTAINS_BASE, 49, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.95f).heightModifier(0.27f)));
+        add(new Color(0xdbf5d7), new MapBasedCustomBiome(MEBiomeKeys.WHITE_MOUNTAINS, 68, MEBiomeDataConfigs.mountainModifier.noiseModifier(1.07f).heightModifier(0.4f)));
+        add(new Color(0xf2fff0), new MapBasedCustomBiome(MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, 89, MEBiomeDataConfigs.mountainModifier.heightModifier(0.56f)));
         add(new Color(0x16661f), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_REALM, 5, MEBiomeDataConfigs.woodlandModifier));
         add(new Color(0x316b2e), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_FOOTHILLS, 45, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.47f).heightModifier(0.45f)));
         add(new Color(0x367E33), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_GLADE, 5, MEBiomeDataConfigs.woodlandModifier));
