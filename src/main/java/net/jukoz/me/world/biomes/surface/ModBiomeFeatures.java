@@ -224,6 +224,9 @@ public class ModBiomeFeatures {
     public static void addOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.OAK_PLACED_TREE_KEY);
     }
+    public static void addBeesOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.BEES_OAK_PLACED_TREE_KEY);
+    }
     public static void addRareSmallSwampOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.RARE_SMALL_SWAMP_OAK_PLACED_TREE_KEY);
     }
@@ -596,7 +599,7 @@ public class ModBiomeFeatures {
     }
     public static void addHaradFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_BROWN_GRASS);
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_GREEN_SHRUB);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_GRIM_GRASS);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TAN_SHRUB);
     }
     public static void addBulrushAndCattail(List<RegistryKey<PlacedFeature>> vegetation) {

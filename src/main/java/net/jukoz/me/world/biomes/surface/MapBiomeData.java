@@ -46,7 +46,7 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.ANDUIN_VALES, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8703593, 6924625)));
         addBiome(new BiomeData(MEBiomeKeys.ANDUIN_VALES_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8703593, 6463563)));
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 7714397, 6463563)));
         addBiome(new BiomeData(MEBiomeKeys.DARK_ANDUIN_VALES, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7246271, 8951443, 4354703, 1128527, 8032632, 7901046)));
         // ANORIEN

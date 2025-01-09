@@ -271,13 +271,12 @@ public class ModBiomes {
         ModBiomeFeatures.addOakBushes(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
         ModBiomeFeatures.addRareWilderGrass(vegetation);
+        ModBiomeFeatures.addBeesOakTrees(vegetation);
         vegetation.add(VegetationPlacedFeatures.PATCH_TALL_GRASS_2);
-        vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
 
         if(!forest) {
             ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
             ModBiomeFeatures.addVeryRareBirchTrees(vegetation);
-            ModBiomeFeatures.addRareLarchTrees(vegetation);
             ModBiomeFeatures.addScarceMapleTrees(vegetation);
             ModBiomeFeatures.addDolomiteBoulder(vegetation);
         } else {
@@ -285,9 +284,11 @@ public class ModBiomes {
             vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
             ModBiomeFeatures.addBracken(vegetation);
             ModBiomeFeatures.addMossyBoulder(vegetation);
+            ModBiomeFeatures.addGreenShrub(vegetation);
             ModBiomeFeatures.addBirchTrees(vegetation);
+            ModBiomeFeatures.addBeechTrees(vegetation);
             ModBiomeFeatures.addMegaBirchTrees(vegetation);
-            ModBiomeFeatures.addDarkOakTrees(vegetation);
+            ModBiomeFeatures.addCommonDarkOakTrees(vegetation);
             ModBiomeFeatures.addLarchTrees(vegetation);
             ModBiomeFeatures.addMapleTrees(vegetation);
             ModBiomeFeatures.addCommonOakTrees(vegetation);
@@ -789,6 +790,7 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addDefaultVegetation(generationSettings);
+        ModBiomeFeatures.addGreenShrub(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addDryDirtOre(vegetation);
         ModBiomeFeatures.addRareHeather(vegetation);
@@ -1087,7 +1089,7 @@ public class ModBiomes {
             ModBiomeFeatures.addOakTrees(vegetation);
             ModBiomeFeatures.addDarkOakTrees(vegetation);
             ModBiomeFeatures.addRareMegaOakTrees(vegetation);
-
+            ModBiomeFeatures.addGreenShrub(vegetation);
             ModBiomeFeatures.addWildGrass(vegetation);
             ModBiomeFeatures.addWilderGrass(vegetation);
             ModBiomeFeatures.addFalseOatgrass(vegetation);
@@ -1560,6 +1562,7 @@ public class ModBiomes {
             ModBiomeFeatures.addVeryRareBirchTrees(vegetation);
             ModBiomeFeatures.addHeather(vegetation);
             ModBiomeFeatures.addTallGrass(vegetation);
+            ModBiomeFeatures.addBeesOakTrees(vegetation);
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             ModBiomeFeatures.addLimestoneBoulder(vegetation);
         } else if(step == 1) { // Cliffs
@@ -1595,6 +1598,7 @@ public class ModBiomes {
             ModBiomeFeatures.addHollyTrees(vegetation);
             ModBiomeFeatures.addCommonBeechTrees(vegetation);
         } else if(step == 4) { // Hidden Blossom
+            ModBiomeFeatures.addBeesOakTrees(vegetation);
             ModBiomeFeatures.addOakTrees(vegetation);
             ModBiomeFeatures.addSparseBirchTrees(vegetation);
             ModBiomeFeatures.addCherryBlossomTrees(vegetation);
@@ -1648,12 +1652,14 @@ public class ModBiomes {
             ModBiomeFeatures.addShriveledShrubs(vegetation);
             ModBiomeFeatures.addDirtyRootsOre(vegetation);
         } else if(step == 1) { // Glade
+            ModBiomeFeatures.addBeesOakTrees(vegetation);
             ModBiomeFeatures.addYellowFlowers(vegetation);
             ModBiomeFeatures.addSedumYellow(vegetation);
             ModBiomeFeatures.addMallornTrees(vegetation);
             ModBiomeFeatures.addMallornFloweringBushes(vegetation);
             ModBiomeFeatures.addYellowFlowerGrowth(vegetation);
         } else if(step == 2) { // Blossom
+            ModBiomeFeatures.addBeesOakTrees(vegetation);
             ModBiomeFeatures.addSmallMallornTress(vegetation);
             ModBiomeFeatures.addMallornFloweringBushes(vegetation);
             ModBiomeFeatures.addOakTrees(vegetation);
@@ -1680,6 +1686,7 @@ public class ModBiomes {
         ModBiomeFeatures.addWheatGrass(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
         ModBiomeFeatures.addTuftGrass(vegetation);
+        ModBiomeFeatures.addBeesOakTrees(vegetation);
 
         if(step == 0) { // Plains
             ModSpawnSettingsBuilder.addCats(spawnSettings);
@@ -1712,6 +1719,7 @@ public class ModBiomes {
             ModBiomeFeatures.addWilderGrass(vegetation);
         } else if (step >= 2) { // Forest
             if (step == 2) {
+                ModBiomeFeatures.addGreenShrub(vegetation);
                 ModBiomeFeatures.addMapleTree(vegetation);
                 ModBiomeFeatures.addWilderGrass(vegetation);
             } else if(step == 3) { // Yellow
@@ -1760,6 +1768,7 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addEriadorVegetation(generationSettings);
+        ModBiomeFeatures.addGreenShrub(vegetation);
         ModBiomeFeatures.addAndesiteBoulder(vegetation);
         ModBiomeFeatures.addDryDirtOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
@@ -2475,6 +2484,7 @@ public class ModBiomes {
         addArthedainVegetation(generationSettings);
 
         if(step == 0) { // Meadow
+            ModBiomeFeatures.addBeesOakTrees(vegetation);
             ModBiomeFeatures.addCommonHeath(vegetation);
             ModBiomeFeatures.addCommonHeather(vegetation);
             ModBiomeFeatures.addRareHeather(vegetation);
@@ -2482,6 +2492,7 @@ public class ModBiomes {
             ModBiomeFeatures.addLilacFlowerGrowth(vegetation);
             ModBiomeFeatures.addLilacFlower(vegetation);
         } else if(step == 1) { // Plains
+            ModBiomeFeatures.addBeesOakTrees(vegetation);
             ModBiomeFeatures.addSmoothDolomiteBoulder(vegetation);
             ModBiomeFeatures.addHeath(vegetation);
             ModBiomeFeatures.addVeryRareBirchTrees(vegetation);
@@ -2490,7 +2501,9 @@ public class ModBiomes {
         } else if(step == 2) { // Forest
             ModSpawnSettingsBuilder.addDeer(spawnSettings);
             vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
+            ModBiomeFeatures.addBeesOakTrees(vegetation);
             ModBiomeFeatures.addBracken(vegetation);
+            ModBiomeFeatures.addGreenShrub(vegetation);
             ModBiomeFeatures.addFalseOatgrass(vegetation);
             ModBiomeFeatures.addMossyBoulder(vegetation);
             ModBiomeFeatures.addBirchTrees(vegetation);
@@ -2546,7 +2559,7 @@ public class ModBiomes {
             vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
             ModBiomeFeatures.addFalseOatgrass(vegetation);
             ModBiomeFeatures.addMossyBoulder(vegetation);
-
+            ModBiomeFeatures.addGreenShrub(vegetation);
             ModBiomeFeatures.addCommonBeechTrees(vegetation);
             ModBiomeFeatures.addBirchTrees(vegetation);
             ModBiomeFeatures.addSparseBirchTrees(vegetation);
@@ -2713,6 +2726,7 @@ public class ModBiomes {
             ModBiomeFeatures.addDolomiteBoulder(vegetation);
         } else if (step == 1) { // Forest
             ModSpawnSettingsBuilder.addDeer(spawnSettings);
+            ModBiomeFeatures.addGreenShrub(vegetation);
             ModBiomeFeatures.addFalseOatgrass(vegetation);
             ModBiomeFeatures.addCoarseDirtOre(vegetation);
             ModBiomeFeatures.addPodzolOre(vegetation);
