@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.item.utils.armor.capes.ModCapes;
 import net.jukoz.me.resources.MiddleEarthNpcs;
 import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.NpcData;
@@ -229,9 +230,9 @@ public class GondorianNpcDataPool {
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE).withWeight(3))
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_KINGS_GUARD_CHESTKPLATE))
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CHESTPLATE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE).withCape(ModCapes.GONDORIAN_HERO_CAPE).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_KINGS_GUARD_CHESTKPLATE).withCape(ModCapes.GONDORIAN_HERO_CAPE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CHESTPLATE).withCape(ModCapes.GONDORIAN_HERO_CAPE))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CHESTPLATE)))
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_KINGS_GUARD_BOOTS)))
