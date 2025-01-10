@@ -698,6 +698,9 @@ public class ModBiomeFeatures {
     public static void addDeadHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_DEAD_HEATHER);
     }
+    public static void addDryHeather(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_DRY_HEATHER);
+    }
     public static void addHorokaka(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_HOROKAKA);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_GIANT_HOROKAKA);

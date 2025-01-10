@@ -1281,6 +1281,7 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addHaradVegetation(generationSettings);
+        ModBiomeFeatures.addDryHeather(vegetation);
         ModBiomeFeatures.addOakBushes(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addSandOre(vegetation);
@@ -1301,6 +1302,7 @@ public class ModBiomes {
 
         addHaradDesertVegetation(generationSettings);
         vegetation.add(VegetationPlacedFeatures.PATCH_DEAD_BUSH_2);
+        vegetation.add(VegetationPlacedFeatures.PATCH_CACTUS_DESERT);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, 0.8f, false);
     }
