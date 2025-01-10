@@ -24,6 +24,7 @@ public class WoodBlockSets {
     public static SimpleBlockSet BLACK_LEBETHRON = registerWoodSet("black_lebethron", WOOD_STRENGTH, false, null, true, false, null);
     public static SimpleBlockSet WHITE_LEBETHRON = registerWoodSet("white_lebethron", WOOD_STRENGTH, false, null, true, false, null);
     public static SimpleBlockSet CHESTNUT = registerWoodSet("chestnut", WOOD_STRENGTH, true, ModNatureBlocks.CHESTNUT_SAPLING, true, false, null);
+    public static SimpleBlockSet FIR = registerWoodSet("fir", WOOD_STRENGTH, true, ModNatureBlocks.FIR_SAPLING, true, false, null);
     public static SimpleBlockSet HOLLY = registerWoodSet("holly", WOOD_STRENGTH, true, ModNatureBlocks.HOLLY_SAPLING, true, false, null);
     public static SimpleBlockSet MALLORN = registerWoodSet("mallorn", WOOD_STRENGTH, true, ModNatureBlocks.MALLORN_SAPLING, false, true, ModParticleTypes.MALLORN_LEAVES_PARTICLE);
     public static SimpleBlockSet MAPLE = registerWoodSet("maple", WOOD_STRENGTH, false, null, false, false, null);
@@ -44,6 +45,7 @@ public class WoodBlockSets {
             WHITE_LEBETHRON,
             CHESTNUT,
             HOLLY,
+            FIR,
             MALLORN,
             MAPLE,
             SILVER_MAPLE,

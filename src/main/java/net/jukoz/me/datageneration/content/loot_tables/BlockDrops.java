@@ -22,6 +22,23 @@ public class BlockDrops {
             add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
 
+            add(ModDecorativeBlocks.BROWN_JUG);
+            add(ModDecorativeBlocks.GRAY_POT);
+            add(ModDecorativeBlocks.LARGE_JUG);
+
+            add(ModDecorativeBlocks.AMPHORA);
+            add(ModDecorativeBlocks.BROWN_AMPHORA);
+            add(ModDecorativeBlocks.GRAY_VASE);
+
+            add(ModDecorativeBlocks.BROWN_JAR);
+            add(ModDecorativeBlocks.CLAY_JAR);
+            add(ModDecorativeBlocks.GRAY_JAR);
+            
+            add(ModDecorativeBlocks.BROWN_FAT_POT);
+            add(ModDecorativeBlocks.FAT_POT);
+            add(ModDecorativeBlocks.GRAY_FAT_POT);
+            add(ModDecorativeBlocks.POT_OF_GOLD);
+
             add(ModDecorativeBlocks.CANDLE_HEAP);
 
             add(ModDecorativeBlocks.SCONCE);
