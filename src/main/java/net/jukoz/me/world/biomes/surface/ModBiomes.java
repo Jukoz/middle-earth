@@ -3640,6 +3640,7 @@ public class ModBiomes {
         ModBiomeFeatures.addHaradFoliage(vegetation);
         ModBiomeFeatures.addWildBellPepper(vegetation);
         ModBiomeFeatures.addWildTomato(vegetation);
+        ModBiomeFeatures.addPalmTrees(vegetation);
     }
 
     public static void addOceanVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
