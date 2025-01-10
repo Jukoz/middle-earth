@@ -2667,6 +2667,7 @@ public class ModBiomes {
             ModBiomeFeatures.addRareYellowFlower(vegetation);
             ModBiomeFeatures.addTallGrass(vegetation);
         } else if (step == 1) { // Fields
+            ModSpawnSettingsBuilder.addRabbits(spawnSettings);
             ModBiomeFeatures.addWilderGrass(vegetation);
             ModBiomeFeatures.addOrangeFlowers(vegetation);
             ModBiomeFeatures.addYellowFlowers(vegetation);
@@ -2676,6 +2677,7 @@ public class ModBiomes {
             ModBiomeFeatures.addSedumYellow(vegetation);
             ModBiomeFeatures.addYellowFlower(vegetation);
         } else if(step == 2) { // Forest
+            ModSpawnSettingsBuilder.addDeer(spawnSettings);
             ModBiomeFeatures.addCommonBeechTrees(vegetation);
             ModBiomeFeatures.addCommonOakTrees(vegetation);
             ModBiomeFeatures.addCommonBirchTrees(vegetation);
@@ -2687,6 +2689,8 @@ public class ModBiomes {
             ModBiomeFeatures.addMossCarpet(vegetation);
             vegetation.add(VegetationPlacedFeatures.FLOWER_FOREST_FLOWERS);
         } else if(step == 3) { // Blossom
+            ModSpawnSettingsBuilder.addWolves(spawnSettings);
+            ModSpawnSettingsBuilder.addRareWolves(spawnSettings);
             ModBiomeFeatures.addBeesOakTrees(vegetation);
             ModBiomeFeatures.addOakTrees(vegetation);
             ModBiomeFeatures.addSparseBirchTrees(vegetation);
