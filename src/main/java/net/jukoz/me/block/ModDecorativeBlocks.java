@@ -495,19 +495,19 @@ public class ModDecorativeBlocks {
             new BonfireBlock(AbstractBlock.Settings.copy(Blocks.CAMPFIRE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block SCONCE = registerBlock("sconce",
-            new METorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new METorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block WALL_SCONCE = registerBlock("wall_sconce",
-            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block GILDED_SCONCE = registerBlock("gilded_sconce",
-            new METorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new METorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block GILDED_WALL_SCONCE = registerBlock("gilded_wall_sconce",
-            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block ORCISH_SCONCE = registerBlock("orcish_sconce",
-            new OrcSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new OrcSconceBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block ORCISH_WALL_SCONCE = registerBlock("orcish_wall_sconce",
-            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block GROUND_BOOK = registerBlockWithItem("ground_book",
             new GroundBookBlock(AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision()));
