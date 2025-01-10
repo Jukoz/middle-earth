@@ -2,9 +2,7 @@ package net.jukoz.me.datageneration.content.loot_tables;
 
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
-import net.jukoz.me.datageneration.content.models.SimpleLadderModel;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +62,8 @@ public class BlockDrops {
 
             add(ModNatureBlocks.WHITE_LEBETHRON_SAPLING);
             add(ModNatureBlocks.LEBETHRON_SAPLING);
+            add(ModNatureBlocks.MAPLE_SAPLING);
+            add(ModNatureBlocks.SILVER_MAPLE_SAPLING);
             add(ModNatureBlocks.WHITE_PALM_SAPLING);
 
             add(ModDecorativeBlocks.FORGE);

@@ -10,7 +10,9 @@ import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,5 +65,17 @@ public class CustomCrossbowWeaponItem extends CrossbowItem implements MEEquipmen
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
         super.appendTooltip(stack, context, tooltip, type);
+    }
+
+    @Override
+    public Text getName(ItemStack stack) {
+        if(Registries.ITEM.getId(this).getPath().contains("_noble")
+                || Registries.ITEM.getId(this).getPath().contains("_elite")
+                || Registries.ITEM.getId(this).getPath().contains("uruk_hai")
+                || Registries.ITEM.getId(this).getPath().contains("heyday")
+                || Registries.ITEM.getId(this).getPath().contains("numenorean")){
+            return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
+        }
+        return super.getName(stack);
     }
 }

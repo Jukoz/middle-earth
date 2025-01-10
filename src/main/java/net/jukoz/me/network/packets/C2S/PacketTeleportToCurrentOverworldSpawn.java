@@ -1,10 +1,12 @@
 package net.jukoz.me.network.packets.C2S;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.item.items.StarlightPhialItem;
 import net.jukoz.me.network.contexts.ServerPacketContext;
 import net.jukoz.me.network.packets.ClientToServerPacket;
 import net.jukoz.me.resources.StateSaverAndLoader;
+import net.jukoz.me.resources.datas.races.RaceUtil;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.dimension.ModDimensions;
@@ -38,8 +40,17 @@ public class PacketTeleportToCurrentOverworldSpawn extends ClientToServerPacket<
     public void process(ServerPacketContext context) {
         try{
             context.player().getServer().execute(() -> {
+                RaceUtil.reset(context.player());
+
                 if(ModDimensions.isInMiddleEarth(context.player().getWorld())){
                     ModDimensions.teleportPlayerToOverworld(context.player());
+                    RaceUtil.reset(context.player());
+                    if(ModServerConfigs.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){
+                        RaceUtil.initializeRace(context.player());
+                    } else {
+                        RaceUtil.reset(context.player());
+                    }
+
                     if(!context.player().isCreative() && context.player().getMainHandStack().getItem() instanceof StarlightPhialItem)
                         context.player().getStackInHand(Hand.MAIN_HAND).decrement(1);
                 }

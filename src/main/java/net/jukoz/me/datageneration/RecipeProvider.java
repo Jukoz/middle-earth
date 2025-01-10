@@ -73,7 +73,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createWallsRecipe(exporter, record.base(), record.wall());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.base(), 1);
 
-            createTrapdoorRecipe(exporter, record.base(), record.trapdoor());
+            createFilledRecipe(exporter, record.base().asItem(), record.trapdoor(), 3);
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.trapdoor(), record.base());
 
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.rocks(), record.base(), 4);
 
@@ -406,7 +407,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         }
 
         for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.vanillaStoneTrapdoors) {
-            createTrapdoorRecipe(exporter, trapdoor.block(), trapdoor.trapdoor());
+            createFilledRecipe(exporter, trapdoor.block().asItem(), trapdoor.trapdoor(),3);
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, trapdoor.trapdoor(), trapdoor.block());
         }
 
         for (SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools) {
@@ -679,6 +681,15 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createDyeableItemRecipe(exporter, ModBlocks.WATTLE_TRAPDOOR, Items.BROWN_DYE, ModBlocks.DARK_WATTLE_TRAPDOOR);
         createDyeableItemRecipe(exporter, ModBlocks.WATTLE_TRAPDOOR, Items.BLACK_DYE, ModBlocks.BLACK_WATTLE_TRAPDOOR);
 
+        createBrickworkBlockRecipe(exporter, StoneBlockSets.STONE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.STONE_BRICKWORK.base());
+        createBrickworkBlockRecipe(exporter, StoneBlockSets.CALCITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.CALCITE_BRICKWORK.base());
+        createBrickworkBlockRecipe(exporter, Blocks.DEEPSLATE_TILES, StoneBlockSets.STUCCO.base(), StoneBlockSets.DEEPSLATE_BRICKWORK.base());
+        createBrickworkBlockRecipe(exporter, StoneBlockSets.BASALT_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.BASALT_BRICKWORK.base());
+        createBrickworkBlockRecipe(exporter, StoneBlockSets.ANDESITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.ANDESITE_BRICKWORK.base());
+        createBrickworkBlockRecipe(exporter, StoneBlockSets.GRANITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.GRANITE_BRICKWORK.base());
+        createBrickworkBlockRecipe(exporter, StoneBlockSets.DIORITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.DIORITE_BRICKWORK.base());
+
+
         createBrickworkBlockRecipe(exporter, StoneBlockSets.DOLOMITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.DOLOMITE_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.HEMATITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.HEMATITE_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.GNEISS_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.GNEISS_BRICKWORK.base());
@@ -686,14 +697,11 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createBrickworkBlockRecipe(exporter, StoneBlockSets.LIMESTONE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.LIMESTONE_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.GALONN_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.GALONN_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.GABBRO_BRICKS.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.GABBRO_BRICKWORK.base());
-        createBrickworkBlockRecipe(exporter, StoneBlockSets.BASALT_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.BASALT_BRICKWORK.base());
-        createBrickworkBlockRecipe(exporter, StoneBlockSets.ANDESITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.ANDESITE_BRICKWORK.base());
-        createBrickworkBlockRecipe(exporter, StoneBlockSets.GRANITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.GRANITE_BRICKWORK.base());
-        createBrickworkBlockRecipe(exporter, StoneBlockSets.DIORITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.DIORITE_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.TUFF_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.TUFF_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.BLACKSTONE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.BLACKSTONE_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.TAN_CLAY_BRICKS.base(), StoneBlockSets.PLASTER.base(), StoneBlockSets.TAN_CLAY_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.MIXED_STONES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.MIXED_STONES_BRICKWORK.base());
+        createBrickworkBlockRecipe(exporter, StoneBlockSets.MEDGON.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.MEDGON_BRICKWORK.base());
 
         createCenterSurroundRecipe(exporter, Items.BRICK, Items.BLUE_DYE, OtherBlockSets.BLUE_ROOF_TILES.block().asItem(), 8);
         createCenterSurroundRecipe(exporter, OtherBlockSets.BLUE_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_BLUE_ROOF_TILES.block().asItem(), 8);
@@ -1161,10 +1169,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .pattern("NIN")
                 .input('N', ModResourceItems.BRONZE_NUGGET)
                 .input('I', ModResourceItems.BRONZE_INGOT)
-                .input('L', Items.GLOWSTONE)
-                .input('G', Items.GLASS)
-                .criterion(FabricRecipeProvider.hasItem(Items.GLOWSTONE),
-                        FabricRecipeProvider.conditionsFromItem(Items.GLOWSTONE))
+                .input('L', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
+                .input('G', ModResourceItems.QUARTZ_SHARD)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.QUARTZ_SHARD),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.QUARTZ_SHARD))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeItems.SCONCE, 4)
@@ -1741,6 +1749,84 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(Items.CAULDRON).getPath() + "_alt"));
 
         createCenterSurroundRecipe(exporter, Blocks.TUFF.asItem(), Items.COPPER_INGOT, StoneBlockSets.GREEN_TUFF.base().asItem(), 8);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.AZALEA_FLOWER_GROWTH.asItem(), 8)
+                .pattern("lll")
+                .pattern("lll")
+                .input('l', Items.FLOWERING_AZALEA_LEAVES)
+                .criterion(FabricRecipeProvider.hasItem(Items.FLOWERING_AZALEA_LEAVES),
+                        FabricRecipeProvider.conditionsFromItem(Items.FLOWERING_AZALEA_LEAVES))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.DRY_GROWTH.asItem(), 4)
+                .pattern("sss")
+                .pattern("sss")
+                .input('s', Items.STICK)
+                .criterion(FabricRecipeProvider.hasItem(Items.STICK),
+                        FabricRecipeProvider.conditionsFromItem(Items.STICK))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.GREEN_GROWTH.asItem(), 8)
+                .pattern("lll")
+                .pattern("lll")
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(Items.OAK_LEAVES),
+                        FabricRecipeProvider.conditionsFromItem(Items.OAK_LEAVES))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.IVY_GROWTH.asItem(), 6)
+                .pattern("sls")
+                .pattern("sls")
+                .input('s', Items.STICK)
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(Items.OAK_LEAVES),
+                        FabricRecipeProvider.conditionsFromItem(Items.OAK_LEAVES))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.LILAC_FLOWER_GROWTH.asItem(), 8)
+                .pattern("lfl")
+                .pattern("lfl")
+                .input('f', Items.LILAC)
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(Items.OAK_LEAVES),
+                        FabricRecipeProvider.conditionsFromItem(Items.OAK_LEAVES))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.PINK_FLOWER_GROWTH.asItem(), 8)
+                .pattern("lfl")
+                .pattern("lfl")
+                .input('f', ModNatureBlocks.PINK_FLOWERS)
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.PINK_FLOWERS),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.PINK_FLOWERS))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.RED_FLOWER_GROWTH.asItem(), 8)
+                .pattern("lfl")
+                .pattern("lfl")
+                .input('f', ModNatureBlocks.RED_FLOWERS)
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.RED_FLOWERS),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.RED_FLOWERS))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.WHITE_FLOWER_GROWTH.asItem(), 8)
+                .pattern("lfl")
+                .pattern("lfl")
+                .input('f', ModNatureBlocks.WHITE_FLOWERS)
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.WHITE_FLOWERS),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.WHITE_FLOWERS))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.YELLOW_FLOWER_GROWTH.asItem(), 8)
+                .pattern("lfl")
+                .pattern("lfl")
+                .input('f', ModNatureBlocks.YELLOW_FLOWERS)
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.YELLOW_FLOWERS),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.YELLOW_FLOWERS))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.FROZEN_GROWTH.asItem(), 6)
+                .pattern("sis")
+                .pattern("sis")
+                .input('i', ModNatureBlocks.STICKY_SNOW)
+                .input('s', Items.STICK)
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.STICKY_SNOW),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.STICKY_SNOW))
+                .offerTo(exporter);
         //endregion
 
         //region SMOKING-ONLY
