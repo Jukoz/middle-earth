@@ -1743,6 +1743,84 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(Items.CAULDRON).getPath() + "_alt"));
 
         createCenterSurroundRecipe(exporter, Blocks.TUFF.asItem(), Items.COPPER_INGOT, StoneBlockSets.GREEN_TUFF.base().asItem(), 8);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.AZALEA_FLOWER_GROWTH.asItem(), 8)
+                .pattern("lll")
+                .pattern("lll")
+                .input('l', Items.FLOWERING_AZALEA_LEAVES)
+                .criterion(FabricRecipeProvider.hasItem(Items.FLOWERING_AZALEA_LEAVES),
+                        FabricRecipeProvider.conditionsFromItem(Items.FLOWERING_AZALEA_LEAVES))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.DRY_GROWTH.asItem(), 4)
+                .pattern("sss")
+                .pattern("sss")
+                .input('s', Items.STICK)
+                .criterion(FabricRecipeProvider.hasItem(Items.STICK),
+                        FabricRecipeProvider.conditionsFromItem(Items.STICK))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.GREEN_GROWTH.asItem(), 8)
+                .pattern("lll")
+                .pattern("lll")
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(Items.OAK_LEAVES),
+                        FabricRecipeProvider.conditionsFromItem(Items.OAK_LEAVES))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.IVY_GROWTH.asItem(), 6)
+                .pattern("sls")
+                .pattern("sls")
+                .input('s', Items.STICK)
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(Items.OAK_LEAVES),
+                        FabricRecipeProvider.conditionsFromItem(Items.OAK_LEAVES))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.LILAC_FLOWER_GROWTH.asItem(), 8)
+                .pattern("lfl")
+                .pattern("lfl")
+                .input('f', Items.LILAC)
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(Items.OAK_LEAVES),
+                        FabricRecipeProvider.conditionsFromItem(Items.OAK_LEAVES))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.PINK_FLOWER_GROWTH.asItem(), 8)
+                .pattern("lfl")
+                .pattern("lfl")
+                .input('f', ModNatureBlocks.PINK_FLOWERS)
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.PINK_FLOWERS),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.PINK_FLOWERS))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.RED_FLOWER_GROWTH.asItem(), 8)
+                .pattern("lfl")
+                .pattern("lfl")
+                .input('f', ModNatureBlocks.RED_FLOWERS)
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.RED_FLOWERS),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.RED_FLOWERS))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.WHITE_FLOWER_GROWTH.asItem(), 8)
+                .pattern("lfl")
+                .pattern("lfl")
+                .input('f', ModNatureBlocks.WHITE_FLOWERS)
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.WHITE_FLOWERS),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.WHITE_FLOWERS))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.YELLOW_FLOWER_GROWTH.asItem(), 8)
+                .pattern("lfl")
+                .pattern("lfl")
+                .input('f', ModNatureBlocks.YELLOW_FLOWERS)
+                .input('l', TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.YELLOW_FLOWERS),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.YELLOW_FLOWERS))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.FROZEN_GROWTH.asItem(), 6)
+                .pattern("sis")
+                .pattern("sis")
+                .input('i', ModNatureBlocks.STICKY_SNOW)
+                .input('s', Items.STICK)
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.STICKY_SNOW),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.STICKY_SNOW))
+                .offerTo(exporter);
         //endregion
 
         //region SMOKING-ONLY
