@@ -1743,6 +1743,32 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(Items.CAULDRON).getPath() + "_alt"));
 
         createCenterSurroundRecipe(exporter, Blocks.TUFF.asItem(), Items.COPPER_INGOT, StoneBlockSets.GREEN_TUFF.base().asItem(), 8);
+
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BROWN_JUG, Items.CLAY);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LARGE_JUG, Items.CLAY);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GRAY_POT, Items.CLAY);
+
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BROWN_JAR, Items.CLAY);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CLAY_JAR, Items.CLAY);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GRAY_JAR, Items.CLAY);
+
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.AMPHORA, Items.CLAY);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BROWN_AMPHORA, Items.CLAY);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GRAY_VASE, Items.CLAY);
+
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BROWN_FAT_POT, Items.CLAY);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.FAT_POT, Items.CLAY);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GRAY_FAT_POT, Items.CLAY);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.POT_OF_GOLD, 1)
+                .pattern(" G ")
+                .pattern("GGG")
+                .pattern(" P ")
+                .input('P', ModDecorativeBlocks.FAT_POT)
+                .input('G', Items.GOLD_INGOT)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.TIN_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.TIN_INGOT))
+                .offerTo(exporter);
         //endregion
 
         //region SMOKING-ONLY

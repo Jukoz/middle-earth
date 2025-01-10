@@ -5767,6 +5767,23 @@
   "block.me.watering_can": "Watering Can",
   "block.me.wooden_bucket": "Wooden Bucket",
 
+  "block.me.brown_jug": "Brown Jug",
+  "block.me.gray_pot": "Gray Pot",
+  "block.me.large_jug": "Large Jug",
+
+  "block.me.amphora": "Amphora",
+  "block.me.brown_amphora": "Brown Amphora",
+  "block.me.gray_vase": "Gray Vase",
+
+  "block.me.brown_jar": "Brown Jar",
+  "block.me.clay_jar": "Clay Jar",
+  "block.me.gray_jar": "Gray Jar",
+
+  "block.me.brown_fat_pot": "Brown Fat Pot",
+  "block.me.fat_pot": "Fat Pot",
+  "block.me.gray_fat_pot": "Gray Fat Pot",
+  "block.me.pot_of_gold": "Pot of Gold",
+
   "block.me.treated_steel_rod": "Treated Steel Rod",
   "block.me.treated_steel_door": "Treated Steel Door",
   "block.me.treated_steel_trapdoor": "Treated Steel Trapdoor",
@@ -5947,6 +5964,7 @@
   "block.me.yellow_amanita_block": "Yellow Amanita Block",
   "block.me.beech_sapling": "Beech Sapling",
   "block.me.chestnut_sapling": "Chestnut Sapling",
+  "block.me.fir_sapling": "Fir Sapling",
   "block.me.holly_sapling": "Holly Sapling",
   "block.me.larch_sapling": "Larch Sapling",
   "block.me.lebethron_sapling": "Lebethron Sapling",
