@@ -31,8 +31,8 @@ public class MiddleEarthMapConfigs {
     public static final String BASE_HEIGHT_IMAGE_NAME = "/base_height.png";
     public static final String BASE_EDGE_IMAGE_NAME = "/base_edge.png";
     public static final String IMAGE_NAME = "/%s_%s.png";
-    public static final String INITIAL_IMAGE = "assets/%s/textures/map.png".formatted(MiddleEarth.MOD_ID);;
-    public static final String INITIAL_MAP_FOLDER = "assets/%s/textures/map_data".formatted(MiddleEarth.MOD_ID);;
+    public static final String INITIAL_IMAGE = "assets/%s/textures/map.png".formatted(MiddleEarth.MOD_ID);
+    public static final String INITIAL_MAP_FOLDER = "assets/%s/textures/map_data/%s".formatted(MiddleEarth.MOD_ID, MiddleEarth.MOD_VERSION);
     public static final int THREAD_POOL_SIZE = 8; // Should be 8 by default
     public static final int BIOME_VALIDATION_TICK_DELAY = 1000;
     public static final int BIOME_VALIDATION_BLOCK_DELAY = 5000;

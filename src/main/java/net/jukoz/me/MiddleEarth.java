@@ -37,6 +37,8 @@ public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
 	public static final String MOD_VERSION = "1.5.0-1.21.1-alpha";
 	public static final boolean IS_DEBUG = true;
+	public static final boolean ENABLE_INSTANT_BOOTING = true;
+
 	@Override
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
