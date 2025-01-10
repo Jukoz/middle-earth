@@ -39,6 +39,9 @@ public class ModBiomeFeatures {
     public static void addCommonAcaciaTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.COMMON_ACACIA_PLACED_TREE_KEY);
     }
+    public static void addRareAcaciaTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.RARE_ACACIA_PLACED_TREE_KEY);
+    }
     public static void addCommonBeechTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.COMMON_BEECH_PLACED_TREE_KEY);
     }

@@ -219,6 +219,8 @@ public class MapBiomeData {
                 new BiomeColorsDTO(nearHaradSky, nearHaradSkyFog, 5407446, 1120828, 12301405, 13356379), CaveType.HARAD));
         addBiome(new BiomeData(MEBiomeKeys.HARAD_DESERT, MEBiomeDataConfigs.harad, MEBiomeDataConfigs.sandstoneLayers,
                 new BiomeColorsDTO(nearHaradSky, nearHaradSkyFog, 5407446, 1120828, 13419633, 9615182), CaveType.HARAD));
+        addBiome(new BiomeData(MEBiomeKeys.HARAD_WOODS, MEBiomeDataConfigs.nearHarad, MEBiomeDataConfigs.sandstoneLayers,
+                new BiomeColorsDTO(nearHaradSky, nearHaradSkyFog, 5407446, 1120828, 11515226, 12240727), CaveType.HARAD));
         addBiome(new BiomeData(MEBiomeKeys.HARONDOR, MEBiomeDataConfigs.nearHarad, MEBiomeDataConfigs.sandstoneLayers,
                 new BiomeColorsDTO(nearHaradSky, nearHaradSkyFog, 5406149, 1120828, 12305028, 10860366), CaveType.HARAD));
         // HIGH MOOR

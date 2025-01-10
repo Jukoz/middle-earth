@@ -166,6 +166,9 @@ public class SubBiomes {
 
         subBiomesMap.put(MEBiomeKeys.UMBAR, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.36f, MEBiomeKeys.UMBAR_WOODS));
+        subBiomesMap.put(MEBiomeKeys.HARAD, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.HARAD_WOODS)
+                .addSubBiomeData(0.36f, 1.0f, MEBiomeKeys.HARAD_WOODS));
     }
 
     public static boolean isSubBiome(RegistryKey<Biome> biomeRegistryKey) {

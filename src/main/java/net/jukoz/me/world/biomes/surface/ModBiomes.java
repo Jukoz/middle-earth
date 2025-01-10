@@ -109,7 +109,8 @@ public class ModBiomes {
         createGreyPlainsBiome(context, MEBiomeKeys.GREY_PLAINS, 0);
         createGreyPlainsBiome(context, MEBiomeKeys.GREY_ASHEN_WOODS, 1);
         createGreyPlainsTaiga(context, MEBiomeKeys.GUNDABAD_PLAINS);
-        createHaradBiome(context, MEBiomeKeys.HARAD);
+        createHaradBiome(context, MEBiomeKeys.HARAD, 0);
+        createHaradBiome(context, MEBiomeKeys.HARAD_WOODS, 1);
         createHaradDesertBiome(context, MEBiomeKeys.HARAD_DESERT);
         createHarondorBiome(context, MEBiomeKeys.HARONDOR);
         createHillsOfEvendim(context, MEBiomeKeys.HILLS_OF_EVENDIM);
@@ -1256,10 +1257,9 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
-    public static void createHaradBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+    public static void createHaradBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addHaradMobs(spawnSettings);
-        ModSpawnSettingsBuilder.addArmadillo(spawnSettings);
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
@@ -1267,8 +1267,28 @@ public class ModBiomes {
         ModBiomeFeatures.addSandOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addOakBushes(vegetation);
-        ModBiomeFeatures.addAcaciaTrees(vegetation);
+        ModBiomeFeatures.addDryHeather(vegetation);
+        ModBiomeFeatures.addTallGrass(vegetation);
         vegetation.add(VegetationPlacedFeatures.PATCH_DEAD_BUSH);
+
+        if(step == 0) { // Savannah
+            ModSpawnSettingsBuilder.addArmadillo(spawnSettings);
+            ModBiomeFeatures.addRareAcaciaTrees(vegetation);
+            ModBiomeFeatures.addWilderGrass(vegetation);
+            ModBiomeFeatures.addDryGrass(vegetation);
+        } else if(step == 1) { // Forest
+            ModSpawnSettingsBuilder.addRareWolves(spawnSettings);
+            ModBiomeFeatures.addDryGrowth(vegetation);
+            ModBiomeFeatures.addCommonAcaciaTrees(vegetation);
+            ModBiomeFeatures.addCoarseDirtOre(vegetation);
+            ModBiomeFeatures.addAcaciaTrees(vegetation);
+            ModBiomeFeatures.addBeechTrees(vegetation);
+            ModBiomeFeatures.addOakTrees(vegetation);
+            ModBiomeFeatures.addRareOakTrees(vegetation);
+            ModBiomeFeatures.addFalseOatgrass(vegetation);
+            vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+        }
+
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }

@@ -152,6 +152,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREY_PLAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD_DESERT),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.HARAD_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARONDOR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HILLS_OF_EVENDIM),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS),

@@ -22,6 +22,7 @@ import java.util.List;
 public class ModTreePlacedFeatures {
     public static final RegistryKey<PlacedFeature> ACACIA_PLACED_TREE_KEY = registerKey("acacia_tree");
     public static final RegistryKey<PlacedFeature> COMMON_ACACIA_PLACED_TREE_KEY = registerKey("common_acacia_tree");
+    public static final RegistryKey<PlacedFeature> RARE_ACACIA_PLACED_TREE_KEY = registerKey("rare_acacia_tree");
     public static final RegistryKey<PlacedFeature> COMMON_BEECH_PLACED_TREE_KEY = registerKey("common_beech_tree");
     public static final RegistryKey<PlacedFeature> BEECH_PLACED_TREE_KEY = registerKey("beech_tree");
     public static final RegistryKey<PlacedFeature> RARE_BEECH_PLACED_TREE_KEY = registerKey("rare_beech_tree");
@@ -143,7 +144,10 @@ public class ModTreePlacedFeatures {
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(scarceTree,
                         Blocks.ACACIA_SAPLING));
         register(context, COMMON_ACACIA_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatures.ACACIA),
-                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree,
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
+                        Blocks.ACACIA_SAPLING));
+        register(context, RARE_ACACIA_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatures.ACACIA),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(veryRareTree,
                         Blocks.ACACIA_SAPLING));
 
         register(context, BIRCH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BIRCH_TREE_KEY),

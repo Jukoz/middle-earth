@@ -179,6 +179,7 @@ public class MapBasedBiomePool {
         add(new Color(0x5d8b5d), new MapBasedCustomBiome(MEBiomeKeys.GUNDABAD_PLAINS, 9, MEBiomeDataConfigs.landModifier));
         add(new Color(0xccc471), new MapBasedCustomBiome(MEBiomeKeys.HARAD, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0xede591), new MapBasedCustomBiome(MEBiomeKeys.HARAD_DESERT, 9, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xC0C56B), new MapBasedCustomBiome(MEBiomeKeys.HARAD_WOODS, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0xb4d679), new MapBasedCustomBiome(MEBiomeKeys.HARONDOR, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x9cbb5e), new MapBasedCustomBiome(MEBiomeKeys.HILLS_OF_EVENDIM, 35, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x6ea163), new MapBasedCustomBiome(MEBiomeKeys.IRON_HILLS_PLAINS, 8, MEBiomeDataConfigs.landModifier));
@@ -361,6 +362,7 @@ public class MapBasedBiomePool {
 
         oasisBiomes.add(MEBiomeKeys.HARAD);
         oasisBiomes.add(MEBiomeKeys.HARAD_DESERT);
+        oasisBiomes.add(MEBiomeKeys.HARAD_WOODS);
 
         wastePondBiomes.add(MEBiomeKeys.BROWN_LANDS);
         wastePondBiomes.add(MEBiomeKeys.DAGORLAD);

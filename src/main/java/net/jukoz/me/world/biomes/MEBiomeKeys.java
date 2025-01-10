@@ -95,6 +95,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> GREY_PLAINS = MEBiomeKeys.register("grey_plains");
     public static final RegistryKey<Biome> HARAD = MEBiomeKeys.register("harad");
     public static final RegistryKey<Biome> HARAD_DESERT = MEBiomeKeys.register("harad_desert");
+    public static final RegistryKey<Biome> HARAD_WOODS = MEBiomeKeys.register("harad_woods");
     public static final RegistryKey<Biome> HARONDOR = MEBiomeKeys.register("harondor");
     public static final RegistryKey<Biome> HIGH_MOOR_VALE = MEBiomeKeys.register("high_moor_vale");
     public static final RegistryKey<Biome> HIGH_MOOR = MEBiomeKeys.register("high_moor");
