@@ -636,6 +636,9 @@ public class ModBiomeFeatures {
     public static void addDryGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_DRY_GRASS);
     }
+    public static void addSmallDryShrub(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SMALL_DRY_SHRUB);
+    }
     public static void addDuckweed(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_DUCKWEED);
     }
