@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/fat_pot",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/fat_pot"
+    },
+    "facing=south": {
+      "model": "me:block/fat_pot",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/fat_pot",
+      "y": 270
+    }
+  }
+}
