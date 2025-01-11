@@ -9,6 +9,10 @@ import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancBlock;
 import net.jukoz.me.block.special.forge.ForgeBlock;
+import net.jukoz.me.block.special.pots.AmphoraBlock;
+import net.jukoz.me.block.special.pots.FatPotBlock;
+import net.jukoz.me.block.special.pots.JarBlock;
+import net.jukoz.me.block.special.pots.JugBlock;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlock;
 import net.jukoz.me.block.special.shapingAnvil.dwarvenTreatedAnvil.DwarvenShapingAnvilBlock;
 import net.jukoz.me.block.special.shapingAnvil.elvenTreatedAnvil.ElvenTreatedAnvilblock;
@@ -462,6 +466,36 @@ public class ModDecorativeBlocks {
     public static final Block WOODEN_BUCKET = registerBlockWithItem("wooden_bucket",
             new WoodenBucketBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
 
+    public static final Block BROWN_JUG = registerBlockWithItem("brown_jug",
+            new JugBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block GRAY_POT = registerBlockWithItem("gray_pot",
+            new JugBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block LARGE_JUG = registerBlockWithItem("large_jug",
+            new JugBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+
+    public static final Block AMPHORA = registerBlockWithItem("amphora",
+            new AmphoraBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block BROWN_AMPHORA = registerBlockWithItem("brown_amphora",
+            new AmphoraBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block GRAY_VASE = registerBlockWithItem("gray_vase",
+            new AmphoraBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+
+    public static final Block BROWN_JAR = registerBlockWithItem("brown_jar",
+            new JarBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block CLAY_JAR = registerBlockWithItem("clay_jar",
+            new JarBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block GRAY_JAR = registerBlockWithItem("gray_jar",
+            new JarBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+
+    public static final Block BROWN_FAT_POT = registerBlockWithItem("brown_fat_pot",
+            new FatPotBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block FAT_POT = registerBlockWithItem("fat_pot",
+            new FatPotBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block GRAY_FAT_POT = registerBlockWithItem("gray_fat_pot",
+            new FatPotBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block POT_OF_GOLD = registerBlockWithItem("pot_of_gold",
+            new FatPotBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+
     public static final Block TREATED_STEEL_ROD = registerBlockWithItem("treated_steel_rod",
             new DecorativeRodBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool()));
 
@@ -495,19 +529,19 @@ public class ModDecorativeBlocks {
             new BonfireBlock(AbstractBlock.Settings.copy(Blocks.CAMPFIRE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block SCONCE = registerBlock("sconce",
-            new METorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new METorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block WALL_SCONCE = registerBlock("wall_sconce",
-            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block GILDED_SCONCE = registerBlock("gilded_sconce",
-            new METorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new METorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block GILDED_WALL_SCONCE = registerBlock("gilded_wall_sconce",
-            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block ORCISH_SCONCE = registerBlock("orcish_sconce",
-            new OrcSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new OrcSconceBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block ORCISH_WALL_SCONCE = registerBlock("orcish_wall_sconce",
-            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block GROUND_BOOK = registerBlockWithItem("ground_book",
             new GroundBookBlock(AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision()));
