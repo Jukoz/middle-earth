@@ -159,6 +159,9 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.THIN_BARREL);
             add(ModDecorativeBlocks.SMALL_CRATE);
+
+            add(ModDecorativeBlocks.ARKENSTONE);
+            add(ModDecorativeBlocks.WALL_ARKENSTONE);
         }
     };
 }

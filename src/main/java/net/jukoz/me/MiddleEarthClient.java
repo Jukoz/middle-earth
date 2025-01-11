@@ -745,6 +745,9 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.GALONN_STATUE, RenderLayer.getCutout());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.ARKENSTONE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WALL_ARKENSTONE, RenderLayer.getTranslucent());
+
         SimpleWoodChairModel.vanillaChairs.forEach(block -> {
             BlockRenderLayerMap.INSTANCE.putBlock(block.base(), RenderLayer.getCutout());
         });

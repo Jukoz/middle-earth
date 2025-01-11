@@ -2,6 +2,8 @@ package net.jukoz.me.block;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
+import net.jukoz.me.block.special.artefact.arkenstone.ArkenstoneBlock;
+import net.jukoz.me.block.special.artefact.arkenstone.ArkenstoneWallBlock;
 import net.jukoz.me.block.special.gemstones.CustomBuddingGemBlock;
 import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
