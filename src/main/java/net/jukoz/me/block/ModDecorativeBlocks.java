@@ -91,6 +91,8 @@ public class ModDecorativeBlocks {
 
     public static final Block CALCITE_STATUE = registerBlockWithItem("calcite_statue",
             new StatueBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque().requiresTool()));
+    public static final Block GALONN_STATUE = registerBlockWithItem("galonn_statue",
+            new StatueBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool()));
     public static final Block GONLUIN_STATUE = registerBlockWithItem("gonluin_statue",
             new StatueBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool()));
     public static final Block TUFF_STATUE = registerBlockWithItem("tuff_statue",

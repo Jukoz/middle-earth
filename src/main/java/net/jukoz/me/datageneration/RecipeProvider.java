@@ -1027,6 +1027,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
 
         createStatueRecipe(exporter, StoneBlockSets.POLISHED_CALCITE.base(), Blocks.CALCITE, ModBlocks.CALCITE_WALL, ModDecorativeBlocks.CALCITE_STATUE);
+        createStatueRecipe(exporter, StoneBlockSets.POLISHED_GALONN.base(), StoneBlockSets.GALONN.base(), StoneBlockSets.GALONN.wall(), ModDecorativeBlocks.GALONN_STATUE);
         createStatueRecipe(exporter, StoneBlockSets.POLISHED_GONLUIN.base(), StoneBlockSets.GONLUIN.base(), StoneBlockSets.GONLUIN.wall(), ModDecorativeBlocks.GONLUIN_STATUE);
         createStatueRecipe(exporter, Blocks.POLISHED_TUFF, Blocks.TUFF, Blocks.TUFF_WALL, ModDecorativeBlocks.TUFF_STATUE);
 
