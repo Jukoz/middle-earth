@@ -43,6 +43,20 @@ public class ShireHobbitModel<T extends MobEntity>
         super.animateModel(mobEntity, f, g, h);
     }
 
+    @Override
+    public void setAngles(T livingEntity, float f, float g, float h, float i, float j) {
+        super.setAngles(livingEntity, f, g, h, i, j);
+        if(riding){
+            head.pivotY = 10f;
+            hat.pivotY = 10f;
+            body.pivotY = 10f;
+            leftArm.pivotY = 12f;
+            rightArm.pivotY = 12f;
+            leftLeg.pivotY = 22f;
+            rightLeg.pivotY = 22f;
+        }
+    }
+
     /*@Override
     public void setAngles(T mobEntity, float f, float g, float h, float i, float j) {
         super.setAngles(mobEntity, f, g, h, i, j);
