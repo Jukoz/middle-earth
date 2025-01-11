@@ -348,7 +348,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
-        MiddleEarthHeightMap.setSeed(region.getSeed());
+        long seed = region.getSeed();
+        MiddleEarthHeightMap.setSeed(seed);
         for(int x = 0; x < 16; x++) {
             for(int z = 0; z < 16; z++) {
                 int posX = (chunk.getPos().x * 16) + x;
@@ -364,7 +365,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
                 float height = MiddleEarthHeightMap.getHeight(posX, posZ);
 
-                float caveBlendNoise = (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) posX / 24,  (double) posZ / 24)) - CAVE_NOISE);
+                float caveBlendNoise = (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) (posX + seed) / 24f,  (double) (posZ + seed) / 24f)) - CAVE_NOISE);
                 float slopeAngle = getTerrainSlope(height, posX, posZ);
                 int waterHeight = customHeightBiomeHeightData.getWaterHeight();
 

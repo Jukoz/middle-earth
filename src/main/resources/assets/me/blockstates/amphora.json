@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/amphora",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/amphora"
+    },
+    "facing=south": {
+      "model": "me:block/amphora",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/amphora",
+      "y": 270
+    }
+  }
+}

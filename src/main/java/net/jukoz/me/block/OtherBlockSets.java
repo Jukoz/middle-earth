@@ -37,6 +37,8 @@ public class OtherBlockSets {
     public static RoofBlockSet WHITE_LEBETHRON_ROOFING = registerWoodSet("white_lebethron_roofing", WHITE_LEBETHRON_SHINGLES.block);
     public static RoofBlockSet CHESTNUT_SHINGLES = registerWoodSet("chestnut_shingles", WoodBlockSets.CHESTNUT.planks());
     public static RoofBlockSet CHESTNUT_ROOFING = registerWoodSet("chestnut_roofing", CHESTNUT_SHINGLES.block);
+    public static RoofBlockSet FIR_SHINGLES = registerWoodSet("fir_shingles", WoodBlockSets.FIR.planks());
+    public static RoofBlockSet FIR_ROOFING = registerWoodSet("fir_roofing", FIR_SHINGLES.block);
     public static RoofBlockSet HOLLY_SHINGLES = registerWoodSet("holly_shingles", WoodBlockSets.HOLLY.planks());
     public static RoofBlockSet HOLLY_ROOFING = registerWoodSet("holly_roofing", HOLLY_SHINGLES.block);
     public static RoofBlockSet LARCH_SHINGLES = registerWoodSet("larch_shingles", WoodBlockSets.LARCH.planks());
@@ -176,6 +178,8 @@ public class OtherBlockSets {
             WHITE_LEBETHRON_ROOFING,
             CHESTNUT_SHINGLES,
             CHESTNUT_ROOFING,
+            FIR_SHINGLES,
+            FIR_ROOFING,
             HOLLY_SHINGLES,
             HOLLY_ROOFING,
             MALLORN_SHINGLES,

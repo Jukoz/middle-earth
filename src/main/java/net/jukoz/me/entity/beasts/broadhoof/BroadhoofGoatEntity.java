@@ -84,7 +84,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 1)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 50.0d)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.4d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)

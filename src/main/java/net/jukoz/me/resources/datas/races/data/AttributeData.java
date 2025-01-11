@@ -112,7 +112,7 @@ public class AttributeData {
         put(Identifier.of("minecraft:generic.attack_speed"), 4.0);
         put(Identifier.of("minecraft:generic.burning_time"), 1.0);
         put(Identifier.of("minecraft:generic.explosion_knockback_resistance"), 0.0);
-        put(Identifier.of("minecraft:generic.fall_damage_multiplier"), 0.225);
+        put(Identifier.of("minecraft:generic.fall_damage_multiplier"), 1.0);
         put(Identifier.of("minecraft:generic.gravity"), 0.08);
         put(Identifier.of("minecraft:generic.jump_strength"), 0.41999998688697815);
         put(Identifier.of("minecraft:generic.knockback_resistance"), 0.0);
