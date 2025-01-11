@@ -1613,6 +1613,8 @@
   "block.me.reed_vertical_slab": "Reed Vertical Slab",
   "block.me.reed_wall": "Reed Wall",
 
+  "block.me.wild_wheat": "Wild Wheat",
+  "block.me.tall_wild_wheat": "Tall Wild Wheat",
   "block.me.wild_pipeweed": "Wild Pipeweed",
   "block.me.wild_flax": "Wild Flax",
   "block.me.wild_tomato": "Wild Tomato",
@@ -5938,6 +5940,9 @@
   "block.me.red_flowers": "Red Flowers",
   "block.me.white_flowers": "White Flowers",
   "block.me.yellow_flowers": "Yellow Flowers",
+
+  "block.me.lavender": "Lavender",
+  "block.me.yellow_trollius": "Yellow Trollius",
 
   "block.me.strawberry_bush": "Strawberry Bush",
   "block.me.tan_shrub": "Tan Shrub",
