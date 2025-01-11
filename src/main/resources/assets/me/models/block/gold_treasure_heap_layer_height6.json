@@ -1,0 +1,22 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "me:block/gold_treasure_heap_side",
+		"2": "me:block/gold_treasure_heap_top",
+		"particle": "me:block/gold_treasure_heap_top"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 6, 16],
+			"faces": {
+				"north": {"uv": [0, 10, 16, 16], "texture": "#1", "cullface": "north"},
+				"east": {"uv": [0, 10, 16, 16], "texture": "#1", "cullface": "east"},
+				"south": {"uv": [0, 10, 16, 16], "texture": "#1", "cullface": "south"},
+				"west": {"uv": [0, 10, 16, 16], "texture": "#1", "cullface": "west"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#2"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#2", "cullface": "down"}
+			}
+		}
+	]
+}

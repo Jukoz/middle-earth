@@ -496,6 +496,12 @@ public class ModDecorativeBlocks {
     public static final Block POT_OF_GOLD = registerBlockWithItem("pot_of_gold",
             new FatPotBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
 
+    public static final Block GOLDEN_CHALICE = registerBlockWithItem("golden_chalice",
+            new ChaliceBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
+
+    public static final Block GOLD_TREASURE_HEAP_LAYER = registerBlockWithItem("gold_treasure_heap_layer",
+            new LayersAltBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
+
     public static final Block TREATED_STEEL_ROD = registerBlockWithItem("treated_steel_rod",
             new DecorativeRodBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool()));
 

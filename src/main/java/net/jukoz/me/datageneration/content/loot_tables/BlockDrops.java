@@ -39,6 +39,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.GRAY_FAT_POT);
             add(ModDecorativeBlocks.POT_OF_GOLD);
 
+            add(ModDecorativeBlocks.GOLDEN_CHALICE);
+
             add(ModDecorativeBlocks.CANDLE_HEAP);
 
             add(ModDecorativeBlocks.SCONCE);
