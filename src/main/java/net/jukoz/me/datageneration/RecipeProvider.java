@@ -1879,6 +1879,18 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(Items.GOLD_NUGGET),
                         FabricRecipeProvider.conditionsFromItem(Items.GOLD_NUGGET))
                 .offerTo(exporter);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.GOLD_NUGGET, 4)
+                .input(ModDecorativeBlocks.GOLD_COIN_PILE)
+                .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.GOLD_COIN_PILE),
+                        FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.GOLD_COIN_PILE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "gold_nugget_from_pile"));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.GOLD_NUGGET, 3)
+                .input(ModDecorativeBlocks.GOLD_TREASURE_HEAP_LAYER)
+                .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.GOLD_TREASURE_HEAP_LAYER),
+                        FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.GOLD_TREASURE_HEAP_LAYER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "gold_nugget_from_treasure"));
         //endregion
 
         //region SMOKING-ONLY
