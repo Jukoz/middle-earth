@@ -499,9 +499,17 @@ public class ModDecorativeBlocks {
     public static final Block GOLDEN_CHALICE = registerBlockWithItem("golden_chalice",
             new ChaliceBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
 
+    public static final Block COPPER_TREASURE_HEAP_LAYER = registerBlockWithItem("copper_treasure_heap_layer",
+            new LayersAltBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
+    public static final Block SILVER_TREASURE_HEAP_LAYER = registerBlockWithItem("silver_treasure_heap_layer",
+            new LayersAltBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
     public static final Block GOLD_TREASURE_HEAP_LAYER = registerBlockWithItem("gold_treasure_heap_layer",
             new LayersAltBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
 
+    public static final Block COPPER_COIN_PILE = registerBlockWithItem("copper_coin_pile",
+            new CoinPileBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).noCollision().nonOpaque()));
+    public static final Block SILVER_COIN_PILE = registerBlockWithItem("silver_coin_pile",
+            new CoinPileBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).noCollision().nonOpaque()));
     public static final Block GOLD_COIN_PILE = registerBlockWithItem("gold_coin_pile",
             new CoinPileBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).noCollision().nonOpaque()));
 

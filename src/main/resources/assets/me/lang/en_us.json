@@ -5786,8 +5786,12 @@
 
   "block.me.golden_chalice": "Golden Chalice",
 
+  "block.me.copper_treasure_heap_layer": "Copper Treasure Heap Layer",
+  "block.me.silver_treasure_heap_layer": "Silver Treasure Heap Layer",
   "block.me.gold_treasure_heap_layer": "Gold Treasure Heap Layer",
 
+  "block.me.copper_coin_pile": "Copper Coin Pile",
+  "block.me.silver_coin_pile": "Silver Coin Pile",
   "block.me.gold_coin_pile": "Gold Coin Pile",
 
   "block.me.treated_steel_rod": "Treated Steel Rod",

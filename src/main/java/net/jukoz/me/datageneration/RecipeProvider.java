@@ -1865,11 +1865,39 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(Items.GOLD_INGOT))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.COPPER_TREASURE_HEAP_LAYER, 1)
+                .pattern("NNN")
+                .input('N', ModResourceItems.COPPER_COIN)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.COPPER_COIN),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.COPPER_COIN))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SILVER_TREASURE_HEAP_LAYER, 1)
+                .pattern("NNN")
+                .input('N', ModResourceItems.SILVER_COIN)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SILVER_COIN),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SILVER_COIN))
+                .offerTo(exporter);
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GOLD_TREASURE_HEAP_LAYER, 1)
                 .pattern("NNN")
                 .input('N', Items.GOLD_NUGGET)
                 .criterion(FabricRecipeProvider.hasItem(Items.GOLD_NUGGET),
                         FabricRecipeProvider.conditionsFromItem(Items.GOLD_NUGGET))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.COPPER_COIN_PILE, 1)
+                .pattern("NN")
+                .pattern("NN")
+                .input('N', ModResourceItems.COPPER_COIN)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.COPPER_COIN),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.COPPER_COIN))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SILVER_COIN_PILE, 1)
+                .pattern("NN")
+                .pattern("NN")
+                .input('N', ModResourceItems.SILVER_COIN)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.SILVER_COIN),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.SILVER_COIN))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GOLD_COIN_PILE, 1)
@@ -1880,17 +1908,43 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(Items.GOLD_NUGGET))
                 .offerTo(exporter);
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.GOLD_NUGGET, 4)
-                .input(ModDecorativeBlocks.GOLD_COIN_PILE)
-                .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.GOLD_COIN_PILE),
-                        FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.GOLD_COIN_PILE))
-                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "gold_nugget_from_pile"));
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModResourceItems.COPPER_COIN, 3)
+                .input(ModDecorativeBlocks.COPPER_TREASURE_HEAP_LAYER)
+                .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.COPPER_TREASURE_HEAP_LAYER),
+                        FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.COPPER_TREASURE_HEAP_LAYER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "copper_coin_from_treasure"));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModResourceItems.SILVER_COIN, 3)
+                .input(ModDecorativeBlocks.SILVER_TREASURE_HEAP_LAYER)
+                .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.SILVER_TREASURE_HEAP_LAYER),
+                        FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.SILVER_TREASURE_HEAP_LAYER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "silver_coin_from_treasure"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.GOLD_NUGGET, 3)
                 .input(ModDecorativeBlocks.GOLD_TREASURE_HEAP_LAYER)
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.GOLD_TREASURE_HEAP_LAYER),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.GOLD_TREASURE_HEAP_LAYER))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "gold_nugget_from_treasure"));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModResourceItems.COPPER_COIN, 4)
+                .input(ModDecorativeBlocks.COPPER_COIN_PILE)
+                .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.COPPER_COIN_PILE),
+                        FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.COPPER_COIN_PILE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "copper_coin_from_pile"));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModResourceItems.SILVER_COIN, 4)
+                .input(ModDecorativeBlocks.SILVER_COIN_PILE)
+                .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.SILVER_COIN_PILE),
+                        FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.SILVER_COIN_PILE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "silver_coin_from_pile"));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.GOLD_NUGGET, 4)
+                .input(ModDecorativeBlocks.GOLD_COIN_PILE)
+                .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.GOLD_COIN_PILE),
+                        FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.GOLD_COIN_PILE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "gold_nugget_from_pile"));
+
+
         //endregion
 
         //region SMOKING-ONLY

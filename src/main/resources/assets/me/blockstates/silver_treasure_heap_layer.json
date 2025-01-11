@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "layers=1": {
+      "model": "me:block/silver_treasure_heap_layer_height2"
+    },
+    "layers=2": {
+      "model": "me:block/silver_treasure_heap_layer_height4"
+    },
+    "layers=3": {
+      "model": "me:block/silver_treasure_heap_layer_height6"
+    },
+    "layers=4": {
+      "model": "me:block/silver_treasure_heap_layer_height8"
+    },
+    "layers=5": {
+      "model": "me:block/silver_treasure_heap_layer_height10"
+    },
+    "layers=6": {
+      "model": "me:block/silver_treasure_heap_layer_height12"
+    },
+    "layers=7": {
+      "model": "me:block/silver_treasure_heap_layer_height14"
+    },
+    "layers=8": {
+      "model": "me:block/silver_treasure_heap_full"
+    }
+  }
+}
