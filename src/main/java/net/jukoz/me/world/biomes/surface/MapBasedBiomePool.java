@@ -149,11 +149,12 @@ public class MapBasedBiomePool {
         add(new Color(0x75a46d), new MapBasedCustomBiome(MEBiomeKeys.ENEDWAITH, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x7AB270), new MapBasedCustomBiome(MEBiomeKeys.ENEDWAITH_FIELDS, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x6ea76e), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, 25, MEBiomeDataConfigs.foothillModifier));
-        add(new Color(0xc9c9cb), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_BASE, 51, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
-        add(new Color(0xb9b9bb), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_BASE, 60, MEBiomeDataConfigs.mountainModifier.heightModifier(0.37f)));
-        add(new Color(0xa8a8aa), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN, 68, MEBiomeDataConfigs.mountainModifier.heightModifier(0.43f)));
-        add(new Color(0x979799), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN, 81, MEBiomeDataConfigs.mountainModifier.heightModifier(0.57f)));
-        add(new Color(0x7f7f81), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 94, MEBiomeDataConfigs.mountainModifier.heightModifier(0.81f)));
+        add(new Color(0xc9c9cb), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_BASE, 46, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
+        add(new Color(0xb9b9bb), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_BASE, 53, MEBiomeDataConfigs.mountainModifier.heightModifier(0.37f)));
+        add(new Color(0xa8a8aa), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN, 64, MEBiomeDataConfigs.mountainModifier.heightModifier(0.43f)));
+        add(new Color(0x979799), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN, 76, MEBiomeDataConfigs.mountainModifier.heightModifier(0.57f)));
+        add(new Color(0x88888a), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 82, MEBiomeDataConfigs.mountainModifier.heightModifier(0.81f)));
+        add(new Color(0x7f7f81), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 92, MEBiomeDataConfigs.mountainModifier.heightModifier(0.81f)));
         add(new Color(0x5a9f5a), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x272525), new MapBasedCustomBiome(MEBiomeKeys.EPHEL_DUATH, 71, MEBiomeDataConfigs.mountainModifier));
         add(new Color(0x312e2e), new MapBasedCustomBiome(MEBiomeKeys.EPHEL_DUATH_BASE, 36, MEBiomeDataConfigs.mountainModifier.heightModifier(0.33f)));

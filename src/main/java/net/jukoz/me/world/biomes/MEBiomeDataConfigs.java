@@ -89,10 +89,15 @@ public class MEBiomeDataConfigs {
             .addSlopeData(54, StoneBlockSets.LIMESTONE.base())
             .addSlopeData(MAX_ANGLE, StoneBlockSets.GALONN.base());
 
-    public static SlopeMap lonelyMountain = new SlopeMap().addSlopeData(33, Blocks.GRASS_BLOCK)
+    public static SlopeMap lonelyMountainBase = new SlopeMap().addSlopeData(33, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
             .addSlopeData(44, Blocks.STONE)
             .addSlopeData(56, Blocks.TUFF)
+            .addSlopeData(MAX_ANGLE, Blocks.DEEPSLATE);
+    public static SlopeMap lonelyMountain = new SlopeMap().addSlopeData(27, Blocks.GRASS_BLOCK)
+            .addSlopeData(32, Blocks.COARSE_DIRT)
+            .addSlopeData(48, Blocks.STONE)
+            .addSlopeData(60, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.DEEPSLATE);
     public static SlopeMap lonelyMountainPeak = new SlopeMap().addSlopeData(24, Blocks.SNOW_BLOCK)
             .addSlopeData(36, StoneBlockSets.SCHIST.base())
