@@ -175,6 +175,11 @@ public class ModNatureBlocks {
     public static final Block YELLOW_FLOWERS = registerBlock("yellow_flowers",
             new FlowerBlock(StatusEffects.SATURATION, 0, AbstractBlock.Settings.copy(Blocks.DANDELION)), true);
 
+    public static final Block LAVENDER = registerBlock("lavender",
+            new FlowerBlock(StatusEffects.SATURATION, 0, AbstractBlock.Settings.copy(Blocks.DANDELION)), true);
+    public static final Block YELLOW_TROLLIUS = registerBlock("yellow_trollius",
+            new FlowerBlock(StatusEffects.SATURATION, 0, AbstractBlock.Settings.copy(Blocks.DANDELION)), true);
+
     public static final Block HOROKAKA = registerBlock("horokaka",
             new DesertPlantBlock(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.NONE)
                     .mapColor(DyeColor.GREEN)), true);
@@ -385,6 +390,10 @@ public class ModNatureBlocks {
     public static final Block STRAWBERRY_BUSH = registerBlock("strawberry_bush",
             new StrawBerryBushBlock(AbstractBlock.Settings.copy(Blocks.SWEET_BERRY_BUSH).ticksRandomly().noCollision().breakInstantly().sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), false);
 
+    public static final Block WILD_WHEAT = registerCrossBlock("wild_wheat",
+            new WildCropBlock(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).sounds(BlockSoundGroup.CROP)), true);
+    public static final Block TALL_WILD_WHEAT = registerBlock("tall_wild_wheat",
+            new CustomTallPlantBlock(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).sounds(BlockSoundGroup.CROP), true), true);
     public static final Block WILD_PIPEWEED = registerBlock("wild_pipeweed",
             new CustomTallPlantBlock(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).sounds(BlockSoundGroup.CROP), true), true);
     public static final Block WILD_FLAX = registerCrossBlock("wild_flax",

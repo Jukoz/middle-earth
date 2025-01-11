@@ -39,6 +39,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.GRAY_FAT_POT);
             add(ModDecorativeBlocks.POT_OF_GOLD);
 
+            add(ModDecorativeBlocks.GOLDEN_CHALICE);
+
             add(ModDecorativeBlocks.CANDLE_HEAP);
 
             add(ModDecorativeBlocks.SCONCE);
@@ -130,6 +132,9 @@ public class BlockDrops {
             add(ModNatureBlocks.RED_FLOWERS);
             add(ModNatureBlocks.WHITE_FLOWERS);
             add(ModNatureBlocks.YELLOW_FLOWERS);
+
+            add(ModNatureBlocks.LAVENDER);
+            add(ModNatureBlocks.YELLOW_TROLLIUS);
 
             add(ModNatureBlocks.SMALL_LILY_PADS);
             add(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS);
