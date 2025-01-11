@@ -132,6 +132,7 @@ public class MapBasedBiomePool {
         add(new Color(0x529250), new MapBasedCustomBiome(MEBiomeKeys.DORWINION, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x5d715c), new MapBasedCustomBiome(MEBiomeKeys.DORWINION_HILLS, 34, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x84897c), new MapBasedCustomBiome(MEBiomeKeys.DUNLAND_FOOTHILLS, 34, MEBiomeDataConfigs.foothillModifier));
+        add(new Color(0x899478), new MapBasedCustomBiome(MEBiomeKeys.DUNLAND_HILLS, 18, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0xa2c585), new MapBasedCustomBiome(MEBiomeKeys.EAST_BIGHT, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x655950), new MapBasedCustomBiome(MEBiomeKeys.EASTERN_NURN, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0x8c9654), new MapBasedCustomBiome(MEBiomeKeys.EASTERN_RHOVANION, 4, MEBiomeDataConfigs.landModifier));

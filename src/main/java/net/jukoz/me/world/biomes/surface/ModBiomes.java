@@ -69,6 +69,7 @@ public class ModBiomes {
         createDorwinionBiome(context, MEBiomeKeys.DORWINION);
         createDorwinionHillsBiome(context, MEBiomeKeys.DORWINION_HILLS);
         createDunlandFoothillsBiome(context, MEBiomeKeys.DUNLAND_FOOTHILLS);
+        createDunlandFoothillsBiome(context, MEBiomeKeys.DUNLAND_HILLS);
         createEasternRhovanionBiome(context, MEBiomeKeys.EAST_BIGHT, 0);
         createNurnBiome(context, MEBiomeKeys.EASTERN_NURN, 0);
         createEasternRhovanionBiome(context, MEBiomeKeys.EASTERN_RHOVANION, 0);
@@ -727,11 +728,13 @@ public class ModBiomes {
         ModBiomeFeatures.addDolomiteOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addPodzolOre(vegetation);
-        ModBiomeFeatures.addStoneGrassOre(vegetation);
+        ModBiomeFeatures.addGrassToStoneOre(vegetation);
         ModBiomeFeatures.addTuffOre(vegetation);
         ModBiomeFeatures.addLarchTrees(vegetation);
         ModBiomeFeatures.addPineTrees(vegetation);
+        ModBiomeFeatures.addSparsePineTrees(vegetation);
         ModBiomeFeatures.addBlackPineTrees(vegetation);
+        ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
         ModBiomeFeatures.addSpruceTrees(vegetation);
         ModBiomeFeatures.addCommonSpruceBushes(vegetation);
 

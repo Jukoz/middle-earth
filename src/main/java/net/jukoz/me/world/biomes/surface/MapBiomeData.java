@@ -142,6 +142,8 @@ public class MapBiomeData {
         // DUNLAND
         addBiome(new BiomeData(MEBiomeKeys.DUNLAND_FOOTHILLS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7508201, 10863086, defaultWater, defaultWaterFog, 6722387, 6198343)));
+        addBiome(new BiomeData(MEBiomeKeys.DUNLAND_HILLS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(7508201, 12964294, defaultWater, defaultWaterFog, 7116123, 6657105)));
         addBiome(new BiomeData(MEBiomeKeys.NORTHERN_DUNLAND, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7508201, 12964294, defaultWater, defaultWaterFog, 6722387, 6198343)));
         addBiome(new BiomeData(MEBiomeKeys.NORTHERN_DUNLAND_GLADE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
