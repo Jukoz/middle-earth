@@ -204,7 +204,7 @@ public class MapBasedBiomePool {
         add(new Color(0x3CB072), new MapBasedCustomBiome(MEBiomeKeys.LINDON_FOREST, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x48C761), new MapBasedCustomBiome(MEBiomeKeys.LINDON_HIDDEN_BLOSSOM, 8, MEBiomeDataConfigs.landModifier));
         add(new Color(0x4AD375), new MapBasedCustomBiome(MEBiomeKeys.LINDON_MEADOW, 4, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x438564), new MapBasedCustomBiome(MEBiomeKeys.LONG_MARSHES, 3, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x438564), new MapBasedCustomBiome(MEBiomeKeys.LONG_MARSHES, 2, MEBiomeDataConfigs.landModifier.noiseModifier(0.17f)));
         add(new Color(0x48c440), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0xE5A695), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_CHERRY_BLOSSOM, 23, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x6bc35c), new MapBasedCustomBiome(MEBiomeKeys.LOSSARNACH_VALLEY, 7, MEBiomeDataConfigs.landModifier));
