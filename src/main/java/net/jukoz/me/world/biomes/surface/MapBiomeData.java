@@ -177,6 +177,9 @@ public class MapBiomeData {
         // ETHIR ANDUIN
         addBiome(new BiomeData(MEBiomeKeys.ETHIR_ANDUIN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 6400102, 6137428)));
+        addBiome(new BiomeData(MEBiomeKeys.ETHIR_ANDUIN_RIVER_DELTA, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 6400102, 6137428)));
+
         // FANGORN
         addBiome(new BiomeData(MEBiomeKeys.FANGORN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7972607, defaultFog, 4293787, 338483, 3559947, 1789719)));
@@ -408,6 +411,8 @@ public class MapBiomeData {
         // NEN HITHOEL
         addBiome(new BiomeData(MEBiomeKeys.NEN_HITHOEL, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(waterSky, 12638463, 6853316, 6853316, 10995507, 7181907)));
+        addBiome(new BiomeData(MEBiomeKeys.NEN_HITHOEL_RAPIDS, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(waterSky, 12638463, 6853316, 6853316, 10995507, 7181907)));
         addBiome(new BiomeData(MEBiomeKeys.NEN_HITHOEL_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(6980296, 10402016, 4618461, defaultWaterFog, 9666387, 9731143)));
         addBiome(new BiomeData(MEBiomeKeys.NEN_HITHOEL_SHORES, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
@@ -589,7 +594,8 @@ public class MapBiomeData {
                new BiomeColorsDTO(nearHaradSky, nearHaradSkyFog, 5407446, 1120828, 7253092, 6592350), CaveType.HARAD));
        addBiome(new BiomeData(MEBiomeKeys.WASTE_POND, MEBiomeDataConfigs.ashenDirt, MEBiomeDataConfigs.ashenStoneLayers,
                new BiomeColorsDTO(8163746, 10926783, 5860963, 863008, 4020033, 2695710)));
-
+       addBiome(new BiomeData(MEBiomeKeys.MANGROVE_POND,MEBiomeDataConfigs.pond, MEBiomeDataConfigs.stoneLayers,
+               new BiomeColorsDTO(waterSky, defaultFog, 5141154, 331315, 7583083, 6592339)));
    }
 
     private static void loadGenericRivers(){
@@ -610,6 +616,8 @@ public class MapBiomeData {
                new BiomeColorsDTO(8104447, defaultFog, defaultCoastWater, defaultOceanWaterFog, 7971954, 6590810)));
        addBiome(new BiomeData(MEBiomeKeys.FROZEN_OCEAN, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers,
                new BiomeColorsDTO(8628223, 10599910, 3750089, 263470, 3494723, 4478280), CaveType.FOROD));
+        addBiome(new BiomeData(MEBiomeKeys.LONG_LAKE_SHORES, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(waterSky, defaultFog, 4352228, 525619, 7576434, 6588506)));
         addBiome(new BiomeData(MEBiomeKeys.LONG_LAKE, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(waterSky, defaultFog, 4352228, 525619, 7576434, 6588506)));
         addBiome(new BiomeData(MEBiomeKeys.SEA_OF_RHUN, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers,

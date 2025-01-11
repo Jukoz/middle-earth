@@ -107,27 +107,29 @@ public class ModBiomeSource extends BiomeSource {
                 additionalHeight *= MiddleEarthMapRuntime.getInstance().getEdge(i, k);
                 height += (float) additionalHeight;
             }
-
+            RegistryKey<Biome> biomeRegistryKey = biome.getBiomeRegistryKey();
             if(j <= CavesPlacedFeatures.MAX_MITHRIL_HEIGHT && biome.getCaveType() == CaveType.MISTIES) {
                 processedBiome = MEBiomeKeys.MITHRIL_CAVE;
-            } else if(biome.getBiomeRegistryKey() == MapBasedBiomePool.deadMarshes.getBiomeKey() || biome.getBiomeRegistryKey() == MapBasedBiomePool.deadMarshesWater.getBiomeKey()) {
+            } else if(biomeRegistryKey == MapBasedBiomePool.deadMarshes.getBiomeKey() || biomeRegistryKey == MapBasedBiomePool.deadMarshesWater.getBiomeKey()) {
                 height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthChunkGenerator.getMarshesHeight(i, k, height);
                 if(j < (height - 20)) processedBiome = getCaveBiome(i, k, biome);
                 else if(height < MiddleEarthChunkGenerator.WATER_HEIGHT) processedBiome = MapBasedBiomePool.deadMarshesWater.getBiomeKey();
                 else processedBiome = MapBasedBiomePool.deadMarshes.getBiomeKey();
             } else if(height <= biomeHeightData.getWaterHeight() + 1.25f) { // TODO : This is really rough, need to be more dynamic
-                if(MapBasedBiomePool.coastalBiomes.contains(biome.getBiomeRegistryKey())){
+                if(MapBasedBiomePool.coastalBiomes.contains(biomeRegistryKey)){
                     processedBiome = MapBasedBiomePool.oceanCoast.getBiomeKey();
-                } else if(MapBasedBiomePool.wastePondBiomes.contains(biome.getBiomeRegistryKey())) {
+                } else if(MapBasedBiomePool.wastePondBiomes.contains(biomeRegistryKey)) {
                     processedBiome = MapBasedBiomePool.wastePond.getBiomeKey();
-                } else if(MapBasedBiomePool.mirkwoodSwampBiomes.contains(biome.getBiomeRegistryKey())) {
+                } else if(MapBasedBiomePool.mirkwoodSwampBiomes.contains(biomeRegistryKey)) {
                     processedBiome = MapBasedBiomePool.mirkwoodSwamp.getBiomeKey();
-                } else if(MapBasedBiomePool.oasisBiomes.contains(biome.getBiomeRegistryKey())) {
+                } else if(MapBasedBiomePool.oasisBiomes.contains(biomeRegistryKey)) {
                     processedBiome = MapBasedBiomePool.oasis.getBiomeKey();
-                } else if(MapBasedBiomePool.frozenBiomes.contains(biome.getBiomeRegistryKey())) {
+                } else if(MapBasedBiomePool.frozenBiomes.contains(biomeRegistryKey)) {
                     processedBiome = MapBasedBiomePool.frozenPond.getBiomeKey();
-                } else if(MapBasedBiomePool.anduinWaterBiomes.contains(biome.getBiomeRegistryKey())){
+                } else if(MapBasedBiomePool.anduinWaterBiomes.contains(biomeRegistryKey)){
                     processedBiome = MapBasedBiomePool.greatRiver.getBiomeKey();
+                } else if(MapBasedBiomePool.mangrovePondBiomes.contains(biomeRegistryKey)){
+                    processedBiome = MapBasedBiomePool.mangrovePond.getBiomeKey();
                 } else {
                     processedBiome = MapBasedBiomePool.pond.getBiomeKey();
                 }

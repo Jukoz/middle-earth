@@ -90,6 +90,7 @@ public class ModBiomes {
         createEregionBiome(context, MEBiomeKeys.EREGION_FOREST, 1);
         createEregionBiome(context, MEBiomeKeys.EREGION_GLADE, 2);
         createEthirAnduin(context,MEBiomeKeys.ETHIR_ANDUIN);
+        createRiverBiome(context,MEBiomeKeys.ETHIR_ANDUIN_RIVER_DELTA);
         createFangornBiome(context, MEBiomeKeys.FANGORN);
         createMistyMountainsBiome(context, MEBiomeKeys.FANGORN_FOOTHILLS, 0);
         createMistyMountainsBiome(context, MEBiomeKeys.FANUIDHOL_BASE, 0);
@@ -145,6 +146,7 @@ public class ModBiomes {
         createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 2);
         createLonelyMountainBiome(context, MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, 3);
         createLakeBiome(context, MEBiomeKeys.LONG_LAKE);
+        createLakeBiome(context, MEBiomeKeys.LONG_LAKE_SHORES);
         createMirkwoodSwampBiome(context, MEBiomeKeys.LONG_MARSHES, 3);
         createLossarnach(context, MEBiomeKeys.LOSSARNACH, 0);
         createLossarnachCherryBlossom(context, MEBiomeKeys.LOSSARNACH_CHERRY_BLOSSOM);
@@ -185,6 +187,7 @@ public class ModBiomes {
         createMordorMountainsBiome(context, MEBiomeKeys.MOUNT_DOOM_PIT, 2);
         createNanCurunirBiome(context, MEBiomeKeys.NAN_CURUNIR);
         createLakeBiome(context, MEBiomeKeys.NEN_HITHOEL);
+        createLakeBiome(context, MEBiomeKeys.NEN_HITHOEL_RAPIDS);
         createNenHithoelBiome(context, MEBiomeKeys.NEN_HITHOEL_FOREST, 0);
         createNenHithoelBiome(context, MEBiomeKeys.NEN_HITHOEL_SHORES, 1);
         createNindalf(context, MEBiomeKeys.NINDALF);
@@ -221,6 +224,7 @@ public class ModBiomes {
         createGondorBiome(context, MEBiomeKeys.OSGILIATH, 0);
         createPelennorFields(context, MEBiomeKeys.PELENNOR_FIELDS);
         createPondBiome(context, MEBiomeKeys.POND);
+        createMangrovePondBiome(context, MEBiomeKeys.MANGROVE_POND);
         createRhunBiome(context, MEBiomeKeys.RHUN, 0);
         createRhunBiome(context, MEBiomeKeys.RHUN_FIELD, 1);
         createRhunBiome(context, MEBiomeKeys.RHUN_FOREST, 2);
@@ -1975,8 +1979,12 @@ public class ModBiomes {
             vegetation.add(VegetationPlacedFeatures.PATCH_WATERLILY);
             ModBiomeFeatures.addWillowTrees(vegetation);
             addMirkwoodTrees(generationSettings);
+            vegetation.add(OceanPlacedFeatures.SEAGRASS_NORMAL);
         } else if(step == 2) { // River
+            vegetation.add(OceanPlacedFeatures.SEAGRASS_NORMAL);
+            vegetation.add(OceanPlacedFeatures.KELP_COLD);
             ModSpawnSettingsBuilder.addRiverAnimals(spawnSettings);
+
         } else if(step == 3) { // Long marshes
             vegetation.add(BoulderPlacedFeatures.SMALL_BOULDER_MOSSY_STONE);
             vegetation.add(BoulderPlacedFeatures.MEDIUM_BOULDER_MOSSY_STONE);
@@ -3450,6 +3458,29 @@ public class ModBiomes {
         ModBiomeFeatures.addSmallFloweringLilyPads(undergroundOres);
         ModBiomeFeatures.addWheatGrass(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+        ModBiomeFeatures.addCommonWillowTrees(vegetation);
+
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
+    }
+
+    public static void createMangrovePondBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addRiverAnimals(spawnSettings);
+        ModSpawnSettingsBuilder.addSwan(spawnSettings);
+        ModSpawnSettingsBuilder.addSwampMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addPondVegetation(generationSettings);
+        ModBiomeFeatures.addWaterDelta(undergroundOres);
+        ModBiomeFeatures.addRiverSand(undergroundOres);
+        ModBiomeFeatures.addAbundantMudOre(undergroundOres);
+        ModBiomeFeatures.addBlueOrchidFlower(undergroundOres);
+        ModBiomeFeatures.addCommonTallGrass(undergroundOres);
+        ModBiomeFeatures.addBulrushAndCattail(undergroundOres);
+        ModBiomeFeatures.addDuckweed(undergroundOres);
+        ModBiomeFeatures.addWheatGrass(undergroundOres);
+        vegetation.add(VegetationPlacedFeatures.TREES_MANGROVE);
+        vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE_SWAMP);
         ModBiomeFeatures.addCommonWillowTrees(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
