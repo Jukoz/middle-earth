@@ -62,6 +62,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> EMYN_MUIL_PEAKS = MEBiomeKeys.register("emyn_muil_peaks");
     public static final RegistryKey<Biome> EMYN_MUIL_POND = MEBiomeKeys.register("emyn_muil_pond");
     public static final RegistryKey<Biome> ENEDWAITH = MEBiomeKeys.register("enedwaith");
+    public static final RegistryKey<Biome> ENEDWAITH_FIELDS = MEBiomeKeys.register("enedwaith_fields");
     public static final RegistryKey<Biome> EPHEL_DUATH = MEBiomeKeys.register("ephel_duath");
     public static final RegistryKey<Biome> EPHEL_DUATH_BASE = MEBiomeKeys.register("ephel_duath_base");
     public static final RegistryKey<Biome> EPHEL_DUATH_PEAKS = MEBiomeKeys.register("ephel_duath_peaks");

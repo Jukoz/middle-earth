@@ -165,6 +165,8 @@ public class MapBiomeData {
         // ENEDWAITH
         addBiome(new BiomeData(MEBiomeKeys.ENEDWAITH, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7181795, 10731509, 4618461, defaultWaterFog, 8761449, 7842644)));
+        addBiome(new BiomeData(MEBiomeKeys.ENEDWAITH_FIELDS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(7181795, 10731509, 4618461, defaultWaterFog, 9025898, 8106838)));
         // EREGION
         addBiome(new BiomeData(MEBiomeKeys.EREGION, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
                 new BiomeColorsDTO(7908853, 11393279, 5077445, 331050, 6858575, 6198343), CaveType.ELVEN));

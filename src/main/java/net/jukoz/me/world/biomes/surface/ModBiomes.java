@@ -78,7 +78,8 @@ public class ModBiomes {
         createEmynMuilBiome(context, MEBiomeKeys.EMYN_MUIL_CLIFFS);
         createEmynMuilBiome(context, MEBiomeKeys.EMYN_MUIL_PEAKS);
         createWastePondBiome(context, MEBiomeKeys.EMYN_MUIL_POND);
-        createEnedwaithBiome(context, MEBiomeKeys.ENEDWAITH);
+        createEnedwaithBiome(context, MEBiomeKeys.ENEDWAITH, 0);
+        createEnedwaithBiome(context, MEBiomeKeys.ENEDWAITH_FIELDS, 1);
         createMordorMountainsBiome(context, MEBiomeKeys.EPHEL_DUATH_BASE, 0);
         createMordorMountainsBiome(context, MEBiomeKeys.EPHEL_DUATH, 1);
         createMordorMountainsBiome(context, MEBiomeKeys.EPHEL_DUATH_PEAKS, 2);
@@ -796,19 +797,32 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
-    public static void createEnedwaithBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+    public static void createEnedwaithBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addEriadorMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addRabbits(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addDefaultVegetation(generationSettings);
         ModBiomeFeatures.addGreenShrub(vegetation);
-        ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addDryDirtOre(vegetation);
         ModBiomeFeatures.addRareHeather(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addWilderGrass(vegetation);
+        ModBiomeFeatures.addTuftGrass(vegetation);
         ModBiomeFeatures.addRareWilderGrass(vegetation);
-        ModBiomeFeatures.addOakBushes(vegetation);
+
+        if(step == 0) { // Plains
+            ModBiomeFeatures.addGravelOre(vegetation);
+            ModBiomeFeatures.addOakBushes(vegetation);
+            ModBiomeFeatures.addTallGrass(vegetation);
+        } else if(step ==1) { // Fields
+            ModBiomeFeatures.addHeather(vegetation);
+            ModBiomeFeatures.addHeatherField(vegetation);
+            ModBiomeFeatures.addHeath(vegetation);
+            ModBiomeFeatures.addCommonHeath(vegetation);
+            ModBiomeFeatures.addWheatGrass(vegetation);
+        }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
