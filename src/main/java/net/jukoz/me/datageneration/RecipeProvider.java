@@ -1847,13 +1847,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.YELLOW_FLOWERS))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.FROZEN_GROWTH.asItem(), 6)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.FROZEN_GROWTH.asItem(), 8)
                 .pattern("sis")
                 .pattern("sis")
                 .input('i', ModNatureBlocks.STICKY_SNOW)
-                .input('s', Items.STICK)
-                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.STICKY_SNOW),
-                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.STICKY_SNOW))
+                .input('s', ModNatureBlocks.DRY_GROWTH)
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.DRY_GROWTH),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.DRY_GROWTH))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GOLDEN_CHALICE, 1)
