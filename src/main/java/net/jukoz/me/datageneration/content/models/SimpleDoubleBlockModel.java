@@ -11,6 +11,7 @@ public class SimpleDoubleBlockModel {
     public static List<Block> doubleBlocks = new ArrayList<>() {
         {
             add(ModNatureBlocks.WILD_PIPEWEED);
+            add(ModNatureBlocks.TALL_WILD_WHEAT);
             add(ModNatureBlocks.WILD_TOMATO);
 
             add(ModNatureBlocks.TALL_TUBESHROOM);

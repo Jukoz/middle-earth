@@ -91,6 +91,8 @@ public class ModDecorativeBlocks {
 
     public static final Block CALCITE_STATUE = registerBlockWithItem("calcite_statue",
             new StatueBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque().requiresTool()));
+    public static final Block GALONN_STATUE = registerBlockWithItem("galonn_statue",
+            new StatueBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool()));
     public static final Block GONLUIN_STATUE = registerBlockWithItem("gonluin_statue",
             new StatueBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool()));
     public static final Block TUFF_STATUE = registerBlockWithItem("tuff_statue",
@@ -495,6 +497,23 @@ public class ModDecorativeBlocks {
             new FatPotBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
     public static final Block POT_OF_GOLD = registerBlockWithItem("pot_of_gold",
             new FatPotBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+
+    public static final Block GOLDEN_CHALICE = registerBlockWithItem("golden_chalice",
+            new ChaliceBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
+
+    public static final Block COPPER_TREASURE_HEAP_LAYER = registerBlockWithItem("copper_treasure_heap_layer",
+            new LayersAltBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
+    public static final Block SILVER_TREASURE_HEAP_LAYER = registerBlockWithItem("silver_treasure_heap_layer",
+            new LayersAltBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
+    public static final Block GOLD_TREASURE_HEAP_LAYER = registerBlockWithItem("gold_treasure_heap_layer",
+            new LayersAltBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
+
+    public static final Block COPPER_COIN_PILE = registerBlockWithItem("copper_coin_pile",
+            new CoinPileBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).noCollision().nonOpaque()));
+    public static final Block SILVER_COIN_PILE = registerBlockWithItem("silver_coin_pile",
+            new CoinPileBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).noCollision().nonOpaque()));
+    public static final Block GOLD_COIN_PILE = registerBlockWithItem("gold_coin_pile",
+            new CoinPileBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).noCollision().nonOpaque()));
 
     public static final Block TREATED_STEEL_ROD = registerBlockWithItem("treated_steel_rod",
             new DecorativeRodBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool()));

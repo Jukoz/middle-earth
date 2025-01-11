@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,stage=0": {
+      "model": "me:block/silver_coin_pile_0",
+      "y": 90
+    },
+    "facing=east,stage=1": {
+      "model": "me:block/silver_coin_pile_1",
+      "y": 90
+    },
+    "facing=east,stage=2": {
+      "model": "me:block/silver_coin_pile_2",
+      "y": 90
+    },
+    "facing=east,stage=3": {
+      "model": "me:block/silver_coin_pile_3",
+      "y": 90
+    },
+    "facing=north,stage=0": {
+      "model": "me:block/silver_coin_pile_0"
+    },
+    "facing=north,stage=1": {
+      "model": "me:block/silver_coin_pile_1"
+    },
+    "facing=north,stage=2": {
+      "model": "me:block/silver_coin_pile_2"
+    },
+    "facing=north,stage=3": {
+      "model": "me:block/silver_coin_pile_3"
+    },
+    "facing=south,stage=0": {
+      "model": "me:block/silver_coin_pile_0",
+      "y": 180
+    },
+    "facing=south,stage=1": {
+      "model": "me:block/silver_coin_pile_1",
+      "y": 180
+    },
+    "facing=south,stage=2": {
+      "model": "me:block/silver_coin_pile_2",
+      "y": 180
+    },
+    "facing=south,stage=3": {
+      "model": "me:block/silver_coin_pile_3",
+      "y": 180
+    },
+    "facing=west,stage=0": {
+      "model": "me:block/silver_coin_pile_0",
+      "y": 270
+    },
+    "facing=west,stage=1": {
+      "model": "me:block/silver_coin_pile_1",
+      "y": 270
+    },
+    "facing=west,stage=2": {
+      "model": "me:block/silver_coin_pile_2",
+      "y": 270
+    },
+    "facing=west,stage=3": {
+      "model": "me:block/silver_coin_pile_3",
+      "y": 270
+    }
+  }
+}

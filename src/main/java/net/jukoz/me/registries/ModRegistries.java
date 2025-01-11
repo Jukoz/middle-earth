@@ -375,6 +375,9 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.WHITE_FLOWERS, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_FLOWERS, 0.65f);
 
+        registry.add(ModNatureBlocks.LAVENDER, 0.65f);
+        registry.add(ModNatureBlocks.YELLOW_TROLLIUS, 0.65f);
+
         registry.add(ModNatureBlocks.BROWN_GRASS, 0.30f);
         registry.add(ModNatureBlocks.DYING_GRASS, 0.30f);
         registry.add(ModNatureBlocks.FROZEN_GRASS, 0.10f);
@@ -469,6 +472,8 @@ public class ModRegistries {
 
         registry.add(ModNatureBlocks.WILD_PIPEWEED, 0.5F);
         registry.add(ModNatureBlocks.WILD_FLAX, 0.5F);
+        registry.add(ModNatureBlocks.WILD_WHEAT, 0.5F);
+        registry.add(ModNatureBlocks.TALL_WILD_WHEAT, 0.5F);
         registry.add(ModNatureBlocks.WILD_TOMATO, 0.5F);
         registry.add(ModNatureBlocks.WILD_BELL_PEPPER, 0.5F);
         registry.add(ModNatureBlocks.WILD_CUCUMBER, 0.5F);
