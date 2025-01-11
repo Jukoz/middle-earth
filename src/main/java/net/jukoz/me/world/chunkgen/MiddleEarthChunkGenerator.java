@@ -231,6 +231,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.NINDALF),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NORTH_DOWNS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_DUNLAND),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_DUNLAND_GLADE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_MIRKWOOD_MARSHES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_MIRKWOOD_SWAMP),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_WASTELANDS),

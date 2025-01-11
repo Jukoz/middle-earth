@@ -44,7 +44,10 @@ public class SubBiomes {
                 .addSubBiomeData(0.32f, 2.01f, MEBiomeKeys.SHIRE_HILLS, true));
         subBiomesMap.put(MEBiomeKeys.EREGION, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.08f, MEBiomeKeys.EREGION_FOREST)
-                .addSubBiomeData(0.28f, 2.01f, MEBiomeKeys.EREGION_GLADE));
+                .addSubBiomeData(0.28f, 1.0f, MEBiomeKeys.EREGION_GLADE));
+        subBiomesMap.put(MEBiomeKeys.NORTHERN_DUNLAND, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.34f, MEBiomeKeys.NORTHERN_DUNLAND_GLADE)
+                .addSubBiomeData(0.34f, 1.0f, MEBiomeKeys.NORTHERN_DUNLAND_GLADE));
 
         subBiomesMap.put(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, new SubBiome(56, 0.65f)
                 .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS)

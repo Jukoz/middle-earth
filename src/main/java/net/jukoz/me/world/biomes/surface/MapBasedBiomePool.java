@@ -246,6 +246,7 @@ public class MapBasedBiomePool {
         add(new Color(0x2b9e78), new MapBasedCustomBiome(MEBiomeKeys.NINDALF, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0xb1bc9a), new MapBasedCustomBiome(MEBiomeKeys.NORTH_DOWNS, 41, MEBiomeDataConfigs.foothillModifier.noiseModifier(1.8f)));
         add(new Color(0x6a7f3e), new MapBasedCustomBiome(MEBiomeKeys.NORTHERN_DUNLAND, 5, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x7A9345), new MapBasedCustomBiome(MEBiomeKeys.NORTHERN_DUNLAND_GLADE, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0x1a4731), new MapBasedCustomBiome(MEBiomeKeys.NORTHERN_MIRKWOOD_MARSHES, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x103c25), new MapBasedCustomBiome(MEBiomeKeys.NORTHERN_MIRKWOOD_SWAMP, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0xa0a595), new MapBasedCustomBiome(MEBiomeKeys.NORTHERN_WASTELANDS, 6, MEBiomeDataConfigs.landModifier));
