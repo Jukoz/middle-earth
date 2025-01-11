@@ -1871,6 +1871,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(Items.GOLD_NUGGET),
                         FabricRecipeProvider.conditionsFromItem(Items.GOLD_NUGGET))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GOLD_COIN_PILE, 1)
+                .pattern("NN")
+                .pattern("NN")
+                .input('N', Items.GOLD_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(Items.GOLD_NUGGET),
+                        FabricRecipeProvider.conditionsFromItem(Items.GOLD_NUGGET))
+                .offerTo(exporter);
         //endregion
 
         //region SMOKING-ONLY

@@ -502,6 +502,9 @@ public class ModDecorativeBlocks {
     public static final Block GOLD_TREASURE_HEAP_LAYER = registerBlockWithItem("gold_treasure_heap_layer",
             new LayersAltBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
 
+    public static final Block GOLD_COIN_PILE = registerBlockWithItem("gold_coin_pile",
+            new CoinPileBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).noCollision().nonOpaque()));
+
     public static final Block TREATED_STEEL_ROD = registerBlockWithItem("treated_steel_rod",
             new DecorativeRodBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool()));
 
