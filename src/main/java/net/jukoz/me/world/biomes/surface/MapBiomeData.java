@@ -171,6 +171,9 @@ public class MapBiomeData {
                 new BiomeColorsDTO(7181795, 10731509, 4618461, defaultWaterFog, 8761449, 7842644)));
         addBiome(new BiomeData(MEBiomeKeys.ENEDWAITH_FIELD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7181795, 10731509, 4618461, defaultWaterFog, 9025898, 8106838)));
+        addBiome(new BiomeData(MEBiomeKeys.ENEDWAITH_WHEAT_FIELD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(7181795, 10731509, 4618461, defaultWaterFog, 0x92a865, 0xaac476)));
+
         // EREGION
         addBiome(new BiomeData(MEBiomeKeys.EREGION, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
                 new BiomeColorsDTO(7908853, 11393279, 5077445, 331050, 6858575, 6198343), CaveType.ELVEN));
@@ -341,6 +344,8 @@ public class MapBiomeData {
         // MINHIRIATH
         addBiome(new BiomeData(MEBiomeKeys.MINHIRIATH, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
                 new BiomeColorsDTO(defaultSky, 12637429, 4615389, 658236, 8626526, 8231005)));
+        addBiome(new BiomeData(MEBiomeKeys.MINHIRIATH_WHEAT_FIELD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
+                new BiomeColorsDTO(defaultSky, 12637429, 4615389, 658236, 0x96a15e, 0x9da862)));
         // MIRKWOOD
         addBiome(new BiomeData(MEBiomeKeys.MIRKWOOD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
                 new BiomeColorsDTO(6849446, 6780008, 7111535, 338483, 4151612, 3823415), CaveType.ELVEN));
@@ -550,6 +555,8 @@ public class MapBiomeData {
         // THE WOLD
         addBiome(new BiomeData(MEBiomeKeys.THE_WOLD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 12309403, 12242068)));
+        addBiome(new BiomeData(MEBiomeKeys.THE_WOLD_WHEAT_FIELD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 0xaab777, 0xc5d48a)));
         // TOLFALAS
         addBiome(new BiomeData(MEBiomeKeys.TOLFALAS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 10927716, 9615182)));

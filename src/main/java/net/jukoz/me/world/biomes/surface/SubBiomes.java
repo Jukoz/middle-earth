@@ -46,12 +46,15 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.08f, MEBiomeKeys.EREGION_FOREST)
                 .addSubBiomeData(0.28f, 1.0f, MEBiomeKeys.EREGION_GLADE));
         subBiomesMap.put(MEBiomeKeys.ENEDWAITH, new SubBiome()
-                .addSubBiomeData(-1.0f, -0.34f, MEBiomeKeys.ENEDWAITH_FIELD)
+                .addSubBiomeData(-1.0f, -0.63f, MEBiomeKeys.ENEDWAITH_WHEAT_FIELD)
                 .addSubBiomeData(0.35f, 1.0f, MEBiomeKeys.ENEDWAITH_FIELD));
         subBiomesMap.put(MEBiomeKeys.NORTHERN_DUNLAND, new SubBiome(96)
                 .addSubBiomeData(-1.0f, -0.35f, MEBiomeKeys.NORTHERN_DUNLAND_GLADE)
                 .addSubBiomeData(0.31f, 2.01f, MEBiomeKeys.DUNLAND_HILLS, true));
 
+        subBiomesMap.put(MEBiomeKeys.THE_WOLD, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.76f, MEBiomeKeys.THE_WOLD_WHEAT_FIELD)
+                .addSubBiomeData(0.35f, 1.0f, MEBiomeKeys.THE_WOLD_WHEAT_FIELD));
 
         subBiomesMap.put(MEBiomeKeys.DORWINION, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.DORWINION_LAVENDER_FIELD)
@@ -117,6 +120,9 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.LOTHLORIEN, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.42f, MEBiomeKeys.LOTHLORIEN_BLOSSOM)
                 .addSubBiomeData(-0.09f, 0.07f, MEBiomeKeys.LOTHLORIEN_GLADE));
+
+        subBiomesMap.put(MEBiomeKeys.MINHIRIATH, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.42f, MEBiomeKeys.MINHIRIATH_WHEAT_FIELD));
 
         subBiomesMap.put(MEBiomeKeys.MIRKWOOD, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.33f, MEBiomeKeys.WEBBED_WOODS));
