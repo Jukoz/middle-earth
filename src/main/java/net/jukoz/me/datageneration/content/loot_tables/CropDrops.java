@@ -41,8 +41,6 @@ public class CropDrops {
         {
             add(new CropDrop(null, ModNatureBlocks.WILD_PIPEWEED, ModResourceItems.PIPEWEED, ModResourceItems.PIPEWEED_SEEDS));
             add(new CropDrop(null, ModNatureBlocks.WILD_FLAX, ModResourceItems.FLAX, ModResourceItems.FLAX_SEEDS));
-            add(new CropDrop(null, ModNatureBlocks.WILD_WHEAT, Items.WHEAT, Items.WHEAT_SEEDS));
-            add(new CropDrop(null, ModNatureBlocks.TALL_WILD_WHEAT, Items.WHEAT, Items.WHEAT_SEEDS));
             add(new CropDrop(null, ModNatureBlocks.WILD_TOMATO, ModFoodItems.TOMATO, ModResourceItems.TOMATO_SEEDS));
             add(new CropDrop(null, ModNatureBlocks.WILD_BELL_PEPPER, ModFoodItems.BELL_PEPPER, ModResourceItems.BELL_PEPPER_SEEDS));
             add(new CropDrop(null, ModNatureBlocks.WILD_CUCUMBER, ModFoodItems.CUCUMBER, ModResourceItems.CUCUMBER_SEEDS));
