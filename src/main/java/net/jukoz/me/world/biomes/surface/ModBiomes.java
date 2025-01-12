@@ -1159,6 +1159,7 @@ public class ModBiomes {
         ModBiomeFeatures.addDioriteBoulder(vegetation);
         ModBiomeFeatures.addBeachGrass(vegetation);
         ModBiomeFeatures.addDryGrass(vegetation);
+        ModBiomeFeatures.addDeadHeather(vegetation);
 
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
 
@@ -1177,8 +1178,7 @@ public class ModBiomes {
         ModBiomeFeatures.addAbundantTuffOre(vegetation);
         ModBiomeFeatures.addTuftGrass(vegetation);
         ModBiomeFeatures.addDyingGrass(vegetation);
-        ModBiomeFeatures.addDryGrass(vegetation);
-        ModBiomeFeatures.addHeath(vegetation);
+        ModBiomeFeatures.addDeadHeather(vegetation);
         if(step == 0) {
             addNordicTrees(generationSettings);
             addNordicVegetation(generationSettings);
