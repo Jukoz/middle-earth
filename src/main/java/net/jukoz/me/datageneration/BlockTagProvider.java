@@ -290,7 +290,9 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(ModDecorativeBlocks.SPIKY_CHAIN);
 
         needsStoneTools.add(ModDecorativeBlocks.WATERING_CAN);
-        mineablePickaxe.add(ModDecorativeBlocks.WATERING_CAN);
+
+        mineablePickaxe.add(ModDecorativeBlocks.ARKENSTONE);
+        mineablePickaxe.add(ModDecorativeBlocks.WALL_ARKENSTONE);
 
         mineableAxe.add(ModDecorativeBlocks.WOODEN_BUCKET);
 

@@ -659,9 +659,9 @@ public class ModDecorativeBlocks {
             new CustomBedBlock(DyeColor.BLACK, AbstractBlock.Settings.copy(Blocks.BLACK_BED)));
 
     public static final Block ARKENSTONE = registerBlock("arkenstone",
-            new ArkenstoneBlock(AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance((state -> 7)).nonOpaque()));
+            new ArkenstoneBlock(AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance((state -> 7)).nonOpaque().requiresTool()));
     public static final Block WALL_ARKENSTONE = registerBlock("wall_arkenstone",
-            new ArkenstoneWallBlock(AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance((state -> 7)).nonOpaque()));
+            new ArkenstoneWallBlock(AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance((state -> 7)).nonOpaque().requiresTool()));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);
