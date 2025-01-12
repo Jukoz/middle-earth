@@ -20,7 +20,8 @@
     },
     "title": {
       "translate": "advancements.middle_earth.lembas.title"
-    }
+    },
+    "announce_to_chat": true
   },
   "requirements": [
     [
