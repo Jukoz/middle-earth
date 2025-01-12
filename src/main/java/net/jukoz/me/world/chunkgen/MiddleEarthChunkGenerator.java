@@ -112,6 +112,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.DOL_GULDUR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DOL_GULDUR_HILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DORWINION),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DORWINION_LAVENDER_FIELD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DORWINION_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DUNLAND_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DUNLAND_HILLS),

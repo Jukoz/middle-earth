@@ -52,6 +52,11 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.35f, MEBiomeKeys.NORTHERN_DUNLAND_GLADE)
                 .addSubBiomeData(0.31f, 2.01f, MEBiomeKeys.DUNLAND_HILLS, true));
 
+
+        subBiomesMap.put(MEBiomeKeys.DORWINION, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.DORWINION_LAVENDER_FIELD)
+                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.DORWINION_LAVENDER_FIELD));
+
         subBiomesMap.put(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, new SubBiome(56, 0.65f)
                 .addSubBiomeData(-1.0f, -0.2f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS)
                 .addSubBiomeData(0.2f, 2.01f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS));
@@ -160,6 +165,7 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.UDUN, new SubBiome(144)
                 .addSubBiomeData(-1.0f, -0.31f, MEBiomeKeys.MORDOR_ASHEN_FOREST)
                 .addSubBiomeData(0.29f, 2.01f, MEBiomeKeys.MORDOR_HILL, true));
+
 
         subBiomesMap.put(MEBiomeKeys.EASTERN_RHOVANION, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.35f, MEBiomeKeys.EASTERN_RHOVANION_FOREST)

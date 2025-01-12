@@ -51,6 +51,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> DOL_GULDUR = MEBiomeKeys.register("dol_guldur");
     public static final RegistryKey<Biome> DOL_GULDUR_HILL = MEBiomeKeys.register("dol_guldur_hill");
     public static final RegistryKey<Biome> DORWINION = MEBiomeKeys.register("dorwinion");
+    public static final RegistryKey<Biome> DORWINION_LAVENDER_FIELD = MEBiomeKeys.register("dorwinion_lavender_field");
     public static final RegistryKey<Biome> DORWINION_HILLS = MEBiomeKeys.register("dorwinion_hills");
     public static final RegistryKey<Biome> DUNLAND_FOOTHILLS = MEBiomeKeys.register("dunland_foothills");
     public static final RegistryKey<Biome> DUNLAND_HILLS = MEBiomeKeys.register("dunland_hills");

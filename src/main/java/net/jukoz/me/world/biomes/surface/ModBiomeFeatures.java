@@ -442,8 +442,12 @@ public class ModBiomeFeatures {
     // region FIELDS
     public static void addHeatherField(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FIELD_HEATHER);
-    // endregion
     }
+    public static void addLavenderField(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FIELD_LAVENDER);
+    }
+
+    // endregion
     public static void addMirkwoodVines(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.MIRKWOOD_VINES);
     }
@@ -697,6 +701,15 @@ public class ModBiomeFeatures {
     }
     public static void addCommonHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_HEATHER);
+    }
+    public static void addUncommonLavender(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_LAVENDER);
+    }
+    public static void addSparseLavender(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SPARSE_LAVENDER);
+    }
+    public static void addVeryRareLavender(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_VERY_RARE_LAVENDER);
     }
     public static void addRareHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_RARE_HEATHER);
