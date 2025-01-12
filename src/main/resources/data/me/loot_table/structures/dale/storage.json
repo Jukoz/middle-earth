@@ -1,6 +1,70 @@
 {
   "pools": [
     {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:bell_banner_pattern",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bell",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:dalish_arming_coat_tan_fur"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:dalish_arming_coat_brown_fur"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:dalish_arming_coat_black_fur"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:dalish_longbow"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:bronze_spear"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:dalish_boots"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:round_shield",
+		  "functions": [
+            {
+              "function": "minecraft:set_banner_pattern",
+              "patterns": [
+                {
+                  "pattern": "minecraft:base",
+                  "color": "blue"
+                },
+                {
+                  "pattern": "me:bell",
+                  "color": "yellow"
+                }
+              ],
+              "append": true
+            }
+          ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 1
+    },
+    {
       "rolls": {
         "min": 0,
         "max": 2
@@ -69,30 +133,6 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:fishing_rod"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bell"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:bell_banner_pattern"
         }
       ]
     }
