@@ -306,6 +306,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createVerticalSlabsRecipe(exporter, record.slab(), record.verticalSlab());
             createSlabsFromVerticalRecipe(exporter, record.verticalSlab(), record.slab());
             createStairsRecipe(exporter, record.block(), record.stairs());
+            createWallsRecipe(exporter, record.block(), record.wall());
         }
         //endregion
 
