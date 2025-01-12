@@ -650,6 +650,7 @@ public class ModBiomes {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
+        ModBiomeFeatures.addGrassyDirtOre(vegetation);
         ModBiomeFeatures.addAshenGravelOre(undergroundOres);
         ModBiomeFeatures.addAshenSandOre(undergroundOres);
         ModBiomeFeatures.addDyingGrass(undergroundOres);
@@ -817,6 +818,7 @@ public class ModBiomes {
         ModBiomeFeatures.addWilderGrass(vegetation);
         ModBiomeFeatures.addTuftGrass(vegetation);
         ModBiomeFeatures.addRareWilderGrass(vegetation);
+        ModBiomeFeatures.addGrassyDirtOre(vegetation);
 
         if(step == 0) { // Plains
             ModBiomeFeatures.addGravelOre(vegetation);
@@ -2401,6 +2403,7 @@ public class ModBiomes {
 
         ModBiomeFeatures.addDisks(undergroundOres);
         ModBiomeFeatures.addGrass(vegetation);
+        ModBiomeFeatures.addGrassyDirtOre(vegetation);
         vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
         vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
@@ -2834,8 +2837,9 @@ public class ModBiomes {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
-
         addDefaultVegetation(generationSettings);
+
+        ModBiomeFeatures.addGrassyDirtOre(vegetation);
         ModBiomeFeatures.addDryDirtOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addGraniteBoulder(vegetation);

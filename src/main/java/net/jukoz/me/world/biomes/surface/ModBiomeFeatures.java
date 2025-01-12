@@ -922,8 +922,12 @@ public class ModBiomeFeatures {
     public static void addCoarseDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.COARSE_DIRT_ORE);
     }
+
     public static void addDioriteOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.DIORITE_ORE);
+    }
+    public static void addGrassyDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.GRASSY_DIRT_ORE);
     }
     public static void addDirtToGrassOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.DIRT_TO_GRASS_ORE);
