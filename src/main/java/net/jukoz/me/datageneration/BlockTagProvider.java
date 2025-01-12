@@ -333,6 +333,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.GRASSY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.GRASSY_DIRT_STAIRS);
 
+        mineablePickaxe.add(ModBlocks.PEBBLED_GRASS);
+        mineablePickaxe.add(ModBlocks.PEBBLED_GRASS_SLAB);
+        mineablePickaxe.add(ModBlocks.PEBBLED_GRASS_STAIRS);
+        
         mineableShovel.add(ModBlocks.TURF);
         mineableShovel.add(ModBlocks.TURF_SLAB);
         mineableShovel.add(ModBlocks.TURF_STAIRS);

@@ -501,6 +501,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createStairsRecipe(exporter, ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB);
 
+        createStairsRecipe(exporter, ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_SLAB);
+
         createStairsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_SLAB);
         createVerticalSlabsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_VERTICAL_SLAB);
@@ -1440,6 +1443,15 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .pattern("MD")
                 .input('M', Items.MOSS_BLOCK)
                 .input('D', Items.DIRT)
+                .criterion(FabricRecipeProvider.hasItem(Items.MOSS_BLOCK),
+                        FabricRecipeProvider.conditionsFromItem(Items.MOSS_BLOCK))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.PEBBLED_GRASS, 4)
+                .pattern("DM")
+                .pattern("MD")
+                .input('M', Items.MOSS_BLOCK)
+                .input('D', TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_crafting_materials")))
                 .criterion(FabricRecipeProvider.hasItem(Items.MOSS_BLOCK),
                         FabricRecipeProvider.conditionsFromItem(Items.MOSS_BLOCK))
                 .offerTo(exporter);
