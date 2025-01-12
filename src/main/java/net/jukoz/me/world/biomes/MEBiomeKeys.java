@@ -26,6 +26,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> BLUE_MOUNTAINS_FOOTHILLS = MEBiomeKeys.register("blue_mountains_foothills");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS_BASE = MEBiomeKeys.register("blue_mountains_base");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS = MEBiomeKeys.register("blue_mountains");
+    public static final RegistryKey<Biome> BLUE_MOUNTAINS_HIGH_LANDS = MEBiomeKeys.register("blue_mountains_high_lands");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS_PEAKS = MEBiomeKeys.register("blue_mountains_peaks");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS_WOODS = MEBiomeKeys.register("blue_mountains_woods");
     public static final RegistryKey<Biome> BROWN_LANDS = MEBiomeKeys.register("brown_lands");

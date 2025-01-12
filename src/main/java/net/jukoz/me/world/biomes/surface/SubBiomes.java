@@ -53,11 +53,14 @@ public class SubBiomes {
                 .addSubBiomeData(0.31f, 2.01f, MEBiomeKeys.DUNLAND_HILLS, true));
 
         subBiomesMap.put(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, new SubBiome(56, 0.65f)
-                .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS)
-                .addSubBiomeData(0.3f, 2.01f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS));
+                .addSubBiomeData(-1.0f, -0.2f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS)
+                .addSubBiomeData(0.2f, 2.01f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS));
         subBiomesMap.put(MEBiomeKeys.BLUE_MOUNTAINS_BASE, new SubBiome(56, 0.65f)
-                .addSubBiomeData(-1.0f, -0.35f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS)
-                .addSubBiomeData(0.35f, 2.01f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS));
+                .addSubBiomeData(-1.0f, -0.25f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS)
+                .addSubBiomeData(0.25f, 2.01f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS));
+        subBiomesMap.put(MEBiomeKeys.BLUE_MOUNTAINS, new SubBiome(56, 0.65f)
+                .addSubBiomeData(-1.0f, -0.25f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS)
+                .addSubBiomeData(0.25f, 2.01f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS));
 
         subBiomesMap.put(MEBiomeKeys.ANORIEN, new SubBiome(32)
                 .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.GONDOR_FOREST)

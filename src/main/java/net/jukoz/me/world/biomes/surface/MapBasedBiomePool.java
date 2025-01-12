@@ -112,8 +112,9 @@ public class MapBasedBiomePool {
         add(new Color(0x3C8C37), new MapBasedCustomBiome(MEBiomeKeys.BLACKROOT_FOREST, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x4caf75), new MapBasedCustomBiome(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, 35, MEBiomeDataConfigs.bmModifier.heightModifier(0.23f)));
         add(new Color(0xb2b7d2), new MapBasedCustomBiome(MEBiomeKeys.BLUE_MOUNTAINS_BASE, 53, MEBiomeDataConfigs.bmModifier));
-        add(new Color(0xc8d1ff), new MapBasedCustomBiome(MEBiomeKeys.BLUE_MOUNTAINS, 82, MEBiomeDataConfigs.bmModifier));
-        add(new Color(0xd9e0ff), new MapBasedCustomBiome(MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, 97, MEBiomeDataConfigs.bmPeaksModifier));
+        add(new Color(0xc8d1ff), new MapBasedCustomBiome(MEBiomeKeys.BLUE_MOUNTAINS, 67,  MEBiomeDataConfigs.bmModifier));
+        add(new Color(0xd9e0ff), new MapBasedCustomBiome(MEBiomeKeys.BLUE_MOUNTAINS_HIGH_LANDS, 83, MEBiomeDataConfigs.bmModifier.heightModifier(0.63f)));
+        add(new Color(0xedf0ff), new MapBasedCustomBiome(MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, 89, MEBiomeDataConfigs.bmPeaksModifier.heightModifier(0.83).noiseModifier(0.05)));
         add(new Color(0xA2C7B9), new MapBasedCustomBiome(MEBiomeKeys.BLUE_MOUNTAINS_WOODS, 41, MEBiomeDataConfigs.bmModifier));
         add(new Color(0x585247), new MapBasedCustomBiome(MEBiomeKeys.BROWN_LANDS, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0xb48877), new MapBasedCustomBiome(MEBiomeKeys.CARADHRAS_BASE, 56, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f).noiseModifier(1.21f)));
@@ -153,8 +154,8 @@ public class MapBasedBiomePool {
         add(new Color(0xb9b9bb), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_BASE, 53, MEBiomeDataConfigs.mountainModifier.heightModifier(0.37f)));
         add(new Color(0xa8a8aa), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN, 64, MEBiomeDataConfigs.mountainModifier.heightModifier(0.43f)));
         add(new Color(0x979799), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN, 76, MEBiomeDataConfigs.mountainModifier.heightModifier(0.57f)));
-        add(new Color(0x88888a), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 82, MEBiomeDataConfigs.mountainModifier.heightModifier(0.81f)));
-        add(new Color(0x7f7f81), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 92, MEBiomeDataConfigs.mountainModifier.heightModifier(0.81f)));
+        add(new Color(0x88888a), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 83, MEBiomeDataConfigs.mountainModifier.heightModifier(0.81f)));
+        add(new Color(0x7f7f81), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 98, MEBiomeDataConfigs.mountainModifier.heightModifier(0.81f)));
         add(new Color(0x5a9f5a), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x272525), new MapBasedCustomBiome(MEBiomeKeys.EPHEL_DUATH, 71, MEBiomeDataConfigs.mountainModifier));
         add(new Color(0x312e2e), new MapBasedCustomBiome(MEBiomeKeys.EPHEL_DUATH_BASE, 36, MEBiomeDataConfigs.mountainModifier.heightModifier(0.33f)));

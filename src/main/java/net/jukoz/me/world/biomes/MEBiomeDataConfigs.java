@@ -33,6 +33,16 @@ public class MEBiomeDataConfigs {
             .addSlopeData(55, StoneBlockSets.BLUE_TUFF.base())
             .addSlopeData(67, StoneBlockSets.GONLUIN.base())
             .addSlopeData(MAX_ANGLE, Blocks.COBBLED_DEEPSLATE);
+    public static SlopeMap blueMountainHighLands = new SlopeMap()
+            .addSlopeData(23, Blocks.GRASS_BLOCK)
+            .addSlopeData(28, Blocks.COARSE_DIRT)
+            .addSlopeData(31, Blocks.GRAVEL)
+            .addSlopeData(35, Blocks.ANDESITE)
+            .addSlopeData(37, StoneBlockSets.DOLOMITE.base())
+            .addSlopeData(42, Blocks.TUFF)
+            .addSlopeData(49, StoneBlockSets.BLUE_TUFF.base())
+            .addSlopeData(61, StoneBlockSets.GONLUIN.base())
+            .addSlopeData(MAX_ANGLE, Blocks.COBBLED_DEEPSLATE);
     public static SlopeMap blueMountainsPeaks = new SlopeMap()
             .addSlopeData(25, Blocks.SNOW_BLOCK)
             .addSlopeData(33, StoneBlockSets.SCHIST.base())
@@ -324,8 +334,8 @@ public class MEBiomeDataConfigs {
     public static BiomeGenerationData mountainModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(MOUNTAIN_NOISE_MODIFIER).heightModifier(MOUNTAIN_HEIGHT_MODIFIER);
     public static BiomeGenerationData woodlandModifier = new BiomeGenerationData().expansionWeight(LAND_WEIGHT).noiseModifier(0.7f).heightModifier(0.4f);
     public static BiomeGenerationData mordorMountainModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(1.47f).heightModifier(MOUNTAIN_HEIGHT_MODIFIER);
-    public static BiomeGenerationData bmModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(MOUNTAIN_NOISE_MODIFIER + 0.13f).heightModifier(0.36f);
-    public static BiomeGenerationData bmPeaksModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(1.47f).heightModifier(0.33f);
+    public static BiomeGenerationData bmModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(0.7f).heightModifier(0.46f);
+    public static BiomeGenerationData bmPeaksModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(1.47f).heightModifier(0.6f);
     public static BiomeGenerationData mirkwoodModifier = new BiomeGenerationData().expansionWeight(LAND_WEIGHT).noiseModifier(0.51f).heightModifier(0.4f);
     public static BiomeGenerationData emynMuilModifier = new BiomeGenerationData().expansionWeight(LAND_WEIGHT).noiseModifier(1.2f).heightModifier(0.67f);
 }

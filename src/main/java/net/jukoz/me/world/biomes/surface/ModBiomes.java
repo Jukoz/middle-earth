@@ -42,8 +42,9 @@ public class ModBiomes {
         createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, 0);
         createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS_BASE, 1);
         createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS, 2);
-        createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, 3);
-        createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS_WOODS, 4);
+        createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS_HIGH_LANDS, 3);
+        createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, 4);
+        createBlueMountainsBiome(context, MEBiomeKeys.BLUE_MOUNTAINS_WOODS, 5);
         createMordorWastesBiome(context, MEBiomeKeys.BROWN_LANDS);
         createMistyMountainsBiome(context, MEBiomeKeys.CARADHRAS_BASE, 0);
         createMistyMountainsBiome(context, MEBiomeKeys.CARADHRAS, 1);
@@ -483,7 +484,7 @@ public class ModBiomes {
         ModBiomeFeatures.addBracken(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
 
-        if(step != 3) {
+        if(step != 4) {
             vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
             vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
             vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
@@ -506,9 +507,11 @@ public class ModBiomes {
             }
         } else if(step == 2) { // Base
             ModBiomeFeatures.addSparsePineTrees(vegetation);
-        } else if(step == 3){ // Peaks
+        } else if(step == 3) { // High Lands
+
+        } else if(step == 4){ // Peaks
             temperature = -0.1f;
-        } else if(step == 4) { // Woods
+        } else if(step == 5) { // Woods
             ModBiomeFeatures.addBlueTuffBoulder(vegetation);
             ModBiomeFeatures.addFalseOatgrass(vegetation);
             ModBiomeFeatures.addCornflower(vegetation);
@@ -517,7 +520,6 @@ public class ModBiomes {
             ModBiomeFeatures.addCommonSpruceTrees(vegetation);
             ModBiomeFeatures.addOakBushes(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
-            ModBiomeFeatures.addCommonPineTrees(vegetation);
             ModBiomeFeatures.addCommonBlackPineTrees(vegetation);
             ModBiomeFeatures.addCommonOakTrees(vegetation);
             ModBiomeFeatures.addForestMoss(vegetation);
