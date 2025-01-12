@@ -1,0 +1,46 @@
+{
+  "parent": "me:middle_earth/root",
+  "criteria": {
+    "nan_curunir": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "me:nan_curunir",
+                  "me:isengard",
+                  "me:isengard_hill"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_nan_curunir.description"
+    },
+    "frame": "task",
+    "icon": {
+      "count": 1,
+      "id": "me:medgon_carved_window_pane"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_nan_curunir.title"
+    }
+  },
+  "requirements": [
+    [
+      "nan_curunir"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

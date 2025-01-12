@@ -1,0 +1,47 @@
+{
+  "parent": "me:middle_earth/root",
+  "criteria": {
+    "enter_lonely_mountain": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "me:lonely_mountain",
+                  "me:lonely_mountain_base",
+                  "me:lonely_mountain_peaks",
+                  "me:lonely_mountain_foothills"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_lonely_mountain.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id": "me:gilded_green_tuff"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_lonely_mountain.title"
+    }
+  },
+  "requirements": [
+    [
+      "enter_lonely_mountain"
+    ]
+  ]
+}

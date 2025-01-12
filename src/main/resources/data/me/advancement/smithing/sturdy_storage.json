@@ -1,0 +1,38 @@
+{
+  "parent": "me:smithing/steel",
+  "criteria": {
+    "reinforced_chest": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:reinforced_chest"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.sturdy_storage.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:reinforced_chest"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.sturdy_storage.title"
+    }
+  },
+  "requirements": [
+    [
+      "reinforced_chest"
+    ]
+  ]
+}
