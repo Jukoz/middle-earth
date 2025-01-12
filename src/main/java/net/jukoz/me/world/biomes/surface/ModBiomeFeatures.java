@@ -756,6 +756,9 @@ public class ModBiomeFeatures {
     public static void addTallGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TALL_GRASS);
     }
+    public static void addYellowTrolliusPatch(List<RegistryKey<PlacedFeature>> vegetation){
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_YELLOW_TROLLIUS);
+    }
     public static void addCommonTallGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_TALL_GRASS);
     }

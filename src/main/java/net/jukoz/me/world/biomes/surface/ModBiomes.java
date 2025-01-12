@@ -1590,6 +1590,7 @@ public class ModBiomes {
             ModBiomeFeatures.addLightBlueFlowers(vegetation);
             ModBiomeFeatures.addRareBeechTrees(vegetation);
             ModBiomeFeatures.addVeryRareLebethronTrees(vegetation);
+            ModBiomeFeatures.addYellowTrolliusPatch(vegetation);
         } else if (step == 1) { // Hills
             ModBiomeFeatures.addBlackPineTrees(vegetation);
             ModBiomeFeatures.addPineTrees(vegetation);
@@ -1633,6 +1634,7 @@ public class ModBiomes {
             ModBiomeFeatures.addBeesOakTrees(vegetation);
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             ModBiomeFeatures.addLimestoneBoulder(vegetation);
+            ModBiomeFeatures.addYellowTrolliusPatch(vegetation);
         } else if(step == 1) { // Cliffs
             ModBiomeFeatures.addSandToGrass(vegetation);
             ModBiomeFeatures.addCommonOakBush(vegetation);
@@ -1678,6 +1680,7 @@ public class ModBiomes {
         } else if(step == 5) { // Meadow
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             ModBiomeFeatures.addHeatherField(vegetation);
+            ModBiomeFeatures.addYellowTrolliusPatch(vegetation);
             ModBiomeFeatures.addCornflowerCommon(vegetation);
             ModBiomeFeatures.addLightBlueFlowers(vegetation);
             ModBiomeFeatures.addAzureBluetFlower(vegetation);
@@ -2781,6 +2784,7 @@ public class ModBiomes {
             ModBiomeFeatures.addDeadHeather(vegetation);
             ModBiomeFeatures.addSedumYellow(vegetation);
             ModBiomeFeatures.addYellowFlower(vegetation);
+            ModBiomeFeatures.addYellowTrolliusPatch(vegetation);
         } else if(step == 2) { // Forest
             ModSpawnSettingsBuilder.addDeer(spawnSettings);
             ModBiomeFeatures.addCommonBeechTrees(vegetation);
@@ -2975,10 +2979,12 @@ public class ModBiomes {
             if(step == 1) {
                 ModBiomeFeatures.addOakTrees(vegetation);
                 ModSpawnSettingsBuilder.addCats(spawnSettings);
+                ModBiomeFeatures.addYellowTrolliusPatch(vegetation);
             } else if(step == 0) {
                 ModSpawnSettingsBuilder.addCats(spawnSettings);
                 ModBiomeFeatures.addStrawberries(vegetation);
                 ModBiomeFeatures.addRareOakBushes(vegetation);
+                ModBiomeFeatures.addYellowTrolliusPatch(vegetation);
             } else {
                 ModBiomeFeatures.addBracken(vegetation);
                 ModBiomeFeatures.addFalseOatgrass(vegetation);
