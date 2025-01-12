@@ -149,7 +149,7 @@ public class MapBasedBiomePool {
         add(new Color(0x857a67), new MapBasedCustomBiome(MEBiomeKeys.EMYN_MUIL, 74, MEBiomeDataConfigs.emynMuilModifier.heightModifier(0.32f)));
         add(new Color(0x948976), new MapBasedCustomBiome(MEBiomeKeys.EMYN_MUIL_PEAKS, 90, MEBiomeDataConfigs.emynMuilModifier.heightModifier(0.53f).noiseModifier(0.84f)));
         add(new Color(0x75a46d), new MapBasedCustomBiome(MEBiomeKeys.ENEDWAITH, 6, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x7AB270), new MapBasedCustomBiome(MEBiomeKeys.ENEDWAITH_FIELDS, 6, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x7AB270), new MapBasedCustomBiome(MEBiomeKeys.ENEDWAITH_FIELD, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x6ea76e), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, 25, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0xc9c9cb), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_BASE, 46, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
         add(new Color(0xb9b9bb), new MapBasedCustomBiome(MEBiomeKeys.LONELY_MOUNTAIN_BASE, 53, MEBiomeDataConfigs.mountainModifier.heightModifier(0.37f)));
@@ -281,9 +281,11 @@ public class MapBasedBiomePool {
         add(new Color(0x9cb668), new MapBasedCustomBiome(MEBiomeKeys.OLD_CARDOLAN_HILL, 27, MEBiomeDataConfigs.landModifier));
         add(new Color(0x73874a), new MapBasedCustomBiome(MEBiomeKeys.OLD_RHUDAUR, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0x61733c), new MapBasedCustomBiome(MEBiomeKeys.OLD_RHUDAUR_FOREST, 6, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x61733c), new MapBasedCustomBiome(MEBiomeKeys.OLD_RHUDAUR_FOREST, 6, MEBiomeDataConfigs.landModifier));
         add(new Color(0x71834d), new MapBasedCustomBiome(MEBiomeKeys.OLD_RHUDAUR_HILL, 28, MEBiomeDataConfigs.landModifier));
         add(new Color(0x41a03b), new MapBasedCustomBiome(MEBiomeKeys.OSGILIATH, 4, MEBiomeDataConfigs.plainsModifier));
         add(new Color(0x58cc51), new MapBasedCustomBiome(MEBiomeKeys.PELENNOR_FIELDS, 4, MEBiomeDataConfigs.plainsModifier));
+        add(new Color(0x7fcc51), new MapBasedCustomBiome(MEBiomeKeys.PELENNOR_WHEAT_FIELD, 4, MEBiomeDataConfigs.plainsModifier));
         add(new Color(0xacb071), new MapBasedCustomBiome(MEBiomeKeys.RHUN, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0xBBC075), new MapBasedCustomBiome(MEBiomeKeys.RHUN_FIELD, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0x95A166), new MapBasedCustomBiome(MEBiomeKeys.RHUN_FOREST, 6, MEBiomeDataConfigs.landModifier));
@@ -293,7 +295,7 @@ public class MapBasedBiomePool {
         add(new Color(0x7e9d82), new MapBasedCustomBiome(MEBiomeKeys.HIGH_MOOR_HILLS, 43, MEBiomeDataConfigs.landModifier.noiseModifier(0.4f).heightModifier(0.34f)));
         add(new Color(0xb7e566), new MapBasedCustomBiome(MEBiomeKeys.ROHAN, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0xA5D75A), new MapBasedCustomBiome(MEBiomeKeys.ROHAN_FOREST, 5, MEBiomeDataConfigs.landModifier));
-        add(new Color(0xB6DE71), new MapBasedCustomBiome(MEBiomeKeys.ROHAN_HILLS, 17, MEBiomeDataConfigs.foothillModifier));
+        add(new Color(0xB6DE71), new MapBasedCustomBiome(MEBiomeKeys.ROHAN_FIELD, 17, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x95ad5f), new MapBasedCustomBiome(MEBiomeKeys.SARN_GEBIR_SHORES, 5, MEBiomeDataConfigs.landModifier.heightModifier(0.98f).noiseModifier(0.1f)));
         add(new Color(0x889e57), new MapBasedCustomBiome(MEBiomeKeys.SARN_GEBIR_WILDLANDS, 11, MEBiomeDataConfigs.landModifier.heightModifier(0.67f)));
         add(new Color(0x54d946), new MapBasedCustomBiome(MEBiomeKeys.SHIRE, 6, MEBiomeDataConfigs.shireModifier));
@@ -302,7 +304,7 @@ public class MapBasedBiomePool {
         add(new Color(0x53a14c), new MapBasedCustomBiome(MEBiomeKeys.SHIRE_HILLS, 15, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x43a839), new MapBasedCustomBiome(MEBiomeKeys.SHIRE_WOODS, 7, MEBiomeDataConfigs.shireModifier));
         add(new Color(0x9a9339), new MapBasedCustomBiome(MEBiomeKeys.SOUTHEAST_RHOVANION, 4, MEBiomeDataConfigs.landModifier));
-        add(new Color(0xB0A83A), new MapBasedCustomBiome(MEBiomeKeys.SOUTHEAST_RHOVANION_FIELDS, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0xB0A83A), new MapBasedCustomBiome(MEBiomeKeys.SOUTHEAST_RHOVANION_FIELD, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x79ba6f), new MapBasedCustomBiome(MEBiomeKeys.SOUTHERN_DUNLAND, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0xceb39c), new MapBasedCustomBiome(MEBiomeKeys.SOUTHERN_FOROCHEL, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x7e954f), new MapBasedCustomBiome(MEBiomeKeys.THE_ANGLE, 4, MEBiomeDataConfigs.landModifier));

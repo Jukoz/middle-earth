@@ -46,8 +46,8 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.08f, MEBiomeKeys.EREGION_FOREST)
                 .addSubBiomeData(0.28f, 1.0f, MEBiomeKeys.EREGION_GLADE));
         subBiomesMap.put(MEBiomeKeys.ENEDWAITH, new SubBiome()
-                .addSubBiomeData(-1.0f, -0.34f, MEBiomeKeys.ENEDWAITH_FIELDS)
-                .addSubBiomeData(0.35f, 1.0f, MEBiomeKeys.ENEDWAITH_FIELDS));
+                .addSubBiomeData(-1.0f, -0.34f, MEBiomeKeys.ENEDWAITH_FIELD)
+                .addSubBiomeData(0.35f, 1.0f, MEBiomeKeys.ENEDWAITH_FIELD));
         subBiomesMap.put(MEBiomeKeys.NORTHERN_DUNLAND, new SubBiome(96)
                 .addSubBiomeData(-1.0f, -0.35f, MEBiomeKeys.NORTHERN_DUNLAND_GLADE)
                 .addSubBiomeData(0.31f, 2.01f, MEBiomeKeys.DUNLAND_HILLS, true));
@@ -70,9 +70,10 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.ANORIEN, new SubBiome(32)
                 .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.GONDOR_FOREST)
                 .addSubBiomeData(0.36f, 2.01f, MEBiomeKeys.GONDOR_HILL, true));
+
         subBiomesMap.put(MEBiomeKeys.PELENNOR_FIELDS, new SubBiome()
-                .addSubBiomeData(-1.0f, -0.41f, MEBiomeKeys.GONDOR_FOREST)
-                .addSubBiomeData(0.42f, 2.01f, MEBiomeKeys.GONDOR_FOREST));
+                .addSubBiomeData(-1.0f, -0.51f, MEBiomeKeys.PELENNOR_WHEAT_FIELD)
+                .addSubBiomeData(0.31f, 2.01f, MEBiomeKeys.PELENNOR_WHEAT_FIELD));
 
         subBiomesMap.put(MEBiomeKeys.LOSSARNACH, new SubBiome(180, 1.2f)
                 .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.GONDOR_FOREST)
@@ -111,7 +112,7 @@ public class SubBiomes {
 
         subBiomesMap.put(MEBiomeKeys.ROHAN, new SubBiome(64, 1.1f)
                 .addSubBiomeData(-1.0f, -0.33f, MEBiomeKeys.ROHAN_FOREST)
-                .addSubBiomeData(0.36f, 2.01f, MEBiomeKeys.ROHAN_HILLS, true));
+                .addSubBiomeData(0.36f, 2.01f, MEBiomeKeys.ROHAN_FIELD, false));
 
         subBiomesMap.put(MEBiomeKeys.LOTHLORIEN, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.42f, MEBiomeKeys.LOTHLORIEN_BLOSSOM)
@@ -172,7 +173,7 @@ public class SubBiomes {
                 .addSubBiomeData(0.34f, 2.01f, MEBiomeKeys.EASTERN_RHOVANION_FOREST));
         subBiomesMap.put(MEBiomeKeys.SOUTHEAST_RHOVANION, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.EASTERN_RHOVANION_FOREST)
-                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.SOUTHEAST_RHOVANION_FIELDS));
+                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.SOUTHEAST_RHOVANION_FIELD));
 
         subBiomesMap.put(MEBiomeKeys.RHUN, new SubBiome(48, 1.3f)
                 .addSubBiomeData(-1.0f, -0.31f, MEBiomeKeys.RHUN_FIELD)

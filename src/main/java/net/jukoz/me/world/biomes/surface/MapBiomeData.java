@@ -169,7 +169,7 @@ public class MapBiomeData {
         // ENEDWAITH
         addBiome(new BiomeData(MEBiomeKeys.ENEDWAITH, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7181795, 10731509, 4618461, defaultWaterFog, 8761449, 7842644)));
-        addBiome(new BiomeData(MEBiomeKeys.ENEDWAITH_FIELDS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.ENEDWAITH_FIELD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(7181795, 10731509, 4618461, defaultWaterFog, 9025898, 8106838)));
         // EREGION
         addBiome(new BiomeData(MEBiomeKeys.EREGION, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers,
@@ -484,7 +484,9 @@ public class MapBiomeData {
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8104558, 7445848)));
         // PELENNOR FIELDS
         addBiome(new BiomeData(MEBiomeKeys.PELENNOR_FIELDS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8628846, 8169054)));
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 0x7ea150, 8169054)));
+        addBiome(new BiomeData(MEBiomeKeys.PELENNOR_WHEAT_FIELD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 0x94a150, 8169054)));
         // RHUN
         addBiome(new BiomeData(MEBiomeKeys.RHUN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8041727, 12773631, 4618980, defaultWaterFog, 10995507, 8165203)));
@@ -501,14 +503,14 @@ public class MapBiomeData {
                 new BiomeColorsDTO(7176133, 10926035, 12440052, 591663, 8627523, 6721596)));
         addBiome(new BiomeData(MEBiomeKeys.SOUTHEAST_RHOVANION, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8954077, 11781343, 4814544, 460593, 7378251, 6982236)));
-        addBiome(new BiomeData(MEBiomeKeys.SOUTHEAST_RHOVANION_FIELDS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.SOUTHEAST_RHOVANION_FIELD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8954077, 11781343, 4814544, 460593, 7708747, 7839335)));
         // ROHAN
         addBiome(new BiomeData(MEBiomeKeys.ROHAN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 12569978, 9677397)));
         addBiome(new BiomeData(MEBiomeKeys.ROHAN_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 11321968, 8887375)));
-        addBiome(new BiomeData(MEBiomeKeys.ROHAN_HILLS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.ROHAN_FIELD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 11913598, 9873760)));
         // SARN GEBIR SHORES
         addBiome(new BiomeData(MEBiomeKeys.SARN_GEBIR_SHORES, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,

@@ -446,6 +446,9 @@ public class ModBiomeFeatures {
     public static void addLavenderField(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FIELD_LAVENDER);
     }
+    public static void addWildWheatField(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FIELD_WILD_WHEAT);
+    }
 
     // endregion
     public static void addMirkwoodVines(List<RegistryKey<PlacedFeature>> vegetation) {
@@ -810,6 +813,11 @@ public class ModBiomeFeatures {
     public static void addCommonWheatGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_WHEAT_GRASS);
     }
+
+    public static void addMixedWildWheatPatch(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_MIXED_WILD_WHEAT);
+    }
+
     public static void addWildGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_WILD_GRASS);
     }

@@ -125,7 +125,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.EMYN_MUIL_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EMYN_MUIL_POND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ENEDWAITH),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.ENEDWAITH_FIELDS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.ENEDWAITH_FIELD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EREGION),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EREGION_FOREST),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EREGION_GLADE),
@@ -267,6 +267,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_RHUDAUR_HILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OSGILIATH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.PELENNOR_FIELDS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.PELENNOR_WHEAT_FIELD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.RHUN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.RHUN_FIELD),
@@ -277,7 +278,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.HIGH_MOOR_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ROHAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ROHAN_FOREST),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.ROHAN_HILLS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.ROHAN_FIELD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SEA_OF_RHUN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SARN_GEBIR_WILDLANDS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SARN_GEBIR_SHORES),
@@ -287,7 +288,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.SHIRE_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SHIRE_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHEAST_RHOVANION),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHEAST_RHOVANION_FIELDS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHEAST_RHOVANION_FIELD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHERN_DUNLAND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHERN_FOROCHEL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EPHEL_DUATH),
@@ -357,7 +358,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
         long seed = region.getSeed();
-        MiddleEarthHeightMap.setSeed(seed);
         for(int x = 0; x < 16; x++) {
             for(int z = 0; z < 16; z++) {
                 int posX = (chunk.getPos().x * 16) + x;
