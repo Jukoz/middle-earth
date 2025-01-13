@@ -56,4 +56,9 @@ public class LayersAltBlock extends SnowBlock implements Waterloggable {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(LAYERS, WATERLOGGED);
     }
+
+    @Override
+    protected boolean canReplace(BlockState state, ItemPlacementContext context) {
+        return false;
+    }
 }
