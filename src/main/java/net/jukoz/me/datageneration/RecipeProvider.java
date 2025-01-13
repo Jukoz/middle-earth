@@ -1958,7 +1958,23 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.GOLD_COIN_PILE))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "gold_nugget_from_pile"));
 
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.SHORT_BULRUSH, 2)
+                .input(ModNatureBlocks.TALL_BULRUSH)
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.TALL_BULRUSH),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.TALL_BULRUSH))
+                .offerTo(exporter);
 
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.SHORT_CATTAILS, 2)
+                .input(ModNatureBlocks.TALL_CATTAILS)
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.TALL_CATTAILS),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.TALL_CATTAILS))
+                .offerTo(exporter);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.GOLD_INGOT, 4)
+                .input(ModDecorativeBlocks.POT_OF_GOLD)
+                .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.POT_OF_GOLD),
+                        FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.POT_OF_GOLD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "gold_from_pot_of_gold"));
         //endregion
 
         //region SMOKING-ONLY
