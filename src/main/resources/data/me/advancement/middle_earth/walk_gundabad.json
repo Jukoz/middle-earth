@@ -1,0 +1,46 @@
+{
+  "parent": "me:middle_earth/root",
+  "criteria": {
+    "enter_gundabad": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "me:mount_gundabad",
+                  "me:mount_gundabad_base",
+                  "me:mount_gundabad_peaks"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_gundabad.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:bone_block"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_gundabad.title"
+    }
+  },
+  "requirements": [
+    [
+      "enter_gundabad"
+    ]
+  ]
+}
