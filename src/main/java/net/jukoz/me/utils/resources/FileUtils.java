@@ -37,7 +37,7 @@ public class FileUtils {
 
     public BufferedImage getResourceImage(String path) {
         try{
-            return ImageUtils.fetchResourceImage(getClass().getClassLoader(), path);
+            return ImageUtils.fetchResourceImage(path);
         } catch (IOException e) {
             return null;
         }

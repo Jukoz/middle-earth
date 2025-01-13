@@ -245,6 +245,7 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.LARGE_IZHER_ABAN);
         undergroundOres.add(CavesPlacedFeatures.POINTED_IZHER_ABAN);
         undergroundOres.add(CavesPlacedFeatures.ORE_IZHER_ABAN);
+        undergroundOres.add(CavesPlacedFeatures.ORE_ZIGIL_ABAN);
         undergroundOres.add(CavesPlacedFeatures.ORE_OLD_IZHER_ABAN);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
         addBasicFeatures(generationSettings, true);
