@@ -20,6 +20,8 @@ import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.component.type.BannerPatternsComponent;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
@@ -28,6 +30,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -298,10 +301,13 @@ public class Faction {
         return bannerData.getBaseDye();
     }
 
-    public List<BannerData.BannerPatternWithColor> getBannerPatternsWithColors(ClientWorld world) {
+    public List<BannerData.BannerPatternWithColor> getBannerPatternsWithColors(World world) {
         if(bannerData == null) return null;
         return bannerData.getBannerPatternsWithColors(world);
+    }
 
+    public ItemStack getBannerItem(World world){
+        return bannerData.getBannerItem(world, Text.translatable("block.me.faction_banner", getFullName()).formatted(Formatting.GOLD));
     }
 
     public List<Identifier> getSubFactions(){

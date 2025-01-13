@@ -6600,15 +6600,7 @@
   "item.me.snail_banner_pattern.desc": "The Slimy Overlord",
 
 "#Comment:": "Blocks - Banners",
-  "block.me.dale_banner": "Dale Banner",
-  "block.me.erebor_banner": "Erebor Banner",
-  "block.me.gondor_banner": "Gondor Banner",
-  "block.me.lothlorien_banner": "Lothlórien Banner",
-  "block.me.rohan_banner": "Rohan Banner",
-  "block.me.shire_banner": "Shire Banner",
-  "block.me.isengard_banner": "Isengard Banner",
-  "block.me.misty_mountains_goblins_banner": "Misty Mountains Goblins Banner",
-  "block.me.mordor_banner": "Mordor Banner",
+  "block.me.faction_banner" : "%s Banner",
 
   "block.me.banner.tree.black": "Black Tree",
   "block.me.banner.tree.blue": "Blue Tree",
@@ -7655,6 +7647,10 @@
 
 "#Comment": "Commands",
   "command.me.fail" : "Command couldn't be sent properly",
+
+  "command.me.faction.banner.success": "Successfully fetched the <%s> banner",
+  "command.me.faction.banner.fail_error": "Couldn't find the faction <%s>",
+  "command.me.faction.banner.fail_id": "An error occured while fetching the banner for <%s>",
 
   "command.me.join.faction.join.success" : "%s successfully joined the %s Faction",
 
