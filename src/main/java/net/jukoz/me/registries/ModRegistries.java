@@ -122,6 +122,21 @@ public class ModRegistries {
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_CHAIR, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_TABLE, 5, 20);
+
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.LEBETHRON_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.BERRY_HOLLY_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.DRY_LARCH_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.MAPLE_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.ORANGE_MAPLE_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.RED_MAPLE_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.YELLOW_MAPLE_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.DRY_PINE_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.PINE_BRANCHES, 30, 60);
+
+        LeavesSets.blocks.forEach(block -> {
+            FlammableBlockRegistry.getDefaultInstance().add(block, 30, 60);
+        });
     }
 
     public static void registerAgingCopperBlocks() {

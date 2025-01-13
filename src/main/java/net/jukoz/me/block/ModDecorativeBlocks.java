@@ -2,6 +2,8 @@ package net.jukoz.me.block;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
+import net.jukoz.me.block.special.artefact.arkenstone.ArkenstoneBlock;
+import net.jukoz.me.block.special.artefact.arkenstone.ArkenstoneWallBlock;
 import net.jukoz.me.block.special.artisantable.ArtisanTable;
 import net.jukoz.me.block.special.beds.CustomBedBlock;
 import net.jukoz.me.block.special.bellows.BellowsBlock;
@@ -655,6 +657,11 @@ public class ModDecorativeBlocks {
             new CustomBedBlock(DyeColor.BLACK, AbstractBlock.Settings.copy(Blocks.BLACK_BED)));
     public static final Block STRAW_BED = registerBlockWithItem("straw_bed",
             new CustomBedBlock(DyeColor.BLACK, AbstractBlock.Settings.copy(Blocks.BLACK_BED)));
+
+    public static final Block ARKENSTONE = registerBlock("arkenstone",
+            new ArkenstoneBlock(AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance((state -> 7)).nonOpaque().requiresTool()));
+    public static final Block WALL_ARKENSTONE = registerBlock("wall_arkenstone",
+            new ArkenstoneWallBlock(AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance((state -> 7)).nonOpaque().requiresTool()));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);
