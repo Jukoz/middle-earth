@@ -57,8 +57,8 @@ public class SubBiomes {
                 .addSubBiomeData(0.35f, 1.0f, MEBiomeKeys.THE_WOLD_WHEAT_FIELD));
 
         subBiomesMap.put(MEBiomeKeys.DORWINION, new SubBiome()
-                .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.DORWINION_LAVENDER_FIELD)
-                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.DORWINION_LAVENDER_FIELD));
+                .addSubBiomeData(-1.0f, -0.35f, MEBiomeKeys.DORWINION_LAVENDER_FIELD)
+                .addSubBiomeData(0.36f, 2.01f, MEBiomeKeys.DORWINION_LAVENDER_FIELD));
 
         subBiomesMap.put(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, new SubBiome(56, 0.65f)
                 .addSubBiomeData(-1.0f, -0.2f, MEBiomeKeys.BLUE_MOUNTAINS_WOODS)
