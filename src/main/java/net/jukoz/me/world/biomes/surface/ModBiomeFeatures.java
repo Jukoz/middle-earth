@@ -573,6 +573,9 @@ public class ModBiomeFeatures {
     public static void addLightBlueFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWERS_LIGHT_BLUE);
     }
+    public static void addRareLightBlueFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.RARE_FLOWERS_LIGHT_BLUE);
+    }
     public static void addMagentaFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWERS_MAGENTA);
     }
@@ -725,6 +728,9 @@ public class ModBiomeFeatures {
     }
     public static void addSparseLavender(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SPARSE_LAVENDER);
+    }
+    public static void addRareLavender(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_RARE_LAVENDER);
     }
     public static void addVeryRareLavender(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_VERY_RARE_LAVENDER);

@@ -46,6 +46,7 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> RARE_FLOWER_YELLOW = registerKey("patch_rare_yellow_flower");
 
     public static final RegistryKey<PlacedFeature> FLOWERS_LIGHT_BLUE = registerKey("flowers_light_blue");
+    public static final RegistryKey<PlacedFeature> RARE_FLOWERS_LIGHT_BLUE = registerKey("rare_flowers_light_blue");
     public static final RegistryKey<PlacedFeature> FLOWERS_MAGENTA = registerKey("flowers_magenta");
     public static final RegistryKey<PlacedFeature> FLOWERS_ORANGE = registerKey("flowers_orange");
     public static final RegistryKey<PlacedFeature> FLOWERS_PINK = registerKey("flowers_pink");
@@ -127,6 +128,7 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> PATCH_RED_HEATHER = registerKey("patch_red_heather");
     public static final RegistryKey<PlacedFeature> PATCH_LAVENDER = registerKey("patch_lavender");
     public static final RegistryKey<PlacedFeature> PATCH_SPARSE_LAVENDER = registerKey("patch_sparse_lavender");
+    public static final RegistryKey<PlacedFeature> PATCH_RARE_LAVENDER = registerKey("patch_rare_lavender");
     public static final RegistryKey<PlacedFeature> PATCH_VERY_RARE_LAVENDER = registerKey("patch_very_rare_lavender");
     public static final RegistryKey<PlacedFeature> PATCH_SCORCHED_GRASS = registerKey("patch_scorched_grass");
     public static final RegistryKey<PlacedFeature> PATCH_SCORCHED_SHRUB = registerKey("patch_scorched_shrub");
@@ -369,6 +371,7 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, RARE_FLOWER_YELLOW, yellowFlower, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
 
         PlacedFeatures.register(featureRegisterable, FLOWERS_LIGHT_BLUE, flowersLightBlue, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, RARE_FLOWERS_LIGHT_BLUE, flowersLightBlue, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWERS_MAGENTA, flowersMagenta, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWERS_ORANGE, flowersOrange, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWERS_PINK, flowersPink, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
@@ -450,6 +453,7 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, PATCH_RED_HEATHER, redHeather, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_LAVENDER, lavender, uncommon, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_SPARSE_LAVENDER, lavender, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_RARE_LAVENDER, lavender, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_VERY_RARE_LAVENDER, lavender, wildBushRarity, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_LILY_PAD, lilyPad, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_LILY_PADS, lilyPads, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
