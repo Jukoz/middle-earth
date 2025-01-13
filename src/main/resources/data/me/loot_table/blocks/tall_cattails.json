@@ -2,29 +2,143 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
+      "rolls": 1,
+      "bonus_rolls": 0,
       "entries": [
         {
-          "type": "minecraft:item",
-          "conditions": [
+          "type": "minecraft:alternatives",
+          "children": [
             {
-              "block": "me:tall_cattails",
-              "condition": "minecraft:block_state_property",
-              "properties": {
-                "half": "lower"
-              }
+              "type": "minecraft:item",
+              "name": "me:straw",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": "#minecraft:hoes"
+                  }
+                },
+                {
+                  "block": "me:tall_cattails",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "half": "lower"
+                  }
+                },
+                {
+                  "condition": "minecraft:location_check",
+                  "offsetY": 1,
+                  "predicate": {
+                    "block": {
+                      "blocks": [
+                        "me:tall_cattails"
+                      ],
+                      "state": {
+                        "half": "upper"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "me:tall_cattails",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                },
+                {
+                  "block": "me:tall_cattails",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "half": "lower"
+                  }
+                },
+                {
+                  "condition": "minecraft:location_check",
+                  "offsetY": 1,
+                  "predicate": {
+                    "block": {
+                      "blocks": [
+                        "me:tall_cattails"
+                      ],
+                      "state": {
+                        "half": "upper"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+
+            {
+              "type": "minecraft:item",
+              "name": "me:straw",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": "#minecraft:hoes"
+                  }
+                },
+                {
+                  "block": "me:tall_cattails",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "half": "upper"
+                  }
+                },
+                {
+                  "condition": "minecraft:location_check",
+                  "offsetY": -1,
+                  "predicate": {
+                    "block": {
+                      "blocks": [
+                        "me:tall_cattails"
+                      ],
+                      "state": {
+                        "half": "lower"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "me:tall_cattails",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                },
+                {
+                  "block": "me:tall_cattails",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "half": "upper"
+                  }
+                },
+                {
+                  "condition": "minecraft:location_check",
+                  "offsetY": -1,
+                  "predicate": {
+                    "block": {
+                      "blocks": [
+                        "me:tall_cattails"
+                      ],
+                      "state": {
+                        "half": "lower"
+                      }
+                    }
+                  }
+                }
+              ]
             }
-          ],
-          "name": "me:tall_cattails"
+          ]
         }
-      ],
-      "rolls": 1.0
+      ]
     }
   ],
-  "random_sequence": "minecraft:blocks/sunflower"
+  "random_sequence": "minecraft:blocks/grass"
 }

@@ -8,6 +8,7 @@ import net.jukoz.me.block.special.OxidizableWallBlock;
 import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
+import net.minecraft.sound.BlockSoundGroup;
 
 public class OtherBlockSets {
     public static MiscBlockSet TREATED_WOOD = registerMiscSet("treated_wood", null, Blocks.OAK_WOOD, true);
@@ -280,7 +281,7 @@ public class OtherBlockSets {
     public record RoofBlockSet(Block block, Block slab, Block verticalSlab, Block stairs, Block wall, Block origin) {
     }
 
-    public record MiscBlockSet(Block block, Block slab, Block verticalSlab, Block stairs, Block origin) {
+    public record MiscBlockSet(Block block, Block slab, Block verticalSlab, Block stairs, Block wall, Block origin) {
     }
 
     private static RoofBlockSet registerWoodSet(String name, Block origin) {
@@ -400,12 +401,15 @@ public class OtherBlockSets {
         Block stairs = ModBlocks.registerMiscBlock(name + "_stairs", new StairsBlock(block.getDefaultState(),
                 AbstractBlock.Settings.copy(block)),true);
 
+        Block wall = ModBlocks.registerMiscBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(block)),false);
+
         FlammableBlockRegistry.getDefaultInstance().add(block, 5, 60);
         FlammableBlockRegistry.getDefaultInstance().add(slab, 5, 60);
         FlammableBlockRegistry.getDefaultInstance().add(verticalSlab, 5, 60);
         FlammableBlockRegistry.getDefaultInstance().add(stairs, 5, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(wall, 5, 60);
 
-        return new MiscBlockSet(block, slab, verticalSlab, stairs, origin);
+        return new MiscBlockSet(block, slab, verticalSlab, stairs, wall, origin);
     }
 
     public static void registerModBlockSets() {

@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.special.LargeDoorBlock;
 import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.item.items.ArkenstoneItem;
 import net.jukoz.me.item.items.CustomSpawnEggItem;
 import net.jukoz.me.item.items.DoorBlockItem;
 import net.jukoz.me.item.utils.ModItemGroups;
@@ -119,6 +120,10 @@ public class ModDecorativeItems {
 
     public static final Item TROLL_STATUE = registerItem("troll_statue",
             new CustomSpawnEggItem(ModEntities.PETRIFIED_TROLL, new Item.Settings().maxCount(1)));
+
+    public static final Item ARKENSTONE = registerItem("arkenstone",
+            new ArkenstoneItem(ModDecorativeBlocks.ARKENSTONE, ModDecorativeBlocks.WALL_ARKENSTONE, new Item.Settings().fireproof(), Direction.DOWN));
+
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());

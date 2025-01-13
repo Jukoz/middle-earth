@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "me:pink_flower_growth"
+    }
+  ],
+  "result": {
+    "id": "minecraft:pink_dye"
+  }
+}

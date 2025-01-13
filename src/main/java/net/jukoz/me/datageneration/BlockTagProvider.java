@@ -290,7 +290,9 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(ModDecorativeBlocks.SPIKY_CHAIN);
 
         needsStoneTools.add(ModDecorativeBlocks.WATERING_CAN);
-        mineablePickaxe.add(ModDecorativeBlocks.WATERING_CAN);
+
+        mineablePickaxe.add(ModDecorativeBlocks.ARKENSTONE);
+        mineablePickaxe.add(ModDecorativeBlocks.WALL_ARKENSTONE);
 
         mineableAxe.add(ModDecorativeBlocks.WOODEN_BUCKET);
 
@@ -333,6 +335,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.GRASSY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.GRASSY_DIRT_STAIRS);
 
+        mineablePickaxe.add(ModBlocks.PEBBLED_GRASS);
+        mineablePickaxe.add(ModBlocks.PEBBLED_GRASS_SLAB);
+        mineablePickaxe.add(ModBlocks.PEBBLED_GRASS_STAIRS);
+        
         mineableShovel.add(ModBlocks.TURF);
         mineableShovel.add(ModBlocks.TURF_SLAB);
         mineableShovel.add(ModBlocks.TURF_STAIRS);

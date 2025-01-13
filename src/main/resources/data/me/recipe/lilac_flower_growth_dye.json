@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "me:lilac_flower_growth"
+    }
+  ],
+  "result": {
+    "id": "minecraft:magenta_dye"
+  }
+}

@@ -306,6 +306,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createVerticalSlabsRecipe(exporter, record.slab(), record.verticalSlab());
             createSlabsFromVerticalRecipe(exporter, record.verticalSlab(), record.slab());
             createStairsRecipe(exporter, record.block(), record.stairs());
+            createWallsRecipe(exporter, record.block(), record.wall());
         }
         //endregion
 
@@ -500,6 +501,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createStairsRecipe(exporter, ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB);
+
+        createStairsRecipe(exporter, ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_SLAB);
 
         createStairsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_SLAB);
@@ -1444,6 +1448,15 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(Items.MOSS_BLOCK))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.PEBBLED_GRASS, 4)
+                .pattern("DM")
+                .pattern("MD")
+                .input('M', Items.MOSS_BLOCK)
+                .input('D', TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_crafting_materials")))
+                .criterion(FabricRecipeProvider.hasItem(Items.MOSS_BLOCK),
+                        FabricRecipeProvider.conditionsFromItem(Items.MOSS_BLOCK))
+                .offerTo(exporter);
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOWY_DIRT, 4)
                 .pattern("DS")
                 .pattern("SD")
@@ -1847,13 +1860,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.YELLOW_FLOWERS))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.FROZEN_GROWTH.asItem(), 6)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.FROZEN_GROWTH.asItem(), 8)
                 .pattern("sis")
                 .pattern("sis")
                 .input('i', ModNatureBlocks.STICKY_SNOW)
-                .input('s', Items.STICK)
-                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.STICKY_SNOW),
-                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.STICKY_SNOW))
+                .input('s', ModNatureBlocks.DRY_GROWTH)
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.DRY_GROWTH),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.DRY_GROWTH))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GOLDEN_CHALICE, 1)
@@ -1945,7 +1958,23 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.GOLD_COIN_PILE))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "gold_nugget_from_pile"));
 
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.SHORT_BULRUSH, 2)
+                .input(ModNatureBlocks.TALL_BULRUSH)
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.TALL_BULRUSH),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.TALL_BULRUSH))
+                .offerTo(exporter);
 
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.SHORT_CATTAILS, 2)
+                .input(ModNatureBlocks.TALL_CATTAILS)
+                .criterion(FabricRecipeProvider.hasItem(ModNatureBlocks.TALL_CATTAILS),
+                        FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.TALL_CATTAILS))
+                .offerTo(exporter);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.GOLD_INGOT, 4)
+                .input(ModDecorativeBlocks.POT_OF_GOLD)
+                .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.POT_OF_GOLD),
+                        FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.POT_OF_GOLD))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "gold_from_pot_of_gold"));
         //endregion
 
         //region SMOKING-ONLY

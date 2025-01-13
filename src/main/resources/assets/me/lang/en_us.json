@@ -660,6 +660,10 @@
   "item.me.netherite_spear": "Netherite Spear",
 
 "#Comment:": "Item - Artefacts",
+  "item.me.arkenstone": "Arkenstone",
+  "block.me.arkenstone": "Arkenstone",
+  "block.me.wall_arkenstone": "Arkenstone",
+
   "item.me.dagamarth": "Dagamarth",
   "item.me.herugrim": "Herugrim",
   "item.me.nazgul_sword": "Nazgûl sword",
@@ -4392,6 +4396,10 @@
   "block.me.grassy_dirt_slab": "Grassy Dirt Slab",
   "block.me.grassy_dirt_stairs": "Grassy Dirt Stairs",
 
+  "block.me.pebbled_grass": "Pebbled Grass",
+  "block.me.pebbled_grass_slab": "Pebbled Grass Slab",
+  "block.me.pebbled_grass_stairs": "Pebbled Grass Stairs",
+
   "block.me.turf": "Turf",
   "block.me.turf_slab": "Turf Slab",
   "block.me.turf_vertical_slab": "Turf Vertical Slab",
@@ -7573,6 +7581,9 @@
   "race_tooltip.me.attribute_header" : "Attributes : ",
 
 "#Comment:": "Lore Tooltips",
+  "tooltip.me.arkenstone_lore_0" : "The fairest of gems found beneath,",
+  "tooltip.me.arkenstone_lore_1" : "the lonely mountain.",
+
   "tooltip.me.dagamarth_lore_0" : "A storied blade forged by Narvi and Celebrimbor,",
   "tooltip.me.dagamarth_lore_1" : "thought lost.",
   "tooltip.me.herugrim_lore_0" : "A sword set with green jewels, passed down through",
