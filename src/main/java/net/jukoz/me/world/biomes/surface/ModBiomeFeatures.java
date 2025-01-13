@@ -99,6 +99,18 @@ public class ModBiomeFeatures {
     public static void addMegaDarkOakCommonTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MEGA_DARK_OAK_PLACED_COMMON_TREE_KEY);
     }
+    public static void addCommonFirTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.COMMON_FIR_PLACED_TREE_KEY);
+    }
+    public static void addFirTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.FIR_PLACED_TREE_KEY);
+    }
+    public static void addRareFirTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.RARE_FIR_PLACED_TREE_KEY);
+    }
+    public static void addVeryRareFirTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.VERY_RARE_FIR_PLACED_TREE_KEY);
+    }
     public static void addHollyTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.HOLLY_PLACED_TREE_KEY);
     }
@@ -336,6 +348,9 @@ public class ModBiomeFeatures {
         vegetation.add(ModTreePlacedFeatures.SPRUCE_BUSH_PLACED_TREE_KEY);
     }
     public static void addVeryRareSpruceTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.VERY_RARE_SPRUCE_PLACED_TREE_KEY);
+    }
+    public static void addExtremelyRareSpruceTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.VERY_RARE_SPRUCE_PLACED_TREE_KEY);
     }
     public static void addWillowTrees(List<RegistryKey<PlacedFeature>> vegetation) {
