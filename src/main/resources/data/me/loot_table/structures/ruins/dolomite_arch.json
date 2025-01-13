@@ -1,6 +1,36 @@
 {
   "pools": [
     {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:crude_spear"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:crude_dagger"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:orcish_bow"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:orcish_sconce"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:orcish_cape"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 1
+    },
+    {
       "rolls": {
         "min": 1,
         "max": 4
@@ -21,18 +51,6 @@
         {
           "type": "minecraft:item",
           "name": "me:dry_growth"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:crude_spear"
         }
       ]
     },

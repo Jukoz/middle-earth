@@ -62,13 +62,6 @@ public class ModItemGroups {
                 for (ItemStack item : DECORATIVES_BLOCKS_CONTENT) {
                     entries.add(item);
                 }
-                for(ItemStack item : ModBannerItems.getList(displayContext.lookup().getWrapperOrThrow(RegistryKeys.BANNER_PATTERN))) {
-                    try {
-                        entries.add(item);
-                    } catch (Exception e) {
-                        LoggerUtil.logError(e.toString());
-                    }
-                }
             })
             .build();
 

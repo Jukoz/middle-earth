@@ -1,6 +1,69 @@
 {
   "pools": [
     {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:isengard_banner_pattern",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:uruk_hai_leather_scout_cap"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:uruk_hai_leather_chestplate"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:crossbow"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:crude_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:orcish_leather_skirt"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:heater_shield",
+		  "functions": [
+            {
+              "function": "minecraft:set_banner_pattern",
+              "patterns": [
+                {
+                  "pattern": "minecraft:base",
+                  "color": "black"
+                },
+                {
+                  "pattern": "minecraft:gradient",
+                  "color": "gray"
+                },
+                {
+                  "pattern": "me:hand",
+                  "color": "white"
+                }
+              ],
+              "append": true
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:orcish_sconce"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 1
+    },
+    {
       "rolls": {
         "min": 0,
         "max": 1
@@ -45,18 +108,6 @@
         {
           "type": "minecraft:item",
           "name": "me:crude_nugget"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:isengard_banner_pattern"
         }
       ]
     },

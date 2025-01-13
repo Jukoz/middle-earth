@@ -1,16 +1,47 @@
 {
   "pools": [
     {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
+      "bonus_rolls": 0.5,
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "me:misty_mountains_orcs_banner_pattern",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:gambeson"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:cape"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:round_shield"
+        },
+        {
+          "type": "minecraft:item",
           "name": "me:bronze_spear"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:hood"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:bronze_sword"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:bonfire"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
         }
-      ]
+      ],
+      "rolls": 1
     },
     {
       "rolls": {
@@ -68,18 +99,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:round_shield"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
           "name": "me:straw_hat"
         }
       ]
@@ -87,7 +106,7 @@
     {
       "rolls": {
         "min": 0,
-        "max": 2
+        "max": 1
       },
       "entries": [
         {

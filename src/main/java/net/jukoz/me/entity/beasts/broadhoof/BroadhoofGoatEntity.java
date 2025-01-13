@@ -89,7 +89,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.4d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0d)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0d)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5.0d)
                 .add(EntityAttributes.GENERIC_STEP_HEIGHT, 1.15d)
                 .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 9.0d)
                 .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 1);

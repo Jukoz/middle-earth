@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/wall_arkenstone",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "me:block/wall_arkenstone",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "me:block/wall_arkenstone"
+    },
+    "facing=west": {
+      "model": "me:block/wall_arkenstone",
+      "y": 90
+    }
+  }
+}

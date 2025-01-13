@@ -420,6 +420,13 @@ public class ModBlocks {
     public static final Block GRASSY_DIRT_STAIRS = registerMiscBlock("grassy_dirt_stairs",
             new StairsBlock(GRASSY_DIRT.getDefaultState(), AbstractBlock.Settings.copy(GRASSY_DIRT)),true);
 
+    public static final Block PEBBLED_GRASS = registerMiscBlock("pebbled_grass",
+            new Block(AbstractBlock.Settings.copy(Blocks.COBBLESTONE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block PEBBLED_GRASS_SLAB = registerMiscBlock("pebbled_grass_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(PEBBLED_GRASS)),true);
+    public static final Block PEBBLED_GRASS_STAIRS = registerMiscBlock("pebbled_grass_stairs",
+            new StairsBlock(PEBBLED_GRASS.getDefaultState(), AbstractBlock.Settings.copy(PEBBLED_GRASS)),true);
+
     public static final Block MIRE = registerMiscBlock("mire",
             new MudBlock(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.MUD)),true);
     public static final Block MIRE_SLAB = registerMiscBlock("mire_slab",

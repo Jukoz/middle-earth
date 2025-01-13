@@ -1,0 +1,66 @@
+{
+  "parent": "me:middle_earth/root",
+  "criteria": {
+    "gondor": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "me:anorien",
+                  "me:anorien_riverside",
+                  "me:belfalas",
+                  "me:belfalas_beach",
+                  "me:belfalas_forest",
+                  "me:belfalas_hills",
+                  "me:blackroot_forest",
+                  "me:blackroot_vale",
+                  "me:gondor",
+                  "me:gondor_hill",
+                  "me:gondor_forest",
+                  "me:lossarnach",
+                  "me:lossarnach_valley",
+                  "me:lossarnach_valley_green",
+                  "me:lossarnach_valley_yellow",
+                  "me:lossarnach_valley_orange",
+                  "me:lossarnach_valley_red",
+                  "me:lossarnach_cherry_blossom",
+                  "me:lebennin",
+                  "me:lebennin_hills",
+                  "me:lamedon",
+                  "me:lamedon_hills",
+                  "me:pelennor_fields"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_gondor.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:lebethron_sapling"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_gondor.title"
+    }
+  },
+  "requirements": [
+    [
+      "gondor"
+    ]
+  ]
+}

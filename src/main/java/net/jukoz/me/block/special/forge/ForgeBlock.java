@@ -135,16 +135,17 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if(!world.isClient) {
+        if (world.isClient) {
+            return ActionResult.SUCCESS;
+        } else {
             if(state.get(PART) == ForgePart.BOTTOM){
                 NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
                 if(screenHandlerFactory != null) {
                     player.openHandledScreen(screenHandlerFactory);
                 }
             }
+            return ActionResult.CONSUME;
         }
-
-        return ActionResult.SUCCESS;
     }
 
     @Nullable

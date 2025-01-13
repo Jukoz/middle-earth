@@ -12,6 +12,7 @@
     "CraftingMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
+    "FishingBobberEntityMixin",
     "FoliagePlacerTypeInvoker",
     "ItemStackMixin",
     "PigEntityMixin",

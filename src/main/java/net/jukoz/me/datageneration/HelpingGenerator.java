@@ -376,16 +376,21 @@ public class HelpingGenerator {
             SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.block(), set.slab()));
             SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.block(), set.slab(), set.verticalSlab()));
             SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.block(), set.stairs()));
+            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.block(), set.wall()));
 
             BlockDrops.blocks.add(set.block());
             BlockDrops.blocks.add(set.slab());
             BlockDrops.blocks.add(set.verticalSlab());
             BlockDrops.blocks.add(set.stairs());
+            BlockDrops.blocks.add(set.wall());
 
             MineableAxe.blocks.add(set.block());
             MineableAxe.blocks.add(set.slab());
             MineableAxe.blocks.add(set.verticalSlab());
             MineableAxe.blocks.add(set.stairs());
+            MineableAxe.blocks.add(set.wall());
+
+            Walls.walls.add(set.wall());
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab set : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
