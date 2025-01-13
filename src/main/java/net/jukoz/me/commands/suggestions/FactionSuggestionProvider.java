@@ -14,16 +14,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class AllJoinableFactionSuggestionProvider implements SuggestionProvider<ServerCommandSource> {
+public class FactionSuggestionProvider implements SuggestionProvider<ServerCommandSource> {
+    boolean onlyJoinable = true;
+    public FactionSuggestionProvider(){
+
+    }
+    public FactionSuggestionProvider(boolean onlyJoinable){
+        this.onlyJoinable = onlyJoinable;
+    }
     @Override
     public CompletableFuture<Suggestions> getSuggestions(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
         List<Faction> candidates = FactionLookup.getAllJoinableFaction(context.getSource().getWorld());
         List<Identifier> identifiers = new ArrayList<>();
         for(Faction faction : candidates){
-            if(faction.getFactionType() == FactionType.SUBFACTION)
+            if(onlyJoinable){
+                if(faction.getFactionType() == FactionType.SUBFACTION)
+                    identifiers.add(faction.getId());
+                else if(faction.getFactionType() == FactionType.FACTION && faction.getSubFactions() == null || faction.getSubFactions().isEmpty())
+                    identifiers.add(faction.getId());
+            } else{
                 identifiers.add(faction.getId());
-            else if(faction.getFactionType() == FactionType.FACTION && faction.getSubFactions() == null || faction.getSubFactions().isEmpty())
-                identifiers.add(faction.getId());
+            }
         }
         return SuggestionUtil.getCorrespondingIdentifiers(identifiers, builder);
     }
