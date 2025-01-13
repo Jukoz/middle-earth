@@ -47,8 +47,6 @@ public class PacketTeleportToDynamicCoordinate extends ClientToServerPacket<Pack
         context.player().getServer().execute(() -> {
             Vector2d worldCoordinate = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(xCoordinate, zCoordinate);
             MinecraftServer server = context.player().getServer();
-            if(server != null)
-                MiddleEarthHeightMap.setSeed(server.getOverworld().getSeed());
             Vec3d coordinates = new Vec3d(worldCoordinate.x, ModDimensions.getDimensionHeight((int)worldCoordinate.x, (int)worldCoordinate.y).y, worldCoordinate.y);
             ModDimensions.teleportPlayerToMe(context.player(), coordinates, true, welcomeNeeded);
         });

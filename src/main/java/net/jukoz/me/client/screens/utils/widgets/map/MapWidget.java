@@ -55,7 +55,7 @@ public class MapWidget extends ModWidget {
         if(currentPointRatio == null)
             currentPointRatio = new Vector2d(.5, .5);
         try{
-            mapImage = ImageUtils.fetchResourceImage(FileUtils.getInstance().getClassLoader(), MiddleEarthMapConfigs.INITIAL_IMAGE);
+            mapImage = ImageUtils.fetchResourceImage(MiddleEarthMapConfigs.INITIAL_IMAGE);
         } catch (IOException e) {
             LoggerUtil.logDebugMsg("MapWidget::Couldn't find %s".formatted(MiddleEarthMapConfigs.INITIAL_IMAGE));
         }

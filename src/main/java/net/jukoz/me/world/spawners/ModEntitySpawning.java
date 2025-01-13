@@ -197,7 +197,7 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.DALE_MEADOW, daleSpawnSettings);
 
         spawns.put(MEBiomeKeys.ROHAN, rohanSpawnSettings);
-        spawns.put(MEBiomeKeys.ROHAN_HILLS, rohanSpawnSettings);
+        spawns.put(MEBiomeKeys.ROHAN_FIELD, rohanSpawnSettings);
 
         spawns.put(MEBiomeKeys.ANORIEN, gondorAndMordor);
         spawns.put(MEBiomeKeys.ANORIEN_RIVERSIDE, gondorAndMordor);
