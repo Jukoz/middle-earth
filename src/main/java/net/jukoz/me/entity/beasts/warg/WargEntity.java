@@ -156,7 +156,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     protected static double getChildAttackDamageBonus(DoubleSupplier randomDoubleGetter) {
-        return (double)7f + randomDoubleGetter.getAsDouble() + randomDoubleGetter.getAsDouble() + randomDoubleGetter.getAsDouble();
+        return (double)6f + randomDoubleGetter.getAsDouble() + randomDoubleGetter.getAsDouble() + randomDoubleGetter.getAsDouble();
     }
 
     protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {

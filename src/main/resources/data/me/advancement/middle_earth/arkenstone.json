@@ -1,0 +1,34 @@
+{
+  "parent": "me:middle_earth/walk_lonely_mountain",
+  "criteria": {
+    "arkenstone": {
+      "conditions": {
+        "item": {
+          "items": "me:arkenstone"
+        }
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.middle_earth.arkenstone.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "me:mithril_nugget"
+    },
+    "title": {
+      "translate": "advancements.middle_earth.arkenstone.title"
+    },
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "requirements": [
+    [
+      "arkenstone"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

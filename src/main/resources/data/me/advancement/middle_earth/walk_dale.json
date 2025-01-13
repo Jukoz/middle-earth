@@ -1,7 +1,7 @@
 {
   "parent": "me:middle_earth/root",
   "criteria": {
-    "enter_misty_mountains": {
+    "enter_dale": {
       "conditions": {
         "player": [
           {
@@ -10,9 +10,10 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:misty_mountains",
-                  "me:misty_mountains_base",
-                  "me:misty_mountains_peaks"
+                  "me:dale",
+                  "me:dale_city",
+                  "me:dale_forest",
+                  "me:dale_meadow"
                 ]
               }
             }
@@ -25,22 +26,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.enter_misty_mountains.description"
+      "translate": "advancements.middle_earth.enter_dale.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id": "minecraft:snow_block"
+      "id": "minecraft:bell"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.enter_misty_mountains.title"
+      "translate": "advancements.middle_earth.enter_dale.title"
     }
   },
   "requirements": [
     [
-      "enter_misty_mountains"
+      "enter_dale"
     ]
   ]
 }

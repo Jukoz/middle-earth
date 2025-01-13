@@ -1,7 +1,7 @@
 {
   "parent": "me:middle_earth/root",
   "criteria": {
-    "enter_misty_mountains": {
+    "nan_curunir": {
       "conditions": {
         "player": [
           {
@@ -10,9 +10,9 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:misty_mountains",
-                  "me:misty_mountains_base",
-                  "me:misty_mountains_peaks"
+                  "me:nan_curunir",
+                  "me:isengard",
+                  "me:isengard_hill"
                 ]
               }
             }
@@ -25,22 +25,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.enter_misty_mountains.description"
+      "translate": "advancements.middle_earth.enter_nan_curunir.description"
     },
     "frame": "task",
-    "hidden": false,
     "icon": {
       "count": 1,
-      "id": "minecraft:snow_block"
+      "id": "me:medgon_carved_window_pane"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.enter_misty_mountains.title"
+      "translate": "advancements.middle_earth.enter_nan_curunir.title"
     }
   },
   "requirements": [
     [
-      "enter_misty_mountains"
+      "nan_curunir"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

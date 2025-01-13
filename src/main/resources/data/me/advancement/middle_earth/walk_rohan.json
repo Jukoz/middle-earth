@@ -1,7 +1,7 @@
 {
   "parent": "me:middle_earth/root",
   "criteria": {
-    "enter_misty_mountains": {
+    "rohan": {
       "conditions": {
         "player": [
           {
@@ -10,9 +10,9 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:misty_mountains",
-                  "me:misty_mountains_base",
-                  "me:misty_mountains_peaks"
+                  "me:rohan",
+                  "me:rohan_forest",
+                  "me:the_wold"
                 ]
               }
             }
@@ -25,22 +25,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.enter_misty_mountains.description"
+      "translate": "advancements.middle_earth.enter_rohan.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id": "minecraft:snow_block"
+      "id":  "minecraft:hay_block"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.enter_misty_mountains.title"
+      "translate": "advancements.middle_earth.enter_rohan.title"
     }
   },
   "requirements": [
     [
-      "enter_misty_mountains"
+      "rohan"
     ]
   ]
 }

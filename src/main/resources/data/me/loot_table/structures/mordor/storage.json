@@ -1,16 +1,45 @@
 {
   "pools": [
     {
-      "rolls": {
-        "min": 0,
-        "max": 2
-      },
+      "bonus_rolls": 0.5,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:lead"
+          "name": "me:mordor_banner_pattern",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:orcish_sconce",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:orcish_leather_chestplate"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:crude_dagger"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:crude_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:crude_ingot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:mordor_painted_wooden_shield",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
         }
-      ]
+      ],
+      "rolls": 1
     },
     {
       "rolls": {
@@ -32,7 +61,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:crude_ingot"
+          "name": "minecraft:lead"
         }
       ]
     },
@@ -69,30 +98,6 @@
         {
           "type": "minecraft:item",
           "name": "me:maggoty_bread"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:mordor_banner_pattern"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:crude_dagger"
         }
       ]
     },

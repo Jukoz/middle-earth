@@ -1,6 +1,58 @@
 {
   "pools": [
     {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:gondor_banner_pattern",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:silver_coin",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:gambeson"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:gondorian_bow"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:gondorian_boots"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:heater_shield",
+		  "functions": [
+            {
+              "function": "minecraft:set_banner_pattern",
+              "patterns": [
+                {
+                  "pattern": "minecraft:base",
+                  "color": "black"
+                },
+                {
+                  "pattern": "me:tree",
+                  "color": "white"
+                }
+              ],
+              "append": true
+            }
+          ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ],
+      "rolls": 1
+    },
+    {
       "rolls": {
         "min": 0,
         "max": 2
@@ -81,18 +133,6 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:lead"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:gondor_banner_pattern"
         }
       ]
     }

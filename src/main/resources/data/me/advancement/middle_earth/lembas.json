@@ -3,11 +3,9 @@
   "criteria": {
     "lembas": {
       "conditions": {
-        "items": [
-          {
-            "items": "me:lembas"
-          }
-        ]
+        "item": {
+          "items": "me:lembas"
+        }
       },
       "trigger": "minecraft:inventory_changed"
     }
@@ -22,7 +20,8 @@
     },
     "title": {
       "translate": "advancements.middle_earth.lembas.title"
-    }
+    },
+    "announce_to_chat": true
   },
   "requirements": [
     [
