@@ -160,24 +160,23 @@ public class MEBiomeDataConfigs {
             .addSlopeData(MAX_ANGLE, StoneBlockSets.HEMATITE.base());
     public static SlopeMap celebdil = new SlopeMap().addSlopeData(12, Blocks.GRASS_BLOCK)
             .addSlopeData(16, Blocks.COARSE_DIRT)
-            .addSlopeData(21, Blocks.TUFF)
-            .addSlopeData(29, StoneBlockSets.DOLOMITE.base())
-            .addSlopeData(37, Blocks.STONE)
-            .addSlopeData(48, StoneBlockSets.GNEISS.base())
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.ZIGILABAN.base());
+            .addSlopeData(21, StoneBlockSets.GNEISS.base())
+            .addSlopeData(35, StoneBlockSets.ZIGILABAN.base())
+            .addSlopeData(48, StoneBlockSets.IZHERABAN.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
     public static SlopeMap celebdilPeaks = new SlopeMap().addSlopeData(36, Blocks.SNOW_BLOCK)
             .addSlopeData(45, StoneBlockSets.SCHIST.base())
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.ZIGILABAN.base());
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
     public static SlopeMap fanuidhol = new SlopeMap().addSlopeData(12, Blocks.GRASS_BLOCK)
             .addSlopeData(16, Blocks.COARSE_DIRT)
             .addSlopeData(21, Blocks.TUFF)
-            .addSlopeData(29, StoneBlockSets.DOLOMITE.base())
-            .addSlopeData(37, Blocks.DRIPSTONE_BLOCK)
-            .addSlopeData(49, StoneBlockSets.LIMESTONE.base())
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.GALONN.base());
+            .addSlopeData(29, StoneBlockSets.LIMESTONE.base())
+            .addSlopeData(37, StoneBlockSets.IZHERABAN.base())
+            .addSlopeData(49, StoneBlockSets.GALONN.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
     public static SlopeMap fanuidholPeaks = new SlopeMap().addSlopeData(36, Blocks.SNOW_BLOCK)
             .addSlopeData(45, StoneBlockSets.SCHIST.base())
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.GALONN.base());
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
 
     public static SlopeMap mordorMountains = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_DIRT)
             .addSlopeData(30, ModBlocks.ASHEN_GRAVEL)
