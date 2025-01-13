@@ -33,6 +33,15 @@ public class ModEntitySpawning {
                 new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_VETERAN, 1, 2, 8, true),
                 new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_LEADER, 1, 1, 2, true)
         );
+        List<EntitySpawningSettings> gundabadSpawnSettings = List.of(
+                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_SNAGA, 1, 3, 16),
+                new EntitySpawningSettings(ModEntities.WARG, 2, 5, 15),
+                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_WARRIOR, 1, 4, 35),
+                new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_SOLDIER, 1, 3, 21),
+                new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_VETERAN, 1, 2, 6),
+                new EntitySpawningSettings(ModEntities.STONE_TROLL, 1, 2, 5, true),
+                new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_LEADER, 1, 1, 2)
+        );
         List<EntitySpawningSettings> wildLongBeardsSpawnSettings = List.of(
                 new EntitySpawningSettings(ModEntities.LONGBEARD_MILITIA, 1, 3, 35),
                 new EntitySpawningSettings(ModEntities.LONGBEARD_SOLDIER, 1, 4, 45),
@@ -153,9 +162,9 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.EREGION_FOREST, goblinsAndBandits);
         spawns.put(MEBiomeKeys.EREGION_GLADE, goblinsAndBandits);
         spawns.put(MEBiomeKeys.ENEDWAITH, goblinsAndBandits);
-        spawns.put(MEBiomeKeys.MOUNT_GUNDABAD_BASE, goblinsSpawnSettings);
-        spawns.put(MEBiomeKeys.MOUNT_GUNDABAD, goblinsSpawnSettings);
-        spawns.put(MEBiomeKeys.GUNDABAD_PLAINS, goblinsSpawnSettings);
+        spawns.put(MEBiomeKeys.MOUNT_GUNDABAD_BASE, gundabadSpawnSettings);
+        spawns.put(MEBiomeKeys.MOUNT_GUNDABAD, gundabadSpawnSettings);
+        spawns.put(MEBiomeKeys.GUNDABAD_PLAINS, gundabadSpawnSettings);
         spawns.put(MEBiomeKeys.MISTY_MOUNTAINS, goblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_MOUNTAINS, wildGoblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_MOUNTAINS_BASE, wildGoblinsSpawnSettings);
