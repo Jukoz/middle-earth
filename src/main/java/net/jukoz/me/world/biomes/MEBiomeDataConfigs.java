@@ -170,13 +170,13 @@ public class MEBiomeDataConfigs {
     public static SlopeMap fanuidhol = new SlopeMap().addSlopeData(12, Blocks.GRASS_BLOCK)
             .addSlopeData(16, Blocks.COARSE_DIRT)
             .addSlopeData(21, Blocks.TUFF)
-            .addSlopeData(29, StoneBlockSets.LIMESTONE.base())
-            .addSlopeData(37, StoneBlockSets.IZHERABAN.base())
-            .addSlopeData(49, StoneBlockSets.GALONN.base())
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
+            .addSlopeData(29, StoneBlockSets.DOLOMITE.base())
+            .addSlopeData(39, StoneBlockSets.IZHERABAN.base())
+            .addSlopeData(48, StoneBlockSets.GALONN.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.LIMESTONE.base());
     public static SlopeMap fanuidholPeaks = new SlopeMap().addSlopeData(36, Blocks.SNOW_BLOCK)
             .addSlopeData(45, StoneBlockSets.SCHIST.base())
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.LIMESTONE.base());
 
     public static SlopeMap mordorMountains = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_DIRT)
             .addSlopeData(30, ModBlocks.ASHEN_GRAVEL)

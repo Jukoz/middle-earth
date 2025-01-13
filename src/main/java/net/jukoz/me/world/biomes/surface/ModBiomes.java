@@ -1288,6 +1288,7 @@ public class ModBiomes {
             ModBiomeFeatures.addDryPineBushes(vegetation);
             ModBiomeFeatures.addDryPineTrees(vegetation);
             ModBiomeFeatures.addBlackPineTrees(vegetation);
+            ModBiomeFeatures.addFirTrees(vegetation);
             ModBiomeFeatures.addCommonFirTrees(vegetation);
             ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
             ModBiomeFeatures.addShriveledShrubs(vegetation);
