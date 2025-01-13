@@ -242,17 +242,17 @@ public class ModWeaponItems {
             new CustomLongbowWeaponItem(ModFactions.DALE, ModRangedWeaponTypes.NOBLE_LONGBOW));
 
     public static final Item DALISH_HEYDAY_SWORD = registerItemWithModel("dalish_heyday_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), true);
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE), true);
     public static final Item DALISH_HEYDAY_LONGSWORD = registerItemWithModel("dalish_heyday_longsword",
-            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE), true);
     public static final Item DALISH_HEYDAY_SCIMITAR = registerItemWithModel("dalish_heyday_scimitar",
-            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE), true);
     public static final Item DALISH_HEYDAY_DAGGER = registerItemWithModel("dalish_heyday_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE), false);
     public static final Item DALISH_HEYDAY_AXE = registerItemWithModel("dalish_heyday_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), true);
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE), true);
     public static final Item DALISH_HEYDAY_SPEAR = registerItemWithSpearModel("dalish_heyday_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE));
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE));
 
     public static final Item DALISH_HEYDAY_LONGBOW = registerBigBowItem("dalish_heyday_longbow",
             new CustomLongbowWeaponItem(ModFactions.DALE, ModRangedWeaponTypes.NOBLE_LONGBOW));
