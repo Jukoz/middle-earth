@@ -18,6 +18,8 @@ public class ModServerConfigs {
     public static boolean ENABLE_SPAWN_OVERRIDE;
     /**Should players be able to return to the overworld by reusing the starlight phial?**/
     public static boolean ENABLE_RETURN_TO_OVERWORLD;
+    /** Allows to generation of procedural structures in Middle-earth**/
+    public static boolean ENABLE_PROCEDURAL_STRUCTURES;
     /** Allows broadhoof goats to be mounted by players and npcs. **/
     public static boolean ENABLE_MOUNT_BROADHOOF_GOAT;
     /** Allows to craft golden carrots and golden apples in Middle-earth**/
@@ -41,6 +43,8 @@ public class ModServerConfigs {
         configs.addKeyValuePair(new Pair<>("enableSpawnOverride", true), "boolean");
         configs.addDescription("Should players be able to return to the overworld by reusing the starlight phial?");
         configs.addKeyValuePair(new Pair<>("enableReturnToOverworld", true), "boolean");
+        configs.addDescription("Should procedural structures (such as Orthanc) generate in Middle-earth?");
+        configs.addKeyValuePair(new Pair<>("enableProceduralStructures", true), "boolean");
         configs.addLineJump();
 
         // Faction configurations
@@ -68,6 +72,7 @@ public class ModServerConfigs {
         // World configurations
         ENABLE_SPAWN_OVERRIDE = CONFIG.getOrDefault("enableSpawnOverride", true);
         ENABLE_RETURN_TO_OVERWORLD = CONFIG.getOrDefault("enableReturnToOverworld", true);
+        ENABLE_PROCEDURAL_STRUCTURES = CONFIG.getOrDefault("enableProceduralStructures", true);
         // Faction configurations
         ENABLE_FACTION_RESET = CONFIG.getOrDefault("enableFactionReset", true);
         ENABLE_KEEP_RACE_ON_DIMENSION_SWAP = CONFIG.getOrDefault("enableKeepRaceOnDimensionSwap", true);

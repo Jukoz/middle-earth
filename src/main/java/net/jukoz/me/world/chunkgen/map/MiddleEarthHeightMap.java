@@ -26,7 +26,7 @@ public class MiddleEarthHeightMap {
     public static final int HEIGHT = 8 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
     public static final int WATER_MAX = 24;
-    public static final float WATER_MULTIPLIER = 1.8f;
+    public static final float WATER_MULTIPLIER = 0.65f;
     public static final float WATER_PERLIN_DIVIDER = 3.6f;
     private static final int PIXEL_WEIGHT = MiddleEarthMapConfigs.PIXEL_WEIGHT;
     public static final ArrayList<Float> percentages = new ArrayList<Float>();

@@ -1,28 +1,32 @@
 package net.jukoz.me.world.map;
 
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.resources.FileType;
 import net.jukoz.me.utils.resources.FileUtils;
 import net.jukoz.me.world.biomes.surface.MapBasedCustomBiome;
 import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
+import org.apache.commons.io.IOUtils;
 
 import javax.imageio.IIOException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.JarURLConnection;
 import java.net.URI;
 import java.net.URL;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
-import static java.lang.String.format;
+import java.util.jar.JarFile;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 public class MiddleEarthMapGeneration {
     public static int CURRENT_ITERATION = 0;
@@ -32,7 +36,8 @@ public class MiddleEarthMapGeneration {
     private static final float WATER_HEIGHT_MULTIPLIER = 1.0f;
     private static BufferedImage baseHeightImage;
     private static BufferedImage edgeHeightImage;
-    private static final boolean bakeMap = true; // Do we bake the map textures or not during launch
+
+    private static BufferedImage initialMap;
 
     public MiddleEarthMapGeneration() throws Exception {
         fileUtils = FileUtils.getInstance();
@@ -43,47 +48,74 @@ public class MiddleEarthMapGeneration {
         LoggerUtil.logInfoMsg("");
         LoggerUtil.logInfoMsg("================ MiddleEarthMapGeneration ================");
 
-        BufferedImage initialMap = getInitialImage();
-
-        if(initialMap == null){
-            throw new Exception(this + " : The image of the map in resource has created an error and operation cannot continue.");
+        try{
+            initialMap = getInitialImage();
+            if(initialMap == null){
+                throw new Exception(this + " : The image of the map in resource has created an error and operation cannot continue.");
+            }
+        } catch (Exception e){
+            LoggerUtil.logError("MiddleEarthMapGeneration::generate() - Fetch Initial Map", e);
         }
 
-        if(!bakeMap) { // Prod. mode for release
-            boolean pasted = true;
-            try{
-                URL resource = getClass().getResource("/" + MiddleEarthMapConfigs.INITIAL_MAP_FOLDER);
-                File srcFolder2 = null;
+        if(!MiddleEarth.ENABLE_INSTANT_BOOTING){
+            LoggerUtil.logInfoMsg("Instant Booting - Disabled");
+        }
+        else {
+            LoggerUtil.logInfoMsg("Instant Booting - Enabled");
+            boolean pasteSuccess = true;
 
-                InputStream istream;
+            // check if copy&paste is necessary
+            File rootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_ROOT);
+            File modRootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_MOD_ROOT);
+            File destFolder = new File(MiddleEarthMapConfigs.MOD_DATA);
+            rootFolder.mkdirs();
+            modRootFolder.mkdirs();
+            destFolder.mkdirs();
+
+            if(destFolder.list().length == 0) { // Instant Booting triggered
                 try {
-                    istream = resource.openStream();
+                    String resourceFolderPath = "/%s".formatted(MiddleEarthMapConfigs.INITIAL_MAP_FOLDER);
+                    String runtimeFolderPath = "%s".formatted(MiddleEarthMapConfigs.MOD_DATA_MOD_ROOT);
 
-                    srcFolder2 = new File(resource.getPath());
-                    srcFolder2.mkdirs();
+                    InputStream inputStream = getClass().getResourceAsStream(resourceFolderPath + ".zip");
+                    ZipInputStream zipInputStream = new ZipInputStream(inputStream);
+                    ZipEntry entry;
 
-                    File rootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_ROOT);
-                    File modRootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_MOD_ROOT);
-                    File destFolder = new File(MiddleEarthMapConfigs.MOD_DATA);
-                    rootFolder.mkdirs();
-                    modRootFolder.mkdirs();
-                    destFolder.mkdirs();
+                    File runtimeDataVersionDirectory = new File(runtimeFolderPath);
+                    runtimeDataVersionDirectory.mkdirs();
+                    byte[] buffer = new byte[1024];
 
-                    if(destFolder.list().length == 0) {
-                        Files.copy(istream, destFolder.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    while ((entry = zipInputStream.getNextEntry()) != null) {
+                        File entryDestination = new File(runtimeFolderPath, entry.getName());
+                        if (entry.isDirectory()) {
+                            entryDestination.mkdirs();
+                        } else {
+                            entryDestination.getParentFile().mkdirs();
+                            FileOutputStream fos = new FileOutputStream(entryDestination);
+                            int len;
+                            while ((len = zipInputStream.read(buffer)) > 0) {
+                                fos.write(buffer, 0, len);
+                            }
+                            fos.close();
+                        }
                     }
-
-                    istream.close();
-
+                    inputStream.close();
+                    zipInputStream.close();
                 } catch (IOException e) {
-                    throw new IIOException("Can't get input stream from URL!", e);
+                    LoggerUtil.logError("MiddleEarthMapGeneration::Couldn't copy paste folders", e);
+                    pasteSuccess = false;
                 }
-
-            } catch(Exception e){
-                LoggerUtil.logError("Couldn't copy paste folders", e);
-                pasted = false;
+                if(pasteSuccess) {
+                    LoggerUtil.logInfoMsg("Instant Booting - Completed");
+                    return;
+                } else {
+                    LoggerUtil.logError("Instant Booting - Failure");
+                }
             }
-            if(pasted) return;
+            else {
+                LoggerUtil.logInfoMsg("Instant Booting - Skipped, Files already present");
+                LoggerUtil.logInfoMsg("Validating data content...");
+            }
         }
 
         LoggerUtil.logInfoMsg("Validating initial map BIOME colors;");

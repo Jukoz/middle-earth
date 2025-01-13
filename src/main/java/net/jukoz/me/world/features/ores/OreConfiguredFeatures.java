@@ -40,6 +40,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> CORRUPTED_MOSS_DISK = registerKey("corrupted_moss_disk");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIORITE_ORE = registerKey("diorite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIRT_TO_GRASS_ORE = registerKey("dirt_to_grass_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> GRASSY_DIRT_ORE = registerKey("grassy_dirt_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIRTY_ROOTS_ORE = registerKey("dirty_roots");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DOLOMITE_ORE = registerKey("dolomite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DRIPSTONE_ORE = registerKey("dripstone_ore");
@@ -144,8 +145,12 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, DIRT_TO_GRASS_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.GRASS_BLOCK.getDefaultState(), 64, 0.2f));
+
         ConfiguredFeatures.register(featureRegisterable, DIRTY_ROOTS_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, ModBlocks.DIRTY_ROOTS.getDefaultState(), 48, 0.4f));
+
+        ConfiguredFeatures.register(featureRegisterable, GRASSY_DIRT_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, ModBlocks.GRASSY_DIRT.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, DOLOMITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, StoneBlockSets.DOLOMITE.base().getDefaultState(), 64, 0.25f));
