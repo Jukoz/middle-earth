@@ -57,8 +57,18 @@ public class LayersAltBlock extends SnowBlock implements Waterloggable {
         builder.add(LAYERS, WATERLOGGED);
     }
 
+
     @Override
     protected boolean canReplace(BlockState state, ItemPlacementContext context) {
-        return false;
+        int i = state.get(LAYERS);
+        if (context.getStack().isOf(this.asItem()) && i < 8) {
+            if (context.canReplaceExisting()) {
+                return context.getSide() == Direction.UP;
+            } else {
+                return true;
+            }
+        } else {
+            return i == 0;
+        }
     }
 }
