@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin",
+          "name": "me:gold_coin",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -24,10 +24,25 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 0,
-                "max": 3
+                "max": 2
               }
             }
           ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance_with_enchanted_bonus",
+          "enchantment": "minecraft:looting",
+          "unenchanted_chance": 0.5,
+          "enchanted_chance": {
+            "type": "minecraft:linear",
+            "base": 0.6,
+            "per_level_above_first": 0.1
+          }
         }
       ]
     },
@@ -37,7 +52,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:bone",
+          "name": "me:dirty_bone",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -56,10 +71,10 @@
         {
           "condition": "minecraft:random_chance_with_enchanted_bonus",
           "enchantment": "minecraft:looting",
-          "unenchanted_chance": 0.5,
+          "unenchanted_chance": 0.75,
           "enchanted_chance": {
             "type": "minecraft:linear",
-            "base": 0.6,
+            "base": 0.8,
             "per_level_above_first": 0.1
           }
         }

@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:gold_coin",
+          "name": "me:silver_coin",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -52,7 +52,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:dirty_bone",
+          "name": "minecraft:bone",
           "functions": [
             {
               "function": "minecraft:set_count",
