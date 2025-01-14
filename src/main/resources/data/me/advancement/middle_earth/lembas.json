@@ -3,9 +3,13 @@
   "criteria": {
     "lembas": {
       "conditions": {
-        "item": {
-          "items": "me:lembas"
-        }
+        "items": [
+          {
+            "items": [
+              "me:lembas"
+            ]
+          }
+        ]
       },
       "trigger": "minecraft:inventory_changed"
     }
