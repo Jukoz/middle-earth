@@ -2690,6 +2690,7 @@ public class ModBiomes {
             ModBiomeFeatures.addSpruceBushes(vegetation);
             ModBiomeFeatures.addRareMorsel(vegetation);
             ModBiomeFeatures.addRareWhiteMushroom(vegetation);
+            ModBiomeFeatures.addWildFlax(vegetation);
         } else if(step == 3) { // Foothill
             ModBiomeFeatures.addSmoothDolomiteBoulder(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
@@ -3068,6 +3069,7 @@ public class ModBiomes {
                 ModBiomeFeatures.addSparseLarchTrees(vegetation);
                 ModBiomeFeatures.addOakTrees(vegetation);
                 ModBiomeFeatures.addCommonOakBush(vegetation);
+                ModBiomeFeatures.addWildFlax(vegetation);
             }
         } else {
             ModSpawnSettingsBuilder.addDeer(spawnSettings);
@@ -3077,7 +3079,7 @@ public class ModBiomes {
             ModBiomeFeatures.addCoarseDirtOre(vegetation);
             ModBiomeFeatures.addPodzolOre(vegetation);
             ModBiomeFeatures.addRareMorsel(vegetation);
-
+            ModBiomeFeatures.addWildFlax(vegetation);
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             ModBiomeFeatures.addBeechTrees(vegetation);
             ModBiomeFeatures.addBirchTrees(vegetation);
