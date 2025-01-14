@@ -125,6 +125,7 @@ public class ModResourceItems {
 
     public static final Item COPPER_COIN = registerItem("copper_coin", new Item(new Item.Settings()));
     public static final Item SILVER_COIN = registerItem("silver_coin", new Item(new Item.Settings()));
+    public static final Item GOLD_COIN = registerItem("gold_coin", new Item(new Item.Settings()));
 
     public static final Item FLAX = registerItem("flax", new Item(new Item.Settings()));
     public static final Item FLAX_SEEDS = registerItem("flax_seeds", new AliasedBlockItem(ModNatureBlocks.FLAX_CROP, new Item.Settings()));

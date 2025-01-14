@@ -1,3 +1,6 @@
 {
-  "parent": "me:block/gold_coin_pile_0"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "me:item/gold_coin_pile"
+  }
 }

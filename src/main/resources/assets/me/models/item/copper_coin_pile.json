@@ -1,3 +1,6 @@
 {
-  "parent": "me:block/copper_coin_pile_0"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "me:item/copper_coin_pile"
+  }
 }

@@ -1785,9 +1785,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .pattern("GGG")
                 .pattern(" P ")
                 .input('P', ModDecorativeBlocks.FAT_POT)
-                .input('G', Items.GOLD_INGOT)
-                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.TIN_INGOT),
-                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.TIN_INGOT))
+                .input('G', ModResourceItems.GOLD_COIN)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.GOLD_COIN),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.GOLD_COIN))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.AZALEA_FLOWER_GROWTH.asItem(), 8)
@@ -1893,9 +1893,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GOLD_TREASURE_HEAP_LAYER, 1)
                 .pattern("NNN")
-                .input('N', Items.GOLD_NUGGET)
-                .criterion(FabricRecipeProvider.hasItem(Items.GOLD_NUGGET),
-                        FabricRecipeProvider.conditionsFromItem(Items.GOLD_NUGGET))
+                .input('N', ModResourceItems.GOLD_COIN)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.GOLD_COIN),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.GOLD_COIN))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.COPPER_COIN_PILE, 1)
@@ -1917,9 +1917,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GOLD_COIN_PILE, 1)
                 .pattern("NN")
                 .pattern("NN")
-                .input('N', Items.GOLD_NUGGET)
-                .criterion(FabricRecipeProvider.hasItem(Items.GOLD_NUGGET),
-                        FabricRecipeProvider.conditionsFromItem(Items.GOLD_NUGGET))
+                .input('N', ModResourceItems.GOLD_COIN)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.GOLD_COIN),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.GOLD_COIN))
                 .offerTo(exporter);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModResourceItems.COPPER_COIN, 3)
@@ -1934,7 +1934,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.SILVER_TREASURE_HEAP_LAYER))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "silver_coin_from_treasure"));
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.GOLD_NUGGET, 3)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModResourceItems.GOLD_COIN, 3)
                 .input(ModDecorativeBlocks.GOLD_TREASURE_HEAP_LAYER)
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.GOLD_TREASURE_HEAP_LAYER),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.GOLD_TREASURE_HEAP_LAYER))
@@ -1952,7 +1952,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.SILVER_COIN_PILE))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "silver_coin_from_pile"));
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.GOLD_NUGGET, 4)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModResourceItems.GOLD_COIN, 4)
                 .input(ModDecorativeBlocks.GOLD_COIN_PILE)
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.GOLD_COIN_PILE),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.GOLD_COIN_PILE))
@@ -1970,7 +1970,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ModNatureBlocks.TALL_CATTAILS))
                 .offerTo(exporter);
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.GOLD_INGOT, 4)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModResourceItems.GOLD_COIN, 4)
                 .input(ModDecorativeBlocks.POT_OF_GOLD)
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.POT_OF_GOLD),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.POT_OF_GOLD))
