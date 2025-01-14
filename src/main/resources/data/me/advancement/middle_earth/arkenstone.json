@@ -3,9 +3,13 @@
   "criteria": {
     "arkenstone": {
       "conditions": {
-        "item": {
-          "items": "me:arkenstone"
-        }
+        "items": [
+          {
+            "items": [
+              "me:arkenstone"
+            ]
+          }
+        ]
       },
       "trigger": "minecraft:inventory_changed"
     }
@@ -14,10 +18,10 @@
     "description": {
       "translate": "advancements.middle_earth.arkenstone.description"
     },
-    "frame": "goal",
+    "frame": "challenge",
     "icon": {
       "count": 1,
-      "id": "me:mithril_nugget"
+      "id": "me:arkenstone"
     },
     "title": {
       "translate": "advancements.middle_earth.arkenstone.title"

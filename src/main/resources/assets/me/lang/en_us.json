@@ -1,13 +1,13 @@
 {
 "#Comment:": "Advancements",
-  "advancements.middle_earth.root.title": "Middle-earth",
+  "advancements.middle_earth.root.title": "Long expected journey",
   "advancements.middle_earth.root.description": "Enter Middle-earth!",
   "advancements.middle_earth.enter_dale.title": "The Kingdom of Dale",
   "advancements.middle_earth.enter_dale.description": "Enter the realm of Dale",
   "advancements.middle_earth.enter_gondor.title": "The South-kingdom",
   "advancements.middle_earth.enter_gondor.description": "Enter the last Kingdom of Númenor's legacy",
   "advancements.middle_earth.enter_gundabad.title": "The Three Peaks",
-  "advancements.middle_earth.enter_gundabad.description": "Gundabad, the awakening mountain of Durin the deathless, now infested by orcs.",
+  "advancements.middle_earth.enter_gundabad.description": "Gundabad, the awakening mountain of Durin the Deathless, now infested by orcs.",
   "advancements.middle_earth.enter_lothlorien.title": "The Golden Trees",
   "advancements.middle_earth.enter_lothlorien.description": "Enter Lothlórien",
   "advancements.middle_earth.enter_lonely_mountain.title": "Erebor",
@@ -24,7 +24,7 @@
   "advancements.middle_earth.enter_rohan.description": "Enter the Kingdom of the Rohirrim",
   "advancements.middle_earth.enter_shire.title": "The quiet countryside",
   "advancements.middle_earth.enter_shire.description": "Enter the Shire",
-  "advancements.middle_earth.arkenstone.title": "Hearth of the Mountain",
+  "advancements.middle_earth.arkenstone.title": "Heart of the Mountain",
   "advancements.middle_earth.arkenstone.description": "Find the Arkenstone, the jewel of the Lonely Mountain!",
   "advancements.middle_earth.lembas.title": "Elvish Bread",
   "advancements.middle_earth.lembas.description": "One bite is enough to fill the stomach of a grown man!",
@@ -1463,6 +1463,7 @@
 
   "item.me.copper_coin": "Copper Coin",
   "item.me.silver_coin": "Silver Coin",
+  "item.me.gold_coin": "Gold Coin",
 
   "item.me.dwarven_key": "Dwarven Key",
 

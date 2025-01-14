@@ -86,7 +86,7 @@ public class WargEntity extends AbstractBeastEntity {
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0d)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 9.0d)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0d)
                 .add(EntityAttributes.GENERIC_STEP_HEIGHT, 1.15d)
                 .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 6.0d);
     }
@@ -156,7 +156,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     protected static double getChildAttackDamageBonus(DoubleSupplier randomDoubleGetter) {
-        return (double)6f + randomDoubleGetter.getAsDouble() + randomDoubleGetter.getAsDouble() + randomDoubleGetter.getAsDouble();
+        return (double)4f + randomDoubleGetter.getAsDouble() + randomDoubleGetter.getAsDouble() + randomDoubleGetter.getAsDouble();
     }
 
     protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {

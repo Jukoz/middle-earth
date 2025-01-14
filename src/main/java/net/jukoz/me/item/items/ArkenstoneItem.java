@@ -20,7 +20,7 @@ public class ArkenstoneItem extends VerticallyAttachableBlockItem implements MEE
 
     @Override
     public Text getName(ItemStack stack) {
-        return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
+        return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.ITALIC);
     }
 
     @Override

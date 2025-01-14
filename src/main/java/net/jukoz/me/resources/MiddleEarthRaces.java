@@ -94,7 +94,7 @@ public class MiddleEarthRaces {
                 }}), List.of(), List.of());
         ORC = new Race(Identifier.of(MiddleEarth.MOD_ID, "orc"), RaceType.ORC,
                 new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.GENERIC_SCALE, 0.86);
+                    put(EntityAttributes.GENERIC_SCALE, 0.83);
                     put(EntityAttributes.GENERIC_MAX_HEALTH, 18.0);
                     put(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0);
                     put(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, 2.75);

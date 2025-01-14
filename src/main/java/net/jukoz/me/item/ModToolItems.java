@@ -61,9 +61,8 @@ public class ModToolItems {
 
     public static final Item CRUDE_PICKAXE = registerItemHandheld("crude_pickaxe",
             new PickaxeItem(ModToolMaterials.CRUDE, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.CRUDE, 1.0f, -2.8f))));
-    public static final Item CRUDE_AXE = registerItemHandheld("crude_axe",
+    public static final Item CRUDE_AXE = registerItemDualModel("crude_axe",
             new AxeItem(ModToolMaterials.CRUDE, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.CRUDE, 6.0f, -3.0f))));
-
     public static final Item CRUDE_SHOVEL = registerItemHandheld("crude_shovel",
             new ShovelItem(ModToolMaterials.CRUDE, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.CRUDE, 1.5f, -3.0f))));
     public static final Item CRUDE_HOE = registerItemHandheld("crude_hoe",
@@ -71,7 +70,7 @@ public class ModToolItems {
 
     public static final Item STEEL_PICKAXE = registerItemHandheld("steel_pickaxe",
             new PickaxeItem(ModToolMaterials.STEEL, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.STEEL, 1.0f, -2.8f))));
-    public static final Item STEEL_AXE = registerItemHandheld("steel_axe",
+    public static final Item STEEL_AXE = registerItemDualModel("steel_axe",
             new CustomAxeWeaponItem(ModToolMaterials.STEEL));
     public static final Item STEEL_SHOVEL = registerItemHandheld("steel_shovel",
             new ShovelItem(ModToolMaterials.STEEL, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.STEEL, 1.5f, -3.0f))));

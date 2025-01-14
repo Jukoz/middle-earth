@@ -3,6 +3,51 @@
   "pools": [
     {
       "rolls": 1,
+      "bonus_rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:copper_coin",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 1
+              },
+              "add": true
+            },
+            {
+              "function": "minecraft:enchanted_count_increase",
+              "enchantment": "minecraft:looting",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 2
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance_with_enchanted_bonus",
+          "enchantment": "minecraft:looting",
+          "unenchanted_chance": 0.4,
+          "enchanted_chance": {
+            "type": "minecraft:linear",
+            "base": 0.5,
+            "per_level_above_first": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "rolls": 1,
       "bonus_rolls": 0,
       "entries": [
         {
@@ -26,10 +71,10 @@
         {
           "condition": "minecraft:random_chance_with_enchanted_bonus",
           "enchantment": "minecraft:looting",
-          "unenchanted_chance": 0.5,
+          "unenchanted_chance": 0.75,
           "enchanted_chance": {
             "type": "minecraft:linear",
-            "base": 0.6,
+            "base": 0.8,
             "per_level_above_first": 0.1
           }
         }

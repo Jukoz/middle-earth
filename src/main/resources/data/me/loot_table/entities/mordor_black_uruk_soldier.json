@@ -2,8 +2,8 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
+      "rolls": 2,
+      "bonus_rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
@@ -14,9 +14,9 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 0,
-                "max": 2
+                "max": 1
               },
-              "add": false
+              "add": true
             },
             {
               "function": "minecraft:enchanted_count_increase",
@@ -24,10 +24,25 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 0,
-                "max": 3
+                "max": 2
               }
             }
           ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance_with_enchanted_bonus",
+          "enchantment": "minecraft:looting",
+          "unenchanted_chance": 0.35,
+          "enchanted_chance": {
+            "type": "minecraft:linear",
+            "base": 0.4,
+            "per_level_above_first": 0.1
+          }
         }
       ]
     },
