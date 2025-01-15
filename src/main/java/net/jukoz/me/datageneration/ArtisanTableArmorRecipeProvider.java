@@ -4168,7 +4168,6 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .input(Items.LEATHER)
                 .input(Items.LEATHER)
                 .input(Items.LEATHER)
-                .input(Items.LEATHER)
                 .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
                         FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GUNDABAD_SEEKER_HELMET).getPath() + "_artisan"));
