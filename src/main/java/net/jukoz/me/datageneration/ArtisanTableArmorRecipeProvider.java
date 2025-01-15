@@ -2421,7 +2421,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_MAIL_COIF).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GILDED_MAIL_COIF.getDefaultStack(), "leggings", Disposition.GOOD)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GILDED_MAIL_COIF.getDefaultStack(), "helmet", Disposition.GOOD)
                 .input(ModResourceItems.BRONZE_NUGGET)
                 .input(ModEquipmentItems.EREBOR_MAIL_COIF)
                 .input(ModResourceItems.BRONZE_NUGGET)
