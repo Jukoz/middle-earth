@@ -68,8 +68,26 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 cobbleDrops(block, StoneBlockSets.COBBLED_DOLOMITE.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("quartzite")) {
                 cobbleDrops(block, StoneBlockSets.COBBLED_QUARTZITE.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("jadeite")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_JADEITE.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("ashen_stone")) {
                 cobbleDrops(block, StoneBlockSets.ASHEN_COBBLESTONE.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("ironstone")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_IRONSTONE.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("hematite")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_HEMATITE.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("gneiss")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_GNEISS.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("izheraban")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_IZHERABAN.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("schist")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_SCHIST.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("galonn")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_GALONN.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("slate")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_SLATE.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("blue_tuff")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_BLUE_TUFF.base());
             } else if (Registries.BLOCK.getId(block).getPath().contains("_door")) {
                 addDrop(block, doorDrops(block));
             } else {
