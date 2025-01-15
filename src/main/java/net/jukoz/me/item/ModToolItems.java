@@ -25,30 +25,30 @@ public class ModToolItems {
     private static final float IRON_HOE_ATTACK_SPEED = -2f;
 
     public static final Item COPPER_SMITHING_HAMMER = registerItemHandheld("copper_smithing_hammer",
-            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.COPPER_HAMMER));
+            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.COPPER_HAMMER, -3.5f));
 
     public static final Item SMITHING_HAMMER = registerItemHandheld("smithing_hammer",
-            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.STEEL_HAMMER));
+            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.STEEL_HAMMER, -3.2f));
     public static final Item NOBLE_SMITHING_HAMMER = registerItemHandheld("noble_smithing_hammer",
-            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.NOBLE_STEEL_HAMMER));
+            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.NOBLE_STEEL_HAMMER, -2.9f));
 
     public static final Item DWARVEN_SMITHING_HAMMER = registerItemHandheld("dwarven_smithing_hammer",
-            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.KHAZAD_STEEL_HAMMER));
+            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.KHAZAD_STEEL_HAMMER, -3.2f));
     public static final Item DWARVEN_NOBLE_SMITHING_HAMMER = registerItemHandheld("dwarven_noble_smithing_hammer",
-            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.KHAZAD_NOBLE_STEEL_HAMMER));
+            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.KHAZAD_NOBLE_STEEL_HAMMER, -2.9f));
 
     public static final Item ELVEN_SMITHING_HAMMER = registerItemHandheld("elven_smithing_hammer",
-            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.EDHEL_STEEL_HAMMER));
+            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.EDHEL_STEEL_HAMMER, -3.2f));
     public static final Item ELVEN_NOBLE_SMITHING_HAMMER = registerItemHandheld("elven_noble_smithing_hammer",
-            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.EDHEL_NOBLE_STEEL_HAMMER));
+            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.EDHEL_NOBLE_STEEL_HAMMER, -2.9f));
 
     public static final Item ORCISH_SMITHING_HAMMER = registerItemHandheld("orcish_smithing_hammer",
-            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.BURZUM_STEEL_HAMMER));
+            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.BURZUM_STEEL_HAMMER, -3.2f));
     public static final Item ORCISH_ELITE_SMITHING_HAMMER = registerItemHandheld("orcish_elite_smithing_hammer",
-            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.BURZUM_NOBLE_STEEL_HAMMER));
+            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.BURZUM_NOBLE_STEEL_HAMMER, -2.9f));
 
     public static final Item MITHRIL_SMITHING_HAMMER = registerItemHandheld("mithril_smithing_hammer",
-            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.MITHRIL_HAMMER));
+            new SmithingHammerItem(new Item.Settings(), ModToolMaterials.MITHRIL_HAMMER, -2.5f));
 
     public static final Item BRONZE_PICKAXE = registerItemHandheld("bronze_pickaxe",
             new PickaxeItem(ModToolMaterials.BRONZE, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.BRONZE, 0.5f, -2.9f))));
