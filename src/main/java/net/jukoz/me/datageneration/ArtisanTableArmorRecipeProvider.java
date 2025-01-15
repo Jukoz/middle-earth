@@ -1723,7 +1723,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                 .input(ModResourceItems.FABRIC)
-                .input(ModEquipmentItems.BARDING_SERGEANT_CHESTPLATE)
+                .input(ModEquipmentItems.BARDING_SOLDIER_CHESTPLATE)
                 .input(ModResourceItems.FABRIC)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                 .input(ModResourceItems.FABRIC)
