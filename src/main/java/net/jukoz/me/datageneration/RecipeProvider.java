@@ -1975,6 +1975,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.POT_OF_GOLD),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.POT_OF_GOLD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "gold_from_pot_of_gold"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModWeaponItems.HELD_BANNER, 1)
+                .pattern("WWW")
+                .pattern("WWW")
+                .pattern("WSW")
+                .input('W', TagKey.of(RegistryKeys.ITEM, Identifier.of("wool")))
+                .input('S', Items.STICK)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.GOLD_COIN),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.GOLD_COIN))
+                .offerTo(exporter);
         //endregion
 
         //region SMOKING-ONLY
