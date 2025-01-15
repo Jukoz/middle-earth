@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "me:river_sand"
+    "me:river_sand",
+    "me:ashen_sand",
+    "me:white_sand",
+    "me:black_sand"
   ]
 }
