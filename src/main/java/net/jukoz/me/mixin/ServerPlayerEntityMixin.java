@@ -1,7 +1,6 @@
 package net.jukoz.me.mixin;
 
 import com.mojang.authlib.GameProfile;
-import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
@@ -37,7 +36,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
-    
+
     @Inject(method = "getRespawnTarget", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
     public void getRespawnTargetWithBrokenBed(boolean alive, TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir) {
         if(ModDimensions.isInMiddleEarth(this.getWorld())){
@@ -65,11 +64,8 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         PlayerManager manager = this.getServer().getPlayerManager();
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
         if(this.getServer() == null) return;
-        if(ModServerConfigs.ENABLE_FORCED_MIDDLE_EARTH_RESPAWN){
-            overrideMiddleEarthSpawn(foundPlayer, postDimensionTransition, cir);
-            return;
-        }
         foundPlayer.setSpawnPoint(World.OVERWORLD, foundPlayer.getServer().getOverworld().getSpawnPos(), foundPlayer.getServer().getOverworld().getSpawnAngle(), true, true);
+
         cir.setReturnValue(new TeleportTarget(this.server.getOverworld(), this, postDimensionTransition));
     }
 
@@ -90,32 +86,18 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
                     ServerWorld MEWorld = this.server.getWorld(ModDimensions.ME_WORLD_KEY);
                     if(MEWorld != null){
                         Vec3d coordinates = new Vec3d(spawnCoordinates.x, spawnCoordinates.y + 1, spawnCoordinates.z);
-                            foundPlayer.setSpawnPoint(ModDimensions.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true, true);
-                            cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates, net.minecraft.util.math.Vec3d.ZERO, 0, 0, false,postDimensionTransition));
+                        foundPlayer.setSpawnPoint(ModDimensions.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true, true);
+                        cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates, net.minecraft.util.math.Vec3d.ZERO, 0, 0, false,postDimensionTransition));
                         return true;
                     }
                 }
             }
-        }
-        if(ModServerConfigs.ENABLE_FORCED_MIDDLE_EARTH_RESPAWN){
-            overrideMiddleEarthSpawn(foundPlayer, postDimensionTransition, cir);
-            return false;
         }
         foundPlayer.setSpawnPoint(World.OVERWORLD, server.getOverworld().getSpawnPos(), server.getOverworld().getSpawnAngle(), true, true);
         cir.setReturnValue(new TeleportTarget(server.getOverworld(), server.getOverworld().getSpawnPos().toCenterPos(), net.minecraft.util.math.Vec3d.ZERO, 0, 0, false,postDimensionTransition));
         return false;
     }
 
-    private void overrideMiddleEarthSpawn(ServerPlayerEntity foundPlayer, TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir){
-        Vec3d spawnCoordinates = new Vec3d(
-                ModServerConfigs.MIDDLE_EARTH_SPAWN_OVERRIDE_X_COORDINATE,
-                ModServerConfigs.MIDDLE_EARTH_SPAWN_OVERRIDE_Y_COORDINATE,
-                ModServerConfigs.MIDDLE_EARTH_SPAWN_OVERRIDE_Z_COORDINATE
-        );
-        ServerWorld MEWorld = this.server.getWorld(ModDimensions.ME_WORLD_KEY);
-        foundPlayer.setSpawnPoint(ModDimensions.ME_WORLD_KEY, new BlockPos((int) spawnCoordinates.x, (int) spawnCoordinates.y, (int) spawnCoordinates.z),0,true, true);
-        cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates, net.minecraft.util.math.Vec3d.ZERO, 0, 0, false,postDimensionTransition));
-    }
     @Override
     public boolean isSpectator() {
         return this.interactionManager.getGameMode() == GameMode.SPECTATOR;
