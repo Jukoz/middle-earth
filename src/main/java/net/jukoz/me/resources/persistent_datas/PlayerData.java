@@ -18,9 +18,13 @@ public class PlayerData {
     private AffiliationData affiliationData;
     private Identifier race;
     private BlockPos overworldSpawnCoordinates;
+    private boolean firstSpawn;
 
     public PlayerData(){
         this.affiliationData = null;
+        this.race = null;
+        this.overworldSpawnCoordinates = null;
+        this.firstSpawn = true;
     }
     public void setRace(Identifier raceId){
         this.race = raceId;
@@ -98,6 +102,14 @@ public class PlayerData {
         return affiliationData.getSpawnMiddleEarthCoordinate(world);
     }
 
+    public boolean getIsFirstTime(){
+        return this.firstSpawn;
+    }
+
+    public void setSpawn(){
+        this.firstSpawn = true;
+    }
+
     @Override
     public String toString() {
         String text = "";
@@ -124,6 +136,8 @@ public class PlayerData {
     public void clearData() {
         this.affiliationData = null;
         this.overworldSpawnCoordinates = null;
+        this.race = null;
+        this.firstSpawn = true;
     }
 
     public boolean setSpawnMiddleEarthId(World world, Identifier foundId) throws FactionIdentifierException {

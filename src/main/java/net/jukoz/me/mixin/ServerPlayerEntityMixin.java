@@ -1,6 +1,7 @@
 package net.jukoz.me.mixin;
 
 import com.mojang.authlib.GameProfile;
+import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
@@ -64,15 +65,17 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         PlayerManager manager = this.getServer().getPlayerManager();
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
         if(this.getServer() == null) return;
+        if(ModServerConfigs.ENABLE_FORCED_MIDDLE_EARTH_RESPAWN){
+            overrideMiddleEarthSpawn(foundPlayer, postDimensionTransition, cir);
+            return;
+        }
         foundPlayer.setSpawnPoint(World.OVERWORLD, foundPlayer.getServer().getOverworld().getSpawnPos(), foundPlayer.getServer().getOverworld().getSpawnAngle(), true, true);
-
         cir.setReturnValue(new TeleportTarget(this.server.getOverworld(), this, postDimensionTransition));
     }
 
     @Unique
     private boolean tryToOverrideSpawn(TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir) {
         MinecraftServer server = this.getServer();
-        LoggerUtil.logDebugMsg("TRYING");
 
         if(server == null) return false;
         PlayerManager manager = server.getPlayerManager();
@@ -80,7 +83,6 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
 
         if(foundPlayer == null) return false;
         if(ModDimensions.isInMiddleEarth(this.getWorld())) {
-            LoggerUtil.logDebugMsg("RESPAWNING");
             PlayerData data = StateSaverAndLoader.getPlayerState(foundPlayer);
             if(data != null && data.hasAffilition()){
                 Vec3d spawnCoordinates = data.getSpawnMiddleEarthCoordinate(getWorld());
@@ -95,11 +97,25 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
                 }
             }
         }
+        if(ModServerConfigs.ENABLE_FORCED_MIDDLE_EARTH_RESPAWN){
+            overrideMiddleEarthSpawn(foundPlayer, postDimensionTransition, cir);
+            return false;
+        }
         foundPlayer.setSpawnPoint(World.OVERWORLD, server.getOverworld().getSpawnPos(), server.getOverworld().getSpawnAngle(), true, true);
         cir.setReturnValue(new TeleportTarget(server.getOverworld(), server.getOverworld().getSpawnPos().toCenterPos(), net.minecraft.util.math.Vec3d.ZERO, 0, 0, false,postDimensionTransition));
         return false;
     }
 
+    private void overrideMiddleEarthSpawn(ServerPlayerEntity foundPlayer, TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir){
+        Vec3d spawnCoordinates = new Vec3d(
+                ModServerConfigs.MIDDLE_EARTH_SPAWN_OVERRIDE_X_COORDINATE,
+                ModServerConfigs.MIDDLE_EARTH_SPAWN_OVERRIDE_Y_COORDINATE,
+                ModServerConfigs.MIDDLE_EARTH_SPAWN_OVERRIDE_Z_COORDINATE
+        );
+        ServerWorld MEWorld = this.server.getWorld(ModDimensions.ME_WORLD_KEY);
+        foundPlayer.setSpawnPoint(ModDimensions.ME_WORLD_KEY, new BlockPos((int) spawnCoordinates.x, (int) spawnCoordinates.y, (int) spawnCoordinates.z),0,true, true);
+        cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates, net.minecraft.util.math.Vec3d.ZERO, 0, 0, false,postDimensionTransition));
+    }
     @Override
     public boolean isSpectator() {
         return this.interactionManager.getGameMode() == GameMode.SPECTATOR;
