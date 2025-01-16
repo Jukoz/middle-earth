@@ -58,7 +58,7 @@ public class ModServerConfigs {
         configs.addDescription("Should players receive a phial on their first spawn?");
         configs.addKeyValuePair(new Pair<>("enablePhialOnFirstSpawn", false), "boolean");
         configs.addDescription("Should players spawn directly in Middle-earth?");
-        configs.addComment("DISCLAIMER : Please load the middle-earth dimension at least once before setting this to true.");
+        configs.addDescription("DISCLAIMER : Please load the middle-earth dimension at least once before setting this to true.");
         configs.addKeyValuePair(new Pair<>("enableInitialMiddleEarthSpawnOverride", false), "boolean");
         configs.addDescription("Should players always respawn in Middle-earth at the default spawn?");
         configs.addKeyValuePair(new Pair<>("enableForcedMiddleEarthRespawn", false), "boolean");

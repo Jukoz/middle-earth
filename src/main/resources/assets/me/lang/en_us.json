@@ -7700,6 +7700,11 @@
   "command.me.clear.faction.success" : "Successfully cleared your faction data",
   "command.me.clear.player.faction.success" : "Successfully cleared %s faction data",
 
+  "command.me.open_target.onboarding.success": "Successfully opened the onboarding screen for %s.",
+  "command.me.open_target.onboarding.error.": "Impossible to open the onboarding screen for %s, their faction is already chosen.",
+  "command.me.open.onboarding.error": "Impossible to open the onboarding screen, you already have your chosen faction.",
+
+
   "command.me.get.faction.success" : "Your initial faction is %s",
   "command.me.get.faction.no_faction" : "You have no initial faction",
   "command.me.get.player.faction.success" : "%s initial faction is %s",
