@@ -1985,6 +1985,15 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.GOLD_COIN),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.GOLD_COIN))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.SLATE.base(), 4)
+                .pattern("DS")
+                .pattern("SD")
+                .input('D', Items.DEEPSLATE)
+                .input('S', Items.STONE)
+                .criterion(FabricRecipeProvider.hasItem(Items.DEEPSLATE),
+                        FabricRecipeProvider.conditionsFromItem(Items.DEEPSLATE))
+                .offerTo(exporter);
         //endregion
 
         //region SMOKING-ONLY
