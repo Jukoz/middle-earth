@@ -1,6 +1,5 @@
 package net.jukoz.me.block.special.shapingAnvil;
 
-import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.items.SmithingHammerItem;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -39,9 +38,9 @@ public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implemen
 
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if(state.getBlock() != newState.getBlock()) {
+        if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if(blockEntity instanceof TreatedAnvilBlockEntity treatedAnvilBlockEntity) {
+            if (blockEntity instanceof TreatedAnvilBlockEntity treatedAnvilBlockEntity) {
                 ItemScatterer.spawn(world, pos, treatedAnvilBlockEntity);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
@@ -78,13 +77,13 @@ public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implemen
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Inventory blockEntity = (Inventory) world.getBlockEntity(pos);
 
-        if(!world.isClient) {
-            if (player.getMainHandStack().isEmpty() && !blockEntity.getStack(0).isEmpty()){
+        if (!world.isClient) {
+            if (player.getMainHandStack().isEmpty() && !blockEntity.getStack(0).isEmpty()) {
                 player.equipStack(EquipmentSlot.MAINHAND, blockEntity.getStack(0));
                 blockEntity.removeStack(0);
             } else {
                 NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-                if(screenHandlerFactory != null) {
+                if (screenHandlerFactory != null) {
                     player.openHandledScreen(screenHandlerFactory);
                 }
             }
@@ -97,15 +96,14 @@ public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implemen
     protected void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
         ItemStack stack = player.getEquippedStack(EquipmentSlot.MAINHAND);
         BlockEntity blockEntity = world.getBlockEntity(pos);
-
-        if (stack.getItem() instanceof SmithingHammerItem hammer && player.getAttackCooldownProgress(0.5f) > 0.9f){
-            player.incrementStat(Stats.USED.getOrCreateStat(hammer));
-            stack.use(world, player, player.getActiveHand());
-            if (!world.isClient){
+        if (!world.isClient) {
+            if (stack.getItem() instanceof SmithingHammerItem hammer && player.getAttackCooldownProgress(0.5f) > 0.9f) {
+                player.incrementStat(Stats.USED.getOrCreateStat(hammer));
+                stack.use(world, player, player.getActiveHand());
                 player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
-            }
-            if(blockEntity instanceof TreatedAnvilBlockEntity shapingAnvilBlockEntity){
-                shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity);
+                if (blockEntity instanceof TreatedAnvilBlockEntity shapingAnvilBlockEntity) {
+                    shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity);
+                }
             }
         }
     }
