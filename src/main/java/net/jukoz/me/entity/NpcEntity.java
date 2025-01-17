@@ -40,7 +40,9 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.damage.DamageType;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -59,6 +61,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
@@ -276,26 +279,34 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     @Override
     protected void dropXp(@Nullable Entity attacker) {
-        if(attacker instanceof PlayerEntity player){
-            Disposition playerDisposition = DispositionUtil.getDisposition(player);
-            if(playerDisposition != null && playerDisposition == getDisposition()) {
-                return;
-            }
+        if(attacker instanceof PlayerEntity player && canDrop(player, null)){
+            super.dropXp(attacker);
         }
-        super.dropXp(attacker);
     }
 
     @Override
     protected void dropLoot(DamageSource damageSource, boolean causedByPlayer) {
-        if(causedByPlayer){
-            if(damageSource.getAttacker() instanceof PlayerEntity player){
-                Disposition playerDisposition = DispositionUtil.getDisposition(player);
-                if(playerDisposition != null && playerDisposition == getDisposition()) {
-                    return;
-                }
-            }
+        if(damageSource.getAttacker() instanceof PlayerEntity player && canDrop(player, damageSource)){
+            super.dropLoot(damageSource, causedByPlayer);
         }
-        super.dropLoot(damageSource, causedByPlayer);
+    }
+
+    private boolean canDrop(PlayerEntity player, DamageSource damageSource) {
+        /*
+        // If we want more control over what drop and what doesn't allow drops
+        if(!causedByPlayer){
+            String damageSourceValue = damageSource.getTypeRegistryEntry().getIdAsString();
+            if(Objects.equals(damageSourceValue, DamageTypes.IN_WALL.getValue().toString()))
+                return false;
+        }
+        */
+
+        if(player != null){
+            Disposition playerDisposition = DispositionUtil.getDisposition(player);
+            return playerDisposition == null || playerDisposition != getDisposition();
+        }
+
+        return true;
     }
 
     @Override
