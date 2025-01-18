@@ -1994,10 +1994,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(Items.DEEPSLATE),
                         FabricRecipeProvider.conditionsFromItem(Items.DEEPSLATE))
                 .offerTo(exporter);
-
-        createCenterSurroundRecipe(exporter, ModNatureBlocks.MAPLE_LEAVES.asItem(), Items.ORANGE_DYE, ModNatureBlocks.ORANGE_MAPLE_LEAVES.asItem(), 8);
-        createCenterSurroundRecipe(exporter, ModNatureBlocks.MAPLE_LEAVES.asItem(), Items.RED_DYE, ModNatureBlocks.RED_MAPLE_LEAVES.asItem(), 8);
-        createCenterSurroundRecipe(exporter, ModNatureBlocks.MAPLE_LEAVES.asItem(), Items.YELLOW_DYE, ModNatureBlocks.YELLOW_MAPLE_LEAVES.asItem(), 8);
         //endregion
 
         //region SMOKING-ONLY
