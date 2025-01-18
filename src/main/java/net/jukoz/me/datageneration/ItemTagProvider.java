@@ -91,6 +91,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         bones.add(Items.BONE);
         bones.add(ModResourceItems.DIRTY_BONE);
+        bones.add(ModResourceItems.FANG);
 
         feathers.add(ModResourceItems.SWAN_FEATHER);
         feathers.add(Items.FEATHER);
