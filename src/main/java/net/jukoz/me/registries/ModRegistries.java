@@ -460,6 +460,9 @@ public class ModRegistries {
         Saplings.saplings.forEach(sapling -> {
             registry.add(sapling, 0.3F);
         });
+
+        registry.add(ModNatureBlocks.BEECH_SAPLING, 0.3F);
+
         LeavesSets.blocks.forEach(block -> {
             registry.add(block, 0.3F);
         });
