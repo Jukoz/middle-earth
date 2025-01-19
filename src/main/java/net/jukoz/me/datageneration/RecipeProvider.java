@@ -1994,6 +1994,15 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(Items.DEEPSLATE),
                         FabricRecipeProvider.conditionsFromItem(Items.DEEPSLATE))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.BLUE_TUFF.base(), 4)
+                .pattern("TG")
+                .pattern("GT")
+                .input('T', Items.TUFF)
+                .input('G', StoneBlockSets.GONLUIN.base())
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.GONLUIN.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.GONLUIN.base()))
+                .offerTo(exporter);
         //endregion
 
         //region SMOKING-ONLY
