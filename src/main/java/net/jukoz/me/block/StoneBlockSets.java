@@ -186,8 +186,8 @@ public class StoneBlockSets {
 
     public static SimpleBlockSetMain LIMESTONE = registerMainStoneSet("limestone", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet SMOOTH_LIMESTONE = registerStoneSet("smooth_limestone", LIMESTONE.base.getHardness(), LIMESTONE.base.getBlastResistance(), LIMESTONE.base);
-    public static SimpleBlockSet MOSSY_SMOOTH_LIMESTONE = registerStoneSet("mossy_smooth_limestone", LIMESTONE.base.getHardness(), LIMESTONE.base.getBlastResistance(), LIMESTONE.base);
-    public static SimpleBlockSet CRACKED_SMOOTH_LIMESTONE = registerStoneSet("cracked_smooth_limestone", LIMESTONE.base.getHardness(), LIMESTONE.base.getBlastResistance(), LIMESTONE.base);
+    public static SimpleBlockSet MOSSY_SMOOTH_LIMESTONE = registerStoneSet("mossy_smooth_limestone", LIMESTONE.base.getHardness(), LIMESTONE.base.getBlastResistance(), SMOOTH_LIMESTONE.base);
+    public static SimpleBlockSet CRACKED_SMOOTH_LIMESTONE = registerStoneSet("cracked_smooth_limestone", LIMESTONE.base.getHardness(), LIMESTONE.base.getBlastResistance(), SMOOTH_LIMESTONE.base);
     public static SimpleBlockSet COBBLED_LIMESTONE = registerStoneSet("cobbled_limestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, LIMESTONE.base);
     public static SimpleBlockSet MOSSY_COBBLED_LIMESTONE = registerStoneSet("mossy_cobbled_limestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, COBBLED_LIMESTONE.base);
     public static SimpleBlockSet POLISHED_LIMESTONE = registerStoneSet("polished_limestone", LIMESTONE.base.getHardness(), LIMESTONE.base.getBlastResistance(), LIMESTONE.base);
