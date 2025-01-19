@@ -2003,6 +2003,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.GONLUIN.base()),
                         FabricRecipeProvider.conditionsFromItem(StoneBlockSets.GONLUIN.base()))
                 .offerTo(exporter);
+
+        createSmokingRecipe(exporter, Items.SHORT_GRASS, ModNatureBlocks.SCORCHED_GRASS.asItem());
+        createSmokingRecipe(exporter, ModNatureBlocks.GRASS_TUFT.asItem(), ModNatureBlocks.SCORCHED_TUFT.asItem());
+        createSmokingRecipe(exporter, ModNatureBlocks.GREEN_SHRUB.asItem(), ModNatureBlocks.SCORCHED_SHRUB.asItem());
         //endregion
 
         //region SMOKING-ONLY
@@ -2693,13 +2697,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     }
 
     private void createCookedFoodRecipes(RecipeExporter exporter, Item rawFood, Item cookedFood) {
-        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smelting", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, rawFood, cookedFood, 0.35f);
-        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, rawFood, cookedFood, 0.35f);
-        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new, 600, rawFood, cookedFood, 0.35f);
+        offerFoodCookingRecipe(exporter, "smelting", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, rawFood, cookedFood, 0.35f);
+        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, rawFood, cookedFood, 0.35f);
+        offerFoodCookingRecipe(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new, 600, rawFood, cookedFood, 0.35f);
     }
 
     private void createSmokingRecipe(RecipeExporter exporter, Item rawFood, Item cookedFood) {
-        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, rawFood, cookedFood, 0.35f);
+        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, rawFood, cookedFood, 0.35f);
     }
 
     private void createMetalsRecipe(RecipeExporter exporter, Item nugget, Item ingot, Block block) {
