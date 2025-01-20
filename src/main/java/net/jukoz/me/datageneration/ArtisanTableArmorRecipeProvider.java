@@ -856,8 +856,8 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                 .input(ModEquipmentItems.GONDORIAN_PLATE_HELMET)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET).getPath() + "_artisan"));
@@ -912,8 +912,8 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                 .input(ModEquipmentItems.GONDORIAN_PLATE_HELMET)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_HELMET).getPath() + "_artisan"));
@@ -1296,9 +1296,9 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .input(ModResourceItems.FABRIC)
                 .input(ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK)
                 .input(ModResourceItems.FABRIC)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .input(Items.GREEN_DYE)
                 .input(ModResourceItems.FABRIC)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .input(Items.GREEN_DYE)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.MAIL_HAUBERK),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.MAIL_HAUBERK))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.ROHIRRIC_ORNAMENTED_SCALE_HAUBERK).getPath() + "_artisan"));
@@ -1327,11 +1327,11 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EORLING_MARSHAL_HELMET).getPath() + "_artisan"));
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EORLING_MARSHAL_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
-                .input(ModResourceItems.FABRIC)
-                .input(ModResourceItems.FABRIC)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                 .input(ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1352,8 +1352,8 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EORLING_MARSHAL_LEGGINGS).getPath() + "_artisan"));
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.EORLING_MARSHAL_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                 .criterion(FabricRecipeProvider.hasItem(goldArmorPlate.getItem()),
@@ -2061,11 +2061,11 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
 
         //T5 GALADHRIM LORD
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GALADHRIM_LORD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                 .input(ModEquipmentItems.GALADHRIM_HELMET)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GALADHRIM_HELMET),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GALADHRIM_HELMET))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GALADHRIM_LORD_HELMET).getPath() + "_artisan"));
@@ -2719,10 +2719,10 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                 .input(ModEquipmentItems.EREBOR_PLATE_LEGGINGS)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_GATEWARDEN_LEGGINGS).getPath() + "_artisan"));
@@ -2747,13 +2747,13 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_WATCHWARDEN_HELMET).getPath() + "_artisan"));
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
                 .input(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE)
+                .input(ModResourceItems.FABRIC)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .input(Items.GRAY_DYE)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE))
@@ -2765,8 +2765,8 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS).getPath() + "_artisan"));
@@ -4068,8 +4068,8 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                 .input(ModEquipmentItems.URUK_HAI_PLATE_HELMET)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.URUK_HAI_PLATE_HELMET),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.URUK_HAI_PLATE_HELMET))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.URUK_HAI_COMMANDER_HELMET).getPath() + "_artisan"));
