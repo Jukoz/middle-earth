@@ -17,6 +17,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
 public class WildGoblinEntity extends OrcNpcEntity {
@@ -46,11 +47,11 @@ public class WildGoblinEntity extends OrcNpcEntity {
 
     public static DefaultAttributeContainer.Builder setSoldierAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 14.0)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.25)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.125f)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.65)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.5);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0);
     }
     @Override
     protected void applyDamage(DamageSource source, float amount) {
@@ -61,5 +62,20 @@ public class WildGoblinEntity extends OrcNpcEntity {
     }
     public WildGoblinVariant getVariant() {
         return WildGoblinVariant.byId(this.getId());
+    }
+
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        if(spawnReason == SpawnReason.NATURAL || spawnReason == SpawnReason.CHUNK_GENERATION ){
+            if(world.getLightLevel(getBlockPos()) < 5){ // add Y 
+                return false;
+            }
+        }
+        return super.canSpawn(world, spawnReason);
+    }
+
+    @Override
+    public boolean isPersistent() {
+        return false;
     }
 }

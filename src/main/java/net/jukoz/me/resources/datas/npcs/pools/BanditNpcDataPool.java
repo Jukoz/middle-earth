@@ -40,7 +40,10 @@ public class BanditNpcDataPool {
     public final static NpcData BANDIT_THIEF;
     public final static NpcData BANDIT_MERCENARY;
     public final static NpcData BANDIT_CHIEFTAIN;
-    public final static NpcData WILD_GOBLIN;
+
+    public final static NpcData WILD_GOBLIN_GATHERER;
+    public final static NpcData WILD_GOBLIN_WARRIOR;
+    public final static NpcData WILD_GOBLIN_SCOUT;
 
     public static List<NpcData> fetchAll() {
         return List.of(
@@ -48,7 +51,9 @@ public class BanditNpcDataPool {
                 BANDIT_THIEF,
                 BANDIT_MERCENARY,
                 BANDIT_CHIEFTAIN,
-                WILD_GOBLIN
+                WILD_GOBLIN_GATHERER,
+                WILD_GOBLIN_WARRIOR,
+                WILD_GOBLIN_SCOUT
         );
     }
 
@@ -281,13 +286,12 @@ public class BanditNpcDataPool {
         ));
 
 
-        WILD_GOBLIN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "wild_goblin"), MiddleEarthRaces.ORC, List.of(
+        WILD_GOBLIN_GATHERER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "wild_goblin_gatherer"), MiddleEarthRaces.ORC, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
-                                .add(NpcGearItemData.create(ModEquipmentItems.LEATHER_SKULLCAP).withColor(DARK_BROWN_GOBLIN).withWeight(4))
-                                .add(NpcGearItemData.create(ModEquipmentItems.HOOD).withColor(DARK_BROWN_GOBLIN).withWeight(3))
-                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_ORCISH_MAIL_COIF))
+                                .add(NpcGearItemData.create(ModEquipmentItems.LEATHER_SKULLCAP).withColor(DARK_BROWN_GOBLIN).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_ORCISH_MAIL_COIF).withWeight(2))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_STRAP).withColor(DARK_BROWN_GOBLIN))
@@ -297,7 +301,6 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_BONE_PAULDRON).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_CAPE))
                                 .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_BONE_PAULDRON).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_LONG_CAPE))
                                 .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_BONE_PAULDRON).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.CAPE, DARK_BROWN_GOBLIN))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_SHOULDERS, DARK_BROWN_GOBLIN))
 
                                 .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_CAPE).withColor(DARK_BROWN_GOBLIN))
                         )
@@ -306,21 +309,96 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SKIRT).withColor(DARK_BROWN_GOBLIN))
                                 .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEG_BRACER).withColor(DARK_BROWN_GOBLIN))
                         )
-                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.ORCISH_SANDALS)))
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.ORCISH_SANDALS).withColor(DARK_BROWN_GOBLIN)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModWeaponItems.CRUDE_SPEAR).withWeight(4))
                                 .add(NpcGearItemData.create(ModToolItems.CRUDE_AXE).withWeight(3))
                                 .add(NpcGearItemData.create(ModWeaponItems.CRUDE_DAGGER).withWeight(2))
                                 .add(NpcGearItemData.create(ModWeaponItems.ORC_KNIFE).withWeight(2))
                                 .add(NpcGearItemData.create(ModToolItems.CRUDE_PICKAXE))
                                 .add(NpcGearItemData.create(ModToolItems.CRUDE_HOE))
                                 .add(NpcGearItemData.create(ModToolItems.CRUDE_SHOVEL))
+                        )
+        ));
+
+        WILD_GOBLIN_WARRIOR= new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "wild_goblin_warrior"), MiddleEarthRaces.ORC, List.of(
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(Items.AIR).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_HELMET).withWeight(6))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_BRACED_HELMET).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_ORCISH_MAIL_COIF).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_MAIL_COIF).withWeight(2))
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_MORDOR_KETTLE_HAT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_MORDOR_KETTLE_HAT_WITH_COIF))
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_MORDOR_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE).withColor(DARK_BROWN_GOBLIN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_SHOULDERS, DARK_BROWN_GOBLIN))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN_GOBLIN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_SHOULDERS, DARK_BROWN_GOBLIN))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE).withColor(DARK_BROWN_GOBLIN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_SHOULDERS, DARK_BROWN_GOBLIN))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_SCALE_VEST).withColor(DARK_BROWN_GOBLIN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_SCALE_VEST).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_SCALE_VEST).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_SHOULDERS, DARK_BROWN_GOBLIN))
+                        )
+                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_ORCISH_MAIL_COAT).withColor(DARK_BROWN_GOBLIN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_ORCISH_REINFORCED_LEATHER_SKIRT).withColor(DARK_BROWN_GOBLIN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SKIRT).withColor(DARK_BROWN_GOBLIN))
+                        )
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.ORCISH_BRACED_SANDALS)))
+                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModWeaponItems.CRUDE_SPEAR).withWeight(4))
+                                .add(NpcGearItemData.create(ModToolItems.CRUDE_AXE).withWeight(3))
+                                .add(NpcGearItemData.create(ModWeaponItems.CRUDE_DAGGER).withWeight(2))
+                                .add(NpcGearItemData.create(ModWeaponItems.ORC_KNIFE).withWeight(2))
                                 .add(NpcGearItemData.create(ModWeaponItems.CRUDE_FALCHION))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_WOODEN_SHIELD))
-                                .add(NpcGearItemData.create(ModWeaponItems.ORC_KNIFE).withWeight(2))
-                                .add(NpcGearItemData.create(Items.AIR).withWeight(5))
+                                .add(NpcGearItemData.create(ModWeaponItems.MORDOR_WOODEN_SHIELD).withWeight(2))
+                                .add(NpcGearItemData.create(ModWeaponItems.ORC_KNIFE))
+                                .add(NpcGearItemData.create(Items.AIR).withWeight(3))
+                        )
+        ));
+
+        WILD_GOBLIN_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "wild_goblin_scout"), MiddleEarthRaces.ORC, List.of(
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(Items.AIR).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_HELMET).withWeight(6))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_BRACED_HELMET).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_ORCISH_MAIL_COIF).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_MAIL_COIF).withWeight(2))
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_MORDOR_KETTLE_HAT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_MORDOR_KETTLE_HAT_WITH_COIF))
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_MORDOR_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE).withColor(DARK_BROWN_GOBLIN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_SHOULDERS, DARK_BROWN_GOBLIN))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN_GOBLIN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_SHOULDERS, DARK_BROWN_GOBLIN))
+                        )
+                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_ORCISH_MAIL_COAT).withColor(DARK_BROWN_GOBLIN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_ORCISH_REINFORCED_LEATHER_SKIRT).withColor(DARK_BROWN_GOBLIN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SKIRT).withColor(DARK_BROWN_GOBLIN))
+                        )
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.ORCISH_BROWN_FUR_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModWeaponItems.ORCISH_BOW).withWeight(4))
+                                .add(NpcGearItemData.create(ModWeaponItems.GUNDABAD_BOW))
                         )
         ));
     }
