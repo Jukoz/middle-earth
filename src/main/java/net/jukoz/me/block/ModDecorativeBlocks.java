@@ -487,6 +487,15 @@ public class ModDecorativeBlocks {
     public static final Block POTTED_BLACK_PINE_SAPLING = registerBlock("potted_black_pine_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.BLACK_PINE_SAPLING));
     public static final Block POTTED_WILLOW_SAPLING     = registerBlock("potted_willow_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.WILLOW_SAPLING));
 
+    public static final Block POTTED_GREEN_SHRUB     = registerBlock("potted_green_shrub", Blocks.createFlowerPotBlock(ModNatureBlocks.GREEN_SHRUB));
+    public static final Block POTTED_MALLOS         = registerBlock("potted_mallos", Blocks.createFlowerPotBlock(ModNatureBlocks.MALLOS));
+    public static final Block POTTED_YELLOW_FLOWER     = registerBlock("potted_yellow_flower", Blocks.createFlowerPotBlock(ModNatureBlocks.YELLOW_FLOWER));
+    public static final Block POTTED_YELLOW_TROLLIUS     = registerBlock("potted_yellow_trollius", Blocks.createFlowerPotBlock(ModNatureBlocks.YELLOW_TROLLIUS));
+    public static final Block POTTED_TAN_SHRUB      = registerBlock("potted_tan_shrub", Blocks.createFlowerPotBlock(ModNatureBlocks.TAN_SHRUB));
+    public static final Block POTTED_GREEN_JEWEL_CORNFLOWER     = registerBlock("potted_green_jewel_cornflower", Blocks.createFlowerPotBlock(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER));
+    public static final Block POTTED_SCORCHED_SHRUB     = registerBlock("potted_scorched_shrub", Blocks.createFlowerPotBlock(ModNatureBlocks.SCORCHED_SHRUB));
+    public static final Block POTTED_FROZEN_SHRUB     = registerBlock("potted_frozen_shrub", Blocks.createFlowerPotBlock(ModNatureBlocks.FROZEN_SHRUB));
+
     public static final Block BROWN_JUG = registerBlockWithItem("brown_jug",
             new JugBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
     public static final Block GRAY_POT = registerBlockWithItem("gray_pot",
