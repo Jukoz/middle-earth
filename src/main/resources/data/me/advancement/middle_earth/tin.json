@@ -1,0 +1,36 @@
+{
+  "parent": "me:middle_earth/root",
+  "criteria": {
+    "raw_tin": {
+      "conditions": {
+        "items": [
+          {
+            "items": "me:raw_tin"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.tin.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id":  "me:tin_ore"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.tin.title"
+    }
+  },
+  "requirements": [
+    [
+      "raw_tin"
+    ]
+  ]
+}
