@@ -17,7 +17,7 @@
     "description": {
       "translate": "advancements.middle_earth.tin.description"
     },
-    "frame": "goal",
+    "frame": "task",
     "hidden": true,
     "icon": {
       "count": 1,
