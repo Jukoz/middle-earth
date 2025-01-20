@@ -4,7 +4,6 @@
     {
       "#Comment": "VERY RARE",
       "rolls": 1,
-      "bonus_rolls": 0.5,
       "entries": [
         {
           "type": "minecraft:item",
@@ -46,21 +45,6 @@
             }
           ],
           "weight": 4
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:candle",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 0,
-                "max": 1
-              },
-              "add": false
-            }
-          ]
         },
         {
           "type": "minecraft:item",
@@ -172,36 +156,8 @@
           "weight": 3
         },
         {
-          "type": "minecraft:item",
-          "name": "me:green_tuff",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:spruce_log",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
-        },
-        {
           "type": "minecraft:empty",
-          "weight": 7
+          "weight": 4
         }
       ]
     }
