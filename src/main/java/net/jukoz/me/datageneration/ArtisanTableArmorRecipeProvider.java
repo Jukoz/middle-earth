@@ -2686,8 +2686,6 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                 .input(ModEquipmentItems.EREBOR_PLATE_HELMET)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                .input(Items.GOLD_NUGGET)
-                .input(Items.GOLD_NUGGET)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_HELMET),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_HELMET))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_GUARD_HELMET).getPath() + "_artisan"));
@@ -2708,9 +2706,9 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .input(ModResourceItems.FABRIC)
                 .input(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE)
                 .input(ModResourceItems.FABRIC)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.BRONZE_INGOT)
                 .input(Items.BLUE_DYE)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.BRONZE_INGOT)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.EREBOR_GATEWARDEN_CHESTPLATE).getPath() + "_artisan"));
@@ -2752,19 +2750,19 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .input(ModResourceItems.FABRIC)
                 .input(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE)
                 .input(ModResourceItems.FABRIC)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.BRONZE_INGOT)
                 .input(Items.GRAY_DYE)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.BRONZE_INGOT)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE).getPath() + "_artisan"));
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                 .input(ModEquipmentItems.EREBOR_PLATE_LEGGINGS)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
                 .input(ModResourceItems.FABRIC)
                 .input(ModResourceItems.FABRIC)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS),
@@ -2805,7 +2803,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 .input(ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE)
                 .input(ModResourceItems.FABRIC)
                 .input(ModResourceItems.FABRIC)
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                 .input(ModResourceItems.FABRIC)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE),
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE))
