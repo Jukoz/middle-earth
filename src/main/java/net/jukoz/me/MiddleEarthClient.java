@@ -448,6 +448,11 @@ public class MiddleEarthClient implements ClientModInitializer {
         for(Block block : SimpleFlowerBedModel.flowerBeds){
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
         }
+
+        for(SimpleFlowerPotModel.FlowerPot flowerPot : SimpleFlowerPotModel.pots){
+            BlockRenderLayerMap.INSTANCE.putBlock(flowerPot.pottedPlant(), RenderLayer.getCutout());
+        }
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.MIRKWOOD_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WHITE_MUSHROOM, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WHITE_MUSHROOM_TILLER, RenderLayer.getCutout());

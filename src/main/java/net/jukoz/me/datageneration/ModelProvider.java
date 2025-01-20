@@ -466,6 +466,10 @@ public class ModelProvider extends FabricModelProvider {
             blockStateModelGenerator.registerFlowerbed(block);
         }
 
+        for (SimpleFlowerPotModel.FlowerPot flowerPot : SimpleFlowerPotModel.pots) {
+            registerFlowerPotPlant(blockStateModelGenerator, flowerPot.plant(), flowerPot.pottedPlant(), BlockStateModelGenerator.TintType.NOT_TINTED);
+        }
+
         for (Block block : SimpleDoubleBlockModel.doubleBlocks) {
             blockStateModelGenerator.registerDoubleBlock(block, BlockStateModelGenerator.TintType.NOT_TINTED);
         }
@@ -729,6 +733,12 @@ public class ModelProvider extends FabricModelProvider {
         Identifier identifier = texturedModel.upload(coralFanBlock, blockStateCollector.modelCollector);
         blockStateCollector.blockStateCollector.accept(blockStateCollector.createSingletonBlockState(coralFanBlock, identifier));
         blockStateCollector.registerItemModel(coralFanBlock);
+    }
+
+    public final void registerFlowerPotPlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, BlockStateModelGenerator.TintType tintType) {
+        TextureMap textureMap = TextureMap.plant(plantBlock);
+        Identifier identifier = tintType.getFlowerPotCrossModel().upload(flowerPotBlock, textureMap, blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.blockStateCollector.accept(blockStateModelGenerator.createSingletonBlockState(flowerPotBlock, identifier));
     }
 
     public void registerVanillaVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath) {

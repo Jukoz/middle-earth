@@ -100,6 +100,23 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WATERING_CAN);
             add(ModDecorativeBlocks.WOODEN_BUCKET);
 
+            add(ModDecorativeBlocks.POTTED_BEECH_SAPLING      );
+            add(ModDecorativeBlocks.POTTED_CHESTNUT_SAPLING   );
+            add(ModDecorativeBlocks.POTTED_HOLLY_SAPLING      );
+            add(ModDecorativeBlocks.POTTED_FIR_SAPLING        );
+            add(ModDecorativeBlocks.POTTED_LARCH_SAPLING      );
+            add(ModDecorativeBlocks.POTTED_LEBETHRON_SAPLING  );
+            add(ModDecorativeBlocks.POTTED_WHITE_LEBETHRON_SAPLING);
+            add(ModDecorativeBlocks.POTTED_MALLORN_SAPLING    );
+            add(ModDecorativeBlocks.POTTED_MAPLE_SAPLING      );
+            add(ModDecorativeBlocks.POTTED_SILVER_MAPLE_SAPLING);
+            add(ModDecorativeBlocks.POTTED_MIRKWOOD_SAPLING   );
+            add(ModDecorativeBlocks.POTTED_PALM_SAPLING       );
+            add(ModDecorativeBlocks.POTTED_WHITE_PALM_SAPLING );
+            add(ModDecorativeBlocks.POTTED_PINE_SAPLING       );
+            add(ModDecorativeBlocks.POTTED_BLACK_PINE_SAPLING );
+            add(ModDecorativeBlocks.POTTED_WILLOW_SAPLING     );
+
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 
             add(ModDecorativeBlocks.TREATED_ANVIL);

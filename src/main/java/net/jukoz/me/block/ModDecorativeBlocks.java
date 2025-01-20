@@ -470,6 +470,23 @@ public class ModDecorativeBlocks {
     public static final Block WOODEN_BUCKET = registerBlockWithItem("wooden_bucket",
             new WoodenBucketBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
 
+    public static final Block POTTED_BEECH_SAPLING      = registerBlock("potted_beech_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.BEECH_SAPLING));
+    public static final Block POTTED_CHESTNUT_SAPLING   = registerBlock("potted_chestnut_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.CHESTNUT_SAPLING));
+    public static final Block POTTED_HOLLY_SAPLING      = registerBlock("potted_holly_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.HOLLY_SAPLING));
+    public static final Block POTTED_FIR_SAPLING        = registerBlock("potted_fir_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.FIR_SAPLING));
+    public static final Block POTTED_LARCH_SAPLING      = registerBlock("potted_larch_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.LARCH_SAPLING));
+    public static final Block POTTED_LEBETHRON_SAPLING  = registerBlock("potted_lebethron_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.LEBETHRON_SAPLING));
+    public static final Block POTTED_WHITE_LEBETHRON_SAPLING = registerBlock("potted_white_lebethron_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.WHITE_LEBETHRON_SAPLING));
+    public static final Block POTTED_MALLORN_SAPLING    = registerBlock("potted_mallorn_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.MALLORN_SAPLING));
+    public static final Block POTTED_MAPLE_SAPLING      = registerBlock("potted_maple_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.MAPLE_SAPLING));
+    public static final Block POTTED_SILVER_MAPLE_SAPLING = registerBlock("potted_silver_maple_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.SILVER_MAPLE_SAPLING));
+    public static final Block POTTED_MIRKWOOD_SAPLING   = registerBlock("potted_mirkwood_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.MIRKWOOD_SAPLING));
+    public static final Block POTTED_PALM_SAPLING       = registerBlock("potted_palm_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.PALM_SAPLING));
+    public static final Block POTTED_WHITE_PALM_SAPLING = registerBlock("potted_white_palm_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.WHITE_PALM_SAPLING));
+    public static final Block POTTED_PINE_SAPLING       = registerBlock("potted_pine_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.PINE_SAPLING));
+    public static final Block POTTED_BLACK_PINE_SAPLING = registerBlock("potted_black_pine_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.BLACK_PINE_SAPLING));
+    public static final Block POTTED_WILLOW_SAPLING     = registerBlock("potted_willow_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.WILLOW_SAPLING));
+
     public static final Block BROWN_JUG = registerBlockWithItem("brown_jug",
             new JugBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
     public static final Block GRAY_POT = registerBlockWithItem("gray_pot",
