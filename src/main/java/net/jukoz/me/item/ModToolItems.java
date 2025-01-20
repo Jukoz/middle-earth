@@ -79,7 +79,7 @@ public class ModToolItems {
 
     public static final Item BURZUM_STEEL_PICKAXE = registerItemHandheld("burzum_steel_pickaxe",
             new PickaxeItem(ModToolMaterials.BURZUM_STEEL, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.BURZUM_STEEL, 1.0f, -2.8f))));
-    public static final Item BURZUM_STEEL_AXE = registerItemHandheld("burzum_steel_axe",
+    public static final Item BURZUM_STEEL_AXE = registerItemDualModel("burzum_steel_axe",
             new CustomAxeWeaponItem(ModToolMaterials.BURZUM_STEEL));
     public static final Item BURZUM_STEEL_SHOVEL = registerItemHandheld("burzum_steel_shovel",
             new ShovelItem(ModToolMaterials.BURZUM_STEEL, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.BURZUM_STEEL, 1.5f, -3.0f))));
