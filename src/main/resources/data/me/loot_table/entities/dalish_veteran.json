@@ -34,17 +34,19 @@
               },
               "add": false
             }
-          ]
+          ],
+          "weight": 2
         },
         {
           "type": "minecraft:empty",
-          "weight": 7
+          "weight": 5
         }
       ]
     },
     {
       "#Comment": "RARE",
       "rolls": 1,
+      "bonus_roll": 1,
       "entries": [
         {
           "type": "minecraft:item",
@@ -75,7 +77,8 @@
               },
               "add": false
             }
-          ]
+          ],
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -114,7 +117,6 @@
       "#Comment": "UNCOMMON",
       "rolls": 2,
       "bonus_rolls": 2,
-
       "entries": [
         {
           "type": "minecraft:item",
@@ -148,7 +150,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 3
+          "weight": 2
         }
       ]
     },

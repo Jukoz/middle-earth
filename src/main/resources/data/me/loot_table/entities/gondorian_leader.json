@@ -48,19 +48,18 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:cooked_meat_skewer",
+          "name": "minecraft:cooked_beef",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 2
+                "min": 0,
+                "max": 1
               },
               "add": false
             }
-          ],
-          "weight": 3
+          ]
         },
         {
           "type": "minecraft:item",
@@ -75,7 +74,8 @@
               },
               "add": true
             }
-          ]
+          ],
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -114,7 +114,6 @@
       "#Comment": "UNCOMMON",
       "rolls": 2,
       "bonus_rolls": 2,
-
       "entries": [
         {
           "type": "minecraft:item",
@@ -126,22 +125,6 @@
                 "type": "minecraft:uniform",
                 "min": 1,
                 "max": 3
-              },
-              "add": false
-            }
-          ],
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "me:raw_silver",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 0,
-                "max": 1
               },
               "add": false
             }
