@@ -39,6 +39,17 @@ public class SimpleFlowerPotModel {
             add(new FlowerPot(ModDecorativeBlocks.POTTED_GREEN_JEWEL_CORNFLOWER, ModNatureBlocks.GREEN_JEWEL_CORNFLOWER));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_SCORCHED_SHRUB, ModNatureBlocks.SCORCHED_SHRUB));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_FROZEN_SHRUB, ModNatureBlocks.FROZEN_SHRUB));
+
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_CAVE_AMANITA, ModNatureBlocks.CAVE_AMANITA));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_DEEP_FIRECAP, ModNatureBlocks.DEEP_FIRECAP));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_GHOSTSHROOM, ModNatureBlocks.GHOSTSHROOM));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_MORSEL, ModNatureBlocks.MORSEL));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_SKYFIRECAP, ModNatureBlocks.SKY_FIRECAP));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_TRUMPET_SHROOM, ModNatureBlocks.TRUMPET_SHROOM));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_TUBESHROOM, ModNatureBlocks.TUBESHRROM));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_VIOLET_CAPS, ModNatureBlocks.VIOLET_CAPS));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_WHITE_MUSHROOM, ModNatureBlocks.WHITE_MUSHROOM));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_YELLOW_AMANITA, ModNatureBlocks.YELLOW_AMANITA));
         }
     };
 }

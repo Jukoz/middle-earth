@@ -495,6 +495,17 @@ public class ModDecorativeBlocks {
     public static final Block POTTED_GREEN_JEWEL_CORNFLOWER     = registerBlock("potted_green_jewel_cornflower", Blocks.createFlowerPotBlock(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER));
     public static final Block POTTED_SCORCHED_SHRUB     = registerBlock("potted_scorched_shrub", Blocks.createFlowerPotBlock(ModNatureBlocks.SCORCHED_SHRUB));
     public static final Block POTTED_FROZEN_SHRUB     = registerBlock("potted_frozen_shrub", Blocks.createFlowerPotBlock(ModNatureBlocks.FROZEN_SHRUB));
+    
+    public static final Block POTTED_CAVE_AMANITA = registerBlock("potted_cave_amanita", Blocks.createFlowerPotBlock(ModNatureBlocks.CAVE_AMANITA));
+    public static final Block POTTED_DEEP_FIRECAP = registerBlock("potted_deep_firecap", Blocks.createFlowerPotBlock(ModNatureBlocks.DEEP_FIRECAP));
+    public static final Block POTTED_GHOSTSHROOM = registerBlock("potted_ghostshroom", Blocks.createFlowerPotBlock(ModNatureBlocks.GHOSTSHROOM));
+    public static final Block POTTED_MORSEL     = registerBlock("potted_morsel", Blocks.createFlowerPotBlock(ModNatureBlocks.MORSEL));
+    public static final Block POTTED_SKYFIRECAP = registerBlock("potted_sky_firecap", Blocks.createFlowerPotBlock(ModNatureBlocks.SKY_FIRECAP));
+    public static final Block POTTED_TRUMPET_SHROOM = registerBlock("potted_trumpet_shroom", Blocks.createFlowerPotBlock(ModNatureBlocks.TRUMPET_SHROOM));
+    public static final Block POTTED_TUBESHROOM = registerBlock("potted_tubeshroom", Blocks.createFlowerPotBlock(ModNatureBlocks.TUBESHRROM));
+    public static final Block POTTED_VIOLET_CAPS = registerBlock("potted_violet_caps", Blocks.createFlowerPotBlock(ModNatureBlocks.VIOLET_CAPS));
+    public static final Block POTTED_WHITE_MUSHROOM = registerBlock("potted_white_mushroom", Blocks.createFlowerPotBlock(ModNatureBlocks.WHITE_MUSHROOM));
+    public static final Block POTTED_YELLOW_AMANITA = registerBlock("potted_yellow_amanita", Blocks.createFlowerPotBlock(ModNatureBlocks.YELLOW_AMANITA));
 
     public static final Block BROWN_JUG = registerBlockWithItem("brown_jug",
             new JugBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
