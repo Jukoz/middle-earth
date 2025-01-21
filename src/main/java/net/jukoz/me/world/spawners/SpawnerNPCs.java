@@ -43,6 +43,7 @@ public class SpawnerNPCs implements SpecialSpawner {
         if (this.cooldown > 0) {
             return 0;
         }
+
         this.cooldown += (BASE_COOLDOWN + random.nextInt(COOLDOWN_RANGE)) * 20;
 
         int i = 0;

@@ -14,10 +14,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
 public class WildGoblinEntity extends OrcNpcEntity {
@@ -67,11 +64,16 @@ public class WildGoblinEntity extends OrcNpcEntity {
     @Override
     public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
         if(spawnReason == SpawnReason.NATURAL || spawnReason == SpawnReason.CHUNK_GENERATION ){
-            if(world.getLightLevel(getBlockPos()) < 5){ // add Y
+            if(world.getLightLevel(getBlockPos()) > 5 || getBlockY() > 24){
                 return false;
             }
         }
         return super.canSpawn(world, spawnReason);
+    }
+
+    @Override
+    public boolean canSpawn(WorldView world) {
+        return super.canSpawn(world);
     }
 
     @Override
