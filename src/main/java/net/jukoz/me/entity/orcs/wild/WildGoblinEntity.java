@@ -47,11 +47,11 @@ public class WildGoblinEntity extends OrcNpcEntity {
 
     public static DefaultAttributeContainer.Builder setSoldierAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.125f)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.65)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 0.5)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.25);
     }
     @Override
     protected void applyDamage(DamageSource source, float amount) {
@@ -67,7 +67,7 @@ public class WildGoblinEntity extends OrcNpcEntity {
     @Override
     public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
         if(spawnReason == SpawnReason.NATURAL || spawnReason == SpawnReason.CHUNK_GENERATION ){
-            if(world.getLightLevel(getBlockPos()) < 5){ // add Y 
+            if(world.getLightLevel(getBlockPos()) < 5){ // add Y
                 return false;
             }
         }

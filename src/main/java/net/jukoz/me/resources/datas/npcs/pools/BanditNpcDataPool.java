@@ -341,13 +341,9 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_CAPE))
                                 .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_SHOULDERS, DARK_BROWN_GOBLIN))
 
-                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE).withColor(DARK_BROWN_GOBLIN))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_SHOULDERS, DARK_BROWN_GOBLIN))
-
-                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_SCALE_VEST).withColor(DARK_BROWN_GOBLIN))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_SCALE_VEST).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ORCISH_SCALE_VEST).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_SHOULDERS, DARK_BROWN_GOBLIN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_BONE_PAULDRON).withColor(DARK_BROWN_GOBLIN))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_BONE_PAULDRON).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(ModEquipmentItems.GUNDABAD_BONE_PAULDRON).withColor(DARK_BROWN_GOBLIN).withCape(ModCapes.ORCISH_LONG_CAPE))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModEquipmentItems.RUSTED_ORCISH_MAIL_COAT).withColor(DARK_BROWN_GOBLIN))
