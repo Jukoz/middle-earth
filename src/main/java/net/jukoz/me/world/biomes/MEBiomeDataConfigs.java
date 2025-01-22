@@ -119,7 +119,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(35, Blocks.COARSE_DIRT)
             .addSlopeData(38, Blocks.STONE)
             .addSlopeData(40, Blocks.TUFF)
-            .addSlopeData(54, StoneBlockSets.IRONSTONE.base())
+            .addSlopeData(51, StoneBlockSets.IRONSTONE.base())
             .addSlopeData(MAX_ANGLE, StoneBlockSets.HEMATITE.base());
 
     public static SlopeMap limeStoneHills = new SlopeMap().addSlopeData(34, Blocks.GRASS_BLOCK)
@@ -277,27 +277,46 @@ public class MEBiomeDataConfigs {
 
     public static BlocksLayeringData frozenLayers = new BlocksLayeringData().addLayerData(1.0f, Blocks.STONE);
 
-    public static BlocksLayeringData gonluinLayers = new BlocksLayeringData().addLayerData(0.4f, Blocks.STONE)
-            .addLayerData(0.6f, StoneBlockSets.GONLUIN.base());
+    public static BlocksLayeringData gonluinLayers = new BlocksLayeringData()
+            .addLayerData(0.55f, StoneBlockSets.GONLUIN.base())
+            .addLayerData(0.03f, StoneBlockSets.BLUE_TUFF.base())
+            .addLayerData(0.32f, StoneBlockSets.SLATE.base())
+            .addLayerData(0.1f, Blocks.STONE);
 
-    public static BlocksLayeringData limeStoneLayers = new BlocksLayeringData().addLayerData(0.37f, Blocks.STONE)
-            .addLayerData(0.63f, StoneBlockSets.LIMESTONE.base());
+    public static BlocksLayeringData limeStoneLayers = new BlocksLayeringData()
+            .addLayerData(0.63f, StoneBlockSets.LIMESTONE.base())
+            .addLayerData(0.37f, Blocks.STONE);
 
-    public static BlocksLayeringData sandstoneLayers = new BlocksLayeringData().addLayerData(0.9f, Blocks.STONE)
-            .addLayerData(0.1f, Blocks.SANDSTONE);
+    public static BlocksLayeringData sandstoneLayers = new BlocksLayeringData()
+            .addLayerData(0.1f, Blocks.SANDSTONE)
+            .addLayerData(0.9f, Blocks.STONE);
 
-    public static BlocksLayeringData gondorLayers = new BlocksLayeringData().addLayerData(0.3f, Blocks.STONE)
+    public static BlocksLayeringData gondorLayers = new BlocksLayeringData()
+            .addLayerData(0.55f, Blocks.CALCITE)
             .addLayerData(0.15f, Blocks.DIORITE)
-            .addLayerData(0.55f, Blocks.CALCITE);
+            .addLayerData(0.3f, Blocks.STONE);
 
-    public static BlocksLayeringData ironhills = new BlocksLayeringData().addLayerData(0.35f, Blocks.STONE)
-            .addLayerData(0.65f, StoneBlockSets.IRONSTONE.base());
+    public static BlocksLayeringData whiteMountainsLayers = new BlocksLayeringData()
+            .addLayerData(0.3f, StoneBlockSets.SLATE.base())
+            .addLayerData(0.35f, Blocks.CALCITE)
+            .addLayerData(0.1f, Blocks.DIORITE)
+            .addLayerData(0.25f, Blocks.STONE);
 
-    public static BlocksLayeringData greyMountainsLayers = new BlocksLayeringData().addLayerData(0.58f, Blocks.STONE)
+    public static BlocksLayeringData ironhills = new BlocksLayeringData()
+            .addLayerData(0.55f, StoneBlockSets.IRONSTONE.base())
+            .addLayerData(0.15f, StoneBlockSets.HEMATITE.base())
+            .addLayerData(0.3f, Blocks.STONE);
+
+    public static BlocksLayeringData greyMountainsLayers = new BlocksLayeringData()
+            .addLayerData(0.03f, Blocks.SMOOTH_BASALT)
+            .addLayerData(0.3f, StoneBlockSets.ASHEN_STONE.base())
             .addLayerData(0.02f, Blocks.SMOOTH_BASALT)
-            .addLayerData(0.4f, StoneBlockSets.ASHEN_STONE.base());
+            .addLayerData(0.35f, StoneBlockSets.SLATE.base())
+            .addLayerData(0.3f, Blocks.STONE);
 
-    public static BlocksLayeringData mistyMountainsLayers = new BlocksLayeringData().addLayerData(1.0f, Blocks.STONE);
+    public static BlocksLayeringData mistyMountainsLayers = new BlocksLayeringData()
+            .addLayerData(0.6f, StoneBlockSets.SLATE.base())
+            .addLayerData(0.4f, Blocks.STONE);
 
     // endregion
 

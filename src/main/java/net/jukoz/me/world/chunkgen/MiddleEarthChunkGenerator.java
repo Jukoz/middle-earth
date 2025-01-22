@@ -3,6 +3,7 @@ package net.jukoz.me.world.chunkgen;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.utils.noises.BlendedNoise;
@@ -439,7 +440,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     underSurfaceBlock = surfaceBlock;
                 } else {
                     surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().getBlockAtAngle(slopeAngle).getDefaultState();
-                    if(surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState() || surfaceBlock == ModBlocks.SNOWY_GRASS_BLOCK.getDefaultState()) underSurfaceBlock = Blocks.DIRT.getDefaultState();
+                    if(surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState() || surfaceBlock == ModBlocks.SNOWY_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = Blocks.DIRT.getDefaultState();
+                    }
                     else underSurfaceBlock = surfaceBlock;
                 }
 
