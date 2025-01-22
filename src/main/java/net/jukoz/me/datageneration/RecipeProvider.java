@@ -2004,6 +2004,15 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(StoneBlockSets.GONLUIN.base()))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.HEMATITE.base(), 4)
+                .pattern("SI")
+                .pattern("IS")
+                .input('S', Items.STONE)
+                .input('I', StoneBlockSets.IRONSTONE.base())
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.IRONSTONE.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.IRONSTONE.base()))
+                .offerTo(exporter);
+
         createSmokingRecipe(exporter, Items.SHORT_GRASS, ModNatureBlocks.SCORCHED_GRASS.asItem());
         createSmokingRecipe(exporter, ModNatureBlocks.GRASS_TUFT.asItem(), ModNatureBlocks.SCORCHED_TUFT.asItem());
         createSmokingRecipe(exporter, ModNatureBlocks.GREEN_SHRUB.asItem(), ModNatureBlocks.SCORCHED_SHRUB.asItem());
