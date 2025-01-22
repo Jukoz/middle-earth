@@ -3885,7 +3885,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ironHelmetPlate.getItem()))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.URUK_HAI_LIGHT_HELMET).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_LIGHT_HELMET.getDefaultStack(), "chestplate", Disposition.EVIL)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_LIGHT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                 .input(ModEquipmentItems.URUK_HAI_LIGHT_HELMET)
                 .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.URUK_HAI_LIGHT_HELMET),
@@ -3902,7 +3902,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ironHelmetPlate.getItem()))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.URUK_HAI_REINFORCED_HELMET).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_REINFORCED_HELMET.getDefaultStack(), "chestplate", Disposition.EVIL)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_REINFORCED_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                 .input(ModEquipmentItems.URUK_HAI_REINFORCED_HELMET)
                 .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.URUK_HAI_REINFORCED_HELMET),
@@ -3957,7 +3957,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.URUK_HAI_SOLDIER_HELMET).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_SOLDIER_HELMET.getDefaultStack(), "chestplate", Disposition.EVIL)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                 .input(ModEquipmentItems.URUK_HAI_SOLDIER_HELMET)
                 .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.URUK_HAI_SOLDIER_HELMET),
@@ -4021,7 +4021,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(burzumSteelArmorPlate.getItem()))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.URUK_HAI_PLATE_BOOTS).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_PLATE_HELMET.getDefaultStack(), "chestplate", Disposition.EVIL)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                 .input(ModEquipmentItems.URUK_HAI_PLATE_HELMET)
                 .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.URUK_HAI_PLATE_HELMET),
@@ -4038,7 +4038,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.URUK_HAI_SAPPER_HELMET).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_SAPPER_HELMET.getDefaultStack(), "chestplate", Disposition.EVIL)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_SAPPER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                 .input(ModEquipmentItems.URUK_HAI_SAPPER_HELMET)
                 .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.URUK_HAI_SAPPER_HELMET),
@@ -4055,7 +4055,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.URUK_HAI_BERSERKER_HELMET).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_BERSERKER_HELMET.getDefaultStack(), "chestplate", Disposition.EVIL)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_BERSERKER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                 .input(ModEquipmentItems.URUK_HAI_BERSERKER_HELMET)
                 .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.URUK_HAI_BERSERKER_HELMET),
@@ -4072,7 +4072,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.URUK_HAI_PLATE_HELMET))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.URUK_HAI_COMMANDER_HELMET).getPath() + "_artisan"));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_COMMANDER_HELMET.getDefaultStack(), "chestplate", Disposition.EVIL)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_COMMANDER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                 .input(ModEquipmentItems.URUK_HAI_COMMANDER_HELMET)
                 .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
                 .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.URUK_HAI_COMMANDER_HELMET),
