@@ -5,6 +5,7 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.features.boulder.BigBoulderFeature;
 import net.jukoz.me.world.features.boulder.BigBoulderFeatureConfig;
 import net.jukoz.me.world.features.columns.*;
+import net.jukoz.me.world.features.deltas.ModDeltaFeatures;
 import net.jukoz.me.world.features.ores.ModOreFeature;
 import net.jukoz.me.world.features.ores.ModOreFeatureConfig;
 import net.jukoz.me.world.features.ores.SurfaceOreFeature;
@@ -16,6 +17,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.*;
 
 public class ModFeatures {
+    public static Feature<DeltaFeatureConfig> DELTA_FEATURE = register("delta_feature", new ModDeltaFeatures(DeltaFeatureConfig.CODEC));
+
     public static Feature<OreFeatureConfig> SURFACE_ORE = register("surface_ore", new SurfaceOreFeature(OreFeatureConfig.CODEC));
     public static Feature<ClusterFeatureConfig> CLUSTER = register("cluster", new ClusterFeature(ClusterFeatureConfig.CODEC));
     public static Feature<SmallPointedStoneFeatureConfig> SMALL_POINTED_STONE = register("small_pointed_stone", new SmallPointedStoneFeature(SmallPointedStoneFeatureConfig.CODEC));

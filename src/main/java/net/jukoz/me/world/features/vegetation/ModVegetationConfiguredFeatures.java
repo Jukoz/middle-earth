@@ -186,7 +186,7 @@ public class ModVegetationConfiguredFeatures {
 
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
-        ConfiguredFeatures.register(featureRegisterable, WATER_DELTA, Feature.DELTA_FEATURE,
+        ConfiguredFeatures.register(featureRegisterable, WATER_DELTA, ModFeatures.DELTA_FEATURE,
                 new DeltaFeatureConfig(Blocks.WATER.getDefaultState(), Blocks.GRASS_BLOCK.getDefaultState(), UniformIntProvider.create(3, 7), UniformIntProvider.create(0, 2)));
 
         ConfiguredFeatures.register(featureRegisterable, FIELD_HEATHER, Feature.RANDOM_PATCH,
@@ -206,17 +206,7 @@ public class ModVegetationConfiguredFeatures {
                                                 .add(ModNatureBlocks.WILD_WHEAT.getDefaultState(), 3))
                                 )))));
 
-
         ConfiguredFeatures.register(featureRegisterable, MIRKWOOD_VINES, ModFeatures.MIRKWOOD_VINE, new DefaultFeatureConfig());
-
-    /*
-            ConfiguredFeatures.register(featureRegisterable, MIRKWOOD_VINES, Feature.BLOCK_COLUMN,
-                new BlockColumnFeatureConfig(List.of(
-                BlockColumnFeatureConfig.createLayer(UniformIntProvider.create(3, 17), BlockStateProvider.of(Blocks.WEEPING_VINES_PLANT)), // ModNatureBlocks.MIRKWOOD_VINES_PLANT
-                BlockColumnFeatureConfig.createLayer(ConstantIntProvider.create(1), BlockStateProvider.of(Blocks.WEEPING_VINES))), //(ModNatureBlocks.MIRKWOOD_VINES
-                Direction.DOWN, BlockPredicate.IS_AIR, true));
-     */
-
 
         ConfiguredFeatures.register(featureRegisterable, FLOWER_ALLIUM, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
