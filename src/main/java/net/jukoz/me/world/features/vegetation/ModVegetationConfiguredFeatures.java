@@ -7,6 +7,7 @@ import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.block.WoodBlockSets;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.world.features.columns.CaveColumnFeatureConfig;
+import net.jukoz.me.world.features.columns.MirkwoodVinesFeature;
 import net.jukoz.me.world.features.underground.CavesConfiguredFeatures;
 import net.jukoz.me.world.gen.ModFeatures;
 import net.minecraft.block.*;
@@ -206,11 +207,16 @@ public class ModVegetationConfiguredFeatures {
                                 )))));
 
 
-        ConfiguredFeatures.register(featureRegisterable, MIRKWOOD_VINES, Feature.BLOCK_COLUMN,
+        ConfiguredFeatures.register(featureRegisterable, MIRKWOOD_VINES, ModFeatures.MIRKWOOD_VINE, new DefaultFeatureConfig());
+
+    /*
+            ConfiguredFeatures.register(featureRegisterable, MIRKWOOD_VINES, Feature.BLOCK_COLUMN,
                 new BlockColumnFeatureConfig(List.of(
-                BlockColumnFeatureConfig.createLayer(UniformIntProvider.create(3, 17), BlockStateProvider.of(ModNatureBlocks.MIRKWOOD_VINES_PLANT)),
-                BlockColumnFeatureConfig.createLayer(ConstantIntProvider.create(1), BlockStateProvider.of(ModNatureBlocks.MIRKWOOD_VINES))),
+                BlockColumnFeatureConfig.createLayer(UniformIntProvider.create(3, 17), BlockStateProvider.of(Blocks.WEEPING_VINES_PLANT)), // ModNatureBlocks.MIRKWOOD_VINES_PLANT
+                BlockColumnFeatureConfig.createLayer(ConstantIntProvider.create(1), BlockStateProvider.of(Blocks.WEEPING_VINES))), //(ModNatureBlocks.MIRKWOOD_VINES
                 Direction.DOWN, BlockPredicate.IS_AIR, true));
+     */
+
 
         ConfiguredFeatures.register(featureRegisterable, FLOWER_ALLIUM, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
