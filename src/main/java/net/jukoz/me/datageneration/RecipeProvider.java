@@ -1237,23 +1237,23 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BLUE_HOBBIT_DOOR, 1)
-                .pattern(" B ")
+                .pattern(" BG")
                 .pattern("BDG")
-                .pattern(" B ")
+                .pattern(" BG")
                 .input('D', ModDecorativeBlocks.LARCH_HOBBIT_DOOR)
                 .input('B', Items.BLUE_DYE)
-                .input('G', Items.GOLD_INGOT)
+                .input('G', Items.GOLD_NUGGET)
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GREEN_HOBBIT_DOOR, 1)
-                .pattern(" B ")
+                .pattern(" BG")
                 .pattern("BDG")
-                .pattern(" B ")
+                .pattern(" BG")
                 .input('D', ModDecorativeBlocks.LARCH_HOBBIT_DOOR)
                 .input('B', Items.GREEN_DYE)
-                .input('G', Items.GOLD_INGOT)
+                .input('G', Items.GOLD_NUGGET)
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR))
                 .offerTo(exporter);
@@ -1269,23 +1269,23 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.RED_HOBBIT_DOOR, 1)
-                .pattern(" B ")
+                .pattern(" BG")
                 .pattern("BDG")
-                .pattern(" B ")
+                .pattern(" BG")
                 .input('D', ModDecorativeBlocks.LARCH_HOBBIT_DOOR)
                 .input('B', Items.RED_DYE)
-                .input('G', Items.GOLD_INGOT)
+                .input('G', Items.GOLD_NUGGET)
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.YELLOW_HOBBIT_DOOR, 1)
-                .pattern(" B ")
+                .pattern(" BG")
                 .pattern("BDG")
-                .pattern(" B ")
+                .pattern(" BG")
                 .input('D', ModDecorativeBlocks.LARCH_HOBBIT_DOOR)
                 .input('B', Items.YELLOW_DYE)
-                .input('G', Items.GOLD_INGOT)
+                .input('G', Items.GOLD_NUGGET)
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR))
                 .offerTo(exporter);
