@@ -14,6 +14,7 @@ import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.recipe.ModTags;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
@@ -583,7 +584,6 @@ public class ModRegistries {
         int smokeAmount = random.nextInt(9) + 4;
         int bigSmokeAmount = random.nextInt(3) + 2;
 
-
         if (!stack.contains(ModDataComponentTypes.TEMPERATURE_DATA)) {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
@@ -592,7 +592,7 @@ public class ModRegistries {
             originalStack.setCount(1);
             originalStack.remove(ModDataComponentTypes.TEMPERATURE_DATA);
             stack.decrement(1);
-            player.giveItemStack(originalStack);
+            player.getInventory().offerOrDrop(originalStack);
 
             LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
 
