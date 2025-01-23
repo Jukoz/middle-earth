@@ -12,6 +12,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
@@ -44,7 +45,7 @@ public class WildGoblinEntity extends OrcNpcEntity {
 
     public static DefaultAttributeContainer.Builder setSoldierAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18f)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 12.0)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 0.5)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
@@ -69,6 +70,16 @@ public class WildGoblinEntity extends OrcNpcEntity {
             }
         }
         return super.canSpawn(world, spawnReason);
+    }
+
+    @Override
+    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
+        return;
+    }
+
+    @Override
+    public void dropAllEquipment() {
+        return;
     }
 
     @Override

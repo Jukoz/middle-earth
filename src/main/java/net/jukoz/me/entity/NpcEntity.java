@@ -130,7 +130,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
             }
 
             if (this.bow != null) {
-                this.bowAttackGoal.setAttackInterval(20);
+                this.bowAttackGoal.setAttackInterval(16);
                 this.goalSelector.add(2, this.bowAttackGoal);
             } else {
                 this.goalSelector.add(2, this.meleeAttackGoal);
