@@ -33,6 +33,8 @@
   "advancements.middle_earth.strawberry.description": "品尝草莓的甜香",
   "advancements.middle_earth.mithril.title": "轻若片羽",
   "advancements.middle_earth.mithril.description": "采掘到秘银！",
+  "advancements.middle_earth.tin.title": "愚人铁",
+  "advancements.middle_earth.tin.description": "我靠又是锡！看来想挖铁得再向下挖深点儿！",
 
   "advancements.smithing.root.title": "锻造熔炉",
   "advancements.smithing.root.description": "锻造熔炉生万物！",
@@ -1549,6 +1551,7 @@
   "item.me.bandit_militia_spawn_egg": "匪盗民兵刷怪蛋",
   "item.me.bandit_soldier_spawn_egg": "匪盗士兵刷怪蛋",
   "item.me.bandit_chieftain_spawn_egg": "匪盗头领刷怪蛋",
+  "item.me.wild_goblin_spawn_egg": "野生半兽人刷怪蛋",
 
   "item.me.mirkwood_spider_spawn_egg": "黑森林蜘蛛刷怪蛋",
   "item.me.snail_spawn_egg": "蜗牛刷怪蛋",
@@ -1628,6 +1631,7 @@
   "entity.me.bandit_militia": "匪盗民兵",
   "entity.me.bandit_soldier": "匪盗士兵",
   "entity.me.bandit_chieftain": "匪盗头领",
+  "entity.me.wild_goblin": "野生半兽人",
 
   "entity.me.mirkwood_spider": "黑森林蜘蛛",
 
@@ -7700,6 +7704,10 @@
 
   "command.me.clear.faction.success" : "你的派系数据已成功清除",
   "command.me.clear.player.faction.success" : "已成功清除%s的派系数据",
+  "command.me.open_target.onboarding.success": "已成功打开%s的引导界面",
+  "command.me.open_target.onboarding.error": "无法打开%s的引导界面，对方已经选择过派系了",
+  "command.me.open.onboarding.error": "无法打开你自己的引导界面，你已经选择过派系了",
+
 
   "command.me.get.faction.success" : "你的初始派系是%s",
   "command.me.get.faction.no_faction" : "你尚无初始派系",
