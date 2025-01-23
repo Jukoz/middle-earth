@@ -45,7 +45,7 @@ public class ModSpawnSettingsBuilder {
     }
 
     public static void addUncommonBats(SpawnSettings.Builder builder){
-    builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.BAT, 8, 2, 43));
+    builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.BAT, 8, 2, 4));
     }
 
     public static void addPlainsMobs(SpawnSettings.Builder builder) {
