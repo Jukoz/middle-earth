@@ -84,7 +84,7 @@ public class WargEntity extends AbstractBeastEntity {
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 24.0d)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2d)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0dd)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0d)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0d)
                 .add(EntityAttributes.GENERIC_STEP_HEIGHT, 1.15d)
