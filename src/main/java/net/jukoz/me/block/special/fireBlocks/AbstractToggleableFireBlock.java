@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
+import net.minecraft.block.enums.Tilt;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -18,6 +19,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -107,8 +109,12 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
     }
 
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if ((Boolean)state.get(LIT) && entity instanceof LivingEntity) {
-            entity.damage(world.getDamageSources().campfire(), (float) 1);
+        if (state.get(LIT) && entity instanceof LivingEntity) {
+            if (!world.isClient) {
+                if (isEntityAbove(pos, entity)) {
+                    entity.damage(world.getDamageSources().campfire(), (float) 1);
+                }
+            }
         }
 
         super.onEntityCollision(state, world, pos, entity);
@@ -123,5 +129,9 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
 
     public static boolean isLitFireBlock(BlockState state) {
         return state.contains(LIT) && (Boolean)state.get(LIT) && state.getBlock() instanceof AbstractToggleableFireBlock;
+    }
+
+    private static boolean isEntityAbove(BlockPos pos, Entity entity) {
+        return entity.isOnGround() && entity.getPos().y > (double)((float)pos.getY() + 0.51F);
     }
 }
