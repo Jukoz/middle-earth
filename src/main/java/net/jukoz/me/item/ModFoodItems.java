@@ -92,7 +92,7 @@ public class ModFoodItems {
                     new FoodComponent.Builder().nutrition(9).saturationModifier(0.9f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
     public static final Item MEAT_SKEWER = registerItem("meat_skewer",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(5).saturationModifier(0.6f).usingConvertsTo(Items.STICK).build()).maxCount(1)));
+                    new FoodComponent.Builder().nutrition(5).saturationModifier(0.6f).usingConvertsTo(Items.STICK).build()).maxCount(8)));
     public static final Item COOKED_MEAT_SKEWER = registerItem("cooked_meat_skewer",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(10).saturationModifier(0.8f).usingConvertsTo(Items.STICK).build()).maxCount(8)));
