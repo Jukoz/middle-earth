@@ -26,6 +26,7 @@
     "ServerPlayNetworkHandlerMixin",
     "ServerWorldMixin",
     "ShearItemMixin",
+    "ShovelItemMixin",
     "SwordItemMixin",
     "TrunkPlacerTypeInvoker"
   ],
