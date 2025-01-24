@@ -5,6 +5,7 @@ import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.utils.MEEquipmentTooltip;
+import net.jukoz.me.item.utils.armor.ExtendedArmorMaterial;
 import net.jukoz.me.item.utils.armor.ModArmorMaterials;
 import net.jukoz.me.item.utils.armor.ModDyeablePieces;
 import net.jukoz.me.utils.ModFactions;
@@ -23,18 +24,18 @@ public class HoodHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     public ModFactions faction;
     public ModSubFactions subFaction;
 
-    public HoodHelmetItem(Settings settings, ModFactions faction) {
-        super(ModArmorMaterials.FABRIC_T0.material(), Type.HELMET, settings
+    public HoodHelmetItem(Settings settings, ExtendedArmorMaterial armorMaterial, ModFactions faction) {
+        super(armorMaterial.material(), Type.HELMET, settings
                 .maxCount(1)
-                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.FABRIC_T0.durabilityModifier())));
+                .maxDamage(Type.CHESTPLATE.getMaxDamage(armorMaterial.durabilityModifier())));
         this.faction = faction;
         this.subFaction = null;
     }
 
-    public HoodHelmetItem(Settings settings, ModSubFactions subFaction) {
-        super(ModArmorMaterials.FABRIC_T0.material(), Type.HELMET, settings
+    public HoodHelmetItem(Settings settings, ExtendedArmorMaterial armorMaterial, ModSubFactions subFaction) {
+        super(armorMaterial.material(), Type.HELMET, settings
                 .maxCount(1)
-                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.FABRIC_T0.durabilityModifier())));
+                .maxDamage(Type.CHESTPLATE.getMaxDamage(armorMaterial.durabilityModifier())));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
     }

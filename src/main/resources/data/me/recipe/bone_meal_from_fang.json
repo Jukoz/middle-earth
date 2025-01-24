@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "me:fang"
+    }
+  ],
+  "result": {
+    "id": "minecraft:bone_meal",
+    "count": 5
+  }
+}

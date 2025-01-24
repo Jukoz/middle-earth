@@ -20,6 +20,7 @@ import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.orcs.isengard.IsengardOrcEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
+import net.jukoz.me.entity.orcs.wild.WildGoblinEntity;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
 import net.jukoz.me.entity.projectile.pinecone.LitPineconeEntity;
@@ -82,6 +83,7 @@ public class ModEntities {
     public static final EntityType<BanditHumanEntity> BANDIT_MILITIA = registerEntity("bandit_militia", BanditHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
     public static final EntityType<BanditHumanEntity> BANDIT_SOLDIER = registerEntity("bandit_soldier", BanditHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
     public static final EntityType<BanditHumanEntity> BANDIT_CHIEFTAIN = registerEntity("bandit_chieftain", BanditHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
+    public static final EntityType<WildGoblinEntity> WILD_GOBLIN = registerEntity("wild_goblin", WildGoblinEntity::new, SpawnGroup.MONSTER, 0.7F, 1.9F);
 
     // Dwarfs
     public static final EntityType<LongbeardDwarfEntity> LONGBEARD_MILITIA = registerEntity("longbeard_militia", LongbeardDwarfEntity::new, SpawnGroup.CREATURE, 0.8f, 1.9f);
@@ -232,6 +234,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(BANDIT_MILITIA, BanditHumanEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(BANDIT_SOLDIER, BanditHumanEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(BANDIT_CHIEFTAIN, BanditHumanEntity.setKnightAttributes());
+        FabricDefaultAttributeRegistry.register(WILD_GOBLIN, WildGoblinEntity.setSoldierAttributes());
         // Animals
         FabricDefaultAttributeRegistry.register(SWAN, SwanEntity.createSwanAttributes());
         FabricDefaultAttributeRegistry.register(PHEASANT, PheasantEntity.createPheasantAttributes());

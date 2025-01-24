@@ -172,6 +172,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     public void changeTab(String shapeId) {
         if(playerEntity != null) {
             this.dropInventory(this.playerEntity, this.input);
+            this.outputSlot.setStack(ItemStack.EMPTY);
         }
 
         ArtisanTableInputsShape inputsShape = ArtisanTableInputsShape.getShape(shapeId);

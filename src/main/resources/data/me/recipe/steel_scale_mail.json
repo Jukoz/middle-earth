@@ -39,6 +39,7 @@
         "material": "me:steel",
         "pattern": "me:smithing_part"
       }
-    }
+    },
+    "count": 2
   }
 }

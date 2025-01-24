@@ -219,6 +219,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         climbable.add(ModDecorativeBlocks.ROPE);
         climbable.add(ModDecorativeBlocks.ROPE_LADDER);
         climbable.add(ModBlocks.NET);
+        climbable.add(ModNatureBlocks.MIRKWOOD_VINES);
+        climbable.add(ModNatureBlocks.MIRKWOOD_VINES_PLANT);
 
         needsStoneTools.add(OreRockSets.GONLUIN.copper_ore());
         needsStoneTools.add(OreRockSets.GONLUIN.coal_ore());
@@ -290,6 +292,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(ModDecorativeBlocks.SPIKY_CHAIN);
 
         needsStoneTools.add(ModDecorativeBlocks.WATERING_CAN);
+
+        mineablePickaxe.add(ModDecorativeBlocks.GOLDEN_CHALICE);
 
         mineablePickaxe.add(ModDecorativeBlocks.ARKENSTONE);
         mineablePickaxe.add(ModDecorativeBlocks.WALL_ARKENSTONE);

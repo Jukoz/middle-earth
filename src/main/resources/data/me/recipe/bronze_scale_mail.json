@@ -39,6 +39,7 @@
         "material": "me:bronze",
         "pattern": "me:smithing_part"
       }
-    }
+    },
+    "count": 2
   }
 }

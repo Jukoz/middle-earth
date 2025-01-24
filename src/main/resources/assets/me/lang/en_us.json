@@ -32,12 +32,14 @@
   "advancements.middle_earth.strawberry.description": "The taste of strawberries",
   "advancements.middle_earth.mithril.title": "As light as feathers",
   "advancements.middle_earth.mithril.description": "Mine some Mithril!",
+  "advancements.middle_earth.tin.title": "Fool's Iron",
+  "advancements.middle_earth.tin.description": "Tin again! Maybe I can find iron deeper",
 
   "advancements.smithing.root.title": "Smithing",
   "advancements.smithing.root.description": "All begins with the Forge!",
   "advancements.smithing.bellows.title": "Not Hot Enough?",
   "advancements.smithing.bellows.description": "Craft bellows to heat up your forge",
-  "advancements.smithing.artisan_table.title": "Artisan work",
+  "advancements.smithing.artisan_table.title": "Artisan Work",
   "advancements.smithing.artisan_table.description": "Craft the artisan table",
   "advancements.smithing.bronze_ingot.title": "Bronze Age",
   "advancements.smithing.bronze_ingot.description": "A bit of tin and some copper",
@@ -1548,6 +1550,7 @@
   "item.me.bandit_militia_spawn_egg": "Bandit Militia Spawn Egg",
   "item.me.bandit_soldier_spawn_egg": "Bandit Soldier Spawn Egg",
   "item.me.bandit_chieftain_spawn_egg": "Bandit Chieftain Spawn Egg",
+  "item.me.wild_goblin_spawn_egg": "Wild Goblin Spawn Egg",
 
   "item.me.mirkwood_spider_spawn_egg": "Mirkwood Spider Spawn Egg",
   "item.me.snail_spawn_egg": "Snail Spawn Egg",
@@ -1627,6 +1630,7 @@
   "entity.me.bandit_militia": "Bandit Militia",
   "entity.me.bandit_soldier": "Bandit Soldier",
   "entity.me.bandit_chieftain": "Bandit Chieftain",
+  "entity.me.wild_goblin": "Wild Goblin",
 
   "entity.me.mirkwood_spider": "Mirkwood Spider",
 
@@ -7736,6 +7740,11 @@
 
   "command.me.clear.faction.success" : "Successfully cleared your faction data",
   "command.me.clear.player.faction.success" : "Successfully cleared %s faction data",
+
+  "command.me.open_target.onboarding.success": "Successfully opened the onboarding screen for %s.",
+  "command.me.open_target.onboarding.error": "Impossible to open the onboarding screen for %s, their faction is already chosen.",
+  "command.me.open.onboarding.error": "Impossible to open the onboarding screen, you already have your chosen faction.",
+
 
   "command.me.get.faction.success" : "Your initial faction is %s",
   "command.me.get.faction.no_faction" : "You have no initial faction",

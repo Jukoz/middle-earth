@@ -79,9 +79,9 @@ public class ModDecorativeBlocks {
             new ArtisanTable(AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque()));
 
     public static final Block SMALL_CRATE = registerBlock("small_crate",
-            new CrateBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
+            new CrateBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque()));
     public static final Block THIN_BARREL = registerBlock("thin_barrel",
-            new ThinBarrelBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
+            new ThinBarrelBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque()));
     public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
             new ReinforcedChestBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool()));
 

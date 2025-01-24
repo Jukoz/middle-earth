@@ -11,13 +11,13 @@
       "item": "me:straw"
     },
     {
-      "item": "minecraft:sand"
+      "tag": "minecraft:smelts_to_glass"
     },
     {
-      "item": "minecraft:sand"
+      "tag": "minecraft:smelts_to_glass"
     },
     {
-      "item": "minecraft:sand"
+      "tag": "minecraft:smelts_to_glass"
     },
     {
       "item": "minecraft:clay"

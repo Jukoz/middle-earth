@@ -172,6 +172,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
         int k = (int)(41.0F * this.scrollAmount);
         context.drawTexture(TEXTURE, i + 143, j + 15 + k, 232 + (this.shouldScroll() ? 0 : 12), 0, 12, 15);
+
         int l = this.x + 76;
         int m = this.y + 14;
         int n = this.scrollOffset + 12;
@@ -335,10 +336,11 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         }
     }
 
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if (this.shouldScroll()) {
             int i = this.getMaxScroll();
-            float f = (float)amount / (float)i;
+            float f = (float)verticalAmount / (float)i;
             this.scrollAmount = MathHelper.clamp(this.scrollAmount - f, 0.0F, 1.0F);
             this.scrollOffset = (int)((double)(this.scrollAmount * (float)i) + 0.5) * 4;
         }
