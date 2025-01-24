@@ -1,9 +1,6 @@
 package net.jukoz.me.registries;
 
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
+import net.fabricmc.fabric.api.registry.*;
 import net.jukoz.me.block.*;
 import net.jukoz.me.datageneration.content.models.HotMetalsModel;
 import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
@@ -12,10 +9,14 @@ import net.jukoz.me.datageneration.content.tags.Saplings;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.recipe.ModTags;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
@@ -23,6 +24,9 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.math.random.Random;
+
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class ModRegistries {
 
@@ -139,6 +143,13 @@ public class ModRegistries {
         LeavesSets.blocks.forEach(block -> {
             FlammableBlockRegistry.getDefaultInstance().add(block, 30, 60);
         });
+    }
+
+    public static void registerTillableBlocks() {
+        TillableBlockRegistry.register(ModBlocks.DRY_DIRT, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.DIRTY_ROOTS, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.GRASSY_DIRT, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.TURF, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
     }
 
     public static void registerAgingCopperBlocks() {
@@ -638,5 +649,15 @@ public class ModRegistries {
         });
 
         CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModResourceItems.DIRTY_BONE, CLEAN_ITEM);
+    }
+
+    public static void registerLandPathNodeTypesBlocks() {
+        LandPathNodeTypesRegistry.register(ModNatureBlocks.TOUGH_BERRY_BUSH, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.SMALL_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.BIG_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.GILDED_SMALL_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.GILDED_BIG_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.BONFIRE, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.FIRE_BOWL, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
     }
 }

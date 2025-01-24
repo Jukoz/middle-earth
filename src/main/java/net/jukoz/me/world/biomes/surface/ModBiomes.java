@@ -3133,7 +3133,7 @@ public class ModBiomes {
                 ModBiomeFeatures.addPackedMudOre(vegetation);
                 ModBiomeFeatures.addGraniteBoulder(vegetation);
                 ModBiomeFeatures.addSparsePineTrees(vegetation);
-                ModBiomeFeatures.addSparseLarchTrees(vegetation);
+                ModBiomeFeatures.addLarchTrees(vegetation);
                 ModBiomeFeatures.addOakTrees(vegetation);
                 ModBiomeFeatures.addCommonOakBush(vegetation);
                 ModBiomeFeatures.addWildFlax(vegetation);

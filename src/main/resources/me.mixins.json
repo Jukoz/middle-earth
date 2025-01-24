@@ -14,6 +14,7 @@
     "EntitySpawnMixin",
     "FishingBobberEntityMixin",
     "FoliagePlacerTypeInvoker",
+    "GrassBlockMixin",
     "ItemStackMixin",
     "PigEntityMixin",
     "PlayerEntityMixin",
@@ -25,6 +26,7 @@
     "ServerPlayNetworkHandlerMixin",
     "ServerWorldMixin",
     "ShearItemMixin",
+    "ShovelItemMixin",
     "SwordItemMixin",
     "TrunkPlacerTypeInvoker"
   ],

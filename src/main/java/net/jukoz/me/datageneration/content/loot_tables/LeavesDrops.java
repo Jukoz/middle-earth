@@ -19,11 +19,6 @@ public class LeavesDrops {
 
             add(new LeavesDrop(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, ModNatureBlocks.MALLORN_SAPLING));
 
-            add(new LeavesDrop(ModNatureBlocks.MAPLE_LEAVES, ModNatureBlocks.MAPLE_SAPLING));
-            add(new LeavesDrop(ModNatureBlocks.ORANGE_MAPLE_LEAVES, ModNatureBlocks.MAPLE_SAPLING));
-            add(new LeavesDrop(ModNatureBlocks.RED_MAPLE_LEAVES, ModNatureBlocks.MAPLE_SAPLING));
-            add(new LeavesDrop(ModNatureBlocks.YELLOW_MAPLE_LEAVES, ModNatureBlocks.MAPLE_SAPLING));
-
             add(new LeavesDrop(ModNatureBlocks.DRY_PINE_LEAVES, ModNatureBlocks.PINE_SAPLING));
         }
     };

@@ -1,5 +1,6 @@
 package net.jukoz.me.block;
 
+import net.jukoz.me.block.special.saplings.VariantSaplingBlock;
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.datageneration.content.tags.Saplings;
 import net.jukoz.me.utils.LoggerUtil;
@@ -21,6 +22,8 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static net.jukoz.me.block.WoodBlockSets.LEAVES_STRENGTH;
@@ -343,8 +346,10 @@ public class ModNatureBlocks {
     public static final Block LEBETHRON_SAPLING = registerSimpleSapling("lebethron_sapling", ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY);
     public static final Block WHITE_LEBETHRON_SAPLING = registerSimpleSapling("white_lebethron_sapling", ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY);
     public static final Block MALLORN_SAPLING = registerSimpleSapling("mallorn_sapling", ModTreeConfiguredFeatures.MEGA_MALLORN_TREE_KEY);
-    public static final Block MAPLE_SAPLING = registerSimpleSapling("maple_sapling", ModTreeConfiguredFeatures.MAPLE_TREE_KEY);
-    public static final Block SILVER_MAPLE_SAPLING = registerSimpleSapling("silver_maple_sapling", ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY);
+    public static final Block MAPLE_SAPLING = registerVariantSapling("maple_sapling",
+            List.of(ModTreeConfiguredFeatures.MAPLE_TREE_KEY, ModTreeConfiguredFeatures.YELLOW_MAPLE_TREE_KEY, ModTreeConfiguredFeatures.ORANGE_MAPLE_TREE_KEY, ModTreeConfiguredFeatures.RED_MAPLE_TREE_KEY));
+    public static final Block SILVER_MAPLE_SAPLING = registerVariantSapling("silver_maple_sapling",
+            List.of(ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY, ModTreeConfiguredFeatures.SILVER_YELLOW_MAPLE_TREE_KEY, ModTreeConfiguredFeatures.SILVER_ORANGE_MAPLE_TREE_KEY, ModTreeConfiguredFeatures.SILVER_RED_MAPLE_TREE_KEY));
     public static final Block MIRKWOOD_SAPLING = registerSimpleSapling("mirkwood_sapling", ModTreeConfiguredFeatures.SMALL_MIRKWOOD_TREE_KEY);
     public static final Block PALM_SAPLING = registerSimpleSapling("palm_sapling", ModTreeConfiguredFeatures.PALM_TREE_KEY);
     public static final Block WHITE_PALM_SAPLING = registerSimpleSapling("white_palm_sapling", ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY);
@@ -469,6 +474,20 @@ public class ModNatureBlocks {
         Block resultBlock = registerBlock(name, saplingBlock, true);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
         Saplings.saplings.add(resultBlock);
+        return resultBlock;
+    }
+
+    public static Block registerVariantSapling(String name, List<RegistryKey<ConfiguredFeature<?, ?>>> treeFeatures) {
+        List<SaplingGenerator> saplingGenerators = new ArrayList<>();
+        for(RegistryKey<ConfiguredFeature<?,?>> treeFeature : treeFeatures) {
+            saplingGenerators.add(new SaplingGenerator(name, Optional.empty(), Optional.ofNullable(treeFeature),
+                            Optional.empty()));
+        }
+
+        SaplingBlock saplingBlock = new VariantSaplingBlock(AbstractBlock.Settings.copy(Blocks.OAK_SAPLING), saplingGenerators);
+
+        Block resultBlock = registerBlock(name, saplingBlock, true);
+        TintableCrossModel.notTintedBlocks.add(resultBlock);
         return resultBlock;
     }
 

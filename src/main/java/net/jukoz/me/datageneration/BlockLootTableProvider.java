@@ -9,6 +9,7 @@ import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.CropDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
+import net.jukoz.me.datageneration.content.loot_tables.PotDrops;
 import net.jukoz.me.datageneration.content.models.SimplePaneModel;
 import net.jukoz.me.datageneration.content.models.SimpleRocksModel;
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
@@ -20,6 +21,7 @@ import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
@@ -132,6 +134,10 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                             .with(ItemEntry.builder(cd.seeds)
                                     .conditionally(RandomChanceLootCondition.builder(0.125f)))
                             .with(ItemEntry.builder(cd.fruit))));
+        }
+
+        for (Block pot : PotDrops.pots) {
+            addPottedPlantDrops(pot);
         }
 
         addDrop(ModNatureBlocks.DEAD_RUSHES, shortPlantDrops(ModNatureBlocks.DEAD_RUSHES));

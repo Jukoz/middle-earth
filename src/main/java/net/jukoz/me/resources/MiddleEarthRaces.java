@@ -98,16 +98,16 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.GENERIC_MAX_HEALTH, 18.0);
                     put(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0);
                     put(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, 2.75);
-                    put(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.11);
+                    put(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.095);
                     put(EntityAttributes.GENERIC_STEP_HEIGHT, 1.0);
                 }}), List.of(), List.of());
         URUK = new Race(Identifier.of(MiddleEarth.MOD_ID, "uruk"), RaceType.URUK,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.GENERIC_SCALE, 1.0);
-                    put(EntityAttributes.GENERIC_MAX_HEALTH,18.0);
+                    put(EntityAttributes.GENERIC_MAX_HEALTH,22.0);
                     put(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0);
                     put(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, 3.0);
-                    put(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.11);
+                    put(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.09);
                     put(EntityAttributes.GENERIC_BURNING_TIME, 0.70);
                 }}), List.of(), List.of());
     }

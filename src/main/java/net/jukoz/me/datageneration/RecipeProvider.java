@@ -532,7 +532,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createPaneRecipe(exporter, Blocks.WHITE_WOOL.asItem(), ModBlocks.NET, 16);
 
-        createPaneRecipe(exporter, Blocks.CUT_COPPER.asItem(), ModBlocks.COPPER_BARS, 16);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.COPPER_BARS, 16)
+                .pattern("IBI")
+                .pattern("IBI")
+                .input('I', Items.COPPER_INGOT)
+                .input('B', Items.CUT_COPPER)
+                .criterion(FabricRecipeProvider.hasItem(Items.CUT_COPPER),
+                        FabricRecipeProvider.conditionsFromItem(Items.CUT_COPPER))
+                .offerTo(exporter);
 
         createBrickRecipe(exporter, ModResourceItems.CITRINE_SHARD, ModBlocks.CITRINE_BLOCK, 1);
         createFilledRecipe(exporter, Items.GLOWSTONE, ModBlocks.GLOWSTONE_BLOCK, 1);
