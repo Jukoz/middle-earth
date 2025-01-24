@@ -13,6 +13,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -648,5 +649,9 @@ public class ModRegistries {
         });
 
         CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModResourceItems.DIRTY_BONE, CLEAN_ITEM);
+    }
+
+    public static void registerLandPathNodeTypesBlocks() {
+        LandPathNodeTypesRegistry.register(ModNatureBlocks.TOUGH_BERRY_BUSH, PathNodeType.LEAVES, PathNodeType.LEAVES);
     }
 }
