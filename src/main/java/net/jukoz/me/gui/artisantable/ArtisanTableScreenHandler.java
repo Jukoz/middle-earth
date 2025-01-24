@@ -55,7 +55,6 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
 
         String[] splited = disposition.split("/");
-        System.out.println("in the screen handler: " + Arrays.toString(splited));
         this.disposition = splited[0];
         this.isCreative = Boolean.parseBoolean(splited[1]);
     }
