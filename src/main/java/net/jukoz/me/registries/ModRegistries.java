@@ -652,6 +652,6 @@ public class ModRegistries {
     }
 
     public static void registerLandPathNodeTypesBlocks() {
-        LandPathNodeTypesRegistry.register(ModNatureBlocks.TOUGH_BERRY_BUSH, PathNodeType.LEAVES, PathNodeType.LEAVES);
+        LandPathNodeTypesRegistry.register(ModNatureBlocks.TOUGH_BERRY_BUSH, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
     }
 }
