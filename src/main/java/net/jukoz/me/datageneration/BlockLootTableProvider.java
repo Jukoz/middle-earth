@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.jukoz.me.block.*;
 import net.jukoz.me.block.special.LargeDoorBlock;
 import net.jukoz.me.block.special.RocksBlock;
+import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.CropDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
@@ -14,6 +15,9 @@ import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.block.enums.SlabType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
@@ -35,6 +39,7 @@ import net.minecraft.predicate.item.ItemSubPredicateTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.state.property.BooleanProperty;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -68,10 +73,30 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 cobbleDrops(block, StoneBlockSets.COBBLED_DOLOMITE.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("quartzite")) {
                 cobbleDrops(block, StoneBlockSets.COBBLED_QUARTZITE.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("jadeite")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_JADEITE.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("ashen_stone")) {
                 cobbleDrops(block, StoneBlockSets.ASHEN_COBBLESTONE.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("ironstone")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_IRONSTONE.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("hematite")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_HEMATITE.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("gneiss")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_GNEISS.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("izheraban")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_IZHERABAN.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("schist")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_SCHIST.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("galonn")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_GALONN.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("slate")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_SLATE.base());
+            } else if (Registries.BLOCK.getId(block).getPath().equals("blue_tuff")) {
+                cobbleDrops(block, StoneBlockSets.COBBLED_BLUE_TUFF.base());
             } else if (Registries.BLOCK.getId(block).getPath().contains("_door")) {
                 addDrop(block, doorDrops(block));
+            } else if (Registries.BLOCK.getId(block).getPath().contains("vertical_slab")) {
+                addDrop(block, verticalSlabDrops(block));
             } else {
                 // TODO : @SlooshyBoi crashes during Datagen
                 if (block == null) continue;
@@ -215,6 +240,11 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                         .with(ItemEntry.builder(rocksDrop))));
     }
 
+    public LootTable.Builder verticalSlabDrops(Block drop) {
+        return LootTable.builder().pool(
+                LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F))
+                        .with((LootPoolEntry.Builder)this.applyExplosionDecay(drop, ItemEntry.builder(drop).apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(2.0F)).conditionally(BlockStatePropertyLootCondition.builder(drop).properties(net.minecraft.predicate.StatePredicate.Builder.create().exactMatch(VerticalSlabBlock.DOUBLE, true)))))));
+    }
 
     public void cobbleDrops(Block stoneBlock, Block cobbledBlock) {
         RegistryWrapper.Impl<Enchantment> enchantmentRegistry;

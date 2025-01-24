@@ -99,11 +99,6 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public boolean isInAttackRange(LivingEntity entity) {
-        return (super.isInAttackRange(entity) && this.isTame()) || (this.getAttackBox().expand(1.5f).intersects(entity.getBoundingBox()) && !this.isTame());
-    }
-
-    @Override
     public boolean canUseSlot(EquipmentSlot slot) {
         return true;
     }

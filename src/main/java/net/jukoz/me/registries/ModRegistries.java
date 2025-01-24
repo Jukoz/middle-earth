@@ -14,7 +14,9 @@ import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.recipe.ModTags;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -460,6 +462,9 @@ public class ModRegistries {
         Saplings.saplings.forEach(sapling -> {
             registry.add(sapling, 0.3F);
         });
+
+        registry.add(ModNatureBlocks.BEECH_SAPLING, 0.3F);
+
         LeavesSets.blocks.forEach(block -> {
             registry.add(block, 0.3F);
         });
@@ -549,6 +554,15 @@ public class ModRegistries {
         registry.add(ModResourceItems.PIPEWEED_SEEDS, 0.3F);
     }
 
+    //This not good but will do for now until more cases appear
+    public static final CauldronBehavior CLEAN_ITEM = (state, world, pos, player, hand, stack) -> {
+        if (!world.isClient) {
+            player.giveItemStack(new ItemStack(Items.BONE));
+            stack.decrement(1);
+        }
+        return ItemActionResult.success(world.isClient);
+    };
+
     public static final CauldronBehavior CLEAN_CUSTOM_DYEABLE_ITEM = (state, world, pos, player, hand, stack) -> {
         if (!stack.isIn(ModTags.DYEABLE)) {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
@@ -557,8 +571,6 @@ public class ModRegistries {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (!world.isClient) {
-            CustomDyeableDataComponent dyeableDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
-
             stack.set(ModDataComponentTypes.DYE_DATA,
                      new CustomDyeableDataComponent(CustomDyeableDataComponent.DEFAULT_COLOR));
             player.incrementStat(Stats.CLEAN_ARMOR);
@@ -572,7 +584,6 @@ public class ModRegistries {
         int smokeAmount = random.nextInt(9) + 4;
         int bigSmokeAmount = random.nextInt(3) + 2;
 
-
         if (!stack.contains(ModDataComponentTypes.TEMPERATURE_DATA)) {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
@@ -581,7 +592,7 @@ public class ModRegistries {
             originalStack.setCount(1);
             originalStack.remove(ModDataComponentTypes.TEMPERATURE_DATA);
             stack.decrement(1);
-            player.giveItemStack(originalStack);
+            player.getInventory().offerOrDrop(originalStack);
 
             LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
 
@@ -625,5 +636,7 @@ public class ModRegistries {
         HotMetalsModel.nuggets.forEach(item -> {
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
         });
+
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModResourceItems.DIRTY_BONE, CLEAN_ITEM);
     }
 }

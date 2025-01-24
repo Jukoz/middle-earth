@@ -5,7 +5,6 @@ import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.surface.BiomeData;
 import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
 import net.jukoz.me.world.features.vegetation.ModVegetationPlacedFeatures;
-import net.jukoz.me.world.spawners.ModSpawnSettingsBuilder;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -441,7 +440,7 @@ public class ModCaveBiomes {
         ModCaveBiomeFeatures.addBats(spawnSettings);
         if(monsters) {
             ModCaveBiomeFeatures.addSpiders(spawnSettings);
-            ModCaveBiomeFeatures.addSilverFishes(spawnSettings);
+            ModCaveBiomeFeatures.addWildGoblins(spawnSettings);
         }
 
         undergroundOres = undergroundOres.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();

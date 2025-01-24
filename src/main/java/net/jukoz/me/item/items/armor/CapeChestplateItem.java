@@ -5,6 +5,7 @@ import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.MEEquipmentTooltip;
+import net.jukoz.me.item.utils.armor.ExtendedArmorMaterial;
 import net.jukoz.me.item.utils.armor.ModArmorMaterials;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
@@ -21,18 +22,18 @@ public class CapeChestplateItem extends ArmorItem implements MEEquipmentTooltip 
     public ModFactions faction;
     public ModSubFactions subFaction;
 
-    public CapeChestplateItem(Settings settings, ModFactions faction) {
-        super(ModArmorMaterials.FABRIC_T0.material(), Type.CHESTPLATE, settings
+    public CapeChestplateItem(Settings settings, ExtendedArmorMaterial armorMaterial, ModFactions faction) {
+        super(armorMaterial.material(), Type.CHESTPLATE, settings
                 .maxCount(1)
-                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.FABRIC_T0.durabilityModifier())));
+                .maxDamage(Type.CHESTPLATE.getMaxDamage(armorMaterial.durabilityModifier())));
         this.faction = faction;
         this.subFaction = null;
     }
 
-    public CapeChestplateItem(Settings settings, ModSubFactions subFaction) {
-        super(ModArmorMaterials.FABRIC_T0.material(), Type.CHESTPLATE, settings
+    public CapeChestplateItem(Settings settings, ExtendedArmorMaterial armorMaterial, ModSubFactions subFaction) {
+        super(armorMaterial.material(), Type.CHESTPLATE, settings
                 .maxCount(1)
-                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.FABRIC_T0.durabilityModifier())));
+                .maxDamage(Type.CHESTPLATE.getMaxDamage(armorMaterial.durabilityModifier())));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
     }

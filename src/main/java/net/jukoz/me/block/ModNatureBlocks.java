@@ -1,6 +1,7 @@
 package net.jukoz.me.block;
 
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
+import net.jukoz.me.datageneration.content.tags.Saplings;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.features.tree.ModTreeConfiguredFeatures;
 import net.jukoz.me.MiddleEarth;
@@ -467,6 +468,7 @@ public class ModNatureBlocks {
                 AbstractBlock.Settings.copy(Blocks.OAK_SAPLING));
         Block resultBlock = registerBlock(name, saplingBlock, true);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
+        Saplings.saplings.add(resultBlock);
         return resultBlock;
     }
 

@@ -21,6 +21,8 @@ public class PlayerData {
 
     public PlayerData(){
         this.affiliationData = null;
+        this.race = null;
+        this.overworldSpawnCoordinates = null;
     }
     public void setRace(Identifier raceId){
         this.race = raceId;
@@ -124,6 +126,7 @@ public class PlayerData {
     public void clearData() {
         this.affiliationData = null;
         this.overworldSpawnCoordinates = null;
+        this.race = null;
     }
 
     public boolean setSpawnMiddleEarthId(World world, Identifier foundId) throws FactionIdentifierException {

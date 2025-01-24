@@ -114,6 +114,9 @@ public class ModEggItems {
     public static final Item BANDIT_CHIEFTAIN_SPAWN_EGG = registerItem("bandit_chieftain_spawn_egg",
             new SpawnEggItem(ModEntities.BANDIT_CHIEFTAIN, 4541263, 9132338, new Item.Settings()));
 
+    public static final Item WILD_GOBLIN_SPAWN_EGG = registerItem("wild_goblin_spawn_egg",
+            new SpawnEggItem(ModEntities.WILD_GOBLIN, 4541263, 9132338, new Item.Settings()));
+
     public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
             new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));
 

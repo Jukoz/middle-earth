@@ -81,16 +81,6 @@ public class NpcData {
         if(gearDatas == null)
             return null;
 
-
-        List<NpcGearData> availableGearData = new ArrayList<>();
-
-        for(NpcGearData data : gearDatas){
-
-
-
-        }
-
-
         if(gearDatas.size() == 1)
             return gearDatas.getFirst();
 

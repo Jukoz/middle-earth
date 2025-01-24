@@ -39,6 +39,7 @@
         "material": "minecraft:iron",
         "pattern": "me:smithing_part"
       }
-    }
+    },
+    "count": 2
   }
 }
