@@ -56,7 +56,9 @@ public class ArtisanTable extends HorizontalFacingBlock {
                     if (disposition == null){
                         disposition = Disposition.NEUTRAL;
                     }
-                    return disposition.toString();
+                    System.out.println("opening data: " + disposition + "/" + player.isCreative());
+
+                    return disposition + "/" + player.isCreative();
                 }
 
                 @Override
@@ -71,7 +73,8 @@ public class ArtisanTable extends HorizontalFacingBlock {
                     if (disposition == null){
                         disposition = Disposition.NEUTRAL;
                     }
-                    return new ArtisanTableScreenHandler(syncId, playerInventory, disposition.toString());
+                    System.out.println("menu creation: " + disposition + "/" + player.isCreative());
+                    return new ArtisanTableScreenHandler(syncId, playerInventory, disposition + "/" + player.isCreative());
                 }
             });
         }

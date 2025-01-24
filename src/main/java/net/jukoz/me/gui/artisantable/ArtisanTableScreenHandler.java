@@ -49,10 +49,15 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     private ArtisanTableInputsShape inputsShape = null;
 
     private String disposition;
+    private boolean isCreative;
 
     public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory, String disposition) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
-        this.disposition = disposition;
+
+        String[] splited = disposition.split("/");
+        System.out.println("in the screen handler: " + Arrays.toString(splited));
+        this.disposition = splited[0];
+        this.isCreative = Boolean.parseBoolean(splited[1]);
     }
 
     public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory, final ScreenHandlerContext context) {
@@ -64,6 +69,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         };
 
         this.disposition = "neutral";
+        this.isCreative = false;
 
         this.input = new SimpleInventory(9) {
             public void markDirty() {
@@ -213,7 +219,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             if (recipeEntry.value().category.equals(currentCategory)){
                 if (Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.NEUTRAL){
                     filteredRecipes.add(recipeEntry);
-                } else if(Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.valueOf(this.disposition.toUpperCase())) {
+                } else if(Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.valueOf(this.disposition.toUpperCase()) || this.isCreative) {
                     filteredRecipes.add(recipeEntry);
                 }
             }
