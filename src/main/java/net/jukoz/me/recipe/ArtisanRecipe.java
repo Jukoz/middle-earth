@@ -18,6 +18,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
     public final String category;
@@ -62,16 +63,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
 
             if (ingredient.getMatchingStacks().length == 1){
                 for (ItemStack itemStack2 : ingredient.getMatchingStacks()) {
-                    ItemStack inputCopy = input.getStackInSlot(j).copy();
-                    inputCopy.remove(DataComponentTypes.PROFILE);
-                    inputCopy.remove(DataComponentTypes.MAX_DAMAGE);
-                    inputCopy.remove(DataComponentTypes.INSTRUMENT);
-                    inputCopy.remove(ModDataComponentTypes.DYE_DATA);
-
-                    ItemStack inputCopy2 = itemStack2.copy();
-                    inputCopy2.remove(DataComponentTypes.MAX_DAMAGE);
-
-                    if (!ItemStack.areItemsAndComponentsEqual(inputCopy2, inputCopy)) return false;
+                    if (!Objects.equals(itemStack2.get(DataComponentTypes.TRIM), input.getStackInSlot(j).get(DataComponentTypes.TRIM))) return false;
                 }
             }
         }

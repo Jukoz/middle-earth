@@ -36,7 +36,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
-    
+
     @Inject(method = "getRespawnTarget", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
     public void getRespawnTargetWithBrokenBed(boolean alive, TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir) {
         if(ModDimensions.isInMiddleEarth(this.getWorld())){
@@ -72,7 +72,6 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
     @Unique
     private boolean tryToOverrideSpawn(TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir) {
         MinecraftServer server = this.getServer();
-        LoggerUtil.logDebugMsg("TRYING");
 
         if(server == null) return false;
         PlayerManager manager = server.getPlayerManager();
@@ -80,7 +79,6 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
 
         if(foundPlayer == null) return false;
         if(ModDimensions.isInMiddleEarth(this.getWorld())) {
-            LoggerUtil.logDebugMsg("RESPAWNING");
             PlayerData data = StateSaverAndLoader.getPlayerState(foundPlayer);
             if(data != null && data.hasAffilition()){
                 Vec3d spawnCoordinates = data.getSpawnMiddleEarthCoordinate(getWorld());
@@ -88,8 +86,8 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
                     ServerWorld MEWorld = this.server.getWorld(ModDimensions.ME_WORLD_KEY);
                     if(MEWorld != null){
                         Vec3d coordinates = new Vec3d(spawnCoordinates.x, spawnCoordinates.y + 1, spawnCoordinates.z);
-                            foundPlayer.setSpawnPoint(ModDimensions.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true, true);
-                            cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates, net.minecraft.util.math.Vec3d.ZERO, 0, 0, false,postDimensionTransition));
+                        foundPlayer.setSpawnPoint(ModDimensions.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true, true);
+                        cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates, net.minecraft.util.math.Vec3d.ZERO, 0, 0, false,postDimensionTransition));
                         return true;
                     }
                 }

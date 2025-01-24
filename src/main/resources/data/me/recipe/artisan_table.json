@@ -6,7 +6,7 @@
   ],
   "key": {
     "S": {
-      "item": "minecraft:stone"
+      "tag": "minecraft:stone_crafting_materials"
     },
     "T": {
       "item": "me:tin_ingot"

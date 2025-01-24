@@ -38,12 +38,12 @@ public class ModWeaponItems {
 
     //region GENERIC
     public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.BRONZE), false);
+            new CustomSwordWeaponItem(ModToolMaterials.BRONZE), true);
     public static final Item CRUDE_FALCHION = registerItemWithModel("crude_falchion",
             new CustomSwordWeaponItem(ModToolMaterials.CRUDE), true);
     
     public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.STEEL), false);
+            new CustomSwordWeaponItem(ModToolMaterials.STEEL), true);
     public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL), true);
     public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("edhel_steel_sword",

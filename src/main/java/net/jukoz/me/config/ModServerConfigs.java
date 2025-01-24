@@ -3,11 +3,13 @@ package net.jukoz.me.config;
 import com.mojang.datafixers.util.Pair;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
+import net.minecraft.util.math.Vec3d;
 
 public class ModServerConfigs {
     public static SimpleConfig CONFIG;
     private final static String PATH = MiddleEarth.MOD_ID + "/config-common";
     private static ModConfigProvider configs;
+
     /**Should players be allowed to change factions when they use the starlight phial?**/
     public static boolean ENABLE_FACTION_RESET;
     /**Should players keep their race when returning to the Overworld**/

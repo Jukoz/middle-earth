@@ -1237,23 +1237,23 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BLUE_HOBBIT_DOOR, 1)
-                .pattern(" B ")
+                .pattern(" BG")
                 .pattern("BDG")
-                .pattern(" B ")
+                .pattern(" BG")
                 .input('D', ModDecorativeBlocks.LARCH_HOBBIT_DOOR)
                 .input('B', Items.BLUE_DYE)
-                .input('G', Items.GOLD_INGOT)
+                .input('G', Items.GOLD_NUGGET)
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GREEN_HOBBIT_DOOR, 1)
-                .pattern(" B ")
+                .pattern(" BG")
                 .pattern("BDG")
-                .pattern(" B ")
+                .pattern(" BG")
                 .input('D', ModDecorativeBlocks.LARCH_HOBBIT_DOOR)
                 .input('B', Items.GREEN_DYE)
-                .input('G', Items.GOLD_INGOT)
+                .input('G', Items.GOLD_NUGGET)
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR))
                 .offerTo(exporter);
@@ -1269,23 +1269,23 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.RED_HOBBIT_DOOR, 1)
-                .pattern(" B ")
+                .pattern(" BG")
                 .pattern("BDG")
-                .pattern(" B ")
+                .pattern(" BG")
                 .input('D', ModDecorativeBlocks.LARCH_HOBBIT_DOOR)
                 .input('B', Items.RED_DYE)
-                .input('G', Items.GOLD_INGOT)
+                .input('G', Items.GOLD_NUGGET)
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.YELLOW_HOBBIT_DOOR, 1)
-                .pattern(" B ")
+                .pattern(" BG")
                 .pattern("BDG")
-                .pattern(" B ")
+                .pattern(" BG")
                 .input('D', ModDecorativeBlocks.LARCH_HOBBIT_DOOR)
                 .input('B', Items.YELLOW_DYE)
-                .input('G', Items.GOLD_INGOT)
+                .input('G', Items.GOLD_NUGGET)
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.LARCH_HOBBIT_DOOR))
                 .offerTo(exporter);
@@ -1975,6 +1975,47 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(ModDecorativeBlocks.POT_OF_GOLD),
                         FabricRecipeProvider.conditionsFromItem(ModDecorativeBlocks.POT_OF_GOLD))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "gold_from_pot_of_gold"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModWeaponItems.HELD_BANNER, 1)
+                .pattern("WWW")
+                .pattern("WWW")
+                .pattern("WSW")
+                .input('W', TagKey.of(RegistryKeys.ITEM, Identifier.of("wool")))
+                .input('S', Items.STICK)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.GOLD_COIN),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.GOLD_COIN))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.SLATE.base(), 4)
+                .pattern("DS")
+                .pattern("SD")
+                .input('D', Items.DEEPSLATE)
+                .input('S', Items.STONE)
+                .criterion(FabricRecipeProvider.hasItem(Items.DEEPSLATE),
+                        FabricRecipeProvider.conditionsFromItem(Items.DEEPSLATE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.BLUE_TUFF.base(), 4)
+                .pattern("TG")
+                .pattern("GT")
+                .input('T', Items.TUFF)
+                .input('G', StoneBlockSets.GONLUIN.base())
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.GONLUIN.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.GONLUIN.base()))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.HEMATITE.base(), 4)
+                .pattern("SI")
+                .pattern("IS")
+                .input('S', Items.STONE)
+                .input('I', StoneBlockSets.IRONSTONE.base())
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.IRONSTONE.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.IRONSTONE.base()))
+                .offerTo(exporter);
+
+        createSmokingRecipe(exporter, Items.SHORT_GRASS, ModNatureBlocks.SCORCHED_GRASS.asItem());
+        createSmokingRecipe(exporter, ModNatureBlocks.GRASS_TUFT.asItem(), ModNatureBlocks.SCORCHED_TUFT.asItem());
+        createSmokingRecipe(exporter, ModNatureBlocks.GREEN_SHRUB.asItem(), ModNatureBlocks.SCORCHED_SHRUB.asItem());
         //endregion
 
         //region SMOKING-ONLY
@@ -2665,13 +2706,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     }
 
     private void createCookedFoodRecipes(RecipeExporter exporter, Item rawFood, Item cookedFood) {
-        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smelting", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, rawFood, cookedFood, 0.35f);
-        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, rawFood, cookedFood, 0.35f);
-        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new, 600, rawFood, cookedFood, 0.35f);
+        offerFoodCookingRecipe(exporter, "smelting", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, rawFood, cookedFood, 0.35f);
+        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, rawFood, cookedFood, 0.35f);
+        offerFoodCookingRecipe(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new, 600, rawFood, cookedFood, 0.35f);
     }
 
     private void createSmokingRecipe(RecipeExporter exporter, Item rawFood, Item cookedFood) {
-        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, rawFood, cookedFood, 0.35f);
+        offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, rawFood, cookedFood, 0.35f);
     }
 
     private void createMetalsRecipe(RecipeExporter exporter, Item nugget, Item ingot, Block block) {

@@ -238,9 +238,6 @@ public class HelpingGenerator {
             Planks.planks.add(set.planks());
             Doors.doors.add(set.door());
             Trapdoors.trapdoors.add(set.trapdoor());
-            if(set.sapling() != null){
-                Saplings.saplings.add(set.sapling());
-            }
 
             WoodenSlabs.woodenSlabs.add(set.planksSlab());
             WoodenVerticalSlabs.woodenVericalSlabs.add(set.planksVerticalSlab());

@@ -45,6 +45,7 @@ import net.jukoz.me.entity.model.ModEntityModels;
 import net.jukoz.me.entity.orcs.isengard.IsengardOrcRenderer;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
+import net.jukoz.me.entity.orcs.wild.WildGoblinRenderer;
 import net.jukoz.me.entity.pheasant.PheasantRenderer;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntityRenderer;
 import net.jukoz.me.entity.projectile.spear.SpearEntityRenderer;
@@ -176,7 +177,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.BANDIT_MILITIA, BanditHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.BANDIT_SOLDIER, BanditHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.BANDIT_CHIEFTAIN, BanditHumanRenderer::new);
-        
+        EntityRendererRegistry.register(ModEntities.WILD_GOBLIN, WildGoblinRenderer::new);
+
         EntityRendererRegistry.register(ModEntities.FIRE_OF_ORTHANC, FireOfOrthancEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PINECONE, FlyingItemEntityRenderer::new);
