@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/brown_jug",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/brown_jug"
+    },
+    "facing=south": {
+      "model": "me:block/brown_jug",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/brown_jug",
+      "y": 270
+    }
+  }
+}

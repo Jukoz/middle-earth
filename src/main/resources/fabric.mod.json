@@ -6,7 +6,7 @@
   "name": "Middle-earth",
   "description": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!",
   "authors": [
-    " Lead Dev: Jukoz, ObliviousCrab\n\nDeveloppers: Jukoz, ObliviousCrab, Slooshyboi, TomSchlom, Froosty11, nullBlade\n\nArtists: Boenndal, Jooble, Sindavar, Thijs, Jukoz, Khuz, ObliviousCrab, R3tt0, Thorin_The_III, Tom, WorseNotePad, JB3, Tyn, Python_200, Ag3ntCrab\n\nBuilders: Boenndal, Thijs, Slooshyboi, Jooble, Jukoz, ObliviousCrab, JB3, Grandison"
+    " Lead Dev: Jukoz, ObliviousCrab\n\nDeveloppers: Jukoz, ObliviousCrab, Slooshyboi, TomSchlom\n\nArtists: Boenndal, Jooble, Sindavar, Angmarzku, Jukoz, Khuz, ObliviousCrab, R3tt0\n\nBuilders: Angmarzku, Arwaeneth, Boenndal, Slooshyboi, Jooble, Jukoz, ObliviousCrab"
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/middle-earth",
@@ -14,7 +14,7 @@
     "issues": "https://github.com/Jukoz/middle-earth/issues"
   },
 
-  "license": "MIT",
+  "license": "ARR",
   "icon": "assets/me/icon.png",
 
   "environment": "*",

@@ -3,21 +3,25 @@ package net.jukoz.me.config;
 import com.mojang.datafixers.util.Pair;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
+import net.minecraft.util.math.Vec3d;
 
 public class ModServerConfigs {
     public static SimpleConfig CONFIG;
     private final static String PATH = MiddleEarth.MOD_ID + "/config-common";
     private static ModConfigProvider configs;
+
     /**Should players be allowed to change factions when they use the starlight phial?**/
     public static boolean ENABLE_FACTION_RESET;
     /**Should players keep their race when returning to the Overworld**/
-    public static boolean ENABLE_RACE_SWAP_ON_DIMENSION_SWAP;
+    public static boolean ENABLE_KEEP_RACE_ON_DIMENSION_SWAP;
     /**Amount of time before teleporting**/
     public static float DELAY_ON_TELEPORT_CONFIRMATION;
     /**Should players respawn at their selected spawn location in Middle-earth if they die without having a bed assigned?**/
     public static boolean ENABLE_SPAWN_OVERRIDE;
     /**Should players be able to return to the overworld by reusing the starlight phial?**/
     public static boolean ENABLE_RETURN_TO_OVERWORLD;
+    /** Allows to generation of procedural structures in Middle-earth**/
+    public static boolean ENABLE_PROCEDURAL_STRUCTURES;
     /** Allows broadhoof goats to be mounted by players and npcs. **/
     public static boolean ENABLE_MOUNT_BROADHOOF_GOAT;
     /** Allows to craft golden carrots and golden apples in Middle-earth**/
@@ -41,6 +45,8 @@ public class ModServerConfigs {
         configs.addKeyValuePair(new Pair<>("enableSpawnOverride", true), "boolean");
         configs.addDescription("Should players be able to return to the overworld by reusing the starlight phial?");
         configs.addKeyValuePair(new Pair<>("enableReturnToOverworld", true), "boolean");
+        configs.addDescription("Should procedural structures (such as Orthanc) generate in Middle-earth?");
+        configs.addKeyValuePair(new Pair<>("enableProceduralStructures", true), "boolean");
         configs.addLineJump();
 
         // Faction configurations
@@ -48,7 +54,7 @@ public class ModServerConfigs {
         configs.addDescription("Should players be allowed to change factions when they use the starlight phial?");
         configs.addKeyValuePair(new Pair<>("enableFactionReset", true), "boolean");
         configs.addDescription("Should players keep their race when returning to the Overworld");
-        configs.addKeyValuePair(new Pair<>("enableRaceSwapOnDimensionSwap", true), "boolean");
+        configs.addKeyValuePair(new Pair<>("enableKeepRaceOnDimensionSwap", true), "boolean");
         configs.addDescription("Amount of time before teleporting");
         configs.addKeyValuePair(new Pair<>("delayOnTeleportConfirmation", 3), "int");
         configs.addLineJump();
@@ -68,9 +74,10 @@ public class ModServerConfigs {
         // World configurations
         ENABLE_SPAWN_OVERRIDE = CONFIG.getOrDefault("enableSpawnOverride", true);
         ENABLE_RETURN_TO_OVERWORLD = CONFIG.getOrDefault("enableReturnToOverworld", true);
+        ENABLE_PROCEDURAL_STRUCTURES = CONFIG.getOrDefault("enableProceduralStructures", true);
         // Faction configurations
         ENABLE_FACTION_RESET = CONFIG.getOrDefault("enableFactionReset", true);
-        ENABLE_RACE_SWAP_ON_DIMENSION_SWAP = CONFIG.getOrDefault("enableRaceSwapOnDimensionSwap", true);
+        ENABLE_KEEP_RACE_ON_DIMENSION_SWAP = CONFIG.getOrDefault("enableKeepRaceOnDimensionSwap", true);
         DELAY_ON_TELEPORT_CONFIRMATION = CONFIG.getOrDefault("delayOnTeleportConfirmation", 3);
         // Mount configurations
         ENABLE_MOUNT_BROADHOOF_GOAT = CONFIG.getOrDefault("enableMountBroadhoofGoat", true);

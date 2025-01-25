@@ -1,6 +1,65 @@
 {
   "pools": [
     {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:rohan_banner_pattern",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:arming_coat"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:rohirric_leather_helmet"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:bronze_spear"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:bronze_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:rohirric_cape"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:round_shield",
+		  "functions": [
+            {
+              "function": "minecraft:set_banner_pattern",
+              "patterns": [
+                {
+                  "pattern": "minecraft:base",
+                  "color": "green"
+                },
+                {
+                  "pattern": "minecraft:gradient",
+                  "color": "lime"
+                },
+                {
+                  "pattern": "me:horse",
+                  "color": "white"
+                }
+              ],
+              "append": true
+            }
+          ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 1
+    },
+    {
       "rolls": {
         "min": 0,
         "max": 2
@@ -81,18 +140,6 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:lead"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:rohan_banner_pattern"
         }
       ]
     }

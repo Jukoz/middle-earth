@@ -1,0 +1,38 @@
+{
+  "parent": "me:smithing/root",
+  "criteria": {
+    "tin_cauldron": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:cauldron"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.tin_cauldron.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "minecraft:cauldron"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.tin_cauldron.title"
+    }
+  },
+  "requirements": [
+    [
+      "tin_cauldron"
+    ]
+  ]
+}

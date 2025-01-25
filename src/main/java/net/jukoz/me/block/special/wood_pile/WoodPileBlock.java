@@ -74,7 +74,7 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
         if (world.isClient) {
             return ActionResult.SUCCESS;
         }  else {
-            if (player.isInCreativeMode()) {
+            if (player.isInCreativeMode() && player.isSneaking()) {
                 world.setBlockState(pos, state.cycle(STAGE));
             } else {
                 if (addStackRightClick(world, pos, player, player.getActiveHand())) {

@@ -14,9 +14,18 @@
                   "me:dark_mirkwood_edge",
                   "me:mirkwood",
                   "me:mirkwood_foothills",
+                  "me:mirkwood_mountains_base",
                   "me:mirkwood_mountains",
+                  "me:mirkwood_marshes",
                   "me:mirkwood_swamp",
-                  "me:mirkwood_edge"
+                  "me:mirkwood_edge",
+                  "me:northern_mirkwood_marshes",
+                  "me:northern_mirkwood_swamp",
+                  "me:webbed_woods",
+                  "me:webbed_dark_woods",
+                  "me:woodland_realm",
+                  "me:woodland_foothills",
+                  "me:woodland_hills"
                 ]
               }
             }

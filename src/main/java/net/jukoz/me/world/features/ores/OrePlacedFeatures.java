@@ -40,6 +40,7 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> CORRUPTED_MOSS_DISK = registerKey("corrupted_moss_disk");
     public static final RegistryKey<PlacedFeature> DIORITE_ORE = registerKey("diorite_ore");
     public static final RegistryKey<PlacedFeature> DIRT_TO_GRASS_ORE = registerKey("dirt_to_grass_ore");
+    public static final RegistryKey<PlacedFeature> GRASSY_DIRT_ORE = registerKey("grassy_dirt_ore");
     public static final RegistryKey<PlacedFeature> DIRTY_ROOTS_ORE = registerKey("dirty_roots");
     public static final RegistryKey<PlacedFeature> DOLOMITE_ORE = registerKey("dolomite_ore");
     public static final RegistryKey<PlacedFeature> DRIPSTONE_ORE = registerKey("dripstone_ore");
@@ -100,6 +101,7 @@ public class OrePlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> corruptedMoss = registryEntryLookup.getOrThrow(OreConfiguredFeatures.CORRUPTED_MOSS_DISK);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> diorite = registryEntryLookup.getOrThrow(OreConfiguredFeatures.DIORITE_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dirtToGrass = registryEntryLookup.getOrThrow(OreConfiguredFeatures.DIRT_TO_GRASS_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> grassyDirt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRASSY_DIRT_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dirtyRoots = registryEntryLookup.getOrThrow(OreConfiguredFeatures.DIRTY_ROOTS_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dolomite = registryEntryLookup.getOrThrow(OreConfiguredFeatures.DOLOMITE_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dripstone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.DRIPSTONE_ORE);
@@ -181,6 +183,8 @@ public class OrePlacedFeatures {
         PlacedFeatures.register(featureRegisterable, DIORITE_ORE, diorite, abundant,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, DIRT_TO_GRASS_ORE, dirtToGrass, abundant,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, GRASSY_DIRT_ORE, grassyDirt, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, DIRTY_ROOTS_ORE, dirtyRoots, frequent,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

@@ -1,11 +1,13 @@
 package net.jukoz.me.block.special;
 
 import com.mojang.serialization.MapCodec;
+import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.item.ModFoodItems;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -41,6 +43,11 @@ public class ToughBerryBushBlock extends CustomPlantBlock
     }
 
     @Override
+    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
+        return false;
+    }
+
+    @Override
     public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
         return new ItemStack(ModFoodItems.TOUGH_BERRIES);
     }
@@ -73,7 +80,7 @@ public class ToughBerryBushBlock extends CustomPlantBlock
 
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (!(entity instanceof LivingEntity) || entity.getType() == EntityType.BEE || entity.getType() == EntityType.FOX || entity.getType() == EntityType.BAT) {
+        if (!(entity instanceof LivingEntity) || entity.getType() == ModEntities.WARG || entity.getType() == EntityType.FOX || entity.getType() == EntityType.BAT) {
             return;
         }
         entity.slowMovement(state, new Vec3d(0.8f, 0.75, 0.8f));

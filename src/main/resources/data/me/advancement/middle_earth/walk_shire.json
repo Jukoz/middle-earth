@@ -11,8 +11,10 @@
               "location": {
                 "biomes": [
                   "me:shire",
-                  "me:shire_woods",
-                  "me:shire_edge"
+                  "me:shire_forest",
+                  "me:shire_hills",
+                  "me:shire_edge",
+                  "me:shire_woods"
                 ]
               }
             }

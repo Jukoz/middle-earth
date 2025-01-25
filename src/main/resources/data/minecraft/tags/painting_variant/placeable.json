@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "me:dwarf_portrait",
+    "me:elf_portrait",
     "me:hobbit_portrait",
     "me:human_portrait",
     "me:orc_portrait",

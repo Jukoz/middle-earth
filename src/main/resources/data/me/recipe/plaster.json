@@ -5,16 +5,16 @@
       "item": "minecraft:water_bucket"
     },
     {
-      "item": "minecraft:sand"
+      "tag": "minecraft:smelts_to_glass"
     },
     {
-      "item": "minecraft:sand"
+      "tag": "minecraft:smelts_to_glass"
     },
     {
-      "item": "minecraft:sand"
+      "tag": "minecraft:smelts_to_glass"
     },
     {
-      "item": "minecraft:sand"
+      "tag": "minecraft:smelts_to_glass"
     },
     {
       "item": "minecraft:clay"

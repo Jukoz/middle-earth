@@ -18,10 +18,14 @@ public class ModArmorMaterials {
 
     public static final ExtendedArmorMaterial STRAW_T1 = registerArmor("straw_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModResourceItems.STRAW);
 
+    public static final ExtendedArmorMaterial WOOL_T1 = registerArmor("wool_t1", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModResourceItems.FUR);
+
+    public static final ExtendedArmorMaterial FUR_T0 = registerArmor("fur_t1", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModResourceItems.FUR);
+    public static final ExtendedArmorMaterial FUR_T1 = registerArmor("fur_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModResourceItems.FUR);
+
     public static final ExtendedArmorMaterial FABRIC_T0 = registerArmor("fabric_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModResourceItems.FABRIC);
     public static final ExtendedArmorMaterial FABRIC_T1 = registerArmor("fabric_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModResourceItems.FABRIC);
 
-    public static final ExtendedArmorMaterial LEATHER_T0 = registerArmor("leather_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, Items.LEATHER);
     public static final ExtendedArmorMaterial LEATHER_T1 = registerArmor("leather_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, Items.LEATHER);
     public static final ExtendedArmorMaterial LEATHER_T2 = registerArmor("leather_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, Items.LEATHER);
     public static final ExtendedArmorMaterial LEATHER_T3 = registerArmor("leather_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, Items.LEATHER);
@@ -72,11 +76,11 @@ public class ModArmorMaterials {
         int durabilityMultiplier;
         switch (tier) {
             case CLOTHING -> {
-                map.put(ArmorItem.Type.BOOTS, 0);
-                map.put(ArmorItem.Type.LEGGINGS, 0);
-                map.put(ArmorItem.Type.CHESTPLATE, 0);
-                map.put(ArmorItem.Type.HELMET, 0);
-                map.put(ArmorItem.Type.BODY, 0);
+                map.put(ArmorItem.Type.BOOTS, 1);
+                map.put(ArmorItem.Type.LEGGINGS, 1);
+                map.put(ArmorItem.Type.CHESTPLATE, 1);
+                map.put(ArmorItem.Type.HELMET, 1);
+                map.put(ArmorItem.Type.BODY, 1);
                 durabilityMultiplier = 5;
                 toughness = 0.0f;
                 knockbackResistance = 0.0f;

@@ -2,12 +2,13 @@
   "type": "minecraft:entity",
   "pools": [
     {
+      "#Comment": "VERY RARE",
       "rolls": 1,
-      "bonus_rolls": 0,
+      "bonus_rolls": 0.5,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:silver_coin",
+          "name": "minecraft:skeleton_skull",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -17,24 +18,83 @@
                 "max": 1
               },
               "add": false
-            },
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:gold_coin",
+          "functions": [
             {
-              "function": "minecraft:enchanted_count_increase",
-              "enchantment": "minecraft:looting",
+              "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 0,
-                "max": 2
-              }
+                "max": 1
+              },
+              "add": false
             }
-          ]
+          ],
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 5
         }
       ]
     },
     {
+      "#Comment": "RARE",
       "rolls": 1,
-      "bonus_rolls": 0,
+      "bonus_roll": 1,
       "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:cooked_horse",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 2
+              },
+              "add": false
+            }
+          ],
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:silver_coin",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              },
+              "add": false
+            }
+          ],
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:crude_nugget",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 2
+              },
+              "add": false
+            }
+          ]
+        },
         {
           "type": "minecraft:item",
           "name": "me:dirty_bone",
@@ -42,51 +102,79 @@
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 1,
                 "max": 2
-              }
+              },
+              "add": false
             }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:killed_by_player"
-        },
-        {
-          "condition": "minecraft:random_chance_with_enchanted_bonus",
-          "enchantment": "minecraft:looting",
-          "unenchanted_chance": 0.5,
-          "enchanted_chance": {
-            "type": "minecraft:linear",
-            "base": 0.6,
-            "per_level_above_first": 0.1
-          }
+          ],
+          "weight": 3
         }
       ]
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
+      "#Comment": "UNCOMMON",
+      "rolls": 2,
+      "bonus_rolls": 2,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:skeleton_skull"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:killed_by_player"
+          "name": "me:crude_nugget",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 2
+              },
+              "add": false
+            }
+          ]
         },
         {
-          "condition": "minecraft:random_chance_with_enchanted_bonus",
-          "enchantment": "minecraft:looting",
-          "unenchanted_chance": 0.05,
-          "enchanted_chance": {
-            "type": "minecraft:linear",
-            "base": 0.1,
-            "per_level_above_first": 0.05
-          }
+          "type": "minecraft:item",
+          "name": "me:silver_coin",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 2
+              },
+              "add": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "#Comment": "COMMON",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:arrow",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 4
         }
       ]
     }

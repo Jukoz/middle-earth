@@ -23,9 +23,11 @@ import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.datas.DispositionUtil;
 import net.jukoz.me.resources.datas.RaceType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.resources.datas.factions.FactionUtil;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.NpcUtil;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
@@ -38,6 +40,9 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,6 +50,7 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
@@ -55,6 +61,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
@@ -123,7 +130,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
             }
 
             if (this.bow != null) {
-                this.bowAttackGoal.setAttackInterval(20);
+                this.bowAttackGoal.setAttackInterval(16);
                 this.goalSelector.add(2, this.bowAttackGoal);
             } else {
                 this.goalSelector.add(2, this.meleeAttackGoal);
@@ -269,6 +276,44 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         super.applyDamage(source, amount);
     }
 
+
+    @Override
+    protected void dropXp(@Nullable Entity attacker) {
+        if(attacker instanceof PlayerEntity player && canDrop(player, null)){
+            super.dropXp(attacker);
+        }
+    }
+
+    @Override
+    protected void dropLoot(DamageSource damageSource, boolean causedByPlayer) {
+        if(damageSource.getAttacker() instanceof PlayerEntity player && canDrop(player, damageSource)){
+            super.dropLoot(damageSource, causedByPlayer);
+        }
+    }
+
+    private boolean canDrop(PlayerEntity player, DamageSource damageSource) {
+        /*
+        // If we want more control over what drop and what doesn't allow drops
+        if(!causedByPlayer){
+            String damageSourceValue = damageSource.getTypeRegistryEntry().getIdAsString();
+            if(Objects.equals(damageSourceValue, DamageTypes.IN_WALL.getValue().toString()))
+                return false;
+        }
+        */
+
+        if(player != null){
+            Disposition playerDisposition = DispositionUtil.getDisposition(player);
+            return playerDisposition == null || playerDisposition != getDisposition();
+        }
+
+        return true;
+    }
+
+    @Override
+    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
+        return;
+    }
+
     protected void tryToEquipGears(NpcRank npcRank, Identifier raceId, Identifier factionId) {
         if(factionId == null)
             return;
@@ -276,6 +321,8 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
             Faction faction = FactionLookup.getFactionById(getWorld(), factionId);
             Race race = RaceLookup.getRace(getWorld(), raceId);
             NpcData data = faction.getRandomGear(getWorld(), npcRank, race);
+            if(data == null)
+                return;
             NpcGearData gearData = data.getGear();
             NpcUtil.equipAll(this, gearData);
         } catch (FactionIdentifierException e) {

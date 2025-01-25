@@ -92,22 +92,22 @@ public class ModFoodItems {
                     new FoodComponent.Builder().nutrition(9).saturationModifier(0.9f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
     public static final Item MEAT_SKEWER = registerItem("meat_skewer",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(5).saturationModifier(0.6f).usingConvertsTo(Items.STICK).build()).maxCount(1)));
+                    new FoodComponent.Builder().nutrition(5).saturationModifier(0.6f).usingConvertsTo(Items.STICK).build()).maxCount(8)));
     public static final Item COOKED_MEAT_SKEWER = registerItem("cooked_meat_skewer",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(10).saturationModifier(0.8f).usingConvertsTo(Items.STICK).build()).maxCount(1)));
+                    new FoodComponent.Builder().nutrition(10).saturationModifier(0.8f).usingConvertsTo(Items.STICK).build()).maxCount(8)));
     public static final Item POULTRY_MEAL = registerItem("poultry_meal",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
+                    new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).usingConvertsTo(Items.BOWL).build()).maxCount(8)));
     public static final Item VEGETABLE_SKEWER = registerItem("vegetable_skewer",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.3f).usingConvertsTo(Items.STICK).build()).maxCount(1)));
+                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.3f).usingConvertsTo(Items.STICK).build()).maxCount(8)));
     public static final Item COOKED_VEGETABLE_SKEWER = registerItem("cooked_vegetable_skewer",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(4).saturationModifier(0.6f).usingConvertsTo(Items.STICK).build()).maxCount(1)));
+                    new FoodComponent.Builder().nutrition(6).saturationModifier(0.6f).usingConvertsTo(Items.STICK).build()).maxCount(8)));
     public static final Item VEGETABLE_SOUP = registerItem("vegetable_soup",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(6).saturationModifier(0.6f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
+                    new FoodComponent.Builder().nutrition(7).saturationModifier(0.6f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
 
     public static final Item SACK_OF_HORSEFEED = registerItem("sack_of_horsefeed",
             new Item(new Item.Settings().food(

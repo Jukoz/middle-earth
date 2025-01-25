@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "me:lembas"
+            "items": [
+              "me:lembas"
+            ]
           }
         ]
       },
@@ -22,7 +24,8 @@
     },
     "title": {
       "translate": "advancements.middle_earth.lembas.title"
-    }
+    },
+    "announce_to_chat": true
   },
   "requirements": [
     [

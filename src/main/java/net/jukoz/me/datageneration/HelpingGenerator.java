@@ -238,9 +238,6 @@ public class HelpingGenerator {
             Planks.planks.add(set.planks());
             Doors.doors.add(set.door());
             Trapdoors.trapdoors.add(set.trapdoor());
-            if(set.sapling() != null){
-                Saplings.saplings.add(set.sapling());
-            }
 
             WoodenSlabs.woodenSlabs.add(set.planksSlab());
             WoodenVerticalSlabs.woodenVericalSlabs.add(set.planksVerticalSlab());
@@ -321,6 +318,11 @@ public class HelpingGenerator {
             Doors.doors.add(set.door());
             Trapdoors.trapdoors.add(set.trapdoor());
             WoodenSlabs.woodenSlabs.add(set.planksSlab());
+
+            SimpleWoodStoolModel.stools.add(set.stool());
+            SimpleWoodBenchModel.benchs.add(set.bench());
+            SimpleWoodTableModel.tables.add(set.table());
+            SimpleWoodChairModel.chairs.add(set.chair());
         }
 
         for (OtherBlockSets.RoofBlockSet set : OtherBlockSets.sets) {
@@ -371,16 +373,21 @@ public class HelpingGenerator {
             SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.block(), set.slab()));
             SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.block(), set.slab(), set.verticalSlab()));
             SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.block(), set.stairs()));
+            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.block(), set.wall()));
 
             BlockDrops.blocks.add(set.block());
             BlockDrops.blocks.add(set.slab());
             BlockDrops.blocks.add(set.verticalSlab());
             BlockDrops.blocks.add(set.stairs());
+            BlockDrops.blocks.add(set.wall());
 
             MineableAxe.blocks.add(set.block());
             MineableAxe.blocks.add(set.slab());
             MineableAxe.blocks.add(set.verticalSlab());
             MineableAxe.blocks.add(set.stairs());
+            MineableAxe.blocks.add(set.wall());
+
+            Walls.walls.add(set.wall());
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab set : SimpleVerticalSlabModel.vanillaVerticalSlabs) {

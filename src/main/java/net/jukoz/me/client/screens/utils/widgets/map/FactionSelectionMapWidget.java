@@ -1,6 +1,7 @@
 package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.client.screens.faction_selection.FactionSelectionController;
+import net.jukoz.me.client.screens.utils.widgets.UiDirections;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerType;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
@@ -11,6 +12,7 @@ import net.minecraft.util.Formatting;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +36,8 @@ public class FactionSelectionMapWidget extends MapWidget {
         spawnMapMarkers = new MapMarkerWidget[maxSpawnCount[0]];
         for(int i = 0; i< maxSpawnCount[0]; i++){
             int finalIndex = i;
-            spawnMapMarkers[i] = new MapMarkerWidget("SpawnButton_" + i, x -> selectSpawn(finalIndex));
+            spawnMapMarkers[i] = new MapMarkerWidget("SpawnButton_" + i, x -> selectSpawn(finalIndex),
+                    new Rectangle2D.Double(0, 0, uiWidth, uiHeight - 11));
             spawnMapMarkers[i].setType(MapMarkerType.DYNAMIC_SPAWN);
         }
         updateSelectedSpawn(controller.getCurrentSpawnIndex());

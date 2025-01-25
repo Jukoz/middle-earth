@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/pot_of_gold",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/pot_of_gold"
+    },
+    "facing=south": {
+      "model": "me:block/pot_of_gold",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/pot_of_gold",
+      "y": 270
+    }
+  }
+}

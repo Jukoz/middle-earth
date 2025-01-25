@@ -466,6 +466,10 @@ public class ModelProvider extends FabricModelProvider {
             blockStateModelGenerator.registerFlowerbed(block);
         }
 
+        for (SimpleFlowerPotModel.FlowerPot flowerPot : SimpleFlowerPotModel.pots) {
+            registerFlowerPotPlant(blockStateModelGenerator, flowerPot.plant(), flowerPot.pottedPlant(), BlockStateModelGenerator.TintType.NOT_TINTED);
+        }
+
         for (Block block : SimpleDoubleBlockModel.doubleBlocks) {
             blockStateModelGenerator.registerDoubleBlock(block, BlockStateModelGenerator.TintType.NOT_TINTED);
         }
@@ -562,14 +566,6 @@ public class ModelProvider extends FabricModelProvider {
             registerRocksBlock(blockStateModelGenerator, rocks.rocks(), rocks.block());
         }
 
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.stool());
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.DARK_MUSHROOM.stool());
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.GRAY_MUSHROOM.stool());
-
-        registerWoodBenchModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.bench());
-        registerWoodBenchModelBlockStates(blockStateModelGenerator, MushroomBlockSets.DARK_MUSHROOM.bench());
-        registerWoodBenchModelBlockStates(blockStateModelGenerator, MushroomBlockSets.GRAY_MUSHROOM.bench());
-
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools) {
             registerWoodStoolModelBlockStates(blockStateModelGenerator, stool.base());
         }
@@ -585,15 +581,6 @@ public class ModelProvider extends FabricModelProvider {
         for(SimpleWoodChairModel.VanillaChair chair : SimpleWoodChairModel.vanillaChairs) {
             registerWoodChairModelBlockStates(blockStateModelGenerator, chair.base());
         }
-
-        registerWoodChairModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.chair());
-        registerWoodChairModelBlockStates(blockStateModelGenerator, MushroomBlockSets.DARK_MUSHROOM.chair());
-        registerWoodChairModelBlockStates(blockStateModelGenerator, MushroomBlockSets.GRAY_MUSHROOM.chair());
-
-
-        registerWoodTableModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.table());
-        registerWoodTableModelBlockStates(blockStateModelGenerator, MushroomBlockSets.DARK_MUSHROOM.table());
-        registerWoodTableModelBlockStates(blockStateModelGenerator, MushroomBlockSets.GRAY_MUSHROOM.table());
 
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
@@ -746,6 +733,12 @@ public class ModelProvider extends FabricModelProvider {
         Identifier identifier = texturedModel.upload(coralFanBlock, blockStateCollector.modelCollector);
         blockStateCollector.blockStateCollector.accept(blockStateCollector.createSingletonBlockState(coralFanBlock, identifier));
         blockStateCollector.registerItemModel(coralFanBlock);
+    }
+
+    public final void registerFlowerPotPlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, BlockStateModelGenerator.TintType tintType) {
+        TextureMap textureMap = TextureMap.plant(plantBlock);
+        Identifier identifier = tintType.getFlowerPotCrossModel().upload(flowerPotBlock, textureMap, blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.blockStateCollector.accept(blockStateModelGenerator.createSingletonBlockState(flowerPotBlock, identifier));
     }
 
     public void registerVanillaVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath) {

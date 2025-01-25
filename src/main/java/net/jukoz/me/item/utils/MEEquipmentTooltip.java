@@ -3,9 +3,11 @@ package net.jukoz.me.item.utils;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ProfileComponent;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
@@ -54,7 +56,7 @@ public interface MEEquipmentTooltip {
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
 
-            if(!(stack.getDamage() < stack.getMaxDamage() - 1)) {
+            if(!(stack.getItem() instanceof BlockItem) && !(stack.getDamage() < stack.getMaxDamage() - 1)) {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".broken").formatted(Formatting.GRAY));
             }
 

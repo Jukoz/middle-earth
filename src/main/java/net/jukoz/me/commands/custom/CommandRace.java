@@ -5,11 +5,8 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.jukoz.me.commands.CommandUtils;
 import net.jukoz.me.commands.ModCommands;
-import net.jukoz.me.commands.suggestions.AllJoinableFactionSuggestionProvider;
 import net.jukoz.me.commands.suggestions.AllRaceSuggestionProvider;
-import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.resources.StateSaverAndLoader;
-import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.resources.datas.races.RaceUtil;
@@ -23,7 +20,6 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 
 import static net.minecraft.server.command.CommandManager.argument;
@@ -127,7 +123,7 @@ public class CommandRace {
                     if(playerData != null){
                         Race race = RaceLookup.getRace(source.getWorld(), raceId);
                         if(race != null){
-                            RaceUtil.updateRace(source, race);
+                            RaceUtil.updateRace(source, race, true);
                             MutableText sourceText = Text.translatable("command.me.race.set.success",
                                     race.getFullName().copyContentOnly().withColor(RACE_COLOR));
                             source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
@@ -151,7 +147,7 @@ public class CommandRace {
             if(playerData != null){
                 Race race = RaceLookup.getRace(source.getWorld(), raceId);
                 if(race != null){
-                    RaceUtil.updateRace(targetPlayer, race);
+                    RaceUtil.updateRace(targetPlayer, race, true);
                     MutableText sourceText = Text.translatable("command.me.race.set.target.success", targetPlayer.getName(),
                             race.getFullName().copyContentOnly().withColor(RACE_COLOR));
                     source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
@@ -175,7 +171,8 @@ public class CommandRace {
             if(source != null) {
                 PlayerData playerData = StateSaverAndLoader.getPlayerState(source);
                 if(playerData != null){
-                    RaceUtil.updateRace(source, null);
+                    RaceUtil.updateRace(source, null, true);
+                    RaceUtil.reset(source);
                     MutableText sourceText = Text.translatable("command.me.race.reset.success");
                     source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
                     return 0;
@@ -191,19 +188,22 @@ public class CommandRace {
         ServerPlayerEntity targetPlayer = EntityArgumentType.getPlayer(context, PLAYER);
         ServerPlayerEntity source = context.getSource().getPlayer();
 
-        if(source != null && targetPlayer != null) {
-            PlayerData playerData = StateSaverAndLoader.getPlayerState(targetPlayer);
-            if(playerData != null){
-                RaceUtil.updateRace(targetPlayer, null);
+        PlayerData playerData = StateSaverAndLoader.getPlayerState(targetPlayer);
+        if(targetPlayer != null){
+            RaceUtil.updateRace(targetPlayer, null, true);
+            RaceUtil.reset(targetPlayer);
+
+            if(source != null && targetPlayer != null) {
                 MutableText sourceText = Text.translatable("command.me.race.reset.target.success", targetPlayer.getName());
                 targetPlayer.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
-                MutableText targetText = Text.translatable("command.me.race.reset.success");
-                targetPlayer.sendMessage(targetText.withColor(ModColors.SUCCESS.color));
-                return 0;
             }
-            MutableText sourceText = Text.translatable("command.me.race.reset.target.fail", targetPlayer.getName());
-            source.sendMessage(sourceText.withColor(ModColors.WARNING.color));
+            MutableText targetText = Text.translatable("command.me.race.reset.success");
+            targetPlayer.sendMessage(targetText.withColor(ModColors.SUCCESS.color));
+            return 0;
         }
+        MutableText sourceText = Text.translatable("command.me.race.reset.target.fail", targetPlayer.getName());
+        source.sendMessage(sourceText.withColor(ModColors.WARNING.color));
+
         return 0;
     }
 }

@@ -1,5 +1,6 @@
 package net.jukoz.me.entity.beasts.trolls.stone;
 
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.entity.goals.BeastTargetPlayerGoal;
@@ -15,7 +16,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -26,9 +30,7 @@ import java.util.List;
 public class StoneTrollEntity extends TrollEntity {
     public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public static final List<RegistryKey<Biome>> darkBiomes = List.of(
-            MEBiomeKeys.MORDOR,
-            MEBiomeKeys.ERED_LITHUI,
-            MEBiomeKeys.MORDOR_WASTES
+
     );
     private final int PETRIFYING_DURATION = 600;
 
@@ -107,7 +109,10 @@ public class StoneTrollEntity extends TrollEntity {
     @Override
     protected boolean isAffectedByDaylight() {
         if (this.getWorld().isDay() && !this.getWorld().isClient()) {
-            float f = this.getBrightnessAtEyes();
+            if(this.getWorld().getBiome(getBlockPos()).isIn(TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "is_biome_in_darkness")))){
+                return false;
+            }
+            float f = this.getWorld().getBlockState(getBlockPos()).getAmbientOcclusionLightLevel(getWorld(), getBlockPos());
             BlockPos blockPos = BlockPos.ofFloored(this.getX(), this.getEyeY(), this.getZ());
             return f > 0.5f && this.getWorld().isSkyVisible(blockPos);
         }

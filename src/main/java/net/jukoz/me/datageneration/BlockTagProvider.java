@@ -219,6 +219,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         climbable.add(ModDecorativeBlocks.ROPE);
         climbable.add(ModDecorativeBlocks.ROPE_LADDER);
         climbable.add(ModBlocks.NET);
+        climbable.add(ModNatureBlocks.MIRKWOOD_VINES);
+        climbable.add(ModNatureBlocks.MIRKWOOD_VINES_PLANT);
 
         needsStoneTools.add(OreRockSets.GONLUIN.copper_ore());
         needsStoneTools.add(OreRockSets.GONLUIN.coal_ore());
@@ -290,7 +292,11 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(ModDecorativeBlocks.SPIKY_CHAIN);
 
         needsStoneTools.add(ModDecorativeBlocks.WATERING_CAN);
-        mineablePickaxe.add(ModDecorativeBlocks.WATERING_CAN);
+
+        mineablePickaxe.add(ModDecorativeBlocks.GOLDEN_CHALICE);
+
+        mineablePickaxe.add(ModDecorativeBlocks.ARKENSTONE);
+        mineablePickaxe.add(ModDecorativeBlocks.WALL_ARKENSTONE);
 
         mineableAxe.add(ModDecorativeBlocks.WOODEN_BUCKET);
 
@@ -322,10 +328,21 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModDecorativeBlocks.ELVEN_LANTERN);
         mineablePickaxe.add(ModDecorativeBlocks.WALL_ELVEN_LANTERN);
 
+        mineablePickaxe.add(ModDecorativeBlocks.COPPER_TREASURE_HEAP_LAYER);
+        mineablePickaxe.add(ModDecorativeBlocks.SILVER_TREASURE_HEAP_LAYER);
+        mineablePickaxe.add(ModDecorativeBlocks.GOLD_TREASURE_HEAP_LAYER);
+        mineablePickaxe.add(ModDecorativeBlocks.COPPER_COIN_PILE);
+        mineablePickaxe.add(ModDecorativeBlocks.SILVER_COIN_PILE);
+        mineablePickaxe.add(ModDecorativeBlocks.GOLD_COIN_PILE);
+
         mineableShovel.add(ModBlocks.GRASSY_DIRT);
         mineableShovel.add(ModBlocks.GRASSY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.GRASSY_DIRT_STAIRS);
 
+        mineablePickaxe.add(ModBlocks.PEBBLED_GRASS);
+        mineablePickaxe.add(ModBlocks.PEBBLED_GRASS_SLAB);
+        mineablePickaxe.add(ModBlocks.PEBBLED_GRASS_STAIRS);
+        
         mineableShovel.add(ModBlocks.TURF);
         mineableShovel.add(ModBlocks.TURF_SLAB);
         mineableShovel.add(ModBlocks.TURF_STAIRS);

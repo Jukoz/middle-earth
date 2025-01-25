@@ -2,6 +2,7 @@ package net.jukoz.me.world.chunkgen.map;
 
 import com.google.common.base.Stopwatch;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.utils.resources.FileUtils;
 import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.jukoz.me.world.map.MiddleEarthMapGeneration;
 import org.joml.sampling.Convolution;
@@ -25,8 +26,8 @@ public class ImageUtils {
 
     public static Random random = new Random();
 
-    public static BufferedImage fetchResourceImage(ClassLoader classLoader, String path) throws IOException {
-        URL resource = classLoader.getResource(path);
+    public static BufferedImage fetchResourceImage(String path) throws IOException {
+        URL resource = ImageUtils.class.getClassLoader().getResource(path);
         BufferedImage img = ImageIO.read(resource);
         return img;
     }

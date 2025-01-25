@@ -2,9 +2,7 @@ package net.jukoz.me.datageneration.content.loot_tables;
 
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
-import net.jukoz.me.datageneration.content.models.SimpleLadderModel;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +21,25 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WOOD_PILE);
             add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
+
+            add(ModDecorativeBlocks.BROWN_JUG);
+            add(ModDecorativeBlocks.GRAY_POT);
+            add(ModDecorativeBlocks.LARGE_JUG);
+
+            add(ModDecorativeBlocks.AMPHORA);
+            add(ModDecorativeBlocks.BROWN_AMPHORA);
+            add(ModDecorativeBlocks.GRAY_VASE);
+
+            add(ModDecorativeBlocks.BROWN_JAR);
+            add(ModDecorativeBlocks.CLAY_JAR);
+            add(ModDecorativeBlocks.GRAY_JAR);
+            
+            add(ModDecorativeBlocks.BROWN_FAT_POT);
+            add(ModDecorativeBlocks.FAT_POT);
+            add(ModDecorativeBlocks.GRAY_FAT_POT);
+            add(ModDecorativeBlocks.POT_OF_GOLD);
+
+            add(ModDecorativeBlocks.GOLDEN_CHALICE);
 
             add(ModDecorativeBlocks.CANDLE_HEAP);
 
@@ -64,6 +81,8 @@ public class BlockDrops {
 
             add(ModNatureBlocks.WHITE_LEBETHRON_SAPLING);
             add(ModNatureBlocks.LEBETHRON_SAPLING);
+            add(ModNatureBlocks.MAPLE_SAPLING);
+            add(ModNatureBlocks.SILVER_MAPLE_SAPLING);
             add(ModNatureBlocks.WHITE_PALM_SAPLING);
 
             add(ModDecorativeBlocks.FORGE);
@@ -114,6 +133,9 @@ public class BlockDrops {
             add(ModNatureBlocks.WHITE_FLOWERS);
             add(ModNatureBlocks.YELLOW_FLOWERS);
 
+            add(ModNatureBlocks.LAVENDER);
+            add(ModNatureBlocks.YELLOW_TROLLIUS);
+
             add(ModNatureBlocks.SMALL_LILY_PADS);
             add(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS);
             add(ModNatureBlocks.LILY_PADS);
@@ -137,6 +159,11 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.THIN_BARREL);
             add(ModDecorativeBlocks.SMALL_CRATE);
+
+            add(ModDecorativeBlocks.GOLDEN_CHALICE);
+
+            add(ModDecorativeBlocks.ARKENSTONE);
+            add(ModDecorativeBlocks.WALL_ARKENSTONE);
         }
     };
 }

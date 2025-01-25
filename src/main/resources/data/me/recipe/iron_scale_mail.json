@@ -1,68 +1,13 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "ingredients": [
-    {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:scale"
-      },
-      "components": {
-        "minecraft:trim": {
-          "material": "minecraft:iron",
-          "pattern": "me:smithing_part"
-        }
-      }
-    },
-    {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:scale"
-      },
-      "components": {
-        "minecraft:trim": {
-          "material": "minecraft:iron",
-          "pattern": "me:smithing_part"
-        }
-      }
-    },
-    {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:scale"
-      },
-      "components": {
-        "minecraft:trim": {
-          "material": "minecraft:iron",
-          "pattern": "me:smithing_part"
-        }
-      }
-    },
-    {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:scale"
-      },
-      "components": {
-        "minecraft:trim": {
-          "material": "minecraft:iron",
-          "pattern": "me:smithing_part"
-        }
-      }
-    },
-    {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:scale"
-      },
-      "components": {
-        "minecraft:trim": {
-          "material": "minecraft:iron",
-          "pattern": "me:smithing_part"
-        }
-      }
-    },
-    {
+  "pattern": [
+    "SMS",
+    "MSM",
+    "SMS"
+  ],
+  "key": {
+    "M": {
       "fabric:type": "fabric:components",
       "base": {
         "item": "me:mail_ring"
@@ -74,34 +19,10 @@
         }
       }
     },
-    {
+    "S": {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:mail_ring"
-      },
-      "components": {
-        "minecraft:trim": {
-          "material": "minecraft:iron",
-          "pattern": "me:smithing_part"
-        }
-      }
-    },
-    {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:mail_ring"
-      },
-      "components": {
-        "minecraft:trim": {
-          "material": "minecraft:iron",
-          "pattern": "me:smithing_part"
-        }
-      }
-    },
-    {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:mail_ring"
+        "item": "me:scale"
       },
       "components": {
         "minecraft:trim": {
@@ -110,7 +31,7 @@
         }
       }
     }
-  ],
+  },
   "result": {
     "id": "me:scale_mail",
     "components": {
@@ -118,6 +39,7 @@
         "material": "minecraft:iron",
         "pattern": "me:smithing_part"
       }
-    }
+    },
+    "count": 2
   }
 }

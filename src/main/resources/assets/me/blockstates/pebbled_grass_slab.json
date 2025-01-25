@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/pebbled_grass_slab"
+    },
+    "type=double": {
+      "model": "me:block/pebbled_grass"
+    },
+    "type=top": {
+      "model": "me:block/pebbled_grass_slab_top"
+    }
+  }
+}
