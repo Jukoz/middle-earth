@@ -368,14 +368,11 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
 
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, HorseEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BroadhoofGoatEntity.class, true));
         return i;
     }
 
     public int initNeutralTargetSelector(int i){
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, WargEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
 
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, IsengardUrukHaiEntity.class, true));
@@ -393,6 +390,10 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DaleHumanEntity.class, true));
 
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, WargEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, HorseEntity.class, true));
 
         return i;
     }
