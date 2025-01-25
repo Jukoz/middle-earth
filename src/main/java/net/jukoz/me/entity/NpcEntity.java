@@ -104,7 +104,6 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
             try {
                 disposition = FactionLookup.getFactionById(getWorld(), factionId).getDisposition();
             } catch (FactionIdentifierException e) {
-                LoggerUtil.logDebugMsg("testing");
                 disposition = Disposition.NEUTRAL; // Attacks everyone, no judgement made
             }
         }
