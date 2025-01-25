@@ -1,0 +1,46 @@
+{
+  "parent": "me:middle_earth/root",
+  "criteria": {
+    "rohan": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "me:rohan",
+                  "me:rohan_forest",
+                  "me:the_wold"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_rohan.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "minecraft:hay_block"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_rohan.title"
+    }
+  },
+  "requirements": [
+    [
+      "rohan"
+    ]
+  ]
+}

@@ -2,6 +2,8 @@ package net.jukoz.me.block;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
+import net.jukoz.me.block.special.artefact.arkenstone.ArkenstoneBlock;
+import net.jukoz.me.block.special.artefact.arkenstone.ArkenstoneWallBlock;
 import net.jukoz.me.block.special.artisantable.ArtisanTable;
 import net.jukoz.me.block.special.beds.CustomBedBlock;
 import net.jukoz.me.block.special.bellows.BellowsBlock;
@@ -9,6 +11,10 @@ import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancBlock;
 import net.jukoz.me.block.special.forge.ForgeBlock;
+import net.jukoz.me.block.special.pots.AmphoraBlock;
+import net.jukoz.me.block.special.pots.FatPotBlock;
+import net.jukoz.me.block.special.pots.JarBlock;
+import net.jukoz.me.block.special.pots.JugBlock;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlock;
 import net.jukoz.me.block.special.shapingAnvil.dwarvenTreatedAnvil.DwarvenShapingAnvilBlock;
 import net.jukoz.me.block.special.shapingAnvil.elvenTreatedAnvil.ElvenTreatedAnvilblock;
@@ -73,9 +79,9 @@ public class ModDecorativeBlocks {
             new ArtisanTable(AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque()));
 
     public static final Block SMALL_CRATE = registerBlock("small_crate",
-            new CrateBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
+            new CrateBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque()));
     public static final Block THIN_BARREL = registerBlock("thin_barrel",
-            new ThinBarrelBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
+            new ThinBarrelBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque()));
     public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
             new ReinforcedChestBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool()));
 
@@ -87,6 +93,8 @@ public class ModDecorativeBlocks {
 
     public static final Block CALCITE_STATUE = registerBlockWithItem("calcite_statue",
             new StatueBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque().requiresTool()));
+    public static final Block GALONN_STATUE = registerBlockWithItem("galonn_statue",
+            new StatueBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool()));
     public static final Block GONLUIN_STATUE = registerBlockWithItem("gonluin_statue",
             new StatueBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool()));
     public static final Block TUFF_STATUE = registerBlockWithItem("tuff_statue",
@@ -462,6 +470,90 @@ public class ModDecorativeBlocks {
     public static final Block WOODEN_BUCKET = registerBlockWithItem("wooden_bucket",
             new WoodenBucketBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
 
+    public static final Block POTTED_BEECH_SAPLING      = registerBlock("potted_beech_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.BEECH_SAPLING));
+    public static final Block POTTED_CHESTNUT_SAPLING   = registerBlock("potted_chestnut_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.CHESTNUT_SAPLING));
+    public static final Block POTTED_HOLLY_SAPLING      = registerBlock("potted_holly_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.HOLLY_SAPLING));
+    public static final Block POTTED_FIR_SAPLING        = registerBlock("potted_fir_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.FIR_SAPLING));
+    public static final Block POTTED_LARCH_SAPLING      = registerBlock("potted_larch_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.LARCH_SAPLING));
+    public static final Block POTTED_LEBETHRON_SAPLING  = registerBlock("potted_lebethron_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.LEBETHRON_SAPLING));
+    public static final Block POTTED_WHITE_LEBETHRON_SAPLING = registerBlock("potted_white_lebethron_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.WHITE_LEBETHRON_SAPLING));
+    public static final Block POTTED_MALLORN_SAPLING    = registerBlock("potted_mallorn_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.MALLORN_SAPLING));
+    public static final Block POTTED_MAPLE_SAPLING      = registerBlock("potted_maple_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.MAPLE_SAPLING));
+    public static final Block POTTED_SILVER_MAPLE_SAPLING = registerBlock("potted_silver_maple_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.SILVER_MAPLE_SAPLING));
+    public static final Block POTTED_MIRKWOOD_SAPLING   = registerBlock("potted_mirkwood_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.MIRKWOOD_SAPLING));
+    public static final Block POTTED_PALM_SAPLING       = registerBlock("potted_palm_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.PALM_SAPLING));
+    public static final Block POTTED_WHITE_PALM_SAPLING = registerBlock("potted_white_palm_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.WHITE_PALM_SAPLING));
+    public static final Block POTTED_PINE_SAPLING       = registerBlock("potted_pine_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.PINE_SAPLING));
+    public static final Block POTTED_BLACK_PINE_SAPLING = registerBlock("potted_black_pine_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.BLACK_PINE_SAPLING));
+    public static final Block POTTED_WILLOW_SAPLING     = registerBlock("potted_willow_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.WILLOW_SAPLING));
+
+    public static final Block POTTED_GREEN_SHRUB     = registerBlock("potted_green_shrub", Blocks.createFlowerPotBlock(ModNatureBlocks.GREEN_SHRUB));
+    public static final Block POTTED_MALLOS         = registerBlock("potted_mallos", Blocks.createFlowerPotBlock(ModNatureBlocks.MALLOS));
+    public static final Block POTTED_YELLOW_FLOWER     = registerBlock("potted_yellow_flower", Blocks.createFlowerPotBlock(ModNatureBlocks.YELLOW_FLOWER));
+    public static final Block POTTED_YELLOW_TROLLIUS     = registerBlock("potted_yellow_trollius", Blocks.createFlowerPotBlock(ModNatureBlocks.YELLOW_TROLLIUS));
+    public static final Block POTTED_TAN_SHRUB      = registerBlock("potted_tan_shrub", Blocks.createFlowerPotBlock(ModNatureBlocks.TAN_SHRUB));
+    public static final Block POTTED_GREEN_JEWEL_CORNFLOWER     = registerBlock("potted_green_jewel_cornflower", Blocks.createFlowerPotBlock(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER));
+    public static final Block POTTED_SCORCHED_SHRUB     = registerBlock("potted_scorched_shrub", Blocks.createFlowerPotBlock(ModNatureBlocks.SCORCHED_SHRUB));
+    public static final Block POTTED_FROZEN_SHRUB     = registerBlock("potted_frozen_shrub", Blocks.createFlowerPotBlock(ModNatureBlocks.FROZEN_SHRUB));
+    
+    public static final Block POTTED_CAVE_AMANITA = registerBlock("potted_cave_amanita", Blocks.createFlowerPotBlock(ModNatureBlocks.CAVE_AMANITA));
+    public static final Block POTTED_DEEP_FIRECAP = registerBlock("potted_deep_firecap", Blocks.createFlowerPotBlock(ModNatureBlocks.DEEP_FIRECAP));
+    public static final Block POTTED_GHOSTSHROOM = registerBlock("potted_ghostshroom", Blocks.createFlowerPotBlock(ModNatureBlocks.GHOSTSHROOM));
+    public static final Block POTTED_MORSEL     = registerBlock("potted_morsel", Blocks.createFlowerPotBlock(ModNatureBlocks.MORSEL));
+    public static final Block POTTED_SKYFIRECAP = registerBlock("potted_sky_firecap", Blocks.createFlowerPotBlock(ModNatureBlocks.SKY_FIRECAP));
+    public static final Block POTTED_TRUMPET_SHROOM = registerBlock("potted_trumpet_shroom", Blocks.createFlowerPotBlock(ModNatureBlocks.TRUMPET_SHROOM));
+    public static final Block POTTED_TUBESHROOM = registerBlock("potted_tubeshroom", Blocks.createFlowerPotBlock(ModNatureBlocks.TUBESHRROM));
+    public static final Block POTTED_VIOLET_CAPS = registerBlock("potted_violet_caps", Blocks.createFlowerPotBlock(ModNatureBlocks.VIOLET_CAPS));
+    public static final Block POTTED_WHITE_MUSHROOM = registerBlock("potted_white_mushroom", Blocks.createFlowerPotBlock(ModNatureBlocks.WHITE_MUSHROOM));
+    public static final Block POTTED_YELLOW_AMANITA = registerBlock("potted_yellow_amanita", Blocks.createFlowerPotBlock(ModNatureBlocks.YELLOW_AMANITA));
+
+    public static final Block BROWN_JUG = registerBlockWithItem("brown_jug",
+            new JugBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block GRAY_POT = registerBlockWithItem("gray_pot",
+            new JugBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block LARGE_JUG = registerBlockWithItem("large_jug",
+            new JugBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+
+    public static final Block AMPHORA = registerBlockWithItem("amphora",
+            new AmphoraBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block BROWN_AMPHORA = registerBlockWithItem("brown_amphora",
+            new AmphoraBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block GRAY_VASE = registerBlockWithItem("gray_vase",
+            new AmphoraBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+
+    public static final Block BROWN_JAR = registerBlockWithItem("brown_jar",
+            new JarBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block CLAY_JAR = registerBlockWithItem("clay_jar",
+            new JarBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block GRAY_JAR = registerBlockWithItem("gray_jar",
+            new JarBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+
+    public static final Block BROWN_FAT_POT = registerBlockWithItem("brown_fat_pot",
+            new FatPotBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block FAT_POT = registerBlockWithItem("fat_pot",
+            new FatPotBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block GRAY_FAT_POT = registerBlockWithItem("gray_fat_pot",
+            new FatPotBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+    public static final Block POT_OF_GOLD = registerBlockWithItem("pot_of_gold",
+            new FatPotBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
+
+    public static final Block GOLDEN_CHALICE = registerBlockWithItem("golden_chalice",
+            new ChaliceBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
+
+    public static final Block COPPER_TREASURE_HEAP_LAYER = registerBlockWithItem("copper_treasure_heap_layer",
+            new LayersAltBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
+    public static final Block SILVER_TREASURE_HEAP_LAYER = registerBlockWithItem("silver_treasure_heap_layer",
+            new LayersAltBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
+    public static final Block GOLD_TREASURE_HEAP_LAYER = registerBlockWithItem("gold_treasure_heap_layer",
+            new LayersAltBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).nonOpaque()));
+
+    public static final Block COPPER_COIN_PILE = registerBlockWithItem("copper_coin_pile",
+            new CoinPileBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).noCollision().nonOpaque()));
+    public static final Block SILVER_COIN_PILE = registerBlockWithItem("silver_coin_pile",
+            new CoinPileBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).noCollision().nonOpaque()));
+    public static final Block GOLD_COIN_PILE = registerBlockWithItem("gold_coin_pile",
+            new CoinPileBlock(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).noCollision().nonOpaque()));
+
     public static final Block TREATED_STEEL_ROD = registerBlockWithItem("treated_steel_rod",
             new DecorativeRodBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool()));
 
@@ -495,19 +587,19 @@ public class ModDecorativeBlocks {
             new BonfireBlock(AbstractBlock.Settings.copy(Blocks.CAMPFIRE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block SCONCE = registerBlock("sconce",
-            new METorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new METorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block WALL_SCONCE = registerBlock("wall_sconce",
-            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block GILDED_SCONCE = registerBlock("gilded_sconce",
-            new METorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new METorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block GILDED_WALL_SCONCE = registerBlock("gilded_wall_sconce",
-            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block ORCISH_SCONCE = registerBlock("orcish_sconce",
-            new OrcSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new OrcSconceBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block ORCISH_WALL_SCONCE = registerBlock("orcish_wall_sconce",
-            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+            new MEWallTorchBlock(AbstractBlock.Settings.copy(Blocks.LANTERN).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block GROUND_BOOK = registerBlockWithItem("ground_book",
             new GroundBookBlock(AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision()));
@@ -602,6 +694,11 @@ public class ModDecorativeBlocks {
             new CustomBedBlock(DyeColor.BLACK, AbstractBlock.Settings.copy(Blocks.BLACK_BED)));
     public static final Block STRAW_BED = registerBlockWithItem("straw_bed",
             new CustomBedBlock(DyeColor.BLACK, AbstractBlock.Settings.copy(Blocks.BLACK_BED)));
+
+    public static final Block ARKENSTONE = registerBlock("arkenstone",
+            new ArkenstoneBlock(AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance((state -> 7)).nonOpaque().requiresTool()));
+    public static final Block WALL_ARKENSTONE = registerBlock("wall_arkenstone",
+            new ArkenstoneWallBlock(AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance((state -> 7)).nonOpaque().requiresTool()));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);

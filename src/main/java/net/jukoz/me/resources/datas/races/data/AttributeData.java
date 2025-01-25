@@ -2,6 +2,7 @@ package net.jukoz.me.resources.datas.races.data;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import it.unimi.dsi.fastutil.Hash;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
@@ -10,6 +11,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
@@ -25,7 +27,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class AttributeData {
-    Map<Identifier, Double> datas;
+    HashMap<Identifier, Double> datas;
     private static final List<Identifier> buffReverseIdentifiers = List.of(
             IdentifierUtil.getIdentifierFromString(EntityAttributes.GENERIC_SCALE.getIdAsString()),
             IdentifierUtil.getIdentifierFromString(EntityAttributes.GENERIC_FALL_DAMAGE_MULTIPLIER.getIdAsString()),
@@ -81,27 +83,6 @@ public class AttributeData {
                 }
             }
         }
-        entity.heal(entity.getMaxHealth());
-    }
-
-    public void ReverseAll(LivingEntity entity, DefaultAttributeContainer container){
-        final DynamicRegistryManager registryManager = entity.getWorld().getRegistryManager();
-
-        for(Identifier id : datas.keySet()){
-            EntityAttribute attribute = registryManager.get(RegistryKeys.ATTRIBUTE).get(id);
-
-            Optional<RegistryEntry.Reference<EntityAttribute>> attributeEntry =  Registries.ATTRIBUTE.getEntry(id);
-            if(attribute != null && attributeEntry != null && attributeEntry.isPresent()){
-                EntityAttributeInstance instance = entity.getAttributes().getCustomInstance(attributeEntry.get());
-                if(instance != null){
-                    if(container.has(attributeEntry.get()))
-                        instance.setBaseValue(container.getValue(attributeEntry.get()));
-                    else
-                        instance.setBaseValue(attribute.getDefaultValue());
-                }
-            }
-        }
-        entity.heal(entity.getMaxHealth());
     }
 
     public double getCurrentValue(LivingEntity entity, Identifier id){
@@ -110,7 +91,7 @@ public class AttributeData {
 
         Optional<RegistryEntry.Reference<EntityAttribute>> attributeEntry = Registries.ATTRIBUTE.getEntry(id);
         if(attribute != null && attributeEntry != null && attributeEntry.isPresent()){
-            return entity.getAttributeValue(attributeEntry.get());
+            return entity.getAttributeBaseValue(attributeEntry.get());
         }
         return -999.99;
     }
@@ -121,5 +102,55 @@ public class AttributeData {
 
     public boolean isBuffReversed(Identifier id){
         return buffReverseIdentifiers.contains(id);
+    }
+
+    private static final HashMap<Identifier, Double> defaultAttributes = new HashMap<>(){{
+        put(Identifier.of("minecraft:generic.armor"), 0.0);
+        put(Identifier.of("minecraft:generic.armor_toughness"), 0.0);
+        put(Identifier.of("minecraft:generic.attack_damage"), 0.9);
+        put(Identifier.of("minecraft:generic.attack_knockback"), 0.0);
+        put(Identifier.of("minecraft:generic.attack_speed"), 4.0);
+        put(Identifier.of("minecraft:generic.burning_time"), 1.0);
+        put(Identifier.of("minecraft:generic.explosion_knockback_resistance"), 0.0);
+        put(Identifier.of("minecraft:generic.fall_damage_multiplier"), 1.0);
+        put(Identifier.of("minecraft:generic.gravity"), 0.08);
+        put(Identifier.of("minecraft:generic.jump_strength"), 0.41999998688697815);
+        put(Identifier.of("minecraft:generic.knockback_resistance"), 0.0);
+        put(Identifier.of("minecraft:generic.luck"), 0.0);
+        put(Identifier.of("minecraft:generic.max_absorption"), 0.0);
+        put(Identifier.of("minecraft:generic.max_health"), 20.0);
+        put(Identifier.of("minecraft:generic.movement_efficiency"), 0.0);
+        put(Identifier.of("minecraft:generic.movement_speed"), 0.10000000149011612);
+        put(Identifier.of("minecraft:generic.oxygen_bonus"), 0.0);
+        put(Identifier.of("minecraft:generic.oxygen_bonus"), 0.0);
+        put(Identifier.of("minecraft:generic.safe_fall_distance"), 3.0);
+        put(Identifier.of("minecraft:generic.scale"), 1.0);
+        put(Identifier.of("minecraft:generic.step_height"), 0.6);
+        put(Identifier.of("minecraft:generic.water_movement_efficiency"), 0.0);
+
+        put(Identifier.of("minecraft:player.block_break_speed"), 1.0);
+        put(Identifier.of("minecraft:player.block_interaction_range"), 	4.5);
+        put(Identifier.of("minecraft:player.entity_interaction_range"), 3.0);
+        put(Identifier.of("minecraft:player.mining_efficiency"), 0.0);
+        put(Identifier.of("minecraft:player.sneaking_speed"), 0.3);
+        put(Identifier.of("minecraft:player.submerged_mining_speed"), 0.2);
+        put(Identifier.of("minecraft:player.sweeping_damage_ratio"), 0.0);
+    }};
+
+    public static boolean reset(PlayerEntity player){
+        return apply(player, defaultAttributes);
+    }
+
+    public static boolean apply(PlayerEntity player, HashMap<Identifier, Double> attributeList){
+        for(Identifier id : defaultAttributes.keySet()){
+            Optional<RegistryEntry.Reference<EntityAttribute>> attributeEntry =  Registries.ATTRIBUTE.getEntry(id);
+            if(attributeEntry != null && attributeEntry.isPresent()){
+                EntityAttributeInstance instance = player.getAttributes().getCustomInstance(attributeEntry.get());
+                if(instance != null){
+                    instance.setBaseValue(defaultAttributes.get(id));
+                }
+            }
+        }
+        return  true;
     }
 }

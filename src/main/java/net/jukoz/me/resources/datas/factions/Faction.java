@@ -15,9 +15,13 @@ import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.utils.IdentifierUtil;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPattern;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.component.type.BannerPatternsComponent;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
@@ -26,6 +30,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -69,11 +74,11 @@ public class Faction {
 
     public Faction(String id, Integer factionSelectionOrderIndex, Boolean joinable, String disposition, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
         this.id = IdentifierUtil.getIdentifierFromString(id);
+
         this.factionSelectionOrderIndex = factionSelectionOrderIndex; // TODO : Validation, rework this part in the future
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.joinable = joinable;
         this.disposition = Disposition.valueOf(disposition.toUpperCase());
-
 
         this.factionType = FactionType.valueOf(factionType.toUpperCase());
         this.parentFactionId = parentFaction.orElse(null);
@@ -98,7 +103,7 @@ public class Faction {
             }
         });
 
-        this.bannerData = new BannerData(bannerDataNbt);
+        this.bannerData = (bannerDataNbt.isEmpty()) ? null : new BannerData(bannerDataNbt);;
         this.spawnDataHandler = new SpawnDataHandler(spawnsNbt);
 
         this.joinCommands = new ArrayList<>();
@@ -108,17 +113,12 @@ public class Faction {
 
         this.raceList = null;
         this.descriptions = null;
+
+        verifyData();
     }
 
     public Faction(String name, Boolean joinable, Disposition disposition, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<NpcRank, List<NpcData>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
         this.id = IdentifierUtil.getIdentifierFromString(name);
-
-        if(id.toString().toLowerCase().contains("dorwinion")){
-            throw new RuntimeException("There is no dorwinion in Middle-earth");
-        }
-        if(id.toString().toLowerCase().contains("dorw")){
-            throw new RuntimeException("Do not even try... We are watching you");
-        }
 
         if(factionSelectionOrderIndexPerDisposition == null)
             factionSelectionOrderIndexPerDisposition = new HashMap<>();
@@ -158,6 +158,35 @@ public class Faction {
         this.leaveCommands = leaveCommand;
         this.raceList = null;
         this.descriptions = null;
+
+        verifyData();
+    }
+
+    private void verifyData(){
+        if(this.id.toString().contains("dorwinion")){
+            throw new RuntimeException("There is no dorwinion in Middle-earth");
+        }
+        if(this.id.toString().toLowerCase().contains("dorw")){
+            throw new RuntimeException("Do not even try... We are watching you");
+        }
+
+        // Need these data for a functional faction
+        if((this.factionType == FactionType.SUBFACTION) || (this.factionType == FactionType.FACTION) && (subFactions == null || subFactions.isEmpty())){
+            if(this.npcDatasByRank == null || this.npcDatasByRank.isEmpty()){
+                throw new RuntimeException("Faction [%s] is missing their npc data, make sure they have at least 1 available npc data per rank.".formatted(id));
+            } else {
+                if(!npcDatasByRank.containsKey(NpcRank.MILITIA)
+                        || !npcDatasByRank.containsKey(NpcRank.SOLDIER)
+                        || !npcDatasByRank.containsKey(NpcRank.KNIGHT)
+                        || !npcDatasByRank.containsKey(NpcRank.VETERAN)
+                        || !npcDatasByRank.containsKey(NpcRank.LEADER)) {
+                    throw new RuntimeException("Faction [%s] is missing their npc data, make sure they have at least 1 npc data per rank.".formatted(id));
+                }
+            }
+            if(this.bannerData == null){
+                throw new RuntimeException("Faction [%s] is missing their banner data, make sure they have one.".formatted(id));
+            }
+        }
     }
 
     private String getIdValue() {
@@ -245,13 +274,15 @@ public class Faction {
     }
 
     public NpcGearData getPreviewGear(World world, Race selectedRace){
+        if(selectedRace == null)
+            return NpcGearData.Create();
+
         List<Identifier> identifiersToUse = new ArrayList<>();
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.MILITIA));
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.SOLDIER));
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.KNIGHT));
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.VETERAN));
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.LEADER));
-        // Should we skip : Civilian/Leader/Veteran ?
 
         List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatasFromRace(world, identifiersToUse, selectedRace.getId());
         if(npcDataList.isEmpty())
@@ -270,10 +301,13 @@ public class Faction {
         return bannerData.getBaseDye();
     }
 
-    public List<BannerData.BannerPatternWithColor> getBannerPatternsWithColors(ClientWorld world) {
+    public List<BannerData.BannerPatternWithColor> getBannerPatternsWithColors(World world) {
         if(bannerData == null) return null;
         return bannerData.getBannerPatternsWithColors(world);
+    }
 
+    public ItemStack getBannerItem(World world){
+        return bannerData.getBannerItem(world, Text.translatable("block.me.faction_banner", getFullName()).formatted(Formatting.GOLD));
     }
 
     public List<Identifier> getSubFactions(){

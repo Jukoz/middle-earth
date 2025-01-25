@@ -8,6 +8,7 @@ import net.jukoz.me.block.special.OxidizableWallBlock;
 import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
+import net.minecraft.sound.BlockSoundGroup;
 
 public class OtherBlockSets {
     public static MiscBlockSet TREATED_WOOD = registerMiscSet("treated_wood", null, Blocks.OAK_WOOD, true);
@@ -37,6 +38,8 @@ public class OtherBlockSets {
     public static RoofBlockSet WHITE_LEBETHRON_ROOFING = registerWoodSet("white_lebethron_roofing", WHITE_LEBETHRON_SHINGLES.block);
     public static RoofBlockSet CHESTNUT_SHINGLES = registerWoodSet("chestnut_shingles", WoodBlockSets.CHESTNUT.planks());
     public static RoofBlockSet CHESTNUT_ROOFING = registerWoodSet("chestnut_roofing", CHESTNUT_SHINGLES.block);
+    public static RoofBlockSet FIR_SHINGLES = registerWoodSet("fir_shingles", WoodBlockSets.FIR.planks());
+    public static RoofBlockSet FIR_ROOFING = registerWoodSet("fir_roofing", FIR_SHINGLES.block);
     public static RoofBlockSet HOLLY_SHINGLES = registerWoodSet("holly_shingles", WoodBlockSets.HOLLY.planks());
     public static RoofBlockSet HOLLY_ROOFING = registerWoodSet("holly_roofing", HOLLY_SHINGLES.block);
     public static RoofBlockSet LARCH_SHINGLES = registerWoodSet("larch_shingles", WoodBlockSets.LARCH.planks());
@@ -176,6 +179,8 @@ public class OtherBlockSets {
             WHITE_LEBETHRON_ROOFING,
             CHESTNUT_SHINGLES,
             CHESTNUT_ROOFING,
+            FIR_SHINGLES,
+            FIR_ROOFING,
             HOLLY_SHINGLES,
             HOLLY_ROOFING,
             MALLORN_SHINGLES,
@@ -276,7 +281,7 @@ public class OtherBlockSets {
     public record RoofBlockSet(Block block, Block slab, Block verticalSlab, Block stairs, Block wall, Block origin) {
     }
 
-    public record MiscBlockSet(Block block, Block slab, Block verticalSlab, Block stairs, Block origin) {
+    public record MiscBlockSet(Block block, Block slab, Block verticalSlab, Block stairs, Block wall, Block origin) {
     }
 
     private static RoofBlockSet registerWoodSet(String name, Block origin) {
@@ -396,12 +401,15 @@ public class OtherBlockSets {
         Block stairs = ModBlocks.registerMiscBlock(name + "_stairs", new StairsBlock(block.getDefaultState(),
                 AbstractBlock.Settings.copy(block)),true);
 
+        Block wall = ModBlocks.registerMiscBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(block)),false);
+
         FlammableBlockRegistry.getDefaultInstance().add(block, 5, 60);
         FlammableBlockRegistry.getDefaultInstance().add(slab, 5, 60);
         FlammableBlockRegistry.getDefaultInstance().add(verticalSlab, 5, 60);
         FlammableBlockRegistry.getDefaultInstance().add(stairs, 5, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(wall, 5, 60);
 
-        return new MiscBlockSet(block, slab, verticalSlab, stairs, origin);
+        return new MiscBlockSet(block, slab, verticalSlab, stairs, wall, origin);
     }
 
     public static void registerModBlockSets() {

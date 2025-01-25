@@ -231,7 +231,7 @@ public class MiddleEarthFactions {
                             EreborNpcDataPool.EREBOR_ARCHER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            EreborNpcDataPool.EREBOR_BRAWLER
+                            EreborNpcDataPool.EREBOR_ELITE
                     ));
                     put(NpcRank.VETERAN, List.of(
                             EreborNpcDataPool.EREBOR_VETERAN,
@@ -451,7 +451,10 @@ public class MiddleEarthFactions {
                             BanditNpcDataPool.BANDIT_THIEF
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            BanditNpcDataPool.BANDIT_MERCENARY
+                            BanditNpcDataPool.BANDIT_MERCENARY,
+                            BanditNpcDataPool.WILD_GOBLIN_GATHERER,
+                            BanditNpcDataPool.WILD_GOBLIN_WARRIOR,
+                            BanditNpcDataPool.WILD_GOBLIN_SCOUT
                     ));
                     put(NpcRank.KNIGHT, List.of(
                             BanditNpcDataPool.BANDIT_CHIEFTAIN

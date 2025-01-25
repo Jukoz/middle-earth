@@ -1,0 +1,38 @@
+{
+  "parent": "me:smithing/crude_ingot",
+  "criteria": {
+    "orcish_sconce": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:orcish_sconce"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.orcish_sconce.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:orcish_sconce"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.orcish_sconce.title"
+    }
+  },
+  "requirements": [
+    [
+      "orcish_sconce"
+    ]
+  ]
+}

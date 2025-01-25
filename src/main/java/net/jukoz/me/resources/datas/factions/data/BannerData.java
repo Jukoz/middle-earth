@@ -6,7 +6,9 @@ import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BannerPatternsComponent;
+import net.minecraft.item.BannerItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -15,8 +17,13 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Unit;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +95,7 @@ public class BannerData {
         }
     }
 
-    public List<BannerData.BannerPatternWithColor> getBannerPatternsWithColors(ClientWorld world){
+    public List<BannerData.BannerPatternWithColor> getBannerPatternsWithColors(World world){
         List<BannerData.BannerPatternWithColor> patterns = new ArrayList<>();
         for(int i = 0; i < bannerPatternWithColors.size(); i++){
             BannerPattern pattern = world.getRegistryManager().getOptional(RegistryKeys.BANNER_PATTERN).get().get(bannerPatternWithColors.get(i).id);
@@ -137,5 +144,25 @@ public class BannerData {
         }
 
         return bannerPatternsComponentBuilder.build();
+    }
+
+    public ItemStack getBannerItem(World world, Text text) {
+        BannerPatternsComponent.Builder builder = new BannerPatternsComponent.Builder();
+
+        var registry = world.getRegistryManager().get(RegistryKeys.BANNER_PATTERN);
+        for(BannerPatternWithColor bannerPatternWithColor :  bannerPatternWithColors){
+            RegistryEntry<BannerPattern> bannerPattern = registry.getEntry(bannerPatternWithColor.id).get();
+            BannerPatternsComponent.Layer layer = new BannerPatternsComponent.Layer(bannerPattern, bannerPatternWithColor.color);
+            builder.add(layer);
+        }
+
+        return formatBanner(new ItemStack(Items.WHITE_BANNER), builder.build(), text);
+    }
+
+    public static ItemStack formatBanner(ItemStack itemStack, BannerPatternsComponent bannerPatternsComponent, Text translationKey) {
+        itemStack.set(DataComponentTypes.BANNER_PATTERNS, bannerPatternsComponent);
+        itemStack.set(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
+        itemStack.set(DataComponentTypes.ITEM_NAME, translationKey);
+        return itemStack;
     }
 }

@@ -16,8 +16,10 @@ import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.RaceType;
+import net.jukoz.me.resources.datas.races.RaceUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
@@ -84,7 +86,7 @@ public class WargEntity extends AbstractBeastEntity {
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0d)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 9.0d)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0d)
                 .add(EntityAttributes.GENERIC_STEP_HEIGHT, 1.15d)
                 .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 6.0d);
     }
@@ -94,11 +96,6 @@ public class WargEntity extends AbstractBeastEntity {
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(this.getChildHealthBonus(random::nextInt));
         this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(this.getChildMovementSpeedBonus(random::nextDouble));
         this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(this.getChildAttackDamageBonus(random::nextDouble));
-    }
-
-    @Override
-    public boolean isInAttackRange(LivingEntity entity) {
-        return (super.isInAttackRange(entity) && this.isTame()) || (this.getAttackBox().expand(1.5f).intersects(entity.getBoundingBox()) && !this.isTame());
     }
 
     @Override
@@ -154,7 +151,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     protected static double getChildAttackDamageBonus(DoubleSupplier randomDoubleGetter) {
-        return (double)7f + randomDoubleGetter.getAsDouble() + randomDoubleGetter.getAsDouble() + randomDoubleGetter.getAsDouble();
+        return (double)4f + randomDoubleGetter.getAsDouble() + randomDoubleGetter.getAsDouble() + randomDoubleGetter.getAsDouble();
     }
 
     protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {
@@ -180,6 +177,14 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
+
+        if(!this.getWorld().isClient() && !player.isCreative()) {
+            RaceType playerRace = RaceUtil.getRaceType(player);
+
+            if(playerRace == RaceType.NONE || (this.getRaceType() != null && !this.getRaceType().contains(playerRace))) {
+                return ActionResult.FAIL;
+            }
+        }
 
         if(this.isTame()) {
             if (this.isBreedingItem(itemStack)) {

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/gray_vase",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/gray_vase"
+    },
+    "facing=south": {
+      "model": "me:block/gray_vase",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/gray_vase",
+      "y": 270
+    }
+  }
+}

@@ -19,19 +19,25 @@ public class ModEntitySpawning {
                 new EntitySpawningSettings(ModEntities.BANDIT_CHIEFTAIN, 1, 2, 10, true)
         );
         List<EntitySpawningSettings> wildGoblinsSpawnSettings = List.of(
-                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_SNAGA, 1, 3, 25, true),
-                new EntitySpawningSettings(ModEntities.WARG, 2, 5, 20, true),
-                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_WARRIOR, 1, 4, 35, true),
-                new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_SOLDIER, 1, 3, 16, true),
-                new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_VETERAN, 1, 2, 4, true)
+                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_SNAGA, 1, 3, 32, true),
+                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_WARRIOR, 1, 4, 41, true),
+                new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_SOLDIER, 1, 3, 22, true),
+                new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_VETERAN, 1, 2, 5, true)
         );
         List<EntitySpawningSettings> goblinsSpawnSettings = List.of(
-                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_SNAGA, 1, 3, 20, true),
-                new EntitySpawningSettings(ModEntities.WARG, 2, 5, 18, true),
-                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_WARRIOR, 1, 4, 32, true),
-                new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_SOLDIER, 1, 3, 20, true),
+                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_SNAGA, 1, 3, 28, true),
+                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_WARRIOR, 1, 4, 35, true),
+                new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_SOLDIER, 1, 3, 27, true),
                 new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_VETERAN, 1, 2, 8, true),
                 new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_LEADER, 1, 1, 2, true)
+        );
+        List<EntitySpawningSettings> gundabadSpawnSettings = List.of(
+                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_SNAGA, 1, 3, 23),
+                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_WARRIOR, 1, 4, 40),
+                new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_SOLDIER, 1, 3, 23),
+                new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_VETERAN, 1, 2, 8),
+                new EntitySpawningSettings(ModEntities.STONE_TROLL, 1, 2, 5, true),
+                new EntitySpawningSettings(ModEntities.MISTY_HOBGOBLIN_LEADER, 1, 1, 2)
         );
         List<EntitySpawningSettings> wildLongBeardsSpawnSettings = List.of(
                 new EntitySpawningSettings(ModEntities.LONGBEARD_MILITIA, 1, 3, 35),
@@ -86,24 +92,21 @@ public class ModEntitySpawning {
                 new EntitySpawningSettings(ModEntities.GONDORIAN_VETERAN, 1, 2, 8)
         );
         List<EntitySpawningSettings> wildMordorSpawnSettings = List.of(
-                new EntitySpawningSettings(ModEntities.MORDOR_ORC_SNAGA, 1, 3, 25, true),
-                new EntitySpawningSettings(ModEntities.WARG, 2, 5, 20, true),
-                new EntitySpawningSettings(ModEntities.MORDOR_ORC_SOLDIER, 1, 4, 45, true),
-                new EntitySpawningSettings(ModEntities.MORDOR_BLACK_URUK_SOLDIER, 1, 3, 10, true)
+                new EntitySpawningSettings(ModEntities.MORDOR_ORC_SNAGA, 1, 3, 40, true),
+                new EntitySpawningSettings(ModEntities.MORDOR_ORC_SOLDIER, 1, 4, 46, true),
+                new EntitySpawningSettings(ModEntities.MORDOR_BLACK_URUK_SOLDIER, 1, 3, 14, true)
         );
         List<EntitySpawningSettings> mordorSpawnSettings = List.of(
-                new EntitySpawningSettings(ModEntities.MORDOR_ORC_SNAGA, 1, 3, 16),
-                new EntitySpawningSettings(ModEntities.WARG, 2, 5, 16),
-                new EntitySpawningSettings(ModEntities.MORDOR_ORC_SOLDIER, 1, 4, 38),
-                new EntitySpawningSettings(ModEntities.MORDOR_BLACK_URUK_SOLDIER, 1, 3, 20),
+                new EntitySpawningSettings(ModEntities.MORDOR_ORC_SNAGA, 1, 3, 25),
+                new EntitySpawningSettings(ModEntities.MORDOR_ORC_SOLDIER, 1, 4, 44),
+                new EntitySpawningSettings(ModEntities.MORDOR_BLACK_URUK_SOLDIER, 1, 3, 21),
                 new EntitySpawningSettings(ModEntities.MORDOR_BLACK_URUK_VETERAN, 1, 2, 8),
                 new EntitySpawningSettings(ModEntities.MORDOR_BLACK_URUK_LEADER, 1, 1, 2)
         );
         List<EntitySpawningSettings> isengardSpawnSettings = List.of(
-                new EntitySpawningSettings(ModEntities.ISENGARD_ORC_SNAGA, 1, 3, 16),
-                new EntitySpawningSettings(ModEntities.WARG, 2, 5, 16),
-                new EntitySpawningSettings(ModEntities.ISENGARD_ORC_WARRIOR, 1, 4, 38),
-                new EntitySpawningSettings(ModEntities.ISENGARD_URUK_HAI_SOLDIER, 1, 3, 20),
+                new EntitySpawningSettings(ModEntities.ISENGARD_ORC_SNAGA, 1, 3, 23),
+                new EntitySpawningSettings(ModEntities.ISENGARD_ORC_WARRIOR, 1, 4, 43),
+                new EntitySpawningSettings(ModEntities.ISENGARD_URUK_HAI_SOLDIER, 1, 3, 24),
                 new EntitySpawningSettings(ModEntities.ISENGARD_URUK_HAI_VETERAN, 1, 2, 8),
                 new EntitySpawningSettings(ModEntities.ISENGARD_URUK_HAI_LEADER, 1, 1, 2)
         );
@@ -122,7 +125,6 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.BARROW_DOWNS, List.of(new EntitySpawningSettings(ModEntities.BARROW_WIGHT, 0, 1)));
 
         spawns.put(MEBiomeKeys.TROLLSHAWS, List.of(
-                new EntitySpawningSettings(ModEntities.STONE_TROLL, 1, 2, 1, true),
                 new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_SNAGA, 1, 3, 2, true) ,
                 new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_WARRIOR, 1, 2, 2, true)
         ));
@@ -153,9 +155,9 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.EREGION_FOREST, goblinsAndBandits);
         spawns.put(MEBiomeKeys.EREGION_GLADE, goblinsAndBandits);
         spawns.put(MEBiomeKeys.ENEDWAITH, goblinsAndBandits);
-        spawns.put(MEBiomeKeys.MOUNT_GUNDABAD_BASE, goblinsSpawnSettings);
-        spawns.put(MEBiomeKeys.MOUNT_GUNDABAD, goblinsSpawnSettings);
-        spawns.put(MEBiomeKeys.GUNDABAD_PLAINS, goblinsSpawnSettings);
+        spawns.put(MEBiomeKeys.MOUNT_GUNDABAD_BASE, gundabadSpawnSettings);
+        spawns.put(MEBiomeKeys.MOUNT_GUNDABAD, gundabadSpawnSettings);
+        spawns.put(MEBiomeKeys.GUNDABAD_PLAINS, gundabadSpawnSettings);
         spawns.put(MEBiomeKeys.MISTY_MOUNTAINS, goblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_MOUNTAINS, wildGoblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_MOUNTAINS_BASE, wildGoblinsSpawnSettings);
@@ -197,7 +199,7 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.DALE_MEADOW, daleSpawnSettings);
 
         spawns.put(MEBiomeKeys.ROHAN, rohanSpawnSettings);
-        spawns.put(MEBiomeKeys.ROHAN_HILLS, rohanSpawnSettings);
+        spawns.put(MEBiomeKeys.ROHAN_FIELD, rohanSpawnSettings);
 
         spawns.put(MEBiomeKeys.ANORIEN, gondorAndMordor);
         spawns.put(MEBiomeKeys.ANORIEN_RIVERSIDE, gondorAndMordor);

@@ -1,6 +1,40 @@
 {
   "pools": [
     {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:cape"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:bronze_spear"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:bronze_dagger"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bow"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:gambeson_cowl"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:gambeson"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ],
+      "rolls": 1
+    },
+    {
       "rolls": {
         "min": 0,
         "max": 2
@@ -21,18 +55,6 @@
         {
           "type": "minecraft:item",
           "name": "me:dry_growth"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:bronze_spear"
         }
       ]
     },

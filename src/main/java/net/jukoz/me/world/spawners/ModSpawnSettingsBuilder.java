@@ -27,6 +27,27 @@ public class ModSpawnSettingsBuilder {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.COW, 8, 4, 4));
     }
 
+    public static void addRareWarg(SpawnSettings.Builder builder){
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.WARG, 3, 1, 3));
+    }
+    public static void addUncommonWarg(SpawnSettings.Builder builder){
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.WARG, 6, 1, 3));
+    }
+
+    public static void addRareStoneTroll(SpawnSettings.Builder builder){
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.STONE_TROLL, 3, 1, 2));
+    }
+    public static void addMirkwoodSpider(SpawnSettings.Builder builder){
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.MIRKWOOD_SPIDER, 9, 2, 4));
+    }
+    public static void addRareMirkwoodSpider(SpawnSettings.Builder builder){
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.MIRKWOOD_SPIDER, 5, 1, 2));
+    }
+
+    public static void addUncommonBats(SpawnSettings.Builder builder){
+    builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.BAT, 8, 2, 4));
+    }
+
     public static void addPlainsMobs(SpawnSettings.Builder builder) {
         addFarmAnimals(builder);
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.HORSE, 5, 2, 6));
@@ -38,10 +59,13 @@ public class ModSpawnSettingsBuilder {
     }
 
     public static void addCats(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.CAT, 3, 1, 3));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.CAT, 5, 1, 3));
     }
     public static void addWolves(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WOLF, 3, 1, 3));
+    }
+    public static void addCommonWolves(SpawnSettings.Builder builder) {
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WOLF, 8, 1, 3));
     }
     public static void addRareWolves(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WOLF, 1, 1, 2));

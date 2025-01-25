@@ -32,10 +32,6 @@ public class AffiliationData {
 
     public Vec3d getSpawnMiddleEarthCoordinate(World world){
         try{
-            MinecraftServer server = world.getServer();
-            if(server != null)
-                MiddleEarthHeightMap.setSeed(server.getOverworld().getSeed());
-
             Faction foundFaction = FactionLookup.getFactionById(world,faction);
             SpawnData spawnData = foundFaction.getSpawnData().findSpawn(spawnId);
             BlockPos blockpos = spawnData.getBlockPos();

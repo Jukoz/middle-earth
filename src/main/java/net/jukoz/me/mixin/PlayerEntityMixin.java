@@ -1,14 +1,16 @@
 package net.jukoz.me.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
+import net.jukoz.me.item.items.shields.CustomShieldItem;
 import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.items.weapons.CustomDaggerWeaponItem;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
 import net.jukoz.me.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.jukoz.me.utils.IEntityDataSaver;
 import net.jukoz.me.utils.PlayerMovementData;
-import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -23,12 +25,9 @@ import net.minecraft.item.ShieldItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -51,34 +50,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow public abstract PlayerInventory getInventory();
 
-    @Shadow @Final
-    PlayerInventory inventory;
-
     @Shadow protected abstract void takeShieldHit(LivingEntity attacker);
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    @Inject(at = @At(value = "HEAD"), method = "damageShield", locals = LocalCapture.CAPTURE_FAILHARD)
-    protected void damageShield(float amount, CallbackInfo callBackInfo) {
-        if (activeItemStack.getItem() instanceof ShieldItem) {
-            if (amount >= 3.0F) {
-                int i = 1 + MathHelper.floor(amount);
-                Hand hand = this.getActiveHand();
-                this.activeItemStack.damage(i, this, PlayerEntity.getSlotForHand(hand));
-
-                if (activeItemStack.isEmpty()) {
-                    if (hand == Hand.MAIN_HAND) {
-                        this.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-                    } else {
-                        this.equipStack(OFFHAND, ItemStack.EMPTY);
-                    }
-                    activeItemStack = ItemStack.EMPTY;
-                    this.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8F, 0.8F + this.getWorld().random.nextFloat() * 0.4F);
-                }
-            }
-        }
+    @WrapOperation(method = "damageShield", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 0))
+    protected boolean canWalkOnPowderSnowTag(ItemStack instance, Item item, Operation<Boolean> original) {
+        return original.call(instance, item) || instance.getItem() instanceof ShieldItem;
     }
 
     @Inject(at = @At(value = "HEAD"), method = "disableShield()V", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
@@ -96,6 +76,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 this.getWorld().sendEntityStatus(this, (byte) 30);
                 ci.cancel();
             }
+        }
+    }
+
+    @Inject(method = "disableShield", at = @At("HEAD"))
+    public void shield_api$disableShield(CallbackInfo ci) {
+        for (CustomShieldItem customShieldItem : CustomShieldItem.instances) {
+            this.getItemCooldownManager().set(customShieldItem, 100);
         }
     }
 
@@ -118,6 +105,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "getEquippedStack", at = @At("HEAD"), cancellable = true)
     public void getEquippedStack(EquipmentSlot slot, CallbackInfoReturnable<ItemStack> cir) {
+        if(isCalledFrom("net.minecraft.server.network.ServerPlayNetworkHandler", "onPlayerAction")) {
+            return;
+        }
         boolean twoHanded = false;
         ItemStack stackMainHand = this.getInventory().getMainHandStack();
         ItemStack stackOffHand = this.getInventory().getStack(PlayerInventory.OFF_HAND_SLOT);
@@ -177,5 +167,19 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "resetLastAttackedTicks", at = @At("HEAD"))
     public void resetLastAttackedTicks(CallbackInfo ci) {
         PlayerMovementData.resetAFK((IEntityDataSaver) this);
+    }
+
+
+    private boolean isCalledFrom(String className, String methodName) {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+
+        for (StackTraceElement element : stackTrace) {
+            if (element.getClassName().contains(className)) {
+                if(element.getMethodName().contains(methodName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -2,8 +2,8 @@
   "pools": [
     {
       "rolls": {
-        "min": 3,
-        "max": 8
+        "min": 2,
+        "max": 6
       },
       "entries": [
         {
@@ -15,12 +15,24 @@
     {
       "rolls": {
         "min": 4,
-        "max": 11
+        "max": 8
       },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:wheat"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 1,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:straw"
         }
       ]
     },
@@ -57,6 +69,18 @@
         {
           "type": "minecraft:item",
           "name": "me:wheatgrass"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:wild_wheat"
         }
       ]
     }

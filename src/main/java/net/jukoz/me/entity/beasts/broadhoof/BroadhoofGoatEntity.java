@@ -6,8 +6,10 @@ import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.jukoz.me.entity.goals.*;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.RaceType;
+import net.jukoz.me.resources.datas.races.RaceUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
@@ -82,12 +84,12 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 1)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 50.0d)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.4d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0d)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0d)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0d)
                 .add(EntityAttributes.GENERIC_STEP_HEIGHT, 1.15d)
                 .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 9.0d)
                 .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 1);
@@ -173,6 +175,14 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
+        if(!this.getWorld().isClient() && !player.isCreative()) {
+            RaceType playerRace = RaceUtil.getRaceType(player);
+
+            if(playerRace == RaceType.NONE || (this.getRaceType() != null && !this.getRaceType().contains(playerRace))) {
+                return ActionResult.FAIL;
+            }
+        }
+
         if(this.isTame() && this.isTamable()) {
             if (this.isBreedingItem(itemStack)) {
                 if(this.getHealth() < this.getMaxHealth()) {
@@ -199,6 +209,11 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         }
 
         return super.interactMob(player, hand);
+    }
+
+    @Override
+    public boolean canCarryChest() {
+        return false;
     }
 
     @Override

@@ -37,7 +37,7 @@ public class EreborNpcDataPool {
     public final static NpcData EREBOR_SOLDIER;
     public final static NpcData EREBOR_ARCHER;
 
-    public final static NpcData EREBOR_BRAWLER;
+    public final static NpcData EREBOR_ELITE;
     public final static NpcData EREBOR_VETERAN;
     public final static NpcData EREBOR_GATEWARDEN;
     public final static NpcData EREBOR_LEADER;
@@ -48,7 +48,7 @@ public class EreborNpcDataPool {
                 EREBOR_MILITIA,
                 EREBOR_SOLDIER,
                 EREBOR_ARCHER,
-                EREBOR_BRAWLER,
+                EREBOR_ELITE,
                 EREBOR_VETERAN,
                 EREBOR_GATEWARDEN,
                 EREBOR_LEADER
@@ -77,8 +77,8 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(ModEquipmentItems.DWARVEN_REINFORCED_BOOTS))
                         )
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModToolItems.BURZUM_STEEL_PICKAXE))
-                                .add(NpcGearItemData.create(ModToolItems.BURZUM_STEEL_AXE))
+                                .add(NpcGearItemData.create(ModToolItems.KHAZAD_STEEL_PICKAXE))
+                                .add(NpcGearItemData.create(ModToolItems.KHAZAD_STEEL_AXE))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR))
@@ -104,8 +104,8 @@ public class EreborNpcDataPool {
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModWeaponItems.EREBOR_SWORD))
                                 .add(NpcGearItemData.create(ModWeaponItems.EREBOR_AXE))
-                                .add(NpcGearItemData.create(ModWeaponItems.BURZUM_STEEL_SWORD))
-                                .add(NpcGearItemData.create(ModWeaponItems.BURZUM_STEEL_SPEAR))
+                                .add(NpcGearItemData.create(ModWeaponItems.KHAZAD_STEEL_SWORD))
+                                .add(NpcGearItemData.create(ModWeaponItems.KHAZAD_STEEL_SPEAR))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModWeaponItems.HEATER_SHIELD))
@@ -148,7 +148,6 @@ public class EreborNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModWeaponItems.EREBOR_SHIELD).withWeight(4))
                                 .add(NpcGearItemData.create(ModWeaponItems.EREBOR_CROSS_SHIELD))
-                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_CROSS_SHIELD))
                                 .add(NpcGearItemData.create(ModWeaponItems.ROUND_SHIELD))
                                 .add(NpcGearItemData.create(ModWeaponItems.HEATER_SHIELD))
                         )
@@ -187,7 +186,7 @@ public class EreborNpcDataPool {
                         )
         ));
 
-        EREBOR_BRAWLER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "brawler"), MiddleEarthRaces.DWARF, List.of(
+        EREBOR_ELITE = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "elite"), MiddleEarthRaces.DWARF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_GUARD_HELMET).withWeight(8))
@@ -196,9 +195,12 @@ public class EreborNpcDataPool {
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_BRAWLER_CHESTPLATE).withColor(DARK_RED).withWeight(3))
-                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_BRAWLER_CHESTPLATE).withColor(LIGHT_BLUE))
                                 .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_BRAWLER_CHESTPLATE).withColor(DARK_RED).withCape(ModCapes.EREBOR_CAPE))
-                                .add(NpcGearItemData.create(Items.AIR))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_BRAWLER_CHESTPLATE).withColor(LIGHT_BLUE).withWeight(3))
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_BRAWLER_CHESTPLATE).withColor(LIGHT_BLUE).withCape(ModCapes.EREBOR_CAPE))
+
+                                .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE).withCape(ModCapes.EREBOR_CAPE).withWeight(3))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_LEATHER_LEGGINGS).withColor(DARK_RED))
@@ -209,10 +211,17 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(ModEquipmentItems.EREBOR_PLATE_BOOTS))
                         )
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(Items.AIR))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_NOBLE_SWORD).withWeight(3))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_NOBLE_AXE).withWeight(3))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_NOBLE_LONGSWORD))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_NOBLE_SPEAR))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(Items.AIR))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_REINFORCED_TOWER_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_REINFORCED_SHIELD).withWeight(5))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_SHIELD).withWeight(4))
+                                .add(NpcGearItemData.create(ModWeaponItems.EREBOR_CROSS_SHIELD))
+                                .add(NpcGearItemData.create(Items.AIR).withWeight(5))
                         )
         ));
 

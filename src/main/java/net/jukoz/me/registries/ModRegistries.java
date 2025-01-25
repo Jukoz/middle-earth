@@ -1,9 +1,6 @@
 package net.jukoz.me.registries;
 
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
+import net.fabricmc.fabric.api.registry.*;
 import net.jukoz.me.block.*;
 import net.jukoz.me.datageneration.content.models.HotMetalsModel;
 import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
@@ -12,15 +9,24 @@ import net.jukoz.me.datageneration.content.tags.Saplings;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.recipe.ModTags;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.math.random.Random;
+
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class ModRegistries {
 
@@ -122,6 +128,28 @@ public class ModRegistries {
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_CHAIR, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_TABLE, 5, 20);
+
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.LEBETHRON_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.BERRY_HOLLY_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.DRY_LARCH_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.MAPLE_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.ORANGE_MAPLE_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.RED_MAPLE_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.YELLOW_MAPLE_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.DRY_PINE_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.PINE_BRANCHES, 30, 60);
+
+        LeavesSets.blocks.forEach(block -> {
+            FlammableBlockRegistry.getDefaultInstance().add(block, 30, 60);
+        });
+    }
+
+    public static void registerTillableBlocks() {
+        TillableBlockRegistry.register(ModBlocks.DRY_DIRT, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.DIRTY_ROOTS, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.GRASSY_DIRT, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.TURF, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
     }
 
     public static void registerAgingCopperBlocks() {
@@ -375,6 +403,9 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.WHITE_FLOWERS, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_FLOWERS, 0.65f);
 
+        registry.add(ModNatureBlocks.LAVENDER, 0.65f);
+        registry.add(ModNatureBlocks.YELLOW_TROLLIUS, 0.65f);
+
         registry.add(ModNatureBlocks.BROWN_GRASS, 0.30f);
         registry.add(ModNatureBlocks.DYING_GRASS, 0.30f);
         registry.add(ModNatureBlocks.FROZEN_GRASS, 0.10f);
@@ -442,6 +473,9 @@ public class ModRegistries {
         Saplings.saplings.forEach(sapling -> {
             registry.add(sapling, 0.3F);
         });
+
+        registry.add(ModNatureBlocks.BEECH_SAPLING, 0.3F);
+
         LeavesSets.blocks.forEach(block -> {
             registry.add(block, 0.3F);
         });
@@ -469,6 +503,8 @@ public class ModRegistries {
 
         registry.add(ModNatureBlocks.WILD_PIPEWEED, 0.5F);
         registry.add(ModNatureBlocks.WILD_FLAX, 0.5F);
+        registry.add(ModNatureBlocks.WILD_WHEAT, 0.5F);
+        registry.add(ModNatureBlocks.TALL_WILD_WHEAT, 0.5F);
         registry.add(ModNatureBlocks.WILD_TOMATO, 0.5F);
         registry.add(ModNatureBlocks.WILD_BELL_PEPPER, 0.5F);
         registry.add(ModNatureBlocks.WILD_CUCUMBER, 0.5F);
@@ -529,6 +565,15 @@ public class ModRegistries {
         registry.add(ModResourceItems.PIPEWEED_SEEDS, 0.3F);
     }
 
+    //This not good but will do for now until more cases appear
+    public static final CauldronBehavior CLEAN_ITEM = (state, world, pos, player, hand, stack) -> {
+        if (!world.isClient) {
+            player.giveItemStack(new ItemStack(Items.BONE));
+            stack.decrement(1);
+        }
+        return ItemActionResult.success(world.isClient);
+    };
+
     public static final CauldronBehavior CLEAN_CUSTOM_DYEABLE_ITEM = (state, world, pos, player, hand, stack) -> {
         if (!stack.isIn(ModTags.DYEABLE)) {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
@@ -537,8 +582,6 @@ public class ModRegistries {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (!world.isClient) {
-            CustomDyeableDataComponent dyeableDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
-
             stack.set(ModDataComponentTypes.DYE_DATA,
                      new CustomDyeableDataComponent(CustomDyeableDataComponent.DEFAULT_COLOR));
             player.incrementStat(Stats.CLEAN_ARMOR);
@@ -552,7 +595,6 @@ public class ModRegistries {
         int smokeAmount = random.nextInt(9) + 4;
         int bigSmokeAmount = random.nextInt(3) + 2;
 
-
         if (!stack.contains(ModDataComponentTypes.TEMPERATURE_DATA)) {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
@@ -561,7 +603,7 @@ public class ModRegistries {
             originalStack.setCount(1);
             originalStack.remove(ModDataComponentTypes.TEMPERATURE_DATA);
             stack.decrement(1);
-            player.giveItemStack(originalStack);
+            player.getInventory().offerOrDrop(originalStack);
 
             LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
 
@@ -605,5 +647,17 @@ public class ModRegistries {
         HotMetalsModel.nuggets.forEach(item -> {
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
         });
+
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModResourceItems.DIRTY_BONE, CLEAN_ITEM);
+    }
+
+    public static void registerLandPathNodeTypesBlocks() {
+        LandPathNodeTypesRegistry.register(ModNatureBlocks.TOUGH_BERRY_BUSH, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.SMALL_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.BIG_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.GILDED_SMALL_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.GILDED_BIG_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.BONFIRE, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.FIRE_BOWL, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
     }
 }

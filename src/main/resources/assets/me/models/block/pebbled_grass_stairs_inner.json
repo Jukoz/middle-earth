@@ -1,0 +1,9 @@
+{
+  "parent": "me:block/inner_stairs_overlay_tint",
+  "textures": {
+    "bottom": "me:block/pebbled_grass",
+    "side": "me:block/pebbled_grass",
+    "top": "me:block/pebbled_grass",
+    "overlay": "me:block/pebbled_grass_overlay"
+  }
+}

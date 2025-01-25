@@ -9,7 +9,11 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biomes": "me:misty_mountains"
+                "biomes": [
+                  "me:misty_mountains",
+                  "me:misty_mountains_base",
+                  "me:misty_mountains_peaks"
+                ]
               }
             }
           }

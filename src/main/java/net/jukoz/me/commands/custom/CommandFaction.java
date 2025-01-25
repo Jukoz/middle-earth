@@ -7,7 +7,7 @@ import net.jukoz.me.commands.CommandUtils;
 import net.jukoz.me.utils.ModColors;
 import net.jukoz.me.commands.ModCommands;
 import net.jukoz.me.commands.suggestions.AllAvailableSpawnSuggestionProvider;
-import net.jukoz.me.commands.suggestions.AllJoinableFactionSuggestionProvider;
+import net.jukoz.me.commands.suggestions.FactionSuggestionProvider;
 import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.exceptions.IdenticalFactionException;
 import net.jukoz.me.exceptions.NoFactionException;
@@ -25,6 +25,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,6 +41,7 @@ public class CommandFaction {
     private static final String FACTION_ID = "faction_id";
     private static final String SPAWN_ID = "spawn_id";
     private static final String PLAYER = "player";
+    private static final String BANNER = "banner";
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, RegistrationEnvironment registrationEnvironment) {
         // [GET]
@@ -65,11 +67,11 @@ public class CommandFaction {
                 .then(argument(PLAYER, EntityArgumentType.player())
                     .then(literal(JOIN) // With Player Target
                     .then(argument(FACTION_ID, IdentifierArgumentType.identifier())
-                    .suggests(new AllJoinableFactionSuggestionProvider())
+                    .suggests(new FactionSuggestionProvider())
                     .executes(CommandFaction::forceTargetToJoinFaction))))
                 .then(literal(JOIN) // Without Target
                 .then(argument(FACTION_ID, IdentifierArgumentType.identifier())
-                .suggests(new AllJoinableFactionSuggestionProvider())
+                .suggests(new FactionSuggestionProvider())
                 .executes(CommandFaction::joinFaction)))));
 
         // [JOIN + SET SPAWN]
@@ -79,17 +81,49 @@ public class CommandFaction {
                     .then(argument(PLAYER, EntityArgumentType.player())
                         .then((literal(JOIN) // With Player Target
                         .then(argument(FACTION_ID, IdentifierArgumentType.identifier())
-                        .suggests(new AllJoinableFactionSuggestionProvider())
+                        .suggests(new FactionSuggestionProvider())
                         .then(argument(SPAWN_ID, IdentifierArgumentType.identifier())
                         .suggests(new AllAvailableSpawnSuggestionProvider())
                         .executes(CommandFaction::forceTargetToJoinFaction))))))
 
                     .then((literal(JOIN)) // No Player Target
                     .then(argument(FACTION_ID, IdentifierArgumentType.identifier())
-                    .suggests(new AllJoinableFactionSuggestionProvider())
+                    .suggests(new FactionSuggestionProvider())
                     .then(argument(SPAWN_ID, IdentifierArgumentType.identifier())
                     .suggests(new AllAvailableSpawnSuggestionProvider())
                     .executes(CommandFaction::joinFaction))))));
+
+        // [GET BANNER]
+        dispatcher.register(literal(ModCommands.BASE_COMMAND)
+                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .then(literal(FACTION_BASE_COMMAND)
+                    .then(literal(BANNER)
+                    .then(argument(FACTION_ID, IdentifierArgumentType.identifier())
+                    .suggests(new FactionSuggestionProvider())
+                    .executes(CommandFaction::getBanner)))));
+    }
+
+    private static int getBanner(CommandContext<ServerCommandSource> context) {
+        if(context.getSource().isExecutedByPlayer()) {
+            ServerPlayerEntity source = context.getSource().getPlayer();
+            Identifier factionIdentifier = IdentifierArgumentType.getIdentifier(context, FACTION_ID);;
+
+            try{
+                Faction faction = FactionLookup.getFactionById(source.getWorld(), factionIdentifier);
+                source.giveItemStack(faction.getBannerItem(source.getWorld()));
+                MutableText sourceText = Text.translatable("command.me.faction.banner.success", faction.getFullName().formatted(Formatting.GOLD));
+                source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
+            } catch (FactionIdentifierException e){
+                MutableText sourceText = Text.translatable("command.me.faction.banner.fail_id", Text.of(factionIdentifier.toString()));
+                source.sendMessage(sourceText.withColor(ModColors.ALERT.color));
+                return 0;
+            } catch (Exception e){
+                MutableText sourceText = Text.translatable("command.me.faction.banner.fail_error", Text.of(factionIdentifier.toString()));
+                source.sendMessage(sourceText.withColor(ModColors.ALERT.color));
+                return 0;
+            }
+        }
+        return 1;
     }
 
     private static int getFaction(CommandContext<ServerCommandSource> context) {

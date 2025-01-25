@@ -1,6 +1,51 @@
 {
   "pools": [
     {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:dwarf_crown_banner_pattern",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:anvil_banner_pattern",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_nugget",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:crystal_lamp"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:copper_smithing_hammer"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:silver_coin"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:dwarven_gambeson"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:dwarven_boots"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 1
+    },
+    {
       "rolls": {
         "min": 1,
         "max": 5
@@ -21,18 +66,6 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:coal"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:crystal_lamp"
         }
       ]
     },
@@ -81,18 +114,6 @@
         {
           "type": "minecraft:item",
           "name": "me:larch_log"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:gold_nugget"
         }
       ]
     }

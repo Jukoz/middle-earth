@@ -287,19 +287,18 @@ public class FactionSelectionScreen extends Screen {
             this.close();
             return true;
         }
-
-        if(!playableNpcPreviewWidget.keyPressed(keyCode, scanCode, modifiers)
-        || !searchBarWidget.keyPressed(keyCode, scanCode, modifiers)){
-            return true;
-        }
-
-
-
         // Keybind : Tabulation
         if(keyCode == KeyEvent.VK_CODE_INPUT && !ModWidget.getFocusEnabled()){
             ModWidget.enableFocus(true);
             return true;
         }
+        if(playableNpcPreviewWidget.keyPressed(keyCode, scanCode, modifiers)){
+            return true;
+        }
+        if(searchBarWidget.keyPressed(keyCode, scanCode, modifiers)){
+            return true;
+        }
+
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 

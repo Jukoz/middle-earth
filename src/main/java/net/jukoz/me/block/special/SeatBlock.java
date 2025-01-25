@@ -5,6 +5,7 @@ import net.jukoz.me.entity.seat.SeatEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -20,6 +21,7 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
@@ -47,11 +49,11 @@ public class SeatBlock extends Block {
 
         if(world.isClient) {
             return ActionResult.CONSUME;
-        } else if(player.isSneaking() || player.isSpectator()) {
+        } else if(player.isSneaking() || player.isSpectator() || player.hasVehicle()) {
             return ActionResult.FAIL;
         } else if (player.shouldCancelInteraction()) {
             return ActionResult.SUCCESS;
-        } else if (!world.getBlockState(pos.up()).isAir()){
+        } else if (world.getBlockState(pos.up()).isOpaque()){
             player.sendMessage(Text.translatable("alert.me.seat.space_not_empty"), true);
             return ActionResult.SUCCESS;
         }else if (state.get(OCCUPIED)){

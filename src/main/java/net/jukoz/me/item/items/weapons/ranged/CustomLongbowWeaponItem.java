@@ -8,13 +8,16 @@ import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BowItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -24,26 +27,29 @@ import java.util.function.Predicate;
 public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentTooltip{
     private final ModFactions faction;
     private final ModSubFactions subFaction;
-    public ModRangedWeaponTypes type = ModRangedWeaponTypes.LONGBOW;
+    public ModRangedWeaponTypes type;
 
     public static final int RANGE = 25;
 
-    public CustomLongbowWeaponItem(Settings settings) {
-        super(settings);
+    public CustomLongbowWeaponItem(ModRangedWeaponTypes type) {
+        super(new Item.Settings().maxDamage(type.durability));
         this.faction = null;
         this.subFaction = null;
+        this.type = type;
     }
 
-    public CustomLongbowWeaponItem(ModFactions faction, Settings settings) {
-        super(settings);
+    public CustomLongbowWeaponItem(ModFactions faction, ModRangedWeaponTypes type) {
+        super(new Item.Settings().maxDamage(type.durability));
         this.faction = faction;
         this.subFaction = null;
+        this.type = type;
     }
 
-    public CustomLongbowWeaponItem(ModSubFactions subFaction, Settings settings) {
-        super(settings);
+    public CustomLongbowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type) {
+        super(new Item.Settings().maxDamage(type.durability));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
+        this.type = type;
     }
 
     @Override
@@ -58,7 +64,7 @@ public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentToolt
                     if (world instanceof ServerWorld) {
                         ServerWorld serverWorld = (ServerWorld)world;
                         if (!list.isEmpty()) {
-                            this.shootAll(serverWorld, playerEntity, playerEntity.getActiveHand(), stack, list, f * 6.0F, 1.0F, f == 1.0F, (LivingEntity)null);
+                            this.shootAll(serverWorld, playerEntity, playerEntity.getActiveHand(), stack, list, f * 5.0F, 1.0F, f == 1.0F, (LivingEntity)null);
                         }
                     }
 
@@ -92,6 +98,18 @@ public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentToolt
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
         super.appendTooltip(stack, context, tooltip, type);
+    }
+
+    @Override
+    public Text getName(ItemStack stack) {
+        if(Registries.ITEM.getId(this).getPath().contains("_noble")
+                || Registries.ITEM.getId(this).getPath().contains("_elite")
+                || Registries.ITEM.getId(this).getPath().contains("uruk_hai")
+                || Registries.ITEM.getId(this).getPath().contains("heyday")
+                || Registries.ITEM.getId(this).getPath().contains("numenorean")){
+            return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
+        }
+        return super.getName(stack);
     }
 
     @Override

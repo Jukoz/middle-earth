@@ -6,6 +6,7 @@ import net.jukoz.me.commands.ModCommands;
 import net.jukoz.me.config.ModClientConfigs;
 import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.event.ModEvents;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.utils.ModItemGroups;
@@ -34,8 +35,10 @@ import net.jukoz.me.world.dimension.ModDimensions;
 
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
-	public static final String MOD_VERSION = "1.5.0-1.21.1-alpha";
+	public static final String MOD_VERSION = "1.5.1-1.21.1-alpha";
 	public static final boolean IS_DEBUG = true;
+	public static final boolean ENABLE_INSTANT_BOOTING = true;
+
 	@Override
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
@@ -44,7 +47,7 @@ public class MiddleEarth implements ModInitializer {
 		LoggerUtil.logInfoMsg("================ MiddleEarth ================");
 
 		ModServerNetworkHandler.register(new ConnectionToClient());
-
+		ModEvents.register();
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();
 
@@ -75,9 +78,11 @@ public class MiddleEarth implements ModInitializer {
 
 		ModRegistries.registerFuels();
 		ModRegistries.registerFlammableBlocks();
+		ModRegistries.registerTillableBlocks();
 		ModRegistries.registerAgingCopperBlocks();
 		ModRegistries.registerComposterBlocks();
 		ModRegistries.registerCauldronBehaviour();
+		ModRegistries.registerLandPathNodeTypesBlocks();
 
 		ModBlockEntities.registerBlockEntities();
 
