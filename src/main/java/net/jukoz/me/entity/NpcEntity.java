@@ -15,6 +15,7 @@ import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.orcs.isengard.IsengardOrcEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
+import net.jukoz.me.entity.orcs.wild.WildGoblinEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.uruks.isengard.IsengardUrukHaiEntity;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
@@ -103,15 +104,16 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
             try {
                 disposition = FactionLookup.getFactionById(getWorld(), factionId).getDisposition();
             } catch (FactionIdentifierException e) {
+                LoggerUtil.logDebugMsg("testing");
                 disposition = Disposition.NEUTRAL; // Attacks everyone, no judgement made
             }
         }
 
+        this.targetSelector.add(0, new RevengeGoal(this, this.getClass()));
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
-        this.targetSelector.add(1, new RevengeGoal(this, this.getClass()));
 
 
         this.targetSelector.add(2, new NpcTargetPlayerGoal(this));
@@ -335,32 +337,63 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, WargEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, IsengardOrcEntity.class, true));
+
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, IsengardUrukHaiEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, IsengardOrcEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
+
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, WildGoblinEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
 
         return i;
     }
 
     public int initEvilTargetSelector(int i){
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
+
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DaleHumanEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, HorseEntity.class, true));
+
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, WildGoblinEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
 
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, HorseEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BroadhoofGoatEntity.class, true));
+        return i;
+    }
+
+    public int initNeutralTargetSelector(int i){
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, WargEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
+
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, IsengardUrukHaiEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, IsengardOrcEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
+
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DaleHumanEntity.class, true));
+
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+
         return i;
     }
 }

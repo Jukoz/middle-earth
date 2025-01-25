@@ -74,7 +74,7 @@ public class GaladhrimElfEntity extends NpcEntity{
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 25.0)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.5)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0);
     }
@@ -82,7 +82,7 @@ public class GaladhrimElfEntity extends NpcEntity{
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 27.0)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.5)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.5);
     }
@@ -90,7 +90,7 @@ public class GaladhrimElfEntity extends NpcEntity{
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 29.0)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.5)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0);
     }
@@ -98,7 +98,7 @@ public class GaladhrimElfEntity extends NpcEntity{
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 31.0)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.5)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.5);
     }
