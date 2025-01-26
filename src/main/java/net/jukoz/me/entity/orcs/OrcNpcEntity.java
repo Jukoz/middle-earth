@@ -9,11 +9,4 @@ public class OrcNpcEntity extends NpcEntity {
     protected OrcNpcEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
     }
-
-    @Override
-    protected void initGoals() {
-        super.initGoals();
-        int index = 4;
-        index = initEvilTargetSelector(index);
-    }
 }

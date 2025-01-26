@@ -1,6 +1,8 @@
 package net.jukoz.me.entity.orcs.wild;
 
 import net.jukoz.me.entity.NpcEntity;
+import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
+import net.jukoz.me.entity.humans.dale.DaleHumanEntity;
 import net.jukoz.me.entity.orcs.OrcNpcEntity;
 import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.MiddleEarthRaces;
@@ -8,6 +10,7 @@ import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -26,6 +29,16 @@ public class WildGoblinEntity extends OrcNpcEntity {
             this.setRank(NpcRank.SOLDIER);
         }
     }
+
+    @Override
+    protected void initGoals() {
+        super.initGoals();
+        int index = 4;
+        index = initNeutralTargetSelector(index);
+        this.targetSelector.add(++index, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+    }
+
+
     @Override
     protected Identifier getFactionId() {
         return MiddleEarthFactions.BANDIT.getId();
