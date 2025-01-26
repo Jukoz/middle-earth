@@ -61,27 +61,22 @@ public class MistyGoblinEntity extends OrcNpcEntity {
         this.initEquipment(random, difficulty);
         return entityData;
     }
+    @Override
+    protected void initGoals() {
+        super.initGoals();
+        int index = 4;
+        initEvilTargetSelector(index);
+    }
 
     public static DefaultAttributeContainer.Builder setSoldierAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.5)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0);
     }
 
-    @Override
-    protected void initGoals() {
-        super.initGoals();
-        int i = 2;
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-    }
     @Override
     protected void applyDamage(DamageSource source, float amount) {
         if(source.getAttacker() instanceof MistyGoblinEntity){

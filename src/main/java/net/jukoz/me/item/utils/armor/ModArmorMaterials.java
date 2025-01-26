@@ -20,7 +20,7 @@ public class ModArmorMaterials {
 
     public static final ExtendedArmorMaterial WOOL_T1 = registerArmor("wool_t1", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModResourceItems.FUR);
 
-    public static final ExtendedArmorMaterial FUR_T0 = registerArmor("fur_t1", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModResourceItems.FUR);
+    public static final ExtendedArmorMaterial FUR_T0 = registerArmor("fur_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModResourceItems.FUR);
     public static final ExtendedArmorMaterial FUR_T1 = registerArmor("fur_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModResourceItems.FUR);
 
     public static final ExtendedArmorMaterial FABRIC_T0 = registerArmor("fabric_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModResourceItems.FABRIC);
