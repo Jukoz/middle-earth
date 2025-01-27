@@ -8,3 +8,4 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+include 'middle-earth'

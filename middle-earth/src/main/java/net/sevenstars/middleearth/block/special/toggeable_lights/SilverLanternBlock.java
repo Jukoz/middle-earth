@@ -1,0 +1,85 @@
+package net.sevenstars.middleearth.block.special.toggeable_lights;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.function.ToIntFunction;
+
+public class SilverLanternBlock extends AbstractToggeableLightBlock {
+    public static final BooleanProperty HANGING;
+    public static final ToIntFunction<BlockState> STATE_TO_LUMINANCE;
+    private static final VoxelShape STANDING_SHAPE, HANGING_SHAPE;
+
+    public SilverLanternBlock(Settings settings) {
+        super(settings);
+        this.setDefaultState(this.getDefaultState().with(LIT, false).with(HANGING, false).with(WATERLOGGED, false).with(LEVEL_15, 15));
+    }
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add (HANGING);
+        super.appendProperties(builder);
+    }
+
+    @Nullable
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
+        Direction[] var3 = ctx.getPlacementDirections();
+        int var4 = var3.length;
+
+        for(int var5 = 0; var5 < var4; ++var5) {
+            Direction direction = var3[var5];
+            if (direction.getAxis() == Direction.Axis.Y) {
+                BlockState blockState = this.getDefaultState().with(HANGING, direction == Direction.UP);
+                if (blockState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) {
+                    return blockState.with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
+        if (!world.isClient && projectile.isOnFire() && !state.get(LIT)) {
+            world.setBlockState(hit.getBlockPos(), state.with(LIT, true), STATE_TO_LUMINANCE.applyAsInt(state));
+        }
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return state.get(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
+    }
+
+    @Override
+    protected Direction attachedDirection(BlockState state) {
+        return state.get(HANGING) ? Direction.DOWN : Direction.UP;
+    }
+
+    static {
+        HANGING = Properties.HANGING;
+        STATE_TO_LUMINANCE = (state) -> { return state.get(LIT) ? state.get(LEVEL_15) : 0; };
+
+        STANDING_SHAPE = VoxelShapes.union(
+                Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 7.0, 11.0),
+                Block.createCuboidShape(6.0, 7.0, 6.0, 10.0, 9.0, 10.0));
+        HANGING_SHAPE = VoxelShapes.union(
+                Block.createCuboidShape(5.0, 1.0, 5.0, 11.0, 8.0, 11.0),
+                Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
+    }
+}
