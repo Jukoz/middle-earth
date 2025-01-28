@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.world.map;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.utils.resources.FileType;
 import net.sevenstars.middleearth.utils.resources.FileUtils;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
@@ -37,8 +36,8 @@ public class MiddleEarthMapGeneration {
     }
 
     public void generate() throws Exception {
-        LoggerUtil.logInfoMsg("");
-        LoggerUtil.logInfoMsg("================ MiddleEarthMapGeneration ================");
+        MiddleEarth.LOGGER.logInfoMsg("");
+        MiddleEarth.LOGGER.logInfoMsg("================ MiddleEarthMapGeneration ================");
 
         try{
             initialMap = getInitialImage();
@@ -46,14 +45,14 @@ public class MiddleEarthMapGeneration {
                 throw new Exception(this + " : The image of the map in resource has created an error and operation cannot continue.");
             }
         } catch (Exception e){
-            LoggerUtil.logError("MiddleEarthMapGeneration::generate() - Fetch Initial Map", e);
+            MiddleEarth.LOGGER.logError("MiddleEarthMapGeneration::generate() - Fetch Initial Map", e);
         }
 
         if(!MiddleEarth.ENABLE_INSTANT_BOOTING){
-            LoggerUtil.logInfoMsg("Instant Booting - Disabled");
+            MiddleEarth.LOGGER.logInfoMsg("Instant Booting - Disabled");
         }
         else {
-            LoggerUtil.logInfoMsg("Instant Booting - Enabled");
+            MiddleEarth.LOGGER.logInfoMsg("Instant Booting - Enabled");
             boolean pasteSuccess = true;
 
             // check if copy&paste is necessary
@@ -94,46 +93,46 @@ public class MiddleEarthMapGeneration {
                     inputStream.close();
                     zipInputStream.close();
                 } catch (IOException e) {
-                    LoggerUtil.logError("MiddleEarthMapGeneration::Couldn't copy paste folders", e);
+                    MiddleEarth.LOGGER.logError("MiddleEarthMapGeneration::Couldn't copy paste folders", e);
                     pasteSuccess = false;
                 }
                 if(pasteSuccess) {
-                    LoggerUtil.logInfoMsg("Instant Booting - Completed");
+                    MiddleEarth.LOGGER.logInfoMsg("Instant Booting - Completed");
                     return;
                 } else {
-                    LoggerUtil.logError("Instant Booting - Failure");
+                    MiddleEarth.LOGGER.logError("Instant Booting - Failure");
                 }
             }
             else {
-                LoggerUtil.logInfoMsg("Instant Booting - Skipped, Files already present");
-                LoggerUtil.logInfoMsg("Validating data content...");
+                MiddleEarth.LOGGER.logInfoMsg("Instant Booting - Skipped, Files already present");
+                MiddleEarth.LOGGER.logInfoMsg("Validating data content...");
             }
         }
 
-        LoggerUtil.logInfoMsg("Validating initial map BIOME colors;");
+        MiddleEarth.LOGGER.logInfoMsg("Validating initial map BIOME colors;");
         if(!validateBaseColors(initialMap)) return;
 
-        LoggerUtil.logInfoMsg("Validating BIOME generation availability;");
+        MiddleEarth.LOGGER.logInfoMsg("Validating BIOME generation availability;");
         int iterationToGenerate = (MiddleEarthMapConfigs.FORCE_GENERATION)
                 ? MiddleEarthMapConfigs.MAP_ITERATION + 1
                 : findAmountOfIterationToGenerate(initialMap);
 
         if(iterationToGenerate > 0){
-            LoggerUtil.logInfoMsg("Begin BIOME generation;");
+            MiddleEarth.LOGGER.logInfoMsg("Begin BIOME generation;");
             generateBiomes(initialMap, iterationToGenerate);
         }
 
-        LoggerUtil.logInfoMsg("Validating initial map HEIGHT MODIFIER generation availability;");
+        MiddleEarth.LOGGER.logInfoMsg("Validating initial map HEIGHT MODIFIER generation availability;");
         if(!validateBaseHeightDatas()){
-            LoggerUtil.logInfoMsg("Begin initial map HEIGHT MODIFIER generation;");
+            MiddleEarth.LOGGER.logInfoMsg("Begin initial map HEIGHT MODIFIER generation;");
             generateBaseHeightImage(initialMap);
             generateBaseEdgeImage(initialMap);
         }
 
 
-        LoggerUtil.logInfoMsg("Validating HEIGHT generation availability;");
+        MiddleEarth.LOGGER.logInfoMsg("Validating HEIGHT generation availability;");
         if(!validateHeightDatas(initialMap)){
-            LoggerUtil.logInfoMsg("Begin HEIGHT generation;");
+            MiddleEarth.LOGGER.logInfoMsg("Begin HEIGHT generation;");
             generateHeight(initialMap);
         }
     }
@@ -148,7 +147,7 @@ public class MiddleEarthMapGeneration {
                 try{
                     MapBasedBiomePool.getBiomeByColor(initialMap.getRGB(x,y));
                 } catch (Exception e) {
-                    LoggerUtil.logError("MiddleEarthMapGeneration::Cannot find color at [%s,%s] in the inital map".formatted(x,y));
+                    MiddleEarth.LOGGER.logError("MiddleEarthMapGeneration::Cannot find color at [%s,%s] in the inital map".formatted(x,y));
                     return false;
                 }
             }
@@ -157,15 +156,15 @@ public class MiddleEarthMapGeneration {
     }
 
     private BufferedImage getInitialImage(){
-        LoggerUtil.logInfoMsg("Validating ORIGINAL image existence;");
+        MiddleEarth.LOGGER.logInfoMsg("Validating ORIGINAL image existence;");
         BufferedImage initialImage = fileUtils.getResourceImage(MiddleEarthMapConfigs.INITIAL_IMAGE);
         if(initialImage == null){
-            LoggerUtil.logError("Initial map image couldn't be found!");
+            MiddleEarth.LOGGER.logError("Initial map image couldn't be found!");
             return null;
         }
-        LoggerUtil.logInfoMsg("Validating ORIGINAL image size;");
+        MiddleEarth.LOGGER.logInfoMsg("Validating ORIGINAL image size;");
         if(initialImage.getWidth() % MiddleEarthMapConfigs.REGION_SIZE != 0 || initialImage.getHeight() % MiddleEarthMapConfigs.REGION_SIZE != 0){
-            LoggerUtil.logError("Initial map image has the wrong size!");
+            MiddleEarth.LOGGER.logError("Initial map image has the wrong size!");
             return null;
         }
 
@@ -187,7 +186,7 @@ public class MiddleEarthMapGeneration {
                 for(int y = 0; y < currentRegionAmountY; y ++) {
                     String path = MiddleEarthMapConfigs.BIOME_PATH.formatted(i) + MiddleEarthMapConfigs.IMAGE_NAME.formatted(x,y);
                     if(fileUtils.getRunImage(path) == null){
-                        LoggerUtil.logError("Need to regenerate biome files: Lacking biome file at : [%s]".formatted(path));
+                        MiddleEarth.LOGGER.logError("Need to regenerate biome files: Lacking biome file at : [%s]".formatted(path));
                         return absoluteMapIteration - i;
                     }
                 }
@@ -236,7 +235,7 @@ public class MiddleEarthMapGeneration {
             try {
                 executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
             } catch (Exception e) {
-                LoggerUtil.logError("Error while generating biomes");
+                MiddleEarth.LOGGER.logError("Error while generating biomes");
             }
         }
         return new BufferedImage[0][][];
@@ -244,7 +243,7 @@ public class MiddleEarthMapGeneration {
 
     private void generateInitialBiomes(BufferedImage initialImage){
         if(initialImage.getWidth() != MiddleEarthMapConfigs.REGION_SIZE || initialImage.getWidth() !=  MiddleEarthMapConfigs.REGION_SIZE){
-            LoggerUtil.logError("Need to regenerate height files: Need splitting for the initial image!");
+            MiddleEarth.LOGGER.logError("Need to regenerate height files: Need splitting for the initial image!");
             for(int i = 0; i < initialImage.getWidth() / MiddleEarthMapConfigs.REGION_SIZE; i++){
                 for(int j = 0; j < initialImage.getHeight() / MiddleEarthMapConfigs.REGION_SIZE; j++){
                     BufferedImage newImage = initialImage.getSubimage(MiddleEarthMapConfigs.REGION_SIZE * i, MiddleEarthMapConfigs.REGION_SIZE * j, MiddleEarthMapConfigs.REGION_SIZE, MiddleEarthMapConfigs.REGION_SIZE);
@@ -299,12 +298,12 @@ public class MiddleEarthMapGeneration {
         try {
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         } catch (Exception e) {
-            LoggerUtil.logError("Error while generating heights");
+            MiddleEarth.LOGGER.logError("Error while generating heights");
         }
 
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
-        LoggerUtil.logInfoMsg("TIME BLUR FOR HEIGHT: " + timeElapsed);
+        MiddleEarth.LOGGER.logInfoMsg("TIME BLUR FOR HEIGHT: " + timeElapsed);
     }
 
     private boolean validateBaseHeightDatas() {
@@ -419,7 +418,7 @@ public class MiddleEarthMapGeneration {
         try{
             return new Color(red, green, blue);
         } catch (Exception e){
-            LoggerUtil.logError(e.getMessage());
+            MiddleEarth.LOGGER.logError(e.getMessage());
             return color1;
         }
     }

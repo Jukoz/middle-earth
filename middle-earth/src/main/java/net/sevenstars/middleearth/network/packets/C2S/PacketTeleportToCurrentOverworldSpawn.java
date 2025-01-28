@@ -6,7 +6,6 @@ import net.sevenstars.middleearth.item.items.StarlightPhialItem;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -51,7 +50,7 @@ public class PacketTeleportToCurrentOverworldSpawn extends ClientToServerPacket<
                 }
             });
         } catch (Exception e){
-            LoggerUtil.logError("PacketTeleportToCurrentOverworldSpawn::Apply - Tried applying the return to overworld packet",e);
+            MiddleEarth.LOGGER.logError("PacketTeleportToCurrentOverworldSpawn::Apply - Tried applying the return to overworld packet",e);
         }
     }
 }

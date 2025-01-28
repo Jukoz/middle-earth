@@ -27,7 +27,6 @@ import net.sevenstars.middleearth.block.special.torches.MEWallTorchBlock;
 import net.sevenstars.middleearth.block.special.torches.OrcSconceBlock;
 import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlock;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.particle.ParticleTypes;
@@ -723,6 +722,6 @@ public class ModDecorativeBlocks {
     }
 
     public static void registerModBlocks() {
-        LoggerUtil.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
 }

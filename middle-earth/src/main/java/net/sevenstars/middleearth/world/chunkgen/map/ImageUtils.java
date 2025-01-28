@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.world.chunkgen.map;
 
 import com.google.common.base.Stopwatch;
-import net.sevenstars.middleearth.utils.LoggerUtil;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapGeneration;
 import org.joml.sampling.Convolution;
@@ -95,7 +95,7 @@ public class ImageUtils {
                     result.setRGB(x, y, (color != null ) ? color : colorOccurences.get(0));
                     colorOccurences.clear();
                 } catch (Exception exception) {
-                    //LoggerUtil.logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
+                    //MiddleEarth.LOGGER.logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
                 }
                 colorOccurences.clear();
 
@@ -126,7 +126,7 @@ public class ImageUtils {
                     Integer color = getMostOccuringColorFromBiomeList(colorOccurences);
                     result.setRGB(x, y, (color != null ) ? color : colorOccurences.get(0));
                 } catch (Exception exception) {
-                    //LoggerUtil.logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
+                    //MiddleEarth.LOGGER.logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
                 }
                 colorOccurences.clear();
             }
@@ -136,7 +136,7 @@ public class ImageUtils {
 
     private static Integer getMostOccuringColorFromBiomeList(ArrayList<Integer> list) throws Exception {
         if(list.isEmpty()){
-            LoggerUtil.logError("ImageUtils::getMostCommonColor - List was empty!");
+            MiddleEarth.LOGGER.logError("ImageUtils::getMostCommonColor - List was empty!");
             return null;
         }
         Map<Integer, Integer> counts = new HashMap<>();

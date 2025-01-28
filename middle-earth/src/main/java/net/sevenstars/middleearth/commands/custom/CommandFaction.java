@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.commands.custom;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.CommandUtils;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.commands.suggestions.AllAvailableSpawnSuggestionProvider;
@@ -16,7 +17,6 @@ import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.utils.ModColors;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -251,7 +251,7 @@ public class CommandFaction {
                     source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
                 }
             } catch (FactionIdentifierException e) {
-                LoggerUtil.logDebugMsg("Faction Id does not exist");
+                MiddleEarth.LOGGER.logDebugMsg("Faction Id does not exist");
             }
 
             return 1;

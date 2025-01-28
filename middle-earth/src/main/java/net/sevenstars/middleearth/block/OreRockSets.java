@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.block;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -121,7 +120,7 @@ public class OreRockSets {
     }
 
     public static void registerModBlockSets() {
-        LoggerUtil.logDebugMsg("Registering OreSets for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering OreSets for " + MiddleEarth.MOD_ID);
     }
 
     enum ORES{

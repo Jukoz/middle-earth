@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.world.map;
 
-import net.sevenstars.middleearth.utils.LoggerUtil;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.utils.resources.FileUtils;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedCustomBiome;
@@ -19,7 +19,6 @@ public class MiddleEarthMapRuntime {
     HashMap<Vector2i, MiddleEarthMapRegion> regions;
     HashMap<UUID, Vector2i> regionByUuids;
     private BufferedImage edgeImage;
-    private LoggerUtil loggerUtil;
     private MiddleEarthMapUtils middleEarthMapUtils;
 
     private int latestValidationTick = 0;
@@ -136,12 +135,12 @@ public class MiddleEarthMapRuntime {
             });
 
             // Purging
-            //loggerUtil.logDebugMsg("Purging [%s] regions (tick : %s)".formatted(toPurge.size(), serverTick));
+            //MiddleEarth.LOGGER.logDebugMsg("Purging [%s] regions (tick : %s)".formatted(toPurge.size(), serverTick));
             for (Vector2i region : toPurge){
                 regions.remove(region);
             }
         } catch(Exception exception){
-            loggerUtil.logError("%s : %s".formatted(toString(), exception.getMessage()));
+            MiddleEarth.LOGGER.logError("%s : %s".formatted(toString(), exception.getMessage()));
         }
     }
 }

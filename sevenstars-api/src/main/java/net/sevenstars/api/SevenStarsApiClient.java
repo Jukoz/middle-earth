@@ -8,7 +8,7 @@ public class SevenStarsApiClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ModLogger.logInfoMsg("Testing the sevenstars api - CLIENT");
+        SevenStarsApi.LOGGER.logInfoMsg("Testing the sevenstars api - CLIENT");
     }
 
 }

@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.config;
 
 import com.mojang.datafixers.util.Pair;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 
 public class ModClientConfigs {
     public static SimpleConfig CONFIG;
@@ -32,6 +31,6 @@ public class ModClientConfigs {
 
     private static void assignClientConfigs() {
         ENABLE_MAP_OVERLAY = CONFIG.getOrDefault("enableMapOverlay", false);
-        LoggerUtil.logDebugMsg("All client configs (" + configs.getConfigsList().size() + ") have been set properly");
+        MiddleEarth.LOGGER.logDebugMsg("All client configs (" + configs.getConfigsList().size() + ") have been set properly");
     }
 }

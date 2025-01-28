@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.resources.datas.npcs.data;
 
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.HashMap;
 
@@ -36,7 +36,7 @@ public class NpcGearData {
 
     public NpcGearData add(EquipmentSlot slot, NpcGearSlotData slotData){
         if(gears.containsKey(slot)) {
-            LoggerUtil.logError("NpcGearData::Overwriting slotData - %s".formatted(slot.getName()));
+            MiddleEarth.LOGGER.logError("NpcGearData::Overwriting slotData - %s".formatted(slot.getName()));
         }
         gears.put(slot, slotData);
         return this;

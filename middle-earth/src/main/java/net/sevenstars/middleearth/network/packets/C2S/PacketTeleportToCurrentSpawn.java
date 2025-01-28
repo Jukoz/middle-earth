@@ -5,7 +5,6 @@ import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -51,7 +50,7 @@ public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTel
                 }
             });
         } catch (Exception e){
-            LoggerUtil.logError("TeleportToMeSpawnRequestPacket::Apply - Tried applying the teleport to me request packet",e);
+            MiddleEarth.LOGGER.logError("TeleportToMeSpawnRequestPacket::Apply - Tried applying the teleport to me request packet",e);
         }
     }
 }

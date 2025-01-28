@@ -5,7 +5,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registry;
@@ -23,7 +22,7 @@ public class MiddleEarthRaces {
     public static final RegistryKey<Registry<Race>> RACE_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 
     public static void register(){
-        LoggerUtil.logDebugMsg("Registering Dynamic Races for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Races for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(RACE_KEY, Race.CODEC);
     }
 

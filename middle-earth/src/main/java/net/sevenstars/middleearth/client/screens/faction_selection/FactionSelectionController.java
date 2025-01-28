@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.client.screens.faction_selection;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.network.packets.C2S.*;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
@@ -10,7 +11,6 @@ import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -60,7 +60,7 @@ public class FactionSelectionController {
             }
         }
         if(getCurrentlySelectedFaction() == null){
-            LoggerUtil.logError("FactionSelectionController::No faction available!");
+            MiddleEarth.LOGGER.logError("FactionSelectionController::No faction available!");
             throw new RuntimeException();
         }
         processSpawnList(0);

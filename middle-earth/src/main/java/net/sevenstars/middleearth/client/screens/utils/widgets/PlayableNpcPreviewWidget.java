@@ -6,7 +6,6 @@ import net.sevenstars.middleearth.entity.humans.bandit.BanditHumanEntity;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
@@ -159,7 +158,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             }
             else{
                 resetCurrentButton();
-                LoggerUtil.logDebugMsg("Was out of button reach");
+                MiddleEarth.LOGGER.logDebugMsg("Was out of button reach");
             }
         }
 

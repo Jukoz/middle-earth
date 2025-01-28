@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.client.screens.utils.widgets.map;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.screens.utils.widgets.ModWidget;
 import net.sevenstars.middleearth.client.screens.utils.widgets.UiDirections;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedCustomBiome;
 import net.sevenstars.middleearth.world.chunkgen.map.ImageUtils;
@@ -53,7 +52,7 @@ public class MapWidget extends ModWidget {
         try{
             mapImage = ImageUtils.fetchResourceImage(MiddleEarthMapConfigs.INITIAL_IMAGE);
         } catch (IOException e) {
-            LoggerUtil.logDebugMsg("MapWidget::Couldn't find %s".formatted(MiddleEarthMapConfigs.INITIAL_IMAGE));
+            MiddleEarth.LOGGER.logDebugMsg("MapWidget::Couldn't find %s".formatted(MiddleEarthMapConfigs.INITIAL_IMAGE));
         }
 
         if(uvX == null || uvY == null){

@@ -4,10 +4,10 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
@@ -63,7 +63,7 @@ public class CommandInformation {
 
             return 1;
         } catch (Exception e){
-            LoggerUtil.logError("GetPlayerInformationCommand", e);
+            MiddleEarth.LOGGER.logError("GetPlayerInformationCommand", e);
             return 0;
         }
     }

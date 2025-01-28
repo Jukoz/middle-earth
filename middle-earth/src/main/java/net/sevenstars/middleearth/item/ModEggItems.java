@@ -4,7 +4,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleSpawnEggItemModel;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
@@ -154,6 +153,6 @@ public class ModEggItems {
     }
 
     public static void registerModItems() {
-        LoggerUtil.logDebugMsg("Registering Mod Egg Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Egg Items for " + MiddleEarth.MOD_ID);
     }
 }

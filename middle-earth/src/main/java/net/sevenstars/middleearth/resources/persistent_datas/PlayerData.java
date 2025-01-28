@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.resources.persistent_datas;
 
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.MiddleEarthRaces;
 import net.sevenstars.middleearth.resources.datas.Disposition;
@@ -8,7 +9,6 @@ import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -49,7 +49,7 @@ public class PlayerData {
         if(faction.getFactionType() == FactionType.SUBFACTION){
             Identifier parentFactionIdentifier = faction.getParentFactionId();
             if(parentFactionIdentifier == null){
-                LoggerUtil.logError(faction.getName() + " is said to be a subfaction, but does not have a parent faction, returning the obtained faction by default.");
+                MiddleEarth.LOGGER.logError(faction.getName() + " is said to be a subfaction, but does not have a parent faction, returning the obtained faction by default.");
                 return faction;
             }
             faction = FactionLookup.getFactionById(world, parentFactionIdentifier);

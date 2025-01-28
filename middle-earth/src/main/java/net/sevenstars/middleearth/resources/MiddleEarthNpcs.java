@@ -8,7 +8,6 @@ import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
 import net.sevenstars.middleearth.resources.datas.npcs.pools.*;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registry;
@@ -32,7 +31,7 @@ public class MiddleEarthNpcs {
     public final static NpcData ORC_CIVILIAN;
     public final static NpcData URUK_CIVILIAN;
     public static void register(){
-        LoggerUtil.logDebugMsg("Registering Dynamic Npcs for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Npcs for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(NPC_KEY, NpcData.CODEC);
     }
 

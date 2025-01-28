@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.utils.resources;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.world.chunkgen.map.ImageUtils;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
@@ -91,7 +90,7 @@ public class FileUtils {
             File f = new File(path + fileName);
             ImageIO.write(bufferedImage, fileType.extension, f);
         } catch(Exception e){
-            LoggerUtil.logError("Image Utils couldn't save image for {0}.".formatted(path + fileName));
+            MiddleEarth.LOGGER.logError("Image Utils couldn't save image for {0}.".formatted(path + fileName));
         }
     }
 
@@ -110,7 +109,7 @@ public class FileUtils {
         try{
             return new File(classLoader.getResource(path).toURI());
         } catch (URISyntaxException e) {
-            LoggerUtil.logError("FileUtils::getFolder", e);
+            MiddleEarth.LOGGER.logError("FileUtils::getFolder", e);
             return null;
         }
     }

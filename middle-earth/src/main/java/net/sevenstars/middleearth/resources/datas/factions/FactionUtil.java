@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.resources.datas.factions;
 
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.CommandUtils;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.exceptions.IdenticalFactionException;
@@ -9,7 +10,6 @@ import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.persistent_datas.AffiliationData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.utils.ModColors;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.entity.player.PlayerEntity;
@@ -140,7 +140,7 @@ public class FactionUtil {
                 faction = data.getFaction(player.getWorld());
                 if(faction == null) return;
             } catch (FactionIdentifierException e) {
-                LoggerUtil.logError("Couldn't find faction by id <%s>".formatted(factionId));
+                MiddleEarth.LOGGER.logError("Couldn't find faction by id <%s>".formatted(factionId));
                 return;
             }
 

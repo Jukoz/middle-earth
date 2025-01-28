@@ -6,7 +6,6 @@ import net.sevenstars.middleearth.block.special.gemstones.CustomBuddingGemBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.EntityType;
@@ -1305,7 +1304,7 @@ public class ModBlocks {
     }
 
     public static void registerModBlocks() {
-        LoggerUtil.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
 
     public static boolean never(BlockState state, BlockView world, BlockPos pos) {

@@ -12,7 +12,6 @@ import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.armor.ModArmorMaterials;
 import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
 import net.sevenstars.middleearth.item.utils.armor.hoods.ModHoods;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.item.AnimalArmorItem;
@@ -1723,6 +1722,6 @@ public class ModEquipmentItems {
     }
 
     public static void registerModItems() {
-        LoggerUtil.logDebugMsg("Registering Mod Equipment Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Equipment Items for " + MiddleEarth.MOD_ID);
     }
 }

@@ -11,7 +11,6 @@ import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
 import net.sevenstars.middleearth.resources.datas.npcs.pools.*;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registry;
@@ -54,7 +53,7 @@ public class MiddleEarthFactions {
 
 
     public static void register(){
-        LoggerUtil.logDebugMsg("Registering Dynamic Factions for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Factions for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(FACTION_KEY, Faction.CODEC);
     }
 

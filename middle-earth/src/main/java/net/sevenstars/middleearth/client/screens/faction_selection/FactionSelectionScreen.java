@@ -15,7 +15,6 @@ import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -85,7 +84,7 @@ public class FactionSelectionScreen extends Screen {
             this.player = abstractClientPlayerEntity;
             controller = new FactionSelectionController(this, player, initialDelay);
         } else {
-            LoggerUtil.logError("FactionSelectionScreen::Init:Couldn't find player");
+            MiddleEarth.LOGGER.logError("FactionSelectionScreen::Init:Couldn't find player");
         }
 
         // Initialize Buttons
@@ -682,7 +681,7 @@ public class FactionSelectionScreen extends Screen {
         DyeColor color = faction.getBaseBannerColor();
         List<BannerData.BannerPatternWithColor> patterns = faction.getBannerPatternsWithColors(this.client.world);
         if(patterns == null || patterns.isEmpty()) {
-            LoggerUtil.logError("FactionSelectionScreen::drawFactionBanner - Cannot create banner because values are empty or null");
+            MiddleEarth.LOGGER.logError("FactionSelectionScreen::drawFactionBanner - Cannot create banner because values are empty or null");
             return;
         }
 

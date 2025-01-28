@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.recipe;
 
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialRecipeSerializer;
@@ -28,6 +27,6 @@ public class ModRecipeSerializer<T extends Recipe<?>> {
     }
 
     public static void registerRecipeSerializers(){
-        LoggerUtil.logDebugMsg("Registering Mod Recipe Serializers for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Recipe Serializers for " + MiddleEarth.MOD_ID);
     }
 }

@@ -1,11 +1,11 @@
 package net.sevenstars.middleearth.resources.persistent_datas;
 
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -40,7 +40,7 @@ public class AffiliationData {
             blockpos = new BlockPos(blockpos.getX(), height, blockpos.getZ());
             return blockpos.toCenterPos();
         } catch (FactionIdentifierException e){
-            LoggerUtil.logError("AffiliationData::getSpawnMiddleEarthCoordinate - Faction couldn't be found <%s>".formatted(faction));
+            MiddleEarth.LOGGER.logError("AffiliationData::getSpawnMiddleEarthCoordinate - Faction couldn't be found <%s>".formatted(faction));
             return null;
         }
     }

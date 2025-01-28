@@ -6,7 +6,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.OxidizableVerticalSlabBlock;
 import net.sevenstars.middleearth.block.special.OxidizableWallBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.block.*;
 
 public class OtherBlockSets {
@@ -412,6 +411,6 @@ public class OtherBlockSets {
     }
 
     public static void registerModBlockSets() {
-        LoggerUtil.logDebugMsg("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
     }
 }

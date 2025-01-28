@@ -9,7 +9,6 @@ import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.sevenstars.middleearth.item.items.DoorBlockItem;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.ModVerticallyAttachableBlockItem;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.VerticallyAttachableBlockItem;
@@ -131,6 +130,6 @@ public class ModDecorativeItems {
     }
 
     public static void registerModItems() {
-        LoggerUtil.logDebugMsg("Registering Mod Decorative Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Decorative Items for " + MiddleEarth.MOD_ID);
     }
 }

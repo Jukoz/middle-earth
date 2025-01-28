@@ -61,7 +61,7 @@ public class PipeweedCropBlock extends CropBlock {
     }
     @Override
     protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        //LoggerUtil.logDebugMsg("PipeweedCropBlock randomTick");
+        //MiddleEarth.LOGGER.logDebugMsg("PipeweedCropBlock randomTick");
         int currentAge = this.getAge(state);
         if (world.getBlockState(pos.up()).isAir()) {
             super.randomTick(state, world, pos, random);

@@ -9,7 +9,6 @@ import net.sevenstars.middleearth.item.items.SmithingHammerItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomAxeWeaponItem;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.ModToolMaterials;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -195,7 +194,7 @@ public class ModToolItems {
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
     public static void registerModItems() {
-        LoggerUtil.logDebugMsg("Registering Mod Tool Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Tool Items for " + MiddleEarth.MOD_ID);
     }
 
 }

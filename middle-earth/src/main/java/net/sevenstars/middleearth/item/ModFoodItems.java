@@ -4,7 +4,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
 import net.sevenstars.middleearth.item.items.OrcishFoodItem;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -122,6 +121,6 @@ public class ModFoodItems {
     }
 
     public static void registerModItems() {
-        LoggerUtil.logDebugMsg("Registering Mod Food Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Food Items for " + MiddleEarth.MOD_ID);
     }
 }

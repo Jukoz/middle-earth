@@ -54,7 +54,7 @@ public class RingOfSmokeParticle extends SpriteBillboardParticle {
 
     private void onCollisionWithPlayer(PlayerEntity player) {
         // Handle collision logic here
-        //LoggerUtil.logDebugMsg("Collision detected with player: " + player.getName().getString());
+        //MiddleEarth.LOGGER.logDebugMsg("Collision detected with player: " + player.getName().getString());
     }
 
     public ParticleTextureSheet getType() {

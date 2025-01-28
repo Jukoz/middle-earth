@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.gui.artisantable;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,6 +145,6 @@ public class ArtisanTableInputsShape {
     }
 
     public void register() {
-        LoggerUtil.logDebugMsg("Registering ArtisanTable Inputs Shapes for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering ArtisanTable Inputs Shapes for " + MiddleEarth.MOD_ID);
     }
 }

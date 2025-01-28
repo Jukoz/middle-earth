@@ -5,50 +5,45 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ModLogger {
-    protected static Logger LOGGER = null;
-    protected static ModLogger singleInstance = null;
-    protected static boolean isDebug;
+    protected Logger LOGGER;
+    protected ModLogger singleInstance = null;
+    protected boolean isDebug;
+    protected String messagePrefix;
 
-    public ModLogger(boolean debug, String prefix){
+    public ModLogger(String prefix, boolean debug){
+        messagePrefix = prefix;
         LOGGER = LoggerFactory.getLogger(prefix);
         isDebug = debug;
     }
 
-    protected static synchronized ModLogger updateInstance() {
-        if (singleInstance == null) singleInstance = new ModLogger(SevenStarsApi.IS_DEBUG, SevenStarsApi.MOD_ID);
-        return singleInstance;
-    }
 
-
-    public static void logDebugMsg(String msg) {
+    public void logDebugMsg(String msg) {
         if(SevenStarsApi.IS_DEBUG){
-            updateInstance();
-            LOGGER.info(msg);
+            LOGGER.info(buildMessage(msg));
         }
     }
 
-    public static void logInfoMsg(String msg) {
-        updateInstance();
-        LOGGER.info(msg);
+    private String buildMessage(String msg) {
+        return "[%s] - %s".formatted(messagePrefix, msg);
     }
 
-    public static void logError(String msg) {
-        updateInstance();
-        LOGGER.error(msg);
+    public void logInfoMsg(String msg) {
+        LOGGER.info(buildMessage(msg));
     }
 
-    public static void logError(String msg, Exception e) {
-        updateInstance();
-        LOGGER.error(msg, e);
+    public void logError(String msg) {
+        LOGGER.error(buildMessage(msg));
     }
 
-    public static void logTrace(String msg) {
-        updateInstance();
-        LOGGER.trace(msg);
+    public void logError(String msg, Exception e) {
+        LOGGER.error(buildMessage(msg), e);
     }
 
-    public static void logWarn(String msg) {
-        updateInstance();
-        LOGGER.warn(msg);
+    public void logTrace(String msg) {
+        LOGGER.trace(buildMessage(msg));
+    }
+
+    public void logWarn(String msg) {
+        LOGGER.warn(buildMessage(msg));
     }
 }

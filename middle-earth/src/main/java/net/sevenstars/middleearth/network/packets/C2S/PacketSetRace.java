@@ -6,7 +6,6 @@ import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -46,7 +45,7 @@ public class PacketSetRace extends ClientToServerPacket<PacketSetRace>
             try{
                 RaceUtil.updateRace(context.player(), RaceLookup.getRace(context.player().getWorld(), IdentifierUtil.getIdentifierFromString(race)), true);
             } catch (Exception e){
-                LoggerUtil.logError("PacketSetRace::Tried setting race for player.", e);
+                MiddleEarth.LOGGER.logError("PacketSetRace::Tried setting race for player.", e);
             }
         });
     }

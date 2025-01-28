@@ -25,7 +25,7 @@ package net.sevenstars.middleearth.config;
  */
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.sevenstars.middleearth.utils.LoggerUtil;
+import net.sevenstars.middleearth.MiddleEarth;
 
 import java.io.File;
 import java.io.IOException;
@@ -141,12 +141,12 @@ public class SimpleConfig {
         String identifier = "Config '" + request.filename + "'";
 
         if( !request.file.exists() ) {
-            LoggerUtil.logInfoMsg( identifier + " is missing, generating default one..." );
+            MiddleEarth.LOGGER.logInfoMsg( identifier + " is missing, generating default one..." );
 
             try {
                 createConfig();
             } catch (IOException e) {
-                LoggerUtil.logError( identifier + " failed to generate!", e);
+                MiddleEarth.LOGGER.logError( identifier + " failed to generate!", e);
                 broken = true;
             }
         }
@@ -155,7 +155,7 @@ public class SimpleConfig {
             try {
                 loadConfig();
             } catch (Exception e) {
-                LoggerUtil.logError( identifier + " failed to load!", e);
+                MiddleEarth.LOGGER.logError( identifier + " failed to load!", e);
                 broken = true;
             }
         }
@@ -245,7 +245,7 @@ public class SimpleConfig {
      * @return true if the operation was successful
      */
     public boolean delete() {
-        LoggerUtil.logWarn( "Config '" + request.filename + "' was removed from existence! Restart the game to regenerate it." );
+        MiddleEarth.LOGGER.logWarn( "Config '" + request.filename + "' was removed from existence! Restart the game to regenerate it." );
         return request.file.delete();
     }
 

@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.sound;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
@@ -21,6 +20,6 @@ public class ModSounds {
     }
 
     public static void registerModSounds() {
-        LoggerUtil.logDebugMsg("Registering Mod SoundEvents for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod SoundEvents for " + MiddleEarth.MOD_ID);
     }
 }

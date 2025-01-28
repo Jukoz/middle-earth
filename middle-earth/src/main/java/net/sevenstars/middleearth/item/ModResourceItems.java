@@ -9,7 +9,6 @@ import net.sevenstars.middleearth.item.items.weapons.ranged.PebbleItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.PineconeItem;
 import net.sevenstars.middleearth.item.utils.ModBannerPatternTags;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -237,6 +236,6 @@ public class ModResourceItems {
     }
 
     public static void registerModItems() {
-        LoggerUtil.logDebugMsg("Registering Mod Resource Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Resource Items for " + MiddleEarth.MOD_ID);
     }
 }

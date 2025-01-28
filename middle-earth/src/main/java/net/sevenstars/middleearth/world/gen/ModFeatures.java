@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.world.gen;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.world.features.boulder.BigBoulderFeature;
 import net.sevenstars.middleearth.world.features.boulder.BigBoulderFeatureConfig;
 import net.sevenstars.middleearth.world.features.columns.*;
@@ -30,7 +29,7 @@ public class ModFeatures {
     public static final Feature<DefaultFeatureConfig> MIRKWOOD_VINE = register("mirkwood_vine", new MirkwoodVinesFeature(DefaultFeatureConfig.CODEC));
 
     public static void init() {
-        LoggerUtil.logInfoMsg("Registering new features");
+        MiddleEarth.LOGGER.logInfoMsg("Registering new features");
     }
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {

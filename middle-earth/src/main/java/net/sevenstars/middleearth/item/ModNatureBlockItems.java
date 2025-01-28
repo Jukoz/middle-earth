@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.PlaceableOnWaterItem;
 import net.minecraft.registry.Registries;
@@ -25,6 +24,6 @@ public class ModNatureBlockItems {
     }
 
     public static void registerModItems() {
-        LoggerUtil.logDebugMsg("Registering Mod Nature Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Nature Items for " + MiddleEarth.MOD_ID);
     }
 }

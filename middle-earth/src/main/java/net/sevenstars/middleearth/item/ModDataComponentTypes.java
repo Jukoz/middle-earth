@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.item;
 
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.dataComponents.*;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -36,6 +35,6 @@ public class ModDataComponentTypes {
     }
 
     public static void registerModComponentTypes() {
-        LoggerUtil.logDebugMsg("Registering Mod Component Types Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Component Types Items for " + MiddleEarth.MOD_ID);
     }
 }

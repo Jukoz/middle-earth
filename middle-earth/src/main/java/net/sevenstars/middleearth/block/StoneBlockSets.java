@@ -7,7 +7,6 @@ import net.sevenstars.middleearth.block.special.StoneTableBlock;
 import net.sevenstars.middleearth.block.special.StoolBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
 
@@ -1002,6 +1001,6 @@ public class StoneBlockSets {
     }
 
     public static void registerModBlockSets() {
-        LoggerUtil.logDebugMsg("Registering SimpleBlockSets for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering SimpleBlockSets for " + MiddleEarth.MOD_ID);
     }
 }

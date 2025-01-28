@@ -4,7 +4,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.shapingAnvil.TreatedAnvilBlockEntity;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -67,7 +66,7 @@ public class AnvilIndexPacket extends ClientToServerPacket<AnvilIndexPacket> {
                 TreatedAnvilBlockEntity.updateIndex(left, coordinates, context.player());
             });
         }catch (Exception e){
-            LoggerUtil.logError("PacketAnvilIndex error: ", e);
+            MiddleEarth.LOGGER.logError("PacketAnvilIndex error: ", e);
         }
     }
 }

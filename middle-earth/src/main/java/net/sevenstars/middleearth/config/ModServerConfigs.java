@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.config;
 
 import com.mojang.datafixers.util.Pair;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 
 public class ModServerConfigs {
     public static SimpleConfig CONFIG;
@@ -82,6 +81,6 @@ public class ModServerConfigs {
         ENABLE_MOUNT_BROADHOOF_GOAT = CONFIG.getOrDefault("enableMountBroadhoofGoat", true);
         ENABLE_GOLDEN_FOOD_RECIPES = CONFIG.getOrDefault("enableGoldenFoodRecipes", false);
 
-        LoggerUtil.logDebugMsg("All server configs (" + configs.getConfigsList().size() + ") have been set properly");
+        MiddleEarth.LOGGER.logDebugMsg("All server configs (" + configs.getConfigsList().size() + ") have been set properly");
     }
 }

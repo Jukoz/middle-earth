@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.statusEffects;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.Registries;
@@ -17,6 +16,6 @@ public class ModStatusEffects {
     }
 
     public static void registerStatusEffects() {
-        LoggerUtil.logDebugMsg("Registering Mod Status Effects for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Status Effects for " + MiddleEarth.MOD_ID);
     }
 }

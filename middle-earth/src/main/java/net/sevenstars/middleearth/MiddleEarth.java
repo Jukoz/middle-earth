@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth;
 
 import net.fabricmc.api.ModInitializer;
+import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModClientConfigs;
@@ -22,7 +23,6 @@ import net.sevenstars.middleearth.resources.MiddleEarthNpcs;
 import net.sevenstars.middleearth.resources.MiddleEarthRaces;
 import net.sevenstars.middleearth.sound.ModSounds;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.utils.LootModifiers;
 import net.sevenstars.middleearth.utils.resources.FileUtils;
 import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
@@ -38,13 +38,13 @@ public class MiddleEarth implements ModInitializer {
 	public static final String MOD_VERSION = "1.5.1-1.21.1-alpha";
 	public static final boolean IS_DEBUG = true;
 	public static final boolean ENABLE_INSTANT_BOOTING = true;
-
+	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
 	@Override
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
 
-		LoggerUtil.logInfoMsg("");
-		LoggerUtil.logInfoMsg("================ MiddleEarth ================");
+		LOGGER.logInfoMsg("");
+		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
 		ModServerNetworkHandler.register(new ConnectionToClient());
 		ModEvents.register();

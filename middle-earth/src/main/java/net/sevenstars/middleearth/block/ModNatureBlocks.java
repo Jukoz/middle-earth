@@ -7,7 +7,6 @@ import net.sevenstars.middleearth.block.special.saplings.VariantSaplingBlock;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.world.features.tree.ModTreeConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.tree.MushroomTreeConfiguredFeatures;
 import net.minecraft.block.*;
@@ -505,6 +504,6 @@ public class ModNatureBlocks {
     }
 
     public static void registerModBlocks() {
-        LoggerUtil.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
 }

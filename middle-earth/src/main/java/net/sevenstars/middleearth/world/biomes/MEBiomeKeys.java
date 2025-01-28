@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.world.biomes;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
@@ -290,6 +289,6 @@ public class MEBiomeKeys extends BiomeKeys {
     }
 
     public static void registerModBiomes() {
-        LoggerUtil.logDebugMsg("Registering ModBiomes for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering ModBiomes for " + MiddleEarth.MOD_ID);
     }
 }

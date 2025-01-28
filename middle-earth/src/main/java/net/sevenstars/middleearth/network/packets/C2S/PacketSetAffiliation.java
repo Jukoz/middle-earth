@@ -7,7 +7,6 @@ import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -59,7 +58,7 @@ public class PacketSetAffiliation extends ClientToServerPacket<PacketSetAffiliat
                 if(!context.player().isCreative() && context.player().getMainHandStack().getItem() instanceof StarlightPhialItem)
                     context.player().getStackInHand(Hand.MAIN_HAND).decrement(1);
             } catch (Exception e){
-                LoggerUtil.logError("AffiliationPacket::Tried getting affiliation packet and couldn't fetch any.", e);
+                MiddleEarth.LOGGER.logError("AffiliationPacket::Tried getting affiliation packet and couldn't fetch any.", e);
             }
         });
     }

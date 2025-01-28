@@ -19,7 +19,6 @@ import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
 import net.sevenstars.middleearth.item.utils.ModShieldTypes;
 import net.sevenstars.middleearth.item.utils.ModToolMaterials;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.item.Item;
@@ -695,6 +694,6 @@ public class ModWeaponItems {
     }
 
     public static void registerModItems() {
-        LoggerUtil.logDebugMsg("Registering Mod Weapon Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Weapon Items for " + MiddleEarth.MOD_ID);
     }
 }

@@ -5,7 +5,6 @@ import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.persistent_datas.AffiliationData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
@@ -88,7 +87,7 @@ public class StateSaverAndLoader extends PersistentState {
                     playerData.setOverworldSpawn(overworldSpawn);
                 }
             } catch(Exception e){
-                LoggerUtil.logError("StateSaverAndLoader",e);
+                MiddleEarth.LOGGER.logError("StateSaverAndLoader",e);
             }
 
             UUID uuid = UUID.fromString(key);
@@ -132,7 +131,7 @@ public class StateSaverAndLoader extends PersistentState {
                 throw new Exception("Cannot be used client side");
             }
         } catch (Exception e){
-            LoggerUtil.logError("StateSaverAndLoader::getPlayerState", e);
+            MiddleEarth.LOGGER.logError("StateSaverAndLoader::getPlayerState", e);
             return null;
         }
 

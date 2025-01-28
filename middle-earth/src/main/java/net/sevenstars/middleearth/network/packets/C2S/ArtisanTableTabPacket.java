@@ -4,7 +4,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -57,7 +56,7 @@ public class ArtisanTableTabPacket extends ClientToServerPacket<ArtisanTableTabP
                 }
             });
         }catch (Exception e){
-            LoggerUtil.logError("Artisan Table Packet error: ", e);
+            MiddleEarth.LOGGER.logError("Artisan Table Packet error: ", e);
         }
     }
 }

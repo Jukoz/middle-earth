@@ -11,7 +11,6 @@ import net.sevenstars.middleearth.client.screens.utils.widgets.map.FullscreenTog
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.network.packets.C2S.PacketTeleportToDynamicWorldCoordinate;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.utils.ModColors;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedCustomBiome;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
@@ -72,7 +71,7 @@ public class MiddleEarthMapScreen extends Screen {
         if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
             this.player = abstractClientPlayerEntity;
         } else {
-            LoggerUtil.logError("MiddleEarthMapScreen::Init:Couldn't find player");
+            MiddleEarth.LOGGER.logError("MiddleEarthMapScreen::Init:Couldn't find player");
         }
 
         mapWidget = new FullscreenToggeableMapWidget(WIDTH - (MARGIN * 2), HEIGHT - (MARGIN * 2));

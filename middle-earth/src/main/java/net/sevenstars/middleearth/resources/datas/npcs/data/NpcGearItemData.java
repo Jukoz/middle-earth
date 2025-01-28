@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.resources.datas.npcs.data;
 
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ModDataComponentTypes;
 import net.sevenstars.middleearth.item.dataComponents.CapeDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
@@ -8,7 +9,6 @@ import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
 import net.sevenstars.middleearth.item.utils.armor.hoods.ModHoodStates;
 import net.sevenstars.middleearth.item.utils.armor.hoods.ModHoods;
 import net.sevenstars.middleearth.recipe.ModTags;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.item.Item;
@@ -127,7 +127,7 @@ public class NpcGearItemData {
             this.isDown = isDown;
         }
         if(this.isDown != isDown){
-            LoggerUtil.logError("NpcGearItemData:: [%s - %s] Cannot set the hood state to %s, it was forced to %s!".formatted(this.item.getName(), hood.getName(), isDown, this.isDown));
+            MiddleEarth.LOGGER.logError("NpcGearItemData:: [%s - %s] Cannot set the hood state to %s, it was forced to %s!".formatted(this.item.getName(), hood.getName(), isDown, this.isDown));
         }
         return this;
     }
@@ -173,7 +173,7 @@ public class NpcGearItemData {
             if(this.hood.getConstantState() != null){
                 this.isDown = this.hood.getConstantState() == ModHoodStates.DOWN;
                 hoodState = this.isDown;
-                LoggerUtil.logError("NpcGearItemData:: [%s - %s] Cannot set the hood state to %s, it was forced to %s!".formatted(this.item.getName(), hood.getName(), isDown, this.isDown));
+                MiddleEarth.LOGGER.logError("NpcGearItemData:: [%s - %s] Cannot set the hood state to %s, it was forced to %s!".formatted(this.item.getName(), hood.getName(), isDown, this.isDown));
             } else if(isDown == null){
                 hoodState = Math.random() >= 0.5;
             } else {

@@ -8,7 +8,6 @@ import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.world.chunkgen.MiddleEarthChunkGenerator;
 import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
@@ -46,7 +45,7 @@ public class ModDimensions {
         Registry.register(Registries.CHUNK_GENERATOR, ME_DIMENSION_ID, MiddleEarthChunkGenerator.CODEC);
         ME_WORLD_KEY = RegistryKey.of(RegistryKeys.WORLD, ME_DIMENSION_ID);
 
-        LoggerUtil.logDebugMsg("Registering ModDimensions for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering ModDimensions for " + MiddleEarth.MOD_ID);
     }
 
     public static Vector3i getDimensionHeight(int x, int z) {

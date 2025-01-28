@@ -5,7 +5,6 @@ import net.sevenstars.middleearth.item.items.armor.CustomHelmetItem;
 import net.sevenstars.middleearth.item.items.armor.HoodHelmetItem;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -49,7 +48,7 @@ public class HoodStateTogglePacket extends ClientToServerPacket<HoodStateToggleP
 
             });
         }catch (Exception e){
-            LoggerUtil.logError("HoodStatePacket error: ", e);
+            MiddleEarth.LOGGER.logError("HoodStatePacket error: ", e);
         }
     }
 }

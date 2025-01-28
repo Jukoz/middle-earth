@@ -8,7 +8,6 @@ import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.particle.ParticleEffect;
@@ -229,6 +228,6 @@ public class WoodBlockSets {
 
 
     public static void registerModBlockSets() {
-        LoggerUtil.logDebugMsg("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
     }
 }

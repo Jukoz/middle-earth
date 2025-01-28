@@ -7,7 +7,6 @@ import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.network.packets.S2C.PacketOnboardingResult;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -44,7 +43,7 @@ public class PacketOnboardingRequest extends ClientToServerPacket<PacketOnboardi
                 ServerPlayNetworking.send(player, newPacket);
             });
         } catch(Exception e){
-            LoggerUtil.logError("OnboardingDetailFetchingPacket::Apply - Tried sending packet with data", e);
+            MiddleEarth.LOGGER.logError("OnboardingDetailFetchingPacket::Apply - Tried sending packet with data", e);
         }
     }
 }

@@ -5,7 +5,6 @@ import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -58,7 +57,7 @@ public class PacketSetSpawnData extends ClientToServerPacket<PacketSetSpawnData>
                 playerState.setOverworldSpawn(overworldSpawnBlockpos);
             });
         } catch (Exception e){
-            LoggerUtil.logError("SpawnDataPacket::Apply - Tried applying the spawn data packet",e);
+            MiddleEarth.LOGGER.logError("SpawnDataPacket::Apply - Tried applying the spawn data packet",e);
         }
     }
 

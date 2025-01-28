@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity;
 
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
@@ -34,7 +35,6 @@ import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
@@ -321,7 +321,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
             NpcGearData gearData = data.getGear();
             NpcUtil.equipAll(this, gearData);
         } catch (FactionIdentifierException e) {
-            LoggerUtil.logError("NpcEntity::Couldn't find faction registry with [%s] for rank [%s]".formatted(factionId, npcRank.toString()));
+            MiddleEarth.LOGGER.logError("NpcEntity::Couldn't find faction registry with [%s] for rank [%s]".formatted(factionId, npcRank.toString()));
             throw new RuntimeException(e);
         }
     }

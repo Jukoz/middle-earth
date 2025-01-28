@@ -35,7 +35,6 @@ import net.sevenstars.middleearth.entity.swan.SwanEntity;
 import net.sevenstars.middleearth.entity.uruks.isengard.IsengardUrukHaiEntity;
 import net.sevenstars.middleearth.entity.uruks.misties.MistyHobgoblinEntity;
 import net.sevenstars.middleearth.entity.uruks.mordor.MordorBlackUrukEntity;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -241,6 +240,6 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(SNAIL, SnailEntity.createSnailAttributes());
         FabricDefaultAttributeRegistry.register(DEER, DeerEntity.createDeerAttributes());
 
-        LoggerUtil.logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
     }
 }

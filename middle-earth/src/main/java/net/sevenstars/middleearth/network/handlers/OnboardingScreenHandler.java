@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.network.handlers;
 
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.screens.OnboardingSelectionScreen;
 import net.sevenstars.middleearth.client.screens.faction_selection.FactionSelectionScreen;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
-import net.sevenstars.middleearth.utils.LoggerUtil;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.world.World;
@@ -25,7 +25,7 @@ public class OnboardingScreenHandler {
                 }
             }
         } catch (Exception e){
-            LoggerUtil.logError("OnboardingDetailParsedPacket::Apply - trying to fetch the client data and show appropriate context.",e);
+            MiddleEarth.LOGGER.logError("OnboardingDetailParsedPacket::Apply - trying to fetch the client data and show appropriate context.",e);
         }
     }
 }
