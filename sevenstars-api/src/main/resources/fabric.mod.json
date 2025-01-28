@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "me",
-  "version": "${version}",
+  "id": "sevenstars-api",
+  "version": "1.5.3-1.21.1-alpha",
 
-  "name": "Middle-earth",
-  "description": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!",
+  "name": "Seven Stars API",
+  "description": "This is the Seven Stars API",
   "authors": [
     " Lead Dev: Jukoz, ObliviousCrab\n\nDeveloppers: Jukoz, ObliviousCrab, Slooshyboi, TomSchlom\n\nArtists: Boenndal, Jooble, Sindavar, Angmarzku, Jukoz, Khuz, ObliviousCrab, R3tt0\n\nBuilders: Angmarzku, Arwaeneth, Boenndal, Slooshyboi, Jooble, Jukoz, ObliviousCrab"
   ],
@@ -19,35 +19,22 @@
 
   "environment": "*",
   "entrypoints": {
-    "fabric-datagen": [
-      "net.sevenstars.middleearth.datageneration.DataGeneration"
-    ],
     "main": [
-      "net.sevenstars.middleearth.MiddleEarth"
+      "net.sevenstars.api.SevenStarsApi"
     ],
     "client": [
-      "net.sevenstars.middleearth.MiddleEarthClient"
-    ],
-    "emi": [
-      "net.sevenstars.middleearth.integration.emi.ModEmiPlugin"
+      "net.sevenstars.api.SevenStarsApiClient"
     ]
   },
-  "mixins": [
-    "me.mixins.json"
-  ],
-
-  "accessWidener" : "me.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.15.11",
     "fabric-api": "*",
     "minecraft": "~1.21.1",
-    "java": ">=21",
-    "sevenstars-api": "1.5.3-1.21.1-alpha"
+    "java": ">=21"
   },
   "recommends": {
-    "modmenu": "*",
-    "emi": "*"
+    "modmenu": "*"
   },
 
   "custom": {
