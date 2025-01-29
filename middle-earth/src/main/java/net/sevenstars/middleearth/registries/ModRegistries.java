@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.registries;
 
 import net.fabricmc.fabric.api.registry.*;
+import net.minecraft.util.ActionResult;
 import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
@@ -23,7 +24,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.math.random.Random;
 
 public class ModRegistries {
@@ -231,141 +231,141 @@ public class ModRegistries {
     }
 
     public static void registerFuels() {
-        FuelRegistry registry = FuelRegistry.INSTANCE;
+        FuelRegistryEvents.BUILD.register(((builder, context) -> {
+            builder.add(ModNatureBlocks.MIRKWOOD_ROOTS, 300);
+            builder.add(ModNatureBlocks.GREEN_SHRUB, 100);
+            builder.add(ModNatureBlocks.SMALL_DRY_SHRUB, 100);
+            builder.add(ModNatureBlocks.TAN_SHRUB, 100);
 
-        registry.add(ModNatureBlocks.MIRKWOOD_ROOTS, 300);
-        registry.add(ModNatureBlocks.GREEN_SHRUB, 100);
-        registry.add(ModNatureBlocks.SMALL_DRY_SHRUB, 100);
-        registry.add(ModNatureBlocks.TAN_SHRUB, 100);
+            builder.add(ModDecorativeBlocks.ROPE, 150);
+            builder.add(ModDecorativeBlocks.WOOD_PILE, 200);
 
-        registry.add(ModDecorativeBlocks.ROPE, 150);
-        registry.add(ModDecorativeBlocks.WOOD_PILE, 200);
+            builder.add(ModBlocks.WHITE_WOOL_SLAB, 50);
+            builder.add(ModBlocks.ORANGE_WOOL_SLAB, 50);
+            builder.add(ModBlocks.MAGENTA_WOOL_SLAB, 50);
+            builder.add(ModBlocks.LIGHT_BLUE_WOOL_SLAB, 50);
+            builder.add(ModBlocks.YELLOW_WOOL_SLAB, 50);
+            builder.add(ModBlocks.LIME_WOOL_SLAB, 50);
+            builder.add(ModBlocks.PINK_WOOL_SLAB, 50);
+            builder.add(ModBlocks.GRAY_WOOL_SLAB, 50);
+            builder.add(ModBlocks.LIGHT_GRAY_WOOL_SLAB, 50);
+            builder.add(ModBlocks.CYAN_WOOL_SLAB, 50);
+            builder.add(ModBlocks.PURPLE_WOOL_SLAB, 50);
+            builder.add(ModBlocks.BLUE_WOOL_SLAB, 50);
+            builder.add(ModBlocks.BROWN_WOOL_SLAB, 50);
+            builder.add(ModBlocks.GREEN_WOOL_SLAB, 50);
+            builder.add(ModBlocks.RED_WOOL_SLAB, 50);
+            builder.add(ModBlocks.BLACK_WOOL_SLAB, 50);
 
-        registry.add(ModBlocks.WHITE_WOOL_SLAB, 50);
-        registry.add(ModBlocks.ORANGE_WOOL_SLAB, 50);
-        registry.add(ModBlocks.MAGENTA_WOOL_SLAB, 50);
-        registry.add(ModBlocks.LIGHT_BLUE_WOOL_SLAB, 50);
-        registry.add(ModBlocks.YELLOW_WOOL_SLAB, 50);
-        registry.add(ModBlocks.LIME_WOOL_SLAB, 50);
-        registry.add(ModBlocks.PINK_WOOL_SLAB, 50);
-        registry.add(ModBlocks.GRAY_WOOL_SLAB, 50);
-        registry.add(ModBlocks.LIGHT_GRAY_WOOL_SLAB, 50);
-        registry.add(ModBlocks.CYAN_WOOL_SLAB, 50);
-        registry.add(ModBlocks.PURPLE_WOOL_SLAB, 50);
-        registry.add(ModBlocks.BLUE_WOOL_SLAB, 50);
-        registry.add(ModBlocks.BROWN_WOOL_SLAB, 50);
-        registry.add(ModBlocks.GREEN_WOOL_SLAB, 50);
-        registry.add(ModBlocks.RED_WOOL_SLAB, 50);
-        registry.add(ModBlocks.BLACK_WOOL_SLAB, 50);
+            builder.add(ModBlocks.WHITE_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.ORANGE_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.MAGENTA_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.LIGHT_BLUE_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.YELLOW_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.LIME_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.PINK_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.GRAY_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.LIGHT_GRAY_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.CYAN_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.PURPLE_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.BLUE_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.BROWN_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.GREEN_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.RED_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.BLACK_WOOL_VERTICAL_SLAB, 50);
 
-        registry.add(ModBlocks.WHITE_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.ORANGE_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.MAGENTA_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.LIGHT_BLUE_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.YELLOW_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.LIME_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.PINK_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.GRAY_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.LIGHT_GRAY_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.CYAN_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.PURPLE_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.BLUE_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.BROWN_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.GREEN_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.RED_WOOL_VERTICAL_SLAB, 50);
-        registry.add(ModBlocks.BLACK_WOOL_VERTICAL_SLAB, 50);
+            builder.add(ModBlocks.WHITE_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.ORANGE_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.MAGENTA_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.LIGHT_BLUE_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.YELLOW_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.LIME_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.PINK_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.GRAY_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.LIGHT_GRAY_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.CYAN_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.PURPLE_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.BLUE_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.BROWN_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.GREEN_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.RED_WOOL_STAIRS, 100);
+            builder.add(ModBlocks.BLACK_WOOL_STAIRS, 100);
 
-        registry.add(ModBlocks.WHITE_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.ORANGE_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.MAGENTA_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.LIGHT_BLUE_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.YELLOW_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.LIME_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.PINK_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.GRAY_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.LIGHT_GRAY_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.CYAN_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.PURPLE_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.BLUE_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.BROWN_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.GREEN_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.RED_WOOL_STAIRS, 100);
-        registry.add(ModBlocks.BLACK_WOOL_STAIRS, 100);
+            builder.add(ModWeaponItems.GONDORIAN_BOW, 300);
+            builder.add(ModWeaponItems.GONDORIAN_LONGBOW, 400);
+            builder.add(ModWeaponItems.GONDORIAN_NOBLE_LONGBOW, 400);
 
-        registry.add(ModWeaponItems.GONDORIAN_BOW, 300);
-        registry.add(ModWeaponItems.GONDORIAN_LONGBOW, 400);
-        registry.add(ModWeaponItems.GONDORIAN_NOBLE_LONGBOW, 400);
+            builder.add(ModWeaponItems.ROHIRRIC_BOW, 300);
+            builder.add(ModWeaponItems.ROHIRRIC_NOBLE_BOW, 300);
+            builder.add(ModWeaponItems.ROHIRRIC_LONGBOW, 400);
 
-        registry.add(ModWeaponItems.ROHIRRIC_BOW, 300);
-        registry.add(ModWeaponItems.ROHIRRIC_NOBLE_BOW, 300);
-        registry.add(ModWeaponItems.ROHIRRIC_LONGBOW, 400);
+            builder.add(ModWeaponItems.LORIEN_BOW, 300);
+            builder.add(ModWeaponItems.LORIEN_LONGBOW, 400);
+            builder.add(ModWeaponItems.LORIEN_NOBLE_LONGBOW, 400);
 
-        registry.add(ModWeaponItems.LORIEN_BOW, 300);
-        registry.add(ModWeaponItems.LORIEN_LONGBOW, 400);
-        registry.add(ModWeaponItems.LORIEN_NOBLE_LONGBOW, 400);
+            builder.add(ModWeaponItems.EREBOR_BOW, 300);
+            builder.add(ModWeaponItems.EREBOR_NOBLE_BOW, 300);
+            builder.add(ModWeaponItems.EREBOR_CROSSBOW, 400);
+            builder.add(ModWeaponItems.EREBOR_NOBLE_CROSSBOW, 400);
 
-        registry.add(ModWeaponItems.EREBOR_BOW, 300);
-        registry.add(ModWeaponItems.EREBOR_NOBLE_BOW, 300);
-        registry.add(ModWeaponItems.EREBOR_CROSSBOW, 400);
-        registry.add(ModWeaponItems.EREBOR_NOBLE_CROSSBOW, 400);
+            builder.add(ModWeaponItems.ORCISH_BOW, 300);
 
-        registry.add(ModWeaponItems.ORCISH_BOW, 300);
+            builder.add(ModWeaponItems.MORDOR_BOW, 300);
+            builder.add(ModWeaponItems.MORDOR_ELITE_LONGBOW, 400);
 
-        registry.add(ModWeaponItems.MORDOR_BOW, 300);
-        registry.add(ModWeaponItems.MORDOR_ELITE_LONGBOW, 400);
+            builder.add(ModWeaponItems.URUK_HAI_BOW, 300);
+            builder.add(ModWeaponItems.URUK_HAI_CROSSBOW, 400);
 
-        registry.add(ModWeaponItems.URUK_HAI_BOW, 300);
-        registry.add(ModWeaponItems.URUK_HAI_CROSSBOW, 400);
+            builder.add(ModWeaponItems.GUNDABAD_BOW, 300);
+            builder.add(ModWeaponItems.GUNDABAD_CROSSBOW, 400);
 
-        registry.add(ModWeaponItems.GUNDABAD_BOW, 300);
-        registry.add(ModWeaponItems.GUNDABAD_CROSSBOW, 400);
+            builder.add(ModWeaponItems.WOODEN_DAGGER, 150);
 
-        registry.add(ModWeaponItems.WOODEN_DAGGER, 150);
+            builder.add(ModDecorativeBlocks.OAK_STOOL, 300);
+            builder.add(ModDecorativeBlocks.OAK_BENCH, 300);
+            builder.add(ModDecorativeBlocks.OAK_CHAIR, 300);
+            builder.add(ModDecorativeBlocks.OAK_TABLE, 300);
 
-        registry.add(ModDecorativeBlocks.OAK_STOOL, 300);
-        registry.add(ModDecorativeBlocks.OAK_BENCH, 300);
-        registry.add(ModDecorativeBlocks.OAK_CHAIR, 300);
-        registry.add(ModDecorativeBlocks.OAK_TABLE, 300);
+            builder.add(ModDecorativeBlocks.BIRCH_STOOL, 300);
+            builder.add(ModDecorativeBlocks.BIRCH_BENCH, 300);
+            builder.add(ModDecorativeBlocks.BIRCH_CHAIR, 300);
+            builder.add(ModDecorativeBlocks.BIRCH_TABLE, 300);
 
-        registry.add(ModDecorativeBlocks.BIRCH_STOOL, 300);
-        registry.add(ModDecorativeBlocks.BIRCH_BENCH, 300);
-        registry.add(ModDecorativeBlocks.BIRCH_CHAIR, 300);
-        registry.add(ModDecorativeBlocks.BIRCH_TABLE, 300);
+            builder.add(ModDecorativeBlocks.SPRUCE_STOOL, 300);
+            builder.add(ModDecorativeBlocks.SPRUCE_BENCH, 300);
+            builder.add(ModDecorativeBlocks.SPRUCE_CHAIR, 300);
+            builder.add(ModDecorativeBlocks.SPRUCE_TABLE, 300);
 
-        registry.add(ModDecorativeBlocks.SPRUCE_STOOL, 300);
-        registry.add(ModDecorativeBlocks.SPRUCE_BENCH, 300);
-        registry.add(ModDecorativeBlocks.SPRUCE_CHAIR, 300);
-        registry.add(ModDecorativeBlocks.SPRUCE_TABLE, 300);
+            builder.add(ModDecorativeBlocks.DARK_OAK_STOOL, 300);
+            builder.add(ModDecorativeBlocks.DARK_OAK_BENCH, 300);
+            builder.add(ModDecorativeBlocks.DARK_OAK_CHAIR, 300);
+            builder.add(ModDecorativeBlocks.DARK_OAK_TABLE, 300);
 
-        registry.add(ModDecorativeBlocks.DARK_OAK_STOOL, 300);
-        registry.add(ModDecorativeBlocks.DARK_OAK_BENCH, 300);
-        registry.add(ModDecorativeBlocks.DARK_OAK_CHAIR, 300);
-        registry.add(ModDecorativeBlocks.DARK_OAK_TABLE, 300);
+            builder.add(ModDecorativeBlocks.ACACIA_STOOL, 300);
+            builder.add(ModDecorativeBlocks.ACACIA_BENCH, 300);
+            builder.add(ModDecorativeBlocks.ACACIA_CHAIR, 300);
+            builder.add(ModDecorativeBlocks.ACACIA_TABLE, 300);
 
-        registry.add(ModDecorativeBlocks.ACACIA_STOOL, 300);
-        registry.add(ModDecorativeBlocks.ACACIA_BENCH, 300);
-        registry.add(ModDecorativeBlocks.ACACIA_CHAIR, 300);
-        registry.add(ModDecorativeBlocks.ACACIA_TABLE, 300);
+            builder.add(ModDecorativeBlocks.JUNGLE_STOOL, 300);
+            builder.add(ModDecorativeBlocks.JUNGLE_BENCH, 300);
+            builder.add(ModDecorativeBlocks.JUNGLE_CHAIR, 300);
+            builder.add(ModDecorativeBlocks.JUNGLE_TABLE, 300);
 
-        registry.add(ModDecorativeBlocks.JUNGLE_STOOL, 300);
-        registry.add(ModDecorativeBlocks.JUNGLE_BENCH, 300);
-        registry.add(ModDecorativeBlocks.JUNGLE_CHAIR, 300);
-        registry.add(ModDecorativeBlocks.JUNGLE_TABLE, 300);
+            builder.add(ModDecorativeBlocks.MANGROVE_STOOL, 300);
+            builder.add(ModDecorativeBlocks.MANGROVE_BENCH, 300);
+            builder.add(ModDecorativeBlocks.MANGROVE_CHAIR, 300);
+            builder.add(ModDecorativeBlocks.MANGROVE_TABLE, 300);
 
-        registry.add(ModDecorativeBlocks.MANGROVE_STOOL, 300);
-        registry.add(ModDecorativeBlocks.MANGROVE_BENCH, 300);
-        registry.add(ModDecorativeBlocks.MANGROVE_CHAIR, 300);
-        registry.add(ModDecorativeBlocks.MANGROVE_TABLE, 300);
+            builder.add(ModDecorativeBlocks.CHERRY_STOOL, 300);
+            builder.add(ModDecorativeBlocks.CHERRY_BENCH, 300);
+            builder.add(ModDecorativeBlocks.CHERRY_CHAIR, 300);
+            builder.add(ModDecorativeBlocks.CHERRY_TABLE, 300);
 
-        registry.add(ModDecorativeBlocks.CHERRY_STOOL, 300);
-        registry.add(ModDecorativeBlocks.CHERRY_BENCH, 300);
-        registry.add(ModDecorativeBlocks.CHERRY_CHAIR, 300);
-        registry.add(ModDecorativeBlocks.CHERRY_TABLE, 300);
-
-        registry.add(ModDecorativeBlocks.BAMBOO_STOOL, 300);
-        registry.add(ModDecorativeBlocks.BAMBOO_BENCH, 300);
-        registry.add(ModDecorativeBlocks.BAMBOO_CHAIR, 300);
-        registry.add(ModDecorativeBlocks.BAMBOO_TABLE, 300);
+            builder.add(ModDecorativeBlocks.BAMBOO_STOOL, 300);
+            builder.add(ModDecorativeBlocks.BAMBOO_BENCH, 300);
+            builder.add(ModDecorativeBlocks.BAMBOO_CHAIR, 300);
+            builder.add(ModDecorativeBlocks.BAMBOO_TABLE, 300);
+                }));
     }
 
     public static void registerComposterBlocks() {
@@ -569,15 +569,17 @@ public class ModRegistries {
             player.giveItemStack(new ItemStack(Items.BONE));
             stack.decrement(1);
         }
-        return ItemActionResult.success(world.isClient);
+
+        //TODO Make sure this works well on server/client, ActionResult.SERVER_SUCCESS if not
+        return ActionResult.SUCCESS;
     };
 
     public static final CauldronBehavior CLEAN_CUSTOM_DYEABLE_ITEM = (state, world, pos, player, hand, stack) -> {
         if (!stack.isIn(ModTags.DYEABLE)) {
-            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         }
         if (!stack.contains(ModDataComponentTypes.DYE_DATA)) {
-            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         }
         if (!world.isClient) {
             stack.set(ModDataComponentTypes.DYE_DATA,
@@ -585,7 +587,7 @@ public class ModRegistries {
             player.incrementStat(Stats.CLEAN_ARMOR);
             LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
         }
-        return ItemActionResult.success(world.isClient);
+        return ActionResult.SUCCESS;
     };
 
     public static final CauldronBehavior COOL_DOWN_METAL = (state, world, pos, player, hand, stack) -> {
@@ -594,7 +596,7 @@ public class ModRegistries {
         int bigSmokeAmount = random.nextInt(3) + 2;
 
         if (!stack.contains(ModDataComponentTypes.TEMPERATURE_DATA)) {
-            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         }
         if (!world.isClient) {
             ItemStack originalStack = stack.copy();
@@ -626,7 +628,7 @@ public class ModRegistries {
                         0.0f);
             }
         }
-        return ItemActionResult.success(world.isClient);
+        return ActionResult.SUCCESS;
     };
 
     public static void registerCauldronBehaviour() {

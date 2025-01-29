@@ -12,6 +12,7 @@ import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -38,7 +39,7 @@ public class LargeDoorBlock extends Block {
     //TODO CLEAN CLASS
 
     public static final IntProperty PART = IntProperty.of("part", 0, 127);
-    public static final DirectionProperty HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty OPEN = Properties.OPEN;
     public static final EnumProperty<DoorHinge> HINGE = Properties.DOOR_HINGE;
 
@@ -193,7 +194,7 @@ public class LargeDoorBlock extends Block {
     }
 
     @Override
-    protected void onExploded(BlockState state, World world, BlockPos pos, Explosion explosion, BiConsumer<ItemStack, BlockPos> stackMerger) {
+    protected void onExploded(BlockState state, ServerWorld world, BlockPos pos, Explosion explosion, BiConsumer<ItemStack, BlockPos> stackMerger) {
         BlockPos blockPos = getOrigin(pos, state);
         BlockPos blockPos1 = blockPos;
 
@@ -296,7 +297,7 @@ public class LargeDoorBlock extends Block {
             player.sendMessage(Text.translatable("alert.me.large_door.blocked"), true);
         }
 
-        return ActionResult.success(world.isClient);
+        return ActionResult.SUCCESS;
     }
 
     private void playOpenCloseSound(@Nullable Entity entity, World world, BlockPos pos, boolean open) {

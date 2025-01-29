@@ -8,7 +8,7 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
@@ -22,7 +22,7 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class WallSilverLanternBlock extends SilverLanternBlock {
-    private static final DirectionProperty FACING;
+    private static final EnumProperty<Direction> FACING;
     private static final VoxelShape WALL_SHAPE;
 
     public WallSilverLanternBlock(Settings settings) {

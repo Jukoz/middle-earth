@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.block.special.fire_of_orthanc;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.util.ActionResult;
 import net.sevenstars.middleearth.item.ModDecorativeItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -15,7 +16,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
@@ -29,13 +29,11 @@ public class FireOfOrthancBlock extends Block {
     public static final MapCodec<FireOfOrthancBlock> CODEC = createCodec(FireOfOrthancBlock::new);
     public static final VoxelShape OUTLINE_SHAPE = Block.createCuboidShape(2, 0, 2, 14, 12, 14);
 
-    //TODO update model
-
     public FireOfOrthancBlock(Settings settings) {
         super(settings);
     }
 
-    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!stack.isOf(ModDecorativeItems.TORCH_OF_ORTHANC)) {
             return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
         } else {
@@ -50,13 +48,13 @@ public class FireOfOrthancBlock extends Block {
                 }
             }
             player.incrementStat(Stats.USED.getOrCreateStat(item));
-            return ItemActionResult.success(world.isClient);
+            return ActionResult.SUCCESS;
         }
     }
 
     public void explode(World world, BlockPos pos, @Nullable LivingEntity igniter) {
         if (!world.isClient) {
-            FireOfOrthancEntity fireOfOrthancEntity = new FireOfOrthancEntity(world, (double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5, igniter, true);
+            FireOfOrthancEntity fireOfOrthancEntity = new FireOfOrthancEntity(world, (double) pos.getX() + 0.5, pos.getY(), (double) pos.getZ() + 0.5, igniter, true);
             world.spawnEntity(fireOfOrthancEntity);
             world.emitGameEvent(igniter, GameEvent.PRIME_FUSE, pos);
         } else {

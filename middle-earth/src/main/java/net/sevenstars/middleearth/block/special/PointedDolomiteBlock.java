@@ -44,7 +44,7 @@ import java.util.function.Predicate;
 public class PointedDolomiteBlock extends Block implements LandingBlock, Waterloggable {
 
     public static final MapCodec<PointedDolomiteBlock> CODEC = createCodec(PointedDolomiteBlock::new);
-    public static final DirectionProperty VERTICAL_DIRECTION;
+    public static final EnumProperty<Direction> VERTICAL_DIRECTION;
     public static final EnumProperty<Thickness> THICKNESS;
     public static final BooleanProperty WATERLOGGED;
     private static final int field_31205 = 11;

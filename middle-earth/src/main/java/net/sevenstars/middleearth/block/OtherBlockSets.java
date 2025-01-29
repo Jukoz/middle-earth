@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.block;
 
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.OxidizableVerticalSlabBlock;
 import net.sevenstars.middleearth.block.special.OxidizableWallBlock;
@@ -283,7 +283,7 @@ public class OtherBlockSets {
     }
 
     private static RoofBlockSet registerWoodSet(String name, Block origin) {
-        Block block = null;
+        Block block;
 
         if (origin == null) {
             block = ModBlocks.registerWoodBlock(name, new Block(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)),true);
@@ -306,12 +306,13 @@ public class OtherBlockSets {
         FlammableBlockRegistry.getDefaultInstance().add(stairs, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(wall, 5, 20);
 
-        FuelRegistry registry =  FuelRegistry.INSTANCE;
-        registry.add(block, 300);
-        registry.add(slab, 150);
-        registry.add(verticalSlab, 150);
-        registry.add(stairs, 300);
-        registry.add(wall, 300);
+        FuelRegistryEvents.BUILD.register(((builder, context) -> {
+            builder.add(block, 300);
+            builder.add(slab, 150);
+            builder.add(verticalSlab, 150);
+            builder.add(stairs, 300);
+            builder.add(wall, 300);
+        }));
 
         return new RoofBlockSet(block, slab, verticalSlab, stairs, wall, origin);
     }

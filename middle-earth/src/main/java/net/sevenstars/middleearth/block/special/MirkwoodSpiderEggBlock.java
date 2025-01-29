@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.block.special;
 
+import net.minecraft.state.property.EnumProperty;
+import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
 import net.minecraft.block.Block;
@@ -12,7 +14,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -28,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Random;
 
 public class MirkwoodSpiderEggBlock extends Block {
-    private static final DirectionProperty FACING;
+    private static final EnumProperty<Direction> FACING;
 
     public MirkwoodSpiderEggBlock(Settings settings) {
         super(settings);
@@ -50,8 +51,9 @@ public class MirkwoodSpiderEggBlock extends Block {
         return world.getBlockState(blockPos).isSolidBlock(world, blockPos);
     }
 
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    @Override
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, net.minecraft.util.math.random.Random random) {
+        return !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override

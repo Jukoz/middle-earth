@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.special.shapingAnvil;
 
+import net.minecraft.state.property.EnumProperty;
 import net.sevenstars.middleearth.item.items.SmithingHammerItem;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implements BlockEntityProvider {
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
     public AbstractTreatedAnvilBlock(Settings settings) {
         super(settings);

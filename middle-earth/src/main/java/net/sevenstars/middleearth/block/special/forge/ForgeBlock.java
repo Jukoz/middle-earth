@@ -19,7 +19,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
@@ -35,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final EnumProperty<ForgePart> PART = EnumProperty.of("part", ForgePart.class);
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty LIT = Properties.LIT;
 
     public ForgeBlock(Settings settings) {

@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.block;
 
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;
@@ -191,34 +191,32 @@ public class WoodBlockSets {
         FlammableBlockRegistry.getDefaultInstance().add(table, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(chair, 5, 20);
 
-        FuelRegistry registry =  FuelRegistry.INSTANCE;
+        FuelRegistryEvents.BUILD.register(((builder, context) -> {
+            builder.add(table, 300);
+            builder.add(chair, 300);
+            builder.add(bench, 300);
+            builder.add(stool, 300);
+            builder.add(woodSlab, 150);
+            builder.add(woodStairs, 300);
+            builder.add(woodVerticalSlab, 150);
+            builder.add(woodWall, 300);
+            builder.add(woodFence, 300);
+            builder.add(strippedSlab, 150);
+            builder.add(strippedVerticalSlab, 150);
+            builder.add(strippedStairs, 300);
+            builder.add(strippedWoodWall, 300);
+            builder.add(strippedWoodFence, 300);
 
-        registry.add(table, 300);
-        registry.add(chair, 300);
-        registry.add(bench, 300);
-        registry.add(stool, 300);
-        registry.add(woodSlab, 150);
-        registry.add(woodStairs, 300);
-        registry.add(woodVerticalSlab, 150);
-        registry.add(woodWall, 300);
-        registry.add(woodFence, 300);
-        registry.add(strippedSlab, 150);
-        registry.add(strippedVerticalSlab, 150);
-        registry.add(strippedStairs, 300);
-        registry.add(strippedWoodWall, 300);
-        registry.add(strippedWoodFence, 300);
-
-        registry.add(slab, 150);
-        registry.add(verticalSlab, 150);
-        registry.add(stairs, 300);
-        registry.add(fence, 300);
-        registry.add(gate, 300);
-        registry.add(button, 100);
-        registry.add(pressurePlate, 300);
-        registry.add(door, 200);
-        registry.add(trapdoor, 200);
-
-
+            builder.add(slab, 150);
+            builder.add(verticalSlab, 150);
+            builder.add(stairs, 300);
+            builder.add(fence, 300);
+            builder.add(gate, 300);
+            builder.add(button, 100);
+            builder.add(pressurePlate, 300);
+            builder.add(door, 200);
+            builder.add(trapdoor, 200);
+        }));
 
         return new SimpleBlockSet(leaves, log, wood, woodSlab, woodVerticalSlab, woodStairs, woodWall, woodFence,
                 strippedLog, strippedWood, strippedSlab, strippedVerticalSlab, strippedStairs, strippedWoodWall, strippedWoodFence,

@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.block.special.shapingAnvil.dwarvenTreatedAnvil;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.state.property.EnumProperty;
 import net.sevenstars.middleearth.block.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.shapingAnvil.AbstractTreatedAnvilBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.TreatedAnvilBlockEntity;
@@ -11,7 +12,6 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.stream.Stream;
 
 public class DwarvenShapingAnvilBlock extends AbstractTreatedAnvilBlock {
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
     public DwarvenShapingAnvilBlock(Settings settings) {
         super(settings);

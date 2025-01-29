@@ -6,7 +6,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.model.BlockStatesLoader;
-import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.render.model.Model;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;

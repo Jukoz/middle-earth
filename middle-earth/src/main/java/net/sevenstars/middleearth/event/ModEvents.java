@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.event;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
