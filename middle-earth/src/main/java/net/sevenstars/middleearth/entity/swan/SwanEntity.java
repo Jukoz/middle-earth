@@ -36,7 +36,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class SwanEntity extends AnimalEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    public static final Ingredient BREEDING_INGREDIENT = Ingredient.fromTag(ItemTags.CHICKEN_FOOD);
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
@@ -56,7 +55,7 @@ public class SwanEntity extends AnimalEntity {
         this.goalSelector.add(2, new MeleeAttackGoal(this, 1.5f, false));
         this.goalSelector.add(3, new EscapeDangerGoal(this, 1.5f));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(5, new TemptGoal(this, 1.1, BREEDING_INGREDIENT, false));
+        this.goalSelector.add(3, new TemptGoal(this, 1.1, (stack) ->  stack.isIn(ItemTags.CHICKEN_FOOD), false));
 
         this.goalSelector.add(6, new FollowParentGoal(this, 1.05));
 
@@ -70,10 +69,10 @@ public class SwanEntity extends AnimalEntity {
 
     public static DefaultAttributeContainer.Builder createSwanAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0);
+                .add(EntityAttributes.MAX_HEALTH, 10.0)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.25)
+                .add(EntityAttributes.ATTACK_DAMAGE, 1.0)
+                .add(EntityAttributes.ATTACK_SPEED, 1.0);
     }
 
     @Override
@@ -165,9 +164,9 @@ public class SwanEntity extends AnimalEntity {
     }
 
     @Override
-    public boolean tryAttack(Entity target) {
+    public boolean tryAttack(ServerWorld world, Entity target) {
         this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-        return super.tryAttack(target);
+        return super.tryAttack(world, target);
     }
 
     @Override
@@ -200,7 +199,7 @@ public class SwanEntity extends AnimalEntity {
 
     @Nullable
     public SwanEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-        SwanEntity child = ModEntities.SWAN.create(serverWorld);
+        SwanEntity child = ModEntities.SWAN.create(serverWorld, SpawnReason.BREEDING);
         SwanVariant variant = Util.getRandom(SwanVariant.values(), this.random);
 
         child.setVariant(variant);
@@ -209,7 +208,7 @@ public class SwanEntity extends AnimalEntity {
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return BREEDING_INGREDIENT.test(stack);
+        return stack.isIn(ItemTags.CHICKEN_FOOD);
     }
 
     public boolean isPushedByFluids() {

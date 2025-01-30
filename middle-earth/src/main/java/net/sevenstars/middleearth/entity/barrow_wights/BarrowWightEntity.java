@@ -3,18 +3,6 @@
  */
 package net.sevenstars.middleearth.entity.barrow_wights;
 
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
-import net.sevenstars.middleearth.entity.dwarves.longbeards.LongbeardDwarfEntity;
-import net.sevenstars.middleearth.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.sevenstars.middleearth.entity.hobbits.shire.ShireHobbitEntity;
-import net.sevenstars.middleearth.entity.humans.gondor.GondorHumanEntity;
-import net.sevenstars.middleearth.entity.humans.rohan.RohanHumanEntity;
-import net.sevenstars.middleearth.entity.orcs.misties.MistyGoblinEntity;
-import net.sevenstars.middleearth.entity.orcs.mordor.MordorOrcEntity;
-import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
-import net.sevenstars.middleearth.entity.uruks.misties.MistyHobgoblinEntity;
-import net.sevenstars.middleearth.entity.uruks.mordor.MordorBlackUrukEntity;
-import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -36,9 +24,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
+import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
+import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 
 public class BarrowWightEntity extends HostileEntity {
     private static final int MAX_HEALTH = 40;
@@ -60,13 +49,13 @@ public class BarrowWightEntity extends HostileEntity {
     }
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, MOVEMENT_SPEED)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, MAX_HEALTH)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, KNOCKBACK_RESISTANCE)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 0.85)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 28.0)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, ATTACK_DAMAGE)
-                .add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, ATTACK_KNOCKBACK);
+                .add(EntityAttributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
+                .add(EntityAttributes.MAX_HEALTH, MAX_HEALTH)
+                .add(EntityAttributes.KNOCKBACK_RESISTANCE, KNOCKBACK_RESISTANCE)
+                .add(EntityAttributes.ATTACK_SPEED, 0.85)
+                .add(EntityAttributes.FOLLOW_RANGE, 28.0)
+                .add(EntityAttributes.ATTACK_DAMAGE, ATTACK_DAMAGE)
+                .add(EntityAttributes.ATTACK_KNOCKBACK, ATTACK_KNOCKBACK);
     }
 
     protected void initGoals() {
@@ -81,16 +70,7 @@ public class BarrowWightEntity extends HostileEntity {
         this.targetSelector.add(++i, new RevengeGoal(this));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
     protected void initDataTracker(DataTracker.Builder builder) {
@@ -133,10 +113,6 @@ public class BarrowWightEntity extends HostileEntity {
 
                 if(this.getScreamingActionTime() <= 0){
                     if(target != null && target.isPlayer()){
-                        int value = Random.create().nextBetweenExclusive(0, 100);
-                        if(value < 5){
-                            target.sendMessage(Text.literal("The barrows says BOO!!!!"));
-                        }
                         target.addStatusEffect(new StatusEffectInstance(ModStatusEffects.HALLUCINATION, SCREAM_EFFECT_DURATION), this);
                         target.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, SCREAM_EFFECT_DURATION), this);
                     }
@@ -216,7 +192,7 @@ public class BarrowWightEntity extends HostileEntity {
         if (entity instanceof CreeperEntity creeperEntity) {
             if (creeperEntity.shouldDropHead()) {
                 creeperEntity.onHeadDropped();
-                this.dropItem(Items.SKELETON_SKULL);
+                this.dropItem(world, Items.SKELETON_SKULL);
             }
         }
     }

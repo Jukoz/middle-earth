@@ -2,18 +2,6 @@ package net.sevenstars.middleearth.resources.datas.races;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.NpcEntity;
-import net.sevenstars.middleearth.entity.dwarves.longbeards.LongbeardDwarfEntity;
-import net.sevenstars.middleearth.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.sevenstars.middleearth.entity.hobbits.shire.ShireHobbitEntity;
-import net.sevenstars.middleearth.entity.humans.bandit.BanditHumanEntity;
-import net.sevenstars.middleearth.entity.humans.gondor.GondorHumanEntity;
-import net.sevenstars.middleearth.entity.orcs.mordor.MordorOrcEntity;
-import net.sevenstars.middleearth.entity.uruks.mordor.MordorBlackUrukEntity;
-import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.LivingEntity;
@@ -24,6 +12,10 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.NpcEntity;
+import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,25 +96,25 @@ public class Race {
         NpcEntity entity;
         switch (raceType){
             case RaceType.HUMAN:
-                entity = new GondorHumanEntity(ModEntities.GONDORIAN_SOLDIER, world);
+                entity = null;
                 break;
             case RaceType.DWARF:
-                entity = new LongbeardDwarfEntity(ModEntities.LONGBEARD_SOLDIER, world);
+                entity = null;
                 break;
             case RaceType.HOBBIT:
-                entity = new ShireHobbitEntity(ModEntities.HOBBIT_SHIRRIFF, world);
+                entity = null;
                 break;
             case RaceType.ELF:
-                entity = new GaladhrimElfEntity(ModEntities.LORIEN_LEADER, world);
+                entity = null;
                 break;
             case RaceType.ORC:
-                entity = new MordorOrcEntity(ModEntities.MORDOR_ORC_SOLDIER, world);
+                entity = null;
                 break;
             case RaceType.URUK:
-                entity = new MordorBlackUrukEntity(ModEntities.MORDOR_BLACK_URUK_SOLDIER, world);
+                entity = null;
                 break;
             default:
-                entity = new BanditHumanEntity(ModEntities.BANDIT_SOLDIER, world);
+                entity = null;
                 break;
         }
         entity.setAiDisabled(true);

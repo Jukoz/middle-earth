@@ -35,7 +35,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class PheasantEntity extends AnimalEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(PheasantEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    public static final Ingredient BREEDING_INGREDIENT = Ingredient.fromTag(ItemTags.CHICKEN_FOOD);
 
     public PheasantEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -49,7 +48,7 @@ public class PheasantEntity extends AnimalEntity {
         this.goalSelector.add(2, new PheasantStartledGoal(this));
         this.goalSelector.add(3, new FollowParentGoal(this, 1.1));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(5, new TemptGoal(this, 0.9, BREEDING_INGREDIENT, true));
+        this.goalSelector.add(3, new TemptGoal(this, 0.9, (stack) ->  stack.isIn(ItemTags.CHICKEN_FOOD), false));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(7, new LookAroundGoal(this));
@@ -63,8 +62,8 @@ public class PheasantEntity extends AnimalEntity {
 
     public static DefaultAttributeContainer.Builder createPheasantAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 5.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4);
+                .add(EntityAttributes.MAX_HEALTH, 5.0)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.4);
     }
 
     @Override
@@ -88,7 +87,7 @@ public class PheasantEntity extends AnimalEntity {
     @Nullable
     @Override
     public PheasantEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.PHEASANT.create(world);
+        return ModEntities.PHEASANT.create(world, SpawnReason.BREEDING);
     }
 
     @Override

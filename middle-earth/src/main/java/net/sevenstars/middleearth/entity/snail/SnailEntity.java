@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.snail;
 
+import net.minecraft.entity.SpawnReason;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.minecraft.block.Block;
@@ -50,10 +51,10 @@ public class SnailEntity extends AnimalEntity {
 
     public static DefaultAttributeContainer.Builder createSnailAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 2)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.05f)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1)
-                .add(EntityAttributes.GENERIC_ARMOR, 0.5f);
+                .add(EntityAttributes.MAX_HEALTH, 2)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.05f)
+                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 1)
+                .add(EntityAttributes.ARMOR, 0.5f);
     }
 
     public SnailVariant getVariant() {
@@ -62,7 +63,7 @@ public class SnailEntity extends AnimalEntity {
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.SNAIL.create(world);
+        return ModEntities.SNAIL.create(world, SpawnReason.BREEDING);
     }
 
 
@@ -80,9 +81,10 @@ public class SnailEntity extends AnimalEntity {
         @Override
         public boolean canStart() {
             if (this.cooldown <= 0) {
-                if (!this.snail.getWorld().getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
-                    return false;
-                }
+                if(this.snail.getWorld() instanceof ServerWorld serverWorld)
+                    if (!serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+                        return false;
+                    }
                 this.hasTarget = false;
                 this.wantsCrops = this.snail.wantsCrops();
             }
@@ -131,14 +133,14 @@ public class SnailEntity extends AnimalEntity {
     }
 
     @Override
-    protected void mobTick() {
+    protected void mobTick(ServerWorld world) {
         if (this.moreCropsTicks > 0) {
             this.moreCropsTicks -= this.random.nextInt(3);
             if (this.moreCropsTicks < 0) {
                 this.moreCropsTicks = 0;
             }
         }
-        super.mobTick();
+        super.mobTick(world);
     }
 
     @Nullable
@@ -175,7 +177,7 @@ public class SnailEntity extends AnimalEntity {
         }
         if(random.nextDouble() <= 0.15D) {
             World world = this.getWorld();
-            SnailEntity snailSpawn = ((EntityType<SnailEntity>) EntityType.get(MiddleEarth.MOD_ID + ":snail").get()).create(world);
+            SnailEntity snailSpawn = ((EntityType<SnailEntity>) EntityType.get(MiddleEarth.MOD_ID + ":snail").get()).create(world, SpawnReason.BREEDING);
             snailSpawn.updatePosition(this.getX(), this.getY(), this.getZ());
             world.spawnEntity(snailSpawn);
         }

@@ -26,9 +26,9 @@ import java.util.Optional;
 public class AttributeData {
     HashMap<Identifier, Double> datas;
     private static final List<Identifier> buffReverseIdentifiers = List.of(
-            IdentifierUtil.getIdentifierFromString(EntityAttributes.GENERIC_SCALE.getIdAsString()),
-            IdentifierUtil.getIdentifierFromString(EntityAttributes.GENERIC_FALL_DAMAGE_MULTIPLIER.getIdAsString()),
-            IdentifierUtil.getIdentifierFromString(EntityAttributes.GENERIC_BURNING_TIME.getIdAsString())
+            IdentifierUtil.getIdentifierFromString(EntityAttributes.SCALE.getIdAsString()),
+            IdentifierUtil.getIdentifierFromString(EntityAttributes.FALL_DAMAGE_MULTIPLIER.getIdAsString()),
+            IdentifierUtil.getIdentifierFromString(EntityAttributes.BURNING_TIME.getIdAsString())
     );
 
     public AttributeData(NbtCompound compound) {
@@ -84,7 +84,10 @@ public class AttributeData {
 
     public double getCurrentValue(LivingEntity entity, Identifier id){
         final DynamicRegistryManager registryManager = entity.getWorld().getRegistryManager();
-        EntityAttribute attribute = registryManager.get(RegistryKeys.ATTRIBUTE).get(id);
+        if(registryManager.getOptional(RegistryKeys.ATTRIBUTE).isEmpty()){
+            return 1.0;
+        }
+        EntityAttribute attribute = registryManager.getOptional(RegistryKeys.ATTRIBUTE).get().get(id);
 
         Optional<RegistryEntry.Reference<EntityAttribute>> attributeEntry = Registries.ATTRIBUTE.getEntry(id);
         if(attribute != null && attributeEntry != null && attributeEntry.isPresent()){
@@ -102,36 +105,36 @@ public class AttributeData {
     }
 
     private static final HashMap<Identifier, Double> defaultAttributes = new HashMap<>(){{
-        put(Identifier.of("minecraft:generic.armor"), 0.0);
-        put(Identifier.of("minecraft:generic.armor_toughness"), 0.0);
-        put(Identifier.of("minecraft:generic.attack_damage"), 0.9);
-        put(Identifier.of("minecraft:generic.attack_knockback"), 0.0);
-        put(Identifier.of("minecraft:generic.attack_speed"), 4.0);
-        put(Identifier.of("minecraft:generic.burning_time"), 1.0);
-        put(Identifier.of("minecraft:generic.explosion_knockback_resistance"), 0.0);
-        put(Identifier.of("minecraft:generic.fall_damage_multiplier"), 1.0);
-        put(Identifier.of("minecraft:generic.gravity"), 0.08);
-        put(Identifier.of("minecraft:generic.jump_strength"), 0.41999998688697815);
-        put(Identifier.of("minecraft:generic.knockback_resistance"), 0.0);
-        put(Identifier.of("minecraft:generic.luck"), 0.0);
-        put(Identifier.of("minecraft:generic.max_absorption"), 0.0);
-        put(Identifier.of("minecraft:generic.max_health"), 20.0);
-        put(Identifier.of("minecraft:generic.movement_efficiency"), 0.0);
-        put(Identifier.of("minecraft:generic.movement_speed"), 0.10000000149011612);
-        put(Identifier.of("minecraft:generic.oxygen_bonus"), 0.0);
-        put(Identifier.of("minecraft:generic.oxygen_bonus"), 0.0);
-        put(Identifier.of("minecraft:generic.safe_fall_distance"), 3.0);
-        put(Identifier.of("minecraft:generic.scale"), 1.0);
-        put(Identifier.of("minecraft:generic.step_height"), 0.6);
-        put(Identifier.of("minecraft:generic.water_movement_efficiency"), 0.0);
+        put(Identifier.of("armor"), 0.0);
+        put(Identifier.of("armor_toughness"), 0.0);
+        put(Identifier.of("attack_damage"), 0.9);
+        put(Identifier.of("attack_knockback"), 0.0);
+        put(Identifier.of("attack_speed"), 4.0);
+        put(Identifier.of("burning_time"), 1.0);
+        put(Identifier.of("explosion_knockback_resistance"), 0.0);
+        put(Identifier.of("fall_damage_multiplier"), 1.0);
+        put(Identifier.of("gravity"), 0.08);
+        put(Identifier.of("jump_strength"), 0.41999998688697815);
+        put(Identifier.of("knockback_resistance"), 0.0);
+        put(Identifier.of("luck"), 0.0);
+        put(Identifier.of("max_absorption"), 0.0);
+        put(Identifier.of("max_health"), 20.0);
+        put(Identifier.of("movement_efficiency"), 0.0);
+        put(Identifier.of("movement_speed"), 0.10000000149011612);
+        put(Identifier.of("oxygen_bonus"), 0.0);
+        put(Identifier.of("oxygen_bonus"), 0.0);
+        put(Identifier.of("safe_fall_distance"), 3.0);
+        put(Identifier.of("scale"), 1.0);
+        put(Identifier.of("step_height"), 0.6);
+        put(Identifier.of("water_movement_efficiency"), 0.0);
 
-        put(Identifier.of("minecraft:player.block_break_speed"), 1.0);
-        put(Identifier.of("minecraft:player.block_interaction_range"), 	4.5);
-        put(Identifier.of("minecraft:player.entity_interaction_range"), 3.0);
-        put(Identifier.of("minecraft:player.mining_efficiency"), 0.0);
-        put(Identifier.of("minecraft:player.sneaking_speed"), 0.3);
-        put(Identifier.of("minecraft:player.submerged_mining_speed"), 0.2);
-        put(Identifier.of("minecraft:player.sweeping_damage_ratio"), 0.0);
+        put(Identifier.of("block_break_speed"), 1.0);
+        put(Identifier.of("block_interaction_range"), 	4.5);
+        put(Identifier.of("entity_interaction_range"), 3.0);
+        put(Identifier.of("mining_efficiency"), 0.0);
+        put(Identifier.of("sneaking_speed"), 0.3);
+        put(Identifier.of("submerged_mining_speed"), 0.2);
+        put(Identifier.of("sweeping_damage_ratio"), 0.0);
     }};
 
     public static boolean reset(PlayerEntity player){
