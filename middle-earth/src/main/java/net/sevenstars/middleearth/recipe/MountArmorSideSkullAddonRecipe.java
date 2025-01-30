@@ -23,7 +23,7 @@ public class MountArmorSideSkullAddonRecipe extends SpecialCraftingRecipe {
         ItemStack itemStackString = ItemStack.EMPTY;
         ItemStack itemStackSkull= ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomAnimalArmorItem) {
@@ -53,7 +53,7 @@ public class MountArmorSideSkullAddonRecipe extends SpecialCraftingRecipe {
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack itemStack = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomAnimalArmorItem) {
@@ -78,12 +78,7 @@ public class MountArmorSideSkullAddonRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public boolean fits(int width, int height) {
-        return width * height >= 2;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
         return ModRecipeSerializer.CUSTOM_MOUNT_ARMOR_SIDE_SKULL_ADDON;
     }
 }

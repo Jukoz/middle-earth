@@ -4,6 +4,22 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.enums.BlockFace;
+import net.minecraft.block.enums.DoorHinge;
+import net.minecraft.data.client.*;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.ArmorMaterials;
+import net.minecraft.item.equipment.EquipmentModels;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
@@ -18,21 +34,6 @@ import net.sevenstars.middleearth.datageneration.content.CustomItemModels;
 import net.sevenstars.middleearth.datageneration.content.MEModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.item.ModResourceItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.enums.BlockFace;
-import net.minecraft.block.enums.DoorHinge;
-import net.minecraft.data.client.*;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.ArmorMaterials;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
 
 import java.util.List;
 import java.util.Map;
@@ -1168,29 +1169,8 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public static final Identifier TRIM_TYPE = Identifier.of("trim_type");
-    private static final List<ItemTrimMaterial> TRIM_MATERIALS = List.of(
-            new ItemTrimMaterial("jade", 0.001f, Map.of()),
-            new ItemTrimMaterial("tin", 0.002f, Map.of()),
-            new ItemTrimMaterial("lead", 0.003f, Map.of()),
-            new ItemTrimMaterial("silver", 0.004f, Map.of()),
-            new ItemTrimMaterial("bronze", 0.005f, Map.of()),
-            new ItemTrimMaterial("steel", 0.006f, Map.of()),
-            new ItemTrimMaterial("crude", 0.007f, Map.of()),
-            new ItemTrimMaterial("burzum_steel", 0.008f, Map.of()),
-            new ItemTrimMaterial("edhel_steel", 0.009f, Map.of()),
-            new ItemTrimMaterial("khazad_steel", 0.011f, Map.of()),
-            new ItemTrimMaterial("mithril", 0.012f, Map.of()),
-            new ItemTrimMaterial("quartz", 0.1f, Map.of()),
-            new ItemTrimMaterial("iron", 0.2f, Map.of(ArmorMaterials.IRON, "iron_darker")),
-            new ItemTrimMaterial("netherite", 0.3f, Map.of(ArmorMaterials.NETHERITE, "netherite_darker")),
-            new ItemTrimMaterial("redstone", 0.4f, Map.of()),
-            new ItemTrimMaterial("copper", 0.5f, Map.of()),
-            new ItemTrimMaterial("gold", 0.6f, Map.of(ArmorMaterials.GOLD, "gold_darker")),
-            new ItemTrimMaterial("emerald", 0.7f, Map.of()),
-            new ItemTrimMaterial("diamond", 0.8f, Map.of(ArmorMaterials.DIAMOND, "diamond_darker")),
-            new ItemTrimMaterial("lapis", 0.9f, Map.of()),
-            new ItemTrimMaterial("amethyst", 1.0f, Map.of())
-    );
+    private static final List<TrimMaterial> TRIM_MATERIALS = List.of(new TrimMaterial("quartz", 0.1F, Map.of()), new TrimMaterial("iron", 0.2F, Map.of(EquipmentModels.IRON, "iron_darker")), new TrimMaterial("netherite", 0.3F, Map.of(EquipmentModels.NETHERITE, "netherite_darker")), new TrimMaterial("redstone", 0.4F, Map.of()), new TrimMaterial("copper", 0.5F, Map.of()), new TrimMaterial("gold", 0.6F, Map.of(EquipmentModels.GOLD, "gold_darker")), new TrimMaterial("emerald", 0.7F, Map.of()), new TrimMaterial("diamond", 0.8F, Map.of(EquipmentModels.DIAMOND, "diamond_darker")), new TrimMaterial("lapis", 0.9F, Map.of()), new TrimMaterial("amethyst", 1.0F, Map.of()));
+
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
@@ -1320,10 +1300,8 @@ public class ModelProvider extends FabricModelProvider {
         Identifier identifier = ModelIds.getItemModelId(armor);
         Identifier identifier2 = TextureMap.getId(armor);
         Identifier identifier3 = TextureMap.getSubId(armor, "_overlay");
-        Models.GENERATED_TWO_LAYERS.upload(identifier, TextureMap.layered(identifier2, identifier3), itemModelGenerator.writer, (id, textures) -> {
-                    return createArmorJson(id, textures, armor.getMaterial());
-                }
-        );
+        Models.GENERATED_TWO_LAYERS.upload(identifier, TextureMap.layered(identifier2, identifier3), itemModelGenerator.writer);
+
     }
 
     public final void registerPalettedItem(Item item, ItemModelGenerator itemModelGenerator) {
@@ -1332,7 +1310,7 @@ public class ModelProvider extends FabricModelProvider {
         Identifier identifier2 = TextureMap.getId(item);
 
         Models.GENERATED.upload(identifierItem, TextureMap.layer0(identifierItem), itemModelGenerator.writer, (id, textures) -> this.registerPalettedItemJson(item, id, textures, itemModelGenerator));
-        for (ItemTrimMaterial trimMaterial : TRIM_MATERIALS) {
+        for (TrimMaterial trimMaterial : TRIM_MATERIALS) {
 
             String string;
             if (trimMaterial.name.contains("iron")) {
@@ -1354,7 +1332,7 @@ public class ModelProvider extends FabricModelProvider {
 
         JsonObject jsonObject = Models.GENERATED_TWO_LAYERS.createJson(identifierItem, textures);
         JsonArray jsonArray = new JsonArray();
-        for (ItemTrimMaterial trimMaterial : TRIM_MATERIALS) {
+        for (TrimMaterial trimMaterial : TRIM_MATERIALS) {
             JsonObject jsonObject2 = new JsonObject();
             JsonObject jsonObject3 = new JsonObject();
             jsonObject3.addProperty(TRIM_TYPE.getPath(), Float.valueOf(trimMaterial.itemModelIndex()));
@@ -1372,6 +1350,30 @@ public class ModelProvider extends FabricModelProvider {
         jsonObject.add("overrides", jsonArray);
 
         return jsonObject;
+    }
+
+    private static record TrimMaterial(String name, float itemModelIndex, Map<Identifier, String> overrideArmorMaterials) {
+        TrimMaterial(String name, float itemModelIndex, Map<Identifier, String> overrideArmorMaterials) {
+            this.name = name;
+            this.itemModelIndex = itemModelIndex;
+            this.overrideArmorMaterials = overrideArmorMaterials;
+        }
+
+        public String getAppliedName(Identifier modelId) {
+            return (String)this.overrideArmorMaterials.getOrDefault(modelId, this.name);
+        }
+
+        public String name() {
+            return this.name;
+        }
+
+        public float itemModelIndex() {
+            return this.itemModelIndex;
+        }
+
+        public Map<Identifier, String> overrideArmorMaterials() {
+            return this.overrideArmorMaterials;
+        }
     }
 
     public final JsonObject createArmorJson(Identifier id, Map<TextureKey, Identifier> textures, RegistryEntry<ArmorMaterial> armorMaterial) {

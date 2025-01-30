@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.client.renderer;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomBootsModel;
@@ -23,13 +24,13 @@ public class BootsArmorRenderer implements ArmorRenderer {
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
+    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
         this.customBootsModel = new CustomBootsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_BOOTS));
 
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.FEET) {
-            contextModel.copyBipedStateTo(customBootsModel);
+            contextModel.copyTransforms(customBootsModel);
             customBootsModel.setVisible(false);
             customBootsModel.rightLeg.visible = true;
             customBootsModel.leftLeg.visible = true;

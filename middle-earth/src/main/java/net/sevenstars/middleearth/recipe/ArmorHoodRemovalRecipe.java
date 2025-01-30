@@ -24,15 +24,14 @@ public class ArmorHoodRemovalRecipe extends SpecialCraftingRecipe {
         super(category);
     }
 
-
     @Override
-    public DefaultedList<ItemStack> getRemainder(CraftingRecipeInput input) {
-        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(input.getSize(), ItemStack.EMPTY);
+    public DefaultedList<ItemStack> getRecipeRemainders(CraftingRecipeInput input) {
+        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(input.size(), ItemStack.EMPTY);
 
         for(int i = 0; i < defaultedList.size(); ++i) {
             ItemStack itemStack = input.getStackInSlot(i);
-            if (itemStack.getItem().hasRecipeRemainder()) {
-                defaultedList.set(i, new ItemStack(itemStack.getItem().getRecipeRemainder()));
+            if (!itemStack.getItem().getRecipeRemainder().isEmpty()) {
+                defaultedList.set(i, new ItemStack(itemStack.getItem().getRecipeRemainder().getItem()));
             } else if (itemStack.getItem() instanceof ShearsItem) {
                 defaultedList.set(i, itemStack.copyWithCount(1));
             }else if (itemStack.get(ModDataComponentTypes.HOOD_DATA) != null){
@@ -46,12 +45,13 @@ public class ArmorHoodRemovalRecipe extends SpecialCraftingRecipe {
         return defaultedList;
     }
 
+
     @Override
     public boolean matches(CraftingRecipeInput input, World world) {
         ItemStack itemStackHelmet = ItemStack.EMPTY;
         ItemStack itemStackHood = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomHelmetItem && itemStack2.get(ModDataComponentTypes.HOOD_DATA) != null) {
@@ -74,7 +74,7 @@ public class ArmorHoodRemovalRecipe extends SpecialCraftingRecipe {
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack itemStack = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomHelmetItem && itemStack2.get(ModDataComponentTypes.HOOD_DATA) != null) {
@@ -103,7 +103,7 @@ public class ArmorHoodRemovalRecipe extends SpecialCraftingRecipe {
         return width * height >= 2;
     }
 
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
         return ModRecipeSerializer.CUSTOM_ARMOR_HOOD_REMOVAL;
     }
 }

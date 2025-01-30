@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.item.utils.armor;
 
-import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.registry.entry.RegistryEntry;
 
 

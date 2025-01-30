@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.armor;
 
+import net.minecraft.item.equipment.EquipmentType;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ModDataComponentTypes;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
@@ -27,7 +28,8 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     private ExtendedArmorMaterial material;
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
-        super(material.material(), Type.HELMET, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
+        super(material.material().value(), EquipmentType.HELMET, settings.maxCount(1));
+
 
         this.material = material;
         this.faction = faction;
@@ -35,7 +37,7 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     }
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
-        super(material.material(), Type.HELMET, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
+        super(material.material().value(), EquipmentType.HELMET, settings.maxCount(1));
 
         this.material = material;
         this.faction = subFaction.getParent();

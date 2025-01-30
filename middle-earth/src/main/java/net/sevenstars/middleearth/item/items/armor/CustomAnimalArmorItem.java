@@ -1,5 +1,9 @@
 package net.sevenstars.middleearth.item.items.armor;
 
+import net.fabricmc.fabric.api.item.v1.EnchantingContext;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ModDataComponentTypes;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
@@ -33,7 +37,7 @@ public class CustomAnimalArmorItem extends ArmorItem implements MEEquipmentToolt
     private ExtendedArmorMaterial material;
 
     public CustomAnimalArmorItem(ExtendedArmorMaterial material, String suffix, Type type, boolean hasOverlay, Settings settings, ModFactions faction) {
-        super(material.material(), ArmorItem.Type.BODY, settings);
+        super(material.material().value(), EquipmentType.BODY, settings);
         this.material = material;
         this.type = type;
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, type.textureIdFunction.apply(material.material().getKey().orElseThrow().getValue()).getPath());
@@ -46,7 +50,7 @@ public class CustomAnimalArmorItem extends ArmorItem implements MEEquipmentToolt
     }
 
     public CustomAnimalArmorItem(ExtendedArmorMaterial material, String suffix, Type type, boolean hasOverlay, Settings settings, ModSubFactions subFaction) {
-        super(material.material(), ArmorItem.Type.BODY, settings);
+        super(material.material().value(), EquipmentType.BODY, settings);
         this.material = material;
         this.type = type;
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, type.textureIdFunction.apply(material.material().getKey().orElseThrow().getValue()).getPath());
@@ -107,11 +111,6 @@ public class CustomAnimalArmorItem extends ArmorItem implements MEEquipmentToolt
     @Override
     public SoundEvent getBreakSound() {
         return this.type.breakSound;
-    }
-
-    @Override
-    public boolean isEnchantable(ItemStack stack) {
-        return false;
     }
 
     public static enum Type {

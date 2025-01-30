@@ -44,7 +44,7 @@ import java.util.function.Predicate;
 public class PointedLimestoneBlock extends Block implements LandingBlock, Waterloggable {
 
     public static final MapCodec<PointedLimestoneBlock> CODEC = createCodec(PointedLimestoneBlock::new);
-    public static final DirectionProperty VERTICAL_DIRECTION;
+    public static final EnumProperty<Direction> VERTICAL_DIRECTION;
     public static final EnumProperty<Thickness> THICKNESS;
     public static final BooleanProperty WATERLOGGED;
     private static final int field_31205 = 11;
@@ -121,8 +121,11 @@ public class PointedLimestoneBlock extends Block implements LandingBlock, Waterl
     protected void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
         if (!world.isClient) {
             BlockPos blockPos = hit.getBlockPos();
-            if (projectile.canModifyAt(world, blockPos) && projectile.canBreakBlocks(world) && projectile instanceof TridentEntity && projectile.getVelocity().length() > 0.6) {
-                world.breakBlock(blockPos, true);
+            if (world instanceof ServerWorld) {
+                ServerWorld serverWorld = (ServerWorld)world;
+                if (projectile.canModifyAt(serverWorld, blockPos) && projectile.canBreakBlocks(serverWorld) && projectile instanceof TridentEntity && projectile.getVelocity().length() > 0.6) {
+                    world.breakBlock(blockPos, true);
+                }
             }
 
         }
@@ -253,7 +256,7 @@ public class PointedLimestoneBlock extends Block implements LandingBlock, Waterl
             voxelShape = MIDDLE_SHAPE;
         }
 
-        Vec3d vec3d = state.getModelOffset(world, pos);
+        Vec3d vec3d = state.getModelOffset(pos);
         return voxelShape.offset(vec3d.x, 0.0, vec3d.z);
     }
 
@@ -378,7 +381,7 @@ public class PointedLimestoneBlock extends Block implements LandingBlock, Waterl
     }
 
     private static void createParticle(World world, BlockPos pos, BlockState state, Fluid fluid) {
-        Vec3d vec3d = state.getModelOffset(world, pos);
+        Vec3d vec3d = state.getModelOffset(pos);
         double d = 0.0625;
         double e = (double) pos.getX() + 0.5 + vec3d.x;
         double f = (double) ((float) (pos.getY() + 1) - 0.6875F) - 0.0625;
@@ -579,7 +582,7 @@ public class PointedLimestoneBlock extends Block implements LandingBlock, Waterl
     private static boolean canDripThrough(BlockView world, BlockPos pos, BlockState state) {
         if (state.isAir()) {
             return true;
-        } else if (state.isOpaqueFullCube(world, pos)) {
+        } else if (state.isOpaqueFullCube()) {
             return false;
         } else if (!state.getFluidState().isEmpty()) {
             return false;

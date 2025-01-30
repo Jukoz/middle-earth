@@ -24,7 +24,7 @@ public class ArmorCapeRecipe extends SpecialCraftingRecipe {
         ItemStack itemStackChest = ItemStack.EMPTY;
         ItemStack itemStackCape = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomChestplateItem) {
@@ -48,7 +48,7 @@ public class ArmorCapeRecipe extends SpecialCraftingRecipe {
         ItemStack itemStack = ItemStack.EMPTY;
         ItemStack cape = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomChestplateItem) {
@@ -84,7 +84,7 @@ public class ArmorCapeRecipe extends SpecialCraftingRecipe {
         return width * height >= 2;
     }
 
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
         return ModRecipeSerializer.CUSTOM_ARMOR_CAPE;
     }
 }

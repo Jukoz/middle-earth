@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.armor;
 
+import net.minecraft.item.equipment.EquipmentType;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ModDataComponentTypes;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
@@ -23,7 +24,7 @@ public class CustomLeggingsItem extends ArmorItem implements MEEquipmentTooltip 
     private ExtendedArmorMaterial material;
 
     public CustomLeggingsItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
-        super(material.material(), Type.LEGGINGS, settings.maxCount(1).maxDamage(Type.BOOTS.getMaxDamage(material.durabilityModifier())));
+        super(material.material().value(), EquipmentType.LEGGINGS, settings.maxCount(1));
 
         this.material = material;
         this.faction = faction;
@@ -31,7 +32,7 @@ public class CustomLeggingsItem extends ArmorItem implements MEEquipmentTooltip 
     }
 
     public CustomLeggingsItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
-        super(material.material(), Type.LEGGINGS, settings.maxCount(1).maxDamage(Type.BOOTS.getMaxDamage(material.durabilityModifier())));
+        super(material.material().value(), EquipmentType.LEGGINGS, settings.maxCount(1));
 
         this.material = material;
         this.faction = subFaction.getParent();

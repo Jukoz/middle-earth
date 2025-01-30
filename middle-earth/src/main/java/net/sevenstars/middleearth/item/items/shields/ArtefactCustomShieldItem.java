@@ -37,12 +37,7 @@ public class ArtefactCustomShieldItem extends CustomShieldItem implements MEEqui
 
     @Override
     public Text getName(ItemStack stack) {
-        return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
-    }
-
-    @Override
-    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-        return false;
+        return Text.translatable(this.getTranslationKey()).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
     }
 
     @Override

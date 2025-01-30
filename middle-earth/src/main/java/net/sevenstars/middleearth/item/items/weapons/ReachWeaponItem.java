@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
 import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
@@ -16,7 +17,6 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.Registries;
@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReachWeaponItem extends ToolItem implements MEEquipmentTooltip {
+public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
 
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
     public float rangeDistance;
@@ -39,7 +39,7 @@ public class ReachWeaponItem extends ToolItem implements MEEquipmentTooltip {
     public ModWeaponTypes type;
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModWeaponTypes type) {
-        super(toolMaterial, new Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
+        super(new Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.rangeDistance = type.attackRange;
         this.faction = ModFactions.NONE;
         this.subFaction = null;
@@ -47,7 +47,7 @@ public class ReachWeaponItem extends ToolItem implements MEEquipmentTooltip {
     }
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModFactions faction, ModWeaponTypes type) {
-        super(toolMaterial, new Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
+        super(new Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.rangeDistance = type.attackRange;
         this.faction = faction;
         this.subFaction = null;
@@ -55,7 +55,7 @@ public class ReachWeaponItem extends ToolItem implements MEEquipmentTooltip {
     }
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, ModWeaponTypes type) {
-        super(toolMaterial, new Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
+        super(new Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.rangeDistance = type.attackRange;
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
@@ -68,11 +68,11 @@ public class ReachWeaponItem extends ToolItem implements MEEquipmentTooltip {
 
     public static AttributeModifiersComponent createAttributeModifiers(ToolMaterial material, float baseAttackDamage, float attackSpeed, float rangeDistance) {
         return AttributeModifiersComponent.builder()
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID,
-                        (float)baseAttackDamage + material.getAttackDamage(), EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID,
+                .add(EntityAttributes.ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID,
+                        (float)baseAttackDamage + material.attackDamageBonus(), EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
+                .add(EntityAttributes.ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID,
                         attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-                .add(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID,
+                .add(EntityAttributes.ENTITY_INTERACTION_RANGE, new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID,
                         rangeDistance, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                 .build();
     }
@@ -107,7 +107,7 @@ public class ReachWeaponItem extends ToolItem implements MEEquipmentTooltip {
                 || Registries.ITEM.getId(this).getPath().contains("uruk_hai")
                 || Registries.ITEM.getId(this).getPath().contains("heyday")
                 || Registries.ITEM.getId(this).getPath().contains("numenorean")){
-            return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
+            return Text.translatable(this.getTranslationKey()).formatted(Formatting.GOLD);
         }
         return super.getName(stack);
     }

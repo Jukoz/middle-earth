@@ -1,27 +1,23 @@
 package net.sevenstars.middleearth.item.items.armor;
 
 import net.fabricmc.fabric.api.item.v1.EnchantingContext;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.ModFactions;
-import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AnimalArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.utils.ModFactions;
+import net.sevenstars.middleearth.utils.ModSubFactions;
 
 import java.util.List;
 
@@ -31,13 +27,13 @@ public class CustomHorseArmorItem extends AnimalArmorItem {
     private final ModSubFactions subFaction;
 
     public CustomHorseArmorItem(RegistryEntry<ArmorMaterial> material, Type type, boolean hasOverlay, Settings settings, ModFactions faction) {
-        super(material, type, hasOverlay, settings);
+        super(material.value(), type, settings);
         this.faction = faction;
         this.subFaction = null;
     }
 
     public CustomHorseArmorItem(RegistryEntry<ArmorMaterial> material, Type type, boolean hasOverlay, Settings settings, ModSubFactions subFaction) {
-        super(material, type, hasOverlay, settings);
+        super(material.value(), type, settings);
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
     }
@@ -75,11 +71,6 @@ public class CustomHorseArmorItem extends AnimalArmorItem {
     }
 
     @Override
-    public AttributeModifiersComponent getAttributeModifiers() {
-        return super.getAttributeModifiers();
-    }
-
-    @Override
     public ItemStack getRecipeRemainder(ItemStack stack) {
         return super.getRecipeRemainder(stack);
     }
@@ -87,12 +78,6 @@ public class CustomHorseArmorItem extends AnimalArmorItem {
     @Override
     public boolean canBeEnchantedWith(ItemStack stack, RegistryEntry<Enchantment> enchantment, EnchantingContext context) {
         return super.canBeEnchantedWith(stack, enchantment, context);
-    }
-
-
-    @Override
-    public TypedActionResult<ItemStack> equipAndSwap(Item item, World world, PlayerEntity user, Hand hand) {
-        return super.equipAndSwap(item, world, user, hand);
     }
 
     @Override

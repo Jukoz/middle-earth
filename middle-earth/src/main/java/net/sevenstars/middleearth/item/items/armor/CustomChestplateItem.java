@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.armor;
 
+import net.minecraft.item.equipment.EquipmentType;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ModDataComponentTypes;
 import net.sevenstars.middleearth.item.dataComponents.CapeDataComponent;
@@ -26,17 +27,17 @@ public class CustomChestplateItem extends ArmorItem implements MEEquipmentToolti
     private ExtendedArmorMaterial material;
 
     public CustomChestplateItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
-        super(material.material(), Type.CHESTPLATE, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
-        this.material = material;
+        super(material.material().value(), EquipmentType.CHESTPLATE, settings.maxCount(1));
 
+        this.material = material;
         this.faction = faction;
         this.subFaction = null;
     }
 
     public CustomChestplateItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
-        super(material.material(), Type.CHESTPLATE, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
-        this.material = material;
+        super(material.material().value(), EquipmentType.CHESTPLATE, settings.maxCount(1));
 
+        this.material = material;
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
     }

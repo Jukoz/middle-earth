@@ -22,7 +22,7 @@ public class CustomArtefactHelmetItem extends CustomHelmetItem {
 
     @Override
     public Text getName(ItemStack stack) {
-        return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
+        return Text.translatable(this.getTranslationKey()).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
     }
 
     @Override
@@ -30,10 +30,7 @@ public class CustomArtefactHelmetItem extends CustomHelmetItem {
         appendBaseArtefactTooltip(tooltip, stack);
     }
 
-    @Override
-    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-        return false;
-    }
+    //TODO canRepair gone need to find new thing
 
     @Override
     public boolean isItemBarVisible(ItemStack stack) {

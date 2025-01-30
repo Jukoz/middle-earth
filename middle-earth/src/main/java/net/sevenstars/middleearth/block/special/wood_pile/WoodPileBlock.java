@@ -9,7 +9,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.*;
@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvider {
     public static final IntProperty STAGE = IntProperty.of("stage", 0, 3);
-    public static final DirectionProperty HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
     private static final VoxelShape STAGE_0, STAGE_1, STAGE_2, STAGE_3;
     public static final MapCodec<WoodPileBlock> CODEC = FurnaceBlock.createCodec(WoodPileBlock::new);
 
