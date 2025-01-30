@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.client.screens.utils.widgets;
 
+import net.minecraft.entity.mob.ZombieEntity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.humans.bandit.BanditHumanEntity;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
@@ -116,10 +116,10 @@ public class PlayableNpcPreviewWidget extends ModWidget{
     }
 
     public void updateToDefaultEntity(World world) {
-        BanditHumanEntity entity = new BanditHumanEntity(ModEntities.BANDIT_MILITIA, world);
-        entity.setAiDisabled(true);
+        //BanditHumanEntity entity = new BanditHumanEntity(ModEntities.BANDIT_MILITIA, world);
+        //entity.setAiDisabled(true);
 
-        this.entity = entity;
+        this.entity = new ZombieEntity(world);
     }
 
     private void updateEquipment(NpcGearData data){

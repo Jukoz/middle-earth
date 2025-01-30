@@ -1,17 +1,17 @@
 package net.sevenstars.middleearth.item.items.weapons.ranged;
 
-import net.sevenstars.middleearth.entity.projectile.pebble.PebbleEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.consume.UseAction;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.projectile.pebble.PebbleEntity;
 
 public class PebbleItem extends Item{
     public static final float DAMAGE = 2f;
@@ -22,10 +22,10 @@ public class PebbleItem extends Item{
         super(settings);
     }
 
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
-        return TypedActionResult.success(itemStack, world.isClient());
+        return ActionResult.SUCCESS.withNewHandStack(itemStack);
     }
 
     @Override
@@ -39,14 +39,14 @@ public class PebbleItem extends Item{
     }
 
     @Override
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if (!(user instanceof PlayerEntity)) {
-            return;
+            return false;
         }
         PlayerEntity playerEntity = (PlayerEntity)user;
         int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
         if (i < 7) {
-            return;
+            return false;
         }
         if(i > STRENGTH_CHARGE_TIME) i = STRENGTH_CHARGE_TIME;
         float percentage = (float) i / STRENGTH_CHARGE_TIME;
@@ -62,5 +62,6 @@ public class PebbleItem extends Item{
             }
         }
         playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
+        return true;
     }
 }
