@@ -1,11 +1,8 @@
 package net.sevenstars.middleearth.item.utils;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.StoneBlockSets;
-import net.sevenstars.middleearth.item.ModResourceItems;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.trim.ArmorTrimMaterial;
+import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -14,6 +11,9 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.StoneBlockSets;
+import net.sevenstars.middleearth.item.ModResourceItems;
 
 import java.util.Map;
 

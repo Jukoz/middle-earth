@@ -50,8 +50,9 @@ public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentToolt
         this.type = type;
     }
 
+
     @Override
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if (user instanceof PlayerEntity playerEntity) {
             ItemStack itemStack = playerEntity.getProjectileType(stack);
             if (!itemStack.isEmpty()) {
@@ -71,6 +72,7 @@ public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentToolt
                 }
             }
         }
+        return true;
     }
 
     public static float getPullProgressLongbow(int useTicks) {
@@ -105,7 +107,7 @@ public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentToolt
                 || Registries.ITEM.getId(this).getPath().contains("uruk_hai")
                 || Registries.ITEM.getId(this).getPath().contains("heyday")
                 || Registries.ITEM.getId(this).getPath().contains("numenorean")){
-            return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
+            return Text.translatable(this.getTranslationKey()).formatted(Formatting.GOLD);
         }
         return super.getName(stack);
     }

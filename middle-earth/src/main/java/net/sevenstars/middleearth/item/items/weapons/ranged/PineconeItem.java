@@ -19,14 +19,14 @@ public class PineconeItem extends PebbleItem {
     }
 
     @Override
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if (!(user instanceof PlayerEntity)) {
-            return;
+            return false;
         }
         PlayerEntity playerEntity = (PlayerEntity)user;
         int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
         if (i < 7) {
-            return;
+            return false;
         }
         if(i > STRENGTH_CHARGE_TIME) i = STRENGTH_CHARGE_TIME;
         float percentage = (float) i / STRENGTH_CHARGE_TIME;
@@ -42,5 +42,6 @@ public class PineconeItem extends PebbleItem {
             }
         }
         playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
+        return true;
     }
 }

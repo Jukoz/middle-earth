@@ -14,13 +14,13 @@ import java.util.List;
 public class ArkenstoneItem extends VerticallyAttachableBlockItem implements MEEquipmentTooltip {
 
 
-    public ArkenstoneItem(Block standingBlock, Block wallBlock, Settings settings, Direction verticalAttachmentDirection) {
-        super(standingBlock, wallBlock, settings, verticalAttachmentDirection);
+    public ArkenstoneItem(Block standingBlock, Block wallBlock, Direction verticalAttachmentDirection, Settings settings) {
+        super(standingBlock, wallBlock, verticalAttachmentDirection, settings);
     }
 
     @Override
     public Text getName(ItemStack stack) {
-        return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.ITALIC);
+        return Text.translatable(this.getTranslationKey()).formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.ITALIC);
     }
 
     @Override

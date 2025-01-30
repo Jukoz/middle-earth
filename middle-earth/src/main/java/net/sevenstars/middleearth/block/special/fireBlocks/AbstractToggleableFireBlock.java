@@ -17,6 +17,7 @@ import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -109,8 +110,9 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (state.get(LIT) && entity instanceof LivingEntity) {
             if (!world.isClient) {
+                ServerWorld serverWorld = (ServerWorld)world;
                 if (isEntityAbove(pos, entity)) {
-                    entity.damage(world.getDamageSources().campfire(), (float) 1);
+                    entity.damage(serverWorld, world.getDamageSources().campfire(), (float) 1);
                 }
             }
         }
@@ -120,8 +122,11 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
 
     protected void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
         BlockPos blockPos = hit.getBlockPos();
-        if (!world.isClient && projectile.isOnFire() && projectile.canModifyAt(world, blockPos) && !(Boolean)state.get(LIT)) {
-            world.setBlockState(blockPos, (BlockState)state.with(Properties.LIT, true), 11);
+        if (!world.isClient && projectile.isOnFire()) {
+            ServerWorld serverWorld = (ServerWorld)world;
+            if (projectile.canModifyAt(serverWorld, blockPos) && !(Boolean)state.get(LIT)){
+                world.setBlockState(blockPos, (BlockState)state.with(Properties.LIT, true), 11);
+            }
         }
     }
 

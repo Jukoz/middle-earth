@@ -83,16 +83,24 @@ public class ToughBerryBushBlock extends CustomPlantBlock
 
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (!(entity instanceof LivingEntity) || entity.getType() == ModEntities.WARG || entity.getType() == EntityType.FOX || entity.getType() == EntityType.BAT) {
-            return;
-        }
-        entity.slowMovement(state, new Vec3d(0.8f, 0.75, 0.8f));
-        if (!(world.isClient || state.get(AGE) <= 0 || entity.lastRenderX == entity.getX() && entity.lastRenderZ == entity.getZ())) {
-            double d = Math.abs(entity.getX() - entity.lastRenderX);
-            double e = Math.abs(entity.getZ() - entity.lastRenderZ);
-            if (d >= (double) 0.003f || e >= (double) 0.003f) {
-                entity.damage(world.getDamageSources().sweetBerryBush(), 2.0f);
+        if (entity instanceof LivingEntity && entity.getType() != ModEntities.WARG || entity.getType() == EntityType.FOX || entity.getType() == EntityType.BAT) {
+            entity.slowMovement(state, new Vec3d(0.800000011920929, 0.75, 0.800000011920929));
+            if (world instanceof ServerWorld) {
+                ServerWorld serverWorld = (ServerWorld)world;
+                if ((Integer)state.get(AGE) != 0) {
+                    Vec3d vec3d = entity.isControlledByPlayer() ? entity.getMovement() : entity.getLastRenderPos().subtract(entity.getPos());
+                    if (vec3d.horizontalLengthSquared() > 0.0) {
+                        double d = Math.abs(vec3d.getX());
+                        double e = Math.abs(vec3d.getZ());
+                        if (d >= 0.003000000026077032 || e >= 0.003000000026077032) {
+                            entity.damage(serverWorld, world.getDamageSources().sweetBerryBush(), 1.0F);
+                        }
+                    }
+
+                    return;
+                }
             }
+
         }
     }
 

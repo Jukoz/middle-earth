@@ -43,7 +43,7 @@ public class GlowWormBlock extends AbstractPlantBlock {
             }
             world.removeBlock(pos,false);
         }
-        return ActionResult.success(world.isClient);
+        return ActionResult.SUCCESS;
     }
 
     protected AbstractPlantStemBlock getStem() {
