@@ -1,40 +1,5 @@
 package net.sevenstars.middleearth.entity;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
-import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
-import net.sevenstars.middleearth.entity.dwarves.longbeards.LongbeardDwarfEntity;
-import net.sevenstars.middleearth.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.sevenstars.middleearth.entity.goals.CustomBowAttackGoal;
-import net.sevenstars.middleearth.entity.goals.NpcTargetPlayerGoal;
-import net.sevenstars.middleearth.entity.hobbits.shire.ShireHobbitEntity;
-import net.sevenstars.middleearth.entity.humans.bandit.BanditHumanEntity;
-import net.sevenstars.middleearth.entity.humans.dale.DaleHumanEntity;
-import net.sevenstars.middleearth.entity.humans.gondor.GondorHumanEntity;
-import net.sevenstars.middleearth.entity.humans.rohan.RohanHumanEntity;
-import net.sevenstars.middleearth.entity.orcs.isengard.IsengardOrcEntity;
-import net.sevenstars.middleearth.entity.orcs.misties.MistyGoblinEntity;
-import net.sevenstars.middleearth.entity.orcs.mordor.MordorOrcEntity;
-import net.sevenstars.middleearth.entity.orcs.wild.WildGoblinEntity;
-import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
-import net.sevenstars.middleearth.entity.uruks.isengard.IsengardUrukHaiEntity;
-import net.sevenstars.middleearth.entity.uruks.misties.MistyHobgoblinEntity;
-import net.sevenstars.middleearth.entity.uruks.mordor.MordorBlackUrukEntity;
-import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.DispositionUtil;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
-import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
@@ -54,6 +19,27 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
+import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
+import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
+import net.sevenstars.middleearth.entity.goals.CustomBowAttackGoal;
+import net.sevenstars.middleearth.entity.goals.NpcTargetPlayerGoal;
+import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
+import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
+import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
+import net.sevenstars.middleearth.resources.StateSaverAndLoader;
+import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.DispositionUtil;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
+import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -251,8 +237,8 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         super.readCustomDataFromNbt(nbt);
         this.updateAttackType();
     }
-
-    @Override
+    /*
+     @Override
     public int getXpToDrop() {
         int exp = 0;
         switch (this.getRank()){
@@ -285,6 +271,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
             super.dropLoot(damageSource, causedByPlayer);
         }
     }
+     */
 
     private boolean canDrop(PlayerEntity player, DamageSource damageSource) {
         /*
@@ -330,7 +317,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, WargEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
-
+        /*
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, IsengardUrukHaiEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
@@ -340,7 +327,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, WildGoblinEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-
+        */
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
 
         return i;
@@ -348,7 +335,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     public int initEvilTargetSelector(int i){
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
-
+        /*
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
@@ -358,7 +345,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, WildGoblinEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-
+        */
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
 
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BroadhoofGoatEntity.class, true));
@@ -367,7 +354,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     public int initNeutralTargetSelector(int i){
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
-
+        /*
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, IsengardUrukHaiEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
@@ -381,7 +368,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DaleHumanEntity.class, true));
-
+*/
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
 
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
