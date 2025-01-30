@@ -13,20 +13,20 @@ import net.minecraft.util.Util;
 
 import java.util.Map;
 
-public class SwanRenderer extends MobEntityRenderer<SwanEntity, SwanModel> {
+public class SwanRenderer extends MobEntityRenderer<SwanEntity, SwanEntityRenderState, SwanModel> {
     private static final String PATH = "textures/entities/swan/";
-    private static final float SIZE = 1f;
 
     public SwanRenderer(EntityRendererFactory.Context context) {
         this(context, 0.35F, ModEntityModelLayers.SWAN);
     }
 
-    protected SwanRenderer(EntityRendererFactory.Context ctx, float shadowRadius, EntityModelLayer layer) {
-        super(ctx, new SwanModel(ctx.getPart(layer)), shadowRadius);
+    @Override
+    public SwanEntityRenderState createRenderState() {
+        return new SwanEntityRenderState();
     }
 
-    protected float getLyingAngle(SwanEntity swanEntity) {
-        return 180.0F;
+    protected SwanRenderer(EntityRendererFactory.Context ctx, float shadowRadius, EntityModelLayer layer) {
+        super(ctx, new SwanModel(ctx.getPart(layer)), shadowRadius);
     }
 
     public static final Map<SwanVariant, Identifier> LOCATION_BY_VARIANT =
@@ -42,20 +42,7 @@ public class SwanRenderer extends MobEntityRenderer<SwanEntity, SwanModel> {
             });
 
     @Override
-    public Identifier getTexture(SwanEntity entity) {
-        return LOCATION_BY_VARIANT.get(entity.getVariant());
-    }
-
-    @Override
-    public void render(SwanEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
-                       VertexConsumerProvider bufferSource, int packedLight) {
-        if(entity.isBaby()) {
-            float initialBabySize = (SIZE / 2);
-            float size = initialBabySize + ((SIZE - initialBabySize) / 24000) * entity.age;
-            poseStack.scale(size, size, size);
-        } else {
-            poseStack.scale(SIZE, SIZE, SIZE);
-        }
-        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+    public Identifier getTexture(SwanEntityRenderState state) {
+        return LOCATION_BY_VARIANT.get(state.variant);
     }
 }

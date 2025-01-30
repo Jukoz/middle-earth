@@ -321,7 +321,7 @@ public class TrollEntity extends AbstractBeastEntity {
             this.setThrowing(false);
 
             Vec3d rotationVec = this.getRotationVec(1.0f);
-            BoulderEntity boulder = new BoulderEntity(ModEntities.BOULDER, this, this.getWorld());
+            BoulderEntity boulder = new BoulderEntity(ModEntities.BOULDER, this.getWorld());
             double x = target.getX() - this.getX();
             double y = target.getBodyY(0.3333333333333333) - boulder.getY();
             double z = target.getZ() - this.getZ();

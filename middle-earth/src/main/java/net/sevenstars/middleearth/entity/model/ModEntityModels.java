@@ -6,7 +6,7 @@ import net.fabricmc.api.Environment;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollModel;
-import net.sevenstars.middleearth.entity.snail.SnailModel;
+import net.sevenstars.middleearth.entity.snail.SnailEntityModel;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderModel;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
@@ -32,7 +32,7 @@ public class ModEntityModels {
         builder.put(ModEntityModelLayers.BELLOWS, BellowsBlockEntityRenderer.getTexturedModelData());
 
         // Animals
-        builder.put(ModEntityModelLayers.SNAIL, SnailModel.getTexturedModelData());
+        builder.put(ModEntityModelLayers.SNAIL, SnailEntityModel.getTexturedModelData());
 
         ImmutableMap<EntityModelLayer, TexturedModelData> immutableMap = builder.build();
         return immutableMap;

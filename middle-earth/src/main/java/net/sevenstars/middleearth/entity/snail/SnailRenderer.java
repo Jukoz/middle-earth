@@ -3,26 +3,19 @@ package net.sevenstars.middleearth.entity.snail;
 import com.google.common.collect.Maps;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 import java.util.Map;
 
-public class SnailRenderer extends MobEntityRenderer<SnailEntity, SnailModel> {
+public class SnailRenderer extends MobEntityRenderer<SnailEntity, SnailEntityRenderState, SnailEntityModel> {
 
     private static final String PATH = "textures/entities/snails/";
 
     public SnailRenderer(EntityRendererFactory.Context context) {
-        this(context, 0.2F, ModEntityModelLayers.SNAIL);
-    }
-
-    protected SnailRenderer(EntityRendererFactory.Context ctx, float shadowRadius, EntityModelLayer layer) {
-        super(ctx, new SnailModel(ctx.getPart(layer)), shadowRadius);
+        super(context, new SnailEntityModel(context.getPart(ModEntityModelLayers.SNAIL)), 0.2f);
     }
 
     public static final Map<SnailVariant, String> LOCATION_BY_VARIANT =
@@ -39,12 +32,16 @@ public class SnailRenderer extends MobEntityRenderer<SnailEntity, SnailModel> {
             });
 
     @Override
-    public Identifier getTexture(SnailEntity entity) {
-        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+    public Identifier getTexture(SnailEntityRenderState state) {
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(state.variant));
     }
 
-    @Override
-    public void render(SnailEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
+    public SnailEntityRenderState createRenderState() {
+        return new SnailEntityRenderState();
+    }
+
+    public void updateRenderState(SnailEntity snailEntity, SnailEntityRenderState snailEntityRenderState, float f) {
+        super.updateRenderState(snailEntity, snailEntityRenderState, f);
+        snailEntityRenderState.variant = snailEntity.getVariant();
     }
 }

@@ -1,15 +1,15 @@
 package net.sevenstars.middleearth.entity.snail;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.model.EntityModel;
 
-public class SnailModel extends SinglePartEntityModel<SnailEntity> {
+public class SnailEntityModel extends EntityModel<SnailEntityRenderState> {
 	private final ModelPart snail;
-	public SnailModel(ModelPart root) {
+	public SnailEntityModel(ModelPart root) {
+		super(root);
 		this.snail = root.getChild("snail");
 	}
+
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
@@ -22,18 +22,14 @@ public class SnailModel extends SinglePartEntityModel<SnailEntity> {
 		return TexturedModelData.of(modelData, 32, 32);
 	}
 
-
-
 	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-		this.snail.render(matrices, vertices, light, overlay, color);
+	public void setAngles(SnailEntityRenderState state) {
+		super.setAngles(state);
+
+		animateWalking(SnailAnimations.CRAWL, state.limbFrequency, state.limbAmplitudeMultiplier, 1.0f, 2.5f);
 	}
 
-	@Override
-	public ModelPart getPart() {
-		return snail;
-	}
-
+	/*
 	@Override
 	public void setAngles(SnailEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 		this.getPart().traverse().forEach(ModelPart::resetTransform);
@@ -44,4 +40,5 @@ public class SnailModel extends SinglePartEntityModel<SnailEntity> {
 
 		this.updateAnimation(entity.crawlingAnimationState, SnailAnimations.CRAWL, animationProgress, (float)entity.getVelocity().length() * 2);
 	}
+	*/
 }

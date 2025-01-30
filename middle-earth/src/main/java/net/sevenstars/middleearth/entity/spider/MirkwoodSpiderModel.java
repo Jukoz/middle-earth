@@ -3,13 +3,14 @@ package net.sevenstars.middleearth.entity.spider;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MirkwoodSpiderModel extends EntityModel<MirkwoodSpiderEntity> {
+public class MirkwoodSpiderModel extends EntityModel<LivingEntityRenderState> {
     private static final float LEGS_MARGIN_ANGLE = 0.18f;
     private static final float LEGS_MARGIN_ANGLE_MULTIPLIER = 2f;
     private static final float UPPER_LEGS_ROLL = 0.6f;
@@ -50,6 +51,8 @@ public class MirkwoodSpiderModel extends EntityModel<MirkwoodSpiderEntity> {
     private List<ModelPart> legs = new ArrayList<>();
 
     public MirkwoodSpiderModel(ModelPart root) {
+        super(root);
+
         this.body = root.getChild("body");
         this.leg_right = this.body.getChild("leg_right");
         this.leg1 = leg_right.getChild("leg1");
@@ -169,6 +172,12 @@ public class MirkwoodSpiderModel extends EntityModel<MirkwoodSpiderEntity> {
     }
 
     @Override
+    public void setAngles(LivingEntityRenderState state) {
+        super.setAngles(state);
+    }
+
+    /*
+    @Override
     public void setAngles(MirkwoodSpiderEntity entity, float limbAngle, float limbDistance, float ageInTicks, float headYaw, float headPitch) {
         float cosVal = (MathHelper.cos(limbAngle * 1.4F) * 0.3F) * limbDistance;
         float cosTime = MathHelper.cos(ageInTicks * 0.15F) * 0.6F;
@@ -226,10 +235,6 @@ public class MirkwoodSpiderModel extends EntityModel<MirkwoodSpiderEntity> {
         this.body.pitch = -1.5f * percentage;
         this.abdomen.pitch += (0.7f * percentage) + (0.04 * cosTime);
     }
+     */
 
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        this.body.render(matrices, vertices, light, overlay, color);
-
-    }
 }
