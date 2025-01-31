@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.mixin.client;
 
+import net.minecraft.item.ModelTransformationMode;
 import net.sevenstars.middleearth.datageneration.VariantsModelProvider;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleBigItemModel;
@@ -12,7 +13,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BowItem;

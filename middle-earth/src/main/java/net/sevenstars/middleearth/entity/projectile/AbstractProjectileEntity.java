@@ -1,12 +1,12 @@
 package net.sevenstars.middleearth.entity.projectile;
 
-import net.sevenstars.middleearth.entity.hobbits.shire.ShireHobbitEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
@@ -41,8 +41,9 @@ public abstract class AbstractProjectileEntity extends ThrownItemEntity {
     public void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
-        entity.damage(this.getDamageSources().thrown(this, this.getOwner()), this.damage);
+        ServerWorld serverWorld = (ServerWorld) entity.getWorld();
+        //if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
+        entity.damage(serverWorld, this.getDamageSources().thrown(this, this.getOwner()), this.damage);
     }
 
     protected void onCollision(HitResult hitResult) {

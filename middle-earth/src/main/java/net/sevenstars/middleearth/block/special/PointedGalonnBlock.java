@@ -381,7 +381,7 @@ public class PointedGalonnBlock extends Block implements LandingBlock, Waterlogg
     }
 
     private static void createParticle(World world, BlockPos pos, BlockState state, Fluid fluid) {
-        Vec3d vec3d = state.getModelOffset(world, pos);
+        Vec3d vec3d = state.getModelOffset(pos);
         double d = 0.0625;
         double e = (double) pos.getX() + 0.5 + vec3d.x;
         double f = (double) ((float) (pos.getY() + 1) - 0.6875F) - 0.0625;

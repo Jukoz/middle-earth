@@ -157,9 +157,9 @@ public class ModArmorModels {
         ;
 
         private final Item item;
-        private final ChestplateAddonModel<LivingEntity> model;
+        private final ChestplateAddonModel model;
 
-        ModChestplateModels(Item item, ChestplateAddonModel<LivingEntity> model){
+        ModChestplateModels(Item item, ChestplateAddonModel model){
             this.item = item;
             this.model = model;
         }
@@ -168,7 +168,7 @@ public class ModArmorModels {
             return item;
         }
 
-        public ChestplateAddonModel<LivingEntity> getModel() {
+        public ChestplateAddonModel getModel() {
             return model;
         }
     }

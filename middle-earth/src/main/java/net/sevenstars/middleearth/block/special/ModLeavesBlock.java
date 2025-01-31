@@ -15,6 +15,8 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.tick.ScheduledTickView;
 
 public class ModLeavesBlock extends LeavesBlock {
     final protected boolean castShadow;
@@ -31,13 +33,13 @@ public class ModLeavesBlock extends LeavesBlock {
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         int i;
         if (state.get(WATERLOGGED).booleanValue()) {
-            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
         if ((i = getDistanceFromLog(neighborState) + 1) != 1 || state.get(DISTANCE) != i) {
-            world.scheduleBlockTick(pos, this, 1);
+            tickView.scheduleBlockTick(pos, this, 1);
         }
         return state;
     }
@@ -64,10 +66,11 @@ public class ModLeavesBlock extends LeavesBlock {
     }
 
     @Override
-    public int getOpacity(BlockState state, BlockView world, BlockPos pos) {
-        if(castShadow) return super.getOpacity(state, world, pos);
+    protected int getOpacity(BlockState state) {
+        if(castShadow) return super.getOpacity(state);
         return 0;
     }
+
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {

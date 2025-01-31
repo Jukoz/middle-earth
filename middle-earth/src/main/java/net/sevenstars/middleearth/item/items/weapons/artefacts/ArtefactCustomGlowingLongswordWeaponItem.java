@@ -1,8 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons.artefacts;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.orcs.OrcNpcEntity;
-import net.sevenstars.middleearth.entity.uruks.UrukNpcEntity;
 import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
 import net.sevenstars.middleearth.utils.ModFactions;
@@ -55,8 +53,8 @@ public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWea
     public static boolean shouldBeGlowing(World world, Entity entity){
         int range = 50;
         if (entity != null){
-            return ArtefactUtils.isInBound(world, entity, OrcNpcEntity.class, range)
-                    || ArtefactUtils.isInBound(world, entity, UrukNpcEntity.class, range);
+            /*return ArtefactUtils.isInBound(world, entity, OrcNpcEntity.class, range)
+                    || ArtefactUtils.isInBound(world, entity, UrukNpcEntity.class, range);*/ //TODO to update
         }
         return false;
     }
@@ -67,13 +65,8 @@ public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWea
     }
 
     @Override
-    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-        return false;
-    }
-
-    @Override
     public Text getName(ItemStack stack) {
-        return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
+        return Text.translatable(this.getTranslationKey()).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
     }
 
     @Override
@@ -94,11 +87,11 @@ public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWea
         }
         if (stack.getDamage() == stack.getMaxDamage() - 1){
             stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
-                    .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID,
+                    .add(EntityAttributes.ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID,
                             0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-                    .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID,
+                    .add(EntityAttributes.ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID,
                             -3.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-                    .add(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID,
+                    .add(EntityAttributes.ENTITY_INTERACTION_RANGE, new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID,
                             0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                     .build());
         }
@@ -117,11 +110,11 @@ public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWea
                 }
                 if (stack.getDamage() == stack.getMaxDamage() - 1){
                     stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
-                            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID,
+                            .add(EntityAttributes.ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID,
                                     0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-                            .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID,
+                            .add(EntityAttributes.ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID,
                                     -3.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-                            .add(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID,
+                            .add(EntityAttributes.ENTITY_INTERACTION_RANGE, new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID,
                                     0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                             .build());
                 }

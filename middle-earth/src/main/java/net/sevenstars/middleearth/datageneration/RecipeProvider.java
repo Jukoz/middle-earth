@@ -24,11 +24,11 @@ import net.sevenstars.middleearth.recipe.*;
 
 import java.util.concurrent.CompletableFuture;
 
-public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvider {
+public class RecipeProvider {
 
-    private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
+    //private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
     private static final int INGOT_LIQUID_VALUE = 144;
-
+/*
     public RecipeProvider(DataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookupFuture) {
         super(output, registryLookupFuture);
 
@@ -2754,6 +2754,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(input),
                         FabricRecipeProvider.conditionsFromItem(input))
                 .offerTo(exporter);
-    }
+    }*/
 
 }

@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item;
 
+import net.minecraft.item.ToolMaterial;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Bows;
@@ -23,7 +24,6 @@ import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -51,30 +51,30 @@ public class ModWeaponItems {
             new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL), true);
 
     public static final Item WOODEN_DAGGER = registerItemWithModel("wooden_dagger",
-            new CustomDaggerWeaponItem(ToolMaterials.WOOD), false);
+            new CustomDaggerWeaponItem(ToolMaterial.WOOD), false);
     public static final Item STONE_DAGGER = registerItemWithModel("stone_dagger",
-            new CustomDaggerWeaponItem(ToolMaterials.STONE), false);
+            new CustomDaggerWeaponItem(ToolMaterial.STONE), false);
     public static final Item BRONZE_DAGGER = registerItemWithModel("bronze_dagger",
             new CustomDaggerWeaponItem(ModToolMaterials.BRONZE), false);
     public static final Item CRUDE_DAGGER = registerItemWithModel("crude_dagger",
             new CustomDaggerWeaponItem(ModToolMaterials.CRUDE), false);
     public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
-            new CustomDaggerWeaponItem(ToolMaterials.IRON), false);
+            new CustomDaggerWeaponItem(ToolMaterial.IRON), false);
 
     public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
-            new CustomDaggerWeaponItem(ToolMaterials.GOLD), false);
+            new CustomDaggerWeaponItem(ToolMaterial.GOLD), false);
     public static final Item DIAMOND_DAGGER = registerItemWithModel("diamond_dagger",
-            new CustomDaggerWeaponItem(ToolMaterials.DIAMOND), false);
+            new CustomDaggerWeaponItem(ToolMaterial.DIAMOND), false);
     public static final Item NETHERITE_DAGGER = registerItemWithModel("netherite_dagger",
-            new CustomDaggerWeaponItem(ToolMaterials.NETHERITE), false);
+            new CustomDaggerWeaponItem(ToolMaterial.NETHERITE), false);
 
     public static final Item CRUDE_LONGBLADE = registerItemWithModel("crude_longblade",
             new CustomLongswordWeaponItem(ModToolMaterials.CRUDE), true);
 
     public static final Item WOODEN_SPEAR = registerItemWithSpearModel("wooden_spear",
-            new CustomSpearWeaponItem(ToolMaterials.WOOD));
+            new CustomSpearWeaponItem(ToolMaterial.WOOD));
     public static final Item STONE_SPEAR = registerItemWithSpearModel("stone_spear",
-            new CustomSpearWeaponItem(ToolMaterials.STONE));
+            new CustomSpearWeaponItem(ToolMaterial.STONE));
 
     public static final Item BRONZE_SPEAR = registerItemWithSpearModel("bronze_spear",
             new CustomSpearWeaponItem(ModToolMaterials.BRONZE));
@@ -82,7 +82,7 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.CRUDE));
 
     public static final Item IRON_SPEAR = registerItemWithSpearModel("iron_spear",
-            new CustomSpearWeaponItem(ToolMaterials.IRON));
+            new CustomSpearWeaponItem(ToolMaterial.IRON));
 
     public static final Item STEEL_SPEAR = registerItemWithSpearModel("steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.STEEL));
@@ -94,11 +94,11 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.KHAZAD_STEEL));
     
     public static final Item GOLDEN_SPEAR = registerItemWithSpearModel("golden_spear",
-            new CustomSpearWeaponItem(ToolMaterials.GOLD));
+            new CustomSpearWeaponItem(ToolMaterial.GOLD));
     public static final Item DIAMOND_SPEAR = registerItemWithSpearModel("diamond_spear",
-            new CustomSpearWeaponItem(ToolMaterials.DIAMOND));
+            new CustomSpearWeaponItem(ToolMaterial.DIAMOND));
     public static final Item NETHERITE_SPEAR = registerItemWithSpearModel("netherite_spear",
-            new CustomSpearWeaponItem(ToolMaterials.NETHERITE));
+            new CustomSpearWeaponItem(ToolMaterial.NETHERITE));
 
     public static final Item ROUND_SHIELD = registerShield("round_shield",
             new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));

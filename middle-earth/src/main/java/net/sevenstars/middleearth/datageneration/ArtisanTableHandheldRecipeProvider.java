@@ -8,6 +8,8 @@ import net.minecraft.data.DataOutput;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
+import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
@@ -30,7 +32,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
-
+/*
     private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
 
     public ArtisanTableHandheldRecipeProvider(DataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookupFuture) {
@@ -1607,5 +1609,5 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                             FabricRecipeProvider.conditionsFromItem(hoeHead.getItem()))
                     .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
         }
-    }
+    }*/
 }

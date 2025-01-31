@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.item.utils.armor.capes;
 
 import net.sevenstars.middleearth.client.model.equipment.chest.ChestplateAddonModel;
-import net.minecraft.entity.LivingEntity;
 import net.sevenstars.middleearth.client.model.equipment.chest.capes.armored.*;
 import net.sevenstars.middleearth.client.model.equipment.chest.capes.unarmored.*;
 
@@ -15,19 +14,19 @@ public enum ModCapeModels {
     NAZGUL_ROBES_MODEL(new NazgulRobesModel<>(NazgulRobesModel.getTexturedModelData().createModel()), new NazgulRobesModel<>(NazgulRobesModel.getTexturedModelData().createModel())),
     ;
 
-    private final ChestplateAddonModel<LivingEntity> armoredModel;
-    private final ChestplateAddonModel<LivingEntity> unarmoredModel;
+    private final ChestplateAddonModel armoredModel;
+    private final ChestplateAddonModel unarmoredModel;
 
-    ModCapeModels(ChestplateAddonModel<LivingEntity> armoredModel, ChestplateAddonModel<LivingEntity> unarmoredModel){
+    ModCapeModels(ChestplateAddonModel armoredModel, ChestplateAddonModel unarmoredModel){
         this.armoredModel = armoredModel;
         this.unarmoredModel = unarmoredModel;
     }
 
-    public ChestplateAddonModel<LivingEntity> getArmoredModel() {
+    public ChestplateAddonModel getArmoredModel() {
         return armoredModel;
     }
 
-    public ChestplateAddonModel<LivingEntity> getUnarmoredModel() {
+    public ChestplateAddonModel getUnarmoredModel() {
         return unarmoredModel;
     }
 }
