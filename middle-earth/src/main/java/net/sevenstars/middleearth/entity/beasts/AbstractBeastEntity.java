@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.beasts;
 
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.minecraft.advancement.criterion.Criteria;
@@ -120,6 +121,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         nbt.putBoolean("Sitting", this.isSitting());
         nbt.putBoolean("ChestedBeast", this.hasChest());
         if (this.hasChest()) {
+            /* Will be readded on Mount refactor
             NbtList nbtList = new NbtList();
             for(int i = 2; i < this.items.size(); ++i) {
                 ItemStack itemStack = this.items.getStack(i);
@@ -129,7 +131,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
                     nbtList.add(itemStack.encode(this.getRegistryManager(), nbtCompound));
                 }
             }
-            nbt.put("Items", nbtList);
+            nbt.put("Items", nbtList);*/
         }
     }
 
@@ -266,20 +268,13 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     protected float getAttackDamage() {
-        return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+        return (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE);
     }
 
     // Equipment =======================================================================================================
 
-    protected void dropInventory() {
-        super.dropInventory();
-        if (this.hasChest()) {
-            if (!this.getWorld().isClient) {
-                this.dropItem(Blocks.CHEST);
-            }
-
-            this.setHasChest(false);
-        }
+    protected void dropInventory(ServerWorld world) {
+        super.dropInventory(world);
     }
 
     @Override
@@ -384,7 +379,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
                 this.tryBonding(player);
                 this.eat(player, hand, itemStack);
             }
-            return ActionResult.success(this.getWorld().isClient());
+            return ActionResult.SUCCESS;
         }
 
         if(this.isTame() && this.isTamable()) {
@@ -415,13 +410,12 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         return false;
     }
 
-    @Override
     public boolean damage(DamageSource source, float amount) {
         if(!source.equals(getDamageSources().drown()) && !source.equals(getDamageSources().lava())
                 && !source.equals(getDamageSources().cramming()) && !source.equals(getDamageSources().magic())) {
             amount *= (1 - RESISTANCE);
         }
-        return super.damage(source, amount);
+        return !this.getWorld().isClient() && super.damage((ServerWorld) this.getWorld(), source, amount);
     }
 
     public void chargeAttack() {
@@ -528,16 +522,11 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     @Override
     protected void updateLimbs(float posDelta) {
         float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
-        this.limbAnimator.updateLimbs(f, 0.2f);
+        this.limbAnimator.updateLimbs(f, 0.2f, 1.0f);
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.ENTITY_WARDEN_STEP, 0.15F, 2.0F);
-    }
-
-    @Override
-    public boolean cannotBeSilenced() {
-        return super.cannotBeSilenced();
     }
 }

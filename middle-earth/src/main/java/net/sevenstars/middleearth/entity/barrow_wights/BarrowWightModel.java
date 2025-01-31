@@ -4,11 +4,13 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(value = EnvType.CLIENT)
-public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
+public class BarrowWightModel extends EntityModel<LivingEntityRenderState> {
 
     private final ModelPart wight;
     private final ModelPart head;
@@ -22,6 +24,8 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
     private static float RAD = (float)Math.PI/180;
 
     public BarrowWightModel(ModelPart root) {
+        super(root);
+
         this.wight = root.getChild("wight");
         this.body = wight.getChild("body");
         this.head = wight.getChild("head");
@@ -82,6 +86,11 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
     }
 
     @Override
+    public void setAngles(LivingEntityRenderState state) {
+        super.setAngles(state);
+    }
+
+    /*@Override
     public void setAngles(BarrowWightEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         if(!entity.getWorld().isClient) return;
         this.getPart().traverse().forEach(ModelPart::resetTransform);
@@ -138,17 +147,7 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
                 this.leftArm.yaw = ((leftArmYawGoal - 0) * currentStepPercent) * currentPercentInStep;
             }
         }
-    }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        wight.render(matrices, vertices, light, overlay, color);
-    }
-
-    @Override
-    public ModelPart getPart() {
-        return this.wight;
-    }
+    }*/
 
     private float getRadSin(float degree){
         return MathHelper.sin(degree * RAD);

@@ -14,30 +14,19 @@ import net.minecraft.util.Util;
 
 import java.util.Map;
 
-public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity, BroadhoofGoatModel> {
+public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity, BroadhoofGoatEntityRenderState, BroadhoofGoatModel> {
     private static final String PATH = "textures/entities/broadhoof_goat/";
     private static final float SIZE = 1f;
 
     public BroadhoofGoatRenderer(EntityRendererFactory.Context context) {
         super(context, new BroadhoofGoatModel(context.getPart(ModEntityModelLayers.BROADHOOF_GOAT)), 0.8f);
-        this.addFeature(new BroadhoofGoatArmorFeatureRenderer(this, context.getModelLoader()));
-        this.addFeature(new BroadhoofGoatSaddleFeatureRenderer(this, context.getModelLoader()));
+        this.addFeature(new BroadhoofGoatArmorFeatureRenderer(this, context.getModelLoader(), context.getEquipmentRenderer()));
+        this.addFeature(new BroadhoofGoatSaddleFeatureRenderer(this, context.getModelLoader(), context.getEquipmentRenderer()));
     }
 
     @Override
-    public void render(BroadhoofGoatEntity entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        if(entity.isBaby()) {
-            matrixStack.scale(SIZE / 2, SIZE / 2, SIZE / 2);
-        } else {
-            matrixStack.scale(SIZE, SIZE, SIZE);
-        }
-
-        super.render(entity, f, g, matrixStack, vertexConsumerProvider, i);
-    }
-
-    @Override
-    public Identifier getTexture(BroadhoofGoatEntity entity) {
-        return LOCATION_BY_VARIANT.get(entity.getVariant());
+    public BroadhoofGoatEntityRenderState createRenderState() {
+        return new BroadhoofGoatEntityRenderState();
     }
 
     public static final Map<BroadhoofGoatVariant, Identifier> LOCATION_BY_VARIANT =
@@ -66,4 +55,9 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_brown.png"));
 
             });
+
+    @Override
+    public Identifier getTexture(BroadhoofGoatEntityRenderState state) {
+        return LOCATION_BY_VARIANT.get(state.variant);
+    }
 }

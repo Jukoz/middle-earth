@@ -1,13 +1,11 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
-public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntity> {
+public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderState> {
     private final ModelPart broadhoofGoat;
     private final ModelPart head;
     private final ModelPart horns;
@@ -15,7 +13,10 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
     private final ModelPart brushedBeard;
     private final ModelPart[] leftHorns = new ModelPart[BroadhoofGoatHorns.values().length];
     private final ModelPart[] rightHorns = new ModelPart[BroadhoofGoatHorns.values().length];
+
     public BroadhoofGoatModel(ModelPart root) {
+        super(root);
+
         this.broadhoofGoat = root.getChild("broadhoof_goat");
         this.head = broadhoofGoat.getChild(EntityModelPartNames.BODY).getChild(EntityModelPartNames.HEAD);
 
@@ -150,42 +151,35 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-        broadhoofGoat.render(matrices, vertexConsumer, light, overlay, color);
-    }
+    public void setAngles(BroadhoofGoatEntityRenderState state) {
+        super.setAngles(state);
+        this.setHeadAngles(state.yawDegrees, state.pitch);
 
-    @Override
-    public ModelPart getPart() {
-        return broadhoofGoat;
-    }
-
-    @Override
-    public void setAngles(BroadhoofGoatEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);
-        this.setHeadAngles(headYaw, headPitch);
-
-        this.wildBeard.visible = !entity.hasBrushedBeard();
-        this.brushedBeard.visible = entity.hasBrushedBeard();
-
+        /* I will drastically change how the horns are rendered
         for(int i = 0 ; i < BroadhoofGoatHorns.values().length; i++) {
             this.leftHorns[i].visible = (entity.getHorns().getId() == i) && entity.hasLeftHorn() && !entity.isBaby();
             this.rightHorns[i].visible = (entity.getHorns().getId() == i) && entity.hasRightHorn() && !entity.isBaby();
-        }
+        }*/
 
+        this.wildBeard.visible = !state.beardBrushed;
+        this.brushedBeard.visible = state.beardBrushed;
+
+        /* Will be readded on refactor
         if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || (entity.isAttacking() && !entity.hasControllingPassenger())) {
             this.animateMovement(BroadhoofGoatAnimations.RUN, limbAngle, limbDistance, 1.2f, 1.2f);
         }
         else {
             this.animateMovement(BroadhoofGoatAnimations.WALK, limbAngle, limbDistance, 4f, 4f);
-        }
+        }*/
 
-        this.updateAnimation(entity.idleAnimationState, BroadhoofGoatAnimations.EAT, animationProgress, 1f);
-        this.updateAnimation(entity.attackAnimationState, BroadhoofGoatAnimations.RAM_ATTACK, animationProgress, 1f);
-        this.updateAnimation(entity.startSittingAnimationState, BroadhoofGoatAnimations.LAY_DOWN, animationProgress, 3f);
-        this.updateAnimation(entity.stopSittingAnimationState, BroadhoofGoatAnimations.STAND_UP, animationProgress, 3f);
-        this.updateAnimation(entity.sittingAnimationState, BroadhoofGoatAnimations.LYING, animationProgress, 1f);
-        this.updateAnimation(entity.chargeAnimationState, BroadhoofGoatAnimations.CHARGE_ATTACK, animationProgress, 1f);
-        this.updateAnimation(entity.jumpAnimationState, BroadhoofGoatAnimations.JUMP, animationProgress, 1f);
+        animateWalking(BroadhoofGoatAnimations.RUN, state.limbFrequency, state.limbAmplitudeMultiplier, 1.0f, 2.5f);
+        animate(state.idleAnimationState, BroadhoofGoatAnimations.EAT, state.age);
+        animate(state.attackAnimationState, BroadhoofGoatAnimations.RAM_ATTACK, state.age);
+        animate(state.startSittingAnimationState, BroadhoofGoatAnimations.LAY_DOWN, state.age);
+        animate(state.stopSittingAnimationState, BroadhoofGoatAnimations.STAND_UP, state.age);
+        animate(state.sittingAnimationState, BroadhoofGoatAnimations.LYING, state.age);
+        animate(state.chargeAnimationState, BroadhoofGoatAnimations.CHARGE_ATTACK, state.age);
+        animate(state.jumpAnimationState, BroadhoofGoatAnimations.JUMP, state.age);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

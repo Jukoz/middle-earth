@@ -1,13 +1,14 @@
 package net.sevenstars.middleearth.entity.deer;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 
-public class DeerModel extends SinglePartEntityModel<DeerEntity> {
+public class DeerModel extends EntityModel<LivingEntityRenderState> {
     private final ModelPart deer;
     public DeerModel(ModelPart root) {
+        super(root);
+
         this.deer = root.getChild("deer");
     }
     public static TexturedModelData getTexturedModelData() {
@@ -43,22 +44,10 @@ public class DeerModel extends SinglePartEntityModel<DeerEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        this.deer.render(matrices, vertices, light, overlay, color);
+    public void setAngles(LivingEntityRenderState state) {
+        super.setAngles(state);
 
-    }
-
-    @Override
-    public ModelPart getPart() {
-        return this.deer;
-    }
-
-    @Override
-    public void setAngles(DeerEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);
-
-        this.animateMovement(DeerAnimations.WALK, limbAngle, limbDistance, 1f, 1f);
-        this.updateAnimation(entity.idleAnimationState, DeerAnimations.IDLE, animationProgress, 1f);
+        animateWalking(DeerAnimations.WALK, state.limbFrequency, state.limbAmplitudeMultiplier, 1.0f, 2.5f);
     }
 }
 

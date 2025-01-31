@@ -2,11 +2,12 @@ package net.sevenstars.middleearth.entity.pheasant;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
-public class PheasantModel extends SinglePartEntityModel<PheasantEntity> {
+public class PheasantModel extends EntityModel<PheasantEntityRenderState> {
     private final ModelPart pheasant;
     private final ModelPart rightleg;
     private final ModelPart leftleg;
@@ -14,6 +15,8 @@ public class PheasantModel extends SinglePartEntityModel<PheasantEntity> {
     private final ModelPart leftwing;
 
     public PheasantModel(ModelPart root) {
+        super(root);
+
         this.pheasant = root.getChild("pheasant");
         this.rightleg = this.pheasant.getChild("rightleg");
         this.leftleg = this.pheasant.getChild("leftleg");
@@ -69,27 +72,7 @@ public class PheasantModel extends SinglePartEntityModel<PheasantEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        pheasant.render(matrices, vertices, light, overlay, color);
-    }
-
-    @Override
-    public ModelPart getPart() {
-        return this.pheasant;
-    }
-
-    @Override
-    public void setAngles(PheasantEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.rightleg.pitch = MathHelper.cos(limbAngle * 0.6662f) * 1.4f * limbDistance;
-        this.leftleg.pitch = MathHelper.cos(limbAngle * 0.6662f + (float)Math.PI) * 1.4f * limbDistance;
-
-        this.rightwing.roll = 0;
-        this.leftwing.roll = 0;
-
-        if(!entity.isOnGround()) {
-            float angle = MathHelper.cos(MathHelper.cos(animationProgress * 0.5f));
-            this.rightwing.roll = 4 + (4 * angle);
-            this.leftwing.roll = -4 - (4 * angle);
-        }
+    public void setAngles(PheasantEntityRenderState state) {
+        super.setAngles(state);
     }
 }
