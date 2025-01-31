@@ -1,15 +1,16 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.petrified;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.util.math.MathHelper;
 
-public class PetrifiedTrollModel extends SinglePartEntityModel<PetrifiedTrollEntity> {
+public class PetrifiedTrollModel extends EntityModel<LivingEntityRenderState> {
     private final ModelPart r;
     private final ModelPart head;
     public PetrifiedTrollModel(ModelPart root) {
+        super(root);
+
         this.r = root.getChild("r");
         this.head = r.getChild("upperbody").getChild("upperbodynoarms").getChild("head");
     }
@@ -68,19 +69,10 @@ public class PetrifiedTrollModel extends SinglePartEntityModel<PetrifiedTrollEnt
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        r.render(matrices, vertices, light, overlay, color);
-    }
+    public void setAngles(LivingEntityRenderState state) {
+        super.setAngles(state);
 
-    @Override
-    public ModelPart getPart() {
-        return r;
-    }
-
-    @Override
-    public void setAngles(PetrifiedTrollEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);
-        this.setHeadAngles(headYaw, headPitch);
+        this.setHeadAngles(state.yawDegrees, state.pitch);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.petrified;
 
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -24,7 +25,7 @@ public class PetrifiedTrollEntity extends MobEntity {
 
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0);
+                .add(EntityAttributes.MAX_HEALTH, 30.0);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class PetrifiedTrollEntity extends MobEntity {
     }
 
     @Override
-    public boolean damage(DamageSource source, float amount) {
+    public boolean damage(ServerWorld world, DamageSource source, float amount) {
         if (this.getWorld().isClient) return false;
         Entity entity = source.getAttacker();
         if(entity instanceof PlayerEntity playerEntity) {
@@ -47,8 +48,8 @@ public class PetrifiedTrollEntity extends MobEntity {
                 super.setHealth(0);
                 return true;
             }
-            if(playerEntity.getMainHandStack().getItem() instanceof PickaxeItem) {
-                return super.damage(source, 10.0f);
+            if(playerEntity.getMainHandStack().getItem() instanceof PickaxeItem && !this.getWorld().isClient) {
+                return super.damage(world, source, 10.0f);
             }
         }
         return false;

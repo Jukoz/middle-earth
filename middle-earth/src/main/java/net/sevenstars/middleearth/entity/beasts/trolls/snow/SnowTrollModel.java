@@ -3,16 +3,17 @@ package net.sevenstars.middleearth.entity.beasts.trolls.snow;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
+import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
 @Environment(value= EnvType.CLIENT)
-public class SnowTrollModel extends SinglePartEntityModel<SnowTrollEntity> {
+public class SnowTrollModel extends EntityModel<TrollEntityRenderState> {
     private final ModelPart troll;
     private final ModelPart head;
     public SnowTrollModel(ModelPart root) {
+        super(root);
+
         this.troll = root.getChild("roots");
         this.head = troll.getChild("torso").getChild("head");
     }
@@ -59,15 +60,14 @@ public class SnowTrollModel extends SinglePartEntityModel<SnowTrollEntity> {
     }
 
     @Override
-    public void setAngles(SnowTrollEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);
-        this.setHeadAngles(netHeadYaw, headPitch);
+    public void setAngles(TrollEntityRenderState state) {
+        super.setAngles(state);
+        this.setHeadAngles(state.yawDegrees, state.pitch);
 
-        this.animateMovement(SnowTrollAnimations.WALKING, limbSwing, limbSwingAmount, 1f, 1f);
-        //this.updateAnimation(entity.idleAnimationState, SnowTrollAnimations.IDLE, ageInTicks, 1f);
-        this.updateAnimation(entity.attackAnimationState, SnowTrollAnimations.ATTACK, ageInTicks, 1.4f);
-        this.updateAnimation(entity.chargeAnimationState, SnowTrollAnimations.CHARGING, ageInTicks, 1f);
-        this.updateAnimation(entity.throwingAnimationState, SnowTrollAnimations.THROWING, ageInTicks, 1.2f);
+        animateWalking(SnowTrollAnimations.WALKING, state.limbFrequency, state.limbAmplitudeMultiplier, 1.0f, 2.5f);
+        animate(state.attackAnimationState, SnowTrollAnimations.ATTACK, state.age);
+        animate(state.chargeAnimationState, SnowTrollAnimations.CHARGING, state.age);
+        animate(state.throwingAnimationState, SnowTrollAnimations.THROWING, state.age);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {
@@ -77,15 +77,4 @@ public class SnowTrollModel extends SinglePartEntityModel<SnowTrollEntity> {
         this.head.yaw = headYaw * 0.017453292F;
         this.head.pitch = headPitch * 0.017453292F;
     }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        troll.render(matrices, vertices, light, overlay, color);
-    }
-
-    @Override
-    public ModelPart getPart() {
-        return this.troll;
-    }
-
 }

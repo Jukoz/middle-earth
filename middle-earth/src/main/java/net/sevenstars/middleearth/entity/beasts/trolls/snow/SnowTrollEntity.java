@@ -21,13 +21,13 @@ public class SnowTrollEntity extends TrollEntity {
 
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35f)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 180.0)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.8)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 0.65)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 28.0)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 14.0)
-                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 0.0);
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.35f)
+                .add(EntityAttributes.MAX_HEALTH, 180.0)
+                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.8)
+                .add(EntityAttributes.ATTACK_SPEED, 0.65)
+                .add(EntityAttributes.FOLLOW_RANGE, 28.0)
+                .add(EntityAttributes.ATTACK_DAMAGE, 14.0)
+                .add(EntityAttributes.JUMP_STRENGTH, 0.0);
     }
 
     @Override
