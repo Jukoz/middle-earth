@@ -1,20 +1,20 @@
 package net.sevenstars.middleearth.client.screens.utils.widgets;
 
-import net.minecraft.entity.mob.ZombieEntity;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
-import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.DiffuseLighting;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
+import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -170,18 +170,15 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             int width = leftButton.getWidth();
             int height = leftButton.getHeight();
             boolean isMouseOver = isMouseOver(width, height, x - width - horizontalMargin, y - MINIMAL_MARGIN);
-            context.drawTexture(NPC_PREVIEW,
-                    x - width - horizontalMargin, y - MINIMAL_MARGIN,
-                    0, (currentButtonClicked != null && isLeftButton) ? 18
-                            : (leftButton.isFocused() || isMouseOver) ? 9 : 0,
-                    width, height
-            );
+
+            context.drawTexture(RenderLayer::getGuiTextured, NPC_PREVIEW,
+                    x - width - horizontalMargin, y - MINIMAL_MARGIN, 0, (currentButtonClicked != null && isLeftButton) ? 18 : (leftButton.isFocused() || isMouseOver) ? 9 : 0,
+                    width, height, 256, 256);
+
             if(leftButton.isFocused() && getFocusEnabled()){
-                context.drawTexture(NPC_PREVIEW,
-                        x - width - horizontalMargin, y - MINIMAL_MARGIN,
-                        0, 27,
-                        width, height
-                );
+                context.drawTexture(RenderLayer::getGuiTextured, NPC_PREVIEW,
+                        x - width - horizontalMargin, y - MINIMAL_MARGIN, 0, 27,
+                        width, height, 256, 256);
             }
 
             leftButton.setPosition(x - width - horizontalMargin, y - MINIMAL_MARGIN);
@@ -192,17 +189,14 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             int height = resetButton.getHeight();
             boolean isMouseOver = isMouseOver(width, height, x - (width / 2), y - MINIMAL_MARGIN + 2);
 
-            context.drawTexture(NPC_PREVIEW,
-                    x - 3, y - MINIMAL_MARGIN + 2,
-                    28, (resetButton.isFocused() || isMouseOver) ? 6 : 0,
-                    width, height
-            );
+            context.drawTexture(RenderLayer::getGuiTextured, NPC_PREVIEW,
+                    x - 3, y - MINIMAL_MARGIN + 2, 28, (resetButton.isFocused() || isMouseOver) ? 6 : 0,
+                    width, height, 256, 256);
+
             if(resetButton.isFocused() && getFocusEnabled()){
-                context.drawTexture(NPC_PREVIEW,
-                        x - 3, y - MINIMAL_MARGIN + 2,
-                        28, 12,
-                        width, height
-                );
+                context.drawTexture(RenderLayer::getGuiTextured, NPC_PREVIEW,
+                        x - 3, y - MINIMAL_MARGIN + 2, 28, 12,
+                        width, height, 256, 256);
             }
             resetButton.setPosition(x - (width / 2), y - 2);
         }
@@ -212,18 +206,13 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             int height = rightButton.getHeight();
             boolean isMouseOver = isMouseOver(width, height, x + horizontalMargin, y - MINIMAL_MARGIN);
 
-            context.drawTexture(NPC_PREVIEW,
-                    x + horizontalMargin, y - MINIMAL_MARGIN,
-                    14, (currentButtonClicked != null && !isLeftButton) ? 18
-                        : (rightButton.isFocused() || isMouseOver) ? 9 : 0,
-                    width, height
-            );
+            context.drawTexture(RenderLayer::getGuiTextured, NPC_PREVIEW,
+                    x + horizontalMargin, y - MINIMAL_MARGIN, 14, (currentButtonClicked != null && !isLeftButton) ? 18 : (rightButton.isFocused() || isMouseOver) ? 9 : 0,
+                    width, height, 256, 256);
             if(rightButton.isFocused() && getFocusEnabled()){
-                context.drawTexture(NPC_PREVIEW,
-                        x + horizontalMargin, y - MINIMAL_MARGIN,
-                        14, 27,
-                        width, height
-                );
+                context.drawTexture(RenderLayer::getGuiTextured, NPC_PREVIEW,
+                        x + horizontalMargin, y - MINIMAL_MARGIN, 14, 27,
+                        width, height, 256, 256);
             }
             rightButton.setPosition(x + horizontalMargin, y - MINIMAL_MARGIN);
         }

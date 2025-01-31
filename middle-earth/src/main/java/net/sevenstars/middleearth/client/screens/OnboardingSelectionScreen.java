@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.client.screens;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.screens.faction_selection.FactionSelectionScreen;
 import net.sevenstars.middleearth.network.packets.C2S.PacketTeleportToCurrentSpawn;
@@ -97,13 +98,10 @@ public class OnboardingSelectionScreen extends Screen {
         int startX = (width / 2) - (panelSizeX / 2);
         int startY = (height / 2) - (panelSizeY / 2);
         if(continueAsCharacterButton.active){
-            context.drawTexture(BUTTON_WIDGET,
-                    startX,
-                    startY,
-                    0, continueAsCharacterButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
-                    panelSizeX,
-                    panelSizeY
-            );
+            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+                    startX, startY, 0, continueAsCharacterButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
+                    panelSizeX, panelSizeY, 256, 256);
+
             Text continueText = Text.translatable("ui.me.continue_character");
             context.drawText(textRenderer, continueText,
                     startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),
@@ -112,22 +110,14 @@ public class OnboardingSelectionScreen extends Screen {
 
             continueAsCharacterButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
             if(focusEnabled && continueAsCharacterButton.isFocused()){
-                context.drawTexture(BUTTON_WIDGET,
-                        startX,
-                        startY,
-                        103, 0,
-                        panelSizeX,
-                        panelSizeY
-                );
+                context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+                        startX, startY, 103, 0,
+                        panelSizeX, panelSizeY, 256, 256);
             }
         } else {
-            context.drawTexture(BUTTON_WIDGET,
-                    startX,
-                    startY,
-                    0, 38,
-                    panelSizeX,
-                    panelSizeY
-            );
+            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+                    startX, startY, 0, 38,
+                    panelSizeX, panelSizeY, 256, 256);
             Text delayText = Text.literal(String.valueOf((Math.round(this.currentDelay * 10f) /10f)));
             context.drawText(textRenderer, delayText,
                     startX + (panelSizeX / 2) - (textRenderer.getWidth(delayText) / 2),
@@ -138,13 +128,10 @@ public class OnboardingSelectionScreen extends Screen {
 
             startY += panelSizeY + margin;
 
-            context.drawTexture(BUTTON_WIDGET,
-                    startX,
-                    startY,
-                    0, resetCharacterButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
-                    panelSizeX,
-                    panelSizeY
-            );
+            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+                    startX, startY,0, resetCharacterButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
+                    panelSizeX, panelSizeY, 256, 256);
+
             Text resetText = Text.translatable("ui.me.reset_character");
             context.drawText(textRenderer, resetText,
                     startX + (int) ((panelSizeX - textRenderer.getWidth(resetText)) / 2f),
@@ -152,13 +139,9 @@ public class OnboardingSelectionScreen extends Screen {
                     0, false);
             resetCharacterButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
             if(focusEnabled && resetCharacterButton.isFocused()){
-                context.drawTexture(BUTTON_WIDGET,
-                        startX,
-                        startY,
-                        103, 0,
-                        panelSizeX,
-                        panelSizeY
-                );
+                context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+                        startX, startY,0, 103, 0,
+                        panelSizeX, panelSizeY, 256, 256);
             }
         }
     }

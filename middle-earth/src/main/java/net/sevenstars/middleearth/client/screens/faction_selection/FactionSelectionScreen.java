@@ -2,6 +2,8 @@ package net.sevenstars.middleearth.client.screens.faction_selection;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.model.ModelBaker;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.screens.utils.CycledSelectionButtonType;
 import net.sevenstars.middleearth.client.screens.utils.widgets.CycledSelectionWidget;
@@ -25,7 +27,6 @@ import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.entity.Entity;
@@ -322,14 +323,7 @@ public class FactionSelectionScreen extends Screen {
     private void drawInformationPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight) {
         int startX = (int) ((context.getScaledWindowWidth() / 2f) - (mainPanelWidth / 2f));
         int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
-
-        context.drawTexture(FACTION_SELECTION_UI,
-                startX,
-                startY,
-                0, 0,
-                mainPanelWidth,
-                mainPanelHeight
-        );
+        context.drawTexture(RenderLayer::getGuiTextured, FACTION_SELECTION_UI, startX, startY, 0.0F, 0.0F, mainPanelWidth, mainPanelHeight, 256, 256);
 
         int textStartY = startY + (MINIMAL_MARGIN * 2);
         int centerWithBanner = ((startX + (MINIMAL_MARGIN / 2)) + ((mainPanelWidth - 50) / 2));
@@ -476,22 +470,18 @@ public class FactionSelectionScreen extends Screen {
         int startX = (int) (centerX - (sizeX / 2f));
         int startY = endY - sizeY;
         boolean mouseOver = isMouseOver(startX, sizeX, startY, sizeY);
-        context.drawTexture(FACTION_SELECTION_BUTTONS,
-                startX,
-                startY,
-                103, (factionRandomizerButton.isFocused() || mouseOver) ? 92 : 74,
-                sizeX,
-                sizeY
-        );
+
+        context.drawTexture(RenderLayer::getGuiTextured, FACTION_SELECTION_BUTTONS,
+                startX, startY, 103, (factionRandomizerButton.isFocused() || mouseOver) ? 92 : 74,
+                sizeX, sizeY, 256, 256);
+
+
         factionRandomizerButton.setDimensionsAndPosition(sizeX, sizeY, startX, startY);
+
         if(ModWidget.getFocusEnabled() && factionRandomizerButton.isFocused()){
-            context.drawTexture(FACTION_SELECTION_BUTTONS,
-                    startX,
-                    startY,
-                    103, 148,
-                    sizeX,
-                    sizeY
-            );
+            context.drawTexture(RenderLayer::getGuiTextured, FACTION_SELECTION_BUTTONS,
+                    startX, startY, 103, 148,
+                    sizeX, sizeY, 256, 256);
         }
     }
 
@@ -503,12 +493,10 @@ public class FactionSelectionScreen extends Screen {
         int mapBackgroundWidth = 124;
         int mapBackgroundHeight = 124;
 
-        context.drawTexture(MAP_SELECTION,
-                startX, startY,
-                0, 0,
-                mapBackgroundWidth,
-                mapBackgroundHeight
-        );
+
+        context.drawTexture(RenderLayer::getGuiTextured, MAP_SELECTION,
+                startX, startY, 0, 0,
+                mapBackgroundWidth, mapBackgroundHeight, 256, 256);
 
         mapWidget.drawAnchored(context,startX + 5, startY + 5, true);
         if(controller.mapFocusToggle != mapWidget.haveForcedMapTarget())
@@ -522,12 +510,10 @@ public class FactionSelectionScreen extends Screen {
         int smallButtonsStartY = startY - buttonSize - MINIMAL_MARGIN - 2;
 
         // Focus current
-        context.drawTexture(MAP_SELECTION,
-                buttonStartX, smallButtonsStartY,
-                235, (controller.mapFocusToggle) ? 20 : mapFocusButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
-                buttonSize,
-                buttonSize
-        );
+        context.drawTexture(RenderLayer::getGuiTextured, MAP_SELECTION,
+                buttonStartX, smallButtonsStartY, 235, (controller.mapFocusToggle) ? 20 : mapFocusButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                buttonSize, buttonSize, 256, 256);
+
         mapFocusButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
         if(mapFocusButton.isFocused() && ModWidget.getFocusEnabled()){
             highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
@@ -537,12 +523,11 @@ public class FactionSelectionScreen extends Screen {
         buttonStartX = startX + mapBackgroundWidth - MINIMAL_MARGIN - buttonSize - 2;
         boolean canZoomIn = mapWidget.canZoomIn();
         mapZoomInButton.active = canZoomIn;
-        context.drawTexture(MAP_SELECTION,
-                buttonStartX, smallButtonsStartY,
-                224, !canZoomIn ? 20 : mapZoomInButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
-                buttonSize,
-                buttonSize
-        );
+
+        context.drawTexture(RenderLayer::getGuiTextured, MAP_SELECTION,
+                buttonStartX, smallButtonsStartY, 224, !canZoomIn ? 20 : mapZoomInButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                buttonSize, buttonSize, 256, 256);
+
         mapZoomInButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
         if(canZoomIn && mapZoomInButton.isFocused() && ModWidget.getFocusEnabled()){
             highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
@@ -552,12 +537,11 @@ public class FactionSelectionScreen extends Screen {
         buttonStartX -= buttonSize + MINIMAL_MARGIN;
         boolean canZoomOut = mapWidget.canZoomOut();
         mapZoomOutButton.active = canZoomOut;
-        context.drawTexture(MAP_SELECTION,
-                buttonStartX, smallButtonsStartY,
-                213, !canZoomOut ? 20 : mapZoomOutButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
-                buttonSize,
-                buttonSize
-        );
+
+        context.drawTexture(RenderLayer::getGuiTextured, MAP_SELECTION,
+                buttonStartX, smallButtonsStartY, 213, !canZoomOut ? 20 : mapZoomOutButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                buttonSize, buttonSize, 256, 256);
+
         mapZoomOutButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
         if(canZoomOut && mapZoomOutButton.isFocused() && ModWidget.getFocusEnabled()){
             highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
@@ -585,42 +569,30 @@ public class FactionSelectionScreen extends Screen {
         int buttonStartY = (int)((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight - sizeY;
 
         boolean mouseOver = isMouseOver(buttonStartX, sizeX, buttonStartY, sizeY);
-        context.drawTexture(FACTION_SELECTION_BUTTONS,
-                buttonStartX,
-                buttonStartY,
-                103, spawnSelectionRandomizerButton.isFocused() || mouseOver ? 129 : 111,
-                sizeX,
-                sizeY
-        );
+
+        context.drawTexture(RenderLayer::getGuiTextured, FACTION_SELECTION_BUTTONS,
+                buttonStartX, buttonStartY, 103, spawnSelectionRandomizerButton.isFocused() || mouseOver ? 129 : 111,
+                sizeX, sizeY, 256, 256);
+
         spawnSelectionRandomizerButton.setDimensionsAndPosition(sizeX, sizeY, buttonStartX, buttonStartY);
         if(ModWidget.getFocusEnabled() && spawnSelectionRandomizerButton.isFocused()){
-            context.drawTexture(FACTION_SELECTION_BUTTONS,
-                    buttonStartX,
-                    buttonStartY,
-                    103, 148,
-                    sizeX,
-                    sizeY
-            );
+
+            context.drawTexture(RenderLayer::getGuiTextured, FACTION_SELECTION_BUTTONS,
+                    buttonStartX, buttonStartY, 103, 148,
+                    sizeX, sizeY, 256, 256);
         }
 
         buttonStartX = (int)(startX + (mapBackgroundWidth / 2f)) + MINIMAL_MARGIN;
         mouseOver = isMouseOver(buttonStartX, sizeX, buttonStartY, sizeY);
         if(spawnSelectionConfirmButton.active){
-            context.drawTexture(FACTION_SELECTION_BUTTONS,
-                    buttonStartX,
-                    buttonStartY,
-                    103, spawnSelectionConfirmButton.isFocused() || mouseOver ? 37 : 19,
-                    sizeX,
-                    sizeY
-            );
+            context.drawTexture(RenderLayer::getGuiTextured, FACTION_SELECTION_BUTTONS,
+                    buttonStartX, buttonStartY, 103, spawnSelectionConfirmButton.isFocused() || mouseOver ? 37 : 19,
+                    sizeX, sizeY, 256, 256);
         } else {
-            context.drawTexture(FACTION_SELECTION_BUTTONS,
-                    buttonStartX,
-                    buttonStartY,
-                    156, 55,
-                    sizeX,
-                    sizeY
-            );
+            context.drawTexture(RenderLayer::getGuiTextured, FACTION_SELECTION_BUTTONS,
+                    buttonStartX, buttonStartY, 156, 55,
+                    sizeX, sizeY, 256, 256);
+
             Text delayText = Text.literal(String.valueOf(controller.getDelayRounded()));
             context.drawText(textRenderer, delayText,
                     buttonStartX + (sizeX / 2) - (textRenderer.getWidth(delayText) / 2),
@@ -630,13 +602,9 @@ public class FactionSelectionScreen extends Screen {
 
         spawnSelectionConfirmButton.setDimensionsAndPosition(sizeX, sizeY, buttonStartX, buttonStartY);
         if(ModWidget.getFocusEnabled() && spawnSelectionConfirmButton.isFocused()){
-            context.drawTexture(FACTION_SELECTION_BUTTONS,
-                    buttonStartX,
-                    buttonStartY,
-                    103, 148,
-                    sizeX,
-                    sizeY
-            );
+            context.drawTexture(RenderLayer::getGuiTextured, FACTION_SELECTION_BUTTONS,
+                    buttonStartX, buttonStartY, 103, 148,
+                    sizeX, sizeY, 256, 256);
         }
     }
 
@@ -646,13 +614,9 @@ public class FactionSelectionScreen extends Screen {
     }
 
     private void highlightedFocusMapButton(DrawContext context, int startX, int startY){
-        context.drawTexture(MAP_SELECTION,
-                startX,
-                startY,
-                200, 0,
-                12,
-                12
-        );
+        context.drawTexture(RenderLayer::getGuiTextured, FACTION_SELECTION_BUTTONS,
+                startX, startY, 200, 0,
+                12, 12, 256, 256);
     }
 
     private void drawFactionBanner(DrawContext context, float startX, float startY){
@@ -685,27 +649,25 @@ public class FactionSelectionScreen extends Screen {
             return;
         }
 
-        var bannerPatternRegistry = this.client.world.getRegistryManager().get(RegistryKeys.BANNER_PATTERN);
+        var bannerPatternRegistry = this.client.world.getRegistryManager().getOptional(RegistryKeys.BANNER_PATTERN);
 
         BannerPatternsComponent.Builder bannerBuilder = new BannerPatternsComponent.Builder();
         for(BannerData.BannerPatternWithColor entry : patterns){
             if(entry == null) continue;
-            RegistryEntry<BannerPattern> pattern = bannerPatternRegistry.getEntry(entry.pattern);
+            RegistryEntry<BannerPattern> pattern = bannerPatternRegistry.get().getEntry(entry.pattern);
             bannerBuilder.add(pattern, entry.color);
         }
+        context.draw((vertexConsumers) -> {
+            BannerBlockEntityRenderer.renderCanvas(context.getMatrices(), vertexConsumers, 15728880, OverlayTexture.DEFAULT_UV, this.bannerField, ModelBaker.BANNER_BASE, true, color, bannerBuilder.build());
+        });
 
-        BannerBlockEntityRenderer.renderCanvas(matrixStack, context.getVertexConsumers(), 15728880, OverlayTexture.DEFAULT_UV, this.bannerField, ModelLoader.BANNER_BASE, true, color, bannerBuilder.build());
         matrixStack.pop();
         context.draw();
         DiffuseLighting.enableGuiDepthLighting();
 
-        context.drawTexture(FACTION_SELECTION_BANNER_UI,
-                (int) x - 2,
-                (int) y - 2,
-                0, 0,
-                48,
-                112
-        );
+        context.drawTexture(RenderLayer::getGuiTextured, FACTION_SELECTION_BANNER_UI,
+                (int) x - 2, (int) y - 2, 0, 0,
+                48, 112, 256, 256);
     }
 
 

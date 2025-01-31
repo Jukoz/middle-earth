@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.client.screens;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.screens.utils.widgets.ModWidget;
 import net.sevenstars.middleearth.client.screens.utils.widgets.backgrounds.BackgroundContainerWidget;
@@ -189,8 +190,10 @@ public class MiddleEarthMapScreen extends Screen {
         startY = (context.getScaledWindowHeight() / 2) - (HEIGHT / 2);
         endY = startY + HEIGHT;
 
+        context.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE,
+                startX, startY, 0, 0,
+                WIDTH, HEIGHT, 256, 256);
 
-        context.drawTexture(BACKGROUND_TEXTURE, startX, startY, 0, 0,  WIDTH, HEIGHT);
         mapWidget.drawCentered(context, centerX, startY + MARGIN);
         drawFullscreenToggleButton(context);
         drawMapOverlayToggleButton(context);
@@ -212,7 +215,9 @@ public class MiddleEarthMapScreen extends Screen {
         //PlayerSkinDrawer.draw(context, player.getSkinTextures(), (int)x, (int)y, 4);
         //PlayerSkinDrawer.draw(context, minecraft.getSkinProvider().getSkinTexturesSupplier(new GameProfile(UUID.fromString(this.uuid),this.name)).get(),x,y);
 
-        context.drawTexture(MAP_UI_TEXTURE, (int)x- 4, (int) y- 4, 154, 1, 8, 8);
+        context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_TEXTURE,
+                (int)x- 4, (int) y- 4, 154, 1,
+                8, 8, 256, 256);
     }
 
     private void drawFullscreenToggleButton(DrawContext context){
@@ -223,10 +228,15 @@ public class MiddleEarthMapScreen extends Screen {
             int x = context.getScaledWindowWidth() - MARGIN - NORMAL_BUTTON_SIZE.x;
             int y = MARGIN;
             fullscreenButton.setPosition(x, y);
-            context.drawTexture(MAP_UI_TEXTURE, x, y, 35, fullscreenToggleButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+            context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_TEXTURE,
+                    x, y, 35, fullscreenToggleButtonUvY,
+                    NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y, 256, 256);
+
         } else {
             fullscreenButton.setPosition(endX, startY);
-            context.drawTexture(MAP_UI_TEXTURE, endX, startY, 18, fullscreenToggleButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+            context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_TEXTURE,
+                    18, fullscreenToggleButtonUvY, 35, fullscreenToggleButtonUvY,
+                    NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y, 256, 256);
         }
     }
 
@@ -238,7 +248,10 @@ public class MiddleEarthMapScreen extends Screen {
         int x = fullscreenButton.getX();
         int y = fullscreenButton.getY() + NORMAL_BUTTON_SIZE.y;
         overlayToggleButton.setPosition(x, y);
-        context.drawTexture(MAP_UI_TEXTURE, x, y, 1, overlayToggleButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+
+        context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_TEXTURE,
+                x, y, 1, overlayToggleButtonUvY,
+                NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y, 256, 256);
     }
 
     private void drawRecenterButton(DrawContext context){
@@ -251,7 +264,9 @@ public class MiddleEarthMapScreen extends Screen {
         int x = fullscreenButton.getX();
         int y = zoomInButton.getY() - NORMAL_BUTTON_SIZE.y;
         recenterButton.setPosition(x, y);
-        context.drawTexture(MAP_UI_TEXTURE, x, y, 52, recenterButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+        context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_TEXTURE,
+                x,x, y, 52, recenterButtonUvY,
+                NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y, 256, 256);
     }
 
     private void drawZoomButtons(DrawContext context){
@@ -271,20 +286,28 @@ public class MiddleEarthMapScreen extends Screen {
             int x = context.getScaledWindowWidth() - MARGIN - NORMAL_BUTTON_SIZE.x;
             int y = context.getScaledWindowHeight() - MARGIN - NORMAL_BUTTON_SIZE.y;
             zoomOutButton.setPosition(x, y);
-            context.drawTexture(MAP_UI_TEXTURE, x, y, zoomOutButtonUvX, zoomOutButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+            context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_TEXTURE,
+                    x, y, zoomOutButtonUvX, zoomOutButtonUvY,
+                    NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y, 256, 256);
             // Zoom in
             y -= NORMAL_BUTTON_SIZE.y;
             zoomInButton.setPosition(x, y);
-            context.drawTexture(MAP_UI_TEXTURE, x, y, zoomInButtonUvX, zoomInButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+            context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_TEXTURE,
+                    x, y, zoomOutButtonUvX, zoomOutButtonUvY,
+                    NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y, 256, 256);
         } else {
             // Zoom out
             int y = endY - NORMAL_BUTTON_SIZE.y;
             zoomOutButton.setPosition(endX, y);
-            context.drawTexture(MAP_UI_TEXTURE, endX, y, zoomOutButtonUvX, zoomOutButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+            context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_TEXTURE,
+                    endX, y, zoomOutButtonUvX, zoomOutButtonUvY,
+                    NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y, 256, 256);
             // Zoom in
             y -= NORMAL_BUTTON_SIZE.y;
             zoomInButton.setPosition(endX, y);
-            context.drawTexture(MAP_UI_TEXTURE, endX, y, zoomInButtonUvX, zoomInButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+            context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_TEXTURE,
+                    endX, y, zoomOutButtonUvX, zoomOutButtonUvY,
+                    NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y, 256, 256);
         }
     }
 
