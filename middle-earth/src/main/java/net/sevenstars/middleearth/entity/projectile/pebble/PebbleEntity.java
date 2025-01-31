@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.entity.projectile.pebble;
 
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.hobbits.shire.ShireHobbitEntity;
 import net.sevenstars.middleearth.entity.projectile.AbstractProjectileEntity;
 import net.sevenstars.middleearth.item.ModResourceItems;
 import net.minecraft.entity.Entity;
@@ -31,7 +31,8 @@ public class PebbleEntity extends AbstractProjectileEntity {
     public void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
-        entity.damage(this.getDamageSources().thrown(this, this.getOwner()), this.damage);
+        //if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
+        if(this.getWorld() instanceof ServerWorld serverWorld)
+            entity.damage(serverWorld, this.getDamageSources().thrown( this, this.getOwner()), this.damage);
     }
 }
