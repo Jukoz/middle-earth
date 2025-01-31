@@ -5,7 +5,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 
-public class CapeSlimModel<T extends LivingEntity>  extends CloakCapeModel<T> {
+public class CapeSlimModel extends CloakCapeModel {
 
     public CapeSlimModel(ModelPart root) {
         super(root);

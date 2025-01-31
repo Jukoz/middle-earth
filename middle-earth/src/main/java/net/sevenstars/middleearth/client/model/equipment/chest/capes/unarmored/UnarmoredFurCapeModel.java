@@ -5,7 +5,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 
-public class UnarmoredFurCapeModel<T extends LivingEntity>  extends CloakCapeModel<T> {
+public class UnarmoredFurCapeModel extends CloakCapeModel {
 
     public UnarmoredFurCapeModel(ModelPart root) {
         super(root);

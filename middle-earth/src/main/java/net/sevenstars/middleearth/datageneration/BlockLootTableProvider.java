@@ -2,6 +2,8 @@ package net.sevenstars.middleearth.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.minecraft.item.Item;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.block.special.RocksBlock;
@@ -42,7 +44,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
-    protected static final LootCondition.Builder WITH_SHEARS = MatchToolLootCondition.builder(ItemPredicate.Builder.create().items(Items.SHEARS));
+    protected static final LootCondition.Builder WITH_SHEARS = MatchToolLootCondition.builder(ItemPredicate.Builder.create().items((RegistryEntryLookup<Item>) Items.SHEARS));
     private final LootCondition.Builder WITH_SILK_TOUCH_OR_SHEARS = WITH_SHEARS.or(this.createSilkTouchCondition());
     private final LootCondition.Builder WITHOUT_SILK_TOUCH_NOR_SHEARS = WITH_SILK_TOUCH_OR_SHEARS.invert();
     private final float[] LEAVES_STICK_DROP_CHANCE = new float[]{0.02f, 0.022222223f, 0.025f, 0.033333335f, 0.1f};
@@ -103,7 +105,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         RegistryWrapper.Impl<Enchantment> enchantmentRegistry;
 
         try {
-            enchantmentRegistry = registryLookup.get().getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+            enchantmentRegistry = registryLookup.get().getOrThrow(RegistryKeys.ENCHANTMENT);
         } catch (Exception ignored) {
             throw new IllegalStateException("Data generation without registries failed!");
         }
@@ -251,7 +253,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         RegistryWrapper.Impl<Enchantment> enchantmentRegistry;
 
         try {
-            enchantmentRegistry = registryLookup.get().getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+            enchantmentRegistry = registryLookup.get().getOrThrow(RegistryKeys.ENCHANTMENT);
         } catch (Exception ignored) {
             throw new IllegalStateException("Data generation without registries failed!");
         }
@@ -275,11 +277,11 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         RegistryWrapper.Impl<Enchantment> enchantmentRegistry;
 
         try {
-            enchantmentRegistry = registryLookup.get().getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+            enchantmentRegistry = registryLookup.get().getOrThrow(RegistryKeys.ENCHANTMENT);
         } catch (Exception ignored) {
             throw new IllegalStateException("Data generation without registries failed!");
         }
-        return drops(leaves, this.createWithShearsOrSilkTouchCondition(), ((LeafEntry.Builder) this.addSurvivesExplosionCondition(leaves, ItemEntry.builder(drop)))
+        return drops(leaves, this.createWithSilkTouchOrShearsCondition(), ((LeafEntry.Builder) this.addSurvivesExplosionCondition(leaves, ItemEntry.builder(drop)))
                 .conditionally(TableBonusLootCondition.builder(enchantmentRegistry.getOrThrow(Enchantments.FORTUNE), chance))).pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))
                 .conditionally(WITHOUT_SILK_TOUCH_NOR_SHEARS).with((LootPoolEntry.Builder<?>) ((LeafEntry.Builder) this.applyExplosionDecay(leaves, ItemEntry.builder(Items.STICK)
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 2.0f)))))

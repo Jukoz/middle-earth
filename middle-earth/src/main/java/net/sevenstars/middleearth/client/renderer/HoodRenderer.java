@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.client.renderer;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomHelmetModel;
@@ -28,15 +29,27 @@ import net.minecraft.util.math.ColorHelper;
 
 public class HoodRenderer implements ArmorRenderer {
 
-    private CustomHelmetModel<LivingEntity> customHelmetModel;
-    private HelmetAddonModel<LivingEntity> hoodModel;
+    private CustomHelmetModel customHelmetModel;
+    private HelmetAddonModel hoodModel;
 
     public HoodRenderer() {
     }
 
+
+    static void renderDyeableHood(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean helmet) {
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), stack.hasGlint());
+        int color;
+        if (helmet){
+            color =  ColorHelper.fullAlpha(stack.get(ModDataComponentTypes.HOOD_DATA).hoodColor());
+        } else {
+            color = CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR);
+        }
+        model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
+    }
+
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
-        this.hoodModel = new CloakHoodModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
+    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
+        this.hoodModel = new CloakHoodModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
 
         if (slot == EquipmentSlot.HEAD) {
             HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
@@ -44,13 +57,13 @@ public class HoodRenderer implements ArmorRenderer {
             if(hoodDataComponent != null) {
                 Identifier texture;
                 if (hoodDataComponent.down()){
-                     texture = Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().getName().toLowerCase() + "_down.png");
+                    texture = Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().getName().toLowerCase() + "_down.png");
                     this.hoodModel = ModArmorModels.ModHoodPairedModels.valueOf(hoodDataComponent.hood().getName().toUpperCase()).getModel().getUnarmoredDownModel();
                 } else {
                     texture = Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().getName().toLowerCase() + ".png");
                     this.hoodModel = ModArmorModels.ModHoodPairedModels.valueOf(hoodDataComponent.hood().getName().toUpperCase()).getModel().getUnarmoredModel();
                 }
-                contextModel.copyBipedStateTo(hoodModel);
+                contextModel.copyTransforms(hoodModel);
                 hoodModel.setVisible(false);
                 hoodModel.hat.visible = true;
                 if (ModDyeablePieces.dyeableHoods.containsKey(hoodDataComponent.getHood())) {
@@ -63,17 +76,6 @@ public class HoodRenderer implements ArmorRenderer {
                 }
             }
         }
-    }
-
-    static void renderDyeableHood(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean helmet) {
-        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), stack.hasGlint());
-        int color;
-        if (helmet){
-            color =  ColorHelper.Argb.fullAlpha(stack.get(ModDataComponentTypes.HOOD_DATA).hoodColor());
-        } else {
-            color = CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR);
-        }
-        model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
     }
 }
 

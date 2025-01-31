@@ -9,42 +9,42 @@ import net.sevenstars.middleearth.client.model.equipment.head.hoods.unarmored.Un
 import net.minecraft.entity.LivingEntity;
 
 public enum ModHoodModels {
-    REGULAR_MODELS(new HoodModel<>(HoodModel.getTexturedModelData().createModel()), new HoodModel<>(HoodModel.getTexturedModelData().createModel()),
-            new UnarmoredHoodModel<>(UnarmoredHoodModel.getTexturedModelData().createModel()), new UnarmoredHoodModel<>(UnarmoredHoodModel.getTexturedModelData().createModel())),
-    TALL_MODELS(new TallHoodModel<>(TallHoodModel.getTexturedModelData().createModel()), new TallHoodModel<>(TallHoodModel.getTexturedModelData().createModel()),
-            new UnarmoredTallHoodModel<>(UnarmoredTallHoodModel.getTexturedModelData().createModel()), new UnarmoredTallHoodModel<>(UnarmoredTallHoodModel.getTexturedModelData().createModel())),
-    FUR_MODELS(new FurHoodModel<>(FurHoodModel.getTexturedModelData().createModel()), new FurHoodDownModel<>(FurHoodDownModel.getTexturedModelData().createModel()),
-            new UnarmoredFurHoodModel<>(UnarmoredFurHoodModel.getTexturedModelData().createModel()), new UnarmoredFurHoodDownModel<>(UnarmoredFurHoodDownModel.getTexturedModelData().createModel())),
-    NAZGUL_MODELS(new NazgulHoodModel<>(NazgulHoodModel.getTexturedModelData().createModel()), new NazgulHoodModel<>(NazgulHoodModel.getTexturedModelData().createModel()),
-            new NazgulHoodModel<>(NazgulHoodModel.getTexturedModelData().createModel()), new NazgulHoodModel<>(NazgulHoodModel.getTexturedModelData().createModel())),
+    REGULAR_MODELS(new HoodModel(HoodModel.getTexturedModelData().createModel()), new HoodModel(HoodModel.getTexturedModelData().createModel()),
+            new UnarmoredHoodModel(UnarmoredHoodModel.getTexturedModelData().createModel()), new UnarmoredHoodModel(UnarmoredHoodModel.getTexturedModelData().createModel())),
+    TALL_MODELS(new TallHoodModel(TallHoodModel.getTexturedModelData().createModel()), new TallHoodModel(TallHoodModel.getTexturedModelData().createModel()),
+            new UnarmoredTallHoodModel(UnarmoredTallHoodModel.getTexturedModelData().createModel()), new UnarmoredTallHoodModel(UnarmoredTallHoodModel.getTexturedModelData().createModel())),
+    FUR_MODELS(new FurHoodModel(FurHoodModel.getTexturedModelData().createModel()), new FurHoodDownModel(FurHoodDownModel.getTexturedModelData().createModel()),
+            new UnarmoredFurHoodModel(UnarmoredFurHoodModel.getTexturedModelData().createModel()), new UnarmoredFurHoodDownModel(UnarmoredFurHoodDownModel.getTexturedModelData().createModel())),
+    NAZGUL_MODELS(new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().createModel()), new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().createModel()),
+            new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().createModel()), new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().createModel())),
     ;
 
-    private final HelmetAddonModel<LivingEntity> armoredModel;
-    private final HelmetAddonModel<LivingEntity> armoredDownModel;
-    private final HelmetAddonModel<LivingEntity> unarmoredModel;
-    private final HelmetAddonModel<LivingEntity> unarmoredDownModel;
+    private final HelmetAddonModel armoredModel;
+    private final HelmetAddonModel armoredDownModel;
+    private final HelmetAddonModel unarmoredModel;
+    private final HelmetAddonModel unarmoredDownModel;
 
-    ModHoodModels(HelmetAddonModel<LivingEntity> armoredModel, HelmetAddonModel<LivingEntity> armoredDownModel,
-                  HelmetAddonModel<LivingEntity> unarmoredModel, HelmetAddonModel<LivingEntity> unarmoredDownModel){
+    ModHoodModels(HelmetAddonModel armoredModel, HelmetAddonModel armoredDownModel,
+                  HelmetAddonModel unarmoredModel, HelmetAddonModel unarmoredDownModel){
         this.armoredModel = armoredModel;
         this.armoredDownModel = armoredDownModel;
         this.unarmoredModel = unarmoredModel;
         this.unarmoredDownModel = unarmoredDownModel;
     }
 
-    public HelmetAddonModel<LivingEntity> getArmoredModel() {
+    public HelmetAddonModel getArmoredModel() {
         return armoredModel;
     }
 
-    public HelmetAddonModel<LivingEntity> getArmoredDownModel() {
+    public HelmetAddonModel getArmoredDownModel() {
         return armoredDownModel;
     }
 
-    public HelmetAddonModel<LivingEntity> getUnarmoredModel() {
+    public HelmetAddonModel getUnarmoredModel() {
         return unarmoredModel;
     }
 
-    public HelmetAddonModel<LivingEntity> getUnarmoredDownModel() {
+    public HelmetAddonModel getUnarmoredDownModel() {
         return unarmoredDownModel;
     }
 }

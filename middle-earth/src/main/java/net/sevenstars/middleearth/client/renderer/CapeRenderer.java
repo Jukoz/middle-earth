@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.client.renderer;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.chest.ChestplateAddonModel;
@@ -27,28 +28,39 @@ import net.minecraft.util.math.ColorHelper;
 
 public class CapeRenderer implements ArmorRenderer {
 
-    private ChestplateAddonModel<LivingEntity> capeModel;
+    private ChestplateAddonModel capeModel;
 
     public CapeRenderer() {
     }
 
+    static void renderDyeableCape(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean chestplate) {
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), stack.hasGlint());
+        int color;
+        if (chestplate){
+            color =  ColorHelper.fullAlpha(stack.get(ModDataComponentTypes.CAPE_DATA).capeColor());
+        } else {
+            color = CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR);
+        }
+        model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
+    }
+
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
-        this.capeModel = new CloakCapeModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
+    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
+        this.capeModel = new CloakCapeModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
 
         if (slot == EquipmentSlot.CHEST) {
             CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
 
             if (capeDataComponent != null) {
                 this.capeModel = ModArmorModels.ModCapePairedModels.valueOf(capeDataComponent.cape().getName().toUpperCase()).getModel().getUnarmoredModel();
-                contextModel.copyBipedStateTo(capeModel);
+                contextModel.copyTransforms(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;
                 capeModel.rightArm.visible = true;
                 capeModel.leftArm.visible = true;
                 capeModel.rightLeg.visible = true;
                 capeModel.leftLeg.visible = true;
-                this.capeModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
+                this.capeModel.setAngles(bipedEntityRenderState);
 
                 if (ModDyeablePieces.dyeableCapes.containsKey(capeDataComponent.getCape())) {
                     renderDyeableCape(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), false);
@@ -60,16 +72,5 @@ public class CapeRenderer implements ArmorRenderer {
                 }
             }
         }
-    }
-
-    static void renderDyeableCape(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean chestplate) {
-        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), stack.hasGlint());
-        int color;
-        if (chestplate){
-            color =  ColorHelper.Argb.fullAlpha(stack.get(ModDataComponentTypes.CAPE_DATA).capeColor());
-        } else {
-            color = CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR);
-        }
-        model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
     }
 }

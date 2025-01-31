@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.client.renderer;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomLeggingsModel;
@@ -17,18 +18,19 @@ import net.minecraft.util.Identifier;
 
 public class LeggingsArmorRenderer implements ArmorRenderer {
 
-    private CustomLeggingsModel<LivingEntity> customLeggingsModel;
+    private CustomLeggingsModel customLeggingsModel;
 
     public LeggingsArmorRenderer() {
     }
 
+
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
-        this.customLeggingsModel = new CustomLeggingsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_LEGGINGS));
+    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
+        this.customLeggingsModel = new CustomLeggingsModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_LEGGINGS));
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.LEGS) {
-            contextModel.copyBipedStateTo(customLeggingsModel);
+            contextModel.copyTransforms(customLeggingsModel);
             customLeggingsModel.setVisible(false);
             customLeggingsModel.body.visible = true;
             customLeggingsModel.rightLeg.visible = true;

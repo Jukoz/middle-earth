@@ -4,7 +4,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 
-public class DwarvenMinerHelmetModel<T extends LivingEntity> extends HelmetAddonModel<T> {
+public class DwarvenMinerHelmetModel extends HelmetAddonModel {
 
     public DwarvenMinerHelmetModel(ModelPart root) {
         super(root);
@@ -49,10 +49,5 @@ public class DwarvenMinerHelmetModel<T extends LivingEntity> extends HelmetAddon
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 64, 64);
-    }
-
-    @Override
-    public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-
     }
 }

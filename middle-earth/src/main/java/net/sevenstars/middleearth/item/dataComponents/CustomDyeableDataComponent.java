@@ -24,7 +24,7 @@ public record CustomDyeableDataComponent(int customRgb) {
 
     public static int getColor(ItemStack stack, int defaultColor) {
         CustomDyeableDataComponent dyedColorComponent = stack.get(ModDataComponentTypes.DYE_DATA);
-        return dyedColorComponent != null ? ColorHelper.Argb.fullAlpha(dyedColorComponent.customRgb()) : defaultColor;
+        return dyedColorComponent != null ? ColorHelper.fullAlpha(dyedColorComponent.customRgb()) : defaultColor;
     }
 
     public static ItemStack setColor(ItemStack stack, List<DyeItem> dyes) {
@@ -44,9 +44,9 @@ public record CustomDyeableDataComponent(int customRgb) {
             if(dyedColorComponent != null){
                 if (!(dyedColorComponent.customRgb == stack.getItem().getDefaultStack().get(ModDataComponentTypes.DYE_DATA).customRgb())) {
                     if(dyedColorComponent.customRgb != CustomDyeableDataComponent.DEFAULT_COLOR){
-                        n = ColorHelper.Argb.getRed(dyedColorComponent.customRgb());
-                        o = ColorHelper.Argb.getGreen(dyedColorComponent.customRgb());
-                        p = ColorHelper.Argb.getBlue(dyedColorComponent.customRgb());
+                        n = ColorHelper.getRed(dyedColorComponent.customRgb());
+                        o = ColorHelper.getGreen(dyedColorComponent.customRgb());
+                        p = ColorHelper.getBlue(dyedColorComponent.customRgb());
                         l += Math.max(n, Math.max(o, p));
                         i += n;
                         j += o;
@@ -60,9 +60,9 @@ public record CustomDyeableDataComponent(int customRgb) {
             for(Iterator var16 = dyes.iterator(); var16.hasNext(); ++m) {
                 DyeItem dyeItem = (DyeItem)var16.next();
                 p = dyeItem.getColor().getEntityColor();
-                int q = ColorHelper.Argb.getRed(p);
-                int r = ColorHelper.Argb.getGreen(p);
-                s = ColorHelper.Argb.getBlue(p);
+                int q = ColorHelper.getRed(p);
+                int r = ColorHelper.getGreen(p);
+                s = ColorHelper.getBlue(p);
                 l += Math.max(q, Math.max(r, s));
                 i += q;
                 j += r;
@@ -77,7 +77,7 @@ public record CustomDyeableDataComponent(int customRgb) {
             n = (int) ((float) n * f / g);
             o = (int) ((float) o * f / g);
             p = (int) ((float) p * f / g);
-            s = ColorHelper.Argb.getArgb(0, n, o, p);
+            s = ColorHelper.getArgb(0, n, o, p);
             itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(s));
             return itemStack;
         }

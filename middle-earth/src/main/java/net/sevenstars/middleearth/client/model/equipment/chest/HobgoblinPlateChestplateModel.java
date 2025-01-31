@@ -4,7 +4,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 
-public class HobgoblinPlateChestplateModel<T extends LivingEntity> extends ChestplateAddonModel<T> {
+public class HobgoblinPlateChestplateModel extends ChestplateAddonModel {
 
     public HobgoblinPlateChestplateModel(ModelPart root) {
         super(root);
@@ -30,8 +30,4 @@ public class HobgoblinPlateChestplateModel<T extends LivingEntity> extends Chest
         return TexturedModelData.of(modelData, 64, 64);
     }
 
-    @Override
-    public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-
-    }
 }

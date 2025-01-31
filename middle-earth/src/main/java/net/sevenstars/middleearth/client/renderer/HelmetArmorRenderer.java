@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.client.renderer;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomHelmetModel;
@@ -23,26 +24,27 @@ import net.minecraft.util.Identifier;
 
 public class HelmetArmorRenderer implements ArmorRenderer {
 
-    private CustomHelmetModel<LivingEntity> customHelmetModel;
-    private HelmetAddonModel<LivingEntity> hoodModel;
-    private HelmetAddonModel<LivingEntity> helmetModel;
+    private CustomHelmetModel customHelmetModel;
+    private HelmetAddonModel hoodModel;
+    private HelmetAddonModel helmetModel;
 
     public HelmetArmorRenderer() {
     }
 
-    public HelmetArmorRenderer(HelmetAddonModel<LivingEntity> helmetModel) {
+    public HelmetArmorRenderer(HelmetAddonModel helmetModel) {
         this.helmetModel = helmetModel;
     }
 
+
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
-        this.customHelmetModel = new CustomHelmetModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_HELMET));
-        this.hoodModel = new CloakHoodModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
+    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
+        this.customHelmetModel = new CustomHelmetModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_HELMET));
+        this.hoodModel = new CloakHoodModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
 
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.HEAD) {
-            contextModel.copyBipedStateTo(customHelmetModel);
+            contextModel.copyTransforms(customHelmetModel);
             customHelmetModel.setVisible(false);
             customHelmetModel.head.visible = true;
             customHelmetModel.hat.visible = true;
@@ -58,10 +60,10 @@ public class HelmetArmorRenderer implements ArmorRenderer {
             ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customHelmetModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
 
             if (this.helmetModel != null) {
-                contextModel.copyBipedStateTo(this.helmetModel);
+                contextModel.copyTransforms(this.helmetModel);
                 this.helmetModel.setVisible(false);
                 this.helmetModel.head.visible = true;
-                this.helmetModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.pitch);
+                this.helmetModel.setAngles(bipedEntityRenderState);
                 if(texture.contains("_helmet.png")){
                     ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
                 } else {
@@ -80,7 +82,7 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                     textureHood = Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().getName().toLowerCase() + ".png");
                     this.hoodModel = ModArmorModels.ModHoodPairedModels.valueOf(hoodDataComponent.hood().getName().toUpperCase()).getModel().getArmoredModel();
                 }
-                contextModel.copyBipedStateTo(hoodModel);
+                contextModel.copyTransforms(hoodModel);
                 hoodModel.setVisible(false);
                 hoodModel.hat.visible = true;
                 if (ModDyeablePieces.dyeableHoods.containsKey(hoodDataComponent.getHood())) {
@@ -94,5 +96,4 @@ public class HelmetArmorRenderer implements ArmorRenderer {
             }
         }
     }
-
 }

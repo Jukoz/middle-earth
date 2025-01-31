@@ -4,9 +4,10 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.entity.LivingEntity;
 
-public class CustomHelmetModel<T extends LivingEntity> extends BipedEntityModel<T> {
+public class CustomHelmetModel extends BipedEntityModel<BipedEntityRenderState> {
 
     public final ModelPart head;
 

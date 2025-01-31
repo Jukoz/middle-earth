@@ -5,7 +5,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 
-public class NazgulRobesModel<T extends LivingEntity>  extends CloakCapeModel<T> {
+public class NazgulRobesModel extends CloakCapeModel {
 
     public NazgulRobesModel(ModelPart root) {
         super(root);

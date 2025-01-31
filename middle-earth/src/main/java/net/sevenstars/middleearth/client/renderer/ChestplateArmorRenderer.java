@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.client.renderer;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomChestplateModel;
@@ -24,27 +25,27 @@ import net.minecraft.util.Identifier;
 
 public class ChestplateArmorRenderer implements ArmorRenderer {
 
-    private CustomChestplateModel<LivingEntity> customChestplateModel;
-    private ChestplateAddonModel<LivingEntity> capeModel;
-    private ChestplateAddonModel<LivingEntity> chestplateModel;
+    private CustomChestplateModel customChestplateModel;
+    private ChestplateAddonModel capeModel;
+    private ChestplateAddonModel chestplateModel;
 
     public ChestplateArmorRenderer() {
     }
 
-    public ChestplateArmorRenderer(ChestplateAddonModel<LivingEntity> chestplateModel) {
+    public ChestplateArmorRenderer(ChestplateAddonModel chestplateModel) {
         this.chestplateModel = chestplateModel;
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
-        this.customChestplateModel = new CustomChestplateModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_CHESTPLATE));
-        this.capeModel = new CloakCapeModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
+    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
+        this.customChestplateModel = new CustomChestplateModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_CHESTPLATE));
+        this.capeModel = new CloakCapeModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
 
         CustomChestplateItem item = (CustomChestplateItem)stack.getItem();
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.CHEST) {
-            contextModel.copyBipedStateTo(customChestplateModel);
+            contextModel.copyTransforms(customChestplateModel);
             customChestplateModel.setVisible(false);
             customChestplateModel.body.visible = true;
             customChestplateModel.rightArm.visible = true;
@@ -60,7 +61,7 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
             ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customChestplateModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
 
             if (this.chestplateModel != null) {
-                contextModel.copyBipedStateTo(this.chestplateModel);
+                contextModel.copyTransforms(this.chestplateModel);
                 this.chestplateModel.setVisible(false);
                 this.chestplateModel.body.visible = true;
                 this.chestplateModel.rightArm.visible = true;
@@ -71,14 +72,14 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
             CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
             if (capeDataComponent != null) {
                 this.capeModel = ModArmorModels.ModCapePairedModels.valueOf(capeDataComponent.cape().getName().toUpperCase()).getModel().getArmoredModel();
-                contextModel.copyBipedStateTo(capeModel);
+                contextModel.copyTransforms(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;
                 capeModel.rightArm.visible = true;
                 capeModel.leftArm.visible = true;
                 capeModel.rightLeg.visible = true;
                 capeModel.leftLeg.visible = true;
-                capeModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
+                capeModel.setAngles(bipedEntityRenderState);
                 if (ModDyeablePieces.dyeableCapes.containsKey(capeDataComponent.getCape())) {
                     CapeRenderer.renderDyeableCape(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), true);
                     if (ModDyeablePieces.dyeableCapes.get(capeDataComponent.cape()).booleanValue()){

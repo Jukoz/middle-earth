@@ -5,7 +5,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 
-public class TallHoodModel<T extends LivingEntity> extends CloakHoodModel<T> {
+public class TallHoodModel extends CloakHoodModel {
 
     public TallHoodModel(ModelPart root) {
         super(root);

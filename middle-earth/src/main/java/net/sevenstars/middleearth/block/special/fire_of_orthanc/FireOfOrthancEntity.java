@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.block.special.fire_of_orthanc;
 
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.minecraft.block.BlockState;
@@ -71,6 +73,11 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
 
     protected double getGravity() {
         return 0.04f;
+    }
+
+    @Override
+    public boolean damage(ServerWorld world, DamageSource source, float amount) {
+        return false;
     }
 
     public void tick() {

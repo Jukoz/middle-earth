@@ -18,14 +18,14 @@ import net.minecraft.util.Identifier;
 
 public class BootsArmorRenderer implements ArmorRenderer {
 
-    private CustomBootsModel<LivingEntity> customBootsModel;
+    private CustomBootsModel customBootsModel;
 
     public BootsArmorRenderer() {
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        this.customBootsModel = new CustomBootsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_BOOTS));
+        this.customBootsModel = new CustomBootsModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_BOOTS));
 
         boolean dyeable = false;
 
