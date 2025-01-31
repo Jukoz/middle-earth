@@ -1,15 +1,10 @@
 package net.sevenstars.middleearth.entity.beasts.trolls;
 
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.dwarves.longbeards.LongbeardDwarfEntity;
-import net.sevenstars.middleearth.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.sevenstars.middleearth.entity.goals.*;
-import net.sevenstars.middleearth.entity.hobbits.shire.ShireHobbitEntity;
-import net.sevenstars.middleearth.entity.humans.bandit.BanditHumanEntity;
-import net.sevenstars.middleearth.entity.humans.gondor.GondorHumanEntity;
-import net.sevenstars.middleearth.entity.humans.rohan.RohanHumanEntity;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.Disposition;
@@ -60,13 +55,13 @@ public class TrollEntity extends AbstractBeastEntity {
 
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35f)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 120.0)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.6)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 0.9)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 28.0)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 10.0)
-                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 0.0);
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.35f)
+                .add(EntityAttributes.MAX_HEALTH, 120.0)
+                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.6)
+                .add(EntityAttributes.ATTACK_SPEED, 0.9)
+                .add(EntityAttributes.FOLLOW_RANGE, 28.0)
+                .add(EntityAttributes.ATTACK_DAMAGE, 10.0)
+                .add(EntityAttributes.JUMP_STRENGTH, 0.0);
     }
 
     @Override
@@ -81,12 +76,6 @@ public class TrollEntity extends AbstractBeastEntity {
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity)this));
         this.targetSelector.add(3, new BeastRevengeGoal(this, new Class[0]));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
-        this.targetSelector.add(7, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
-        this.targetSelector.add(8, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
-        this.targetSelector.add(9, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-        this.targetSelector.add(0, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
     protected void initDataTracker(DataTracker.Builder builder) {
@@ -177,7 +166,7 @@ public class TrollEntity extends AbstractBeastEntity {
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        return (float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f;
+        return (float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.5f;
     }
 
     public boolean isCommandItem(ItemStack stack) {
@@ -195,7 +184,7 @@ public class TrollEntity extends AbstractBeastEntity {
                 if (!itemStack.isEmpty()) {
                     NbtCompound nbtCompound = new NbtCompound();
                     nbtCompound.putByte("Slot", (byte)i);
-                    nbtList.add(itemStack.encode(this.getRegistryManager(), nbtCompound));
+                    nbtList.add(itemStack.toNbt(this.getRegistryManager()));
                 }
             }
             nbt.put("Items", nbtList);
@@ -229,17 +218,17 @@ public class TrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public boolean tryAttack(Entity target) {
+    public boolean tryAttack(ServerWorld world, Entity target) {
         this.attackTicksLeft = ATTACK_COOLDOWN;
         this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
         float f = this.getAttackDamage();
         float g = (int)f > 0 ? f / 2.0f + (float)this.random.nextInt((int)f) : f;
-        boolean bl = target.damage(this.getDamageSources().mobAttack(this), g);
+        boolean bl = target.damage(world, this.getDamageSources().mobAttack(this), g);
         if (bl) {
             double d;
             if (target instanceof LivingEntity) {
                 LivingEntity livingEntity = (LivingEntity)target;
-                d = livingEntity.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
+                d = livingEntity.getAttributeValue(EntityAttributes.KNOCKBACK_RESISTANCE);
             } else {
                 d = 0.0;
             }
@@ -354,7 +343,8 @@ public class TrollEntity extends AbstractBeastEntity {
 
         for(Entity entity : entities) {
             if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
-                entity.damage(entity.getDamageSources().mobAttack(this), 16.0f);
+                if(getWorld() instanceof ServerWorld serverWorld)
+                    entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), 16.0f);
             }
         }
         this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);

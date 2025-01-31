@@ -1,10 +1,5 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.stone;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
-import net.sevenstars.middleearth.entity.goals.BeastTargetPlayerGoal;
-import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -27,6 +22,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
+import net.sevenstars.middleearth.entity.goals.BeastTargetPlayerGoal;
+import net.sevenstars.middleearth.resources.datas.Disposition;
 
 import java.util.List;
 
@@ -151,7 +150,8 @@ public class StoneTrollEntity extends TrollEntity {
 
     public void turnToStone() {
         this.setAiDisabled(true);
-        this.convertTo(ModEntities.PETRIFIED_TROLL, true);
+        // TODO : Fix this :)
+        //this.convertTo(ModEntities.PETRIFIED_TROLL, EntityConversionContext.create(new PetrifiedTrollEntity(ModEntities.PETRIFIED_TROLL, getWorld()), false, false), SpawnReason.CONVERSION, );
     }
 
     @Override

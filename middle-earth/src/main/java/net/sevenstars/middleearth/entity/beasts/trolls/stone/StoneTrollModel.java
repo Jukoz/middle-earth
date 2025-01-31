@@ -1,18 +1,22 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.stone;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
+import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
+import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollAnimations;
 
-public class StoneTrollModel extends SinglePartEntityModel<StoneTrollEntity> {
+public class StoneTrollModel extends EntityModel<TrollEntityRenderState> {
     private final ModelPart r;
     private final ModelPart head;
+
     public StoneTrollModel(ModelPart root) {
+        super(root);
+
         this.r = root.getChild("r");
         this.head = r.getChild("upperbody").getChild("upperbodynoarms").getChild("head");
     }
+
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
@@ -66,32 +70,20 @@ public class StoneTrollModel extends SinglePartEntityModel<StoneTrollEntity> {
                 .uv(17, 194).cuboid(-3.5F, -3.5F, 0.0F, 7.0F, 7.0F, 22.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.1993F, 0.0145F, -0.0979F));
         return TexturedModelData.of(modelData, 256, 256);
     }
-
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        r.render(matrices, vertices, light, overlay, color);
-    }
+    public void setAngles(TrollEntityRenderState state) {
+        super.setAngles(state);
+        this.setHeadAngles(state.yawDegrees, state.pitch);
 
-    @Override
-    public ModelPart getPart() {
-        return r;
-    }
-
-    @Override
-    public void setAngles(StoneTrollEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);
-        this.setHeadAngles(headYaw, headPitch);
-
-        this.animateMovement(StoneTrollAnimations.WALK, limbAngle, limbDistance, 3f, 3f);
-        this.updateAnimation(entity.attackAnimationState, StoneTrollAnimations.ATTACK, animationProgress, 1.3f);
-        this.updateAnimation(entity.chargeAnimationState, StoneTrollAnimations.CHARGE, animationProgress, 1f);
-        this.updateAnimation(entity.throwingAnimationState, StoneTrollAnimations.THROW, animationProgress, 1f);
-        this.updateAnimation(entity.sittingAnimationState, StoneTrollAnimations.SITTING, animationProgress, 1f);
+        animateWalking(SnowTrollAnimations.WALKING, state.limbFrequency, state.limbAmplitudeMultiplier, 1.0f, 2.5f);
+        animate(state.attackAnimationState, SnowTrollAnimations.ATTACK, state.age);
+        animate(state.chargeAnimationState, SnowTrollAnimations.CHARGING, state.age);
+        animate(state.throwingAnimationState, SnowTrollAnimations.THROWING, state.age);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {
         headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
-        headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F);
+        headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F) + -60.0F;
 
         this.head.yaw = headYaw * 0.017453292F;
         this.head.pitch = headPitch * 0.017453292F;

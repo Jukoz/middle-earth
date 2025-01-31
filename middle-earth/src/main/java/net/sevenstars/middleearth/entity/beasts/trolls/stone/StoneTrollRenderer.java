@@ -1,14 +1,14 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.stone;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
+import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
+import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
 
-public class StoneTrollRenderer extends MobEntityRenderer<StoneTrollEntity, StoneTrollModel> {
+public class StoneTrollRenderer extends MobEntityRenderer<SnowTrollEntity, TrollEntityRenderState, StoneTrollModel> {
     private static final String PATH = "textures/entities/trolls/stone/";
 
     public StoneTrollRenderer(EntityRendererFactory.Context context) {
@@ -16,14 +16,11 @@ public class StoneTrollRenderer extends MobEntityRenderer<StoneTrollEntity, Ston
     }
 
     @Override
-    public Identifier getTexture(StoneTrollEntity entity) {
-        return Identifier.of(MiddleEarth.MOD_ID, PATH + "stone_troll1.png");
+    public TrollEntityRenderState createRenderState() {
+        return new TrollEntityRenderState();
     }
-
-    public void render(StoneTrollEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
-                       VertexConsumerProvider bufferSource, int packedLight) {
-
-        poseStack.scale(1, 1, 1);
-        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+    @Override
+    public Identifier getTexture(TrollEntityRenderState state) {
+        return Identifier.of(MiddleEarth.MOD_ID, PATH);
     }
 }
