@@ -63,53 +63,53 @@ public class MiddleEarthRaces {
     static {
         DWARF = new Race(Identifier.of(MiddleEarth.MOD_ID, "dwarf"), RaceType.DWARF,
                 new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.GENERIC_SCALE, 0.81);
-                    put(EntityAttributes.GENERIC_MAX_HEALTH, 22.0);
-                    put(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0);
-                    put(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, 2.75);
-                    put(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.09);
-                    put(EntityAttributes.PLAYER_MINING_EFFICIENCY, 0.15);
+                    put(EntityAttributes.SCALE, 0.81);
+                    put(EntityAttributes.MAX_HEALTH, 22.0);
+                    put(EntityAttributes.ATTACK_DAMAGE, 1.0);
+                    put(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75);
+                    put(EntityAttributes.MOVEMENT_SPEED, 0.09);
+                    put(EntityAttributes.MINING_EFFICIENCY, 0.15);
                 }}), List.of(), List.of());
         ELF = new Race(Identifier.of(MiddleEarth.MOD_ID, "elf"), RaceType.ELF,
                 new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.GENERIC_SCALE, 1.06);
-                    put(EntityAttributes.GENERIC_MAX_HEALTH, 20.0);
-                    put(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0);
-                    put(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, 3.25);
-                    put(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.1);
-                    put(EntityAttributes.GENERIC_FALL_DAMAGE_MULTIPLIER, 0.75);
+                    put(EntityAttributes.SCALE, 1.06);
+                    put(EntityAttributes.MAX_HEALTH, 20.0);
+                    put(EntityAttributes.ATTACK_DAMAGE, 1.0);
+                    put(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.25);
+                    put(EntityAttributes.MOVEMENT_SPEED, 0.1);
+                    put(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75);
                 }}), List.of(), List.of());
         HOBBIT = new Race(Identifier.of(MiddleEarth.MOD_ID, "hobbit"), RaceType.HOBBIT,
                 new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.GENERIC_SCALE, 0.6);
-                    put(EntityAttributes.GENERIC_MAX_HEALTH, 14.0);
-                    put(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.9);
-                    put(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, 2.5);
-                    put(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.115);
-                    put(EntityAttributes.PLAYER_SNEAKING_SPEED, 0.435);
-                    put(EntityAttributes.GENERIC_FALL_DAMAGE_MULTIPLIER, 0.90);
+                    put(EntityAttributes.SCALE, 0.6);
+                    put(EntityAttributes.MAX_HEALTH, 14.0);
+                    put(EntityAttributes.ATTACK_DAMAGE, 0.9);
+                    put(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5);
+                    put(EntityAttributes.MOVEMENT_SPEED, 0.115);
+                    put(EntityAttributes.SNEAKING_SPEED, 0.435);
+                    put(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90);
                 }}), List.of(), List.of());
         HUMAN = new Race(Identifier.of(MiddleEarth.MOD_ID, "human"), RaceType.HUMAN,
                 new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.GENERIC_SCALE, 1.0); // Basic
+                    put(EntityAttributes.SCALE, 1.0); // Basic
                 }}), List.of(), List.of());
         ORC = new Race(Identifier.of(MiddleEarth.MOD_ID, "orc"), RaceType.ORC,
                 new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.GENERIC_SCALE, 0.83);
-                    put(EntityAttributes.GENERIC_MAX_HEALTH, 16.0);
-                    put(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0);
-                    put(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, 2.75);
-                    put(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.11);
-                    put(EntityAttributes.GENERIC_STEP_HEIGHT, 1.0);
+                    put(EntityAttributes.SCALE, 0.83);
+                    put(EntityAttributes.MAX_HEALTH, 16.0);
+                    put(EntityAttributes.ATTACK_DAMAGE, 1.0);
+                    put(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75);
+                    put(EntityAttributes.MOVEMENT_SPEED, 0.11);
+                    put(EntityAttributes.STEP_HEIGHT, 1.0);
                 }}), List.of(), List.of());
         URUK = new Race(Identifier.of(MiddleEarth.MOD_ID, "uruk"), RaceType.URUK,
                 new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.GENERIC_SCALE, 1.0);
-                    put(EntityAttributes.GENERIC_MAX_HEALTH,22.0);
-                    put(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0);
-                    put(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, 3.0);
-                    put(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.09);
-                    put(EntityAttributes.GENERIC_BURNING_TIME, 0.70);
+                    put(EntityAttributes.SCALE, 1.0);
+                    put(EntityAttributes.MAX_HEALTH,22.0);
+                    put(EntityAttributes.ATTACK_DAMAGE, 1.0);
+                    put(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.0);
+                    put(EntityAttributes.MOVEMENT_SPEED, 0.09);
+                    put(EntityAttributes.BURNING_TIME, 0.70);
                 }}), List.of(), List.of());
     }
 }

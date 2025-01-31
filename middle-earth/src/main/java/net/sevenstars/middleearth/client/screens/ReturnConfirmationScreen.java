@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.client.screens;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.screens.utils.widgets.ModWidget;
 import net.sevenstars.middleearth.network.packets.C2S.PacketTeleportToCurrentOverworldSpawn;
@@ -65,13 +66,10 @@ public class ReturnConfirmationScreen extends Screen {
         int startX = (width / 2) - (panelSizeX / 2);
         int startY = (height / 2) - (panelSizeY / 2);
         if(returnToOverworldButton.active){
-            context.drawTexture(BUTTON_WIDGET,
-                    startX,
-                    startY,
-                    0, returnToOverworldButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
-                    panelSizeX,
-                    panelSizeY
-            );
+            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+                    startX, startY,0, returnToOverworldButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
+                    panelSizeX, panelSizeY, 256, 256);
+
             Text continueText = Text.translatable("ui.me.return_confirmation.continue_character.content");
             context.drawText(textRenderer, continueText,
                     startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),
@@ -80,22 +78,15 @@ public class ReturnConfirmationScreen extends Screen {
 
             returnToOverworldButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
             if(ModWidget.getFocusEnabled() && returnToOverworldButton.isFocused()){
-                context.drawTexture(BUTTON_WIDGET,
-                        startX,
-                        startY,
-                        103, 0,
-                        panelSizeX,
-                        panelSizeY
-                );
+                context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+                        startX, startY,103, 0,
+                        panelSizeX, panelSizeY, 256, 256);
             }
         } else {
-            context.drawTexture(BUTTON_WIDGET,
-                    startX,
-                    startY,
-                    0, 38,
-                    panelSizeX,
-                    panelSizeY
-            );
+            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+                    startX, startY,0, 38,
+                    panelSizeX, panelSizeY, 256, 256);
+
             Text delayText = Text.literal(String.valueOf((Math.round(this.currentDelay * 10f) /10f)));
             context.drawText(textRenderer, delayText,
                     startX + (panelSizeX / 2) - (textRenderer.getWidth(delayText) / 2),
