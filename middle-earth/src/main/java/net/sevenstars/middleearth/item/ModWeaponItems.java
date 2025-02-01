@@ -624,12 +624,12 @@ public class ModWeaponItems {
             SimpleHandheldItemModel.items.add(item);
         }
         Swords.swords.add(item);
-        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerItemNoModel(String name, Item item) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
-        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerItemWithSpearModel(String name, Item item) {
@@ -637,7 +637,7 @@ public class ModWeaponItems {
         SimpleSpearModel.items.add(item);
         Swords.swords.add(item);
 
-        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerBowItem(String name, Item item) {
@@ -645,7 +645,7 @@ public class ModWeaponItems {
         SimpleBowItemModel.items.add(item);
         Bows.bows.add(item);
 
-        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerBigBowItem(String name, Item item) {
@@ -653,7 +653,7 @@ public class ModWeaponItems {
         SimpleBigItemModel.bigBows.add(item);
         Bows.bows.add(item);
 
-        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerCrossbowItem(String name, Item item) {
@@ -661,7 +661,7 @@ public class ModWeaponItems {
         SimpleCrossbowItemModel.items.add(item);
         Crossbows.crossbows.add(item);
 
-        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerGlowyArtefact(String name, Item item, boolean isDualModel) {
@@ -673,7 +673,7 @@ public class ModWeaponItems {
         SimpleBigItemModel.artefactsGlowing.add(item);
         Swords.swords.add(item);
 
-        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerArtefact(String name, Item item, boolean isDualModel) {
@@ -684,7 +684,7 @@ public class ModWeaponItems {
         }
         Swords.swords.add(item);
 
-        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerShield(String name, Item item) {

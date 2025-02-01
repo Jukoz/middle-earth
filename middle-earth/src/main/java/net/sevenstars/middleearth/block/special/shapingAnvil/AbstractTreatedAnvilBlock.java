@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.special.shapingAnvil;
 
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.EnumProperty;
 import net.sevenstars.middleearth.item.items.SmithingHammerItem;
 import net.minecraft.block.*;
@@ -102,7 +103,8 @@ public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implemen
                 stack.use(world, player, player.getActiveHand());
                 player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
                 if (blockEntity instanceof TreatedAnvilBlockEntity shapingAnvilBlockEntity) {
-                    shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity);
+                    ServerWorld serverWorld = (ServerWorld) world;
+                    shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity, serverWorld);
                 }
             }
         }

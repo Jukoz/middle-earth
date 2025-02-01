@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.gui.forge;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.item.ModResourceItems;
@@ -156,7 +157,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        //RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
 
@@ -164,7 +165,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         int y = (height - backgroundHeight) / 2;
 
         RenderSystem.setShaderTexture(0, TEXTURE);
-        context.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
+        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
 
         renderProgressArrow(context, x, y);
         renderLiquidStorage(context, x, y);
@@ -173,10 +174,10 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     private void renderProgressArrow(DrawContext context, int x, int y) {
         if(handler.isCooking()) {
             int cookingTime = (int) (handler.getScaledCooking() * COOKING_FIRE_SIZE);
-            context.drawTexture(TEXTURE, x + 42, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime);
+            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 42, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime, 256, 256);
         }
         if(handler.isCrafting()) {
-            context.drawTexture(TEXTURE, x + 87, y + 15, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
+            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 87, y + 15, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17, 256, 256);
         }
     }
 

@@ -63,7 +63,7 @@ public class SpearEntity extends PersistentProjectileEntity {
         DamageSource damageSource = this.getDamageSources().trident(this, entity2 == null ? this : entity2);
         World world = this.getWorld();
 
-        if (entity.damage(damageSource, f)) {
+        if (entity.damage((ServerWorld) world, damageSource, f)) {
             if (entity.getType() == EntityType.ENDERMAN) {
                 return;
             }
@@ -90,7 +90,7 @@ public class SpearEntity extends PersistentProjectileEntity {
             f = 0.0f;
         }
         double d = f;
-        double e = Math.max(0.0, 1.0 - target.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
+        double e = Math.max(0.0, 1.0 - target.getAttributeValue(EntityAttributes.KNOCKBACK_RESISTANCE));
         Vec3d velocity = this.getVelocity();
         velocity = velocity.multiply(1.0, 0.0, 1.0);
         velocity = velocity.normalize();

@@ -8,85 +8,39 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
+import net.sevenstars.middleearth.recipe.ModTags;
 
 import java.util.function.Supplier;
 
-public enum ModToolMaterials implements ToolMaterial
-{
-    BRONZE(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, () -> Ingredient.ofItems(ModResourceItems.BRONZE_INGOT)),
-    CRUDE(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, () -> Ingredient.ofItems(ModResourceItems.CRUDE_INGOT)),
-    STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)),
-    NOBLE_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)),
-    BURZUM_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.BURZUM_STEEL_INGOT)),
-    NOBLE_BURZUM_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.BURZUM_STEEL_INGOT)),
-    EDHEL_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.EDHEL_STEEL_INGOT)),
-    NOBLE_EDHEL_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.EDHEL_STEEL_INGOT)),
-    KHAZAD_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.KHAZAD_STEEL_INGOT)),
-    NOBLE_KHAZAD_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.KHAZAD_STEEL_INGOT)),
-    MITHRIL(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0f, 1.5f, 15, () -> Ingredient.ofItems(ModResourceItems.MITHRIL_INGOT)),
+public class ModToolMaterials {
+    public static final ToolMaterial BRONZE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, ModTags.BRONZE_TOOL_MATERIALS);
+    public static final ToolMaterial CRUDE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, ModTags.CRUDE_TOOL_MATERIALS);
+    public static final ToolMaterial STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, ModTags.STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial NOBLE_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, ModTags.STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial BURZUM_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, ModTags.BURZUM_STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial NOBLE_BURZUM_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, ModTags.BURZUM_STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial EDHEL_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, ModTags.EDHEL_STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial NOBLE_EDHEL_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, ModTags.EDHEL_STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial KHAZAD_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, ModTags.KHAZAD_STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial NOBLE_KHAZAD_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, ModTags.KHAZAD_STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial MITHRIL = new ToolMaterial(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0f, 1.5f, 15, ModTags.MITHRIL_TOOL_MATERIALS);
 
-    MORGUL_KNIFE(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 2, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)),
+    public static final ToolMaterial MORGUL_KNIFE = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 2, 7.0f, 2.0f, 10, ModTags.BURZUM_STEEL_TOOL_MATERIALS);
 
-    COPPER_HAMMER(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 16, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(Items.COPPER_INGOT)),
-    
-    STEEL_HAMMER(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 256, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)),
-    NOBLE_STEEL_HAMMER(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 512, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)),
+    public static final ToolMaterial COPPER_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 16, 7.0f, 2.0f, 10, ModTags.COPPER_TOOL_MATERIALS);
 
-    KHAZAD_STEEL_HAMMER(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 256, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.KHAZAD_STEEL_INGOT)),
-    KHAZAD_NOBLE_STEEL_HAMMER(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 512, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.KHAZAD_STEEL_INGOT)),
+    public static final ToolMaterial STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 256, 7.0f, 2.0f, 10, ModTags.STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial NOBLE_STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 512, 7.0f, 2.0f, 10, ModTags.STEEL_TOOL_MATERIALS);
 
-    EDHEL_STEEL_HAMMER(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 256, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.EDHEL_STEEL_INGOT)),
-    EDHEL_NOBLE_STEEL_HAMMER(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 512, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.EDHEL_STEEL_INGOT)),
+    public static final ToolMaterial KHAZAD_STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 256, 7.0f, 2.0f, 10, ModTags.KHAZAD_STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial KHAZAD_NOBLE_STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 512, 7.0f, 2.0f, 10, ModTags.KHAZAD_STEEL_TOOL_MATERIALS);
 
-    BURZUM_STEEL_HAMMER(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 256, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.BURZUM_STEEL_INGOT)),
-    BURZUM_NOBLE_STEEL_HAMMER(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 512, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.BURZUM_STEEL_INGOT)),
+    public static final ToolMaterial EDHEL_STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 256, 7.0f, 2.0f, 10, ModTags.EDHEL_STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial EDHEL_NOBLE_STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 512, 7.0f, 2.0f, 10, ModTags.EDHEL_STEEL_TOOL_MATERIALS);
 
-    MITHRIL_HAMMER(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 1024, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.MITHRIL_INGOT)),
+    public static final ToolMaterial BURZUM_STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 256, 7.0f, 2.0f, 10, ModTags.BURZUM_STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial BURZUM_NOBLE_STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 512, 7.0f, 2.0f, 10, ModTags.BURZUM_STEEL_TOOL_MATERIALS);
+
+    public static final ToolMaterial MITHRIL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 1024, 7.0f, 2.0f, 10, ModTags.MITHRIL_TOOL_MATERIALS);
     ;
-
-    private final TagKey<Block> inverseTag;
-    private final int itemDurability;
-    private final float miningSpeed;
-    private final float attackDamage;
-    private final int enchantability;
-    private final Supplier<Ingredient> repairIngredient;
-
-    private ModToolMaterials(TagKey<Block> inverseTag, int itemDurability, float miningSpeed, float attackDamage, int enchantability, Supplier<Ingredient> repairIngredient) {
-        this.inverseTag = inverseTag;
-        this.itemDurability = itemDurability;
-        this.miningSpeed = miningSpeed;
-        this.attackDamage = attackDamage;
-        this.enchantability = enchantability;
-        this.repairIngredient = Suppliers.memoize(repairIngredient::get);
-    }
-
-    @Override
-    public TagKey<Block> getInverseTag() {
-        return this.inverseTag;
-    }
-
-    @Override
-    public int getDurability() {
-        return this.itemDurability;
-    }
-
-    @Override
-    public float getMiningSpeedMultiplier() {
-        return this.miningSpeed;
-    }
-
-    @Override
-    public float getAttackDamage() {
-        return this.attackDamage;
-    }
-
-    @Override
-    public int getEnchantability() {
-        return this.enchantability;
-    }
-
-    @Override
-    public Ingredient getRepairIngredient() {
-        return this.repairIngredient.get();
-    }
 }

@@ -28,7 +28,7 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     private ExtendedArmorMaterial material;
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
-        super(material.material().value(), EquipmentType.HELMET, settings.maxCount(1));
+        super(material.material(), EquipmentType.HELMET, settings.maxCount(1));
 
 
         this.material = material;
@@ -37,7 +37,7 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     }
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
-        super(material.material().value(), EquipmentType.HELMET, settings.maxCount(1));
+        super(material.material(), EquipmentType.HELMET, settings.maxCount(1));
 
         this.material = material;
         this.faction = subFaction.getParent();

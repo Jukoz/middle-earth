@@ -150,7 +150,7 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
         return entity.getStack(0);
     }
 
-    public void bonk(TreatedAnvilBlockEntity entity){
+    public void bonk(TreatedAnvilBlockEntity entity, ServerWorld world){
         ItemStack input = entity.getStack(0);
 
         List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()

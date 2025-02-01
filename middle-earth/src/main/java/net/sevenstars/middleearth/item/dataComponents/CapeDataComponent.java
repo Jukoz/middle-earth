@@ -31,7 +31,7 @@ public record CapeDataComponent(ModCapes cape, int capeColor){
 
     public static int getColor(ItemStack stack, int defaultColor) {
         CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
-        return capeDataComponent != null ? ColorHelper.Argb.fullAlpha(capeDataComponent.capeColor) : defaultColor;
+        return capeDataComponent != null ? ColorHelper.fullAlpha(capeDataComponent.capeColor) : defaultColor;
     }
 
     public static CapeDataComponent newCape(ModCapes cape) {

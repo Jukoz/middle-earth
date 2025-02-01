@@ -27,21 +27,21 @@ public class CustomSwordWeaponItem extends SwordItem implements MEEquipmentToolt
     public final ModWeaponTypes type;
 
     public CustomSwordWeaponItem(ToolMaterial toolMaterial) {
-        super(toolMaterial, new Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
+        super(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed, new Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
         this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = ModWeaponTypes.SWORD;
     }
 
     public CustomSwordWeaponItem(ToolMaterial toolMaterial,  ModFactions faction) {
-        super(toolMaterial, new Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
+        super(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed, new Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
         this.faction = faction;
         this.subFaction = null;
         this.type = ModWeaponTypes.SWORD;
     }
 
     public CustomSwordWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
-        super(toolMaterial, new Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
+        super(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed, new Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = ModWeaponTypes.SWORD;
@@ -49,9 +49,9 @@ public class CustomSwordWeaponItem extends SwordItem implements MEEquipmentToolt
 
     public static AttributeModifiersComponent createAttributeModifiersSword(ToolMaterial material, float baseAttackDamage, float attackSpeed) {
         return AttributeModifiersComponent.builder()
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID,
-                        baseAttackDamage + material.getAttackDamage(), EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID,
+                .add(EntityAttributes.ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID,
+                        baseAttackDamage + material.attackDamageBonus(), EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
+                .add(EntityAttributes.ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID,
                         attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                 .build();
     }
@@ -78,7 +78,7 @@ public class CustomSwordWeaponItem extends SwordItem implements MEEquipmentToolt
                 || Registries.ITEM.getId(this).getPath().contains("uruk_hai")
                 || Registries.ITEM.getId(this).getPath().contains("heyday")
                 || Registries.ITEM.getId(this).getPath().contains("numenorean")){
-            return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
+            return Text.translatable(this.getTranslationKey()).formatted(Formatting.GOLD);
         }
         return super.getName(stack);
     }

@@ -9,7 +9,7 @@ import java.util.List;
 public class PotDrops {
     public static List<Block> pots = new ArrayList<>() {
         {
-            add(ModDecorativeBlocks.POTTED_BEECH_SAPLING      );
+            /*add(ModDecorativeBlocks.POTTED_BEECH_SAPLING      );
             add(ModDecorativeBlocks.POTTED_CHESTNUT_SAPLING   );
             add(ModDecorativeBlocks.POTTED_HOLLY_SAPLING      );
             add(ModDecorativeBlocks.POTTED_FIR_SAPLING        );
@@ -44,7 +44,7 @@ public class PotDrops {
             add(ModDecorativeBlocks.POTTED_TUBESHROOM      );
             add(ModDecorativeBlocks.POTTED_VIOLET_CAPS      );
             add(ModDecorativeBlocks.POTTED_WHITE_MUSHROOM     );
-            add(ModDecorativeBlocks.POTTED_YELLOW_AMANITA     );
+            add(ModDecorativeBlocks.POTTED_YELLOW_AMANITA     );*/
         }
     };
 }

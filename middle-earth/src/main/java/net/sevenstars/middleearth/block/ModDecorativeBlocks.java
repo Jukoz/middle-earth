@@ -469,6 +469,8 @@ public class ModDecorativeBlocks {
     public static final Block WOODEN_BUCKET = registerBlockWithItem("wooden_bucket",
             new WoodenBucketBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
 
+    //TODO update all that
+/*
     public static final Block POTTED_BEECH_SAPLING      = registerBlock("potted_beech_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.BEECH_SAPLING));
     public static final Block POTTED_CHESTNUT_SAPLING   = registerBlock("potted_chestnut_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.CHESTNUT_SAPLING));
     public static final Block POTTED_HOLLY_SAPLING      = registerBlock("potted_holly_sapling", Blocks.createFlowerPotBlock(ModNatureBlocks.HOLLY_SAPLING));
@@ -505,7 +507,7 @@ public class ModDecorativeBlocks {
     public static final Block POTTED_VIOLET_CAPS = registerBlock("potted_violet_caps", Blocks.createFlowerPotBlock(ModNatureBlocks.VIOLET_CAPS));
     public static final Block POTTED_WHITE_MUSHROOM = registerBlock("potted_white_mushroom", Blocks.createFlowerPotBlock(ModNatureBlocks.WHITE_MUSHROOM));
     public static final Block POTTED_YELLOW_AMANITA = registerBlock("potted_yellow_amanita", Blocks.createFlowerPotBlock(ModNatureBlocks.YELLOW_AMANITA));
-
+*/
     public static final Block BROWN_JUG = registerBlockWithItem("brown_jug",
             new JugBlock(AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque()));
     public static final Block GRAY_POT = registerBlockWithItem("gray_pot",

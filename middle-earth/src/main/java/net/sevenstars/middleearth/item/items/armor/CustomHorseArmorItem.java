@@ -26,14 +26,14 @@ public class CustomHorseArmorItem extends AnimalArmorItem {
     private final ModFactions faction;
     private final ModSubFactions subFaction;
 
-    public CustomHorseArmorItem(RegistryEntry<ArmorMaterial> material, Type type, boolean hasOverlay, Settings settings, ModFactions faction) {
-        super(material.value(), type, settings);
+    public CustomHorseArmorItem(ArmorMaterial material, Type type, boolean hasOverlay, Settings settings, ModFactions faction) {
+        super(material, type, settings);
         this.faction = faction;
         this.subFaction = null;
     }
 
-    public CustomHorseArmorItem(RegistryEntry<ArmorMaterial> material, Type type, boolean hasOverlay, Settings settings, ModSubFactions subFaction) {
-        super(material.value(), type, settings);
+    public CustomHorseArmorItem(ArmorMaterial material, Type type, boolean hasOverlay, Settings settings, ModSubFactions subFaction) {
+        super(material, type, settings);
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
     }

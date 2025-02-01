@@ -1,9 +1,14 @@
 package net.sevenstars.middleearth.item.items.armor;
 
-import net.fabricmc.fabric.api.item.v1.EnchantingContext;
-import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.equipment.EquipmentType;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ModDataComponentTypes;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
@@ -12,14 +17,6 @@ import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -37,7 +34,7 @@ public class CustomAnimalArmorItem extends ArmorItem implements MEEquipmentToolt
     private ExtendedArmorMaterial material;
 
     public CustomAnimalArmorItem(ExtendedArmorMaterial material, String suffix, Type type, boolean hasOverlay, Settings settings, ModFactions faction) {
-        super(material.material().value(), EquipmentType.BODY, settings);
+        super(material.material(), EquipmentType.BODY, settings);
         this.material = material;
         this.type = type;
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, type.textureIdFunction.apply(material.material().getKey().orElseThrow().getValue()).getPath());
@@ -50,7 +47,7 @@ public class CustomAnimalArmorItem extends ArmorItem implements MEEquipmentToolt
     }
 
     public CustomAnimalArmorItem(ExtendedArmorMaterial material, String suffix, Type type, boolean hasOverlay, Settings settings, ModSubFactions subFaction) {
-        super(material.material().value(), EquipmentType.BODY, settings);
+        super(material.material(), EquipmentType.BODY, settings);
         this.material = material;
         this.type = type;
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, type.textureIdFunction.apply(material.material().getKey().orElseThrow().getValue()).getPath());

@@ -24,7 +24,7 @@ public class CustomBootsItem extends ArmorItem implements MEEquipmentTooltip {
     private ExtendedArmorMaterial material;
 
     public CustomBootsItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
-        super(material.material().value(), EquipmentType.BOOTS, settings.maxCount(1));
+        super(material.material(), EquipmentType.BOOTS, settings.maxCount(1));
 
         this.material = material;
         this.faction = faction;
@@ -32,7 +32,7 @@ public class CustomBootsItem extends ArmorItem implements MEEquipmentTooltip {
     }
 
     public CustomBootsItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
-        super(material.material().value(), EquipmentType.BOOTS, settings.maxCount(1));
+        super(material.material(), EquipmentType.BOOTS, settings.maxCount(1));
 
         this.material = material;
         this.faction = subFaction.getParent();

@@ -27,7 +27,7 @@ public class CustomChestplateItem extends ArmorItem implements MEEquipmentToolti
     private ExtendedArmorMaterial material;
 
     public CustomChestplateItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
-        super(material.material().value(), EquipmentType.CHESTPLATE, settings.maxCount(1));
+        super(material.material(), EquipmentType.CHESTPLATE, settings.maxCount(1));
 
         this.material = material;
         this.faction = faction;
@@ -35,7 +35,7 @@ public class CustomChestplateItem extends ArmorItem implements MEEquipmentToolti
     }
 
     public CustomChestplateItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
-        super(material.material().value(), EquipmentType.CHESTPLATE, settings.maxCount(1));
+        super(material.material(), EquipmentType.CHESTPLATE, settings.maxCount(1));
 
         this.material = material;
         this.faction = subFaction.getParent();

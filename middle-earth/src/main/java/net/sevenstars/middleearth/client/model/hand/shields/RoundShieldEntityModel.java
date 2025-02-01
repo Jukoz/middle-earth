@@ -11,7 +11,7 @@ public class RoundShieldEntityModel extends Model {
     private final ModelPart handle;
 
     public RoundShieldEntityModel(ModelPart root) {
-        super(RenderLayer::getEntitySolid);
+        super(root, RenderLayer::getEntitySolid);
         this.root = root;
         this.plate = root.getChild("plate");
         this.handle = root.getChild("handle");
@@ -43,9 +43,4 @@ public class RoundShieldEntityModel extends Model {
     public ModelPart getPlate() {
         return plate;
     }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        this.root.render(matrices, vertices, light, overlay, color);
-    }
-    }
+}

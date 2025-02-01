@@ -11,7 +11,7 @@ public class KiteShieldEntityModel extends Model {
     private final ModelPart handle;
 
     public KiteShieldEntityModel(ModelPart root) {
-        super(RenderLayer::getEntitySolid);
+        super(root, RenderLayer::getEntitySolid);
         this.root = root;
         this.plate = root.getChild("plate");
         this.handle = root.getChild("handle");
@@ -43,10 +43,5 @@ public class KiteShieldEntityModel extends Model {
 
     public ModelPart getPlate() {
         return plate;
-    }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        this.root.render(matrices, vertices, light, overlay, color);
     }
 }

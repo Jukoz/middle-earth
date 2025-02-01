@@ -17,7 +17,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
 @Environment(EnvType.CLIENT)
-public class SpearEntityRenderer<T extends SpearEntity> extends EntityRenderer<T> {
+public class SpearEntityRenderer extends EntityRenderer<SpearEntity, SpearEntityRenderState> {
     private static final float MIN_DISTANCE = 12.25F;
     private static final float SCALE = 1.0F;
     private final ItemRenderer itemRenderer;
@@ -35,34 +35,40 @@ public class SpearEntityRenderer<T extends SpearEntity> extends EntityRenderer<T
         this(context, 1.0F, false);
     }
 
-    protected int getBlockLight(T entity, BlockPos pos) {
-        return this.lit ? 15 : super.getBlockLight(entity, pos);
+    @Override
+    public SpearEntityRenderState createRenderState() {
+        return new SpearEntityRenderState();
     }
 
-    public void render(T entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        matrices.push();
+    @Override
+    protected int getBlockLight(SpearEntity entity, BlockPos pos) {
+        return this.lit ? 15 : super.getBlockLight(entity, pos);
 
-        float cosYaw = (float) Math.cos(Math.toRadians(entity.getYaw()));
-        float sinYaw = (float) Math.sin(Math.toRadians(entity.getYaw()));
-        matrices.translate(sinYaw * -1.3D, 1.55D * (entity.getPitch() / -90), cosYaw * -1.3D);
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevYaw, entity.getYaw()) - 90.0f));
+    }
+
+    //TODO fix all this
+    @Override
+    public void render(SpearEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+        /*
+        matrices.push();
+        float cosYaw = (float) Math.cos(Math.toRadians(state.getYaw()));
+        float sinYaw = (float) Math.sin(Math.toRadians(state.getYaw()));
+        matrices.translate(sinYaw * -1.3D, 1.55D * (state.getPitch() / -90), cosYaw * -1.3D);
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(tickDelta, state.prevYaw, state.getYaw()) - 90.0f));
         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-90));
-        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevPitch, entity.getPitch())));
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(tickDelta, state.prevPitch, state.getPitch())));
 
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90.0f));
 
 
         matrices.scale(scale, scale, scale);
 
-        ItemStack itemStack = entity.getTrackedItemStackData();
-        if(itemStack == null) entity.getDefaultItemStack();
+        ItemStack itemStack = state.getTrackedItemStackData();
+        if(itemStack == null) state.getDefaultItemStack();
         this.itemRenderer.renderItem(itemStack, ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), entity.getId());
         matrices.pop();
-        super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
-    }
 
-    @Override
-    public Identifier getTexture(T entity) {
-        return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
+        */
+        super.render(state, matrices, vertexConsumers, light);
     }
 }
