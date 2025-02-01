@@ -1,12 +1,7 @@
 package net.sevenstars.middleearth.entity.beasts.warg.features;
 
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.sevenstars.middleearth.entity.beasts.warg.WargAnimations;
-import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntityRenderState;
 
 public class WargArmorSideAddonsModel extends EntityModel<WargEntityRenderState> {
