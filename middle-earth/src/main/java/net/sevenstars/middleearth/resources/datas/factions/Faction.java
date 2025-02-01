@@ -354,7 +354,7 @@ public class Faction {
     public Faction getSubfactionById(World world, Identifier id) {
         if(subFactions == null)
             return null;
-        return world.getRegistryManager().get(MiddleEarthFactions.FACTION_KEY).get(id);
+        return world.getRegistryManager().getOrThrow(MiddleEarthFactions.FACTION_KEY).get(id);
     }
 
     public List<Race> getRaces(World world) {

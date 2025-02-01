@@ -1,16 +1,5 @@
 package net.sevenstars.middleearth.world.dimension;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
-import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
-import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.world.chunkgen.MiddleEarthChunkGenerator;
-import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
-import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -23,6 +12,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.resources.StateSaverAndLoader;
+import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
+import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
+import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
+import net.sevenstars.middleearth.world.chunkgen.MiddleEarthChunkGenerator;
+import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
+import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
 import org.joml.Vector3i;
 
 public class ModDimensions {
@@ -62,8 +62,7 @@ public class ModDimensions {
                 serverWorld = serverWorld.getServer().getWorld(registryKey);
 
                 player.wakeUp();
-
-                ((ServerPlayerEntity) player).teleport(serverWorld, coordinates.x , coordinates.y, coordinates.z, 0, 0);
+                player.requestTeleport(coordinates.x , coordinates.y, coordinates.z);
                 player.refreshPositionAfterTeleport(coordinates.x, coordinates.y, coordinates.z);
                 if(setSpawnPoint)
                     ((ServerPlayerEntity) player).setSpawnPoint(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true, true);
@@ -103,7 +102,7 @@ public class ModDimensions {
 
                 player.wakeUp();
                 ((ServerPlayerEntity) player).setSpawnPoint(World.OVERWORLD, player.getServer().getOverworld().getSpawnPos(), player.getServer().getOverworld().getSpawnAngle(), true, true);
-                ((ServerPlayerEntity) player).teleport(serverWorld, coordinate.getX() , coordinate.getY(), coordinate.getZ(), 0, 0);
+                player.requestTeleport(coordinate.getX() , coordinate.getY(), coordinate.getZ());
                 player.refreshPositionAfterTeleport(coordinate.getX() , coordinate.getY(), coordinate.getZ());
 
                 if(!ModServerConfigs.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){

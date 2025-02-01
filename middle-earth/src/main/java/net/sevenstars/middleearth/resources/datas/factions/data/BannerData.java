@@ -146,7 +146,7 @@ public class BannerData {
     public ItemStack getBannerItem(World world, Text text) {
         BannerPatternsComponent.Builder builder = new BannerPatternsComponent.Builder();
 
-        var registry = world.getRegistryManager().get(RegistryKeys.BANNER_PATTERN);
+        var registry = world.getRegistryManager().getOrThrow(RegistryKeys.BANNER_PATTERN);
         for(BannerPatternWithColor bannerPatternWithColor :  bannerPatternWithColors){
             RegistryEntry<BannerPattern> bannerPattern = registry.getEntry(bannerPatternWithColor.id).get();
             BannerPatternsComponent.Layer layer = new BannerPatternsComponent.Layer(bannerPattern, bannerPatternWithColor.color);
