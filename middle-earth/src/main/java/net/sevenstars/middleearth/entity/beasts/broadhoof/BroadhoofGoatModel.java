@@ -153,7 +153,6 @@ public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderSta
     @Override
     public void setAngles(BroadhoofGoatEntityRenderState state) {
         super.setAngles(state);
-        this.setHeadAngles(state.yawDegrees, state.pitch);
 
         /* I will drastically change how the horns are rendered
         for(int i = 0 ; i < BroadhoofGoatHorns.values().length; i++) {
@@ -180,13 +179,5 @@ public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderSta
         animate(state.sittingAnimationState, BroadhoofGoatAnimations.LYING, state.age);
         animate(state.chargeAnimationState, BroadhoofGoatAnimations.CHARGE_ATTACK, state.age);
         animate(state.jumpAnimationState, BroadhoofGoatAnimations.JUMP, state.age);
-    }
-
-    private void setHeadAngles(float headYaw, float headPitch) {
-        headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
-        headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F);
-
-        this.head.yaw = headYaw * 0.017453292F;
-        this.head.pitch = headPitch * 0.017453292F;
     }
 }

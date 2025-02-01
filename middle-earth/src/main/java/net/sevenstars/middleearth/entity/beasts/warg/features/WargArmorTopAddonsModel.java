@@ -1,16 +1,14 @@
 package net.sevenstars.middleearth.entity.beasts.warg.features;
 
-import net.sevenstars.middleearth.entity.beasts.warg.WargAnimations;
-import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.sevenstars.middleearth.entity.beasts.warg.WargEntityRenderState;
 
-public class WargArmorTopAddonsModel extends SinglePartEntityModel<WargEntity> {
+public class WargArmorTopAddonsModel extends EntityModel<WargEntityRenderState> {
 
     private final ModelPart warg;
     public WargArmorTopAddonsModel(ModelPart root) {
+        super(root);
         this.warg = root.getChild("root");
     }
 
@@ -61,33 +59,5 @@ public class WargArmorTopAddonsModel extends SinglePartEntityModel<WargEntity> {
         ModelPartData skull = back_addons.addChild("skull", ModelPartBuilder.create().uv(6, 43).cuboid(-3.0F, -3.0F, -3.0F, 6.0F, 10.0F, 6.0F, new Dilation(0.1F))
                 .uv(6, 30).cuboid(-3.0F, -3.0F, -3.0F, 6.0F, 7.0F, 6.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -11.0F, 3.0F, 0.0F, -1.5708F, 0.0F));
         return TexturedModelData.of(modelData, 128, 128);
-    }
-
-    @Override
-    public ModelPart getPart() {
-        return warg;
-    }
-
-    @Override
-    public void setAngles(WargEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);
-
-        if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || entity.isRunning()) {
-            this.animateMovement(WargAnimations.RUN, limbAngle, limbDistance, 1.2f, 1.2f);
-        }
-        else {
-            this.animateMovement(WargAnimations.WALK, limbAngle, limbDistance, 1.5f, 1.5f);
-        }
-
-        this.updateAnimation(entity.idleAnimationState, WargAnimations.GROOM, animationProgress, 1f);
-        this.updateAnimation(entity.attackAnimationState, WargAnimations.BITE, animationProgress, 1f);
-        this.updateAnimation(entity.startSittingAnimationState, WargAnimations.SIT_DOWN, animationProgress, 3f);
-        this.updateAnimation(entity.stopSittingAnimationState, WargAnimations.STAND_UP, animationProgress, 3f);
-        this.updateAnimation(entity.sittingAnimationState, WargAnimations.SIT, animationProgress, 1f);
-
-    }
-
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-        warg.render(matrices, vertexConsumer, light, overlay, color);
     }
 }

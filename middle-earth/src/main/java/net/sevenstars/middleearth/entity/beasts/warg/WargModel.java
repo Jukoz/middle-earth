@@ -1,17 +1,16 @@
 package net.sevenstars.middleearth.entity.beasts.warg;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.MathHelper;
 
-public class WargModel extends SinglePartEntityModel<WargEntity> {
+public class WargModel extends EntityModel<WargEntityRenderState> {
     private final ModelPart warg;
     private final ModelPart head;
     private final ModelPart mane;
     public WargModel(ModelPart root) {
+        super(root);
+
         this.warg = root.getChild("root");
         this.head = warg.getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild(EntityModelPartNames.HEAD);
         this.mane = warg.getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild("mane");
@@ -63,43 +62,22 @@ public class WargModel extends SinglePartEntityModel<WargEntity> {
     }
 
     @Override
-    public void setAngles(WargEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);
-        if(!entity.hasControllingPassenger()) {
-            this.setHeadAngles(headYaw, headPitch);
-        }
+    public void setAngles(WargEntityRenderState state) {
+        super.setAngles(state);
 
-        if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || entity.isRunning()) {
+        /* Will be readded on refactor
+        if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || (entity.isAttacking() && !entity.hasControllingPassenger())) {
             this.animateMovement(WargAnimations.RUN, limbAngle, limbDistance, 1.2f, 1.2f);
         }
         else {
-            this.animateMovement(WargAnimations.WALK, limbAngle, limbDistance, 1.5f, 1.5f);
-        }
+            this.animateMovement(WargAnimations.WALK, limbAngle, limbDistance, 4f, 4f);
+        }*/
 
-        this.mane.visible = !(entity.isSaddled() || entity.isWearingBodyArmor());
-
-        this.updateAnimation(entity.idleAnimationState, WargAnimations.GROOM, animationProgress, 1f);
-        this.updateAnimation(entity.attackAnimationState, WargAnimations.BITE, animationProgress, 1f);
-        this.updateAnimation(entity.startSittingAnimationState, WargAnimations.SIT_DOWN, animationProgress, 3f);
-        this.updateAnimation(entity.stopSittingAnimationState, WargAnimations.STAND_UP, animationProgress, 3f);
-        this.updateAnimation(entity.sittingAnimationState, WargAnimations.SIT, animationProgress, 1f);
-    }
-
-    private void setHeadAngles(float headYaw, float headPitch) {
-        headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
-        headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F);
-
-        this.head.yaw = headYaw * 0.017453292F;
-        this.head.pitch = headPitch * 0.017453292F;
-    }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-        this.warg.render(matrices, vertexConsumer, light, overlay, color);
-    }
-
-    @Override
-    public ModelPart getPart() {
-        return this.warg;
+        animateWalking(WargAnimations.RUN, state.limbFrequency, state.limbAmplitudeMultiplier, 1.0f, 2.5f);
+        animate(state.idleAnimationState, WargAnimations.GROOM, state.age);
+        animate(state.attackAnimationState, WargAnimations.BITE, state.age);
+        animate(state.startSittingAnimationState, WargAnimations.LAY_DOWN, state.age);
+        animate(state.stopSittingAnimationState, WargAnimations.STAND_UP, state.age);
+        animate(state.sittingAnimationState, WargAnimations.LYING, state.age);
     }
 }
