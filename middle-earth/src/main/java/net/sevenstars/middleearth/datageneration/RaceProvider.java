@@ -14,7 +14,7 @@ public class RaceProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getWrapperOrThrow(MiddleEarthRaces.RACE_KEY));
+        entries.addAll(registries.getOrThrow(MiddleEarthRaces.RACE_KEY));
     }
 
     @Override

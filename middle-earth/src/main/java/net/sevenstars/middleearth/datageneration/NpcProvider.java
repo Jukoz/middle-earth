@@ -14,7 +14,7 @@ public class NpcProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getWrapperOrThrow(MiddleEarthNpcs.NPC_KEY));
+        entries.addAll(registries.getOrThrow(MiddleEarthNpcs.NPC_KEY));
     }
 
     @Override
