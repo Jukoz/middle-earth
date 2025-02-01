@@ -14,7 +14,7 @@ public class FactionProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getWrapperOrThrow(MiddleEarthFactions.FACTION_KEY));
+        entries.addAll(registries.getOrThrow(MiddleEarthFactions.FACTION_KEY));
     }
 
     @Override
