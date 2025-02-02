@@ -99,6 +99,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);
         // Entities
 
+        EntityRendererRegistry.register(ModEntities.SNOW_TROLL, SnowTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.STONE_TROLL, StoneTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.PETRIFIED_TROLL, PetrifiedTrollRenderer::new);
 
@@ -106,7 +107,6 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntities.WARG, WargRenderer::new);
         EntityRendererRegistry.register(ModEntities.MIRKWOOD_SPIDER, MirkwoodSpiderRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SNOW_TROLL, SnowTrollRenderer::new);
         //EntityRendererRegistry.register(ModEntities.BALROG, BalrogRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.FIRE_OF_ORTHANC, FireOfOrthancEntityRenderer::new);

@@ -29,11 +29,11 @@ public class ModDecorativeItems {
             new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.ELVEN_LANTERN, ModDecorativeBlocks.WALL_ELVEN_LANTERN, new Item.Settings(), new Direction[]{Direction.DOWN, Direction.UP}));
 
     public static final Item SCONCE = registerItem("sconce",
-            new VerticallyAttachableBlockItem(ModDecorativeBlocks.SCONCE, ModDecorativeBlocks.WALL_SCONCE, new Item.Settings(), Direction.DOWN));
+            new VerticallyAttachableBlockItem(ModDecorativeBlocks.SCONCE, ModDecorativeBlocks.WALL_SCONCE, Direction.DOWN, new Item.Settings()));
     public static final Item GILDED_SCONCE = registerItem("gilded_sconce",
-            new VerticallyAttachableBlockItem(ModDecorativeBlocks.GILDED_SCONCE, ModDecorativeBlocks.GILDED_WALL_SCONCE, new Item.Settings(), Direction.DOWN));
+            new VerticallyAttachableBlockItem(ModDecorativeBlocks.GILDED_SCONCE, ModDecorativeBlocks.GILDED_WALL_SCONCE, Direction.DOWN, new Item.Settings()));
     public static final Item ORCISH_SCONCE = registerItem("orcish_sconce",
-            new VerticallyAttachableBlockItem(ModDecorativeBlocks.ORCISH_SCONCE, ModDecorativeBlocks.ORCISH_WALL_SCONCE, new Item.Settings(), Direction.DOWN));
+            new VerticallyAttachableBlockItem(ModDecorativeBlocks.ORCISH_SCONCE, ModDecorativeBlocks.ORCISH_WALL_SCONCE, Direction.DOWN, new Item.Settings()));
 
     public static final Item FORGE = registerItem("forge",
             new BlockItem(ModDecorativeBlocks.FORGE, new Item.Settings()));
@@ -121,7 +121,7 @@ public class ModDecorativeItems {
             new CustomSpawnEggItem(ModEntities.PETRIFIED_TROLL, new Item.Settings().maxCount(1)));
 
     public static final Item ARKENSTONE = registerItem("arkenstone",
-            new ArkenstoneItem(ModDecorativeBlocks.ARKENSTONE, ModDecorativeBlocks.WALL_ARKENSTONE, new Item.Settings().fireproof(), Direction.DOWN));
+            new ArkenstoneItem(ModDecorativeBlocks.ARKENSTONE, ModDecorativeBlocks.WALL_ARKENSTONE, Direction.DOWN, new Item.Settings().fireproof()));
 
 
     private static Item registerItem(String name, Item item) {

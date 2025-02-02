@@ -34,7 +34,7 @@ public class ForgeHeatingScreenHandler extends ScreenHandler {
         int maxItemStack = 64;
         checkSize(inventory, 6);
 
-        this.addSlot(new ForgeFuelSlot(inventory, this, 0, 80, 55));
+        this.addSlot(new ForgeHeatingFuelSlot(inventory, this, 0, 80, 55));
         this.addSlot(new ForgeSlot(inventory, 1, 53, 16, 1));
         this.addSlot(new ForgeSlot(inventory, 2, 71, 16, 1));
         this.addSlot(new ForgeSlot(inventory, 3, 89, 16, 1));

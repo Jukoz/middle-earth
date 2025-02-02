@@ -30,7 +30,7 @@ public class CustomArtefactHelmetItem extends CustomHelmetItem {
         appendBaseArtefactTooltip(tooltip, stack);
     }
 
-    //TODO canRepair gone need to find new thing
+    //TODO canRepair gone need to find new thing -> component REPAIRABLE
 
     @Override
     public boolean isItemBarVisible(ItemStack stack) {

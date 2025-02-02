@@ -34,7 +34,7 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
         int maxItemStack = 64;
         checkSize(inventory, 6);
 
-        this.addSlot(new ForgeFuelSlot(inventory, this, 0, 41, 55));
+        this.addSlot(new ForgeAlloyingFuelSlot(inventory, this, 0, 41, 55));
         this.addSlot(new ForgeSlot(inventory, 1, 14, 16, maxItemStack));
         this.addSlot(new ForgeSlot(inventory, 2, 32, 16, maxItemStack));
         this.addSlot(new ForgeSlot(inventory, 3, 50, 16, maxItemStack));

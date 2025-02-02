@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.mixin;
 
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.minecraft.block.Block;
@@ -27,8 +28,9 @@ public abstract class BlockMixin {
 
 
     @Inject(at = @At("HEAD"), method = "onDestroyedByExplosion")
-    private void onDestroyedByExplosion(World world, BlockPos pos, Explosion explosion, CallbackInfo ci) {
-        if(!explosion.shouldDestroy()) return;
+    private void onDestroyedByExplosion(ServerWorld world, BlockPos pos, Explosion explosion, CallbackInfo ci) {
+        //TODO fix this
+        //if(!explosion.shouldDestroy()) return;
         Block block = this.asBlock();
 
         if(explosion.getEntity() == null || explosion.getEntity().getType() == ModEntities.FIRE_OF_ORTHANC) {

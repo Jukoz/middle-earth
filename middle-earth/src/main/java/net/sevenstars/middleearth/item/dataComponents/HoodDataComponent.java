@@ -32,7 +32,7 @@ public record HoodDataComponent(boolean down, ModHoods hood, int hoodColor) {
 
     public static int getColor(ItemStack stack, int defaultColor) {
         HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
-        return hoodDataComponent != null ? ColorHelper.Argb.fullAlpha(hoodDataComponent.hoodColor) : defaultColor;
+        return hoodDataComponent != null ? ColorHelper.fullAlpha(hoodDataComponent.hoodColor) : defaultColor;
     }
 
     public static HoodDataComponent newHood(ModHoods hood) {

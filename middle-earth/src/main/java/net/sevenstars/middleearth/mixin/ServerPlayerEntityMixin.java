@@ -81,14 +81,14 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
                     if(MEWorld != null){
                         Vec3d coordinates = new Vec3d(spawnCoordinates.x, spawnCoordinates.y + 1, spawnCoordinates.z);
                         foundPlayer.setSpawnPoint(ModDimensions.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true, true);
-                        cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates, Vec3d.ZERO, 0, 0, false,postDimensionTransition));
+                        cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates, Vec3d.ZERO, 0, 0, postDimensionTransition));
                         return true;
                     }
                 }
             }
         }
         foundPlayer.setSpawnPoint(World.OVERWORLD, server.getOverworld().getSpawnPos(), server.getOverworld().getSpawnAngle(), true, true);
-        cir.setReturnValue(new TeleportTarget(server.getOverworld(), server.getOverworld().getSpawnPos().toCenterPos(), Vec3d.ZERO, 0, 0, false,postDimensionTransition));
+        cir.setReturnValue(new TeleportTarget(server.getOverworld(), server.getOverworld().getSpawnPos().toCenterPos(), Vec3d.ZERO, 0, 0,postDimensionTransition));
         return false;
     }
 

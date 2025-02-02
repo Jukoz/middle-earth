@@ -16,9 +16,9 @@ public class OrcishFoodItem extends Item {
     }
 
     @Override
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         super.onStoppedUsing(stack, world, user, remainingUseTicks);
-        if(world.isClient) return;
+        if(world.isClient) return false;
 
         if(user instanceof PlayerEntity playerEntity) {
             RaceType raceType = RaceUtil.getRaceType(playerEntity);
@@ -28,5 +28,6 @@ public class OrcishFoodItem extends Item {
 
             }
         }
+        return true;
     }
 }

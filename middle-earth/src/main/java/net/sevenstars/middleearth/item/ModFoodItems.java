@@ -1,12 +1,12 @@
 package net.sevenstars.middleearth.item;
 
+import net.minecraft.component.type.ConsumableComponents;
+import net.minecraft.item.BlockItem;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
 import net.sevenstars.middleearth.item.items.OrcishFoodItem;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.minecraft.component.type.FoodComponent;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
@@ -21,7 +21,7 @@ public class ModFoodItems {
 
     public static final Item RAW_SWAN = registerItem("raw_swan",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.4F).statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).build())));
+                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.4F).build(), ConsumableComponents.RAW_CHICKEN)));
     public static final Item COOKED_SWAN = registerItem("cooked_swan",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(8).saturationModifier(0.8F).build())));
@@ -44,9 +44,9 @@ public class ModFoodItems {
             new OrcishFoodItem(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(5).saturationModifier(1.2f).build())));
     public static final Item TOUGH_BERRIES = registerItem("tough_berries",
-            new AliasedBlockItem(ModNatureBlocks.TOUGH_BERRY_BUSH, new Item.Settings()));
+            new BlockItem(ModNatureBlocks.TOUGH_BERRY_BUSH, new Item.Settings()));
     public static final Item STRAWBERRY = registerItem("strawberry",
-            new AliasedBlockItem(ModNatureBlocks.STRAWBERRY_BUSH,
+            new BlockItem(ModNatureBlocks.STRAWBERRY_BUSH,
                     new Item.Settings().food(
                             new FoodComponent.Builder().nutrition(2).saturationModifier(0.1f).build())));
 
@@ -60,18 +60,18 @@ public class ModFoodItems {
             new Item(new Item.Settings().food(
                             new FoodComponent.Builder().nutrition(4).saturationModifier(0.3f).build())));
     public static final Item GARLIC = registerItem("garlic",
-            new AliasedBlockItem(ModNatureBlocks.GARLIC_CROP,
+            new BlockItem(ModNatureBlocks.GARLIC_CROP,
                     new Item.Settings().food(
                             new FoodComponent.Builder().nutrition(2).saturationModifier(0.2f).build())));
     public static final Item LEEK = registerItem("leek",
-            new AliasedBlockItem(ModNatureBlocks.LEEK_CROP,
+            new BlockItem(ModNatureBlocks.LEEK_CROP,
                     new Item.Settings().food(
                             new FoodComponent.Builder().nutrition(2).saturationModifier(0.2f).build())));
     public static final Item LETTUCE = registerItem("lettuce",
             new Item(new Item.Settings().food(
                             new FoodComponent.Builder().nutrition(3).saturationModifier(0.3f).build())));
     public static final Item ONION = registerItem("onion",
-            new AliasedBlockItem(ModNatureBlocks.ONION_CROP,
+            new BlockItem(ModNatureBlocks.ONION_CROP,
                     new Item.Settings().food(
                             new FoodComponent.Builder().nutrition(2).saturationModifier(0.2f).build())));
 
@@ -83,31 +83,31 @@ public class ModFoodItems {
                     new FoodComponent.Builder().nutrition(3).saturationModifier(0.6f).build())));
     public static final Item FISH_STEW = registerItem("fish_stew",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(8).saturationModifier(1.0f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
-    public static final Item MEAT_BOWL = registerItem("meat_bowl",
+                    new FoodComponent.Builder().nutrition(8).saturationModifier(1.0f).build()).maxCount(1).useRemainder(Items.BOWL)));
+    public static final Item MEAT_BOWL = registerItem("meat_Items.BOWL",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(12).saturationModifier(1.0f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
+                    new FoodComponent.Builder().nutrition(12).saturationModifier(1.0f).build()).maxCount(1).useRemainder(Items.BOWL)));
     public static final Item MEAT_EGG_MEAL = registerItem("meat_egg_meal",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(9).saturationModifier(0.9f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
+                    new FoodComponent.Builder().nutrition(9).saturationModifier(0.9f).build()).maxCount(1).useRemainder(Items.BOWL)));
     public static final Item MEAT_SKEWER = registerItem("meat_skewer",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(5).saturationModifier(0.6f).usingConvertsTo(Items.STICK).build()).maxCount(8)));
+                    new FoodComponent.Builder().nutrition(5).saturationModifier(0.6f).build()).maxCount(8).useRemainder(Items.BOWL)));
     public static final Item COOKED_MEAT_SKEWER = registerItem("cooked_meat_skewer",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(10).saturationModifier(0.8f).usingConvertsTo(Items.STICK).build()).maxCount(8)));
+                    new FoodComponent.Builder().nutrition(10).saturationModifier(0.8f).build()).maxCount(8).useRemainder(Items.BOWL)));
     public static final Item POULTRY_MEAL = registerItem("poultry_meal",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).usingConvertsTo(Items.BOWL).build()).maxCount(8)));
+                    new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).build()).maxCount(8).useRemainder(Items.BOWL)));
     public static final Item VEGETABLE_SKEWER = registerItem("vegetable_skewer",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.3f).usingConvertsTo(Items.STICK).build()).maxCount(8)));
+                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.3f).build()).maxCount(8).useRemainder(Items.BOWL)));
     public static final Item COOKED_VEGETABLE_SKEWER = registerItem("cooked_vegetable_skewer",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(6).saturationModifier(0.6f).usingConvertsTo(Items.STICK).build()).maxCount(8)));
+                    new FoodComponent.Builder().nutrition(6).saturationModifier(0.6f).build()).maxCount(8).useRemainder(Items.BOWL)));
     public static final Item VEGETABLE_SOUP = registerItem("vegetable_soup",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(7).saturationModifier(0.6f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
+                    new FoodComponent.Builder().nutrition(7).saturationModifier(0.6f).build()).maxCount(1).useRemainder(Items.BOWL)));
 
     public static final Item SACK_OF_HORSEFEED = registerItem("sack_of_horsefeed",
             new Item(new Item.Settings().food(

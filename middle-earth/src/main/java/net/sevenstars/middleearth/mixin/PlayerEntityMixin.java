@@ -52,6 +52,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow protected abstract void takeShieldHit(LivingEntity attacker);
 
+    @Shadow public abstract boolean canUseSlot(EquipmentSlot slot);
+
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -61,7 +63,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         return original.call(instance, item) || instance.getItem() instanceof ShieldItem;
     }
 
-    @Inject(at = @At(value = "HEAD"), method = "disableShield()V", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    @Inject(at = @At(value = "HEAD"), method = "disableShield", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private void disableShieldHead(CallbackInfo ci) {
         Item activeItem = activeItemStack.getItem();
 
@@ -71,7 +73,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 f += 0.75F;
             }
             if (this.getRandom().nextFloat() < f) {
-                this.getItemCooldownManager().set(shield, 100);
+                this.getItemCooldownManager().set(activeItemStack, 100);
                 this.clearActiveItem();
                 this.getWorld().sendEntityStatus(this, (byte) 30);
                 ci.cancel();
@@ -79,27 +81,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
+    //TODO test if this works, cooldown manager set takes stack now not item
     @Inject(method = "disableShield", at = @At("HEAD"))
     public void shield_api$disableShield(CallbackInfo ci) {
         for (CustomShieldItem customShieldItem : CustomShieldItem.instances) {
-            this.getItemCooldownManager().set(customShieldItem, 100);
-        }
-    }
-
-    private void getEntryList(PlayerEntity player) {
-        Optional<RegistryEntryList.Named<Item>> opt = Registries.ITEM.getEntryList(ConventionalItemTags.SHIELDS);
-        List<Item> list = new ArrayList<>();
-        if (opt.isPresent()) {
-            list = opt.get().stream().map(RegistryEntry::value).toList();
-        }
-
-        for (int amountOfShields = list.size(); amountOfShields > 0; amountOfShields--) {
-
-            if (list.get(amountOfShields - 1) instanceof ShieldItem) {
-                player.getItemCooldownManager().set(Items.SHIELD, 100);
-            }
-            player.clearActiveItem();
-            player.getWorld().sendEntityStatus(player, (byte) 30);
+            this.getItemCooldownManager().set(new ItemStack(customShieldItem), 100);
         }
     }
 

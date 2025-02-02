@@ -27,10 +27,6 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
         super(toolMaterial, subFaction, ModWeaponTypes.SPEAR);
     }
 
-    public float getAttackDamage() {
-        return this.getMaterial().getAttackDamage();
-    }
-
     /*public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);

@@ -31,28 +31,28 @@ public class CustomAxeWeaponItem extends AxeItem implements MEEquipmentTooltip {
     private final ModWeaponTypes type;
 
     public CustomAxeWeaponItem(Settings settings, ToolMaterial toolMaterial) {
-        super(toolMaterial, settings.attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
+        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, settings.attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
         this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = ModWeaponTypes.AXE;
     }
 
     public CustomAxeWeaponItem(ToolMaterial toolMaterial) {
-        super(toolMaterial, new Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
+        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, new Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
         this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = ModWeaponTypes.AXE;
     }
 
     public CustomAxeWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
-        super(toolMaterial, new Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
+        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, new Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
         this.faction = faction;
         this.subFaction = null;
         this.type = ModWeaponTypes.AXE;
     }
 
     public CustomAxeWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
-        super(toolMaterial, new Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
+        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, new Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = ModWeaponTypes.AXE;

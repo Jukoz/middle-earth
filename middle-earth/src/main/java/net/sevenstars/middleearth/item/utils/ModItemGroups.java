@@ -133,7 +133,7 @@ public class ModItemGroups {
 
     public static final ItemGroup SPAWN_EGGS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".spawn_egg_items"))
-            .icon(() -> new ItemStack(ModEggItems.HOBBIT_CIVILIAN_SPAWN_EGG))
+            .icon(() -> new ItemStack(ModEggItems.DEER_SPAWN_EGG))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : SPAWN_EGGS_CONTENTS) {
                     entries.add(item);

@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class AbstractClientPlayerEntityMixin {
 
     @Shadow @Final public ClientWorld clientWorld;
-    @Inject(method = "getFovMultiplier()F", at =@At("TAIL"), cancellable = true)
+    @Inject(method = "getFovMultiplier", at =@At("TAIL"), cancellable = true)
     private void injected(CallbackInfoReturnable<Float> cir) {
     PlayerEntity player = MinecraftClient.getInstance().player;
         assert player != null;

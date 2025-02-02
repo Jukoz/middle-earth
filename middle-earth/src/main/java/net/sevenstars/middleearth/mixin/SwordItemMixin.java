@@ -17,9 +17,11 @@ import java.util.List;
 @Mixin(SwordItem.class)
 public class SwordItemMixin {
 
+    //TODO might not need that mixin anymore need to test
+    /*
     @Inject(method = "createToolComponent", at = @At(value = "HEAD"), cancellable = true)
     private static void createToolComponent(CallbackInfoReturnable<ToolComponent> cir) {
         cir.setReturnValue(new ToolComponent(List.of(ToolComponent.Rule.ofAlwaysDropping(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs")), 15.0f),
                 ToolComponent.Rule.of(BlockTags.SWORD_EFFICIENT, 1.5f)), 1.0f, 2));
-    }
+    }*/
 }
