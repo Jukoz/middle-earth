@@ -3,16 +3,14 @@ package net.sevenstars.middleearth.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategories;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
-import net.sevenstars.middleearth.item.ModResourceItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
@@ -26,6 +24,8 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
     public final List<Ingredient> inputs;
     final CraftingRecipeCategory category;
     final String group;
+
+    private IngredientPlacement ingredientPlacement;
 
     public AlloyingRecipe(String group, CraftingRecipeCategory category, String output, List<Ingredient> recipeItems, int amount) {
         this.output = output;
@@ -58,7 +58,7 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
     public boolean matches(MultipleStackRecipeInput input, World world) {
         if(world.isClient()) return false;
         int i = 0;
-        for (int j = 0; j < input.getSize(); j++) {
+        for (int j = 0; j < input.size(); j++) {
             ItemStack itemStack = input.getStackInSlot(j);
             if (itemStack.isEmpty()) continue;
             i++;
@@ -80,16 +80,6 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
         return output;
     }
 
-    @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
-        return new ItemStack(ModResourceItems.ROD);
-    }
-
     public String getAlloyResult() {
         return output;
     }
@@ -99,13 +89,27 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<MultipleStackRecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<MultipleStackRecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public IngredientPlacement getIngredientPlacement() {
+        if (this.ingredientPlacement == null) {
+            this.ingredientPlacement = IngredientPlacement.forShapeless(this.inputs);
+        }
+
+        return this.ingredientPlacement;
+    }
+
+    @Override
+    public RecipeBookCategory getRecipeBookCategory() {
+        return RecipeBookCategories.FURNACE_MISC;
     }
 
     public static class Type implements RecipeType<AlloyingRecipe> {
@@ -125,7 +129,7 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
                     Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
                     CraftingRecipeCategory.CODEC.fieldOf("category").orElse(CraftingRecipeCategory.MISC).forGetter(recipe -> recipe.category),
                     Codec.STRING.fieldOf("output").forGetter(recipe -> recipe.output),
-                    Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
+                    Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
                     Codec.INT.fieldOf("amount").forGetter(recipe -> recipe.amount)
                     ).apply(instance, AlloyingRecipe::new));
 
@@ -148,7 +152,7 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
             String output = PacketCodecs.STRING.decode(buf);
             int amount = PacketCodecs.INTEGER.decode(buf);
             int i = buf.readVarInt();
-            DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i, Ingredient.EMPTY);
+            DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i);
             defaultedList.replaceAll(empty -> Ingredient.PACKET_CODEC.decode(buf));
             return new AlloyingRecipe(string, craftingRecipeCategory, output, defaultedList, amount);
         }

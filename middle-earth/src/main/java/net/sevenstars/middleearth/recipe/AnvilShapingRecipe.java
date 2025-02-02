@@ -2,16 +2,14 @@ package net.sevenstars.middleearth.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.item.ModDataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
@@ -20,6 +18,8 @@ public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
     protected final Ingredient input;
     protected final ItemStack output;
     protected final int amount;
+
+    private IngredientPlacement ingredientPlacement;
 
     public AnvilShapingRecipe(Ingredient input, ItemStack output, int amount) {
         this.output = output;
@@ -45,17 +45,6 @@ public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
         return this.output.copy();
     }
 
-
-    @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
-        return output;
-    }
-
     public ItemStack getOutput() {
         return output;
     }
@@ -69,13 +58,27 @@ public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<SingleStackRecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<SingleStackRecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public IngredientPlacement getIngredientPlacement() {
+        if (this.ingredientPlacement == null) {
+            this.ingredientPlacement = IngredientPlacement.forSingleSlot(this.input);
+        }
+
+        return this.ingredientPlacement;
+    }
+
+    @Override
+    public RecipeBookCategory getRecipeBookCategory() {
+        return null;
     }
 
     public static class Type implements RecipeType<AnvilShapingRecipe> {
@@ -97,7 +100,7 @@ public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
 
         protected Serializer() {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-                    Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.input),
+                    Ingredient.CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.input),
                     ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
                     CODEC.INT.fieldOf("amount").forGetter(recipe -> recipe.amount)
             ).apply(instance, AnvilShapingRecipe::new));

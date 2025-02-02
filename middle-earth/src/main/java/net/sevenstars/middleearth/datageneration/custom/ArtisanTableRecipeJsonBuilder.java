@@ -1,6 +1,8 @@
 package net.sevenstars.middleearth.datageneration.custom;
 
 import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.minecraft.advancement.Advancement;
@@ -52,6 +54,16 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
         return this.output.getItem();
     }
 
+    @Override
+    public void offerTo(RecipeExporter exporter, RegistryKey<Recipe<?>> recipeKey) {
+        this.validate(recipeKey);
+        Advancement.Builder builder = exporter.getAdvancementBuilder().criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeKey)).rewards(AdvancementRewards.Builder.recipe(recipeKey)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
+        Objects.requireNonNull(builder);
+        this.criteria.forEach(builder::criterion);
+        ArtisanRecipe artisanRecipe = new ArtisanRecipe(this.tab, this.output, this.inputs, this.disposition.toString().toLowerCase());
+        exporter.accept(recipeKey, artisanRecipe, builder.build(recipeKey.getValue().withPrefixedPath("recipes/" + this.category.getName() + "/")));
+    }
+
     public static ArtisanTableRecipeJsonBuilder createArtisanRecipe(RecipeCategory category, ItemStack output, String tab, Disposition disposition) {
         return new ArtisanTableRecipeJsonBuilder(category, output, tab, disposition);
     }
@@ -90,22 +102,12 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
     }
 
     @Override
-    public void offerTo(RecipeExporter exporter, Identifier recipeId) {
-        this.validate(recipeId);
-        Advancement.Builder builder = exporter.getAdvancementBuilder().criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
-        Objects.requireNonNull(builder);
-        this.criteria.forEach(builder::criterion);
-        ArtisanRecipe artisanRecipe = new ArtisanRecipe(this.tab, this.output, this.inputs, this.disposition.toString().toLowerCase());
-        exporter.accept(recipeId, artisanRecipe, builder.build(recipeId.withPrefixedPath("recipes/" + this.category.getName() + "/")));
-    }
-
-    @Override
     public ArtisanTableRecipeJsonBuilder criterion(String string, AdvancementCriterion<?> advancementCriterion) {
         this.criteria.put(string, advancementCriterion);
         return this;
     }
 
-    private void validate(Identifier recipeId) {
+    private void validate(RegistryKey<Recipe<?>> recipeId) {
         if (this.criteria.isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + String.valueOf(recipeId));
         }

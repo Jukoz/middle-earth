@@ -10,11 +10,11 @@ import java.util.List;
 
 public class RaceLookup {
     public static List<Race> getAllRaces(World world) {
-        return world.getRegistryManager().get(MiddleEarthRaces.RACE_KEY).stream().toList();
+        return world.getRegistryManager().getOrThrow(MiddleEarthRaces.RACE_KEY).stream().toList();
     }
 
     public static List<Race> getAllRaces(World world, List<Identifier> ids) {
-        Registry<Race> registry = world.getRegistryManager().get(MiddleEarthRaces.RACE_KEY);
+        Registry<Race> registry = world.getRegistryManager().getOrThrow(MiddleEarthRaces.RACE_KEY);
         List<Race> list = new ArrayList<>();
         for(Identifier id : ids){
             Race race = registry.get(id);
@@ -25,6 +25,6 @@ public class RaceLookup {
     }
 
     public static Race getRace(World world, Identifier identifier) {
-        return world.getRegistryManager().get(MiddleEarthRaces.RACE_KEY).get(identifier);
+        return world.getRegistryManager().getOrThrow(MiddleEarthRaces.RACE_KEY).get(identifier);
     }
 }

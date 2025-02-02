@@ -34,7 +34,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
     private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
 
     public ArtisanTableArmorRecipeProvider(DataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookupFuture) {
-        super(output, registryLookupFuture);
+        //super(output, registryLookupFuture);
 
         this.registryLookup = registryLookupFuture;
     }

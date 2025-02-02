@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.statusEffects;
 
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.utils.HallucinationData;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +23,7 @@ public class HallucinationStatusEffect extends StatusEffect {
     }
 
     @Override
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+    public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
         if(entity instanceof PlayerEntity){
             Map<RegistryEntry<StatusEffect>, StatusEffectInstance> map = entity.getActiveStatusEffects();
             int ticksLeft = map.get(ModStatusEffects.HALLUCINATION).getDuration();

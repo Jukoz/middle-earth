@@ -99,7 +99,8 @@ public class SpawnerNPCs implements SpecialSpawner {
                         targetBlockPos.subtract(new Vec3i(0, 1, 0)), entitySpawningSettings.getEntity(), blockState)) continue;
 
                 for (int m = 0; m < entityCount; ++m) {
-                    PathAwareEntity entity = (PathAwareEntity) entitySpawningSettings.getEntity().create(world);
+                    //TODO added spawn reason but needs testing
+                    PathAwareEntity entity = (PathAwareEntity) entitySpawningSettings.getEntity().create(world, SpawnReason.NATURAL);
                     if (entity == null) continue;
                     entity.refreshPositionAndAngles(targetBlockPos, 0.0f, 0.0f);
                     entityData = entity.initialize(world, localDifficulty, SpawnReason.NATURAL, entityData);

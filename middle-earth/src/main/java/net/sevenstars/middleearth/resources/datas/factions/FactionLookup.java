@@ -14,10 +14,10 @@ import java.util.stream.Stream;
 
 public class FactionLookup {
     public static List<Faction> getAllFactions(World world) {
-        return world.getRegistryManager().get(MiddleEarthFactions.FACTION_KEY).stream().toList();
+        return world.getRegistryManager().getOrThrow(MiddleEarthFactions.FACTION_KEY).stream().toList();
     }
     public static Faction getFactionById(World world, Identifier id) throws FactionIdentifierException {
-        Faction faction = world.getRegistryManager().get(MiddleEarthFactions.FACTION_KEY).get(id);
+        Faction faction = world.getRegistryManager().getOrThrow(MiddleEarthFactions.FACTION_KEY).get(id);
         if(faction == null)
             throw new FactionIdentifierException();
         return faction;

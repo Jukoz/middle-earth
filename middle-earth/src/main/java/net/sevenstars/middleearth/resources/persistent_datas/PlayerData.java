@@ -40,7 +40,7 @@ public class PlayerData {
     }
 
     public Race getRace(World world){
-        return world.getRegistryManager().get(MiddleEarthRaces.RACE_KEY).get(this.race);
+        return world.getRegistryManager().getOrThrow(MiddleEarthRaces.RACE_KEY).get(this.race);
     }
     public Faction getFaction(World world) throws FactionIdentifierException{
         if(!hasAffilition())

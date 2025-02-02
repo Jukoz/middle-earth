@@ -127,16 +127,16 @@ public class ModResourceItems {
     public static final Item GOLD_COIN = registerItem("gold_coin", new Item(new Item.Settings()));
 
     public static final Item FLAX = registerItem("flax", new Item(new Item.Settings()));
-    public static final Item FLAX_SEEDS = registerItem("flax_seeds", new AliasedBlockItem(ModNatureBlocks.FLAX_CROP, new Item.Settings()));
+    public static final Item FLAX_SEEDS = registerItem("flax_seeds", new BlockItem(ModNatureBlocks.FLAX_CROP, new Item.Settings()));
     public static final Item PIPEWEED = registerItem("pipeweed", new Item(new Item.Settings()));
     public static final Item DRIED_PIPEWEED = registerItem("dried_pipeweed", new Item(new Item.Settings()));
-    public static final Item PIPEWEED_SEEDS = registerItem("pipeweed_seeds", new AliasedBlockItem(ModNatureBlocks.PIPEWEED_CROP, new Item.Settings()));
+    public static final Item PIPEWEED_SEEDS = registerItem("pipeweed_seeds", new BlockItem(ModNatureBlocks.PIPEWEED_CROP, new Item.Settings()));
 
 
-    public static final Item TOMATO_SEEDS = registerItem("tomato_seeds", new AliasedBlockItem(ModNatureBlocks.TOMATO_CROP, new Item.Settings()));
-    public static final Item BELL_PEPPER_SEEDS = registerItem("bell_pepper_seeds", new AliasedBlockItem(ModNatureBlocks.BELL_PEPPER_CROP, new Item.Settings()));
-    public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds", new AliasedBlockItem(ModNatureBlocks.CUCUMBER_CROP, new Item.Settings()));
-    public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds", new AliasedBlockItem(ModNatureBlocks.LETTUCE_CROP, new Item.Settings()));
+    public static final Item TOMATO_SEEDS = registerItem("tomato_seeds", new BlockItem(ModNatureBlocks.TOMATO_CROP, new Item.Settings()));
+    public static final Item BELL_PEPPER_SEEDS = registerItem("bell_pepper_seeds", new BlockItem(ModNatureBlocks.BELL_PEPPER_CROP, new Item.Settings()));
+    public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds", new BlockItem(ModNatureBlocks.CUCUMBER_CROP, new Item.Settings()));
+    public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds", new BlockItem(ModNatureBlocks.LETTUCE_CROP, new Item.Settings()));
 
     public static final Item FUR = registerItem("fur",
             new Item(new Item.Settings()));

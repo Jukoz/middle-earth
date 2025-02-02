@@ -10,7 +10,7 @@ import java.util.List;
 
 public class NpcDataLookup {
     public static List<NpcData> getAllNpcDatas(World world, List<Identifier> ids) {
-        Registry<NpcData> registry = world.getRegistryManager().get(MiddleEarthNpcs.NPC_KEY);
+        Registry<NpcData> registry = world.getRegistryManager().getOrThrow(MiddleEarthNpcs.NPC_KEY);
         List<NpcData> list = new ArrayList<>();
         for(Identifier id : ids){
             list.add(registry.get(id));
