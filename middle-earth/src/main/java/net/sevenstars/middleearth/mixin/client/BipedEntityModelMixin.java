@@ -24,7 +24,7 @@ import java.util.List;
 
 @Mixin(BipedEntityModel.class)
 public class BipedEntityModelMixin {
-    @Shadow public BipedEntityModel.ArmPose leftArmPose;
+    /*@Shadow public BipedEntityModel.ArmPose leftArmPose;
 
     @Shadow public BipedEntityModel.ArmPose rightArmPose;
 
@@ -87,5 +87,5 @@ public class BipedEntityModelMixin {
                 this.leftArm.pitch = VERTICAL_ANGLE;
             }
         }
-    }
+    }*/
 }

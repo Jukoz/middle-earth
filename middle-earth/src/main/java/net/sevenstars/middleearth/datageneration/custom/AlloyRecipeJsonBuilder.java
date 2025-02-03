@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.datageneration.custom;
 
 import net.minecraft.recipe.Recipe;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.item.ModResourceItems;
 import net.sevenstars.middleearth.recipe.AlloyingRecipe;
@@ -33,7 +34,10 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
     private final Map<String, AdvancementCriterion<?>> criteria = new LinkedHashMap<>();
     private String group;
 
-    public AlloyRecipeJsonBuilder(RecipeCategory category, String metalOutput, int metalAmount) {
+    private final RegistryEntryLookup<Item> registryLookup;
+
+    public AlloyRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, String metalOutput, int metalAmount) {
+        this.registryLookup = registryLookup;
         this.category = category;
         this.metalOutput = metalOutput;
         this.metalAmount = metalAmount;
@@ -68,12 +72,12 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         return this.metalAmount;
     }
 
-    public static AlloyRecipeJsonBuilder createAlloyRecipe(RecipeCategory category, String output, int amount) {
-        return new AlloyRecipeJsonBuilder(category, output, amount);
+    public static AlloyRecipeJsonBuilder createAlloyRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, String output, int amount) {
+        return new AlloyRecipeJsonBuilder(registryLookup, category, output, amount);
     }
 
     public AlloyRecipeJsonBuilder input(TagKey<Item> tag) {
-        return this.input(Ingredient.fromTag(tag));
+        return this.input(Ingredient.fromTag(this.registryLookup.getOrThrow(tag)));
     }
 
     public AlloyRecipeJsonBuilder input(ItemConvertible itemProvider) {

@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(ItemRenderer.class)
 public abstract class ItemRendererMixin {
 
-    @Debug(export = true)
+    /*@Debug(export = true)
     @ModifyVariable(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",
             at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private BakedModel renderItem(BakedModel model, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
@@ -77,7 +77,7 @@ public abstract class ItemRendererMixin {
             return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
         }
         return model;
-    }
+    }*/
 
     @Unique
     private static boolean isItemHot(ItemStack stack) {

@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.datageneration.custom;
 
 import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.resources.datas.Disposition;
@@ -36,7 +37,10 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
     private final Map<String, AdvancementCriterion<?>> criteria = new LinkedHashMap<>();
     private String group;
 
-    public ArtisanTableRecipeJsonBuilder(RecipeCategory category, ItemStack output, String tab, Disposition disposition) {
+    private final RegistryEntryLookup<Item> registryLookup;
+
+    public ArtisanTableRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemStack output, String tab, Disposition disposition) {
+        this.registryLookup = registryLookup;
         this.category = category;
         this.output = output;
         this.tab = tab;
@@ -64,15 +68,15 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
         exporter.accept(recipeKey, artisanRecipe, builder.build(recipeKey.getValue().withPrefixedPath("recipes/" + this.category.getName() + "/")));
     }
 
-    public static ArtisanTableRecipeJsonBuilder createArtisanRecipe(RecipeCategory category, ItemStack output, String tab, Disposition disposition) {
-        return new ArtisanTableRecipeJsonBuilder(category, output, tab, disposition);
+    public static ArtisanTableRecipeJsonBuilder createArtisanRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemStack output, String tab, Disposition disposition) {
+        return new ArtisanTableRecipeJsonBuilder(registryLookup, category, output, tab, disposition);
     }
-    public static ArtisanTableRecipeJsonBuilder createArtisanRecipe(RecipeCategory category, ItemStack output, String tab) {
-        return new ArtisanTableRecipeJsonBuilder(category, output, tab, null);
+    public static ArtisanTableRecipeJsonBuilder createArtisanRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemStack output, String tab) {
+        return new ArtisanTableRecipeJsonBuilder(registryLookup, category, output, tab, null);
     }
 
     public ArtisanTableRecipeJsonBuilder input(TagKey<Item> tag) {
-        return this.input(Ingredient.fromTag(tag));
+        return this.input(Ingredient.fromTag(this.registryLookup.getOrThrow(tag)));
     }
 
     public ArtisanTableRecipeJsonBuilder input(ItemConvertible itemProvider) {

@@ -37,7 +37,7 @@ public class CustomAnimalArmorItem extends ArmorItem implements MEEquipmentToolt
         super(material.material(), EquipmentType.BODY, settings);
         this.material = material;
         this.type = type;
-        Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, type.textureIdFunction.apply(material.material().getKey().orElseThrow().getValue()).getPath());
+        Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, type.textureIdFunction.apply(Identifier.of(MiddleEarth.MOD_ID,material.toString())).getPath());
         identifier = suffix != null ? identifier.withSuffixedPath(suffix) : identifier;
         this.entityTexture = identifier.withSuffixedPath(".png");
         this.overlayTexture = hasOverlay ? identifier.withSuffixedPath("_overlay.png") : null;
@@ -50,7 +50,7 @@ public class CustomAnimalArmorItem extends ArmorItem implements MEEquipmentToolt
         super(material.material(), EquipmentType.BODY, settings);
         this.material = material;
         this.type = type;
-        Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, type.textureIdFunction.apply(material.material().getKey().orElseThrow().getValue()).getPath());
+        Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, type.textureIdFunction.apply(Identifier.of(MiddleEarth.MOD_ID,material.toString())).getPath());
         identifier = suffix != null ? identifier.withSuffixedPath(suffix) : identifier;
         this.entityTexture = identifier.withSuffixedPath(".png");
         this.overlayTexture = hasOverlay ? identifier.withSuffixedPath("_overlay.png") : null;

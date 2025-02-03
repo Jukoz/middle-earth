@@ -150,7 +150,7 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
         return entity.getStack(0);
     }
 
-    public void bonk(TreatedAnvilBlockEntity entity, ServerWorld world){
+    /*public void bonk(TreatedAnvilBlockEntity entity, ServerWorld world){
         ItemStack input = entity.getStack(0);
 
         List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
@@ -225,12 +225,12 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
             }
             entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.5f, 1.0f);
         }
-    }
+    }*/
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, TreatedAnvilBlockEntity entity) {
-        ItemStack input = entity.getStack(0);
+        /*ItemStack input = entity.getStack(0);
         if (!input.isEmpty()){
-            List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
+            /*List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
                     .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());;
             if(!match.isEmpty()){
                 entity.maxOutputIndex = match.size() - 1;
@@ -245,10 +245,10 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
         } else {
             entity.maxOutputIndex = 0;
             entity.update();
-        }
+        }*/
     }
 
-    private static boolean hasShapingRecipe(TreatedAnvilBlockEntity entity) {
+    /*private static boolean hasShapingRecipe(TreatedAnvilBlockEntity entity) {
         SimpleInventory inventory1 = new SimpleInventory(entity.size());
         ItemStack input;
 
@@ -262,7 +262,7 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
                 .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, inputStack, entity.getWorld());
 
         return match.getFirst().value().getOutput() != null;
-    }
+    }*/
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {

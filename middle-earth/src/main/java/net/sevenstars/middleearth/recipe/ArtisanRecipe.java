@@ -62,11 +62,11 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
                 return false;
             }
 
-            if (ingredient.getMatchingStacks().length == 1){
+            /*if (ingredient.getMatchingStacks().length == 1){
                 for (ItemStack itemStack2 : ingredient.getMatchingStacks()) {
                     if (!Objects.equals(itemStack2.get(DataComponentTypes.TRIM), input.getStackInSlot(j).get(DataComponentTypes.TRIM))) return false;
                 }
-            }
+            }*/
         }
 
         return true;
@@ -93,7 +93,8 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
 
     @Override
     public RecipeSerializer<? extends Recipe<MultipleStackRecipeInput>> getSerializer() {
-        return Serializer.INSTANCE;
+        //return Serializer.INSTANCE;
+        return null;
     }
 
     @Override
@@ -122,7 +123,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
         return true;
     }
 
-    public static class Serializer implements RecipeSerializer<ArtisanRecipe> {
+    /*public static class Serializer implements RecipeSerializer<ArtisanRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public static final String ID = "artisan_table";
         private final MapCodec<ArtisanRecipe> codec;
@@ -168,5 +169,5 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
             }
             buf.writeString(recipe.disposition);
         }
-    }
+    }*/
 }

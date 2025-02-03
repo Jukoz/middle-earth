@@ -183,7 +183,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
 
     private void renderLiquidStorage(DrawContext context, int x, int y) {
         int storedLiquid = (int) (handler.getScaledStoredLiquid() * LIQUID_HEIGHT);
-        context.drawTexture(TEXTURE, x + 113, y + 71 - storedLiquid, 177, 114 - storedLiquid, 16, storedLiquid);
+        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 113, y + 71 - storedLiquid, 177, 114 - storedLiquid, 16, storedLiquid, 256 ,256);
     }
 
     private void renderLiquidStorageTooltip(DrawContext context, int mouseX, int mouseY) {
@@ -224,7 +224,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         ItemStack itemstack;
         switch (outputMode){
             case 0:
-                context.drawTexture(TEXTURE, x + 140, y + 51, 177, 115,22, 22);
+                context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 140, y + 51, 177, 115,22, 22, 256 ,256);
                 break;
             case 1:
                 itemstack = new ItemStack(Items.IRON_NUGGET);

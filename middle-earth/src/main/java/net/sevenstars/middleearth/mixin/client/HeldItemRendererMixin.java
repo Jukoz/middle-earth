@@ -52,9 +52,9 @@ public class HeldItemRendererMixin {
         return (stack.getItem() instanceof CustomCrossbowWeaponItem || stack.isOf(Items.CROSSBOW)) && CrossbowItem.isCharged(stack);
     }
 
-    @WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z",
+    /*@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z",
             ordinal = 1),method = "renderFirstPersonItem")
     private boolean renderFirstPersonItem(ItemStack instance, Item item, Operation<Boolean> original) {
         return original.call(instance, item) || instance.getItem() instanceof CustomCrossbowWeaponItem;
-    }
+    }*/
 }

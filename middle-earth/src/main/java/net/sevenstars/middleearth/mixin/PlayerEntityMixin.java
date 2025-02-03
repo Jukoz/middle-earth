@@ -138,7 +138,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         PlayerMovementData.resetAFK((IEntityDataSaver) this);
     }
 
-    @ModifyVariable(method = "attack", ordinal = 3, at = @At(value = "INVOKE", shift = At.Shift.BEFORE,
+    /*@ModifyVariable(method = "attack", ordinal = 3, at = @At(value = "INVOKE", shift = At.Shift.BEFORE,
             target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", ordinal = 0))
     public float attackBackStab(float value, Entity target) {
         ItemStack mainStack = this.getStackInHand(Hand.MAIN_HAND);
@@ -148,7 +148,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             }
         }
         return value;
-    }
+    }*/
 
     @Inject(method = "resetLastAttackedTicks", at = @At("HEAD"))
     public void resetLastAttackedTicks(CallbackInfo ci) {

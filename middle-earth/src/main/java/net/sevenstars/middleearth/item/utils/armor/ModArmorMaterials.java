@@ -151,7 +151,7 @@ public interface ModArmorMaterials {
                                                   int durabilityMultiplier, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance,
                                                   TagKey<Item> repairTag, Tiers tier) {
 
-        EnumMap<EquipmentType, Integer> enumMap = new EnumMap<EquipmentType, Integer>(EquipmentType.class);
+        EnumMap<EquipmentType, Integer> enumMap = new EnumMap<>(EquipmentType.class);
         for (EquipmentType type : EquipmentType.values()) {
             enumMap.put(type, defense.get(type));
         }

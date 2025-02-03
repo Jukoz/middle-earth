@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ModEquipmentItems;
 import net.sevenstars.middleearth.item.ModToolItems;
@@ -156,7 +157,8 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
             ItemStack itemStack = stack.copy();
             Item item = stack.getItem();
             if (item instanceof ArmorItem armorItem) {
-                this.armorStand.equipStack(armorItem.getSlotType(), itemStack);
+                //TODO Slot type gone
+                //this.armorStand.equipStack(armorItem.getSlotType(), itemStack);
             } else {
                 this.armorStand.equipStack(EquipmentSlot.OFFHAND, itemStack);
             }
@@ -165,14 +167,14 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        //RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
         int i = this.x;
         int j = this.y;
-        context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
         int k = (int)(41.0F * this.scrollAmount);
-        context.drawTexture(TEXTURE, i + 143, j + 15 + k, 232 + (this.shouldScroll() ? 0 : 12), 0, 12, 15);
+        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, i + 143, j + 15 + k, 232 + (this.shouldScroll() ? 0 : 12), 0, 12, 15, 256, 256);
 
         int l = this.x + 76;
         int m = this.y + 14;
@@ -182,17 +184,17 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         for(int w = 0; w < 3; w++) {
             for(int z = 0; z < 3; z++) {
                 if(handler.slots.get(w*3 + z).isEnabled()) {
-                    context.drawTexture(TEXTURE,x + SLOT_OFFSET_X + SLOT_SCALE*z,y + SLOT_OFFSET_Y + SLOT_SCALE*w, 232, 15, SLOT_SCALE, SLOT_SCALE);
+                    context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SLOT_OFFSET_X + SLOT_SCALE*z,y + SLOT_OFFSET_Y + SLOT_SCALE*w, 232, 15, SLOT_SCALE, SLOT_SCALE, 256, 256);
                     InputType inputType = shape.getInputType(z, w);
                     if(!handler.slots.get(w*3 + z).hasStack()) {
                         switch (inputType){
-                            case HANDLE -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 87, 16, 16);
-                            case HILT -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 103, 16, 16);
-                            case BLADE -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 119, 16, 16);
-                            case AXE -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 135, 16, 16);
-                            case PICKAXE -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 151, 16, 16);
-                            case SHOVEL -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 167, 16, 16);
-                            case HOE -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 183, 16, 16);
+                            case HANDLE -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 87, 16, 16, 256, 256);
+                            case HILT -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 103, 16, 16, 256, 256);
+                            case BLADE -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 119, 16, 16, 256, 256);
+                            case AXE -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 135, 16, 16, 256, 256);
+                            case PICKAXE -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 151, 16, 16, 256, 256);
+                            case SHOVEL -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 167, 16, 16, 256, 256);
+                            case HOE -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 183, 16, 16, 256, 256);
                         }
                     }
                 }
@@ -243,7 +245,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                 int n = i + m % 4 * 16;
                 int o = j + m / 4 * 18 + 2;
                 if (x >= n && x < n + 16 && y >= o && y < o + 18) {
-                    context.drawItemTooltip(this.textRenderer, list.get(l).value().getResult(this.client.world.getRegistryManager()), x, y);
+                    context.drawItemTooltip(this.textRenderer, list.get(l).value().getOutput(), x, y);
                 }
             }
         }
@@ -262,7 +264,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                 n += 36;
             }
 
-            context.drawTexture(TEXTURE, k, m - 1, 0, n, 16, 18);
+            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, k, m - 1, 0, n, 16, 18, 256,256);
         }
 
     }
@@ -274,7 +276,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
-            context.drawItem(list.get(i).value().getResult(this.client.world.getRegistryManager()), k, m);
+            context.drawItem(list.get(i).value().getOutput(), k, m);
         }
 
     }

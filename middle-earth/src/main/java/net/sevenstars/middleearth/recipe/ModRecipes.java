@@ -26,9 +26,9 @@ public class ModRecipes {
                 Identifier.of(MiddleEarth.MOD_ID, AnvilShapingRecipe.Type.ID),
                 AnvilShapingRecipe.Type.INSTANCE);
 
-        Registry.register(Registries.RECIPE_SERIALIZER,
+        /*Registry.register(Registries.RECIPE_SERIALIZER,
                 Identifier.of(MiddleEarth.MOD_ID, ArtisanRecipe.Serializer.ID),
-                ArtisanRecipe.Serializer.INSTANCE);
+                ArtisanRecipe.Serializer.INSTANCE);*/
         ARTISAN_TABLE = Registry.register(Registries.RECIPE_TYPE,
                 Identifier.of(MiddleEarth.MOD_ID, ArtisanRecipe.Type.ID),
                 ArtisanRecipe.Type.INSTANCE);

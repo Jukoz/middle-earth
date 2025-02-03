@@ -78,7 +78,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
     public ItemStack getOutput() {
         ItemStack input = inventory.getStack(0);
 
-        List<RecipeEntry<AnvilShapingRecipe>> match = this.world.getRecipeManager()
+        /*List<RecipeEntry<AnvilShapingRecipe>> match = this.world.getRecipeManager()
                 .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), this.world);
 
         if (match.isEmpty()) return ItemStack.EMPTY;
@@ -87,7 +87,8 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
             return match.get(this.propertyDelegate.get(0)).value().getOutput();
         } else {
             return ItemStack.EMPTY;
-        }
+        }*/
+        return ItemStack.EMPTY;
     }
 
     public boolean canUse(PlayerEntity player) {
