@@ -718,9 +718,7 @@ public class ModDecorativeBlocks {
     }
 
     private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {
-        return (state) -> {
-            return (Boolean) state.get(Properties.LIT) ? litLevel : 0;
-        };
+        return (state) -> (Boolean) state.get(Properties.LIT) ? litLevel : 0;
     }
 
     public static void registerModBlocks() {
