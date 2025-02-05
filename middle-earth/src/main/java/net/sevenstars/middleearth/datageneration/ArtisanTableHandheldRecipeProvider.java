@@ -5,7 +5,6 @@ import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.data.DataOutput;
-import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;

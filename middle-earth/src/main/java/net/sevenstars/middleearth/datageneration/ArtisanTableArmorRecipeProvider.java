@@ -14,7 +14,6 @@ import net.sevenstars.middleearth.item.utils.ModSmithingTrimPatterns;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.data.DataOutput;
-import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;

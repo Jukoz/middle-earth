@@ -2,18 +2,17 @@ package net.sevenstars.middleearth.datageneration;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.BlockFace;
 import net.minecraft.block.enums.DoorHinge;
-import net.minecraft.data.client.*;
+import net.minecraft.client.data.*;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.ArmorMaterials;
-import net.minecraft.item.equipment.EquipmentModels;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.state.property.IntProperty;
@@ -714,18 +713,18 @@ public class ModelProvider extends FabricModelProvider {
 
         registerOrientableTrapdoorLadder(blockStateModelGenerator, ModDecorativeBlocks.ROPE_LADDER);
 
-        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.AZALEA_FLOWER_GROWTH);
-        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.DRY_GROWTH);
-        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.FROZEN_GROWTH);
-        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.GREEN_GROWTH);
-        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.IVY_GROWTH);
-        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.LILAC_FLOWER_GROWTH);
-        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.PINK_FLOWER_GROWTH);
-        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.RED_FLOWER_GROWTH);
-        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.WHITE_FLOWER_GROWTH);
-        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.AZALEA_FLOWER_GROWTH);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.DRY_GROWTH);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.FROZEN_GROWTH);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.GREEN_GROWTH);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.IVY_GROWTH);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.LILAC_FLOWER_GROWTH);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.PINK_FLOWER_GROWTH);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.RED_FLOWER_GROWTH);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.WHITE_FLOWER_GROWTH);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
 
-        blockStateModelGenerator.registerWallPlant(ModNatureBlocks.STICKY_ICE);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.STICKY_ICE);
     }
 
     public final void registerFanModel(BlockStateModelGenerator blockStateCollector, Block coralFanBlock) {

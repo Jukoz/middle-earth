@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "sevenstars-api",
-  "version": "1.5.3-1.21.2-alpha",
+  "version": "1.5.3-1.21.4-alpha",
 
   "name": "Seven Stars API",
   "description": "This is the Seven Stars API",
@@ -30,7 +30,7 @@
   "depends": {
     "fabricloader": ">=0.16.0",
     "fabric-api": "*",
-    "minecraft": "~1.21.2",
+    "minecraft": "~1.21.4",
     "java": ">=21"
   },
   "recommends": {

@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.client.renderer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.render.model.ModelBaker;
 import net.minecraft.item.ModelTransformationMode;
 import net.sevenstars.middleearth.MiddleEarthClient;
@@ -32,7 +31,7 @@ import net.minecraft.util.DyeColor;
 import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
-public class ModBuiltInModelItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
+public class ModBuiltInModelItemRenderer {
 
     private HeaterShieldEntityModel heaterShieldEntityModel;
     private KiteShieldEntityModel kiteShieldEntityModel;

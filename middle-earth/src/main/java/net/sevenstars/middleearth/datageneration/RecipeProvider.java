@@ -9,7 +9,6 @@ import net.sevenstars.middleearth.datageneration.custom.AnvilShapingRecipeJsonBu
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataOutput;
-import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
