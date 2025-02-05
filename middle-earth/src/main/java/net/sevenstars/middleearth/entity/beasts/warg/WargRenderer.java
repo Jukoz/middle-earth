@@ -20,12 +20,12 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
     public WargRenderer(EntityRendererFactory.Context context) {
         super(context, new WargModel(context.getPart(ModEntityModelLayers.WARG)), 0.8f);
         this.addFeature(new WargEyesFeatureRenderer(this));
-        this.addFeature(new WargArmorFeatureRenderer(this, context.getModelLoader(), context.getEquipmentRenderer()));
-        this.addFeature(new WargArmorSpineFeatureRenderer(this, context.getModelLoader(), context.getEquipmentRenderer()));
-        this.addFeature(new WargArmorSideSkullsFeatureRenderer(this, context.getModelLoader(), context.getEquipmentRenderer()));
-        this.addFeature(new WargSaddleFeatureRenderer(this, context.getModelLoader(), context.getEquipmentRenderer()));
-        this.addFeature(new WargArmorFrontSkullFeatureRenderer(this, context.getModelLoader(), context.getEquipmentRenderer()));
-        this.addFeature(new WargArmorBackSkullFeatureRenderer(this, context.getModelLoader(), context.getEquipmentRenderer()));
+        this.addFeature(new WargArmorFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargArmorSpineFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargArmorSideSkullsFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargArmorFrontSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargArmorBackSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
     }
 
     @Override
