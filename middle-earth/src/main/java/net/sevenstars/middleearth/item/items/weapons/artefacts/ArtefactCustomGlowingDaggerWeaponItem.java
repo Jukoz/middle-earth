@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons.artefacts;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
@@ -32,16 +33,16 @@ public class ArtefactCustomGlowingDaggerWeaponItem extends CustomDaggerWeaponIte
     public boolean glowing;
     private int counter = 0;
 
-    public ArtefactCustomGlowingDaggerWeaponItem(ToolMaterial toolMaterial) {
-        super(toolMaterial);
+    public ArtefactCustomGlowingDaggerWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
+        super(toolMaterial, settings);
     }
 
-    public ArtefactCustomGlowingDaggerWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
-        super(toolMaterial, faction);
+    public ArtefactCustomGlowingDaggerWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
+        super(toolMaterial, faction, settings);
     }
 
-    public ArtefactCustomGlowingDaggerWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
-        super(toolMaterial, subFaction);
+    public ArtefactCustomGlowingDaggerWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
+        super(toolMaterial, subFaction, settings);
     }
 
     @Override

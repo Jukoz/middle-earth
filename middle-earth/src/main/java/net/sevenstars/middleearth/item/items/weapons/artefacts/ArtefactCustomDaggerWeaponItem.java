@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons.artefacts;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
 import net.sevenstars.middleearth.utils.ModFactions;
@@ -27,16 +28,16 @@ import java.util.List;
 public class ArtefactCustomDaggerWeaponItem extends CustomDaggerWeaponItem {
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
-    public ArtefactCustomDaggerWeaponItem(ToolMaterial toolMaterial) {
-        super(toolMaterial);
+    public ArtefactCustomDaggerWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
+        super(toolMaterial, settings);
     }
 
-    public ArtefactCustomDaggerWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
-        super(toolMaterial, faction);
+    public ArtefactCustomDaggerWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
+        super(toolMaterial, faction, settings);
     }
 
-    public ArtefactCustomDaggerWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
-        super(toolMaterial, subFaction);
+    public ArtefactCustomDaggerWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
+        super(toolMaterial, subFaction, settings);
     }
 
     @Override

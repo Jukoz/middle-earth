@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons.ranged;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
 import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
@@ -21,22 +22,22 @@ public class CustomCrossbowWeaponItem extends CrossbowItem implements MEEquipmen
     private final ModSubFactions subFaction;
     public ModRangedWeaponTypes type;
 
-    public CustomCrossbowWeaponItem(ModRangedWeaponTypes type) {
-        super(new Settings().maxDamage(type.durability));
+    public CustomCrossbowWeaponItem(ModRangedWeaponTypes type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability));
         this.faction = null;
         this.subFaction = null;
         this.type = type;
     }
 
-    public CustomCrossbowWeaponItem(ModFactions faction, ModRangedWeaponTypes type) {
-        super(new Settings().maxDamage(type.durability));
+    public CustomCrossbowWeaponItem(ModFactions faction, ModRangedWeaponTypes type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability));
         this.faction = faction;
         this.subFaction = null;
         this.type = type;
     }
 
-    public CustomCrossbowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type) {
-        super(new Settings().maxDamage(type.durability));
+    public CustomCrossbowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = type;

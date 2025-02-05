@@ -1,16 +1,17 @@
 package net.sevenstars.middleearth.item.items.shields;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.item.utils.ModShieldTypes;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
 
 public class CustomSiegeShieldItem extends CustomShieldItem {
 
-    public CustomSiegeShieldItem(ModShieldTypes type, ModFactions faction) {
-        super(type, faction);
+    public CustomSiegeShieldItem(ModShieldTypes type, ModFactions faction, Item.Settings settings) {
+        super(type, faction, settings);
     }
 
-    public CustomSiegeShieldItem(ModShieldTypes type, ModSubFactions subFaction) {
-        super(type, subFaction);
+    public CustomSiegeShieldItem(ModShieldTypes type, ModSubFactions subFaction, Item.Settings settings) {
+        super(type, subFaction, settings);
     }
 }

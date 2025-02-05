@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
 import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
@@ -37,22 +38,22 @@ public class CustomAxeWeaponItem extends AxeItem implements MEEquipmentTooltip {
         this.type = ModWeaponTypes.AXE;
     }
 
-    public CustomAxeWeaponItem(ToolMaterial toolMaterial) {
-        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, new Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
+    public CustomAxeWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
+        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, settings.attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
         this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = ModWeaponTypes.AXE;
     }
 
-    public CustomAxeWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
-        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, new Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
+    public CustomAxeWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
+        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, settings.attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
         this.faction = faction;
         this.subFaction = null;
         this.type = ModWeaponTypes.AXE;
     }
 
-    public CustomAxeWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
-        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, new Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
+    public CustomAxeWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
+        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, settings.attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = ModWeaponTypes.AXE;

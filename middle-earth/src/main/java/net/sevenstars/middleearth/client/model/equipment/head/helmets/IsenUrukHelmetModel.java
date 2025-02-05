@@ -15,8 +15,8 @@ public class IsenUrukHelmetModel extends HelmetAddonModel {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -23.0F, 0.0F));
+        head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData addons = head.addChild("addons", ModelPartBuilder.create().uv(-9, 30).cuboid(-7.5F, -0.7F, -0.5F, 15.0F, 0.0F, 9.0F, new Dilation(0.0F))
                 .uv(-9, 39).cuboid(-6.5F, -1.95F, -6.5F, 13.0F, 0.0F, 9.0F, new Dilation(0.0F))

@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.shields;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
 import net.sevenstars.middleearth.item.utils.ModShieldTypes;
@@ -15,12 +16,12 @@ import java.util.List;
 
 public class ArtefactCustomShieldItem extends CustomShieldItem implements MEEquipmentTooltip {
 
-    public ArtefactCustomShieldItem(ModShieldTypes type, ModFactions faction) {
-        super(type, faction);
+    public ArtefactCustomShieldItem(ModShieldTypes type, ModFactions faction, Item.Settings settings) {
+        super(type, faction, settings);
     }
 
-    public ArtefactCustomShieldItem(ModShieldTypes type, ModSubFactions subFaction) {
-        super(type, subFaction);
+    public ArtefactCustomShieldItem(ModShieldTypes type, ModSubFactions subFaction, Item.Settings settings) {
+        super(type, subFaction, settings);
     }
 
     @Override

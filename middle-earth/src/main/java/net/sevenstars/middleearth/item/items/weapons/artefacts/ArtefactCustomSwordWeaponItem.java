@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.item.items.weapons.artefacts;
 
+import net.fabricmc.fabric.api.item.v1.FabricItem;
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.item.items.weapons.CustomSwordWeaponItem;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
@@ -24,16 +26,16 @@ import java.util.List;
 
 public class ArtefactCustomSwordWeaponItem extends CustomSwordWeaponItem {
 
-    public ArtefactCustomSwordWeaponItem(ToolMaterial toolMaterial) {
-        super(toolMaterial);
+    public ArtefactCustomSwordWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
+        super(toolMaterial, settings);
     }
 
-    public ArtefactCustomSwordWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
-        super(toolMaterial, faction);
+    public ArtefactCustomSwordWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
+        super(toolMaterial, faction, settings);
     }
 
-    public ArtefactCustomSwordWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
-        super(toolMaterial, subFaction);
+    public ArtefactCustomSwordWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
+        super(toolMaterial, subFaction, settings);
     }
 
     @Override

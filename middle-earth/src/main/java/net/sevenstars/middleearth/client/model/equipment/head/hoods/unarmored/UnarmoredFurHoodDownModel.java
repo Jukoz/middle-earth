@@ -15,10 +15,10 @@ public class UnarmoredFurHoodDownModel extends CloakHoodModel {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        ModelPartData hat = modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData hat = head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData hood = hat.addChild("hood", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -1.0F, 0.016F));
-
 
         ModelPartData furHood = hood.addChild("fur_hood", ModelPartBuilder.create(), ModelTransform.of(0.0F, -4.5F, -3.5F, 1.5708F, 0.0F, 0.0F));
 
@@ -35,9 +35,6 @@ public class UnarmoredFurHoodDownModel extends CloakHoodModel {
                 .uv(94, 20).cuboid(3.6F, -11.2857F, -5.3F, 1.0F, 8.0F, 2.0F, new Dilation(0.6F)), ModelTransform.pivot(0.25F, 0.0F, 0.0F));
         hoodDown.addChild("right", ModelPartBuilder.create().uv(100, 20).mirrored().cuboid(-4.35F, -11.2857F, -5.3F, 1.0F, 8.0F, 2.0F, new Dilation(0.5F)).mirrored(false)
                 .uv(106, 20).cuboid(-4.35F, -11.2857F, -5.3F, 1.0F, 8.0F, 2.0F, new Dilation(0.6F)), ModelTransform.pivot(-0.25F, 0.0F, 0.0F));
-
-        modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

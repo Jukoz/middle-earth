@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
 import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
@@ -20,16 +21,16 @@ import java.util.List;
 public class CustomDaggerWeaponItem extends ReachWeaponItem implements MEEquipmentTooltip {
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
-    public CustomDaggerWeaponItem(ToolMaterial toolMaterial) {
-        super(toolMaterial, ModWeaponTypes.DAGGER);
+    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
+        super(toolMaterial, ModWeaponTypes.DAGGER, settings);
     }
 
-    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
-        super(toolMaterial, faction, ModWeaponTypes.DAGGER);
+    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
+        super(toolMaterial, faction, ModWeaponTypes.DAGGER, settings);
     }
 
-    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
-        super(toolMaterial, subFaction, ModWeaponTypes.DAGGER);
+    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
+        super(toolMaterial, subFaction, ModWeaponTypes.DAGGER, settings);
     }
 
     @Override

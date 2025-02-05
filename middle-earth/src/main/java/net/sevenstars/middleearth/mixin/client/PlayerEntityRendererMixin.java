@@ -16,11 +16,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerEntityRenderer.class)
 public class PlayerEntityRendererMixin {
 
-    @Inject(at = @At("TAIL"), method = "getArmPose", cancellable = true)
+    /*@Inject(at = @At("TAIL"), method = "getArmPose", cancellable = true)
     private static void positionLeftArm(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.getItem() instanceof CustomCrossbowWeaponItem && CrossbowItem.isCharged(itemStack)){
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }
-    }
+    }*/
 }

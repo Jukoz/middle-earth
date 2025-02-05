@@ -68,13 +68,14 @@ public class WoodBlockSets {
         Block leaves = null;
         if(hasLeaves) {
             if(range) {
-                leaves = ModNatureBlocks.registerBlock(name + "_leaves", new ModLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
+                leaves = ModNatureBlocks.registerBlock(name + "_leaves", (settings) -> new ModLeavesBlock(settings, castShadow, particleEffect),
+                        AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
                         .strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(ModBlocks::canSpawnOnLeaves).suffocates(ModBlocks::never)
-                        .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never), castShadow, particleEffect), true);
+                        .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never), true);
             } else {
-                leaves = ModNatureBlocks.registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
+                leaves = ModNatureBlocks.registerBlock(name + "_leaves", LeavesBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
                         .strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(ModBlocks::canSpawnOnLeaves).suffocates(ModBlocks::never)
-                        .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never)), true);
+                        .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never), true);
             }
         }
 

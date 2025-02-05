@@ -21,11 +21,12 @@ public class RohirricHelmetArmorAddonModel extends HelmetAddonModel {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(30, 17)
                 .cuboid(0.0F, -14.5F, -9.5F, 0.0F, 11.0F, 17.0F, new Dilation(0.0F)),
                 ModelTransform.pivot(0.0F, -1.0F, 0.0F));
+
+        head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         head.addChild("hair", ModelPartBuilder.create().uv(0, 27)
                         .cuboid(-1.0F, -2.0F, 0.0F, 2.0F, 3.0F, 18.0F, new Dilation(0.0F)),

@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons.ranged;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
 import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
@@ -29,22 +30,22 @@ public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentToolt
 
     public static final int RANGE = 25;
 
-    public CustomLongbowWeaponItem(ModRangedWeaponTypes type) {
-        super(new Settings().maxDamage(type.durability));
+    public CustomLongbowWeaponItem(ModRangedWeaponTypes type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability));
         this.faction = null;
         this.subFaction = null;
         this.type = type;
     }
 
-    public CustomLongbowWeaponItem(ModFactions faction, ModRangedWeaponTypes type) {
-        super(new Settings().maxDamage(type.durability));
+    public CustomLongbowWeaponItem(ModFactions faction, ModRangedWeaponTypes type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability));
         this.faction = faction;
         this.subFaction = null;
         this.type = type;
     }
 
-    public CustomLongbowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type) {
-        super(new Settings().maxDamage(type.durability));
+    public CustomLongbowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = type;

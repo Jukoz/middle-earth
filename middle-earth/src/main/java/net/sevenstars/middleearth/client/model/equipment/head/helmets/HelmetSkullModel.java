@@ -17,9 +17,9 @@ public class HelmetSkullModel extends HelmetAddonModel {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         head.addChild("skull_parts", ModelPartBuilder.create().uv(0, 0).cuboid(-3.0F, -41.0F, -3.0F, 6.0F, 7.0F, 6.0F, new Dilation(0.0F))
                 .uv(0, 13).cuboid(-3.0F, -41.0F, -3.0F, 6.0F, 7.0F, 6.0F, new Dilation(0.2F))
                 .uv(24, 0).cuboid(-3.0F, -41.0F, -3.0F, 6.0F, 9.0F, 6.0F, new Dilation(0.4F))

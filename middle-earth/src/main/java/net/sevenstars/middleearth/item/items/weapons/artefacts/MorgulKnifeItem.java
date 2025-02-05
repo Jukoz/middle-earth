@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons.artefacts;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
@@ -21,16 +22,16 @@ import net.minecraft.util.Identifier;
 public class MorgulKnifeItem extends ArtefactCustomDaggerWeaponItem {
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
-    public MorgulKnifeItem(ToolMaterial toolMaterial) {
-        super(toolMaterial);
+    public MorgulKnifeItem(ToolMaterial toolMaterial, Item.Settings settings) {
+        super(toolMaterial, settings);
     }
 
-    public MorgulKnifeItem(ToolMaterial toolMaterial, ModFactions faction) {
-        super(toolMaterial, faction);
+    public MorgulKnifeItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
+        super(toolMaterial, faction, settings);
     }
 
-    public MorgulKnifeItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
-        super(toolMaterial, subFaction);
+    public MorgulKnifeItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
+        super(toolMaterial, subFaction, settings);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.armor;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.equipment.EquipmentType;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ModDataComponentTypes;
@@ -23,14 +24,14 @@ public class HoodHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     public ModFactions faction;
     public ModSubFactions subFaction;
 
-    public HoodHelmetItem(Settings settings, ExtendedArmorMaterial armorMaterial, ModFactions faction) {
+    public HoodHelmetItem(Item.Settings settings, ExtendedArmorMaterial armorMaterial, ModFactions faction) {
         super(armorMaterial.material(), EquipmentType.HELMET, settings.maxCount(1));
 
         this.faction = faction;
         this.subFaction = null;
     }
 
-    public HoodHelmetItem(Settings settings, ExtendedArmorMaterial armorMaterial, ModSubFactions subFaction) {
+    public HoodHelmetItem(Item.Settings settings, ExtendedArmorMaterial armorMaterial, ModSubFactions subFaction) {
         super(armorMaterial.material(), EquipmentType.HELMET, settings.maxCount(1));
 
         this.faction = subFaction.getParent();

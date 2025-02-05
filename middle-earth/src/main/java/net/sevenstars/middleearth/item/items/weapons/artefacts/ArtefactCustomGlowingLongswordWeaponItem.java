@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons.artefacts;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
@@ -32,16 +33,16 @@ public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWea
     public boolean glowing;
     public int counter = 0;
 
-    public ArtefactCustomGlowingLongswordWeaponItem(ToolMaterial toolMaterial) {
-        super(toolMaterial);
+    public ArtefactCustomGlowingLongswordWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
+        super(toolMaterial,  settings);
     }
 
-    public ArtefactCustomGlowingLongswordWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
-        super(toolMaterial, faction);
+    public ArtefactCustomGlowingLongswordWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
+        super(toolMaterial, faction,  settings);
     }
 
-    public ArtefactCustomGlowingLongswordWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
-        super(toolMaterial, subFaction);
+    public ArtefactCustomGlowingLongswordWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
+        super(toolMaterial, subFaction,  settings);
     }
 
     @Override

@@ -38,24 +38,24 @@ public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
     public ModSubFactions subFaction;
     public ModWeaponTypes type;
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, ModWeaponTypes type) {
-        super(new Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
+    public ReachWeaponItem(ToolMaterial toolMaterial, ModWeaponTypes type, Item.Settings settings) {
+        super(settings.attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.rangeDistance = type.attackRange;
         this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = type;
     }
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, ModFactions faction, ModWeaponTypes type) {
-        super(new Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
+    public ReachWeaponItem(ToolMaterial toolMaterial, ModFactions faction, ModWeaponTypes type, Item.Settings settings) {
+        super(settings.attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.rangeDistance = type.attackRange;
         this.faction = faction;
         this.subFaction = null;
         this.type = type;
     }
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, ModWeaponTypes type) {
-        super(new Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
+    public ReachWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, ModWeaponTypes type, Item.Settings settings) {
+        super(settings.attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.rangeDistance = type.attackRange;
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;

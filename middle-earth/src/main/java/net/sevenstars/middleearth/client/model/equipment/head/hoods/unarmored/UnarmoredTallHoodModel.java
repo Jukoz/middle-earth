@@ -15,7 +15,8 @@ public class UnarmoredTallHoodModel extends CloakHoodModel {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        ModelPartData hat = modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData hat = head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         hat.addChild("hood", ModelPartBuilder.create()
                         .uv(0, 73).cuboid(-4.0F, -8.0F, -4.45F, 8.0F, 5.0F, 2.0F, new Dilation(0.1F))
@@ -23,8 +24,6 @@ public class UnarmoredTallHoodModel extends CloakHoodModel {
                         .uv(32, 0).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.9F))
                         .uv(96, 80).cuboid(-4.0F, 1.0F, -4.0F, 8.0F, 6.0F, 8.0F, new Dilation(0.9F)),
                 ModelTransform.pivot(0.0F, -0.0F, 0.0F));
-
-        modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 

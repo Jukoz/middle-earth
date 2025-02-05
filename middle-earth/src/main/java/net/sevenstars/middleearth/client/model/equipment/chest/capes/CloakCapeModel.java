@@ -29,7 +29,7 @@ public class CloakCapeModel  extends ChestplateAddonModel {
     @Override
     public void setAngles(BipedEntityRenderState bipedEntityRenderState) {
         super.setAngles(bipedEntityRenderState);
-        this.cape.traverse().forEach(ModelPart::resetTransform);
+        /*this.cape.traverse().forEach(ModelPart::resetTransform);
         Vec3d velocity = bipedEntityRenderState.positionOffset;
         double sqrVel = velocity.lengthSquared();
         double speed = (sqrVel * 0.35f) + Math.sqrt(Math.abs(bipedEntityRenderState.limbFrequency)) * 0.4f;
@@ -51,6 +51,6 @@ public class CloakCapeModel  extends ChestplateAddonModel {
 
         if(result > 0) {
             this.cape.pitch = ToRad.ex(degree);
-        }
+        }*/
     }
 }

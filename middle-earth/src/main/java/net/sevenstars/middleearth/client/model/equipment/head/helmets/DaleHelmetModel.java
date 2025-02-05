@@ -14,9 +14,9 @@ public class DaleHelmetModel extends HelmetAddonModel {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData addon = head.addChild("addons", ModelPartBuilder.create().uv(0, 37).cuboid(-5.0F, -5.3F, -6.0F, 10.0F, 1.0F, 3.0F, new Dilation(0.0F))
                 .uv(0, 29).cuboid(0.0F, -13.3F, -6.0F, 0.0F, 11.0F, 12.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

@@ -9,31 +9,16 @@ import net.minecraft.entity.LivingEntity;
 
 public class CustomHelmetModel extends BipedEntityModel<BipedEntityRenderState> {
 
-    public final ModelPart head;
-
-    public final ModelPart hat;
-
-    public final ModelPart chestHeadExtension;
-    public final ModelPart rightArmHeadExtension;
-    public final ModelPart leftArmHeadExtension;
-
     public CustomHelmetModel(ModelPart root) {
         super(root, RenderLayer::getArmorCutoutNoCull);
-
-        this.head = root.getChild("head");
-        this.hat = root.getChild("hat");
-
-        this.chestHeadExtension = root.getChild("body").getChild("chestHeadExtension");
-        this.rightArmHeadExtension = root.getChild("right_arm").getChild("rightArmHeadExtension");
-        this.leftArmHeadExtension = root.getChild("left_arm").getChild("leftArmHeadExtension");
     }
 
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -8.2F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.55F)), ModelTransform.pivot(0.0F, -23.0F, 0.0F));
-        modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create().uv(32, 0).cuboid(-4.0F, -8.2F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.9F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -8.2F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.55F)), ModelTransform.pivot(0.0F, -23.0F, 0.0F));
+        head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create().uv(32, 0).cuboid(-4.0F, -8.2F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.9F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData body = modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 

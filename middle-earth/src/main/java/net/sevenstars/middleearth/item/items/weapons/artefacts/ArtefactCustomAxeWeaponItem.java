@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons.artefacts;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.item.items.weapons.CustomAxeWeaponItem;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
@@ -24,16 +25,16 @@ import java.util.List;
 
 public class ArtefactCustomAxeWeaponItem extends CustomAxeWeaponItem {
 
-    public ArtefactCustomAxeWeaponItem(ToolMaterial toolMaterial) {
-        super(toolMaterial);
+    public ArtefactCustomAxeWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
+        super(toolMaterial, settings);
     }
 
-    public ArtefactCustomAxeWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
-        super(toolMaterial, faction);
+    public ArtefactCustomAxeWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
+        super(toolMaterial, faction, settings);
     }
 
-    public ArtefactCustomAxeWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
-        super(toolMaterial, subFaction);
+    public ArtefactCustomAxeWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
+        super(toolMaterial, subFaction, settings);
     }
 
     @Override

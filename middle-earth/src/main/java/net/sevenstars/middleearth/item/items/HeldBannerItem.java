@@ -12,7 +12,7 @@ import java.util.List;
 
 public class HeldBannerItem extends Item {
     public HeldBannerItem(Settings settings) {
-        super(settings);
+        super(settings.maxCount(1));
     }
 
     public static void appendBannerTooltip(ItemStack stack, List<Text> tooltip) {

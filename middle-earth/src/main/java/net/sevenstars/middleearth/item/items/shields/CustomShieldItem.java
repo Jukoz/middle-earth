@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.shields;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
 import net.sevenstars.middleearth.item.utils.ModShieldTypes;
@@ -20,16 +21,16 @@ public class CustomShieldItem extends ShieldItem implements MEEquipmentTooltip {
     public final ModShieldTypes type;
     public final static HashSet<CustomShieldItem> instances = new HashSet<>();
 
-    public CustomShieldItem(ModShieldTypes type, ModFactions faction) {
-        super(new Settings().maxCount(1).maxDamage(type.durability));
+    public CustomShieldItem(ModShieldTypes type, ModFactions faction, Item.Settings settings) {
+        super(settings.maxCount(1).maxDamage(type.durability));
         this.type = type;
         this.faction = faction;
         this.subFaction = null;
         instances.add(this);
     }
 
-    public CustomShieldItem(ModShieldTypes type, ModSubFactions subFaction) {
-        super(new Settings().maxCount(1).maxDamage(type.durability));
+    public CustomShieldItem(ModShieldTypes type, ModSubFactions subFaction, Item.Settings settings) {
+        super(settings.maxCount(1).maxDamage(type.durability));
         this.type = type;
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;

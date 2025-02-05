@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons.artefacts;
 
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.items.weapons.CustomSpearWeaponItem;
 import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
@@ -28,17 +29,17 @@ import java.util.List;
 public class ArtefactCustomSpearWeaponItem extends CustomSpearWeaponItem {
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
-    public ArtefactCustomSpearWeaponItem(ToolMaterial toolMaterial) {
-        super(toolMaterial);
+    public ArtefactCustomSpearWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
+        super(toolMaterial, settings);
         this.type = ModWeaponTypes.SPEAR;
     }
 
-    public ArtefactCustomSpearWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
-        super(toolMaterial, faction);
+    public ArtefactCustomSpearWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
+        super(toolMaterial, faction, settings);
     }
 
-    public ArtefactCustomSpearWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
-        super(toolMaterial, subFaction);
+    public ArtefactCustomSpearWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
+        super(toolMaterial, subFaction, settings);
     }
 
     public static boolean isUsable(ItemStack stack) {

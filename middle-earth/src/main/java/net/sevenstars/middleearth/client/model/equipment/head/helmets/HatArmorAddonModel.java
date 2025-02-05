@@ -14,9 +14,10 @@ public class HatArmorAddonModel extends HelmetAddonModel {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
         head.addChild("hat", ModelPartBuilder.create().uv(-6, 0).cuboid(-8.0F, -4.2F, -8.0F, 16.0F, 0.0F, 16.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData feathers = head.addChild("feathers", ModelPartBuilder.create(), ModelTransform.of(3.9823F, -10.002F, 0.7141F, -0.0393F, 0.0F, 0.0F));

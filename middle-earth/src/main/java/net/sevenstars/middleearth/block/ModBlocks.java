@@ -1297,12 +1297,12 @@ public class ModBlocks {
         Item.BLOCK_ITEMS.put(block, item);
     }
 
-    private static RegistryKey<Block> keyOfBlock(String id) {
-        return RegistryKey.of(RegistryKeys.BLOCK, Identifier.ofVanilla(id));
+    public static RegistryKey<Block> keyOfBlock(String id) {
+        return RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, id));
     }
 
-    private static RegistryKey<Item> keyOfItem(String id) {
-        return RegistryKey.of(RegistryKeys.ITEM, Identifier.ofVanilla(id));
+    public static RegistryKey<Item> keyOfItem(String id) {
+        return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, id));
     }
 
     public static void registerModBlocks() {
