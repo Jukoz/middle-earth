@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.world.dimension;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -10,6 +11,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -59,11 +61,13 @@ public class ModDimensions {
             RegistryKey<World> registryKey = ME_WORLD_KEY;
             ServerWorld serverWorld = (ServerWorld) player.getWorld();
             if (serverWorld != null) {
-                serverWorld = serverWorld.getServer().getWorld(registryKey);
 
-                player.wakeUp();
-                player.requestTeleport(coordinates.x , coordinates.y, coordinates.z);
-                player.refreshPositionAfterTeleport(coordinates.x, coordinates.y, coordinates.z);
+                player.teleportTo(new TeleportTarget(player.getServer().getWorld(ME_WORLD_KEY), coordinates, Vec3d.ZERO, 0, 0, new TeleportTarget.PostDimensionTransition() {
+                    @Override
+                    public void onTransition(Entity entity) {
+                        // idk
+                    }
+                }));
                 if(setSpawnPoint)
                     ((ServerPlayerEntity) player).setSpawnPoint(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true, true);
                 if(welcomeNeeded)

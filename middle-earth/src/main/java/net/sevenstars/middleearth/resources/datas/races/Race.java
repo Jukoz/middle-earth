@@ -117,7 +117,8 @@ public class Race {
                 entity = null;
                 break;
         }
-        entity.setAiDisabled(true);
+        if(entity != null)
+            entity.setAiDisabled(true);
         return entity;
     }
 
