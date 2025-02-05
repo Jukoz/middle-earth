@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "id": "me",
+  "version": "${version}",
+
+  "name": "Middle-earth",
+  "description": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!",
+  "authors": [
+    " Lead Dev: Jukoz, ObliviousCrab\n\nDeveloppers: Jukoz, ObliviousCrab, Slooshyboi, TomSchlom\n\nArtists: Boenndal, Jooble, Sindavar, Angmarzku, Jukoz, Khuz, ObliviousCrab, R3tt0\n\nBuilders: Angmarzku, Arwaeneth, Boenndal, Slooshyboi, Jooble, Jukoz, ObliviousCrab"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/middle-earth",
+    "sources": "https://github.com/Jukoz/middle-earth",
+    "issues": "https://github.com/Jukoz/middle-earth/issues"
+  },
+
+  "license": "ARR",
+  "icon": "assets/me/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "net.sevenstars.middleearth.datageneration.DataGeneration"
+    ],
+    "main": [
+      "net.sevenstars.middleearth.MiddleEarth"
+    ],
+    "client": [
+      "net.sevenstars.middleearth.MiddleEarthClient"
+    ],
+    "emi": [
+      "net.sevenstars.middleearth.integration.emi.ModEmiPlugin"
+    ]
+  },
+  "mixins": [
+    "me.mixins.json"
+  ],
+
+  "accessWidener" : "me.accesswidener",
+
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "fabric-api": "*",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "sevenstars-api": "1.5.3-1.21.1-alpha"
+  },
+  "recommends": {
+    "modmenu": "*",
+    "emi": "*"
+  },
+
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.wiki": "https://middleearthmcmod.wiki.gg/wiki/Middle_Earth_Minecraft_Mod_Wiki",
+        "modmenu.discord": "https://discord.gg/9yQ7UWkVUz",
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/middle-earth",
+        "modmenu.modrinth": "https://modrinth.com/mod/middle-earth"
+      },
+      "update_checker": true
+    }
+  }
+}

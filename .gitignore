@@ -22,3 +22,4 @@ build/
 .idea
 src/main/generated/
 bin/main/*
+/middle-earth/src/main/generated/

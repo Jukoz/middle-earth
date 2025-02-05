@@ -8,3 +8,6 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+include 'middle-earth'
+include 'sevenstars-api'
+

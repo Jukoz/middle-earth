@@ -11,7 +11,6 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	maven { url "https://maven.shedaniel.me" }
 	maven {
 		name = "TerraformersMC"
 		url = "https://maven.terraformersmc.com/"
@@ -42,24 +41,6 @@ processResources {
 	filesMatching("fabric.mod.json") {
 		expand "version": project.version
 	}
-}
-
-loom {
-	runs {
-		//
-		// This adds a new gradle task that runs the datagen API: "gradlew runDatagenClient"
-		//
-		datagenClient {
-			inherit client
-			name "Data Generation"
-			vmArg "-Dfabric-api.datagen"
-			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-			vmArg "-Dfabric-api.datagen.modid=${modid}"
-
-			runDir "build/datagen"
-		}
-	}
-	accessWidenerPath = file("src/main/resources/me.accesswidener")
 }
 
 sourceSets {
