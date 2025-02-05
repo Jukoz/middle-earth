@@ -235,7 +235,7 @@ public class MiddleEarthMapScreen extends Screen {
         } else {
             fullscreenButton.setPosition(endX, startY);
             context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_TEXTURE,
-                    18, fullscreenToggleButtonUvY, 35, fullscreenToggleButtonUvY,
+                    fullscreenButton.getX(), fullscreenButton.getY(), 35, fullscreenToggleButtonUvY,
                     NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y, 256, 256);
         }
     }
@@ -293,7 +293,7 @@ public class MiddleEarthMapScreen extends Screen {
             y -= NORMAL_BUTTON_SIZE.y;
             zoomInButton.setPosition(x, y);
             context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_TEXTURE,
-                    x, y, zoomOutButtonUvX, zoomOutButtonUvY,
+                    x, y, zoomInButtonUvX, zoomInButtonUvY,
                     NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y, 256, 256);
         } else {
             // Zoom out
@@ -306,7 +306,7 @@ public class MiddleEarthMapScreen extends Screen {
             y -= NORMAL_BUTTON_SIZE.y;
             zoomInButton.setPosition(endX, y);
             context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_TEXTURE,
-                    endX, y, zoomOutButtonUvX, zoomOutButtonUvY,
+                    endX, y, zoomInButtonUvX, zoomInButtonUvY,
                     NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y, 256, 256);
         }
     }
