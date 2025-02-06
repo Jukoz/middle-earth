@@ -16,7 +16,7 @@ import net.minecraft.util.math.Vec3d;
 public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTeleportToCurrentSpawn> {
     public static final Id<PacketTeleportToCurrentSpawn> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_teleport_current_spawn"));
     public static final PacketCodec<RegistryByteBuf, PacketTeleportToCurrentSpawn> CODEC = PacketCodec.tuple(
-            PacketCodecs.BOOL, p -> p.welcomeNeeded,
+            PacketCodecs.BOOLEAN, p -> p.welcomeNeeded,
             PacketTeleportToCurrentSpawn::new
     );
     private Boolean welcomeNeeded;

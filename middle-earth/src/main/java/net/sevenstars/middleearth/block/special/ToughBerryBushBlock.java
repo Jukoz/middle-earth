@@ -51,7 +51,7 @@ public class ToughBerryBushBlock extends CustomPlantBlock
     }
 
     @Override
-    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(ModFoodItems.TOUGH_BERRIES);
     }
 

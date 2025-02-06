@@ -41,7 +41,7 @@ public class StrawBerryBushBlock extends CustomPlantBlock
     }
 
     @Override
-    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(ModFoodItems.STRAWBERRY);
     }
 

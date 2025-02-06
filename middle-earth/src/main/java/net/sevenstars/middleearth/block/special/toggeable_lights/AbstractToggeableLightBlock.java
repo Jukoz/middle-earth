@@ -51,8 +51,8 @@ public abstract class AbstractToggeableLightBlock extends Block {
         return super.getAppearance(state, renderView, pos, side, sourceState, sourcePos);
     }
 
-    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
-        return addNbtForLevel(super.getPickStack(world, pos, state), state.get(LEVEL_15));
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        return addNbtForLevel(super.getPickStack(world, pos, state, false), state.get(LEVEL_15));
     }
 
     public static ItemStack addNbtForLevel(ItemStack stack, int level) {

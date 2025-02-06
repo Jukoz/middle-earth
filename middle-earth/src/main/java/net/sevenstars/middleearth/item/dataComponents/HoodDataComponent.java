@@ -21,7 +21,7 @@ public record HoodDataComponent(boolean down, ModHoods hood, int hoodColor) {
     public static final Codec<HoodDataComponent> CODEC = Codec.withAlternative(BASE_CODEC, Codec.BOOL, (enabled) -> {
         return new HoodDataComponent(false, ModHoods.HOOD, CustomDyeableDataComponent.DEFAULT_COLOR);
     });
-    public static final PacketCodec<ByteBuf, HoodDataComponent> PACKET_CODEC  = PacketCodec.tuple(PacketCodecs.BOOL, HoodDataComponent::down, ModHoods.PACKET_CODEC, HoodDataComponent::getHood, PacketCodecs.INTEGER, HoodDataComponent::hoodColor, HoodDataComponent::new);
+    public static final PacketCodec<ByteBuf, HoodDataComponent> PACKET_CODEC  = PacketCodec.tuple(PacketCodecs.BOOLEAN, HoodDataComponent::down, ModHoods.PACKET_CODEC, HoodDataComponent::getHood, PacketCodecs.INTEGER, HoodDataComponent::hoodColor, HoodDataComponent::new);
     ;
 
     public HoodDataComponent(boolean down, ModHoods hood, int hoodColor) {

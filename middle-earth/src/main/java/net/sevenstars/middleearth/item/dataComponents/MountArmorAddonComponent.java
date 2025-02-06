@@ -17,7 +17,7 @@ public record MountArmorAddonComponent(boolean topArmorAddon, boolean sideArmorA
     public static final Codec<MountArmorAddonComponent> CODEC = Codec.withAlternative(BASE_CODEC, Codec.BOOL, (enabled) -> {
         return new MountArmorAddonComponent(false, false);
     });
-    public static final PacketCodec<ByteBuf, MountArmorAddonComponent> PACKET_CODEC  = PacketCodec.tuple(PacketCodecs.BOOL, MountArmorAddonComponent::topArmorAddon, PacketCodecs.BOOL, MountArmorAddonComponent::sideArmorAddon, MountArmorAddonComponent::new);
+    public static final PacketCodec<ByteBuf, MountArmorAddonComponent> PACKET_CODEC  = PacketCodec.tuple(PacketCodecs.BOOLEAN, MountArmorAddonComponent::topArmorAddon, PacketCodecs.BOOLEAN, MountArmorAddonComponent::sideArmorAddon, MountArmorAddonComponent::new);
     ;
 
     public MountArmorAddonComponent(boolean topArmorAddon, boolean sideArmorAddon) {
