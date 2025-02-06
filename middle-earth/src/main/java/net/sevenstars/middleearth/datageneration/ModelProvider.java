@@ -449,16 +449,16 @@ public class ModelProvider extends FabricModelProvider {
 
         for (Block block : TintableCrossModel.notTintedBlocks) {
             if (block != null)
-                blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.NOT_TINTED);
+                blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.CrossType.NOT_TINTED);
 
         }
 
         for (Block block : TintableCrossModel.tintedBlocks) {
-            blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.TINTED);
+            blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.CrossType.TINTED);
         }
 
         for (Block block : TintableCrossModel.grassLikeBlocks) {
-            blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.NOT_TINTED);
+            blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.CrossType.NOT_TINTED);
         }
 
         for (Block block : SimpleFlowerBedModel.flowerBeds) {
@@ -466,15 +466,15 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleFlowerPotModel.FlowerPot flowerPot : SimpleFlowerPotModel.pots) {
-            registerFlowerPotPlant(blockStateModelGenerator, flowerPot.plant(), flowerPot.pottedPlant(), BlockStateModelGenerator.TintType.NOT_TINTED);
+            registerFlowerPotPlant(blockStateModelGenerator, flowerPot.plant(), flowerPot.pottedPlant(), BlockStateModelGenerator.CrossType.NOT_TINTED);
         }
 
         for (Block block : SimpleDoubleBlockModel.doubleBlocks) {
-            blockStateModelGenerator.registerDoubleBlock(block, BlockStateModelGenerator.TintType.NOT_TINTED);
+            blockStateModelGenerator.registerDoubleBlock(block, BlockStateModelGenerator.CrossType.NOT_TINTED);
         }
 
         for (Block block : SimpleDoubleBlockModel.doubleBlocksItems) {
-            registerDoubleBlock(blockStateModelGenerator, block, BlockStateModelGenerator.TintType.NOT_TINTED);
+            registerDoubleBlock(blockStateModelGenerator, block, BlockStateModelGenerator.CrossType.NOT_TINTED);
         }
 
         for (Block block : SimpleMushroomBlockModel.mushroomBlocks) {
@@ -734,7 +734,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateCollector.registerItemModel(coralFanBlock);
     }
 
-    public final void registerFlowerPotPlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, BlockStateModelGenerator.TintType tintType) {
+    public final void registerFlowerPotPlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, BlockStateModelGenerator.CrossType tintType) {
         TextureMap textureMap = TextureMap.plant(plantBlock);
         Identifier identifier = tintType.getFlowerPotCrossModel().upload(flowerPotBlock, textureMap, blockStateModelGenerator.modelCollector);
         blockStateModelGenerator.blockStateCollector.accept(blockStateModelGenerator.createSingletonBlockState(flowerPotBlock, identifier));
@@ -908,7 +908,7 @@ public class ModelProvider extends FabricModelProvider {
                 .coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
     }
 
-    public final void registerDoubleBlock(BlockStateModelGenerator blockStateModelGenerator, Block doubleBlock, BlockStateModelGenerator.TintType tintType) {
+    public final void registerDoubleBlock(BlockStateModelGenerator blockStateModelGenerator, Block doubleBlock, BlockStateModelGenerator.CrossType tintType) {
         blockStateModelGenerator.registerItemModel(doubleBlock.asItem());
         Identifier identifier = blockStateModelGenerator.createSubModel(doubleBlock, "_top", tintType.getCrossModel(), TextureMap::cross);
         Identifier identifier2 = blockStateModelGenerator.createSubModel(doubleBlock, "_bottom", tintType.getCrossModel(), TextureMap::cross);
