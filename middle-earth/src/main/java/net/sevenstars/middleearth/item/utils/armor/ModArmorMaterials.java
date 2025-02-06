@@ -2,7 +2,12 @@ package net.sevenstars.middleearth.item.utils.armor;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.EquipmentAsset;
+import net.minecraft.item.equipment.EquipmentAssetKeys;
 import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
@@ -157,8 +162,14 @@ public interface ModArmorMaterials {
         for (EquipmentType type : EquipmentType.values()) {
             enumMap.put(type, defense.get(type));
         }
-        ArmorMaterial material =  new ArmorMaterial(durabilityMultiplier, enumMap, enchantability, equipSound, toughness, knockbackResistance, repairTag, Identifier.of(MiddleEarth.MOD_ID, name));
+        ArmorMaterial material =  new ArmorMaterial(durabilityMultiplier, enumMap, enchantability, equipSound, toughness, knockbackResistance, repairTag, register(name));
         return new ExtendedArmorMaterial(material, durabilityMultiplier, tier);
+    }
+
+    RegistryKey<? extends Registry<EquipmentAsset>> REGISTRY_KEY = RegistryKey.ofRegistry(Identifier.ofVanilla("equipment_asset"));
+
+    static RegistryKey<EquipmentAsset> register(String name) {
+        return RegistryKey.of(REGISTRY_KEY, Identifier.of(MiddleEarth.MOD_ID, name));
     }
 
     public enum Tiers {

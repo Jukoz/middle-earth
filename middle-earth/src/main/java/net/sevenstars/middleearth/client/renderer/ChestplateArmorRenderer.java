@@ -38,8 +38,8 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        this.customChestplateModel = new CustomChestplateModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_CHESTPLATE));
-        this.capeModel = new CloakCapeModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
+        this.customChestplateModel = new CustomChestplateModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_CHESTPLATE));
+        this.capeModel = new CloakCapeModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
 
         CustomChestplateItem item = (CustomChestplateItem)stack.getItem();
         boolean dyeable = false;

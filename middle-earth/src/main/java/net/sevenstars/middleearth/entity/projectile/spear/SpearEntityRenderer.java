@@ -6,6 +6,7 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
@@ -20,13 +21,13 @@ import net.minecraft.util.math.RotationAxis;
 public class SpearEntityRenderer extends EntityRenderer<SpearEntity, SpearEntityRenderState> {
     private static final float MIN_DISTANCE = 12.25F;
     private static final float SCALE = 1.0F;
-    private final ItemRenderer itemRenderer;
+    private final EquipmentRenderer itemRenderer;
     private final float scale;
     private final boolean lit;
 
     public SpearEntityRenderer(EntityRendererFactory.Context ctx, float scale, boolean lit) {
         super(ctx);
-        this.itemRenderer = ctx.getItemRenderer();
+        this.itemRenderer = ctx.getEquipmentRenderer();
         this.scale = SCALE * scale;
         this.lit = lit;
     }

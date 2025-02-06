@@ -26,7 +26,7 @@ public class LeggingsArmorRenderer implements ArmorRenderer {
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        this.customLeggingsModel = new CustomLeggingsModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_LEGGINGS));
+        this.customLeggingsModel = new CustomLeggingsModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_LEGGINGS));
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.LEGS) {

@@ -38,8 +38,8 @@ public class HelmetArmorRenderer implements ArmorRenderer {
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        this.customHelmetModel = new CustomHelmetModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_HELMET));
-        this.hoodModel = new CloakHoodModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
+        this.customHelmetModel = new CustomHelmetModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_HELMET));
+        this.hoodModel = new CloakHoodModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
 
         boolean dyeable = false;
 

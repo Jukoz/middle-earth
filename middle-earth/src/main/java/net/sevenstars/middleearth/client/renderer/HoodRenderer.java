@@ -49,7 +49,7 @@ public class HoodRenderer implements ArmorRenderer {
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        this.hoodModel = new CloakHoodModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
+        this.hoodModel = new CloakHoodModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
 
         if (slot == EquipmentSlot.HEAD) {
             HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);

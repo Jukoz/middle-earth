@@ -2,7 +2,10 @@ package net.sevenstars.middleearth.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.item.ItemAsset;
 import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.entity.model.LoadedEntityModels;
+import net.minecraft.client.render.model.GroupableModel;
 import net.minecraft.client.render.model.ModelBaker;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.util.ModelIdentifier;
@@ -23,8 +26,8 @@ public class MEModelLoader extends ModelBaker {
     public static final SpriteIdentifier ROUND_SHIELD_BASE;
     public static final SpriteIdentifier ROUND_SHIELD_BASE_NO_PATTERN;
 
-    public MEModelLoader(Map<ModelIdentifier, UnbakedModel> models, Map<Identifier, UnbakedModel> resolvedModels, UnbakedModel missingModel) {
-        super(models, resolvedModels, missingModel);
+    public MEModelLoader(LoadedEntityModels entityModels, Map<ModelIdentifier, GroupableModel> blockModels, Map<Identifier, ItemAsset> itemModels, Map<Identifier, UnbakedModel> allModels, UnbakedModel missingModel) {
+        super(entityModels, blockModels, itemModels, allModels, missingModel);
     }
 
     static {
