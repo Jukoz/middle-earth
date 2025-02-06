@@ -17,9 +17,9 @@ import net.minecraft.util.Identifier;
 public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardingResult> {
     public static final Id<PacketOnboardingResult> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_onboarding_result"));
     public static final PacketCodec<RegistryByteBuf, PacketOnboardingResult> CODEC = PacketCodec.tuple(
-            PacketCodecs.BOOL, p -> p.havePlayerData,
-            PacketCodecs.BOOL, p -> p.canChangeFaction,
-            PacketCodecs.BOOL, p -> p.canReturnToOverworld,
+            PacketCodecs.BOOLEAN, p -> p.havePlayerData,
+            PacketCodecs.BOOLEAN, p -> p.canChangeFaction,
+            PacketCodecs.BOOLEAN, p -> p.canReturnToOverworld,
             PacketCodecs.FLOAT, p -> p.delayOnTeleportationConfirm,
             PacketOnboardingResult::new
     );

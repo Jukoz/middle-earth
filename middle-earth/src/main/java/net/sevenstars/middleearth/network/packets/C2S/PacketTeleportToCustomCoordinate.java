@@ -16,7 +16,7 @@ public class PacketTeleportToCustomCoordinate extends ClientToServerPacket<Packe
             PacketCodecs.DOUBLE, p -> p.xCoordinate,
             PacketCodecs.DOUBLE, p -> p.yCoordinate,
             PacketCodecs.DOUBLE, p -> p.zCoordinate,
-            PacketCodecs.BOOL, p -> p.welcomeNeeded,
+            PacketCodecs.BOOLEAN, p -> p.welcomeNeeded,
             PacketTeleportToCustomCoordinate::new
     );
     private final double xCoordinate;

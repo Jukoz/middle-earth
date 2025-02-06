@@ -18,7 +18,7 @@ public class PacketTeleportToDynamicCoordinate extends ClientToServerPacket<Pack
     public static final PacketCodec<RegistryByteBuf, PacketTeleportToDynamicCoordinate> CODEC = PacketCodec.tuple(
             PacketCodecs.DOUBLE, p -> p.xCoordinate,
             PacketCodecs.DOUBLE, p -> p.zCoordinate,
-            PacketCodecs.BOOL, p -> p.welcomeNeeded,
+            PacketCodecs.BOOLEAN, p -> p.welcomeNeeded,
             PacketTeleportToDynamicCoordinate::new
     );
     private final double xCoordinate;
