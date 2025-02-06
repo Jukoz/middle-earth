@@ -79,7 +79,7 @@ public class FactionSelectionScreen extends Screen {
     @Override
     protected void init() {
         assert this.client != null;
-        this.bannerField = this.client.getEntityModelLoader().getModelPart(EntityModelLayers.BANNER).getChild("flag");
+        this.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.WALL_BANNER).getChild("flag");
         Entity cameraEntity = this.client.getCameraEntity();
         if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
             this.player = abstractClientPlayerEntity;
