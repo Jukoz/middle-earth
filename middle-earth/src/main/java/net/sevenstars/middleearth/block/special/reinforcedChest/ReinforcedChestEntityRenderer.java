@@ -15,8 +15,8 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
+import org.joml.Quaternionf;
 
 public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends ChestBlockEntityRenderer<T> {
 
@@ -66,9 +66,9 @@ public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends C
         g = 1.0F - g * g * g;
 
         matrices.push();
-        float rotation = blockState.get(ChestBlock.FACING).asRotation();
+        Quaternionf rotation = blockState.get(ChestBlock.FACING).getRotationQuaternion();
         matrices.translate(0.5D, 0.0D, 0.5D);
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
+        matrices.multiply(rotation);
 
         chestLatch.pitch = chestLid.pitch = +(g * 1.5707964f);
         chestLid.render(matrices, vertexConsumer, light, overlay);

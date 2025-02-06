@@ -25,6 +25,8 @@ import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 public class SeatBlock extends Block {
     public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;
@@ -38,7 +40,11 @@ public class SeatBlock extends Block {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        float yaw = state.get(FACING).getOpposite().asRotation();
+        Quaternionf quaternion = state.get(FACING).getOpposite().getRotationQuaternion().normalize();
+        Vector3f eulerAngles = new Vector3f(0, 0, 0);
+        eulerAngles = quaternion.getEulerAnglesXYZ(eulerAngles);
+        float yaw = (float) Math.atan2(eulerAngles.x, eulerAngles.z);
+
         SeatEntity seat = new SeatEntity(ModEntities.SEAT_ENTITY, world);
         seat.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
         seat.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, yaw, 0);

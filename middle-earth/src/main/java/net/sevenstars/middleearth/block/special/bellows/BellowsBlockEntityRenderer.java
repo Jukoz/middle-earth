@@ -20,6 +20,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
+import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBlockEntity>  {
@@ -70,9 +71,9 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
 
         float animationProgress = getAnimationProgress(bellowsBlockEntity);
 
-        float rotation = blockState.get(ChestBlock.FACING).asRotation();
+        Quaternionf rotation = blockState.get(ChestBlock.FACING).getRotationQuaternion();
         matrices.translate(0.5D, 1.5D, 0.5D);
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
+        matrices.multiply(rotation);
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
 
         VertexConsumer vertexConsumer = getSpriteIdentifier(animationProgress).getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
