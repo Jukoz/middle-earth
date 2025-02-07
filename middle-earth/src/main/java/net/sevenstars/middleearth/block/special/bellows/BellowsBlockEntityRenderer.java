@@ -71,9 +71,9 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
 
         float animationProgress = getAnimationProgress(bellowsBlockEntity);
 
-        Quaternionf rotation = blockState.get(ChestBlock.FACING).getRotationQuaternion();
+        float rotation = blockState.get(ChestBlock.FACING).getPositiveHorizontalDegrees();
         matrices.translate(0.5D, 1.5D, 0.5D);
-        matrices.multiply(rotation);
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
 
         VertexConsumer vertexConsumer = getSpriteIdentifier(animationProgress).getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);

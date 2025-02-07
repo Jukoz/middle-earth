@@ -12,7 +12,7 @@ public class SimpleFlowerPotModel {
     public record FlowerPot(Block pottedPlant, Block plant) {}
 
     public static List<FlowerPot> pots = new ArrayList<>() {
-        {/*
+        {
             add(new FlowerPot(ModDecorativeBlocks.POTTED_BEECH_SAPLING, ModNatureBlocks.BEECH_SAPLING));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_CHESTNUT_SAPLING, ModNatureBlocks.CHESTNUT_SAPLING));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_HOLLY_SAPLING, ModNatureBlocks.HOLLY_SAPLING));
@@ -48,7 +48,7 @@ public class SimpleFlowerPotModel {
             add(new FlowerPot(ModDecorativeBlocks.POTTED_TUBESHROOM, ModNatureBlocks.TUBESHRROM));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_VIOLET_CAPS, ModNatureBlocks.VIOLET_CAPS));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_WHITE_MUSHROOM, ModNatureBlocks.WHITE_MUSHROOM));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_YELLOW_AMANITA, ModNatureBlocks.YELLOW_AMANITA));*/
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_YELLOW_AMANITA, ModNatureBlocks.YELLOW_AMANITA));
         }
     };
 }
