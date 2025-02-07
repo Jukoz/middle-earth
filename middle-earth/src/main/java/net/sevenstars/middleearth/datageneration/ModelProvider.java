@@ -13,7 +13,12 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.ArmorMaterials;
+import net.minecraft.item.equipment.EquipmentAsset;
+import net.minecraft.item.equipment.EquipmentAssetKeys;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
@@ -448,8 +453,8 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (Block block : TintableCrossModel.notTintedBlocks) {
-            if (block != null)
-                blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.CrossType.NOT_TINTED);
+            //TODO fix, one of the block is minecraft:air
+            //if (block != null) blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.CrossType.NOT_TINTED);
 
         }
 
@@ -1168,8 +1173,18 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public static final Identifier TRIM_TYPE = Identifier.of("trim_type");
-    private static final List<TrimMaterial> TRIM_MATERIALS = List.of(new TrimMaterial("quartz", 0.1F, Map.of()), new TrimMaterial("iron", 0.2F, Map.of(EquipmentModels.IRON, "iron_darker")), new TrimMaterial("netherite", 0.3F, Map.of(EquipmentModels.NETHERITE, "netherite_darker")), new TrimMaterial("redstone", 0.4F, Map.of()), new TrimMaterial("copper", 0.5F, Map.of()), new TrimMaterial("gold", 0.6F, Map.of(EquipmentModels.GOLD, "gold_darker")), new TrimMaterial("emerald", 0.7F, Map.of()), new TrimMaterial("diamond", 0.8F, Map.of(EquipmentModels.DIAMOND, "diamond_darker")), new TrimMaterial("lapis", 0.9F, Map.of()), new TrimMaterial("amethyst", 1.0F, Map.of()));
-
+    private static final List<TrimMaterial> TRIM_MATERIALS = List.of(
+            new TrimMaterial("quartz", ArmorTrimMaterials.QUARTZ, Map.of()),
+            new TrimMaterial("iron", ArmorTrimMaterials.IRON, Map.of(EquipmentAssetKeys.IRON, "iron_darker")),
+            new TrimMaterial("netherite", ArmorTrimMaterials.NETHERITE, Map.of(EquipmentAssetKeys.NETHERITE, "netherite_darker")),
+            new TrimMaterial("redstone", ArmorTrimMaterials.REDSTONE, Map.of()),
+            new TrimMaterial("copper", ArmorTrimMaterials.COPPER, Map.of()),
+            new TrimMaterial("gold", ArmorTrimMaterials.GOLD, Map.of(EquipmentAssetKeys.GOLD, "gold_darker")),
+            new TrimMaterial("emerald", ArmorTrimMaterials.EMERALD, Map.of()),
+            new TrimMaterial("diamond", ArmorTrimMaterials.DIAMOND, Map.of(EquipmentAssetKeys.DIAMOND, "diamond_darker")),
+            new TrimMaterial("lapis", ArmorTrimMaterials.LAPIS, Map.of()),
+            new TrimMaterial("amethyst", ArmorTrimMaterials.AMETHYST, Map.of()),
+            new TrimMaterial("resin", ArmorTrimMaterials.RESIN, Map.of()));
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
@@ -1195,50 +1210,52 @@ public class ModelProvider extends FabricModelProvider {
             itemModelGenerator.register(item, Models.GENERATED);
         }
 
+        //TODO update all the model gen to new stuff
+
         for (Item item : SimpleBigItemModel.items) {
             itemModelGenerator.register(item, CustomItemModels.BIG_WEAPON);
-            itemModelGenerator.register(item, "_inventory", Models.HANDHELD);
+            //itemModelGenerator.register(item, "_inventory", Models.HANDHELD);
         }
 
         for (Item item : SimpleBigItemModel.bigBows) {
             for (int i = 0; i < 3; i++) {
-                itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.LONGBOW);
-                itemModelGenerator.register(item, "_pulling_" + i + "_inventory", Models.HANDHELD);
+                //itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.LONGBOW);
+                //itemModelGenerator.register(item, "_pulling_" + i + "_inventory", Models.HANDHELD);
 
             }
         }
 
         for (Item item : SimpleBigItemModel.genericItems) {
-            itemModelGenerator.register(item, "_inventory", Models.HANDHELD);
+            //itemModelGenerator.register(item, "_inventory", Models.HANDHELD);
         }
 
         for (Item item : HotMetalsModel.items) {
-            itemModelGenerator.register(item, "_hot", Models.GENERATED);
+            //itemModelGenerator.register(item, "_hot", Models.GENERATED);
         }
 
         for (Item item : HotMetalsModel.ingots) {
-            Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/ingot_hot")), itemModelGenerator.writer);
+            //Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/ingot_hot")), itemModelGenerator.writer);
         }
 
         for (Item item : HotMetalsModel.nuggets) {
-            Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/nugget_hot")), itemModelGenerator.writer);
+            //Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/nugget_hot")), itemModelGenerator.writer);
         }
 
         for (Item item : SimpleSpearModel.items) {
-            itemModelGenerator.register(item, "_inventory", Models.HANDHELD);
+            //itemModelGenerator.register(item, "_inventory", Models.HANDHELD);
         }
 
         for (Item item : SimpleBowItemModel.items) {
             for (int i = 0; i < 3; i++) {
-                itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.BOW);
+                //itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.BOW);
             }
         }
 
         for (Item item : SimpleCrossbowItemModel.items) {
             for (int i = 0; i < 3; i++) {
-                itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.CROSSBOW);
+                //itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.CROSSBOW);
             }
-            itemModelGenerator.register(item, "_charged", CustomItemModels.CROSSBOW);
+            //itemModelGenerator.register(item, "_charged", CustomItemModels.CROSSBOW);
         }
 
         for (Item item : SimpleSpawnEggItemModel.items) {
@@ -1269,7 +1286,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModBlocks.MEDIUM_GLOWSTONE_BUD.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.LARGE_GLOWSTONE_BUD.asItem(), Models.GENERATED);
 
-        registerPalettedItem(ModResourceItems.ROD, itemModelGenerator);
+       /* registerPalettedItem(ModResourceItems.ROD, itemModelGenerator);
         registerPalettedItem(ModResourceItems.LARGE_ROD, itemModelGenerator);
 
         registerPalettedItem(ModResourceItems.PICKAXE_HEAD, itemModelGenerator);
@@ -1292,23 +1309,22 @@ public class ModelProvider extends FabricModelProvider {
 
         registerPalettedItem(ModResourceItems.HELMET_PLATE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SHIELD_BORDER, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.SHIELD_PLATE, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.SHIELD_PLATE, itemModelGenerator);*/
     }
 
     public final void registerDyeableArmor(ArmorItem armor, ItemModelGenerator itemModelGenerator) {
         Identifier identifier = ModelIds.getItemModelId(armor);
         Identifier identifier2 = TextureMap.getId(armor);
         Identifier identifier3 = TextureMap.getSubId(armor, "_overlay");
-        Models.GENERATED_TWO_LAYERS.upload(identifier, TextureMap.layered(identifier2, identifier3), itemModelGenerator.writer);
-
+        Models.GENERATED_TWO_LAYERS.upload(identifier, TextureMap.layered(identifier2, identifier3), itemModelGenerator.modelCollector);
     }
 
-    public final void registerPalettedItem(Item item, ItemModelGenerator itemModelGenerator) {
+    /*public final void registerPalettedItem(Item item, ItemModelGenerator itemModelGenerator) {
         Identifier identifierItem = Identifier.of(MiddleEarth.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath());
 
         Identifier identifier2 = TextureMap.getId(item);
 
-        Models.GENERATED.upload(identifierItem, TextureMap.layer0(identifierItem), itemModelGenerator.writer, (id, textures) -> this.registerPalettedItemJson(item, id, textures, itemModelGenerator));
+        Models.GENERATED.upload(identifierItem, TextureMap.layer0(identifierItem), itemModelGenerator.modelCollector, (id, textures) -> this.registerPalettedItemJson(item, id, textures, itemModelGenerator));
         for (TrimMaterial trimMaterial : TRIM_MATERIALS) {
 
             String string;
@@ -1349,36 +1365,32 @@ public class ModelProvider extends FabricModelProvider {
         jsonObject.add("overrides", jsonArray);
 
         return jsonObject;
-    }
+    }*/
 
-    private static record TrimMaterial(String name, float itemModelIndex, Map<Identifier, String> overrideArmorMaterials) {
-        TrimMaterial(String name, float itemModelIndex, Map<Identifier, String> overrideArmorMaterials) {
+    private static record TrimMaterial(String name, RegistryKey<ArmorTrimMaterial> materialKey, Map<RegistryKey<EquipmentAsset>, String> overrideArmorMaterials) {
+
+        TrimMaterial(String name, RegistryKey<ArmorTrimMaterial> materialKey, Map<RegistryKey<EquipmentAsset>, String> overrideArmorMaterials) {
             this.name = name;
-            this.itemModelIndex = itemModelIndex;
+            this.materialKey = materialKey;
             this.overrideArmorMaterials = overrideArmorMaterials;
         }
 
-        public String getAppliedName(Identifier modelId) {
-            return (String)this.overrideArmorMaterials.getOrDefault(modelId, this.name);
+        public String texture(RegistryKey<EquipmentAsset> equipmentKey) {
+            return (String)this.overrideArmorMaterials.getOrDefault(equipmentKey, this.name);
         }
 
         public String name() {
             return this.name;
         }
 
-        public float itemModelIndex() {
-            return this.itemModelIndex;
+        public RegistryKey<ArmorTrimMaterial> materialKey() {
+            return this.materialKey;
         }
 
-        public Map<Identifier, String> overrideArmorMaterials() {
+        public Map<RegistryKey<EquipmentAsset>, String> overrideArmorMaterials() {
             return this.overrideArmorMaterials;
         }
     }
-
-    public final JsonObject createArmorJson(Identifier id, Map<TextureKey, Identifier> textures, RegistryEntry<ArmorMaterial> armorMaterial) {
-        return Models.GENERATED_TWO_LAYERS.createJson(id, textures);
-    }
-
     record ItemTrimMaterial(String name, float itemModelIndex,
                             Map<RegistryEntry<ArmorMaterial>, String> overrideArmorMaterials) {
 

@@ -13,7 +13,8 @@ import net.minecraft.util.Identifier;
 
 public class ModModelPredicateProvider {
 
-    public static void registerAllPredicates(){
+    //TODO update predicates to new thingy ?
+    /*public static void registerAllPredicates(){
         registerShieldModel();
         registerSpearModel();
         registerBowModel();
@@ -173,5 +174,5 @@ public class ModModelPredicateProvider {
                     }
                     return 0.0F;
                 });
-    }
+    }*/
 }

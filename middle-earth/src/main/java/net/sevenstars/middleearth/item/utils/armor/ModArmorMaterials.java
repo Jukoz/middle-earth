@@ -162,17 +162,11 @@ public interface ModArmorMaterials {
         for (EquipmentType type : EquipmentType.values()) {
             enumMap.put(type, defense.get(type));
         }
-        ArmorMaterial material =  new ArmorMaterial(durabilityMultiplier, enumMap, enchantability, equipSound, toughness, knockbackResistance, repairTag, register(name));
+        ArmorMaterial material =  new ArmorMaterial(durabilityMultiplier, enumMap, enchantability, equipSound, toughness, knockbackResistance, repairTag, EquipmentAssetKeys.register(name));
         return new ExtendedArmorMaterial(material, durabilityMultiplier, tier);
     }
 
-    RegistryKey<? extends Registry<EquipmentAsset>> REGISTRY_KEY = RegistryKey.ofRegistry(Identifier.ofVanilla("equipment_asset"));
-
-    static RegistryKey<EquipmentAsset> register(String name) {
-        return RegistryKey.of(REGISTRY_KEY, Identifier.of(MiddleEarth.MOD_ID, name));
-    }
-
-    public enum Tiers {
+    enum Tiers {
         CLOTHING,
         BASIC,
         LIGHT,

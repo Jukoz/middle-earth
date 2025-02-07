@@ -116,13 +116,14 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SPEAR, SpearEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
 
-        SimpleDyeableItemModel.items.forEach(this::registerDyeableItem);
+        //TODO fix this
+        /*SimpleDyeableItemModel.items.forEach(this::registerDyeableItem);
 
         registerDyeableItem(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
         registerDyeableItem(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
 
         registerDyeableItem(ModEquipmentItems.WARG_LEATHER_ARMOR);
-        registerDyeableItem(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);
+        registerDyeableItem(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);*/
 
 
         // Animals
@@ -133,7 +134,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntities.SEAT_ENTITY, SeatRenderer::new);
 
-        ModModelPredicateProvider.registerAllPredicates();
+        //ModModelPredicateProvider.registerAllPredicates();
 
         HandledScreens.register(ModScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
         HandledScreens.register(ModScreenHandlers.FORGE_HEATING_SCREEN_HANDLER, ForgeHeatingScreen::new);
@@ -159,11 +160,12 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(HELD_BANNER_LAYER, HeldBannerEntityModel::getTexturedModelData);
 
-        BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.HEATER_SHIELD, new ModBuiltInModelItemRenderer());
+        //TODO fix this too
+        /*BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.HEATER_SHIELD, new ModBuiltInModelItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.KITE_SHIELD, new ModBuiltInModelItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.ROUND_SHIELD, new ModBuiltInModelItemRenderer());
 
-        BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.HELD_BANNER, new ModBuiltInModelItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.HELD_BANNER, new ModBuiltInModelItemRenderer());*/
 
         for(ModArmorModels.ModHelmetModels model : ModArmorModels.ModHelmetModels.values()){
             ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());
@@ -361,17 +363,17 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
                     if (view == null || pos == null) {
-                        return FoliageColors.getDefaultColor();
+                        return FoliageColors.DEFAULT;
                     }
                     return BiomeColors.getFoliageColor(view, pos);
                 }, ModNatureBlocks.FALLEN_LEAVES);
 
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> GrassColors.getDefaultColor(), ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS,
+        /*ColorProviderRegistry.ITEM.register((stack, tintIndex) -> GrassColors.getDefaultColor(), ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS,
                 ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT_STAIRS,
                 ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_SLAB, ModBlocks.PEBBLED_GRASS_STAIRS,
                 ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS, ModBlocks.TURF_VERTICAL_SLAB);
 
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getDefaultColor(), ModNatureBlocks.FALLEN_LEAVES);
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.DEFAULT, ModNatureBlocks.FALLEN_LEAVES);*/
 
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
@@ -698,7 +700,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BELLOWS, RenderLayer.getCutout());
     }
 
-    private void registerDyeableItem(Item item) {
+    /*private void registerDyeableItem(Item item) {
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex > 0 ? -1 : CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR), item);
-    }
+    }*/
 }

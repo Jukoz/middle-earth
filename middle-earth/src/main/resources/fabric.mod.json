@@ -43,7 +43,7 @@
     "fabric-api": "*",
     "minecraft": "~1.21.4",
     "java": ">=21",
-    "sevenstars-api": "1.5.3-1.21.2-alpha"
+    "sevenstars-api": "1.5.3-1.21.4-alpha"
   },
   "recommends": {
     "modmenu": "*",
