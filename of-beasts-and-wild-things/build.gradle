@@ -11,7 +11,7 @@ version = project.mod_version
 group = project.maven_group
 
 
-group = 'net.sevenstars.middleearth'
+group = 'net.sevenstars.of_beasts_and_wild_things'
 version = '1.5.3-1.21.4-alpha'
 
 repositories {
@@ -39,7 +39,6 @@ dependencies {
     // Seven Stars API dependence
     // This works in dev env
     implementation project(path: ':sevenstars-api', configuration: 'dev')
-    implementation project(path: ':of-beasts-and-wild-things', configuration: 'dev')
 }
 
 
@@ -57,24 +56,6 @@ processResources {
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
-}
-
-loom {
-    runs {
-        //
-        // This adds a new gradle task that runs the datagen API: "gradlew runDatagenClient"
-        //
-        datagenClient {
-            inherit client
-            name "Data Generation"
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-            vmArg "-Dfabric-api.datagen.modid=${modid}"
-
-            runDir "build/datagen"
-        }
-    }
-    accessWidenerPath = file("src/main/resources/me.accesswidener")
 }
 
 
@@ -121,4 +102,15 @@ publishing {
         // The repositories here will be used for publishing your artifact, not for
         // retrieving dependencies.
     }
+}
+
+configurations {
+    dev {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+}
+
+artifacts {
+    dev jar
 }

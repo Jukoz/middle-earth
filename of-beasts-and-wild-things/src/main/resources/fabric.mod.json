@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "me",
+  "id": "wild-things",
   "version": "${version}",
 
-  "name": "Middle-earth",
+  "name": "Of Beasts and Wild Things",
   "description": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!",
   "authors": [
     " Lead Dev: Jukoz, ObliviousCrab\n\nDeveloppers: Jukoz, ObliviousCrab, Slooshyboi, TomSchlom\n\nArtists: Boenndal, Jooble, Sindavar, Angmarzku, Jukoz, Khuz, ObliviousCrab, R3tt0\n\nBuilders: Angmarzku, Arwaeneth, Boenndal, Slooshyboi, Jooble, Jukoz, ObliviousCrab"
@@ -15,37 +15,27 @@
   },
 
   "license": "ARR",
-  "icon": "assets/me/icon.png",
+  "icon": "assets/wild-things/icon.png",
 
   "environment": "*",
   "entrypoints": {
-    "fabric-datagen": [
-      "net.sevenstars.middleearth.datageneration.DataGeneration"
-    ],
     "main": [
-      "net.sevenstars.middleearth.MiddleEarth"
+      "net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings"
     ],
     "client": [
-      "net.sevenstars.middleearth.MiddleEarthClient"
+      "net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThingsClient"
     ]
   },
-  "mixins": [
-    "me.mixins.json"
-  ],
-
-  "accessWidener" : "me.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.16.0",
     "fabric-api": "*",
     "minecraft": "~1.21.4",
     "java": ">=21",
-    "sevenstars-api": "1.5.3-1.21.4-alpha",
-    "wild-things": "1.5.3-1.21.4-alpha"
+    "sevenstars-api": "1.5.3-1.21.4-alpha"
   },
   "recommends": {
-    "modmenu": "*",
-    "emi": "*"
+    "modmenu": "*"
   },
 
   "custom": {
