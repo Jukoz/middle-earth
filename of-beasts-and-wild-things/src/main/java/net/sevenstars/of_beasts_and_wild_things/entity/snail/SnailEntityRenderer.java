@@ -6,7 +6,7 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
-import net.sevenstars.of_beasts_and_wild_things.entity.ModEntityModelLayers;
+import net.sevenstars.of_beasts_and_wild_things.entity.model.ModEntityModelLayers;
 
 import java.util.Map;
 

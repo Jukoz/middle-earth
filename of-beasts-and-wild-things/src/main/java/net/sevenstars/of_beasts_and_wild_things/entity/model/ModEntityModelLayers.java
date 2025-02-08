@@ -1,4 +1,4 @@
-package net.sevenstars.of_beasts_and_wild_things.entity;
+package net.sevenstars.of_beasts_and_wild_things.entity.model;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
