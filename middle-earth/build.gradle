@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.7-SNAPSHOT'
+    id 'fabric-loom' version '1.9-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -12,7 +12,7 @@ group = project.maven_group
 
 
 group = 'net.sevenstars.middleearth'
-version = '1.5.3-1.21.1-alpha'
+version = '1.5.3-1.21.4-alpha'
 
 repositories {
     mavenCentral()
