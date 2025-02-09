@@ -102,13 +102,11 @@ public class ModDimensions {
             }
 
             if (serverWorld != null) {
-                serverWorld = serverWorld.getServer().getWorld(registryKey);
-
-                player.wakeUp();
-                ((ServerPlayerEntity) player).setSpawnPoint(World.OVERWORLD, player.getServer().getOverworld().getSpawnPos(), player.getServer().getOverworld().getSpawnAngle(), true, true);
-                player.requestTeleport(coordinate.getX() , coordinate.getY(), coordinate.getZ());
-                player.refreshPositionAfterTeleport(coordinate.getX() , coordinate.getY(), coordinate.getZ());
-
+                Vec3d coordinates = new Vec3d(coordinate.getX(), coordinate.getY(), coordinate.getZ());
+                player.teleportTo(new TeleportTarget(player.getServer().getOverworld(), coordinates, Vec3d.ZERO, 0, 0, entity -> {
+                    // idk
+                }));
+                
                 if(!ModServerConfigs.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){
                     AttributeData.reset(player);
                 }
