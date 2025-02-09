@@ -147,32 +147,18 @@ public class MapWidget extends ModWidget {
         context.drawTexture(RenderLayer::getGuiTextured, getMapTexture(),
                 startX, startY, uvX.floatValue(), uvY.floatValue(),
                 getWidth(), getHeight(),
-                size, size, 3000, 3000);
-        /*
-        context.drawTexture(getMapTexture(),
-                startX, startY,
-                uvX.floatValue(), uvY.floatValue(),
-                getWidth(), getHeight(),
                 size, size
         );
-         */
     }
 
     protected void drawOverlayMapTexture(DrawContext context, int startX, int startY) {
         int size = Math.max(getCurrentWidth(), getCurrentHeight());
 
-        context.drawTexture(RenderLayer::getGuiTextured, getMapTexture(),
+        context.drawTexture(RenderLayer::getGuiTextured, getOverlayMapTexture(),
                 startX, startY, uvX.floatValue(), uvY.floatValue(),
-                getWidth(), getHeight(),
-                size, size,3000, 3000);
-        /*
-        context.drawTexture(getOverlayMapTexture(),
-                startX, startY,
-                uvX.floatValue(), uvY.floatValue(),
                 getWidth(), getHeight(),
                 size, size
         );
-         */
     }
 
     protected int getCurrentWidth() {
