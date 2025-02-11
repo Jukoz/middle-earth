@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.block.special.reinforcedChest;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.client.model.*;

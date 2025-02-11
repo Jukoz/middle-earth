@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.entity.snail;
 
 import com.google.common.collect.Maps;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;

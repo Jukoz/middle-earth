@@ -1,13 +1,13 @@
 package net.sevenstars.middleearth.entity.goals;
 
-import net.sevenstars.middleearth.entity.NpcEntity;
+import net.sevenstars.middleearth.entity.TestNpcEntity;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class NpcTargetPlayerGoal extends ActiveTargetGoal<PlayerEntity> {
-    NpcEntity mob;
+    TestNpcEntity mob;
 
-    public NpcTargetPlayerGoal(NpcEntity mob) {
+    public NpcTargetPlayerGoal(TestNpcEntity mob) {
         super(mob, PlayerEntity.class, true);
         this.mob = mob;
     }

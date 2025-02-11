@@ -45,14 +45,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
+public class TestNpcEntity extends PathAwareEntity implements RangedAttackMob {
     protected Disposition disposition;
     private Identifier raceId;
     private Item bow;
-    private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<NpcEntity>(this, 1.0, 16, 30.0f);
+    private final CustomBowAttackGoal<TestNpcEntity> bowAttackGoal = new CustomBowAttackGoal<TestNpcEntity>(this, 1.0, 16, 30.0f);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.5, false);
     public NpcRank rank;
-    protected NpcEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
+    protected TestNpcEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.updateAttackType();
         for (int i = 0; i < 4; i++) {
@@ -308,7 +308,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
             NpcGearData gearData = data.getGear();
             NpcUtil.equipAll(this, gearData);
         } catch (FactionIdentifierException e) {
-            MiddleEarth.LOGGER.logError("NpcEntity::Couldn't find faction registry with [%s] for rank [%s]".formatted(factionId, npcRank.toString()));
+            MiddleEarth.LOGGER.logError("TestNpcEntity::Couldn't find faction registry with [%s] for rank [%s]".formatted(factionId, npcRank.toString()));
             throw new RuntimeException(e);
         }
     }

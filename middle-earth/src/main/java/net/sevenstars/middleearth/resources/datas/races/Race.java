@@ -12,7 +12,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.entity.NpcEntity;
+import net.sevenstars.middleearth.entity.TestNpcEntity;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
@@ -93,7 +93,7 @@ public class Race {
     }
 
     public LivingEntity getModel(World world) {
-        NpcEntity entity;
+        TestNpcEntity entity;
         switch (raceType){
             case RaceType.HUMAN:
                 entity = null;

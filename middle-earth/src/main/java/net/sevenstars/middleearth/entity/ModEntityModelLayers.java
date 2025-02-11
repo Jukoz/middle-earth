@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.model;
+package net.sevenstars.middleearth.entity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,6 +16,9 @@ import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollModel;
 import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
 import net.sevenstars.middleearth.entity.beasts.warg.features.*;
 import net.sevenstars.middleearth.entity.deer.DeerModel;
+import net.sevenstars.middleearth.entity.model.*;
+import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
+import net.sevenstars.middleearth.entity.npcs.features.beards.BeardModel;
 import net.sevenstars.middleearth.entity.pheasant.PheasantModel;
 import net.sevenstars.middleearth.entity.snail.SnailEntityModel;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderModel;
@@ -28,6 +31,11 @@ import net.minecraft.util.Identifier;
 @Environment(value= EnvType.CLIENT)
 public final class ModEntityModelLayers {
     private static final String MAIN = "main";
+    // region NPC
+    public static final EntityModelLayer NPC = registerEntityModelLayer("npc", NpcEntityModel.getTexturedModelData(Dilation.NONE));
+
+    public static final EntityModelLayer NPC_BEARD_BRAIDED = registerEntityModelLayer("npc_beard_braided",  BeardModel.getTexturedModelData(Dilation.NONE));
+    // endregion
     public static final EntityModelLayer DWARF = ModEntityModelLayers.registerEntityModelLayer("dwarf", DwarfModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer HUMAN = ModEntityModelLayers.registerEntityModelLayer("human", HumanModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer ELF = ModEntityModelLayers.registerEntityModelLayer("elf", ElfModel.getTexturedModelData(Dilation.NONE));

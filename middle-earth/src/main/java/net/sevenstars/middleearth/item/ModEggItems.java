@@ -43,6 +43,9 @@ public class ModEggItems {
     public static final Item SNAIL_SPAWN_EGG = registerItem("snail_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.SNAIL, settings), new Item.Settings());
 
+    // Npcs
+    public static final Item NPC_SPAWN_EGG = registerItem("npc_spawn_egg",
+            (settings) -> new SpawnEggItem(ModEntities.NPC, settings), new Item.Settings());
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
