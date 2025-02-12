@@ -43,5 +43,6 @@ public class SnailEntityRenderer extends MobEntityRenderer<SnailEntity, SnailEnt
     public void updateRenderState(SnailEntity snailEntity, SnailEntityRenderState snailEntityRenderState, float f) {
         super.updateRenderState(snailEntity, snailEntityRenderState, f);
         snailEntityRenderState.variant = snailEntity.getVariant();
+        snailEntityRenderState.climbingTicks = snailEntity.getClimbingTicks();
     }
 }

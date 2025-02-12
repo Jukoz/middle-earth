@@ -2,6 +2,7 @@ package net.sevenstars.of_beasts_and_wild_things.entity.snail;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -28,8 +29,13 @@ import net.minecraft.world.World;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
 import org.jetbrains.annotations.Nullable;
 
+import javax.xml.crypto.Data;
+
 public class SnailEntity extends AnimalEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SnailEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Boolean> CLIMBING = DataTracker.registerData(SnailEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final int CLIMBING_TIME_TRANSITION = 12;
+    private int climbingTicks = 0;
 
     public SnailEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -67,6 +73,43 @@ public class SnailEntity extends AnimalEntity {
         return false;
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.getWorld().isClient) {
+            this.setClimbingWall(this.horizontalCollision);
+        }
+    }
+
+    @Override
+    public void tickMovement() {
+        super.tickMovement();
+
+        if(isClimbingWall()) {
+            this.setVelocity(this.getVelocity().getX(),this.getMovementSpeed() / 5,this.getVelocity().getZ());
+            this.climbingTicks = Math.min(CLIMBING_TIME_TRANSITION, this.climbingTicks + 1);
+        }
+        else {
+            this.climbingTicks = Math.max(0, this.climbingTicks - 1);
+        }
+    }
+
+    public void setClimbingWall(boolean climbing) {
+        this.dataTracker.set(CLIMBING, climbing);
+    }
+
+    public boolean isClimbingWall() {
+        return dataTracker.get(CLIMBING);
+    }
+
+    public int getClimbingTicks() {
+        return this.climbingTicks;
+    }
+
+    @Override
+    public void jump() {
+    }
+
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
@@ -84,6 +127,7 @@ public class SnailEntity extends AnimalEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(VARIANT, 0);
+        builder.add(CLIMBING, false);
     }
 
     @Override

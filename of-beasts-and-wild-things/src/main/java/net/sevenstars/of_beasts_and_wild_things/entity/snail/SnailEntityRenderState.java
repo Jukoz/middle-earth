@@ -7,8 +7,10 @@ import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 @Environment(EnvType.CLIENT)
 public class SnailEntityRenderState extends LivingEntityRenderState {
     public SnailEntityVariant variant;
+    public int climbingTicks;
 
     public SnailEntityRenderState() {
         variant = SnailEntityVariant.GREEN;
+        climbingTicks = 0;
     }
 }

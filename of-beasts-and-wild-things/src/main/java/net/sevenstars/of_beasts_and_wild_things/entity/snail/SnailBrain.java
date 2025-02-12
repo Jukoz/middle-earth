@@ -37,6 +37,7 @@ public class SnailBrain {
     }
 
     private static void addCoreActivities(Brain<SnailEntity> brain) {
+        brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(new MoveToTargetTask(), new TickCooldownTask(MemoryModuleType.LONG_JUMP_COOLING_DOWN)));
     }
 

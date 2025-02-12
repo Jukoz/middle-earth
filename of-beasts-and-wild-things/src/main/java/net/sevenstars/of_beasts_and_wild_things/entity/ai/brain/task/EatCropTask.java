@@ -43,23 +43,27 @@ public class EatCropTask extends MultiTickTask<SnailEntity> {
 
     @Override
     protected void finishRunning(ServerWorld world, SnailEntity entity, long time) {
-        System.out.println("Eating crops");
-
         world.playSound(entity, entity.getBlockPos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.BLOCKS, 1.0f, 5f);
 
+        // Break crop
         world.setBlockState(entity.getBlockPos().up(), Blocks.AIR.getDefaultState(), Block.NOTIFY_LISTENERS);
         world.breakBlock(entity.getBlockPos().up(), true, entity);
 
+        // Make baby grow faster on eating
         if (entity.isBaby()) {
             entity.growUp(60);
         }
+        // 5% chance of spawning a baby snail
         else if(entity.getRandom().nextDouble() <= 0.05) {
             world.spawnParticles(ParticleTypes.HAPPY_VILLAGER, entity.getX(), entity.getY() + 0.2, entity.getZ(), 15, 0.3, 0.7, 0.3, 1);
-            SnailEntity babySnail = ((EntityType<SnailEntity>)EntityType.get(OfBeastsAndWildThings.MOD_ID + ":snail").get()).create(world, SpawnReason.BREEDING);
-            babySnail.updatePosition(entity.getX(), entity.getY(), entity.getZ());
-            world.spawnEntity(babySnail);
+            SnailEntity babySnail = (SnailEntity) entity.createChild(world,entity);
+            if(babySnail != null) {
+                babySnail.updatePosition(entity.getX(), entity.getY(), entity.getZ());
+                world.spawnEntity(babySnail);
+            }
         }
 
-        entity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, 200);
+        // Set cooldown to 3000t = 2min30s
+        entity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, 3000);
     }
 }
