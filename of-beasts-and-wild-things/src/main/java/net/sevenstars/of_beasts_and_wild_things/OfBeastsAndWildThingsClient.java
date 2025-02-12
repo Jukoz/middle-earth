@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
 import net.sevenstars.of_beasts_and_wild_things.entity.model.ModEntityModels;
+import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntityRenderer;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityRenderer;
 
 public class OfBeastsAndWildThingsClient implements ClientModInitializer {
@@ -13,6 +14,7 @@ public class OfBeastsAndWildThingsClient implements ClientModInitializer {
         ModEntityModels.getModels();
 
         EntityRendererRegistry.register(ModEntities.SNAIL, SnailEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.PHEASANT, PheasantEntityRenderer::new);
 
     }
 
