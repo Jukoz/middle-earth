@@ -29,8 +29,6 @@ import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
 import org.jetbrains.annotations.Nullable;
 
 public class SnailEntity extends AnimalEntity {
-    protected static final ImmutableList<SensorType<? extends Sensor<? super SnailEntity>>> SENSORS;
-    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SnailEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public SnailEntity(EntityType<? extends AnimalEntity> entityType, World world) {
@@ -45,11 +43,6 @@ public class SnailEntity extends AnimalEntity {
                 .add(EntityAttributes.ARMOR, 0.5f);
     }
 
-    static {
-        SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY);
-        MEMORY_MODULES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.MOBS, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH);
-    }
-
     protected void mobTick(ServerWorld world) {
         Profiler profiler = Profilers.get();
         profiler.push("snailBrain");
@@ -61,12 +54,8 @@ public class SnailEntity extends AnimalEntity {
         super.mobTick(world);
     }
 
-    protected Brain.Profile<SnailEntity> createBrainProfile() {
-        return Brain.createProfile(MEMORY_MODULES, SENSORS);
-    }
-
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
-        return SnailBrain.create(this.createBrainProfile().deserialize(dynamic));
+        return SnailBrain.create(this, dynamic);
     }
 
     public Brain<SnailEntity> getBrain() {
