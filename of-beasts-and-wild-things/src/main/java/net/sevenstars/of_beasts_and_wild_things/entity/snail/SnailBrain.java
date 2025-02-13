@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
@@ -13,6 +14,7 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.registry.tag.BlockTags;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.DigInDirtTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.EatCropTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsBlockTask;
 
@@ -42,11 +44,15 @@ public class SnailBrain {
 
     private static void addIdleActivities(Brain<SnailEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
+                Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
                         Pair.of(MoveTowardsBlockTask.create(1.0F, BlockTags.CROPS), 5),
                         Pair.of(new EatCropTask(), 5),
                         Pair.of(StrollTask.create(1.0F), 1),
-                        Pair.of(new WaitTask(30, 60), 1)
+                        Pair.of(new WaitTask(60, 100), 1)
+                ))),
+                Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_PRESENT), ImmutableList.of(
+                        Pair.of(StrollTask.create(1.0F), 1),
+                        Pair.of(new WaitTask(60, 100), 1)
                 )))
         ));
     }
