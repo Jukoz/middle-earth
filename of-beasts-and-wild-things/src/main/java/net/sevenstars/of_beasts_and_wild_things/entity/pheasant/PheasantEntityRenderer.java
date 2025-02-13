@@ -38,5 +38,7 @@ public class PheasantEntityRenderer extends MobEntityRenderer<PheasantEntity, Ph
     public void updateRenderState(PheasantEntity pheasantEntity, PheasantEntityRenderState pheasantEntityRenderState, float f) {
         super.updateRenderState(pheasantEntity, pheasantEntityRenderState, f);
         pheasantEntityRenderState.variant = pheasantEntity.getVariant();
+        pheasantEntityRenderState.idleAnimationState.copyFrom(pheasantEntity.idleAnimationState);
+        pheasantEntityRenderState.diggingAnimationState.copyFrom(pheasantEntity.diggingAnimationState);
     }
 }

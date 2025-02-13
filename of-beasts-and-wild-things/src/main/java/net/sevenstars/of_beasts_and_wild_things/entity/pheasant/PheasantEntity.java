@@ -1,9 +1,7 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.pheasant;
 
 import com.mojang.serialization.Dynamic;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -27,6 +25,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class PheasantEntity extends AnimalEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(PheasantEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState diggingAnimationState = new AnimationState();
 
     public PheasantEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -91,6 +91,31 @@ public class PheasantEntity extends AnimalEntity {
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
         this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
+    }
+
+    @Override
+    public void tickMovement() {
+        super.tickMovement();
+
+        if(this.getWorld().isClient()) {
+            setupAnimationStates();
+        }
+    }
+
+    private void setupAnimationStates() {
+        if(this.isInPose(EntityPose.DIGGING)) {
+          diggingAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            diggingAnimationState.stop();
+        }
+
+        if(this.isInPose(EntityPose.STANDING)) {
+            idleAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            idleAnimationState.stop();
+        }
     }
 
     public PheasantEntityVariant getVariant() {

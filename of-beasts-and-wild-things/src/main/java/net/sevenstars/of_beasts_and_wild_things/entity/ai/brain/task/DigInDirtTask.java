@@ -3,6 +3,7 @@ package net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
@@ -25,7 +26,7 @@ public class DigInDirtTask extends MultiTickTask<PheasantEntity> {
     public DigInDirtTask() {
         super(ImmutableMap.of(
                 MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT,
-                MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_ABSENT), 100);
+                MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_ABSENT), 90);
     }
 
     @Override
@@ -41,12 +42,18 @@ public class DigInDirtTask extends MultiTickTask<PheasantEntity> {
     @Override
     protected void keepRunning(ServerWorld world, PheasantEntity entity, long time) {
         BlockStateParticleEffect particles = new BlockStateParticleEffect(ParticleTypes.BLOCK, world.getBlockState(entity.getBlockPos().down()));
-        world.spawnParticles(particles, entity.getX() + entity.getRotationVector().getX() * 0.5, entity.getY(), entity.getZ() + entity.getRotationVector().getZ() * 0.5, 5, 0.1, 0.15, 0.1, 0.5);
+        world.spawnParticles(particles, entity.getX() + entity.getRotationVector().getX() * 0.3F, entity.getY(), entity.getZ() + entity.getRotationVector().getZ() * 0.3F, 5, 0.1, 0.15, 0.1, 0.5);
+    }
+
+    @Override
+    protected void run(ServerWorld world, PheasantEntity entity, long time) {
+        entity.setPose(EntityPose.DIGGING);
     }
 
     @Override
     protected void finishRunning(ServerWorld world, PheasantEntity entity, long time) {
         world.playSound(entity, entity.getBlockPos(), SoundEvents.BLOCK_ROOTED_DIRT_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        entity.setPose(EntityPose.STANDING);
 
         if(world.getBlockState(entity.getBlockPos().down()).isOf(Blocks.ROOTED_DIRT)) {
             ItemStack itemStack;
@@ -63,7 +70,7 @@ public class DigInDirtTask extends MultiTickTask<PheasantEntity> {
                 itemStack = new ItemStack(Items.MELON_SEEDS);
             }
 
-            world.spawnEntity(new ItemEntity(world, entity.getX() + entity.getRotationVector().getX() * 0.5, entity.getY(), entity.getZ() + entity.getRotationVector().getZ() * 0.5, itemStack));
+            world.spawnEntity(new ItemEntity(world, entity.getX() + entity.getRotationVector().getX() * 0.3F, entity.getY(), entity.getZ() + entity.getRotationVector().getZ() * 0.3F, itemStack));
         }
 
         // Change Dirt
