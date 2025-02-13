@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
@@ -13,9 +12,9 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
-import net.minecraft.entity.mob.WardenEntity;
+import net.minecraft.registry.tag.BlockTags;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.EatCropTask;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.WalkTowardsCropTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsBlockTask;
 
 public class SnailBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super SnailEntity>>> SENSORS;
@@ -43,7 +42,12 @@ public class SnailBrain {
 
     private static void addIdleActivities(Brain<SnailEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(Pair.of(WalkTowardsCropTask.create(1.0F), 1), Pair.of(new EatCropTask(), 2), Pair.of(TaskTriggerer.predicate(SnailEntity::isOnGround), 3))))
+                Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
+                        Pair.of(MoveTowardsBlockTask.create(1.0F, BlockTags.CROPS), 5),
+                        Pair.of(new EatCropTask(), 5),
+                        Pair.of(StrollTask.create(1.0F), 1),
+                        Pair.of(new WaitTask(30, 60), 1)
+                )))
         ));
     }
 
