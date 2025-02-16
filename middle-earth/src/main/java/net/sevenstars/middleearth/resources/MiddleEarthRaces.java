@@ -19,11 +19,11 @@ import java.util.Optional;
 
 public class MiddleEarthRaces {
     public final static String PATH = "races";
-    public static final RegistryKey<Registry<Race>> RACE_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
+    public static final RegistryKey<Registry<Race>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 
     public static void register(){
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Races for " + MiddleEarth.MOD_ID);
-        DynamicRegistries.registerSynced(RACE_KEY, Race.CODEC);
+        DynamicRegistries.registerSynced(KEY, Race.CODEC);
     }
 
     // TODO : for/from Crab : This is only bare bone races, to be fleshed out in 1.6 -> I will take care of that :P
@@ -35,7 +35,7 @@ public class MiddleEarthRaces {
     public final static Race URUK;
 
     public static void bootstrap(Registerable<Race> context) {
-        RegistryEntryLookup<Race> raceRegistryEntryLookup = context.getRegistryLookup(RACE_KEY);
+        RegistryEntryLookup<Race> raceRegistryEntryLookup = context.getRegistryLookup(KEY);
         // Registering all races
         register(context, raceRegistryEntryLookup, DWARF);
         register(context, raceRegistryEntryLookup, ELF);
@@ -48,7 +48,7 @@ public class MiddleEarthRaces {
     private static Race register(Registerable<Race> context, RegistryEntryLookup<Race> raceRegistryEntryLookup, Race race) {
         RegistryKey<Race> raceRegistryKey = of(race.getId().getPath());
         String name = raceRegistryKey.getValue().getPath();
-        RegistryKey<Race> newRace = RegistryKey.of(RACE_KEY,Identifier.of(MiddleEarth.MOD_ID,name));
+        RegistryKey<Race> newRace = RegistryKey.of(KEY,Identifier.of(MiddleEarth.MOD_ID,name));
 
         Optional<RegistryEntry.Reference<Race>> optionalRace = raceRegistryEntryLookup.getOptional(raceRegistryKey);
         optionalRace.ifPresent(raceReference -> context.register(newRace, race));
@@ -56,7 +56,7 @@ public class MiddleEarthRaces {
         return race;
     }
     private static RegistryKey<Race> of(String name) {
-        return RegistryKey.of(RACE_KEY, Identifier.of(MiddleEarth.MOD_ID, name));
+        return RegistryKey.of(KEY, Identifier.of(MiddleEarth.MOD_ID, name));
     }
 
 

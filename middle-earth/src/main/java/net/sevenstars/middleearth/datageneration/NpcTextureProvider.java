@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.datageneration;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.registry.RegistryWrapper;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcTextures;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -14,7 +13,7 @@ public class NpcTextureProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, FabricDynamicRegistryProvider.Entries entries) {
-        entries.addAll(registries.getOrThrow(MiddleEarthNpcTextures.NPC_TEXTURE_KEY));
+        //entries.addAll(registries.getOrThrow(MiddleEarthNpcTextures.KEY));
     }
 
     @Override

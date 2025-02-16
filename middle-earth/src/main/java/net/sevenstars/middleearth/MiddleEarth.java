@@ -18,10 +18,7 @@ import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.recipe.ModRecipeSerializer;
 import net.sevenstars.middleearth.recipe.ModRecipes;
 import net.sevenstars.middleearth.registries.ModRegistries;
-import net.sevenstars.middleearth.resources.MiddleEarthFactions;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcTextures;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcs;
-import net.sevenstars.middleearth.resources.MiddleEarthRaces;
+import net.sevenstars.middleearth.resources.*;
 import net.sevenstars.middleearth.sound.ModSounds;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 import net.sevenstars.middleearth.utils.LootModifiers;
@@ -106,7 +103,13 @@ public class MiddleEarth implements ModInitializer {
 		ModWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();
 
-		MiddleEarthNpcTextures.register();
+		//MiddleEarthNpcTextures.register();
+
+		// Dynamic Data
+		MiddleEarthNpcTextureMaterials.register();
+		MiddleEarthNpcTexturePatterns.register();
+
+
 		MiddleEarthRaces.register();
 		MiddleEarthNpcs.register();
 		MiddleEarthFactions.register();

@@ -6,10 +6,7 @@ import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimPatterns;
-import net.sevenstars.middleearth.resources.MiddleEarthFactions;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcTextures;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcs;
-import net.sevenstars.middleearth.resources.MiddleEarthRaces;
+import net.sevenstars.middleearth.resources.*;
 import net.sevenstars.middleearth.world.biomes.caves.ModCaveBiomes;
 import net.sevenstars.middleearth.world.biomes.surface.ModBiomes;
 import net.sevenstars.middleearth.world.features.boulder.BoulderConfiguredFeatures;
@@ -43,6 +40,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         //pack.addProvider(RecipeProvider::new);
         //pack.addProvider(ArtisanTableHandheldRecipeProvider::new);
         //pack.addProvider(ArtisanTableArmorRecipeProvider::new);
+
         pack.addProvider(NpcTextureProvider::new);
         pack.addProvider(RaceProvider::new);
         pack.addProvider(NpcProvider::new);
@@ -68,12 +66,19 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, OrePlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, CavesPlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModMiscPlacedFeatures::bootstrap);
-        // Dynamic
-        registryBuilder.addRegistry(MiddleEarthNpcTextures.NPC_TEXTURE_KEY, MiddleEarthNpcTextures::bootstrap);
 
-        registryBuilder.addRegistry(MiddleEarthRaces.RACE_KEY, MiddleEarthRaces::bootstrap);
-        registryBuilder.addRegistry(MiddleEarthNpcs.NPC_KEY, MiddleEarthNpcs::bootstrap);
-        registryBuilder.addRegistry(MiddleEarthFactions.FACTION_KEY, MiddleEarthFactions::bootstrap);
+
+        registryBuilder.addRegistry(MiddleEarthNpcTextureMaterials.KEY, MiddleEarthNpcTextureMaterials::bootstrap);
+        registryBuilder.addRegistry(MiddleEarthNpcTexturePatterns.KEY, MiddleEarthNpcTexturePatterns::bootstrap);
+
+        // Mod Dynamic
+
+
+        registryBuilder.addRegistry(MiddleEarthRaces.KEY, MiddleEarthRaces::bootstrap);
+        registryBuilder.addRegistry(MiddleEarthNpcs.KEY, MiddleEarthNpcs::bootstrap);
+        registryBuilder.addRegistry(MiddleEarthFactions.KEY, MiddleEarthFactions::bootstrap);
+
+        // Vanilla registries
         registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, ModSmithingTrimMaterials::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.TRIM_PATTERN, ModSmithingTrimPatterns::bootstrap);
     }

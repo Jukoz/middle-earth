@@ -17,7 +17,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
 
 @Environment(EnvType.CLIENT)
 public class NpcEntityBeardFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/entities/npcs/beards/black_beard.png");
+    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/test/hair/black_beard.png");
     private final EntityModel<NpcEntityRenderState> beardModel;
 
     public NpcEntityBeardFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {

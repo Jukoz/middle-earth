@@ -4,39 +4,41 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.entry.RegistryElementCodec;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcTextures;
 
-public record NpcTexture(Identifier assetId, String translationKey) {
+public class NpcTexture {
     public static final Codec<NpcTexture> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(
-                Identifier.CODEC.fieldOf("asset_id").forGetter(NpcTexture::assetId),
-                Codec.STRING.fieldOf("translation_key").forGetter(NpcTexture::translationKey))
-            .apply(instance, NpcTexture::new);
+                NpcTextureMaterial.ENTRY_CODEC.fieldOf("material").forGetter(NpcTexture::material),
+                NpcTexturePattern.ENTRY_CODEC.fieldOf("pattern").forGetter(NpcTexture::pattern))
+                .apply(instance, NpcTexture::new);
     });
+
     public static final PacketCodec<RegistryByteBuf, NpcTexture> PACKET_CODEC;
-    public static final Codec<RegistryEntry<NpcTexture>> ENTRY_CODEC;
-    public static final PacketCodec<RegistryByteBuf, RegistryEntry<NpcTexture>> ENTRY_PACKET_CODEC;
 
-    public NpcTexture(Identifier assetId, String translationKey) {
-        this.assetId = assetId;
-        this.translationKey = translationKey;
+    private final RegistryEntry<NpcTextureMaterial> material;
+    private final RegistryEntry<NpcTexturePattern> pattern;
+
+    public NpcTexture(RegistryEntry<NpcTextureMaterial> material, RegistryEntry<NpcTexturePattern> pattern) {
+        this.material = material;
+        this.pattern = pattern;
     }
 
-    public Identifier assetId() {
-        return this.assetId;
+    public boolean equals(RegistryEntry<NpcTexturePattern> pattern, RegistryEntry<NpcTextureMaterial> material) {
+        return pattern.equals(this.pattern) && material.equals(this.material);
     }
 
-    public String translationKey() {
-        return this.translationKey;
+    public RegistryEntry<NpcTextureMaterial> material() {
+        return this.material;
+    }
+
+    public RegistryEntry<NpcTexturePattern> pattern() {
+        return this.pattern;
     }
 
     static {
-        PACKET_CODEC = PacketCodec.tuple(Identifier.PACKET_CODEC, NpcTexture::assetId, PacketCodecs.STRING, NpcTexture::translationKey, NpcTexture::new);
-        ENTRY_CODEC = RegistryElementCodec.of(MiddleEarthNpcTextures.NPC_TEXTURE_KEY, CODEC);
-        ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(MiddleEarthNpcTextures.NPC_TEXTURE_KEY, PACKET_CODEC);
+        PACKET_CODEC = PacketCodec.tuple(
+                NpcTextureMaterial.ENTRY_PACKET_CODEC, NpcTexture::material,
+                NpcTexturePattern.ENTRY_PACKET_CODEC, NpcTexture::pattern, NpcTexture::new);
     }
 }

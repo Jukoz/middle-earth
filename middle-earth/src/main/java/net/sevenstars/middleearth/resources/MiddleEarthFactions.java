@@ -27,7 +27,7 @@ import java.util.Optional;
 
 public class MiddleEarthFactions {
     public final static String PATH = "factions";
-    public static final RegistryKey<Registry<Faction>> FACTION_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
+    public static final RegistryKey<Registry<Faction>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 
     // [GONDOR]
     public final static Faction GONDOR;
@@ -54,11 +54,11 @@ public class MiddleEarthFactions {
 
     public static void register(){
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Factions for " + MiddleEarth.MOD_ID);
-        DynamicRegistries.registerSynced(FACTION_KEY, Faction.CODEC);
+        DynamicRegistries.registerSynced(KEY, Faction.CODEC);
     }
 
     public static void bootstrap(Registerable<Faction> context) {
-        RegistryEntryLookup<Faction> factionRegistryEntryLookup = context.getRegistryLookup(FACTION_KEY);
+        RegistryEntryLookup<Faction> factionRegistryEntryLookup = context.getRegistryLookup(KEY);
         // [GONDOR]
         register(context, factionRegistryEntryLookup, GONDOR);
         // [ROHAN]
@@ -84,7 +84,7 @@ public class MiddleEarthFactions {
     private static Faction register(Registerable<Faction> context, RegistryEntryLookup<Faction> factionRegistryEntryLookup, Faction faction) {
         RegistryKey<Faction> factionRegistryKey = of(faction.getName());
         String name = factionRegistryKey.getValue().getPath();
-        RegistryKey<Faction> factionKey = RegistryKey.of(FACTION_KEY,Identifier.of(MiddleEarth.MOD_ID,name));
+        RegistryKey<Faction> factionKey = RegistryKey.of(KEY,Identifier.of(MiddleEarth.MOD_ID,name));
 
         Optional<RegistryEntry.Reference<Faction>> optionalFaction = factionRegistryEntryLookup.getOptional(factionRegistryKey);
         optionalFaction.ifPresent(biomeReference -> context.register(factionKey, faction));
@@ -93,7 +93,7 @@ public class MiddleEarthFactions {
     }
 
     private static RegistryKey<Faction> of(String name) {
-        return RegistryKey.of(FACTION_KEY, Identifier.of(MiddleEarth.MOD_ID, name));
+        return RegistryKey.of(KEY, Identifier.of(MiddleEarth.MOD_ID, name));
     }
 
     static {

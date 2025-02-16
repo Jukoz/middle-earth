@@ -70,4 +70,9 @@ public class NpcEntity extends PassiveEntity {
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         return null;
     }
+
+    @Override
+    public boolean canBeLeashed() {
+        return false;
+    }
 }

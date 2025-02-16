@@ -21,7 +21,7 @@ import java.util.Optional;
 
 public class MiddleEarthNpcs {
     public final static String PATH = "npcs";
-    public static final RegistryKey<Registry<NpcData>> NPC_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
+    public static final RegistryKey<Registry<NpcData>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 
     // [GENERIC]
     public final static NpcData HUMAN_CIVILIAN;
@@ -32,11 +32,11 @@ public class MiddleEarthNpcs {
     public final static NpcData URUK_CIVILIAN;
     public static void register(){
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Npcs for " + MiddleEarth.MOD_ID);
-        DynamicRegistries.registerSynced(NPC_KEY, NpcData.CODEC);
+        DynamicRegistries.registerSynced(KEY, NpcData.CODEC);
     }
 
     public static void bootstrap(Registerable<NpcData> context) {
-        RegistryEntryLookup<NpcData> npcRegistryEntryLookup = context.getRegistryLookup(NPC_KEY);
+        RegistryEntryLookup<NpcData> npcRegistryEntryLookup = context.getRegistryLookup(KEY);
         // [RACE / GENERIC]
         register(context, npcRegistryEntryLookup, HUMAN_CIVILIAN);
         register(context, npcRegistryEntryLookup, DWARF_CIVILIAN);
@@ -76,7 +76,7 @@ public class MiddleEarthNpcs {
     public static NpcData register(Registerable<NpcData> context, RegistryEntryLookup<NpcData> npcRegistryEntryLookup, NpcData npcData) {
         RegistryKey<NpcData> npcRegistryKey = of(npcData.getName());
         String name = npcRegistryKey.getValue().getPath();
-        RegistryKey<NpcData> npcKey = RegistryKey.of(NPC_KEY, Identifier.of(MiddleEarth.MOD_ID,name));
+        RegistryKey<NpcData> npcKey = RegistryKey.of(KEY, Identifier.of(MiddleEarth.MOD_ID,name));
 
         Optional<RegistryEntry.Reference<NpcData>> optionalNpc = npcRegistryEntryLookup.getOptional(npcRegistryKey);
         optionalNpc.ifPresent(npcReference -> context.register(npcKey, npcData));
@@ -85,7 +85,7 @@ public class MiddleEarthNpcs {
     }
 
     private static RegistryKey<NpcData> of(String name) {
-        return RegistryKey.of(NPC_KEY, Identifier.of(MiddleEarth.MOD_ID, name));
+        return RegistryKey.of(KEY, Identifier.of(MiddleEarth.MOD_ID, name));
     }
 
     static {

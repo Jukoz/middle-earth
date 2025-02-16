@@ -38,7 +38,8 @@
     "client.InGameHudMixin",
     "client.ItemRendererMixin",
     "client.MouseMixin",
-    "client.PlayerEntityRendererMixin"
+    "client.PlayerEntityRendererMixin",
+    "client.BakedModelManagerMixin"
   ],
   "server": [
   ],

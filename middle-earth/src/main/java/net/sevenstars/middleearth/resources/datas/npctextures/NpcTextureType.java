@@ -1,0 +1,18 @@
+package net.sevenstars.middleearth.resources.datas.npctextures;
+
+public enum NpcTextureType {
+    SKIN("skin"),
+    HAIR("hair"),
+    EARS("ears"),
+    FEET("feet"),
+    NOSE("nose");
+
+    private final String path;
+    NpcTextureType(String path){
+        this.path = path;
+    }
+
+    public String getPath(){
+        return this.path;
+    }
+}
