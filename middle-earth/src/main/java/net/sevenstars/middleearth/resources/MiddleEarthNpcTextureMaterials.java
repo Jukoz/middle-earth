@@ -15,9 +15,8 @@ public class MiddleEarthNpcTextureMaterials {
 
     public static final RegistryKey<Registry<NpcTextureMaterial>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 
-
-    public final static NpcTextureMaterial SKIN_PALE =  create("pale", NpcTextureType.SKIN);
-    public final static NpcTextureMaterial SKIN_TAN = create("tan", NpcTextureType.SKIN);
+    public final static RegistryKey<NpcTextureMaterial> SKIN_PALE = of("pale");
+    public final static RegistryKey<NpcTextureMaterial> SKIN_TAN = of("tan");
 
     public static void bootstrap(Registerable<NpcTextureMaterial> registry) {
         RegistryEntryLookup<NpcTextureMaterial> entryLookup = registry.getRegistryLookup(KEY);

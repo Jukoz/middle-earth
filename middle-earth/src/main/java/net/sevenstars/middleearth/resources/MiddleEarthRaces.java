@@ -1,10 +1,6 @@
 package net.sevenstars.middleearth.resources;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registry;
@@ -12,6 +8,11 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.npctextures.NpcTexture;
+import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,11 @@ public class MiddleEarthRaces {
     public final static Race HUMAN;
     public final static Race ORC;
     public final static Race URUK;
+
+    static List<String> baseSkinTexturesDefault = List.of(
+            NpcTexture.createPatternString(MiddleEarthNpcTexturePatterns.SKIN_COMMON, MiddleEarthNpcTextureMaterials.SKIN_PALE),
+            NpcTexture.createPatternString(MiddleEarthNpcTexturePatterns.SKIN_COMMON, MiddleEarthNpcTextureMaterials.SKIN_TAN)
+    );
 
     public static void bootstrap(Registerable<Race> context) {
         RegistryEntryLookup<Race> raceRegistryEntryLookup = context.getRegistryLookup(KEY);
@@ -69,7 +75,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75);
                     put(EntityAttributes.MOVEMENT_SPEED, 0.09);
                     put(EntityAttributes.MINING_EFFICIENCY, 0.15);
-                }}), List.of(), List.of());
+                }}), List.of(), List.of(), baseSkinTexturesDefault);
         ELF = new Race(Identifier.of(MiddleEarth.MOD_ID, "elf"), RaceType.ELF,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 1.06);
@@ -78,7 +84,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.25);
                     put(EntityAttributes.MOVEMENT_SPEED, 0.1);
                     put(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75);
-                }}), List.of(), List.of());
+                }}), List.of(), List.of(), baseSkinTexturesDefault);
         HOBBIT = new Race(Identifier.of(MiddleEarth.MOD_ID, "hobbit"), RaceType.HOBBIT,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 0.6);
@@ -88,11 +94,11 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.MOVEMENT_SPEED, 0.115);
                     put(EntityAttributes.SNEAKING_SPEED, 0.435);
                     put(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90);
-                }}), List.of(), List.of());
+                }}), List.of(), List.of(), baseSkinTexturesDefault);
         HUMAN = new Race(Identifier.of(MiddleEarth.MOD_ID, "human"), RaceType.HUMAN,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 1.0); // Basic
-                }}), List.of(), List.of());
+                }}), List.of(), List.of(), baseSkinTexturesDefault);
         ORC = new Race(Identifier.of(MiddleEarth.MOD_ID, "orc"), RaceType.ORC,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 0.83);
@@ -101,7 +107,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75);
                     put(EntityAttributes.MOVEMENT_SPEED, 0.11);
                     put(EntityAttributes.STEP_HEIGHT, 1.0);
-                }}), List.of(), List.of());
+                }}), List.of(), List.of(), baseSkinTexturesDefault);
         URUK = new Race(Identifier.of(MiddleEarth.MOD_ID, "uruk"), RaceType.URUK,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 1.0);
@@ -110,7 +116,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.0);
                     put(EntityAttributes.MOVEMENT_SPEED, 0.09);
                     put(EntityAttributes.BURNING_TIME, 0.70);
-                }}), List.of(), List.of());
+                }}), List.of(), List.of(), baseSkinTexturesDefault);
     }
 }
 

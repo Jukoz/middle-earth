@@ -14,7 +14,6 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityPose;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.ColorHelper;
@@ -23,11 +22,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.features.beards.NpcEntityBeardFeatureRenderer;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcTextureMaterials;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcTexturePatterns;
 import net.sevenstars.middleearth.resources.datas.npctextures.NpcTexture;
-import net.sevenstars.middleearth.resources.datas.npctextures.NpcTextureMaterial;
-import net.sevenstars.middleearth.resources.datas.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.npctextures.NpcTextureType;
 import org.jetbrains.annotations.Nullable;
 
@@ -64,7 +59,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     @Override
     public void updateRenderState(NpcEntity npcEntity, NpcEntityRenderState npcEntityRenderState, float f) {
         super.updateRenderState(npcEntity, npcEntityRenderState, f);
-        npcEntityRenderState.beardType = npcEntity.getBeardType();
+        npcEntityRenderState.skinTextureIdentifier = npcEntity.getSkinTextureIdentifier();
     }
 
     // endregion
@@ -78,7 +73,6 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         if (translucent) {
             return RenderLayer.getItemEntityTranslucentCull(identifier);
         } else if (showBody) {
-            //MiddleEarth.LOGGER.logInfoMsg("Identifier: " + identifier);
             return this.model.getLayer(identifier);
         } else {
             return showOutline ? RenderLayer.getOutline(identifier) : null;
@@ -88,6 +82,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     @Override
     public void render(NpcEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         count = 0;
+
         int maxLayer = 3;
         matrices.push();
         if (state.isInPose(EntityPose.SLEEPING)) {
@@ -115,11 +110,11 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             //int j = getOverlay(state, this.getAnimationCounter(state));
             int k = bl2 ? 654311423 : -1;
             int l = ColorHelper.mix(k, this.getMixColor(state));
+
             if (renderLayer != null) {
                 if(count ==0){
                     if(MinecraftClient.getInstance().world != null){
-
-                        Identifier id = Identifier.of(MiddleEarth.MOD_ID, "npc_textures/" + MiddleEarthNpcTexturePatterns.SKIN_COMMON.getValue().getPath() + "_" + MiddleEarthNpcTextureMaterials.SKIN_TAN.getIdentifier().getPath());
+                        Identifier id = Identifier.of(state.skinTextureIdentifier.getNamespace(), "npc_textures/" + state.skinTextureIdentifier.getPath());
                         var sprite = atlasTexture.getSprite(id);
 
                         vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcTexturesRenderLayer());

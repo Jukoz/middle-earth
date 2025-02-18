@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 
 public class NpcTexture {
@@ -34,6 +35,19 @@ public class NpcTexture {
 
     public RegistryEntry<NpcTexturePattern> pattern() {
         return this.pattern;
+    }
+
+    public static String createPatternString(NpcTexturePattern pattern, NpcTextureMaterial material){
+        String patternPath = pattern.getIdentifier().getPath();
+        String materialPath = material.getIdentifier().getPath();
+
+        return patternPath + "_" + materialPath;
+    }
+    public static String createPatternString(RegistryKey<NpcTexturePattern> pattern, RegistryKey<NpcTextureMaterial> material){
+        String patternPath = pattern.getValue().getPath();
+        String materialPath = material.getValue().getPath();
+
+        return patternPath + "_" + materialPath;
     }
 
     static {
