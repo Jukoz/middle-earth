@@ -4,8 +4,8 @@ import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -29,7 +29,7 @@ public class BakedModelManagerMixin{
     private static void addNewAtlas(TextureManager textureManager, BlockColors colorMap, int mipmap, CallbackInfo ci)
     {
         HashMap<Identifier, Identifier> map = new HashMap<>(LAYERS_TO_LOADERS);
-        map.put(ModTexturedRenderLayers.NPC_TEXTURES_ATLAS_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, "npc_textures"));
+        map.put(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE, IdentifierUtil.create("npc_skin_textures"));
         LAYERS_TO_LOADERS = map;
     }
 }

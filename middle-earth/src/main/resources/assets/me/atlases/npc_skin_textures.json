@@ -1,0 +1,18 @@
+{
+    "sources": [
+        {
+            "type": "paletted_permutations",
+            "textures": [
+                "me:npc_skin_textures/common_a",
+                "me:npc_skin_textures/common_b"
+            ],
+            "palette_key": "me:npc_skin_textures/color_palettes/base_palette",
+            "permutations": {
+                "pale": "me:npc_skin_textures/color_palettes/pale",
+                "tan": "me:npc_skin_textures/color_palettes/tan",
+                "neutral": "me:npc_skin_textures/color_palettes/neutral",
+                "olive": "me:npc_skin_textures/color_palettes/olive"
+            }
+        }
+    ]
+}

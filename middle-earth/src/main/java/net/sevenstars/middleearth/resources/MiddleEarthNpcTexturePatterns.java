@@ -14,13 +14,15 @@ import net.sevenstars.middleearth.resources.datas.npctextures.NpcTextureType;
 import java.util.Optional;
 
 public class MiddleEarthNpcTexturePatterns {
-    public final static String PATH = "npc_texture_patterns";
+    public final static String PATH = "npc_skin_pattern";
     public static final RegistryKey<Registry<NpcTexturePattern>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 
-    public final static RegistryKey<NpcTexturePattern> SKIN_COMMON = of("common");
+    public final static RegistryKey<NpcTexturePattern> SKIN_COMMON_A = of("common_a");
+    public final static RegistryKey<NpcTexturePattern> SKIN_COMMON_B = of("common_b");
 
     public static void bootstrap(Registerable<NpcTexturePattern> registry) {
-        register(registry, SKIN_COMMON, new NpcTexturePattern(Identifier.of(MiddleEarth.MOD_ID, "common"), NpcTextureType.SKIN));
+        register(registry, SKIN_COMMON_A, new NpcTexturePattern(Identifier.of(MiddleEarth.MOD_ID, "common_a"), NpcTextureType.SKIN));
+        register(registry, SKIN_COMMON_B, new NpcTexturePattern(Identifier.of(MiddleEarth.MOD_ID, "common_b"), NpcTextureType.SKIN));
     }
 
     public static Optional<RegistryEntry.Reference<NpcTexturePattern>> get(RegistryWrapper.WrapperLookup registries, Identifier id) {

@@ -2,8 +2,8 @@ package net.sevenstars.middleearth.resources;
 
 public class MiddleEarthNpcTextures {
 /*
-    public final static String PATH = "npc_textures";
-    private static final String ASSET_PATH = "textures/npc_textures/";
+    public final static String PATH = "npc_skin_textures";
+    private static final String ASSET_PATH = "textures/npc_skin_textures/";
 
     public static final RegistryKey<Registry<NpcTexture>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 

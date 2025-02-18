@@ -14,6 +14,7 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityPose;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.ColorHelper;
@@ -30,8 +31,8 @@ import java.util.Iterator;
 import java.util.function.Function;
 
 public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityRenderState, NpcEntityModel> {
-    private static final String PATH = "textures/npc_textures/";
-    private int count = 0;
+    private static final String PATH = "textures/npc_skin_textures/";
+    private int currentRenderStep = 0;
 
     private final Function<NpcEntityRenderer.NpcTextureKeys, Sprite> sprites;
     private final SpriteAtlasTexture atlasTexture;
@@ -41,13 +42,12 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         this.addFeature(new NpcEntityBeardFeatureRenderer(this, context.getEntityModels()));
 
         MinecraftClient client = MinecraftClient.getInstance();
-        atlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_TEXTURES_ATLAS_TEXTURE);
+        atlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
 
         this.sprites = Util.memoize((key) -> {
             assert atlasTexture != null;
             return atlasTexture.getSprite(key.getTexture());
         });
-
     }
 
     // region RenderState
@@ -81,9 +81,24 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
     @Override
     public void render(NpcEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        count = 0;
+        currentRenderStep = 0;
+        int maximumRenderStep = 3;
 
-        int maxLayer = 3;
+        Text customName = state.customName;
+        if(customName != null){
+            String value = customName.getString();
+            switch (value){
+                case "Dev_0":
+                    maximumRenderStep = 1;
+                    break;
+                case "Dev_1":
+                    maximumRenderStep = 2;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         matrices.push();
         if (state.isInPose(EntityPose.SLEEPING)) {
             Direction direction = state.sleepingDirection;
@@ -104,28 +119,27 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         boolean bl = this.isVisible(state);
         boolean bl2 = !bl && !state.invisibleToPlayer;
 
-        for(int run = 0; run < maxLayer; run ++){
+        for(int run = 0; run < maximumRenderStep; run ++){
             RenderLayer renderLayer = this.getRenderLayer(state, bl, bl2, state.hasOutline);
             VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
-            //int j = getOverlay(state, this.getAnimationCounter(state));
             int k = bl2 ? 654311423 : -1;
             int l = ColorHelper.mix(k, this.getMixColor(state));
 
             if (renderLayer != null) {
-                if(count ==0){
+                if(currentRenderStep ==0){
                     if(MinecraftClient.getInstance().world != null){
-                        Identifier id = Identifier.of(state.skinTextureIdentifier.getNamespace(), "npc_textures/" + state.skinTextureIdentifier.getPath());
+                        Identifier id = Identifier.of(state.skinTextureIdentifier.getNamespace(), "npc_skin_textures/" + state.skinTextureIdentifier.getPath());
                         var sprite = atlasTexture.getSprite(id);
 
-                        vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcTexturesRenderLayer());
+                        vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer());
                         VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
                         model.render(matrices, newLayerVertexConsumer, light, OverlayTexture.DEFAULT_UV, l);
                     }
-                    count ++;
-                    continue;
                 }
-                model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, l);
-                count ++;
+                else {
+                    model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, l);
+                }
+                currentRenderStep++;
             }
         }
 
@@ -133,9 +147,10 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         if (this.shouldRenderFeatures(state)) {
             Iterator var15 = this.features.iterator();
 
-            while(var15.hasNext()) {
+            while(var15.hasNext() && currentRenderStep < maximumRenderStep) {
                 FeatureRenderer<NpcEntityRenderState, NpcEntityModel> featureRenderer = (FeatureRenderer)var15.next();
                 featureRenderer.render(matrices, vertexConsumers, light, state, state.yawDegrees, state.pitch);
+                currentRenderStep++;
             }
         }
 
@@ -144,7 +159,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
     @Override
     public Identifier getTexture(NpcEntityRenderState state) {
-        return switch (count) {
+        return switch (currentRenderStep) {
             case 1 -> Identifier.of(MiddleEarth.MOD_ID, PATH + "brown_eyes.png");
             case 2 -> Identifier.of(MiddleEarth.MOD_ID, PATH + "hair_test.png");
             default -> Identifier.of(MiddleEarth.MOD_ID, PATH + "brown_eyes.png");
@@ -163,8 +178,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             Identifier patternIdentifier = (this.npcTexture.pattern().value()).getIdentifier();
             String assetName = ((this.npcTexture.material().value())).getIdentifier().getPath();
             return patternIdentifier.withPath((path) -> {
-                //return "npc_textures/entity/" + this.type.asString() + "/" + path + "_" + string;
-                return "npc_textures/" + path + "_" + assetName;
+                //return "npc_skin_textures/entity/" + this.type.asString() + "/" + path + "_" + string;
+                return "npc_skin_textures/" + path + "_" + assetName;
             });
         }
 

@@ -11,18 +11,22 @@ import net.sevenstars.middleearth.resources.datas.npctextures.NpcTextureType;
 import java.util.Optional;
 
 public class MiddleEarthNpcTextureMaterials {
-    public final static String PATH = "npc_texture_materials";
+    public final static String PATH = "npc_skin_material";
 
     public static final RegistryKey<Registry<NpcTextureMaterial>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 
     public final static RegistryKey<NpcTextureMaterial> SKIN_PALE = of("pale");
     public final static RegistryKey<NpcTextureMaterial> SKIN_TAN = of("tan");
+    public final static RegistryKey<NpcTextureMaterial> SKIN_NEUTRAL = of("neutral");
+    public final static RegistryKey<NpcTextureMaterial> SKIN_OLIVE = of("olive");
 
     public static void bootstrap(Registerable<NpcTextureMaterial> registry) {
         RegistryEntryLookup<NpcTextureMaterial> entryLookup = registry.getRegistryLookup(KEY);
 
         register(registry, entryLookup,  "tan", NpcTextureType.SKIN);
         register(registry, entryLookup,"pale", NpcTextureType.SKIN);
+        register(registry, entryLookup,"neutral", NpcTextureType.SKIN);
+        register(registry, entryLookup,"olive", NpcTextureType.SKIN);
     }
 
     public static Optional<RegistryEntry.Reference<NpcTextureMaterial>> get(RegistryWrapper.WrapperLookup registries, Identifier id) {

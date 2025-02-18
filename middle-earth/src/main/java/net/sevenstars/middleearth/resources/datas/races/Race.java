@@ -29,8 +29,9 @@ public class Race {
             NbtCompound.CODEC.fieldOf("attributes").forGetter(Race::getAttributeDatas),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Race::getJoinCommands),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Race::getLeaveCommands),
-            Codec.list(Codec.STRING).fieldOf("base_skin_textures").forGetter(Race::getBaseSkinTextures)
-        ).apply(instance, Race::new));
+            Codec.list(Codec.STRING).fieldOf("skin_patterns").forGetter(Race::getSkinPatterns),
+            Codec.list(Codec.STRING).fieldOf("skin_materials").forGetter(Race::getSkinMaterials)
+    ).apply(instance, Race::new));
 
 
 
@@ -40,9 +41,9 @@ public class Race {
     private final AttributeData attributeData;
     private List<String> joinCommands;
     private List<String> leaveCommands;
-    private List<String> baseSkinTextures;
-
-    public Race(String id, String raceTypeValue, NbtCompound attributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<String> baseSkinTextures){
+    private List<String> skinPatterns;
+    private List<String> skinMaterials;
+    public Race(String id, String raceTypeValue, NbtCompound attributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<String> skinPatterns, List<String> skinMaterials){
         // Create id
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
@@ -57,18 +58,20 @@ public class Race {
         this.leaveCommands = new ArrayList<>();
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
 
-        // Base Skin Textures
-        this.baseSkinTextures = baseSkinTextures;
+        // Skin Textures
+        this.skinPatterns = skinPatterns;
+        this.skinMaterials = skinMaterials;
     }
 
-    public Race(Identifier id, RaceType raceType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands, List<String> baseSkinTextures) {
+    public Race(Identifier id, RaceType raceType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands, List<String> skinPatterns, List<String> skinMaterials) {
         this.id = id;
         this.raceType = raceType;
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
         this.attributeData = attributeData;
         this.joinCommands = joinCommands;
         this.leaveCommands = leaveCommands;
-        this.baseSkinTextures = baseSkinTextures;
+        this.skinPatterns = skinPatterns;
+        this.skinMaterials = skinMaterials;
     }
 
     public Identifier getId() {
@@ -95,8 +98,11 @@ public class Race {
             return Optional.empty();
         return Optional.of(this.leaveCommands);
     }
-    public List<String> getBaseSkinTextures() {
-        return this.baseSkinTextures;
+    public List<String> getSkinPatterns() {
+        return this.skinPatterns;
+    }
+    public List<String> getSkinMaterials() {
+        return this.skinMaterials;
     }
 
     public Text getFullName() {

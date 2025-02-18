@@ -37,22 +37,23 @@ public class NpcTexture {
         return this.pattern;
     }
 
-    public static String createPatternString(NpcTexturePattern pattern, NpcTextureMaterial material){
-        String patternPath = pattern.getIdentifier().getPath();
-        String materialPath = material.getIdentifier().getPath();
-
-        return patternPath + "_" + materialPath;
-    }
     public static String createPatternString(RegistryKey<NpcTexturePattern> pattern, RegistryKey<NpcTextureMaterial> material){
         String patternPath = pattern.getValue().getPath();
         String materialPath = material.getValue().getPath();
 
         return patternPath + "_" + materialPath;
     }
+    public static String createPatternString(RegistryKey<NpcTexturePattern> pattern){
+        String patternPath = pattern.getValue().getPath();
+
+        return patternPath + "_*";
+    }
+
 
     static {
         PACKET_CODEC = PacketCodec.tuple(
                 NpcTextureMaterial.ENTRY_PACKET_CODEC, NpcTexture::material,
-                NpcTexturePattern.ENTRY_PACKET_CODEC, NpcTexture::pattern, NpcTexture::new);
+                NpcTexturePattern.ENTRY_PACKET_CODEC, NpcTexture::pattern,
+                NpcTexture::new);
     }
 }

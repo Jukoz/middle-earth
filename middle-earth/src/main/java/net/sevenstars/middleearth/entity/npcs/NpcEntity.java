@@ -39,9 +39,13 @@ public class NpcEntity extends PassiveEntity {
         this.race = MiddleEarthRaces.DWARF;
 
         if(Objects.equals(getSkinTextureValue(), "")){
-            List<String> textures = this.race.getBaseSkinTextures();
-            int index = new Random().nextInt(textures.size());
-            this.dataTracker.set(SKIN_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, textures.get(index)).toString());
+            List<String> patterns = this.race.getSkinPatterns();
+            List<String> materials = this.race.getSkinMaterials();
+            Random random = new Random();
+            int patternIndex = random.nextInt(patterns.size());
+            int materialIndex = random.nextInt(materials.size());
+
+            this.dataTracker.set(SKIN_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex) + "_" + materials.get(materialIndex)).toString());
         }
     }
 

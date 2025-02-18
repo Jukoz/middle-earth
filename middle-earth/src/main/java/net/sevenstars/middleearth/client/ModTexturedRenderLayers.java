@@ -22,14 +22,14 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
 
 
 
-    public static final Identifier NPC_TEXTURES_ATLAS_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/atlas/npc_textures.png");
-    private static final RenderLayer NPC_TEXTURES_RENDER_LAYER;
-    private static final Map<Identifier, SpriteIdentifier> NPC_TEXTURES_TEXTURES;
+    public static final Identifier NPC_SKIN_TEXTURES_ATLAS_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/atlas/npc_skin_textures.png");
+    private static final RenderLayer NPC_SKIN_TEXTURES_RENDER_LAYER;
+    private static final Map<Identifier, SpriteIdentifier> NPC_SKIN_TEXTURES;
 
 
     static {
-        NPC_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(NPC_TEXTURES_ATLAS_TEXTURE);
-        NPC_TEXTURES_TEXTURES = new HashMap<>();
+        NPC_SKIN_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
+        NPC_SKIN_TEXTURES = new HashMap<>();
 
 
         HEATER_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/heater_shield/base"));
@@ -42,8 +42,8 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
         ROUND_SHIELD_PATTERN_TEXTURES = new HashMap<>();
     }
 
-    public static RenderLayer getNpcTexturesRenderLayer() {
-        return NPC_TEXTURES_RENDER_LAYER;
+    public static RenderLayer getNpcSkinTexturesRenderLayer() {
+        return NPC_SKIN_TEXTURES_RENDER_LAYER;
     }
 
     public static SpriteIdentifier getHeaterShieldPatternTextureId(RegistryEntry<BannerPattern> pattern) {
