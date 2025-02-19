@@ -1,0 +1,21 @@
+{
+    "sources": [
+        {
+            "type": "paletted_permutations",
+            "textures": [
+                "me:npc_hair_textures/short"
+            ],
+            "palette_key": "me:npc_hair_textures/color_palettes/base_palette",
+            "permutations": {
+                "black": "me:npc_hair_textures/color_palettes/black",
+                "brown": "me:npc_hair_textures/color_palettes/brown",
+                "dark_brown": "me:npc_hair_textures/color_palettes/dark_brown",
+                "blonde": "me:npc_hair_textures/color_palettes/blonde",
+                "straw": "me:npc_hair_textures/color_palettes/straw",
+                "white": "me:npc_hair_textures/color_palettes/white",
+                "gray": "me:npc_hair_textures/color_palettes/gray",
+                "orange": "me:npc_hair_textures/color_palettes/orange"
+            }
+        }
+    ]
+}

@@ -16,33 +16,39 @@ import java.util.Optional;
 public class MiddleEarthNpcTexturePatterns {
     public final static String SKIN_PATH = "npc_skin_pattern";
     public final static String EYE_PATH = "npc_eye_pattern";
+    public final static String HAIR_PATH = "npc_hair_pattern";
+
     public static final RegistryKey<Registry<NpcTexturePattern>> SKIN_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, SKIN_PATH));
     public static final RegistryKey<Registry<NpcTexturePattern>> EYE_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, EYE_PATH));
+    public static final RegistryKey<Registry<NpcTexturePattern>> HAIR_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, HAIR_PATH));
 
     public final static RegistryKey<NpcTexturePattern> SKIN_COMMON_A = of("common_a", NpcTextureType.SKIN);
     public final static RegistryKey<NpcTexturePattern> SKIN_COMMON_B = of("common_b",  NpcTextureType.SKIN);
 
-
     public final static RegistryKey<NpcTexturePattern> EYE_COMMON = of("common", NpcTextureType.EYE);
     public final static RegistryKey<NpcTexturePattern> EYE_SMALL = of("small", NpcTextureType.EYE);
+
+    public final static RegistryKey<NpcTexturePattern> HAIR_SHORT = of("short", NpcTextureType.HAIR);
 
 
     public static void bootstrap(Registerable<NpcTexturePattern> registry) {
         RegistryEntryLookup<NpcTexturePattern> skinEntryLookup = registry.getRegistryLookup(SKIN_KEY);
-
         register(registry, skinEntryLookup, "common_a", NpcTextureType.SKIN);
         register(registry, skinEntryLookup, "common_b", NpcTextureType.SKIN);
 
         RegistryEntryLookup<NpcTexturePattern> eyeEntryLookup = registry.getRegistryLookup(EYE_KEY);
-
         register(registry, eyeEntryLookup, "common", NpcTextureType.EYE);
         register(registry, eyeEntryLookup, "small", NpcTextureType.EYE);
+
+        RegistryEntryLookup<NpcTexturePattern> hairEntryLookup = registry.getRegistryLookup(HAIR_KEY);
+        register(registry, hairEntryLookup, "short", NpcTextureType.HAIR);
     }
 
     private static void register(Registerable<NpcTexturePattern> registry, RegistryEntryLookup<NpcTexturePattern> entryLookup, String id, NpcTextureType type) {
         var registryKey = switch (type) {
             case NpcTextureType.SKIN -> SKIN_KEY;
             case NpcTextureType.EYE -> EYE_KEY;
+            case NpcTextureType.HAIR -> HAIR_KEY;
             default -> null;
         };
 
@@ -53,6 +59,7 @@ public class MiddleEarthNpcTexturePatterns {
         return switch (type) {
             case NpcTextureType.SKIN -> RegistryKey.of(SKIN_KEY, Identifier.of(MiddleEarth.MOD_ID, id));
             case NpcTextureType.EYE -> RegistryKey.of(EYE_KEY, Identifier.of(MiddleEarth.MOD_ID, id));
+            case NpcTextureType.HAIR -> RegistryKey.of(HAIR_KEY, Identifier.of(MiddleEarth.MOD_ID, id));
             default -> null;
         };
     }
@@ -65,6 +72,7 @@ public class MiddleEarthNpcTexturePatterns {
         MiddleEarth.LOGGER.logDebugMsg("Registering Npc Texture Patterns for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(SKIN_KEY, NpcTexturePattern.CODEC);
         DynamicRegistries.registerSynced(EYE_KEY, NpcTexturePattern.CODEC);
+        DynamicRegistries.registerSynced(HAIR_KEY, NpcTexturePattern.CODEC);
     }
 
     private static void register(Registerable<NpcTexturePattern> registerable, RegistryEntryLookup<NpcTexturePattern> entryLookup, NpcTexturePattern content, RegistryKey<NpcTexturePattern> registryKey, RegistryKey<Registry<NpcTexturePattern>> registryRegistryKey) {

@@ -31,6 +31,8 @@ public class BakedModelManagerMixin{
         HashMap<Identifier, Identifier> map = new HashMap<>(LAYERS_TO_LOADERS);
         map.put(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE, IdentifierUtil.create("npc_skin_textures"));
         map.put(ModTexturedRenderLayers.NPC_EYE_TEXTURES_ATLAS_TEXTURE, IdentifierUtil.create("npc_eye_textures"));
+        map.put(ModTexturedRenderLayers.NPC_HAIR_TEXTURES_ATLAS_TEXTURE, IdentifierUtil.create("npc_hair_textures"));
+
         LAYERS_TO_LOADERS = map;
     }
 }

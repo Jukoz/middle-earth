@@ -13,9 +13,11 @@ import java.util.Optional;
 public class MiddleEarthNpcTextureMaterials {
     public final static String SKIN_PATH = "npc_skin_material";
     public final static String EYE_PATH = "npc_eye_material";
+    public final static String HAIR_PATH = "npc_hair_material";
 
     public static final RegistryKey<Registry<NpcTextureMaterial>> SKIN_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, SKIN_PATH));
     public static final RegistryKey<Registry<NpcTextureMaterial>> EYE_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, EYE_PATH));
+    public static final RegistryKey<Registry<NpcTextureMaterial>> HAIR_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, HAIR_PATH));
 
     public final static RegistryKey<NpcTextureMaterial> SKIN_PALE = of("pale", NpcTextureType.SKIN);
     public final static RegistryKey<NpcTextureMaterial> SKIN_TAN = of("tan", NpcTextureType.SKIN);
@@ -28,9 +30,19 @@ public class MiddleEarthNpcTextureMaterials {
     public final static RegistryKey<NpcTextureMaterial> EYE_GREEN = of("green", NpcTextureType.EYE);
     public final static RegistryKey<NpcTextureMaterial> EYE_YELLOW = of("yellow", NpcTextureType.EYE);
 
+
+    public final static RegistryKey<NpcTextureMaterial> HAIR_BLACK = of("black", NpcTextureType.HAIR);
+    public final static RegistryKey<NpcTextureMaterial> HAIR_BROWN = of("brown", NpcTextureType.HAIR);
+    public final static RegistryKey<NpcTextureMaterial> HAIR_DARK_BROWN = of("dark_brown", NpcTextureType.HAIR);
+    public final static RegistryKey<NpcTextureMaterial> HAIR_BLONDE = of("blonde", NpcTextureType.HAIR);
+    public final static RegistryKey<NpcTextureMaterial> HAIR_STRAW = of("straw", NpcTextureType.HAIR);
+    public final static RegistryKey<NpcTextureMaterial> HAIR_WHITE = of("white", NpcTextureType.HAIR);
+    public final static RegistryKey<NpcTextureMaterial> HAIR_GRAY = of("gray", NpcTextureType.HAIR);
+    public final static RegistryKey<NpcTextureMaterial> HAIR_ORANGE = of("orange", NpcTextureType.HAIR);
+
+
     public static void bootstrap(Registerable<NpcTextureMaterial> registry) {
         RegistryEntryLookup<NpcTextureMaterial> skinEntryLookup = registry.getRegistryLookup(SKIN_KEY);
-
         register(registry, skinEntryLookup,  "tan", NpcTextureType.SKIN);
         register(registry, skinEntryLookup,"pale", NpcTextureType.SKIN);
         register(registry, skinEntryLookup,"neutral", NpcTextureType.SKIN);
@@ -38,11 +50,21 @@ public class MiddleEarthNpcTextureMaterials {
 
 
         RegistryEntryLookup<NpcTextureMaterial> eyeEntryLookup = registry.getRegistryLookup(EYE_KEY);
-
         register(registry, eyeEntryLookup,"brown", NpcTextureType.EYE);
         register(registry, eyeEntryLookup,"blue", NpcTextureType.EYE);
         register(registry, eyeEntryLookup,"green", NpcTextureType.EYE);
         register(registry, eyeEntryLookup,"yellow", NpcTextureType.EYE);
+
+        RegistryEntryLookup<NpcTextureMaterial> hairEntryLookup = registry.getRegistryLookup(HAIR_KEY);
+        register(registry, hairEntryLookup,"black", NpcTextureType.HAIR);
+        register(registry, hairEntryLookup,"brown", NpcTextureType.HAIR);
+        register(registry, hairEntryLookup,"dark_brown", NpcTextureType.HAIR);
+        register(registry, hairEntryLookup,"blonde", NpcTextureType.HAIR);
+        register(registry, hairEntryLookup,"straw", NpcTextureType.HAIR);
+        register(registry, hairEntryLookup,"orange", NpcTextureType.HAIR);
+        register(registry, hairEntryLookup,"white", NpcTextureType.HAIR);
+        register(registry, hairEntryLookup,"gray", NpcTextureType.HAIR);
+
     }
 
     public static Optional<RegistryEntry.Reference<NpcTextureMaterial>> get(RegistryWrapper.WrapperLookup registries, Identifier id) {
@@ -53,6 +75,7 @@ public class MiddleEarthNpcTextureMaterials {
         var registryKey = switch (type) {
             case NpcTextureType.SKIN -> SKIN_KEY;
             case NpcTextureType.EYE -> EYE_KEY;
+            case NpcTextureType.HAIR -> HAIR_KEY;
             default -> null;
         };
 
@@ -66,6 +89,7 @@ public class MiddleEarthNpcTextureMaterials {
         return switch (type) {
             case NpcTextureType.SKIN -> RegistryKey.of(SKIN_KEY, Identifier.of(MiddleEarth.MOD_ID, id));
             case NpcTextureType.EYE -> RegistryKey.of(EYE_KEY, Identifier.of(MiddleEarth.MOD_ID, id));
+            case NpcTextureType.HAIR -> RegistryKey.of(HAIR_KEY, Identifier.of(MiddleEarth.MOD_ID, id));
             default -> null;
         };
     }
@@ -74,6 +98,7 @@ public class MiddleEarthNpcTextureMaterials {
         MiddleEarth.LOGGER.logDebugMsg("Registering Npc Texture Materials for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(SKIN_KEY, NpcTextureMaterial.CODEC);
         DynamicRegistries.registerSynced(EYE_KEY, NpcTextureMaterial.CODEC);
+        DynamicRegistries.registerSynced(HAIR_KEY, NpcTextureMaterial.CODEC);
     }
 
     private static void register(Registerable<NpcTextureMaterial> registerable, RegistryEntryLookup<NpcTextureMaterial> entryLookup, NpcTextureMaterial content, RegistryKey<NpcTextureMaterial> registryKey, RegistryKey<Registry<NpcTextureMaterial>> registryRegistryKey) {

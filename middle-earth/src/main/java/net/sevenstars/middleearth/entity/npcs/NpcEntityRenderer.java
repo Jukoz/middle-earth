@@ -33,6 +33,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
     private final SpriteAtlasTexture skinAtlasTexture;
     private final SpriteAtlasTexture eyeAtlasTexture;
+    private final SpriteAtlasTexture hairAtlasTexture;
 
     public NpcEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new NpcEntityModel(context.getPart(ModEntityModelLayers.NPC)), 0.7f);
@@ -42,6 +43,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         MinecraftClient client = MinecraftClient.getInstance();
         skinAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
         eyeAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_EYE_TEXTURES_ATLAS_TEXTURE);
+        hairAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_HAIR_TEXTURES_ATLAS_TEXTURE);
 
         this.shadowRadius = 0.5f;
     }
@@ -58,6 +60,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.skinTextureIdentifier = npcEntity.getSkinTextureIdentifier();
         npcEntityRenderState.eyeTextureIdentifier = npcEntity.getEyeTextureIdentifier();
         npcEntityRenderState.haveEmissiveEyes = npcEntity.haveEmissiveEyes();
+        npcEntityRenderState.hairTextureIdentifier = npcEntity.getHairTextureIdentifier();
     }
 
     // endregion
@@ -122,35 +125,38 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         boolean bl2 = !bl && !state.invisibleToPlayer;
 
         for(int run = 0; run < maximumRenderStep; run ++){
-            RenderLayer renderLayer = this.getRenderLayer(state, bl, bl2, state.hasOutline);
-            VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
+            //RenderLayer renderLayer = this.getRenderLayer(state, bl, bl2, state.hasOutline);
             int k = bl2 ? 654311423 : -1;
             int l = ColorHelper.mix(k, this.getMixColor(state));
 
             Identifier id;
+            VertexConsumer vertexConsumer = null;
             Sprite sprite = null;
 
-            if(currentRenderStep == 0 || currentRenderStep == 1) {
-                switch (currentRenderStep) {
-                    case 0:
-                        id = Identifier.of(state.skinTextureIdentifier.getNamespace(), "npc_skin_textures/" + state.skinTextureIdentifier.getPath());
-                        vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer());
-                        sprite = skinAtlasTexture.getSprite(id);
-                        break;
-                    case 1:
-                        id = Identifier.of(state.eyeTextureIdentifier.getNamespace(), "npc_eye_textures/" + state.eyeTextureIdentifier.getPath());
-                        vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcEyeTexturesRenderLayer(state.haveEmissiveEyes));
-                        sprite = eyeAtlasTexture.getSprite(id);
-                        break;
-                    default:
-                        break;
-                }
+            switch (currentRenderStep) {
+                case 0:
+                    id = Identifier.of(state.skinTextureIdentifier.getNamespace(), "npc_skin_textures/" + state.skinTextureIdentifier.getPath());
+                    vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer());
+                    sprite = skinAtlasTexture.getSprite(id);
+                    break;
+                case 1:
+                    id = Identifier.of(state.eyeTextureIdentifier.getNamespace(), "npc_eye_textures/" + state.eyeTextureIdentifier.getPath());
+                    vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcEyeTexturesRenderLayer(state.haveEmissiveEyes));
+                    sprite = eyeAtlasTexture.getSprite(id);
+                    break;
+                case 2:
+                    id = Identifier.of(state.hairTextureIdentifier.getNamespace(), "npc_hair_textures/" + state.hairTextureIdentifier.getPath());
+                    vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
+                    sprite = hairAtlasTexture.getSprite(id);
+                    break;
+                default:
+                    break;
+            }
+            if(sprite != null){
                 VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
                 model.render(matrices, newLayerVertexConsumer, light, OverlayTexture.DEFAULT_UV, l);
             }
-            else {
-                //model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, l);
-            }
+
             currentRenderStep++;
         }
 
