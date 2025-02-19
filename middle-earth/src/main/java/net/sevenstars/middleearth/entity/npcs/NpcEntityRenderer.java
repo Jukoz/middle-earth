@@ -28,12 +28,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Iterator;
 
 public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityRenderState, NpcEntityModel> {
-    private static final String PATH = "textures/npc_skin_textures/";
-    private int currentRenderStep = 0;
-
     private final SpriteAtlasTexture skinAtlasTexture;
     private final SpriteAtlasTexture eyeAtlasTexture;
     private final SpriteAtlasTexture hairAtlasTexture;
+    private final SpriteAtlasTexture clothingAtlasTexture;
 
     public NpcEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new NpcEntityModel(context.getPart(ModEntityModelLayers.NPC)), 0.7f);
@@ -44,6 +42,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         skinAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
         eyeAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_EYE_TEXTURES_ATLAS_TEXTURE);
         hairAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_HAIR_TEXTURES_ATLAS_TEXTURE);
+        clothingAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_CLOTHING_TEXTURES_ATLAS_TEXTURE);
 
         this.shadowRadius = 0.5f;
     }
@@ -61,6 +60,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.eyeTextureIdentifier = npcEntity.getEyeTextureIdentifier();
         npcEntityRenderState.haveEmissiveEyes = npcEntity.haveEmissiveEyes();
         npcEntityRenderState.hairTextureIdentifier = npcEntity.getHairTextureIdentifier();
+        npcEntityRenderState.clothingTextureIdentifier = npcEntity.getClothingTextureIdentifier();
     }
 
     // endregion
@@ -82,7 +82,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
     @Override
     public void render(NpcEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        currentRenderStep = 0;
+        int currentRenderStep = 0;
         int maximumRenderStep = 5;
 
         Text customName = state.customName;
@@ -97,6 +97,9 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
                     break;
                 case "Dev_2":
                     maximumRenderStep = 3;
+                    break;
+                case "Dev_3":
+                    maximumRenderStep = 4;
                     break;
                 default:
                     break;
@@ -148,6 +151,11 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
                     id = Identifier.of(state.hairTextureIdentifier.getNamespace(), "npc_hair_textures/" + state.hairTextureIdentifier.getPath());
                     vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
                     sprite = hairAtlasTexture.getSprite(id);
+                    break;
+                case 3:
+                    id = Identifier.of(state.clothingTextureIdentifier.getNamespace(), "npc_clothing_textures/" + state.clothingTextureIdentifier.getPath());
+                    vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcClothingTexturesRenderLayer());
+                    sprite = clothingAtlasTexture.getSprite(id);
                     break;
                 default:
                     break;

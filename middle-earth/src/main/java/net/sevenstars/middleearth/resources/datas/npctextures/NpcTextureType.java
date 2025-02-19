@@ -6,7 +6,8 @@ public enum NpcTextureType {
     HAIR("hair"),
     EARS("ears"),
     FEET("feet"),
-    NOSE("nose");
+    NOSE("nose"),
+    CLOTHING("clothing");
 
     private final String path;
     NpcTextureType(String path){

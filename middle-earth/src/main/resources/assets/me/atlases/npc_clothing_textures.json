@@ -1,0 +1,16 @@
+{
+    "sources": [
+        {
+            "type": "paletted_permutations",
+            "textures": [
+                "me:npc_clothing_textures/fabric_skirt",
+                "me:npc_clothing_textures/fabric_skirt_with_strophium"
+            ],
+            "palette_key": "me:npc_clothing_textures/color_palettes/base_palette",
+            "permutations": {
+                "white": "me:npc_clothing_textures/color_palettes/white",
+                "brown": "me:npc_clothing_textures/color_palettes/brown"
+            }
+        }
+    ]
+}

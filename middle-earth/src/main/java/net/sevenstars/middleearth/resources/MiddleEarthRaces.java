@@ -67,7 +67,15 @@ public class MiddleEarthRaces {
             MiddleEarthNpcTextureMaterials.HAIR_WHITE.getValue().getPath(),
             MiddleEarthNpcTextureMaterials.HAIR_GRAY.getValue().getPath()
         );
+    static List<String> clothingPatterns = List.of(
+            MiddleEarthNpcTexturePatterns.CLOTHING_FABRIC_SKIRT.getValue().getPath(),
+            MiddleEarthNpcTexturePatterns.CLOTHING_FABRIC_SKIRT_WITH_STROPHIUM.getValue().getPath()
+    );
 
+    static List<String> clothingMaterials = List.of(
+            MiddleEarthNpcTextureMaterials.CLOTHING_WHITE.getValue().getPath(),
+            MiddleEarthNpcTextureMaterials.CLOTHING_BROWN.getValue().getPath()
+    );
     public static void bootstrap(Registerable<Race> context) {
         RegistryEntryLookup<Race> raceRegistryEntryLookup = context.getRegistryLookup(KEY);
         // Registering all races
@@ -104,7 +112,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.MOVEMENT_SPEED, 0.09);
                     put(EntityAttributes.MINING_EFFICIENCY, 0.15);
                 }}), List.of(), List.of(), skinPatterns, skinMaterials, eyePatterns, eyeMaterials, false,
-                hairPatterns, hairMaterials);
+                hairPatterns, hairMaterials, clothingPatterns, clothingMaterials);
         ELF = new Race(Identifier.of(MiddleEarth.MOD_ID, "elf"), RaceType.ELF,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 1.06);
@@ -114,7 +122,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.MOVEMENT_SPEED, 0.1);
                     put(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75);
                 }}), List.of(), List.of(), skinPatterns, skinMaterials, eyePatterns, eyeMaterials, false,
-                hairPatterns, hairMaterials);
+                hairPatterns, hairMaterials, clothingPatterns, clothingMaterials);
         HOBBIT = new Race(Identifier.of(MiddleEarth.MOD_ID, "hobbit"), RaceType.HOBBIT,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 0.6);
@@ -125,12 +133,12 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.SNEAKING_SPEED, 0.435);
                     put(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90);
                 }}), List.of(), List.of(), skinPatterns, skinMaterials, eyePatterns, eyeMaterials, false,
-                hairPatterns, hairMaterials);
+                hairPatterns, hairMaterials, clothingPatterns, clothingMaterials);
         HUMAN = new Race(Identifier.of(MiddleEarth.MOD_ID, "human"), RaceType.HUMAN,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 1.0); // Basic
                 }}), List.of(), List.of(), skinPatterns, skinMaterials, eyePatterns, eyeMaterials, false,
-                hairPatterns, hairMaterials);
+                hairPatterns, hairMaterials, clothingPatterns, clothingMaterials);
         ORC = new Race(Identifier.of(MiddleEarth.MOD_ID, "orc"), RaceType.ORC,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 0.83);
@@ -140,7 +148,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.MOVEMENT_SPEED, 0.11);
                     put(EntityAttributes.STEP_HEIGHT, 1.0);
                 }}), List.of(), List.of(), skinPatterns, skinMaterials, eyePatterns, eyeMaterials, false,
-                hairPatterns, hairMaterials);
+                hairPatterns, hairMaterials, clothingPatterns, clothingMaterials);
         URUK = new Race(Identifier.of(MiddleEarth.MOD_ID, "uruk"), RaceType.URUK,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 1.0);
@@ -150,7 +158,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.MOVEMENT_SPEED, 0.09);
                     put(EntityAttributes.BURNING_TIME, 0.70);
                 }}), List.of(), List.of(), skinPatterns, skinMaterials, eyePatterns, eyeMaterials, false,
-                hairPatterns, hairMaterials);
+                hairPatterns, hairMaterials, clothingPatterns, clothingMaterials);
     }
 }
 

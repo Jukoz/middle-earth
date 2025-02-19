@@ -12,7 +12,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.entity.TestNpcEntity;
+import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
@@ -35,7 +36,9 @@ public class Race {
             Codec.list(Codec.STRING).fieldOf("eye_materials").forGetter(Race::getEyeMaterials),
             Codec.BOOL.fieldOf("emissive_eyes").forGetter(Race::haveEmissiveEyes),
             Codec.list(Codec.STRING).fieldOf("hair_patterns").forGetter(Race::getHairPatterns),
-            Codec.list(Codec.STRING).fieldOf("hair_materials").forGetter(Race::getHairMaterials)
+            Codec.list(Codec.STRING).fieldOf("hair_materials").forGetter(Race::getHairMaterials),
+            Codec.list(Codec.STRING).fieldOf("clothing_patterns").forGetter(Race::getClothingPatterns),
+            Codec.list(Codec.STRING).fieldOf("clothing_materials").forGetter(Race::getClothingMaterials)
     ).apply(instance, Race::new));
 
     private final Identifier id;
@@ -51,8 +54,9 @@ public class Race {
     private boolean haveEmissiveEyes;
     private List<String> hairPatterns;
     private List<String> hairMaterials;
-
-    public Race(String id, String raceTypeValue, NbtCompound attributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<String> skinPatterns, List<String> skinMaterials, List<String> eyePatterns, List<String> eyeMaterials, Boolean haveEmissiveEyes, List<String> hairPatterns, List<String> hairMaterials){
+    private List<String> clothingPatterns;
+    private List<String> clothingMaterials;
+    public Race(String id, String raceTypeValue, NbtCompound attributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<String> skinPatterns, List<String> skinMaterials, List<String> eyePatterns, List<String> eyeMaterials, Boolean haveEmissiveEyes, List<String> hairPatterns, List<String> hairMaterials, List<String> clothingPatterns, List<String> clothingMaterials){
         // Create id
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
@@ -77,9 +81,12 @@ public class Race {
         // Hair Textures
         this.hairPatterns = hairPatterns;
         this.hairMaterials = hairMaterials;
+        // Clothing Textures
+        this.clothingPatterns = clothingPatterns;
+        this.clothingMaterials = clothingMaterials;
     }
 
-    public Race(Identifier id, RaceType raceType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands, List<String> skinPatterns, List<String> skinMaterials, List<String> eyePatterns, List<String> eyeMaterials, boolean haveEmissiveEyes, List<String> hairPatterns, List<String> hairMaterials) {
+    public Race(Identifier id, RaceType raceType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands, List<String> skinPatterns, List<String> skinMaterials, List<String> eyePatterns, List<String> eyeMaterials, boolean haveEmissiveEyes, List<String> hairPatterns, List<String> hairMaterials, List<String> clothingPatterns, List<String> clothingMaterials) {
         this.id = id;
         this.raceType = raceType;
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
@@ -93,6 +100,8 @@ public class Race {
         this.haveEmissiveEyes = haveEmissiveEyes;
         this.hairPatterns = hairPatterns;
         this.hairMaterials = hairMaterials;
+        this.clothingPatterns = clothingPatterns;
+        this.clothingMaterials = clothingMaterials;
     }
 
     public Identifier getId() {
@@ -141,34 +150,41 @@ public class Race {
     public List<String> getHairMaterials() {
         return this.hairMaterials;
     }
+    public List<String> getClothingPatterns() {
+        return this.clothingPatterns;
+    }
+    public List<String> getClothingMaterials() {
+        return this.clothingMaterials;
+    }
+
 
     public Text getFullName() {
         return Text.translatable(translatableKey);
     }
 
     public LivingEntity getModel(World world) {
-        TestNpcEntity entity;
+        NpcEntity entity;
         switch (raceType){
             case RaceType.HUMAN:
-                entity = null;
+                entity = new NpcEntity(ModEntities.NPC, world);
                 break;
             case RaceType.DWARF:
-                entity = null;
+                entity = new NpcEntity(ModEntities.NPC, world);
                 break;
             case RaceType.HOBBIT:
-                entity = null;
+                entity = new NpcEntity(ModEntities.NPC, world);
                 break;
             case RaceType.ELF:
-                entity = null;
+                entity = new NpcEntity(ModEntities.NPC, world);
                 break;
             case RaceType.ORC:
-                entity = null;
+                entity = new NpcEntity(ModEntities.NPC, world);
                 break;
             case RaceType.URUK:
-                entity = null;
+                entity = new NpcEntity(ModEntities.NPC, world);
                 break;
             default:
-                entity = null;
+                entity = new NpcEntity(ModEntities.NPC, world);
                 break;
         }
         if(entity != null)

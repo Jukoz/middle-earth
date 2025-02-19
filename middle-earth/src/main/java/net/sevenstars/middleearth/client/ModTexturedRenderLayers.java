@@ -33,6 +33,9 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
     public static final Identifier NPC_HAIR_TEXTURES_ATLAS_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/atlas/npc_hair_textures.png");
     private static final RenderLayer NPC_HAIR_TEXTURES_RENDER_LAYER;
 
+    public static final Identifier NPC_CLOTHING_TEXTURES_ATLAS_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/atlas/npc_clothing_textures.png");
+    private static final RenderLayer NPC_CLOTHING_TEXTURES_RENDER_LAYER;
+
     static {
         NPC_SKIN_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
 
@@ -40,6 +43,8 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
         NPC_EYE_TEXTURES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(NPC_EYE_TEXTURES_ATLAS_TEXTURE);
 
         NPC_HAIR_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(NPC_HAIR_TEXTURES_ATLAS_TEXTURE);
+
+        NPC_CLOTHING_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(NPC_CLOTHING_TEXTURES_ATLAS_TEXTURE);
 
 
         HEATER_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/heater_shield/base"));
@@ -62,6 +67,9 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
     }
     public static RenderLayer getNpcHairTexturesRenderLayer() {
         return NPC_HAIR_TEXTURES_RENDER_LAYER;
+    }
+    public static RenderLayer getNpcClothingTexturesRenderLayer() {
+        return NPC_CLOTHING_TEXTURES_RENDER_LAYER;
     }
 
 
