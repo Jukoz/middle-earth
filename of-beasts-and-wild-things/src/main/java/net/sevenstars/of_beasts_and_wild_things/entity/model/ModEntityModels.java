@@ -6,6 +6,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityModel;
 import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntityModel;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityModel;
 
@@ -19,6 +20,7 @@ public class ModEntityModels {
         // Animals
         builder.put(ModEntityModelLayers.SNAIL, SnailEntityModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.PHEASANT, PheasantEntityModel.getTexturedModelData());
+        builder.put(ModEntityModelLayers.DEER, DeerEntityModel.getTexturedModelData());
 
         ImmutableMap<EntityModelLayer, TexturedModelData> immutableMap = builder.build();
         return immutableMap;
