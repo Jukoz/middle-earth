@@ -24,13 +24,18 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
 
     public static final Identifier NPC_SKIN_TEXTURES_ATLAS_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/atlas/npc_skin_textures.png");
     private static final RenderLayer NPC_SKIN_TEXTURES_RENDER_LAYER;
-    private static final Map<Identifier, SpriteIdentifier> NPC_SKIN_TEXTURES;
+
+
+    public static final Identifier NPC_EYE_TEXTURES_ATLAS_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/atlas/npc_eye_textures.png");
+    private static final RenderLayer NPC_EYE_TEXTURES_RENDER_LAYER;
+    private static final RenderLayer NPC_EYE_TEXTURES_EMISSIVE_RENDER_LAYER;
 
 
     static {
         NPC_SKIN_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
-        NPC_SKIN_TEXTURES = new HashMap<>();
 
+        NPC_EYE_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(NPC_EYE_TEXTURES_ATLAS_TEXTURE);
+        NPC_EYE_TEXTURES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(NPC_EYE_TEXTURES_ATLAS_TEXTURE);
 
         HEATER_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/heater_shield/base"));
         KITE_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/kite_shield/base"));
@@ -45,6 +50,10 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
     public static RenderLayer getNpcSkinTexturesRenderLayer() {
         return NPC_SKIN_TEXTURES_RENDER_LAYER;
     }
+    public static RenderLayer getNpcEyeTexturesRenderLayer(boolean isEmissive) {
+        return NPC_EYE_TEXTURES_RENDER_LAYER;
+    }
+
 
     public static SpriteIdentifier getHeaterShieldPatternTextureId(RegistryEntry<BannerPattern> pattern) {
         return (SpriteIdentifier)HEATER_SHIELD_PATTERN_TEXTURES.computeIfAbsent(((BannerPattern)pattern.value()).assetId(), (id) -> {

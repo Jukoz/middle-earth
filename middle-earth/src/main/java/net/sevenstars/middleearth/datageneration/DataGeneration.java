@@ -68,8 +68,8 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModMiscPlacedFeatures::bootstrap);
 
 
-        registryBuilder.addRegistry(MiddleEarthNpcTextureMaterials.KEY, MiddleEarthNpcTextureMaterials::bootstrap);
-        registryBuilder.addRegistry(MiddleEarthNpcTexturePatterns.KEY, MiddleEarthNpcTexturePatterns::bootstrap);
+        registryBuilder.addRegistry(MiddleEarthNpcTextureMaterials.SKIN_KEY, MiddleEarthNpcTextureMaterials::bootstrap);
+        registryBuilder.addRegistry(MiddleEarthNpcTexturePatterns.SKIN_KEY, MiddleEarthNpcTexturePatterns::bootstrap);
 
         // Mod Dynamic
 

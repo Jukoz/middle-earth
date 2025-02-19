@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.resources.datas.npctextures;
 
 public enum NpcTextureType {
     SKIN("skin"),
+    EYE("eye"),
     HAIR("hair"),
     EARS("ears"),
     FEET("feet"),

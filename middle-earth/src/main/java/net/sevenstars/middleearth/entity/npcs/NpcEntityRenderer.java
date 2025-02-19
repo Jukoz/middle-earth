@@ -16,10 +16,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.Direction;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.features.beards.NpcEntityBeardFeatureRenderer;
@@ -28,26 +26,24 @@ import net.sevenstars.middleearth.resources.datas.npctextures.NpcTextureType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
-import java.util.function.Function;
 
 public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityRenderState, NpcEntityModel> {
     private static final String PATH = "textures/npc_skin_textures/";
     private int currentRenderStep = 0;
 
-    private final Function<NpcEntityRenderer.NpcTextureKeys, Sprite> sprites;
-    private final SpriteAtlasTexture atlasTexture;
+    private final SpriteAtlasTexture skinAtlasTexture;
+    private final SpriteAtlasTexture eyeAtlasTexture;
+
     public NpcEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new NpcEntityModel(context.getPart(ModEntityModelLayers.NPC)), 0.7f);
 
         this.addFeature(new NpcEntityBeardFeatureRenderer(this, context.getEntityModels()));
 
         MinecraftClient client = MinecraftClient.getInstance();
-        atlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
+        skinAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
+        eyeAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_EYE_TEXTURES_ATLAS_TEXTURE);
 
-        this.sprites = Util.memoize((key) -> {
-            assert atlasTexture != null;
-            return atlasTexture.getSprite(key.getTexture());
-        });
+        this.shadowRadius = 0.5f;
     }
 
     // region RenderState
@@ -60,6 +56,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     public void updateRenderState(NpcEntity npcEntity, NpcEntityRenderState npcEntityRenderState, float f) {
         super.updateRenderState(npcEntity, npcEntityRenderState, f);
         npcEntityRenderState.skinTextureIdentifier = npcEntity.getSkinTextureIdentifier();
+        npcEntityRenderState.eyeTextureIdentifier = npcEntity.getEyeTextureIdentifier();
+        npcEntityRenderState.haveEmissiveEyes = npcEntity.haveEmissiveEyes();
     }
 
     // endregion
@@ -82,7 +80,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     @Override
     public void render(NpcEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         currentRenderStep = 0;
-        int maximumRenderStep = 3;
+        int maximumRenderStep = 5;
 
         Text customName = state.customName;
         if(customName != null){
@@ -93,6 +91,9 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
                     break;
                 case "Dev_1":
                     maximumRenderStep = 2;
+                    break;
+                case "Dev_2":
+                    maximumRenderStep = 3;
                     break;
                 default:
                     break;
@@ -107,6 +108,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
                 matrices.translate((float)(-direction.getOffsetX()) * f, 0.0F, (float)(-direction.getOffsetZ()) * f);
             }
         }
+
 
         float g = state.baseScale;
         matrices.scale(g, g, g);
@@ -125,22 +127,31 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             int k = bl2 ? 654311423 : -1;
             int l = ColorHelper.mix(k, this.getMixColor(state));
 
-            if (renderLayer != null) {
-                if(currentRenderStep ==0){
-                    if(MinecraftClient.getInstance().world != null){
-                        Identifier id = Identifier.of(state.skinTextureIdentifier.getNamespace(), "npc_skin_textures/" + state.skinTextureIdentifier.getPath());
-                        var sprite = atlasTexture.getSprite(id);
+            Identifier id;
+            Sprite sprite = null;
 
+            if(currentRenderStep == 0 || currentRenderStep == 1) {
+                switch (currentRenderStep) {
+                    case 0:
+                        id = Identifier.of(state.skinTextureIdentifier.getNamespace(), "npc_skin_textures/" + state.skinTextureIdentifier.getPath());
                         vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer());
-                        VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-                        model.render(matrices, newLayerVertexConsumer, light, OverlayTexture.DEFAULT_UV, l);
-                    }
+                        sprite = skinAtlasTexture.getSprite(id);
+                        break;
+                    case 1:
+                        id = Identifier.of(state.eyeTextureIdentifier.getNamespace(), "npc_eye_textures/" + state.eyeTextureIdentifier.getPath());
+                        vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcEyeTexturesRenderLayer(state.haveEmissiveEyes));
+                        sprite = eyeAtlasTexture.getSprite(id);
+                        break;
+                    default:
+                        break;
                 }
-                else {
-                    model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, l);
-                }
-                currentRenderStep++;
+                VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
+                model.render(matrices, newLayerVertexConsumer, light, OverlayTexture.DEFAULT_UV, l);
             }
+            else {
+                //model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, l);
+            }
+            currentRenderStep++;
         }
 
 
@@ -159,11 +170,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
     @Override
     public Identifier getTexture(NpcEntityRenderState state) {
-        return switch (currentRenderStep) {
-            case 1 -> Identifier.of(MiddleEarth.MOD_ID, PATH + "brown_eyes.png");
-            case 2 -> Identifier.of(MiddleEarth.MOD_ID, PATH + "hair_test.png");
-            default -> Identifier.of(MiddleEarth.MOD_ID, PATH + "brown_eyes.png");
-        };
+        return null;
     }
 
 

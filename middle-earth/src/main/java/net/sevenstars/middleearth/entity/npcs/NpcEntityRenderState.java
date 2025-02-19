@@ -5,10 +5,18 @@ import net.minecraft.util.Identifier;
 
 public class NpcEntityRenderState extends BipedEntityRenderState {
     public Identifier skinTextureIdentifier;
+    public Identifier eyeTextureIdentifier;
+    public boolean haveEmissiveEyes;
+
+
     public Byte beardType;
 
     public NpcEntityRenderState() {
-        this.beardType = 0;
         this.skinTextureIdentifier = null;
+        this.eyeTextureIdentifier = null;
+        this.haveEmissiveEyes = false;
+
+        // TODO
+        this.beardType = 0;
     }
 }

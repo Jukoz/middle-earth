@@ -30,10 +30,11 @@ public class Race {
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Race::getJoinCommands),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Race::getLeaveCommands),
             Codec.list(Codec.STRING).fieldOf("skin_patterns").forGetter(Race::getSkinPatterns),
-            Codec.list(Codec.STRING).fieldOf("skin_materials").forGetter(Race::getSkinMaterials)
+            Codec.list(Codec.STRING).fieldOf("skin_materials").forGetter(Race::getSkinMaterials),
+            Codec.list(Codec.STRING).fieldOf("eye_patterns").forGetter(Race::getEyePatterns),
+            Codec.list(Codec.STRING).fieldOf("eye_materials").forGetter(Race::getEyeMaterials),
+            Codec.BOOL.fieldOf("emissive_eyes").forGetter(Race::haveEmissiveEyes)
     ).apply(instance, Race::new));
-
-
 
     private final Identifier id;
     private final RaceType raceType;
@@ -43,7 +44,11 @@ public class Race {
     private List<String> leaveCommands;
     private List<String> skinPatterns;
     private List<String> skinMaterials;
-    public Race(String id, String raceTypeValue, NbtCompound attributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<String> skinPatterns, List<String> skinMaterials){
+    private List<String> eyePatterns;
+    private List<String> eyeMaterials;
+    private boolean haveEmissiveEyes;
+
+    public Race(String id, String raceTypeValue, NbtCompound attributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<String> skinPatterns, List<String> skinMaterials, List<String> eyePatterns, List<String> eyeMaterials, Boolean haveEmissiveEyes){
         // Create id
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
@@ -61,9 +66,13 @@ public class Race {
         // Skin Textures
         this.skinPatterns = skinPatterns;
         this.skinMaterials = skinMaterials;
+        // Eye Textures
+        this.eyePatterns = eyePatterns;
+        this.eyeMaterials = eyeMaterials;
+        this.haveEmissiveEyes = haveEmissiveEyes;
     }
 
-    public Race(Identifier id, RaceType raceType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands, List<String> skinPatterns, List<String> skinMaterials) {
+    public Race(Identifier id, RaceType raceType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands, List<String> skinPatterns, List<String> skinMaterials, List<String> eyePatterns, List<String> eyeMaterials, boolean haveEmissiveEyes) {
         this.id = id;
         this.raceType = raceType;
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
@@ -72,6 +81,9 @@ public class Race {
         this.leaveCommands = leaveCommands;
         this.skinPatterns = skinPatterns;
         this.skinMaterials = skinMaterials;
+        this.eyePatterns = eyePatterns;
+        this.eyeMaterials = eyeMaterials;
+        this.haveEmissiveEyes = haveEmissiveEyes;
     }
 
     public Identifier getId() {
@@ -103,6 +115,16 @@ public class Race {
     }
     public List<String> getSkinMaterials() {
         return this.skinMaterials;
+    }
+
+    public List<String> getEyePatterns() {
+        return this.eyePatterns;
+    }
+    public List<String> getEyeMaterials() {
+        return this.eyeMaterials;
+    }
+    public Boolean haveEmissiveEyes() {
+        return haveEmissiveEyes;
     }
 
     public Text getFullName() {

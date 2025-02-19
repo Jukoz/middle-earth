@@ -48,7 +48,7 @@ public class NpcTextureMaterial {
         PACKET_CODEC = PacketCodec.tuple(
                 Identifier.PACKET_CODEC, NpcTextureMaterial::getIdentifier,
                 PacketCodecs.STRING, NpcTextureMaterial::getTypeValue, NpcTextureMaterial::new);
-        ENTRY_CODEC = RegistryElementCodec.of(MiddleEarthNpcTextureMaterials.KEY, CODEC);
-        ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(MiddleEarthNpcTextureMaterials.KEY, PACKET_CODEC);
+        ENTRY_CODEC = RegistryElementCodec.of(MiddleEarthNpcTextureMaterials.SKIN_KEY, CODEC);
+        ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(MiddleEarthNpcTextureMaterials.SKIN_KEY, PACKET_CODEC);
     }
 }
