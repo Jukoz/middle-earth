@@ -21,8 +21,8 @@ import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.features.beards.NpcEntityBeardFeatureRenderer;
-import net.sevenstars.middleearth.resources.datas.npctextures.NpcTexture;
-import net.sevenstars.middleearth.resources.datas.npctextures.NpcTextureType;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexture;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;

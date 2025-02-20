@@ -12,6 +12,9 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
+import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataCategory;
+import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +36,13 @@ public class MiddleEarthRaces {
     public final static Race HUMAN;
     public final static Race ORC;
     public final static Race URUK;
+
+    private static NpcTextureData commonNpcTextureData = new NpcTextureData(new HashMap<>(){{
+        put(NpcTextureDataCategory.COMMON, List.of(
+                new NpcTextureDataPreset()
+        ));
+    }});
+
 
     static List<String> skinPatterns = List.of(
             MiddleEarthNpcTexturePatterns.SKIN_COMMON_A.getValue().getPath(),

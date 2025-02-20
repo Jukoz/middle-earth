@@ -8,8 +8,8 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.resources.datas.npctextures.NpcTexturePattern;
-import net.sevenstars.middleearth.resources.datas.npctextures.NpcTextureType;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
 import java.util.Optional;
 

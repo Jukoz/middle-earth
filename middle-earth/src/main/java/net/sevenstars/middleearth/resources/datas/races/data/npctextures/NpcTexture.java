@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.resources.datas.npctextures;
+package net.sevenstars.middleearth.resources.datas.races.data.npctextures;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
