@@ -6,6 +6,8 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -47,6 +49,11 @@ public class DeerEntity extends AnimalEntity {
 
     public Brain<DeerEntity> getBrain() {
         return (Brain<DeerEntity>)super.getBrain();
+    }
+
+    @Override
+    public boolean isInvulnerableTo(ServerWorld world, DamageSource source) {
+        return super.isInvulnerableTo(world, source) || source.isOf(DamageTypes.SWEET_BERRY_BUSH);
     }
 
     @Override
