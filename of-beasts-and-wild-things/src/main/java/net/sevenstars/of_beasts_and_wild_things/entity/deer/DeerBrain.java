@@ -18,6 +18,7 @@ import net.minecraft.entity.ai.brain.task.RandomTask;
 import net.minecraft.entity.ai.brain.task.StrollTask;
 import net.minecraft.entity.ai.brain.task.WaitTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.DigInDirtTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.EatBerriesTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsBlockTask;
 
 public class DeerBrain {
@@ -47,7 +48,10 @@ public class DeerBrain {
     private static void addIdleActivities(Brain<DeerEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
-                        Pair.of(MoveTowardsBlockTask.create(1.0F, Blocks.SWEET_BERRY_BUSH), 5)
+                        Pair.of(MoveTowardsBlockTask.create(1.0F, Blocks.SWEET_BERRY_BUSH), 5),
+                        Pair.of(new EatBerriesTask(), 5),
+                        Pair.of(StrollTask.create(1.0F), 1),
+                        Pair.of(new WaitTask(60, 100), 1)
                 ))),
                 Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_PRESENT), ImmutableList.of(
                         Pair.of(StrollTask.create(1.0F), 1),
