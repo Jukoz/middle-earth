@@ -15,6 +15,7 @@ import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
 import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureData;
 import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,52 +41,49 @@ public class MiddleEarthRaces {
     private static NpcTextureData commonNpcTextureData = new NpcTextureData(new HashMap<>(){{
         put(NpcTextureDataCategory.COMMON, List.of(
                 new NpcTextureDataPreset()
+                        .withPatterns(NpcTextureType.SKIN, List.of(
+                                MiddleEarthNpcTexturePatterns.SKIN_COMMON_A,
+                                MiddleEarthNpcTexturePatterns.SKIN_COMMON_B
+                        ))
+                        .withMaterials(NpcTextureType.SKIN, List.of(
+                                MiddleEarthNpcTextureMaterials.SKIN_PALE,
+                                MiddleEarthNpcTextureMaterials.SKIN_TAN,
+                                MiddleEarthNpcTextureMaterials.SKIN_OLIVE,
+                                MiddleEarthNpcTextureMaterials.SKIN_NEUTRAL
+                        ))
+                        .withPatterns(NpcTextureType.EYE, List.of(
+                                MiddleEarthNpcTexturePatterns.EYE_COMMON
+                        ))
+                        .withMaterials(NpcTextureType.EYE, List.of(
+                                MiddleEarthNpcTextureMaterials.EYE_BROWN,
+                                MiddleEarthNpcTextureMaterials.EYE_GREEN,
+                                MiddleEarthNpcTextureMaterials.EYE_BLUE
+                        ))
+                        .withEmissiveEyes(false)
+                        .withPatterns(NpcTextureType.HAIR, List.of(
+                                MiddleEarthNpcTexturePatterns.HAIR_SHORT
+                        ))
+                        .withMaterials(NpcTextureType.HAIR, List.of(
+                                MiddleEarthNpcTextureMaterials.HAIR_BLACK,
+                                MiddleEarthNpcTextureMaterials.HAIR_BROWN,
+                                MiddleEarthNpcTextureMaterials.HAIR_DARK_BROWN,
+                                MiddleEarthNpcTextureMaterials.HAIR_BLONDE,
+                                MiddleEarthNpcTextureMaterials.HAIR_STRAW,
+                                MiddleEarthNpcTextureMaterials.HAIR_ORANGE,
+                                MiddleEarthNpcTextureMaterials.HAIR_WHITE,
+                                MiddleEarthNpcTextureMaterials.HAIR_GRAY
+                        ))
+                        .withPatterns(NpcTextureType.CLOTHING, List.of(
+                                MiddleEarthNpcTexturePatterns.CLOTHING_FABRIC_SKIRT,
+                                MiddleEarthNpcTexturePatterns.CLOTHING_FABRIC_SKIRT_WITH_STROPHIUM
+                        ))
+                        .withMaterials(NpcTextureType.CLOTHING, List.of(
+                                MiddleEarthNpcTextureMaterials.CLOTHING_WHITE,
+                                MiddleEarthNpcTextureMaterials.CLOTHING_BROWN
+                        ))
         ));
     }});
 
-
-    static List<String> skinPatterns = List.of(
-            MiddleEarthNpcTexturePatterns.SKIN_COMMON_A.getValue().getPath(),
-            MiddleEarthNpcTexturePatterns.SKIN_COMMON_B.getValue().getPath()
-    );
-    static List<String> skinMaterials = List.of(
-            MiddleEarthNpcTextureMaterials.SKIN_PALE.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.SKIN_TAN.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.SKIN_OLIVE.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.SKIN_NEUTRAL.getValue().getPath()
-    );
-
-    static List<String> eyePatterns = List.of(
-            MiddleEarthNpcTexturePatterns.EYE_COMMON.getValue().getPath()
-    );
-    static List<String> eyeMaterials = List.of(
-            MiddleEarthNpcTextureMaterials.EYE_BROWN.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.EYE_GREEN.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.EYE_BLUE.getValue().getPath()
-    );
-
-    static List<String> hairPatterns = List.of(
-            MiddleEarthNpcTexturePatterns.HAIR_SHORT.getValue().getPath()
-    );
-    static List<String> hairMaterials = List.of(
-            MiddleEarthNpcTextureMaterials.HAIR_BLACK.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.HAIR_BROWN.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.HAIR_DARK_BROWN.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.HAIR_BLONDE.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.HAIR_STRAW.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.HAIR_ORANGE.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.HAIR_WHITE.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.HAIR_GRAY.getValue().getPath()
-        );
-    static List<String> clothingPatterns = List.of(
-            MiddleEarthNpcTexturePatterns.CLOTHING_FABRIC_SKIRT.getValue().getPath(),
-            MiddleEarthNpcTexturePatterns.CLOTHING_FABRIC_SKIRT_WITH_STROPHIUM.getValue().getPath()
-    );
-
-    static List<String> clothingMaterials = List.of(
-            MiddleEarthNpcTextureMaterials.CLOTHING_WHITE.getValue().getPath(),
-            MiddleEarthNpcTextureMaterials.CLOTHING_BROWN.getValue().getPath()
-    );
     public static void bootstrap(Registerable<Race> context) {
         RegistryEntryLookup<Race> raceRegistryEntryLookup = context.getRegistryLookup(KEY);
         // Registering all races
@@ -121,8 +119,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75);
                     put(EntityAttributes.MOVEMENT_SPEED, 0.09);
                     put(EntityAttributes.MINING_EFFICIENCY, 0.15);
-                }}), List.of(), List.of(), skinPatterns, skinMaterials, eyePatterns, eyeMaterials, false,
-                hairPatterns, hairMaterials, clothingPatterns, clothingMaterials);
+                }}), List.of(), List.of(), commonNpcTextureData);
         ELF = new Race(Identifier.of(MiddleEarth.MOD_ID, "elf"), RaceType.ELF,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 1.06);
@@ -131,8 +128,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.25);
                     put(EntityAttributes.MOVEMENT_SPEED, 0.1);
                     put(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75);
-                }}), List.of(), List.of(), skinPatterns, skinMaterials, eyePatterns, eyeMaterials, false,
-                hairPatterns, hairMaterials, clothingPatterns, clothingMaterials);
+                }}), List.of(), List.of(), commonNpcTextureData);
         HOBBIT = new Race(Identifier.of(MiddleEarth.MOD_ID, "hobbit"), RaceType.HOBBIT,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 0.6);
@@ -142,13 +138,11 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.MOVEMENT_SPEED, 0.115);
                     put(EntityAttributes.SNEAKING_SPEED, 0.435);
                     put(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90);
-                }}), List.of(), List.of(), skinPatterns, skinMaterials, eyePatterns, eyeMaterials, false,
-                hairPatterns, hairMaterials, clothingPatterns, clothingMaterials);
+                }}), List.of(), List.of(), commonNpcTextureData);
         HUMAN = new Race(Identifier.of(MiddleEarth.MOD_ID, "human"), RaceType.HUMAN,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 1.0); // Basic
-                }}), List.of(), List.of(), skinPatterns, skinMaterials, eyePatterns, eyeMaterials, false,
-                hairPatterns, hairMaterials, clothingPatterns, clothingMaterials);
+                }}), List.of(), List.of(), commonNpcTextureData);
         ORC = new Race(Identifier.of(MiddleEarth.MOD_ID, "orc"), RaceType.ORC,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 0.83);
@@ -157,8 +151,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75);
                     put(EntityAttributes.MOVEMENT_SPEED, 0.11);
                     put(EntityAttributes.STEP_HEIGHT, 1.0);
-                }}), List.of(), List.of(), skinPatterns, skinMaterials, eyePatterns, eyeMaterials, false,
-                hairPatterns, hairMaterials, clothingPatterns, clothingMaterials);
+                }}), List.of(), List.of(), commonNpcTextureData);
         URUK = new Race(Identifier.of(MiddleEarth.MOD_ID, "uruk"), RaceType.URUK,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 1.0);
@@ -167,8 +160,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.0);
                     put(EntityAttributes.MOVEMENT_SPEED, 0.09);
                     put(EntityAttributes.BURNING_TIME, 0.70);
-                }}), List.of(), List.of(), skinPatterns, skinMaterials, eyePatterns, eyeMaterials, false,
-                hairPatterns, hairMaterials, clothingPatterns, clothingMaterials);
+                }}), List.of(), List.of(), commonNpcTextureData);
     }
 }
 

@@ -4,51 +4,94 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
-import net.minecraft.util.Identifier;
+import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureMaterial;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NpcTextureDataPreset {
     private int weight;
-    List<String> skinTextures;
-    List<String> eyeTextures;
-    List<String> hairTextures;
-    List<String> clothingTextures;
+    List<String> skinPatterns;
+    List<String> eyePatterns;
+    List<String> hairPatterns;
+    List<String> clothingPatterns;
+
+    List<String> skinMaterials;
+    List<String> eyeMaterials;
+    List<String> hairMaterials;
+    List<String> clothingMaterials;
+    
     private boolean haveEmissiveEyes;
 
     public NpcTextureDataPreset(NbtCompound compound) {
         this.weight = compound.contains("weight") ? compound.getInt("weight") : 1;
-        this.skinTextures = fetchStringElements(compound, "skin");
-        this.eyeTextures = fetchStringElements(compound, "eye");
-        this.haveEmissiveEyes = compound.contains("emissive_eyes") && compound.getBoolean("emissive_eyes");
-        this.hairTextures = fetchStringElements(compound, "hair");
-        this.clothingTextures = fetchStringElements(compound, "clothing");
+
+        skinPatterns = new ArrayList<>();
+        skinMaterials = new ArrayList<>();
+
+        eyePatterns = new ArrayList<>();
+        eyeMaterials = new ArrayList<>();
+
+        hairPatterns = new ArrayList<>();
+        hairMaterials = new ArrayList<>();
+
+        clothingPatterns = new ArrayList<>();
+        clothingMaterials = new ArrayList<>();
+
+        fetchElements(compound, NpcTextureType.SKIN);
+        fetchElements(compound, NpcTextureType.EYE);
+        fetchElements(compound, NpcTextureType.HAIR);
+        fetchElements(compound, NpcTextureType.CLOTHING);
     }
 
-    public NbtCompound getNbtCompound(){
+    public NbtCompound getNbt(){
         NbtCompound nbt = new NbtCompound();
         if(weight != 1){
             nbt.putInt("weight", weight);
         }
-        if(isListEmpty(skinTextures)){
-            nbt.put("skin", createStringList(skinTextures));
+        if(isListFilled(skinPatterns) || isListFilled(skinMaterials)){
+            NbtCompound compound = new NbtCompound();
+
+            compound.put("patterns", createStringList(skinPatterns));
+            compound.put("materials", createStringList(skinMaterials));
+
+            nbt.put(NpcTextureType.SKIN.name(), compound);
         }
-        if(isListEmpty(eyeTextures)){
-            nbt.put("eye", createStringList(eyeTextures));
+        if(isListFilled(eyePatterns) || isListFilled(eyeMaterials)){
+            NbtCompound compound = new NbtCompound();
+
+            compound.put("patterns", createStringList(eyePatterns));
+            compound.put("materials", createStringList(eyeMaterials));
+
+            if(haveEmissiveEyes)
+                compound.putBoolean("is_emissive", true);
+
+            nbt.put(NpcTextureType.EYE.name(), compound);
         }
-        if(isListEmpty(hairTextures)){
-            nbt.put("hair", createStringList(hairTextures));
+        if(isListFilled(hairPatterns) || isListFilled(hairMaterials)){
+            NbtCompound compound = new NbtCompound();
+
+            compound.put("patterns", createStringList(hairPatterns));
+            compound.put("materials", createStringList(hairMaterials));
+
+            nbt.put(NpcTextureType.HAIR.name(), compound);
         }
-        if(isListEmpty(clothingTextures)){
-            nbt.put("clothing", createStringList(clothingTextures));
+        if(isListFilled(clothingPatterns) || isListFilled(clothingMaterials)){
+            NbtCompound compound = new NbtCompound();
+
+            compound.put("patterns", createStringList(clothingPatterns));
+            compound.put("materials", createStringList(clothingMaterials));
+
+            nbt.put(NpcTextureType.CLOTHING.name(), compound);
         }
-        if(haveEmissiveEyes != null)
 
         return nbt;
     }
 
-    private <T> boolean isListEmpty(List<T> listToCheck){
+    private <T> boolean isListFilled(List<T> listToCheck){
         return (listToCheck != null && !listToCheck.isEmpty());
     }
 
@@ -60,27 +103,56 @@ public class NpcTextureDataPreset {
         return nbtList;
     }
 
-    private List<String> fetchStringElements(NbtCompound compound, String key){
-        List<String> values = new ArrayList<>();
-        if(compound.contains(key)){
-            NbtList nbtList = compound.getList(key, NbtElement.STRING_TYPE);
-            for(int i = 0; i < nbtList.size(); i++){
-                values.add(nbtList.getString(i));
+    private void fetchElements(NbtCompound compound, NpcTextureType type){
+        if(compound.contains(type.name())){
+            NbtCompound value = compound.getCompound(type.name());
+
+            if(value.contains("patterns")){
+                List<String> fetchedValues = getStringListFromNbtList(value.getCompound("patterns"), type.name());
+                switch (type){
+                    case SKIN -> skinPatterns.addAll(fetchedValues);
+                    case EYE -> eyePatterns.addAll(fetchedValues);
+                    case HAIR -> hairPatterns.addAll(fetchedValues);
+                    case CLOTHING -> clothingPatterns.addAll(fetchedValues);
+                }
+            }
+            if(value.contains("materials")){
+                List<String> fetchedValues = getStringListFromNbtList(value.getCompound("materials"), type.name());
+                switch (type){
+                    case SKIN -> skinMaterials.addAll(fetchedValues);
+                    case EYE -> eyeMaterials.addAll(fetchedValues);
+                    case HAIR -> hairMaterials.addAll(fetchedValues);
+                    case CLOTHING -> clothingMaterials.addAll(fetchedValues);
+                }
+            }
+            if(type == NpcTextureType.EYE && value.contains("is_emissive")){
+                this.haveEmissiveEyes = value.getBoolean("is_emissive");
             }
         }
-        return values;
+    }
+
+    private List<String> getStringListFromNbtList(NbtCompound nbt, String name){
+        NbtList nbtList = nbt.getList(name, NbtElement.STRING_TYPE);
+        List<String> fetchedValues = new ArrayList<>();
+        for(int i = 0; i < nbtList.size(); i++){
+            fetchedValues.add(nbtList.getString(i));
+        }
+        return  fetchedValues;
     }
 
     public NpcTextureDataPreset(){
         this.weight = 1;
-    }
+        skinPatterns = new ArrayList<>();
+        skinMaterials = new ArrayList<>();
 
-    public NpcTextureDataPreset(List<Identifier> skinTextures, List<Identifier> eyeTextures, List<Identifier> eyebrowTextures, List<Identifier> facialHairTextures, List<Identifier> hairTextures, List<Identifier> clothingTextures) {
-        this(skinTextures, eyeTextures, eyebrowTextures, facialHairTextures, hairTextures, clothingTextures, 1);
-    }
+        eyePatterns = new ArrayList<>();
+        eyeMaterials = new ArrayList<>();
 
-    public NpcTextureDataPreset(List<Identifier> skinTextures, List<Identifier> eyeTextures, List<Identifier> eyebrowTextures, List<Identifier> facialHairTextures, List<Identifier> hairTextures, List<Identifier> clothingTextures, int weight) {
-        this.weight = weight;
+        hairPatterns = new ArrayList<>();
+        hairMaterials = new ArrayList<>();
+
+        clothingPatterns = new ArrayList<>();
+        clothingMaterials = new ArrayList<>();
     }
 
     public NpcTextureDataPreset withWeight(int weight){
@@ -88,7 +160,61 @@ public class NpcTextureDataPreset {
         return this;
     }
 
+    public NpcTextureDataPreset withEmissiveEyes(boolean value){
+        this.haveEmissiveEyes = value;
+        return this;
+    }
+
+    public NpcTextureDataPreset withPatterns(NpcTextureType type, List<RegistryKey<NpcTexturePattern>> patterns){
+        if(patterns != null)
+            patterns.forEach(x -> addToPattern(type, x.getValue().getPath()));
+        return this;
+    }
+
+    public NpcTextureDataPreset withMaterials(NpcTextureType type, List<RegistryKey<NpcTextureMaterial>> materials){
+        materials.forEach(x -> addToMaterial(type, x.getValue().getPath()));
+        return this;
+    }
+
     public int getWeight(){
         return weight;
+    }
+
+    public void addToPattern(NpcTextureType npcTextureType, String value) {
+        switch (npcTextureType){
+            case SKIN -> skinPatterns.add(value);
+            case EYE -> eyePatterns.add(value);
+            case HAIR -> hairPatterns.add(value);
+            case CLOTHING -> clothingPatterns.add(value);
+        };
+    }
+    public void addToMaterial(NpcTextureType npcTextureType, String value) {
+        switch (npcTextureType){
+            case SKIN -> skinMaterials.add(value);
+            case EYE -> eyeMaterials.add(value);
+            case HAIR -> hairMaterials.add(value);
+            case CLOTHING -> clothingMaterials.add(value);
+        };
+    }
+
+    public List<String> getPatterns(NpcTextureType npcTextureType) {
+        return switch (npcTextureType){
+            case SKIN -> skinPatterns;
+            case EYE -> eyePatterns;
+            case HAIR -> hairPatterns;
+            case CLOTHING -> clothingPatterns;
+        };
+    }
+    public List<String> getMaterials(NpcTextureType npcTextureType) {
+        return switch (npcTextureType){
+            case SKIN -> skinMaterials;
+            case EYE -> eyeMaterials;
+            case HAIR -> hairMaterials;
+            case CLOTHING -> clothingMaterials;
+        };
+    }
+
+    public Boolean haveEmissiveEyes() {
+        return haveEmissiveEyes;
     }
 }

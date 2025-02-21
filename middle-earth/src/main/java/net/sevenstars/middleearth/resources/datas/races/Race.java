@@ -16,6 +16,7 @@ import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
+import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
@@ -30,15 +31,7 @@ public class Race {
             NbtCompound.CODEC.fieldOf("attributes").forGetter(Race::getAttributeDatas),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Race::getJoinCommands),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Race::getLeaveCommands),
-            Codec.list(Codec.STRING).fieldOf("skin_patterns").forGetter(Race::getSkinPatterns),
-            Codec.list(Codec.STRING).fieldOf("skin_materials").forGetter(Race::getSkinMaterials),
-            Codec.list(Codec.STRING).fieldOf("eye_patterns").forGetter(Race::getEyePatterns),
-            Codec.list(Codec.STRING).fieldOf("eye_materials").forGetter(Race::getEyeMaterials),
-            Codec.BOOL.fieldOf("emissive_eyes").forGetter(Race::haveEmissiveEyes),
-            Codec.list(Codec.STRING).fieldOf("hair_patterns").forGetter(Race::getHairPatterns),
-            Codec.list(Codec.STRING).fieldOf("hair_materials").forGetter(Race::getHairMaterials),
-            Codec.list(Codec.STRING).fieldOf("clothing_patterns").forGetter(Race::getClothingPatterns),
-            Codec.list(Codec.STRING).fieldOf("clothing_materials").forGetter(Race::getClothingMaterials)
+            NbtCompound.CODEC.fieldOf("npc_textures").forGetter(Race::getNpcTextureData)
     ).apply(instance, Race::new));
 
     private final Identifier id;
@@ -47,16 +40,10 @@ public class Race {
     private final AttributeData attributeData;
     private List<String> joinCommands;
     private List<String> leaveCommands;
-    private List<String> skinPatterns;
-    private List<String> skinMaterials;
-    private List<String> eyePatterns;
-    private List<String> eyeMaterials;
-    private boolean haveEmissiveEyes;
-    private List<String> hairPatterns;
-    private List<String> hairMaterials;
-    private List<String> clothingPatterns;
-    private List<String> clothingMaterials;
-    public Race(String id, String raceTypeValue, NbtCompound attributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<String> skinPatterns, List<String> skinMaterials, List<String> eyePatterns, List<String> eyeMaterials, Boolean haveEmissiveEyes, List<String> hairPatterns, List<String> hairMaterials, List<String> clothingPatterns, List<String> clothingMaterials){
+    private final NpcTextureData npcTextureData;
+
+
+    public Race(String id, String raceTypeValue, NbtCompound attributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, NbtCompound npcTextureData){
         // Create id
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
@@ -72,36 +59,17 @@ public class Race {
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
 
         // Skin Textures
-        this.skinPatterns = skinPatterns;
-        this.skinMaterials = skinMaterials;
-        // Eye Textures
-        this.eyePatterns = eyePatterns;
-        this.eyeMaterials = eyeMaterials;
-        this.haveEmissiveEyes = haveEmissiveEyes;
-        // Hair Textures
-        this.hairPatterns = hairPatterns;
-        this.hairMaterials = hairMaterials;
-        // Clothing Textures
-        this.clothingPatterns = clothingPatterns;
-        this.clothingMaterials = clothingMaterials;
+        this.npcTextureData = new NpcTextureData(npcTextureData);
     }
 
-    public Race(Identifier id, RaceType raceType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands, List<String> skinPatterns, List<String> skinMaterials, List<String> eyePatterns, List<String> eyeMaterials, boolean haveEmissiveEyes, List<String> hairPatterns, List<String> hairMaterials, List<String> clothingPatterns, List<String> clothingMaterials) {
+    public Race(Identifier id, RaceType raceType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands, NpcTextureData npcTextureData) {
         this.id = id;
         this.raceType = raceType;
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
         this.attributeData = attributeData;
         this.joinCommands = joinCommands;
         this.leaveCommands = leaveCommands;
-        this.skinPatterns = skinPatterns;
-        this.skinMaterials = skinMaterials;
-        this.eyePatterns = eyePatterns;
-        this.eyeMaterials = eyeMaterials;
-        this.haveEmissiveEyes = haveEmissiveEyes;
-        this.hairPatterns = hairPatterns;
-        this.hairMaterials = hairMaterials;
-        this.clothingPatterns = clothingPatterns;
-        this.clothingMaterials = clothingMaterials;
+        this.npcTextureData = npcTextureData;
     }
 
     public Identifier getId() {
@@ -118,6 +86,13 @@ public class Race {
             return null;
         return attributeData.getNbt();
     }
+    private NbtCompound getNpcTextureData() {
+        return npcTextureData.getNbt();
+    }
+    public NpcTextureData getNpcTextureDataValue() {
+        return npcTextureData;
+    }
+
     public Optional<List<String>> getJoinCommands() {
         if(this.joinCommands == null)
             return Optional.empty();
@@ -128,35 +103,6 @@ public class Race {
             return Optional.empty();
         return Optional.of(this.leaveCommands);
     }
-    public List<String> getSkinPatterns() {
-        return this.skinPatterns;
-    }
-    public List<String> getSkinMaterials() {
-        return this.skinMaterials;
-    }
-
-    public List<String> getEyePatterns() {
-        return this.eyePatterns;
-    }
-    public List<String> getEyeMaterials() {
-        return this.eyeMaterials;
-    }
-    public Boolean haveEmissiveEyes() {
-        return haveEmissiveEyes;
-    }
-    public List<String> getHairPatterns() {
-        return this.hairPatterns;
-    }
-    public List<String> getHairMaterials() {
-        return this.hairMaterials;
-    }
-    public List<String> getClothingPatterns() {
-        return this.clothingPatterns;
-    }
-    public List<String> getClothingMaterials() {
-        return this.clothingMaterials;
-    }
-
 
     public Text getFullName() {
         return Text.translatable(translatableKey);

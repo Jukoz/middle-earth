@@ -14,16 +14,16 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.features.beards.BeardTypes;
 import net.sevenstars.middleearth.resources.MiddleEarthRaces;
 import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataCategory;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 
 public class NpcEntity extends PassiveEntity {
@@ -33,6 +33,7 @@ public class NpcEntity extends PassiveEntity {
     private static final TrackedData<String> EYE_TEXTURE;
     private static final TrackedData<String> HAIR_TEXTURE;
     private static final TrackedData<String> CLOTHING_TEXTURE;
+    private static final TrackedData<Boolean> EMISSIVE_EYES;
 
     private Race race;
 
@@ -41,41 +42,30 @@ public class NpcEntity extends PassiveEntity {
 
         this.race = MiddleEarthRaces.DWARF;
 
-        if(Objects.equals(getSkinTextureValue(), "")){
-            List<String> patterns = this.race.getSkinPatterns();
-            List<String> materials = this.race.getSkinMaterials();
-            Random random = new Random();
-            int patternIndex = random.nextInt(patterns.size());
-            int materialIndex = random.nextInt(materials.size());
+        NpcTextureData.Identity npcTextureDataIdentity = NpcTextureData.Identity.create(this.race.getNpcTextureDataValue(), NpcTextureDataCategory.COMMON);
+        if(npcTextureDataIdentity == null){
+            // TODO : crash?
+            return;
+        }
 
-            this.dataTracker.set(SKIN_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex) + "_" + materials.get(materialIndex)).toString());
+        NpcTextureData npcTextureData = this.race.getNpcTextureDataValue();
+
+        if(Objects.equals(getSkinTextureValue(), "")){
+            Identifier id = npcTextureData.getTexture(npcTextureDataIdentity, NpcTextureType.SKIN);
+            this.dataTracker.set(SKIN_TEXTURE, id.toString());
         }
         if(Objects.equals(getEyeTextureValue(), "")){
-            List<String> patterns = this.race.getEyePatterns();
-            List<String> materials = this.race.getEyeMaterials();
-            Random random = new Random();
-            int patternIndex = random.nextInt(patterns.size());
-            int materialIndex = random.nextInt(materials.size());
-
-            this.dataTracker.set(EYE_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex) + "_" + materials.get(materialIndex)).toString());
+            Identifier id = npcTextureData.getTexture(npcTextureDataIdentity, NpcTextureType.EYE);
+            this.dataTracker.set(EYE_TEXTURE, id.toString());
+            this.dataTracker.set(EMISSIVE_EYES, npcTextureData.haveEmissiveEyes(npcTextureDataIdentity));
         }
         if(Objects.equals(getHairTextureValue(), "")){
-            List<String> patterns = this.race.getHairPatterns();
-            List<String> materials = this.race.getHairMaterials();
-            Random random = new Random();
-            int patternIndex = random.nextInt(patterns.size());
-            int materialIndex = random.nextInt(materials.size());
-
-            this.dataTracker.set(HAIR_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex) + "_" + materials.get(materialIndex)).toString());
+            Identifier id = npcTextureData.getTexture(npcTextureDataIdentity, NpcTextureType.HAIR);
+            this.dataTracker.set(HAIR_TEXTURE, id.toString());
         }
         if(Objects.equals(getClothingTextureValue(), "")){
-            List<String> patterns = this.race.getClothingPatterns();
-            List<String> materials = this.race.getClothingMaterials();
-            Random random = new Random();
-            int patternIndex = random.nextInt(patterns.size());
-            int materialIndex = random.nextInt(materials.size());
-
-            this.dataTracker.set(CLOTHING_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex) + "_" + materials.get(materialIndex)).toString());
+            Identifier id = npcTextureData.getTexture(npcTextureDataIdentity, NpcTextureType.CLOTHING);
+            this.dataTracker.set(CLOTHING_TEXTURE, id.toString());
         }
     }
 
@@ -95,6 +85,7 @@ public class NpcEntity extends PassiveEntity {
         builder.add(EYE_TEXTURE, "");
         builder.add(HAIR_TEXTURE, "");
         builder.add(CLOTHING_TEXTURE, "");
+        builder.add(EMISSIVE_EYES, false);
     }
 
     public void writeCustomDataToNbt(NbtCompound nbt) {
@@ -104,6 +95,8 @@ public class NpcEntity extends PassiveEntity {
         nbt.putString("EyeTexture",  this.getEyeTextureValue());
         nbt.putString("HairTexture",  this.getHairTextureValue());
         nbt.putString("ClothingTexture",  this.getClothingTextureValue());
+        nbt.putBoolean("EmissiveEyes",  this.getEmissiveEyes());
+
     }
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
@@ -112,6 +105,7 @@ public class NpcEntity extends PassiveEntity {
         this.dataTracker.set(EYE_TEXTURE, nbt.getString("EyeTexture"));
         this.dataTracker.set(HAIR_TEXTURE, nbt.getString("HairTexture"));
         this.dataTracker.set(CLOTHING_TEXTURE, nbt.getString("ClothingTexture"));
+        this.dataTracker.set(EMISSIVE_EYES, nbt.getBoolean("EmissiveEyes"));
     }
 
     public Byte getBeardType() {
@@ -132,14 +126,14 @@ public class NpcEntity extends PassiveEntity {
     public String getClothingTextureValue() {
         return this.dataTracker.get(CLOTHING_TEXTURE);
     }
+    public Boolean getEmissiveEyes() {
+        return this.dataTracker.get(EMISSIVE_EYES);
+    }
     public Identifier getSkinTextureIdentifier() {
         return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(SKIN_TEXTURE));
     }
     public Identifier getEyeTextureIdentifier() {
         return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(EYE_TEXTURE));
-    }
-    public boolean haveEmissiveEyes() {
-        return race.haveEmissiveEyes();
     }
     public Identifier getHairTextureIdentifier() {
         return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(HAIR_TEXTURE));
@@ -153,6 +147,8 @@ public class NpcEntity extends PassiveEntity {
         EYE_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
         HAIR_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
         CLOTHING_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
+        EMISSIVE_EYES = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
     }
     // endregion
 

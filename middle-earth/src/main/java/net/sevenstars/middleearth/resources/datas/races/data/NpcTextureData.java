@@ -3,10 +3,14 @@ package net.sevenstars.middleearth.resources.datas.races.data;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class NpcTextureData {
     HashMap<NpcTextureDataCategory, List<NpcTextureDataPreset>> presetsByCategory;
@@ -29,5 +33,46 @@ public class NpcTextureData {
     }
     public NpcTextureData(HashMap<NpcTextureDataCategory, List<NpcTextureDataPreset>> sourceDatas) {
         presetsByCategory = sourceDatas;
+    }
+
+
+    public NbtCompound getNbt() {
+        NbtCompound newNbt = new NbtCompound();
+        for(NpcTextureDataCategory category : presetsByCategory.keySet()){
+            List<NpcTextureDataPreset> presets = presetsByCategory.get(category);
+            if(presets != null && !presets.isEmpty()){
+                NbtList newNbtList = new NbtList();
+                for (NpcTextureDataPreset preset : presets) {
+                    newNbtList.add(preset.getNbt());
+                }
+                newNbt.put(category.name(), newNbtList);
+            }
+        }
+        return newNbt;
+    }
+
+    public Identifier getTexture(Identity identity, NpcTextureType npcTextureType) {
+        List<String> patterns = identity.preset.getPatterns(npcTextureType);
+        List<String> materials = identity.preset.getMaterials(npcTextureType);
+        Random random = new Random();
+        int patternIndex = random.nextInt(patterns.size());
+        int materialIndex = random.nextInt(materials.size());
+        return Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex) + "_" + materials.get(materialIndex));
+    }
+
+    public Boolean haveEmissiveEyes(Identity identity) {
+        return identity.preset.haveEmissiveEyes();
+    }
+
+    public record Identity(NpcTextureDataCategory category, NpcTextureDataPreset preset){
+        public static Identity create(NpcTextureData data, NpcTextureDataCategory npcTextureDataCategory){
+            if(!data.presetsByCategory.containsKey(npcTextureDataCategory))
+                return null;
+
+            // TODO : get the right preset based on weight
+            List<NpcTextureDataPreset> presets = data.presetsByCategory.get(npcTextureDataCategory);
+            Random random = new Random();
+            return new Identity(npcTextureDataCategory, presets.get(random.nextInt(presets.size())));
+        }
     }
 }

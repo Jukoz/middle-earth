@@ -58,7 +58,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         super.updateRenderState(npcEntity, npcEntityRenderState, f);
         npcEntityRenderState.skinTextureIdentifier = npcEntity.getSkinTextureIdentifier();
         npcEntityRenderState.eyeTextureIdentifier = npcEntity.getEyeTextureIdentifier();
-        npcEntityRenderState.haveEmissiveEyes = npcEntity.haveEmissiveEyes();
+        npcEntityRenderState.haveEmissiveEyes = npcEntity.getEmissiveEyes();
         npcEntityRenderState.hairTextureIdentifier = npcEntity.getHairTextureIdentifier();
         npcEntityRenderState.clothingTextureIdentifier = npcEntity.getClothingTextureIdentifier();
     }
