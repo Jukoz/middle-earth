@@ -19,7 +19,6 @@ public class SimpleItemModel {
 
             add(ModDecorativeItems.TROLL_STATUE);
 
-
             //Crops
             add(ModFoodItems.TOMATO);
             add(ModFoodItems.BELL_PEPPER);
@@ -32,7 +31,6 @@ public class SimpleItemModel {
             add(ModResourceItems.DRIED_PIPEWEED);
 
             add(ModResourceItems.STRAW);
-
 
             //Food Items
             add(ModFoodItems.BERRY_PIE);
@@ -51,6 +49,13 @@ public class SimpleItemModel {
             add(ModFoodItems.COOKED_VENISON);
             add(ModFoodItems.RAW_HORSE);
             add(ModFoodItems.COOKED_HORSE);
+
+            add(ModFoodItems.LEMBAS);
+            add(ModFoodItems.RAW_SWAN);
+            add(ModFoodItems.COOKED_SWAN);
+            add(ModFoodItems.MAGGOTY_BREAD);
+            add(ModFoodItems.TOUGH_BERRIES);
+            add(ModFoodItems.STRAWBERRY);
 
             add(ModResourceItems.GLOWWORM_BOTTLE);
 

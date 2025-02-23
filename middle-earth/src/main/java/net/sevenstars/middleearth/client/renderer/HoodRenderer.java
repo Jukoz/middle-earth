@@ -65,6 +65,7 @@ public class HoodRenderer implements ArmorRenderer {
                 }
                 contextModel.copyTransforms(hoodModel);
                 hoodModel.setVisible(false);
+                hoodModel.head.visible = true;
                 hoodModel.hat.visible = true;
                 if (ModDyeablePieces.dyeableHoods.containsKey(hoodDataComponent.getHood())) {
                     renderDyeableHood(matrices, vertexConsumers, light, stack, hoodModel, texture, false);

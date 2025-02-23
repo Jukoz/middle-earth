@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.datageneration;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.minecraft.item.equipment.trim.ArmorTrim;
@@ -32,11 +33,13 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
 
     private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
 
-    public ArtisanTableArmorRecipeProvider(DataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookupFuture) {
-        //super(output, registryLookupFuture);
+    public ArtisanTableArmorRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output, registriesFuture);
 
-        this.registryLookup = registryLookupFuture;
+        this.registryLookup = registriesFuture;
     }
+
+
 /*
     @Override
     public String getName() {

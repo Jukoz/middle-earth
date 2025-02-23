@@ -1222,11 +1222,11 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (Item item : SimpleBigItemModel.bigBows) {
+            /*itemModelGenerator.register(item, CustomItemModels.LONGBOW);
             for (int i = 0; i < 3; i++) {
-                //itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.LONGBOW);
-                //itemModelGenerator.register(item, "_pulling_" + i + "_inventory", Models.HANDHELD);
-
-            }
+                itemModelGenerator.registerSubModel(item, "_pulling_" + i, CustomItemModels.LONGBOW);
+                itemModelGenerator.registerSubModel(item, "_pulling_" + i + "_inventory", Models.HANDHELD);
+            }*/
         }
 
         for (Item item : SimpleBigItemModel.genericItems) {

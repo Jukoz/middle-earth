@@ -15,7 +15,7 @@ public class OrcSpikeHelmetModel extends HelmetAddonModel {
         ModelPartData modelPartData = modelData.getRoot();
 
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 1.5F, 0.0F));
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData spike = head.addChild("spike", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -9.5F, 0.0F));
