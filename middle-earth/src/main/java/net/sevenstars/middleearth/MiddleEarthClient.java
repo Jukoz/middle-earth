@@ -113,16 +113,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SPEAR, SpearEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
 
-        //TODO fix this
-        /*SimpleDyeableItemModel.items.forEach(this::registerDyeableItem);
-
-        registerDyeableItem(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
-        registerDyeableItem(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
-
-        registerDyeableItem(ModEquipmentItems.WARG_LEATHER_ARMOR);
-        registerDyeableItem(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);*/
-
-
         // Animals
         EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
         EntityRendererRegistry.register(ModEntities.PHEASANT, PheasantRenderer::new);
@@ -701,8 +691,4 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.GLOWWORM_MAIN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.GLOWWORM_WEBBING, RenderLayer.getCutout());
     }
-
-    /*private void registerDyeableItem(Item item) {
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex > 0 ? -1 : CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR), item);
-    }*/
 }
