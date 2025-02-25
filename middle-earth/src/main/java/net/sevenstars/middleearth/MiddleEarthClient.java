@@ -23,7 +23,7 @@ import net.sevenstars.middleearth.client.model.hand.shields.HeaterShieldEntityMo
 import net.sevenstars.middleearth.client.model.hand.shields.KiteShieldEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.RoundShieldEntityModel;
 import net.sevenstars.middleearth.client.renderer.*;
-import net.sevenstars.middleearth.datageneration.VariantsModelProvider;
+import net.sevenstars.middleearth.datageneration.providers.VariantsModelProvider;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Crops;
 import net.sevenstars.middleearth.entity.ModEntities;
@@ -51,9 +51,6 @@ import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreen;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.ModEquipmentItems;
 import net.sevenstars.middleearth.item.ModResourceItems;
-import net.sevenstars.middleearth.item.ModWeaponItems;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
-import net.sevenstars.middleearth.item.utils.ModModelPredicateProvider;
 import net.sevenstars.middleearth.item.utils.armor.ModArmorModels;
 import net.sevenstars.middleearth.network.ModClientNetworkHandler;
 import net.sevenstars.middleearth.network.connections.ConnectionToServer;

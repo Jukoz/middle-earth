@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.datageneration;
+package net.sevenstars.middleearth.datageneration.providers;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;

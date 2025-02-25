@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.datageneration;
+package net.sevenstars.middleearth.datageneration.providers;
 
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;

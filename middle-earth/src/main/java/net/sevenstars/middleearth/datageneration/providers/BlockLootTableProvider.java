@@ -1,52 +1,15 @@
-package net.sevenstars.middleearth.datageneration;
+package net.sevenstars.middleearth.datageneration.providers;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Items;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
-import net.minecraft.loot.condition.MatchToolLootCondition;
-import net.minecraft.loot.condition.RandomChanceLootCondition;
-import net.minecraft.loot.condition.TableBonusLootCondition;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LeafEntry;
-import net.minecraft.loot.entry.LootPoolEntry;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.predicate.NumberRange;
-import net.minecraft.predicate.StatePredicate;
-import net.minecraft.predicate.item.EnchantmentPredicate;
-import net.minecraft.predicate.item.EnchantmentsPredicate;
-import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.predicate.item.ItemSubPredicateTypes;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.sevenstars.middleearth.block.*;
-import net.sevenstars.middleearth.block.special.LargeDoorBlock;
-import net.sevenstars.middleearth.block.special.RocksBlock;
-import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
-import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
-import net.sevenstars.middleearth.datageneration.content.loot_tables.CropDrops;
-import net.sevenstars.middleearth.datageneration.content.loot_tables.LeavesDrops;
-import net.sevenstars.middleearth.datageneration.content.loot_tables.PotDrops;
-import net.sevenstars.middleearth.datageneration.content.models.SimplePaneModel;
-import net.sevenstars.middleearth.datageneration.content.models.SimpleRocksModel;
-import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
-import net.sevenstars.middleearth.item.ModResourceItems;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
 
-    protected BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    public BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
 
         this.registryLookup = registryLookup;

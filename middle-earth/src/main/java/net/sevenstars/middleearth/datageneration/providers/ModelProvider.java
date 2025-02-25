@@ -1,7 +1,5 @@
-package net.sevenstars.middleearth.datageneration;
+package net.sevenstars.middleearth.datageneration.providers;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
@@ -12,7 +10,6 @@ import net.minecraft.client.data.*;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.equipment.ArmorMaterial;
-import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentAsset;
 import net.minecraft.item.equipment.EquipmentAssetKeys;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
@@ -37,7 +34,6 @@ import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabShape;
 import net.sevenstars.middleearth.datageneration.content.CustomItemModels;
 import net.sevenstars.middleearth.datageneration.content.MEModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
-import net.sevenstars.middleearth.item.ModResourceItems;
 
 import java.util.List;
 import java.util.Map;

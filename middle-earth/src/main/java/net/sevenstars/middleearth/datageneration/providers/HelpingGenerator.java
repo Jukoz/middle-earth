@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.datageneration;
+package net.sevenstars.middleearth.datageneration.providers;
 
 import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
@@ -14,7 +14,6 @@ public class HelpingGenerator {
 
     public static void generateFiles() {
         StoneBlockSets.registerModBlockSets();
-
 
         for (StoneBlockSets.SimpleBlockSetMain set : StoneBlockSets.setsMain) {
             SimpleBlockModel.blocks.add(set.base());

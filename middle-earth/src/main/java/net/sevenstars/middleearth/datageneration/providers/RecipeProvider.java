@@ -1,30 +1,13 @@
-package net.sevenstars.middleearth.datageneration;
+package net.sevenstars.middleearth.datageneration.providers;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipe.*;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.*;
-import net.sevenstars.middleearth.datageneration.content.models.*;
-import net.sevenstars.middleearth.datageneration.custom.AlloyRecipeJsonBuilder;
-import net.sevenstars.middleearth.datageneration.custom.AnvilShapingRecipeJsonBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.item.*;
-import net.sevenstars.middleearth.recipe.*;
 
 import java.util.concurrent.CompletableFuture;
-
-import static net.minecraft.data.recipe.RecipeGenerator.hasItem;
 
 public class RecipeProvider extends FabricRecipeProvider {
 
