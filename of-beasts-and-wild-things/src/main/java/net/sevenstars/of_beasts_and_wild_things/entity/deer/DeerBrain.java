@@ -7,18 +7,19 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
-import net.minecraft.entity.ai.brain.task.MoveToTargetTask;
-import net.minecraft.entity.ai.brain.task.RandomTask;
-import net.minecraft.entity.ai.brain.task.StrollTask;
-import net.minecraft.entity.ai.brain.task.WaitTask;
+import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.entity.ai.goal.FleeEntityGoal;
+import net.minecraft.entity.player.PlayerEntity;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.DigInDirtTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.EatBerriesTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.FleeFromEntityTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsBlockTask;
 
 public class DeerBrain {
@@ -47,13 +48,14 @@ public class DeerBrain {
 
     private static void addIdleActivities(Brain<DeerEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
+                Pair.of(0, new FleeFromEntityTask(ImmutableList.of(PlayerEntity.class), 5.0F, 2.0F)),
+                Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
                         Pair.of(MoveTowardsBlockTask.create(1.0F, Blocks.SWEET_BERRY_BUSH), 5),
                         Pair.of(new EatBerriesTask(), 5),
                         Pair.of(StrollTask.create(1.0F), 1),
                         Pair.of(new WaitTask(60, 100), 1)
                 ))),
-                Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_PRESENT), ImmutableList.of(
+                Pair.of(2, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_PRESENT), ImmutableList.of(
                         Pair.of(StrollTask.create(1.0F), 1),
                         Pair.of(new WaitTask(60, 100), 1)
                 )))
