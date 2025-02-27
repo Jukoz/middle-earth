@@ -3,12 +3,15 @@
         {
             "type": "paletted_permutations",
             "textures": [
-                "me:npc_hair_textures/short_hair",
-                "me:npc_hair_textures/long_hair",
-                "me:npc_hair_textures/long_hair_addon",
+                "me:npc_hair_textures/hair_short",
+                "me:npc_hair_textures/hair_long",
+                "me:npc_hair_textures/hair_long_addon",
                 "me:npc_hair_textures/eyebrow_basic",
                 "me:npc_hair_textures/eyebrow_short",
-                "me:npc_hair_textures/eyebrow_long"
+                "me:npc_hair_textures/eyebrow_long",
+                "me:npc_hair_textures/beard_short",
+                "me:npc_hair_textures/beard_large",
+                "me:npc_hair_textures/beard_large_addon"
             ],
             "palette_key": "me:npc_hair_textures/color_palettes/base_palette",
             "permutations": {

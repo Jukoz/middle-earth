@@ -61,6 +61,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.haveEmissiveEyes = npcEntity.getEmissiveEyes();
         npcEntityRenderState.hairTextureIdentifier = npcEntity.getHairTextureIdentifier();
         npcEntityRenderState.hairAddonTextureIdentifier = npcEntity.getHairAddonTextureIdentifier();
+        npcEntityRenderState.beardTextureIdentifier = npcEntity.getBeardTextureIdentifier();
+        npcEntityRenderState.beardAddonTextureIdentifier = npcEntity.getBeardAddonTextureIdentifier();
         npcEntityRenderState.eyebrowTextureIdentifier = npcEntity.getEyebrowTextureIdentifier();
         npcEntityRenderState.clothingTextureIdentifier = npcEntity.getClothingTextureIdentifier();
     }
@@ -157,11 +159,20 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
                     }
                     break;
                 case 3:
-                    id = Identifier.of(state.hairTextureIdentifier.getNamespace(), "npc_hair_textures/" + state.hairTextureIdentifier.getPath());
-                    vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
-                    sprite = hairAtlasTexture.getSprite(id);
-                    break;
+                    if(state.hairTextureIdentifier != null){
+                        id = Identifier.of(state.hairTextureIdentifier.getNamespace(), "npc_hair_textures/" + state.hairTextureIdentifier.getPath());
+                        vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
+                        sprite = hairAtlasTexture.getSprite(id);
+                        break;
+                    }
                 case 4:
+                    if(state.beardTextureIdentifier != null){
+                        id = Identifier.of(state.beardTextureIdentifier.getNamespace(), "npc_hair_textures/" + state.beardTextureIdentifier.getPath());
+                        vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
+                        sprite = hairAtlasTexture.getSprite(id);
+                    }
+                    break;
+                case 5:
                     id = Identifier.of(state.clothingTextureIdentifier.getNamespace(), "npc_clothing_textures/" + state.clothingTextureIdentifier.getPath());
                     vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcClothingTexturesRenderLayer());
                     sprite = clothingAtlasTexture.getSprite(id);

@@ -109,7 +109,7 @@ public class MiddleEarthNpcTextureMaterials {
         return switch (categopry) {
             case NpcTextureType.SKIN -> RegistryKey.of(SKIN_KEY, Identifier.of(MiddleEarth.MOD_ID, id));
             case NpcTextureType.EYE -> RegistryKey.of(EYE_KEY, Identifier.of(MiddleEarth.MOD_ID, id));
-            case NpcTextureType.HAIR, NpcTextureType.EYEBROW -> RegistryKey.of(HAIR_KEY, Identifier.of(MiddleEarth.MOD_ID, id));
+            case NpcTextureType.HAIR, NpcTextureType.EYEBROW, NpcTextureType.BEARD -> RegistryKey.of(HAIR_KEY, Identifier.of(MiddleEarth.MOD_ID, id));
             case NpcTextureType.CLOTHING -> RegistryKey.of(CLOTHING_KEY, Identifier.of(MiddleEarth.MOD_ID, id));
         };
     }

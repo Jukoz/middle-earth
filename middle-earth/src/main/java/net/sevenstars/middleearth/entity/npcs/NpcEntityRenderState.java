@@ -10,6 +10,9 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
     public Identifier hairTextureIdentifier;
     public Identifier hairAddonTextureIdentifier;
     public Identifier eyebrowTextureIdentifier;
+    public Identifier beardTextureIdentifier;
+    public Identifier beardAddonTextureIdentifier;
+
     public Identifier clothingTextureIdentifier;
 
 
@@ -21,6 +24,8 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
         this.haveEmissiveEyes = false;
         this.hairTextureIdentifier = null;
         this.hairAddonTextureIdentifier = null;
+        this.beardTextureIdentifier = null;
+        this.beardAddonTextureIdentifier = null;
         this.eyebrowTextureIdentifier = null;
         this.clothingTextureIdentifier = null;
 

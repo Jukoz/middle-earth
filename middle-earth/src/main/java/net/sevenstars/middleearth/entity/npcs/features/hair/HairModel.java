@@ -46,7 +46,7 @@ public class HairModel extends EntityModel<NpcEntityRenderState> {
         ModelPartData backAddon = hairGroup.addChild("hair_back_addon");
 
         frontAddon.addChild("hair_addon_front_core", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0f, 0f, -4.0f, 8, 12, 2, Dilation.NONE), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        frontAddon.addChild("hair_addon_front_hat", ModelPartBuilder.create().uv(20, 0).cuboid(-4.0f, 1.3f, -3.9f, 8, 12, 2, Dilation.NONE.add(0.35f)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        frontAddon.addChild("hair_addon_front_hat", ModelPartBuilder.create().uv(20, 0).cuboid(-4.0f, 1f, -4f, 8, 12, 2, Dilation.NONE.add(0.5f)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
 
         frontAddon.addChild("hair_addon_back_core", ModelPartBuilder.create().uv(0, 14).cuboid(-4.0f, 0f, 2.0f, 8, 12, 2, Dilation.NONE), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

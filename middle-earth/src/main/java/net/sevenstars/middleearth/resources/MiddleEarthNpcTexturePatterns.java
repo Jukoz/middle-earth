@@ -32,8 +32,11 @@ public class MiddleEarthNpcTexturePatterns {
     public final static RegistryKey<NpcTexturePattern> EYE_COMMON = of("common", NpcTextureType.EYE);
     public final static RegistryKey<NpcTexturePattern> EYE_SMALL = of("small", NpcTextureType.EYE);
 
-    public final static RegistryKey<NpcTexturePattern> HAIR_SHORT = of("short_hair", NpcTextureType.HAIR);
-    public final static RegistryKey<NpcTexturePattern> HAIR_LONG = of("long_hair", NpcTextureType.HAIR);
+    public final static RegistryKey<NpcTexturePattern> HAIR_SHORT = of("hair_short", NpcTextureType.HAIR);
+    public final static RegistryKey<NpcTexturePattern> HAIR_LONG = of("hair_long", NpcTextureType.HAIR);
+
+    public final static RegistryKey<NpcTexturePattern> BEARD_SHORT = of("beard_short", NpcTextureType.BEARD);
+    public final static RegistryKey<NpcTexturePattern> BEARD_LARGE = of("beard_large", NpcTextureType.BEARD);
 
     public final static RegistryKey<NpcTexturePattern> EYEBROW_BASIC = of("eyebrow_basic", NpcTextureType.HAIR);
     public final static RegistryKey<NpcTexturePattern> EYEBROW_SHORT = of("eyebrow_short", NpcTextureType.HAIR);
@@ -60,6 +63,8 @@ public class MiddleEarthNpcTexturePatterns {
         register(registry, EYEBROW_BASIC, NpcTextureType.EYEBROW);
         register(registry, EYEBROW_SHORT, NpcTextureType.EYEBROW);
         register(registry, EYEBROW_LONG, NpcTextureType.EYEBROW);
+        register(registry, BEARD_SHORT, NpcTextureType.BEARD);
+        register(registry, BEARD_LARGE, NpcTextureType.BEARD, true);
     }
     public static void bootstrapClothings(Registerable<NpcTexturePattern> registry) {
         register(registry, CLOTHING_FABRIC_SKIRT, NpcTextureType.CLOTHING);
@@ -103,7 +108,7 @@ public class MiddleEarthNpcTexturePatterns {
         return switch (category) {
             case NpcTextureType.SKIN -> SKIN_KEY;
             case NpcTextureType.EYE -> EYE_KEY;
-            case NpcTextureType.HAIR, NpcTextureType.EYEBROW -> HAIR_KEY;
+            case NpcTextureType.HAIR, NpcTextureType.EYEBROW, NpcTextureType.BEARD -> HAIR_KEY;
             case NpcTextureType.CLOTHING -> CLOTHING_KEY;
         };
     }

@@ -18,7 +18,7 @@ public class NpcTextureDataPreset {
     List<String> eyePatterns;
     List<String> hairPatterns;
     List<String> eyebrowPatterns;
-
+    List<String> beardPatterns;
     List<String> clothingPatterns;
 
     List<String> skinMaterials;
@@ -39,6 +39,7 @@ public class NpcTextureDataPreset {
 
         hairPatterns = new ArrayList<>();
         eyebrowPatterns = new ArrayList<>();
+        beardPatterns = new ArrayList<>();
         hairMaterials = new ArrayList<>();
 
         clothingPatterns = new ArrayList<>();
@@ -48,6 +49,7 @@ public class NpcTextureDataPreset {
         fetchElements(compound, NpcTextureType.EYE);
         fetchElements(compound, NpcTextureType.HAIR);
         fetchElements(compound, NpcTextureType.EYEBROW);
+        fetchElements(compound, NpcTextureType.BEARD);
         fetchElements(compound, NpcTextureType.CLOTHING);
     }
 
@@ -88,6 +90,11 @@ public class NpcTextureDataPreset {
             compound.put("patterns", createStringList(eyebrowPatterns));
             nbt.put(NpcTextureType.EYEBROW.name(), compound);
         }
+        if(isListFilled(beardPatterns)){
+            NbtCompound compound = new NbtCompound();
+            compound.put("patterns", createStringList(beardPatterns));
+            nbt.put(NpcTextureType.BEARD.name(), compound);
+        }
         if(isListFilled(clothingPatterns) || isListFilled(clothingMaterials)){
             NbtCompound compound = new NbtCompound();
 
@@ -123,6 +130,7 @@ public class NpcTextureDataPreset {
                     case EYE -> eyePatterns.addAll(fetchedValues);
                     case HAIR -> hairPatterns.addAll(fetchedValues);
                     case EYEBROW -> eyebrowPatterns.addAll(fetchedValues);
+                    case BEARD -> beardPatterns.addAll(fetchedValues);
                     case CLOTHING -> clothingPatterns.addAll(fetchedValues);
                 }
             }
@@ -160,6 +168,7 @@ public class NpcTextureDataPreset {
 
         hairPatterns = new ArrayList<>();
         eyebrowPatterns = new ArrayList<>();
+        beardPatterns = new ArrayList<>();
         hairMaterials = new ArrayList<>();
 
         clothingPatterns = new ArrayList<>();
@@ -197,6 +206,7 @@ public class NpcTextureDataPreset {
             case EYE -> eyePatterns.add(value);
             case HAIR -> hairPatterns.add(value);
             case EYEBROW -> eyebrowPatterns.add(value);
+            case BEARD -> beardPatterns.add(value);
             case CLOTHING -> clothingPatterns.add(value);
         };
     }
@@ -204,7 +214,7 @@ public class NpcTextureDataPreset {
         switch (npcTextureType){
             case SKIN -> skinMaterials.add(value);
             case EYE -> eyeMaterials.add(value);
-            case HAIR, EYEBROW -> hairMaterials.add(value);
+            case HAIR, EYEBROW, BEARD -> hairMaterials.add(value);
             case CLOTHING -> clothingMaterials.add(value);
         };
     }
@@ -215,6 +225,7 @@ public class NpcTextureDataPreset {
             case EYE -> eyePatterns;
             case HAIR -> hairPatterns;
             case EYEBROW -> eyebrowPatterns;
+            case BEARD -> beardPatterns;
             case CLOTHING -> clothingPatterns;
         };
     }
@@ -222,7 +233,7 @@ public class NpcTextureDataPreset {
         return switch (npcTextureType){
             case SKIN -> skinMaterials;
             case EYE -> eyeMaterials;
-            case HAIR, EYEBROW -> hairMaterials;
+            case HAIR, EYEBROW, BEARD -> hairMaterials;
             case CLOTHING -> clothingMaterials;
         };
     }

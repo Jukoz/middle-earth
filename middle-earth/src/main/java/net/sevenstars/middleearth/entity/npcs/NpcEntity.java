@@ -41,6 +41,7 @@ public class NpcEntity extends PassiveEntity {
     private static final TrackedData<String> HAIR_TEXTURE;
     private static final TrackedData<String> HAIR_ADDON;
     private static final TrackedData<String> BEARD_TEXTURE;
+    private static final TrackedData<String> BEARD_ADDON;
     private static final TrackedData<String> CLOTHING_TEXTURE;
     private static final TrackedData<Boolean> EMISSIVE_EYES;
 
@@ -79,18 +80,22 @@ public class NpcEntity extends PassiveEntity {
             this.dataTracker.set(EMISSIVE_EYES, npcTextureData.haveEmissiveEyes(npcTextureDataIdentity));
         }
         if(getHairTextureIdentifier() == null || getEyebrowTextureIdentifier() == null){
+            this.dataTracker.set(HAIR_TEXTURE, "");
+            this.dataTracker.set(HAIR_ADDON, "");
+            this.dataTracker.set(EYEBROW_TEXTURE, "");
+            this.dataTracker.set(BEARD_TEXTURE, "");
+            this.dataTracker.set(BEARD_ADDON, "");
+
             // Resets hair
             Identifier globalHairMaterialId = npcTextureData.getRawMaterial(npcTextureDataIdentity, NpcTextureType.HAIR);
 
             Identifier hairPatternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.HAIR);
             Identifier eyebrowPatternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.EYEBROW);
+            Identifier beardPatternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.BEARD);
 
 
             if(globalHairMaterialId == null || hairPatternId == null || eyebrowPatternId == null){
                 // TODO : Exception management
-                this.dataTracker.set(HAIR_TEXTURE, "");
-                this.dataTracker.set(HAIR_ADDON, "");
-                this.dataTracker.set(EYEBROW_TEXTURE, "");
                 return;
             }
 
@@ -119,6 +124,21 @@ public class NpcEntity extends PassiveEntity {
                 this.dataTracker.set(EYEBROW_TEXTURE, "");
             }
             // Beard
+            Optional<RegistryEntry.Reference<NpcTexturePattern>> foundBeardPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.BEARD, beardPatternId);
+            if(foundBeardPattern.isPresent() && foundBeardPattern.get().value() instanceof NpcTexturePattern pattern){
+                Identifier beardTexturePattern = IdentifierUtil.create(beardPatternId.getPath() + "_" + globalHairMaterialId.getPath());
+
+                this.dataTracker.set(BEARD_TEXTURE, beardTexturePattern.toString());
+                if(pattern.hasAddonRawValue()){
+                    Identifier addonId = IdentifierUtil.create(beardPatternId.getPath()  + "_addon_" + globalHairMaterialId.getPath());
+                    this.dataTracker.set(BEARD_ADDON, addonId.toString());
+                } else {
+                    this.dataTracker.set(BEARD_ADDON, "");
+                }
+            } else {
+                this.dataTracker.set(BEARD_TEXTURE, "");
+                this.dataTracker.set(BEARD_ADDON, "");
+            }
         }
         if(getClothingTextureIdentifier() == null){
             Identifier id = npcTextureData.getTextureWithMaterial(npcTextureDataIdentity, NpcTextureType.CLOTHING);
@@ -144,6 +164,7 @@ public class NpcEntity extends PassiveEntity {
         builder.add(HAIR_TEXTURE, "");
         builder.add(HAIR_ADDON, "");
         builder.add(BEARD_TEXTURE, "");
+        builder.add(BEARD_ADDON, "");
         builder.add(CLOTHING_TEXTURE, "");
         builder.add(EMISSIVE_EYES, false);
     }
@@ -157,6 +178,7 @@ public class NpcEntity extends PassiveEntity {
         nbt.putString("HairTexture",  this.getHairTextureValue());
         nbt.putString("HairAddon",  this.getHairAddon());
         nbt.putString("BeardTexture",  this.getBeardTextureValue());
+        nbt.putString("BeardAddon",  this.getBeardAddon());
         nbt.putString("ClothingTexture",  this.getClothingTextureValue());
         nbt.putBoolean("EmissiveEyes",  this.getEmissiveEyes());
     }
@@ -171,6 +193,7 @@ public class NpcEntity extends PassiveEntity {
         this.dataTracker.set(HAIR_TEXTURE, nbt.getString("HairTexture"));
         this.dataTracker.set(HAIR_ADDON, nbt.getString("HairAddon"));
         this.dataTracker.set(BEARD_TEXTURE, nbt.getString("BeardTexture"));
+        this.dataTracker.set(BEARD_ADDON, nbt.getString("BeardAddon"));
         this.dataTracker.set(CLOTHING_TEXTURE, nbt.getString("ClothingTexture"));
         this.dataTracker.set(EMISSIVE_EYES, nbt.getBoolean("EmissiveEyes"));
     }
@@ -199,6 +222,9 @@ public class NpcEntity extends PassiveEntity {
 
     public String getBeardTextureValue() {
         return this.dataTracker.get(BEARD_TEXTURE);
+    }
+    private String getBeardAddon() {
+        return this.dataTracker.get(BEARD_ADDON);
     }
     public String getClothingTextureValue() {
         return this.dataTracker.get(CLOTHING_TEXTURE);
@@ -234,6 +260,19 @@ public class NpcEntity extends PassiveEntity {
         return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(HAIR_ADDON));
     }
 
+    public Identifier getBeardTextureIdentifier() {
+        if(Objects.equals(this.dataTracker.get(BEARD_TEXTURE), ""))
+            return null;
+        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(BEARD_TEXTURE));
+    }
+
+    public Identifier getBeardAddonTextureIdentifier() {
+        if(Objects.equals(this.dataTracker.get(BEARD_ADDON), "")){
+            return null;
+        }
+        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(BEARD_ADDON));
+    }
+
     public Identifier getClothingTextureIdentifier() {
         if(Objects.equals(this.dataTracker.get(CLOTHING_TEXTURE), ""))
             return null;
@@ -247,6 +286,7 @@ public class NpcEntity extends PassiveEntity {
         HAIR_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
         HAIR_ADDON = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
         BEARD_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
+        BEARD_ADDON = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
         CLOTHING_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
         EMISSIVE_EYES = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     }

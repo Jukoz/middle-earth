@@ -23,7 +23,7 @@ public class ModEntityModels {
         ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder = ImmutableMap.builder();
 
         builder.put(ModEntityModelLayers.NPC, NpcEntityModel.getTexturedModelData(Dilation.NONE));
-        builder.put(ModEntityModelLayers.NPC_BEARD_BRAIDED, HairModel.getTexturedModelData(Dilation.NONE));
+        builder.put(ModEntityModelLayers.NPC_ENTITY_HAIR, HairModel.getTexturedModelData(Dilation.NONE));
 
         builder.put(ModEntityModelLayers.HUMAN, HumanModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.DWARF, DwarfModel.getTexturedModelData(Dilation.NONE));

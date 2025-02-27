@@ -22,24 +22,24 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
 
 @Environment(EnvType.CLIENT)
 public class NpcEntityHairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
-    private final EntityModel<NpcEntityRenderState> beardModel;
+    private final EntityModel<NpcEntityRenderState> hairModel;
     private final SpriteAtlasTexture hairAtlasTexture;
 
     public NpcEntityHairFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
-        this.beardModel = new HairModel(loader.getModelPart(ModEntityModelLayers.NPC_BEARD_BRAIDED));
+        this.hairModel = new HairModel(loader.getModelPart(ModEntityModelLayers.NPC_ENTITY_HAIR));
         MinecraftClient client = MinecraftClient.getInstance();
         hairAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_HAIR_TEXTURES_ATLAS_TEXTURE);
-
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
-        Identifier addonTextureId = state.hairAddonTextureIdentifier;
+        Identifier hairAddonTextureId = state.hairAddonTextureIdentifier;
+        Identifier beardAddonTextureId = state.beardAddonTextureIdentifier;
 
-        EntityModel<NpcEntityRenderState> entityModel = beardModel;
+        EntityModel<NpcEntityRenderState> entityModel = hairModel;
 
-        if(addonTextureId == null){
+        if(hairAddonTextureId == null && beardAddonTextureId == null){
             entityModel.getRootPart().visible = false;
             return;
         } else if (!entityModel.getRootPart().visible){
@@ -48,9 +48,16 @@ public class NpcEntityHairFeatureRenderer extends FeatureRenderer<NpcEntityRende
 
         entityModel.setAngles(state);
 
-
-        Identifier id = Identifier.of(addonTextureId.getNamespace(), "npc_hair_textures/" + addonTextureId.getPath());
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
+
+        if(hairAddonTextureId != null)
+            render(entityModel, vertexConsumer, matrices, light, hairAddonTextureId);
+        if(beardAddonTextureId != null)
+            render(entityModel, vertexConsumer, matrices, light, beardAddonTextureId);
+    }
+
+    private void render(EntityModel<NpcEntityRenderState> entityModel, VertexConsumer vertexConsumer, MatrixStack matrices, int light, Identifier baseIdentifier){
+        Identifier id = Identifier.of(baseIdentifier.getNamespace(), "npc_hair_textures/" + baseIdentifier.getPath());
         Sprite sprite = hairAtlasTexture.getSprite(id);
 
         if(sprite != null){

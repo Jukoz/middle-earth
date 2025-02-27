@@ -70,6 +70,10 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTexturePatterns.EYEBROW_BASIC,
                                 MiddleEarthNpcTexturePatterns.EYEBROW_LONG
                         ))
+                        .withPatterns(NpcTextureType.BEARD, List.of(
+                                MiddleEarthNpcTexturePatterns.BEARD_SHORT,
+                                MiddleEarthNpcTexturePatterns.BEARD_LARGE
+                        ))
                         .withMaterials(NpcTextureType.HAIR, List.of(
                                 MiddleEarthNpcTextureMaterials.HAIR_BLACK,
                                 MiddleEarthNpcTextureMaterials.HAIR_BROWN,

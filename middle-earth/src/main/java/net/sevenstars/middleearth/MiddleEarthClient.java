@@ -74,8 +74,6 @@ import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
 import net.sevenstars.middleearth.particles.custom.LeavesParticle;
 import net.sevenstars.middleearth.particles.custom.RingOfSmokeParticle;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcTextureMaterials;
-import org.apache.http.config.Registry;
 
 public class MiddleEarthClient implements ClientModInitializer {
     
@@ -93,7 +91,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     public static final EntityModelLayer HELD_BANNER_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "held_banner"), "main");
 
-    public static final EntityModelLayer NPC_BEARD_LAYER = ModEntityModelLayers.NPC_BEARD_BRAIDED;
+    public static final EntityModelLayer NPC_BEARD_LAYER = ModEntityModelLayers.NPC_ENTITY_HAIR;
 
     @Override
     public void onInitializeClient() {
