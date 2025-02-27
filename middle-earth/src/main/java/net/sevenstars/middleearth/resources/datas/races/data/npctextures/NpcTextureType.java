@@ -4,6 +4,7 @@ public enum NpcTextureType {
     SKIN("skin"),
     EYE("eye"),
     HAIR("hair"),
+    EYEBROW("eyebrow"),
     CLOTHING("clothing");
 
 

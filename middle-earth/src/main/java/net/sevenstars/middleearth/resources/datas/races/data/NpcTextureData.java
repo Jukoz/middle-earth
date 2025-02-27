@@ -53,6 +53,8 @@ public class NpcTextureData {
 
     public Identifier getRawMaterial(Identity identity, NpcTextureType npcTextureType) {
         List<String> materials = identity.preset.getMaterials(npcTextureType);
+        if(materials == null)
+            return null;
         Random random = new Random();
         int materialIndex = random.nextInt(materials.size());
         return Identifier.of(MiddleEarth.MOD_ID, materials.get(materialIndex));
@@ -60,6 +62,8 @@ public class NpcTextureData {
 
     public Identifier getRawPattern(Identity identity, NpcTextureType npcTextureType) {
         List<String> patterns = identity.preset.getPatterns(npcTextureType);
+        if(patterns.isEmpty())
+            return null;
         Random random = new Random();
         int patternIndex = random.nextInt(patterns.size());
         return Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex));
@@ -68,6 +72,9 @@ public class NpcTextureData {
     public Identifier getTextureWithMaterial(Identity identity, NpcTextureType npcTextureType) {
         List<String> patterns = identity.preset.getPatterns(npcTextureType);
         List<String> materials = identity.preset.getMaterials(npcTextureType);
+        if(patterns.isEmpty() || materials == null)
+            return null;
+
         Random random = new Random();
         int patternIndex = random.nextInt(patterns.size());
         int materialIndex = random.nextInt(materials.size());

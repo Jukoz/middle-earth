@@ -35,10 +35,21 @@ public class NpcEntityHairFeatureRenderer extends FeatureRenderer<NpcEntityRende
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
+        Identifier addonTextureId = state.hairAddonTextureIdentifier;
+
         EntityModel<NpcEntityRenderState> entityModel = beardModel;
+
+        if(addonTextureId == null){
+            entityModel.getRootPart().visible = false;
+            return;
+        } else if (!entityModel.getRootPart().visible){
+            entityModel.getRootPart().visible = true;
+        }
+
         entityModel.setAngles(state);
 
-        Identifier id = Identifier.of(state.skinTextureIdentifier.getNamespace(), "npc_hair_textures/" + "long_hair_addon_blonde");
+
+        Identifier id = Identifier.of(addonTextureId.getNamespace(), "npc_hair_textures/" + addonTextureId.getPath());
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
         Sprite sprite = hairAtlasTexture.getSprite(id);
 
@@ -46,6 +57,5 @@ public class NpcEntityHairFeatureRenderer extends FeatureRenderer<NpcEntityRende
             VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
             entityModel.render(matrices, newLayerVertexConsumer, light, OverlayTexture.DEFAULT_UV, 0xffffffff);
         }
-
     }
 }

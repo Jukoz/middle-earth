@@ -61,6 +61,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.haveEmissiveEyes = npcEntity.getEmissiveEyes();
         npcEntityRenderState.hairTextureIdentifier = npcEntity.getHairTextureIdentifier();
         npcEntityRenderState.hairAddonTextureIdentifier = npcEntity.getHairAddonTextureIdentifier();
+        npcEntityRenderState.eyebrowTextureIdentifier = npcEntity.getEyebrowTextureIdentifier();
         npcEntityRenderState.clothingTextureIdentifier = npcEntity.getClothingTextureIdentifier();
     }
 
@@ -149,11 +150,18 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
                     sprite = eyeAtlasTexture.getSprite(id);
                     break;
                 case 2:
+                    if(state.eyebrowTextureIdentifier != null) {
+                        id = Identifier.of(state.eyebrowTextureIdentifier.getNamespace(), "npc_hair_textures/" + state.eyebrowTextureIdentifier.getPath());
+                        vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
+                        sprite = hairAtlasTexture.getSprite(id);
+                    }
+                    break;
+                case 3:
                     id = Identifier.of(state.hairTextureIdentifier.getNamespace(), "npc_hair_textures/" + state.hairTextureIdentifier.getPath());
                     vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
                     sprite = hairAtlasTexture.getSprite(id);
                     break;
-                case 3:
+                case 4:
                     id = Identifier.of(state.clothingTextureIdentifier.getNamespace(), "npc_clothing_textures/" + state.clothingTextureIdentifier.getPath());
                     vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcClothingTexturesRenderLayer());
                     sprite = clothingAtlasTexture.getSprite(id);

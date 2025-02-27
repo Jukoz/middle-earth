@@ -16,7 +16,7 @@ public class NpcTexturePattern {
 
     public static final Codec<NpcTexturePattern> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             Identifier.CODEC.fieldOf("asset_id").forGetter(NpcTexturePattern::getIdentifier),
-            Codec.STRING.fieldOf("type").forGetter(NpcTexturePattern::getTypeValue),
+            Codec.STRING.fieldOf("category").forGetter(NpcTexturePattern::getCategoryString),
             Codec.BOOL.optionalFieldOf("has_addon").forGetter(NpcTexturePattern::hasAddonOptional))
             .apply(instance, NpcTexturePattern::new));
 
@@ -25,44 +25,49 @@ public class NpcTexturePattern {
     public static final PacketCodec<RegistryByteBuf, RegistryEntry<NpcTexturePattern>> ENTRY_PACKET_CODEC;
 
     private Identifier assetId;
-    private NpcTextureType type;
+    private NpcTextureType category;
     private Boolean hasAddon;
-    public NpcTexturePattern(Identifier assetId, String type, Optional<Boolean> hasAddon){
+    public NpcTexturePattern(Identifier assetId, String category, Optional<Boolean> hasAddon){
         this.assetId = assetId;
-        this.type = NpcTextureType.valueOf(type);
+        this.category = NpcTextureType.valueOf(category);
         hasAddon.ifPresent(aBoolean -> this.hasAddon = aBoolean);
+        if(hasAddon.isPresent()){
+            this.hasAddon = hasAddon.get();
+        } else {
+            this.hasAddon = false;
+        }
     }
 
     public NpcTexturePattern(Identifier assetId, String type, Boolean hasAddon){
         this.assetId = assetId;
-        this.type = NpcTextureType.valueOf(type.toUpperCase());
+        this.category = NpcTextureType.valueOf(type.toUpperCase());
         this.hasAddon = hasAddon;
     }
 
-    public NpcTexturePattern(Identifier id, NpcTextureType type, Boolean hasAddon){
-        this(id, type);
+    public NpcTexturePattern(Identifier id, NpcTextureType category, Boolean hasAddon){
+        this(id, category);
         this.hasAddon = hasAddon;
     }
-    public NpcTexturePattern(Identifier id, NpcTextureType type){
+    public NpcTexturePattern(Identifier id, NpcTextureType category){
         this.assetId = id;
-        this.type = type;
+        this.category = category;
     }
     public Identifier getIdentifier() {
         return assetId;
     }
 
-    public NpcTextureType getType(){
-        return this.type;
+    public NpcTextureType getCategory(){
+        return this.category;
     }
 
-    public String getTypeValue() {
-        return this.type.name().toUpperCase();
+    public String getCategoryString() {
+        return this.category.name().toUpperCase();
     }
 
     private Optional<Boolean> hasAddonOptional() {
-        if(hasAddon == null)
+        if(hasAddon == null || !hasAddon)
             return Optional.empty();
-        return Optional.of(hasAddon);
+        return Optional.of(true);
     }
     public Boolean hasAddonRawValue() {
         return hasAddon;
@@ -74,7 +79,7 @@ public class NpcTexturePattern {
                 Identifier.PACKET_CODEC,
                 NpcTexturePattern::getIdentifier,
                 PacketCodecs.STRING,
-                NpcTexturePattern::getTypeValue,
+                NpcTexturePattern::getCategoryString,
                 PacketCodecs.BOOLEAN,
                 NpcTexturePattern::hasAddonRawValue,
                 NpcTexturePattern::new);

@@ -34,7 +34,10 @@ public class MiddleEarthNpcTexturePatterns {
 
     public final static RegistryKey<NpcTexturePattern> HAIR_SHORT = of("short_hair", NpcTextureType.HAIR);
     public final static RegistryKey<NpcTexturePattern> HAIR_LONG = of("long_hair", NpcTextureType.HAIR);
-    public final static RegistryKey<NpcTexturePattern> HAIR_LONG_ADDON = of("long_hair_addon", NpcTextureType.HAIR);
+
+    public final static RegistryKey<NpcTexturePattern> EYEBROW_BASIC = of("eyebrow_basic", NpcTextureType.HAIR);
+    public final static RegistryKey<NpcTexturePattern> EYEBROW_SHORT = of("eyebrow_short", NpcTextureType.HAIR);
+    public final static RegistryKey<NpcTexturePattern> EYEBROW_LONG = of("eyebrow_long", NpcTextureType.HAIR);
 
 
     public final static RegistryKey<NpcTexturePattern> CLOTHING_FABRIC_SKIRT = of("fabric_skirt", NpcTextureType.CLOTHING);
@@ -54,6 +57,9 @@ public class MiddleEarthNpcTexturePatterns {
     public static void bootstrapHairs(Registerable<NpcTexturePattern> registry) {
         register(registry, HAIR_SHORT, NpcTextureType.HAIR);
         register(registry, HAIR_LONG, NpcTextureType.HAIR, true);
+        register(registry, EYEBROW_BASIC, NpcTextureType.EYEBROW);
+        register(registry, EYEBROW_SHORT, NpcTextureType.EYEBROW);
+        register(registry, EYEBROW_LONG, NpcTextureType.EYEBROW);
     }
     public static void bootstrapClothings(Registerable<NpcTexturePattern> registry) {
         register(registry, CLOTHING_FABRIC_SKIRT, NpcTextureType.CLOTHING);
@@ -85,26 +91,6 @@ public class MiddleEarthNpcTexturePatterns {
         DynamicRegistries.registerSynced(EYE_KEY, NpcTexturePattern.CODEC);
         DynamicRegistries.registerSynced(HAIR_KEY, NpcTexturePattern.CODEC);
         DynamicRegistries.registerSynced(CLOTHING_KEY, NpcTexturePattern.CODEC);
-
-        /*
-        DynamicRegistries.register(SKIN_KEY, NpcTexturePattern.CODEC);
-        DynamicRegistries.register(EYE_KEY, NpcTexturePattern.CODEC);
-        DynamicRegistries.register(HAIR_KEY, NpcTexturePattern.CODEC);
-        DynamicRegistries.register(CLOTHING_KEY, NpcTexturePattern.CODEC);
-
-
-        RegistryKey.of(SKIN_KEY, SKIN_COMMON_A.getValue());
-        RegistryKey.of(SKIN_KEY, SKIN_COMMON_B.getValue());
-
-        RegistryKey.of(EYE_KEY, EYE_COMMON.getValue());
-        RegistryKey.of(EYE_KEY, EYE_SMALL.getValue());
-
-        RegistryKey.of(HAIR_KEY, HAIR_SHORT.getValue());
-        RegistryKey.of(HAIR_KEY, HAIR_LONG.getValue());
-
-        RegistryKey.of(CLOTHING_KEY, CLOTHING_FABRIC_SKIRT.getValue());
-        RegistryKey.of(CLOTHING_KEY, CLOTHING_FABRIC_SKIRT_WITH_STROPHIUM.getValue());
-         */
     }
 
     private static void register(Registerable<NpcTexturePattern> registerable, RegistryKey<NpcTexturePattern> registryKey, NpcTexturePattern content, RegistryKey<Registry<NpcTexturePattern>> registryRegistryKey) {
@@ -113,18 +99,18 @@ public class MiddleEarthNpcTexturePatterns {
         registerable.register(key, content);
     }
 
-    public static RegistryKey<Registry<NpcTexturePattern>> getKey(NpcTextureType type){
-        return switch (type) {
+    public static RegistryKey<Registry<NpcTexturePattern>> getKey(NpcTextureType category){
+        return switch (category) {
             case NpcTextureType.SKIN -> SKIN_KEY;
             case NpcTextureType.EYE -> EYE_KEY;
-            case NpcTextureType.HAIR -> HAIR_KEY;
+            case NpcTextureType.HAIR, NpcTextureType.EYEBROW -> HAIR_KEY;
             case NpcTextureType.CLOTHING -> CLOTHING_KEY;
         };
     }
 
     public static Optional<RegistryEntry.Reference<NpcTexturePattern>> get(RegistryWrapper.WrapperLookup registries, NpcTextureType type, Identifier id) {
         return registries.getOrThrow(getKey(type)).streamEntries().filter((pattern) ->
-                pattern.value().getType() == type && pattern.matchesId(id)).findFirst();
+                pattern.value().getCategory() == type && pattern.matchesId(id)).findFirst();
     }
 
 }

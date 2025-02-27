@@ -8,9 +8,13 @@
             ],
             "palette_key": "me:npc_eye_textures/color_palettes/base_palette",
             "permutations": {
-                "brown": "me:npc_eye_textures/color_palettes/brown",
+                "black": "me:npc_eye_textures/color_palettes/black",
                 "blue": "me:npc_eye_textures/color_palettes/blue",
+                "brown": "me:npc_eye_textures/color_palettes/brown",
+                "dark_green": "me:npc_eye_textures/color_palettes/dark_green",
+                "deep_blue": "me:npc_eye_textures/color_palettes/deep_blue",
                 "green": "me:npc_eye_textures/color_palettes/green",
+                "navy": "me:npc_eye_textures/color_palettes/navy",
                 "yellow": "me:npc_eye_textures/color_palettes/yellow"
             }
         }

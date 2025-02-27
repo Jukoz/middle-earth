@@ -17,6 +17,8 @@ public class NpcTextureDataPreset {
     List<String> skinPatterns;
     List<String> eyePatterns;
     List<String> hairPatterns;
+    List<String> eyebrowPatterns;
+
     List<String> clothingPatterns;
 
     List<String> skinMaterials;
@@ -36,6 +38,7 @@ public class NpcTextureDataPreset {
         eyeMaterials = new ArrayList<>();
 
         hairPatterns = new ArrayList<>();
+        eyebrowPatterns = new ArrayList<>();
         hairMaterials = new ArrayList<>();
 
         clothingPatterns = new ArrayList<>();
@@ -44,6 +47,7 @@ public class NpcTextureDataPreset {
         fetchElements(compound, NpcTextureType.SKIN);
         fetchElements(compound, NpcTextureType.EYE);
         fetchElements(compound, NpcTextureType.HAIR);
+        fetchElements(compound, NpcTextureType.EYEBROW);
         fetchElements(compound, NpcTextureType.CLOTHING);
     }
 
@@ -79,6 +83,11 @@ public class NpcTextureDataPreset {
 
             nbt.put(NpcTextureType.HAIR.name(), compound);
         }
+        if(isListFilled(eyebrowPatterns)){
+            NbtCompound compound = new NbtCompound();
+            compound.put("patterns", createStringList(eyebrowPatterns));
+            nbt.put(NpcTextureType.EYEBROW.name(), compound);
+        }
         if(isListFilled(clothingPatterns) || isListFilled(clothingMaterials)){
             NbtCompound compound = new NbtCompound();
 
@@ -108,16 +117,17 @@ public class NpcTextureDataPreset {
             NbtCompound value = compound.getCompound(type.name());
 
             if(value.contains("patterns")){
-                List<String> fetchedValues = getStringListFromNbtList(value.getCompound("patterns"), type.name());
+                List<String> fetchedValues = getStringListFromNbtList(value, "patterns");
                 switch (type){
                     case SKIN -> skinPatterns.addAll(fetchedValues);
                     case EYE -> eyePatterns.addAll(fetchedValues);
                     case HAIR -> hairPatterns.addAll(fetchedValues);
+                    case EYEBROW -> eyebrowPatterns.addAll(fetchedValues);
                     case CLOTHING -> clothingPatterns.addAll(fetchedValues);
                 }
             }
             if(value.contains("materials")){
-                List<String> fetchedValues = getStringListFromNbtList(value.getCompound("materials"), type.name());
+                List<String> fetchedValues = getStringListFromNbtList(value, "materials");
                 switch (type){
                     case SKIN -> skinMaterials.addAll(fetchedValues);
                     case EYE -> eyeMaterials.addAll(fetchedValues);
@@ -149,6 +159,7 @@ public class NpcTextureDataPreset {
         eyeMaterials = new ArrayList<>();
 
         hairPatterns = new ArrayList<>();
+        eyebrowPatterns = new ArrayList<>();
         hairMaterials = new ArrayList<>();
 
         clothingPatterns = new ArrayList<>();
@@ -185,6 +196,7 @@ public class NpcTextureDataPreset {
             case SKIN -> skinPatterns.add(value);
             case EYE -> eyePatterns.add(value);
             case HAIR -> hairPatterns.add(value);
+            case EYEBROW -> eyebrowPatterns.add(value);
             case CLOTHING -> clothingPatterns.add(value);
         };
     }
@@ -192,7 +204,7 @@ public class NpcTextureDataPreset {
         switch (npcTextureType){
             case SKIN -> skinMaterials.add(value);
             case EYE -> eyeMaterials.add(value);
-            case HAIR -> hairMaterials.add(value);
+            case HAIR, EYEBROW -> hairMaterials.add(value);
             case CLOTHING -> clothingMaterials.add(value);
         };
     }
@@ -202,6 +214,7 @@ public class NpcTextureDataPreset {
             case SKIN -> skinPatterns;
             case EYE -> eyePatterns;
             case HAIR -> hairPatterns;
+            case EYEBROW -> eyebrowPatterns;
             case CLOTHING -> clothingPatterns;
         };
     }
@@ -209,7 +222,7 @@ public class NpcTextureDataPreset {
         return switch (npcTextureType){
             case SKIN -> skinMaterials;
             case EYE -> eyeMaterials;
-            case HAIR -> hairMaterials;
+            case HAIR, EYEBROW -> hairMaterials;
             case CLOTHING -> clothingMaterials;
         };
     }

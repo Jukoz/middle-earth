@@ -54,13 +54,21 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTexturePatterns.EYE_COMMON
                         ))
                         .withMaterials(NpcTextureType.EYE, List.of(
+                                MiddleEarthNpcTextureMaterials.EYE_BLACK,
+                                MiddleEarthNpcTextureMaterials.EYE_BLUE,
                                 MiddleEarthNpcTextureMaterials.EYE_BROWN,
+                                MiddleEarthNpcTextureMaterials.EYE_DARK_GREEN,
                                 MiddleEarthNpcTextureMaterials.EYE_GREEN,
-                                MiddleEarthNpcTextureMaterials.EYE_BLUE
+                                MiddleEarthNpcTextureMaterials.EYE_NAVY
                         ))
                         .withEmissiveEyes(false)
                         .withPatterns(NpcTextureType.HAIR, List.of(
                                 MiddleEarthNpcTexturePatterns.HAIR_SHORT
+                        ))
+                        .withPatterns(NpcTextureType.EYEBROW, List.of(
+                                MiddleEarthNpcTexturePatterns.EYEBROW_SHORT,
+                                MiddleEarthNpcTexturePatterns.EYEBROW_BASIC,
+                                MiddleEarthNpcTexturePatterns.EYEBROW_LONG
                         ))
                         .withMaterials(NpcTextureType.HAIR, List.of(
                                 MiddleEarthNpcTextureMaterials.HAIR_BLACK,
@@ -69,7 +77,8 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTextureMaterials.HAIR_STRAW,
                                 MiddleEarthNpcTextureMaterials.HAIR_ORANGE,
                                 MiddleEarthNpcTextureMaterials.HAIR_WHITE,
-                                MiddleEarthNpcTextureMaterials.HAIR_GRAY
+                                MiddleEarthNpcTextureMaterials.HAIR_GRAY,
+                                MiddleEarthNpcTextureMaterials.HAIR_BLONDE
                         ))
                         .withPatterns(NpcTextureType.CLOTHING, List.of(
                                 MiddleEarthNpcTexturePatterns.CLOTHING_FABRIC_SKIRT
@@ -94,15 +103,28 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTexturePatterns.EYE_COMMON
                         ))
                         .withMaterials(NpcTextureType.EYE, List.of(
+                                MiddleEarthNpcTextureMaterials.EYE_BLACK,
+                                MiddleEarthNpcTextureMaterials.EYE_BLUE,
                                 MiddleEarthNpcTextureMaterials.EYE_BROWN,
+                                MiddleEarthNpcTextureMaterials.EYE_DARK_GREEN,
                                 MiddleEarthNpcTextureMaterials.EYE_GREEN,
-                                MiddleEarthNpcTextureMaterials.EYE_BLUE
+                                MiddleEarthNpcTextureMaterials.EYE_NAVY
                         ))
                         .withEmissiveEyes(false)
                         .withPatterns(NpcTextureType.HAIR, List.of(
                                 MiddleEarthNpcTexturePatterns.HAIR_LONG
                         ))
+                        .withPatterns(NpcTextureType.EYEBROW, List.of(
+                                MiddleEarthNpcTexturePatterns.EYEBROW_SHORT
+                        ))
                         .withMaterials(NpcTextureType.HAIR, List.of(
+                                MiddleEarthNpcTextureMaterials.HAIR_BLACK,
+                                MiddleEarthNpcTextureMaterials.HAIR_BROWN,
+                                MiddleEarthNpcTextureMaterials.HAIR_DARK_BROWN,
+                                MiddleEarthNpcTextureMaterials.HAIR_STRAW,
+                                MiddleEarthNpcTextureMaterials.HAIR_ORANGE,
+                                MiddleEarthNpcTextureMaterials.HAIR_WHITE,
+                                MiddleEarthNpcTextureMaterials.HAIR_GRAY,
                                 MiddleEarthNpcTextureMaterials.HAIR_BLONDE
                         ))
                         .withPatterns(NpcTextureType.CLOTHING, List.of(

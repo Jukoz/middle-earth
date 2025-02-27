@@ -49,42 +49,78 @@ public class NpcEntity extends PassiveEntity {
     public NpcEntity(EntityType<? extends PassiveEntity> entityType, World world) {
         super(entityType, world);
 
-        this.race = MiddleEarthRaces.DWARF;
+
+        if(world.isClient)
+            return;
+
+        DynamicRegistryManager manager = world.getRegistryManager();
+
+        this.race = manager.getOrThrow(MiddleEarthRaces.KEY).get(MiddleEarthRaces.DWARF.getId());
 
         NpcTextureDataCategory category = (new Random()).nextBoolean() ? NpcTextureDataCategory.MALE : NpcTextureDataCategory.FEMALE;
-        NpcTextureData.Identity npcTextureDataIdentity = NpcTextureData.Identity.create(this.race.getNpcTextureDataValue(), category);
+
+
+
+        NpcTextureData npcTextureData = this.race.getNpcTextureDataValue();
+        NpcTextureData.Identity npcTextureDataIdentity = NpcTextureData.Identity.create(npcTextureData, category);
 
         if(npcTextureDataIdentity == null){
             // TODO : crash?
             return;
         }
 
-        NpcTextureData npcTextureData = this.race.getNpcTextureDataValue();
-
-        if(Objects.equals(getSkinTextureValue(), "")){
+        if(getSkinTextureIdentifier() == null){
             Identifier id = npcTextureData.getTextureWithMaterial(npcTextureDataIdentity, NpcTextureType.SKIN);
             this.dataTracker.set(SKIN_TEXTURE, id.toString());
         }
-        if(Objects.equals(getEyeTextureValue(), "")){
+        if(getEyeTextureIdentifier() == null){
             Identifier id = npcTextureData.getTextureWithMaterial(npcTextureDataIdentity, NpcTextureType.EYE);
             this.dataTracker.set(EYE_TEXTURE, id.toString());
             this.dataTracker.set(EMISSIVE_EYES, npcTextureData.haveEmissiveEyes(npcTextureDataIdentity));
         }
-        if(Objects.equals(getHairTextureValue(), "") || Objects.equals(getBeardTextureValue(), "") || Objects.equals(getEyebrowTextureValue(), "")){
+        if(getHairTextureIdentifier() == null || getEyebrowTextureIdentifier() == null){
             // Resets hair
-            Identifier materialId = npcTextureData.getRawMaterial(npcTextureDataIdentity, NpcTextureType.HAIR);
-            Identifier patternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.HAIR);
+            Identifier globalHairMaterialId = npcTextureData.getRawMaterial(npcTextureDataIdentity, NpcTextureType.HAIR);
 
-            Identifier textureId = Identifier.of(patternId.getNamespace(), patternId.getPath() + "_" + materialId.getPath());
+            Identifier hairPatternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.HAIR);
+            Identifier eyebrowPatternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.EYEBROW);
 
 
-            DynamicRegistryManager manager = world.getRegistryManager();
-            Optional<RegistryEntry.Reference<NpcTexturePattern>> foundPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.HAIR, patternId);
+            if(globalHairMaterialId == null || hairPatternId == null || eyebrowPatternId == null){
+                // TODO : Exception management
+                this.dataTracker.set(HAIR_TEXTURE, "");
+                this.dataTracker.set(HAIR_ADDON, "");
+                this.dataTracker.set(EYEBROW_TEXTURE, "");
+                return;
+            }
 
-            this.dataTracker.set(HAIR_TEXTURE, textureId.toString());
-            //this.dataTracker.set(HAIR_ADDON, (pattern.hasAddonRawValue()) ? hairTexture + "_addon" + material.getPath(): "");
+            // Hair
+            Optional<RegistryEntry.Reference<NpcTexturePattern>> foundHairPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.HAIR, hairPatternId);
+            if(foundHairPattern.isPresent() && foundHairPattern.get().value() instanceof NpcTexturePattern pattern){
+                Identifier hairTexturePattern = IdentifierUtil.create(hairPatternId.getPath() + "_" + globalHairMaterialId.getPath());
+
+                this.dataTracker.set(HAIR_TEXTURE, hairTexturePattern.toString());
+                if(pattern.hasAddonRawValue()){
+                    Identifier addonId = IdentifierUtil.create(hairPatternId.getPath()  + "_addon_" + globalHairMaterialId.getPath());
+                    this.dataTracker.set(HAIR_ADDON, addonId.toString());
+                } else {
+                    this.dataTracker.set(HAIR_ADDON, "");
+                }
+            } else {
+                this.dataTracker.set(HAIR_TEXTURE, "");
+                this.dataTracker.set(HAIR_ADDON, "");
+            }
+            // Eyebrows
+            Optional<RegistryEntry.Reference<NpcTexturePattern>> foundEyebrowPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.EYEBROW, eyebrowPatternId);
+            if(foundEyebrowPattern.isPresent()){
+                Identifier eyebrowTexturePattern = IdentifierUtil.create(eyebrowPatternId.getPath() + "_" + globalHairMaterialId.getPath());
+                this.dataTracker.set(EYEBROW_TEXTURE, eyebrowTexturePattern.toString());
+            } else {
+                this.dataTracker.set(EYEBROW_TEXTURE, "");
+            }
+            // Beard
         }
-        if(Objects.equals(getClothingTextureValue(), "")){
+        if(getClothingTextureIdentifier() == null){
             Identifier id = npcTextureData.getTextureWithMaterial(npcTextureDataIdentity, NpcTextureType.CLOTHING);
             this.dataTracker.set(CLOTHING_TEXTURE, id.toString());
         }
@@ -170,25 +206,37 @@ public class NpcEntity extends PassiveEntity {
     public Boolean getEmissiveEyes() {
         return this.dataTracker.get(EMISSIVE_EYES);
     }
+
     public Identifier getSkinTextureIdentifier() {
+        if(Objects.equals(this.dataTracker.get(SKIN_TEXTURE), ""))
+            return null;
         return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(SKIN_TEXTURE));
     }
     public Identifier getEyeTextureIdentifier() {
+        if(Objects.equals(this.dataTracker.get(EYE_TEXTURE), ""))
+            return null;
         return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(EYE_TEXTURE));
     }
     public Identifier getEyebrowTextureIdentifier() {
+        if(Objects.equals(this.dataTracker.get(EYEBROW_TEXTURE), ""))
+            return null;
         return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(EYEBROW_TEXTURE));
     }
     public Identifier getHairTextureIdentifier() {
+        if(Objects.equals(this.dataTracker.get(HAIR_TEXTURE), ""))
+            return null;
         return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(HAIR_TEXTURE));
     }
     public Identifier getHairAddonTextureIdentifier() {
+        if(Objects.equals(this.dataTracker.get(HAIR_ADDON), "")){
+            return null;
+        }
         return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(HAIR_ADDON));
     }
-    public Identifier getBeardTextureIdentifier() {
-        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(BEARD_TEXTURE));
-    }
+
     public Identifier getClothingTextureIdentifier() {
+        if(Objects.equals(this.dataTracker.get(CLOTHING_TEXTURE), ""))
+            return null;
         return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(CLOTHING_TEXTURE));
     }
     static {
