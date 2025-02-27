@@ -26,7 +26,7 @@ public class NpcTextureMaterial {
     private NpcTextureType type;
     public NpcTextureMaterial(Identifier assetId, String type){
         this.assetId = assetId;
-        this.type = NpcTextureType.valueOf(type);
+        this.type = NpcTextureType.valueOf(type.toUpperCase());
     }
     public NpcTextureMaterial(Identifier id, NpcTextureType type){
         this.assetId = id;
@@ -41,7 +41,7 @@ public class NpcTextureMaterial {
     }
 
     public String getTypeValue() {
-        return this.type.name();
+        return this.type.name().toUpperCase();
     }
 
     static {

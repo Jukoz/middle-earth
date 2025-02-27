@@ -3,7 +3,9 @@
         {
             "type": "paletted_permutations",
             "textures": [
-                "me:npc_hair_textures/short"
+                "me:npc_hair_textures/short_hair",
+                "me:npc_hair_textures/long_hair",
+                "me:npc_hair_textures/long_hair_addon"
             ],
             "palette_key": "me:npc_hair_textures/color_palettes/base_palette",
             "permutations": {

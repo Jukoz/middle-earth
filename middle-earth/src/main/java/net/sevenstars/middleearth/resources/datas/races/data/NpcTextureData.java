@@ -51,7 +51,21 @@ public class NpcTextureData {
         return newNbt;
     }
 
-    public Identifier getTexture(Identity identity, NpcTextureType npcTextureType) {
+    public Identifier getRawMaterial(Identity identity, NpcTextureType npcTextureType) {
+        List<String> materials = identity.preset.getMaterials(npcTextureType);
+        Random random = new Random();
+        int materialIndex = random.nextInt(materials.size());
+        return Identifier.of(MiddleEarth.MOD_ID, materials.get(materialIndex));
+    }
+
+    public Identifier getRawPattern(Identity identity, NpcTextureType npcTextureType) {
+        List<String> patterns = identity.preset.getPatterns(npcTextureType);
+        Random random = new Random();
+        int patternIndex = random.nextInt(patterns.size());
+        return Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex));
+    }
+
+    public Identifier getTextureWithMaterial(Identity identity, NpcTextureType npcTextureType) {
         List<String> patterns = identity.preset.getPatterns(npcTextureType);
         List<String> materials = identity.preset.getMaterials(npcTextureType);
         Random random = new Random();
@@ -59,6 +73,14 @@ public class NpcTextureData {
         int materialIndex = random.nextInt(materials.size());
         return Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex) + "_" + materials.get(materialIndex));
     }
+
+    public Identifier getTextureWithMaterial(Identity identity, NpcTextureType npcTextureType, Identifier material) {
+        List<String> patterns = identity.preset.getPatterns(npcTextureType);
+        Random random = new Random();
+        int patternIndex = random.nextInt(patterns.size());
+        return Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex) + "_" + material.getPath());
+    }
+
 
     public Boolean haveEmissiveEyes(Identity identity) {
         return identity.preset.haveEmissiveEyes();

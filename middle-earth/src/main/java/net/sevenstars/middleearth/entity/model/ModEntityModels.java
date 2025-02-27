@@ -8,7 +8,7 @@ import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestE
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollModel;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
-import net.sevenstars.middleearth.entity.npcs.features.beards.BeardModel;
+import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
 import net.sevenstars.middleearth.entity.snail.SnailEntityModel;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderModel;
 import net.minecraft.client.model.Dilation;
@@ -23,7 +23,7 @@ public class ModEntityModels {
         ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder = ImmutableMap.builder();
 
         builder.put(ModEntityModelLayers.NPC, NpcEntityModel.getTexturedModelData(Dilation.NONE));
-        builder.put(ModEntityModelLayers.NPC_BEARD_BRAIDED, BeardModel.getTexturedModelData(Dilation.NONE));
+        builder.put(ModEntityModelLayers.NPC_BEARD_BRAIDED, HairModel.getTexturedModelData(Dilation.NONE));
 
         builder.put(ModEntityModelLayers.HUMAN, HumanModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.DWARF, DwarfModel.getTexturedModelData(Dilation.NONE));

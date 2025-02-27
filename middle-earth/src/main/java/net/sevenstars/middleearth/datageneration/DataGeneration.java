@@ -67,13 +67,19 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, CavesPlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModMiscPlacedFeatures::bootstrap);
 
+        registryBuilder.addRegistry(MiddleEarthNpcTextureMaterials.SKIN_KEY, MiddleEarthNpcTextureMaterials::bootstrapSkins);
+        registryBuilder.addRegistry(MiddleEarthNpcTexturePatterns.SKIN_KEY, MiddleEarthNpcTexturePatterns::bootstrapSkins);
 
-        registryBuilder.addRegistry(MiddleEarthNpcTextureMaterials.SKIN_KEY, MiddleEarthNpcTextureMaterials::bootstrap);
-        registryBuilder.addRegistry(MiddleEarthNpcTexturePatterns.SKIN_KEY, MiddleEarthNpcTexturePatterns::bootstrap);
+        registryBuilder.addRegistry(MiddleEarthNpcTextureMaterials.HAIR_KEY, MiddleEarthNpcTextureMaterials::bootstrapHairs);
+        registryBuilder.addRegistry(MiddleEarthNpcTexturePatterns.HAIR_KEY, MiddleEarthNpcTexturePatterns::bootstrapHairs);
+
+        registryBuilder.addRegistry(MiddleEarthNpcTextureMaterials.CLOTHING_KEY, MiddleEarthNpcTextureMaterials::bootstrapClothings);
+        registryBuilder.addRegistry(MiddleEarthNpcTexturePatterns.CLOTHING_KEY, MiddleEarthNpcTexturePatterns::bootstrapClothings);
+
+        registryBuilder.addRegistry(MiddleEarthNpcTextureMaterials.EYE_KEY, MiddleEarthNpcTextureMaterials::bootstrapEyes);
+        registryBuilder.addRegistry(MiddleEarthNpcTexturePatterns.EYE_KEY, MiddleEarthNpcTexturePatterns::bootstrapEyes);
 
         // Mod Dynamic
-
-
         registryBuilder.addRegistry(MiddleEarthRaces.KEY, MiddleEarthRaces::bootstrap);
         registryBuilder.addRegistry(MiddleEarthNpcs.KEY, MiddleEarthNpcs::bootstrap);
         registryBuilder.addRegistry(MiddleEarthFactions.KEY, MiddleEarthFactions::bootstrap);

@@ -39,11 +39,10 @@ public class MiddleEarthRaces {
     public final static Race URUK;
 
     private static NpcTextureData commonNpcTextureData = new NpcTextureData(new HashMap<>(){{
-        put(NpcTextureDataCategory.COMMON, List.of(
+        put(NpcTextureDataCategory.MALE, List.of(
                 new NpcTextureDataPreset()
                         .withPatterns(NpcTextureType.SKIN, List.of(
-                                MiddleEarthNpcTexturePatterns.SKIN_COMMON_A,
-                                MiddleEarthNpcTexturePatterns.SKIN_COMMON_B
+                                MiddleEarthNpcTexturePatterns.SKIN_COMMON_A
                         ))
                         .withMaterials(NpcTextureType.SKIN, List.of(
                                 MiddleEarthNpcTextureMaterials.SKIN_PALE,
@@ -67,14 +66,46 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTextureMaterials.HAIR_BLACK,
                                 MiddleEarthNpcTextureMaterials.HAIR_BROWN,
                                 MiddleEarthNpcTextureMaterials.HAIR_DARK_BROWN,
-                                MiddleEarthNpcTextureMaterials.HAIR_BLONDE,
                                 MiddleEarthNpcTextureMaterials.HAIR_STRAW,
                                 MiddleEarthNpcTextureMaterials.HAIR_ORANGE,
                                 MiddleEarthNpcTextureMaterials.HAIR_WHITE,
                                 MiddleEarthNpcTextureMaterials.HAIR_GRAY
                         ))
                         .withPatterns(NpcTextureType.CLOTHING, List.of(
-                                MiddleEarthNpcTexturePatterns.CLOTHING_FABRIC_SKIRT,
+                                MiddleEarthNpcTexturePatterns.CLOTHING_FABRIC_SKIRT
+                        ))
+                        .withMaterials(NpcTextureType.CLOTHING, List.of(
+                                MiddleEarthNpcTextureMaterials.CLOTHING_WHITE,
+                                MiddleEarthNpcTextureMaterials.CLOTHING_BROWN
+                        ))
+        ));
+        put(NpcTextureDataCategory.FEMALE, List.of(
+                new NpcTextureDataPreset()
+                        .withPatterns(NpcTextureType.SKIN, List.of(
+                                MiddleEarthNpcTexturePatterns.SKIN_COMMON_B
+                        ))
+                        .withMaterials(NpcTextureType.SKIN, List.of(
+                                MiddleEarthNpcTextureMaterials.SKIN_PALE,
+                                MiddleEarthNpcTextureMaterials.SKIN_TAN,
+                                MiddleEarthNpcTextureMaterials.SKIN_OLIVE,
+                                MiddleEarthNpcTextureMaterials.SKIN_NEUTRAL
+                        ))
+                        .withPatterns(NpcTextureType.EYE, List.of(
+                                MiddleEarthNpcTexturePatterns.EYE_COMMON
+                        ))
+                        .withMaterials(NpcTextureType.EYE, List.of(
+                                MiddleEarthNpcTextureMaterials.EYE_BROWN,
+                                MiddleEarthNpcTextureMaterials.EYE_GREEN,
+                                MiddleEarthNpcTextureMaterials.EYE_BLUE
+                        ))
+                        .withEmissiveEyes(false)
+                        .withPatterns(NpcTextureType.HAIR, List.of(
+                                MiddleEarthNpcTexturePatterns.HAIR_LONG
+                        ))
+                        .withMaterials(NpcTextureType.HAIR, List.of(
+                                MiddleEarthNpcTextureMaterials.HAIR_BLONDE
+                        ))
+                        .withPatterns(NpcTextureType.CLOTHING, List.of(
                                 MiddleEarthNpcTexturePatterns.CLOTHING_FABRIC_SKIRT_WITH_STROPHIUM
                         ))
                         .withMaterials(NpcTextureType.CLOTHING, List.of(

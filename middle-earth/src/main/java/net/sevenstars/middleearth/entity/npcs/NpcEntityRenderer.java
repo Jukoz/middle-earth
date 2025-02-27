@@ -20,7 +20,7 @@ import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import net.sevenstars.middleearth.entity.npcs.features.beards.NpcEntityBeardFeatureRenderer;
+import net.sevenstars.middleearth.entity.npcs.features.hair.NpcEntityHairFeatureRenderer;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexture;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import org.jetbrains.annotations.Nullable;
@@ -36,7 +36,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     public NpcEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new NpcEntityModel(context.getPart(ModEntityModelLayers.NPC)), 0.7f);
 
-        this.addFeature(new NpcEntityBeardFeatureRenderer(this, context.getEntityModels()));
+        this.addFeature(new NpcEntityHairFeatureRenderer(this, context.getEntityModels()));
 
         MinecraftClient client = MinecraftClient.getInstance();
         skinAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
@@ -60,6 +60,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.eyeTextureIdentifier = npcEntity.getEyeTextureIdentifier();
         npcEntityRenderState.haveEmissiveEyes = npcEntity.getEmissiveEyes();
         npcEntityRenderState.hairTextureIdentifier = npcEntity.getHairTextureIdentifier();
+        npcEntityRenderState.hairAddonTextureIdentifier = npcEntity.getHairAddonTextureIdentifier();
         npcEntityRenderState.clothingTextureIdentifier = npcEntity.getClothingTextureIdentifier();
     }
 
@@ -83,7 +84,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     @Override
     public void render(NpcEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         int currentRenderStep = 0;
-        int maximumRenderStep = 5;
+        int maximumRenderStep = 6;
 
         Text customName = state.customName;
         if(customName != null){
@@ -172,10 +173,9 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         if (this.shouldRenderFeatures(state)) {
             Iterator var15 = this.features.iterator();
 
-            while(var15.hasNext() && currentRenderStep < maximumRenderStep) {
+            while(var15.hasNext()) {
                 FeatureRenderer<NpcEntityRenderState, NpcEntityModel> featureRenderer = (FeatureRenderer)var15.next();
                 featureRenderer.render(matrices, vertexConsumers, light, state, state.yawDegrees, state.pitch);
-                currentRenderStep++;
             }
         }
 
@@ -184,7 +184,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
     @Override
     public Identifier getTexture(NpcEntityRenderState state) {
-        return null;
+        return Identifier.of("bleh");
     }
 
 

@@ -6,6 +6,7 @@ public enum NpcTextureType {
     HAIR("hair"),
     CLOTHING("clothing");
 
+
     private final String path;
     NpcTextureType(String path){
         this.path = path;

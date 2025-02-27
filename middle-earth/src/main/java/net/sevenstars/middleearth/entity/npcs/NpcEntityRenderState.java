@@ -8,6 +8,7 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
     public Identifier eyeTextureIdentifier;
     public boolean haveEmissiveEyes;
     public Identifier hairTextureIdentifier;
+    public Identifier hairAddonTextureIdentifier;
     public Identifier clothingTextureIdentifier;
 
 
@@ -18,6 +19,7 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
         this.eyeTextureIdentifier = null;
         this.haveEmissiveEyes = false;
         this.hairTextureIdentifier = null;
+        this.hairAddonTextureIdentifier = null;
         this.clothingTextureIdentifier = null;
 
         // TODO

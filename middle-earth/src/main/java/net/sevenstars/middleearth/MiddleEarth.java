@@ -49,6 +49,9 @@ public class MiddleEarth implements ModInitializer {
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();
 
+		MiddleEarthNpcTextureMaterials.register();
+		MiddleEarthNpcTexturePatterns.register();
+
 		ModDataComponentTypes.registerModComponentTypes();
 
 		ModCommands.register();
@@ -106,10 +109,6 @@ public class MiddleEarth implements ModInitializer {
 		//MiddleEarthNpcTextures.register();
 
 		// Dynamic Data
-		MiddleEarthNpcTextureMaterials.register();
-		MiddleEarthNpcTexturePatterns.register();
-
-
 		MiddleEarthRaces.register();
 		MiddleEarthNpcs.register();
 		MiddleEarthFactions.register();
