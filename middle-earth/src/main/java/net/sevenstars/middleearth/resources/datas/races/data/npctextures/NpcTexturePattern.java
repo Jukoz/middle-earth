@@ -83,7 +83,7 @@ public class NpcTexturePattern {
                 PacketCodecs.BOOLEAN,
                 NpcTexturePattern::hasAddonRawValue,
                 NpcTexturePattern::new);
-        ENTRY_CODEC = RegistryElementCodec.of(MiddleEarthNpcTexturePatterns.SKIN_KEY, CODEC);
-        ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(MiddleEarthNpcTexturePatterns.SKIN_KEY, PACKET_CODEC);
+        ENTRY_CODEC = RegistryElementCodec.of(MiddleEarthNpcTexturePatterns.Keys.SKIN_KEY, CODEC);
+        ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(MiddleEarthNpcTexturePatterns.Keys.SKIN_KEY, PACKET_CODEC);
     }
 }

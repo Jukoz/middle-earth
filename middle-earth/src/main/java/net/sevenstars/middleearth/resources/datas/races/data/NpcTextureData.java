@@ -65,8 +65,10 @@ public class NpcTextureData {
         if(patterns.isEmpty())
             return null;
         Random random = new Random();
-        int patternIndex = random.nextInt(patterns.size());
-        return Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex));
+        String value = patterns.get(random.nextInt(patterns.size()));
+        if(value.equals(NpcTextureDataPreset.EMPTY_VALUE_KEY))
+            return null;
+        return Identifier.of(MiddleEarth.MOD_ID, value);
     }
 
     public Identifier getTextureWithMaterial(Identity identity, NpcTextureType npcTextureType) {

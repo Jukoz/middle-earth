@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NpcTextureDataPreset {
+    public final static String EMPTY_VALUE_KEY = "NONE";
     private int weight;
     List<String> skinPatterns;
     List<String> eyePatterns;
@@ -155,7 +156,7 @@ public class NpcTextureDataPreset {
         for(int i = 0; i < nbtList.size(); i++){
             fetchedValues.add(nbtList.getString(i));
         }
-        return  fetchedValues;
+        return fetchedValues;
     }
 
     public NpcTextureDataPreset(){
@@ -187,7 +188,13 @@ public class NpcTextureDataPreset {
 
     public NpcTextureDataPreset withPatterns(NpcTextureType type, List<RegistryKey<NpcTexturePattern>> patterns){
         if(patterns != null)
-            patterns.forEach(x -> addToPattern(type, x.getValue().getPath()));
+            patterns.forEach(x -> {
+                if(x == null){
+                    addToPattern(type, EMPTY_VALUE_KEY);
+                } else {
+                    addToPattern(type, x.getValue().getPath());
+                }
+            });
         return this;
     }
 

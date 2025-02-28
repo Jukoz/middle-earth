@@ -94,28 +94,30 @@ public class NpcEntity extends PassiveEntity {
             Identifier beardPatternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.BEARD);
 
 
-            if(globalHairMaterialId == null || hairPatternId == null || eyebrowPatternId == null){
+            if(globalHairMaterialId == null || eyebrowPatternId == null){
                 // TODO : Exception management
                 return;
             }
 
             // Hair
-            Optional<RegistryEntry.Reference<NpcTexturePattern>> foundHairPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.HAIR, hairPatternId);
-            if(foundHairPattern.isPresent() && foundHairPattern.get().value() instanceof NpcTexturePattern pattern){
-                Identifier hairTexturePattern = IdentifierUtil.create(hairPatternId.getPath() + "_" + globalHairMaterialId.getPath());
+            if(hairPatternId != null){
+                Optional<RegistryEntry.Reference<NpcTexturePattern>> foundHairPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.HAIR, hairPatternId);
+                if(foundHairPattern.isPresent() && foundHairPattern.get().value() instanceof NpcTexturePattern pattern){
+                    Identifier hairTexturePattern = IdentifierUtil.create(hairPatternId.getPath() + "_" + globalHairMaterialId.getPath());
 
-                this.dataTracker.set(HAIR_TEXTURE, hairTexturePattern.toString());
-                if(pattern.hasAddonRawValue()){
-                    Identifier addonId = IdentifierUtil.create(hairPatternId.getPath()  + "_addon_" + globalHairMaterialId.getPath());
-                    this.dataTracker.set(HAIR_ADDON, addonId.toString());
+                    this.dataTracker.set(HAIR_TEXTURE, hairTexturePattern.toString());
+                    if(pattern.hasAddonRawValue()){
+                        Identifier addonId = IdentifierUtil.create(hairPatternId.getPath()  + "_addon_" + globalHairMaterialId.getPath());
+                        this.dataTracker.set(HAIR_ADDON, addonId.toString());
+                    } else {
+                        this.dataTracker.set(HAIR_ADDON, "");
+                    }
                 } else {
+                    this.dataTracker.set(HAIR_TEXTURE, "");
                     this.dataTracker.set(HAIR_ADDON, "");
                 }
-            } else {
-                this.dataTracker.set(HAIR_TEXTURE, "");
-                this.dataTracker.set(HAIR_ADDON, "");
             }
-            // Eyebrows
+            // Eyebrow
             Optional<RegistryEntry.Reference<NpcTexturePattern>> foundEyebrowPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.EYEBROW, eyebrowPatternId);
             if(foundEyebrowPattern.isPresent()){
                 Identifier eyebrowTexturePattern = IdentifierUtil.create(eyebrowPatternId.getPath() + "_" + globalHairMaterialId.getPath());
@@ -124,20 +126,23 @@ public class NpcEntity extends PassiveEntity {
                 this.dataTracker.set(EYEBROW_TEXTURE, "");
             }
             // Beard
-            Optional<RegistryEntry.Reference<NpcTexturePattern>> foundBeardPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.BEARD, beardPatternId);
-            if(foundBeardPattern.isPresent() && foundBeardPattern.get().value() instanceof NpcTexturePattern pattern){
-                Identifier beardTexturePattern = IdentifierUtil.create(beardPatternId.getPath() + "_" + globalHairMaterialId.getPath());
+            if(beardPatternId != null){
 
-                this.dataTracker.set(BEARD_TEXTURE, beardTexturePattern.toString());
-                if(pattern.hasAddonRawValue()){
-                    Identifier addonId = IdentifierUtil.create(beardPatternId.getPath()  + "_addon_" + globalHairMaterialId.getPath());
-                    this.dataTracker.set(BEARD_ADDON, addonId.toString());
+                Optional<RegistryEntry.Reference<NpcTexturePattern>> foundBeardPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.BEARD, beardPatternId);
+                if(foundBeardPattern.isPresent() && foundBeardPattern.get().value() instanceof NpcTexturePattern pattern){
+                    Identifier beardTexturePattern = IdentifierUtil.create(beardPatternId.getPath() + "_" + globalHairMaterialId.getPath());
+
+                    this.dataTracker.set(BEARD_TEXTURE, beardTexturePattern.toString());
+                    if(pattern.hasAddonRawValue()){
+                        Identifier addonId = IdentifierUtil.create(beardPatternId.getPath()  + "_addon_" + globalHairMaterialId.getPath());
+                        this.dataTracker.set(BEARD_ADDON, addonId.toString());
+                    } else {
+                        this.dataTracker.set(BEARD_ADDON, "");
+                    }
                 } else {
+                    this.dataTracker.set(BEARD_TEXTURE, "");
                     this.dataTracker.set(BEARD_ADDON, "");
                 }
-            } else {
-                this.dataTracker.set(BEARD_TEXTURE, "");
-                this.dataTracker.set(BEARD_ADDON, "");
             }
         }
         if(getClothingTextureIdentifier() == null){

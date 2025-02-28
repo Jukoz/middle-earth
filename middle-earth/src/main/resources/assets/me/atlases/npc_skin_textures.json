@@ -3,8 +3,9 @@
         {
             "type": "paletted_permutations",
             "textures": [
-                "me:npc_skin_textures/common_a",
-                "me:npc_skin_textures/common_b"
+                "me:npc_skin_textures/female",
+                "me:npc_skin_textures/muscular",
+                "me:npc_skin_textures/slim"
             ],
             "palette_key": "me:npc_skin_textures/color_palettes/base_palette",
             "permutations": {

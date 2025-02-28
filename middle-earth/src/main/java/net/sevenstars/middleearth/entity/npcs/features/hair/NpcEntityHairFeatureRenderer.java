@@ -39,6 +39,11 @@ public class NpcEntityHairFeatureRenderer extends FeatureRenderer<NpcEntityRende
 
         EntityModel<NpcEntityRenderState> entityModel = hairModel;
 
+        // TODO : Disable the beard based on the helmet
+        /*
+                if (entity.getEquippedStack(EquipmentSlot.HEAD).isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "helmet_hides_dwarf_beard")))){
+         */
+
         if(hairAddonTextureId == null && beardAddonTextureId == null){
             entityModel.getRootPart().visible = false;
             return;
