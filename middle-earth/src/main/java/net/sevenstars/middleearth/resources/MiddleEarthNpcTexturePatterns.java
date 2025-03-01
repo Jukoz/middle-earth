@@ -35,6 +35,10 @@ public class MiddleEarthNpcTexturePatterns {
 
     public record Hair() {
         public final static RegistryKey<NpcTexturePattern> SHORT = of("hair_short", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTexturePattern> BALD_SIDES = of("hair_bald_sides", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTexturePattern> BOWL = of("hair_bowl", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTexturePattern> UNCUT = of("hair_uncut", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTexturePattern> SHARP = of("hair_sharp", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTexturePattern> LONG = of("hair_long", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTexturePattern> FLAT_LONG = of("hair_flat_long", NpcTextureType.HAIR);
     }
@@ -42,8 +46,10 @@ public class MiddleEarthNpcTexturePatterns {
     public record Beard() {
         public final static RegistryKey<NpcTexturePattern> SHORT = of("beard_short", NpcTextureType.BEARD);
         public final static RegistryKey<NpcTexturePattern> SINGLE = of("beard_single", NpcTextureType.BEARD);
+        public final static RegistryKey<NpcTexturePattern> LONG_SINGLE_ORNAMENTED = of("beard_long_single_ornamented", NpcTextureType.BEARD);
         public final static RegistryKey<NpcTexturePattern> CLEAN = of("beard_clean", NpcTextureType.BEARD);
         public final static RegistryKey<NpcTexturePattern> LARGE = of("beard_large", NpcTextureType.BEARD);
+        public final static RegistryKey<NpcTexturePattern> UNCLEAN_ORNAMENTED = of("beard_unclean_ornamented", NpcTextureType.BEARD);
         public final static RegistryKey<NpcTexturePattern> DUAL_ORNAMENTED = of("beard_dual_ornamented", NpcTextureType.BEARD);
     }
 
@@ -73,6 +79,10 @@ public class MiddleEarthNpcTexturePatterns {
         register(registry, Hair.SHORT, NpcTextureType.HAIR);
         register(registry, Hair.LONG, NpcTextureType.HAIR, true);
         register(registry, Hair.FLAT_LONG, NpcTextureType.HAIR, true);
+        register(registry, Hair.BOWL, NpcTextureType.HAIR);
+        register(registry, Hair.UNCUT, NpcTextureType.HAIR);
+        register(registry, Hair.SHARP, NpcTextureType.HAIR);
+        register(registry, Hair.BALD_SIDES, NpcTextureType.HAIR);
 
         register(registry, Eyebrow.BASIC, NpcTextureType.EYEBROW);
         register(registry, Eyebrow.SHORT, NpcTextureType.EYEBROW);
@@ -82,6 +92,8 @@ public class MiddleEarthNpcTexturePatterns {
         register(registry, Beard.SINGLE, NpcTextureType.BEARD, true);
         register(registry, Beard.CLEAN, NpcTextureType.BEARD, true);
         register(registry, Beard.LARGE, NpcTextureType.BEARD, true);
+        register(registry, Beard.LONG_SINGLE_ORNAMENTED, NpcTextureType.BEARD, true);
+        register(registry, Beard.UNCLEAN_ORNAMENTED, NpcTextureType.BEARD, true);
         register(registry, Beard.DUAL_ORNAMENTED, NpcTextureType.BEARD, true);
     }
     public static void bootstrapClothings(Registerable<NpcTexturePattern> registry) {
@@ -108,8 +120,6 @@ public class MiddleEarthNpcTexturePatterns {
 
     public static void register() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Npc Texture Patterns for " + MiddleEarth.MOD_ID);
-
-
         DynamicRegistries.registerSynced(Keys.SKIN_KEY, NpcTexturePattern.CODEC);
         DynamicRegistries.registerSynced(Keys.EYE_KEY, NpcTexturePattern.CODEC);
         DynamicRegistries.registerSynced(Keys.HAIR_KEY, NpcTexturePattern.CODEC);

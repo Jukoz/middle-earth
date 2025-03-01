@@ -47,25 +47,29 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTexturePatterns.Skin.SLIM
                         ))
                         .withMaterials(NpcTextureType.SKIN, List.of(
-                                MiddleEarthNpcTextureMaterials.SKIN_PALE,
-                                MiddleEarthNpcTextureMaterials.SKIN_TAN,
-                                MiddleEarthNpcTextureMaterials.SKIN_OLIVE,
-                                MiddleEarthNpcTextureMaterials.SKIN_NEUTRAL
+                                MiddleEarthNpcTextureMaterials.Skin.PALE,
+                                MiddleEarthNpcTextureMaterials.Skin.TAN,
+                                MiddleEarthNpcTextureMaterials.Skin.OLIVE,
+                                MiddleEarthNpcTextureMaterials.Skin.NEUTRAL
                         ))
                         .withPatterns(NpcTextureType.EYE, List.of(
                                 MiddleEarthNpcTexturePatterns.Eye.COMMON
                         ))
                         .withMaterials(NpcTextureType.EYE, List.of(
-                                MiddleEarthNpcTextureMaterials.EYE_BLACK,
-                                MiddleEarthNpcTextureMaterials.EYE_BLUE,
-                                MiddleEarthNpcTextureMaterials.EYE_BROWN,
-                                MiddleEarthNpcTextureMaterials.EYE_DARK_GREEN,
-                                MiddleEarthNpcTextureMaterials.EYE_GREEN,
-                                MiddleEarthNpcTextureMaterials.EYE_NAVY
+                                MiddleEarthNpcTextureMaterials.Eye.BLACK,
+                                MiddleEarthNpcTextureMaterials.Eye.BLUE,
+                                MiddleEarthNpcTextureMaterials.Eye.BROWN,
+                                MiddleEarthNpcTextureMaterials.Eye.DARK_GREEN,
+                                MiddleEarthNpcTextureMaterials.Eye.GREEN,
+                                MiddleEarthNpcTextureMaterials.Eye.NAVY
                         ))
                         .withEmissiveEyes(false)
                         .withPatterns(NpcTextureType.HAIR, Stream.of(
                                 MiddleEarthNpcTexturePatterns.Hair.SHORT,
+                                        MiddleEarthNpcTexturePatterns.Hair.UNCUT,
+                                        MiddleEarthNpcTexturePatterns.Hair.BALD_SIDES,
+                                        MiddleEarthNpcTexturePatterns.Hair.SHARP,
+                                        MiddleEarthNpcTexturePatterns.Hair.BOWL,
                                         null)
                                 .toList()
                         )
@@ -79,26 +83,44 @@ public class MiddleEarthRaces {
                                         MiddleEarthNpcTexturePatterns.Beard.LARGE,
                                         MiddleEarthNpcTexturePatterns.Beard.SINGLE,
                                         MiddleEarthNpcTexturePatterns.Beard.CLEAN,
+                                        MiddleEarthNpcTexturePatterns.Beard.UNCLEAN_ORNAMENTED,
+                                        MiddleEarthNpcTexturePatterns.Beard.LONG_SINGLE_ORNAMENTED,
                                         MiddleEarthNpcTexturePatterns.Beard.DUAL_ORNAMENTED,
                                         null)
                                 .toList()
                         )
                         .withMaterials(NpcTextureType.HAIR, List.of(
-                                MiddleEarthNpcTextureMaterials.HAIR_BLACK,
-                                MiddleEarthNpcTextureMaterials.HAIR_BROWN,
-                                MiddleEarthNpcTextureMaterials.HAIR_DARK_BROWN,
-                                MiddleEarthNpcTextureMaterials.HAIR_STRAW,
-                                MiddleEarthNpcTextureMaterials.HAIR_ORANGE,
-                                MiddleEarthNpcTextureMaterials.HAIR_WHITE,
-                                MiddleEarthNpcTextureMaterials.HAIR_GRAY,
-                                MiddleEarthNpcTextureMaterials.HAIR_BLONDE
+                                MiddleEarthNpcTextureMaterials.Hair.BLACK_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.BROWN_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.DARK_BROWN_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.STRAW_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.ORANGE_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.WHITE_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.GRAY_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.BLONDE_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.BLACK_GOLD,
+                                MiddleEarthNpcTextureMaterials.Hair.BROWN_GOLD,
+                                MiddleEarthNpcTextureMaterials.Hair.DARK_BROWN_GOLD,
+                                MiddleEarthNpcTextureMaterials.Hair.STRAW_GOLD,
+                                MiddleEarthNpcTextureMaterials.Hair.ORANGE_GOLD,
+                                MiddleEarthNpcTextureMaterials.Hair.WHITE_GOLD,
+                                MiddleEarthNpcTextureMaterials.Hair.GRAY_GOLD,
+                                MiddleEarthNpcTextureMaterials.Hair.BLONDE_GOLD,
+                                MiddleEarthNpcTextureMaterials.Hair.BLACK_COPPER,
+                                MiddleEarthNpcTextureMaterials.Hair.BROWN_COPPER,
+                                MiddleEarthNpcTextureMaterials.Hair.DARK_BROWN_COPPER,
+                                MiddleEarthNpcTextureMaterials.Hair.STRAW_COPPER,
+                                MiddleEarthNpcTextureMaterials.Hair.ORANGE_COPPER,
+                                MiddleEarthNpcTextureMaterials.Hair.WHITE_COPPER,
+                                MiddleEarthNpcTextureMaterials.Hair.GRAY_COPPER,
+                                MiddleEarthNpcTextureMaterials.Hair.BLONDE_COPPER
                         ))
                         .withPatterns(NpcTextureType.CLOTHING, List.of(
                                 MiddleEarthNpcTexturePatterns.Clothing.FABRIC_SKIRT
                         ))
                         .withMaterials(NpcTextureType.CLOTHING, List.of(
-                                MiddleEarthNpcTextureMaterials.CLOTHING_WHITE,
-                                MiddleEarthNpcTextureMaterials.CLOTHING_BROWN
+                                MiddleEarthNpcTextureMaterials.Clothing.WHITE,
+                                MiddleEarthNpcTextureMaterials.Clothing.BROWN
                         ))
         ));
         put(NpcTextureDataCategory.FEMALE, List.of(
@@ -108,21 +130,21 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTexturePatterns.Skin.SLIM
                         ))
                         .withMaterials(NpcTextureType.SKIN, List.of(
-                                MiddleEarthNpcTextureMaterials.SKIN_PALE,
-                                MiddleEarthNpcTextureMaterials.SKIN_TAN,
-                                MiddleEarthNpcTextureMaterials.SKIN_OLIVE,
-                                MiddleEarthNpcTextureMaterials.SKIN_NEUTRAL
+                                MiddleEarthNpcTextureMaterials.Skin.PALE,
+                                MiddleEarthNpcTextureMaterials.Skin.TAN,
+                                MiddleEarthNpcTextureMaterials.Skin.OLIVE,
+                                MiddleEarthNpcTextureMaterials.Skin.NEUTRAL
                         ))
                         .withPatterns(NpcTextureType.EYE, List.of(
                                 MiddleEarthNpcTexturePatterns.Eye.COMMON
                         ))
                         .withMaterials(NpcTextureType.EYE, List.of(
-                                MiddleEarthNpcTextureMaterials.EYE_BLACK,
-                                MiddleEarthNpcTextureMaterials.EYE_BLUE,
-                                MiddleEarthNpcTextureMaterials.EYE_BROWN,
-                                MiddleEarthNpcTextureMaterials.EYE_DARK_GREEN,
-                                MiddleEarthNpcTextureMaterials.EYE_GREEN,
-                                MiddleEarthNpcTextureMaterials.EYE_NAVY
+                                MiddleEarthNpcTextureMaterials.Eye.BLACK,
+                                MiddleEarthNpcTextureMaterials.Eye.BLUE,
+                                MiddleEarthNpcTextureMaterials.Eye.BROWN,
+                                MiddleEarthNpcTextureMaterials.Eye.DARK_GREEN,
+                                MiddleEarthNpcTextureMaterials.Eye.GREEN,
+                                MiddleEarthNpcTextureMaterials.Eye.NAVY
                         ))
                         .withEmissiveEyes(false)
                         .withPatterns(NpcTextureType.HAIR, List.of(
@@ -133,21 +155,21 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTexturePatterns.Eyebrow.SHORT
                         ))
                         .withMaterials(NpcTextureType.HAIR, List.of(
-                                MiddleEarthNpcTextureMaterials.HAIR_BLACK,
-                                MiddleEarthNpcTextureMaterials.HAIR_BROWN,
-                                MiddleEarthNpcTextureMaterials.HAIR_DARK_BROWN,
-                                MiddleEarthNpcTextureMaterials.HAIR_STRAW,
-                                MiddleEarthNpcTextureMaterials.HAIR_ORANGE,
-                                MiddleEarthNpcTextureMaterials.HAIR_WHITE,
-                                MiddleEarthNpcTextureMaterials.HAIR_GRAY,
-                                MiddleEarthNpcTextureMaterials.HAIR_BLONDE
+                                MiddleEarthNpcTextureMaterials.Hair.BLACK_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.BROWN_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.DARK_BROWN_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.STRAW_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.ORANGE_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.WHITE_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.GRAY_BEADS,
+                                MiddleEarthNpcTextureMaterials.Hair.BLONDE_BEADS
                         ))
                         .withPatterns(NpcTextureType.CLOTHING, List.of(
                                 MiddleEarthNpcTexturePatterns.Clothing.FABRIC_SKIRT_WITH_STROPHIUM
                         ))
                         .withMaterials(NpcTextureType.CLOTHING, List.of(
-                                MiddleEarthNpcTextureMaterials.CLOTHING_WHITE,
-                                MiddleEarthNpcTextureMaterials.CLOTHING_BROWN
+                                MiddleEarthNpcTextureMaterials.Clothing.WHITE,
+                                MiddleEarthNpcTextureMaterials.Clothing.BROWN
                         ))
         ));
     }});
