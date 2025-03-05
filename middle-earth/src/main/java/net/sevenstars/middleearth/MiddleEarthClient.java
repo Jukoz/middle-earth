@@ -41,7 +41,6 @@ import net.sevenstars.middleearth.datageneration.VariantsModelProvider;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Crops;
 import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollRenderer;
@@ -91,7 +90,6 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     public static final EntityModelLayer HELD_BANNER_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "held_banner"), "main");
 
-    public static final EntityModelLayer NPC_BEARD_LAYER = ModEntityModelLayers.NPC_ENTITY_HAIR;
 
     @Override
     public void onInitializeClient() {

@@ -3,9 +3,11 @@
         {
             "type": "paletted_permutations",
             "textures": [
-                "me:npc_skin_textures/female",
-                "me:npc_skin_textures/muscular",
-                "me:npc_skin_textures/slim"
+                "me:npc_skin_textures/skin_female",
+                "me:npc_skin_textures/skin_muscular",
+                "me:npc_skin_textures/skin_slim",
+                "me:npc_skin_textures/ear_cube",
+                "me:npc_skin_textures/ear_pointy"
             ],
             "palette_key": "me:npc_skin_textures/color_palettes/base_palette",
             "permutations": {

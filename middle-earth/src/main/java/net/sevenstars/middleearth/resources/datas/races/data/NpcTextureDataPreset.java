@@ -16,6 +16,7 @@ public class NpcTextureDataPreset {
     public final static String EMPTY_VALUE_KEY = "NONE";
     private int weight;
     List<String> skinPatterns;
+    List<String> earPatterns;
     List<String> eyePatterns;
     List<String> hairPatterns;
     List<String> eyebrowPatterns;
@@ -33,6 +34,7 @@ public class NpcTextureDataPreset {
         this.weight = compound.contains("weight") ? compound.getInt("weight") : 1;
 
         skinPatterns = new ArrayList<>();
+        earPatterns = new ArrayList<>();
         skinMaterials = new ArrayList<>();
 
         eyePatterns = new ArrayList<>();
@@ -47,6 +49,7 @@ public class NpcTextureDataPreset {
         clothingMaterials = new ArrayList<>();
 
         fetchElements(compound, NpcTextureType.SKIN);
+        fetchElements(compound, NpcTextureType.EAR);
         fetchElements(compound, NpcTextureType.EYE);
         fetchElements(compound, NpcTextureType.HAIR);
         fetchElements(compound, NpcTextureType.EYEBROW);
@@ -66,6 +69,13 @@ public class NpcTextureDataPreset {
             compound.put("materials", createStringList(skinMaterials));
 
             nbt.put(NpcTextureType.SKIN.name(), compound);
+        }
+        if(isListFilled(earPatterns)){
+            NbtCompound compound = new NbtCompound();
+
+            compound.put("patterns", createStringList(earPatterns));
+
+            nbt.put(NpcTextureType.EAR.name(), compound);
         }
         if(isListFilled(eyePatterns) || isListFilled(eyeMaterials)){
             NbtCompound compound = new NbtCompound();
@@ -128,6 +138,7 @@ public class NpcTextureDataPreset {
                 List<String> fetchedValues = getStringListFromNbtList(value, "patterns");
                 switch (type){
                     case SKIN -> skinPatterns.addAll(fetchedValues);
+                    case EAR -> earPatterns.addAll(fetchedValues);
                     case EYE -> eyePatterns.addAll(fetchedValues);
                     case HAIR -> hairPatterns.addAll(fetchedValues);
                     case EYEBROW -> eyebrowPatterns.addAll(fetchedValues);
@@ -163,6 +174,7 @@ public class NpcTextureDataPreset {
         this.weight = 1;
         skinPatterns = new ArrayList<>();
         skinMaterials = new ArrayList<>();
+        earPatterns = new ArrayList<>();
 
         eyePatterns = new ArrayList<>();
         eyeMaterials = new ArrayList<>();
@@ -210,6 +222,7 @@ public class NpcTextureDataPreset {
     public void addToPattern(NpcTextureType npcTextureType, String value) {
         switch (npcTextureType){
             case SKIN -> skinPatterns.add(value);
+            case EAR -> earPatterns.add(value);
             case EYE -> eyePatterns.add(value);
             case HAIR -> hairPatterns.add(value);
             case EYEBROW -> eyebrowPatterns.add(value);
@@ -219,7 +232,7 @@ public class NpcTextureDataPreset {
     }
     public void addToMaterial(NpcTextureType npcTextureType, String value) {
         switch (npcTextureType){
-            case SKIN -> skinMaterials.add(value);
+            case SKIN, EAR -> skinMaterials.add(value);
             case EYE -> eyeMaterials.add(value);
             case HAIR, EYEBROW, BEARD -> hairMaterials.add(value);
             case CLOTHING -> clothingMaterials.add(value);
@@ -229,6 +242,7 @@ public class NpcTextureDataPreset {
     public List<String> getPatterns(NpcTextureType npcTextureType) {
         return switch (npcTextureType){
             case SKIN -> skinPatterns;
+            case EAR -> earPatterns;
             case EYE -> eyePatterns;
             case HAIR -> hairPatterns;
             case EYEBROW -> eyebrowPatterns;
@@ -238,7 +252,7 @@ public class NpcTextureDataPreset {
     }
     public List<String> getMaterials(NpcTextureType npcTextureType) {
         return switch (npcTextureType){
-            case SKIN -> skinMaterials;
+            case SKIN, EAR -> skinMaterials;
             case EYE -> eyeMaterials;
             case HAIR, EYEBROW, BEARD -> hairMaterials;
             case CLOTHING -> clothingMaterials;

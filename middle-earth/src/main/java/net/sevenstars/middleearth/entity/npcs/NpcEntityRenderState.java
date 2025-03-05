@@ -5,6 +5,7 @@ import net.minecraft.util.Identifier;
 
 public class NpcEntityRenderState extends BipedEntityRenderState {
     public Identifier skinTextureIdentifier;
+    public Identifier earTextureIdentifier;
     public Identifier eyeTextureIdentifier;
     public boolean haveEmissiveEyes;
     public Identifier hairTextureIdentifier;
@@ -20,6 +21,7 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
 
     public NpcEntityRenderState() {
         this.skinTextureIdentifier = null;
+        this.earTextureIdentifier = null;
         this.eyeTextureIdentifier = null;
         this.haveEmissiveEyes = false;
         this.hairTextureIdentifier = null;

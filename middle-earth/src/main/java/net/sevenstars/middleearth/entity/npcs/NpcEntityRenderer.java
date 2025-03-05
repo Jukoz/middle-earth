@@ -9,7 +9,9 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.feature.ElytraFeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
+import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
@@ -20,7 +22,8 @@ import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import net.sevenstars.middleearth.entity.npcs.features.hair.NpcEntityHairFeatureRenderer;
+import net.sevenstars.middleearth.entity.npcs.features.ears.EarFeatureRenderer;
+import net.sevenstars.middleearth.entity.npcs.features.hair.HairFeatureRenderer;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexture;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import org.jetbrains.annotations.Nullable;
@@ -36,7 +39,11 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     public NpcEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new NpcEntityModel(context.getPart(ModEntityModelLayers.NPC)), 0.7f);
 
-        this.addFeature(new NpcEntityHairFeatureRenderer(this, context.getEntityModels()));
+        this.features.removeIf(x -> x.getClass() == ElytraFeatureRenderer.class);
+        this.features.removeIf(x -> x.getClass() == HeadFeatureRenderer.class);
+
+        this.addFeature(new HairFeatureRenderer(this, context.getEntityModels()));
+        this.addFeature(new EarFeatureRenderer(this, context.getEntityModels()));
 
         MinecraftClient client = MinecraftClient.getInstance();
         skinAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
@@ -57,6 +64,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     public void updateRenderState(NpcEntity npcEntity, NpcEntityRenderState npcEntityRenderState, float f) {
         super.updateRenderState(npcEntity, npcEntityRenderState, f);
         npcEntityRenderState.skinTextureIdentifier = npcEntity.getSkinTextureIdentifier();
+        npcEntityRenderState.earTextureIdentifier = npcEntity.getEarTextureIdentifier();
         npcEntityRenderState.eyeTextureIdentifier = npcEntity.getEyeTextureIdentifier();
         npcEntityRenderState.haveEmissiveEyes = npcEntity.getEmissiveEyes();
         npcEntityRenderState.hairTextureIdentifier = npcEntity.getHairTextureIdentifier();

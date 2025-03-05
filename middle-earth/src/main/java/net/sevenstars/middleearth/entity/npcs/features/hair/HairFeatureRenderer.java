@@ -21,11 +21,11 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
 
 
 @Environment(EnvType.CLIENT)
-public class NpcEntityHairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
+public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
     private final EntityModel<NpcEntityRenderState> hairModel;
     private final SpriteAtlasTexture hairAtlasTexture;
 
-    public NpcEntityHairFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
+    public HairFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
         this.hairModel = new HairModel(loader.getModelPart(ModEntityModelLayers.NPC_ENTITY_HAIR));
         MinecraftClient client = MinecraftClient.getInstance();

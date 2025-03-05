@@ -6,6 +6,7 @@ import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
 
 public class HairModel extends EntityModel<NpcEntityRenderState> {
+    // https://i.pinimg.com/736x/9c/56/05/9c560508ceba0bc87b9d5beda7391adc.jpg
     public static final String BEARD = "beard";
     public static final String BEARD2 = "beard2";
     public static final String BEARD_TIP = "beard_tip";
@@ -23,7 +24,6 @@ public class HairModel extends EntityModel<NpcEntityRenderState> {
         this.hair = modelPart.getChild("hair");
         this.frontAddon = hair.getChild("hair_front_addon");
         this.backAddon = hair.getChild("hair_back_addon");
-
     }
 
 
@@ -49,7 +49,7 @@ public class HairModel extends EntityModel<NpcEntityRenderState> {
         frontAddon.addChild("hair_addon_front_hat", ModelPartBuilder.create().uv(20, 0).cuboid(-4.0f, 1f, -4f, 8, 12, 2, Dilation.NONE.add(0.5f)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
 
-        frontAddon.addChild("hair_addon_back_core", ModelPartBuilder.create().uv(0, 14).cuboid(-4.0f, 0f, 2.0f, 8, 12, 2, Dilation.NONE), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        backAddon.addChild("hair_addon_back_core", ModelPartBuilder.create().uv(0, 14).cuboid(-4.0f, 0f, 2.0f, 8, 12, 2, Dilation.NONE), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 64, 64);
     }

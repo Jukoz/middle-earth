@@ -18,6 +18,7 @@ import net.sevenstars.middleearth.entity.beasts.warg.features.*;
 import net.sevenstars.middleearth.entity.deer.DeerModel;
 import net.sevenstars.middleearth.entity.model.*;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
+import net.sevenstars.middleearth.entity.npcs.features.ears.EarModel;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
 import net.sevenstars.middleearth.entity.pheasant.PheasantModel;
 import net.sevenstars.middleearth.entity.snail.SnailEntityModel;
@@ -35,6 +36,7 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer NPC = registerEntityModelLayer("npc", NpcEntityModel.getTexturedModelData(Dilation.NONE));
 
     public static final EntityModelLayer NPC_ENTITY_HAIR = registerEntityModelLayer("npc_entity_hair",  HairModel.getTexturedModelData(Dilation.NONE));
+    public static final EntityModelLayer NPC_ENTITY_EAR = registerEntityModelLayer("npc_entity_ear",  EarModel.getTexturedModelData(Dilation.NONE));
     // endregion
     public static final EntityModelLayer DWARF = ModEntityModelLayers.registerEntityModelLayer("dwarf", DwarfModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer HUMAN = ModEntityModelLayers.registerEntityModelLayer("human", HumanModel.getTexturedModelData(Dilation.NONE));

@@ -23,9 +23,13 @@ public class MiddleEarthNpcTexturePatterns {
     }
 
     public record Skin(){
-        public final static RegistryKey<NpcTexturePattern> MUSCULAR = of("muscular", NpcTextureType.SKIN);
-        public final static RegistryKey<NpcTexturePattern> FEMALE = of("female",  NpcTextureType.SKIN);
-        public final static RegistryKey<NpcTexturePattern> SLIM = of("slim",  NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTexturePattern> MUSCULAR = of("skin_muscular", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTexturePattern> FEMALE = of("skin_female",  NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTexturePattern> SLIM = of("skin_slim",  NpcTextureType.SKIN);
+    }
+    public record Ear(){
+        public final static RegistryKey<NpcTexturePattern> CUBE = of("ear_cube", NpcTextureType.EAR);
+        public final static RegistryKey<NpcTexturePattern> POINTY = of("ear_pointy",  NpcTextureType.EAR);
     }
 
     public record Eye() {
@@ -70,6 +74,9 @@ public class MiddleEarthNpcTexturePatterns {
         register(registry, Skin.MUSCULAR, NpcTextureType.SKIN);
         register(registry, Skin.FEMALE, NpcTextureType.SKIN);
         register(registry, Skin.SLIM, NpcTextureType.SKIN);
+
+        register(registry, Ear.CUBE, NpcTextureType.EAR);
+        register(registry, Ear.POINTY, NpcTextureType.EAR);
     }
     public static void bootstrapEyes(Registerable<NpcTexturePattern> registry) {
         register(registry, Eye.SMALL, NpcTextureType.EYE);
@@ -134,7 +141,7 @@ public class MiddleEarthNpcTexturePatterns {
 
     public static RegistryKey<Registry<NpcTexturePattern>> getKey(NpcTextureType category){
         return switch (category) {
-            case NpcTextureType.SKIN -> Keys.SKIN_KEY;
+            case NpcTextureType.SKIN, NpcTextureType.EAR -> Keys.SKIN_KEY;
             case NpcTextureType.EYE -> Keys.EYE_KEY;
             case NpcTextureType.HAIR, NpcTextureType.EYEBROW, NpcTextureType.BEARD -> Keys.HAIR_KEY;
             case NpcTextureType.CLOTHING -> Keys.CLOTHING_KEY;
