@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.features.ears;
+package net.sevenstars.middleearth.entity.npcs.features.ear;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -43,6 +43,7 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
     }
 
     private void render(EntityModel<NpcEntityRenderState> model, VertexConsumer vertexConsumer, MatrixStack matrices, int light, Identifier baseIdentifier){
+        if(baseIdentifier == null) return;
         Identifier id = Identifier.of(baseIdentifier.getNamespace(), "npc_skin_textures/" + baseIdentifier.getPath());
         Sprite sprite = skinAtlasTexture.getSprite(id);
 

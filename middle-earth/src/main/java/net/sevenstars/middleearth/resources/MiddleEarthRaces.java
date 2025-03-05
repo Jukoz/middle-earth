@@ -50,6 +50,11 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTexturePatterns.Ear.CUBE,
                                 MiddleEarthNpcTexturePatterns.Ear.POINTY
                         ))
+                        .withPatterns(NpcTextureType.NOSE, Stream.of(
+                                    MiddleEarthNpcTexturePatterns.Nose.CUBE,
+                                    null)
+                                .toList()
+                        )
                         .withMaterials(NpcTextureType.SKIN, List.of(
                                 MiddleEarthNpcTextureMaterials.Skin.PALE,
                                 MiddleEarthNpcTextureMaterials.Skin.TAN,
@@ -137,6 +142,11 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTexturePatterns.Ear.CUBE,
                                 MiddleEarthNpcTexturePatterns.Ear.POINTY
                         ))
+                        .withPatterns(NpcTextureType.NOSE, Stream.of(
+                                        MiddleEarthNpcTexturePatterns.Nose.CUBE,
+                                        null)
+                                .toList()
+                        )
                         .withMaterials(NpcTextureType.SKIN, List.of(
                                 MiddleEarthNpcTextureMaterials.Skin.PALE,
                                 MiddleEarthNpcTextureMaterials.Skin.TAN,

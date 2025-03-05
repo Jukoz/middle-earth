@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.features.ears;
+package net.sevenstars.middleearth.entity.npcs.features.ear;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
@@ -57,8 +57,8 @@ public class EarModel  extends EntityModel<NpcEntityRenderState> {
         this.pointyEarLeft.pitch = 1.0472f;
         this.pointyEarRight.pitch = 1.0472f;
 
-        this.pointyEarLeft.roll = 0.383972f;
-        this.pointyEarRight.roll = -0.383972f;
+        this.pointyEarLeft.roll = 0.436332f;
+        this.pointyEarRight.roll = -0.436332f;
 
         if (bl) {
             this.cubeEarGroup.pitch = -0.7853982F;

@@ -6,6 +6,7 @@ import net.minecraft.util.Identifier;
 public class NpcEntityRenderState extends BipedEntityRenderState {
     public Identifier skinTextureIdentifier;
     public Identifier earTextureIdentifier;
+    public Identifier noseTextureIdentifier;
     public Identifier eyeTextureIdentifier;
     public boolean haveEmissiveEyes;
     public Identifier hairTextureIdentifier;
@@ -13,15 +14,12 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
     public Identifier eyebrowTextureIdentifier;
     public Identifier beardTextureIdentifier;
     public Identifier beardAddonTextureIdentifier;
-
     public Identifier clothingTextureIdentifier;
-
-
-    public Byte beardType;
 
     public NpcEntityRenderState() {
         this.skinTextureIdentifier = null;
         this.earTextureIdentifier = null;
+        this.noseTextureIdentifier = null;
         this.eyeTextureIdentifier = null;
         this.haveEmissiveEyes = false;
         this.hairTextureIdentifier = null;
@@ -30,8 +28,5 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
         this.beardAddonTextureIdentifier = null;
         this.eyebrowTextureIdentifier = null;
         this.clothingTextureIdentifier = null;
-
-        // TODO
-        this.beardType = 0;
     }
 }

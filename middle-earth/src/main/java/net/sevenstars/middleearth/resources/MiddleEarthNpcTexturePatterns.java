@@ -31,7 +31,9 @@ public class MiddleEarthNpcTexturePatterns {
         public final static RegistryKey<NpcTexturePattern> CUBE = of("ear_cube", NpcTextureType.EAR);
         public final static RegistryKey<NpcTexturePattern> POINTY = of("ear_pointy",  NpcTextureType.EAR);
     }
-
+    public record Nose(){
+        public final static RegistryKey<NpcTexturePattern> CUBE = of("nose_cube", NpcTextureType.NOSE);
+    }
     public record Eye() {
         public final static RegistryKey<NpcTexturePattern> COMMON = of("common", NpcTextureType.EYE);
         public final static RegistryKey<NpcTexturePattern> SMALL = of("small", NpcTextureType.EYE);
@@ -77,6 +79,8 @@ public class MiddleEarthNpcTexturePatterns {
 
         register(registry, Ear.CUBE, NpcTextureType.EAR);
         register(registry, Ear.POINTY, NpcTextureType.EAR);
+
+        register(registry, Nose.CUBE, NpcTextureType.NOSE);
     }
     public static void bootstrapEyes(Registerable<NpcTexturePattern> registry) {
         register(registry, Eye.SMALL, NpcTextureType.EYE);
@@ -141,7 +145,7 @@ public class MiddleEarthNpcTexturePatterns {
 
     public static RegistryKey<Registry<NpcTexturePattern>> getKey(NpcTextureType category){
         return switch (category) {
-            case NpcTextureType.SKIN, NpcTextureType.EAR -> Keys.SKIN_KEY;
+            case NpcTextureType.SKIN, NpcTextureType.EAR, NpcTextureType.NOSE -> Keys.SKIN_KEY;
             case NpcTextureType.EYE -> Keys.EYE_KEY;
             case NpcTextureType.HAIR, NpcTextureType.EYEBROW, NpcTextureType.BEARD -> Keys.HAIR_KEY;
             case NpcTextureType.CLOTHING -> Keys.CLOTHING_KEY;

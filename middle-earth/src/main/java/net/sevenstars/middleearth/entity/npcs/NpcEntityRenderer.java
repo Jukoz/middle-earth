@@ -22,8 +22,9 @@ import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import net.sevenstars.middleearth.entity.npcs.features.ears.EarFeatureRenderer;
+import net.sevenstars.middleearth.entity.npcs.features.ear.EarFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairFeatureRenderer;
+import net.sevenstars.middleearth.entity.npcs.features.nose.NoseFeatureRenderer;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexture;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import org.jetbrains.annotations.Nullable;
@@ -44,6 +45,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
         this.addFeature(new HairFeatureRenderer(this, context.getEntityModels()));
         this.addFeature(new EarFeatureRenderer(this, context.getEntityModels()));
+        this.addFeature(new NoseFeatureRenderer(this, context.getEntityModels()));
 
         MinecraftClient client = MinecraftClient.getInstance();
         skinAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
@@ -65,6 +67,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         super.updateRenderState(npcEntity, npcEntityRenderState, f);
         npcEntityRenderState.skinTextureIdentifier = npcEntity.getSkinTextureIdentifier();
         npcEntityRenderState.earTextureIdentifier = npcEntity.getEarTextureIdentifier();
+        npcEntityRenderState.noseTextureIdentifier = npcEntity.getNoseTextureIdentifier();
         npcEntityRenderState.eyeTextureIdentifier = npcEntity.getEyeTextureIdentifier();
         npcEntityRenderState.haveEmissiveEyes = npcEntity.getEmissiveEyes();
         npcEntityRenderState.hairTextureIdentifier = npcEntity.getHairTextureIdentifier();
