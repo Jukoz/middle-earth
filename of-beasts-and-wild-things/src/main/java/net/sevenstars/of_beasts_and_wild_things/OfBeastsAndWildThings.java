@@ -3,6 +3,8 @@ package net.sevenstars.of_beasts_and_wild_things;
 import net.fabricmc.api.ModInitializer;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
+import net.sevenstars.of_beasts_and_wild_things.item.ModEggItems;
+import net.sevenstars.of_beasts_and_wild_things.item.ModItemGroups;
 
 public class OfBeastsAndWildThings implements ModInitializer {
 	public static final String MOD_ID = "wild-things";
@@ -12,5 +14,8 @@ public class OfBeastsAndWildThings implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModEntities.registerModEntities();
+
+		ModItemGroups.register();
+		ModEggItems.registerModItems();
 	}
 }
