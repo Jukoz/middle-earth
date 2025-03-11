@@ -11,7 +11,6 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarModel;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseModel;
-import net.sevenstars.middleearth.entity.snail.SnailEntityModel;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderModel;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
@@ -40,9 +39,6 @@ public class ModEntityModels {
 
         builder.put(ModEntityModelLayers.REINFORCED_CHEST, ReinforcedChestEntityRenderer.getTexturedModelData());
         builder.put(ModEntityModelLayers.BELLOWS, BellowsBlockEntityRenderer.getTexturedModelData());
-
-        // Animals
-        builder.put(ModEntityModelLayers.SNAIL, SnailEntityModel.getTexturedModelData());
 
         ImmutableMap<EntityModelLayer, TexturedModelData> immutableMap = builder.build();
         return immutableMap;

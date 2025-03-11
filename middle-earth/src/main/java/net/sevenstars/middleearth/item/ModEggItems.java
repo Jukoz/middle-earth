@@ -4,6 +4,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleSpawnEggItemModel;
 import net.sevenstars.middleearth.entity.ModEntities;
+
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
@@ -12,6 +13,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 import java.util.function.Function;
+
 
 public class ModEggItems {
 
@@ -38,10 +40,6 @@ public class ModEggItems {
             (settings) -> new SpawnEggItem(ModEntities.DEER, settings), new Item.Settings());
     public static final Item SWAN_SPAWN_EGG = registerItem("swan_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.SWAN, settings), new Item.Settings());
-    public static final Item PHEASANT_SPAWN_EGG = registerItem("pheasant_spawn_egg",
-            (settings) -> new SpawnEggItem(ModEntities.PHEASANT, settings), new Item.Settings());
-    public static final Item SNAIL_SPAWN_EGG = registerItem("snail_spawn_egg",
-            (settings) -> new SpawnEggItem(ModEntities.SNAIL, settings), new Item.Settings());
 
     // Npcs
     public static final Item NPC_SPAWN_EGG = registerItem("npc_spawn_egg",
