@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
@@ -31,6 +32,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOfferList;
 import net.minecraft.village.TradedItem;
+import net.minecraft.village.VillagerData;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
@@ -48,8 +50,16 @@ public class SnailTrader extends MerchantEntity {
     private int climbingTicks = 0;
     int moreCropsTicks;
 
+    private static final int[] LEVEL_BASE_EXPERIENCE = new int[]{0, 10, 70, 150, 250};
+    private PlayerEntity lastCustomer;
+    protected int experience;
+    protected int level;
+    protected int levelUpTimer;
+    protected boolean levelingUp;
+
     public SnailTrader(EntityType<? extends MerchantEntity> entityType, World world) {
         super(entityType, world);
+        level = 1;
     }
 
     @Override
@@ -74,7 +84,6 @@ public class SnailTrader extends MerchantEntity {
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         return ModEntities.SNAIL_TRADER.create(world, SpawnReason.BREEDING);
     }
-
 
     static class SnailEatCropGoal
             extends MoveToTargetPosGoal {
@@ -187,22 +196,91 @@ public class SnailTrader extends MerchantEntity {
             return super.interactMob(player, hand);
         }
         this.setCustomer(player);
-        this.sendOffers(player, this.getDisplayName(), 1);
+        sendOffersToCustomer();
+        this.sendOffers(player, this.getDisplayName(), this.level);
         return ActionResult.SUCCESS;
     }
 
     @Override
     protected void afterUsing(TradeOffer offer) {
+        int i = 3 + this.random.nextInt(4);
+        this.experience += offer.getMerchantExperience();
+        this.lastCustomer = this.getCustomer();
+        if (canLevelUp(experience) && this.level <= 4) {
+            level++;
+            this.levelUpTimer = 40;
+            this.levelingUp = true;
+            fillRecipes();
+            i += 5;
+        }
+        sendOffersToCustomer();
 
+        if (offer.shouldRewardPlayerExperience()) {
+            this.getWorld().spawnEntity(new ExperienceOrbEntity(this.getWorld(), this.getX(), this.getY() + 0.5, this.getZ(), i));
+        }
+    }
+
+    @Override
+    public int getExperience() {
+        return experience;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    private void sendOffersToCustomer() {
+        TradeOfferList tradeOfferList = this.getOffers();
+        PlayerEntity playerEntity = this.getCustomer();
+        if (playerEntity != null && !tradeOfferList.isEmpty()) {
+            playerEntity.sendTradeOffers(
+                    playerEntity.currentScreenHandler.syncId,
+                    tradeOfferList,
+                    this.getLevel(),
+                    this.getExperience(),
+                    this.isLeveledMerchant(),
+                    this.canRefreshTrades()
+            );
+        }
+    }
+
+    protected boolean canLevelUp(int experience) {
+        int neededExp = LEVEL_BASE_EXPERIENCE[this.level];
+        if(experience >= neededExp) {
+            return true;
+        }
+        return false;
     }
 
     @Override
     protected void fillRecipes() {
         this.offers = new TradeOfferList();
         offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 1),
-                Items.SLIME_BALL.getDefaultStack().copyWithCount(2), 16, 5, 1.25f));
+                Items.WHEAT_SEEDS.getDefaultStack().copyWithCount(2), 16, 2, 1.25f));
         offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 2),
-                Items.WHEAT.getDefaultStack().copyWithCount(3), 16, 10, 1.15f));
+                Items.WHEAT.getDefaultStack().copyWithCount(3), 16, 5, 1.15f));
+
+        if(level >= 2) {
+            offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 4),
+                Items.POTATO.getDefaultStack().copyWithCount(2), 16, 10, 1.5f));
+        }
+        if(level >= 3) {
+            offers.add(new TradeOffer(new TradedItem(ModResourceItems.SILVER_COIN, 1),
+                    Items.MELON_SEEDS.getDefaultStack().copyWithCount(2), 16, 20, 2f));
+            offers.add(new TradeOffer(new TradedItem(ModResourceItems.SILVER_COIN, 1),
+                    ModResourceItems.BELL_PEPPER_SEEDS.getDefaultStack().copyWithCount(2), 16, 20, 2f));
+        }
+        if(level >= 4) {
+            offers.add(new TradeOffer(new TradedItem(ModResourceItems.SILVER_COIN, 1),
+                    ModResourceItems.SILVER_NUGGET.getDefaultStack().copyWithCount(4), 16, 25, 3f));
+
+            offers.add(new TradeOffer(new TradedItem(ModResourceItems.SILVER_COIN, 3),
+                    Items.SLIME_BALL.getDefaultStack().copyWithCount(2), 16, 40, 3f));
+        }
+        if(level >= 5) {
+            offers.add(new TradeOffer(new TradedItem(ModResourceItems.GOLD_COIN, 1),
+                    Items.BAMBOO.getDefaultStack().copyWithCount(5), 16, 50, 3f));
+        }
     }
 
     @Override
