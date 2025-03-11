@@ -40,6 +40,7 @@ import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntityRendere
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntityRenderer;
 import net.sevenstars.middleearth.entity.seat.SeatRenderer;
 import net.sevenstars.middleearth.entity.snail.SnailRenderer;
+import net.sevenstars.middleearth.entity.snail.SnailTraderRenderer;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderRenderer;
 import net.sevenstars.middleearth.entity.swan.SwanRenderer;
 import net.sevenstars.middleearth.event.KeyInputHandler;
@@ -130,6 +131,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
         EntityRendererRegistry.register(ModEntities.PHEASANT, PheasantRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNAIL, SnailRenderer::new);
+        EntityRendererRegistry.register(ModEntities.SNAIL_TRADER, SnailTraderRenderer::new);
         EntityRendererRegistry.register(ModEntities.DEER, DeerRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.SEAT_ENTITY, SeatRenderer::new);

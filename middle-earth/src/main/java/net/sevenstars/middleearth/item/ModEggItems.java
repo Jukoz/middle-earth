@@ -42,6 +42,8 @@ public class ModEggItems {
             (settings) -> new SpawnEggItem(ModEntities.PHEASANT, settings), new Item.Settings());
     public static final Item SNAIL_SPAWN_EGG = registerItem("snail_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.SNAIL, settings), new Item.Settings());
+    public static final Item SNAIL_TRADER_SPAWN_EGG = registerItem("snail_trader_spawn_egg",
+            (settings) -> new SpawnEggItem(ModEntities.SNAIL, settings), new Item.Settings());
 
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
