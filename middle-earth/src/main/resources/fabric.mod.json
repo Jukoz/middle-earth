@@ -27,9 +27,6 @@
     ],
     "client": [
       "net.sevenstars.middleearth.MiddleEarthClient"
-    ],
-    "emi": [
-      "net.sevenstars.middleearth.integration.emi.ModEmiPlugin"
     ]
   },
   "mixins": [
@@ -43,7 +40,8 @@
     "fabric-api": "*",
     "minecraft": "~1.21.4",
     "java": ">=21",
-    "sevenstars-api": "1.5.3-1.21.4-alpha"
+    "sevenstars-api": "1.5.3-1.21.4-alpha",
+    "wild-things": "1.5.3-1.21.4-alpha"
   },
   "recommends": {
     "modmenu": "*",

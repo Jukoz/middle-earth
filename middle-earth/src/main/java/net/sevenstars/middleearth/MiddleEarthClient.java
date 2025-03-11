@@ -35,11 +35,9 @@ import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.warg.WargRenderer;
 import net.sevenstars.middleearth.entity.deer.DeerRenderer;
 import net.sevenstars.middleearth.entity.model.ModEntityModels;
-import net.sevenstars.middleearth.entity.pheasant.PheasantRenderer;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntityRenderer;
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntityRenderer;
 import net.sevenstars.middleearth.entity.seat.SeatRenderer;
-import net.sevenstars.middleearth.entity.snail.SnailRenderer;
 import net.sevenstars.middleearth.entity.snail.SnailTraderRenderer;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderRenderer;
 import net.sevenstars.middleearth.entity.swan.SwanRenderer;
@@ -129,8 +127,6 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         // Animals
         EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
-        EntityRendererRegistry.register(ModEntities.PHEASANT, PheasantRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SNAIL, SnailRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNAIL_TRADER, SnailTraderRenderer::new);
         EntityRendererRegistry.register(ModEntities.DEER, DeerRenderer::new);
 

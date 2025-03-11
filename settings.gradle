@@ -8,6 +8,8 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-include 'middle-earth'
 include 'sevenstars-api'
+include 'of-beasts-and-wild-things'
+include 'middle-earth'
+
 

@@ -1,7 +1,5 @@
 package net.sevenstars.middleearth.entity.goals;
 
-import net.sevenstars.middleearth.entity.pheasant.PheasantEntity;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.NoPenaltyTargeting;
 import net.minecraft.entity.ai.goal.Goal;
@@ -9,6 +7,8 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
+import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;

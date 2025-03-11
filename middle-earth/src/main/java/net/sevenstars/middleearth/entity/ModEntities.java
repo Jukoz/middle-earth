@@ -27,14 +27,12 @@ import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
 import net.sevenstars.middleearth.entity.deer.DeerEntity;
-import net.sevenstars.middleearth.entity.pheasant.PheasantEntity;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
 import net.sevenstars.middleearth.entity.projectile.pebble.PebbleEntity;
 import net.sevenstars.middleearth.entity.projectile.pinecone.LitPineconeEntity;
 import net.sevenstars.middleearth.entity.projectile.pinecone.PineconeEntity;
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntity;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
-import net.sevenstars.middleearth.entity.snail.SnailEntity;
 import net.sevenstars.middleearth.entity.snail.SnailTrader;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
 import net.sevenstars.middleearth.entity.swan.SwanEntity;
@@ -73,9 +71,9 @@ public class ModEntities {
 
     ///* Animals *///
     public static final EntityType<SwanEntity> SWAN = register("swan", EntityType.Builder.create(SwanEntity::new, SpawnGroup.CREATURE).dimensions(0.6f, 0.9f));
-    public static final EntityType<PheasantEntity> PHEASANT = register("pheasant", EntityType.Builder.create(PheasantEntity::new, SpawnGroup.CREATURE).dimensions(0.6f, 0.8f));
-    public static final EntityType<SnailEntity> SNAIL = register("snail", EntityType.Builder.create(SnailEntity::new, SpawnGroup.CREATURE).dimensions(0.3f, 0.3f));
+
     public static final EntityType<SnailTrader> SNAIL_TRADER = register("snail_trader", EntityType.Builder.create(SnailTrader::new, SpawnGroup.CREATURE).dimensions(0.3f, 0.3f));
+
     public static final EntityType<DeerEntity> DEER = register("deer", EntityType.Builder.create(DeerEntity::new, SpawnGroup.CREATURE).dimensions(1.3f, 1.8f));
 
     // Seat
@@ -120,8 +118,6 @@ public class ModEntities {
 
         // Animals
         FabricDefaultAttributeRegistry.register(SWAN, SwanEntity.createSwanAttributes());
-        FabricDefaultAttributeRegistry.register(PHEASANT, PheasantEntity.createPheasantAttributes());
-        FabricDefaultAttributeRegistry.register(SNAIL, SnailEntity.createSnailAttributes());
         FabricDefaultAttributeRegistry.register(SNAIL_TRADER, SnailEntity.createSnailAttributes());
         FabricDefaultAttributeRegistry.register(DEER, DeerEntity.createDeerAttributes());
 

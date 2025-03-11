@@ -12,7 +12,7 @@ group = project.maven_group
 
 
 group = 'net.sevenstars.middleearth'
-version = '1.5.3-1.21.1-alpha'
+version = '1.5.3-1.21.4-alpha'
 
 repositories {
     mavenCentral()
@@ -39,6 +39,7 @@ dependencies {
     // Seven Stars API dependence
     // This works in dev env
     implementation project(path: ':sevenstars-api', configuration: 'dev')
+    implementation project(path: ':of-beasts-and-wild-things', configuration: 'dev')
 }
 
 
