@@ -8,7 +8,7 @@ import static java.lang.Math.PI;
 
 public class SnailEntityModel extends EntityModel<SnailEntityRenderState> {
 
-    protected SnailEntityModel(ModelPart root) {
+    public SnailEntityModel(ModelPart root) {
         super(root);
     }
 

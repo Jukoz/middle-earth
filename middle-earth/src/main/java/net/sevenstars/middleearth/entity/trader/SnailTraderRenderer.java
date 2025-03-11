@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.snail;
+package net.sevenstars.middleearth.entity.trader;
 
 import com.google.common.collect.Maps;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -6,7 +6,10 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
+import net.sevenstars.of_beasts_and_wild_things.entity.model.ModEntityModelLayers;
+import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityModel;
+import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityRenderState;
+import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityVariant;
 
 import java.util.Map;
 
@@ -18,15 +21,15 @@ public class SnailTraderRenderer extends MobEntityRenderer<SnailTrader, SnailEnt
         super(context, new SnailEntityModel(context.getPart(ModEntityModelLayers.SNAIL)), 0.2f);
     }
 
-    public static final Map<SnailVariant, String> LOCATION_BY_VARIANT =
-            Util.make(Maps.newEnumMap(SnailVariant.class), (map) -> {
-                map.put(SnailVariant.GREEN,
+    public static final Map<SnailEntityVariant, String> LOCATION_BY_VARIANT =
+            Util.make(Maps.newEnumMap(SnailEntityVariant.class), (map) -> {
+                map.put(SnailEntityVariant.GREEN,
                         PATH + "snail_green.png");
-                map.put(SnailVariant.PALE_GREEN,
+                map.put(SnailEntityVariant.PALE_GREEN,
                         PATH + "snail_pale_green.png");
-                map.put(SnailVariant.BROWN,
+                map.put(SnailEntityVariant.BROWN,
                         PATH + "snail_brown.png");
-                map.put(SnailVariant.GRAY,
+                map.put(SnailEntityVariant.GRAY,
                         PATH + "snail_gray.png");
 
             });

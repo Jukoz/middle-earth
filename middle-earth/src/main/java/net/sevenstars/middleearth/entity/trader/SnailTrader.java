@@ -1,6 +1,5 @@
-package net.sevenstars.middleearth.entity.snail;
+package net.sevenstars.middleearth.entity.trader;
 
-import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -18,14 +17,11 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -39,8 +35,10 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.*;
 import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityVariant;
+
 import org.jetbrains.annotations.Nullable;
 
 public class SnailTrader extends MerchantEntity {
@@ -68,8 +66,8 @@ public class SnailTrader extends MerchantEntity {
                 .add(EntityAttributes.ARMOR, 0.5f);
     }
 
-    public SnailVariant getVariant() {
-        return SnailVariant.byId(this.getId());
+    public SnailEntityVariant getVariant() {
+        return SnailEntityVariant.byId(this.getId());
     }
     @Nullable
     @Override

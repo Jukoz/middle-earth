@@ -1,23 +1,9 @@
 package net.sevenstars.middleearth.entity;
 
-import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.datafixer.TypeReferences;
 import net.minecraft.entity.*;
-import net.minecraft.entity.mob.WitchEntity;
-import net.minecraft.entity.passive.CamelEntity;
-import net.minecraft.loot.LootTable;
 import net.minecraft.registry.*;
-import net.minecraft.resource.featuretoggle.FeatureFlag;
-import net.minecraft.resource.featuretoggle.FeatureFlags;
-import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntity;
 import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightEntity;
@@ -33,11 +19,10 @@ import net.sevenstars.middleearth.entity.projectile.pinecone.LitPineconeEntity;
 import net.sevenstars.middleearth.entity.projectile.pinecone.PineconeEntity;
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntity;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
-import net.sevenstars.middleearth.entity.snail.SnailTrader;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
 import net.sevenstars.middleearth.entity.swan.SwanEntity;
-
-import java.util.Optional;
+import net.sevenstars.middleearth.entity.trader.SnailTrader;
+import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
 
 public class ModEntities {
 
