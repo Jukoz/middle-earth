@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.snail;
 
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -24,6 +25,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -198,23 +200,46 @@ public class SnailTrader extends MerchantEntity {
 
     @Override
     protected void fillRecipes() {
-
+        this.offers = new TradeOfferList();
+        offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 1),
+                Items.SLIME_BALL.getDefaultStack().copyWithCount(2), 16, 5, 1.25f));
+        offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 2),
+                Items.WHEAT.getDefaultStack().copyWithCount(3), 16, 10, 1.15f));
     }
 
     @Override
     public TradeOfferList getOffers() {
-        if(this.offers == null) {
-            createTrades();
-        }
         return super.getOffers();
     }
 
-    public void createTrades() {
-        this.offers = new TradeOfferList();
-        offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 1),
-                Items.SLIME_BALL.getDefaultStack().copyWithCount(2), 16, 0, 1.25f));
-        offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 2),
-                Items.WHEAT.getDefaultStack().copyWithCount(3), 16, 0, 1.15f));
+    @Override
+    public void trade(TradeOffer offer) {
+        offer.use();
+        this.ambientSoundChance = -this.getMinAmbientSoundDelay();
+        this.afterUsing(offer);
+        //if (this.customer instanceof ServerPlayerEntity) { // Advancement
+        //    Criteria.VILLAGER_TRADE.trigger((ServerPlayerEntity)this.customer, this, offer.getSellItem());
+        //}
+
+    }
+
+    //public void createTrades() {
+    //    this.offers = new TradeOfferList();
+    //    offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 1),
+    //            Items.SLIME_BALL.getDefaultStack().copyWithCount(2), 16, 0, 1.25f));
+    //    offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 2),
+    //            Items.WHEAT.getDefaultStack().copyWithCount(3), 16, 0, 1.15f));
+    //}
+
+
+    @Override
+    protected SoundEvent getTradingSound(boolean sold) {
+        return sold ? SoundEvents.ENTITY_SLIME_JUMP_SMALL : SoundEvents.ENTITY_SLIME_SQUISH_SMALL;
+    }
+
+    @Override
+    public void playCelebrateSound() {
+        this.playSound(SoundEvents.ENTITY_SLIME_JUMP);
     }
 
     @Override
