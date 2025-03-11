@@ -39,10 +39,10 @@ import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.deer.DeerEntity;
 import net.sevenstars.middleearth.entity.goals.*;
-import net.sevenstars.middleearth.entity.pheasant.PheasantEntity;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
+import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;

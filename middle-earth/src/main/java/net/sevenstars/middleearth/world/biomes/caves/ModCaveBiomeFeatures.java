@@ -36,7 +36,7 @@ public class ModCaveBiomeFeatures {
         spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 4, 1, 4));
     }
     public static void addSnails(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.SNAIL, 5, 1, 3));
+        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(net.sevenstars.of_beasts_and_wild_things.entity.ModEntities.SNAIL, 5, 1, 3));
     }
     public static void addWildGoblins(SpawnSettings.Builder spawnSettings) {
         //spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntities.WILD_GOBLIN, 5, 1, 2));
