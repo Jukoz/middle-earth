@@ -17,6 +17,8 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -29,6 +31,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOfferList;
 import net.minecraft.village.TradedItem;
@@ -195,9 +198,10 @@ public class SnailTrader extends MerchantEntity {
         if(this.getOffers().isEmpty()) {
             return super.interactMob(player, hand);
         }
-        this.setCustomer(player);
+
         sendOffersToCustomer();
-        this.sendOffers(player, this.getDisplayName(), this.level);
+        this.beginTradeWith(player);
+
         return ActionResult.SUCCESS;
     }
 
@@ -265,10 +269,10 @@ public class SnailTrader extends MerchantEntity {
                 Items.POTATO.getDefaultStack().copyWithCount(2), 16, 10, 1.5f));
         }
         if(level >= 3) {
+            offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 9),
+                    ModResourceItems.BELL_PEPPER_SEEDS.getDefaultStack().copyWithCount(2), 16, 20, 2f));
             offers.add(new TradeOffer(new TradedItem(ModResourceItems.SILVER_COIN, 1),
                     Items.MELON_SEEDS.getDefaultStack().copyWithCount(2), 16, 20, 2f));
-            offers.add(new TradeOffer(new TradedItem(ModResourceItems.SILVER_COIN, 1),
-                    ModResourceItems.BELL_PEPPER_SEEDS.getDefaultStack().copyWithCount(2), 16, 20, 2f));
         }
         if(level >= 4) {
             offers.add(new TradeOffer(new TradedItem(ModResourceItems.SILVER_COIN, 1),
@@ -280,6 +284,32 @@ public class SnailTrader extends MerchantEntity {
         if(level >= 5) {
             offers.add(new TradeOffer(new TradedItem(ModResourceItems.GOLD_COIN, 1),
                     Items.BAMBOO.getDefaultStack().copyWithCount(5), 16, 50, 3f));
+        }
+    }
+
+    private void beginTradeWith(PlayerEntity customer) {
+        this.prepareOffersFor(customer);
+        this.setCustomer(customer);
+        this.sendOffers(customer, this.getDisplayName(), this.level);
+    }
+
+    private void prepareOffersFor(PlayerEntity player) {
+        int i = 0; // this.getReputation(player);
+        if (i != 0) {
+            for (TradeOffer tradeOffer : this.getOffers()) {
+                tradeOffer.increaseSpecialPrice(-MathHelper.floor((float)i * tradeOffer.getPriceMultiplier()));
+            }
+        }
+
+        if (player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE)) {
+            StatusEffectInstance statusEffectInstance = player.getStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE);
+            int j = statusEffectInstance.getAmplifier();
+
+            for (TradeOffer tradeOffer2 : this.getOffers()) {
+                double d = 0.3 + 0.0625 * (double)j;
+                int k = (int)Math.floor(d * (double)tradeOffer2.getOriginalFirstBuyItem().getCount());
+                tradeOffer2.increaseSpecialPrice(-Math.max(k, 1));
+            }
         }
     }
 
