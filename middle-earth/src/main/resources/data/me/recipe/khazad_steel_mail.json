@@ -9,9 +9,7 @@
   "key": {
     "N": {
       "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:mail_ring"
-      },
+      "base": "me:mail_ring",
       "components": {
         "minecraft:trim": {
           "material": "me:khazad_steel",

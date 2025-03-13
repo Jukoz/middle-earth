@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "me:lettuce"
-    },
-    {
-      "item": "minecraft:hay_block"
-    },
-    {
-      "item": "minecraft:apple"
-    }
+    "me:lettuce",
+    "minecraft:hay_block",
+    "minecraft:apple"
   ],
   "result": {
     "id": "me:sack_of_horsefeed"

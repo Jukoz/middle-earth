@@ -4,9 +4,7 @@
     "#"
   ],
   "key": {
-    "#": {
-      "item": "me:reed_block"
-    }
+    "#": "me:reed_block"
   },
   "result": {
     "id": "me:reeds",

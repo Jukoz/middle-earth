@@ -5,9 +5,7 @@
     "FF"
   ],
   "key": {
-    "F": {
-      "item": "me:flax"
-    }
+    "F": "me:flax"
   },
   "result": {
     "id": "minecraft:string",
