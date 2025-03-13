@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "me:raw_tin_block"
-    }
+    "me:raw_tin_block"
   ],
   "result": {
     "id": "me:raw_tin",

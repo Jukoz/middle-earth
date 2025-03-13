@@ -6,12 +6,8 @@
     " S "
   ],
   "key": {
-    "M": {
-      "item": "me:burzum_steel_ingot"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "M": "me:burzum_steel_ingot",
+    "S": "minecraft:stick"
   },
   "result": {
     "id": "me:orcish_smithing_hammer",

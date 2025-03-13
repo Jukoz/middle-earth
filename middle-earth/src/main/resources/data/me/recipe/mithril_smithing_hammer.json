@@ -8,9 +8,7 @@
   "key": {
     "G": {
       "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:rod"
-      },
+      "base": "me:rod",
       "components": {
         "minecraft:trim": {
           "material": "me:steel",
@@ -18,9 +16,7 @@
         }
       }
     },
-    "M": {
-      "item": "me:mithril_ingot"
-    }
+    "M": "me:mithril_ingot"
   },
   "result": {
     "id": "me:mithril_smithing_hammer",

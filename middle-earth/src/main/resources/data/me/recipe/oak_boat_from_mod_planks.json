@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "boat",
   "key": {
-    "#": {
-      "tag": "me:mod_planks"
-    }
+    "#": "#me:mod_planks"
   },
   "pattern": [
     "# #",

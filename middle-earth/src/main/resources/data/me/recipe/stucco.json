@@ -1,18 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "me:limestone"
-    },
-    {
-      "item": "minecraft:water_bucket"
-    },
-    {
-      "tag": "minecraft:smelts_to_glass"
-    }
+    "me:limestone",
+    "minecraft:water_bucket",
+    "#minecraft:smelts_to_glass"
   ],
   "result": {
     "id": "me:stucco",
-    "count":  4
+    "count": 4
   }
 }

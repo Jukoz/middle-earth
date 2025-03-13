@@ -4,12 +4,8 @@
     "SLS"
   ],
   "key": {
-    "S": {
-      "item": "minecraft:stick"
-    },
-    "L": {
-      "tag": "minecraft:logs"
-    }
+    "S": "minecraft:stick",
+    "L": "#minecraft:logs"
   },
   "result": {
     "id": "me:wood_pile",

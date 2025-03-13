@@ -6,9 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "me:raw_silver"
-    }
+    "#": "me:raw_silver"
   },
   "result": {
     "id": "me:raw_silver_block"

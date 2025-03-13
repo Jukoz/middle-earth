@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "me:red_flower_growth"
-    }
+    "me:red_flower_growth"
   ],
   "result": {
     "id": "minecraft:red_dye"
