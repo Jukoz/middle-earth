@@ -1,11 +1,11 @@
 package net.sevenstars.middleearth.resources.datas.factions;
 
+import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.MiddleEarthFactions;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.HashMap;

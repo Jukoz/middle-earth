@@ -6,16 +6,17 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class NpcTextureData {
+public class RaceTextureData {
     HashMap<NpcTextureDataCategory, List<NpcTextureDataPreset>> presetsByCategory;
 
-    public NpcTextureData(NbtCompound compound) {
+    public RaceTextureData(NbtCompound compound) {
         if(compound == null) return;
         presetsByCategory = new HashMap<>();
 
@@ -31,8 +32,17 @@ public class NpcTextureData {
             }
         }
     }
-    public NpcTextureData(HashMap<NpcTextureDataCategory, List<NpcTextureDataPreset>> sourceDatas) {
+
+    public RaceTextureData(HashMap<NpcTextureDataCategory, List<NpcTextureDataPreset>> sourceDatas) {
         presetsByCategory = sourceDatas;
+    }
+
+    public static Identifier buildId(Identifier pattern, Identifier material) {
+        return IdentifierUtil.create(pattern.getPath() + "_" + material.getPath());
+    }
+
+    public static Identifier buildAddonId(Identifier pattern, Identifier material) {
+        return IdentifierUtil.create(pattern.getPath() + "_addon_" + material.getPath());
     }
 
 
@@ -51,7 +61,7 @@ public class NpcTextureData {
         return newNbt;
     }
 
-    public Identifier getRawMaterial(Identity identity, NpcTextureType npcTextureType) {
+    public static Identifier getRawMaterial(Identity identity, NpcTextureType npcTextureType) {
         List<String> materials = identity.preset.getMaterials(npcTextureType);
         if(materials == null)
             return null;
@@ -60,7 +70,7 @@ public class NpcTextureData {
         return Identifier.of(MiddleEarth.MOD_ID, materials.get(materialIndex));
     }
 
-    public Identifier getRawPattern(Identity identity, NpcTextureType npcTextureType) {
+    public static Identifier getRawPattern(Identity identity, NpcTextureType npcTextureType) {
         List<String> patterns = identity.preset.getPatterns(npcTextureType);
         if(patterns.isEmpty())
             return null;
@@ -71,7 +81,7 @@ public class NpcTextureData {
         return Identifier.of(MiddleEarth.MOD_ID, value);
     }
 
-    public Identifier getTextureWithMaterial(Identity identity, NpcTextureType npcTextureType) {
+    public static Identifier getTextureWithMaterial(Identity identity, NpcTextureType npcTextureType) {
         List<String> patterns = identity.preset.getPatterns(npcTextureType);
         List<String> materials = identity.preset.getMaterials(npcTextureType);
         if(patterns.isEmpty() || materials == null)
@@ -80,7 +90,7 @@ public class NpcTextureData {
         Random random = new Random();
         int patternIndex = random.nextInt(patterns.size());
         int materialIndex = random.nextInt(materials.size());
-        return Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex) + "_" + materials.get(materialIndex));
+        return  Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex) + "_" + materials.get(materialIndex));
     }
 
     public Identifier getTextureWithMaterial(Identity identity, NpcTextureType npcTextureType, Identifier material) {
@@ -96,7 +106,7 @@ public class NpcTextureData {
     }
 
     public record Identity(NpcTextureDataCategory category, NpcTextureDataPreset preset){
-        public static Identity create(NpcTextureData data, NpcTextureDataCategory npcTextureDataCategory){
+        public static Identity create(RaceTextureData data, NpcTextureDataCategory npcTextureDataCategory){
             if(!data.presetsByCategory.containsKey(npcTextureDataCategory))
                 return null;
 

@@ -6,6 +6,7 @@ import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.event.ModEvents;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
@@ -49,8 +50,6 @@ public class MiddleEarth implements ModInitializer {
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();
 
-		MiddleEarthNpcTextureMaterials.register();
-		MiddleEarthNpcTexturePatterns.register();
 
 		ModDataComponentTypes.registerModComponentTypes();
 
@@ -90,6 +89,11 @@ public class MiddleEarth implements ModInitializer {
 		ModScreenHandlers.registerAllScreenHandlers();
 		ModRecipes.registerRecipes();
 		ModRecipeSerializer.registerRecipeSerializers();
+
+		ModTrackedDataHandlerRegistry.register();
+
+		MiddleEarthNpcTextureMaterials.register();
+		MiddleEarthNpcTexturePatterns.register();
 
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();

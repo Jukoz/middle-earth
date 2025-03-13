@@ -16,7 +16,7 @@ import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
-import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.races.data.RaceTextureData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class Race {
     private final AttributeData attributeData;
     private List<String> joinCommands;
     private List<String> leaveCommands;
-    private final NpcTextureData npcTextureData;
+    private final RaceTextureData raceTextureData;
 
 
     public Race(String id, String raceTypeValue, NbtCompound attributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, NbtCompound npcTextureData){
@@ -59,17 +59,17 @@ public class Race {
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
 
         // Skin Textures
-        this.npcTextureData = new NpcTextureData(npcTextureData);
+        this.raceTextureData = new RaceTextureData(npcTextureData);
     }
 
-    public Race(Identifier id, RaceType raceType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands, NpcTextureData npcTextureData) {
+    public Race(Identifier id, RaceType raceType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands, RaceTextureData raceTextureData) {
         this.id = id;
         this.raceType = raceType;
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
         this.attributeData = attributeData;
         this.joinCommands = joinCommands;
         this.leaveCommands = leaveCommands;
-        this.npcTextureData = npcTextureData;
+        this.raceTextureData = raceTextureData;
     }
 
     public Identifier getId() {
@@ -87,10 +87,10 @@ public class Race {
         return attributeData.getNbt();
     }
     private NbtCompound getNpcTextureData() {
-        return npcTextureData.getNbt();
+        return raceTextureData.getNbt();
     }
-    public NpcTextureData getNpcTextureDataValue() {
-        return npcTextureData;
+    public RaceTextureData getRaceTextureData() {
+        return raceTextureData;
     }
 
     public Optional<List<String>> getJoinCommands() {

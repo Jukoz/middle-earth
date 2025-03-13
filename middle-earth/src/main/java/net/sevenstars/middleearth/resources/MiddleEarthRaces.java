@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
-import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.races.data.RaceTextureData;
 import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
@@ -39,7 +39,7 @@ public class MiddleEarthRaces {
     public final static Race ORC;
     public final static Race URUK;
 
-    private static NpcTextureData commonNpcTextureData = new NpcTextureData(new HashMap<>(){{
+    private static RaceTextureData commonRaceTextureData = new RaceTextureData(new HashMap<>(){{
         put(NpcTextureDataCategory.MALE, List.of(
                 new NpcTextureDataPreset()
                         .withPatterns(NpcTextureType.SKIN, List.of(
@@ -227,7 +227,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75);
                     put(EntityAttributes.MOVEMENT_SPEED, 0.09);
                     put(EntityAttributes.MINING_EFFICIENCY, 0.15);
-                }}), List.of(), List.of(), commonNpcTextureData);
+                }}), List.of(), List.of(), commonRaceTextureData);
         ELF = new Race(Identifier.of(MiddleEarth.MOD_ID, "elf"), RaceType.ELF,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 1.06);
@@ -236,7 +236,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.25);
                     put(EntityAttributes.MOVEMENT_SPEED, 0.1);
                     put(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75);
-                }}), List.of(), List.of(), commonNpcTextureData);
+                }}), List.of(), List.of(), commonRaceTextureData);
         HOBBIT = new Race(Identifier.of(MiddleEarth.MOD_ID, "hobbit"), RaceType.HOBBIT,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 0.6);
@@ -246,11 +246,11 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.MOVEMENT_SPEED, 0.115);
                     put(EntityAttributes.SNEAKING_SPEED, 0.435);
                     put(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90);
-                }}), List.of(), List.of(), commonNpcTextureData);
+                }}), List.of(), List.of(), commonRaceTextureData);
         HUMAN = new Race(Identifier.of(MiddleEarth.MOD_ID, "human"), RaceType.HUMAN,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 1.0); // Basic
-                }}), List.of(), List.of(), commonNpcTextureData);
+                }}), List.of(), List.of(), commonRaceTextureData);
         ORC = new Race(Identifier.of(MiddleEarth.MOD_ID, "orc"), RaceType.ORC,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 0.83);
@@ -259,7 +259,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75);
                     put(EntityAttributes.MOVEMENT_SPEED, 0.11);
                     put(EntityAttributes.STEP_HEIGHT, 1.0);
-                }}), List.of(), List.of(), commonNpcTextureData);
+                }}), List.of(), List.of(), commonRaceTextureData);
         URUK = new Race(Identifier.of(MiddleEarth.MOD_ID, "uruk"), RaceType.URUK,
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.SCALE, 1.0);
@@ -268,7 +268,7 @@ public class MiddleEarthRaces {
                     put(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.0);
                     put(EntityAttributes.MOVEMENT_SPEED, 0.09);
                     put(EntityAttributes.BURNING_TIME, 0.70);
-                }}), List.of(), List.of(), commonNpcTextureData);
+                }}), List.of(), List.of(), commonRaceTextureData);
     }
 }
 

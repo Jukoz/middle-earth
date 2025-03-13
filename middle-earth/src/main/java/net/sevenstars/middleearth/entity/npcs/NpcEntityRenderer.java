@@ -65,17 +65,20 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     @Override
     public void updateRenderState(NpcEntity npcEntity, NpcEntityRenderState npcEntityRenderState, float f) {
         super.updateRenderState(npcEntity, npcEntityRenderState, f);
-        npcEntityRenderState.skinTextureIdentifier = npcEntity.getSkinTextureIdentifier();
-        npcEntityRenderState.earTextureIdentifier = npcEntity.getEarTextureIdentifier();
-        npcEntityRenderState.noseTextureIdentifier = npcEntity.getNoseTextureIdentifier();
-        npcEntityRenderState.eyeTextureIdentifier = npcEntity.getEyeTextureIdentifier();
-        npcEntityRenderState.haveEmissiveEyes = npcEntity.getEmissiveEyes();
-        npcEntityRenderState.hairTextureIdentifier = npcEntity.getHairTextureIdentifier();
-        npcEntityRenderState.hairAddonTextureIdentifier = npcEntity.getHairAddonTextureIdentifier();
-        npcEntityRenderState.beardTextureIdentifier = npcEntity.getBeardTextureIdentifier();
-        npcEntityRenderState.beardAddonTextureIdentifier = npcEntity.getBeardAddonTextureIdentifier();
-        npcEntityRenderState.eyebrowTextureIdentifier = npcEntity.getEyebrowTextureIdentifier();
-        npcEntityRenderState.clothingTextureIdentifier = npcEntity.getClothingTextureIdentifier();
+
+        var npcTextureData = npcEntity.getNpcTextureData();
+
+        npcEntityRenderState.skinTextureIdentifier = npcTextureData.getSkinTexture();
+        npcEntityRenderState.earTextureIdentifier = npcTextureData.getEarTexture();
+        npcEntityRenderState.noseTextureIdentifier = npcTextureData.getNoseTexture();
+        npcEntityRenderState.eyeTextureIdentifier = npcTextureData.getEyeTexture();
+        npcEntityRenderState.haveEmissiveEyes = npcTextureData.isEyeEmissive();
+        npcEntityRenderState.hairTextureIdentifier = npcTextureData.getHairTexture();
+        npcEntityRenderState.hairAddonTextureIdentifier = npcTextureData.getHairAddonTexture();
+        npcEntityRenderState.beardTextureIdentifier = npcTextureData.getBeardTexture();
+        npcEntityRenderState.beardAddonTextureIdentifier = npcTextureData.getBeardAddonTexture();
+        npcEntityRenderState.eyebrowTextureIdentifier = npcTextureData.getEyebrowTexture();
+        npcEntityRenderState.clothingTextureIdentifier = npcTextureData.getClothingTexture();
     }
 
     // endregion
@@ -150,6 +153,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             Identifier id;
             VertexConsumer vertexConsumer = null;
             Sprite sprite = null;
+
 
             switch (currentRenderStep) {
                 case 0:

@@ -1,169 +1,152 @@
 package net.sevenstars.middleearth.entity.npcs;
 
+import com.mojang.serialization.DataResult;
+import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.npcs.data.NpcData;
+import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.MiddleEarthFactions;
 import net.sevenstars.middleearth.resources.MiddleEarthNpcTexturePatterns;
 import net.sevenstars.middleearth.resources.MiddleEarthRaces;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureData;
 import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataCategory;
+import net.sevenstars.middleearth.resources.datas.races.data.RaceTextureData;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
 
 public class NpcEntity extends PassiveEntity {
-    private static final TrackedData<Byte> BEARD_TYPE; // 0 = none
-    //private static final TrackedData<String> RACE;
-    private static final TrackedData<String> SKIN_TEXTURE;
-    private static final TrackedData<String> EAR_TEXTURE;
-    private static final TrackedData<String> NOSE_TEXTURE;
-    private static final TrackedData<String> EYE_TEXTURE;
-    private static final TrackedData<String> EYEBROW_TEXTURE;
-    private static final TrackedData<String> HAIR_TEXTURE;
-    private static final TrackedData<String> HAIR_ADDON;
-    private static final TrackedData<String> BEARD_TEXTURE;
-    private static final TrackedData<String> BEARD_ADDON;
-    private static final TrackedData<String> CLOTHING_TEXTURE;
-    private static final TrackedData<Boolean> EMISSIVE_EYES;
-
-    private Race race;
+    // Data to use
+    private static final TrackedData<NpcData> DATA;
+    private static final TrackedData<NpcTextureData> TEXTURE_DATA;
 
     public NpcEntity(EntityType<? extends PassiveEntity> entityType, World world) {
         super(entityType, world);
+    }
 
 
-        if(world.isClient)
-            return;
-
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         DynamicRegistryManager manager = world.getRegistryManager();
 
-        this.race = manager.getOrThrow(MiddleEarthRaces.KEY).get(MiddleEarthRaces.DWARF.getId());
+        var generatedData = generateNpcData(manager);
+        setNpcData(generatedData);
+
+        var race = generatedData.getRaceValue(world);
+        RaceTextureData.Identity textureIdentity = RaceTextureData.Identity.create(race.getRaceTextureData(), generatedData.category);
+
+        NpcTextureData generatedTextureData = generateSkinTextureData(new NpcTextureData(), textureIdentity);
+        generatedTextureData = generateEyeTextureData(generatedTextureData, textureIdentity, race.getRaceTextureData().haveEmissiveEyes(textureIdentity));
+        generatedTextureData = generateHairTextureData(generatedTextureData, textureIdentity, manager);
+        generatedTextureData = generateClothingTextureData(generatedTextureData, textureIdentity);
+
+        setNpcTextureData(generatedTextureData);
+
+        return super.initialize(world, difficulty, spawnReason, entityData);
+    }
+
+    private NpcData generateNpcData(DynamicRegistryManager manager) {
+        Faction chosenFaction = manager.getOrThrow(MiddleEarthFactions.KEY).get(MiddleEarthFactions.LONGBEARDS_EREBOR.getId());
+        if(chosenFaction == null)
+            return null;
+
+        Race chosenRace = manager.getOrThrow(MiddleEarthRaces.KEY).get(chosenFaction.getRaces(getWorld()).getFirst().getId());
+        if(chosenRace == null)
+            return null;
 
         NpcTextureDataCategory category = (new Random()).nextBoolean() ? NpcTextureDataCategory.MALE : NpcTextureDataCategory.FEMALE;
 
-
-
-        NpcTextureData npcTextureData = this.race.getNpcTextureDataValue();
-        NpcTextureData.Identity npcTextureDataIdentity = NpcTextureData.Identity.create(npcTextureData, category);
-
-        if(npcTextureDataIdentity == null){
-            // TODO : crash?
-            return;
-        }
-
-        if(getSkinTextureIdentifier() == null){
-            Identifier materialId = npcTextureData.getRawMaterial(npcTextureDataIdentity, NpcTextureType.SKIN);
-            Identifier skinPatternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.SKIN);
-            Identifier earPatternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.EAR);
-            Identifier nosePatternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.NOSE);
-
-            String skinBuiltId = skinPatternId.toString() + "_" + materialId.getPath();
-            this.dataTracker.set(SKIN_TEXTURE, skinBuiltId);
-            if(earPatternId != null){
-                String earBuiltId = earPatternId .toString()+ "_" + materialId.getPath();
-                this.dataTracker.set(EAR_TEXTURE, earBuiltId);
-            }
-            if(nosePatternId != null){
-                String noseBuiltId = nosePatternId.toString()+ "_" + materialId.getPath();
-                this.dataTracker.set(NOSE_TEXTURE, noseBuiltId);
-            }
-        }
-        if(getEyeTextureIdentifier() == null){
-            Identifier id = npcTextureData.getTextureWithMaterial(npcTextureDataIdentity, NpcTextureType.EYE);
-            this.dataTracker.set(EYE_TEXTURE, id.toString());
-            this.dataTracker.set(EMISSIVE_EYES, npcTextureData.haveEmissiveEyes(npcTextureDataIdentity));
-        }
-        if(getHairTextureIdentifier() == null || getEyebrowTextureIdentifier() == null){
-            this.dataTracker.set(HAIR_TEXTURE, "");
-            this.dataTracker.set(HAIR_ADDON, "");
-            this.dataTracker.set(EYEBROW_TEXTURE, "");
-            this.dataTracker.set(BEARD_TEXTURE, "");
-            this.dataTracker.set(BEARD_ADDON, "");
-
-            // Resets hair
-            Identifier globalHairMaterialId = npcTextureData.getRawMaterial(npcTextureDataIdentity, NpcTextureType.HAIR);
-
-            Identifier hairPatternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.HAIR);
-            Identifier eyebrowPatternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.EYEBROW);
-            Identifier beardPatternId = npcTextureData.getRawPattern(npcTextureDataIdentity, NpcTextureType.BEARD);
-
-
-            if(globalHairMaterialId == null || eyebrowPatternId == null){
-                // TODO : Exception management
-                return;
-            }
-
-            // Hair
-            if(hairPatternId != null){
-                Optional<RegistryEntry.Reference<NpcTexturePattern>> foundHairPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.HAIR, hairPatternId);
-                if(foundHairPattern.isPresent() && foundHairPattern.get().value() instanceof NpcTexturePattern pattern){
-                    Identifier hairTexturePattern = IdentifierUtil.create(hairPatternId.getPath() + "_" + globalHairMaterialId.getPath());
-
-                    this.dataTracker.set(HAIR_TEXTURE, hairTexturePattern.toString());
-                    if(pattern.hasAddonRawValue()){
-                        Identifier addonId = IdentifierUtil.create(hairPatternId.getPath()  + "_addon_" + globalHairMaterialId.getPath());
-                        this.dataTracker.set(HAIR_ADDON, addonId.toString());
-                    } else {
-                        this.dataTracker.set(HAIR_ADDON, "");
-                    }
-                } else {
-                    this.dataTracker.set(HAIR_TEXTURE, "");
-                    this.dataTracker.set(HAIR_ADDON, "");
-                }
-            }
-            // Eyebrow
-            Optional<RegistryEntry.Reference<NpcTexturePattern>> foundEyebrowPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.EYEBROW, eyebrowPatternId);
-            if(foundEyebrowPattern.isPresent()){
-                Identifier eyebrowTexturePattern = IdentifierUtil.create(eyebrowPatternId.getPath() + "_" + globalHairMaterialId.getPath());
-                this.dataTracker.set(EYEBROW_TEXTURE, eyebrowTexturePattern.toString());
-            } else {
-                this.dataTracker.set(EYEBROW_TEXTURE, "");
-            }
-            // Beard
-            if(beardPatternId != null){
-
-                Optional<RegistryEntry.Reference<NpcTexturePattern>> foundBeardPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.BEARD, beardPatternId);
-                if(foundBeardPattern.isPresent() && foundBeardPattern.get().value() instanceof NpcTexturePattern pattern){
-                    Identifier beardTexturePattern = IdentifierUtil.create(beardPatternId.getPath() + "_" + globalHairMaterialId.getPath());
-
-                    this.dataTracker.set(BEARD_TEXTURE, beardTexturePattern.toString());
-                    if(pattern.hasAddonRawValue()){
-                        Identifier addonId = IdentifierUtil.create(beardPatternId.getPath()  + "_addon_" + globalHairMaterialId.getPath());
-                        this.dataTracker.set(BEARD_ADDON, addonId.toString());
-                    } else {
-                        this.dataTracker.set(BEARD_ADDON, "");
-                    }
-                } else {
-                    this.dataTracker.set(BEARD_TEXTURE, "");
-                    this.dataTracker.set(BEARD_ADDON, "");
-                }
-            }
-        }
-        if(getClothingTextureIdentifier() == null){
-            Identifier id = npcTextureData.getTextureWithMaterial(npcTextureDataIdentity, NpcTextureType.CLOTHING);
-            this.dataTracker.set(CLOTHING_TEXTURE, id.toString());
-        }
+        return new NpcData(chosenFaction.getId(), chosenRace.getId(), category);
     }
+
+    private NpcTextureData generateSkinTextureData(NpcTextureData npcTextureData, RaceTextureData.Identity textureIdentity) {
+        Identifier materialId = RaceTextureData.getRawMaterial(textureIdentity, NpcTextureType.SKIN);
+
+        Identifier skinPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.SKIN);
+        Identifier earPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.EAR);
+        Identifier nosePatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.NOSE);
+
+        npcTextureData = npcTextureData.withSkinTexture(RaceTextureData.buildId(skinPatternId, materialId));
+
+        if(earPatternId != null){
+            npcTextureData = npcTextureData.withEarTexture(RaceTextureData.buildId(earPatternId, materialId));
+        }
+        if(nosePatternId != null){
+            npcTextureData = npcTextureData.withNoseTexture(RaceTextureData.buildId(nosePatternId, materialId));
+        }
+
+        return npcTextureData;
+    }
+
+    private NpcTextureData generateEyeTextureData(NpcTextureData npcTextureData, RaceTextureData.Identity textureIdentity, boolean haveEmissiveEyes) {
+        Identifier materialId = RaceTextureData.getRawMaterial(textureIdentity, NpcTextureType.EYE);
+        Identifier patternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.EYE);
+
+        npcTextureData = npcTextureData.withEyeTexture(RaceTextureData.buildId(patternId, materialId), haveEmissiveEyes);
+
+        return npcTextureData;
+    }
+
+    private NpcTextureData generateHairTextureData(NpcTextureData npcTextureData, RaceTextureData.Identity textureIdentity, DynamicRegistryManager manager) {
+        Identifier globalHairMaterialId = RaceTextureData.getRawMaterial(textureIdentity, NpcTextureType.HAIR);
+
+        // Hair
+        Identifier hairPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.HAIR);
+        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundHairPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.HAIR, hairPatternId);
+        if(foundHairPattern.isPresent() && foundHairPattern.get().value() instanceof NpcTexturePattern pattern){
+            npcTextureData = npcTextureData.withHairTexture(RaceTextureData.buildId(hairPatternId, globalHairMaterialId));
+            if(pattern.hasAddonRawValue()){
+                npcTextureData = npcTextureData.withHairAddonTexture(RaceTextureData.buildAddonId(hairPatternId, globalHairMaterialId));
+            }
+        }
+        // Eyebrow
+        Identifier eyebrowPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.EYEBROW);
+        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundEyebrowPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.EYEBROW, eyebrowPatternId);
+        if(foundEyebrowPattern.isPresent()){
+            npcTextureData = npcTextureData.withEyebrowTexture(RaceTextureData.buildId(eyebrowPatternId, globalHairMaterialId));
+        }
+        // Beard
+        Identifier beardPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.BEARD);
+        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundBeardPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.BEARD, beardPatternId);
+        if(foundBeardPattern.isPresent() && foundBeardPattern.get().value() instanceof NpcTexturePattern pattern){
+            npcTextureData = npcTextureData.withBeardTexture(RaceTextureData.buildId(beardPatternId, globalHairMaterialId));
+            if(pattern.hasAddonRawValue()){
+                npcTextureData = npcTextureData.withBeardAddonTexture(RaceTextureData.buildAddonId(beardPatternId, globalHairMaterialId));
+            }
+        }
+        return npcTextureData;
+    }
+    private NpcTextureData generateClothingTextureData(NpcTextureData npcTextureData, RaceTextureData.Identity textureIdentity) {
+        npcTextureData = npcTextureData.withClothingTexture(RaceTextureData.getTextureWithMaterial(textureIdentity, NpcTextureType.CLOTHING));
+
+        return npcTextureData;
+    }
+
 
     @Override
     protected void initGoals() {
@@ -175,161 +158,62 @@ public class NpcEntity extends PassiveEntity {
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
-        builder.add(BEARD_TYPE, (byte)0);
-       // builder.add(RACE, (race != null) ? race.getId().toString() : "");
-        builder.add(SKIN_TEXTURE, "");
-        builder.add(EAR_TEXTURE, "");
-        builder.add(NOSE_TEXTURE, "");
-        builder.add(EYE_TEXTURE, "");
-        builder.add(EYEBROW_TEXTURE, "");
-        builder.add(HAIR_TEXTURE, "");
-        builder.add(HAIR_ADDON, "");
-        builder.add(BEARD_TEXTURE, "");
-        builder.add(BEARD_ADDON, "");
-        builder.add(CLOTHING_TEXTURE, "");
-        builder.add(EMISSIVE_EYES, false);
+
+        builder.add(DATA, new NpcData());
+        builder.add(TEXTURE_DATA, new NpcTextureData());
     }
 
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
-        nbt.putByte("BeardType", this.getBeardType());
-        nbt.putString("SkinTexture",  this.getSkinTextureValue());
-        nbt.putString("EarTexture",  this.getEarTextureValue());
-        nbt.putString("NoseTexture",  this.getNoseTextureValue());
-        nbt.putString("EyeTexture",  this.getEyeTextureValue());
-        nbt.putString("EyebrowTexture",  this.getEyebrowTextureValue());
-        nbt.putString("HairTexture",  this.getHairTextureValue());
-        nbt.putString("HairAddon",  this.getHairAddon());
-        nbt.putString("BeardTexture",  this.getBeardTextureValue());
-        nbt.putString("BeardAddon",  this.getBeardAddon());
-        nbt.putString("ClothingTexture",  this.getClothingTextureValue());
-        nbt.putBoolean("EmissiveEyes",  this.getEmissiveEyes());
+
+        DataResult<NbtElement> npcData = NpcData.CODEC.encodeStart(NbtOps.INSTANCE, this.getNpcData());
+        if(npcData.isSuccess()){
+            nbt.put("NpcData", npcData.getOrThrow());
+        }
+
+        DataResult<NbtElement> npcTextureData = NpcTextureData.CODEC.encodeStart(NbtOps.INSTANCE, this.getNpcTextureData());
+        if(npcTextureData.isSuccess()){
+            nbt.put("NpcTextureData", npcTextureData.getOrThrow());
+        }
     }
 
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(BEARD_TYPE, nbt.getByte("BeardType"));
-        this.dataTracker.set(SKIN_TEXTURE, nbt.getString("SkinTexture"));
-        this.dataTracker.set(EAR_TEXTURE, nbt.getString("EarTexture"));
-        this.dataTracker.set(NOSE_TEXTURE, nbt.getString("NoseTexture"));
-        this.dataTracker.set(EYE_TEXTURE, nbt.getString("EyeTexture"));
-        this.dataTracker.set(EYEBROW_TEXTURE, nbt.getString("EyebrowTexture"));
-        this.dataTracker.set(HAIR_TEXTURE, nbt.getString("HairTexture"));
-        this.dataTracker.set(HAIR_ADDON, nbt.getString("HairAddon"));
-        this.dataTracker.set(BEARD_TEXTURE, nbt.getString("BeardTexture"));
-        this.dataTracker.set(BEARD_ADDON, nbt.getString("BeardAddon"));
-        this.dataTracker.set(CLOTHING_TEXTURE, nbt.getString("ClothingTexture"));
-        this.dataTracker.set(EMISSIVE_EYES, nbt.getBoolean("EmissiveEyes"));
-    }
-
-    public Byte getBeardType() {
-        return this.dataTracker.get(BEARD_TYPE);
-    }
-    public String getSkinTextureValue() {
-        return this.dataTracker.get(SKIN_TEXTURE);
-    }
-    public String getEarTextureValue() {
-        return this.dataTracker.get(EAR_TEXTURE);
-    }
-    public String getNoseTextureValue() {
-        return this.dataTracker.get(NOSE_TEXTURE);
-    }
-    public String getEyeTextureValue() {
-        return this.dataTracker.get(EYE_TEXTURE);
-    }
-    public String getEyebrowTextureValue() {
-        return this.dataTracker.get(EYEBROW_TEXTURE);
-    }
-    public String getHairTextureValue() {
-        return this.dataTracker.get(HAIR_TEXTURE);
-    }
-    private String getHairAddon() {
-        return this.dataTracker.get(HAIR_ADDON);
-    }
-
-    public String getBeardTextureValue() {
-        return this.dataTracker.get(BEARD_TEXTURE);
-    }
-    private String getBeardAddon() {
-        return this.dataTracker.get(BEARD_ADDON);
-    }
-    public String getClothingTextureValue() {
-        return this.dataTracker.get(CLOTHING_TEXTURE);
-    }
-    public Boolean getEmissiveEyes() {
-        return this.dataTracker.get(EMISSIVE_EYES);
-    }
-
-    public Identifier getSkinTextureIdentifier() {
-        if(Objects.equals(this.dataTracker.get(SKIN_TEXTURE), ""))
-            return null;
-        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(SKIN_TEXTURE));
-    }
-    public Identifier getEarTextureIdentifier() {
-        if(Objects.equals(this.dataTracker.get(EAR_TEXTURE), ""))
-            return null;
-        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(EAR_TEXTURE));
-    }
-    public Identifier getNoseTextureIdentifier() {
-        if(Objects.equals(this.dataTracker.get(NOSE_TEXTURE), ""))
-            return null;
-        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(NOSE_TEXTURE));
-    }
-
-    public Identifier getEyeTextureIdentifier() {
-        if(Objects.equals(this.dataTracker.get(EYE_TEXTURE), ""))
-            return null;
-        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(EYE_TEXTURE));
-    }
-    public Identifier getEyebrowTextureIdentifier() {
-        if(Objects.equals(this.dataTracker.get(EYEBROW_TEXTURE), ""))
-            return null;
-        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(EYEBROW_TEXTURE));
-    }
-    public Identifier getHairTextureIdentifier() {
-        if(Objects.equals(this.dataTracker.get(HAIR_TEXTURE), ""))
-            return null;
-        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(HAIR_TEXTURE));
-    }
-    public Identifier getHairAddonTextureIdentifier() {
-        if(Objects.equals(this.dataTracker.get(HAIR_ADDON), "")){
-            return null;
+        if (nbt.contains("NpcData", 10)) {
+            DataResult<NpcData> dataResult = NpcData.CODEC.parse(NbtOps.INSTANCE, nbt.get("NpcData"));
+            if(dataResult.isSuccess()){
+                setNpcData(dataResult.getOrThrow());
+            }
         }
-        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(HAIR_ADDON));
-    }
-
-    public Identifier getBeardTextureIdentifier() {
-        if(Objects.equals(this.dataTracker.get(BEARD_TEXTURE), ""))
-            return null;
-        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(BEARD_TEXTURE));
-    }
-
-    public Identifier getBeardAddonTextureIdentifier() {
-        if(Objects.equals(this.dataTracker.get(BEARD_ADDON), "")){
-            return null;
+        if (nbt.contains("NpcTextureData", 10)) {
+            DataResult<NpcTextureData> dataResult = NpcTextureData.CODEC.parse(NbtOps.INSTANCE, nbt.get("NpcTextureData"));
+            if(dataResult.isSuccess()){
+                setNpcTextureData(dataResult.getOrThrow());
+            }
         }
-        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(BEARD_ADDON));
     }
 
-    public Identifier getClothingTextureIdentifier() {
-        if(Objects.equals(this.dataTracker.get(CLOTHING_TEXTURE), ""))
-            return null;
-        return IdentifierUtil.getIdentifierFromString(this.dataTracker.get(CLOTHING_TEXTURE));
+
+    public void setNpcData(NpcData npcData) {
+        this.dataTracker.set(DATA, npcData);
     }
+
+    public NpcData getNpcData() {
+        return this.dataTracker.get(DATA);
+    }
+
+    public void setNpcTextureData(NpcTextureData npcTextureData) {
+        this.dataTracker.set(TEXTURE_DATA, npcTextureData);
+    }
+
+    public NpcTextureData getNpcTextureData() {
+        return this.dataTracker.get(TEXTURE_DATA);
+    }
+
     static {
-        BEARD_TYPE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BYTE);
-        SKIN_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
-        EAR_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
-        NOSE_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
-        EYE_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
-        EYEBROW_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
-        HAIR_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
-        HAIR_ADDON = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
-        BEARD_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
-        BEARD_ADDON = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
-        CLOTHING_TEXTURE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
-        EMISSIVE_EYES = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        DATA = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_ENTITY_DATA);
+        TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_ENTITY_TEXTURE_DATA);
     }
     // endregion
 
