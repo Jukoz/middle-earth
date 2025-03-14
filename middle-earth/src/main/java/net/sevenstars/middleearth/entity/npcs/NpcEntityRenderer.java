@@ -16,7 +16,6 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityPose;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.Direction;
@@ -29,13 +28,12 @@ import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcText
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
-
 public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityRenderState, NpcEntityModel> {
     private final SpriteAtlasTexture skinAtlasTexture;
     private final SpriteAtlasTexture eyeAtlasTexture;
     private final SpriteAtlasTexture hairAtlasTexture;
     private final SpriteAtlasTexture clothingAtlasTexture;
+    public final static int HURT_COLOR = 0xff7e75;
 
     public NpcEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new NpcEntityModel(context.getPart(ModEntityModelLayers.NPC)), 0.7f);
@@ -64,6 +62,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
     @Override
     public void updateRenderState(NpcEntity npcEntity, NpcEntityRenderState npcEntityRenderState, float f) {
+        if(!npcEntity.getWorld().isClient)
+            return;
         super.updateRenderState(npcEntity, npcEntityRenderState, f);
 
         var npcTextureData = npcEntity.getNpcTextureData();
@@ -100,30 +100,6 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
     @Override
     public void render(NpcEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        int currentRenderStep = 0;
-        int maximumRenderStep = 6;
-
-        Text customName = state.customName;
-        if(customName != null){
-            String value = customName.getString();
-            switch (value){
-                case "Dev_0":
-                    maximumRenderStep = 1;
-                    break;
-                case "Dev_1":
-                    maximumRenderStep = 2;
-                    break;
-                case "Dev_2":
-                    maximumRenderStep = 3;
-                    break;
-                case "Dev_3":
-                    maximumRenderStep = 4;
-                    break;
-                default:
-                    break;
-            }
-        }
-
         matrices.push();
         if (state.isInPose(EntityPose.SLEEPING)) {
             Direction direction = state.sleepingDirection;
@@ -144,18 +120,17 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         this.model.setAngles(state);
         boolean bl = this.isVisible(state);
         boolean bl2 = !bl && !state.invisibleToPlayer;
+        int k = bl2 ? 654311423 : -1;
+        int l = ColorHelper.mix(k, this.getMixColor(state));
 
-        for(int run = 0; run < maximumRenderStep; run ++){
+        for(int run = 0; run < 6; run ++){
             //RenderLayer renderLayer = this.getRenderLayer(state, bl, bl2, state.hasOutline);
-            int k = bl2 ? 654311423 : -1;
-            int l = ColorHelper.mix(k, this.getMixColor(state));
-
             Identifier id;
             VertexConsumer vertexConsumer = null;
             Sprite sprite = null;
 
 
-            switch (currentRenderStep) {
+            switch (run) {
                 case 0:
                     id = Identifier.of(state.skinTextureIdentifier.getNamespace(), "npc_skin_textures/" + state.skinTextureIdentifier.getPath());
                     vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer());
@@ -199,17 +174,22 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
                 VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
                 model.render(matrices, newLayerVertexConsumer, light, OverlayTexture.DEFAULT_UV, l);
             }
-
-            currentRenderStep++;
         }
 
 
         if (this.shouldRenderFeatures(state)) {
-            Iterator var15 = this.features.iterator();
 
-            while(var15.hasNext()) {
-                FeatureRenderer<NpcEntityRenderState, NpcEntityModel> featureRenderer = (FeatureRenderer)var15.next();
-                featureRenderer.render(matrices, vertexConsumers, light, state, state.yawDegrees, state.pitch);
+            for (FeatureRenderer<NpcEntityRenderState, NpcEntityModel> feature : this.features) {
+                if (feature instanceof EarFeatureRenderer) {
+                    if (state.earTextureIdentifier == null) continue;
+                }
+                if (feature instanceof NoseFeatureRenderer) {
+                    if (state.noseTextureIdentifier == null) continue;
+                }
+                if (feature instanceof HairFeatureRenderer) {
+                    if (state.hairAddonTextureIdentifier == null && state.beardAddonTextureIdentifier == null) continue;
+                }
+                feature.render(matrices, vertexConsumers, light, state, state.yawDegrees, state.pitch);
             }
         }
 
@@ -217,8 +197,16 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     }
 
     @Override
+    protected int getMixColor(NpcEntityRenderState state) {
+        if(state.hurt)
+            return HURT_COLOR;
+        return super.getMixColor(state);
+    }
+
+    @Override
     public Identifier getTexture(NpcEntityRenderState state) {
-        return Identifier.of("bleh");
+        // Made custom in the render method
+        return null;
     }
 
 

@@ -67,6 +67,12 @@ public class NpcEntity extends PassiveEntity {
 
         setNpcTextureData(generatedTextureData);
 
+        /*
+        var value = manager.getOrThrow(RegistryKeys.ATTRIBUTE).getEntry(Identifier.of("scale")).get().value();
+        var test=  this.getAttributeInstance(manager.getOrThrow(RegistryKeys.ATTRIBUTE).getEntry(value));
+        test.setBaseValue(0.5f);
+        */
+
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 

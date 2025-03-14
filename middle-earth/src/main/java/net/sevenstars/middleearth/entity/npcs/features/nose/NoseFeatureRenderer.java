@@ -14,10 +14,12 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ColorHelper;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
+import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderer;
 
 @Environment(EnvType.CLIENT)
 public class NoseFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
@@ -39,15 +41,21 @@ public class NoseFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer());
 
-        render(noseModel, vertexConsumer, matrices, light, state.noseTextureIdentifier);
+        boolean bl = !state.invisible;
+        boolean bl2 = !bl && !state.invisibleToPlayer;
+        int k = bl2 ? 654311423 : -1;
+        int color = ColorHelper.mix(k, (state.hurt) ? NpcEntityRenderer.HURT_COLOR : -1);
+
+        render(noseModel, vertexConsumer, matrices, light, state.noseTextureIdentifier, color);
     }
 
-    private void render(EntityModel<NpcEntityRenderState> model, VertexConsumer vertexConsumer, MatrixStack matrices, int light, Identifier baseIdentifier){
+    private void render(EntityModel<NpcEntityRenderState> model, VertexConsumer vertexConsumer, MatrixStack matrices, int light, Identifier baseIdentifier, int color){
         if(baseIdentifier == null) return;
         Identifier id = Identifier.of(baseIdentifier.getNamespace(), "npc_skin_textures/" + baseIdentifier.getPath());
         Sprite sprite = skinAtlasTexture.getSprite(id);
 
         VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-        model.render(matrices, newLayerVertexConsumer, light, OverlayTexture.DEFAULT_UV, 0xffffffff);
+        model.render(matrices, newLayerVertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
     }
+
 }

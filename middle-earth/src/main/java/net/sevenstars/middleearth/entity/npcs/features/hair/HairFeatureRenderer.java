@@ -14,10 +14,12 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ColorHelper;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
+import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderer;
 
 
 @Environment(EnvType.CLIENT)
@@ -55,19 +57,24 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
 
+        boolean bl = !state.invisible;
+        boolean bl2 = !bl && !state.invisibleToPlayer;
+        int k = bl2 ? 654311423 : -1;
+        int color = ColorHelper.mix(k, (state.hurt) ? NpcEntityRenderer.HURT_COLOR : -1);
+
         if(hairAddonTextureId != null)
-            render(entityModel, vertexConsumer, matrices, light, hairAddonTextureId);
+            render(entityModel, vertexConsumer, matrices, light, hairAddonTextureId, color);
         if(beardAddonTextureId != null)
-            render(entityModel, vertexConsumer, matrices, light, beardAddonTextureId);
+            render(entityModel, vertexConsumer, matrices, light, beardAddonTextureId, color);
     }
 
-    private void render(EntityModel<NpcEntityRenderState> entityModel, VertexConsumer vertexConsumer, MatrixStack matrices, int light, Identifier baseIdentifier){
+    private void render(EntityModel<NpcEntityRenderState> entityModel, VertexConsumer vertexConsumer, MatrixStack matrices, int light, Identifier baseIdentifier, int color){
         Identifier id = Identifier.of(baseIdentifier.getNamespace(), "npc_hair_textures/" + baseIdentifier.getPath());
         Sprite sprite = hairAtlasTexture.getSprite(id);
 
         if(sprite != null){
             VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-            entityModel.render(matrices, newLayerVertexConsumer, light, OverlayTexture.DEFAULT_UV, 0xffffffff);
+            entityModel.render(matrices, newLayerVertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
         }
     }
 }
