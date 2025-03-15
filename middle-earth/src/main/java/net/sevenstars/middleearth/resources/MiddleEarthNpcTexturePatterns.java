@@ -33,6 +33,7 @@ public class MiddleEarthNpcTexturePatterns {
     }
     public record Nose(){
         public final static RegistryKey<NpcTexturePattern> CUBE = of("nose_cube", NpcTextureType.NOSE);
+        public final static RegistryKey<NpcTexturePattern> LARGE_CUBE = of("nose_large_cube", NpcTextureType.NOSE);
     }
     public record Eye() {
         public final static RegistryKey<NpcTexturePattern> COMMON = of("common", NpcTextureType.EYE);
@@ -81,6 +82,7 @@ public class MiddleEarthNpcTexturePatterns {
         register(registry, Ear.POINTY, NpcTextureType.EAR);
 
         register(registry, Nose.CUBE, NpcTextureType.NOSE);
+        register(registry, Nose.LARGE_CUBE, NpcTextureType.NOSE);
     }
     public static void bootstrapEyes(Registerable<NpcTexturePattern> registry) {
         register(registry, Eye.SMALL, NpcTextureType.EYE);

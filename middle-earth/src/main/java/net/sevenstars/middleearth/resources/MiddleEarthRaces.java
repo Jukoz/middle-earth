@@ -52,7 +52,8 @@ public class MiddleEarthRaces {
                         ))
                         .withPatterns(NpcTextureType.NOSE, Stream.of(
                                     MiddleEarthNpcTexturePatterns.Nose.CUBE,
-                                    null)
+                                        MiddleEarthNpcTexturePatterns.Nose.LARGE_CUBE,
+                                        null)
                                 .toList()
                         )
                         .withMaterials(NpcTextureType.SKIN, List.of(
@@ -143,7 +144,8 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTexturePatterns.Ear.POINTY
                         ))
                         .withPatterns(NpcTextureType.NOSE, Stream.of(
-                                        MiddleEarthNpcTexturePatterns.Nose.CUBE,
+                                MiddleEarthNpcTexturePatterns.Nose.CUBE,
+                                        MiddleEarthNpcTexturePatterns.Nose.LARGE_CUBE,
                                         null)
                                 .toList()
                         )

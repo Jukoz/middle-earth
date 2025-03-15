@@ -51,14 +51,14 @@ public class EarModel  extends EntityModel<NpcEntityRenderState> {
         this.pointyEarGroup.yaw = state.yawDegrees * 0.017453292F;
         this.pointyEarGroup.pitch = state.pitch * 0.017453292F;
 
-        this.pointyEarLeft.yaw = 0.174533f;
-        this.pointyEarRight.yaw = -0.174533f;
+        this.pointyEarLeft.yaw = 0.261799f;
+        this.pointyEarRight.yaw = -0.261799f;
 
         this.pointyEarLeft.pitch = 1.0472f;
         this.pointyEarRight.pitch = 1.0472f;
 
-        this.pointyEarLeft.roll = 0.436332f;
-        this.pointyEarRight.roll = -0.436332f;
+        this.pointyEarLeft.roll = 0.523599f;
+        this.pointyEarRight.roll = -0.523599f;
 
         if (bl) {
             this.cubeEarGroup.pitch = -0.7853982F;

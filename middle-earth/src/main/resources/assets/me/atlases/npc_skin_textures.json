@@ -8,7 +8,8 @@
                 "me:npc_skin_textures/skin_slim",
                 "me:npc_skin_textures/ear_cube",
                 "me:npc_skin_textures/ear_pointy",
-                "me:npc_skin_textures/nose_cube"
+                "me:npc_skin_textures/nose_cube",
+                "me:npc_skin_textures/nose_large_cube"
             ],
             "palette_key": "me:npc_skin_textures/color_palettes/base_palette",
             "permutations": {
