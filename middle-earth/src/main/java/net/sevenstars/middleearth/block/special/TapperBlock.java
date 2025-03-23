@@ -30,6 +30,8 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
+import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.WoodBlockSets;
 
 public class TapperBlock extends HorizontalFacingBlock {
     public static final int FULL_TAP_LEVEL = 5;
@@ -37,7 +39,7 @@ public class TapperBlock extends HorizontalFacingBlock {
     public static final int RANDOM_TICK_CHANCE = 1;
 
     public TapperBlock(Settings settings) {
-        super(settings);
+        super(settings.ticksRandomly());
 
         this.setDefaultState(((this.stateManager.getDefaultState())
                 .with(TAP_LEVEL, 0))
@@ -74,13 +76,23 @@ public class TapperBlock extends HorizontalFacingBlock {
         boolean bl = false;
         if (i >= FULL_TAP_LEVEL) {
             Item item = stack.getItem();
+
+            BlockState behindBlock = world.getBlockState(pos.offset(state.get(FACING).getOpposite()));
+
+            Item result = Items.RESIN_CLUMP;
+            if(behindBlock.getBlock() == WoodBlockSets.MAPLE.log() || behindBlock.getBlock() == WoodBlockSets.SILVER_MAPLE.log()) {
+                result = Items.HONEY_BOTTLE;
+            }
+
             if (stack.isOf(Items.GLASS_BOTTLE)) {
-                stack.decrement(1);
+                if(result != Items.RESIN_CLUMP) stack.decrement(1);
                 world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.1F);
+
+                ItemStack stackResult = new ItemStack(result);
                 if (stack.isEmpty()) {
-                    player.setStackInHand(hand, new ItemStack(Items.HONEY_BOTTLE));
-                } else if (!player.getInventory().insertStack(new ItemStack(Items.HONEY_BOTTLE))) {
-                    player.dropItem(new ItemStack(Items.HONEY_BOTTLE), false);
+                    player.setStackInHand(hand, stackResult);
+                } else if (!player.getInventory().insertStack(stackResult)) {
+                    player.dropItem(stackResult, false);
                 }
 
                 bl = true;
@@ -100,13 +112,13 @@ public class TapperBlock extends HorizontalFacingBlock {
     }
 
     protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (world.random.nextInt(RANDOM_TICK_CHANCE) == 0) {
+        int rand = world.random.nextInt(RANDOM_TICK_CHANCE);
+        if (rand == 0) {
             int i = state.get(TAP_LEVEL);
             if (i < FULL_TAP_LEVEL) {
-                world.setBlockState(pos, (BlockState)state.with(TAP_LEVEL, i + 1), 2);
+                world.setBlockState(pos, state.with(TAP_LEVEL, i + 1), 2);
             }
         }
-
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
