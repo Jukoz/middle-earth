@@ -25,7 +25,7 @@ public class RaceUtil {
 
         // [SET]
         if(raceExists){
-            race.applyAttributes(player);
+            race.applyPlayerAttributes(player);
             data.setRace(race.getId());
         }
 

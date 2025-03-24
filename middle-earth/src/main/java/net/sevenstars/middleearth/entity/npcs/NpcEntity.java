@@ -30,12 +30,13 @@ import net.sevenstars.middleearth.resources.MiddleEarthNpcTexturePatterns;
 import net.sevenstars.middleearth.resources.MiddleEarthRaces;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataCategory;
+import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.RaceTextureData;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -48,7 +49,6 @@ public class NpcEntity extends PassiveEntity {
     public NpcEntity(EntityType<? extends PassiveEntity> entityType, World world) {
         super(entityType, world);
     }
-
 
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
@@ -67,25 +67,33 @@ public class NpcEntity extends PassiveEntity {
 
         setNpcTextureData(generatedTextureData);
 
-        /*
-        var value = manager.getOrThrow(RegistryKeys.ATTRIBUTE).getEntry(Identifier.of("scale")).get().value();
-        var test=  this.getAttributeInstance(manager.getOrThrow(RegistryKeys.ATTRIBUTE).getEntry(value));
-        test.setBaseValue(0.5f);
-        */
+        race.applyNpcAttributes(this);
 
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
-
     private NpcData generateNpcData(DynamicRegistryManager manager) {
-        Faction chosenFaction = manager.getOrThrow(MiddleEarthFactions.KEY).get(MiddleEarthFactions.LONGBEARDS_EREBOR.getId());
+        var factions = List.of(
+                MiddleEarthFactions.GONDOR,
+                MiddleEarthFactions.LONGBEARDS_EREBOR,
+                MiddleEarthFactions.SHIRE,
+                MiddleEarthFactions.MORDOR
+        );
+
+        Faction faction = factions.get(random.nextBetween(0, factions.size() - 1));
+        faction = manager.getOrThrow(MiddleEarthFactions.KEY).get(faction.getId());
+        Race race = manager.getOrThrow(MiddleEarthRaces.KEY).get(faction.getRaces(getWorld()).get(random.nextBetween(0, faction.getRaces(getWorld()).size() - 1)).getId());
+        return generateNpcData(manager, faction.getId(), race.getId());
+    }
+    private NpcData generateNpcData(DynamicRegistryManager manager, Identifier factionId, Identifier raceId) {
+        Faction chosenFaction = manager.getOrThrow(MiddleEarthFactions.KEY).get(factionId);
         if(chosenFaction == null)
             return null;
 
-        Race chosenRace = manager.getOrThrow(MiddleEarthRaces.KEY).get(chosenFaction.getRaces(getWorld()).getFirst().getId());
+        Race chosenRace = manager.getOrThrow(MiddleEarthRaces.KEY).get(raceId);
         if(chosenRace == null)
             return null;
 
-        NpcTextureDataCategory category = (new Random()).nextBoolean() ? NpcTextureDataCategory.MALE : NpcTextureDataCategory.FEMALE;
+        EntityCategory category = (new Random()).nextBoolean() ? EntityCategory.MALE : EntityCategory.FEMALE;
 
         return new NpcData(chosenFaction.getId(), chosenRace.getId(), category);
     }

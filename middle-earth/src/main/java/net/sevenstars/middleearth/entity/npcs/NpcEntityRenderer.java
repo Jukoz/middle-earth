@@ -130,6 +130,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             Sprite sprite = null;
 
 
+            if(state.skinTextureIdentifier == null)
+                return;
             switch (run) {
                 case 0:
                     id = Identifier.of(state.skinTextureIdentifier.getNamespace(), "npc_skin_textures/" + state.skinTextureIdentifier.getPath());

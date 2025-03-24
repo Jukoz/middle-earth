@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Random;
 
 public class RaceTextureData {
-    HashMap<NpcTextureDataCategory, List<NpcTextureDataPreset>> presetsByCategory;
+    HashMap<EntityCategory, List<NpcTextureDataPreset>> presetsByCategory;
 
     public RaceTextureData(NbtCompound compound) {
         if(compound == null) return;
         presetsByCategory = new HashMap<>();
 
-        for(NpcTextureDataCategory category : NpcTextureDataCategory.values()){
+        for(EntityCategory category : EntityCategory.values()){
             NbtList nbtListPresets = compound.getList(category.name(), NbtElement.COMPOUND_TYPE);
             if(nbtListPresets != null){
                 List<NpcTextureDataPreset> dataPresetList = new ArrayList<>();
@@ -33,7 +33,7 @@ public class RaceTextureData {
         }
     }
 
-    public RaceTextureData(HashMap<NpcTextureDataCategory, List<NpcTextureDataPreset>> sourceDatas) {
+    public RaceTextureData(HashMap<EntityCategory, List<NpcTextureDataPreset>> sourceDatas) {
         presetsByCategory = sourceDatas;
     }
 
@@ -48,7 +48,7 @@ public class RaceTextureData {
 
     public NbtCompound getNbt() {
         NbtCompound newNbt = new NbtCompound();
-        for(NpcTextureDataCategory category : presetsByCategory.keySet()){
+        for(EntityCategory category : presetsByCategory.keySet()){
             List<NpcTextureDataPreset> presets = presetsByCategory.get(category);
             if(presets != null && !presets.isEmpty()){
                 NbtList newNbtList = new NbtList();
@@ -105,15 +105,15 @@ public class RaceTextureData {
         return identity.preset.haveEmissiveEyes();
     }
 
-    public record Identity(NpcTextureDataCategory category, NpcTextureDataPreset preset){
-        public static Identity create(RaceTextureData data, NpcTextureDataCategory npcTextureDataCategory){
-            if(!data.presetsByCategory.containsKey(npcTextureDataCategory))
+    public record Identity(EntityCategory category, NpcTextureDataPreset preset){
+        public static Identity create(RaceTextureData data, EntityCategory entityCategory){
+            if(!data.presetsByCategory.containsKey(entityCategory))
                 return null;
 
             // TODO : get the right preset based on weight
-            List<NpcTextureDataPreset> presets = data.presetsByCategory.get(npcTextureDataCategory);
+            List<NpcTextureDataPreset> presets = data.presetsByCategory.get(entityCategory);
             Random random = new Random();
-            return new Identity(npcTextureDataCategory, presets.get(random.nextInt(presets.size())));
+            return new Identity(entityCategory, presets.get(random.nextInt(presets.size())));
         }
     }
 }

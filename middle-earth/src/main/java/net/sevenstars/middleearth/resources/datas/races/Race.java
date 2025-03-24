@@ -15,20 +15,23 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
+import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.RaceTextureData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class Race {
     public static final Codec<Race> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(Race::getIdValue),
             Codec.STRING.fieldOf("type").forGetter(Race::getRaceTypeValue),
-            NbtCompound.CODEC.fieldOf("attributes").forGetter(Race::getAttributeDatas),
+            NbtCompound.CODEC.fieldOf("player_attributes").forGetter(Race::getPlayerAttributePool),
+            NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(Race::getNpcAttributePool),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Race::getJoinCommands),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Race::getLeaveCommands),
             NbtCompound.CODEC.fieldOf("npc_textures").forGetter(Race::getNpcTextureData)
@@ -37,20 +40,29 @@ public class Race {
     private final Identifier id;
     private final RaceType raceType;
     private final String translatableKey;
-    private final AttributeData attributeData;
+    private final AttributePool playerAttributePool;
+    private final HashMap<EntityCategory, AttributePool> npcAttributePools;
     private List<String> joinCommands;
     private List<String> leaveCommands;
     private final RaceTextureData raceTextureData;
 
 
-    public Race(String id, String raceTypeValue, NbtCompound attributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, NbtCompound npcTextureData){
+    public Race(String id, String raceTypeValue, NbtCompound playerAttributes, NbtCompound npcAttributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, NbtCompound npcTextureData){
         // Create id
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
         // Create model
         this.raceType = RaceType.valueOf(raceTypeValue.toUpperCase());
         // Attribute Datas
-        this.attributeData = new AttributeData(attributes);
+        this.playerAttributePool = new AttributePool(playerAttributes);
+        this.npcAttributePools = new HashMap<>();
+        // new AttributePool(npcAttributes);
+        for(var category : EntityCategory.values()){
+            if(npcAttributes.contains(category.name())){
+                this.npcAttributePools.put(category, new AttributePool(npcAttributes.getCompound(category.name())));
+            }
+        }
+
         // Join commands
         this.joinCommands = new ArrayList<>();
         joinCommands.ifPresent(nbtCompound -> this.joinCommands.addAll(nbtCompound));
@@ -62,11 +74,12 @@ public class Race {
         this.raceTextureData = new RaceTextureData(npcTextureData);
     }
 
-    public Race(Identifier id, RaceType raceType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands, RaceTextureData raceTextureData) {
+    public Race(Identifier id, RaceType raceType, AttributePool playerAttributePool, HashMap<EntityCategory, AttributePool> npcAttributePools, List<String> joinCommands, List<String> leaveCommands, RaceTextureData raceTextureData) {
         this.id = id;
         this.raceType = raceType;
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
-        this.attributeData = attributeData;
+        this.playerAttributePool = playerAttributePool;
+        this.npcAttributePools = npcAttributePools;
         this.joinCommands = joinCommands;
         this.leaveCommands = leaveCommands;
         this.raceTextureData = raceTextureData;
@@ -81,10 +94,19 @@ public class Race {
     private String getRaceTypeValue() {
         return raceType.toString().toUpperCase();
     }
-    private NbtCompound getAttributeDatas() {
-        if(attributeData == null)
+    private NbtCompound getPlayerAttributePool() {
+        if(playerAttributePool == null)
             return null;
-        return attributeData.getNbt();
+        return playerAttributePool.getNbt();
+    }
+    private NbtCompound getNpcAttributePool() {
+        if(npcAttributePools == null)
+            return null;
+        var nbt = new NbtCompound();
+        for(var category : npcAttributePools.keySet()){
+            nbt.put(category.name(), npcAttributePools.get(category).getNbt());
+        }
+        return nbt;
     }
     private NbtCompound getNpcTextureData() {
         return raceTextureData.getNbt();
@@ -109,41 +131,24 @@ public class Race {
     }
 
     public LivingEntity getModel(World world) {
-        NpcEntity entity;
-        switch (raceType){
-            case RaceType.HUMAN:
-                entity = new NpcEntity(ModEntities.NPC, world);
-                break;
-            case RaceType.DWARF:
-                entity = new NpcEntity(ModEntities.NPC, world);
-                break;
-            case RaceType.HOBBIT:
-                entity = new NpcEntity(ModEntities.NPC, world);
-                break;
-            case RaceType.ELF:
-                entity = new NpcEntity(ModEntities.NPC, world);
-                break;
-            case RaceType.ORC:
-                entity = new NpcEntity(ModEntities.NPC, world);
-                break;
-            case RaceType.URUK:
-                entity = new NpcEntity(ModEntities.NPC, world);
-                break;
-            default:
-                entity = new NpcEntity(ModEntities.NPC, world);
-                break;
-        }
-        if(entity != null)
-            entity.setAiDisabled(true);
+        NpcEntity entity = switch (raceType) {
+            case RaceType.HUMAN -> new NpcEntity(ModEntities.NPC, world);
+            case RaceType.DWARF -> new NpcEntity(ModEntities.NPC, world);
+            case RaceType.HOBBIT -> new NpcEntity(ModEntities.NPC, world);
+            case RaceType.ELF -> new NpcEntity(ModEntities.NPC, world);
+            case RaceType.ORC -> new NpcEntity(ModEntities.NPC, world);
+            case RaceType.URUK -> new NpcEntity(ModEntities.NPC, world);
+            default -> new NpcEntity(ModEntities.NPC, world);
+        };
+        entity.setAiDisabled(true);
         return entity;
     }
 
-    public void applyAttributes(PlayerEntity playerEntity){
-        attributeData.ApplyAll(playerEntity);
+    public void applyPlayerAttributes(PlayerEntity playerEntity){
+        playerAttributePool.apply(playerEntity);
     }
-
     public void reverseAttributes(PlayerEntity playerEntity){
-        AttributeData.reset(playerEntity);
+        AttributePool.reverse(playerEntity);
     }
 
     public String getTranslatableKey() {
@@ -158,10 +163,10 @@ public class Race {
         List<Text> texts = new ArrayList<>();
         texts.add(getFullName());
         texts.add(Text.translatable("race_tooltip.me.attribute_header").formatted(Formatting.UNDERLINE));
-        Map<Identifier, Double> datas = attributeData.getDatas();
-        for(Identifier id : datas.keySet()){
-            double value = datas.get(id);
-            double difference = datas.get(id) - attributeData.getCurrentValue(entity, id);
+        List<AttributePoolElement> elements = playerAttributePool.getPool();
+        for(var element : elements){
+            double value = element.getValue();
+            double difference = value - playerAttributePool.getEntityCurrentAttributeValue(entity, id);
             // Round them
             value = Math.round(value * 1000) / 1000.0;
             difference = Math.round(difference * 1000) / 1000.0;
@@ -169,7 +174,7 @@ public class Race {
             String differenceChar = (difference > 0) ? "+" : "";
             Formatting white = Formatting.WHITE;
             Formatting differenceColor = (difference < 0) ? Formatting.RED : (difference > 0) ? Formatting.GREEN : white;
-            if(attributeData.isBuffReversed(id)){
+            if(playerAttributePool.isBuffReversed(id)){
                 differenceColor = (difference < 0) ? Formatting.GREEN : (difference > 0) ? Formatting.RED : white;
             }
             MutableText rawValue = Text.literal(String.valueOf(value)).formatted(white);
@@ -177,5 +182,11 @@ public class Race {
             texts.add(valueText.append(Text.translatable("attribute.name."+id.getPath()).formatted(Formatting.WHITE)));
         }
         context.drawTooltip(renderer, texts, x, y);
+    }
+
+    public void applyNpcAttributes(NpcEntity npcEntity) {
+        AttributePool.reverse(npcEntity);
+        npcAttributePools.get(EntityCategory.SHARED).apply(npcEntity);
+        npcAttributePools.get(npcEntity.getNpcData().category).apply(npcEntity);
     }
 }

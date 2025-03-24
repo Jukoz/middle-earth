@@ -2,8 +2,27 @@ package net.sevenstars.middleearth.client.screens.faction_selection;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.entity.BannerPattern;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.render.DiffuseLighting;
+import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.model.ModelBaker;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.component.type.BannerPatternsComponent;
+import net.minecraft.entity.Entity;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.text.Text;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.screens.utils.CycledSelectionButtonType;
 import net.sevenstars.middleearth.client.screens.utils.widgets.CycledSelectionWidget;
@@ -17,25 +36,6 @@ import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.component.type.BannerPatternsComponent;
-import net.minecraft.entity.Entity;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -79,7 +79,6 @@ public class FactionSelectionScreen extends Screen {
     @Override
     protected void init() {
         assert this.client != null;
-        this.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.WALL_BANNER).getChild("flag");
         Entity cameraEntity = this.client.getCameraEntity();
         if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
             this.player = abstractClientPlayerEntity;
@@ -87,6 +86,8 @@ public class FactionSelectionScreen extends Screen {
         } else {
             MiddleEarth.LOGGER.logError("FactionSelectionScreen::Init:Couldn't find player");
         }
+
+        this.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.STANDING_BANNER_FLAG).getChild("flag");
 
         // Initialize Buttons
         // Search bar

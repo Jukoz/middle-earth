@@ -11,12 +11,12 @@ import net.sevenstars.middleearth.resources.MiddleEarthFactions;
 import net.sevenstars.middleearth.resources.MiddleEarthRaces;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataCategory;
+import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 
 public class NpcData {
     public final Identifier raceId;
     public final Identifier factionId;
-    public final NpcTextureDataCategory category;
+    public final EntityCategory category;
 
 
     public static final Codec<NpcData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
@@ -31,16 +31,16 @@ public class NpcData {
     public NpcData() {
         this.factionId = null;
         this.raceId = null;
-        this.category = NpcTextureDataCategory.COMMON;
+        this.category = EntityCategory.SHARED;
     }
 
     public NpcData(Identifier factionId, Identifier raceId, String category) {
         this.factionId = factionId;
         this.raceId = raceId;
-        this.category = NpcTextureDataCategory.valueOf(category.toUpperCase());
+        this.category = EntityCategory.valueOf(category.toUpperCase());
     }
 
-    public NpcData(Identifier factionId, Identifier raceId, NpcTextureDataCategory category) {
+    public NpcData(Identifier factionId, Identifier raceId, EntityCategory category) {
         this.factionId = factionId;
         this.raceId = raceId;
         this.category = category;

@@ -10,11 +10,12 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
-import net.sevenstars.middleearth.resources.datas.races.data.RaceTextureData;
-import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataCategory;
+import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
+import net.sevenstars.middleearth.resources.datas.races.data.RaceTextureData;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class MiddleEarthRaces {
     public final static Race URUK;
 
     private static RaceTextureData commonRaceTextureData = new RaceTextureData(new HashMap<>(){{
-        put(NpcTextureDataCategory.MALE, List.of(
+        put(EntityCategory.MALE, List.of(
                 new NpcTextureDataPreset()
                         .withPatterns(NpcTextureType.SKIN, List.of(
                                 MiddleEarthNpcTexturePatterns.Skin.MUSCULAR,
@@ -133,7 +134,7 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTextureMaterials.Clothing.BROWN
                         ))
         ));
-        put(NpcTextureDataCategory.FEMALE, List.of(
+        put(EntityCategory.FEMALE, List.of(
                 new NpcTextureDataPreset()
                         .withPatterns(NpcTextureType.SKIN, List.of(
                                 MiddleEarthNpcTexturePatterns.Skin.FEMALE,
@@ -222,55 +223,128 @@ public class MiddleEarthRaces {
 
     static {
         DWARF = new Race(Identifier.of(MiddleEarth.MOD_ID, "dwarf"), RaceType.DWARF,
-                new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.SCALE, 0.81);
-                    put(EntityAttributes.MAX_HEALTH, 22.0);
-                    put(EntityAttributes.ATTACK_DAMAGE, 1.0);
-                    put(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75);
-                    put(EntityAttributes.MOVEMENT_SPEED, 0.09);
-                    put(EntityAttributes.MINING_EFFICIENCY, 0.15);
-                }}), List.of(), List.of(), commonRaceTextureData);
+                new AttributePool()
+                        .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.81).withBuffReversed())
+                        .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75))
+                        .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.09))
+                        .addElement(AttributePoolElement.create(EntityAttributes.MINING_EFFICIENCY, 0.15)),
+                new HashMap<>(){{
+                    put(EntityCategory.SHARED, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.81))
+                            .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))
+                            .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
+                            .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75))
+                            .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.09))
+                            .addElement(AttributePoolElement.create(EntityAttributes.MINING_EFFICIENCY, 0.15)));
+                    put(EntityCategory.MALE, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.75, 0.81)));
+                    put(EntityCategory.FEMALE, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.71, 0.78)));
+                }},
+                List.of(), List.of(), commonRaceTextureData);
         ELF = new Race(Identifier.of(MiddleEarth.MOD_ID, "elf"), RaceType.ELF,
-                new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.SCALE, 1.06);
-                    put(EntityAttributes.MAX_HEALTH, 20.0);
-                    put(EntityAttributes.ATTACK_DAMAGE, 1.0);
-                    put(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.25);
-                    put(EntityAttributes.MOVEMENT_SPEED, 0.1);
-                    put(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75);
-                }}), List.of(), List.of(), commonRaceTextureData);
+                new AttributePool()
+                        .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.06))
+                        .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 20.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.25))
+                        .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.1))
+                        .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75).withBuffReversed()),
+                new HashMap<>(){{
+                    put(EntityCategory.SHARED, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
+                            .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 0.9))
+                            .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5))
+                            .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.115))
+                            .addElement(AttributePoolElement.create(EntityAttributes.SNEAKING_SPEED, 0.435))
+                            .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75)));
+                    put(EntityCategory.MALE, new AttributePool()
+                                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.02, 1.06)));
+                    put(EntityCategory.FEMALE, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.00, 1.03)));
+                }},
+                List.of(), List.of(), commonRaceTextureData);
+
         HOBBIT = new Race(Identifier.of(MiddleEarth.MOD_ID, "hobbit"), RaceType.HOBBIT,
-                new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.SCALE, 0.6);
-                    put(EntityAttributes.MAX_HEALTH, 14.0);
-                    put(EntityAttributes.ATTACK_DAMAGE, 0.9);
-                    put(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5);
-                    put(EntityAttributes.MOVEMENT_SPEED, 0.115);
-                    put(EntityAttributes.SNEAKING_SPEED, 0.435);
-                    put(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90);
-                }}), List.of(), List.of(), commonRaceTextureData);
-        HUMAN = new Race(Identifier.of(MiddleEarth.MOD_ID, "human"), RaceType.HUMAN,
-                new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.SCALE, 1.0); // Basic
-                }}), List.of(), List.of(), commonRaceTextureData);
+                new AttributePool()
+                        .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 0.9))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5))
+                        .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.115))
+                        .addElement(AttributePoolElement.create(EntityAttributes.SNEAKING_SPEED, 0.435))
+                        .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90).withBuffReversed())
+                        .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.6).withBuffReversed()),
+                new HashMap<>(){{
+                    put(EntityCategory.SHARED, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
+                            .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 0.9))
+                            .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5))
+                            .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.115))
+                            .addElement(AttributePoolElement.create(EntityAttributes.SNEAKING_SPEED, 0.435))
+                            .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90)));
+                    put(EntityCategory.MALE, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.58, 0.62)));
+                    put(EntityCategory.FEMALE, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.55, 0.58)));
+                }},
+
+                List.of(), List.of(), commonRaceTextureData);
+
+                HUMAN = new Race(Identifier.of(MiddleEarth.MOD_ID, "human"), RaceType.HUMAN,
+                        new AttributePool(),
+                        new HashMap<>(){{
+                            put(EntityCategory.SHARED, new AttributePool());
+                            put(EntityCategory.FEMALE, new AttributePool()
+                                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.95, 1.0)));
+                            put(EntityCategory.MALE, new AttributePool()
+                                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.9, 0.98)));
+                        }},
+                List.of(), List.of(), commonRaceTextureData);
         ORC = new Race(Identifier.of(MiddleEarth.MOD_ID, "orc"), RaceType.ORC,
-                new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.SCALE, 0.83);
-                    put(EntityAttributes.MAX_HEALTH, 16.0);
-                    put(EntityAttributes.ATTACK_DAMAGE, 1.0);
-                    put(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75);
-                    put(EntityAttributes.MOVEMENT_SPEED, 0.11);
-                    put(EntityAttributes.STEP_HEIGHT, 1.0);
-                }}), List.of(), List.of(), commonRaceTextureData);
+                new AttributePool()
+                        .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.83).withBuffReversed())
+                        .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 16.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75))
+                        .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.11))
+                        .addElement(AttributePoolElement.create(EntityAttributes.STEP_HEIGHT, 1.0)),
+                new HashMap<>(){{
+                    put(EntityCategory.SHARED, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 16.0))
+                            .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
+                            .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75))
+                            .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.11))
+                            .addElement(AttributePoolElement.create(EntityAttributes.STEP_HEIGHT, 1.0)));
+                    put(EntityCategory.FEMALE, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.74, 0.79)));
+                    put(EntityCategory.MALE, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.78, 0.83)));
+                }},
+                List.of(), List.of(), commonRaceTextureData);
         URUK = new Race(Identifier.of(MiddleEarth.MOD_ID, "uruk"), RaceType.URUK,
-                new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.SCALE, 1.0);
-                    put(EntityAttributes.MAX_HEALTH,22.0);
-                    put(EntityAttributes.ATTACK_DAMAGE, 1.0);
-                    put(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.0);
-                    put(EntityAttributes.MOVEMENT_SPEED, 0.09);
-                    put(EntityAttributes.BURNING_TIME, 0.70);
-                }}), List.of(), List.of(), commonRaceTextureData);
+                new AttributePool()
+                        .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.09))
+                        .addElement(AttributePoolElement.create(EntityAttributes.BURNING_TIME, 0.70).withBuffReversed()),
+                new HashMap<>(){{
+                    put(EntityCategory.SHARED, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.0))
+                            .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))
+                            .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
+                            .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.0))
+                            .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.09))
+                            .addElement(AttributePoolElement.create(EntityAttributes.STEP_HEIGHT, 0.70)));
+                    put(EntityCategory.FEMALE, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.92, 0.98)));
+                    put(EntityCategory.MALE, new AttributePool()
+                            .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.96, 1.0)));
+                }},
+                List.of(), List.of(), commonRaceTextureData);
     }
 }
 
