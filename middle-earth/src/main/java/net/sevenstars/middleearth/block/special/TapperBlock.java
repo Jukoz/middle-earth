@@ -13,10 +13,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
@@ -30,7 +27,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
 import net.sevenstars.middleearth.block.WoodBlockSets;
 
 public class TapperBlock extends HorizontalFacingBlock {
@@ -61,8 +57,8 @@ public class TapperBlock extends HorizontalFacingBlock {
     }
 
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        //BlockState blockState = world.getBlockState(pos.offset(state.get(FACING)));
-        return true; //blockState.isIn(BlockTags.LOGS);
+        BlockState behindBlock = world.getBlockState(pos.offset(state.get(FACING).getOpposite()));
+        return behindBlock.isIn(BlockTags.LOGS);
     }
 
     @Override
@@ -131,7 +127,7 @@ public class TapperBlock extends HorizontalFacingBlock {
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{TAP_LEVEL, FACING});
+        builder.add(TAP_LEVEL, FACING);
     }
 
     @Override
