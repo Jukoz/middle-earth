@@ -67,7 +67,16 @@ public class TapperBlock extends HorizontalFacingBlock {
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 10.0, 12.0);
+        switch (state.get(FACING)) {
+            case SOUTH:
+                return Block.createCuboidShape(4.0, 0.0, 0.0, 12.0, 10.0, 8.0);
+            default:
+                return Block.createCuboidShape(4.0, 0.0, 8.0, 12.0, 10.0, 16.0);
+            case WEST:
+                return Block.createCuboidShape(8.0, 0.0, 4.0, 16.0, 10.0, 12.0);
+            case EAST:
+                return Block.createCuboidShape(0.0, 0.0, 4.0, 8.0, 10.0, 12.0);
+        }
     }
 
     @Override
