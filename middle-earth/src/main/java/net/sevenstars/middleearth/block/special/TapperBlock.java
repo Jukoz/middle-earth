@@ -89,11 +89,18 @@ public class TapperBlock extends HorizontalFacingBlock {
                 result = Items.HONEY_BOTTLE;
             }
 
-            if (stack.isOf(Items.GLASS_BOTTLE)) {
+            ItemStack stackResult = new ItemStack(result);
+            if(result.equals(Items.RESIN_CLUMP)) {
+                if (!player.getInventory().insertStack(stackResult)) {
+                    player.dropItem(stackResult, false);
+                }
+                world.emitGameEvent(player, GameEvent.FLUID_PICKUP, pos);
+                emptyBucket(state, world, pos);
+            }
+            else if (stack.isOf(Items.GLASS_BOTTLE)) {
                 if(result != Items.RESIN_CLUMP) stack.decrement(1);
                 world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.1F);
 
-                ItemStack stackResult = new ItemStack(result);
                 if (stack.isEmpty()) {
                     player.setStackInHand(hand, stackResult);
                 } else if (!player.getInventory().insertStack(stackResult)) {
@@ -102,6 +109,7 @@ public class TapperBlock extends HorizontalFacingBlock {
 
                 bl = true;
                 world.emitGameEvent(player, GameEvent.FLUID_PICKUP, pos);
+                emptyBucket(state, world, pos);
             }
 
             if (!world.isClient() && bl) {
@@ -113,6 +121,12 @@ public class TapperBlock extends HorizontalFacingBlock {
             return ActionResult.SUCCESS;
         } else {
             return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
+        }
+    }
+
+    private void emptyBucket(BlockState state, World world, BlockPos pos) {
+        if(world instanceof ServerWorld serverWorld) {
+            serverWorld.setBlockState(pos, state.with(TAP_LEVEL, 0), 2);
         }
     }
 
