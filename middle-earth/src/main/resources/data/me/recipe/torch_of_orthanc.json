@@ -6,20 +6,12 @@
     " R "
   ],
   "key": {
-    "N": {
-      "item": "me:burzum_steel_nugget"
-    },
-    "G": {
-      "item": "minecraft:glowstone_dust"
-    },
-    "I": {
-      "item": "me:burzum_steel_ingot"
-    },
+    "N": "me:burzum_steel_nugget",
+    "G": "minecraft:glowstone_dust",
+    "I": "me:burzum_steel_ingot",
     "R": {
       "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:rod"
-      },
+      "base": "me:rod",
       "components": {
         "minecraft:trim": {
           "material": "me:burzum_steel",

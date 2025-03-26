@@ -30,12 +30,6 @@ public class TintableCrossModel {
             add(ModNatureBlocks.WHITE_MUSHROOM);
             add(ModNatureBlocks.YELLOW_AMANITA);
 
-            add(ModNatureBlocks.GLOWWORM_MAIN);
-            add(ModNatureBlocks.GLOWWORM_WEBBING);
-
-            add(ModNatureBlocks.MIRKWOOD_VINES);
-            add(ModNatureBlocks.MIRKWOOD_VINES_PLANT);
-
             add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
             add(ModNatureBlocks.MALLOS);
             add(ModNatureBlocks.ELANOR);

@@ -1,7 +1,5 @@
-package net.sevenstars.middleearth.datageneration;
+package net.sevenstars.middleearth.datageneration.providers;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
@@ -12,7 +10,6 @@ import net.minecraft.client.data.*;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.equipment.ArmorMaterial;
-import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentAsset;
 import net.minecraft.item.equipment.EquipmentAssetKeys;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
@@ -37,7 +34,6 @@ import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabShape;
 import net.sevenstars.middleearth.datageneration.content.CustomItemModels;
 import net.sevenstars.middleearth.datageneration.content.MEModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
-import net.sevenstars.middleearth.item.ModResourceItems;
 
 import java.util.List;
 import java.util.Map;
@@ -452,11 +448,15 @@ public class ModelProvider extends FabricModelProvider {
             blockStateModelGenerator.registerDoor(door.door());
         }
 
+        //TODO find out why some blocks are null here
         for (Block block : TintableCrossModel.notTintedBlocks) {
-            //TODO fix, one of the block is minecraft:air
-            //if (block != null) blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.CrossType.NOT_TINTED);
-
+            if (block!= null) blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.CrossType.NOT_TINTED);
         }
+
+        blockStateModelGenerator.registerPlantPart(ModNatureBlocks.GLOWWORM_WEBBING, ModNatureBlocks.GLOWWORM_MAIN, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        blockStateModelGenerator.registerPlantPart(ModNatureBlocks.MIRKWOOD_VINES, ModNatureBlocks.MIRKWOOD_VINES_PLANT, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        blockStateModelGenerator.registerItemModel(ModNatureBlocks.GLOWWORM_WEBBING);
+        blockStateModelGenerator.registerItemModel(ModNatureBlocks.MIRKWOOD_VINES);
 
         for (Block block : TintableCrossModel.tintedBlocks) {
             blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.CrossType.TINTED);
@@ -1218,11 +1218,11 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (Item item : SimpleBigItemModel.bigBows) {
+            /*itemModelGenerator.register(item, CustomItemModels.LONGBOW);
             for (int i = 0; i < 3; i++) {
-                //itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.LONGBOW);
-                //itemModelGenerator.register(item, "_pulling_" + i + "_inventory", Models.HANDHELD);
-
-            }
+                itemModelGenerator.registerSubModel(item, "_pulling_" + i, CustomItemModels.LONGBOW);
+                itemModelGenerator.registerSubModel(item, "_pulling_" + i + "_inventory", Models.HANDHELD);
+            }*/
         }
 
         for (Item item : SimpleBigItemModel.genericItems) {

@@ -449,17 +449,17 @@ public class ModNatureBlocks {
     public static final Block MIRKWOOD_HANGING_ROOTS = registerBlock("mirkwood_hanging_roots",
             HangingRootsBlock::new, AbstractBlock.Settings.copy(Blocks.HANGING_ROOTS), true);
 
-    public static final Block MIRKWOOD_VINES = registerCrossBlock("mirkwood_vines",
+    public static final Block MIRKWOOD_VINES = registerBlock("mirkwood_vines",
             MirkwoodVinesBottomBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES_PLANT), true);
-    public static final Block MIRKWOOD_VINES_PLANT = registerCrossBlock("mirkwood_vines_plant",
+    public static final Block MIRKWOOD_VINES_PLANT = registerBlock("mirkwood_vines_plant",
             MirkwoodVinesBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES), false);
 
     public static final Block MIRKWOOD_SPIDER_EGG = registerBlock("mirkwood_spider_egg",
             MirkwoodSpiderEggBlock::new, AbstractBlock.Settings.copy(Blocks.TURTLE_EGG), true);
 
-    public static final Block GLOWWORM_WEBBING = registerCrossBlock("glowworm_webbing",
+    public static final Block GLOWWORM_WEBBING = registerBlock("glowworm_webbing",
             GlowWormBottomBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES_PLANT).luminance(state -> 6), true);
-    public static final Block GLOWWORM_MAIN = registerCrossBlock("glowworm_main",
+    public static final Block GLOWWORM_MAIN = registerBlock("glowworm_main",
             GlowWormBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES).luminance(state -> 6), false);
 
     public static Block registerCrossBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean present) {
@@ -472,6 +472,7 @@ public class ModNatureBlocks {
         SaplingBlock saplingBlock = new SaplingBlock(new SaplingGenerator(name, Optional.empty(), Optional.ofNullable(treeFeature), Optional.empty()),
                 AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(ModBlocks.keyOfBlock(name)));
         Block resultBlock = Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), saplingBlock);
+        registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
         Saplings.saplings.add(resultBlock);
         return resultBlock;
@@ -487,6 +488,7 @@ public class ModNatureBlocks {
         SaplingBlock saplingBlock = new VariantSaplingBlock(AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(ModBlocks.keyOfBlock(name)), saplingGenerators);
 
         Block resultBlock = Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), saplingBlock);
+        registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
         return resultBlock;
     }

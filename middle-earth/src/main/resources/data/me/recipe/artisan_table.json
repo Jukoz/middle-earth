@@ -5,15 +5,9 @@
     "W W"
   ],
   "key": {
-    "S": {
-      "tag": "minecraft:stone_crafting_materials"
-    },
-    "T": {
-      "item": "me:tin_ingot"
-    },
-    "W": {
-      "tag": "minecraft:logs"
-    }
+    "S": "#minecraft:stone_crafting_materials",
+    "T": "me:tin_ingot",
+    "W": "#minecraft:logs"
   },
   "result": {
     "id": "me:artisan_table",

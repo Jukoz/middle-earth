@@ -1,8 +1,6 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": {
-    "tag": "minecraft:copper_ores"
-  },
+  "ingredient": "#minecraft:copper_ores",
   "result": {
     "id": "minecraft:copper_ingot"
   },

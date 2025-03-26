@@ -1,28 +1,11 @@
 package net.sevenstars.middleearth.mixin.client;
 
-import net.minecraft.item.ModelTransformationMode;
-import net.sevenstars.middleearth.datageneration.VariantsModelProvider;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
-import net.sevenstars.middleearth.datageneration.content.models.SimpleBigItemModel;
-import net.sevenstars.middleearth.datageneration.content.models.SimpleSpearModel;
 import net.sevenstars.middleearth.item.ModDataComponentTypes;
-import net.sevenstars.middleearth.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeaponItem;
-import net.sevenstars.middleearth.item.items.weapons.artefacts.ArtefactCustomGlowingLongswordWeaponItem;
-import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(ItemRenderer.class)
 public abstract class ItemRendererMixin {

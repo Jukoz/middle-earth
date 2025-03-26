@@ -6,15 +6,9 @@
     "S"
   ],
   "key": {
-    "M": {
-      "tag": "me:raw_meat"
-    },
-    "V": {
-      "tag": "me:vegetable"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "M": "#me:raw_meat",
+    "V": "#me:vegetable",
+    "S": "minecraft:stick"
   },
   "result": {
     "id": "me:meat_skewer",

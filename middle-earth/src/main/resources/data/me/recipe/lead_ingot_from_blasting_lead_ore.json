@@ -1,8 +1,6 @@
 {
   "type": "minecraft:blasting",
-  "ingredient": {
-    "tag": "me:lead_ores"
-  },
+  "ingredient": "#me:lead_ores",
   "result": {
     "id": "me:lead_ingot"
   },

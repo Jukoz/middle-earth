@@ -6,12 +6,8 @@
     "WWW"
   ],
   "key": {
-    "W": {
-      "tag": "minecraft:planks"
-    },
-    "G": {
-      "item": "minecraft:glass"
-    }
+    "W": "#minecraft:planks",
+    "G": "minecraft:glass"
   },
   "result": {
     "id": "me:wood_framed_window",

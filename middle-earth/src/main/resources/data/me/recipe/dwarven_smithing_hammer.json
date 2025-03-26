@@ -6,12 +6,8 @@
     " S "
   ],
   "key": {
-    "M": {
-      "item": "me:khazad_steel_ingot"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "M": "me:khazad_steel_ingot",
+    "S": "minecraft:stick"
   },
   "result": {
     "id": "me:dwarven_smithing_hammer",

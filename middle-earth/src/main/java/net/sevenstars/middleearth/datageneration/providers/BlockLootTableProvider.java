@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.datageneration;
+package net.sevenstars.middleearth.datageneration.providers;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
@@ -46,18 +46,12 @@ import java.util.concurrent.CompletableFuture;
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
 
-    protected BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    public BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
 
         this.registryLookup = registryLookup;
     }
 
-    @Override
-    public void generate() {
-
-    }
-
-    /*
     @Override
     public void generate() {
 
@@ -237,7 +231,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     public LootTable.Builder verticalSlabDrops(Block drop) {
         return LootTable.builder().pool(
                 LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F))
-                        .with((LootPoolEntry.Builder)this.applyExplosionDecay(drop, ItemEntry.builder(drop).apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(2.0F)).conditionally(BlockStatePropertyLootCondition.builder(drop).properties(StatePredicate.Builder.create().exactMatch(VerticalSlabBlock.DOUBLE, true)))))));
+                        .with(this.applyExplosionDecay(drop, ItemEntry.builder(drop).apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(2.0F)).conditionally(BlockStatePropertyLootCondition.builder(drop).properties(StatePredicate.Builder.create().exactMatch(VerticalSlabBlock.DOUBLE, true)))))));
     }
 
     public void cobbleDrops(Block stoneBlock, Block cobbledBlock) {
@@ -261,6 +255,6 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     }
 
     public void largeDoorDrop(Block doorblock) {
-        addDrop(doorblock, LootTable.builder().pool((LootPool.Builder) this.addSurvivesExplosionCondition(doorblock, LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).with(ItemEntry.builder(doorblock).conditionally(BlockStatePropertyLootCondition.builder(doorblock).properties(StatePredicate.Builder.create().exactMatch(LargeDoorBlock.PART, 0)))))));
-    }*/
+        addDrop(doorblock, LootTable.builder().pool(this.addSurvivesExplosionCondition(doorblock, LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).with(ItemEntry.builder(doorblock).conditionally(BlockStatePropertyLootCondition.builder(doorblock).properties(StatePredicate.Builder.create().exactMatch(LargeDoorBlock.PART, 0)))))));
+    }
 }

@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "me:worm"
-    },
-    {
-      "item": "minecraft:bread"
-    }
+    "#me:worm",
+    "minecraft:bread"
   ],
   "result": {
     "id": "me:maggoty_bread"

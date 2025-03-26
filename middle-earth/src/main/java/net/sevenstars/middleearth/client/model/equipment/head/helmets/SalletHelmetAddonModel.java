@@ -14,7 +14,7 @@ public class SalletHelmetAddonModel extends HelmetAddonModel {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.5F, 0.0F));
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         head.addChild("sallet", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -2.8F, 4.654F, 8.0F, 1.0F, 2.0F, new Dilation(0.22F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

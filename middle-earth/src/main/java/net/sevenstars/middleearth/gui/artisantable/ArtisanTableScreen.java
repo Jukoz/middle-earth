@@ -5,6 +5,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.EquippableComponent;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ModEquipmentItems;
 import net.sevenstars.middleearth.item.ModToolItems;
@@ -157,8 +159,9 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
             ItemStack itemStack = stack.copy();
             Item item = stack.getItem();
             if (item instanceof ArmorItem armorItem) {
-                //TODO Slot type gone
-                //this.armorStand.equipStack(armorItem.getSlotType(), itemStack);
+                EquippableComponent equippableComponent = (EquippableComponent)stack.get(DataComponentTypes.EQUIPPABLE);
+                EquipmentSlot equipmentSlot = equippableComponent != null ? equippableComponent.slot() : EquipmentSlot.OFFHAND;
+                this.armorStand.equipStack(equipmentSlot, stack.copy());
             } else {
                 this.armorStand.equipStack(EquipmentSlot.OFFHAND, itemStack);
             }

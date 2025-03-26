@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "me:raw_silver_block"
-    }
+    "me:raw_silver_block"
   ],
   "result": {
     "id": "me:raw_silver",

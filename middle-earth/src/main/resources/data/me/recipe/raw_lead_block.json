@@ -6,9 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "me:raw_lead"
-    }
+    "#": "me:raw_lead"
   },
   "result": {
     "id": "me:raw_lead_block"

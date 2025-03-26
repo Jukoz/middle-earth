@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "me:mallos"
-    }
+    "me:mallos"
   ],
   "result": {
     "id": "minecraft:yellow_dye"
