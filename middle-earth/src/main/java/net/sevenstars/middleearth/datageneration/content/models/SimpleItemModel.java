@@ -19,6 +19,8 @@ public class SimpleItemModel {
 
             add(ModDecorativeItems.TROLL_STATUE);
 
+            add(ModFoodItems.BIRCH_WATER);
+            add(ModFoodItems.MAPLE_SYRUP);
 
             //Crops
             add(ModFoodItems.TOMATO);

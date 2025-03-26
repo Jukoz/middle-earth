@@ -1,7 +1,12 @@
 package net.sevenstars.middleearth.item;
 
+import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.ConsumableComponents;
+import net.minecraft.component.type.FoodComponents;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.consume.RemoveEffectsConsumeEffect;
+import net.minecraft.sound.SoundEvents;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
@@ -17,6 +22,10 @@ import net.minecraft.util.Identifier;
 import java.util.function.Function;
 
 public class ModFoodItems {
+    public static final ConsumableComponent BIRCH_BOTTLE = ConsumableComponents.drink().consumeSeconds(2.0F)
+            .consumeEffect(new RemoveEffectsConsumeEffect(StatusEffects.POISON)).build();;
+    public static final ConsumableComponent MAPLE_BOTTLE = ConsumableComponents.drink().consumeSeconds(2.0F)
+            .sound(SoundEvents.ITEM_HONEY_BOTTLE_DRINK).build();;
 
     public static final Item LEMBAS = registerItem("lembas",
             Item::new,new Item.Settings()
@@ -51,6 +60,15 @@ public class ModFoodItems {
     public static final Item STRAWBERRY = registerItem("strawberry",
             (settings) -> new BlockItem(ModNatureBlocks.STRAWBERRY_BUSH, settings), new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.1f).build()));
+
+    public static final Item MAPLE_SYRUP = registerItem("maple_syrup",
+            Item::new,new Item.Settings()
+                    .recipeRemainder(Items.GLASS_BOTTLE).useRemainder(Items.GLASS_BOTTLE)
+                    .food(FoodComponents.HONEY_BOTTLE, MAPLE_BOTTLE).maxCount(16));
+    public static final Item BIRCH_WATER = registerItem("birch_water",
+            Item::new,new Item.Settings()
+                    .recipeRemainder(Items.GLASS_BOTTLE).useRemainder(Items.GLASS_BOTTLE)
+                    .food(FoodComponents.HONEY_BOTTLE, BIRCH_BOTTLE).maxCount(16));
 
     public static final Item TOMATO = registerItem("tomato",
             Item::new,new Item.Settings()
