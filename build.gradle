@@ -15,6 +15,7 @@ java {
 	}
 }
 
+/* configurations for each projects */
 project(":sevenstars-api") {
 	java {
 		sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
@@ -33,15 +34,14 @@ project(":middle-earth") {
 	}
 }
 
-// TODO: uncomment this to build the of-beasts-and-wild-things mod as well
-//project(":of-beasts-and-wild-things") {
-//	java {
-//		sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
-//	}
-//	tasks.withType(JavaCompile).configureEach {
-//		it.options.release = 21
-//	}
-//}
+project(":of-beasts-and-wild-things") {
+	java {
+		sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
+	}
+	tasks.withType(JavaCompile).configureEach {
+		it.options.release = 21
+	}
+}
 
 subprojects() {
 	apply plugin: 'fabric-loom'
