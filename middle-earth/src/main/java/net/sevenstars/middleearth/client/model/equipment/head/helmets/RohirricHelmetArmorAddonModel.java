@@ -44,7 +44,7 @@ public class RohirricHelmetArmorAddonModel extends HelmetAddonModel {
 
     @Override
     public void setAngles(BipedEntityRenderState bipedEntityRenderState) {
-        Vec3d velocity = bipedEntityRenderState.positionOffset;
+        /*Vec3d velocity = bipedEntityRenderState.positionOffset;
         double sqrVel = velocity.lengthSquared();
         double speed = (sqrVel * 0.35f) + Math.sqrt(Math.abs(bipedEntityRenderState.limbFrequency)) * 0.4f;
         double degree;
@@ -61,6 +61,6 @@ public class RohirricHelmetArmorAddonModel extends HelmetAddonModel {
             degree -= 90;
         }
 
-        this.hair.pitch = ToRad.ex(degree);
+        this.hair.pitch = ToRad.ex(degree);*/
     }
 }

@@ -33,7 +33,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: data generation
-        run: ./gradlew runDatagenClient
+        run: ./gradlew middle-earth:runDatagenClient
 
       - name: build
         run: ./gradlew build
@@ -41,11 +41,5 @@ jobs:
       - name: capture build mod jar
         uses: actions/upload-artifact@v4
         with:
-          name: Middle-earth Nightly
+          name: SevenStars Project Nightly
           path: build/libs/
-
-      - name: capture build data
-        uses: actions/upload-artifact@v4
-        with:
-          name: data
-          path: build/datagen/data

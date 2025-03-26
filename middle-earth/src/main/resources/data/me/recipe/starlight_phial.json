@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "equipment",
   "ingredients": [
-    {
-      "tag": "me:glowy"
-    },
-    {
-      "item": "me:water_phial"
-    }
+    "#me:glowy",
+    "me:water_phial"
   ],
   "result": {
     "id": "me:starlight_phial"

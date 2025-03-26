@@ -2,5 +2,5 @@ accessWidener v2 named
 
 extendable method net/minecraft/entity/vehicle/VehicleEntity asItem ()Lnet/minecraft/item/Item;
 accessible method net/minecraft/block/AbstractCauldronBlock canBeFilledByDripstone (Lnet/minecraft/fluid/Fluid;)Z
-accessible method net/minecraft/world/level/block/entity/BlockEntityType <init> (Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;Ljava/util/Set;)V
+accessible method net/minecraft/block/entity/BlockEntityType <init> (Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;Ljava/util/Set;)V
 accessible class net/minecraft/client/render/item/HeldItemRenderer$HandRenderType

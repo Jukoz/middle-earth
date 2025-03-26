@@ -6,9 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "me:raw_tin"
-    }
+    "#": "me:raw_tin"
   },
   "result": {
     "id": "me:raw_tin_block"

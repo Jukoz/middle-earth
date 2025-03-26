@@ -17,7 +17,7 @@ public class MordorBNHelmetModel extends HelmetAddonModel {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 1.5F, 0.0F));
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData addons = head.addChild("addons", ModelPartBuilder.create().uv(0, 0).cuboid(-3.5F, -13.0F, -3.5F, 7.0F, 2.0F, 7.0F, new Dilation(0.0F))

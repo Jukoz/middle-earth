@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "me:mushroom_stew_ingredient"
-    },
-    {
-      "tag": "me:mushroom_stew_ingredient"
-    },
-    {
-      "item": "minecraft:bowl"
-    }
+    "#me:mushroom_stew_ingredient",
+    "#me:mushroom_stew_ingredient",
+    "minecraft:bowl"
   ],
   "result": {
     "id": "minecraft:mushroom_stew"

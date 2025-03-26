@@ -337,7 +337,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
             RegistryWrapper.Impl<ArmorTrimMaterial>  armorTrimMaterialRegistry = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.TRIM_MATERIAL);
             RegistryWrapper.Impl<ArmorTrimPattern>  armorTrimPatternRegistry = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.TRIM_PATTERN);
 
-
             switch (amount){
                 case 16 -> {
                     if (entity.currentMetal.getNugget() != null){

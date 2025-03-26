@@ -15,7 +15,7 @@ public class DwarvenMinerHelmetModel extends HelmetAddonModel {
         ModelPartData modelPartData = modelData.getRoot();
 
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 1.0F, 0.0F));
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData head_addon_gr = head.addChild("head_addon_gr", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.8F, 0.0F));

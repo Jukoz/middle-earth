@@ -1,8 +1,6 @@
 {
   "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "me:raw_lead"
-  },
+  "ingredient": "me:raw_lead",
   "result": {
     "id": "me:lead_ingot"
   },

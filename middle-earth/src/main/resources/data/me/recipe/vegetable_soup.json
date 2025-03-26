@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "me:vegetable"
-    },
-    {
-      "tag": "me:vegetable"
-    },
-    {
-      "tag": "me:vegetable"
-    },
-    {
-      "tag": "me:vegetable"
-    },
-    {
-      "item": "minecraft:bowl"
-    }
+    "#me:vegetable",
+    "#me:vegetable",
+    "#me:vegetable",
+    "#me:vegetable",
+    "minecraft:bowl"
   ],
   "result": {
     "id": "me:vegetable_soup"

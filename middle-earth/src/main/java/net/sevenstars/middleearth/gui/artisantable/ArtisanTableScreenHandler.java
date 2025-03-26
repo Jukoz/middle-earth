@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.gui.artisantable;
 
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
+import net.minecraft.recipe.ServerRecipeManager;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
@@ -210,8 +211,10 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.selectedRecipe.set(-1);
         this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
         if (!inputs.isEmpty()) {
-            //TODO GNUH
-            //this.availableRecipes = this.world.getRecipeManager().getAllMatches(ModRecipes.ARTISAN_TABLE, new MultipleStackRecipeInput(inputs), this.world);
+            if (!this.world.isClient){
+                ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
+                this.availableRecipes = serverRecipeManager.getAllMatches(ModRecipes.ARTISAN_TABLE, new MultipleStackRecipeInput(inputs), this.world).toList();
+            }
         }
 
         ArrayList<RecipeEntry<ArtisanRecipe>> filteredRecipes = new ArrayList<>();

@@ -6,12 +6,8 @@
     " G "
   ],
   "key": {
-    "I": {
-      "item": "minecraft:iron_nugget"
-    },
-    "G": {
-      "item": "minecraft:glass"
-    }
+    "I": "minecraft:iron_nugget",
+    "G": "minecraft:glass"
   },
   "result": {
     "id": "me:empty_phial",

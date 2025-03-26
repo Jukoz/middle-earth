@@ -5,9 +5,7 @@
     "SS"
   ],
   "key": {
-    "S": {
-      "tag": "me:shingles"
-    }
+    "S": "#me:shingles"
   },
   "result": {
     "id": "me:weathered_shingles",

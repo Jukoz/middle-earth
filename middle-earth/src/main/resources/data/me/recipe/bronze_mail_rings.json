@@ -6,9 +6,7 @@
     " N "
   ],
   "key": {
-    "N": {
-      "item": "me:bronze_nugget"
-    }
+    "N": "me:bronze_nugget"
   },
   "result": {
     "id": "me:mail_ring",

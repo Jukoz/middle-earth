@@ -8,9 +8,7 @@
   "key": {
     "G": {
       "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:rod"
-      },
+      "base": "me:rod",
       "components": {
         "minecraft:trim": {
           "material": "gold",
@@ -18,12 +16,8 @@
         }
       }
     },
-    "M": {
-      "item": "me:edhel_steel_ingot"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "M": "me:edhel_steel_ingot",
+    "S": "minecraft:stick"
   },
   "result": {
     "id": "me:elven_noble_smithing_hammer",

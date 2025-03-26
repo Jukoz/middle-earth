@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
+import net.sevenstars.middleearth.datageneration.providers.*;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimPatterns;
 import net.sevenstars.middleearth.resources.*;
@@ -37,11 +38,10 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(BlockLootTableProvider::new);
         pack.addProvider(ItemTagProvider::new);
         pack.addProvider(ModelProvider::new);
-        //pack.addProvider(RecipeProvider::new);
-        //pack.addProvider(ArtisanTableHandheldRecipeProvider::new);
-        //pack.addProvider(ArtisanTableArmorRecipeProvider::new);
-
         pack.addProvider(NpcTextureProvider::new);
+        pack.addProvider(RecipeProvider::new);
+        pack.addProvider(ArtisanTableHandheldRecipeProvider::new);
+        pack.addProvider(ArtisanTableArmorRecipeProvider::new);
         pack.addProvider(RaceProvider::new);
         pack.addProvider(NpcProvider::new);
         pack.addProvider(FactionProvider::new);
