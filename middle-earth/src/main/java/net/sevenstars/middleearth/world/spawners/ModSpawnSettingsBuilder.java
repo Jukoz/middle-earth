@@ -90,11 +90,11 @@ public class ModSpawnSettingsBuilder {
 
     public static void addSwampMobs(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 8, 1, 4));
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.SNAIL, 10, 1, 4));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(net.sevenstars.of_beasts_and_wild_things.entity.ModEntities.SNAIL, 10, 1, 4));
     }
 
     public static void addRareSnails(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.SNAIL, 2, 1, 3));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(net.sevenstars.of_beasts_and_wild_things.entity.ModEntities.SNAIL, 2, 1, 3));
     }
 
     public static void addEriadorMobs(SpawnSettings.Builder builder) {
@@ -118,7 +118,7 @@ public class ModSpawnSettingsBuilder {
     }
 
     public static void addPheasant(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.PHEASANT, 6, 1, 2));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(net.sevenstars.of_beasts_and_wild_things.entity.ModEntities.PHEASANT, 6, 1, 2));
     }
 
     public static void addSwan(SpawnSettings.Builder builder) {
