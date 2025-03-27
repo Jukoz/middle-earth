@@ -40,7 +40,7 @@ public class AnvilBonkParticle extends SpriteBillboardParticle {
         if (!this.dead) {
             float f = (float) this.age / (float) this.maxAge;
             if (this.random.nextFloat() > f) {
-                this.world.addParticleClient(ParticleTypes.SMOKE, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
+                this.world.addParticleClientClient(ParticleTypes.SMOKE, this.x, this.y, this.z, this.velocityX, this.velocityY, this.velocityZ);
             }
         }
 

@@ -41,7 +41,7 @@ import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-public class PointedDolomiteBlock extends Block implements LandingBlock, Waterloggable {
+public class PointedDolomiteBlock extends Block implements Falling, Waterloggable {
 
     public static final MapCodec<PointedDolomiteBlock> CODEC = createCodec(PointedDolomiteBlock::new);
     public static final EnumProperty<Direction> VERTICAL_DIRECTION;
@@ -388,7 +388,7 @@ public class PointedDolomiteBlock extends Block implements LandingBlock, Waterlo
         double g = (double) pos.getZ() + 0.5 + vec3d.z;
         Fluid fluid2 = getDripFluid(world, fluid);
         ParticleEffect particleEffect = fluid2.isIn(FluidTags.LAVA) ? ParticleTypes.DRIPPING_DRIPSTONE_LAVA : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
-        world.addParticle(particleEffect, e, f, g, 0.0, 0.0, 0.0);
+        world.addParticleClient(particleEffect, e, f, g, 0.0, 0.0, 0.0);
     }
 
     @Nullable
@@ -396,11 +396,11 @@ public class PointedDolomiteBlock extends Block implements LandingBlock, Waterlo
         if (isTip(state, allowMerged)) {
             return pos;
         } else {
-            Direction direction = (Direction) state.get(VERTICAL_DIRECTION);
+            Direction direction = state.get(VERTICAL_DIRECTION);
             BiPredicate<BlockPos, BlockState> biPredicate = (posx, statex) -> {
                 return statex.isOf(ModBlocks.POINTED_DOLOMITE) && statex.get(VERTICAL_DIRECTION) == direction;
             };
-            return (BlockPos) searchInDirection(world, pos, direction.getDirection(), biPredicate, (statex) -> {
+            return searchInDirection(world, pos, direction.getDirection(), biPredicate, (statex) -> {
                 return isTip(statex, allowMerged);
             }, range).orElse((BlockPos) null);
         }

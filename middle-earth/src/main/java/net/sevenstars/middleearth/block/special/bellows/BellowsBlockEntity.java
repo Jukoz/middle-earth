@@ -110,7 +110,7 @@ public class BellowsBlockEntity extends BlockEntity {
 
             int particleAmount = RANDOM.nextInt(AVERAGE_PARTICLES - PARTICLE_AMOUNT_MODIFIER, AVERAGE_PARTICLES + PARTICLE_AMOUNT_MODIFIER);
             for(int i = 0; i < particleAmount; i++){
-                world.addParticle(ParticleTypes.POOF,
+                world.addParticleClient(ParticleTypes.POOF,
                         center.getX() + directionVec.getX() * 0.4f,
                         center.getY() - 0.2f,
                         center.getZ() + directionVec.getZ() * 0.4f,
