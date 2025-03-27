@@ -116,6 +116,7 @@
   "biome.me.dark_mirkwood_edge": "暗黑森林边缘",
   "biome.me.dark_anduin_vales": "暗安都因河谷",
   "biome.me.dol_guldur": "多古尔都",
+  "biome.me.dol_guldur_hill": "多古尔都丘陵",
   "biome.me.dorwinion": "多温尼安",
   "biome.me.dorwinion_lavender_field": "多温尼安薰衣草平野",
   "biome.me.dorwinion_hills": "多温尼安丘陵",
@@ -2106,7 +2107,7 @@
   "block.me.calcite_trapdoor": "方解石活板门",
 
   "block.me.calcite_rocks": "方解石石块",
-  
+
   "block.me.calcite_stool": "方解石凳子",
   "block.me.calcite_table": "方解石桌子",
   "block.me.calcite_chair": "方解石椅子",
@@ -2119,7 +2120,7 @@
   "block.me.old_dolomite_vertical_slab": "古旧白云岩竖台阶",
   "block.me.old_dolomite_stairs": "古旧白云岩楼梯",
   "block.me.old_dolomite_wall": "古旧白云岩墙",
-  
+
   "block.me.smooth_dolomite": "平滑白云岩",
   "block.me.smooth_dolomite_slab": "平滑白云岩台阶",
   "block.me.smooth_dolomite_vertical_slab": "平滑白云岩竖台阶",
@@ -5953,7 +5954,7 @@
 
   "#Comment:": "方块 - 植物",
   "block.me.brown_grass": "棕色草",
-  "block.me.green_shrub": "绿色丛",
+  "block.me.green_shrub": "绿色灌木丛",
   "block.me.small_dry_shrub": "小枯灌木丛",
   "block.me.frozen_shrub": "冻灌木丛",
   "block.me.mallos": "瑁洛斯",
@@ -7741,6 +7742,7 @@
 
   "command.me.clear.faction.success" : "你的派系数据已成功清除",
   "command.me.clear.player.faction.success" : "已成功清除%s的派系数据",
+
   "command.me.open_target.onboarding.success": "已成功打开%s的引导界面",
   "command.me.open_target.onboarding.error": "无法打开%s的引导界面，对方已经选择过派系了",
   "command.me.open.onboarding.error": "无法打开你自己的引导界面，你已经选择过派系了",
