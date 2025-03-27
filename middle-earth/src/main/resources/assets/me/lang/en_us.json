@@ -1427,6 +1427,8 @@
   "item.me.lembas": "Lembas",
   "item.me.maggoty_bread": "Maggoty Bread",
   "item.me.strawberry": "Strawberry",
+  "item.me.birch_water": "Birch Water",
+  "item.me.maple_syrup": "Maple Syrup",
   "item.me.tough_berries": "Tough Berries",
   "item.me.raw_swan": "Raw Swan",
   "item.me.cooked_swan": "Cooked Swan",
@@ -6600,6 +6602,8 @@
 
   "block.me.fire_of_orthanc": "Fire of Orthanc",
   "block.me.torch_of_orthanc": "Torch of Orthanc",
+
+  "block.me.tapper": "Tapper",
 
   "block.me.wood_pile": "Wood Pile",
 

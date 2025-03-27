@@ -33,7 +33,7 @@ import net.sevenstars.middleearth.item.ModFoodItems;
 public class TapperBlock extends HorizontalFacingBlock {
     public static final int FULL_TAP_LEVEL = 5;
     public static final IntProperty TAP_LEVEL = IntProperty.of("tap_level", 0, FULL_TAP_LEVEL);
-    public static final int RANDOM_TICK_CHANCE = 1;
+    public static final int RANDOM_TICK_CHANCE = 7;
 
     public TapperBlock(Settings settings) {
         super(settings.ticksRandomly());
