@@ -14,9 +14,4 @@ public class SmithingMaterialItem extends Item {
     public SmithingMaterialItem(Settings settings) {
         super(settings);
     }
-
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        TemperatureDataComponent temperatureDataComponent = stack.get(ModDataComponentTypes.TEMPERATURE_DATA);
-    }
 }

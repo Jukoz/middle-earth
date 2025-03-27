@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.item.items.armor;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.item.Item;
 import net.minecraft.item.equipment.EquipmentType;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ModDataComponentTypes;
@@ -10,7 +12,6 @@ import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
 import net.sevenstars.middleearth.item.utils.armor.ModDyeablePieces;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -19,8 +20,9 @@ import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
+public class CustomHelmetItem extends Item implements MEEquipmentTooltip {
 
     public ModFactions faction;
     public ModSubFactions subFaction;
@@ -28,7 +30,7 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     private ExtendedArmorMaterial material;
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
-        super(material.material(), EquipmentType.HELMET, settings.maxCount(1));
+        super(settings.armor(material.material(), EquipmentType.HELMET).maxCount(1));
 
 
         this.material = material;
@@ -37,7 +39,7 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     }
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
-        super(material.material(), EquipmentType.HELMET, settings.maxCount(1));
+        super(settings.armor(material.material(), EquipmentType.HELMET).maxCount(1));
 
         this.material = material;
         this.faction = subFaction.getParent();
@@ -77,9 +79,9 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
     public static void toggleHoodState(ServerPlayerEntity player, ItemStack stack){

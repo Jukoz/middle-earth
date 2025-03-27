@@ -47,7 +47,7 @@ public class PipeItem extends Item {
         ItemStack itemStack = user.getStackInHand(hand);
         if (itemStack.isDamageable() && itemStack.getDamage() >= itemStack.getMaxDamage()) {
             // Attempt to refill the pipe using a leaf
-            ItemStack driedPipeweedStack = user.getInventory().main.stream()
+            ItemStack driedPipeweedStack = user.getInventory().getMainStacks().stream()
                     .filter(stack -> stack.getItem() == ModResourceItems.DRIED_PIPEWEED)
                     .findFirst()
                     .orElse(ItemStack.EMPTY);
@@ -120,14 +120,18 @@ public class PipeItem extends Item {
         return USAGE_TIME;
     }
 
+    //TODO To test if works, client -> server
     public void spawnSmoke(int remainingUseTicks, LivingEntity user, World world){
         float f = (float) (USAGE_TIME - remainingUseTicks) / 500;
         Vec3d vec = user.getRotationVec(1.0F);
-        world.addParticle(ModParticleTypes.RING_OF_SMOKE,
+        ServerWorld serverWorld = (ServerWorld)world;
+        serverWorld.spawnParticles(ModParticleTypes.RING_OF_SMOKE,
                 user.getX() + vec.x * 0.5,
                 user.getY() + user.getEyeHeight(user.getPose()) + vec.y * 0.5,
                 user.getZ() + vec.z * 0.5,
-                vec.x * f, vec.y *f, vec.z *f);
+                1,
+                vec.x * f, vec.y *f, vec.z *f
+                ,1.0);
         //https://pixabay.com/service/license-summary/
         //https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=106654"
         world.playSound(null, user.getX(), user.getY(), user.getZ(), ModSounds.PIPE_EXHALE, SoundCategory.PLAYERS, 1.0F, 1.0F);

@@ -1,12 +1,10 @@
 package net.sevenstars.middleearth.item.items.armor;
 
 import net.fabricmc.fabric.api.item.v1.EnchantingContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ProfileComponent;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AnimalArmorItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.tooltip.TooltipType;
@@ -16,48 +14,34 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
 
 import java.util.List;
+import java.util.function.Consumer;
 
-public class CustomHorseArmorItem extends AnimalArmorItem {
+public class CustomHorseArmorItem extends Item implements MEEquipmentTooltip {
 
     private final ModFactions faction;
     private final ModSubFactions subFaction;
 
-    public CustomHorseArmorItem(ArmorMaterial material, Type type, boolean hasOverlay, Settings settings, ModFactions faction) {
-        super(material, type, settings);
+    public CustomHorseArmorItem(ArmorMaterial material, Settings settings, ModFactions faction) {
+        super(settings.horseArmor(material));
         this.faction = faction;
         this.subFaction = null;
     }
 
-    public CustomHorseArmorItem(ArmorMaterial material, Type type, boolean hasOverlay, Settings settings, ModSubFactions subFaction) {
-        super(material, type, settings);
+    public CustomHorseArmorItem(ArmorMaterial material, Settings settings, ModSubFactions subFaction) {
+        super(settings.horseArmor(material));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
     }
 
-
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        ProfileComponent profileComponent = stack.get(DataComponentTypes.PROFILE);
-
-        tooltip.add(Text.of(""));
-        if (Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
-            if (this.subFaction != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
-            }
-            if (profileComponent != null && profileComponent.name().isPresent()) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artisan").append(profileComponent.name().get()).formatted(Formatting.GRAY));
-            }
-            tooltip.add(Text.of(""));
-        } else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
-        }
-
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
     @Override
