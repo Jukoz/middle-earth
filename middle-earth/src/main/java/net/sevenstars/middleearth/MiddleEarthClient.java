@@ -178,7 +178,8 @@ public class MiddleEarthClient implements ClientModInitializer {
             ArmorRenderer.register(new CapeRenderer(), cape);
         });
 
-        ModelLoadingPlugin.register(pluginContext -> {
+        //TODO to fix ? mixin also broken so doesn't do much for now
+        /*ModelLoadingPlugin.register(pluginContext -> {
             for(Item item : SimpleBigItemModel.items) {
                 Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
                 pluginContext.addModels(identifier);
@@ -233,8 +234,7 @@ public class MiddleEarthClient implements ClientModInitializer {
                 Identifier identifier = VariantsModelProvider.getHotModelIdentifierVariant(item);
                 pluginContext.addModels(identifier);
             }
-        });
-
+        });*/
 
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MALLORN_LEAVES_PARTICLE, LeavesParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE, LeavesParticle.Factory::new);
