@@ -11,7 +11,7 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ModelTransformationMode;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -66,7 +66,7 @@ public class SpearEntityRenderer extends EntityRenderer<SpearEntity, SpearEntity
 
         ItemStack itemStack = state.getTrackedItemStackData();
         if(itemStack == null) state.getDefaultItemStack();
-        this.itemRenderer.renderItem(itemStack, ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), entity.getId());
+        this.itemRenderer.renderItem(itemStack, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), entity.getId());
         matrices.pop();
 
         */

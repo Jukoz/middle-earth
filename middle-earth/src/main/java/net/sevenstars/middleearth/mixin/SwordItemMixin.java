@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.mixin;
 
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.component.type.ToolComponent;
-import net.minecraft.item.SwordItem;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
@@ -14,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Mixin(SwordItem.class)
+//@Mixin(SwordItem.class)
 public class SwordItemMixin {
 
     //TODO might not need that mixin anymore need to test
