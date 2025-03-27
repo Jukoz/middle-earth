@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,utensils=0": {
+      "model": "me:block/plate",
+      "y": 90
+    },
+    "facing=east,utensils=1": {
+      "model": "me:block/plate",
+      "y": 90
+    },
+    "facing=north,utensils=0": {
+      "model": "me:block/plate"
+    },
+    "facing=north,utensils=1": {
+      "model": "me:block/plate"
+    },
+    "facing=south,utensils=0": {
+      "model": "me:block/plate",
+      "y": 180
+    },
+    "facing=south,utensils=1": {
+      "model": "me:block/plate",
+      "y": 180
+    },
+    "facing=west,utensils=0": {
+      "model": "me:block/plate",
+      "y": 270
+    },
+    "facing=west,utensils=1": {
+      "model": "me:block/plate",
+      "y": 270
+    }
+  }
+}
