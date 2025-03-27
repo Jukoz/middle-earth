@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.armor.artefact;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomHelmetItem;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
 import net.sevenstars.middleearth.utils.ModFactions;
@@ -10,6 +11,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CustomArtefactHelmetItem extends CustomHelmetItem {
     public CustomArtefactHelmetItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
@@ -26,8 +28,8 @@ public class CustomArtefactHelmetItem extends CustomHelmetItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseArtefactTooltip(tooltip, stack);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseArtefactTooltip(textConsumer, stack);
     }
 
     //TODO canRepair gone need to find new thing -> component REPAIRABLE

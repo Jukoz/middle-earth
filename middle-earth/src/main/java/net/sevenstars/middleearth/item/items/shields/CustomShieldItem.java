@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.shields;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
@@ -14,6 +15,7 @@ import net.minecraft.text.Text;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CustomShieldItem extends ShieldItem implements MEEquipmentTooltip {
     public final ModFactions faction;
@@ -47,8 +49,8 @@ public class CustomShieldItem extends ShieldItem implements MEEquipmentTooltip {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 }

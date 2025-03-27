@@ -4,9 +4,11 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.WeightedPressurePlateBlock;
 import net.minecraft.block.enums.BlockFace;
 import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.client.data.*;
+import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.equipment.ArmorMaterial;
@@ -58,7 +60,7 @@ public class ModelProvider extends FabricModelProvider {
             Identifier identifier2 = Models.CUBE_ALL.upload(block, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createBlockStateWithTwoModelAndRandomInversion(block, identifier, identifier2));
+                    .modelWithMirroring(block, identifier, identifier2));
         }
 
         for (SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledBlocks) {
@@ -377,8 +379,8 @@ public class ModelProvider extends FabricModelProvider {
             TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
             Block fence = block.fence();
 
-            Identifier post = Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-            Identifier side = Models.FENCE_SIDE.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            WeightedVariant post = BlockStateModelGenerator.createWeightedVariant(Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            WeightedVariant side = BlockStateModelGenerator.createWeightedVariant(Models.FENCE_SIDE.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             Identifier inventory = Models.FENCE_INVENTORY.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
@@ -391,10 +393,10 @@ public class ModelProvider extends FabricModelProvider {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             Block fenceGate = block.fenceGate();
 
-            Identifier open = Models.TEMPLATE_FENCE_GATE_OPEN.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-            Identifier closed = Models.TEMPLATE_FENCE_GATE.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-            Identifier openWall = Models.TEMPLATE_FENCE_GATE_WALL_OPEN.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-            Identifier closedWall = Models.TEMPLATE_FENCE_GATE_WALL.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            WeightedVariant open = BlockStateModelGenerator.createWeightedVariant(Models.TEMPLATE_FENCE_GATE_OPEN.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            WeightedVariant closed = BlockStateModelGenerator.createWeightedVariant(Models.TEMPLATE_FENCE_GATE.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            WeightedVariant openWall = BlockStateModelGenerator.createWeightedVariant(Models.TEMPLATE_FENCE_GATE_WALL_OPEN.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            WeightedVariant closedWall = BlockStateModelGenerator.createWeightedVariant(Models.TEMPLATE_FENCE_GATE_WALL.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
                     .createFenceGateBlockState(fenceGate, open, closed, openWall, closedWall, true));
@@ -404,8 +406,8 @@ public class ModelProvider extends FabricModelProvider {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             Block button = block.button();
 
-            Identifier unpressed = Models.BUTTON.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-            Identifier pressed = Models.BUTTON_PRESSED.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            WeightedVariant unpressed = BlockStateModelGenerator.createWeightedVariant(Models.BUTTON.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            WeightedVariant pressed = BlockStateModelGenerator.createWeightedVariant(Models.BUTTON_PRESSED.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             Identifier inventory = Models.BUTTON_INVENTORY.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
@@ -735,14 +737,16 @@ public class ModelProvider extends FabricModelProvider {
     public final void registerFanModel(BlockStateModelGenerator blockStateCollector, Block coralFanBlock) {
         TexturedModel texturedModel = TexturedModel.CORAL_FAN.get(coralFanBlock);
         Identifier identifier = texturedModel.upload(coralFanBlock, blockStateCollector.modelCollector);
-        blockStateCollector.blockStateCollector.accept(blockStateCollector.createSingletonBlockState(coralFanBlock, identifier));
+        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(identifier);
+        blockStateCollector.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(coralFanBlock, weightedVariant));
         blockStateCollector.registerItemModel(coralFanBlock);
     }
 
     public final void registerFlowerPotPlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, BlockStateModelGenerator.CrossType tintType) {
         TextureMap textureMap = TextureMap.plant(plantBlock);
         Identifier identifier = tintType.getFlowerPotCrossModel().upload(flowerPotBlock, textureMap, blockStateModelGenerator.modelCollector);
-        blockStateModelGenerator.blockStateCollector.accept(blockStateModelGenerator.createSingletonBlockState(flowerPotBlock, identifier));
+        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(identifier);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(flowerPotBlock, weightedVariant));
     }
 
     public void registerVanillaVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath) {

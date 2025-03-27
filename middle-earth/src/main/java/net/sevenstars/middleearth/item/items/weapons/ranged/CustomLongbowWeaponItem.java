@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons.ranged;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
@@ -22,6 +23,7 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentTooltip{
     private final ModFactions faction;
@@ -96,9 +98,9 @@ public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentToolt
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons.artefacts;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.items.weapons.CustomSpearWeaponItem;
@@ -25,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ArtefactCustomSpearWeaponItem extends CustomSpearWeaponItem {
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
@@ -47,8 +49,8 @@ public class ArtefactCustomSpearWeaponItem extends CustomSpearWeaponItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseArtefactTooltip(tooltip, stack);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseArtefactTooltip(textConsumer, stack);
     }
 
     @Override
