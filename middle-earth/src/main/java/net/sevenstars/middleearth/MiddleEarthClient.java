@@ -23,7 +23,7 @@ import net.sevenstars.middleearth.client.model.hand.shields.HeaterShieldEntityMo
 import net.sevenstars.middleearth.client.model.hand.shields.KiteShieldEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.RoundShieldEntityModel;
 import net.sevenstars.middleearth.client.renderer.*;
-import net.sevenstars.middleearth.datageneration.VariantsModelProvider;
+import net.sevenstars.middleearth.datageneration.providers.VariantsModelProvider;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Crops;
 import net.sevenstars.middleearth.entity.ModEntities;
@@ -49,9 +49,6 @@ import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreen;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.ModEquipmentItems;
 import net.sevenstars.middleearth.item.ModResourceItems;
-import net.sevenstars.middleearth.item.ModWeaponItems;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
-import net.sevenstars.middleearth.item.utils.ModModelPredicateProvider;
 import net.sevenstars.middleearth.item.utils.armor.ModArmorModels;
 import net.sevenstars.middleearth.network.ModClientNetworkHandler;
 import net.sevenstars.middleearth.network.connections.ConnectionToServer;
@@ -113,16 +110,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.LIT_PINECONE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.SPEAR, SpearEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
-
-        //TODO fix this
-        /*SimpleDyeableItemModel.items.forEach(this::registerDyeableItem);
-
-        registerDyeableItem(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
-        registerDyeableItem(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
-
-        registerDyeableItem(ModEquipmentItems.WARG_LEATHER_ARMOR);
-        registerDyeableItem(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);*/
-
 
         // Animals
         EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
@@ -696,9 +683,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         });
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BELLOWS, RenderLayer.getCutout());
-    }
 
-    /*private void registerDyeableItem(Item item) {
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex > 0 ? -1 : CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR), item);
-    }*/
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.MIRKWOOD_VINES, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.MIRKWOOD_VINES_PLANT, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.GLOWWORM_MAIN, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.GLOWWORM_WEBBING, RenderLayer.getCutout());
+    }
 }

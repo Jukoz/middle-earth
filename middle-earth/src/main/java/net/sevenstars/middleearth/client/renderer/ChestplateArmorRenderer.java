@@ -79,7 +79,7 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
                 capeModel.leftArm.visible = true;
                 capeModel.rightLeg.visible = true;
                 capeModel.leftLeg.visible = true;
-                capeModel.setAngles(bipedEntityRenderState);
+                //capeModel.setAngles(bipedEntityRenderState);
                 if (ModDyeablePieces.dyeableCapes.containsKey(capeDataComponent.getCape())) {
                     CapeRenderer.renderDyeableCape(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), true);
                     if (ModDyeablePieces.dyeableCapes.get(capeDataComponent.cape()).booleanValue()){

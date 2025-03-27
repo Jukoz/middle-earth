@@ -35,7 +35,6 @@ public class SimpleItemModel {
 
             add(ModResourceItems.STRAW);
 
-
             //Food Items
             add(ModFoodItems.BERRY_PIE);
             add(ModFoodItems.BOILED_EGG);
@@ -53,6 +52,13 @@ public class SimpleItemModel {
             add(ModFoodItems.COOKED_VENISON);
             add(ModFoodItems.RAW_HORSE);
             add(ModFoodItems.COOKED_HORSE);
+
+            add(ModFoodItems.LEMBAS);
+            add(ModFoodItems.RAW_SWAN);
+            add(ModFoodItems.COOKED_SWAN);
+            add(ModFoodItems.MAGGOTY_BREAD);
+            add(ModFoodItems.TOUGH_BERRIES);
+            add(ModFoodItems.STRAWBERRY);
 
             add(ModResourceItems.GLOWWORM_BOTTLE);
 

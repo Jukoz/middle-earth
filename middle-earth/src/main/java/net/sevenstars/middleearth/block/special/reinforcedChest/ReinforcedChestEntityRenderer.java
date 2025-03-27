@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.special.reinforcedChest;
 
+import net.minecraft.util.math.RotationAxis;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
 import net.minecraft.block.*;
@@ -66,9 +67,9 @@ public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends C
         g = 1.0F - g * g * g;
 
         matrices.push();
-        Quaternionf rotation = blockState.get(ChestBlock.FACING).getRotationQuaternion();
+        float rotation = blockState.get(ChestBlock.FACING).getPositiveHorizontalDegrees();
         matrices.translate(0.5D, 0.0D, 0.5D);
-        matrices.multiply(rotation);
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
 
         chestLatch.pitch = chestLid.pitch = +(g * 1.5707964f);
         chestLid.render(matrices, vertexConsumer, light, overlay);

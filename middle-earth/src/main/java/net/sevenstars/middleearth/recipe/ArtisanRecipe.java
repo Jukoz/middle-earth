@@ -3,7 +3,9 @@ package net.sevenstars.middleearth.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer;
 import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
+import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeBookCategory;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
@@ -24,8 +26,6 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
     public final ItemStack output;
     public final String disposition;
     public final List<Ingredient> inputs;
-
-    private IngredientPlacement ingredientPlacement;
 
     public ArtisanRecipe(String category, ItemStack output, List<Ingredient> recipeItems, String disposition) {
         this.category = category;
@@ -93,8 +93,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
 
     @Override
     public RecipeSerializer<? extends Recipe<MultipleStackRecipeInput>> getSerializer() {
-        //return Serializer.INSTANCE;
-        return null;
+        return Serializer.INSTANCE;
     }
 
     @Override
@@ -123,7 +122,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
         return true;
     }
 
-    /*public static class Serializer implements RecipeSerializer<ArtisanRecipe> {
+    public static class Serializer implements RecipeSerializer<ArtisanRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public static final String ID = "artisan_table";
         private final MapCodec<ArtisanRecipe> codec;
@@ -133,7 +132,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                     Codec.STRING.fieldOf("category").forGetter(recipe -> recipe.category),
                     ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
-                    CustomIngredientImpl.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
+                    Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
                     Codec.STRING.fieldOf("disposition").forGetter(recipe -> recipe.disposition)
             ).apply(instance, ArtisanRecipe::new));
 
@@ -169,5 +168,5 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
             }
             buf.writeString(recipe.disposition);
         }
-    }*/
+    }
 }

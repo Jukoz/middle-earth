@@ -63,7 +63,7 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                 contextModel.copyTransforms(this.helmetModel);
                 this.helmetModel.setVisible(false);
                 this.helmetModel.head.visible = true;
-                this.helmetModel.setAngles(bipedEntityRenderState);
+                //this.helmetModel.setAngles(bipedEntityRenderState);
                 if(texture.contains("_helmet.png")){
                     ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
                 } else {
@@ -84,6 +84,7 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                 }
                 contextModel.copyTransforms(hoodModel);
                 hoodModel.setVisible(false);
+                hoodModel.head.visible = true;
                 hoodModel.hat.visible = true;
                 if (ModDyeablePieces.dyeableHoods.containsKey(hoodDataComponent.getHood())) {
                     HoodRenderer.renderDyeableHood(matrices, vertexConsumers, light, stack, hoodModel, textureHood, true);

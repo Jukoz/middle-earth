@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "me:red_heather"
-    }
+    "me:red_heather"
   ],
   "result": {
     "id": "minecraft:red_dye"

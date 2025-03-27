@@ -6,9 +6,7 @@
     " N "
   ],
   "key": {
-    "N": {
-      "item": "me:edhel_steel_nugget"
-    }
+    "N": "me:edhel_steel_nugget"
   },
   "result": {
     "id": "me:scale",
