@@ -418,6 +418,9 @@
   "item.me.water_phial": "Water Phial",
   "item.me.starlight_phial": "Starlight Phial",
 
+"#Comment:": "Item - Decorative Blocks",
+  "item.me.tapper": "Tapper",
+
 "#Comment:": "Item - Tools",
   "item.me.bronze_pickaxe": "Bronze Pickaxe",
   "item.me.bronze_axe": "Bronze Axe",

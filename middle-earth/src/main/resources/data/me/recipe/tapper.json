@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#me:steel_ingots",
+    "me:wooden_bucket"
+  ],
+  "result": {
+    "id": "me:tapper"
+  }
+}
