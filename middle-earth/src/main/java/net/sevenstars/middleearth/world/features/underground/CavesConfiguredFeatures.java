@@ -24,7 +24,7 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.TagMatchRuleTest;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DataPool;
+import net.minecraft.util.collection.Pool;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.math.floatprovider.ClampedNormalFloatProvider;
@@ -578,11 +578,11 @@ public class CavesConfiguredFeatures {
                 -16, 16, 0.05, 1));
     }
 
-    public static DataPool.Builder<BlockState> getMushroomBuilder(Block tiller) {
-        DataPool.Builder<BlockState> builder = DataPool.builder();
+    public static Pool.Builder<BlockState> getMushroomBuilder(Block tiller) {
+        Pool.Builder<BlockState> builder = Pool.builder();
         for (int i = 1; i <= 4; ++i) {
             for (Direction direction : Direction.Type.HORIZONTAL) {
-                builder.add((tiller.getDefaultState().with(FlowerbedBlock.FLOWER_AMOUNT, i)).with(FlowerbedBlock.FACING, direction), 1);
+                builder.add((tiller.getDefaultState().with(FlowerbedBlock.FLOWER_AMOUNT, i)).with(FlowerbedBlock.HORIZONTAL_FACING, direction), 1);
             }
         }
         return builder;
