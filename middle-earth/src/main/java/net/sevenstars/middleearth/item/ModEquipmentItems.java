@@ -15,12 +15,9 @@ import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
 import net.sevenstars.middleearth.item.utils.armor.hoods.ModHoods;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
-import net.minecraft.item.AnimalArmorItem;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -306,7 +303,7 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GONDORIAN_FOUNTAIN_GUARD_CAPE)));
 
     public static final Item GONDORIAN_HORSE_ARMOR = registerGeneratedItem("gondorian_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ModArmorMaterials.GONDORIAN_HORSE_ARMOR.material(), AnimalArmorItem.Type.EQUESTRIAN, false, settings, ModFactions.GONDOR), new Item.Settings().maxCount(1));
+            (settings) -> new CustomHorseArmorItem(ModArmorMaterials.GONDORIAN_HORSE_ARMOR.material(), settings, ModFactions.GONDOR), new Item.Settings().maxCount(1));
 
     //endregion
 
@@ -408,7 +405,7 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.HORSE_LORD_CAPE)));
 
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ModArmorMaterials.ROHIRRIC_HORSE_ARMOR.material(), AnimalArmorItem.Type.EQUESTRIAN, false, settings, ModFactions.ROHAN), new Item.Settings().maxCount(1));
+            (settings) -> new CustomHorseArmorItem(ModArmorMaterials.ROHIRRIC_HORSE_ARMOR.material(), settings, ModFactions.ROHAN), new Item.Settings().maxCount(1));
     //endregion
 
     //region DALE
@@ -484,7 +481,7 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BARDING_SERGEANT_CAPE)));
 
     public static final Item DALISH_HORSE_ARMOR = registerGeneratedItem("dalish_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ModArmorMaterials.DALISH_HORSE_ARMOR.material(), AnimalArmorItem.Type.EQUESTRIAN, false, settings, ModFactions.DALE), new Item.Settings().maxCount(1));
+            (settings) -> new CustomHorseArmorItem(ModArmorMaterials.DALISH_HORSE_ARMOR.material(), settings, ModFactions.DALE), new Item.Settings().maxCount(1));
 
     //endregion
 
@@ -776,7 +773,7 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GALADHRIM_LORD_SURCOAT)));
 
     public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ModArmorMaterials.LORIEN_HORSE_ARMOR.material(), AnimalArmorItem.Type.EQUESTRIAN, false, settings, ModFactions.LOTHLORIEN), new Item.Settings().maxCount(1));
+            (settings) -> new CustomHorseArmorItem(ModArmorMaterials.LORIEN_HORSE_ARMOR.material(), settings, ModFactions.LOTHLORIEN), new Item.Settings().maxCount(1));
     //endregion
     //endregion
 

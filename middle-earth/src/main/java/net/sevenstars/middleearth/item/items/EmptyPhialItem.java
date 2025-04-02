@@ -30,7 +30,7 @@ public class EmptyPhialItem  extends Item {
         if (blockHitResult.getType() != HitResult.Type.MISS) {
             if (blockHitResult.getType() == HitResult.Type.BLOCK) {
                 BlockPos blockPos = blockHitResult.getBlockPos();
-                if (!world.canPlayerModifyAt(user, blockPos)) {
+                if (!world.canEntityModifyAt(user, blockPos)) {
                     return ActionResult.PASS;
                 }
 

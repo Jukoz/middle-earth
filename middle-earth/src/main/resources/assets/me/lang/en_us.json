@@ -418,6 +418,9 @@
   "item.me.water_phial": "Water Phial",
   "item.me.starlight_phial": "Starlight Phial",
 
+"#Comment:": "Item - Decorative Blocks",
+  "item.me.tapper": "Tapper",
+
 "#Comment:": "Item - Tools",
   "item.me.bronze_pickaxe": "Bronze Pickaxe",
   "item.me.bronze_axe": "Bronze Axe",
@@ -1428,6 +1431,8 @@
   "item.me.lembas": "Lembas",
   "item.me.maggoty_bread": "Maggoty Bread",
   "item.me.strawberry": "Strawberry",
+  "item.me.birch_water": "Birch Water",
+  "item.me.maple_syrup": "Maple Syrup",
   "item.me.tough_berries": "Tough Berries",
   "item.me.raw_swan": "Raw Swan",
   "item.me.cooked_swan": "Cooked Swan",
@@ -6601,6 +6606,8 @@
 
   "block.me.fire_of_orthanc": "Fire of Orthanc",
   "block.me.torch_of_orthanc": "Torch of Orthanc",
+
+  "block.me.tapper": "Tapper",
 
   "block.me.wood_pile": "Wood Pile",
 

@@ -1,6 +1,8 @@
 package net.sevenstars.middleearth.item.items.weapons.artefacts;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
@@ -24,8 +26,10 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWeaponItem {
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
@@ -46,7 +50,7 @@ public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWea
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+    public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
         ArtefactCustomGlowingLongswordWeaponItem item = (ArtefactCustomGlowingLongswordWeaponItem) stack.getItem();
         item.glowing = shouldBeGlowing(world, entity);
     }
@@ -61,8 +65,8 @@ public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWea
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseArtefactTooltip(tooltip, stack);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseArtefactTooltip(textConsumer, stack);
     }
 
     @Override

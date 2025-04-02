@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
@@ -11,7 +12,6 @@ import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.Registries;
@@ -20,29 +20,30 @@ import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class CustomSwordWeaponItem extends SwordItem implements MEEquipmentTooltip {
+public class CustomSwordWeaponItem extends Item implements MEEquipmentTooltip {
     public final ModFactions faction;
     public final ModSubFactions subFaction;
 
     public final ModWeaponTypes type;
 
     public CustomSwordWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
-        super(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed, settings.attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
+        super(settings.sword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed).attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
         this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = ModWeaponTypes.SWORD;
     }
 
     public CustomSwordWeaponItem(ToolMaterial toolMaterial,  ModFactions faction, Item.Settings settings) {
-        super(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed, settings.attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
+        super(settings.sword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed).attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
         this.faction = faction;
         this.subFaction = null;
         this.type = ModWeaponTypes.SWORD;
     }
 
     public CustomSwordWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
-        super(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed, settings.attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
+        super(settings.sword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed).attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = ModWeaponTypes.SWORD;
@@ -67,9 +68,9 @@ public class CustomSwordWeaponItem extends SwordItem implements MEEquipmentToolt
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
     @Override
