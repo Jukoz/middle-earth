@@ -46,6 +46,7 @@ import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 
@@ -321,7 +322,7 @@ public class WargEntity extends AbstractBeastEntity {
         List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
 
         for(Entity entity : entities) {
-            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
+            if(entity.getUuid() != Objects.requireNonNull(this.getOwner()).getUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
                 if(getWorld() instanceof ServerWorld serverWorld)
                     entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), this.getAttackDamage());
 

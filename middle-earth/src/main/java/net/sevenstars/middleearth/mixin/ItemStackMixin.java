@@ -18,7 +18,8 @@ import java.util.function.Consumer;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
-
+    //TODO broken to fix
+/*
     @Shadow protected abstract <T extends TooltipAppender> void appendTooltip(ComponentType<T> componentType, Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type);
 
     @Shadow public abstract Item getItem();
@@ -29,5 +30,5 @@ public abstract class ItemStackMixin {
 
     private void addCustomTooltips(ItemStack instance, ComponentType componentType, Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, Operation<Void> original, @Local Consumer<Text> consumer){
         this.appendTooltip(ModDataComponentTypes.TEMPERATURE_DATA, context, consumer, type);
-    }
+    }*/
 }
