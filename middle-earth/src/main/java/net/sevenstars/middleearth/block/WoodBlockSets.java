@@ -68,12 +68,12 @@ public class WoodBlockSets {
         Block leaves = null;
         if(hasLeaves) {
             if(range) {
-                leaves = ModNatureBlocks.registerBlock(name + "_leaves", (settings) -> new ModLeavesBlock(settings, castShadow, particleEffect),
+                leaves = ModNatureBlocks.registerBlock(name + "_leaves", (settings) -> new ModLeavesBlock(0.01f, settings, castShadow, particleEffect),
                         AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
                         .strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(ModBlocks::canSpawnOnLeaves).suffocates(ModBlocks::never)
                         .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never), true);
             } else {
-                leaves = ModNatureBlocks.registerBlock(name + "_leaves", LeavesBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
+                leaves = ModNatureBlocks.registerBlock(name + "_leaves", (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
                         .strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(ModBlocks::canSpawnOnLeaves).suffocates(ModBlocks::never)
                         .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never), true);
             }
