@@ -171,7 +171,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
         //RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        //RenderSystem.setShaderTexture(0, TEXTURE);
         int i = this.x;
         int j = this.y;
         context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
