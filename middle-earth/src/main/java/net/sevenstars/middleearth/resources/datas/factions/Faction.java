@@ -169,18 +169,18 @@ public class Faction {
         // Need these data for a functional faction
         if((this.factionType == FactionType.SUBFACTION) || (this.factionType == FactionType.FACTION) && (subFactions == null || subFactions.isEmpty())){
             if(this.npcDatasByRank == null || this.npcDatasByRank.isEmpty()){
-                throw new RuntimeException("Faction [%s] is missing their npc data, make sure they have at least 1 available npc data per rank.".formatted(id));
+                throw new RuntimeException("PlayerFactionPayload [%s] is missing their npc data, make sure they have at least 1 available npc data per rank.".formatted(id));
             } else {
                 if(!npcDatasByRank.containsKey(NpcRank.MILITIA)
                         || !npcDatasByRank.containsKey(NpcRank.SOLDIER)
                         || !npcDatasByRank.containsKey(NpcRank.KNIGHT)
                         || !npcDatasByRank.containsKey(NpcRank.VETERAN)
                         || !npcDatasByRank.containsKey(NpcRank.LEADER)) {
-                    throw new RuntimeException("Faction [%s] is missing their npc data, make sure they have at least 1 npc data per rank.".formatted(id));
+                    throw new RuntimeException("PlayerFactionPayload [%s] is missing their npc data, make sure they have at least 1 npc data per rank.".formatted(id));
                 }
             }
             if(this.bannerData == null){
-                throw new RuntimeException("Faction [%s] is missing their banner data, make sure they have one.".formatted(id));
+                throw new RuntimeException("PlayerFactionPayload [%s] is missing their banner data, make sure they have one.".formatted(id));
             }
         }
     }

@@ -251,7 +251,7 @@ public class CommandFaction {
                     source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
                 }
             } catch (FactionIdentifierException e) {
-                MiddleEarth.LOGGER.logDebugMsg("Faction Id does not exist");
+                MiddleEarth.LOGGER.logDebugMsg("PlayerFactionPayload Id does not exist");
             }
 
             return 1;

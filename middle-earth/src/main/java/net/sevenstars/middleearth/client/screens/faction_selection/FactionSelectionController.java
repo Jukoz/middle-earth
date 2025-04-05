@@ -127,7 +127,7 @@ public class FactionSelectionController {
             }
         }
 
-        // Faction randomizer
+        // PlayerFactionPayload randomizer
         currentFactionIndex =
                 (factions.get(disposition) == null || factions.get(disposition).isEmpty())
                         ? 0

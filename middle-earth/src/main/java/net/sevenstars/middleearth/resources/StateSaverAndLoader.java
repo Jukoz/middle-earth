@@ -1,31 +1,105 @@
 package net.sevenstars.middleearth.resources;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.persistent_datas.AffiliationData;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
+import net.minecraft.world.PersistentStateType;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
-
-
 /**
  * Documentation : <a href="https://fabricmc.net/wiki/tutorial:persistent_states">link</a>
  */
 public class StateSaverAndLoader extends PersistentState {
-    public HashMap<UUID, PlayerData> players = new HashMap<>();
-    @Override
-    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+    private HashMap<UUID, PlayerData> players;
+    private static final PersistentStateType<StateSaverAndLoader> TYPE;
+
+    public static final Codec<StateSaverAndLoader> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            NbtCompound.CODEC.fieldOf("playerDatas").forGetter(StateSaverAndLoader::getPlayerDataNbt)
+    ).apply(instance, StateSaverAndLoader::new));
+
+    public StateSaverAndLoader() {
+        this.players = new HashMap();
+    }
+    public StateSaverAndLoader(NbtCompound nbt){
+        this.players = new HashMap();
+    }
+
+    public static StateSaverAndLoader createNew() {
+        StateSaverAndLoader state = new StateSaverAndLoader();
+        state.players = new HashMap();
+        return state;
+    }
+
+    public HashMap<UUID, PlayerData> getPlayers() {
+        return this.players;
+    }
+
+    private NbtCompound getPlayerDataNbt() {
+        return new NbtCompound();
+    }
+
+    public static StateSaverAndLoader getServerState(MinecraftServer server) {
+        PersistentStateManager persistentStateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
+        StateSaverAndLoader state = persistentStateManager.getOrCreate(TYPE);
+        state.markDirty();
+        return state;
+    }
+    public static PlayerData getPlayerState(PlayerEntity player) {
+        StateSaverAndLoader serverState = getServerState(Objects.requireNonNull(player.getWorld().getServer()));
+        if (serverState.players.get(player.getUuid()) == null) {
+            // Create player from scratch
+        }
+        return serverState.players.get(player.getUuid());
+    }
+
+
+    static {
+        TYPE = new PersistentStateType<>(Identifier.of(MiddleEarth.MOD_ID,"persistentState").toString(), StateSaverAndLoader::createNew, CODEC, (DataFixTypes) null);
+    }
+
+    /*
+
+    private NbtCompound getPlayerDataNbt() {
+        return new NbtCompound();
+    }
+
+
+    private static PersistentStateType<StateSaverAndLoader> type = new PersistentStateType<>(
+            MiddleEarth.MOD_ID,
+            StateSaverAndLoader::new,
+            StateSaverAndLoader::getCodec,
+            null
+    );
+
+
+    public static void registerPayloads(){
+        PayloadTypeRegistry.playS2C().register(PlayerFactionPayload.ID, PlayerFactionPayload.CODEC);
+        PayloadTypeRegistry.playS2C().register(PlayerFactionSpawnPayload.ID, PlayerFactionSpawnPayload.CODEC);
+        PayloadTypeRegistry.playS2C().register(PlayerOriginSpawnPayload.ID, PlayerOriginSpawnPayload.CODEC);
+        PayloadTypeRegistry.playS2C().register(PlayerRacePayload.ID, PlayerRacePayload.CODEC);
+    }
+
+    public static void registerGlobalReceivers(){
+        ClientPlayNetworking.registerGlobalReceiver(PlayerFactionPayload.ID, PlayerFactionPayload::handle);
+        ClientPlayNetworking.registerGlobalReceiver(PlayerFactionSpawnPayload.ID, PlayerFactionSpawnPayload::handle);
+        ClientPlayNetworking.registerGlobalReceiver(PlayerOriginSpawnPayload.ID, PlayerOriginSpawnPayload::handle);
+        ClientPlayNetworking.registerGlobalReceiver(PlayerRacePayload.ID, PlayerRacePayload::handle);
+    }
+
+
+    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         NbtCompound playersNbt = new NbtCompound();
         players.forEach((uuid, playerData) -> {
             NbtCompound playerNbt = new NbtCompound();
@@ -49,8 +123,14 @@ public class StateSaverAndLoader extends PersistentState {
 
         return nbt;
     }
-
     public static StateSaverAndLoader createFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+        StateSaverAndLoader state = new StateSaverAndLoader();
+        //...
+        return state;
+    }
+
+    /*
+        public static StateSaverAndLoader createFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
         StateSaverAndLoader state = new StateSaverAndLoader();
         NbtCompound playersNbt = tag.getCompound("players");
         playersNbt.getKeys().forEach(key -> {
@@ -96,52 +176,11 @@ public class StateSaverAndLoader extends PersistentState {
 
         return state;
     }
-
-    private static Type<StateSaverAndLoader> type = new Type<>(
-            StateSaverAndLoader::new, // If there's no 'StateSaverAndLoader' yet create one
-            StateSaverAndLoader::createFromNbt, // If there is a 'StateSaverAndLoader' NBT, parse it with 'createFromNbt'
-            null // Supposed to be an 'DataFixTypes' enum, but we can just pass null
-    );
-
-    public static StateSaverAndLoader getServerState(MinecraftServer server) {
-        // (Note: arbitrary choice to use 'World.OVERWORLD' instead of 'World.END' or 'World.NETHER'.  Any work)
-        PersistentStateManager persistentStateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
-
-        // The first time the following 'getOrCreate' function is called, it creates a brand new 'StateSaverAndLoader' and
-        // stores it inside the 'PersistentStateManager'. The subsequent calls to 'getOrCreate' pass in the saved
-        // 'StateSaverAndLoader' NBT on disk to our function 'StateSaverAndLoader::createFromNbt'.
-        StateSaverAndLoader state = persistentStateManager.getOrCreate(type, MiddleEarth.MOD_ID);
-
-        // If state is not marked dirty, when Minecraft closes, 'writeNbt' won't be called and therefore nothing will be saved.
-        // Technically it's 'cleaner' if you only mark state as dirty when there was actually a change, but the vast majority
-        // of mod writers are just going to be confused when their data isn't being saved, and so it's best just to 'markDirty' for them.
-        // Besides, it's literally just setting a bool to true, and the only time there's a 'cost' is when the file is written to disk when
-        // there were no actual change to any of the mods state (INCREDIBLY RARE).
-        state.markDirty();
-
-        return state;
-    }
-
-    public static PlayerData getPlayerState(PlayerEntity player) {
-        try {
-            if(player == null){
-                throw new Exception("Cannot have null as parameter");
-            }
-            if(player.getWorld().isClient){
-                throw new Exception("Cannot be used client side");
-            }
-        } catch (Exception e){
-            MiddleEarth.LOGGER.logError("StateSaverAndLoader::getPlayerState", e);
-            return null;
-        }
-
-
-        // If it crashes, it means that you ain't using it correctly.
-        StateSaverAndLoader serverState = getServerState(player.getWorld().getServer());
-
-        // Either get the player by the uuid, or we don't have data for him yet, make a new player state
-        PlayerData playerState = serverState.players.computeIfAbsent(player.getUuid(), uuid -> new PlayerData());
-
-        return playerState;
-    }
+     */
 }
+
+
+
+
+
+

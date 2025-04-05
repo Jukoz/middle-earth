@@ -127,7 +127,7 @@ public class FactionSelectionScreen extends Screen {
             addDrawableChild(button);
         }
 
-        // Faction
+        // PlayerFactionPayload
         factionSelectionWidget = new CycledSelectionWidget(
                 button -> {
                     controller.factionUpdate(false);
@@ -163,7 +163,7 @@ public class FactionSelectionScreen extends Screen {
         for(ButtonWidget button: playableNpcPreviewWidget.getButtons()){
             addDrawableChild(button);
         }
-        // Faction Randomizer
+        // PlayerFactionPayload Randomizer
         factionRandomizerButton = ButtonWidget.builder(
                 Text.translatable("screen.me.button.faction_randomizer"),
                 button -> {
@@ -441,7 +441,7 @@ public class FactionSelectionScreen extends Screen {
         dispositionSelectionWidget.enableArrows(Disposition.values().length > 1);
         newStartY += MINIMAL_MARGIN + dispositionSelectionWidget.drawAnchored(context, endX, newStartY, false, disposition.getName(), textRenderer);
 
-        // Faction
+        // PlayerFactionPayload
         int currentFactionCountForDisposition = controller.getCurrentDispositionFactionCount();
         factionSelectionWidget.enableArrows(currentFactionCountForDisposition > 1);
         if(faction != null){
