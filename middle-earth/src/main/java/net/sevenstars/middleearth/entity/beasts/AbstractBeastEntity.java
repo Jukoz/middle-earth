@@ -1,11 +1,7 @@
 package net.sevenstars.middleearth.entity.beasts;
 
-import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityStatuses;
@@ -26,7 +22,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -35,6 +31,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.RaceType;
 
 import java.util.List;
 import java.util.UUID;
@@ -109,7 +107,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
                     return false;
                 }
                 AbstractBeastEntity.this.items.setStack(slot, stack);
-                AbstractBeastEntity.this.updateSaddledFlag();
+                // TODO : AbstractBeastEntity.this.updateSaddledFlag();
                 return true;
             }
         };
@@ -138,21 +136,22 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.setSitting(nbt.getBoolean("Sitting"));
-        this.setHasChest(nbt.getBoolean("ChestedBeast"));
+        this.setSitting(nbt.getBoolean("Sitting").get());
+        this.setHasChest(nbt.getBoolean("ChestedBeast").get());
         this.onChestedStatusChanged();
         if (this.hasChest()) {
-            NbtList nbtList = nbt.getList("Items", 10);
+            NbtList nbtList = nbt.getList("Items").get();
 
             for(int i = 0; i < nbtList.size(); ++i) {
-                NbtCompound nbtCompound = nbtList.getCompound(i);
-                int j = nbtCompound.getByte("Slot") & 255;
+                NbtCompound nbtCompound = nbtList.getCompound(i).get();
+                int j = nbtCompound.getByte("Slot").get() & 255;
                 if (j >= 2 && j < this.items.size()) {
                     this.items.setStack(j, (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY));
                 }
             }
         }
-        this.updateSaddledFlag();
+        // TODO : Fix this
+        // this.updateSaddledFlag();
     }
 
     // Getters and Setters =============================================================================================
@@ -209,15 +208,12 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
 
     public double getMountedHeightOffset() {
         float f = Math.min(0.25F, this.limbAnimator.getSpeed());
-        float g = this.limbAnimator.getPos();
+        float g = this.limbAnimator.getSpeed(); // TODO : was this.limbAnimator.getPos();
         return (double)this.getHeight() - 0.19 + (double)(0.12F * MathHelper.cos(g * 1.5F) * 2.0F * f);
     }
 
     public PlayerEntity getOwner() {
-        if(this.getOwnerUuid() != null) {
-            return getPlayerByUuid(this.getOwnerUuid());
-        }
-        return null;
+        return this.getOwner();
     }
 
     public boolean hasCharged() {
@@ -315,11 +311,6 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     @Override
-    public SoundEvent getSaddleSound() {
-        return super.getSaddleSound();
-    }
-
-    @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
         return this.isSitting() ? 0 : super.getSaddledSpeed(controllingPlayer);
     }
@@ -362,7 +353,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
 
     protected void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
-            this.setOwnerUuid(player.getUuid());
+            this.setOwner(player);
             this.setTame(true);
             Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
         }
@@ -449,7 +440,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
 
         if(this.hasControllingPassenger() && !this.shouldAttackWhenMounted()) {
             this.setAttacker(null);
-            this.setAttacking(null);
+            this.setAttacking(false);
             this.setTarget(null);
         }
 
