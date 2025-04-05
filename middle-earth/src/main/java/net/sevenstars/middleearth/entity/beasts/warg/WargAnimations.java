@@ -13,7 +13,7 @@ public class WargAnimations {
 					new Keyframe(0.2917F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 18.1F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.4583F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.8333F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.4583F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
@@ -28,7 +28,7 @@ public class WargAnimations {
 					new Keyframe(0.625F, AnimationHelper.createRotationalVector(9.9621F, 2.654F, -53.0485F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.4583F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("root", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("root", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.4583F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -37,7 +37,7 @@ public class WargAnimations {
 					new Keyframe(0.2917F, AnimationHelper.createRotationalVector(0.0222F, 0.2534F, -16.2F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.4583F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -6.3F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.4583F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -46,7 +46,7 @@ public class WargAnimations {
 					new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -1.68F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.4583F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.25F, AnimationHelper.createTranslationalVector(0.0F, 3.99F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.7F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -55,7 +55,7 @@ public class WargAnimations {
 			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.ROTATE,
@@ -64,7 +64,7 @@ public class WargAnimations {
 					new Keyframe(0.9583F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -1.68F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.4583F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.75F, AnimationHelper.createTranslationalVector(0.0F, 3.25F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -78,7 +78,7 @@ public class WargAnimations {
 					new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 17.2F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 12.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -87,7 +87,7 @@ public class WargAnimations {
 					new Keyframe(0.4167F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(-17.5F, 0.0F, -65.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.4167F, AnimationHelper.createTranslationalVector(0.0F, 3.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.8333F, AnimationHelper.createTranslationalVector(0.0F, 3.5F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -98,13 +98,13 @@ public class WargAnimations {
 					new Keyframe(0.4167F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(17.5F, 0.0F, -65.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.4167F, AnimationHelper.createTranslationalVector(0.0F, 3.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.8333F, AnimationHelper.createTranslationalVector(0.0F, 3.5F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createTranslationalVector(-2.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("root", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("root", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -112,7 +112,7 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(-0.0131F, 0.2997F, -27.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createTranslationalVector(0.0F, -6.3F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -120,7 +120,7 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 27.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -128,7 +128,7 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -136,7 +136,7 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 27.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -146,46 +146,46 @@ public class WargAnimations {
 			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 12.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(-17.5F, 0.0F, -65.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-2.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(17.5F, 0.0F, -65.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-2.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("root", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("root", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(-0.0131F, 0.2997F, -27.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -6.3F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 27.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 27.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.build();
@@ -208,7 +208,7 @@ public class WargAnimations {
 					new Keyframe(6.0F, AnimationHelper.createRotationalVector(-22.0103F, -38.9941F, 19.7239F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 12.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(2.75F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -220,7 +220,7 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(-17.5F, 0.0F, -65.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createRotationalVector(-17.5F, 0.0F, -65.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-2.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -228,11 +228,11 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(17.5F, 0.0F, -65.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createRotationalVector(17.5F, 0.0F, -65.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-2.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("root", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("root", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -240,7 +240,7 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(-0.0131F, 0.2997F, -27.5F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createRotationalVector(-0.0131F, 0.2997F, -27.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -6.3F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createTranslationalVector(0.0F, -6.3F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -250,7 +250,7 @@ public class WargAnimations {
 					new Keyframe(6.0417F, AnimationHelper.createRotationalVector(51.0241F, -61.8087F, -83.4484F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 27.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -258,7 +258,7 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -266,7 +266,7 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 27.5F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 27.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(6.9583F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -279,7 +279,7 @@ public class WargAnimations {
 					new Keyframe(1.0417F, AnimationHelper.createRotationalVector(-5.9551F, 4.2595F, 22.5542F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -5.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createTranslationalVector(-3.0F, -1.5F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -287,18 +287,18 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(-17.5F, 0.0F, -65.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createRotationalVector(-17.4844F, -0.7515F, -67.3844F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-2.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(17.5F, 0.0F, -65.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createRotationalVector(17.5F, 0.0F, -65.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-2.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createTranslationalVector(-2.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("root", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("root", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -306,7 +306,7 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(-0.0131F, 0.2997F, -27.5F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -22.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -6.3F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createTranslationalVector(0.0F, -8.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -316,7 +316,7 @@ public class WargAnimations {
 					new Keyframe(1.0417F, AnimationHelper.createRotationalVector(17.7517F, -11.9313F, -16.3691F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createRotationalVector(22.4065F, -10.3945F, -84.5049F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.2917F, AnimationHelper.createTranslationalVector(0.0F, 5.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.4583F, AnimationHelper.createTranslationalVector(1.0F, 3.73F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -329,7 +329,7 @@ public class WargAnimations {
 					new Keyframe(1.0417F, AnimationHelper.createRotationalVector(10.9677F, 0.0F, 4.3548F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 22.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.625F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createTranslationalVector(0.0F, -3.0F, 0.0F), Transformation.Interpolations.CUBIC)
@@ -343,7 +343,7 @@ public class WargAnimations {
 					new Keyframe(1.0417F, AnimationHelper.createRotationalVector(-31.4557F, -5.4765F, -5.3022F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createRotationalVector(-24.0752F, 6.8432F, -87.0372F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.625F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.7917F, AnimationHelper.createTranslationalVector(-0.39F, 4.81F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -356,7 +356,7 @@ public class WargAnimations {
 			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -5.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-3.0F, -1.5F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.ROTATE,
@@ -365,34 +365,34 @@ public class WargAnimations {
 			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(17.5F, 0.0F, -65.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-2.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("root", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("root", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -22.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -8.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(22.4065F, -10.3945F, -84.5049F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-4.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 22.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -3.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(-24.0752F, 6.8432F, -87.0372F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-4.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.build();
@@ -404,7 +404,7 @@ public class WargAnimations {
 					new Keyframe(1.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -15.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-3.0F, -1.5F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -414,7 +414,7 @@ public class WargAnimations {
 					new Keyframe(1.0F, AnimationHelper.createRotationalVector(-6.4713F, 5.9023F, 10.9451F), Transformation.Interpolations.CUBIC),
 					new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 22.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createTranslationalVector(1.0F, 6.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.0F, AnimationHelper.createTranslationalVector(3.0F, 9.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -426,18 +426,18 @@ public class WargAnimations {
 					new Keyframe(1.0F, AnimationHelper.createRotationalVector(6.4713F, -5.9023F, 10.9451F), Transformation.Interpolations.CUBIC),
 					new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 22.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-2.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createTranslationalVector(1.0F, 6.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.0F, AnimationHelper.createTranslationalVector(3.0F, 10.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("root", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("root", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -22.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -8.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.ROTATE,
@@ -446,7 +446,7 @@ public class WargAnimations {
 					new Keyframe(1.0F, AnimationHelper.createRotationalVector(21.9621F, -11.3386F, -82.1478F), Transformation.Interpolations.CUBIC),
 					new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-4.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -455,7 +455,7 @@ public class WargAnimations {
 					new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 36.25F), Transformation.Interpolations.CUBIC),
 					new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 23.75F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -3.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -467,14 +467,14 @@ public class WargAnimations {
 					new Keyframe(1.0F, AnimationHelper.createRotationalVector(-24.0752F, 6.8432F, -87.0372F), Transformation.Interpolations.CUBIC),
 					new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(-4.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.build();
 
 	public static final Animation WALK = Animation.Builder.create(1.25F).looping()
-			.addBoneAnimation("root", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("root", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.ROTATE,
@@ -484,7 +484,7 @@ public class WargAnimations {
 					new Keyframe(0.6667F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 25.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -35.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.2083F, AnimationHelper.createTranslationalVector(0.0F, -0.25F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.4167F, AnimationHelper.createTranslationalVector(-2.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -495,7 +495,7 @@ public class WargAnimations {
 			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.2917F, AnimationHelper.createTranslationalVector(0.0F, 0.5F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.6667F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -507,7 +507,7 @@ public class WargAnimations {
 					new Keyframe(0.6667F, AnimationHelper.createRotationalVector(2.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(-2.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.ROTATE,
@@ -517,7 +517,7 @@ public class WargAnimations {
 					new Keyframe(1.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 35.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.2917F, AnimationHelper.createTranslationalVector(0.0F, 3.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.6667F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -532,7 +532,7 @@ public class WargAnimations {
 					new Keyframe(0.6667F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 35.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -45.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.2083F, AnimationHelper.createTranslationalVector(0.0F, 0.67F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.4167F, AnimationHelper.createTranslationalVector(-2.0F, 0.84F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -551,7 +551,7 @@ public class WargAnimations {
 					new Keyframe(1.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 35.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.83F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.2917F, AnimationHelper.createTranslationalVector(0.0F, 2.83F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.6667F, AnimationHelper.createTranslationalVector(0.0F, 0.83F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -572,7 +572,7 @@ public class WargAnimations {
 					new Keyframe(0.1667F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 27.5F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -60.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.1667F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.4167F, AnimationHelper.createTranslationalVector(0.0F, 3.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -583,7 +583,7 @@ public class WargAnimations {
 					new Keyframe(0.25F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 5.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -7.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.BODY, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.25F, AnimationHelper.createTranslationalVector(0.0F, -2.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 1.0F, 0.0F), Transformation.Interpolations.CUBIC)
@@ -594,7 +594,7 @@ public class WargAnimations {
 					new Keyframe(0.25F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -25.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 67.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.0417F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.1667F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -606,7 +606,7 @@ public class WargAnimations {
 					new Keyframe(0.3333F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -25.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 67.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.0833F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.2083F, AnimationHelper.createTranslationalVector(0.0F, 2.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -618,7 +618,7 @@ public class WargAnimations {
 					new Keyframe(0.25F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 2.5F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.25F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
@@ -629,7 +629,7 @@ public class WargAnimations {
 					new Keyframe(0.2917F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 30.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -60.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.2917F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.4583F, AnimationHelper.createTranslationalVector(0.0F, 3.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -713,7 +713,7 @@ public class WargAnimations {
 					new Keyframe(3.75F, AnimationHelper.createRotationalVector(-19.4789F, -12.2725F, -20.9105F), Transformation.Interpolations.CUBIC),
 					new Keyframe(4.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(4.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -723,7 +723,7 @@ public class WargAnimations {
 					new Keyframe(2.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 12.5F), Transformation.Interpolations.CUBIC),
 					new Keyframe(4.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("upper_body", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, -3.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(2.5F, AnimationHelper.createTranslationalVector(0.0F, -4.22F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -735,7 +735,7 @@ public class WargAnimations {
 					new Keyframe(2.5F, AnimationHelper.createRotationalVector(12.2127F, 2.6851F, -77.2127F), Transformation.Interpolations.CUBIC),
 					new Keyframe(4.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(4.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -743,7 +743,7 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(4.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("left_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(4.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -751,7 +751,7 @@ public class WargAnimations {
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(4.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_back_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(4.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -761,7 +761,7 @@ public class WargAnimations {
 					new Keyframe(2.5F, AnimationHelper.createRotationalVector(-17.1097F, -3.7317F, -74.4384F), Transformation.Interpolations.CUBIC),
 					new Keyframe(4.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.TRANSLATE,
+			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(4.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))

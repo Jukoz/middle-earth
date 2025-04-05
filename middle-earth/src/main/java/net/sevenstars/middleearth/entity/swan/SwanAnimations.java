@@ -8,7 +8,7 @@ import net.minecraft.client.render.entity.animation.Transformation;
 public class SwanAnimations {
     public static final Animation WALK = Animation.Builder.create(1.5f).looping()
             .addBoneAnimation("rightLeg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.4583433f, AnimationHelper.createTranslationalVector(0f, 0.5f, 0f),
@@ -24,7 +24,7 @@ public class SwanAnimations {
                             new Keyframe(1.5f, AnimationHelper.createRotationalVector(40f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("leftLeg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.8343334f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -71,7 +71,7 @@ public class SwanAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation ATTACK = Animation.Builder.create(1.25f)
             .addBoneAnimation("root",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1.25f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -89,7 +89,7 @@ public class SwanAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("leftInnerWing",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -4f, 2f),
@@ -109,7 +109,7 @@ public class SwanAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("rightInnerWing",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -3f, 2f),
@@ -139,7 +139,7 @@ public class SwanAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, -0.5f),
@@ -162,7 +162,7 @@ public class SwanAnimations {
                                     Transformation.Interpolations.CUBIC))).build();
     public static final Animation EATING = Animation.Builder.create(3.5f)
             .addBoneAnimation("root",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(3.5f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -212,7 +212,7 @@ public class SwanAnimations {
                             new Keyframe(3.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -0.5f, 0f),
@@ -251,7 +251,7 @@ public class SwanAnimations {
                                     Transformation.Interpolations.CUBIC))).build();
     public static final Animation WINGCLEAN = Animation.Builder.create(3.75f)
             .addBoneAnimation("rightWing",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(3.75f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -269,7 +269,7 @@ public class SwanAnimations {
                             new Keyframe(3.75f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("headAndNeck",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.9167666f, AnimationHelper.createTranslationalVector(0f, -1f, -2f),
@@ -289,7 +289,7 @@ public class SwanAnimations {
                             new Keyframe(3.75f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.9167666f, AnimationHelper.createTranslationalVector(0f, -0.2f, -0.39f),
@@ -363,7 +363,7 @@ public class SwanAnimations {
                             new Keyframe(2f, AnimationHelper.createRotationalVector(-12.5f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("root",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("leftWing",
@@ -406,7 +406,7 @@ public class SwanAnimations {
                             new Keyframe(2f, AnimationHelper.createRotationalVector(-12.5f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("root",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -4f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -4f, 0f),
@@ -422,7 +422,7 @@ public class SwanAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(12.5f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, -0.5f),

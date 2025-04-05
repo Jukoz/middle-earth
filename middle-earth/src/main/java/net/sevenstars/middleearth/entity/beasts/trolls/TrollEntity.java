@@ -194,27 +194,27 @@ public class TrollEntity extends AbstractBeastEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.setHasChest(nbt.getBoolean("ChestedTroll"));
+        this.setHasChest(nbt.getBoolean("ChestedTroll").get());
         this.onChestedStatusChanged();
         if (this.hasChest()) {
-            NbtList nbtList = nbt.getList("Items", 10);
+            NbtList nbtList = nbt.getList("Items").get();
 
             for(int i = 0; i < nbtList.size(); ++i) {
-                NbtCompound nbtCompound = nbtList.getCompound(i);
-                int j = nbtCompound.getByte("Slot") & 255;
+                NbtCompound nbtCompound = nbtList.getCompound(i).get();
+                int j = nbtCompound.getByte("Slot").get() & 255;
                 if (j >= 2 && j < this.items.size()) {
                     this.items.setStack(j, ItemStack.fromNbt(getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY));
                 }
             }
         }
-        if (nbt.contains("SaddleItem", 10)) {
-            ItemStack itemStack = (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbt.getCompound("SaddleItem")).orElse(ItemStack.EMPTY);
+        if (nbt.contains("SaddleItem")) {
+            ItemStack itemStack = (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbt.getCompound("SaddleItem").get()).orElse(ItemStack.EMPTY);
             if (itemStack.isOf(Items.SADDLE)) {
                 this.items.setStack(0, itemStack);
             }
         }
 
-        this.updateSaddledFlag();
+        //this.updateSaddledFlag(); // TODO
     }
 
     @Override
@@ -342,7 +342,7 @@ public class TrollEntity extends AbstractBeastEntity {
         }
 
         for(Entity entity : entities) {
-            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
+            if(entity != this.getOwner() && entity != this && !this.getPassengerList().contains(entity)) {
                 if(getWorld() instanceof ServerWorld serverWorld)
                     entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), 16.0f);
             }

@@ -68,8 +68,10 @@ public class ModDimensions {
                         // idk
                     }
                 }));
-                if(setSpawnPoint)
-                    ((ServerPlayerEntity) player).setSpawnPoint(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true, true);
+                if(setSpawnPoint){
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true);
+                    ((ServerPlayerEntity) player).setSpawnPoint(respawn, true);
+                }
                 if(welcomeNeeded)
                     FactionUtil.sendOnFactionJoinMessage(player);
                 PlayerData data = StateSaverAndLoader.getPlayerState(player);

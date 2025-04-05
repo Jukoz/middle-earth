@@ -41,7 +41,7 @@ public class ProceduralStructures {
                 float ratio = (float) (i - bottomOrthanc) / (topOrthanc - bottomOrthanc);
                 float currentRadius = radiusOrthanc * (1 - ratio) + (topRadiusOrthanc * ratio);
                 if (distance < currentRadius) {
-                    chunk.setBlockState(chunk.getPos().getBlockPos(x, i, z), isengardBlock, false);
+                    chunk.setBlockState(chunk.getPos().getBlockPos(x, i, z), isengardBlock, 0);
                 }
             }
         } else if(distance < isengardRingRadius + isengardRingThickness + isengardRingHillThickness) { // Ring hills (before walls)
@@ -53,7 +53,7 @@ public class ProceduralStructures {
                 for(int i = -1; i < (int)hillHeight; i++) {
                     BlockState blockState = Blocks.DIRT.getDefaultState();
                     if(i == (int)hillHeight - 1) blockState = Blocks.GRASS_BLOCK.getDefaultState();
-                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y + i, z), blockState, false);
+                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y + i, z), blockState, 0);
                 }
 
                 if(distance < isengardRingRadius + isengardRingThickness) { // Walls
@@ -62,14 +62,14 @@ public class ProceduralStructures {
                         float dropHeight = (float) Math.pow(Math.abs(Math.abs(isengardRingRadius - distance) / 3), 2);
                         float dotProduct = Math.abs(direction.dot(Vec2f.EAST_UNIT));
                         if(dotProduct <= isengardPathSize && z > centerOrthanc.y) {
-                            chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), isengardWallBlock, false);
+                            chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), isengardWallBlock, 0);
                             float tunnel = (float) Math.pow(dotProduct + 1, 52);
                             for(int i = (int) (isengardWallsHeight - 2 - tunnel); i < (isengardWallsHeight - dropHeight); i++) {
-                                chunk.setBlockState(chunk.getPos().getBlockPos(x, y + (int)hillHeight + i, z), isengardWallBlock, false);
+                                chunk.setBlockState(chunk.getPos().getBlockPos(x, y + (int)hillHeight + i, z), isengardWallBlock, 0);
                             }
                         } else {
                             for(int i = -1; i < (isengardWallsHeight - dropHeight); i++) {
-                                chunk.setBlockState(chunk.getPos().getBlockPos(x, y + (int)hillHeight +i, z), isengardWallBlock, false);
+                                chunk.setBlockState(chunk.getPos().getBlockPos(x, y + (int)hillHeight +i, z), isengardWallBlock, 0);
                             }
                         }
                     }
