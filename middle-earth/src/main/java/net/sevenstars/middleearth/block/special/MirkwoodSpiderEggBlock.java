@@ -64,9 +64,10 @@ public class MirkwoodSpiderEggBlock extends Block {
     }
 
     @Override
-    public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+    public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
         super.onLandedUpon(world, state, pos, entity, fallDistance);
         breakEgg(world, pos, state);
+
     }
 
     private void breakEgg(World world, BlockPos pos, BlockState state) {

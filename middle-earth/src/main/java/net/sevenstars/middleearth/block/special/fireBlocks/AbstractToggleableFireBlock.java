@@ -8,6 +8,7 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -82,18 +83,13 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
             }
         }
 
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof CampfireBlockEntity) {
-            ((CampfireBlockEntity)blockEntity).spawnItemsBeingCooked();
-        }
-
         world.emitGameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
     }
 
     public static void spawnSmokeParticle(World world, BlockPos pos, boolean isSignal, boolean lotsOfSmoke) {
         Random random = world.getRandom();
         SimpleParticleType simpleParticleType = isSignal ? ParticleTypes.CAMPFIRE_SIGNAL_SMOKE : ParticleTypes.CAMPFIRE_COSY_SMOKE;
-        world.addImportantParticle(simpleParticleType, true, (double)pos.getX() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
+        world.addImportantParticleClient(simpleParticleType, true, (double)pos.getX() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
         if (lotsOfSmoke) {
             world.addParticleClient(ParticleTypes.SMOKE, (double)pos.getX() + 0.5 + random.nextDouble() / 4.0 * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + 0.4, (double)pos.getZ() + 0.5 + random.nextDouble() / 4.0 * (double)(random.nextBoolean() ? 1 : -1), 0.0, 0.005, 0.0);
         }
@@ -107,7 +103,8 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
         return BlockRenderType.MODEL;
     }
 
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+    @Override
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
         if (state.get(LIT) && entity instanceof LivingEntity) {
             if (!world.isClient) {
                 ServerWorld serverWorld = (ServerWorld)world;
@@ -117,7 +114,7 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
             }
         }
 
-        super.onEntityCollision(state, world, pos, entity);
+        super.onEntityCollision(state, world, pos, entity, handler);
     }
 
     protected void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {

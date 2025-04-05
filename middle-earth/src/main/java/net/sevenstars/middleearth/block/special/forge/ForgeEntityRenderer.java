@@ -11,6 +11,7 @@ import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
@@ -23,9 +24,7 @@ public class ForgeEntityRenderer implements BlockEntityRenderer<ForgeBlockEntity
     }
 
     @Override
-    public void render(ForgeBlockEntity entity, float tickDelta, MatrixStack matrices,
-                       VertexConsumerProvider vertexConsumers, int light, int overlay) {
-
+    public void render(ForgeBlockEntity entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
         ItemStack stack = entity.getRenderStack(entity);
 
         if(stack.isEmpty()) return;

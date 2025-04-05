@@ -48,7 +48,7 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
                 .uv(1, 1).mirrored().cuboid(-13.0F, -3.0F, 4.0F, 10.0F, 1.0F, 10.0F,
                         new Dilation(0.0F)).mirrored(false)
                 .uv(0, 17).cuboid(-10.0F, -4.0F, 3.0F, 4.0F, 4.0F, 3.0F,
-                        new Dilation(0.0F)), ModelTransform.pivot(8.0F, 24.0F, -9.0F));
+                        new Dilation(0.0F)), ModelTransform.origin(8.0F, 24.0F, -9.0F));
 
         modelPartData.addChild("top", ModelPartBuilder.create().uv(0, 0)
                 .cuboid(-5.0F, 0.0F, 0.0F, 10.0F, 1.0F, 11.0F, new Dilation(0.0F))
@@ -57,7 +57,7 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
 
         modelPartData.addChild("cavity", ModelPartBuilder.create().uv(10, 17).mirrored()
                 .cuboid(-4.0F, -7.0F, -4.0F, 8.0F, 6.0F, 8.0F,
-                        new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+                        new Dilation(0.0F)).mirrored(false), ModelTransform.origin(0.0F, 24.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 48, 48);
     }

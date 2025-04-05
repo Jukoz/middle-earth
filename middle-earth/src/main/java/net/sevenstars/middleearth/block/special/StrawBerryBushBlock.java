@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.sevenstars.middleearth.item.ModFoodItems;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
@@ -72,7 +73,7 @@ public class StrawBerryBushBlock extends CustomPlantBlock
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
         if (!(entity instanceof LivingEntity) || entity.getType() == EntityType.BEE || entity.getType() == EntityType.FOX || entity.getType() == EntityType.BAT) {
             return;
         }
