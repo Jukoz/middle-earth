@@ -42,7 +42,6 @@ import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
@@ -55,9 +54,11 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     protected NpcEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.updateAttackType();
-        for (int i = 0; i < 4; i++) {
-            Arrays.fill(this.armorDropChances, 0.0f);
-        }
+
+        this.setEquipmentDropChance(EquipmentSlot.HEAD, 0f);
+        this.setEquipmentDropChance(EquipmentSlot.CHEST, 0f);
+        this.setEquipmentDropChance(EquipmentSlot.LEGS, 0f);
+        this.setEquipmentDropChance(EquipmentSlot.FEET, 0f);
     }
 
     protected Identifier getFactionId(){

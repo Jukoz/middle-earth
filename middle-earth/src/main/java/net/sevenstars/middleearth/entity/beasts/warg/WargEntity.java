@@ -42,7 +42,6 @@ import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
-import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -106,7 +105,7 @@ public class WargEntity extends AbstractBeastEntity {
         this.targetSelector.add(11, new BeastActiveTargetGoal<>(this, SheepEntity.class, true));
         this.targetSelector.add(12, new BeastActiveTargetGoal<>(this, GoatEntity.class, true));
         this.targetSelector.add(13, new BeastActiveTargetGoal<>(this, DeerEntity.class, true));
-        this.targetSelector.add(14, new BeastActiveTargetGoal<>(this, PheasantEntity.class, true));
+        // TOOD : this.targetSelector.add(14, new BeastActiveTargetGoal<>(this, PheasantEntity.class, true));
     }
 
     @Override
@@ -124,7 +123,7 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
+        this.dataTracker.set(VARIANT, nbt.getInt("Variant").get() );
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
@@ -250,7 +249,7 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
         float f = this.limbAnimator.getSpeed();
-        float g = this.limbAnimator.getPos() * (MathHelper.PI / 180) * 18;
+        float g = this.limbAnimator.getSpeed() * (MathHelper.PI / 180) * 18; // TODO : Before, was getPos()
         float h = passenger.isSprinting() ? 1 : 0;
 
         double y = (MathHelper.cos(g * 2 * 1.2f - (MathHelper.PI * (h - 1))) * (0.06 + (0.035 * h)));
@@ -346,12 +345,12 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+    public boolean handleFallDamage(double fallDistance, float damagePerDistance, DamageSource damageSource) {
         int i;
         if (fallDistance > 1.0f) {
             this.playSound(SoundEvents.ENTITY_WOLF_STEP, 2.5f, 0.7f);
         }
-        if ((i = this.computeFallDamage(fallDistance, damageMultiplier)) <= 0) {
+        if ((i = this.computeFallDamage(fallDistance, damagePerDistance)) <= 0) {
             return false;
         }
         this.damage(damageSource, i);
@@ -363,8 +362,7 @@ public class WargEntity extends AbstractBeastEntity {
             }
         }
         this.playBlockFallSound();
-        return true;
-    }
+        return true;    }
 
 
     //@Override
@@ -423,13 +421,13 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_WOLF_DEATH;
+        return SoundEvents.ENTITY_VILLAGER_DEATH; // TODO : Use wolf sound event
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_WOLF_HURT;
+        return SoundEvents.ENTITY_VILLAGER_HURT; // TODO : Use wolf sound event
     }
     @Override
     protected void playHurtSound(DamageSource damageSource) {
@@ -439,7 +437,8 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_WOLF_AMBIENT;
+        return SoundEvents.ENTITY_VILLAGER_AMBIENT; // TODO : Use wolf sound event
+
     }
 
     @Override
@@ -450,13 +449,13 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     @Override
     public SoundEvent getAmbientStandSound() {
-        return SoundEvents.ENTITY_WOLF_HOWL;
+        return SoundEvents.ENTITY_DOLPHIN_AMBIENT_WATER; // TODO : Use wolf sound event (ENTITY_WOLF_HOWL)
     }
 
     @Nullable
     @Override
     protected SoundEvent getAngrySound() {
-        return SoundEvents.ENTITY_WOLF_GROWL;
+        return SoundEvents.ENTITY_ENDER_DRAGON_GROWL; // TODO : Use wolf sound event (ENTITY_WOLF_GROWL)
     }
 
     @Override
