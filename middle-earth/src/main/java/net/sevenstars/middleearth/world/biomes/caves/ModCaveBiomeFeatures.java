@@ -27,26 +27,26 @@ public class ModCaveBiomeFeatures {
     }
 
     public static void addAxolotls(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.AXOLOTLS, new SpawnSettings.SpawnEntry(EntityType.AXOLOTL, 12, 2, 5));
+        spawnSettings.spawn(SpawnGroup.AXOLOTLS,12, new SpawnSettings.SpawnEntry(EntityType.AXOLOTL, 2, 5));
     }
     public static void addBats(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(EntityType.BAT, 3, 1, 2));
+        spawnSettings.spawn(SpawnGroup.AMBIENT, 3, new SpawnSettings.SpawnEntry(EntityType.BAT, 1, 2));
     }
     public static void addFrogs(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 4, 1, 4));
+        spawnSettings.spawn(SpawnGroup.CREATURE, 4, new SpawnSettings.SpawnEntry(EntityType.FROG, 1, 4));
     }
     public static void addSnails(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(net.sevenstars.of_beasts_and_wild_things.entity.ModEntities.SNAIL, 5, 1, 3));
+        spawnSettings.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(net.sevenstars.of_beasts_and_wild_things.entity.ModEntities.SNAIL, 1, 3));
     }
     public static void addWildGoblins(SpawnSettings.Builder spawnSettings) {
         //spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntities.WILD_GOBLIN, 5, 1, 2));
     }
     public static void addSpiders(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CAVE_SPIDER, 2, 1, 2));
+        spawnSettings.spawn(SpawnGroup.MONSTER,  2,new SpawnSettings.SpawnEntry(EntityType.CAVE_SPIDER, 1, 2));
     }
 
     public static void addSnowTrolls(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntities.SNOW_TROLL, 4, 1, 2));
+        spawnSettings.spawn(SpawnGroup.MONSTER, 4, new SpawnSettings.SpawnEntry(ModEntities.SNOW_TROLL, 1, 2));
     }
 
 }

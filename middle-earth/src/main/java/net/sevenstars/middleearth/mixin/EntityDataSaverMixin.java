@@ -31,8 +31,8 @@ public class EntityDataSaverMixin implements IEntityDataSaver {
 
     @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
     protected void readCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
-        if(nbt.contains(KEY, 10)) {
-            persistentData = nbt.getCompound(KEY);
+        if(nbt.contains(KEY)) {
+            persistentData = nbt.getCompound(KEY).get();
         }
     }
 }

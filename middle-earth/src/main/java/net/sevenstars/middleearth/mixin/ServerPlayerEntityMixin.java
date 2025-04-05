@@ -65,7 +65,8 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         PlayerManager manager = this.getServer().getPlayerManager();
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
         if(this.getServer() == null) return;
-        foundPlayer.setSpawnPoint(World.OVERWORLD, foundPlayer.getServer().getOverworld().getSpawnPos(), foundPlayer.getServer().getOverworld().getSpawnAngle(), true, true);
+        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(World.OVERWORLD, foundPlayer.getServer().getOverworld().getSpawnPos(), foundPlayer.getServer().getOverworld().getSpawnAngle(), true);
+        foundPlayer.setSpawnPoint(respawn, true);
 
         cir.setReturnValue(new TeleportTarget(this.server.getOverworld(), this, postDimensionTransition));
     }
@@ -87,14 +88,19 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
                     ServerWorld MEWorld = this.server.getWorld(ModDimensions.ME_WORLD_KEY);
                     if(MEWorld != null){
                         Vec3d coordinates = new Vec3d(spawnCoordinates.x, spawnCoordinates.y + 1, spawnCoordinates.z);
-                        foundPlayer.setSpawnPoint(ModDimensions.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true, true);
+
+                        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(ModDimensions.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true);
+                        foundPlayer.setSpawnPoint(respawn, true);
+
                         cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates, Vec3d.ZERO, 0, 0, postDimensionTransition));
                         return true;
                     }
                 }
             }
         }
-        foundPlayer.setSpawnPoint(World.OVERWORLD, server.getOverworld().getSpawnPos(), server.getOverworld().getSpawnAngle(), true, true);
+        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(World.OVERWORLD, server.getOverworld().getSpawnPos(), server.getOverworld().getSpawnAngle(), true);
+        foundPlayer.setSpawnPoint(respawn, true);
+
         cir.setReturnValue(new TeleportTarget(server.getOverworld(), server.getOverworld().getSpawnPos().toCenterPos(), Vec3d.ZERO, 0, 0,postDimensionTransition));
         return false;
     }
