@@ -33,7 +33,7 @@ project(":middle-earth") {
 		it.options.release = 21
 	}
 }
-
+/*
 project(":of-beasts-and-wild-things") {
 	java {
 		sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
@@ -41,7 +41,7 @@ project(":of-beasts-and-wild-things") {
 	tasks.withType(JavaCompile).configureEach {
 		it.options.release = 21
 	}
-}
+}*/
 
 subprojects() {
 	apply plugin: 'fabric-loom'
