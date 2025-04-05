@@ -11,6 +11,6 @@ pluginManagement {
 
 rootProject.name = 'sevenstars-project'
 include 'sevenstars-api'
-//include 'of-beasts-and-wild-things'
+include 'of-beasts-and-wild-things'
 include 'middle-earth'
 

@@ -1,6 +1,6 @@
 dependencies {
     implementation project(path: ':sevenstars-api', configuration: 'dev')
-    //implementation project(path: ':of-beasts-and-wild-things', configuration: 'dev')
+    implementation project(path: ':of-beasts-and-wild-things', configuration: 'dev')
 }
 
 loom {
