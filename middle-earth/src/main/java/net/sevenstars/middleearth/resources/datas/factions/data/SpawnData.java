@@ -51,14 +51,14 @@ public class SpawnData {
     }
 
     public static SpawnData deserialize(NbtCompound compound) {
-        NbtCompound coordinateCompound = compound.getCompound("coordinates");
-        double x = coordinateCompound.getDouble("x");
-        double y = coordinateCompound.getDouble("y");
-        double z = coordinateCompound.getDouble("z");
+        NbtCompound coordinateCompound = compound.getCompound("coordinates").get();
+        double x = coordinateCompound.getDouble("x").get();
+        double y = coordinateCompound.getDouble("y").get();
+        double z = coordinateCompound.getDouble("z").get();
         Vec3d coordinate = new Vec3d(x, y, z);
-        boolean isDynamic = compound.getBoolean("dynamic");
+        boolean isDynamic = compound.getBoolean("dynamic").get();
 
-        return new SpawnData(compound.getString("id"), coordinate, isDynamic);
+        return new SpawnData(compound.getString("id").get(), coordinate, isDynamic);
     }
 
     public static NbtCompound serialize(SpawnData spawnData) {

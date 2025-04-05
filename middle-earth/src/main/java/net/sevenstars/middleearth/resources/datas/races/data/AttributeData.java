@@ -35,11 +35,11 @@ public class AttributeData {
         if(compound == null) return;
 
         datas = new HashMap<>();
-        NbtList attributes = compound.getList("datas", NbtType.COMPOUND);
+        NbtList attributes = compound.getList("datas").get();
         JsonParser jsonParser = new JsonParser();
 
         for(NbtElement element: attributes){
-            JsonObject json = (JsonObject) jsonParser.parse(element.asString());
+            JsonObject json = (JsonObject) jsonParser.parse(element.asString().get());
             String doubleRegex = "[^0-9.]";
 
             Identifier id = IdentifierUtil.getIdentifierFromString(json.get("id").getAsString());

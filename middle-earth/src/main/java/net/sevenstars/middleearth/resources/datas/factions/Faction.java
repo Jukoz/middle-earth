@@ -86,14 +86,14 @@ public class Faction {
 
         this.npcDatasByRank = new HashMap<>();
         npcs.ifPresent(nbtCompound -> {
-            NbtList list = nbtCompound.getList("ranks", NbtType.COMPOUND);
+            NbtList list = nbtCompound.getList("ranks").get();
             for(int i = 0; i < list.size(); i++){
-                NbtCompound rankCompound = list.getCompound(i);
-                NpcRank rank = NpcRank.valueOf(rankCompound.getString("rank").toUpperCase());
-                NbtList npcDataList = rankCompound.getList("pool", NbtType.STRING);
+                NbtCompound rankCompound = list.getCompound(i).get();
+                NpcRank rank = NpcRank.valueOf(rankCompound.getString("rank").toString().toUpperCase());
+                NbtList npcDataList = rankCompound.getList("pool").get();
                 List<Identifier> dataList = new ArrayList<>();
                 for(int j = 0; j < npcDataList.size(); j++){
-                    dataList.add(IdentifierUtil.getIdentifierFromString(npcDataList.getString(j)));
+                    dataList.add(IdentifierUtil.getIdentifierFromString(npcDataList.getString(j).get()));
                 }
                 this.npcDatasByRank.put(rank, dataList);
             }
