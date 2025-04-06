@@ -59,9 +59,9 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
 
     @Override
     protected void readCustomDataFromNbt(NbtCompound nbt) {
-        this.setFuse(nbt.getShort("fuse"));
-        if (nbt.contains("block_state", 10)) {
-            this.setBlockState(NbtHelper.toBlockState(this.getWorld().createCommandRegistryWrapper(RegistryKeys.BLOCK), nbt.getCompound("block_state")));
+        this.setFuse(nbt.getShort("fuse", (short) 0));
+        if (nbt.contains("block_state")) {
+            this.setBlockState(NbtHelper.toBlockState(this.getWorld().createCommandRegistryWrapper(RegistryKeys.BLOCK), nbt.getCompound("block_state").get()));
         }
     }
 

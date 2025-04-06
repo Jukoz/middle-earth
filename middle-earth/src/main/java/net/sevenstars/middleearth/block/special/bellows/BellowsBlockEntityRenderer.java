@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.block.special.bellows;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
@@ -63,13 +64,13 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
     }
 
     @Override
-    public void render(BellowsBlockEntity bellowsBlockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        World world = bellowsBlockEntity.getWorld();
+    public void render(BellowsBlockEntity entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
+        World world = entity.getWorld();
         BlockState blockState = world != null
-                ? bellowsBlockEntity.getCachedState()
+                ? entity.getCachedState()
                 : ModDecorativeBlocks.BELLOWS.getDefaultState().with(BellowsBlock.FACING, Direction.SOUTH);
 
-        float animationProgress = getAnimationProgress(bellowsBlockEntity);
+        float animationProgress = getAnimationProgress(entity);
 
         float rotation = blockState.get(ChestBlock.FACING).getPositiveHorizontalDegrees();
         matrices.translate(0.5D, 1.5D, 0.5D);
@@ -83,6 +84,7 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
         this.bottom.render(matrices, vertexConsumer, light, overlay);
         this.cavity.render(matrices, vertexConsumer, light, overlay);
     }
+
 
     private float getAnimationProgress(BellowsBlockEntity bellowsBlockEntity){
         float animationProgress = 0;
