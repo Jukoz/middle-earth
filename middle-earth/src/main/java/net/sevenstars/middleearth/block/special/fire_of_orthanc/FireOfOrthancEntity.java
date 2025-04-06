@@ -41,9 +41,9 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
         }
         else this.setFuse(DEFAULT_FUSE);
 
-        this.prevX = x;
-        this.prevY = y;
-        this.prevZ = z;
+        this.lastX = x;
+        this.lastY = y;
+        this.lastZ = z;
         this.causingEntity = igniter;
     }
 

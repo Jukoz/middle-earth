@@ -28,7 +28,7 @@ public enum ModHoods implements StringIdentifiable {
     NAZGUL_HOOD(10,"nazgul_hood", ModHoodStates.UP),
     ;
 
-    private static final IntFunction<ModHoods> BY_ID = ValueLists.createIdToValueFunction(ModHoods::getId, ModHoods.values(), ValueLists.OutOfBoundsHandling.ZERO);;
+    private static final IntFunction<ModHoods> BY_ID = ValueLists.createIndexToValueFunction(ModHoods::getId, ModHoods.values(), ValueLists.OutOfBoundsHandling.ZERO);;
 
     private final String name;
     private final int id;
