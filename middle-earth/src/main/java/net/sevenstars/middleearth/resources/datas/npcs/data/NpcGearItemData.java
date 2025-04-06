@@ -222,10 +222,13 @@ public class NpcGearItemData {
         if(color != null)
             nbt.putInt("color", color);
 
-        int[] colors = gearItemData.colors.stream().mapToInt(Integer::intValue).toArray();
+        if(gearItemData.colors != null){
+            int[] colors = gearItemData.colors.stream().mapToInt(Integer::intValue).toArray();
 
-        if(colors != null)
-            nbt.putIntArray("colors", colors);
+            if(colors != null)
+                nbt.putIntArray("colors", colors);
+        }
+
 
         Boolean noCape = gearItemData.noCape;
         if(noCape != null)
@@ -239,9 +242,12 @@ public class NpcGearItemData {
         if(capeColor != null)
             nbt.putInt("cape_color", capeColor);
 
-        int[] capeColors = gearItemData.capeColors.stream().mapToInt(Integer::intValue).toArray();
-        if(capeColors != null)
-            nbt.putIntArray("cape_colors", capeColors);
+        if(gearItemData.capeColors != null){
+            int[] capeColors = gearItemData.capeColors.stream().mapToInt(Integer::intValue).toArray();
+            if(capeColors != null)
+                nbt.putIntArray("cape_colors", capeColors);
+        }
+
 
         Boolean noHood = gearItemData.noHood;
         if(noHood != null)
@@ -257,9 +263,12 @@ public class NpcGearItemData {
         if(hoodColor != null)
             nbt.putInt("hood_color", hoodColor);
 
-        int[] hoodColors = gearItemData.hoodColors.stream().mapToInt(Integer::intValue).toArray();
-        if(hoodColors != null)
-            nbt.putIntArray("hood_colors", hoodColors);
+        if(gearItemData.hoodColors != null){
+            int[] hoodColors = gearItemData.hoodColors.stream().mapToInt(Integer::intValue).toArray();
+            if(hoodColors != null)
+                nbt.putIntArray("hood_colors", hoodColors);
+        }
+
 
         return nbt;
     }

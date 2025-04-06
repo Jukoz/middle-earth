@@ -7,12 +7,10 @@ import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.PersistentStateType;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 
 import java.util.HashMap;
@@ -66,7 +64,7 @@ public class StateSaverAndLoader extends PersistentState {
 
 
     static {
-        TYPE = new PersistentStateType<>(Identifier.of(MiddleEarth.MOD_ID,"persistentState").toString(), StateSaverAndLoader::createNew, CODEC, (DataFixTypes) null);
+        TYPE = new PersistentStateType<>("persistent_state", StateSaverAndLoader::createNew, CODEC, (DataFixTypes) null);
     }
 
     /*

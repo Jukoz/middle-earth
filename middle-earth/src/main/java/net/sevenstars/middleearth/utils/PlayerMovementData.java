@@ -8,6 +8,7 @@ public class PlayerMovementData {
 
     public static void addAFKTime(IEntityDataSaver player, int amount) {
         NbtCompound nbt = player.getPersistentData();
+        if(nbt.getInt(KEY).isEmpty()) return;
         int movement = nbt.getInt(KEY).get();
 
         movement = Math.min(MAX_AFK_TIME, movement + amount);
