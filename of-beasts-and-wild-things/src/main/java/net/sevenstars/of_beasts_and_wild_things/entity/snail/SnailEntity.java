@@ -139,7 +139,7 @@ public class SnailEntity extends AnimalEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
+        this.dataTracker.set(VARIANT, nbt.getInt("Variant").get());
     }
 
     public SnailEntityVariant getVariant() {
