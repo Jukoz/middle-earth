@@ -2,8 +2,6 @@ package net.sevenstars.middleearth.resources.datas.races.data;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.fabricmc.fabric.api.util.NbtType;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -17,6 +15,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,10 +35,10 @@ public class AttributeData {
 
         datas = new HashMap<>();
         NbtList attributes = compound.getList("datas").get();
-        JsonParser jsonParser = new JsonParser();
 
         for(NbtElement element: attributes){
-            JsonObject json = (JsonObject) jsonParser.parse(element.asString().get());
+            if(element.asString().isEmpty()) continue;
+            JsonObject json = (JsonObject) JsonParser.parseString(element.asString().get());
             String doubleRegex = "[^0-9.]";
 
             Identifier id = IdentifierUtil.getIdentifierFromString(json.get("id").getAsString());

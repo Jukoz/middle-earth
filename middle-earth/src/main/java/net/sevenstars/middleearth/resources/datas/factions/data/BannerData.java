@@ -81,12 +81,16 @@ public class BannerData {
         JsonParser jsonParser = new JsonParser();
 
         for(NbtElement element: patterns){
-            JsonObject json = (JsonObject) jsonParser.parse(element.asString().get());
-            Identifier id = Identifier.of(json.get("id").getAsString());
-            DyeColor color = DyeColor.byId(json.get("dye_color").getAsString(), DEFAULT_DYE);
+            try{
+                JsonObject json = (JsonObject) jsonParser.parse(element.asString().get());
+                Identifier id = Identifier.of(json.get("id").getAsString());
+                DyeColor color = DyeColor.byId(json.get("dye_color").getAsString(), DEFAULT_DYE);
 
-            BannerPatternWithColor bannerPatternWithColor = new BannerPatternWithColor(id, color);
-            bannerPatternWithColors.add(bannerPatternWithColor);
+                BannerPatternWithColor bannerPatternWithColor = new BannerPatternWithColor(id, color);
+                bannerPatternWithColors.add(bannerPatternWithColor);
+            } catch (Exception ignored){
+
+            }
         }
     }
 

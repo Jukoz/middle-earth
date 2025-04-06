@@ -273,7 +273,7 @@ public class NpcGearItemData {
         if(nbt.get("color") != null){
             npcGearItemData.color = nbt.getInt("color").get();
         }
-        if(nbt.get("colors") != null){
+        if(nbt.get("colors") != null && nbt.getIntArray("colors").isPresent()){
             int[] list = nbt.getIntArray("colors").get();
             List<Integer> newColors = new ArrayList<>();
             for(int i = 0; i < list.length; i++){
@@ -290,7 +290,7 @@ public class NpcGearItemData {
         if(nbt.get("cape_color") != null){
             npcGearItemData.capeColor = nbt.getInt("cape_color").get();
         }
-        if(nbt.get("cape_colors") != null){
+        if(nbt.get("cape_colors") != null && nbt.getIntArray("cape_colors").isPresent()){
             int[] list = nbt.getIntArray("cape_colors").get();
             List<Integer> newColors = new ArrayList<>();
             for(int i = 0; i < list.length; i++){
@@ -310,7 +310,7 @@ public class NpcGearItemData {
         if(nbt.get("hood_color") != null){
             npcGearItemData.hoodColor = nbt.getInt("hood_color").get();
         }
-        if(nbt.get("hood_colors") != null){
+        if(nbt.get("hood_colors") != null && nbt.getIntArray("hood_colors").isPresent()){
             int[] list = nbt.getIntArray("hood_colors").get();
             List<Integer> newColors = new ArrayList<>();
             for(int i = 0; i < list.length; i++){
