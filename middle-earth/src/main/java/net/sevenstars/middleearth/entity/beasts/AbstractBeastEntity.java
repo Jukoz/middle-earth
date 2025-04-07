@@ -213,7 +213,9 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     public PlayerEntity getOwner() {
-        return this.getOwner();
+        if(super.getOwner() instanceof PlayerEntity playerEntity)
+            return playerEntity;
+        return null;
     }
 
     public boolean hasCharged() {
