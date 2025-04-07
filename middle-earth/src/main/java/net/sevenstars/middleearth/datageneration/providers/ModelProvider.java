@@ -571,7 +571,7 @@ public class ModelProvider extends FabricModelProvider {
 
         for(Block block : SimpleFanModel.grassLikeFans){
             registerFanModel(blockStateModelGenerator, block);
-        }
+        }*/
 
         for(SimpleRocksModel.Rocks rocks : SimpleRocksModel.rocks){
             registerRocksBlock(blockStateModelGenerator, rocks.rocks(), rocks.block());
@@ -580,7 +580,7 @@ public class ModelProvider extends FabricModelProvider {
         for(SimpleRocksModel.Rocks rocks : SimpleRocksModel.vanillaRocks){
             registerRocksBlock(blockStateModelGenerator, rocks.rocks(), rocks.block());
         }
-
+        /*
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools) {
             registerWoodStoolModelBlockStates(blockStateModelGenerator, stool.base());
         }
@@ -1119,43 +1119,45 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerParentedItemModel(trapdoorBlock, identifier2);
     }*/
 
-    //TODO fix rocks datagen
-    /*public void registerRocksBlock(BlockStateModelGenerator blockStateModelGenerator, Block rocksBlock, Block origin) {
-        Identifier stage0 = MEModels.ROCKS_STAGE_0.upload(rocksBlock,
+    public void registerRocksBlock(BlockStateModelGenerator blockStateModelGenerator, Block rocksBlock, Block origin) {
+        WeightedVariant stage0 = BlockStateModelGenerator.createWeightedVariant(MEModels.ROCKS_STAGE_0.upload(rocksBlock,
                 TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
-                blockStateModelGenerator.modelCollector);
-        Identifier stage1 = MEModels.ROCKS_STAGE_1.upload(rocksBlock,
+                blockStateModelGenerator.modelCollector));
+        WeightedVariant stage1 = BlockStateModelGenerator.createWeightedVariant(MEModels.ROCKS_STAGE_1.upload(rocksBlock,
                 TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
-                blockStateModelGenerator.modelCollector);
-        Identifier stage2 = MEModels.ROCKS_STAGE_2.upload(rocksBlock,
+                blockStateModelGenerator.modelCollector));
+        WeightedVariant stage2 = BlockStateModelGenerator.createWeightedVariant(MEModels.ROCKS_STAGE_2.upload(rocksBlock,
                 TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
-                blockStateModelGenerator.modelCollector);
-        Identifier stage3 = MEModels.ROCKS_STAGE_3.upload(rocksBlock,
+                blockStateModelGenerator.modelCollector));
+        WeightedVariant stage3 = BlockStateModelGenerator.createWeightedVariant(MEModels.ROCKS_STAGE_3.upload(rocksBlock,
                 TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
-                blockStateModelGenerator.modelCollector);
-        
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(rocksBlock).coordinate(BlockStateVariantMap
-                .create(Properties.HORIZONTAL_FACING, RocksBlock.STAGE)
-                .register(Direction.EAST, 0, stage0.apply(ROTATE_Y_90).apply(UV_LOCK)
-                .register(Direction.WEST, 0, stage0.apply(ROTATE_Y_270).apply(UV_LOCK)
-                .register(Direction.SOUTH, 0, stage0.apply(ROTATE_Y_180).apply(UV_LOCK)
-                .register(Direction.NORTH, 0, stage0).apply(UV_LOCK)
+                blockStateModelGenerator.modelCollector));
 
-                .register(Direction.EAST, 1, stage1.apply(ROTATE_Y_90).apply(UV_LOCK)
-                .register(Direction.WEST, 1, stage1.apply(ROTATE_Y_270).apply(UV_LOCK)
-                .register(Direction.SOUTH, 1, stage1.apply(ROTATE_Y_180).apply(UV_LOCK)
-                .register(Direction.NORTH, 1, stage1).apply(UV_LOCK)
+        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(rocksBlock)
+                .with(BlockStateVariantMap.models(Properties.HORIZONTAL_FACING, RocksBlock.STAGE)
+                .register(Direction.EAST, 0, stage0.apply(ROTATE_Y_90).apply(UV_LOCK))
+                .register(Direction.WEST, 0, stage0.apply(ROTATE_Y_270).apply(UV_LOCK))
+                .register(Direction.SOUTH, 0, stage0.apply(ROTATE_Y_180).apply(UV_LOCK))
+                .register(Direction.NORTH, 0, stage0.apply(UV_LOCK))
 
-                .register(Direction.EAST, 2, stage2.apply(ROTATE_Y_90).apply(UV_LOCK)
-                .register(Direction.WEST, 2, stage2.apply(ROTATE_Y_270).apply(UV_LOCK)
-                .register(Direction.SOUTH, 2, stage2.apply(ROTATE_Y_180).apply(UV_LOCK)
-                .register(Direction.NORTH, 2, stage2).apply(UV_LOCK)
+                .register(Direction.EAST, 1, stage1.apply(ROTATE_Y_90).apply(UV_LOCK))
+                .register(Direction.WEST, 1, stage1.apply(ROTATE_Y_270).apply(UV_LOCK))
+                .register(Direction.SOUTH, 1, stage1.apply(ROTATE_Y_180).apply(UV_LOCK))
+                .register(Direction.NORTH, 1, stage1.apply(UV_LOCK))
 
-                .register(Direction.EAST, 3, stage3.apply(ROTATE_Y_90).apply(UV_LOCK)
-                .register(Direction.WEST, 3, stage3.apply(ROTATE_Y_270).apply(UV_LOCK)
-                .register(Direction.SOUTH, 3, stage3.apply(ROTATE_Y_180).apply(UV_LOCK)
-                .register(Direction.NORTH, 3, stage3).apply(UV_LOCK)));
-    }*/
+                .register(Direction.EAST, 2, stage2.apply(ROTATE_Y_90).apply(UV_LOCK))
+                .register(Direction.WEST, 2, stage2.apply(ROTATE_Y_270).apply(UV_LOCK))
+                .register(Direction.SOUTH, 2, stage2.apply(ROTATE_Y_180).apply(UV_LOCK))
+                .register(Direction.NORTH, 2, stage2.apply(UV_LOCK))
+
+                .register(Direction.EAST, 3, stage3.apply(ROTATE_Y_90).apply(UV_LOCK))
+                .register(Direction.WEST, 3, stage3.apply(ROTATE_Y_270).apply(UV_LOCK))
+                .register(Direction.SOUTH, 3, stage3.apply(ROTATE_Y_180).apply(UV_LOCK))
+                .register(Direction.NORTH, 3, stage3.apply(UV_LOCK)));
+
+        blockStateModelGenerator.registerParentedItemModel(rocksBlock, ModelIds.getBlockModelId(rocksBlock));
+        blockStateModelGenerator.blockStateCollector.accept(blockstate);
+    }
 
     public void registerVanillaTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock) {
         TextureMap textureMap;
