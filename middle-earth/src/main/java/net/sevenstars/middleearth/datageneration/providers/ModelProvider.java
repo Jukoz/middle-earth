@@ -673,7 +673,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_QUARTZ_BUD);
         blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_QUARTZ_BUD);
 
-        /*registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.BLUE_HOBBIT_DOOR, LargeDoor2x2.PART);
+        registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.BLUE_HOBBIT_DOOR, LargeDoor2x2.PART);
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.GREEN_HOBBIT_DOOR, LargeDoor2x2.PART);
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.LIGHT_BLUE_HOBBIT_DOOR, LargeDoor2x2.PART);
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.RED_HOBBIT_DOOR, LargeDoor2x2.PART);
@@ -701,7 +701,7 @@ public class ModelProvider extends FabricModelProvider {
 
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.GREAT_ELVEN_GATE, LargeDoor6x2.PART);
 
-        registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.GREAT_ORCISH_GATE, LargeDoor10x4.PART);*/
+        registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.GREAT_ORCISH_GATE, LargeDoor10x4.PART);
 
         blockStateModelGenerator.registerAxisRotated(ModBlocks.GILDED_CHISELED_GREEN_TUFF, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
         blockStateModelGenerator.registerAxisRotated(ModBlocks.GILDED_CHISELED_GREEN_TUFF_BRICKS, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
@@ -938,10 +938,10 @@ public class ModelProvider extends FabricModelProvider {
         Identifier identifier = blockStateModelGenerator.createSubModel(doubleBlock, "_top", tintType.getCrossModel(), TextureMap::cross);
         Identifier identifier2 = blockStateModelGenerator.createSubModel(doubleBlock, "_bottom", tintType.getCrossModel(), TextureMap::cross);
         blockStateModelGenerator.registerDoubleBlock(doubleBlock, identifier, identifier2);
-    }
+    }*/
 
     public final void registerLargeDoor(BlockStateModelGenerator blockStateModelGenerator, LargeDoorBlock largeDoor, IntProperty part){
-        var statesMap = BlockStateVariantMap.create(Properties.HORIZONTAL_FACING, Properties.OPEN, Properties.DOOR_HINGE, part);
+        var statesMap = BlockStateVariantMap.models(Properties.HORIZONTAL_FACING, Properties.OPEN, Properties.DOOR_HINGE, part);
         int rot = 0;
         for (int i = 0; i < largeDoor.getDoorWidth() * largeDoor.getDoorHeight(); i++){
             for(int k = 2; k < 6; k++){
@@ -953,25 +953,22 @@ public class ModelProvider extends FabricModelProvider {
                     default -> rot;
                 };
 
-                statesMap.register(Direction.byId(k), false, DoorHinge.LEFT, i, BlockStateVariant.create()
-                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_" + i))
-                        .put(VariantSettings.UVLOCK, false)
-                        .put(VariantSettings.Y, VariantSettings.Rotation.valueOf("R" + rot)));
+                WeightedVariant weightedVariantLeft = BlockStateModelGenerator.createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_" + i));
+                WeightedVariant weightedVariantLeftOpen = BlockStateModelGenerator.createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_open_" + i));
+                WeightedVariant weightedVarianRight = BlockStateModelGenerator.createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_" + i));
+                WeightedVariant weightedVarianRightOpen = BlockStateModelGenerator.createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_open_" + i));
 
-                statesMap.register(Direction.byId(k), true, DoorHinge.LEFT, i, BlockStateVariant.create()
-                        .put(VariantSettings.MODEL,Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_open_" + i))
-                        .put(VariantSettings.UVLOCK, false)
-                        .put(VariantSettings.Y, VariantSettings.Rotation.valueOf("R" + rot)));
+                statesMap.register(Direction.byIndex(k), false, DoorHinge.LEFT, i,
+                        weightedVariantLeft.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
 
-                statesMap.register(Direction.byId(k), false, DoorHinge.RIGHT, i, BlockStateVariant.create()
-                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_" + i))
-                        .put(VariantSettings.UVLOCK, false)
-                        .put(VariantSettings.Y, VariantSettings.Rotation.valueOf("R" + rot)));
+                statesMap.register(Direction.byIndex(k), true, DoorHinge.LEFT, i,
+                        weightedVariantLeftOpen.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
 
-                statesMap.register(Direction.byId(k), true, DoorHinge.RIGHT, i, BlockStateVariant.create()
-                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_open_" + i))
-                        .put(VariantSettings.UVLOCK, false)
-                        .put(VariantSettings.Y, VariantSettings.Rotation.valueOf("R" + rot)));
+                statesMap.register(Direction.byIndex(k), false, DoorHinge.RIGHT, i,
+                        weightedVarianRight.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
+
+                statesMap.register(Direction.byIndex(k), true, DoorHinge.RIGHT, i,
+                        weightedVarianRightOpen.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
 
                 if (k == 2){
                     MEModels.LARGE_DOOR_LEFT.upload(largeDoor, "_left_" + i,
@@ -996,12 +993,12 @@ public class ModelProvider extends FabricModelProvider {
                 }
             }
         }
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(largeDoor)
-                .coordinate(statesMap));
+        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(largeDoor).with(statesMap);
+        blockStateModelGenerator.blockStateCollector.accept(blockstate);
     }
 
     public final void registerThickLargeDoor(BlockStateModelGenerator blockStateModelGenerator, LargeDoorBlock largeDoor, IntProperty part){
-        var statesMap = BlockStateVariantMap.create(Properties.HORIZONTAL_FACING, Properties.OPEN, Properties.DOOR_HINGE, part);
+        var statesMap = BlockStateVariantMap.models(Properties.HORIZONTAL_FACING, Properties.OPEN, Properties.DOOR_HINGE, part);
         int rot = 0;
         for (int i = 0; i < largeDoor.getDoorWidth() * largeDoor.getDoorHeight(); i++){
             for(int k = 2; k < 6; k++){
@@ -1013,25 +1010,22 @@ public class ModelProvider extends FabricModelProvider {
                     default -> rot;
                 };
 
-                statesMap.register(Direction.byId(k), false, DoorHinge.LEFT, i, BlockStateVariant.create()
-                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_" + i))
-                        .put(VariantSettings.UVLOCK, false)
-                        .put(VariantSettings.Y, VariantSettings.Rotation.valueOf("R" + rot)));
+                WeightedVariant weightedVariantLeft = BlockStateModelGenerator.createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_" + i));
+                WeightedVariant weightedVariantLeftOpen = BlockStateModelGenerator.createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_open_" + i));
+                WeightedVariant weightedVarianRight = BlockStateModelGenerator.createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_" + i));
+                WeightedVariant weightedVarianRightOpen = BlockStateModelGenerator.createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_open_" + i));
 
-                statesMap.register(Direction.byId(k), true, DoorHinge.LEFT, i, BlockStateVariant.create()
-                        .put(VariantSettings.MODEL,Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_open_" + i))
-                        .put(VariantSettings.UVLOCK, false)
-                        .put(VariantSettings.Y, VariantSettings.Rotation.valueOf("R" + rot)));
+                statesMap.register(Direction.byIndex(k), false, DoorHinge.LEFT, i,
+                        weightedVariantLeft.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
 
-                statesMap.register(Direction.byId(k), false, DoorHinge.RIGHT, i, BlockStateVariant.create()
-                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_" + i))
-                        .put(VariantSettings.UVLOCK, false)
-                        .put(VariantSettings.Y, VariantSettings.Rotation.valueOf("R" + rot)));
+                statesMap.register(Direction.byIndex(k), true, DoorHinge.LEFT, i,
+                        weightedVariantLeftOpen.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
 
-                statesMap.register(Direction.byId(k), true, DoorHinge.RIGHT, i, BlockStateVariant.create()
-                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_open_" + i))
-                        .put(VariantSettings.UVLOCK, false)
-                        .put(VariantSettings.Y, VariantSettings.Rotation.valueOf("R" + rot)));
+                statesMap.register(Direction.byIndex(k), false, DoorHinge.RIGHT, i,
+                        weightedVarianRight.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
+
+                statesMap.register(Direction.byIndex(k), true, DoorHinge.RIGHT, i,
+                        weightedVarianRightOpen.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
 
                 if (k == 2){
                     MEModels.LARGE_THICK_DOOR_LEFT.upload(largeDoor, "_left_" + i,
@@ -1056,9 +1050,10 @@ public class ModelProvider extends FabricModelProvider {
                 }
             }
         }
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(largeDoor)
-                .coordinate(statesMap));
-    }
+
+        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(largeDoor).with(statesMap);
+        blockStateModelGenerator.blockStateCollector.accept(blockstate);
+    }/*
 
 
     public final void registerLeadGlassPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {
