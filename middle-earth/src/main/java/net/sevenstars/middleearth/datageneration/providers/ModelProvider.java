@@ -521,7 +521,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimplePaneModel.Pane pane : SimplePaneModel.panes) {
-            registerLeadGlassPane(blockStateModelGenerator, pane.glass(), pane.pane());
+            registerGlassPane(blockStateModelGenerator, pane.glass(), pane.pane());
         }
 
         for(Block block : SimpleWoodStoolModel.stools){
@@ -818,8 +818,10 @@ public class ModelProvider extends FabricModelProvider {
         WeightedVariant fullBlockVariant;
         if (Registries.BLOCK.getId(block).getPath().contains("waxed_") && Registries.BLOCK.getId(block).getPath().contains("copper")) {
             fullBlockVariant = createWeightedVariant(Identifier.ofVanilla(fullBlock.getPath().replaceAll("waxed_", "")));
-        } else {
+        }  else if (fullBlock.getNamespace().contains("minecraft")) {
             fullBlockVariant = createWeightedVariant(Identifier.ofVanilla(fullBlock.getPath()));
+        }else {
+            fullBlockVariant = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, fullBlock.getPath()));
         }
 
         VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(block).with(
@@ -1088,9 +1090,14 @@ public class ModelProvider extends FabricModelProvider {
     }
 
 
-    public final void registerLeadGlassPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {
+    public final void registerGlassPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {
         blockStateModelGenerator.registerSimpleCubeAll(glass);
-        TextureMap textureMap = TextureMap.paneAndTopForEdge(glass, glassPane);
+        TextureMap textureMap;
+        if (Registries.BLOCK.getId(glassPane).getPath().contains("lead_glass")){
+            textureMap = TextureMap.paneAndTopForEdge(glass, ModDecorativeBlocks.LEAD_GLASS_PANE);
+        } else {
+            textureMap = TextureMap.paneAndTopForEdge(glass, glassPane);
+        }
         WeightedVariant weightedVariant = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_POST.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector));
         WeightedVariant weightedVariant2 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_SIDE.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector));
         WeightedVariant weightedVariant3 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_SIDE_ALT.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector));
