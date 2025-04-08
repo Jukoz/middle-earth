@@ -1115,19 +1115,27 @@ public class ModelProvider extends FabricModelProvider {
 
     private void registerLayers(BlockStateModelGenerator blockStateModelGenerator, Block layers, Block origin, Boolean isVanilla) {
         TextureMap textureMap = TextureMap.all(origin);
-        WeightedVariant weightedVariant = createWeightedVariant(Models.CUBE_ALL.upload(origin, textureMap, blockStateModelGenerator.modelCollector));
+        WeightedVariant weightedVariant;
+        if (!isVanilla){
+            weightedVariant = createWeightedVariant(Models.CUBE_ALL.upload(origin, textureMap, blockStateModelGenerator.modelCollector));
+        } else {
+            weightedVariant = createWeightedVariant(Identifier.ofVanilla(Registries.BLOCK.getId(origin).getPath()));
+        }
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(layers).with(BlockStateVariantMap.models(Properties.LAYERS).generate((integer) -> {
             WeightedVariant var2;
             if (integer < 8) {
                 Block var10000 = origin;
                 int var10001 = integer;
-                var2 = createWeightedVariant(ModelIds.getBlockSubModelId(var10000, "_height" + var10001 * 2));
+                var2 = createWeightedVariant(ModelIds.getBlockSubModelId(var10000, "_layer_height" + var10001 * 2));
             } else {
                 var2 = weightedVariant;
             }
 
             return var2;
         })));
+        if (!isVanilla){
+            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(origin, weightedVariant));
+        }
         blockStateModelGenerator.registerParentedItemModel(layers, ModelIds.getBlockSubModelId(layers, "_height2"));
     }
 
