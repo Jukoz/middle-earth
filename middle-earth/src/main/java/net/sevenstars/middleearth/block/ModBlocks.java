@@ -7,6 +7,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.gemstones.CustomBuddingGemBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.minecraft.block.*;
@@ -1275,6 +1276,8 @@ public class ModBlocks {
             BlockDrops.blocks.add(block);
         }
         group.add(block.asItem().getDefaultStack());
+
+        TranslationEntries.blocks.add(block);
         
         return Registry.register(Registries.BLOCK, keyOfBlock(name), block);
     }

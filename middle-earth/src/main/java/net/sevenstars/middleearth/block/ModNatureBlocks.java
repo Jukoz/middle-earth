@@ -4,6 +4,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.crop.*;
 import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.saplings.VariantSaplingBlock;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
@@ -477,6 +478,9 @@ public class ModNatureBlocks {
         registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
         Saplings.saplings.add(resultBlock);
+
+        TranslationEntries.blocks.add(resultBlock);
+
         return resultBlock;
     }
 
@@ -490,6 +494,9 @@ public class ModNatureBlocks {
         SaplingBlock saplingBlock = new VariantSaplingBlock(AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(ModBlocks.keyOfBlock(name)), saplingGenerators);
 
         Block resultBlock = Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), saplingBlock);
+
+        TranslationEntries.blocks.add(resultBlock);
+
         registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
         return resultBlock;
@@ -497,7 +504,11 @@ public class ModNatureBlocks {
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean present) {
         Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
-        if(present) ModNatureBlocks.registerBlockItem(name, block);
+        if(present){
+            ModNatureBlocks.registerBlockItem(name, block);
+            TranslationEntries.blocks.add(block);
+        }
+
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 

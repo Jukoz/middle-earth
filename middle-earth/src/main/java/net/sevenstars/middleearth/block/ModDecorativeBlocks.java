@@ -27,6 +27,7 @@ import net.sevenstars.middleearth.block.special.torches.METorchBlock;
 import net.sevenstars.middleearth.block.special.torches.MEWallTorchBlock;
 import net.sevenstars.middleearth.block.special.torches.OrcSconceBlock;
 import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlock;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
@@ -746,6 +747,7 @@ public class ModDecorativeBlocks {
         Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
         ModBlocks.registerBlockItem(name, block);
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
+        TranslationEntries.blocks.add(block);
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 

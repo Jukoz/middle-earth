@@ -47,6 +47,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(NpcProvider::new);
         pack.addProvider(FactionProvider::new);
         pack.addProvider(DataWorldGenerator::new);
+        pack.addProvider(LanguageProvider::new);
     }
 
     @Override

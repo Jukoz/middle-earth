@@ -20,6 +20,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntity;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
@@ -82,7 +83,9 @@ public class ModEntities {
                 EntityType.Builder.create(entity, spawnGroup).dimensions(width, height).build(keyOf("name")));
     }
     private static <T extends Entity> EntityType<T> register(RegistryKey<EntityType<?>> key, EntityType.Builder<T> type) {
-        return (EntityType)Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
+        EntityType<T> entityType = (EntityType)Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
+        TranslationEntries.entities.add(entityType);
+        return entityType;
     }
 
     private static RegistryKey<EntityType<?>> keyOf(String id) {
