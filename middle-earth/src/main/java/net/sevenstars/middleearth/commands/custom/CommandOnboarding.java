@@ -4,13 +4,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.sevenstars.middleearth.commands.CommandUtils;
-import net.sevenstars.middleearth.commands.ModCommands;
-import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.network.packets.S2C.PacketForceOnboardingScreen;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.utils.ModColors;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
@@ -18,6 +11,12 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.sevenstars.middleearth.commands.CommandUtils;
+import net.sevenstars.middleearth.commands.ModCommands;
+import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.network.packets.S2C.PacketForceOnboardingScreen;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
+import net.sevenstars.middleearth.utils.ModColors;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -68,14 +67,14 @@ public class CommandOnboarding {
 
     private static int tryOpen(CommandContext<ServerCommandSource> context) {
         if(context.getSource().isExecutedByPlayer()) {
-            ServerPlayerEntity source = context.getSource().getPlayer();
-            if(source != null){
-                PlayerData data = StateSaverAndLoader.getPlayerState(source);
-                if(data == null || !data.hasAffilition()){
-                    ServerPlayNetworking.send(source, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION));
+            ServerPlayerEntity playerSource = context.getSource().getPlayer();
+            if(playerSource != null){
+                boolean playerPassedOnboarding = PlayerDataService.playerPassedOnboarding(playerSource);
+                if(playerPassedOnboarding){
+                    ServerPlayNetworking.send(playerSource, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION));
                 } else {
                     MutableText sourceText = Text.translatable("command.me.open.onboarding.error");
-                    source.sendMessage(sourceText.withColor(ModColors.WARNING.color));
+                    playerSource.sendMessage(sourceText.withColor(ModColors.WARNING.color));
                 }
             }
         }
@@ -83,15 +82,15 @@ public class CommandOnboarding {
     }
 
     private static int tryOpenForTarget(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity targetPlayer = EntityArgumentType.getPlayer(context, PLAYER);
-        if(targetPlayer != null){
-            PlayerData data = StateSaverAndLoader.getPlayerState(targetPlayer);
-            if(data == null || !data.hasAffilition()){
-                ServerPlayNetworking.send(targetPlayer, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION));
-                MutableText sourceText = Text.translatable("command.me.open_target.onboarding.success", targetPlayer.getName());
+        ServerPlayerEntity playerTarget = EntityArgumentType.getPlayer(context, PLAYER);
+        if(playerTarget != null){
+            boolean playerPassedOnboarding = PlayerDataService.playerPassedOnboarding(playerTarget);
+            if(playerPassedOnboarding){
+                ServerPlayNetworking.send(playerTarget, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION));
+                MutableText sourceText = Text.translatable("command.me.open_target.onboarding.success", playerTarget.getName());
                 context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
             } else {
-                MutableText sourceText = Text.translatable("command.me.open_target.onboarding.error",targetPlayer.getName());
+                MutableText sourceText = Text.translatable("command.me.open_target.onboarding.error",playerTarget.getName());
                 context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
             }
         }

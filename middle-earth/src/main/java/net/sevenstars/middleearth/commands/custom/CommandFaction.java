@@ -3,21 +3,6 @@ package net.sevenstars.middleearth.commands.custom;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.commands.CommandUtils;
-import net.sevenstars.middleearth.commands.ModCommands;
-import net.sevenstars.middleearth.commands.suggestions.AllAvailableSpawnSuggestionProvider;
-import net.sevenstars.middleearth.commands.suggestions.FactionSuggestionProvider;
-import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.exceptions.IdenticalFactionException;
-import net.sevenstars.middleearth.exceptions.NoFactionException;
-import net.sevenstars.middleearth.exceptions.SpawnIdentifierException;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
-import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.utils.ModColors;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.IdentifierArgumentType;
@@ -27,6 +12,20 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.commands.CommandUtils;
+import net.sevenstars.middleearth.commands.ModCommands;
+import net.sevenstars.middleearth.commands.suggestions.AllAvailableSpawnSuggestionProvider;
+import net.sevenstars.middleearth.commands.suggestions.FactionSuggestionProvider;
+import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
+import net.sevenstars.middleearth.exceptions.IdenticalFactionException;
+import net.sevenstars.middleearth.exceptions.NoFactionException;
+import net.sevenstars.middleearth.exceptions.SpawnIdentifierException;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
+import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
+import net.sevenstars.middleearth.utils.ModColors;
 import org.jetbrains.annotations.Nullable;
 
 import static net.minecraft.server.command.CommandManager.*;
@@ -128,17 +127,14 @@ public class CommandFaction {
         if(context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity source = context.getSource().getPlayer();
             if(source != null){
-                PlayerData playerData = StateSaverAndLoader.getPlayerState(source);
-                if(playerData != null && playerData.hasAffilition()){
-                    try{
-                        Faction currentFaction = playerData.getCurrentFaction(context.getSource().getWorld());
-                        MutableText sourceText = Text.translatable("command.me.get.faction.success", currentFaction.getFullName());
-                        source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
-                    } catch (FactionIdentifierException e) {
-                        MutableText sourceText = Text.translatable("command.me.get.faction.no_faction");
-                        source.sendMessage(sourceText.withColor(ModColors.WARNING.color));
-                    }
+                Faction currentFaction = PlayerDataService.getPlayerFaction(source, source.getWorld());
+                if(currentFaction == null){
+                    MutableText sourceText = Text.translatable("command.me.get.faction.no_faction");
+                    source.sendMessage(sourceText.withColor(ModColors.WARNING.color));
+                    return 0;
                 }
+                MutableText sourceText = Text.translatable("command.me.get.faction.success", currentFaction.getFullName());
+                source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
             }
         }
         return 0;
@@ -149,17 +145,14 @@ public class CommandFaction {
         if(targetedPlayer != null && context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity source = context.getSource().getPlayer();
             if(source != null){
-                PlayerData playerData = StateSaverAndLoader.getPlayerState(targetedPlayer);
-                if(playerData != null && playerData.hasAffilition()){
-                    try{
-                        Faction foundFaction = playerData.getCurrentFaction(context.getSource().getWorld());
-                        MutableText sourceText = Text.translatable("command.me.get.player.faction.success", targetedPlayer.getName(), foundFaction.getFullName());
-                        source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
-                    } catch (FactionIdentifierException e) {
-                        MutableText sourceText = Text.translatable("command.me.get.player.faction.no_faction", targetedPlayer.getName());
-                        source.sendMessage(sourceText.withColor(ModColors.WARNING.color));
-                    }
+                Faction currentFaction = PlayerDataService.getPlayerFaction(source, source.getWorld());
+                if(currentFaction == null){
+                    MutableText sourceText = Text.translatable("command.me.get.player.faction.no_faction", targetedPlayer.getName());
+                    source.sendMessage(sourceText.withColor(ModColors.WARNING.color));
+                    return 0;
                 }
+                MutableText sourceText = Text.translatable("command.me.get.player.faction.success", targetedPlayer.getName(), currentFaction.getFullName());
+                source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
             }
         }
         return 0;

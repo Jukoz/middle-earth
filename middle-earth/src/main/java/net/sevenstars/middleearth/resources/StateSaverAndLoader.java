@@ -11,21 +11,57 @@ import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.PersistentStateType;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
+import org.apache.commons.lang3.SerializationUtils;
 
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 /**
- * Documentation : <a href="https://fabricmc.net/wiki/tutorial:persistent_states">link</a>
+ * <a href="https://fabricmc.net/wiki/tutorial:persistent_states">Documentation</a><br/>
+ * <a href="https://github.com/TerraformersMC/Biolith/blob/main/common/src/main/java/com/terraformersmc/biolith/impl/config/BiolithState.java">Other Source</a>
  */
 public class StateSaverAndLoader extends PersistentState {
+    private static final String PLAYERS = "Players";
+
     private HashMap<UUID, PlayerData> players;
+
+    public StateSaverAndLoader(ByteBuffer players) {
+        HashMap<UUID, PlayerData> playerDataHashMap = SerializationUtils.deserialize(players.array());
+        this.players = playerDataHashMap;
+    }
+
+    public StateSaverAndLoader(Context context) {
+        this.players = new HashMap<>();
+    }
+
+    private static Codec<StateSaverAndLoader> getCodec(PersistentState.Context context) {
+        return RecordCodecBuilder.create((instance) -> instance.group(
+                Codec.BYTE_BUFFER.fieldOf(PLAYERS).forGetter(StateSaverAndLoader::getPlayerDataByteBuffer)
+        ).apply(instance, StateSaverAndLoader::new));
+    }
+
+    public static PersistentStateType<StateSaverAndLoader> getPersistentStateType() {
+        return new PersistentStateType<>(
+                MiddleEarth.MOD_ID + "_" + "player_datas",
+                StateSaverAndLoader::new,
+                StateSaverAndLoader::getCodec,
+                null
+        );
+    }
+
+    public ByteBuffer getPlayerDataByteBuffer() {
+        return ByteBuffer.wrap(SerializationUtils.serialize(players));
+    }
+
     private static final PersistentStateType<StateSaverAndLoader> TYPE;
 
     public static final Codec<StateSaverAndLoader> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            NbtCompound.CODEC.fieldOf("playerDatas").forGetter(StateSaverAndLoader::getPlayerDataNbt)
+            NbtCompound.CODEC.fieldOf("player_datas").forGetter(StateSaverAndLoader::getPlayerDataNbt)
     ).apply(instance, StateSaverAndLoader::new));
+
 
     public StateSaverAndLoader() {
         this.players = new HashMap();
@@ -38,10 +74,6 @@ public class StateSaverAndLoader extends PersistentState {
         StateSaverAndLoader state = new StateSaverAndLoader();
         state.players = new HashMap();
         return state;
-    }
-
-    public HashMap<UUID, PlayerData> getPlayers() {
-        return this.players;
     }
 
     private NbtCompound getPlayerDataNbt() {
@@ -64,7 +96,7 @@ public class StateSaverAndLoader extends PersistentState {
 
 
     static {
-        TYPE = new PersistentStateType<>("persistent_state", StateSaverAndLoader::createNew, CODEC, (DataFixTypes) null);
+        TYPE = new PersistentStateType<>("middle_earth_player_datas", StateSaverAndLoader::createNew, CODEC, (DataFixTypes) null);
     }
 
     /*

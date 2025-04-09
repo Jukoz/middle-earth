@@ -1,14 +1,5 @@
 package net.sevenstars.middleearth.entity.beasts.trolls;
 
-import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.goals.*;
-import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -25,10 +16,18 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.entity.goals.*;
+import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
+import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 import java.util.List;
 
@@ -299,9 +298,7 @@ public class TrollEntity extends AbstractBeastEntity {
     public void throwAttack() {
         Entity target = this.getTarget();
         if(target instanceof PlayerEntity player) {
-            PlayerData data = StateSaverAndLoader.getPlayerState(player);
-            Disposition playerDisposition = data.getCurrentDisposition();
-            if(playerDisposition == this.getDisposition()){
+            if(PlayerDataService.getPlayerDisposition(player, getWorld()) == this.getDisposition()){
                 return;
             }
         }

@@ -1,20 +1,48 @@
 package net.sevenstars.middleearth.resources.persistent_datas;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.MiddleEarthRaces;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.FactionType;
-import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
-import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 public class PlayerData {
+    private Identifier faction;
+    private Identifier spawn;
+    private Identifier race;
+    private BlockPos posOrigin;
+    private Identifier dimensionOrigin;
+
+    public boolean assignNewFactionInformation(Identifier factionId, Identifier spawnId){
+        this.faction = factionId;
+        this.spawn = spawnId;
+        return true;
+    }
+
+    public boolean assignNewRace(Identifier raceId){
+        this.race = raceId;
+        return true;
+    }
+
+    public boolean assignNewOrigin(Identifier dimensionOrigin, BlockPos newBlockPos){
+        this.dimensionOrigin = dimensionOrigin;
+        this.posOrigin = newBlockPos;
+        return true;
+    }
+    public Identifier getFaction(){
+        return this.faction;
+    }
+    public Identifier getRace(){
+        return this.race;
+    }
+    public Identifier getSpawn(){
+        return this.spawn;
+    }
+
+    public Identifier getDimensionOrigin(){
+        return this.spawn;
+    }
+    public BlockPos getOriginPos(){
+        return this.posOrigin;
+    }
+    /*
     private AffiliationData affiliationData;
     private Identifier race;
     private BlockPos overworldSpawnCoordinates;
@@ -138,4 +166,5 @@ public class PlayerData {
         }
         return false;
     }
+     */
 }

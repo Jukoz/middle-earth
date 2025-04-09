@@ -88,11 +88,19 @@ public class SpawnData {
     }
 
     public Vector3i getWorldCoordinates() {
-        int ratio = (MiddleEarthMapConfigs.FULL_MAP_SIZE / MiddleEarthMapConfigs.REGION_SIZE);
         Vector3i worldCoordinates = new Vector3i((int) coordinates.x, (int) coordinates.y, (int) coordinates.z);
         if(isDynamic) {
+            int ratio = (MiddleEarthMapConfigs.FULL_MAP_SIZE / MiddleEarthMapConfigs.REGION_SIZE);
             worldCoordinates.x = worldCoordinates.x * ratio;
             worldCoordinates.z = worldCoordinates.z * ratio;
+        }
+        return worldCoordinates;
+    }
+    public BlockPos getWorldCoordinateBlockPos() {
+        BlockPos worldCoordinates = new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z);
+        if(isDynamic) {
+            int ratio = (MiddleEarthMapConfigs.FULL_MAP_SIZE / MiddleEarthMapConfigs.REGION_SIZE);
+            worldCoordinates = new BlockPos((int) coordinates.x * ratio, (int) coordinates.y, (int) coordinates.z * ratio);
         }
         return worldCoordinates;
     }
