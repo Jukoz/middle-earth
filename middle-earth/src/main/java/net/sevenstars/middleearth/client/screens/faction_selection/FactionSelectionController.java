@@ -254,7 +254,7 @@ public class FactionSelectionController {
     public String getCurrentRaceKey() {
         if(getCurrentRace() != null)
             return getCurrentRace().getTranslatableKey();
-        return "ooops"; // TODO : translatale
+        return "No Race"; // TODO : translatale
     }
 
     public boolean haveManyRaces(){
