@@ -30,7 +30,7 @@ public class ModNatureBlockItems {
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.NATURE_BLOCKS_CONTENTS.add(item.getDefaultStack());
-        TranslationEntries.items.add(item);
+        TranslationEntries.itemEntries.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

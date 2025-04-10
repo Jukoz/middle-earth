@@ -1,23 +1,9 @@
 package net.sevenstars.middleearth.entity;
 
-import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.datafixer.TypeReferences;
 import net.minecraft.entity.*;
-import net.minecraft.entity.mob.WitchEntity;
-import net.minecraft.entity.passive.CamelEntity;
-import net.minecraft.loot.LootTable;
 import net.minecraft.registry.*;
-import net.minecraft.resource.featuretoggle.FeatureFlag;
-import net.minecraft.resource.featuretoggle.FeatureFlags;
-import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntity;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
@@ -36,8 +22,6 @@ import net.sevenstars.middleearth.entity.projectile.spear.SpearEntity;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
 import net.sevenstars.middleearth.entity.swan.SwanEntity;
-
-import java.util.Optional;
 
 public class ModEntities {
 
@@ -84,7 +68,7 @@ public class ModEntities {
     }
     private static <T extends Entity> EntityType<T> register(RegistryKey<EntityType<?>> key, EntityType.Builder<T> type) {
         EntityType<T> entityType = (EntityType)Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
-        TranslationEntries.entities.add(entityType);
+        TranslationEntries.entityEntries.add(entityType);
         return entityType;
     }
 

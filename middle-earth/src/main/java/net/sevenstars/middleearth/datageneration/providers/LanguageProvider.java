@@ -5,9 +5,8 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.item.ModWeaponItems;
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,36 +27,33 @@ public class LanguageProvider extends FabricLanguageProvider {
         specialNames.put("Burzum Steel", "Búrzum-Steel");
         specialNames.put("Edhel Steel", "Edhel-Steel");
         specialNames.put("Khazad Steel", "Khazâd-Steel");
+        specialNames.put("Lothlorien", "Lothlórien");
+        specialNames.put("Nurn", "Núrn");
+        specialNames.put("Rhun", "Rhûn");
+        specialNames.put("Lorien", "Lórien");
     }
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
 
-        TranslationEntries.blocks.forEach(block -> {
+        TranslationEntries.blockEntries.forEach(block -> {
             translateBlock(translationBuilder, block);
         });
 
-        TranslationEntries.items.forEach(item -> {
+        TranslationEntries.itemEntries.forEach(item -> {
             translationBuilder.add(item, generateName(Registries.ITEM.getId(item).getPath()));
         });
 
-        TranslationEntries.entities.forEach(entityType -> {
+        TranslationEntries.entityEntries.forEach(entityType -> {
             translationBuilder.add(entityType, generateName(Registries.ENTITY_TYPE.getId(entityType).getPath()));
         });
 
-        translationBuilder.add("itemGroup.me.stone_blocks", "Middle-earth Stone Blocks");
-        translationBuilder.add("itemGroup.me.wood_blocks", "Middle-earth Wood Blocks");
-        translationBuilder.add("itemGroup.me.misc_blocks", "Middle-earth Misc Blocks");
-        translationBuilder.add("itemGroup.me.nature_blocks", "Middle-earth Nature Blocks");
-        translationBuilder.add("itemGroup.me.decorative_blocks", "Middle-earth Decorative Blocks");
-        translationBuilder.add("itemGroup.me.food_items", "Middle-earth Food");
-        translationBuilder.add("itemGroup.me.weapon_items", "Middle-earth Weapons");
-        translationBuilder.add("itemGroup.me.equipment_items", "Middle-earth Equipment");
-        translationBuilder.add("itemGroup.me.tool_items", "Middle-earth Tools");
-        translationBuilder.add("itemGroup.me.resource_items", "Middle-earth Resources");
-        translationBuilder.add("itemGroup.me.spawn_egg_items", "Middle-earth Spawn Eggs");
-        
-        translationBuilder.add(ModWeaponItems.AEGLOS, "your mom");
+        TranslationEntries.biomeEntries.forEach(name -> {
+            translationBuilder.add("biome." + MiddleEarth.MOD_ID + "." + name, generateName(name));
+        });
+
+        TranslationEntries.manualEntries.forEach(translationBuilder::add);
+
     }
 
     public void translateBlock(TranslationBuilder translationBuilder, Block block){

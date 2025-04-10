@@ -1,11 +1,11 @@
 package net.sevenstars.middleearth.item;
 
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.registry.tag.BannerPatternTags;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
 import net.sevenstars.middleearth.block.special.CustomWaterloggableTallPlantBlock;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.items.*;
 import net.sevenstars.middleearth.item.items.weapons.ranged.LitPineconeItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.PebbleItem;
@@ -247,6 +247,7 @@ public class ModResourceItems {
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.RESOURCES_CONTENTS.add(item.getDefaultStack());
+        TranslationEntries.itemEntries.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

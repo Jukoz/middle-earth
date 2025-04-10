@@ -1277,7 +1277,7 @@ public class ModBlocks {
         }
         group.add(block.asItem().getDefaultStack());
 
-        TranslationEntries.blocks.add(block);
+        TranslationEntries.blockEntries.add(block);
         
         return Registry.register(Registries.BLOCK, keyOfBlock(name), block);
     }

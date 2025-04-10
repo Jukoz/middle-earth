@@ -1,7 +1,5 @@
 package net.sevenstars.middleearth.item;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
@@ -133,7 +131,7 @@ public class ModDecorativeItems {
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());
-        TranslationEntries.items.add(item);
+        TranslationEntries.itemEntries.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

@@ -479,7 +479,7 @@ public class ModNatureBlocks {
         TintableCrossModel.notTintedBlocks.add(resultBlock);
         Saplings.saplings.add(resultBlock);
 
-        TranslationEntries.blocks.add(resultBlock);
+        TranslationEntries.blockEntries.add(resultBlock);
 
         return resultBlock;
     }
@@ -495,7 +495,7 @@ public class ModNatureBlocks {
 
         Block resultBlock = Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), saplingBlock);
 
-        TranslationEntries.blocks.add(resultBlock);
+        TranslationEntries.blockEntries.add(resultBlock);
 
         registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
@@ -506,7 +506,7 @@ public class ModNatureBlocks {
         Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
         if(present){
             ModNatureBlocks.registerBlockItem(name, block);
-            TranslationEntries.blocks.add(block);
+            TranslationEntries.blockEntries.add(block);
         }
 
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
