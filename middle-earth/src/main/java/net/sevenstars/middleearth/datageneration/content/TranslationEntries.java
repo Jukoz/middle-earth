@@ -27,6 +27,9 @@ public class TranslationEntries {
     public static List<String> bannerPatternEntries = new ArrayList<>() {
     };
 
+    public static List<String> factionEntries = new ArrayList<>() {
+    };
+
     public static Map<String, String> manualEntries = new HashMap<>() {
         {
             put("itemGroup." + MiddleEarth.MOD_ID + ".stone_blocks", "Middle-earth Stone Blocks");
@@ -385,23 +388,6 @@ public class TranslationEntries {
             put("trim_material."+ MiddleEarth.MOD_ID +".khazad_steel", "Khazâd-Steel");
             put("trim_material."+ MiddleEarth.MOD_ID +".morgul_steel", "Morgul Steel");
             put("trim_material."+ MiddleEarth.MOD_ID +".mithril", "Mithril");
-
-            //TODO try to automate
-            put("disposition."+ MiddleEarth.MOD_ID +".good", "Good");
-            put("disposition."+ MiddleEarth.MOD_ID +".neutral", "Neutral");
-            put("disposition."+ MiddleEarth.MOD_ID +".evil", "Evil");
-
-            put("faction."+ MiddleEarth.MOD_ID +".gondor", "Gondor");
-            put("faction."+ MiddleEarth.MOD_ID +".rohan", "Rohan");
-            put("faction."+ MiddleEarth.MOD_ID +".dale", "Dale");
-            put("faction."+ MiddleEarth.MOD_ID +".longbeards", "Longbeards");
-            put("faction."+ MiddleEarth.MOD_ID +".longbeards.erebor", "Erebor");
-            put("faction."+ MiddleEarth.MOD_ID +".lothlorien", "Lothlórien");
-            put("faction."+ MiddleEarth.MOD_ID +".mordor", "Mordor");
-            put("faction."+ MiddleEarth.MOD_ID +".misty_mountains_goblins", "Misty Mountains Goblins");
-            put("faction."+ MiddleEarth.MOD_ID +".isengard", "Isengard");
-            put("faction."+ MiddleEarth.MOD_ID +".shire", "Shire");
-            put("faction."+ MiddleEarth.MOD_ID +".bandit", "Bandit");
 
             put("faction."+ MiddleEarth.MOD_ID +".example.fallback", "Example...");
             put("faction."+ MiddleEarth.MOD_ID +".misty_mountains_goblins.fallback", "Misty Mts. Goblins");

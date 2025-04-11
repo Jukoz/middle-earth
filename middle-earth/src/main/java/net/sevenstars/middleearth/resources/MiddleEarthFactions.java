@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.resources;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.ModBannerPatterns;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
@@ -88,6 +89,8 @@ public class MiddleEarthFactions {
 
         Optional<RegistryEntry.Reference<Faction>> optionalFaction = factionRegistryEntryLookup.getOptional(factionRegistryKey);
         optionalFaction.ifPresent(biomeReference -> context.register(factionKey, faction));
+
+        TranslationEntries.factionEntries.add(faction.getName());
 
         return faction;
     }
