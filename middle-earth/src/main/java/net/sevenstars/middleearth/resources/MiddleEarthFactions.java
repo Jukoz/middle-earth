@@ -91,6 +91,11 @@ public class MiddleEarthFactions {
         optionalFaction.ifPresent(biomeReference -> context.register(factionKey, faction));
 
         TranslationEntries.factionEntries.add(faction.getName());
+        if (faction.getSpawnData() != null){
+            faction.getSpawnData().getSpawnList().forEach(spawnData -> {
+                TranslationEntries.spawnEntries.add(spawnData.getIdentifier().getPath());
+            });
+        }
 
         return faction;
     }

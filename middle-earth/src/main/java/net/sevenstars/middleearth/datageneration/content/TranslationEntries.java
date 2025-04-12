@@ -30,6 +30,9 @@ public class TranslationEntries {
     public static List<String> factionEntries = new ArrayList<>() {
     };
 
+    public static List<String> spawnEntries = new ArrayList<>() {
+    };
+
     public static Map<String, String> manualEntries = new HashMap<>() {
         {
             put("itemGroup." + MiddleEarth.MOD_ID + ".stone_blocks", "Middle-earth Stone Blocks");
@@ -398,41 +401,6 @@ public class TranslationEntries {
             put("spawn."+ MiddleEarth.MOD_ID +".coordinates_base_values.custom", "%s, %s, %s");
 
             put("spawn."+ MiddleEarth.MOD_ID +".none", "None");
-
-            put("spawn."+ MiddleEarth.MOD_ID +".gondor.minas_tirith", "Minas Tirith");
-            put("spawn."+ MiddleEarth.MOD_ID +".gondor.anorien", "Anorien");
-            put("spawn."+ MiddleEarth.MOD_ID +".gondor.ithilien", "Ithilien");
-            put("spawn."+ MiddleEarth.MOD_ID +".gondor.lossarnach", "Lossarnach");
-            put("spawn."+ MiddleEarth.MOD_ID +".gondor.pelargir", "Pelargir");
-            put("spawn."+ MiddleEarth.MOD_ID +".gondor.lebennin", "Lebennin");
-            put("spawn."+ MiddleEarth.MOD_ID +".gondor.ringlo_vale", "Ringlo Vale");
-            put("spawn."+ MiddleEarth.MOD_ID +".gondor.lamedon", "Lamedon");
-            put("spawn."+ MiddleEarth.MOD_ID +".gondor.dol_amroth", "Dol Amroth");
-            put("spawn."+ MiddleEarth.MOD_ID +".gondor.morthond_vale", "Morthond Vale");
-            put("spawn."+ MiddleEarth.MOD_ID +".rohan.edoras", "Edoras");
-            put("spawn."+ MiddleEarth.MOD_ID +".rohan.helms_deep", "Helm's Deep");
-            put("spawn."+ MiddleEarth.MOD_ID +".rohan.westemnet", "Westemnet");
-            put("spawn."+ MiddleEarth.MOD_ID +".rohan.aldburg", "Aldburg");
-            put("spawn."+ MiddleEarth.MOD_ID +".rohan.eastemnet", "Eastemnet");
-            put("spawn."+ MiddleEarth.MOD_ID +".rohan.the_wold", "The Wold");
-            put("spawn."+ MiddleEarth.MOD_ID +".dale.capital", "Dale Capital");
-            put("spawn."+ MiddleEarth.MOD_ID +".dale.esgaroth", "Esgaroth");
-            put("spawn."+ MiddleEarth.MOD_ID +".longbeards.erebor.ravenhill", "Ravenhill");
-            put("spawn."+ MiddleEarth.MOD_ID +".longbeards.erebor.iron_hills", "Iron Hills");
-            put("spawn."+ MiddleEarth.MOD_ID +".longbeards.erebor.iron_hills_spring", "Iron Hills Spring");
-            put("spawn."+ MiddleEarth.MOD_ID +".lothlorien.cerin_amroth", "Cerin Amroth");
-            put("spawn."+ MiddleEarth.MOD_ID +".mordor.gorgoroth", "Gorgoroth");
-            put("spawn."+ MiddleEarth.MOD_ID +".mordor.black_gates", "Black Gates");
-            put("spawn."+ MiddleEarth.MOD_ID +".mordor.minas_morgul", "Minas Morgul");
-            put("spawn."+ MiddleEarth.MOD_ID +".mordor.nurn", "Nurn");
-            put("spawn."+ MiddleEarth.MOD_ID +".mordor.dol_guldur", "Dol Guldur");
-            put("spawn."+ MiddleEarth.MOD_ID +".misty_mountains_goblins.gundabad", "Gundabad");
-            put("spawn."+ MiddleEarth.MOD_ID +".misty_mountains_goblins.grey_mountains", "Grey Mountains");
-            put("spawn."+ MiddleEarth.MOD_ID +".misty_mountains_goblins.goblin_town", "Goblin Town");
-            put("spawn."+ MiddleEarth.MOD_ID +".misty_mountains_goblins.moria", "Moria");
-            put("spawn."+ MiddleEarth.MOD_ID +".isengard.orthanc", "Orthanc");
-            put("spawn."+ MiddleEarth.MOD_ID +".shire.hobbiton", "Hobbitton");
-            put("spawn."+ MiddleEarth.MOD_ID +".shire.willowbottom", "Willowbottom");
 
             put("race."+ MiddleEarth.MOD_ID +".dwarf", "Dwarf");
             put("race."+ MiddleEarth.MOD_ID +".elf", "Elf");

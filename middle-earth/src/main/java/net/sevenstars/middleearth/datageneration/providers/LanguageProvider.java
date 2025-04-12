@@ -11,10 +11,8 @@ import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
 import net.sevenstars.middleearth.item.utils.armor.hoods.ModHoods;
 import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.FactionType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -39,6 +37,7 @@ public class LanguageProvider extends FabricLanguageProvider {
         specialNames.put("Rhun", "Rhûn");
         specialNames.put("Lorien", "Lórien");
         specialNames.put("Nazgul", "Nazgûl");
+        specialNames.put("Capital", "Dale Capital");
     }
 
     @Override
@@ -84,6 +83,10 @@ public class LanguageProvider extends FabricLanguageProvider {
             createTranslation(translationBuilder, "faction", faction);
         });
 
+        TranslationEntries.spawnEntries.forEach(faction -> {
+            createTranslation(translationBuilder, "spawn", faction);
+        });
+
         TranslationEntries.manualEntries.forEach(translationBuilder::add);
 
         createBannerTranslation(translationBuilder, "item", "round_shield");
@@ -102,7 +105,7 @@ public class LanguageProvider extends FabricLanguageProvider {
         String suffixSplit = suffix;
         if (suffix.contains(".")){
             String [] sub = suffix.split("\\.");
-            suffixSplit = sub[1];
+            suffixSplit = Arrays.stream(sub).toList().getLast();
         }
         translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix, generateName(suffixSplit));
     }
