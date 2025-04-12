@@ -189,6 +189,8 @@ public class TranslationEntries {
             put("block."+ MiddleEarth.MOD_ID +".orcish_treated_anvil", "Orcish Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".artisan_table", "Artisan Table");
 
+            put("block."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");
+
             put("block."+ MiddleEarth.MOD_ID +".reinforced_chest", "Reinforced Chest");
             put("block."+ MiddleEarth.MOD_ID +".small_crate", "Small Crate");
             put("block."+ MiddleEarth.MOD_ID +".thin_barrel", "Thin Barrel");
@@ -253,6 +255,7 @@ public class TranslationEntries {
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_ignite", "Pipe ignites");
 
             put("screen."+ MiddleEarth.MOD_ID +".forge", "Forge");
+            put("screen."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");
             put("container."+ MiddleEarth.MOD_ID +".artisan_table", "Artisan Table");
             put("container."+ MiddleEarth.MOD_ID +".small_crate", "Small Crate");
             put("container."+ MiddleEarth.MOD_ID +".thin_barrel", "Thin Barrel");

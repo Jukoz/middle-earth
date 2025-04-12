@@ -152,8 +152,7 @@ public class ArtisanTable extends HorizontalFacingBlock {
         return switch (state.get(PART)){
             case LEFT ->
                     switch (state.get(FACING)){
-                        case DOWN -> null;
-                        case UP -> null;
+                        case DOWN, UP -> null;
                         case NORTH -> Stream.of(
                                 Block.createCuboidShape(1, 0, 1, 4, 12, 15),
                                 Block.createCuboidShape(0, 12, 0, 16, 16, 16),

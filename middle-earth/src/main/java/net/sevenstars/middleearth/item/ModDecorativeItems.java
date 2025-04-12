@@ -54,6 +54,9 @@ public class ModDecorativeItems {
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",
             (settings) -> new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, settings), new Item.Settings());
 
+    public static final Item STRUCTURE_MANAGER = registerItem("structure_manager",
+            (settings) -> new BlockItem(ModDecorativeBlocks.STRUCTURE_MANAGER, settings), new Item.Settings());
+
     public static final Item SMALL_CRATE = registerItem("small_crate",
             (settings) -> new BlockItem(ModDecorativeBlocks.SMALL_CRATE, settings), new Item.Settings());
     public static final Item THIN_BARREL = registerItem("thin_barrel",
