@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.resources.datas.races.data;
 
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -21,15 +20,15 @@ public class RaceTextureData {
         presetsByCategory = new HashMap<>();
 
         for(EntityCategory category : EntityCategory.values()){
-            NbtList nbtListPresets = compound.getList(category.name(), NbtElement.COMPOUND_TYPE);
-            if(nbtListPresets != null){
-                List<NpcTextureDataPreset> dataPresetList = new ArrayList<>();
-                for(int i = 0; i < nbtListPresets.size(); i++){
-                    NpcTextureDataPreset fetchedPreset = new NpcTextureDataPreset(nbtListPresets.getCompound(i));
-                    dataPresetList.add(fetchedPreset);
-                }
-                presetsByCategory.put(category, dataPresetList);
+            var optList = compound.getList(category.name());
+            if(optList.isEmpty()) continue;;
+            NbtList nbtListPresets = optList.get();
+            List<NpcTextureDataPreset> dataPresetList = new ArrayList<>();
+            for(int i = 0; i < nbtListPresets.size(); i++){
+                NpcTextureDataPreset fetchedPreset = new NpcTextureDataPreset(nbtListPresets.getCompound(i).get());
+                dataPresetList.add(fetchedPreset);
             }
+            presetsByCategory.put(category, dataPresetList);
         }
     }
 

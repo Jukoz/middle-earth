@@ -80,8 +80,11 @@ public class PlayerDataService {
         }
     }
     public static boolean setRace(PlayerEntity player, World world, Identifier raceId){
+        Race newRace = RaceLookup.getRace(world, raceId);
+        if(newRace == null) return false;
         PlayerData playerData = getPlayerData(player);
         playerData.assignNewRace(raceId);
+        newRace.applyPlayerAttributes(player);
         return true;
     }
     public static SpawnData getPlayerSpawnData(PlayerEntity player, World world){

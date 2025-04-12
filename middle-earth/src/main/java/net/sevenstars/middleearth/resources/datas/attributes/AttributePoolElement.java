@@ -30,14 +30,14 @@ public class AttributePoolElement {
     public static AttributePoolElement createFromNbt(NbtCompound nbtCompound){
         var newElement = new AttributePoolElement();
 
-        newElement.withIdentifier(Identifier.of(nbtCompound.getString("id")));
+        newElement.withIdentifier(Identifier.of(nbtCompound.getString("id").get()));
 
         if(nbtCompound.contains("value"))
-            newElement.withDefineValue(nbtCompound.getDouble("value"));
+            newElement.withDefineValue(nbtCompound.getDouble("value").get());
         else if(nbtCompound.contains("min") && nbtCompound.contains("max"))
-            newElement.withMinMaxValue(nbtCompound.getDouble("min"), nbtCompound.getDouble("max"));
+            newElement.withMinMaxValue(nbtCompound.getDouble("min").get(), nbtCompound.getDouble("max").get());
 
-        if(nbtCompound.contains("buffReversed") && nbtCompound.getBoolean("buffReversed"))
+        if(nbtCompound.contains("buffReversed") && nbtCompound.getBoolean("buffReversed").get())
             newElement.withBuffReversed();
 
         return newElement;

@@ -84,11 +84,11 @@ public class Faction {
         }
 
         this.npcDatasByRank = new HashMap<>();
-        npcs.ifPresent(nbtCompound -> {
-            NbtList list = nbtCompound.getList("ranks").get();
+        if(npcs.isPresent()){
+            NbtList list = npcs.get().getList("ranks").get();
             for(int i = 0; i < list.size(); i++){
                 NbtCompound rankCompound = list.getCompound(i).get();
-                String rankName = rankCompound.getString("rank").toString().toUpperCase();
+                String rankName = rankCompound.getString("rank").get().toString().toUpperCase();
                 try{
                     NpcRank rank = NpcRank.valueOf(rankName);
                     NbtList npcDataList = rankCompound.getList("pool").get();
@@ -101,7 +101,7 @@ public class Faction {
 
                 }
             }
-        });
+        }
 
         this.bannerData = (bannerDataNbt.isEmpty()) ? null : new BannerData(bannerDataNbt);;
         this.spawnDataHandler = new SpawnDataHandler(spawnsNbt);

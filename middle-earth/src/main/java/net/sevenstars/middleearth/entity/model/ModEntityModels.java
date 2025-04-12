@@ -24,9 +24,9 @@ public class ModEntityModels {
         ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder = ImmutableMap.builder();
 
         builder.put(ModEntityModelLayers.NPC, NpcEntityModel.getTexturedModelData(Dilation.NONE));
-        builder.put(ModEntityModelLayers.NPC_ENTITY_HAIR, HairModel.getTexturedModelData(Dilation.NONE));
-        builder.put(ModEntityModelLayers.NPC_ENTITY_EAR, EarModel.getTexturedModelData(Dilation.NONE));
-        builder.put(ModEntityModelLayers.NPC_ENTITY_NOSE, NoseModel.getTexturedModelData(Dilation.NONE));
+        builder.put(ModEntityModelLayers.NPC_ENTITY_HAIR, HairModel.getTexturedModelData());
+        builder.put(ModEntityModelLayers.NPC_ENTITY_EAR, EarModel.getTexturedModelData());
+        builder.put(ModEntityModelLayers.NPC_ENTITY_NOSE, NoseModel.getTexturedModelData());
 
         builder.put(ModEntityModelLayers.HUMAN, HumanModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.DWARF, DwarfModel.getTexturedModelData(Dilation.NONE));

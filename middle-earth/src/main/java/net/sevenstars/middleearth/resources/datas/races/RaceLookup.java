@@ -1,12 +1,13 @@
 package net.sevenstars.middleearth.resources.datas.races;
 
-import net.sevenstars.middleearth.resources.MiddleEarthRaces;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.resources.MiddleEarthRaces;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class RaceLookup {
     public static List<Race> getAllRaces(World world) {
@@ -25,6 +26,7 @@ public class RaceLookup {
     }
 
     public static Race getRace(World world, Identifier identifier) {
-        return world.getRegistryManager().getOrThrow(MiddleEarthRaces.KEY).get(identifier);
+        Optional<Race> race = world.getRegistryManager().getOrThrow(MiddleEarthRaces.KEY).getOptionalValue(identifier);
+        return race.orElse(null);
     }
 }

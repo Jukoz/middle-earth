@@ -81,8 +81,10 @@ public class NpcEntity extends PassiveEntity {
 
         Faction faction = factions.get(random.nextBetween(0, factions.size() - 1));
         faction = manager.getOrThrow(MiddleEarthFactions.KEY).get(faction.getId());
-        Race race = manager.getOrThrow(MiddleEarthRaces.KEY).get(faction.getRaces(getWorld()).get(random.nextBetween(0, faction.getRaces(getWorld()).size() - 1)).getId());
-        return generateNpcData(manager, faction.getId(), race.getId());
+        List<Race> races = faction.getRaces(getWorld());
+        Race randomRace = races.get(random.nextBetween(0, races.size()-1));
+        Identifier raceId = manager.getOrThrow(MiddleEarthRaces.KEY).getEntry(randomRace).value().getId();
+        return generateNpcData(manager, faction.getId(), raceId);
     }
     private NpcData generateNpcData(DynamicRegistryManager manager, Identifier factionId, Identifier raceId) {
         Faction chosenFaction = manager.getOrThrow(MiddleEarthFactions.KEY).get(factionId);
@@ -194,13 +196,13 @@ public class NpcEntity extends PassiveEntity {
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        if (nbt.contains("NpcData", 10)) {
+        if (nbt.contains("NpcData")) {
             DataResult<NpcData> dataResult = NpcData.CODEC.parse(NbtOps.INSTANCE, nbt.get("NpcData"));
             if(dataResult.isSuccess()){
                 setNpcData(dataResult.getOrThrow());
             }
         }
-        if (nbt.contains("NpcTextureData", 10)) {
+        if (nbt.contains("NpcTextureData")) {
             DataResult<NpcTextureData> dataResult = NpcTextureData.CODEC.parse(NbtOps.INSTANCE, nbt.get("NpcTextureData"));
             if(dataResult.isSuccess()){
                 setNpcTextureData(dataResult.getOrThrow());

@@ -15,15 +15,15 @@ public class NoseModel  extends EntityModel<NpcEntityRenderState>  {
         this.largeCubeNose = modelPart.getChild("nose_large_cube");
     }
 
-    public static TexturedModelData getTexturedModelData(Dilation dilation) {
+    public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        ModelPartData cubeNosePart = modelPartData.addChild("nose_cube");
-        cubeNosePart.addChild("cube", ModelPartBuilder.create().uv(0, 2).cuboid(-1.0f, -4f, -5f, 2, 2, 1, Dilation.NONE), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData cubeNosePart = modelPartData.addChild("nose_cube", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        cubeNosePart.addChild("cube", ModelPartBuilder.create().uv(0, 2).cuboid(-1.0f, -4f, -5f, 2, 2, 1, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        ModelPartData largeCubeNosePart = modelPartData.addChild("nose_large_cube");
-        largeCubeNosePart.addChild("cube", ModelPartBuilder.create().uv(0, 6).cuboid(-1.0f, -3f, -6f, 2, 4, 2, Dilation.NONE), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData largeCubeNosePart = modelPartData.addChild("nose_large_cube", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        largeCubeNosePart.addChild("cube", ModelPartBuilder.create().uv(0, 6).cuboid(-1.0f, -3f, -6f, 2, 4, 2, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 32, 32);
     }
@@ -38,8 +38,8 @@ public class NoseModel  extends EntityModel<NpcEntityRenderState>  {
         this.cubeNose.pitch = state.pitch * 0.017453292F;
         this.largeCubeNose.pitch = state.pitch * 0.017453292F;
 
-        this.cubeNose.yaw = state.yawDegrees * 0.017453292F;
-        this.largeCubeNose.yaw = state.yawDegrees * 0.017453292F;
+        this.cubeNose.yaw = state.relativeHeadYaw * 0.017453292F;
+        this.largeCubeNose.yaw = state.relativeHeadYaw * 0.017453292F;
 
         if (bl) {
             this.cubeNose.pitch = -0.7853982F;

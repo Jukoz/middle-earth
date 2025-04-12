@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.resources.datas.attributes;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -26,9 +25,9 @@ public class AttributePool {
         if(compound == null) return;
         if(compound.contains("pool")){
             pool = new ArrayList<>();
-            var list =  compound.getList("pool", NbtElement.COMPOUND_TYPE);
-            for(int i = 0; i < list.size(); i++){
-                pool.add(AttributePoolElement.createFromNbt(list.getCompound(i)));
+            var list =  compound.getList("pool");
+            for(int i = 0; i < list.get().size(); i++){
+                pool.add(AttributePoolElement.createFromNbt(list.get().getCompound(i).get()));
             }
         }
     }

@@ -34,9 +34,9 @@ public final class ModEntityModelLayers {
     // region NPC
     public static final EntityModelLayer NPC = registerEntityModelLayer("npc", NpcEntityModel.getTexturedModelData(Dilation.NONE));
 
-    public static final EntityModelLayer NPC_ENTITY_HAIR = registerEntityModelLayer("npc_entity_hair",  HairModel.getTexturedModelData(Dilation.NONE));
-    public static final EntityModelLayer NPC_ENTITY_EAR = registerEntityModelLayer("npc_entity_ear",  EarModel.getTexturedModelData(Dilation.NONE));
-    public static final EntityModelLayer NPC_ENTITY_NOSE= registerEntityModelLayer("npc_entity_nose",  NoseModel.getTexturedModelData(Dilation.NONE));
+    public static final EntityModelLayer NPC_ENTITY_HAIR = registerEntityModelLayer("npc_entity_hair",  HairModel.getTexturedModelData());
+    public static final EntityModelLayer NPC_ENTITY_EAR = registerEntityModelLayer("npc_entity_ear",  EarModel.getTexturedModelData());
+    public static final EntityModelLayer NPC_ENTITY_NOSE= registerEntityModelLayer("npc_entity_nose",  NoseModel.getTexturedModelData());
     // endregion
     public static final EntityModelLayer DWARF = ModEntityModelLayers.registerEntityModelLayer("dwarf", DwarfModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer HUMAN = ModEntityModelLayers.registerEntityModelLayer("human", HumanModel.getTexturedModelData(Dilation.NONE));

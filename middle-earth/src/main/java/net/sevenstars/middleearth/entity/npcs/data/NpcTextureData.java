@@ -29,36 +29,36 @@ public class NpcTextureData {
     public static final PacketCodec<RegistryByteBuf, NpcTextureData> PACKET_CODEC;
 
     public NpcTextureData(NbtCompound compound) {
-        this.skinTexture = Identifier.of(compound.getString("skin"));
+        this.skinTexture = Identifier.of(compound.getString("skin").get());
 
         if(compound.contains("ear"))
-            this.earTexture = Identifier.of(compound.getString("ear"));
+            this.earTexture = Identifier.of(compound.getString("ear").get());
 
         if(compound.contains("nose"))
-            this.noseTexture = Identifier.of(compound.getString("nose"));
+            this.noseTexture = Identifier.of(compound.getString("nose").get());
 
-        this.eyeTexture = Identifier.of(compound.getString("eye"));
-        this.eyeEmissive = compound.getBoolean("eye_emissive");
+        this.eyeTexture = Identifier.of(compound.getString("eye").get());
+        this.eyeEmissive = compound.getBoolean("eye_emissive").get();
 
         if(compound.contains("hair")){
-            this.hairTexture = Identifier.of(compound.getString("hair"));
+            this.hairTexture = Identifier.of(compound.getString("hair").get());
             if(compound.contains("hair_addon")){
-                this.hairAddonTexture = Identifier.of(compound.getString("hair_addon"));
+                this.hairAddonTexture = Identifier.of(compound.getString("hair_addon").get());
             }
         }
 
         if(compound.contains("eyebrow"))
-            this.eyebrowTexture = Identifier.of(compound.getString("eyebrow"));
+            this.eyebrowTexture = Identifier.of(compound.getString("eyebrow").get());
 
 
         if(compound.contains("beard")){
-            this.beardTexture = Identifier.of(compound.getString("beard"));
+            this.beardTexture = Identifier.of(compound.getString("beard").get());
             if(compound.contains("beard_addon")){
-                this.beardAddonTexture = Identifier.of(compound.getString("beard_addon"));
+                this.beardAddonTexture = Identifier.of(compound.getString("beard_addon").get());
             }
         }
 
-        this.clothingTexture = Identifier.of(compound.getString("clothing"));
+        this.clothingTexture = Identifier.of(compound.getString("clothing").get());
     }
 
     public NpcTextureData() {

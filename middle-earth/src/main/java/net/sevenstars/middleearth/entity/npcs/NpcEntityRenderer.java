@@ -191,7 +191,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
                 if (feature instanceof HairFeatureRenderer) {
                     if (state.hairAddonTextureIdentifier == null && state.beardAddonTextureIdentifier == null) continue;
                 }
-                feature.render(matrices, vertexConsumers, light, state, state.yawDegrees, state.pitch);
+                feature.render(matrices, vertexConsumers, light, state, state.relativeHeadYaw, state.pitch);
             }
         }
 

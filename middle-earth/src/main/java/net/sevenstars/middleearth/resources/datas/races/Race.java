@@ -59,7 +59,7 @@ public class Race {
         // new AttributePool(npcAttributes);
         for(var category : EntityCategory.values()){
             if(npcAttributes.contains(category.name())){
-                this.npcAttributePools.put(category, new AttributePool(npcAttributes.getCompound(category.name())));
+                this.npcAttributePools.put(category, new AttributePool(npcAttributes.getCompound(category.name()).get()));
             }
         }
 

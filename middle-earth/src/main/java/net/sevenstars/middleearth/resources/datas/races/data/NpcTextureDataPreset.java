@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.resources.datas.races.data;
 
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.registry.RegistryKey;
@@ -32,7 +31,7 @@ public class NpcTextureDataPreset {
     private boolean haveEmissiveEyes;
 
     public NpcTextureDataPreset(NbtCompound compound) {
-        this.weight = compound.contains("weight") ? compound.getInt("weight") : 1;
+        this.weight = compound.contains("weight") ? compound.getInt("weight").get() : 1;
 
         skinPatterns = new ArrayList<>();
         earPatterns = new ArrayList<>();
@@ -142,7 +141,7 @@ public class NpcTextureDataPreset {
 
     private void fetchElements(NbtCompound compound, NpcTextureType type){
         if(compound.contains(type.name())){
-            NbtCompound value = compound.getCompound(type.name());
+            NbtCompound value = compound.getCompound(type.name()).get();
 
             if(value.contains("patterns")){
                 List<String> fetchedValues = getStringListFromNbtList(value, "patterns");
@@ -167,16 +166,16 @@ public class NpcTextureDataPreset {
                 }
             }
             if(type == NpcTextureType.EYE && value.contains("is_emissive")){
-                this.haveEmissiveEyes = value.getBoolean("is_emissive");
+                this.haveEmissiveEyes = value.getBoolean("is_emissive").get();
             }
         }
     }
 
     private List<String> getStringListFromNbtList(NbtCompound nbt, String name){
-        NbtList nbtList = nbt.getList(name, NbtElement.STRING_TYPE);
+        NbtList nbtList = nbt.getList(name).get();
         List<String> fetchedValues = new ArrayList<>();
         for(int i = 0; i < nbtList.size(); i++){
-            fetchedValues.add(nbtList.getString(i));
+            fetchedValues.add(nbtList.getString(i).get());
         }
         return fetchedValues;
     }

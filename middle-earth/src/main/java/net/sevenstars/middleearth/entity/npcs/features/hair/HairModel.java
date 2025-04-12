@@ -26,8 +26,7 @@ public class HairModel extends EntityModel<NpcEntityRenderState> {
         this.backAddon = hair.getChild("hair_back_addon");
     }
 
-
-    public static TexturedModelData getTexturedModelData(Dilation dilation) {
+    public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
@@ -41,15 +40,15 @@ public class HairModel extends EntityModel<NpcEntityRenderState> {
                 ModelTransform.of(0f, 0f, 0f, BEARD_PITCH_ANGLE, 0, 0.55f));
         */
 
-        ModelPartData hairGroup = modelPartData.addChild("hair");
-        ModelPartData frontAddon = hairGroup.addChild("hair_front_addon");
-        ModelPartData backAddon = hairGroup.addChild("hair_back_addon");
+        ModelPartData hairGroup = modelPartData.addChild("hair", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        ModelPartData frontAddon = hairGroup.addChild("hair_front_addon", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0f, 0.0F));
+        ModelPartData backAddon = hairGroup.addChild("hair_back_addon", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0f, 0.0F));
 
-        frontAddon.addChild("hair_addon_front_core", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0f, 0f, -4.0f, 8, 12, 2, Dilation.NONE), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        frontAddon.addChild("hair_addon_front_hat", ModelPartBuilder.create().uv(20, 0).cuboid(-4.0f, 1f, -4f, 8, 12, 2, Dilation.NONE.add(0.5f)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        frontAddon.addChild("hair_addon_front_core", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0f, 0f, -4.0f, 8, 12, 2, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        frontAddon.addChild("hair_addon_front_hat", ModelPartBuilder.create().uv(20, 0).cuboid(-4.0f, 1f, -4f, 8, 12, 2, Dilation.NONE.add(0.5f)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
 
-        backAddon.addChild("hair_addon_back_core", ModelPartBuilder.create().uv(0, 14).cuboid(-4.0f, 0f, 2.0f, 8, 12, 2, Dilation.NONE), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        backAddon.addChild("hair_addon_back_core", ModelPartBuilder.create().uv(0, 14).cuboid(-4.0f, 0f, 2.0f, 8, 12, 2, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 64, 64);
     }
@@ -62,10 +61,10 @@ public class HairModel extends EntityModel<NpcEntityRenderState> {
         float f = state.leaningPitch;
         boolean bl = state.isGliding;
         this.frontAddon.pitch = state.pitch * 0.017453292F;
-        this.frontAddon.yaw = state.yawDegrees * 0.017453292F;
+        this.frontAddon.yaw = state.relativeHeadYaw * 0.017453292F;
 
         this.backAddon.pitch = state.pitch * 0.017453292F;
-        this.backAddon.yaw = state.yawDegrees * 0.017453292F;
+        this.backAddon.yaw = state.relativeHeadYaw * 0.017453292F;
 
         if (bl) {
             this.frontAddon.pitch = -0.7853982F;
