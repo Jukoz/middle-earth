@@ -18,17 +18,17 @@ public class WargArmorSideAddonsModel extends EntityModel<WargEntityRenderState>
         ModelPartData modelPartData = modelData.getRoot();
         ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.of(-1.0F, 6.0F, -2.0F, 0.0F, 1.5708F, 0.0F));
 
-        ModelPartData body = root.addChild("body", ModelPartBuilder.create(), ModelTransform.pivot(-2.6142F, 2.1138F, 1.5F));
+        ModelPartData body = root.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(-2.6142F, 2.1138F, 1.5F));
 
-        ModelPartData upper_body = body.addChild("upper_body", ModelPartBuilder.create(), ModelTransform.pivot(-0.3858F, -1.1138F, -1.5F));
+        ModelPartData upper_body = body.addChild("upper_body", ModelPartBuilder.create(), ModelTransform.origin(-0.3858F, -1.1138F, -1.5F));
 
-        ModelPartData body_armor = upper_body.addChild("body_armor", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -1.0F, 2.0F));
+        ModelPartData body_armor = upper_body.addChild("body_armor", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -1.0F, 2.0F));
 
-        ModelPartData front_armor = body_armor.addChild("front_armor", ModelPartBuilder.create(), ModelTransform.pivot(7.8F, 1.5F, -1.0F));
+        ModelPartData front_armor = body_armor.addChild("front_armor", ModelPartBuilder.create(), ModelTransform.origin(7.8F, 1.5F, -1.0F));
 
-        ModelPartData addons_front_armor = front_armor.addChild("addons_front_armor", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData addons_front_armor = front_armor.addChild("addons_front_armor", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        ModelPartData skulls = addons_front_armor.addChild("skulls", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData skulls = addons_front_armor.addChild("skulls", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         ModelPartData skull_01 = skulls.addChild("skull_01", ModelPartBuilder.create(), ModelTransform.of(0.092F, 2.1315F, 6.8137F, -2.7489F, -0.3054F, 3.1416F));
 

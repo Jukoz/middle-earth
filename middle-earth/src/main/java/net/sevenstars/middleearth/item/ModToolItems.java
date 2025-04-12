@@ -3,9 +3,9 @@ package net.sevenstars.middleearth.item;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleBigItemModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleHandheldItemModel;
 import net.sevenstars.middleearth.item.items.PipeItem;
@@ -129,21 +129,26 @@ public class ModToolItems {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
         SimpleHandheldItemModel.items.add(item);
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerItemDualModel(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
         SimpleBigItemModel.items.add(item);
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return registerItem(item, name);
     }
     
     public static Item registerItem2dGUI3dPerson(String name, Function<Item.Settings, Item> factory, Item.Settings settings){
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         SimpleBigItemModel.genericItems.add(item);
         ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return registerItem(item, name);
+    }
+
+    private static Item registerItem(Item item, String name){
+        TranslationEntries.itemEntries.add(item);
+        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
     }
 
     public static void registerModItems() {

@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.item.dataComponents;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.component.ComponentsAccess;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.utils.ModColors;
 import net.minecraft.item.Item;
@@ -23,17 +24,16 @@ public record TemperatureDataComponent(int temperature) implements TooltipAppend
     public static final PacketCodec<ByteBuf, TemperatureDataComponent> PACKET_CODEC = PacketCodec.tuple(PacketCodecs.INTEGER, TemperatureDataComponent::temperature, TemperatureDataComponent::new);
 
     @Override
-    public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type) {
-        if (this.temperature >= 80) tooltip.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".temp_5").withColor(ModColors.TEMP_5.color));
-        if (this.temperature < 80 && this.temperature >= 60) tooltip.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".temp_4").withColor(ModColors.TEMP_4.color));
-        if (this.temperature < 60 && this.temperature >= 40) tooltip.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".temp_3").withColor(ModColors.TEMP_3.color));
-        if (this.temperature < 40 && this.temperature >= 20) tooltip.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".temp_2").withColor(ModColors.TEMP_2.color));
-        if (this.temperature < 20 && this.temperature >= 0) tooltip.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".temp_1").withColor(ModColors.TEMP_1.color));
-    }
-
-    @Override
     public int temperature() {
         return temperature;
     }
 
+    @Override
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
+        if (this.temperature >= 80) textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".temp_5").withColor(ModColors.TEMP_5.color));
+        if (this.temperature < 80 && this.temperature >= 60) textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".temp_4").withColor(ModColors.TEMP_4.color));
+        if (this.temperature < 60 && this.temperature >= 40) textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".temp_3").withColor(ModColors.TEMP_3.color));
+        if (this.temperature < 40 && this.temperature >= 20) textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".temp_2").withColor(ModColors.TEMP_2.color));
+        if (this.temperature < 20 && this.temperature >= 0) textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".temp_1").withColor(ModColors.TEMP_1.color));
+    }
 }

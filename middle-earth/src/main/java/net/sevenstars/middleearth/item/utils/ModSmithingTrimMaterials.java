@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.item.utils;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.equipment.EquipmentAsset;
+import net.minecraft.item.equipment.trim.ArmorTrimAssets;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
@@ -11,8 +10,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.StoneBlockSets;
-import net.sevenstars.middleearth.item.ModResourceItems;
 
 import java.util.Map;
 
@@ -30,26 +27,22 @@ public class ModSmithingTrimMaterials {
     public static final RegistryKey<ArmorTrimMaterial> TIN = of("tin");
 
     public static void bootstrap(Registerable<ArmorTrimMaterial> registry) {
-        register(registry, BRONZE, ModResourceItems.BRONZE_INGOT, Style.EMPTY.withColor(13151627));
-        register(registry, BURZUM_STEEL, ModResourceItems.BURZUM_STEEL_INGOT, Style.EMPTY.withColor(5985355));
-        register(registry, CRUDE, ModResourceItems.CRUDE_INGOT, Style.EMPTY.withColor(7560021));
-        register(registry, EDHEL_STEEL, ModResourceItems.EDHEL_STEEL_INGOT, Style.EMPTY.withColor(15921385));
-        register(registry, JADE, StoneBlockSets.JADEITE.base().asItem(), Style.EMPTY.withColor(5869927));
-        register(registry, KHAZAD_STEEL, ModResourceItems.KHAZAD_STEEL_INGOT, Style.EMPTY.withColor(6778743));
-        register(registry, LEAD, ModResourceItems.LEAD_INGOT, Style.EMPTY.withColor(6384761));
-        register(registry, MITHRIL, ModResourceItems.MITHRIL_INGOT, Style.EMPTY.withColor(14278631));
-        register(registry, SILVER, ModResourceItems.SILVER_INGOT, Style.EMPTY.withColor(15397618));
-        register(registry, STEEL, ModResourceItems.STEEL_INGOT, Style.EMPTY.withColor(0xECECEC));
-        register(registry, TIN, ModResourceItems.TIN_INGOT, Style.EMPTY.withColor(13026492));
+        register(registry, BRONZE, Style.EMPTY.withColor(13151627), new ArmorTrimAssets(new ArmorTrimAssets.AssetId("bronze"), Map.of()));
+        register(registry, BURZUM_STEEL, Style.EMPTY.withColor(5985355), new ArmorTrimAssets(new ArmorTrimAssets.AssetId("burzum_steel"), Map.of()));
+        register(registry, CRUDE, Style.EMPTY.withColor(7560021), new ArmorTrimAssets(new ArmorTrimAssets.AssetId("crude"), Map.of()));
+        register(registry, EDHEL_STEEL, Style.EMPTY.withColor(15921385), new ArmorTrimAssets(new ArmorTrimAssets.AssetId("edhel_steel"), Map.of()));
+        register(registry, JADE, Style.EMPTY.withColor(5869927), new ArmorTrimAssets(new ArmorTrimAssets.AssetId("jade"), Map.of()));
+        register(registry, KHAZAD_STEEL, Style.EMPTY.withColor(6778743), new ArmorTrimAssets(new ArmorTrimAssets.AssetId("khazad_steel"), Map.of()));
+        register(registry, LEAD, Style.EMPTY.withColor(6384761), new ArmorTrimAssets(new ArmorTrimAssets.AssetId("lead"), Map.of()));
+        register(registry, MITHRIL, Style.EMPTY.withColor(14278631), new ArmorTrimAssets(new ArmorTrimAssets.AssetId("mithril"), Map.of()));
+        register(registry, SILVER, Style.EMPTY.withColor(15397618), new ArmorTrimAssets(new ArmorTrimAssets.AssetId("silver"), Map.of()));
+        register(registry, STEEL, Style.EMPTY.withColor(0xECECEC), new ArmorTrimAssets(new ArmorTrimAssets.AssetId("steel"), Map.of()));
+        register(registry, TIN, Style.EMPTY.withColor(13026492), new ArmorTrimAssets(new ArmorTrimAssets.AssetId("tin"), Map.of()));
     }
 
-    private static void register(Registerable<ArmorTrimMaterial> registry, RegistryKey<ArmorTrimMaterial> key, Item ingredient, Style style) {
-        register(registry, key, ingredient, style, Map.of());
-    }
-
-    private static void register(Registerable<ArmorTrimMaterial> registry, RegistryKey<ArmorTrimMaterial> key, Item ingredient, Style style,  Map<RegistryKey<EquipmentAsset>, String> overrideArmorMaterials) {
-        ArmorTrimMaterial armorTrimMaterial = ArmorTrimMaterial.of(key.getValue().getPath(), ingredient, Text.translatable(Util.createTranslationKey("trim_material", key.getValue())).fillStyle(style), overrideArmorMaterials);
-        registry.register(key, armorTrimMaterial);
+    private static void register(Registerable<ArmorTrimMaterial> registry, RegistryKey<ArmorTrimMaterial> key, Style style, ArmorTrimAssets assets) {
+        Text text = Text.translatable(Util.createTranslationKey("trim_material", key.getValue())).fillStyle(style);
+        registry.register(key, new ArmorTrimMaterial(assets, text));
     }
 
     private static RegistryKey<ArmorTrimMaterial> of(String id) {

@@ -8,7 +8,7 @@ import net.minecraft.client.render.entity.animation.Transformation;
 public class DeerAnimations {
     public static final Animation WALK = Animation.Builder.create(1f).looping()
             .addBoneAnimation("leg_front_right",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, 1f, 0f),
@@ -26,7 +26,7 @@ public class DeerAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(27.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_back_right",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.75f, AnimationHelper.createTranslationalVector(0f, 1f, 0f),
@@ -42,7 +42,7 @@ public class DeerAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-27.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_front_left",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0.17f, 0f),
@@ -60,7 +60,7 @@ public class DeerAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-27.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_back_left",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, 1f, 0f),
@@ -104,7 +104,7 @@ public class DeerAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation GOINGTOSLEEP = Animation.Builder.create(1.5f)
             .addBoneAnimation("leg_back_left",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.75f, AnimationHelper.createTranslationalVector(0f, -1f, 0f),
@@ -126,7 +126,7 @@ public class DeerAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(-87.06f, -6.74f, -7.41f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_back_right",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -0.5f, 0f),
@@ -150,7 +150,7 @@ public class DeerAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(-87.06f, 6.74f, 7.41f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_front_right",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -1f, 0f),
@@ -176,7 +176,7 @@ public class DeerAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(-79.75f, -5.06f, -5.54f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_front_right",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -1f, 0f),
@@ -202,7 +202,7 @@ public class DeerAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(-79.56f, 7.05f, 7.11f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("chest",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -2f, 0f),
@@ -228,7 +228,7 @@ public class DeerAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(2.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -4f, 1f),
@@ -251,7 +251,7 @@ public class DeerAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation SLEEPING = Animation.Builder.create(1.25f)
             .addBoneAnimation("leg_back_left",
-                                      new Transformation(Transformation.Targets.TRANSLATE,
+                                      new Transformation(Transformation.Targets.MOVE_ORIGIN,
 		new Keyframe(1.25f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_back_left",
@@ -259,7 +259,7 @@ public class DeerAnimations {
 		new Keyframe(1.25f, AnimationHelper.createRotationalVector(-87.06f, -6.74f, -7.41f),
     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_back_right",
-                                      new Transformation(Transformation.Targets.TRANSLATE,
+                                      new Transformation(Transformation.Targets.MOVE_ORIGIN,
 		new Keyframe(1.25f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_back_right",
@@ -267,7 +267,7 @@ public class DeerAnimations {
 		new Keyframe(1.25f, AnimationHelper.createRotationalVector(-87.06f, 6.74f, 7.41f),
     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_front_left",
-                                      new Transformation(Transformation.Targets.TRANSLATE,
+                                      new Transformation(Transformation.Targets.MOVE_ORIGIN,
 		new Keyframe(1.25f, AnimationHelper.createTranslationalVector(0f, -7f, -1f),
     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_front_left",
@@ -275,7 +275,7 @@ public class DeerAnimations {
 		new Keyframe(1.25f, AnimationHelper.createRotationalVector(-79.75f, -5.06f, -5.54f),
     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_front_right",
-                                      new Transformation(Transformation.Targets.TRANSLATE,
+                                      new Transformation(Transformation.Targets.MOVE_ORIGIN,
 		new Keyframe(1.25f, AnimationHelper.createTranslationalVector(0f, -7f, -1f),
     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_front_right",
@@ -283,7 +283,7 @@ public class DeerAnimations {
 		new Keyframe(1.25f, AnimationHelper.createRotationalVector(-79.56f, 7.05f, 7.11f),
     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("chest",
-                                      new Transformation(Transformation.Targets.TRANSLATE,
+                                      new Transformation(Transformation.Targets.MOVE_ORIGIN,
 		new Keyframe(1.25f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("chest",
@@ -291,7 +291,7 @@ public class DeerAnimations {
 		new Keyframe(1.25f, AnimationHelper.createRotationalVector(2.5f, 0f, 0f),
     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                                      new Transformation(Transformation.Targets.TRANSLATE,
+                                      new Transformation(Transformation.Targets.MOVE_ORIGIN,
 		new Keyframe(1.25f, AnimationHelper.createTranslationalVector(0f, -8f, 1f),
     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
@@ -302,7 +302,7 @@ public class DeerAnimations {
     Transformation.Interpolations.LINEAR))).build();
     public static final Animation STANDINGUP = Animation.Builder.create(1.5f)
             .addBoneAnimation("leg_back_left",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -2f, 0f),
@@ -324,7 +324,7 @@ public class DeerAnimations {
                             new Keyframe(1.2083433f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_back_right",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -2f, 0f),
@@ -348,7 +348,7 @@ public class DeerAnimations {
                             new Keyframe(1.2083433f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_front_left",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -7f, -1f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -2f, -1f),
@@ -374,7 +374,7 @@ public class DeerAnimations {
                             new Keyframe(1.2916767f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("leg_front_right",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -7f, -1f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -2f, -1f),
@@ -398,7 +398,7 @@ public class DeerAnimations {
                             new Keyframe(1.2083433f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("chest",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -6f, 0f),
@@ -420,7 +420,7 @@ public class DeerAnimations {
                             new Keyframe(1.2083433f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -8f, 1f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -6f, 1f),

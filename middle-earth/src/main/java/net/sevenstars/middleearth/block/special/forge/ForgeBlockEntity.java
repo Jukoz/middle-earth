@@ -212,13 +212,13 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         super.readNbt(nbt, registryLookup);
         this.inventory.clear();
         Inventories.readNbt(nbt, this.inventory, registryLookup);
-        this.progress = nbt.getInt(ID + ".progress");
-        this.boostTime = nbt.getInt(ID + ".boost-time");
-        this.fuelTime = nbt.getInt(ID + ".fuel-time");
-        this.maxFuelTime = nbt.getInt(ID + ".max-fuel-time");
-        this.mode = nbt.getInt(ID + ".mode");
-        this.storage = nbt.getInt(ID + ".storage");
-        this.currentMetal = MetalTypes.valueOf(nbt.getString(ID + ".current-metal").toUpperCase());
+        this.progress = nbt.getInt(ID + ".progress", 0);
+        this.boostTime = nbt.getInt(ID + ".boost-time", 0);
+        this.fuelTime = nbt.getInt(ID + ".fuel-time", 0);
+        this.maxFuelTime = nbt.getInt(ID + ".max-fuel-time", 0);
+        this.mode = nbt.getInt(ID + ".mode", 0);
+        this.storage = nbt.getInt(ID + ".storage", 0);
+        this.currentMetal = MetalTypes.valueOf(nbt.getString(ID + ".current-metal").get().toUpperCase());
     }
 
     public void update() {

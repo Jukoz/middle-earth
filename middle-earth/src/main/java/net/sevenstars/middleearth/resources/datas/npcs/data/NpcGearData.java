@@ -29,7 +29,7 @@ public class NpcGearData {
 
     private void addSlot(NbtCompound gearNbt, EquipmentSlot equipmentSlot) {
         if(gearNbt.get(equipmentSlot.asString()) != null){
-            NbtCompound slotNbt = gearNbt.getCompound(equipmentSlot.asString());
+            NbtCompound slotNbt = gearNbt.getCompound(equipmentSlot.asString()).get();
             this.gears.put(equipmentSlot, NpcGearSlotData.readNbt(slotNbt));
         }
     }

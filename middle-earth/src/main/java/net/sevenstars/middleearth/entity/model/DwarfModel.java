@@ -1,7 +1,8 @@
 package net.sevenstars.middleearth.entity.model;
 
-import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.minecraft.client.model.Dilation;
+import net.minecraft.client.model.ModelData;
+import net.minecraft.client.model.TexturedModelData;
 
 public class DwarfModel {
     public static final String NOSE = "nose";
@@ -17,7 +18,10 @@ public class DwarfModel {
 
     public static TexturedModelData getTexturedModelData(Dilation dilation) {
         ModelData modelData = new ModelData();
+                /*
             ModelPartData modelPartData = modelData.getRoot();
+
+
             ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder
                     .create().uv(0, 0)
                     .cuboid(-4.0f, -8.0f, -4.0f, 8.0f, 8.0f, 8.0f, dilation), ModelTransform.pivot(0.0f, 0.0f, 0.0f));
@@ -52,7 +56,7 @@ public class DwarfModel {
 
             modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create().uv(0, 16).cuboid(-2.0f, 0.0f, -2.0f, 4.0f, 12.0f, 4.0f, dilation), ModelTransform.pivot(-1.9f, 12.0f, 0.0f));
             modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create().uv(0, 16).mirrored().cuboid(-2.0f, 0.0f, -2.0f, 4.0f, 12.0f, 4.0f, dilation), ModelTransform.pivot(1.9f, 12.0f, 0.0f));
-
+            */
             return TexturedModelData.of(modelData, 82, 64);
     }
 }

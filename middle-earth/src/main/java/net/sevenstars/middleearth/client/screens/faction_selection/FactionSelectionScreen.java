@@ -35,6 +35,7 @@ import net.sevenstars.middleearth.client.screens.utils.widgets.text.TextBlockWid
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 
 import java.awt.event.KeyEvent;
@@ -86,6 +87,7 @@ public class FactionSelectionScreen extends Screen {
         } else {
             MiddleEarth.LOGGER.logError("FactionSelectionScreen::Init:Couldn't find player");
         }
+        this.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.STANDING_BANNER_FLAG).getChild("flag");
 
         this.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.STANDING_BANNER_FLAG).getChild("flag");
 
@@ -128,7 +130,7 @@ public class FactionSelectionScreen extends Screen {
             addDrawableChild(button);
         }
 
-        // Faction
+        // PlayerFactionPayload
         factionSelectionWidget = new CycledSelectionWidget(
                 button -> {
                     controller.factionUpdate(false);
@@ -164,7 +166,7 @@ public class FactionSelectionScreen extends Screen {
         for(ButtonWidget button: playableNpcPreviewWidget.getButtons()){
             addDrawableChild(button);
         }
-        // Faction Randomizer
+        // PlayerFactionPayload Randomizer
         factionRandomizerButton = ButtonWidget.builder(
                 Text.translatable("screen.me.button.faction_randomizer"),
                 button -> {
@@ -264,8 +266,11 @@ public class FactionSelectionScreen extends Screen {
 
         Faction faction = controller.getCurrentlySelectedFaction();
 
-        if(faction != null)
-            playableNpcPreviewWidget.updateEntity(controller.getCurrentPreview(player.getWorld()), controller.getCurrentRace(), player.getWorld());
+        if(faction != null){
+            NpcGearData gearData = controller.getCurrentPreview(player.getWorld());
+            if(gearData != null)
+                playableNpcPreviewWidget.updateEntity(gearData, controller.getCurrentRace(), player.getWorld());
+        }
         else
             playableNpcPreviewWidget.updateToDefaultEntity(player.getWorld());
     }
@@ -442,7 +447,7 @@ public class FactionSelectionScreen extends Screen {
         dispositionSelectionWidget.enableArrows(Disposition.values().length > 1);
         newStartY += MINIMAL_MARGIN + dispositionSelectionWidget.drawAnchored(context, endX, newStartY, false, disposition.getName(), textRenderer);
 
-        // Faction
+        // PlayerFactionPayload
         int currentFactionCountForDisposition = controller.getCurrentDispositionFactionCount();
         factionSelectionWidget.enableArrows(currentFactionCountForDisposition > 1);
         if(faction != null){

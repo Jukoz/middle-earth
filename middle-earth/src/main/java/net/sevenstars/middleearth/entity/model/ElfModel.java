@@ -1,8 +1,9 @@
 package net.sevenstars.middleearth.entity.model;
 
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.Dilation;
+import net.minecraft.client.model.ModelData;
+import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
 
 public class ElfModel {
     private static final String LEFT_EAR = "left_ear";
@@ -14,6 +15,8 @@ public class ElfModel {
 
     public static TexturedModelData getTexturedModelData(Dilation dilation) {
         ModelData modelData = BipedEntityModel.getModelData(dilation, 0.0f);
+                        /*
+
         ModelPartData modelPartData = modelData.getRoot();
 
         modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create().uv(54, 0).cuboid(-4.0f, -8.0f, -4.0f, 8.0f, 16.0f, 8.0f, dilation.add(0.25f)),
@@ -45,7 +48,7 @@ public class ElfModel {
                 ModelTransform.pivot(0, 0.0f, 0.0f));
         modelPartData.getChild(EntityModelPartNames.RIGHT_LEG).addChild(RIGHT_PANTS, ModelPartBuilder.create().uv(0, 32).cuboid(-2.0f, 0.0f, -2.0f, 4.0f, 12.0f, 4.0f, dilation.add(0.25f)),
                 ModelTransform.pivot(0, 0.0f, 0.0f));
-
+*/
         return TexturedModelData.of(modelData, 86, 64);
     }
 }

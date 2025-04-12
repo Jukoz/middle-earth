@@ -27,7 +27,6 @@
     "ServerWorldMixin",
     "ShearItemMixin",
     "ShovelItemMixin",
-    "SwordItemMixin",
     "TrunkPlacerTypeInvoker"
   ],
   "client": [

@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import net.sevenstars.middleearth.utils.ModColors;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -66,23 +67,17 @@ public class CommandRace {
 
     private static int getRace(CommandContext<ServerCommandSource> context) {
         if(context.getSource().isExecutedByPlayer()) {
-            ServerPlayerEntity source = context.getSource().getPlayer();
-            if(source != null){
-                PlayerData playerData = StateSaverAndLoader.getPlayerState(source);
-                if(playerData != null){
-                    Identifier id = playerData.getRace();
-                    if(id != null){
-                        Race race = RaceLookup.getRace(context.getSource().getWorld(), id);
-                        if(race != null){
-                            MutableText sourceText = Text.translatable("command.me.race.get.success",
-                                    race.getFullName().copyContentOnly().withColor(RACE_COLOR));
-                            source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
-                            return 0;
-                        }
-                    }
+            ServerPlayerEntity playerSource = context.getSource().getPlayer();
+            if(playerSource != null){
+                Race playerRace = PlayerDataService.getPlayerRace(playerSource, playerSource.getWorld());
+                if(playerRace != null){
+                    MutableText sourceText = Text.translatable("command.me.race.get.success",
+                            playerRace.getFullName().copyContentOnly().withColor(RACE_COLOR));
+                    playerSource.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
+                    return 0;
                 }
                 MutableText sourceText = Text.translatable("command.me.race.get.fail");
-                source.sendMessage(sourceText.withColor(ModColors.WARNING.color));
+                playerSource.sendMessage(sourceText.withColor(ModColors.WARNING.color));
             }
         }
         return 0;

@@ -132,7 +132,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         this.entity.bodyYaw = currentAngle;
         this.entity.setPitch(0f);
         this.entity.headYaw = this.entity.getBodyYaw();
-        this.entity.prevHeadYaw = this.entity.getBodyYaw();
+        this.entity.lastHeadYaw = this.entity.getBodyYaw();
 
         NpcUtil.equipAll(entity, data);
     }
@@ -220,7 +220,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         this.entity.bodyYaw = currentAngle;
         this.entity.setPitch(0f);
         this.entity.headYaw = this.entity.getBodyYaw();
-        this.entity.prevHeadYaw = this.entity.getBodyYaw();
+        this.entity.lastHeadYaw = this.entity.getBodyYaw();
     }
 
 

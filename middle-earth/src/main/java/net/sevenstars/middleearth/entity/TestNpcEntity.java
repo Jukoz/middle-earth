@@ -30,7 +30,6 @@ import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.DispositionUtil;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
@@ -40,9 +39,9 @@ import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class TestNpcEntity extends PathAwareEntity implements RangedAttackMob {
@@ -55,9 +54,11 @@ public class TestNpcEntity extends PathAwareEntity implements RangedAttackMob {
     protected TestNpcEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.updateAttackType();
-        for (int i = 0; i < 4; i++) {
-            Arrays.fill(this.armorDropChances, 0.0f);
-        }
+
+        this.setEquipmentDropChance(EquipmentSlot.HEAD, 0f);
+        this.setEquipmentDropChance(EquipmentSlot.CHEST, 0f);
+        this.setEquipmentDropChance(EquipmentSlot.LEGS, 0f);
+        this.setEquipmentDropChance(EquipmentSlot.FEET, 0f);
     }
 
     protected Identifier getFactionId(){
@@ -151,13 +152,7 @@ public class TestNpcEntity extends PathAwareEntity implements RangedAttackMob {
             if(disposition != null){
                 PlayerData data = StateSaverAndLoader.getPlayerState(player);
                 if(data != null){
-                    Disposition playerDisposition = data.getCurrentDisposition();
-                    if(playerDisposition == disposition){
-                        return false;
-                    }
-                    if(playerDisposition == null)
-                        return true;
-                    return true;
+                    return PlayerDataService.getPlayerDisposition(player, player.getWorld()) == disposition;
                 }
             }
         }
@@ -284,8 +279,7 @@ public class TestNpcEntity extends PathAwareEntity implements RangedAttackMob {
         */
 
         if(player != null){
-            Disposition playerDisposition = DispositionUtil.getDisposition(player);
-            return playerDisposition == null || playerDisposition != getDisposition();
+            return PlayerDataService.getPlayerDisposition(player, player.getWorld()) != getDisposition();
         }
 
         return true;

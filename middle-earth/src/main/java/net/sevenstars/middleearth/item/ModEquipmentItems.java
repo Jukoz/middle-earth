@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.item;
 
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
 import net.sevenstars.middleearth.item.dataComponents.CapeDataComponent;
@@ -1220,7 +1221,7 @@ public class ModEquipmentItems {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         hoods.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerDyeableHood(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
@@ -1228,7 +1229,7 @@ public class ModEquipmentItems {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
         hoods.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerCape(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
@@ -1236,7 +1237,7 @@ public class ModEquipmentItems {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         capes.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerDyeableCape(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
@@ -1244,14 +1245,14 @@ public class ModEquipmentItems {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
         capes.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerGeneratedItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerDyeableArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
@@ -1266,7 +1267,7 @@ public class ModEquipmentItems {
             case CustomAnimalArmorItem animalArmorItem -> {}
             default -> throw new IllegalStateException("Unexpected value: " + item);
         }
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
@@ -1280,20 +1281,25 @@ public class ModEquipmentItems {
             case CustomBootsItem bootsItem -> armorPiecesListBoots.add(bootsItem);
             default -> throw new IllegalStateException("Unexpected value: " + item);
         }
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerCustomModelArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerDyeableCustomModelArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
+        return registerItem(item, name);
+    }
+
+    private static Item registerItem(Item item, String name){
+        TranslationEntries.itemEntries.add(item);
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
     }
 

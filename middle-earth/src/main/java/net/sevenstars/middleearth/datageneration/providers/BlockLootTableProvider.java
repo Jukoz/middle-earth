@@ -23,7 +23,6 @@ import net.minecraft.predicate.StatePredicate;
 import net.minecraft.predicate.item.EnchantmentPredicate;
 import net.minecraft.predicate.item.EnchantmentsPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.predicate.item.ItemSubPredicateTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -242,7 +241,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         } catch (Exception ignored) {
             throw new IllegalStateException("Data generation without registries failed!");
         }
-        addDrop(stoneBlock,
+        //TODO to fix/update -> enchant issue
+        /*addDrop(stoneBlock,
                 LootTable.builder()
                         .pool(LootPool.builder()
                                 .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().subPredicate(ItemSubPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(enchantmentRegistry.getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1)))))))
@@ -251,7 +251,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                         .pool(LootPool.builder()
                                 .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().subPredicate(ItemSubPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(enchantmentRegistry.getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1)))))).invert())
                                 .rolls(ConstantLootNumberProvider.create(1.0F))
-                                .with(ItemEntry.builder(cobbledBlock))));
+                                .with(ItemEntry.builder(cobbledBlock))));*/
     }
 
     public void largeDoorDrop(Block doorblock) {

@@ -1,7 +1,8 @@
 package net.sevenstars.middleearth.entity.model;
 
-import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.minecraft.client.model.Dilation;
+import net.minecraft.client.model.ModelData;
+import net.minecraft.client.model.TexturedModelData;
 
 public class HobbitModel {
     private static final String LEFT_SLEEVE = "left_sleeve";
@@ -11,6 +12,7 @@ public class HobbitModel {
 
     public static TexturedModelData getTexturedModelData(Dilation dilation) {
         ModelData modelData = new ModelData();
+        /*
         ModelPartData root = modelData.getRoot();
 
         root.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create().uv(8, 8)
@@ -58,7 +60,7 @@ public class HobbitModel {
 
         root.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create().uv(32, 0).cuboid(-4.0f, -8.0f, -4.0f, 8.0f, 8.0f, 8.0f, dilation.add(0.25f)),
                 ModelTransform.pivot(0.0f, 0.0f, 0.0f));                // 54
-
+*/
         return TexturedModelData.of(modelData, 64, 64);
     }
 }

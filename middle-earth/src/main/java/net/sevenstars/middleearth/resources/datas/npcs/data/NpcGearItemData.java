@@ -146,13 +146,13 @@ public class NpcGearItemData {
         if(this.color != null){
             List<TagKey<Item>> tags = itemStack.streamTags().toList();
             if(tags.contains(ItemTags.DYEABLE))
-                itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color, true));
+                itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color));
             else if(itemStack.isIn(ModTags.DYEABLE))
                 itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(this.color));
         } else if(this.colors != null){
             List<TagKey<Item>> tags = itemStack.streamTags().toList();
             if(tags.contains(ItemTags.DYEABLE))
-                itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(getRandomColor(colors), true));
+                itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(getRandomColor(colors)));
             else if(itemStack.isIn(ModTags.DYEABLE))
                 itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(getRandomColor(colors)));
         }
@@ -222,9 +222,13 @@ public class NpcGearItemData {
         if(color != null)
             nbt.putInt("color", color);
 
-        List<Integer> colors = gearItemData.colors;
-        if(colors != null)
-            nbt.putIntArray("colors", colors);
+        if(gearItemData.colors != null){
+            int[] colors = gearItemData.colors.stream().mapToInt(Integer::intValue).toArray();
+
+            if(colors != null)
+                nbt.putIntArray("colors", colors);
+        }
+
 
         Boolean noCape = gearItemData.noCape;
         if(noCape != null)
@@ -238,9 +242,12 @@ public class NpcGearItemData {
         if(capeColor != null)
             nbt.putInt("cape_color", capeColor);
 
-        List<Integer> capeColors = gearItemData.capeColors;
-        if(capeColors != null)
-            nbt.putIntArray("cape_colors", capeColors);
+        if(gearItemData.capeColors != null){
+            int[] capeColors = gearItemData.capeColors.stream().mapToInt(Integer::intValue).toArray();
+            if(capeColors != null)
+                nbt.putIntArray("cape_colors", capeColors);
+        }
+
 
         Boolean noHood = gearItemData.noHood;
         if(noHood != null)
@@ -256,24 +263,27 @@ public class NpcGearItemData {
         if(hoodColor != null)
             nbt.putInt("hood_color", hoodColor);
 
-        List<Integer> hoodColors = gearItemData.hoodColors;
-        if(hoodColors != null)
-            nbt.putIntArray("hood_colors", hoodColors);
+        if(gearItemData.hoodColors != null){
+            int[] hoodColors = gearItemData.hoodColors.stream().mapToInt(Integer::intValue).toArray();
+            if(hoodColors != null)
+                nbt.putIntArray("hood_colors", hoodColors);
+        }
+
 
         return nbt;
     }
 
     public static NpcGearItemData readNbt(NbtCompound nbt){
-        Identifier id = Identifier.of(nbt.getString("id"));
+        Identifier id = Identifier.of(nbt.getString("id").get());
         NpcGearItemData npcGearItemData = NpcGearItemData.create(id);
         if(nbt.get("weight") != null){
-            npcGearItemData.weight = nbt.getInt("weight");
+            npcGearItemData.weight = nbt.getInt("weight").get();
         }
         if(nbt.get("color") != null){
-            npcGearItemData.color = nbt.getInt("color");
+            npcGearItemData.color = nbt.getInt("color").get();
         }
-        if(nbt.get("colors") != null){
-            int[] list = nbt.getIntArray("colors");
+        if(nbt.get("colors") != null && nbt.getIntArray("colors").isPresent()){
+            int[] list = nbt.getIntArray("colors").get();
             List<Integer> newColors = new ArrayList<>();
             for(int i = 0; i < list.length; i++){
                 newColors.add(list[i]);
@@ -281,16 +291,16 @@ public class NpcGearItemData {
             npcGearItemData.colors = newColors;
         }
         if(nbt.get("no_cape") != null){
-            npcGearItemData.noCape = nbt.getBoolean("no_cape");
+            npcGearItemData.noCape = nbt.getBoolean("no_cape").get();
         }
         if(nbt.get("cape") != null){
-            npcGearItemData.cape = ModCapes.valueOf(nbt.getString("cape").toUpperCase());
+            npcGearItemData.cape = ModCapes.valueOf(nbt.getString("cape").get().toUpperCase());
         }
         if(nbt.get("cape_color") != null){
-            npcGearItemData.capeColor = nbt.getInt("cape_color");
+            npcGearItemData.capeColor = nbt.getInt("cape_color").get();
         }
-        if(nbt.get("cape_colors") != null){
-            int[] list = nbt.getIntArray("cape_colors");
+        if(nbt.get("cape_colors") != null && nbt.getIntArray("cape_colors").isPresent()){
+            int[] list = nbt.getIntArray("cape_colors").get();
             List<Integer> newColors = new ArrayList<>();
             for(int i = 0; i < list.length; i++){
                 newColors.add(list[i]);
@@ -299,18 +309,18 @@ public class NpcGearItemData {
         }
 
         if(nbt.get("no_hood") != null){
-            npcGearItemData.noHood = nbt.getBoolean("no_hood");
+            npcGearItemData.noHood = nbt.getBoolean("no_hood").get();
         }
         if(nbt.get("hood") != null){
-            npcGearItemData.hood = ModHoods.valueOf(nbt.getString("hood").toUpperCase());
+            npcGearItemData.hood = ModHoods.valueOf(nbt.getString("hood").get().toUpperCase());
             if(nbt.get("hood_is_down") != null)
-                npcGearItemData.isDown = nbt.getBoolean("hood_is_down");
+                npcGearItemData.isDown = nbt.getBoolean("hood_is_down").get();
         }
         if(nbt.get("hood_color") != null){
-            npcGearItemData.hoodColor = nbt.getInt("hood_color");
+            npcGearItemData.hoodColor = nbt.getInt("hood_color").get();
         }
-        if(nbt.get("hood_colors") != null){
-            int[] list = nbt.getIntArray("hood_colors");
+        if(nbt.get("hood_colors") != null && nbt.getIntArray("hood_colors").isPresent()){
+            int[] list = nbt.getIntArray("hood_colors").get();
             List<Integer> newColors = new ArrayList<>();
             for(int i = 0; i < list.length; i++){
                 newColors.add(list[i]);

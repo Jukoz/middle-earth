@@ -10,13 +10,13 @@ public class TrollAnimations {
 
     public static final Animation GOSLEEPING = Animation.Builder.create(0.68f)
             .addBoneAnimation("body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.6f, AnimationHelper.createTranslationalVector(0f, -14f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.6f, AnimationHelper.createTranslationalVector(0f, -13f, 0f),
@@ -28,7 +28,7 @@ public class TrollAnimations {
                             new Keyframe(0.6f, AnimationHelper.createRotationalVector(30f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.6f, AnimationHelper.createTranslationalVector(0f, -19f, 6f),
@@ -40,7 +40,7 @@ public class TrollAnimations {
                             new Keyframe(0.6f, AnimationHelper.createRotationalVector(-90f, -20f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.6f, AnimationHelper.createTranslationalVector(0f, -19f, 6f),
@@ -52,26 +52,26 @@ public class TrollAnimations {
                             new Keyframe(0.6f, AnimationHelper.createRotationalVector(-90f, 20f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.6f, AnimationHelper.createTranslationalVector(0f, -15f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.6f, AnimationHelper.createTranslationalVector(0f, -15f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation WAKEUP = Animation.Builder.create(0.72f)
             .addBoneAnimation("body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -14f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -13f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -83,7 +83,7 @@ public class TrollAnimations {
                             new Keyframe(0.48f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -18f, 6f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -95,7 +95,7 @@ public class TrollAnimations {
                             new Keyframe(0.48f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -18f, 6f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -107,13 +107,13 @@ public class TrollAnimations {
                             new Keyframe(0.48f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -15f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -15f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -169,7 +169,7 @@ public class TrollAnimations {
                             new Keyframe(1.56f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.92f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -185,7 +185,7 @@ public class TrollAnimations {
                             new Keyframe(1.92f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("forearmRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.64f, AnimationHelper.createTranslationalVector(-4f, 5f, 0f),
@@ -206,7 +206,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation MOVING = Animation.Builder.create(1.92f).looping()
             .addBoneAnimation("body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(1f, 0f, 0f),
@@ -230,7 +230,7 @@ public class TrollAnimations {
                             new Keyframe(1.92f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(2f, 0f, 0f),
@@ -278,7 +278,7 @@ public class TrollAnimations {
                             new Keyframe(1.92f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(1.95f, 0.7f, 0f),
@@ -302,7 +302,7 @@ public class TrollAnimations {
                             new Keyframe(1.92f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-0.05f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(1.92f, -0.5f, 0f),
@@ -327,7 +327,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation ATTACK = Animation.Builder.create(1.68f)
             .addBoneAnimation("body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.2f, AnimationHelper.createTranslationalVector(0f, -2f, -5f),
@@ -345,7 +345,7 @@ public class TrollAnimations {
                             new Keyframe(1.68f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.96f, AnimationHelper.createTranslationalVector(3.2f, 0f, 0.2f),
@@ -375,7 +375,7 @@ public class TrollAnimations {
                             new Keyframe(1.68f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.96f, AnimationHelper.createTranslationalVector(0f, 1f, -6.4f),
@@ -397,7 +397,7 @@ public class TrollAnimations {
                             new Keyframe(1.68f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.96f, AnimationHelper.createTranslationalVector(1.8f, 1.4f, -5.2f),
@@ -417,7 +417,7 @@ public class TrollAnimations {
                             new Keyframe(1.68f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.96f, AnimationHelper.createTranslationalVector(-3f, -3.6f, 1.6f),
@@ -437,7 +437,7 @@ public class TrollAnimations {
                             new Keyframe(1.68f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("forearmRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.96f, AnimationHelper.createTranslationalVector(0f, 1f, 6f),
@@ -453,7 +453,7 @@ public class TrollAnimations {
                             new Keyframe(1.68f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("kneeRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.96f, AnimationHelper.createTranslationalVector(0f, 1f, -10f),
@@ -476,7 +476,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation THROWING = Animation.Builder.create(1.68f)
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, -18f, -21f),
@@ -496,7 +496,7 @@ public class TrollAnimations {
                             new Keyframe(1.68f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, -13f, -21f),
@@ -516,7 +516,7 @@ public class TrollAnimations {
                             new Keyframe(1.68f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, -13f, -21f),
@@ -545,7 +545,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation STARTCHARGING = Animation.Builder.create(1.92f)
             .addBoneAnimation("body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, 0f, 2f),
@@ -557,7 +557,7 @@ public class TrollAnimations {
                             new Keyframe(0.48f, AnimationHelper.createRotationalVector(15.12f, -7.24f, -1.95f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, -3f, -3f),
@@ -569,7 +569,7 @@ public class TrollAnimations {
                             new Keyframe(0.48f, AnimationHelper.createRotationalVector(0f, 0f, -2.5f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.96f, AnimationHelper.createTranslationalVector(0f, -1f, 0f),
@@ -587,7 +587,7 @@ public class TrollAnimations {
                             new Keyframe(1.2f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("kneeLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.72f, AnimationHelper.createTranslationalVector(0f, 4f, 6f),
@@ -605,7 +605,7 @@ public class TrollAnimations {
                             new Keyframe(1.2f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.44f, AnimationHelper.createTranslationalVector(0f, -4f, 0f),
@@ -623,7 +623,7 @@ public class TrollAnimations {
                             new Keyframe(1.92f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("kneeRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.44f, AnimationHelper.createTranslationalVector(0f, 2f, -6f),
@@ -643,7 +643,7 @@ public class TrollAnimations {
                             new Keyframe(1.92f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(-0.25f, 0f, -6f),
@@ -659,7 +659,7 @@ public class TrollAnimations {
                             new Keyframe(1.44f, AnimationHelper.createRotationalVector(-52.38f, -7.24f, -1.95f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("forearmRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.44f, AnimationHelper.createTranslationalVector(-12f, 5f, 0f),
@@ -671,7 +671,7 @@ public class TrollAnimations {
                             new Keyframe(1.44f, AnimationHelper.createRotationalVector(0f, 0f, -50f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(-0.5f, 0f, -3f),
@@ -687,7 +687,7 @@ public class TrollAnimations {
                             new Keyframe(1.44f, AnimationHelper.createRotationalVector(-72.38f, -7.24f, -1.95f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("forearmLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.44f, AnimationHelper.createTranslationalVector(2f, 3f, 0f),
@@ -700,7 +700,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation CHARGING = Animation.Builder.create(0.96f).looping()
             .addBoneAnimation("body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 2f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("body",
@@ -708,7 +708,7 @@ public class TrollAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(15.12f, -7.24f, -1.95f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -3f, -3f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
@@ -728,7 +728,7 @@ public class TrollAnimations {
                             new Keyframe(0.96f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legRight",
@@ -744,7 +744,7 @@ public class TrollAnimations {
                             new Keyframe(0.96f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("kneeRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("kneeRight",
@@ -752,7 +752,7 @@ public class TrollAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(2.75f, -3f, -17f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armRight",
@@ -760,7 +760,7 @@ public class TrollAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-52.38f, -7.24f, -1.95f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("forearmRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-12f, 5f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("forearmRight",
@@ -768,7 +768,7 @@ public class TrollAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, -50f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-2.5f, 0f, -10f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("armLeft",
@@ -776,7 +776,7 @@ public class TrollAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-72.38f, -7.24f, -1.95f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("forearmLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(2f, 3f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("forearmLeft",

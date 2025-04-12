@@ -6,6 +6,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 
 public class MEBiomeKeys extends BiomeKeys {
     // region SURFACE
@@ -271,6 +272,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> DOLOMITE_CAVE = MEBiomeKeys.register("dolomite_cave");
     public static final RegistryKey<Biome> GALONN_CAVE = MEBiomeKeys.register("galonn_cave");
     public static final RegistryKey<Biome> GILDED_CAVE = MEBiomeKeys.register("gilded_cave");
+    //TODO needs rename to IZHERABAN_CAVE, no space in izheraban
     public static final RegistryKey<Biome> IZHER_ABAN_CAVE = MEBiomeKeys.register("izher_aban_cave");
     public static final RegistryKey<Biome> LIMESTONE_CAVE = MEBiomeKeys.register("limestone_cave");
     public static final RegistryKey<Biome> MOUNTAIN_CAVE = MEBiomeKeys.register("mountain_cave");
@@ -285,6 +287,7 @@ public class MEBiomeKeys extends BiomeKeys {
     // endregion
 
     private static RegistryKey<Biome> register(String name) {
+        TranslationEntries.biomeEntries.add(name);
         return RegistryKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, name));
     }
 

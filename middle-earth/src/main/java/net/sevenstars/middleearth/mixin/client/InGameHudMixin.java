@@ -31,6 +31,8 @@ public abstract class InGameHudMixin {
 
     @Shadow protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
 
+    //TODO broky
+    /*
     @Inject(method = "renderMiscOverlays", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderTickCounter;getLastFrameDuration()F", shift = At.Shift.AFTER))
     public void injected(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
         PlayerEntity player = MinecraftClient.getInstance().player;
@@ -41,7 +43,7 @@ public abstract class InGameHudMixin {
             this.renderOverlay(context, HALLUCINATION_OUTLINE, intensity);
 
         }
-    }
+    }*/
 }
 
 

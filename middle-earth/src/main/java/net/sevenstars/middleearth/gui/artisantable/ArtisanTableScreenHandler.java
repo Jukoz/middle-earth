@@ -98,7 +98,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
             @Override
             public void onTakeItem(PlayerEntity player, ItemStack itemStack) {
-                itemStack.onCraftByPlayer(player.getWorld(), player, itemStack.getCount());
+                itemStack.onCraftByPlayer(player, itemStack.getCount());
                 ArtisanTableScreenHandler.this.output.unlockLastRecipe(player, this.getInputStacks());
 
                 for(int y = 0; y < 3; y++) {

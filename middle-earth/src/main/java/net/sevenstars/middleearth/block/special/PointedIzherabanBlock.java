@@ -41,37 +41,18 @@ import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-public class PointedIzherabanBlock extends Block implements LandingBlock, Waterloggable {
+public class PointedIzherabanBlock extends Block implements Falling, Waterloggable {
 
     public static final MapCodec<PointedIzherabanBlock> CODEC = createCodec(PointedIzherabanBlock::new);
     public static final EnumProperty<Direction> VERTICAL_DIRECTION;
     public static final EnumProperty<Thickness> THICKNESS;
     public static final BooleanProperty WATERLOGGED;
-    private static final int field_31205 = 11;
-    private static final int field_31207 = 2;
-    private static final float field_31208 = 0.02F;
-    private static final float field_31209 = 0.12F;
-    private static final int field_31210 = 11;
-    private static final float WATER_DRIP_CHANCE = 0.17578125F;
-    private static final float LAVA_DRIP_CHANCE = 0.05859375F;
-    private static final double field_31213 = 0.6;
-    private static final float field_31214 = 1.0F;
-    private static final int field_31215 = 40;
-    private static final int field_31200 = 6;
-    private static final float field_31201 = 2.0F;
-    private static final int field_31202 = 2;
-    private static final float field_33566 = 5.0F;
-    private static final float field_33567 = 0.011377778F;
-    private static final int MAX_STALACTITE_GROWTH = 7;
-    private static final int STALACTITE_FLOOR_SEARCH_RANGE = 10;
-    private static final float field_31203 = 0.6875F;
     private static final VoxelShape TIP_MERGE_SHAPE;
     private static final VoxelShape UP_TIP_SHAPE;
     private static final VoxelShape DOWN_TIP_SHAPE;
     private static final VoxelShape BASE_SHAPE;
     private static final VoxelShape FRUSTUM_SHAPE;
     private static final VoxelShape MIDDLE_SHAPE;
-    private static final float field_31204 = 0.125F;
     private static final VoxelShape DRIP_COLLISION_SHAPE;
 
     public MapCodec<PointedIzherabanBlock> getCodec() {
@@ -80,15 +61,15 @@ public class PointedIzherabanBlock extends Block implements LandingBlock, Waterl
 
     public PointedIzherabanBlock(Settings settings) {
         super(settings);
-        this.setDefaultState((BlockState) ((BlockState) ((BlockState) ((BlockState) this.stateManager.getDefaultState()).with(VERTICAL_DIRECTION, Direction.UP)).with(THICKNESS, Thickness.TIP)).with(WATERLOGGED, false));
+        this.setDefaultState((((this.stateManager.getDefaultState()).with(VERTICAL_DIRECTION, Direction.UP)).with(THICKNESS, Thickness.TIP)).with(WATERLOGGED, false));
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{VERTICAL_DIRECTION, THICKNESS, WATERLOGGED});
+        builder.add(VERTICAL_DIRECTION, THICKNESS, WATERLOGGED);
     }
 
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return canPlaceAtWithDirection(world, pos, (Direction) state.get(VERTICAL_DIRECTION));
+        return canPlaceAtWithDirection(world, pos, state.get(VERTICAL_DIRECTION));
     }
 
     protected BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
@@ -388,7 +369,7 @@ public class PointedIzherabanBlock extends Block implements LandingBlock, Waterl
         double g = (double) pos.getZ() + 0.5 + vec3d.z;
         Fluid fluid2 = getDripFluid(world, fluid);
         ParticleEffect particleEffect = fluid2.isIn(FluidTags.LAVA) ? ParticleTypes.DRIPPING_DRIPSTONE_LAVA : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
-        world.addParticle(particleEffect, e, f, g, 0.0, 0.0, 0.0);
+        world.addParticleClient(particleEffect, e, f, g, 0.0, 0.0, 0.0);
     }
 
     @Nullable

@@ -1,14 +1,13 @@
 package net.sevenstars.middleearth.entity.goals;
 
-import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.player.PlayerEntity;
+import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 public class ChargeAttackGoal extends Goal {
     private AbstractBeastEntity mob;
@@ -25,13 +24,7 @@ public class ChargeAttackGoal extends Goal {
     @Override
     public boolean canStart() {
         if(this.mob.getTarget() != null && this.mob.getTarget() instanceof PlayerEntity player) {
-            PlayerData data = StateSaverAndLoader.getPlayerState(player);
-            Disposition playerDisposition = data.getCurrentDisposition();
-            if(playerDisposition == null)
-                return true;
-            if(playerDisposition == beastDisposition){
-                return false;
-            }
+            return PlayerDataService.getPlayerDisposition(player, player.getWorld()) == beastDisposition;
         }
 
         return this.mob.getChargeTimeout() == 0 &&
