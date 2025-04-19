@@ -1,13 +1,6 @@
 package net.sevenstars.middleearth.gui;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
-import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreenHandler;
-import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreenHandler;
-import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
-import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
-import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreenHandler;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -15,6 +8,13 @@ import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
+import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreenHandler;
+import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreenHandler;
+import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
+import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
+import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreenHandler;
 
 public class ModScreenHandlers {
     public static ScreenHandlerType<ArtisanTableScreenHandler> ARTISAN_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(ArtisanTableScreenHandler::new, PacketCodecs.STRING.cast());;

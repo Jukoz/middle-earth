@@ -16,7 +16,7 @@ public class KeyInputHandler {
     public static final String ME_KEY_MAP_FULLSCREEN_TOGGLE = "key.me.map_fullscreen_toggle";
 
     public static KeyBinding hoodStateToggleKey;
-    // Used in MiddleEarthMapScreen
+    // Used in MapScreen
     public static KeyBinding mapTeleportKey;
     public static KeyBinding mapFullscreenToggle;
 

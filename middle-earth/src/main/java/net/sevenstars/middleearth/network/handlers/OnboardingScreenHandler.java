@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.network.handlers;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.client.screens.OnboardingSelectionScreen;
-import net.sevenstars.middleearth.client.screens.faction_selection.FactionSelectionScreen;
+import net.sevenstars.middleearth.gui.onboarding.OnboardingSelectionScreen;
+import net.sevenstars.middleearth.gui.faction_selection.FactionSelectionScreen;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;

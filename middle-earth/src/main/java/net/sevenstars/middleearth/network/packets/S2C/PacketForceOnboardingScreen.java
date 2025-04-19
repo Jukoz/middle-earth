@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.network.packets.S2C;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.client.screens.faction_selection.FactionSelectionScreen;
+import net.sevenstars.middleearth.gui.faction_selection.FactionSelectionScreen;
 import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
 import net.sevenstars.middleearth.network.packets.ServerToClientPacket;
 import net.minecraft.client.MinecraftClient;
