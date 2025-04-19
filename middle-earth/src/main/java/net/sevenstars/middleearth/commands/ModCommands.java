@@ -6,7 +6,7 @@ import net.sevenstars.middleearth.commands.custom.*;
 public class ModCommands {
     public static String BASE_COMMAND = "middle_earth";
     public static void register() {
-        // Faction Commands
+        // PlayerFactionPayload Commands
         CommandRegistrationCallback.EVENT.register(CommandFaction::register);
         CommandRegistrationCallback.EVENT.register(CommandSpawn::register);
         CommandRegistrationCallback.EVENT.register(CommandRace::register);

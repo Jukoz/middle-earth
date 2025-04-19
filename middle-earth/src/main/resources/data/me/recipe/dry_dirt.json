@@ -5,12 +5,8 @@
     "CG"
   ],
   "key": {
-    "G": {
-      "item": "minecraft:gravel"
-    },
-    "C": {
-      "item": "minecraft:coarse_dirt"
-    }
+    "G": "minecraft:gravel",
+    "C": "minecraft:coarse_dirt"
   },
   "result": {
     "id": "me:dry_dirt",

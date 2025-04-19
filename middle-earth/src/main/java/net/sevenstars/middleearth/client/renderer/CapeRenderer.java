@@ -60,7 +60,7 @@ public class CapeRenderer implements ArmorRenderer {
                 capeModel.leftArm.visible = true;
                 capeModel.rightLeg.visible = true;
                 capeModel.leftLeg.visible = true;
-                this.capeModel.setAngles(bipedEntityRenderState);
+                //this.capeModel.setAngles(bipedEntityRenderState);
 
                 if (ModDyeablePieces.dyeableCapes.containsKey(capeDataComponent.getCape())) {
                     renderDyeableCape(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), false);

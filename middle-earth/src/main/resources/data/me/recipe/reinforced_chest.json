@@ -6,15 +6,9 @@
     "INI"
   ],
   "key": {
-    "I": {
-      "tag": "me:steel_ingots"
-    },
-    "N": {
-      "tag": "me:steel_nuggets"
-    },
-    "C": {
-      "item": "minecraft:chest"
-    }
+    "I": "#me:steel_ingots",
+    "N": "#me:steel_nuggets",
+    "C": "minecraft:chest"
   },
   "result": {
     "id": "me:reinforced_chest",

@@ -6,12 +6,8 @@
     " S "
   ],
   "key": {
-    "M": {
-      "item": "me:edhel_steel_ingot"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "M": "me:edhel_steel_ingot",
+    "S": "minecraft:stick"
   },
   "result": {
     "id": "me:elven_smithing_hammer",

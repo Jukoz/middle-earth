@@ -47,8 +47,8 @@ public class ModServerConfigs {
         configs.addKeyValuePair(new Pair<>("enableProceduralStructures", true), "boolean");
         configs.addLineJump();
 
-        // Faction configurations
-        configs.addComment("Faction configurations");
+        // PlayerFactionPayload configurations
+        configs.addComment("PlayerFactionPayload configurations");
         configs.addDescription("Should players be allowed to change factions when they use the starlight phial?");
         configs.addKeyValuePair(new Pair<>("enableFactionReset", true), "boolean");
         configs.addDescription("Should players keep their race when returning to the Overworld");
@@ -73,7 +73,7 @@ public class ModServerConfigs {
         ENABLE_SPAWN_OVERRIDE = CONFIG.getOrDefault("enableSpawnOverride", true);
         ENABLE_RETURN_TO_OVERWORLD = CONFIG.getOrDefault("enableReturnToOverworld", true);
         ENABLE_PROCEDURAL_STRUCTURES = CONFIG.getOrDefault("enableProceduralStructures", true);
-        // Faction configurations
+        // PlayerFactionPayload configurations
         ENABLE_FACTION_RESET = CONFIG.getOrDefault("enableFactionReset", true);
         ENABLE_KEEP_RACE_ON_DIMENSION_SWAP = CONFIG.getOrDefault("enableKeepRaceOnDimensionSwap", true);
         DELAY_ON_TELEPORT_CONFIRMATION = CONFIG.getOrDefault("delayOnTeleportConfirmation", 3);

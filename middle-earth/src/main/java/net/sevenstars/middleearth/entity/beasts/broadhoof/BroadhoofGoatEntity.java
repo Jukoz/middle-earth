@@ -1,15 +1,5 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.goals.BeastRevengeGoal;
-import net.sevenstars.middleearth.entity.goals.BeastSitGoal;
-import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
@@ -32,10 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.InstrumentTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
@@ -45,7 +32,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -54,6 +40,15 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.entity.goals.BeastRevengeGoal;
+import net.sevenstars.middleearth.entity.goals.BeastSitGoal;
+import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
+import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -140,11 +135,11 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
-        this.dataTracker.set(HORNS, nbt.getInt("Horns"));
-        this.dataTracker.set(LEFT_HORN, nbt.getBoolean("HasLeftHorn"));
-        this.dataTracker.set(RIGHT_HORN, nbt.getBoolean("HasRightHorn"));
-        this.dataTracker.set(BRUSHED_BEARD, nbt.getBoolean("HasBrushedBeard"));
+        this.dataTracker.set(VARIANT, nbt.getInt("Variant").get());
+        this.dataTracker.set(HORNS, nbt.getInt("Horns").get());
+        this.dataTracker.set(LEFT_HORN, nbt.getBoolean("HasLeftHorn").get());
+        this.dataTracker.set(RIGHT_HORN, nbt.getBoolean("HasRightHorn").get());
+        this.dataTracker.set(BRUSHED_BEARD, nbt.getBoolean("HasBrushedBeard").get());
         this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
     }
 
@@ -218,7 +213,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     @Override
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
         float f = this.limbAnimator.getSpeed();
-        float g = this.limbAnimator.getPos() * (MathHelper.PI / 180) * 18;
+        float g = this.limbAnimator.getSpeed() * (MathHelper.PI / 180) * 18; // TODO : Fix,was using limbAnimator.getPos()
         // h is the frequency, which is calculated by dividing the speed of the animation by the duration of the animation.
         float h = passenger.isSprinting() ? (1.2f/0.74f) : 4;
         float j = passenger.isSprinting() ? 1 : 0;
@@ -307,7 +302,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         }
 
         for(Entity entity : entities) {
-            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity) && !this.getWorld().isClient()) {
+            if(entity.getUuid() != this.getOwner().getUuid() && entity != this && !this.getPassengerList().contains(entity) && !this.getWorld().isClient()) {
                 entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), getAttackDamage());
 
                 Vec3d velocity = this.getVelocity();
@@ -325,7 +320,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                 this.setCharging(false);
             }
         }
-        this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
         this.chargeAnimationState.startIfNotRunning(this.age);
     }
 

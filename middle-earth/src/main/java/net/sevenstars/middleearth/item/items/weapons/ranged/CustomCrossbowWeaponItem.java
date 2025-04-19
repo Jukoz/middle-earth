@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons.ranged;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
@@ -15,6 +16,7 @@ import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class CustomCrossbowWeaponItem extends CrossbowItem implements MEEquipmentTooltip {
@@ -61,9 +63,9 @@ public class CustomCrossbowWeaponItem extends CrossbowItem implements MEEquipmen
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
     @Override

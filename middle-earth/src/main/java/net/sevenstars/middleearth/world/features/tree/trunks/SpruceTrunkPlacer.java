@@ -64,7 +64,7 @@ public class SpruceTrunkPlacer extends TrunkPlacer {
             this.setLog(world, replacer, random, mutable, config, startPos, 0, i, 0);
             if(i > 3 && i < height - 3 && i % 3 == 0) {
                 for (int j = 1; j < 2; j++) {
-                    Direction direction = Direction.byId((int) (Math.random() * 4) + 2);
+                    Direction direction = Direction.byIndex((int) (Math.random() * 4) + 2);
                     Direction.Axis axis = Direction.Axis.X;
                     if(direction == Direction.NORTH || direction == Direction.SOUTH) {
                         axis = Direction.Axis.Z;

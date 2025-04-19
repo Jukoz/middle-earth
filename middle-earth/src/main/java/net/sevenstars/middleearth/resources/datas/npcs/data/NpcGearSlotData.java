@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.resources.datas.npcs.data;
 
-import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -59,10 +58,10 @@ public class NpcGearSlotData {
         if(nbt.get("pool") == null){
             return NpcGearSlotData.create(NpcGearItemData.readNbt(nbt));
         }
-        NbtList list = nbt.getList("pool", NbtType.COMPOUND);
+        NbtList list = nbt.getList("pool").get();
         NpcGearSlotData npcGearSlotData = NpcGearSlotData.create();
         for(int i = 0; i < list.size(); i++){
-            npcGearSlotData.add(NpcGearItemData.readNbt(list.getCompound(i)));
+            npcGearSlotData.add(NpcGearItemData.readNbt(list.getCompound(i).get()));
         }
         return npcGearSlotData;
     }

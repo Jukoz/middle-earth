@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.shields;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
@@ -13,6 +14,7 @@ import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ArtefactCustomShieldItem extends CustomShieldItem implements MEEquipmentTooltip {
 
@@ -32,8 +34,8 @@ public class ArtefactCustomShieldItem extends CustomShieldItem implements MEEqui
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseArtefactTooltip(tooltip, stack);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
     }
 
     @Override

@@ -4,6 +4,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.crop.*;
 import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.saplings.VariantSaplingBlock;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
@@ -343,7 +344,8 @@ public class ModNatureBlocks {
     public static final Block HOLLY_SAPLING = registerSimpleSapling("holly_sapling", ModTreeConfiguredFeatures.HOLLY_TREE_KEY);
     public static final Block FIR_SAPLING = registerSimpleSapling("fir_sapling", ModTreeConfiguredFeatures.FIR_TREE_KEY);
     public static final Block LARCH_SAPLING = registerSimpleSapling("larch_sapling", ModTreeConfiguredFeatures.LARCH_TREE_KEY);
-    public static final Block LEBETHRON_SAPLING = registerSimpleSapling("lebethron_sapling", ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY);
+    public static final Block LEBETHRON_SAPLING = registerVariantSapling("lebethron_sapling",
+            List.of(ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY, ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY));
     public static final Block WHITE_LEBETHRON_SAPLING = registerSimpleSapling("white_lebethron_sapling", ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY);
     public static final Block MALLORN_SAPLING = registerSimpleSapling("mallorn_sapling", ModTreeConfiguredFeatures.MEGA_MALLORN_TREE_KEY);
     public static final Block MAPLE_SAPLING = registerVariantSapling("maple_sapling",
@@ -351,35 +353,36 @@ public class ModNatureBlocks {
     public static final Block SILVER_MAPLE_SAPLING = registerVariantSapling("silver_maple_sapling",
             List.of(ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY, ModTreeConfiguredFeatures.SILVER_YELLOW_MAPLE_TREE_KEY, ModTreeConfiguredFeatures.SILVER_ORANGE_MAPLE_TREE_KEY, ModTreeConfiguredFeatures.SILVER_RED_MAPLE_TREE_KEY));
     public static final Block MIRKWOOD_SAPLING = registerSimpleSapling("mirkwood_sapling", ModTreeConfiguredFeatures.SMALL_MIRKWOOD_TREE_KEY);
-    public static final Block PALM_SAPLING = registerSimpleSapling("palm_sapling", ModTreeConfiguredFeatures.PALM_TREE_KEY);
+    public static final Block PALM_SAPLING = registerVariantSapling("palm_sapling",
+            List.of(ModTreeConfiguredFeatures.PALM_TREE_KEY, ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY));
     public static final Block WHITE_PALM_SAPLING = registerSimpleSapling("white_palm_sapling", ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY);
     public static final Block PINE_SAPLING = registerSimpleSapling("pine_sapling", ModTreeConfiguredFeatures.PINE_TREE_KEY);
     public static final Block BLACK_PINE_SAPLING = registerSimpleSapling("black_pine_sapling", ModTreeConfiguredFeatures.BLACK_PINE_TREE_KEY);
     public static final Block WILLOW_SAPLING = registerSimpleSapling("willow_sapling", ModTreeConfiguredFeatures.WILLOW_TREE_KEY);
 
     public static final Block LEBETHRON_LEAVES = registerBlock("lebethron_leaves",
-            LeavesBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
 
     public static final Block BERRY_HOLLY_LEAVES = registerBlock("berry_holly_leaves",
-            LeavesBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
 
     public static final Block DRY_LARCH_LEAVES = registerBlock("dry_larch_leaves",
-            LeavesBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
 
     public static final Block FLOWERING_MALLORN_LEAVES = registerBlock("flowering_mallorn_leaves",
-            LeavesBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS), true);
 
     public static final Block MAPLE_LEAVES = registerBlock("maple_leaves",
-            LeavesBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
     public static final Block ORANGE_MAPLE_LEAVES = registerBlock("orange_maple_leaves",
-            LeavesBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
     public static final Block RED_MAPLE_LEAVES = registerBlock("red_maple_leaves",
-            LeavesBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
     public static final Block YELLOW_MAPLE_LEAVES = registerBlock("yellow_maple_leaves",
-            LeavesBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
 
     public static final Block DRY_PINE_LEAVES = registerBlock("dry_pine_leaves",
-            LeavesBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
     public static final Block PINE_BRANCHES = registerBlock("pine_branches",
             Block::new, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
 
@@ -449,17 +452,17 @@ public class ModNatureBlocks {
     public static final Block MIRKWOOD_HANGING_ROOTS = registerBlock("mirkwood_hanging_roots",
             HangingRootsBlock::new, AbstractBlock.Settings.copy(Blocks.HANGING_ROOTS), true);
 
-    public static final Block MIRKWOOD_VINES = registerCrossBlock("mirkwood_vines",
+    public static final Block MIRKWOOD_VINES = registerBlock("mirkwood_vines",
             MirkwoodVinesBottomBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES_PLANT), true);
-    public static final Block MIRKWOOD_VINES_PLANT = registerCrossBlock("mirkwood_vines_plant",
+    public static final Block MIRKWOOD_VINES_PLANT = registerBlock("mirkwood_vines_plant",
             MirkwoodVinesBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES), false);
 
     public static final Block MIRKWOOD_SPIDER_EGG = registerBlock("mirkwood_spider_egg",
             MirkwoodSpiderEggBlock::new, AbstractBlock.Settings.copy(Blocks.TURTLE_EGG), true);
 
-    public static final Block GLOWWORM_WEBBING = registerCrossBlock("glowworm_webbing",
+    public static final Block GLOWWORM_WEBBING = registerBlock("glowworm_webbing",
             GlowWormBottomBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES_PLANT).luminance(state -> 6), true);
-    public static final Block GLOWWORM_MAIN = registerCrossBlock("glowworm_main",
+    public static final Block GLOWWORM_MAIN = registerBlock("glowworm_main",
             GlowWormBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES).luminance(state -> 6), false);
 
     public static Block registerCrossBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean present) {
@@ -472,8 +475,12 @@ public class ModNatureBlocks {
         SaplingBlock saplingBlock = new SaplingBlock(new SaplingGenerator(name, Optional.empty(), Optional.ofNullable(treeFeature), Optional.empty()),
                 AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(ModBlocks.keyOfBlock(name)));
         Block resultBlock = Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), saplingBlock);
+        registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
         Saplings.saplings.add(resultBlock);
+
+        TranslationEntries.blockEntries.add(resultBlock);
+
         return resultBlock;
     }
 
@@ -487,13 +494,21 @@ public class ModNatureBlocks {
         SaplingBlock saplingBlock = new VariantSaplingBlock(AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(ModBlocks.keyOfBlock(name)), saplingGenerators);
 
         Block resultBlock = Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), saplingBlock);
+
+        TranslationEntries.blockEntries.add(resultBlock);
+
+        registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
         return resultBlock;
     }
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean present) {
         Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
-        if(present) ModNatureBlocks.registerBlockItem(name, block);
+        if(present){
+            ModNatureBlocks.registerBlockItem(name, block);
+            TranslationEntries.blockEntries.add(block);
+        }
+
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/structure_manager",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/structure_manager"
+    },
+    "facing=south": {
+      "model": "me:block/structure_manager",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/structure_manager",
+      "y": 270
+    }
+  }
+}

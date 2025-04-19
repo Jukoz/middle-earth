@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.item.items.weapons.artefacts;
 
 import net.fabricmc.fabric.api.item.v1.FabricItem;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.item.items.weapons.CustomSwordWeaponItem;
 import net.sevenstars.middleearth.utils.ModFactions;
@@ -23,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ArtefactCustomSwordWeaponItem extends CustomSwordWeaponItem {
 
@@ -39,8 +41,8 @@ public class ArtefactCustomSwordWeaponItem extends CustomSwordWeaponItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseArtefactTooltip(tooltip, stack);
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseArtefactTooltip(textConsumer, stack);
     }
 
     @Override

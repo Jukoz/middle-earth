@@ -42,11 +42,11 @@ public class BarrowWightModel extends EntityModel<LivingEntityRenderState> {
 
         ModelPartData wight = modelPartData.addChild("wight", ModelPartBuilder.create(), ModelTransform.of(0.0F, 24.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 
-        ModelPartData head = wight.addChild("head", ModelPartBuilder.create().uv(0, 52).cuboid(-4.0F, -4.35F, -10.1324F, 8.0F, 6.0F, 8.0F, new Dilation(0.1F)).uv(69, 7).cuboid(-3.5F, -4.6F, -9.6324F, 7.0F, 6.0F, 0.0F, new Dilation(0.0F)).uv(47, 0).cuboid(-4.0F, 1.8943F, -10.1206F, 8.0F, 1.0F, 6.0F, new Dilation(0.1F)).uv(0, 28).cuboid(-4.0F, -4.4443F, -10.5F, 8.0F, 10.0F, 10.0F, new Dilation(0.2F)), ModelTransform.pivot(0.0F, -30.0557F, -1.0F));
+        ModelPartData head = wight.addChild("head", ModelPartBuilder.create().uv(0, 52).cuboid(-4.0F, -4.35F, -10.1324F, 8.0F, 6.0F, 8.0F, new Dilation(0.1F)).uv(69, 7).cuboid(-3.5F, -4.6F, -9.6324F, 7.0F, 6.0F, 0.0F, new Dilation(0.0F)).uv(47, 0).cuboid(-4.0F, 1.8943F, -10.1206F, 8.0F, 1.0F, 6.0F, new Dilation(0.1F)).uv(0, 28).cuboid(-4.0F, -4.4443F, -10.5F, 8.0F, 10.0F, 10.0F, new Dilation(0.2F)), ModelTransform.origin(0.0F, -30.0557F, -1.0F));
 
         ModelPartData bottomJaw = head.addChild("bottomJaw", ModelPartBuilder.create().uv(62, 44).cuboid(-3.99F, -1.6614F, -5.9F, 7.98F, 2.0F, 6.0F, new Dilation(0.0F)).uv(72, 37).cuboid(-3.99F, 0.3386F, -6.0F, 7.98F, 1.0F, 6.0F, new Dilation(0.0F)), ModelTransform.of(0.01F, 2.0557F, -4.3F, 0.2182F, 0.0F, 0.0F));
 
-        ModelPartData body = wight.addChild("body", ModelPartBuilder.create().uv(0, 18).cuboid(-10.0F, -6.9088F, -11.0419F, 20.0F, 3.0F, 7.0F, new Dilation(0.0F)).uv(36, 28).cuboid(-5.0F, 4.6614F, -5.0419F, 10.0F, 8.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -26.6614F, 6.1294F));
+        ModelPartData body = wight.addChild("body", ModelPartBuilder.create().uv(0, 18).cuboid(-10.0F, -6.9088F, -11.0419F, 20.0F, 3.0F, 7.0F, new Dilation(0.0F)).uv(36, 28).cuboid(-5.0F, 4.6614F, -5.0419F, 10.0F, 8.0F, 8.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -26.6614F, 6.1294F));
 
         ModelPartData shoulderCloak_r1 = body.addChild("shoulderCloak_r1", ModelPartBuilder.create().uv(0, 0).cuboid(-9.91F, -20.0F, -4.5F, 20.0F, 11.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 14.6614F, -3.1294F, 0.1745F, 0.0F, 0.0F));
 
@@ -78,9 +78,9 @@ public class BarrowWightModel extends EntityModel<LivingEntityRenderState> {
 
         ModelPartData cube_r2 = rightArm.addChild("cube_r2", ModelPartBuilder.create().uv(44, 60).cuboid(-1.5F, -13.0F, -13.5F, 3.0F, 26.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 12.0F, 11.5F, 0.0F, 0.0F, 0.0F));
 
-        ModelPartData leftLeg = wight.addChild("leftLeg", ModelPartBuilder.create().uv(0, 66).cuboid(-2.2296F, -1.0567F, -1.4252F, 3.0F, 14.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(4.0F, -13.0F, 6.0F));
+        ModelPartData leftLeg = wight.addChild("leftLeg", ModelPartBuilder.create().uv(0, 66).cuboid(-2.2296F, -1.0567F, -1.4252F, 3.0F, 14.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(4.0F, -13.0F, 6.0F));
 
-        ModelPartData rightLeg = wight.addChild("rightLeg", ModelPartBuilder.create().uv(12, 66).cuboid(-1.7296F, -2.0567F, -1.4252F, 3.0F, 14.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(-3.0F, -12.0F, 6.0F));
+        ModelPartData rightLeg = wight.addChild("rightLeg", ModelPartBuilder.create().uv(12, 66).cuboid(-1.7296F, -2.0567F, -1.4252F, 3.0F, 14.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(-3.0F, -12.0F, 6.0F));
 
         return TexturedModelData.of(modelData, 128, 128);
     }

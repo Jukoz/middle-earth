@@ -78,7 +78,7 @@ public class CustomSpawnEggItem extends Item {
         if (!(world.getBlockState(blockPos).getBlock() instanceof FluidBlock)) {
             return ActionResult.PASS;
         }
-        if (!world.canPlayerModifyAt(user, blockPos) || !user.canPlaceOn(blockPos, blockHitResult2.getSide(), itemStack)) {
+        if (!world.canEntityModifyAt(user, blockPos) || !user.canPlaceOn(blockPos, blockHitResult2.getSide(), itemStack)) {
             return ActionResult.FAIL;
         }
         EntityType<?> entityType = this.getEntityType(itemStack);

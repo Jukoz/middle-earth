@@ -1,20 +1,79 @@
 package net.sevenstars.middleearth.resources.persistent_datas;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.MiddleEarthRaces;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.FactionType;
-import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
-import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 public class PlayerData {
+    private Identifier faction;
+    private Identifier spawn;
+    private Identifier race;
+    private BlockPos posOrigin;
+    private Identifier dimensionOrigin;
+
+    public NbtCompound createNbt() {
+        NbtCompound nbtCompound = new NbtCompound();
+        if(faction != null)
+            nbtCompound.putString("faction", faction.toString());
+        if(spawn != null)
+            nbtCompound.putString("spawn", spawn.toString());
+        if(race != null)
+            nbtCompound.putString("race", race.toString());
+        if(posOrigin != null)
+            nbtCompound.putIntArray("origin_pos", new int[]{posOrigin.getX(), posOrigin.getY(), posOrigin.getZ()});
+        if(dimensionOrigin != null)
+            nbtCompound.putString("dimensionOrigin", dimensionOrigin.toString());
+        return nbtCompound;
+    }
+    public PlayerData() {}
+
+    public PlayerData(NbtCompound nbtCompound) {
+        if(nbtCompound.getString("faction").isPresent())
+            faction = Identifier.of(nbtCompound.getString("faction").get());
+        if(nbtCompound.getString("spawn").isPresent())
+            spawn = Identifier.of(nbtCompound.getString("spawn").get());
+        if(nbtCompound.getString("race").isPresent())
+            race = Identifier.of(nbtCompound.getString("race").get());
+        if(nbtCompound.getIntArray("posOrigin").isPresent()){
+            var intArray = nbtCompound.getIntArray("posOrigin").get();
+            posOrigin = new BlockPos(intArray[0], intArray[1], intArray[2]);
+        }
+        if(nbtCompound.getString("dimensionOrigin").isPresent())
+            dimensionOrigin = Identifier.of(nbtCompound.getString("dimensionOrigin").get());
+    }
+    public boolean assignNewFactionInformation(Identifier factionId, Identifier spawnId){
+        this.faction = factionId;
+        this.spawn = spawnId;
+        return true;
+    }
+
+    public boolean assignNewRace(Identifier raceId){
+        this.race = raceId;
+        return true;
+    }
+
+    public boolean assignNewOrigin(Identifier dimensionOrigin, BlockPos newBlockPos){
+        this.dimensionOrigin = dimensionOrigin;
+        this.posOrigin = newBlockPos;
+        return true;
+    }
+    public Identifier getFaction(){
+        return this.faction;
+    }
+    public Identifier getRace(){
+        return this.race;
+    }
+    public Identifier getSpawn(){
+        return this.spawn;
+    }
+
+    public Identifier getDimensionOrigin(){
+        return this.spawn;
+    }
+    public BlockPos getOriginPos(){
+        return this.posOrigin;
+    }
+    /*
     private AffiliationData affiliationData;
     private Identifier race;
     private BlockPos overworldSpawnCoordinates;
@@ -138,4 +197,5 @@ public class PlayerData {
         }
         return false;
     }
+     */
 }

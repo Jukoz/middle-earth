@@ -4,9 +4,7 @@
     "#"
   ],
   "key": {
-    "#": {
-      "item": "me:straw_block"
-    }
+    "#": "me:straw_block"
   },
   "result": {
     "id": "me:straw",

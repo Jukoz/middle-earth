@@ -4,16 +4,15 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
+import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,10 +47,7 @@ public class AllAvailableSpawnSuggestionProvider implements SuggestionProvider<S
 
         } catch (Exception e){ // There is no player argument in the command
             if(targettedPlayer != null){
-                PlayerData playerData = StateSaverAndLoader.getPlayerState(targettedPlayer);
-                if(playerData.hasAffilition()){
-                    currentSelectedFaction = playerData.getCurrentFaction(context.getSource().getWorld());
-                }
+                currentSelectedFaction = PlayerDataService.getPlayerFaction(targettedPlayer, targettedPlayer.getWorld());
             }
         }
         List<Identifier> candidates = new ArrayList<>();

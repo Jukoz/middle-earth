@@ -1,14 +1,5 @@
 package net.sevenstars.middleearth.entity.beasts.trolls;
 
-import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.goals.*;
-import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -25,10 +16,18 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.entity.goals.*;
+import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
+import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 import java.util.List;
 
@@ -194,27 +193,27 @@ public class TrollEntity extends AbstractBeastEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.setHasChest(nbt.getBoolean("ChestedTroll"));
+        this.setHasChest(nbt.getBoolean("ChestedTroll").get());
         this.onChestedStatusChanged();
         if (this.hasChest()) {
-            NbtList nbtList = nbt.getList("Items", 10);
+            NbtList nbtList = nbt.getList("Items").get();
 
             for(int i = 0; i < nbtList.size(); ++i) {
-                NbtCompound nbtCompound = nbtList.getCompound(i);
-                int j = nbtCompound.getByte("Slot") & 255;
+                NbtCompound nbtCompound = nbtList.getCompound(i).get();
+                int j = nbtCompound.getByte("Slot").get() & 255;
                 if (j >= 2 && j < this.items.size()) {
                     this.items.setStack(j, ItemStack.fromNbt(getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY));
                 }
             }
         }
-        if (nbt.contains("SaddleItem", 10)) {
-            ItemStack itemStack = (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbt.getCompound("SaddleItem")).orElse(ItemStack.EMPTY);
+        if (nbt.contains("SaddleItem")) {
+            ItemStack itemStack = (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbt.getCompound("SaddleItem").get()).orElse(ItemStack.EMPTY);
             if (itemStack.isOf(Items.SADDLE)) {
                 this.items.setStack(0, itemStack);
             }
         }
 
-        this.updateSaddledFlag();
+        //this.updateSaddledFlag(); // TODO
     }
 
     @Override
@@ -299,9 +298,7 @@ public class TrollEntity extends AbstractBeastEntity {
     public void throwAttack() {
         Entity target = this.getTarget();
         if(target instanceof PlayerEntity player) {
-            PlayerData data = StateSaverAndLoader.getPlayerState(player);
-            Disposition playerDisposition = data.getCurrentDisposition();
-            if(playerDisposition == this.getDisposition()){
+            if(PlayerDataService.getPlayerDisposition(player, getWorld()) == this.getDisposition()){
                 return;
             }
         }
@@ -342,12 +339,12 @@ public class TrollEntity extends AbstractBeastEntity {
         }
 
         for(Entity entity : entities) {
-            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
+            if(entity != this.getOwner() && entity != this && !this.getPassengerList().contains(entity)) {
                 if(getWorld() instanceof ServerWorld serverWorld)
                     entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), 16.0f);
             }
         }
-        this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
         this.chargeAnimationState.startIfNotRunning(this.age);
     }
 }

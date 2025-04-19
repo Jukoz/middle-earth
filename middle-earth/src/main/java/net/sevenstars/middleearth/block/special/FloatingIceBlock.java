@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -32,8 +33,9 @@ public class FloatingIceBlock extends Block {
         return CODEC;
     }
 
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        super.onEntityCollision(state, world, pos, entity);
+    @Override
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
+        super.onEntityCollision(state, world, pos, entity, handler);
         if (world instanceof ServerWorld && entity instanceof BoatEntity) {
             world.breakBlock(new BlockPos(pos), true, entity);
         }

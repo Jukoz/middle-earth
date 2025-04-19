@@ -1,8 +1,6 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": {
-    "tag": "me:silver_ores"
-  },
+  "ingredient": "#me:silver_ores",
   "result": {
     "id": "me:silver_ingot"
   },

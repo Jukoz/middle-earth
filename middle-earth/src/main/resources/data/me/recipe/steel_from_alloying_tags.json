@@ -1,0 +1,12 @@
+{
+  "type": "me:alloying",
+  "category": "misc",
+  "output": "steel",
+  "ingredients": [
+    "#me:iron",
+    "#me:iron",
+    "#me:iron",
+    "minecraft:coal"
+  ],
+  "amount": 432
+}

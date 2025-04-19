@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.resources.datas.factions.data;
 
-import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
@@ -31,10 +30,10 @@ public class SpawnDataHandler {
     }
 
     private void deserializeNbt(NbtCompound nbtCompound) {
-        NbtList compoundList = nbtCompound.getList("data", NbtType.COMPOUND);
+        NbtList compoundList = nbtCompound.getList("data").get();
         spawns = new HashMap<>();
         for(int i = 0; i < compoundList.size(); i++){
-            SpawnData spawnData = SpawnData.deserialize(compoundList.getCompound(i));
+            SpawnData spawnData = SpawnData.deserialize(compoundList.getCompound(i).get());
             spawns.put(spawnData.getIdentifier(), spawnData);
         }
     }

@@ -2,13 +2,12 @@ package net.sevenstars.middleearth.resources.datas.npcs;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.fabricmc.fabric.api.util.NbtType;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
-import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
+import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +27,10 @@ public class NpcData {
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.raceId = IdentifierUtil.getIdentifierFromString(raceId);
 
-        NbtList npcGears = gearDatas.getList("pool", NbtType.COMPOUND);
+        NbtList npcGears = gearDatas.getList("pool").get();
         List<NpcGearData> npcGearDatas = new ArrayList<>();
         for(int j = 0; j < npcGears.size(); j++) {
-            NbtCompound compound = npcGears.getCompound(j);
+            NbtCompound compound = npcGears.getCompound(j).get();
             npcGearDatas.add(NpcGearData.readNbt(compound));
         }
         this.gearDatas = npcGearDatas;

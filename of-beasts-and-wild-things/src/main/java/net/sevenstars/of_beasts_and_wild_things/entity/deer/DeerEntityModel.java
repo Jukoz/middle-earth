@@ -12,38 +12,27 @@ public class DeerEntityModel extends EntityModel<DeerEntityRenderState> {
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 11.0F, 0.0F));
+        ModelPartData deer = modelPartData.addChild("deer", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 3.5F));
 
-        ModelPartData head = root.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-3.0F, -7.0F, -4.0F, 6.0F, 6.0F, 6.0F, new Dilation(0.0F))
-                .uv(1, 15).cuboid(-2.0F, -5.0F, -7.0F, 4.0F, 3.0F, 3.0F, new Dilation(0.0F))
-                .uv(25, 7).cuboid(1.0F, -16.0F, 1.5F, 10.0F, 9.0F, 6.0F, new Dilation(0.0F))
-                .uv(25, 7).mirrored().cuboid(-11.0F, -16.0F, 1.5F, 10.0F, 9.0F, 6.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(4, 27).cuboid(-3.0F, -1.0F, -3.0F, 6.0F, 5.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -4.0F, -7.0F));
+        ModelPartData upperBody = deer.addChild("upper_body", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -15.5F, -3.5F));
 
-        ModelPartData left_ear = head.addChild("left_ear", ModelPartBuilder.create(), ModelTransform.pivot(2.0F, -5.0F, 1.0F));
+        upperBody.addChild("chest", ModelPartBuilder.create().uv(35, 15).cuboid(-5.5F, -5.5F, -8.5F, 11.0F, 11.0F, 9.0F, new Dilation(0.0F))
+                .uv(0, 24).cuboid(-5.0F, -4.5F, 0.5F, 10.0F, 10.0F, 11.0F, new Dilation(0.0F))
+                .uv(72, 49).cuboid(-2.0F, -2.5F, 6.5F, 4.0F, 3.0F, 7.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -1.0F, -2.0F));
 
-        ModelPartData left_ear_r1 = left_ear.addChild("left_ear_r1", ModelPartBuilder.create().uv(21, 1).cuboid(0.0F, -3.0F, -1.0F, 4.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(1.0F, 1.0F, 0.0F, 0.0F, 0.0F, -0.3927F));
+        ModelPartData head = upperBody.addChild("head", ModelPartBuilder.create(), ModelTransform.of(0.0F, -0.9137F, -8.8708F, -0.5672F, 0.0F, 0.0F));
+        ModelPartData neck = head.addChild("neck", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.7641F, 0.6357F));
+        neck.addChild("neck_r1", ModelPartBuilder.create().uv(0, 0).cuboid(-2.5F, -3.3504F, -8.5F, 5.0F, 7.0F, 17.0F, new Dilation(-0.1F)), ModelTransform.of(0.0F, -5.0F, -3.0F, -1.0036F, 0.0F, 0.0F));
 
         ModelPartData right_ear = head.addChild("right_ear", ModelPartBuilder.create(), ModelTransform.pivot(-2.0F, -5.0F, 1.0F));
 
         ModelPartData right_ear_r1 = right_ear.addChild("right_ear_r1", ModelPartBuilder.create().uv(32, 1).cuboid(-4.0F, -3.0F, -1.0F, 4.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.3927F));
 
-        ModelPartData body = root.addChild("body", ModelPartBuilder.create().uv(40, 53).cuboid(-5.0F, 1.0F, -6.0F, 10.0F, 9.0F, 6.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -5.0F, 8.0F));
-
-        ModelPartData front_body = body.addChild("front_body", ModelPartBuilder.create().uv(1, 48).cuboid(-4.0F, -6.0F, -8.0F, 8.0F, 8.0F, 10.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 7.0F, -8.0F));
-
-        ModelPartData tail = body.addChild("tail", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 1.0F, 0.0F));
-
-        ModelPartData tail_r1 = tail.addChild("tail_r1", ModelPartBuilder.create().uv(0, 46).cuboid(-1.0F, 0.0F, -2.0F, 2.0F, 7.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.48F, 0.0F, 0.0F));
-
-        ModelPartData leftfrontleg = root.addChild("leftfrontleg", ModelPartBuilder.create().uv(31, 24).cuboid(-2.0F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(3.0F, 4.0F, -5.5F));
-
-        ModelPartData leftbackleg = root.addChild("leftbackleg", ModelPartBuilder.create().uv(31, 38).cuboid(-2.0F, 0.0F, -1.5F, 3.0F, 8.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(4.0F, 5.0F, 6.5F));
-
-        ModelPartData rightbackleg = root.addChild("rightbackleg", ModelPartBuilder.create().uv(44, 38).cuboid(-1.0F, 0.0F, -1.5F, 3.0F, 8.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(-4.0F, 5.0F, 6.5F));
-
-        ModelPartData rightfrontleg = root.addChild("rightfrontleg", ModelPartBuilder.create().uv(44, 24).cuboid(-1.0F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(-3.0F, 4.0F, -5.5F));
-        return TexturedModelData.of(modelData, 80, 80);
+        deer.addChild("leg_back_left", ModelPartBuilder.create().uv(0, 57).cuboid(-1.5F, -1.0F, -2.0F, 3.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(3.49F, -11.0F, 4.0F));
+        deer.addChild("leg_back_right", ModelPartBuilder.create().uv(38, 57).cuboid(-1.5F, -1.0F, -2.0F, 3.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(-3.49F, -11.0F, 4.0F));
+        deer.addChild("leg_front_left", ModelPartBuilder.create().uv(12, 57).cuboid(-1.5F, -1.0F, -2.0F, 3.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(3.5F, -11.0F, -11.0F));
+        deer.addChild("leg_front_right", ModelPartBuilder.create().uv(24, 57).cuboid(-1.5F, -1.0F, -2.0F, 3.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(-3.5F, -11.0F, -11.0F));
+        return TexturedModelData.of(modelData, 128, 128);
     }
 
     @Override

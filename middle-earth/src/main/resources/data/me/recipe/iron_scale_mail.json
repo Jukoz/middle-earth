@@ -9,9 +9,7 @@
   "key": {
     "M": {
       "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:mail_ring"
-      },
+      "base": "me:mail_ring",
       "components": {
         "minecraft:trim": {
           "material": "minecraft:iron",
@@ -21,9 +19,7 @@
     },
     "S": {
       "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:scale"
-      },
+      "base": "me:scale",
       "components": {
         "minecraft:trim": {
           "material": "minecraft:iron",

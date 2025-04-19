@@ -1,24 +1,22 @@
 package net.sevenstars.middleearth.resources.datas.races;
 
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 public class RaceUtil {
 
     public static void updateRace(PlayerEntity player, Race race, boolean shouldHeal){
-        PlayerData data = StateSaverAndLoader.getPlayerState(player);
-
-        boolean havePreviousRace = data.getRace() != null;
+        Race previousRace = PlayerDataService.getPlayerRace(player, player.getWorld());
+        boolean havePreviousRace =  previousRace != null;
         boolean raceExists = race != null;
 
         // [RESET]
         if(havePreviousRace){
-            RaceLookup.getRace(player.getWorld(), data.getRace()).reverseAttributes(player);
-            data.setRace(null);
+            previousRace.reverseAttributes(player);
+            PlayerDataService.setRace(player, player.getWorld(), null);
         }
 
         reset(player);
@@ -26,21 +24,16 @@ public class RaceUtil {
         // [SET]
         if(raceExists){
             race.applyAttributes(player);
-            data.setRace(race.getId());
+            PlayerDataService.setRace(player, player.getWorld(), race.getId());
         }
 
         if(shouldHeal)
             player.heal(player.getMaxHealth());
     }
 
-    public static Race getRace(PlayerEntity player){
-        PlayerData data = StateSaverAndLoader.getPlayerState(player);
-        if(data == null) return null;
-        return data.getRace(player.getWorld());
-    }
 
     public static RaceType getRaceType(PlayerEntity player){
-        Race race = getRace(player);
+        Race race = PlayerDataService.getPlayerRace(player, player.getWorld());
         if(race != null)
             return race.getRaceType();
         else
@@ -48,7 +41,7 @@ public class RaceUtil {
     }
 
     public static void initializeRace(ServerPlayerEntity player) {
-        Race race = getRace(player);
+        Race race = PlayerDataService.getPlayerRace(player, player.getWorld());
         updateRace(player, race, false);
     }
 

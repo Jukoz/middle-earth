@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.items.weapons;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
@@ -28,6 +29,7 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
 
@@ -87,9 +89,9 @@ public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
     public float getRangeDistance() {
@@ -110,10 +112,6 @@ public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
             return Text.translatable(this.getTranslationKey()).formatted(Formatting.GOLD);
         }
         return super.getName(stack);
-    }
-
-    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        return true;
     }
 
     @Override

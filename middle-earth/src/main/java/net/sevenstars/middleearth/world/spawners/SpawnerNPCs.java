@@ -37,11 +37,11 @@ public class SpawnerNPCs implements SpecialSpawner {
     private int cooldown = BASE_COOLDOWN + COOLDOWN_RANGE;
 
     @Override
-    public int spawn(ServerWorld world, boolean spawnMonsters, boolean spawnAnimals) {
+    public void spawn(ServerWorld world, boolean spawnMonsters, boolean spawnAnimals) {
         Random random = world.random;
         --this.cooldown;
         if (this.cooldown > 0) {
-            return 0;
+            return;
         }
 
         this.cooldown += (BASE_COOLDOWN + random.nextInt(COOLDOWN_RANGE)) * 20;
@@ -109,7 +109,7 @@ public class SpawnerNPCs implements SpecialSpawner {
                 }
             }
         }
-        return i;
+        return; // TODO : Was 1
     }
 
     public static int getHighestYAtXZ(World world, int x, int z) {

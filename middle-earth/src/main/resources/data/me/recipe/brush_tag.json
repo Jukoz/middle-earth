@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "#": {
-      "item": "minecraft:copper_ingot"
-    },
-    "I": {
-      "item": "minecraft:stick"
-    },
-    "X": {
-      "tag": "me:feathers"
-    }
+    "#": "minecraft:copper_ingot",
+    "I": "minecraft:stick",
+    "X": "#me:feathers"
   },
   "pattern": [
     "X",

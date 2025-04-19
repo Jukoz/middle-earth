@@ -17,6 +17,8 @@ public class ServerWorldMixin {
     @Shadow @Final
     private MinecraftServer server;
 
+    //TODO BROKY
+    /*
     @Inject(method = "tickChunk", at = @At(value = "INVOKE",
         target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"), cancellable = true)
     private void tickChunk(WorldChunk chunk, int randomTickSpeed, CallbackInfo ci) {
@@ -35,5 +37,5 @@ public class ServerWorldMixin {
             long currentTimeOfDay = server.getWorld(World.OVERWORLD).getTimeOfDay() + 24000L;
             server.getWorld(World.OVERWORLD).setTimeOfDay(currentTimeOfDay - currentTimeOfDay % 24000L);
         }
-    }
+    }*/
 }

@@ -38,14 +38,8 @@ public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implemen
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof TreatedAnvilBlockEntity treatedAnvilBlockEntity) {
-                ItemScatterer.spawn(world, pos, treatedAnvilBlockEntity);
-            }
-            super.onStateReplaced(state, world, pos, newState, moved);
-        }
+    protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+        ItemScatterer.onStateReplaced(state, world, pos);
     }
 
     @Override
@@ -104,7 +98,7 @@ public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implemen
                 player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
                 if (blockEntity instanceof TreatedAnvilBlockEntity shapingAnvilBlockEntity) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    //shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity, serverWorld);
+                    shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity, serverWorld);
                 }
             }
         }

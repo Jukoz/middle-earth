@@ -1,6 +1,15 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.petrified;
 
+import net.minecraft.block.Block;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ToolComponent;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -10,7 +19,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.PickaxeItem;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
@@ -48,8 +56,13 @@ public class PetrifiedTrollEntity extends MobEntity {
                 super.setHealth(0);
                 return true;
             }
-            if(playerEntity.getMainHandStack().getItem() instanceof PickaxeItem && !this.getWorld().isClient) {
-                return super.damage(world, source, 10.0f);
+            ItemStack itemStack = playerEntity.getMainHandStack();
+            if(itemStack.getComponents().contains(DataComponentTypes.TOOL) && !this.getWorld().isClient) {
+                // TODO test it
+                TagKey tagKey = TagKey.of(RegistryKeys.ITEM, Identifier.of("pickaxes"));
+                if(itemStack.isIn(tagKey)) {
+                    return super.damage(world, source, 10.0f);
+                }
             }
         }
         return false;

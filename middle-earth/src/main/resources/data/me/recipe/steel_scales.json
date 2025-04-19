@@ -6,9 +6,7 @@
     " N "
   ],
   "key": {
-    "N": {
-      "item": "me:steel_nugget"
-    }
+    "N": "me:steel_nugget"
   },
   "result": {
     "id": "me:scale",

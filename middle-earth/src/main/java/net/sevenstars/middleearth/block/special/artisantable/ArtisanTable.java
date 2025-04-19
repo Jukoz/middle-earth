@@ -2,12 +2,6 @@ package net.sevenstars.middleearth.block.special.artisantable;
 
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,11 +19,16 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.tick.ScheduledTickView;
+import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
+import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
@@ -55,7 +54,7 @@ public class ArtisanTable extends HorizontalFacingBlock {
             player.openHandledScreen(new ExtendedScreenHandlerFactory<>() {
                 @Override
                 public Object getScreenOpeningData(ServerPlayerEntity player) {
-                    Disposition disposition = StateSaverAndLoader.getPlayerState(player).getCurrentDisposition();
+                    Disposition disposition = PlayerDataService.getPlayerDisposition(player, world);
                     if (disposition == null){
                         disposition = Disposition.NEUTRAL;
                     }
@@ -71,7 +70,7 @@ public class ArtisanTable extends HorizontalFacingBlock {
                 @Nullable
                 @Override
                 public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-                    Disposition disposition = StateSaverAndLoader.getPlayerState(player).getCurrentDisposition();
+                    Disposition disposition = PlayerDataService.getPlayerDisposition(player, world);
                     if (disposition == null){
                         disposition = Disposition.NEUTRAL;
                     }
@@ -153,8 +152,7 @@ public class ArtisanTable extends HorizontalFacingBlock {
         return switch (state.get(PART)){
             case LEFT ->
                     switch (state.get(FACING)){
-                        case DOWN -> null;
-                        case UP -> null;
+                        case DOWN, UP -> null;
                         case NORTH -> Stream.of(
                                 Block.createCuboidShape(1, 0, 1, 4, 12, 15),
                                 Block.createCuboidShape(0, 12, 0, 16, 16, 16),

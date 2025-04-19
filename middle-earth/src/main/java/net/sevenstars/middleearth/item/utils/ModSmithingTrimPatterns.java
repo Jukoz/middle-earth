@@ -17,16 +17,11 @@ public class ModSmithingTrimPatterns {
     public static final RegistryKey<ArmorTrimPattern> SMITHING_PART = of("smithing_part");
 
     public static void bootstrap(Registerable<ArmorTrimPattern> registry) {
-        register(registry, ModToolItems.SMITHING_HAMMER, SMITHING_PART);
+        register(registry, SMITHING_PART);
     }
 
-
-    public static Optional<RegistryEntry.Reference<ArmorTrimPattern>> get(RegistryWrapper.WrapperLookup registriesLookup, ItemStack stack) {
-        return registriesLookup.getOrThrow(RegistryKeys.TRIM_PATTERN).streamEntries().filter(pattern -> stack.itemMatches(((ArmorTrimPattern)pattern.value()).templateItem())).findFirst();
-    }
-
-    public static void register(Registerable<ArmorTrimPattern> registry, Item template, RegistryKey<ArmorTrimPattern> key) {
-        ArmorTrimPattern armorTrimPattern = new ArmorTrimPattern(key.getValue(), Registries.ITEM.getEntry(template), Text.translatable(Util.createTranslationKey("trim_pattern", key.getValue())), false);
+    public static void register(Registerable<ArmorTrimPattern> registry, RegistryKey<ArmorTrimPattern> key) {
+        ArmorTrimPattern armorTrimPattern = new ArmorTrimPattern(key.getValue(), Text.translatable(Util.createTranslationKey("trim_pattern", key.getValue())), false);
         registry.register(key, armorTrimPattern);
     }
 

@@ -20,7 +20,7 @@ public class SnailEntityModel extends EntityModel<SnailEntityRenderState> {
 
         ModelPartData body = snail.addChild("body", ModelPartBuilder.create().uv(12, 22).cuboid(-1.0F, -2.0F, -4.0F, 2.0F, 2.0F, 8.0F, new Dilation(0.0F))
                 .uv(0, -1).cuboid(-1.0F, -4.0F, -4.0F, 0.0F, 2.0F, 1.0F, new Dilation(0.0F))
-                .uv(0, -1).mirrored().cuboid(1.0F, -4.0F, -4.0F, 0.0F, 2.0F, 1.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.0F, 3.0F, 0.0F));
+                .uv(0, -1).mirrored().cuboid(1.0F, -4.0F, -4.0F, 0.0F, 2.0F, 1.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(0.0F, 3.0F, 0.0F));
         return TexturedModelData.of(modelData, 32, 32);
     }
 
@@ -28,7 +28,7 @@ public class SnailEntityModel extends EntityModel<SnailEntityRenderState> {
     public void setAngles(SnailEntityRenderState state) {
         super.setAngles(state);
 
-        animateWalking(SnailEntityAnimations.CRAWL, state.limbFrequency, state.limbAmplitudeMultiplier, 20.0f, 30.0f);
+        animateWalking(SnailEntityAnimations.CRAWL, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 20.0f, 30.0f);
 
         getRootPart().getChild("snail").pitch = -(float)PI/2 * ((float)state.climbingTicks / SnailEntity.CLIMBING_TIME_TRANSITION);
     }
