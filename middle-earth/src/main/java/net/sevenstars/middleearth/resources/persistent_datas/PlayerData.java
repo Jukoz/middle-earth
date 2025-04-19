@@ -68,7 +68,7 @@ public class PlayerData {
     }
 
     public Identifier getDimensionOrigin(){
-        return this.spawn;
+        return this.dimensionOrigin;
     }
     public BlockPos getOriginPos(){
         return this.posOrigin;

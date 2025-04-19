@@ -89,8 +89,6 @@ public class FactionSelectionScreen extends Screen {
         }
         this.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.STANDING_BANNER_FLAG).getChild("flag");
 
-        this.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.STANDING_BANNER_FLAG).getChild("flag");
-
         // Initialize Buttons
         // Search bar
         searchBarWidget = new SearchBarWidget(controller.getSearchBarPool(player.getWorld()), controller);
@@ -343,7 +341,6 @@ public class FactionSelectionScreen extends Screen {
             context.drawTooltip(textRenderer, List.of(controller.getCurrentFaction().getFullName()), ModWidget.getMouseX(), ModWidget.getMouseY());
         }
 
-
         Faction faction = controller.getCurrentlySelectedFaction();
         if(faction != null){
             Faction subfaction = controller.getCurrentSubfaction();
@@ -395,7 +392,7 @@ public class FactionSelectionScreen extends Screen {
         factionDescriptionTextBlockWidget.setStartX(startX + MINIMAL_MARGIN).setStartY(startY + 95);
         factionDescriptionTextBlockWidget.draw(context, false, false);
 
-        drawFactionBanner(context, startX + mainPanelWidth - 50, startY + 6);
+        // TOFIX = drawFactionBanner(context, startX + mainPanelWidth - 50, startY + 6);
     }
 
     public void reassignTexts(List<Text> races, List<Text> descriptions){
@@ -430,7 +427,6 @@ public class FactionSelectionScreen extends Screen {
             playableNpcPreviewWidget.drawCenteredAnchoredBottom(context, centerX, endY - 18 - (MINIMAL_MARGIN * 2));
             drawFactionRandomizer(context, centerX, endY);
         }
-
         // List all widgets one after the other
         searchBarWidget.setEndY(endY);
 
@@ -651,7 +647,6 @@ public class FactionSelectionScreen extends Screen {
         DyeColor color = faction.getBaseBannerColor();
         List<BannerData.BannerPatternWithColor> patterns = faction.getBannerPatternsWithColors(this.client.world);
         if(patterns == null || patterns.isEmpty()) {
-            MiddleEarth.LOGGER.logError("FactionSelectionScreen::drawFactionBanner - Cannot create banner because values are empty or null");
             return;
         }
 

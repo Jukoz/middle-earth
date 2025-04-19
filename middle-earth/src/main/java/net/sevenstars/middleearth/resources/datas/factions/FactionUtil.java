@@ -16,6 +16,7 @@ import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.exceptions.IdenticalFactionException;
 import net.sevenstars.middleearth.exceptions.NoFactionException;
 import net.sevenstars.middleearth.exceptions.SpawnIdentifierException;
+import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import net.sevenstars.middleearth.utils.ModColors;
@@ -48,6 +49,8 @@ public class FactionUtil {
         }
 
         // [JOIN] Add new affiliation data
+        if(spawnId == null)
+            spawnId = faction.getSpawnData().getDefaultSpawn();
         PlayerDataService.setNewFactionInformation(player, player.getWorld(), faction.getId(), spawnId);
         sendOnJoinCommand(player, faction);
 
@@ -71,8 +74,10 @@ public class FactionUtil {
             return true;
 
         // If there is no faction update, return true
-        if(previousFaction.getId() == faction.getId() || spawnId == PlayerDataService.getPlayerSpawnData(player, player.getWorld()).getIdentifier()) {
-            throw new IdenticalFactionException();
+        if(previousFaction.getId() == faction.getId()) {
+            SpawnData spawnData = PlayerDataService.getPlayerSpawnData(player, player.getWorld());
+            if(spawnData != null && spawnId != spawnData.getIdentifier())
+                throw new IdenticalFactionException();
         };
 
         // Verify spawnId

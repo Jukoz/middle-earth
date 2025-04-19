@@ -35,7 +35,7 @@ public class PlayerDataService {
     public static boolean playerPassedOnboarding(PlayerEntity player){
         PlayerData playerData = getPlayerData(player);
         if(playerData == null) return false;
-        return !(playerData.getFaction() == null || playerData.getSpawn() == null || playerData.getRace() == null);
+        return !(playerData.getFaction() == null || playerData.getSpawn() == null);
     }
     public static Faction getPlayerFaction(PlayerEntity player, World world){
         PlayerData playerData = getPlayerData(player);
