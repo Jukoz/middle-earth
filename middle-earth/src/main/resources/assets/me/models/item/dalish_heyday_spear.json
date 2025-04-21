@@ -217,10 +217,6 @@
 			}
 		}
 	],
-	"display": {},
-	"overrides": [
-		{"predicate": {"holding": 1}, "model": "me:item/dalish_heyday_spear_holding"}
-	],
 	"groups": [
 		{
 			"name": "Spear",

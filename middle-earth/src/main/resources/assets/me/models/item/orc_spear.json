@@ -203,9 +203,6 @@
 			}
 		}
 	],
-	"overrides": [
-		{"predicate": {"holding": 1}, "model": "me:item/orc_spear_holding"}
-	],
 	"groups": [
 		{
 			"name": "Spear",

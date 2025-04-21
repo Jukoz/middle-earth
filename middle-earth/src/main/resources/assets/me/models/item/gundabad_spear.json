@@ -175,10 +175,6 @@
 			}
 		}
 	],
-	"display": {},
-	"overrides": [
-		{"predicate": {"holding": 1}, "model": "me:item/gundabad_spear_holding"}
-	],
 	"groups": [
 		{
 			"name": "Spear",

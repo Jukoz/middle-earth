@@ -4,8 +4,5 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"3": "me:item/mordor_painted_braced_shield"
-	},
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/mordor_painted_braced_shield_blocking"}
-	]
+	}
 }

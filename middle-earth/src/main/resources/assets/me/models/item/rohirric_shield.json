@@ -4,8 +4,5 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"8": "me:item/rohirric_shield"
-	},
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/rohirric_shield_blocking"}
-	]
+	}
 }

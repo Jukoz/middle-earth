@@ -4,8 +4,5 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"2": "me:item/dalish_barding_heavy_shield"
-	},
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/dalish_barding_heavy_shield_blocking"}
-	]
+	}
 }

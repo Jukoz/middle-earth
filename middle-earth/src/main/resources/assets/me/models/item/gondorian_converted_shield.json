@@ -135,9 +135,6 @@
 			"scale": [1.75, 1.75, 1.75]
 		}
 	},
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/gondorian_converted_shield_blocking"}
-	],
 	"groups": [
 		{
 			"name": "root",
