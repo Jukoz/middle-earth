@@ -6,6 +6,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Bows;
 import net.sevenstars.middleearth.datageneration.content.tags.Crossbows;
@@ -625,13 +626,13 @@ public class ModWeaponItems {
             SimpleHandheldItemModel.items.add(item);
         }
         Swords.swords.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerItemNoModel(String name, Function<Item.Settings, Item> factory) {
         Item item = (Item)factory.apply(new Item.Settings().registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerItemWithSpearModel(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
@@ -639,7 +640,7 @@ public class ModWeaponItems {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleSpearModel.items.add(item);
         Swords.swords.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerBowItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
@@ -647,7 +648,7 @@ public class ModWeaponItems {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBowItemModel.items.add(item);
         Bows.bows.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerBigBowItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
@@ -655,7 +656,7 @@ public class ModWeaponItems {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBigItemModel.bigBows.add(item);
         Bows.bows.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerCrossbowItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
@@ -663,7 +664,7 @@ public class ModWeaponItems {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleCrossbowItemModel.items.add(item);
         Crossbows.crossbows.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerGlowyArtefact(String name, Function<Item.Settings, Item> factory, Item.Settings settings, boolean isDualModel) {
@@ -675,7 +676,7 @@ public class ModWeaponItems {
         }
         SimpleBigItemModel.artefactsGlowing.add(item);
         Swords.swords.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerArtefact(String name, Function<Item.Settings, Item> factory, Item.Settings settings, boolean isDualModel) {
@@ -686,13 +687,18 @@ public class ModWeaponItems {
             SimpleBigItemModel.artefacts.add(item);
         }
         Swords.swords.add(item);
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return registerItem(item, name);
     }
 
     private static Item registerShield(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         shields.add(item);
+        return registerItem(item, name);
+    }
+
+    private static Item registerItem(Item item, String name){
+        TranslationEntries.itemEntries.add(item);
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
     }
 

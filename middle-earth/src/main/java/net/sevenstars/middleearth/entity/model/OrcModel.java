@@ -1,8 +1,9 @@
 package net.sevenstars.middleearth.entity.model;
 
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.Dilation;
+import net.minecraft.client.model.ModelData;
+import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
 
 public class OrcModel {
     private static final String LEFT_EAR = "left_ear";
@@ -14,6 +15,7 @@ public class OrcModel {
 
     public static TexturedModelData getTexturedModelData(Dilation dilation) {
         ModelData modelData = BipedEntityModel.getModelData(dilation, 0.0f);
+        /*
         ModelPartData modelPartData = modelData.getRoot();
 
         ModelPartData rightEar = modelPartData.getChild(EntityModelPartNames.HEAD).addChild(RIGHT_EAR, ModelPartBuilder.create().uv(1, 1).cuboid(0, -0, -1f, 1.0f, 3.0f, 2.0f, dilation),
@@ -41,7 +43,7 @@ public class OrcModel {
 
         modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create().uv(32, 0).cuboid(-4.0f, -8.0f, -4.0f, 8.0f, 8.0f, 8.0f, dilation.add(0.25f)),
                 ModelTransform.pivot(0.0f, 0.0f, 0.0f));                // 54
-
+*/
         return TexturedModelData.of(modelData, 64, 64);
     }
 }

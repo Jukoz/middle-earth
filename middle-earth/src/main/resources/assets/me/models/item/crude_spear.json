@@ -161,9 +161,6 @@
 			}
 		}
 	],
-	"overrides": [
-		{"predicate": {"holding": 1}, "model": "me:item/crude_spear_holding"}
-	],
 	"groups": [
 		{
 			"name": "Spear",

@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.minecraft.item.Item;
 import net.minecraft.item.PlaceableOnWaterItem;
@@ -29,6 +30,7 @@ public class ModNatureBlockItems {
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.NATURE_BLOCKS_CONTENTS.add(item.getDefaultStack());
+        TranslationEntries.itemEntries.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

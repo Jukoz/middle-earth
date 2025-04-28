@@ -142,8 +142,8 @@ public class BarrowWightEntity extends HostileEntity {
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        if (nbt.contains(LAST_SCREAM_TIME_KEY, 99) && nbt.getInt(LAST_SCREAM_TIME_KEY) > -1) {
-            this.setScreamedTime(nbt.getInt(LAST_SCREAM_TIME_KEY));
+        if (nbt.contains(LAST_SCREAM_TIME_KEY) && nbt.getInt(LAST_SCREAM_TIME_KEY).get() > -1) {
+            this.setScreamedTime(nbt.getInt(LAST_SCREAM_TIME_KEY).get());
         }
     }
 

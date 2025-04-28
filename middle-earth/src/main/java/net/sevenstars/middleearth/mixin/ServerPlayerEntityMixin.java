@@ -1,9 +1,6 @@
 package net.sevenstars.middleearth.mixin;
 
 import com.mojang.authlib.GameProfile;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
@@ -15,6 +12,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
+import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -29,6 +30,12 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
+    }
+
+    @Nullable
+    @Override
+    public GameMode getGameMode() {
+        return this.interactionManager.getGameMode();
     }
 
     @Inject(method = "getRespawnTarget", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
@@ -58,7 +65,8 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         PlayerManager manager = this.getServer().getPlayerManager();
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
         if(this.getServer() == null) return;
-        foundPlayer.setSpawnPoint(World.OVERWORLD, foundPlayer.getServer().getOverworld().getSpawnPos(), foundPlayer.getServer().getOverworld().getSpawnAngle(), true, true);
+        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(World.OVERWORLD, foundPlayer.getServer().getOverworld().getSpawnPos(), foundPlayer.getServer().getOverworld().getSpawnAngle(), true);
+        foundPlayer.setSpawnPoint(respawn, true);
 
         cir.setReturnValue(new TeleportTarget(this.server.getOverworld(), this, postDimensionTransition));
     }
@@ -72,22 +80,24 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
 
         if(foundPlayer == null) return false;
-        if(ModDimensions.isInMiddleEarth(this.getWorld())) {
-            PlayerData data = StateSaverAndLoader.getPlayerState(foundPlayer);
-            if(data != null && data.hasAffilition()){
-                Vec3d spawnCoordinates = data.getSpawnMiddleEarthCoordinate(getWorld());
-                if(spawnCoordinates != null){
-                    ServerWorld MEWorld = this.server.getWorld(ModDimensions.ME_WORLD_KEY);
-                    if(MEWorld != null){
-                        Vec3d coordinates = new Vec3d(spawnCoordinates.x, spawnCoordinates.y + 1, spawnCoordinates.z);
-                        foundPlayer.setSpawnPoint(ModDimensions.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true, true);
-                        cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates, Vec3d.ZERO, 0, 0, postDimensionTransition));
-                        return true;
-                    }
+        if(ModDimensions.isInMiddleEarth(this.getWorld()) && PlayerDataService.getPlayerSpawnData(foundPlayer, getWorld()) instanceof SpawnData data && data.getIdentifier() != null) {
+            BlockPos spawnCoordinates = data.getWorldCoordinateBlockPos();
+            if(spawnCoordinates != null){
+                ServerWorld MEWorld = this.server.getWorld(ModDimensions.ME_WORLD_KEY);
+                if(MEWorld != null){
+                    Vec3d coordinates = new Vec3d(spawnCoordinates.getX(), spawnCoordinates.getY() + 1, spawnCoordinates.getZ());
+
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(ModDimensions.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true);
+                    foundPlayer.setSpawnPoint(respawn, true);
+
+                    cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates.toCenterPos(), Vec3d.ZERO, 0, 0, postDimensionTransition));
+                    return true;
                 }
             }
         }
-        foundPlayer.setSpawnPoint(World.OVERWORLD, server.getOverworld().getSpawnPos(), server.getOverworld().getSpawnAngle(), true, true);
+        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(World.OVERWORLD, server.getOverworld().getSpawnPos(), server.getOverworld().getSpawnAngle(), true);
+        foundPlayer.setSpawnPoint(respawn, true);
+
         cir.setReturnValue(new TeleportTarget(server.getOverworld(), server.getOverworld().getSpawnPos().toCenterPos(), Vec3d.ZERO, 0, 0,postDimensionTransition));
         return false;
     }

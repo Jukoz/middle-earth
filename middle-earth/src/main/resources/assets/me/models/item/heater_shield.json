@@ -4,9 +4,6 @@
 	"textures": {
 		"particle": "block/dark_oak_planks"
 	},
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/heater_shield_blocking"}
-	],
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [ 0, 90, 0 ],

@@ -60,7 +60,7 @@ public class CommandCustomEquipment {
     private static int setCape(CommandContext<ServerCommandSource> context) {
         ModCapes cape = ModCapes.valueOf(StringArgumentType.getString(context, CAPE_VALUE).toUpperCase());
 
-        ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getMainHandStack();
+        ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getSelectedStack();
 
         if (handStack.isEmpty()){
             MutableText sourceText = Text.translatable("command.me.cape.hand_empty");
@@ -84,7 +84,7 @@ public class CommandCustomEquipment {
     private static int setHood(CommandContext<ServerCommandSource> context) {
         ModHoods hood = ModHoods.valueOf(StringArgumentType.getString(context, HOOD_VALUE).toUpperCase());
 
-        ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getMainHandStack();
+        ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getSelectedStack();
 
         if (handStack.isEmpty()){
             MutableText sourceText = Text.translatable("command.me.hood.hand_empty");

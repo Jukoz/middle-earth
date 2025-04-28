@@ -55,29 +55,28 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if(state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if(blockEntity instanceof ForgeBlockEntity forgeBlockEntity) {
-                if (state.get(PART) == ForgePart.BOTTOM){
-                    MetalTypes metal = forgeBlockEntity.getCurrentMetal();
-                    int storage = forgeBlockEntity.getStorage();
+    protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if(blockEntity instanceof ForgeBlockEntity forgeBlockEntity) {
+            if (state.get(PART) == ForgePart.BOTTOM){
+                MetalTypes metal = forgeBlockEntity.getCurrentMetal();
+                int storage = forgeBlockEntity.getStorage();
 
-                    if (metal != MetalTypes.EMPTY){
-                        ItemStack ingotStack = new ItemStack(metal.getIngot(), storage / 144);
-                        ingotStack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
-                        ItemStack nuggetStack = new ItemStack(metal.getNugget(), storage % 144 / 16);
-                        nuggetStack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                if (metal != MetalTypes.EMPTY){
+                    ItemStack ingotStack = new ItemStack(metal.getIngot(), storage / 144);
+                    ingotStack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                    ItemStack nuggetStack = new ItemStack(metal.getNugget(), storage % 144 / 16);
+                    nuggetStack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
 
-                        ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), ingotStack);
-                        ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), nuggetStack);
-                    }
-                    ItemScatterer.spawn(world, pos, forgeBlockEntity);
+                    ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), ingotStack);
+                    ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), nuggetStack);
                 }
+                ItemScatterer.spawn(world, pos, forgeBlockEntity);
             }
-            super.onStateReplaced(state, world, pos, newState, moved);
         }
+        ItemScatterer.onStateReplaced(state, world, pos);
     }
+
     @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos pos = ctx.getBlockPos().add(0,1,0);
@@ -185,7 +184,7 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
             double e = pos.getY();
             double f = (double)pos.getZ() + 0.5;
             if (random.nextDouble() < 0.1) {
-                world.playSound(d, e, f, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0f, 1.0f, false);
+                world.playSoundClient(d, e, f, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0f, 1.0f, false);
             }
             Direction direction = state.get(FACING);
             Direction.Axis axis = direction.getAxis();
@@ -198,7 +197,7 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
             world.addParticleClient(ParticleTypes.FLAME, d + i, e + j, f + k, 0.0, 0.0, 0.0);
         } else {
             SimpleParticleType simpleParticleType = ParticleTypes.CAMPFIRE_COSY_SMOKE;
-            world.addImportantParticle(simpleParticleType, true, (double)pos.getX() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
+            world.addImportantParticleClient(simpleParticleType, true, (double)pos.getX() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
         }
     }
 }

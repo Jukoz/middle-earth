@@ -329,9 +329,6 @@
 			}
 		}
 	],
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/uruk_hai_siege_shield_blocking"}
-	],
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [0, -90, 0],

@@ -278,8 +278,8 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
         super.readNbt(nbt, registryLookup);
         this.inventory.clear();
         Inventories.readNbt(nbt, this.inventory, registryLookup);
-        this.outputIndex = nbt.getInt("current-index");
-        this.maxOutputIndex = nbt.getInt("current-max-index");
+        this.outputIndex = nbt.getInt("current-index", 0);
+        this.maxOutputIndex = nbt.getInt("current-max-index", 0);
     }
 
     @Override

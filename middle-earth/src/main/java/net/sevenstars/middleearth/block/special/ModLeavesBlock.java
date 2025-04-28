@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.block.special;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.TintedParticleLeavesBlock;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -18,11 +19,13 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 
-public class ModLeavesBlock extends LeavesBlock {
+public class ModLeavesBlock extends TintedParticleLeavesBlock {
     final protected boolean castShadow;
     private final ParticleEffect particleType;
-    public ModLeavesBlock(Settings settings, boolean castShadow, ParticleEffect particleType) {
-        super(settings);
+
+
+    public ModLeavesBlock(float f, Settings settings, boolean castShadow, ParticleEffect particleType) {
+        super(f, settings);
         this.castShadow = castShadow;
         this.particleType = particleType;
     }
@@ -35,7 +38,7 @@ public class ModLeavesBlock extends LeavesBlock {
     @Override
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         int i;
-        if (state.get(WATERLOGGED).booleanValue()) {
+        if (state.get(WATERLOGGED)) {
             tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
         if ((i = getDistanceFromLog(neighborState) + 1) != 1 || state.get(DISTANCE) != i) {

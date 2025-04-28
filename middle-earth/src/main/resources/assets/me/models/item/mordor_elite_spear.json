@@ -217,10 +217,6 @@
 			}
 		}
 	],
-	"display": {},
-	"overrides": [
-		{"predicate": {"holding": 1}, "model": "me:item/mordor_elite_spear_holding"}
-	],
 	"groups": [
 		{
 			"name": "Spear",

@@ -56,8 +56,8 @@ public class MouseMixin {
                 player.setYaw(destYaw);
                 player.setYaw(destYaw);
                 player.setHeadYaw(player.getYaw());
-                player.prevPitch = player.getPitch();
-                player.prevYaw = player.getYaw();
+                player.lastPitch = player.getPitch();
+                player.lastYaw = player.getYaw();
             } else if(id == -1){
                 ServerWorld serverWorld = (ServerWorld) player.getWorld();
                 this.lookAt = serverWorld.getClosestEntity(BarrowWightEntity.class, TargetPredicate.createNonAttackable(), null, player.getX(), player.getY(), player.getZ(), player.getBoundingBox().expand(28));

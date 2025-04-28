@@ -2,19 +2,6 @@ package net.sevenstars.middleearth.resources.datas.factions;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.fabricmc.fabric.api.util.NbtType;
-import net.sevenstars.middleearth.resources.MiddleEarthFactions;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.FactionType;
-import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
-import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.item.ItemStack;
@@ -29,6 +16,18 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.resources.MiddleEarthFactions;
+import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.FactionType;
+import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
+import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
+import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.*;
 
@@ -86,16 +85,21 @@ public class Faction {
 
         this.npcDatasByRank = new HashMap<>();
         npcs.ifPresent(nbtCompound -> {
-            NbtList list = nbtCompound.getList("ranks", NbtType.COMPOUND);
+            NbtList list = nbtCompound.getList("ranks").get();
             for(int i = 0; i < list.size(); i++){
-                NbtCompound rankCompound = list.getCompound(i);
-                NpcRank rank = NpcRank.valueOf(rankCompound.getString("rank").toUpperCase());
-                NbtList npcDataList = rankCompound.getList("pool", NbtType.STRING);
-                List<Identifier> dataList = new ArrayList<>();
-                for(int j = 0; j < npcDataList.size(); j++){
-                    dataList.add(IdentifierUtil.getIdentifierFromString(npcDataList.getString(j)));
+                NbtCompound rankCompound = list.getCompound(i).get();
+                String rankName = rankCompound.getString("rank").toString().toUpperCase();
+                try{
+                    NpcRank rank = NpcRank.valueOf(rankName);
+                    NbtList npcDataList = rankCompound.getList("pool").get();
+                    List<Identifier> dataList = new ArrayList<>();
+                    for(int j = 0; j < npcDataList.size(); j++){
+                        dataList.add(IdentifierUtil.getIdentifierFromString(npcDataList.getString(j).get()));
+                    }
+                    this.npcDatasByRank.put(rank, dataList);
+                } catch (Exception ignored){
+
                 }
-                this.npcDatasByRank.put(rank, dataList);
             }
         });
 
@@ -169,18 +173,18 @@ public class Faction {
         // Need these data for a functional faction
         if((this.factionType == FactionType.SUBFACTION) || (this.factionType == FactionType.FACTION) && (subFactions == null || subFactions.isEmpty())){
             if(this.npcDatasByRank == null || this.npcDatasByRank.isEmpty()){
-                throw new RuntimeException("Faction [%s] is missing their npc data, make sure they have at least 1 available npc data per rank.".formatted(id));
+                //throw new RuntimeException("PlayerFactionPayload [%s] is missing their npc data, make sure they have at least 1 available npc data per rank.".formatted(id));
             } else {
                 if(!npcDatasByRank.containsKey(NpcRank.MILITIA)
                         || !npcDatasByRank.containsKey(NpcRank.SOLDIER)
                         || !npcDatasByRank.containsKey(NpcRank.KNIGHT)
                         || !npcDatasByRank.containsKey(NpcRank.VETERAN)
                         || !npcDatasByRank.containsKey(NpcRank.LEADER)) {
-                    throw new RuntimeException("Faction [%s] is missing their npc data, make sure they have at least 1 npc data per rank.".formatted(id));
+                    //throw new RuntimeException("PlayerFactionPayload [%s] is missing their npc data, make sure they have at least 1 npc data per rank.".formatted(id));
                 }
             }
             if(this.bannerData == null){
-                throw new RuntimeException("Faction [%s] is missing their banner data, make sure they have one.".formatted(id));
+                //throw new RuntimeException("PlayerFactionPayload [%s] is missing their banner data, make sure they have one.".formatted(id));
             }
         }
     }

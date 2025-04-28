@@ -2,7 +2,8 @@ package net.sevenstars.middleearth.item;
 
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.datageneration.content.models.SimpleSpawnEggItemModel;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
+import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
 import net.sevenstars.middleearth.entity.ModEntities;
 
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
@@ -45,7 +46,8 @@ public class ModEggItems {
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
-        SimpleSpawnEggItemModel.items.add(item);
+        SimpleItemModel.items.add(item);
+        TranslationEntries.itemEntries.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

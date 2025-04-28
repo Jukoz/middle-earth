@@ -4,8 +4,5 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"4": "me:item/erebor_shield"
-	},
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/erebor_shield_blocking"}
-	]
+	}
 }

@@ -4,8 +4,5 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"4": "me:item/shield_of_the_king_under_the_mountain"
-	},
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/shield_of_the_king_under_the_mountain_blocking"}
-	]
+	}
 }

@@ -6,6 +6,7 @@ import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 
 public class ModBannerPatterns {
     public static final RegistryKey<BannerPattern> TREE = key("tree");
@@ -56,6 +57,7 @@ public class ModBannerPatterns {
     public static final RegistryKey<BannerPattern> PIPE = key("pipe");
 
     private static RegistryKey<BannerPattern> key(String id) {
+        TranslationEntries.bannerPatternEntries.add(id);
         return RegistryKey.of(RegistryKeys.BANNER_PATTERN, Identifier.of(MiddleEarth.MOD_ID, id));
     }
 

@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.item.ModFoodItems;
 import net.minecraft.block.Block;
@@ -82,7 +83,7 @@ public class ToughBerryBushBlock extends CustomPlantBlock
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
         if (entity instanceof LivingEntity && entity.getType() != ModEntities.WARG || entity.getType() == EntityType.FOX || entity.getType() == EntityType.BAT) {
             entity.slowMovement(state, new Vec3d(0.800000011920929, 0.75, 0.800000011920929));
             if (world instanceof ServerWorld) {
@@ -96,11 +97,8 @@ public class ToughBerryBushBlock extends CustomPlantBlock
                             entity.damage(serverWorld, world.getDamageSources().sweetBerryBush(), 1.0F);
                         }
                     }
-
-                    return;
                 }
             }
-
         }
     }
 

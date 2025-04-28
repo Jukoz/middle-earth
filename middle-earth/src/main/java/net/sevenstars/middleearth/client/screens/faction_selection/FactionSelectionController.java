@@ -127,7 +127,7 @@ public class FactionSelectionController {
             }
         }
 
-        // Faction randomizer
+        // PlayerFactionPayload randomizer
         currentFactionIndex =
                 (factions.get(disposition) == null || factions.get(disposition).isEmpty())
                         ? 0
@@ -245,7 +245,7 @@ public class FactionSelectionController {
     }
 
     public Race getCurrentRace() {
-        if(this.races != null){
+        if(this.races != null && !this.races.isEmpty()){
             return races.get(currentRaceIndex);
         }
         return null;
@@ -254,7 +254,7 @@ public class FactionSelectionController {
     public String getCurrentRaceKey() {
         if(getCurrentRace() != null)
             return getCurrentRace().getTranslatableKey();
-        return "ooops"; // TODO : translatale
+        return "No Race"; // TODO : translatale
     }
 
     public boolean haveManyRaces(){
@@ -355,6 +355,8 @@ public class FactionSelectionController {
     public NpcGearData getCurrentPreview(World world) {
         Faction currentFaction = getCurrentlySelectedFaction();
         races = currentFaction.getRaces(world);
+        if(races.isEmpty())
+            return null;
         NpcGearData data = currentFaction.getPreviewGear(world, races.get(currentRaceIndex));
         return data;
     }

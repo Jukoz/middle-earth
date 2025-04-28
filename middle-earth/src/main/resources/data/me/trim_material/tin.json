@@ -3,7 +3,5 @@
   "description": {
     "color": "#C6C4BC",
     "translate": "trim_material.me.tin"
-  },
-  "ingredient": "me:tin_ingot",
-  "item_model_index": 0.002
+  }
 }

@@ -49,9 +49,12 @@ public class FireOfOrthancEntityRenderer extends EntityRenderer<FireOfOrthancEnt
         BlockPos blockPos = BlockPos.ofFloored(fireOfOrthancEntity.getX(), fireOfOrthancEntity.getBoundingBox().maxY, fireOfOrthancEntity.getZ());
         matrixStack.translate(-0.5, 0.0, -0.5);
 
-        this.blockRenderManager.getModelRenderer().render(world, this.blockRenderManager.getModel(blockState), blockState,
+        //TODO to test if this worky
+        this.blockRenderManager.renderBlockAsEntity(blockState, matrixStack, vertexConsumerProvider, light, OverlayTexture.DEFAULT_UV);
+
+        /*this.blockRenderManager.getModelRenderer().render(world, this.blockRenderManager.getModel(blockState), blockState,
                 blockPos, matrixStack, vertexConsumerProvider.getBuffer(RenderLayers.getMovingBlockLayer(blockState)), false,
-                Random.create(), 0, OverlayTexture.DEFAULT_UV);
+                Random.create(), 0, OverlayTexture.DEFAULT_UV);*/
         matrixStack.pop();
         super.render(new FireOfOrthancEntityRenderState(), matrixStack, vertexConsumerProvider, light);
     }

@@ -18,7 +18,7 @@ public class SnowTrollAnimations {
                             new Keyframe(2.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.75f, AnimationHelper.createTranslationalVector(0f, 0f, -1f),
@@ -44,7 +44,7 @@ public class SnowTrollAnimations {
                             new Keyframe(2.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("jaw",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.75f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -105,7 +105,7 @@ public class SnowTrollAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation WALKING = Animation.Builder.create(1f).looping()
             .addBoneAnimation("right_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -123,7 +123,7 @@ public class SnowTrollAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-15f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("left_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, 1f, 0f),
@@ -147,7 +147,7 @@ public class SnowTrollAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, -2.5f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_arm",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.375f, AnimationHelper.createTranslationalVector(0f, 1f, 0f),
@@ -165,7 +165,7 @@ public class SnowTrollAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(37.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("left_arm",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -192,7 +192,7 @@ public class SnowTrollAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation CHARGING = Animation.Builder.create(1f).looping()
             .addBoneAnimation("right_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.16766666f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
@@ -208,7 +208,7 @@ public class SnowTrollAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(42.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("left_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.3433333f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
@@ -224,7 +224,7 @@ public class SnowTrollAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(37.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("torso",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.375f, AnimationHelper.createTranslationalVector(0f, -2f, 0f),
@@ -242,7 +242,7 @@ public class SnowTrollAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-2.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("right_arm",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -260,7 +260,7 @@ public class SnowTrollAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-22.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("left_arm",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),

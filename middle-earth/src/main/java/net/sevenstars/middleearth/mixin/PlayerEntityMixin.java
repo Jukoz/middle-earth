@@ -50,14 +50,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow public abstract PlayerInventory getInventory();
 
-    @Shadow protected abstract void takeShieldHit(LivingEntity attacker);
+    //TODO Shield stuff broken, most likely because of new data comps
+    //@Shadow protected abstract void takeShieldHit(LivingEntity attacker);
 
-    @Shadow public abstract boolean canUseSlot(EquipmentSlot slot);
+    //@Shadow public abstract boolean canUseSlot(EquipmentSlot slot);
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
-
+/*
     @WrapOperation(method = "damageShield", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 0))
     protected boolean canWalkOnPowderSnowTag(ItemStack instance, Item item, Operation<Boolean> original) {
         return original.call(instance, item) || instance.getItem() instanceof ShieldItem;
@@ -119,7 +120,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 cir.cancel();
             }
         }
-    }
+    }*/
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {

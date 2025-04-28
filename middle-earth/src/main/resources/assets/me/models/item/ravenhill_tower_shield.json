@@ -4,8 +4,5 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"1": "me:item/ravenhill_tower_shield"
-	},
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/ravenhill_tower_shield_blocking"}
-	]
+	}
 }

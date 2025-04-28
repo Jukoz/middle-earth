@@ -5,6 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.component.ComponentType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -17,12 +18,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -158,7 +157,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         if (!stack.isEmpty()) {
             ItemStack itemStack = stack.copy();
             Item item = stack.getItem();
-            if (item instanceof ArmorItem armorItem) {
+            if (itemStack.getComponents().contains(DataComponentTypes.EQUIPPABLE)) {
                 EquippableComponent equippableComponent = (EquippableComponent)stack.get(DataComponentTypes.EQUIPPABLE);
                 EquipmentSlot equipmentSlot = equippableComponent != null ? equippableComponent.slot() : EquipmentSlot.OFFHAND;
                 this.armorStand.equipStack(equipmentSlot, stack.copy());
@@ -172,7 +171,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
         //RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        //RenderSystem.setShaderTexture(0, TEXTURE);
         int i = this.x;
         int j = this.y;
         context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);

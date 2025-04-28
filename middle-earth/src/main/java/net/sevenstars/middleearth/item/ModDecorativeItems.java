@@ -1,11 +1,10 @@
 package net.sevenstars.middleearth.item;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.item.items.ArkenstoneItem;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
@@ -54,6 +53,9 @@ public class ModDecorativeItems {
             (settings) -> new BlockItem(ModDecorativeBlocks.BELLOWS, settings), new Item.Settings());
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",
             (settings) -> new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, settings), new Item.Settings());
+
+    public static final Item STRUCTURE_MANAGER = registerItem("structure_manager",
+            (settings) -> new BlockItem(ModDecorativeBlocks.STRUCTURE_MANAGER, settings), new Item.Settings());
 
     public static final Item SMALL_CRATE = registerItem("small_crate",
             (settings) -> new BlockItem(ModDecorativeBlocks.SMALL_CRATE, settings), new Item.Settings());
@@ -132,6 +134,7 @@ public class ModDecorativeItems {
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());
+        TranslationEntries.itemEntries.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
