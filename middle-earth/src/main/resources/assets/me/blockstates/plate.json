@@ -1,32 +1,32 @@
 {
   "variants": {
-    "facing=east,utensils=0": {
+    "facing=east,utensils=false": {
       "model": "me:block/plate",
       "y": 90
     },
-    "facing=east,utensils=1": {
+    "facing=east,utensils=true": {
       "model": "me:block/plate",
       "y": 90
     },
-    "facing=north,utensils=0": {
+    "facing=north,utensils=false": {
       "model": "me:block/plate"
     },
-    "facing=north,utensils=1": {
+    "facing=north,utensils=true": {
       "model": "me:block/plate"
     },
-    "facing=south,utensils=0": {
+    "facing=south,utensils=false": {
       "model": "me:block/plate",
       "y": 180
     },
-    "facing=south,utensils=1": {
+    "facing=south,utensils=true": {
       "model": "me:block/plate",
       "y": 180
     },
-    "facing=west,utensils=0": {
+    "facing=west,utensils=false": {
       "model": "me:block/plate",
       "y": 270
     },
-    "facing=west,utensils=1": {
+    "facing=west,utensils=true": {
       "model": "me:block/plate",
       "y": 270
     }
