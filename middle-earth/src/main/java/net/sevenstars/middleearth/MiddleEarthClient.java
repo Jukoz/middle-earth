@@ -132,6 +132,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(ModBlockEntities.FORGE, ForgeEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.BELLOWS, BellowsBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.PLATE, PlateEntityRenderer::new);
 
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_HELMET, CustomHelmetModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_CHESTPLATE, CustomChestplateModel::getTexturedModelData);

@@ -3,20 +3,29 @@ package net.sevenstars.middleearth.block.special.plate;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ConsumableComponent;
+import net.minecraft.component.type.FoodComponent;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class PlateBlock extends BlockWithEntity {
@@ -40,8 +49,55 @@ public class PlateBlock extends BlockWithEntity {
             boolean hasUtensils = state.get(UTENSILS);
             serverWorld.setBlockState(pos, state.with(UTENSILS, !hasUtensils), 2);
         }
+        else if (world.isClient) {
+            if (tryEat(world, pos, player).isAccepted()) {
+                return ActionResult.SUCCESS;
+            }
+            if (player.getStackInHand(Hand.MAIN_HAND).isEmpty()) {
+                return ActionResult.CONSUME;
+            }
+        }
+        return tryEat(world, pos, player);
+    }
 
-        return super.onUse(state, world, pos, player, hit);
+    protected static ActionResult tryEat(WorldAccess world, BlockPos pos, PlayerEntity player) {
+        if (!player.canConsume(false)) {
+            return ActionResult.PASS;
+        }
+
+        PlateBlockEntity plateBlockEntity = (PlateBlockEntity) world.getBlockEntity(pos);
+        if(plateBlockEntity == null) return ActionResult.FAIL;
+
+        ItemStack food = plateBlockEntity.getStack();
+        if(food == null || food.isEmpty()) {
+            return ActionResult.PASS;
+        }
+
+        FoodComponent foodComponent = food.get(DataComponentTypes.FOOD);
+        ConsumableComponent consumableComponent = food.get(DataComponentTypes.CONSUMABLE);
+        if(foodComponent != null && consumableComponent != null) {
+            player.getHungerManager().add(foodComponent.nutrition(), foodComponent.saturation());
+            foodComponent.onConsume(player.getWorld(), player, food, consumableComponent);
+            world.emitGameEvent(player, GameEvent.EAT, pos);
+            plateBlockEntity.setStack(ItemStack.EMPTY);
+        }
+
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if(stack.contains(DataComponentTypes.FOOD)) {
+            BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
+            if(blockEntity instanceof PlateBlockEntity plateBlockEntity) {
+                plateBlockEntity.setStack(stack);
+                return ActionResult.SUCCESS;
+            } else {
+                return ActionResult.FAIL;
+            }
+        }
+
+        return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
     }
 
     @Override
@@ -63,6 +119,6 @@ public class PlateBlock extends BlockWithEntity {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return null;
+        return new PlateBlockEntity(pos, state);
     }
 }

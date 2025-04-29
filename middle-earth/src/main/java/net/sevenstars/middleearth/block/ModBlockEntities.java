@@ -8,6 +8,7 @@ import net.sevenstars.middleearth.block.special.beds.CustomBedBlockEntity;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntity;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
+import net.sevenstars.middleearth.block.special.plate.PlateBlockEntity;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlockEntity;
 import net.sevenstars.middleearth.block.special.shapingAnvil.TreatedAnvilBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
@@ -31,6 +32,8 @@ public class ModBlockEntities {
             ModDecorativeBlocks.REINFORCED_CHEST);
     public static BlockEntityType<BellowsBlockEntity> BELLOWS = register("bellows", BellowsBlockEntity::new,
             ModDecorativeBlocks.BELLOWS);
+    public static BlockEntityType<PlateBlockEntity> PLATE = register("plate", PlateBlockEntity::new,
+            ModDecorativeBlocks.PLATE);
     public static BlockEntityType<WoodPileBlockEntity> WOOD_PILE = register("wood_pile", WoodPileBlockEntity::new,
             ModDecorativeBlocks.WOOD_PILE);
     public static BlockEntityType<BrazierBlockEntity> BIG_BRAZIER = register("big_brazier", BrazierBlockEntity::new,

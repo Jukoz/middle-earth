@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.block.special.plate;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.SingleStackInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -11,12 +10,13 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.block.ModBlockEntities;
 
 public class PlateBlockEntity extends BlockEntity implements SingleStackInventory.SingleStackBlockEntityInventory {
     private ItemStack food = ItemStack.EMPTY;
 
-    public PlateBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
+    public PlateBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.PLATE, pos, state);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
         if(stack.isEmpty()) return;
 
         matrices.push();
-        matrices.translate(0.5f, 0.05f, 0.5f);
+        matrices.translate(0.5f, 0.125f, 0.5f);
         matrices.scale(0.65f, 0.65f, 0.65f);
 
         matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) Math.toRadians(90)));
@@ -42,9 +42,9 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
         Direction direction = entity.getCachedState().get(ForgeBlock.FACING);
 
         switch (direction) {
-            case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(180)));
+            case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(0)));
             case EAST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(90)));
-            case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(0)));
+            case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(180)));
             case WEST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(270)));
         }
 
