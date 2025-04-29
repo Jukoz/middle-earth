@@ -21,6 +21,7 @@ import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
 import net.sevenstars.middleearth.block.special.forge.ForgeEntityRenderer;
+import net.sevenstars.middleearth.block.special.plate.PlateEntityRenderer;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilEntityRenderer;
 import net.sevenstars.middleearth.client.model.equipment.CustomBootsModel;
