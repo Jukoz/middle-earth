@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.block.special.plate;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SingleStackInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -34,6 +35,16 @@ public class PlateBlockEntity extends BlockEntity implements SingleStackInventor
         super.readNbt(nbt, registries);
         RegistryOps<NbtElement> registryOps = registries.getOps(NbtOps.INSTANCE);
         food = nbt.get("Item", ItemStack.CODEC, registryOps).orElse(ItemStack.EMPTY);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
+        NbtCompound nbtCompound = new NbtCompound();
+        if (!food.isEmpty()) {
+            RegistryOps<NbtElement> registryOps = registries.getOps(NbtOps.INSTANCE);
+            nbtCompound.put("Item", ItemStack.CODEC, registryOps, food);
+        }
+        return nbtCompound;
     }
 
     @Override

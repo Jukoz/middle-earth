@@ -7,6 +7,7 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
+import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
@@ -21,10 +22,10 @@ import net.sevenstars.middleearth.block.special.forge.ForgeBlock;
 @Environment(value= EnvType.CLIENT)
 public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity> {
 
-    private final BlockEntityRendererFactory.Context context;
+    private final ItemRenderer itemRenderer;
 
     public PlateEntityRenderer(BlockEntityRendererFactory.Context context) {
-        this.context = context;
+        this.itemRenderer = context.getItemRenderer();
     }
 
     @Override
@@ -50,7 +51,7 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
 
         int currentLight = getLightLevel(entity.getWorld(), entity.getPos(), direction);
 
-        this.context.getItemRenderer().renderItem(stack, ItemDisplayContext.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
+        this.itemRenderer.renderItem(stack, ItemDisplayContext.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
                 matrices, vertexConsumers, entity.getWorld(), 1);
 
         matrices.pop();
