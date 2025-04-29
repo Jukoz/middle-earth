@@ -45,11 +45,19 @@ public class PlateBlock extends BlockWithEntity {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if(world instanceof ServerWorld serverWorld) {
-            boolean hasUtensils = state.get(UTENSILS);
-            serverWorld.setBlockState(pos, state.with(UTENSILS, !hasUtensils), 2);
+        ActionResult result = onEat(world, pos, player);
+        if(result == ActionResult.PASS || result == ActionResult.FAIL) {
+            if(world instanceof ServerWorld serverWorld) {
+                boolean hasUtensils = state.get(UTENSILS);
+                serverWorld.setBlockState(pos, state.with(UTENSILS, !hasUtensils), 2);
+            }
         }
-        else if (world.isClient) {
+
+        return result;
+    }
+
+    protected static ActionResult onEat(World world, BlockPos pos, PlayerEntity player) {
+        if (world.isClient) {
             if (tryEat(world, pos, player).isAccepted()) {
                 return ActionResult.SUCCESS;
             }
@@ -60,7 +68,7 @@ public class PlateBlock extends BlockWithEntity {
         return tryEat(world, pos, player);
     }
 
-    protected static ActionResult tryEat(WorldAccess world, BlockPos pos, PlayerEntity player) {
+    protected static ActionResult tryEat(World world, BlockPos pos, PlayerEntity player) {
         if (!player.canConsume(false)) {
             return ActionResult.PASS;
         }
@@ -76,7 +84,7 @@ public class PlateBlock extends BlockWithEntity {
         FoodComponent foodComponent = food.get(DataComponentTypes.FOOD);
         ConsumableComponent consumableComponent = food.get(DataComponentTypes.CONSUMABLE);
         if(foodComponent != null && consumableComponent != null) {
-            player.getHungerManager().add(foodComponent.nutrition(), foodComponent.saturation());
+            player.getHungerManager().eat(foodComponent);
             foodComponent.onConsume(player.getWorld(), player, food, consumableComponent);
             world.emitGameEvent(player, GameEvent.EAT, pos);
             plateBlockEntity.setStack(ItemStack.EMPTY);
@@ -90,8 +98,13 @@ public class PlateBlock extends BlockWithEntity {
         if(stack.contains(DataComponentTypes.FOOD)) {
             BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
             if(blockEntity instanceof PlateBlockEntity plateBlockEntity) {
-                plateBlockEntity.setStack(stack);
-                return ActionResult.SUCCESS;
+                ItemStack plateStack = plateBlockEntity.getStack();
+                if(plateStack == null || plateStack.isEmpty()) {
+                    plateBlockEntity.setStack(stack);
+                    return ActionResult.SUCCESS;
+                } else if (world.isClient) {
+                    return onEat(world, pos, player);
+                }
             } else {
                 return ActionResult.FAIL;
             }
