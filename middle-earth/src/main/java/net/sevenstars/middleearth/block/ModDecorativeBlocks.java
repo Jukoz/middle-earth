@@ -116,6 +116,8 @@ public class ModDecorativeBlocks {
 
     public static final Block PLATE = registerBlockWithItem("plate",
             PlateBlock::new, AbstractBlock.Settings.copy(Blocks.STONE_PRESSURE_PLATE).breakInstantly());
+    public static final Block CERAMIC_PLATE = registerBlockWithItem("ceramic_plate",
+            PlateBlock::new, AbstractBlock.Settings.copy(Blocks.STONE_PRESSURE_PLATE).breakInstantly());
     public static final Block TAPPER = registerBlockWithItem("tapper",
             TapperBlock::new, AbstractBlock.Settings.copy(Blocks.BEEHIVE).breakInstantly().nonOpaque());
 

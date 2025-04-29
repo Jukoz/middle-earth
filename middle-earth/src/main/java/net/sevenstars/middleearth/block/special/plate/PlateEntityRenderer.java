@@ -35,7 +35,7 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
         if(stack.isEmpty()) return;
 
         matrices.push();
-        matrices.translate(0.5f, 0.079f, 0.5f);
+        matrices.translate(0.5f, 0.08f, 0.5f);
         matrices.scale(0.65f, 0.65f, 0.65f);
 
         matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) Math.toRadians(90)));
