@@ -12,6 +12,7 @@ import net.sevenstars.middleearth.block.special.doors.*;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancBlock;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlock;
+import net.sevenstars.middleearth.block.special.plate.PlateBlock;
 import net.sevenstars.middleearth.block.special.pots.AmphoraBlock;
 import net.sevenstars.middleearth.block.special.pots.FatPotBlock;
 import net.sevenstars.middleearth.block.special.pots.JarBlock;
