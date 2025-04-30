@@ -2,6 +2,8 @@ package net.sevenstars.middleearth;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
+import net.fabricmc.fabric.api.client.model.loading.v1.*;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
@@ -16,6 +18,10 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.block.entity.BrushableBlockEntityRenderer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.item.model.ItemModel;
+import net.minecraft.client.render.model.BakedSimpleModel;
+import net.minecraft.client.render.model.Baker;
+import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.FoliageColors;
 import net.minecraft.world.biome.GrassColors;
@@ -72,6 +78,8 @@ import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
 import net.sevenstars.middleearth.particles.custom.LeavesParticle;
 import net.sevenstars.middleearth.particles.custom.RingOfSmokeParticle;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
+
+import java.util.function.Supplier;
 
 public class MiddleEarthClient implements ClientModInitializer {
     
@@ -183,6 +191,39 @@ public class MiddleEarthClient implements ClientModInitializer {
         });
         ModEquipmentItems.capes.forEach(cape -> {
             ArmorRenderer.register(new CapeRenderer(), cape);
+        });
+
+        ModelLoadingPlugin.register(pluginContext -> {
+
+            ExtraModelKey<ItemModel> key = ExtraModelKey.create(() -> "plate_apple");
+            UnbakedExtraModel<ItemModel> model = new UnbakedExtraModel<>() {
+                @Override
+                public ItemModel bake(Baker baker) {
+                    BakedSimpleModel bakedModel = baker.getModel(Identifier.of(MiddleEarth.MOD_ID, "item/plate_apple"));
+                    ItemModel itemModel = (ItemModel) bakedModel;
+                    return itemModel;
+                }
+
+                @Override
+                public void resolve(Resolver resolver) {
+
+                }
+            };
+
+            //pluginContext.addModel(key, model);
+
+            pluginContext.addModel(ExtraModelKey.create(() -> "plate_apple"), SimpleUnbakedExtraModel.blockStateModel(Identifier.of(MiddleEarth.MOD_ID, "item/plate_apple")));
+
+            //pluginContext.modifyItemModelBeforeBake().register(new ModelModifier.BeforeBakeItem() {
+            //    @Override
+            //    public ItemModel.Unbaked modifyModelBeforeBake(ItemModel.Unbaked unbaked, Context context) {
+            //        int t = 2;
+            //        if(context.itemId().equals(Identifier.ofVanilla("item/apple"))) {
+            //            return new ItemModel().
+            //        }
+            //        return unbaked;
+            //    }
+            //});
         });
 
         //TODO to fix ? mixin also broken so doesn't do much for now
