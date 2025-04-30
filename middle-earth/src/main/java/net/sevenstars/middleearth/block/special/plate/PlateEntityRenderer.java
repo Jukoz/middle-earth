@@ -48,23 +48,31 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
         boolean is3D = oldId != modelId;
 
         matrices.push();
+        Direction direction = entity.getCachedState().get(ForgeBlock.FACING);
+
         if(!is3D) {
             matrices.translate(0.5f, 0.08f, 0.5f);
             matrices.scale(0.65f, 0.65f, 0.65f);
             matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) Math.toRadians(90)));
+            switch (direction) {
+                case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(0)));
+                case EAST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(90)));
+                case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(180)));
+                case WEST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(270)));
+            }
         } else {
-            matrices.translate(0f, 0.08f, 0f);
+            matrices.translate(0.5f, 0.55f, 0.5f);
             matrices.scale(1f, 1f, 1f);
+            switch (direction) {
+                case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(0)));
+                case EAST -> matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(90)));
+                case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(180)));
+                case WEST -> matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(270)));
+            }
         }
 
-        Direction direction = entity.getCachedState().get(ForgeBlock.FACING);
 
-        switch (direction) {
-            case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(0)));
-            case EAST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(90)));
-            case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(180)));
-            case WEST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(270)));
-        }
+
 
         int currentLight = getLightLevel(entity.getWorld(), entity.getPos(), direction);
 
