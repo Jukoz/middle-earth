@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/crockpot",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/crockpot"
+    },
+    "facing=south": {
+      "model": "me:block/crockpot",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/crockpot",
+      "y": 270
+    }
+  }
+}
