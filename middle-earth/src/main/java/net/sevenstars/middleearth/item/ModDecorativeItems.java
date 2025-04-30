@@ -124,6 +124,9 @@ public class ModDecorativeItems {
     public static final Item TORCH_OF_ORTHANC = registerItem("torch_of_orthanc",
             (settings) -> new BlockItem(ModDecorativeBlocks.TORCH_OF_ORTHANC, settings), new Item.Settings());
 
+    public static final Item TAPPER = registerItem("tapper",
+            (settings) -> new BlockItem(ModDecorativeBlocks.TAPPER, settings), new Item.Settings());
+
     public static final Item TROLL_STATUE = registerItem("troll_statue",
             (settings) -> new CustomSpawnEggItem(ModEntities.PETRIFIED_TROLL, settings), new Item.Settings().maxCount(1));
 

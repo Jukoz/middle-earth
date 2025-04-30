@@ -24,7 +24,7 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.TAPPER);
             add(ModDecorativeBlocks.CERAMIC_PLATE);
-            add(ModDecorativeBlocks.PLATE);
+            add(ModDecorativeBlocks.SILVER_PLATE);
 
             add(ModDecorativeBlocks.BROWN_JUG);
             add(ModDecorativeBlocks.GRAY_POT);

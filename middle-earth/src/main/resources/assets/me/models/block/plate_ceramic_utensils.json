@@ -1,5 +1,5 @@
 {
-	"parent": "me:block/plate_utensils",
+	"parent": "me:block/plate_silver_utensils",
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "me:block/plate_ceramic",

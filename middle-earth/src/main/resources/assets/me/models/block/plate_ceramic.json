@@ -1,5 +1,5 @@
 {
-	"parent": "me:block/plate",
+	"parent": "me:block/plate_silver",
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "me:block/plate_ceramic",
