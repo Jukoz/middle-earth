@@ -17,10 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlock;
@@ -50,8 +47,13 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
         matrices.push();
         Direction direction = entity.getCachedState().get(ForgeBlock.FACING);
 
+        long seed = MathHelper.hashCode(entity.getPos().getX(), 0, entity.getPos().getZ());
+        double xOffset = ((seed & 15L) / 15.0 - 0.5) * 0.15;
+        double zOffset = (((seed >> 4 & 15L) / 15.0) - 0.5) * 0.15;
+        double rotOffset = (((seed >> 5 & 15L) / 15.0) - 0.5) * 35;
+
         if(!is3D) {
-            matrices.translate(0.5f, 0.08f, 0.5f);
+            matrices.translate(0.5f + xOffset, 0.08f, 0.5f + zOffset);
             matrices.scale(0.65f, 0.65f, 0.65f);
             matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) Math.toRadians(90)));
             switch (direction) {
@@ -60,8 +62,9 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
                 case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(180)));
                 case WEST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(270)));
             }
+            matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(rotOffset)));
         } else {
-            matrices.translate(0.5f, 0.55f, 0.5f);
+            matrices.translate(0.5f + xOffset, 0.55f, 0.5f + zOffset);
             matrices.scale(1f, 1f, 1f);
             switch (direction) {
                 case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(0)));
@@ -69,6 +72,7 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
                 case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(180)));
                 case WEST -> matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(270)));
             }
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(rotOffset)));
         }
 
 
