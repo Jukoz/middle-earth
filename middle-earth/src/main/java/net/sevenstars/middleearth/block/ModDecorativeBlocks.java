@@ -8,6 +8,7 @@ import net.sevenstars.middleearth.block.special.artefact.arkenstone.ArkenstoneWa
 import net.sevenstars.middleearth.block.special.artisantable.ArtisanTable;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
+import net.sevenstars.middleearth.block.special.crockpot.CrockpotBlock;
 import net.sevenstars.middleearth.block.special.doors.*;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancBlock;
@@ -115,7 +116,7 @@ public class ModDecorativeBlocks {
             (settings) -> new TorchOfOrthancBlock(settings, ParticleTypes.FLAME), AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool());
 
     public static final Block CROCKPOT = registerBlockWithItem("crockpot",
-            FatPotBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
+            CrockpotBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
     public static final Block CERAMIC_PLATE = registerBlockWithItem("ceramic_plate",
             PlateBlock::new, AbstractBlock.Settings.copy(Blocks.STONE_PRESSURE_PLATE).breakInstantly());
     public static final Block SILVER_PLATE = registerBlockWithItem("silver_plate",
