@@ -64,7 +64,7 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
             }
             matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(rotOffset)));
         } else {
-            matrices.translate(0.5f + xOffset, 0.55f, 0.5f + zOffset);
+            matrices.translate(0.5f + xOffset, 0.575f, 0.5f + zOffset);
             matrices.scale(1f, 1f, 1f);
             switch (direction) {
                 case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(0)));

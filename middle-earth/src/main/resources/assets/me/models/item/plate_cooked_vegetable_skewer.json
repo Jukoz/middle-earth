@@ -1,0 +1,8 @@
+{
+	"parent": "me:item/plate_meat_skewer",
+	"texture_size": [32, 32],
+	"textures": {
+		"2": "me:item/plate_cooked_vegetable_skewer",
+		"particle": "me:item/plate_cooked_vegetable_skewer"
+	}
+}

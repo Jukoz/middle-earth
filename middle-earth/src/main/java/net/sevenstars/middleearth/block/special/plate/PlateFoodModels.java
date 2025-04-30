@@ -27,6 +27,8 @@ public class PlateFoodModels {
         addVanillaModel("apple");
         addModel("meat_skewer");
         addModel("cooked_meat_skewer");
+        addModel("vegetable_skewer");
+        addModel("cooked_vegetable_skewer");
     }
 
     static {
