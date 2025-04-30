@@ -287,9 +287,6 @@
 			}
 		}
 	],
-	"overrides": [
-		{"predicate": {"holding": 1}, "model": "me:item/isengard_orc_spear_holding"}
-	],
 	"groups": [
 		{
 			"name": "Spear",

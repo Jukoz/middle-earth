@@ -26,7 +26,7 @@ public class CustomLeggingsItem extends Item implements MEEquipmentTooltip {
     private ExtendedArmorMaterial material;
 
     public CustomLeggingsItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
-        super(settings.armor(material.material(), EquipmentType.HELMET).maxCount(1));
+        super(settings.armor(material.material(), EquipmentType.LEGGINGS).maxCount(1));
 
         this.material = material;
         this.faction = faction;
@@ -34,7 +34,7 @@ public class CustomLeggingsItem extends Item implements MEEquipmentTooltip {
     }
 
     public CustomLeggingsItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
-        super(settings.armor(material.material(), EquipmentType.HELMET).maxCount(1));
+        super(settings.armor(material.material(), EquipmentType.LEGGINGS).maxCount(1));
 
         this.material = material;
         this.faction = subFaction.getParent();

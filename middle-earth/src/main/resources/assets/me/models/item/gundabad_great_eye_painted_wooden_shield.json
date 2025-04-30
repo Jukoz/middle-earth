@@ -4,8 +4,5 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"1": "me:item/gundabad_great_eye_painted_wooden_shield"
-	},
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/gundabad_great_eye_painted_wooden_shield_blocking"}
-	]
+	}
 }

@@ -31,8 +31,6 @@ import net.sevenstars.middleearth.entity.swan.SwanEntity;
 
 public class ModEntities {
 
-    //TODO Npc weird animation/item holding -> model fucked
-
     // Barrow Wights
     public static final EntityType<BarrowWightEntity> BARROW_WIGHT = register("barrow_wight", EntityType.Builder.create(BarrowWightEntity::new, SpawnGroup.CREATURE).dimensions(0.9f, 2.1f));
 

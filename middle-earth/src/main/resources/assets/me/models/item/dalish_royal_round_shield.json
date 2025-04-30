@@ -4,8 +4,5 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"1": "me:item/dalish_royal_round_shield"
-	},
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/dalish_royal_round_shield_blocking"}
-	]
+	}
 }

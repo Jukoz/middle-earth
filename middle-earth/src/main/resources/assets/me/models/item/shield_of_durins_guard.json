@@ -303,9 +303,6 @@
 			"scale": [1.75, 1.75, 1.75]
 		}
 	},
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/shield_of_durins_guard_blocking"}
-	],
 	"groups": [
 		{
 			"name": "root",

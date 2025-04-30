@@ -259,9 +259,6 @@
 		}
 	],
 	"gui_light": "front",
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/erebor_buckler_shield_blocking"}
-	],
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [180, -90, 90],
