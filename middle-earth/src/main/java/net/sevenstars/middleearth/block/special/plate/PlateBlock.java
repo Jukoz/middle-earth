@@ -8,6 +8,7 @@ import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -95,12 +96,21 @@ public class PlateBlock extends BlockWithEntity {
 
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if(stack.getItem() instanceof BlockItem blockItem) {
+            if(blockItem.getBlock() instanceof PlateBlock) {
+                return ActionResult.PASS;
+            }
+        }
+
         if(stack.contains(DataComponentTypes.FOOD)) {
             BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
             if(blockEntity instanceof PlateBlockEntity plateBlockEntity) {
                 ItemStack plateStack = plateBlockEntity.getStack();
                 if(plateStack == null || plateStack.isEmpty()) {
-                    plateBlockEntity.setStack(stack);
+                    ItemStack insertedStack = stack.copy();
+                    insertedStack.setCount(1);
+                    plateBlockEntity.setStack(insertedStack);
+                    stack.decrementUnlessCreative(1, player);
                     return ActionResult.SUCCESS;
                 } else if (world.isClient) {
                     return onEat(world, pos, player);
