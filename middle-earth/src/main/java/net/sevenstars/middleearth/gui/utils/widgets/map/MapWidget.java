@@ -27,7 +27,7 @@ public class MapWidget extends ModWidget {
     protected static Double uvY;
     protected static Float zoomLevel;
     private Float zoomTarget;
-    private boolean isForcingTargetMovement = false;
+    public boolean isForcingTargetMovement = false;
     private Vector2d forcedCurrentMapCenterTargetRatio;
     protected static Vector2d currentPointRatio;
     private static Vector2d currentMapTargetRatio;

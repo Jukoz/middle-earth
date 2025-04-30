@@ -26,6 +26,7 @@ public class CycledSelectionWidget extends ModWidget{
     static final int PANEL_SIZE_Y = CycledSelectionButtonType.HEIGHT;
     public static final int TOTAL_WIDTH = ((MARGIN + ARROW_SIZE_X) * 2) + PANEL_SIZE_X;
     public static final int TOTAL_HEIGHT = Math.max(PANEL_SIZE_Y, ARROW_SIZE_Y);
+    public MutableText text;
 
     public CycledSelectionWidget(ButtonWidget.PressAction leftAction, ButtonWidget.PressAction rightAction, ButtonWidget.PressAction selectionAction, CycledSelectionButtonType buttonType){
         this.buttonType = buttonType;
@@ -61,6 +62,16 @@ public class CycledSelectionWidget extends ModWidget{
         selectionButton.active = activate;
     }
 
+    public void setText(MutableText text){
+        this.text = text;
+    }
+
+    public int drawAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor, TextRenderer textRenderer){
+        int startX = anchorX;
+        if(!isLeftAnchor)
+            startX -= TOTAL_WIDTH;
+        return draw(context, startX, startY, this.text, textRenderer);
+    }
     public int drawAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor, MutableText text, TextRenderer textRenderer){
         int startX = anchorX;
         if(!isLeftAnchor)

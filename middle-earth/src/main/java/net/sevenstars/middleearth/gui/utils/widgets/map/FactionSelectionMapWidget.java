@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.gui.utils.widgets.map;
 
-import net.sevenstars.middleearth.gui.faction_selection.FactionSelectionController;
+import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.old.FactionSelectionControllerOld;
 import net.sevenstars.middleearth.gui.utils.widgets.map.types.MapMarkerType;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
@@ -18,8 +18,8 @@ import java.util.List;
 
 public class FactionSelectionMapWidget extends MapWidget {
     MapMarkerWidget[] spawnMapMarkers;
-    FactionSelectionController controller;
-    public FactionSelectionMapWidget(FactionSelectionController controller, int mapWidth, int mapHeight) {
+    FactionSelectionControllerOld controller;
+    public FactionSelectionMapWidget(FactionSelectionControllerOld controller, int mapWidth, int mapHeight) {
         super(mapWidth, mapHeight);
         this.controller = controller;
         final int[] maxSpawnCount = {0};

@@ -3,18 +3,17 @@ package net.sevenstars.middleearth.gui.onboarding;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.render.RenderLayer;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.faction_selection.FactionSelectionScreen;
-import net.sevenstars.middleearth.network.packets.C2S.PacketTeleportToCurrentSpawn;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
+import net.sevenstars.middleearth.network.packets.C2S.PacketTeleportToCurrentSpawn;
 
 import java.awt.event.KeyEvent;
 
@@ -50,8 +49,10 @@ public class OnboardingSelectionScreen extends Screen {
 
         if(canResetCharacter){
             ButtonWidget.PressAction resetCharacterAction = button -> {
-                MinecraftClient mc = MinecraftClient.getInstance();
-                mc.setScreen(new FactionSelectionScreen(Math.max(0, currentDelay)));
+                var controller = OnboardingFactionScreenController.getInstance();
+                if(controller == null)
+                    controller = new OnboardingFactionScreenController(this.player.getWorld(), currentDelay);
+                controller.open();
             };
             resetCharacterButton = ButtonWidget.builder(Text.of("reset_character"), resetCharacterAction).build();
             addDrawableChild(resetCharacterButton);

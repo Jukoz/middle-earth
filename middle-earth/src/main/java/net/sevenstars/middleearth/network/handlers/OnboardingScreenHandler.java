@@ -1,13 +1,13 @@
 package net.sevenstars.middleearth.network.handlers;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.onboarding.OnboardingSelectionScreen;
-import net.sevenstars.middleearth.gui.faction_selection.FactionSelectionScreen;
-import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.gui.onboarding.OnboardingSelectionScreen;
+import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
+import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
+import net.sevenstars.middleearth.world.dimension.ModDimensions;
 
 /**
  * Client side only
@@ -19,7 +19,10 @@ public class OnboardingScreenHandler {
             if(ModDimensions.isInOverworld(world)){
                 MinecraftClient client = MinecraftClient.getInstance();
                 if(!havePlayerData){
-                    client.setScreen(new FactionSelectionScreen(delay));
+                    var controller = OnboardingFactionScreenController.getInstance();
+                    if(controller == null)
+                        controller = new OnboardingFactionScreenController(world, delay);
+                    controller.open();
                 } else {
                     client.setScreen(new OnboardingSelectionScreen(delay, ModServerConfigs.ENABLE_FACTION_RESET));
                 }

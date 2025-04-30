@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.gui.faction_selection;
+package net.sevenstars.middleearth.gui.onboarding.onboarding_faction.old;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -22,7 +22,7 @@ import org.joml.Vector2i;
 
 import java.util.*;
 
-public class FactionSelectionController {
+public class FactionSelectionControllerOld {
     private Map<Disposition, List<Faction>> factions = null;
     /**
      * Identifier and if the spawn data is from the dynamic pool. True(Dynamic) : False(Custom)
@@ -36,11 +36,11 @@ public class FactionSelectionController {
     private int currentSubFactionIndex;
     private int currentSpawnIndex;
     private AbstractClientPlayerEntity player;
-    private FactionSelectionScreen screen;
+    private FactionSelectionScreenOld screen;
     public boolean mapFocusToggle = true;
     List<Disposition> dispositionsWithContent = new ArrayList<>();
     private float currentDelay;
-    public FactionSelectionController(FactionSelectionScreen screen, AbstractClientPlayerEntity player, float delay){
+    public FactionSelectionControllerOld(FactionSelectionScreenOld screen, AbstractClientPlayerEntity player, float delay){
         this.player = player;
         this.screen = screen;
         this.currentDelay = delay;
@@ -60,7 +60,7 @@ public class FactionSelectionController {
             }
         }
         if(getCurrentlySelectedFaction() == null){
-            MiddleEarth.LOGGER.logError("FactionSelectionController::No faction available!");
+            MiddleEarth.LOGGER.logError("FactionSelectionControllerOld::No faction available!");
             throw new RuntimeException();
         }
         processSpawnList(0);

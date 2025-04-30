@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.gui.faction_selection;
+package net.sevenstars.middleearth.gui.onboarding.onboarding_faction.old;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -12,11 +12,9 @@ import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.model.ModelBaker;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.BannerPatternsComponent;
-import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
@@ -42,14 +40,14 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class FactionSelectionScreen extends Screen {
+public class FactionSelectionScreenOld extends Screen {
     private static final Identifier FACTION_SELECTION_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection.png");
     private static final Identifier FACTION_SELECTION_BANNER_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
     private static final Identifier FACTION_SELECTION_BUTTONS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
     private static final Identifier MAP_SELECTION = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_map.png");
     private static final Text FACTION_SELECTION_TITLE = Text.translatable("screen.me.faction_selection_screen");
     private static final int MINIMAL_MARGIN = 4;
-    private FactionSelectionController controller;
+    private FactionSelectionControllerOld controller;
     private AbstractClientPlayerEntity player;
     private ModelPart bannerField;
     private SearchBarWidget searchBarWidget;
@@ -71,7 +69,7 @@ public class FactionSelectionScreen extends Screen {
     public ButtonWidget spawnSelectionRandomizerButton;
     public ButtonWidget spawnSelectionConfirmButton;
     private float initialDelay;
-    public FactionSelectionScreen(float delay) {
+    public FactionSelectionScreenOld(float delay) {
         super(FACTION_SELECTION_TITLE);
         this.initialDelay = delay;
         ModWidget.enableFocus(false);
@@ -79,27 +77,6 @@ public class FactionSelectionScreen extends Screen {
 
     @Override
     protected void init() {
-        assert this.client != null;
-        Entity cameraEntity = this.client.getCameraEntity();
-        if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
-            this.player = abstractClientPlayerEntity;
-            controller = new FactionSelectionController(this, player, initialDelay);
-        } else {
-            MiddleEarth.LOGGER.logError("FactionSelectionScreen::Init:Couldn't find player");
-        }
-        this.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.STANDING_BANNER_FLAG).getChild("flag");
-
-        // Initialize Buttons
-        // Search bar
-        searchBarWidget = new SearchBarWidget(controller.getSearchBarPool(player.getWorld()), controller);
-        addDrawableChild(searchBarWidget.getSearchBarToggleButton());
-        for(ButtonWidget widget : searchBarWidget.getAllButtons())
-            addDrawableChild(widget);
-
-        // NpcPreview
-        playableNpcPreviewWidget = new PlayableNpcPreviewWidget();
-
-        addFactionSelectionPanelButtons();
         mapWidget = new FactionSelectionMapWidget(controller, 114, 114);
         mapWidget.selectSpawn(controller.getCurrentSpawnIndex());
         mapWidget.updateSelectedSpawn(controller.getCurrentSpawnIndex());
@@ -107,72 +84,6 @@ public class FactionSelectionScreen extends Screen {
         addDrawableChild(searchBarWidget.getScreenClickButton());
     }
 
-    /**
-     * Add all faction selection buttons
-     * - Cycled widgets & Randomizer
-     */
-    private void addFactionSelectionPanelButtons() {
-        // Disposition
-        dispositionSelectionWidget = new CycledSelectionWidget(
-                button -> {
-                    controller.dispositionUpdate(false);
-                    updateEquipment();
-                },
-                button -> {
-                    controller.dispositionUpdate(true);
-                    updateEquipment();
-                },
-                null,
-                CycledSelectionButtonType.GOLD);
-        for(ButtonWidget button: dispositionSelectionWidget.getButtons()){
-            addDrawableChild(button);
-        }
-
-        // PlayerFactionPayload
-        factionSelectionWidget = new CycledSelectionWidget(
-                button -> {
-                    controller.factionUpdate(false);
-                    updateEquipment();
-                },
-                button -> {
-                    controller.factionUpdate(true);
-                    updateEquipment();
-                },
-                null,
-                CycledSelectionButtonType.SILVER);
-        for(ButtonWidget button: factionSelectionWidget.getButtons()){
-            addDrawableChild(button);
-        }
-
-        // Subfaction
-        subfactionSelectionWidget = new CycledSelectionWidget(
-                button -> {
-                    controller.subfactionUpdate(false);
-                    updateEquipment();
-                },
-                button -> {
-                    controller.subfactionUpdate(true);
-                    updateEquipment();
-                },
-                null,
-                CycledSelectionButtonType.NORMAL);
-
-        for(ButtonWidget button: subfactionSelectionWidget.getButtons()){
-            addDrawableChild(button);
-        }
-
-        for(ButtonWidget button: playableNpcPreviewWidget.getButtons()){
-            addDrawableChild(button);
-        }
-        // PlayerFactionPayload Randomizer
-        factionRandomizerButton = ButtonWidget.builder(
-                Text.translatable("screen.me.button.faction_randomizer"),
-                button -> {
-                    controller.randomizeFaction(5);
-                    updateEquipment();
-                }).build();
-        addDrawableChild(factionRandomizerButton);
-    }
 
     /**
      * Add all map buttons
@@ -224,39 +135,6 @@ public class FactionSelectionScreen extends Screen {
         for(ButtonWidget button: raceCycledSelection.getButtons()){
             addDrawableChild(button);
         }
-
-        // Spawn Point Selection
-        spawnPointCycledSelection = new CycledSelectionWidget(
-                button -> {
-                    controller.spawnIndexUpdate(false);
-                },
-                button -> {
-                    controller.spawnIndexUpdate(true);
-                },
-                null,
-                CycledSelectionButtonType.NORMAL);
-
-        for(ButtonWidget button: spawnPointCycledSelection.getButtons()){
-            addDrawableChild(button);
-        }
-
-        // Random spawn selection
-        spawnSelectionRandomizerButton = ButtonWidget.builder(
-                Text.translatable("screen.me.button.spawn_randomizer"),
-                button -> {
-                    controller.randomizeSpawn(5);
-                }).build();
-        addDrawableChild(spawnSelectionRandomizerButton);
-
-        // Confirm spawn selection
-        spawnSelectionConfirmButton = ButtonWidget.builder(
-                Text.translatable("screen.me.button.confirm"),
-                button -> {
-                    controller.confirmSpawnSelection(player);
-                }).build();
-        addDrawableChild(spawnSelectionConfirmButton);
-        if(!controller.canConfirm())
-            spawnSelectionConfirmButton.active = false;
     }
 
     public void updateEquipment(){

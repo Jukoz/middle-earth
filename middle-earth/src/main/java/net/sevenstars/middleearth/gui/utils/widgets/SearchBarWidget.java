@@ -1,21 +1,20 @@
 package net.sevenstars.middleearth.gui.utils.widgets;
 
-import net.minecraft.client.render.RenderLayer;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.faction_selection.FactionSelectionController;
-import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.datas.FactionType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringHelper;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
+import net.sevenstars.middleearth.resources.datas.FactionType;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import org.joml.Vector2d;
 
 import java.util.ArrayList;
@@ -37,7 +36,6 @@ public class SearchBarWidget extends ModWidget {
     public ButtonWidget screenClick;
     HashMap<Identifier, Text> pool;
     List<ButtonWidget> buttons;
-    FactionSelectionController controller;
     private final int maximumShownLength;
     private int currentAmount;
     private int currentlyShownEntries;
@@ -48,26 +46,23 @@ public class SearchBarWidget extends ModWidget {
 
     int endY = 0;
 
-    public SearchBarWidget(HashMap<Identifier, Text> newPool, FactionSelectionController controller) {
-        this.controller = controller;
+    public SearchBarWidget(int maxAmount, ButtonWidget.PressAction action) {
         this.maximumShownLength = SEARCH_BAR_PANEL_X - 14 - MARGIN;
         searchBarToggle = false;
         searchResultToggle = false;
         setButtons();
-        pool = newPool;
+        pool = new HashMap<>();
         buttons = new ArrayList<>();
-        for (Identifier id : newPool.keySet()) {
-            buttons.add(
-                    ButtonWidget.builder(
-                            newPool.get(id), x -> onPress(id)
-                    ).build());
+
+        for(int i = 0; i < maxAmount; i++){
+            buttons.add(ButtonWidget.builder(Text.of("N/A"), action).build());
             buttons.getLast().active = false;
         }
         textRenderer = MinecraftClient.getInstance().textRenderer;
     }
 
-    private void onPress(Identifier id) {
-        controller.setFactionId(id);
+    private void onPress(int index) {
+
     }
 
     private void setButtons() {

@@ -63,7 +63,7 @@ public class Faction {
     private List<Identifier> subFactions = null;
     private List<String> joinCommands;
     private List<String> leaveCommands;
-    public List<Race> races = null;
+    private List<Race> races = null;
     private List<Text> descriptions = null;
     private Text raceList = null;
 
@@ -88,7 +88,7 @@ public class Faction {
             NbtList list = npcs.get().getList("ranks").get();
             for(int i = 0; i < list.size(); i++){
                 NbtCompound rankCompound = list.getCompound(i).get();
-                String rankName = rankCompound.getString("rank").get().toString().toUpperCase();
+                String rankName = rankCompound.getString("rank").get().toUpperCase();
                 try{
                     NpcRank rank = NpcRank.valueOf(rankName);
                     NbtList npcDataList = rankCompound.getList("pool").get();
@@ -103,7 +103,7 @@ public class Faction {
             }
         }
 
-        this.bannerData = (bannerDataNbt.isEmpty()) ? null : new BannerData(bannerDataNbt);;
+        this.bannerData = (bannerDataNbt.isEmpty()) ? null : new BannerData(bannerDataNbt);
         this.spawnDataHandler = new SpawnDataHandler(spawnsNbt);
 
         this.joinCommands = new ArrayList<>();

@@ -1,12 +1,12 @@
 package net.sevenstars.middleearth.gui.utils.widgets.text;
 
-import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
-import net.sevenstars.middleearth.utils.resources.FileUtils;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
+import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
+import net.sevenstars.middleearth.utils.resources.FileUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +22,7 @@ public class TextBlockWidget extends ModWidget {
     private final boolean hasNoSpace;
 
     private List<List<Word>> wordsPerLine = new ArrayList<>();
+    private List<Text> rawTexts = new ArrayList<>();
 
     public TextBlockWidget(int startX, int startY, int width, int height){
         this.startX = startX;
@@ -65,6 +66,7 @@ public class TextBlockWidget extends ModWidget {
     public List<Text> setText(List<Text> texts){
         if(texts == null)
             return texts;
+        rawTexts = texts;
         wordsPerLine.clear();
         List<Text> textOverflow = new ArrayList<>();
         int currentHeight = 0;
@@ -227,5 +229,9 @@ public class TextBlockWidget extends ModWidget {
             }
         }
         return words;
+    }
+
+    public List<Text> getValue() {
+        return rawTexts;
     }
 }
