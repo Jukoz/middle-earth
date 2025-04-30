@@ -194,36 +194,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         });
 
         ModelLoadingPlugin.register(pluginContext -> {
-
-            ExtraModelKey<ItemModel> key = ExtraModelKey.create(() -> "plate_apple");
-            UnbakedExtraModel<ItemModel> model = new UnbakedExtraModel<>() {
-                @Override
-                public ItemModel bake(Baker baker) {
-                    BakedSimpleModel bakedModel = baker.getModel(Identifier.of(MiddleEarth.MOD_ID, "item/plate_apple"));
-                    ItemModel itemModel = (ItemModel) bakedModel;
-                    return itemModel;
-                }
-
-                @Override
-                public void resolve(Resolver resolver) {
-
-                }
-            };
-
-            //pluginContext.addModel(key, model);
-
             pluginContext.addModel(ExtraModelKey.create(() -> "plate_apple"), SimpleUnbakedExtraModel.blockStateModel(Identifier.of(MiddleEarth.MOD_ID, "item/plate_apple")));
-
-            //pluginContext.modifyItemModelBeforeBake().register(new ModelModifier.BeforeBakeItem() {
-            //    @Override
-            //    public ItemModel.Unbaked modifyModelBeforeBake(ItemModel.Unbaked unbaked, Context context) {
-            //        int t = 2;
-            //        if(context.itemId().equals(Identifier.ofVanilla("item/apple"))) {
-            //            return new ItemModel().
-            //        }
-            //        return unbaked;
-            //    }
-            //});
         });
 
         //TODO to fix ? mixin also broken so doesn't do much for now
