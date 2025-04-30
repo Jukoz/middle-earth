@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"1": "me:block/pole",
 		"0": "me:block/crockpot_hanging",
+		"1": "me:block/pole",
 		"particle": "me:block/crockpot_hanging"
 	},
 	"elements": [
@@ -119,12 +119,12 @@
 			"to": [5, 6, 11],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, -6, 8]},
 			"faces": {
-				"north": {"uv": [3, 8.75, 3, 10.25], "texture": "#0"},
-				"east": {"uv": [1.5, 8.75, 3, 10.25], "texture": "#0"},
-				"south": {"uv": [4.5, 8.75, 4.5, 10.25], "texture": "#0"},
-				"west": {"uv": [3, 8.75, 4.5, 10.25], "texture": "#0"},
-				"up": {"uv": [3, 8.75, 3, 7.25], "texture": "#0"},
-				"down": {"uv": [3, 7.25, 3, 8.75], "texture": "#0"}
+				"north": {"uv": [3, 7.25, 3, 8.75], "texture": "#0"},
+				"east": {"uv": [1.5, 7.25, 3, 8.75], "texture": "#0"},
+				"south": {"uv": [4.5, 7.25, 4.5, 8.75], "texture": "#0"},
+				"west": {"uv": [3, 7.25, 4.5, 8.75], "texture": "#0"},
+				"up": {"uv": [3, 7.25, 3, 5.75], "texture": "#0"},
+				"down": {"uv": [3, 5.75, 3, 7.25], "texture": "#0"}
 			}
 		},
 		{
@@ -133,12 +133,12 @@
 			"to": [11, 6, 11],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, -6, 8]},
 			"faces": {
-				"north": {"uv": [3, 8.75, 3, 10.25], "texture": "#0"},
-				"east": {"uv": [1.5, 8.75, 3, 10.25], "texture": "#0"},
-				"south": {"uv": [4.5, 8.75, 4.5, 10.25], "texture": "#0"},
-				"west": {"uv": [3, 8.75, 4.5, 10.25], "texture": "#0"},
-				"up": {"uv": [3, 8.75, 3, 7.25], "texture": "#0"},
-				"down": {"uv": [3, 7.25, 3, 8.75], "texture": "#0"}
+				"north": {"uv": [3, 7.25, 3, 8.75], "texture": "#0"},
+				"east": {"uv": [1.5, 7.25, 3, 8.75], "texture": "#0"},
+				"south": {"uv": [4.5, 7.25, 4.5, 8.75], "texture": "#0"},
+				"west": {"uv": [3, 7.25, 4.5, 8.75], "texture": "#0"},
+				"up": {"uv": [3, 7.25, 3, 5.75], "texture": "#0"},
+				"down": {"uv": [3, 5.75, 3, 7.25], "texture": "#0"}
 			}
 		},
 		{

@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import org.jetbrains.annotations.Nullable;
 
 public class CrockpotBlock extends Block {
@@ -41,7 +42,7 @@ public class CrockpotBlock extends Block {
         BlockPos blockPos = ctx.getBlockPos();
         BlockPos bottomBlockPos = blockPos.down();
         BlockState blockState = blockView.getBlockState(bottomBlockPos);
-        if(blockState.isIn(BlockTags.CAMPFIRES)) {
+        if(blockState.isIn(BlockTags.CAMPFIRES) || blockState.isOf(ModDecorativeBlocks.BONFIRE)) {
             return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(HANGING, true);
         }
         return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite());
