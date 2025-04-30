@@ -53,7 +53,7 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
         double rotOffset = (((seed >> 5 & 15L) / 15.0) - 0.5) * 35;
 
         if(!is3D) {
-            matrices.translate(0.5f + xOffset, 0.08f, 0.5f + zOffset);
+            matrices.translate(0.5f + xOffset, 0.085f, 0.5f + zOffset);
             matrices.scale(0.65f, 0.65f, 0.65f);
             matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) Math.toRadians(90)));
             switch (direction) {

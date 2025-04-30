@@ -23,6 +23,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
 
             add(ModDecorativeBlocks.TAPPER);
+            add(ModDecorativeBlocks.CERAMIC_PLATE);
+            add(ModDecorativeBlocks.PLATE);
 
             add(ModDecorativeBlocks.BROWN_JUG);
             add(ModDecorativeBlocks.GRAY_POT);

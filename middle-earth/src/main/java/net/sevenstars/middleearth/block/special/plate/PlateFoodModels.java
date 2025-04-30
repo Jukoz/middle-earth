@@ -15,8 +15,20 @@ public class PlateFoodModels {
         return itemIdentifier;
     }
 
-    static {
+    public static void addVanillaModel(String name) {
+        plateModels.put(Identifier.ofVanilla(name), Identifier.of(MiddleEarth.MOD_ID, "plate_" + name));
+    }
+    public static void addModel(String name) {
+        plateModels.put(Identifier.of(MiddleEarth.MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, "plate_" + name));
+    }
+
+    private static void initMap() {
         plateModels = new HashMap<>();
-        plateModels.put(Identifier.ofVanilla("apple"), Identifier.of(MiddleEarth.MOD_ID, "plate_apple"));
+        addVanillaModel("apple");
+        addModel("meat_skewer");
+    }
+
+    static {
+        initMap();
     }
 }
