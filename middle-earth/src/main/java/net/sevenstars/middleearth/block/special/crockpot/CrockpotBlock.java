@@ -6,17 +6,32 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.type.FoodComponent;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
+import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.special.plate.PlateBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 public class CrockpotBlock extends BlockWithEntity {
@@ -31,6 +46,23 @@ public class CrockpotBlock extends BlockWithEntity {
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return CrockpotBlock.createCodec(CrockpotBlock::new);
+    }
+
+    @Override
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
+        if(blockEntity instanceof CrockpotBlockEntity crockpotBlockEntity) {
+            boolean filled = crockpotBlockEntity.fill(stack);
+            if(filled) {
+                ItemStack remainder = stack.getRecipeRemainder();
+                player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, remainder));
+                player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
+                world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.1F);
+                world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
+                return ActionResult.SUCCESS;
+            }
+        }
+        return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
     }
 
     @Override

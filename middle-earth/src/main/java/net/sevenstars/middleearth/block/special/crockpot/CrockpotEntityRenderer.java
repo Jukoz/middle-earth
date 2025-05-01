@@ -16,6 +16,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.system.MathUtil;
 
@@ -36,6 +37,11 @@ public class CrockpotEntityRenderer implements BlockEntityRenderer<CrockpotBlock
         int blue = color & 255;
 
         matrices.push();
+        if(!entity.isHanging()) {
+            matrices.translate(0.5f, 0, 0.5f);
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(45)));
+            matrices.translate(-0.5f, 0, -0.5f);
+        }
         matrices.translate(0, 0.375f, 0);
 
         VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getTranslucentMovingBlock());

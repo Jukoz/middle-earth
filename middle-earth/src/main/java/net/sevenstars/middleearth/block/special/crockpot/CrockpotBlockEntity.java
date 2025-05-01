@@ -7,6 +7,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -21,6 +22,24 @@ public class CrockpotBlockEntity extends BlockEntity implements SidedInventory {
 
     public CrockpotBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CROCKPOT, pos, state);
+    }
+
+    public boolean isHanging() {
+        if(world != null) {
+            BlockState blockState = world.getBlockState(getPos());
+            return blockState.get(CrockpotBlock.HANGING);
+        }
+        return false;
+    }
+
+    public boolean fill(ItemStack itemStack) {
+        if(getStack(OUTPUT_SLOT).isEmpty()) {
+            if(itemStack.getItem() == Items.WATER_BUCKET) {
+                setStack(OUTPUT_SLOT, itemStack);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
