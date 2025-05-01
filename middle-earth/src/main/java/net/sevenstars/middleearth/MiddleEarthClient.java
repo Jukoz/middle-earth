@@ -21,6 +21,7 @@ import net.minecraft.world.biome.GrassColors;
 import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.crockpot.CrockpotBlockEntity;
+import net.sevenstars.middleearth.block.special.crockpot.CrockpotEntityRenderer;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
 import net.sevenstars.middleearth.block.special.forge.ForgeEntityRenderer;
 import net.sevenstars.middleearth.block.special.plate.PlateEntityRenderer;
@@ -133,6 +134,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(ModBlockEntities.FORGE, ForgeEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.BELLOWS, BellowsBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.CROCKPOT, CrockpotEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.PLATE, PlateEntityRenderer::new);
 
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_HELMET, CustomHelmetModel::getTexturedModelData);
