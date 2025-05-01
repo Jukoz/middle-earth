@@ -61,7 +61,10 @@ public class MiddleEarthRaces {
                                 MiddleEarthNpcTextureMaterials.Skin.PALE,
                                 MiddleEarthNpcTextureMaterials.Skin.TAN,
                                 MiddleEarthNpcTextureMaterials.Skin.OLIVE,
-                                MiddleEarthNpcTextureMaterials.Skin.NEUTRAL
+                                MiddleEarthNpcTextureMaterials.Skin.NEUTRAL,
+                                MiddleEarthNpcTextureMaterials.Skin.GREENISH,
+                                MiddleEarthNpcTextureMaterials.Skin.TAN_DESATURATED,
+                                MiddleEarthNpcTextureMaterials.Skin.BROWN
                         ))
                         .withPatterns(NpcTextureType.EYE, List.of(
                                 MiddleEarthNpcTexturePatterns.Eye.COMMON

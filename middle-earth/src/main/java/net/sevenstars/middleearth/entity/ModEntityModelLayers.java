@@ -3,6 +3,10 @@ package net.sevenstars.middleearth.entity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.minecraft.client.model.Dilation;
+import net.minecraft.client.model.TexturedModelData;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
@@ -23,17 +27,14 @@ import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseModel;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderModel;
 import net.sevenstars.middleearth.entity.swan.SwanModel;
-import net.minecraft.client.model.Dilation;
-import net.minecraft.client.model.TexturedModelData;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.util.Identifier;
 
 @Environment(value= EnvType.CLIENT)
 public final class ModEntityModelLayers {
     private static final String MAIN = "main";
     // region NPC
     public static final EntityModelLayer NPC = registerEntityModelLayer("npc", NpcEntityModel.getTexturedModelData(Dilation.NONE));
-
+    public static final EntityModelLayer NPC_INNER_ARMOR = registerEntityModelLayer("npc", "inner_armor", NpcEntityModel.getTexturedModelData(Dilation.NONE));
+    public static final EntityModelLayer NPC_OUTER_ARMOR =  registerEntityModelLayer("npc", "outer_armor", NpcEntityModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer NPC_ENTITY_HAIR = registerEntityModelLayer("npc_entity_hair",  HairModel.getTexturedModelData());
     public static final EntityModelLayer NPC_ENTITY_EAR = registerEntityModelLayer("npc_entity_ear",  EarModel.getTexturedModelData());
     public static final EntityModelLayer NPC_ENTITY_NOSE= registerEntityModelLayer("npc_entity_nose",  NoseModel.getTexturedModelData());
@@ -73,6 +74,15 @@ public final class ModEntityModelLayers {
      * **/
     private static EntityModelLayer registerEntityModelLayer(String registryName, TexturedModelData modelData) {
         EntityModelLayer entityModelLayer = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, registryName), MAIN);
+        EntityModelLayerRegistry.registerModelLayer(entityModelLayer, () -> modelData);
+        return entityModelLayer;
+    }
+
+    /**
+     * The modelData is used to know the UV map to use for the 3D model
+     * **/
+    private static EntityModelLayer registerEntityModelLayer(String id, String layer, TexturedModelData modelData) {
+        EntityModelLayer entityModelLayer = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, id), layer);
         EntityModelLayerRegistry.registerModelLayer(entityModelLayer, () -> modelData);
         return entityModelLayer;
     }

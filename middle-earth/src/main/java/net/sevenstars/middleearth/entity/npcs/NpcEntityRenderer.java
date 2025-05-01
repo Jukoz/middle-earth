@@ -9,9 +9,9 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.feature.ElytraFeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
+import net.minecraft.client.render.entity.feature.*;
+import net.minecraft.client.render.entity.model.ArmorEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
@@ -40,6 +40,9 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
         this.features.removeIf(x -> x.getClass() == ElytraFeatureRenderer.class);
         this.features.removeIf(x -> x.getClass() == HeadFeatureRenderer.class);
+
+
+        this.addFeature(new ArmorFeatureRenderer(this, new ArmorEntityModel(context.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new ArmorEntityModel(context.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), context.getEquipmentRenderer()));
 
         this.addFeature(new HairFeatureRenderer(this, context.getEntityModels()));
         this.addFeature(new EarFeatureRenderer(this, context.getEntityModels()));
@@ -79,7 +82,10 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.beardAddonTextureIdentifier = npcTextureData.getBeardAddonTexture();
         npcEntityRenderState.eyebrowTextureIdentifier = npcTextureData.getEyebrowTexture();
         npcEntityRenderState.clothingTextureIdentifier = npcTextureData.getClothingTexture();
+
     }
+
+
 
     // endregion
 
@@ -90,7 +96,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     protected RenderLayer getRenderLayer(NpcEntityRenderState state, boolean showBody, boolean translucent, boolean showOutline) {
         Identifier identifier = this.getTexture(state);
         if (translucent) {
-            return RenderLayer.getItemEntityTranslucentCull(identifier);
+            return RenderLayer.getEntityTranslucent(identifier);
         } else if (showBody) {
             return this.model.getLayer(identifier);
         } else {

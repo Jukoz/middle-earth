@@ -1,17 +1,14 @@
 package net.sevenstars.middleearth.entity.npcs;
 
 import com.mojang.serialization.DataResult;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
@@ -25,6 +22,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.npcs.data.NpcData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.item.ModEquipmentItems;
 import net.sevenstars.middleearth.resources.MiddleEarthFactions;
 import net.sevenstars.middleearth.resources.MiddleEarthNpcTexturePatterns;
 import net.sevenstars.middleearth.resources.MiddleEarthRaces;
@@ -41,7 +39,7 @@ import java.util.Optional;
 import java.util.Random;
 
 
-public class NpcEntity extends PassiveEntity {
+public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     // Data to use
     private static final TrackedData<NpcData> DATA;
     private static final TrackedData<NpcTextureData> TEXTURE_DATA;
@@ -69,8 +67,17 @@ public class NpcEntity extends PassiveEntity {
 
         race.applyNpcAttributes(this);
 
+        this.equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ORCISH_CAPE));
+        this.equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.TRAVELLING_BOOTS));
+
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
+
+    @Override
+    protected void initEquipment(net.minecraft.util.math.random.Random random, LocalDifficulty localDifficulty) {
+        // TODO : add stuff here
+    }
+
     private NpcData generateNpcData(DynamicRegistryManager manager) {
         var factions = List.of(
                 MiddleEarthFactions.GONDOR,
@@ -164,12 +171,6 @@ public class NpcEntity extends PassiveEntity {
     }
 
 
-    @Override
-    protected void initGoals() {
-        super.initGoals();
-        this.goalSelector.add(0, new LookAtEntityGoal(this, PlayerEntity.class, 15.0f));
-    }
-
     // region NBT & DataTrackers
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
@@ -181,7 +182,6 @@ public class NpcEntity extends PassiveEntity {
 
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
-
         DataResult<NbtElement> npcData = NpcData.CODEC.encodeStart(NbtOps.INSTANCE, this.getNpcData());
         if(npcData.isSuccess()){
             nbt.put("NpcData", npcData.getOrThrow());
@@ -209,7 +209,6 @@ public class NpcEntity extends PassiveEntity {
             }
         }
     }
-
 
     public void setNpcData(NpcData npcData) {
         this.dataTracker.set(DATA, npcData);
@@ -250,5 +249,10 @@ public class NpcEntity extends PassiveEntity {
     @Override
     public boolean canBeLeashed() {
         return false;
+    }
+
+    @Override
+    public void setEquipmentDropChance(EquipmentSlot slot, float dropChance) {
+
     }
 }

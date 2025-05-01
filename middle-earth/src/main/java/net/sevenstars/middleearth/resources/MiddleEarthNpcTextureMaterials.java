@@ -23,6 +23,9 @@ public class MiddleEarthNpcTextureMaterials {
         public final static RegistryKey<NpcTextureMaterial> TAN = of("tan", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> NEUTRAL = of("neutral", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> OLIVE = of("olive", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> BROWN = of("brown", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> GREENISH = of("greenish", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> TAN_DESATURATED = of("tan_desaturated", NpcTextureType.SKIN);
     }
     public record Eye() {
         public final static RegistryKey<NpcTextureMaterial> BLACK = of("black", NpcTextureType.EYE);

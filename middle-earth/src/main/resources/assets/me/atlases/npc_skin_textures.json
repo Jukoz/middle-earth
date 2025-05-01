@@ -16,7 +16,10 @@
                 "pale": "me:npc_skin_textures/color_palettes/pale",
                 "tan": "me:npc_skin_textures/color_palettes/tan",
                 "neutral": "me:npc_skin_textures/color_palettes/neutral",
-                "olive": "me:npc_skin_textures/color_palettes/olive"
+                "olive": "me:npc_skin_textures/color_palettes/olive",
+                "brown": "me:npc_skin_textures/color_palettes/brown",
+                "greenish": "me:npc_skin_textures/color_palettes/greenish",
+                "tan_desaturated": "me:npc_skin_textures/color_palettes/tan_desaturated"
             }
         }
     ]
