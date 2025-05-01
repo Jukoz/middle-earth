@@ -21,7 +21,7 @@ import org.lwjgl.system.MathUtil;
 
 @Environment(value= EnvType.CLIENT)
 public class CrockpotEntityRenderer implements BlockEntityRenderer<CrockpotBlockEntity> {
-    private static final Identifier waterTexture = Identifier.ofVanilla("textures/block/water_still.png");
+    private static final float SIZE_FACTOR = 0.25f;
     private static SpriteIdentifier waterSpriteId = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, Identifier.ofVanilla("block/water_still"));
 
     public CrockpotEntityRenderer(BlockEntityRendererFactory.Context context) {
@@ -34,15 +34,12 @@ public class CrockpotEntityRenderer implements BlockEntityRenderer<CrockpotBlock
         int red = color >> 16 & 255;
         int green = color >> 8 & 255;
         int blue = color & 255;
-        int alpha = 200;
 
         matrices.push();
-        matrices.translate(0, 0.3f, 0);
+        matrices.translate(0, 0.375f, 0);
 
         VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getTranslucentMovingBlock());
         matrices.peek();
-
-        float sizeFactor = 0.25f;
 
         Sprite waterSprite = waterSpriteId.getSprite();
 
@@ -54,16 +51,16 @@ public class CrockpotEntityRenderer implements BlockEntityRenderer<CrockpotBlock
         float maxV = waterSprite.getMaxV();
 
         float tempMin = minU;
-        minU = MathHelper.lerp(sizeFactor, minU, maxU);
-        maxU = MathHelper.lerp(1 - sizeFactor, tempMin, maxU);
+        minU = MathHelper.lerp(SIZE_FACTOR, minU, maxU);
+        maxU = MathHelper.lerp(1 - SIZE_FACTOR, tempMin, maxU);
         tempMin = minV;
-        minV = MathHelper.lerp(sizeFactor, minV, maxV);
-        maxV = MathHelper.lerp(1 - sizeFactor, tempMin, maxV);
+        minV = MathHelper.lerp(SIZE_FACTOR, minV, maxV);
+        maxV = MathHelper.lerp(1 - SIZE_FACTOR, tempMin, maxV);
 
-        consumer.vertex(entry, sizeFactor, 0, sizeFactor)               .color(50, 80, 240, 190).texture(minU, minV).light(light).overlay(overlay).normal(1, 1, 1);
-        consumer.vertex(entry, sizeFactor, 0, 1 - sizeFactor)  .color(50, 80, 190, 190).texture(minU, maxV).light(light).overlay(overlay).normal(1, 1, 1);
-        consumer.vertex(entry, 1 - sizeFactor, 0, 1 - sizeFactor)        .color(50, 80, 240, 190).texture(maxU, maxV).light(light).overlay(overlay).normal(1, 1, 1);
-        consumer.vertex(entry, 1 - sizeFactor, 0, sizeFactor)               .color(50, 80, 240, 190).texture(maxU, minV).light(light).overlay(overlay).normal(1, 1, 1);
+        consumer.vertex(entry, SIZE_FACTOR, 0, SIZE_FACTOR)               .color(50, 80, 240, 190).texture(minU, minV).light(light).overlay(overlay).normal(1, 1, 1);
+        consumer.vertex(entry, SIZE_FACTOR, 0, 1 - SIZE_FACTOR)  .color(50, 80, 190, 190).texture(minU, maxV).light(light).overlay(overlay).normal(1, 1, 1);
+        consumer.vertex(entry, 1 - SIZE_FACTOR, 0, 1 - SIZE_FACTOR)        .color(50, 80, 240, 190).texture(maxU, maxV).light(light).overlay(overlay).normal(1, 1, 1);
+        consumer.vertex(entry, 1 - SIZE_FACTOR, 0, SIZE_FACTOR)               .color(50, 80, 240, 190).texture(maxU, minV).light(light).overlay(overlay).normal(1, 1, 1);
 
         matrices.pop();
     }
