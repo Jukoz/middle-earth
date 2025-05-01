@@ -12,6 +12,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.block.ModBlockEntities;
+import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import org.jetbrains.annotations.Nullable;
 
 public class CrockpotBlockEntity extends BlockEntity implements SidedInventory {
@@ -27,9 +28,14 @@ public class CrockpotBlockEntity extends BlockEntity implements SidedInventory {
     public boolean isHanging() {
         if(world != null) {
             BlockState blockState = world.getBlockState(getPos());
+            if(blockState == null || blockState.isAir()) return false;
             return blockState.get(CrockpotBlock.HANGING);
         }
         return false;
+    }
+
+    public boolean hasOutput() {
+        return !getStack(OUTPUT_SLOT).isEmpty();
     }
 
     public boolean fill(ItemStack itemStack) {

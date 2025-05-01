@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -55,7 +56,7 @@ public class CrockpotBlock extends BlockWithEntity {
             boolean filled = crockpotBlockEntity.fill(stack);
             if(filled) {
                 ItemStack remainder = stack.getRecipeRemainder();
-                player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, remainder));
+                player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, remainder).copy());
                 player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
                 world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.1F);
                 world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
