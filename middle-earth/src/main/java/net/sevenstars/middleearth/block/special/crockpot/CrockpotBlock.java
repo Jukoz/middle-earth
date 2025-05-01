@@ -1,8 +1,11 @@
 package net.sevenstars.middleearth.block.special.crockpot;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.state.StateManager;
@@ -16,13 +19,18 @@ import net.minecraft.world.BlockView;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import org.jetbrains.annotations.Nullable;
 
-public class CrockpotBlock extends Block {
+public class CrockpotBlock extends BlockWithEntity {
     public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty HANGING = BooleanProperty.of("hanging");
 
     public CrockpotBlock(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState().with(FACING, Direction.NORTH).with(HANGING, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CrockpotBlock.createCodec(CrockpotBlock::new);
     }
 
     @Override
@@ -46,5 +54,11 @@ public class CrockpotBlock extends Block {
             return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(HANGING, true);
         }
         return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new CrockpotBlockEntity(pos, state);
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlockEntity;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntity;
+import net.sevenstars.middleearth.block.special.crockpot.CrockpotBlockEntity;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import net.sevenstars.middleearth.block.special.plate.PlateBlockEntity;
@@ -32,6 +33,8 @@ public class ModBlockEntities {
             ModDecorativeBlocks.REINFORCED_CHEST);
     public static BlockEntityType<BellowsBlockEntity> BELLOWS = register("bellows", BellowsBlockEntity::new,
             ModDecorativeBlocks.BELLOWS);
+    public static BlockEntityType<CrockpotBlockEntity> CROCKPOT = register("crockpot", CrockpotBlockEntity::new,
+            ModDecorativeBlocks.CROCKPOT);
     public static BlockEntityType<PlateBlockEntity> PLATE = register("plate", PlateBlockEntity::new,
             ModDecorativeBlocks.SILVER_PLATE, ModDecorativeBlocks.CERAMIC_PLATE);
     public static BlockEntityType<WoodPileBlockEntity> WOOD_PILE = register("wood_pile", WoodPileBlockEntity::new,
