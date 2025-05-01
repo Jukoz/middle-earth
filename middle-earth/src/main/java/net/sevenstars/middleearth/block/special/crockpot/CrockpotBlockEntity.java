@@ -1,28 +1,64 @@
 package net.sevenstars.middleearth.block.special.crockpot;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlockEntities;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class CrockpotBlockEntity extends BlockEntity implements SidedInventory {
+public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
+    private static final String ID = "crockpot";
     public static final int OUTPUT_SLOT = 4;
     private final DefaultedList<ItemStack> inventory =
             DefaultedList.ofSize(5, ItemStack.EMPTY);
+    protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
 
     public CrockpotBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CROCKPOT, pos, state);
+        this.propertyDelegate = new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch (index) {
+                    case 0 -> CrockpotBlockEntity.this.progress;
+                    default -> throw new IllegalStateException("Unexpected value: " + index);
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch (index) {
+                    case 0 -> CrockpotBlockEntity.this.progress = value;
+                }
+            }
+
+            @Override
+            public int size() {
+                return 1;
+            }
+        };
+    }
+
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+        return new CrockpotScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
     public boolean isHanging() {
@@ -108,5 +144,15 @@ public class CrockpotBlockEntity extends BlockEntity implements SidedInventory {
     @Override
     public void clear() {
         this.inventory.clear();
+    }
+
+    @Override
+    public Object getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
+        return pos;
+    }
+
+    @Override
+    public Text getDisplayName() {
+        return Text.translatable("screen." + MiddleEarth.MOD_ID + "." + ID);
     }
 }
