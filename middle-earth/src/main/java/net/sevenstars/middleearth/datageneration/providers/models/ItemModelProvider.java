@@ -81,10 +81,6 @@ public class ItemModelProvider extends FabricModelProvider {
             itemModelGenerator.register(item, Models.HANDHELD);
         }
 
-        for (Item item : SimpleDoorInventoryModel.items) {
-            itemModelGenerator.register(item, Models.GENERATED);
-        }
-
         for (Item item : SimpleBigItemModel.items) {
             registerWeaponBigItemModels(itemModelGenerator, item);
         }
@@ -131,24 +127,6 @@ public class ItemModelProvider extends FabricModelProvider {
         SimpleDyeableItemModel.items.forEach(item -> {
             registerDyeableArmor(item, itemModelGenerator);
         });
-
-        // CLUSTERS
-        itemModelGenerator.register(ModBlocks.QUARTZ_CLUSTER.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.SMALL_QUARTZ_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.MEDIUM_QUARTZ_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.LARGE_QUARTZ_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.RED_AGATE_CLUSTER.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.SMALL_RED_AGATE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.MEDIUM_RED_AGATE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.LARGE_RED_AGATE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.CITRINE_CLUSTER.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.SMALL_CITRINE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.MEDIUM_CITRINE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.LARGE_CITRINE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.GLOWSTONE_CLUSTER.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.SMALL_GLOWSTONE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.MEDIUM_GLOWSTONE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.LARGE_GLOWSTONE_BUD.asItem(), Models.GENERATED);
 
         registerPalettedItem(ModResourceItems.ROD, itemModelGenerator);
         registerPalettedItem(ModResourceItems.LARGE_ROD, itemModelGenerator);

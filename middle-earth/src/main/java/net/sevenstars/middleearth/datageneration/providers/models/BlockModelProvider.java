@@ -516,7 +516,7 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimplePaneModel.Pane pane : SimplePaneModel.panes) {
-            registerGlassPane(blockStateModelGenerator, pane.glass(), pane.pane());
+            registerGlassAndPane(blockStateModelGenerator, pane.glass(), pane.pane());
         }
 
         for(Block block : SimpleWoodStoolModel.stools){
@@ -1088,7 +1088,7 @@ public class BlockModelProvider extends FabricModelProvider {
     }
 
 
-    public final void registerGlassPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {
+    public final void registerGlassAndPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {
         blockStateModelGenerator.registerSimpleCubeAll(glass);
         TextureMap textureMap;
         if (Registries.BLOCK.getId(glassPane).getPath().contains("lead_glass")){
@@ -1102,6 +1102,7 @@ public class BlockModelProvider extends FabricModelProvider {
         WeightedVariant weightedVariant4 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_NOSIDE.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector));
         WeightedVariant weightedVariant5 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_NOSIDE_ALT.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector));
         Item item = glassPane.asItem();
+
         blockStateModelGenerator.registerItemModel(item, blockStateModelGenerator.uploadBlockItemModel(item, glass));
         blockStateModelGenerator.blockStateCollector.accept(MultipartBlockModelDefinitionCreator.create(glassPane).with(weightedVariant).with(createMultipartConditionBuilder().put(Properties.NORTH, true), weightedVariant2).with(createMultipartConditionBuilder().put(Properties.EAST, true), weightedVariant2.apply(ROTATE_Y_90)).with(createMultipartConditionBuilder().put(Properties.SOUTH, true), weightedVariant3).with(createMultipartConditionBuilder().put(Properties.WEST, true), weightedVariant3.apply(ROTATE_Y_90)).with(createMultipartConditionBuilder().put(Properties.NORTH, false), weightedVariant4).with(createMultipartConditionBuilder().put(Properties.EAST, false), weightedVariant5).with(createMultipartConditionBuilder().put(Properties.SOUTH, false), weightedVariant5.apply(ROTATE_Y_90)).with(createMultipartConditionBuilder().put(Properties.WEST, false), weightedVariant4.apply(ROTATE_Y_270)));
     }
