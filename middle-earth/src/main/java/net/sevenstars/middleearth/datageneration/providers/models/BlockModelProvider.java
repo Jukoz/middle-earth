@@ -259,11 +259,14 @@ public class BlockModelProvider extends FabricModelProvider {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             Block wall = block.wall();
 
-            Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+
+            blockStateModelGenerator.registerParentedItemModel(wall,inventory);
 
             WeightedVariant post = createWeightedVariant(Models.TEMPLATE_WALL_POST.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant low = createWeightedVariant(Models.TEMPLATE_WALL_SIDE.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant tall = createWeightedVariant(Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
                     .createWallBlockState(wall, post, low, tall));
@@ -279,11 +282,14 @@ public class BlockModelProvider extends FabricModelProvider {
             }
             Block wall = block.wall();
 
-            Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+
+            blockStateModelGenerator.registerParentedItemModel(wall,inventory);
 
             WeightedVariant post = createWeightedVariant(Models.TEMPLATE_WALL_POST.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant low = createWeightedVariant(Models.TEMPLATE_WALL_SIDE.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant tall = createWeightedVariant(Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
                     .createWallBlockState(wall, post, low, tall));

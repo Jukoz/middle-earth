@@ -27,6 +27,8 @@ import net.sevenstars.middleearth.datageneration.content.CustomItemModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.item.ModResourceItems;
 import net.sevenstars.middleearth.item.ModWeaponItems;
+import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
+import net.sevenstars.middleearth.item.utils.armor.ModArmorMaterials;
 
 import java.util.*;
 
@@ -58,20 +60,23 @@ public class ItemModelProvider extends FabricModelProvider {
             new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.DIAMOND, ArmorTrimMaterials.DIAMOND),
             new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.LAPIS, ArmorTrimMaterials.LAPIS),
             new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.AMETHYST, ArmorTrimMaterials.AMETHYST),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.RESIN, ArmorTrimMaterials.RESIN));
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.RESIN, ArmorTrimMaterials.RESIN),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("jade"), ModSmithingTrimMaterials.JADE),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("lead"), ModSmithingTrimMaterials.LEAD),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("tin"), ModSmithingTrimMaterials.TIN),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("bronze"), ModSmithingTrimMaterials.BRONZE),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("crude"), ModSmithingTrimMaterials.CRUDE),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("silver"), ModSmithingTrimMaterials.SILVER),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("steel"), ModSmithingTrimMaterials.STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("khazad_steel"), ModSmithingTrimMaterials.KHAZAD_STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("edhel_steel"), ModSmithingTrimMaterials.EDHEL_STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("burzum_steel"), ModSmithingTrimMaterials.BURZUM_STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("mithril"), ModSmithingTrimMaterials.MITHRIL)
+    );
 
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        for (SimpleWallModel.Wall wall : SimpleWallModel.blocks) {
-            Identifier id = Registries.BLOCK.getId(wall.wall());
-            itemModelGenerator.register(wall.wall().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath() + "_inventory")), Optional.empty()));
-        }
-
-        for (SimpleWallModel.Wall wall : SimpleWallModel.vanillaWalls) {
-            Identifier id = Registries.BLOCK.getId(wall.wall());
-            itemModelGenerator.register(wall.wall().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath() + "_inventory")), Optional.empty()));
-        }
 
         for (Item item : SimpleItemModel.items) {
             itemModelGenerator.register(item, Models.GENERATED);
@@ -236,7 +241,6 @@ public class ItemModelProvider extends FabricModelProvider {
         itemModelGenerator.output.accept(armor,  unbaked2);
     }
 
-    //TODO doesn't work to fix
     public final void registerPalettedItem(Item item, ItemModelGenerator itemModelGenerator) {
         Identifier identifierItem = Identifier.of(MiddleEarth.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath());
 
@@ -251,7 +255,7 @@ public class ItemModelProvider extends FabricModelProvider {
             Identifier identifier4 = identifierItem.withSuffixedPath("_" + trimMaterial.assets().base().suffix() + "_trim");
 
             itemModelGenerator.uploadArmor(identifier4, identifier2,
-                    Identifier.of(MiddleEarth.MOD_ID, "trims/" + identifierItem.getPath().replaceAll("item", "items") + "_" + trimMaterial.assets().base().suffix() + "_trim"));
+                    Identifier.of(MiddleEarth.MOD_ID, "trims/" + identifierItem.getPath().replaceAll("item", "items") + "_trim" + "_" + trimMaterial.assets().base().suffix()));
             unbaked = ItemModels.basic(identifier4);
         }
 
