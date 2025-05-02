@@ -101,11 +101,11 @@ public class ModWeaponItems {
     public static final Item NETHERITE_SPEAR = registerItemWithSpearModel("netherite_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.NETHERITE, settings), new Item.Settings());
 
-    public static final Item ROUND_SHIELD = registerShield("round_shield",
+    public static final Item ROUND_SHIELD = registerBannerShield("round_shield",
             (settings) -> new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE, settings), new Item.Settings());
-    public static final Item HEATER_SHIELD = registerShield("heater_shield",
+    public static final Item HEATER_SHIELD = registerBannerShield("heater_shield",
             (settings) -> new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE, settings), new Item.Settings());
-    public static final Item KITE_SHIELD = registerShield("kite_shield",
+    public static final Item KITE_SHIELD = registerBannerShield("kite_shield",
             (settings) -> new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE, settings), new Item.Settings());
     //endregion
 
@@ -687,6 +687,12 @@ public class ModWeaponItems {
             SimpleBigItemModel.artefacts.add(item);
         }
         Swords.swords.add(item);
+        return registerItem(item, name);
+    }
+
+    private static Item registerBannerShield(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
+        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         return registerItem(item, name);
     }
 
