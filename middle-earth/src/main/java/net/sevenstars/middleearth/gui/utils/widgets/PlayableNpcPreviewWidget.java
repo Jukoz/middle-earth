@@ -7,11 +7,11 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
@@ -51,7 +51,6 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             setCurrentButton(true);
         };
         haveBeenInitialized = false;
-
         ButtonWidget.PressAction resetButtonAction = button -> {
             currentAngle = DEFAULT_ANGLE;
         };
@@ -114,12 +113,15 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         updateEntityRace(race, world);
         updateEquipment(data);
     }
-
+    public void setEntity(NpcEntity npcEntity) {
+        this.entity = npcEntity;
+    }
     public void updateToDefaultEntity(World world) {
         //BanditHumanEntity entity = new BanditHumanEntity(ModEntities.BANDIT_MILITIA, world);
         //entity.setAiDisabled(true);
 
-        this.entity = new ZombieEntity(world);
+        //this.entity = new NpcEntity(ModEntities.NPC, world);
+        this.entity = NpcEntity.create(world);
     }
 
     private void updateEquipment(NpcGearData data){

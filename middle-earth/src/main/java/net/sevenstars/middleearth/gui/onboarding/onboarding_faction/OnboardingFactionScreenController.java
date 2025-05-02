@@ -81,6 +81,16 @@ public class OnboardingFactionScreenController {
             this._screen._elements.descriptionTextBlock.setText(null);
             return;
         }
+
+        this._screen._elements.dispositionSelectionWidget.setText(factionToUse.getDisposition().getName());
+        this._screen._elements.factionSelectionWidget.setText(this._selectedFaction.tryGetShortName());
+        if(this._selectedSubfaction != null){
+            this._screen._elements.subfactionSelectionWidget.enableVisuals(true);
+            this._screen._elements.subfactionSelectionWidget.setText(this._selectedSubfaction.tryGetShortName());
+        }
+        else this._screen._elements.subfactionSelectionWidget.enableVisuals(false);
+
+
         this._screen._elements.raceList.setText(List.of(getRaceText()));
         this._screen._elements.descriptionTextBlock.setText(factionToUse.getDescription());
         this._screen._elements.bannerComponents = factionToUse.getBannerPatternsWithColors(_world);
@@ -89,6 +99,9 @@ public class OnboardingFactionScreenController {
 
         this._screen._elements.spawnPointSelectionWidget.setText(factionToUse.getSpawnData().getSpawnList().getFirst().getFullName());
         this._screen._elements.spawnPointSelectionWidget.enableArrows(!factionToUse.getSpawnData().getSpawnList().isEmpty());
+
+        this._screen._elements.raceSelectionWidget.setText(Text.translatable(_selectedRace.getTranslatableKey()));
+
 
         this._screen._elements.npcPreviewWidget.updateToDefaultEntity(_world);
     }

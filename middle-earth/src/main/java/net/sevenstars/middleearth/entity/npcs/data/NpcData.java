@@ -6,7 +6,7 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
 import net.sevenstars.middleearth.resources.MiddleEarthFactions;
 import net.sevenstars.middleearth.resources.MiddleEarthRaces;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -46,11 +46,11 @@ public class NpcData {
         this.category = category;
     }
 
-    public Race getRaceValue(ServerWorldAccess world) {
+    public Race getRaceValue(World world) {
         return world.getRegistryManager().getOrThrow(MiddleEarthRaces.KEY).get(raceId);
     }
 
-    public Faction getFactionValue(ServerWorldAccess world) {
+    public Faction getFactionValue(World world) {
         return world.getRegistryManager().getOrThrow(MiddleEarthFactions.KEY).get(factionId);
     }
 

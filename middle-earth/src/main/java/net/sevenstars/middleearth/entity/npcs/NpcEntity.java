@@ -1,14 +1,17 @@
 package net.sevenstars.middleearth.entity.npcs;
 
 import com.mojang.serialization.DataResult;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityData;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentHolder;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
@@ -19,10 +22,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.npcs.data.NpcData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
-import net.sevenstars.middleearth.item.ModEquipmentItems;
 import net.sevenstars.middleearth.resources.MiddleEarthFactions;
 import net.sevenstars.middleearth.resources.MiddleEarthNpcTexturePatterns;
 import net.sevenstars.middleearth.resources.MiddleEarthRaces;
@@ -44,12 +47,19 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     private static final TrackedData<NpcData> DATA;
     private static final TrackedData<NpcTextureData> TEXTURE_DATA;
 
-    public NpcEntity(EntityType<? extends PassiveEntity> entityType, World world) {
+    public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
+        initializeData(world);
     }
 
-    @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+    public static NpcEntity create(World world){
+        var entity = new NpcEntity(ModEntities.NPC, world);
+
+        entity.initializeData(world);
+        return entity;
+    }
+
+    private void initializeData(World world) {
         DynamicRegistryManager manager = world.getRegistryManager();
 
         var generatedData = generateNpcData(manager);
@@ -66,11 +76,14 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         setNpcTextureData(generatedTextureData);
 
         race.applyNpcAttributes(this);
+    }
 
-        this.equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ORCISH_CAPE));
-        this.equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.TRAVELLING_BOOTS));
+    @Override
+    @Nullable
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        entityData = super.initialize(world, difficulty, spawnReason, entityData);
 
-        return super.initialize(world, difficulty, spawnReason, entityData);
+        return entityData;
     }
 
     @Override
@@ -93,7 +106,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         Identifier raceId = manager.getOrThrow(MiddleEarthRaces.KEY).getEntry(randomRace).value().getId();
         return generateNpcData(manager, faction.getId(), raceId);
     }
-    private NpcData generateNpcData(DynamicRegistryManager manager, Identifier factionId, Identifier raceId) {
+    public NpcData generateNpcData(DynamicRegistryManager manager, Identifier factionId, Identifier raceId) {
         Faction chosenFaction = manager.getOrThrow(MiddleEarthFactions.KEY).get(factionId);
         if(chosenFaction == null)
             return null;
@@ -178,6 +191,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
         builder.add(DATA, new NpcData());
         builder.add(TEXTURE_DATA, new NpcTextureData());
+
     }
 
     public void writeCustomDataToNbt(NbtCompound nbt) {
@@ -252,7 +266,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     @Override
-    public void setEquipmentDropChance(EquipmentSlot slot, float dropChance) {
-
+    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
+        // No drop allowed
     }
 }
