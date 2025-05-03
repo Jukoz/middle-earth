@@ -36,7 +36,7 @@ public class CrockpotScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(inventory, 1, 50, 34));
         this.addSlot(new Slot(inventory, 2, 32, 16));
         this.addSlot(new Slot(inventory, 3, 50, 16));
-        this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, CrockpotBlockEntity.OUTPUT_SLOT, 143, 17, true));
+        this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, CrockpotBlockEntity.OUTPUT_SLOT, 116, 35, true));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

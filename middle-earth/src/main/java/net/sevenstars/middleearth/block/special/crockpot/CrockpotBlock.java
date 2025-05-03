@@ -6,15 +6,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.component.type.FoodComponent;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
-import net.minecraft.item.Items;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -32,7 +29,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.special.plate.PlateBlockEntity;
+import net.sevenstars.middleearth.block.special.forge.ForgePart;
 import org.jetbrains.annotations.Nullable;
 
 public class CrockpotBlock extends BlockWithEntity {
@@ -47,6 +44,19 @@ public class CrockpotBlock extends BlockWithEntity {
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return CrockpotBlock.createCodec(CrockpotBlock::new);
+    }
+
+    @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (world.isClient) {
+            return ActionResult.SUCCESS;
+        } else {
+            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+            if(screenHandlerFactory != null) {
+                player.openHandledScreen(screenHandlerFactory);
+            }
+            return ActionResult.CONSUME;
+        }
     }
 
     @Override

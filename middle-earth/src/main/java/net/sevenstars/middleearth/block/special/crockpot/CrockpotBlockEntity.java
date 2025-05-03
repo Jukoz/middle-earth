@@ -19,7 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlockEntities;
-import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
 public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {

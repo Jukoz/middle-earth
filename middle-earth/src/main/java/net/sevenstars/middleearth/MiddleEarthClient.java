@@ -22,6 +22,7 @@ import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.crockpot.CrockpotBlockEntity;
 import net.sevenstars.middleearth.block.special.crockpot.CrockpotEntityRenderer;
+import net.sevenstars.middleearth.block.special.crockpot.CrockpotScreen;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
 import net.sevenstars.middleearth.block.special.forge.ForgeEntityRenderer;
 import net.sevenstars.middleearth.block.special.plate.PlateEntityRenderer;
@@ -124,6 +125,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         //ModModelPredicateProvider.registerAllPredicates();
 
+        HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
         HandledScreens.register(ModScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
         HandledScreens.register(ModScreenHandlers.FORGE_HEATING_SCREEN_HANDLER, ForgeHeatingScreen::new);
         HandledScreens.register(ModScreenHandlers.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);

@@ -1,0 +1,39 @@
+package net.sevenstars.middleearth.block.special.crockpot;
+
+import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+
+public class CrockpotScreen extends HandledScreen<CrockpotScreenHandler> {
+    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/crockpot.png");
+    private static final Identifier BUBBLES_TEXTURE = Identifier.ofVanilla("container/brewing_stand/bubbles");
+    private static final int[] BUBBLE_PROGRESS = new int[]{29, 24, 20, 16, 11, 6, 0};
+
+    private static final int PROGRESS_ARROW_SIZE = 24;
+
+    public CrockpotScreen(CrockpotScreenHandler handler, PlayerInventory inventory, Text title) {
+        super(handler, inventory, title);
+    }
+
+    @Override
+    protected void init() {
+        titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
+        super.init();
+    }
+
+    @Override
+    protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+        int x = (width - backgroundWidth) / 2;
+        int y = (height - backgroundHeight) / 2;
+
+        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
+
+    }
+}
