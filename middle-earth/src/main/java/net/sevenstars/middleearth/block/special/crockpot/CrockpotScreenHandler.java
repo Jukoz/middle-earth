@@ -11,7 +11,6 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
-import net.sevenstars.middleearth.gui.forge.ForgeOutputSlot;
 
 public class CrockpotScreenHandler extends ScreenHandler {
     final Inventory inventory;
@@ -32,11 +31,10 @@ public class CrockpotScreenHandler extends ScreenHandler {
 
         checkSize(inventory, 5);
 
-        this.addSlot(new Slot(inventory, 0, 32, 34));
-        this.addSlot(new Slot(inventory, 1, 50, 34));
-        this.addSlot(new Slot(inventory, 2, 32, 16));
-        this.addSlot(new Slot(inventory, 3, 50, 16));
-        this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, CrockpotBlockEntity.OUTPUT_SLOT, 116, 35, true));
+        this.addSlot(new Slot(inventory, 0, 48, 44));
+        this.addSlot(new Slot(inventory, 1, 66, 44));
+        this.addSlot(new Slot(inventory, 2, 48, 26));
+        this.addSlot(new Slot(inventory, 3, 66, 26));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
