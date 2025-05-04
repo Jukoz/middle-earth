@@ -8,7 +8,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
-import net.sevenstars.of_beasts_and_wild_things.datageneration.models.SimpleSpawnEggItemModel;
+import net.sevenstars.of_beasts_and_wild_things.datageneration.models.SimpleItemModels;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
 
 import java.util.function.Function;
@@ -30,7 +30,7 @@ public class ModEggItems {
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = factory.apply(settings.registryKey(keyOfItem(name)));
         ModItemGroups.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
-        SimpleSpawnEggItemModel.items.add(item);
+        SimpleItemModels.items.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(OfBeastsAndWildThings.MOD_ID, name), item);
     }
 
