@@ -404,5 +404,17 @@ public class OnboardingFactionScreen extends Screen {
         _controller.screenResize();
     }
 
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        this._elements.npcPreviewWidget.mouseReleased(mouseX, mouseY, button);
+        return super.mouseReleased(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+        this._elements.npcPreviewWidget.keyReleased(keyCode, scanCode, modifiers);
+        return super.keyReleased(keyCode, scanCode, modifiers);
+    }
+
     //endregion
 }

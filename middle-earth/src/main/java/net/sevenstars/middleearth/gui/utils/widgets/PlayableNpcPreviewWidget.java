@@ -24,11 +24,11 @@ import java.util.List;
 public class PlayableNpcPreviewWidget extends ModWidget{
     private static final Identifier NPC_PREVIEW = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/npc_preview_widget.png");
 
+    private static final int TICK_DELAY = 10;
     private static final int MINIMAL_MARGIN = 4;
     private static final float DEFAULT_ANGLE = 145f; // 210f;
-    private static final float SMOOTH_THRESHOLD = 15000;
-    private static final float SMOOTH_SPEED_MODIFIER = 2.5f ;
-    private static final float STEP_SPEED = 45;
+    private static final float SMOOTH_SPEED_MODIFIER = 0.5f ;
+    private static final float STEP_SPEED = 35;
 
     private LivingEntity entity;
     private static final Quaternionf ENTITY_ROTATION;
@@ -42,12 +42,12 @@ public class PlayableNpcPreviewWidget extends ModWidget{
     private boolean isLeftButton = false;
     private float tickHoldingStart = 0;
     private boolean isEnterKeyPressed = false;
+    public boolean haveDoneStep = false;
 
     public boolean haveBeenInitialized;
-
     public PlayableNpcPreviewWidget(){
         ButtonWidget.PressAction leftButtonAction = button -> {
-            addAngle();
+            reduceAngle();
             setCurrentButton(true);
         };
         haveBeenInitialized = false;
@@ -56,7 +56,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         };
 
         ButtonWidget.PressAction rightButtonAction = button -> {
-            reduceAngle();
+            addAngle();
             setCurrentButton(false);
         };
 
@@ -71,18 +71,22 @@ public class PlayableNpcPreviewWidget extends ModWidget{
     }
 
     private void addAngle(){
+        if(!haveDoneStep){
+            haveDoneStep = true;
+            currentAngle = this.entity.getBodyYaw() - STEP_SPEED;
+        }
         if(canRotateSmoothly()){
-            currentAngle += 1 * SMOOTH_SPEED_MODIFIER;
-        } else {
-            currentAngle += STEP_SPEED;
+            currentAngle -= SMOOTH_SPEED_MODIFIER;
         }
     }
 
     private void reduceAngle(){
+        if(!haveDoneStep){
+            haveDoneStep =true;
+            currentAngle = this.entity.getBodyYaw() + STEP_SPEED;
+        }
         if(canRotateSmoothly()){
-            currentAngle -= 1 * SMOOTH_SPEED_MODIFIER;
-        } else {
-            currentAngle -= STEP_SPEED;
+            currentAngle += SMOOTH_SPEED_MODIFIER;
         }
     }
 
@@ -97,13 +101,16 @@ public class PlayableNpcPreviewWidget extends ModWidget{
 
     private void setCurrentButton(boolean isLeft){
         if(currentButtonClicked != null) return;
+
+        if(tickHoldingStart == 0)
+            this.tickHoldingStart = MinecraftClient.getInstance().inGameHud.getTicks();
+
         isLeftButton = isLeft;
         if(isLeft){
             this.currentButtonClicked = leftButton;
         } else {
             this.currentButtonClicked = rightButton;
         }
-        this.tickHoldingStart = 0;
     }
 
     public void updateEntity(NpcGearData data, Race race, World world) {
@@ -131,7 +138,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         }
         if(this.entity == null) return;
 
-        this.entity.bodyYaw = currentAngle;
+        this.entity.setBodyYaw(currentAngle);
         this.entity.setPitch(0f);
         this.entity.headYaw = this.entity.getBodyYaw();
         this.entity.lastHeadYaw = this.entity.getBodyYaw();
@@ -153,14 +160,12 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         if(this.entity == null) return;
 
         if(currentButtonClicked != null){
-            if(isEnterKeyPressed || isMouseOver(currentButtonClicked.getWidth(), currentButtonClicked.getHeight(), currentButtonClicked.getX(), currentButtonClicked.getY())) {
-                tickHoldingStart += MinecraftClient.getInstance().inGameHud.getTicks();
+            if(tickHoldingStart > 0 && (isEnterKeyPressed || isMouseOver(currentButtonClicked.getWidth(), currentButtonClicked.getHeight(), currentButtonClicked.getX(), currentButtonClicked.getY()))) {
                 if(canRotateSmoothly())
                     currentButtonClicked.onPress();
             }
             else{
                 resetCurrentButton();
-                MiddleEarth.LOGGER.logDebugMsg("Was out of button reach");
             }
         }
 
@@ -219,7 +224,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             rightButton.setPosition(x + horizontalMargin, y - MINIMAL_MARGIN);
         }
 
-        this.entity.bodyYaw = currentAngle;
+        this.entity.setBodyYaw(currentAngle);
         this.entity.setPitch(0f);
         this.entity.headYaw = this.entity.getBodyYaw();
         this.entity.lastHeadYaw = this.entity.getBodyYaw();
@@ -227,17 +232,26 @@ public class PlayableNpcPreviewWidget extends ModWidget{
 
 
     private boolean canRotateSmoothly(){
-        return tickHoldingStart >= SMOOTH_THRESHOLD;
+        var minimumThreshold = tickHoldingStart + TICK_DELAY;
+        var currentHudTime = MinecraftClient.getInstance().inGameHud.getTicks();
+        return currentHudTime > minimumThreshold;
     }
 
     private void resetCurrentButton(){
         currentButtonClicked = null;
         tickHoldingStart = 0;
         isEnterKeyPressed = false;
+        haveDoneStep = false;
     }
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        resetCurrentButton();
+        return super.mouseReleased(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
         resetCurrentButton();
         return true;
     }
@@ -254,12 +268,6 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             }
         }
         return false;
-    }
-
-    @Override
-    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-        resetCurrentButton();
-        return true;
     }
 
     static {
