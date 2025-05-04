@@ -413,6 +413,12 @@ public class Faction {
         return raceList;
     }
 
+    public int getSpawnAmount(){
+        if(spawnDataHandler == null)
+            return 0;
+        return spawnDataHandler.getSpawnList().size();
+    }
+
     public BannerPatternsComponent getBannerPatternComponents(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
         if(bannerData == null)
             return null;

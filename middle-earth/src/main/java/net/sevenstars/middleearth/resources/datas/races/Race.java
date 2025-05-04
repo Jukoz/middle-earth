@@ -126,7 +126,7 @@ public class Race {
         return Optional.of(this.leaveCommands);
     }
 
-    public Text getFullName() {
+    public MutableText getFullName() {
         return Text.translatable(translatableKey);
     }
 

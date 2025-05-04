@@ -54,7 +54,7 @@ public class OnboardingFactionScreen extends Screen {
         public ButtonWidget mapFocusButton;
         public CycledSelectionWidget raceSelectionWidget;
         public CycledSelectionWidget spawnPointSelectionWidget;
-        public ButtonWidget spawnRandomizerButton;
+        public ButtonWidget fullRandomizerButton;
         public ButtonWidget spawnConfirmButton;
         //endregion
         //region [Text and Displays]
@@ -124,7 +124,7 @@ public class OnboardingFactionScreen extends Screen {
 
         _elements.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.STANDING_BANNER_FLAG).getChild("flag");
 
-        ButtonWidget.PressAction searchBarWidgetPress = this::searchBarWidgetClicked;
+        ButtonWidget.PressAction searchBarWidgetPress = this::doNothingButton;
         _elements.searchBarWidget = new SearchBarWidget(9, searchBarWidgetPress);
         addDrawableChild(_elements.searchBarWidget.getSearchBarToggleButton());
         _elements.searchBarWidget.getAllButtons().forEach(this::addDrawableChild);
@@ -134,70 +134,73 @@ public class OnboardingFactionScreen extends Screen {
 
         // Disposition
         _elements.dispositionSelectionWidget = new CycledSelectionWidget(
-                this::dispositionSelectionClicked,
-                this::dispositionSelectionClicked,
+                x -> this._controller.updateDisposition(-1),
+                x -> this._controller.updateDisposition(1),
                 null,
                 CycledSelectionButtonType.GOLD);
         _elements.dispositionSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // PlayerFactionPayload
         _elements.factionSelectionWidget = new CycledSelectionWidget(
-                this::factionSelectionClicked,
-                this::factionSelectionClicked,
+                x -> this._controller.updateFaction(-1),
+                x -> this._controller.updateFaction(1),
                 null,
                 CycledSelectionButtonType.SILVER);
         _elements.factionSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // Subfaction
         _elements.subfactionSelectionWidget = new CycledSelectionWidget(
-                this::subfactionSelectionClicked,
-                this::subfactionSelectionClicked,
+                x -> this._controller.updateSubfaction(-1),
+                x -> this._controller.updateSubfaction(1),
                 null,
                 CycledSelectionButtonType.NORMAL);
         _elements.subfactionSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // PlayerFactionPayload Randomizer
-        _elements.factionRandomizerButton = ButtonWidget.builder(Text.translatable("screen.me.button.faction_randomizer"), this::factionRandomizerClicked).build();
+        _elements.factionRandomizerButton = ButtonWidget.builder(Text.translatable("screen.me.button.faction_randomizer"),
+                x -> this._controller.randomizeFaction()).build();
         _elements.factionRandomizerButton.setDimensions(52, 18);
         addDrawableChild(_elements.factionRandomizerButton);
 
         // Map Widget
         // TODO add the map widget and add drawables
 
-        _elements.mapFocusButton = ButtonWidget.builder(Text.translatable("screen.me.button.focus_current"), this::mapFocusClicked).build();
+        _elements.mapFocusButton = ButtonWidget.builder(Text.translatable("screen.me.button.focus_current"), this::doNothingButton).build(); // TODO
         _elements.mapFocusButton.setDimensions(10, 10);
         addDrawableChild(_elements.mapFocusButton);
 
-        _elements.mapZoomInButton = ButtonWidget.builder(Text.translatable("screen.me.button.zoom_in"), this::mapZoomInClicked).build();
+        _elements.mapZoomInButton = ButtonWidget.builder(Text.translatable("screen.me.button.zoom_in"), this::doNothingButton).build(); // TODO
         _elements.mapZoomInButton.setDimensions(10, 10);
         addDrawableChild(_elements.mapZoomInButton);
 
-        _elements.mapZoomOutButton = ButtonWidget.builder(Text.translatable("screen.me.button.zoom_out"), this::mapZoomOutClicked).build();
+        _elements.mapZoomOutButton = ButtonWidget.builder(Text.translatable("screen.me.button.zoom_out"), this::doNothingButton).build(); // TODO
         _elements.mapZoomOutButton.setDimensions(10, 10);
         addDrawableChild(_elements.mapZoomOutButton);
 
         // Race
         _elements.raceSelectionWidget = new CycledSelectionWidget(
-                this::raceSelectionClicked,
-                this::raceSelectionClicked,
+                x -> this._controller.updateRace(-1),
+                x -> this._controller.updateRace(1),
                 null,
                 CycledSelectionButtonType.NORMAL);
         _elements.raceSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // Spawn Point
         _elements.spawnPointSelectionWidget = new CycledSelectionWidget(
-                this::spawnPointSelectionClicked,
-                this::spawnPointSelectionClicked,
+                x -> this._controller.updateSpawnPoint(-1),
+                x -> this._controller.updateSpawnPoint(1),
                 null,
                 CycledSelectionButtonType.NORMAL);
         _elements.spawnPointSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
 
         // Random spawn selection
-        _elements.spawnRandomizerButton = ButtonWidget.builder(Text.translatable("screen.me.button.spawn_randomizer"), this::spawnRandomizerClicked).build();
-        addDrawableChild(_elements.spawnRandomizerButton);
+        _elements.fullRandomizerButton = ButtonWidget.builder(Text.translatable("screen.me.button.full_randomizer"),
+                x -> _controller.randomizeAll()).build();
+        addDrawableChild(_elements.fullRandomizerButton);
 
-        _elements.spawnConfirmButton = ButtonWidget.builder(Text.translatable("screen.me.button.confirm"), this::spawnConfirmClicked).build();
+        _elements.spawnConfirmButton = ButtonWidget.builder(Text.translatable("screen.me.button.confirm"),
+                x -> _controller.confirmSelection()).build();
         addDrawableChild(_elements.spawnConfirmButton);
 
 
@@ -344,14 +347,14 @@ public class OnboardingFactionScreen extends Screen {
         _elements.raceSelectionWidget.drawAnchored(context, startX,  startY,true, textRenderer);
 
         startX = this._elements.mapPanel.startX + 4;
-        startY = this._elements.informationPanel.startY + this._elements.informationPanel.height - _elements.spawnRandomizerButton.getHeight();
+        startY = this._elements.informationPanel.startY + this._elements.informationPanel.height - _elements.fullRandomizerButton.getHeight();
 
-        this._elements.spawnRandomizerButton.setPosition(startX, startY);
-        this._elements.spawnRandomizerButton.setDimensions(52, 18);
+        this._elements.fullRandomizerButton.setPosition(startX, startY);
+        this._elements.fullRandomizerButton.setDimensions(52, 18);
 
         context.drawTexture(RenderLayer::getGuiTextured, BUTTON_UI_IDENTIFIER,
-                this._elements.spawnRandomizerButton.getX(), this._elements.spawnRandomizerButton.getY(), 103, this._elements.spawnRandomizerButton.isFocused() || this._elements.spawnRandomizerButton.isMouseOver(mouseX, mouseY) ? 129 : 111,
-                this._elements.spawnRandomizerButton.getWidth(), this._elements.spawnRandomizerButton.getHeight(), 256, 256);
+                this._elements.fullRandomizerButton.getX(), this._elements.fullRandomizerButton.getY(), 103, this._elements.fullRandomizerButton.isFocused() || this._elements.fullRandomizerButton.isMouseOver(mouseX, mouseY) ? 129 : 111,
+                this._elements.fullRandomizerButton.getWidth(), this._elements.fullRandomizerButton.getHeight(), 256, 256);
 
 
         startX = this._elements.mapPanel.startX + this._elements.mapPanel.width - this._elements.spawnConfirmButton.getWidth() - 4;
@@ -385,49 +388,15 @@ public class OnboardingFactionScreen extends Screen {
                 this._elements.factionRandomizerButton.getX() - (this._elements.factionRandomizerButton.getWidth() / 2), this._elements.factionRandomizerButton.getY(), 103, (this._elements.factionRandomizerButton.isFocused() || this._elements.factionRandomizerButton.isMouseOver(mouseX, mouseY)) ? 92 : 74,
                 this._elements.factionRandomizerButton.getWidth(), this._elements.factionRandomizerButton.getHeight(), 256, 256);
 
-
         this._elements.npcPreviewWidget.drawCenteredAnchoredBottom(context, startX, startY - 6);
-
-          }
+    }
     //endregion
 
     //region [Button Events]
-    private void spawnRandomizerClicked(ButtonWidget button) {
+    private void doNothingButton(ButtonWidget button) {
         MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
     }
-    private void spawnConfirmClicked(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
-    }
-    private void mapFocusClicked(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
-    }
-    private void mapZoomInClicked(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
-    }
-    private void mapZoomOutClicked(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
-    }
-    private void searchBarWidgetClicked(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
-    }
-    private void dispositionSelectionClicked(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
-    }
-    private void factionSelectionClicked(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
-    }
-    private void subfactionSelectionClicked(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
-    }
-    private void raceSelectionClicked(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
-    }
-    private void spawnPointSelectionClicked(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
-    }
-    private void factionRandomizerClicked(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
-    }
+
 
     @Override
     public void resize(MinecraftClient client, int width, int height) {

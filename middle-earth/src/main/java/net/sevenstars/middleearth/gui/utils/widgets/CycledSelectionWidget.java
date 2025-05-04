@@ -15,6 +15,9 @@ import java.util.List;
 
 public class CycledSelectionWidget extends ModWidget{
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/cycled_selection_widget.png");
+    boolean leftCanBeActive = true;
+    boolean rightCanBeActive = true;
+    boolean centerCanBeActive = true;
     private final ButtonWidget buttonLeft;
     private final ButtonWidget buttonRight;
     private final ButtonWidget selectionButton;
@@ -32,13 +35,25 @@ public class CycledSelectionWidget extends ModWidget{
         this.buttonType = buttonType;
         buttonLeft = ButtonWidget.builder(Text.of("Cycled Selection Left"), leftAction).build();
         buttonLeft.setDimensions(ARROW_SIZE_X, ARROW_SIZE_Y);
+
         buttonRight = ButtonWidget.builder(Text.of("Cycled Selection Right"), rightAction).build();
         buttonRight.setDimensions(ARROW_SIZE_X, ARROW_SIZE_Y);
 
         selectionButton = ButtonWidget.builder(Text.of("Cycled Selection"), selectionAction).build();
         selectionButton.setDimensions(PANEL_SIZE_X, PANEL_SIZE_Y);
-        if(selectionAction == null)
+
+        if(selectionAction == null){
+            centerCanBeActive = false;
             selectionButton.active = false;
+        }
+        if(leftAction == null){
+            leftCanBeActive = false;
+            buttonLeft.active = false;
+        }
+        if(rightAction == null){
+            rightCanBeActive = false;
+            buttonRight.active = false;
+        }
     }
 
     public List<ButtonWidget> getButtons(){
@@ -51,15 +66,15 @@ public class CycledSelectionWidget extends ModWidget{
     }
 
     public void enableArrows(boolean activate){
-        this.buttonLeft.active = activate;
-        this.buttonRight.active = activate;
+        this.buttonLeft.active = activate && leftCanBeActive;
+        this.buttonRight.active =  activate && rightCanBeActive;
     }
 
     public void enableVisuals(boolean activate){
         shouldDisplay = activate;
-        buttonLeft.active = activate;
-        buttonRight.active = activate;
-        selectionButton.active = activate;
+        this.buttonLeft.active = activate && leftCanBeActive;
+        this.buttonRight.active = activate && rightCanBeActive;
+        this.selectionButton.active = activate && centerCanBeActive;
     }
 
     public void setText(MutableText text){
