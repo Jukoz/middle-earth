@@ -1,7 +1,10 @@
 package net.sevenstars.middleearth.registries;
 
 import net.fabricmc.fabric.api.registry.*;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
@@ -27,6 +30,12 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.math.random.Random;
 
 public class ModRegistries {
+
+    public static void registerRegistryAliases() {
+        //Registries.BLOCK.addAlias(Identifier.of(MiddleEarth.MOD_ID, "medgon"), Identifier.of("me", "nurgon"));
+        //Registries.ITEM.addAlias(Identifier.of(MiddleEarth.MOD_ID, "medgon"), Identifier.of("me", "nurgon"));
+    }
+
 
     public static void registerFlammableBlocks() {
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.WHITE_WOOL_SLAB, 30, 60);
