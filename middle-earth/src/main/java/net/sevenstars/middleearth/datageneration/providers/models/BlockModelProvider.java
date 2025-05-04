@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.BlockFace;
 import net.minecraft.block.enums.DoorHinge;
+import net.minecraft.block.enums.Thickness;
 import net.minecraft.client.data.*;
 import net.minecraft.client.render.model.json.ModelVariant;
 import net.minecraft.client.render.model.json.ModelVariantOperator;
@@ -490,7 +491,7 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (Block block : SimpleDoubleBlockModel.doubleBlocks) {
-            blockStateModelGenerator.registerDoubleBlock(block, BlockStateModelGenerator.CrossType.NOT_TINTED);
+            registerDoubleBlock(blockStateModelGenerator, block, BlockStateModelGenerator.CrossType.NOT_TINTED);
         }
 
         for (Block block : SimpleDoubleBlockModel.doubleBlocksItems) {
@@ -744,7 +745,19 @@ public class BlockModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.WHITE_FLOWER_GROWTH);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
 
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.MOSS);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.FOREST_MOSS);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.CORRUPTED_MOSS);
+
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.MORGUL_IVY);
+
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.STICKY_SNOW);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.STICKY_ICE);
+
+        registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_DOLOMITE);
+        registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_GALONN);
+        registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_LIMESTONE);
+        registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_IZHERABAN);
     }
 
     @Override
@@ -972,10 +985,43 @@ public class BlockModelProvider extends FabricModelProvider {
     }
 
     public final void registerDoubleBlock(BlockStateModelGenerator blockStateModelGenerator, Block doubleBlock, BlockStateModelGenerator.CrossType tintType) {
-        blockStateModelGenerator.registerItemModel(doubleBlock.asItem());
+        blockStateModelGenerator.registerItemModel(doubleBlock, "_top");
         WeightedVariant identifier = createWeightedVariant(blockStateModelGenerator.createSubModel(doubleBlock, "_top", tintType.getCrossModel(), TextureMap::cross));
         WeightedVariant identifier2 = createWeightedVariant(blockStateModelGenerator.createSubModel(doubleBlock, "_bottom", tintType.getCrossModel(), TextureMap::cross));
         blockStateModelGenerator.registerDoubleBlock(doubleBlock, identifier, identifier2);
+    }
+
+    public final void registerPointedBlock(BlockStateModelGenerator blockStateModelGenerator, Block pointedBlock) {
+        Identifier inventory = Models.GENERATED.upload(pointedBlock.asItem(), TextureMap.layer0(TextureMap.getId(pointedBlock.asItem())), blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.registerItemModel(pointedBlock.asItem(), inventory);
+
+        BlockStateVariantMap.DoubleProperty<WeightedVariant, Direction, Thickness> doubleProperty = BlockStateVariantMap.models(Properties.VERTICAL_DIRECTION, Properties.THICKNESS);
+        Thickness[] var2 = Thickness.values();
+        int var3 = var2.length;
+
+        int var4;
+        Thickness thickness;
+        for(var4 = 0; var4 < var3; ++var4) {
+            thickness = var2[var4];
+            doubleProperty.register(Direction.UP, thickness, getPointedVariant(blockStateModelGenerator, Direction.UP, thickness, pointedBlock));
+        }
+
+        var2 = Thickness.values();
+        var3 = var2.length;
+
+        for(var4 = 0; var4 < var3; ++var4) {
+            thickness = var2[var4];
+            doubleProperty.register(Direction.DOWN, thickness, getPointedVariant(blockStateModelGenerator, Direction.DOWN, thickness, pointedBlock));
+        }
+
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(pointedBlock).with(doubleProperty));
+    }
+
+    public final WeightedVariant getPointedVariant(BlockStateModelGenerator blockStateModelGenerator, Direction direction, Thickness thickness, Block pointedBlock) {
+        String var10000 = direction.asString();
+        String string = "_" + var10000 + "_" + thickness.asString();
+        TextureMap textureMap = TextureMap.cross(TextureMap.getSubId(pointedBlock, string));
+        return createWeightedVariant(Models.POINTED_DRIPSTONE.upload(pointedBlock, string, textureMap, blockStateModelGenerator.modelCollector));
     }
 
     public final void registerLargeDoor(BlockStateModelGenerator blockStateModelGenerator, LargeDoorBlock largeDoor, IntProperty part) {
