@@ -1,4 +1,4 @@
-package net.sevenstars.of_beasts_and_wild_things.datageneration;
+package net.sevenstars.of_beasts_and_wild_things.datageneration.providers;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;

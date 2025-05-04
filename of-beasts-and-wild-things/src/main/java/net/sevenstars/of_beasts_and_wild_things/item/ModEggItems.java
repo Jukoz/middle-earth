@@ -8,6 +8,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
+import net.sevenstars.of_beasts_and_wild_things.datageneration.content.TranslationEntries;
 import net.sevenstars.of_beasts_and_wild_things.datageneration.models.SimpleItemModels;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
 
@@ -31,6 +32,7 @@ public class ModEggItems {
         Item item = factory.apply(settings.registryKey(keyOfItem(name)));
         ModItemGroups.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
         SimpleItemModels.items.add(item);
+        TranslationEntries.itemEntries.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(OfBeastsAndWildThings.MOD_ID, name), item);
     }
 
