@@ -33,6 +33,7 @@ import net.sevenstars.middleearth.gui.utils.widgets.text.TextBlockWidget;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
+import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 
@@ -77,7 +78,17 @@ public class FactionSelectionScreenOld extends Screen {
 
     @Override
     protected void init() {
-        mapWidget = new FactionSelectionMapWidget(controller, 114, 114);
+        final int[] maxMarkerCount = {0};
+        this.controller.getFactions().values().forEach(factionList -> factionList.forEach(faction -> {
+            SpawnDataHandler spawnDataHandler = faction.getSpawnData();
+            if(spawnDataHandler != null && spawnDataHandler.getSpawnList() != null){
+                int count = spawnDataHandler.getSpawnList().size();
+                if(count > maxMarkerCount[0]){
+                    maxMarkerCount[0] = count;
+                }
+            }
+        }));
+        mapWidget = new FactionSelectionMapWidget(114, 114, maxMarkerCount[0]);
         mapWidget.selectSpawn(controller.getCurrentSpawnIndex());
         mapWidget.updateSelectedSpawn(controller.getCurrentSpawnIndex());
         addMapPanelButtonsAndWidgets();

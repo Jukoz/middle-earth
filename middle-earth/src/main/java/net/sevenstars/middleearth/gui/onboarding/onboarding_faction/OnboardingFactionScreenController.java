@@ -8,6 +8,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
+import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 
 import java.util.HashMap;
@@ -70,67 +71,69 @@ public class OnboardingFactionScreenController {
     }
 
     private void updateScreenInformation() {
-        this._screen._elements.factionName = (_selectedFaction.tryGetShortName()).formatted(Formatting.BOLD).formatted(Formatting.DARK_GRAY);
+        this._screen.elements.factionName = (_selectedFaction.tryGetShortName()).formatted(Formatting.BOLD).formatted(Formatting.DARK_GRAY);
         if(this._selectedSubfaction != null)
-            this._screen._elements.subfactionName = (_selectedSubfaction.tryGetShortName());
+            this._screen.elements.subfactionName = (_selectedSubfaction.tryGetShortName());
         else
-            this._screen._elements.subfactionName = null;
+            this._screen.elements.subfactionName = null;
 
         if(this._selectedDisposition != null){
-            this._screen._elements.dispositionSelectionWidget.enableVisuals(true);
-            this._screen._elements.dispositionSelectionWidget.enableArrows(_factions.keySet().size() > 1);
-            this._screen._elements.dispositionSelectionWidget.setText(_selectedDisposition.getName());
+            this._screen.elements.dispositionSelectionWidget.enableVisuals(true);
+            this._screen.elements.dispositionSelectionWidget.enableArrows(_factions.keySet().size() > 1);
+            this._screen.elements.dispositionSelectionWidget.setText(_selectedDisposition.getName());
         } else {
-            this._screen._elements.dispositionSelectionWidget.enableVisuals(false);
+            this._screen.elements.dispositionSelectionWidget.enableVisuals(false);
         }
 
         if(this._selectedFaction != null){
-            this._screen._elements.factionSelectionWidget.enableVisuals(true);
-            this._screen._elements.factionSelectionWidget.enableArrows(this._factions.get(_selectedDisposition).size() > 1);
-            this._screen._elements.factionSelectionWidget.setText(this._selectedFaction.tryGetShortName());
+            this._screen.elements.factionSelectionWidget.enableVisuals(true);
+            this._screen.elements.factionSelectionWidget.enableArrows(this._factions.get(_selectedDisposition).size() > 1);
+            this._screen.elements.factionSelectionWidget.setText(this._selectedFaction.tryGetShortName());
         } else {
-            this._screen._elements.factionSelectionWidget.enableVisuals(false);
+            this._screen.elements.factionSelectionWidget.enableVisuals(false);
         }
 
         if(this._selectedSubfaction != null){
-            this._screen._elements.subfactionSelectionWidget.enableVisuals(true);
-            this._screen._elements.subfactionSelectionWidget.enableArrows(this._selectedFaction.getSubFactions().size() > 1);
-            this._screen._elements.subfactionSelectionWidget.setText(this._selectedSubfaction.tryGetShortName());
+            this._screen.elements.subfactionSelectionWidget.enableVisuals(true);
+            this._screen.elements.subfactionSelectionWidget.enableArrows(this._selectedFaction.getSubFactions().size() > 1);
+            this._screen.elements.subfactionSelectionWidget.setText(this._selectedSubfaction.tryGetShortName());
         } else {
-            this._screen._elements.subfactionSelectionWidget.enableVisuals(false);
+            this._screen.elements.subfactionSelectionWidget.enableVisuals(false);
         }
 
         Faction factionToUse = getCurrentFaction();
         if(factionToUse == null){
-            this._screen._elements.raceList.setText(null);
-            this._screen._elements.descriptionTextBlock.setText(null);
+            this._screen.elements.raceList.setText(null);
+            this._screen.elements.descriptionTextBlock.setText(null);
             return;
         }
 
+        _screen.elements.mapWidget.setSpawns(factionToUse.getSpawnData().getSpawnList());
+
         if(this._selectedSpawn != null){
-            this._screen._elements.spawnPointSelectionWidget.enableVisuals(true);
-            this._screen._elements.spawnPointSelectionWidget.enableArrows(factionToUse.getSpawnAmount() > 1);
-            this._screen._elements.spawnPointSelectionWidget.setText(_selectedSpawn.getFullName());
+            this._screen.elements.spawnPointSelectionWidget.enableVisuals(true);
+            this._screen.elements.spawnPointSelectionWidget.enableArrows(factionToUse.getSpawnAmount() > 1);
+            this._screen.elements.spawnPointSelectionWidget.setText(_selectedSpawn.getFullName());
         } else {
-            this._screen._elements.spawnPointSelectionWidget.enableVisuals(false);
+            this._screen.elements.spawnPointSelectionWidget.enableVisuals(false);
         }
 
 
 
-        this._screen._elements.raceList.setText(List.of(getRaceText()));
-        this._screen._elements.descriptionTextBlock.setText(factionToUse.getDescription());
-        this._screen._elements.bannerComponents = factionToUse.getBannerPatternsWithColors(_world);
-        this._screen._elements.bannerColor = factionToUse.getBaseBannerColor();
+        this._screen.elements.raceList.setText(List.of(getRaceText()));
+        this._screen.elements.descriptionTextBlock.setText(factionToUse.getDescription());
+        this._screen.elements.bannerComponents = factionToUse.getBannerPatternsWithColors(_world);
+        this._screen.elements.bannerColor = factionToUse.getBaseBannerColor();
 
         if(_selectedRace != null){
-            this._screen._elements.raceSelectionWidget.enableVisuals(true);
-            this._screen._elements.raceSelectionWidget.enableArrows(factionToUse.getRaces(_world).size() > 1);
-            this._screen._elements.raceSelectionWidget.setText(_selectedRace.getFullName());
+            this._screen.elements.raceSelectionWidget.enableVisuals(true);
+            this._screen.elements.raceSelectionWidget.enableArrows(factionToUse.getRaces(_world).size() > 1);
+            this._screen.elements.raceSelectionWidget.setText(_selectedRace.getFullName());
         } else {
-            this._screen._elements.raceSelectionWidget.enableVisuals(false);
+            this._screen.elements.raceSelectionWidget.enableVisuals(false);
         }
 
-        this._screen._elements.npcPreviewWidget.setEntity(_currentNpcEntity);
+        this._screen.elements.npcPreviewWidget.setEntity(_currentNpcEntity);
     }
 
     //region [Helpers]
@@ -365,6 +368,20 @@ public class OnboardingFactionScreenController {
     public void confirmSelection(){
         // TODO
         updateScreenInformation();
+    }
+
+    public int getMaxSpawnAmount() {
+        final int[] maxMarkerCount = {0};
+        this._factions.values().forEach(factionList -> factionList.forEach(faction -> {
+            SpawnDataHandler spawnDataHandler = faction.getSpawnData();
+            if(spawnDataHandler != null && spawnDataHandler.getSpawnList() != null){
+                int count = spawnDataHandler.getSpawnList().size();
+                if(count > maxMarkerCount[0]){
+                    maxMarkerCount[0] = count;
+                }
+            }
+        }));
+        return maxMarkerCount[0];
     }
     //endregion
 }

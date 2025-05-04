@@ -1,13 +1,11 @@
 package net.sevenstars.middleearth.gui.utils.widgets.map;
 
-import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.old.FactionSelectionControllerOld;
-import net.sevenstars.middleearth.gui.utils.widgets.map.types.MapMarkerType;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.sevenstars.middleearth.gui.utils.widgets.map.types.MapMarkerType;
+import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
@@ -18,20 +16,11 @@ import java.util.List;
 
 public class FactionSelectionMapWidget extends MapWidget {
     MapMarkerWidget[] spawnMapMarkers;
-    FactionSelectionControllerOld controller;
-    public FactionSelectionMapWidget(FactionSelectionControllerOld controller, int mapWidth, int mapHeight) {
+    List<SpawnData> spawns = new ArrayList<>();
+    public FactionSelectionMapWidget(int mapWidth, int mapHeight, int maxMarkerAmount) {
         super(mapWidth, mapHeight);
-        this.controller = controller;
         final int[] maxSpawnCount = {0};
-        this.controller.getFactions().values().forEach(factionList -> factionList.forEach(faction -> {
-            SpawnDataHandler spawnDataHandler = faction.getSpawnData();
-            if(spawnDataHandler != null && spawnDataHandler.getSpawnList() != null){
-                int count = spawnDataHandler.getSpawnList().size();
-                if(count > maxSpawnCount[0]){
-                    maxSpawnCount[0] = count;
-                }
-            }
-        }));
+
         spawnMapMarkers = new MapMarkerWidget[maxSpawnCount[0]];
         for(int i = 0; i< maxSpawnCount[0]; i++){
             int finalIndex = i;
@@ -39,7 +28,6 @@ public class FactionSelectionMapWidget extends MapWidget {
                     new Rectangle2D.Double(0, 0, uiWidth, uiHeight - 11));
             spawnMapMarkers[i].setType(MapMarkerType.DYNAMIC_SPAWN);
         }
-        updateSelectedSpawn(controller.getCurrentSpawnIndex());
         MapMarkerWidget.setTitle(Text.translatable("widget.me.spawn_tooltip_title").formatted(Formatting.UNDERLINE));
     }
     public ButtonWidget[] getButtons() {
@@ -50,9 +38,12 @@ public class FactionSelectionMapWidget extends MapWidget {
         return spawnButtonArray;
     }
 
+    public void setSpawns(List<SpawnData> spawnList){
+        this.spawns = spawnList;
+    }
+
     public void selectSpawn(int index){
         addCooldown();
-        controller.setSpawnIndex(index);
     }
 
     public void updateSelectedSpawn(int index){
@@ -68,11 +59,10 @@ public class FactionSelectionMapWidget extends MapWidget {
     @Override
     protected void draw(DrawContext context, int startX, int startY) {
         super.draw(context, startX, startY);
-        SpawnDataHandler handler = controller.getCurrentSpawnDataHandler();
-        if(handler == null || handler.getSpawnList() == null) return;
-        List<SpawnData> spawns = handler.getSpawnList();
+        if(spawns.isEmpty()) return;
+
         HashMap<Integer, List<Vector2i>> uniqueIndexes = new HashMap<>();
-        for(int i = 0; i < spawns.size(); i++){
+        for(int i = 0; i < spawns.size() && i < this.spawnMapMarkers.length; i++){
             SpawnData spawnData = spawns.get(i);
             Vector2d coordinates = new Vector2d(spawnData.getCoordinates().getX(), spawnData.getCoordinates().getZ());
             MapMarkerWidget mapMarker = this.spawnMapMarkers[i];
