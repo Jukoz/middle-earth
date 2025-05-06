@@ -581,7 +581,7 @@ public class ModWeaponItems {
 
     public static final Item ANGUIREL = registerArtefact("anguirel",
             (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
-    public static final Item GLAMDRING = registerGlowyArtefact("glamdring",
+    public static final Item GLAMDRING = registerArtefact("glamdring",
             (settings) ->  new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
     public static final Item LONG_FORGOTTEN_LONGSWORD = registerArtefact("long_forgotten_longsword",
             (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
@@ -591,14 +591,14 @@ public class ModWeaponItems {
             (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
     public static final Item NOLDORIN_LONGSWORD = registerArtefact("noldorin_longsword",
             (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
-    public static final Item ORCRIST = registerGlowyArtefact("orcrist",
+    public static final Item ORCRIST = registerArtefact("orcrist",
             (settings) -> new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
 
     public static final Item BARROW_BLADE = registerArtefact("barrow_blade",
             (settings) -> new ArtefactCustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), false);
     public static final Item MORGUL_KNIFE = registerArtefact("morgul_knife",
             (settings) -> new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE, settings), new Item.Settings(), false);
-    public static final Item STING = registerGlowyArtefact("sting",
+    public static final Item STING = registerArtefact("sting",
             (settings) -> new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), false);
 
     public static final Item AEGLOS = registerItemWithSpearModel("aeglos",
@@ -617,6 +617,7 @@ public class ModWeaponItems {
     public static final Item HELD_BANNER = registerItemNoModel("held_banner",
             HeldBannerItem::new);
 
+    //TODO custom component settings system + sword tag enchant/swipe fix
     private static Item registerItemWithModel(String name, Function<Item.Settings, Item> factory, Item.Settings settings, boolean isDualModel) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
@@ -667,25 +668,10 @@ public class ModWeaponItems {
         return registerItem(item, name);
     }
 
-    private static Item registerGlowyArtefact(String name, Function<Item.Settings, Item> factory, Item.Settings settings, boolean isDualModel) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
-        SimpleBigItemModel.artefactsBroken.add(item);
-        if (isDualModel){
-            SimpleBigItemModel.artefacts.add(item);
-        }
-        SimpleBigItemModel.artefactsGlowing.add(item);
-        Swords.swords.add(item);
-        return registerItem(item, name);
-    }
-
     private static Item registerArtefact(String name, Function<Item.Settings, Item> factory, Item.Settings settings, boolean isDualModel) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
-        SimpleBigItemModel.artefactsBroken.add(item);
-        if (isDualModel){
-            SimpleBigItemModel.artefacts.add(item);
-        }
+        SimpleArtefactModels.artefacts.add(new SimpleArtefactModels.Artefact(item, isDualModel));
         Swords.swords.add(item);
         return registerItem(item, name);
     }

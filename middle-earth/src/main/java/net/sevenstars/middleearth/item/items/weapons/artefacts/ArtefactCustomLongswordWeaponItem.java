@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem {
-    public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
     public ArtefactCustomLongswordWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
         super(toolMaterial, settings);
@@ -69,8 +68,9 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
 
     @Override
     public void postDamageEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        System.out.println("bonk but first");
         if (stack.getDamage() < stack.getMaxDamage() - 1){
-            stack.damage(1, attacker, EquipmentSlot.MAINHAND);
+            super.postDamageEntity(stack, target, attacker);
         }
         if (stack.getDamage() == stack.getMaxDamage() - 1){
             stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
@@ -82,7 +82,6 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
                             0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                     .build());
         }
-
     }
 
     @Override

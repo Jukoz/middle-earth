@@ -34,38 +34,35 @@ import java.util.function.Consumer;
 public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
 
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
-    public float rangeDistance;
 
     public ModFactions faction;
     public ModSubFactions subFaction;
     public ModWeaponTypes type;
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModWeaponTypes type, Item.Settings settings) {
-        super(settings.attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
-        this.rangeDistance = type.attackRange;
+        super(settings.maxDamage(toolMaterial.durability()).repairable(toolMaterial.repairItems()).enchantable(toolMaterial.enchantmentValue()).attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = type;
     }
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModFactions faction, ModWeaponTypes type, Item.Settings settings) {
-        super(settings.attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
-        this.rangeDistance = type.attackRange;
+        super(settings.maxDamage(toolMaterial.durability()).repairable(toolMaterial.repairItems()).enchantable(toolMaterial.enchantmentValue()).attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.faction = faction;
         this.subFaction = null;
         this.type = type;
     }
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, ModWeaponTypes type, Item.Settings settings) {
-        super(settings.attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
-        this.rangeDistance = type.attackRange;
+        super(settings.maxDamage(toolMaterial.durability()).repairable(toolMaterial.repairItems()).enchantable(toolMaterial.enchantmentValue()).attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = type;
     }
 
-    public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
-        return !miner.isCreative();
+    @Override
+    public boolean canMine(ItemStack stack, BlockState state, World world, BlockPos pos, LivingEntity user) {
+        return !user.isInCreativeMode();
     }
 
     public static AttributeModifiersComponent createAttributeModifiers(ToolMaterial material, float baseAttackDamage, float attackSpeed, float rangeDistance) {
@@ -94,9 +91,6 @@ public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
         super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
-    public float getRangeDistance() {
-        return rangeDistance;
-    }
 
     public ModWeaponTypes getType() {
         return type;
@@ -117,6 +111,7 @@ public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
     @Override
     public void postDamageEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         stack.damage(1, attacker, EquipmentSlot.MAINHAND);
+        System.out.println("bonk");
     }
 
     @Override
