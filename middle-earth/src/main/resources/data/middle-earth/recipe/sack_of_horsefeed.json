@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "me:lettuce",
+    "middle-earth:lettuce",
     "minecraft:hay_block",
     "minecraft:apple"
   ],
   "result": {
-    "id": "me:sack_of_horsefeed"
+    "id": "middle-earth:sack_of_horsefeed"
   }
 }

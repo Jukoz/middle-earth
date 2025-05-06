@@ -4,10 +4,10 @@
     "#"
   ],
   "key": {
-    "#": "me:straw_block"
+    "#": "middle-earth:straw_block"
   },
   "result": {
-    "id": "me:straw",
+    "id": "middle-earth:straw",
     "count": 4
   }
 }

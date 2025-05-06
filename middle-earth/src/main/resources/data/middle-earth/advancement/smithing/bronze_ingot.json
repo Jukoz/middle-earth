@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "id": "me:bronze_ingot",
+      "id": "middle-earth:bronze_ingot",
       "count": 1
     },
     "title": {
@@ -15,7 +15,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "me:smithing/bellows",
+  "parent": "middle-earth:smithing/bellows",
   "criteria": {
     "bronze_ingot": {
       "trigger": "minecraft:inventory_changed",
@@ -23,7 +23,7 @@
         "items": [
           {
             "items": [
-              "me:bronze_ingot"
+              "middle-earth:bronze_ingot"
             ]
           }
         ]

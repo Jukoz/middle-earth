@@ -1,12 +1,12 @@
 {
-  "name": "me:lothlorien_houses",
+  "name": "middle-earth:lothlorien_houses",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:lothlorien_house",
+        "location": "middle-earth:lothlorien_house",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

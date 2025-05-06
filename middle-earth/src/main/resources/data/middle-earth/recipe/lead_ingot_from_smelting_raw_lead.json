@@ -1,8 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "me:raw_lead",
+  "ingredient": "middle-earth:raw_lead",
   "result": {
-    "id": "me:lead_ingot"
+    "id": "middle-earth:lead_ingot"
   },
   "experience": 0.7,
   "cookingtime": 200

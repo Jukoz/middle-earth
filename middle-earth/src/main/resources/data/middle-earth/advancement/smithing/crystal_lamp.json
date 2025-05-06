@@ -1,12 +1,12 @@
 {
-  "parent": "me:smithing/bronze_ingot",
+  "parent": "middle-earth:smithing/bronze_ingot",
   "criteria": {
     "crystal_lamp": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:crystal_lamp"
+              "middle-earth:crystal_lamp"
             ]
           }
         ]
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:crystal_lamp"
+      "id":  "middle-earth:crystal_lamp"
     },
     "show_toast": true,
     "title": {

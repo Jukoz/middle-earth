@@ -8,7 +8,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:garlic"
+          "name": "middle-earth:garlic"
         }
       ]
     },
@@ -32,7 +32,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:onion"
+          "name": "middle-earth:onion"
         }
       ]
     },
@@ -68,7 +68,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:lettuce"
+          "name": "middle-earth:lettuce"
         }
       ]
     },
@@ -80,7 +80,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:fish_stew"
+          "name": "middle-earth:fish_stew"
         }
       ]
     },

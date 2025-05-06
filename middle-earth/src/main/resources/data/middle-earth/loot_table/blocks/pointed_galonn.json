@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:pointed_galonn"
+          "name": "middle-earth:pointed_galonn"
         }
       ],
       "rolls": 1.0

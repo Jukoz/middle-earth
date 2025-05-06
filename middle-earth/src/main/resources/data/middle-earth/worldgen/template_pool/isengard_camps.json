@@ -1,12 +1,12 @@
 {
-  "name": "me:isengard_camps",
+  "name": "middle-earth:isengard_camps",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:isengard_camp",
+        "location": "middle-earth:isengard_camp",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

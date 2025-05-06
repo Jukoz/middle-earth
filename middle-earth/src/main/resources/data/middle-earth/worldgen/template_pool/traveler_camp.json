@@ -1,12 +1,12 @@
 {
-  "name": "me:traveler_camp",
+  "name": "middle-earth:traveler_camp",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:traveler_camp",
+        "location": "middle-earth:traveler_camp",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

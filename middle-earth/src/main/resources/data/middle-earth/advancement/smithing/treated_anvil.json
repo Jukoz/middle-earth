@@ -1,12 +1,12 @@
 {
-  "parent": "me:smithing/steel",
+  "parent": "middle-earth:smithing/steel",
   "criteria": {
     "treated_anvil": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:treated_anvil"
+              "middle-earth:treated_anvil"
             ]
           }
         ]
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:treated_anvil"
+      "id":  "middle-earth:treated_anvil"
     },
     "show_toast": true,
     "title": {

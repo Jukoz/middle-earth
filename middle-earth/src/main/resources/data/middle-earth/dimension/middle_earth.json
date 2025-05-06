@@ -1,7 +1,7 @@
 {
-  "type": "me:middle_earth_type",
+  "type": "middle-earth:middle_earth_type",
   "generator": {
-    "type": "me:middle_earth",
+    "type": "middle-earth:middle_earth",
     "biome_source": {
       "type": "minecraft:fixed",
       "biome": "minecraft:plains"

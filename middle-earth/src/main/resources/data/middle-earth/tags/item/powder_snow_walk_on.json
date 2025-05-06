@@ -1,18 +1,18 @@
 {
   "replace": false,
   "values": [
-    "me:sturdy_boots",
-    "me:travelling_boots",
-    "me:high_cut_boots",
-    "me:gondorian_boots",
-    "me:dalish_boots",
-    "me:elven_boots",
-    "me:orcish_black_fur_boots",
-    "me:orcish_brown_fur_boots",
-    "me:orcish_gray_fur_boots",
-    "me:orcish_tan_fur_boots",
-    "me:orcish_white_fur_boots",
-    "me:uruk_hai_boots",
-    "me:gundabad_laced_boots"
+    "middle-earth:sturdy_boots",
+    "middle-earth:travelling_boots",
+    "middle-earth:high_cut_boots",
+    "middle-earth:gondorian_boots",
+    "middle-earth:dalish_boots",
+    "middle-earth:elven_boots",
+    "middle-earth:orcish_black_fur_boots",
+    "middle-earth:orcish_brown_fur_boots",
+    "middle-earth:orcish_gray_fur_boots",
+    "middle-earth:orcish_tan_fur_boots",
+    "middle-earth:orcish_white_fur_boots",
+    "middle-earth:uruk_hai_boots",
+    "middle-earth:gundabad_laced_boots"
   ]
 }

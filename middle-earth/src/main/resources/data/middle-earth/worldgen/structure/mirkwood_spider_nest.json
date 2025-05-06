@@ -1,10 +1,10 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#me:has_structure/mirkwood_spiders",
+  "biomes": "#middle-earth:has_structure/mirkwood_spiders",
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
-  "start_pool": "me:mirkwood_spider_nest",
+  "start_pool": "middle-earth:mirkwood_spider_nest",
   "size": 1,
   "start_height": {
     "absolute": -7

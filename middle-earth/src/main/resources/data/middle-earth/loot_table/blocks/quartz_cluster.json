@@ -26,7 +26,7 @@
                   }
                 }
               ],
-              "name": "me:quartz_cluster"
+              "name": "middle-earth:quartz_cluster"
             },
             {
               "type": "minecraft:alternatives",
@@ -53,7 +53,7 @@
                       "function": "minecraft:apply_bonus"
                     }
                   ],
-                  "name": "me:quartz_shard"
+                  "name": "middle-earth:quartz_shard"
                 },
                 {
                   "type": "minecraft:item",
@@ -67,7 +67,7 @@
                       "function": "minecraft:explosion_decay"
                     }
                   ],
-                  "name": "me:quartz_shard"
+                  "name": "middle-earth:quartz_shard"
                 }
               ]
             }

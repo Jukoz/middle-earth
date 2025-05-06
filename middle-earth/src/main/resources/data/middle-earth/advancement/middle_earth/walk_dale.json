@@ -1,5 +1,5 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "middle-earth:middle_earth/root",
   "criteria": {
     "enter_dale": {
       "conditions": {
@@ -10,10 +10,10 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:dale",
-                  "me:dale_city",
-                  "me:dale_forest",
-                  "me:dale_meadow"
+                  "middle-earth:dale",
+                  "middle-earth:dale_city",
+                  "middle-earth:dale_forest",
+                  "middle-earth:dale_meadow"
                 ]
               }
             }

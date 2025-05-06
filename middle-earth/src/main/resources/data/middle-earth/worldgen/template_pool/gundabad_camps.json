@@ -1,12 +1,12 @@
 {
-  "name": "me:gundabad_camps",
+  "name": "middle-earth:gundabad_camps",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:gundabad_camp",
+        "location": "middle-earth:gundabad_camp",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

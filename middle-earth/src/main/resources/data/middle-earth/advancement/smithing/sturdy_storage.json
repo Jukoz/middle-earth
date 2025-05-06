@@ -1,12 +1,12 @@
 {
-  "parent": "me:smithing/steel",
+  "parent": "middle-earth:smithing/steel",
   "criteria": {
     "reinforced_chest": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:reinforced_chest"
+              "middle-earth:reinforced_chest"
             ]
           }
         ]
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:reinforced_chest"
+      "id":  "middle-earth:reinforced_chest"
     },
     "show_toast": true,
     "title": {

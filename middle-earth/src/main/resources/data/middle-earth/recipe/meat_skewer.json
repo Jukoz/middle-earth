@@ -6,12 +6,12 @@
     "S"
   ],
   "key": {
-    "M": "#me:raw_meat",
-    "V": "#me:vegetable",
+    "M": "#middle-earth:raw_meat",
+    "V": "#middle-earth:vegetable",
     "S": "minecraft:stick"
   },
   "result": {
-    "id": "me:meat_skewer",
+    "id": "middle-earth:meat_skewer",
     "count": 1
   }
 }

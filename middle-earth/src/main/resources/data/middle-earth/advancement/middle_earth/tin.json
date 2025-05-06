@@ -1,11 +1,11 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "middle-earth:middle_earth/root",
   "criteria": {
     "raw_tin": {
       "conditions": {
         "items": [
           {
-            "items": "me:raw_tin"
+            "items": "middle-earth:raw_tin"
           }
         ]
       },
@@ -21,7 +21,7 @@
     "hidden": true,
     "icon": {
       "count": 1,
-      "id":  "me:tin_ore"
+      "id":  "middle-earth:tin_ore"
     },
     "show_toast": true,
     "title": {

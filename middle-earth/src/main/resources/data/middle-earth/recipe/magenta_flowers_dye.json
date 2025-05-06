@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "me:magenta_flowers"
+    "middle-earth:magenta_flowers"
   ],
   "result": {
     "id": "minecraft:magenta_dye"

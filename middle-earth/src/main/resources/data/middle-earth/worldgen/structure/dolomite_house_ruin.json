@@ -1,10 +1,10 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#me:has_structure/dolomite_ruin_biomes",
+  "biomes": "#middle-earth:has_structure/dolomite_ruin_biomes",
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
-  "start_pool": "me:dolomite_house_ruin",
+  "start_pool": "middle-earth:dolomite_house_ruin",
   "size": 1,
   "start_height": {
     "absolute": -1

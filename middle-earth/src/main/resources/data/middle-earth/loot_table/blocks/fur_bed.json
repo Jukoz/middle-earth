@@ -13,14 +13,14 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "me:fur_bed",
+              "block": "middle-earth:fur_bed",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "part": "head"
               }
             }
           ],
-          "name": "me:fur_bed"
+          "name": "middle-earth:fur_bed"
         }
       ],
       "rolls": 1.0

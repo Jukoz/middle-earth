@@ -1,5 +1,5 @@
 {
-  "parent": "me:smithing/root",
+  "parent": "middle-earth:smithing/root",
   "criteria": {
     "tin_cauldron": {
       "conditions": {

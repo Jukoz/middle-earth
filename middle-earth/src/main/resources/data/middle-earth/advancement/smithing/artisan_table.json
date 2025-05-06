@@ -1,12 +1,12 @@
 {
-  "parent": "me:smithing/root",
+  "parent": "middle-earth:smithing/root",
   "criteria": {
     "artisan_table": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:artisan_table"
+              "middle-earth:artisan_table"
             ]
           }
         ]
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:artisan_table"
+      "id":  "middle-earth:artisan_table"
     },
     "show_toast": true,
     "title": {

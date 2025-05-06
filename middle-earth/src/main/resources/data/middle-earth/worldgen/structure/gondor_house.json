@@ -1,10 +1,10 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#me:has_structure/gondor_biomes",
+  "biomes": "#middle-earth:has_structure/gondor_biomes",
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
-  "start_pool": "me:gondor_houses",
+  "start_pool": "middle-earth:gondor_houses",
   "size": 1,
   "start_height": {
     "absolute": -4

@@ -1,10 +1,10 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "me:raw_lead_block"
+    "middle-earth:raw_lead_block"
   ],
   "result": {
-    "id": "me:raw_lead",
+    "id": "middle-earth:raw_lead",
     "count": 9
   }
 }

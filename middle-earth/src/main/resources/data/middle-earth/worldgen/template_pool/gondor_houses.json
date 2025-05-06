@@ -1,12 +1,12 @@
 {
-  "name": "me:gondor_houses",
+  "name": "middle-earth:gondor_houses",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:gondor_house",
+        "location": "middle-earth:gondor_house",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

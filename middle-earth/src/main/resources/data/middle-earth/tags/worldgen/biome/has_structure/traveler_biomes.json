@@ -1,12 +1,12 @@
 {
   "replace": false,
   "values": [
-    "me:old_cardolan",
-    "me:old_cardolan_forest",    
-	"me:old_arthedain",
-	"me:anduin_vales",
-	"me:minhiriath",
-	"me:enedwaith",
-	"me:eregion"
+    "middle-earth:old_cardolan",
+    "middle-earth:old_cardolan_forest",    
+	"middle-earth:old_arthedain",
+	"middle-earth:anduin_vales",
+	"middle-earth:minhiriath",
+	"middle-earth:enedwaith",
+	"middle-earth:eregion"
   ]
 }

@@ -9,31 +9,31 @@
   "key": {
     "M": {
       "fabric:type": "fabric:components",
-      "base": "me:mail_ring",
+      "base": "middle-earth:mail_ring",
       "components": {
         "minecraft:trim": {
-          "material": "me:steel",
-          "pattern": "me:smithing_part"
+          "material": "middle-earth:steel",
+          "pattern": "middle-earth:smithing_part"
         }
       }
     },
     "S": {
       "fabric:type": "fabric:components",
-      "base":"me:scale",
+      "base":"middle-earth:scale",
       "components": {
         "minecraft:trim": {
-          "material": "me:steel",
-          "pattern": "me:smithing_part"
+          "material": "middle-earth:steel",
+          "pattern": "middle-earth:smithing_part"
         }
       }
     }
   },
   "result": {
-    "id": "me:scale_mail",
+    "id": "middle-earth:scale_mail",
     "components": {
       "minecraft:trim": {
-        "material": "me:steel",
-        "pattern": "me:smithing_part"
+        "material": "middle-earth:steel",
+        "pattern": "middle-earth:smithing_part"
       }
     },
     "count": 2

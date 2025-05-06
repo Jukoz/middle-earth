@@ -6,7 +6,7 @@
     "minecraft:chicken",
     "minecraft:mutton",
     "minecraft:rabbit",
-    "me:raw_swan",
-    "me:raw_horse"
+    "middle-earth:raw_swan",
+    "middle-earth:raw_horse"
   ]
 }

@@ -4,7 +4,7 @@
   "key": {
     "#": "minecraft:copper_ingot",
     "I": "minecraft:stick",
-    "X": "#me:feathers"
+    "X": "#middle-earth:feathers"
   },
   "pattern": [
     "X",

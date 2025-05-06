@@ -5,10 +5,10 @@
     "SS"
   ],
   "key": {
-    "S": "#me:shingles"
+    "S": "#middle-earth:shingles"
   },
   "result": {
-    "id": "me:weathered_shingles",
+    "id": "middle-earth:weathered_shingles",
     "count": 4
   }
 }

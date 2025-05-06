@@ -13,14 +13,14 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "me:calcite_statue",
+              "block": "middle-earth:calcite_statue",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "me:calcite_statue"
+          "name": "middle-earth:calcite_statue"
         }
       ],
       "rolls": 1.0

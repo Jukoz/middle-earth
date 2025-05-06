@@ -37,7 +37,7 @@
                   ]
                 }
               ],
-              "name": "me:maple_leaves"
+              "name": "middle-earth:maple_leaves"
             },
             {
               "type": "minecraft:item",
@@ -56,7 +56,7 @@
                   "enchantment": "minecraft:fortune"
                 }
               ],
-              "name": "me:maple_sapling"
+              "name": "middle-earth:maple_sapling"
             }
           ]
         },
@@ -93,7 +93,7 @@
                   ]
                 }
               ],
-              "name": "me:maple_leaves"
+              "name": "middle-earth:maple_leaves"
             },
             {
               "type": "minecraft:item",
@@ -112,7 +112,7 @@
                   "enchantment": "minecraft:fortune"
                 }
               ],
-              "name": "me:silver_maple_sapling"
+              "name": "middle-earth:silver_maple_sapling"
             }
           ]
         }

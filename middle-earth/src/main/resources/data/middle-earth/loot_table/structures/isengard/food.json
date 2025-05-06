@@ -20,7 +20,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:dirty_bone"
+          "name": "middle-earth:dirty_bone"
         }
       ]
     },
@@ -32,7 +32,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:tough_berries"
+          "name": "middle-earth:tough_berries"
         }
       ]
     },
@@ -44,7 +44,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:maggoty_bread"
+          "name": "middle-earth:maggoty_bread"
         }
       ]
     },
@@ -92,7 +92,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:raw_horse"
+          "name": "middle-earth:raw_horse"
         }
       ]
     }

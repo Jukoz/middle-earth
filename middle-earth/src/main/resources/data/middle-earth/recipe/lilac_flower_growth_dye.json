@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "me:lilac_flower_growth"
+    "middle-earth:lilac_flower_growth"
   ],
   "result": {
     "id": "minecraft:magenta_dye"

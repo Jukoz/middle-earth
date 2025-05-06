@@ -1,12 +1,12 @@
 {
-  "parent": "me:smithing/crude_ingot",
+  "parent": "middle-earth:smithing/crude_ingot",
   "criteria": {
     "orcish_sconce": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:orcish_sconce"
+              "middle-earth:orcish_sconce"
             ]
           }
         ]
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:orcish_sconce"
+      "id":  "middle-earth:orcish_sconce"
     },
     "show_toast": true,
     "title": {

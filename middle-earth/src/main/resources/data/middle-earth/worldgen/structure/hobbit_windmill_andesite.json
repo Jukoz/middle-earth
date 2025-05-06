@@ -1,10 +1,10 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#me:has_structure/shire_edge_biomes",
+  "biomes": "#middle-earth:has_structure/shire_edge_biomes",
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
-  "start_pool": "me:hobbit_windmill_andesite",
+  "start_pool": "middle-earth:hobbit_windmill_andesite",
   "size": 1,
   "start_height": {
     "absolute": -5

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "me:red_flowers"
+    "middle-earth:red_flowers"
   ],
   "result": {
     "id": "minecraft:red_dye"

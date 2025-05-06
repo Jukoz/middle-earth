@@ -1,8 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "#me:lead_ores",
+  "ingredient": "#middle-earth:lead_ores",
   "result": {
-    "id": "me:lead_ingot"
+    "id": "middle-earth:lead_ingot"
   },
   "experience": 0.7,
   "cookingtime": 200

@@ -49,7 +49,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:riverbend_pipe",
+          "name": "middle-earth:riverbend_pipe",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -64,7 +64,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:silver_coin",
+          "name": "middle-earth:silver_coin",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -79,7 +79,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:tin_nugget",
+          "name": "middle-earth:tin_nugget",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -118,7 +118,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:tin_nugget",
+          "name": "middle-earth:tin_nugget",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -133,7 +133,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin",
+          "name": "middle-earth:copper_coin",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -148,7 +148,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:dried_pipeweed",
+          "name": "middle-earth:dried_pipeweed",
           "functions": [
             {
               "function": "minecraft:set_count",

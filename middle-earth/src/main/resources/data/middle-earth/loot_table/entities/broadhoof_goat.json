@@ -32,7 +32,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:fur",
+          "name": "middle-earth:fur",
           "weight": 1,
           "functions": [
             {

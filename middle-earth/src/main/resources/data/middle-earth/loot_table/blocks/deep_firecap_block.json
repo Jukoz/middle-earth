@@ -26,7 +26,7 @@
                   }
                 }
               ],
-              "name": "me:deep_firecap_block"
+              "name": "middle-earth:deep_firecap_block"
             },
             {
               "type": "minecraft:item",
@@ -50,7 +50,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "me:deep_firecap"
+              "name": "middle-earth:deep_firecap"
             }
           ]
         }

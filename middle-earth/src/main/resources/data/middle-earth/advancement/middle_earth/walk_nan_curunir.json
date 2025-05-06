@@ -1,5 +1,5 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "middle-earth:middle_earth/root",
   "criteria": {
     "nan_curunir": {
       "conditions": {
@@ -10,9 +10,9 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:nan_curunir",
-                  "me:isengard",
-                  "me:isengard_hill"
+                  "middle-earth:nan_curunir",
+                  "middle-earth:isengard",
+                  "middle-earth:isengard_hill"
                 ]
               }
             }
@@ -30,7 +30,7 @@
     "frame": "task",
     "icon": {
       "count": 1,
-      "id": "me:medgon_carved_window_pane"
+      "id": "middle-earth:medgon_carved_window_pane"
     },
     "show_toast": true,
     "title": {

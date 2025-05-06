@@ -1,10 +1,10 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#me:has_structure/mordor_biomes",
+  "biomes": "#middle-earth:has_structure/mordor_biomes",
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
-  "start_pool": "me:mordor_camps",
+  "start_pool": "middle-earth:mordor_camps",
   "size": 1,
   "start_height": {
     "absolute": -4

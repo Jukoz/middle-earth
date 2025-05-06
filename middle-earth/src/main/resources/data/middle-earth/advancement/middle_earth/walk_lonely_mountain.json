@@ -1,5 +1,5 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "middle-earth:middle_earth/root",
   "criteria": {
     "enter_lonely_mountain": {
       "conditions": {
@@ -10,10 +10,10 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:lonely_mountain",
-                  "me:lonely_mountain_base",
-                  "me:lonely_mountain_peaks",
-                  "me:lonely_mountain_foothills"
+                  "middle-earth:lonely_mountain",
+                  "middle-earth:lonely_mountain_base",
+                  "middle-earth:lonely_mountain_peaks",
+                  "middle-earth:lonely_mountain_foothills"
                 ]
               }
             }
@@ -32,7 +32,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id": "me:gilded_green_tuff"
+      "id": "middle-earth:gilded_green_tuff"
     },
     "show_toast": true,
     "title": {

@@ -1,12 +1,12 @@
 {
-  "name": "me:hobbit_windmill_andesite",
+  "name": "middle-earth:hobbit_windmill_andesite",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:hobbit_windmill_andesite",
+        "location": "middle-earth:hobbit_windmill_andesite",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

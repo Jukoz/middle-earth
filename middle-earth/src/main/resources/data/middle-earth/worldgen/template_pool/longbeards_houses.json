@@ -1,12 +1,12 @@
 {
-  "name": "me:longbeards_houses",
+  "name": "middle-earth:longbeards_houses",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:longbeards_house",
+        "location": "middle-earth:longbeards_house",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

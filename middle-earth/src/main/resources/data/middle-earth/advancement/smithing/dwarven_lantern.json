@@ -1,12 +1,12 @@
 {
-  "parent": "me:smithing/khazad_steel",
+  "parent": "middle-earth:smithing/khazad_steel",
   "criteria": {
     "dwarven_lantern": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:dwarven_lantern"
+              "middle-earth:dwarven_lantern"
             ]
           }
         ]
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:dwarven_lantern"
+      "id":  "middle-earth:dwarven_lantern"
     },
     "show_toast": true,
     "title": {

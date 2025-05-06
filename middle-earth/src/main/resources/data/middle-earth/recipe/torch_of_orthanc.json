@@ -6,22 +6,22 @@
     " R "
   ],
   "key": {
-    "N": "me:burzum_steel_nugget",
+    "N": "middle-earth:burzum_steel_nugget",
     "G": "minecraft:glowstone_dust",
-    "I": "me:burzum_steel_ingot",
+    "I": "middle-earth:burzum_steel_ingot",
     "R": {
       "fabric:type": "fabric:components",
-      "base": "me:rod",
+      "base": "middle-earth:rod",
       "components": {
         "minecraft:trim": {
-          "material": "me:burzum_steel",
-          "pattern": "me:smithing_part"
+          "material": "middle-earth:burzum_steel",
+          "pattern": "middle-earth:smithing_part"
         }
       }
     }
   },
   "result": {
-    "id": "me:torch_of_orthanc",
+    "id": "middle-earth:torch_of_orthanc",
     "count": 1
   }
 }

@@ -32,8 +32,6 @@ import net.minecraft.util.math.random.Random;
 public class ModRegistries {
 
     public static void registerRegistryAliases() {
-        //Registries.BLOCK.addAlias(Identifier.of(MiddleEarth.MOD_ID, "medgon"), Identifier.of("me", "nurgon"));
-        //Registries.ITEM.addAlias(Identifier.of(MiddleEarth.MOD_ID, "medgon"), Identifier.of("me", "nurgon"));
     }
 
 

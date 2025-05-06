@@ -6,7 +6,7 @@
     "minecraft:cooked_chicken",
     "minecraft:cooked_mutton",
     "minecraft:cooked_rabbit",
-    "me:cooked_swan",
-    "me:cooked_horse"
+    "middle-earth:cooked_swan",
+    "middle-earth:cooked_horse"
   ]
 }

@@ -23,7 +23,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:small_quartz_bud"
+          "name": "middle-earth:small_quartz_bud"
         }
       ],
       "rolls": 1.0

@@ -1,12 +1,12 @@
 {
-  "parent": "me:smithing/khazad_steel",
+  "parent": "middle-earth:smithing/khazad_steel",
   "criteria": {
     "dwarven_treated_anvil": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:dwarven_treated_anvil"
+              "middle-earth:dwarven_treated_anvil"
             ]
           }
         ]
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:dwarven_treated_anvil"
+      "id":  "middle-earth:dwarven_treated_anvil"
     },
     "show_toast": true,
     "title": {

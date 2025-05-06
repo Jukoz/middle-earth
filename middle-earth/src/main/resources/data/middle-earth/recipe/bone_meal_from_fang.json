@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "me:fang"
+    "middle-earth:fang"
   ],
   "result": {
     "id": "minecraft:bone_meal",

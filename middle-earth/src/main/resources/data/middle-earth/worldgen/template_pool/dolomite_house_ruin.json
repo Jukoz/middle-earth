@@ -1,12 +1,12 @@
 {
-  "name": "me:dolomite_house_ruin",
+  "name": "middle-earth:dolomite_house_ruin",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:dolomite_house_ruin",
+        "location": "middle-earth:dolomite_house_ruin",
         "projection": "terrain_matching",
         "processors": "minecraft:empty"
       }

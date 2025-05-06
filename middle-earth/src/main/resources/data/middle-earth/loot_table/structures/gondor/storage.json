@@ -5,29 +5,29 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:gondor_banner_pattern",
+          "name": "middle-earth:gondor_banner_pattern",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:silver_coin",
+          "name": "middle-earth:silver_coin",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:gambeson"
+          "name": "middle-earth:gambeson"
         },
         {
           "type": "minecraft:item",
-          "name": "me:gondorian_bow"
+          "name": "middle-earth:gondorian_bow"
         },
         {
           "type": "minecraft:item",
-          "name": "me:gondorian_boots"
+          "name": "middle-earth:gondorian_boots"
         },
         {
           "type": "minecraft:item",
-          "name": "me:heater_shield",
+          "name": "middle-earth:heater_shield",
 		  "functions": [
             {
               "function": "minecraft:set_banner_pattern",
@@ -37,7 +37,7 @@
                   "color": "black"
                 },
                 {
-                  "pattern": "me:tree",
+                  "pattern": "middle-earth:tree",
                   "color": "white"
                 }
               ],
@@ -60,7 +60,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin"
+          "name": "middle-earth:copper_coin"
         }
       ]
     },
@@ -72,7 +72,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:black_lebethron_log"
+          "name": "middle-earth:black_lebethron_log"
         }
       ]
     },
@@ -84,7 +84,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:reeds"
+          "name": "middle-earth:reeds"
         }
       ]
     },

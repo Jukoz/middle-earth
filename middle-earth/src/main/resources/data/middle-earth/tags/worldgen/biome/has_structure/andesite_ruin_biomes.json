@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "me:gundabad_plains",
-    "me:grey_plains",
-    "me:old_angmar"
+    "middle-earth:gundabad_plains",
+    "middle-earth:grey_plains",
+    "middle-earth:old_angmar"
   ]
 }

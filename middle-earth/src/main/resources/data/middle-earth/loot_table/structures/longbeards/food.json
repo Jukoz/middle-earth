@@ -57,7 +57,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:cooked_meat_skewer"
+          "name": "middle-earth:cooked_meat_skewer"
         }
       ]
     },

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "me:white_flower_growth"
+    "middle-earth:white_flower_growth"
   ],
   "result": {
     "id": "minecraft:white_dye"

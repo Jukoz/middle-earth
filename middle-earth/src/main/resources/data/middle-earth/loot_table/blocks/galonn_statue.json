@@ -13,14 +13,14 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "me:galonn_statue",
+              "block": "middle-earth:galonn_statue",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "me:galonn_statue"
+          "name": "middle-earth:galonn_statue"
         }
       ],
       "rolls": 1.0

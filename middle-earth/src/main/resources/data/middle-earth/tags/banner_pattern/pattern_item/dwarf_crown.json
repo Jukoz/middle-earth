@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "me:dwarf_crown",
-    "me:dwarf_crown_bottom",
-    "me:dwarf_crown_top"
+    "middle-earth:dwarf_crown",
+    "middle-earth:dwarf_crown_bottom",
+    "middle-earth:dwarf_crown_top"
   ]
 }

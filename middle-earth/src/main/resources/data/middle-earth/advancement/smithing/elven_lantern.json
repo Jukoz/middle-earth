@@ -1,12 +1,12 @@
 {
-  "parent": "me:smithing/edhel_steel",
+  "parent": "middle-earth:smithing/edhel_steel",
   "criteria": {
     "elven_lantern": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:elven_lantern"
+              "middle-earth:elven_lantern"
             ]
           }
         ]
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:elven_lantern"
+      "id":  "middle-earth:elven_lantern"
     },
     "show_toast": true,
     "title": {

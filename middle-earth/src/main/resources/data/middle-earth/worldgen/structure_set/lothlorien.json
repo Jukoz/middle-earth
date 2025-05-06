@@ -1,11 +1,11 @@
 {
   "structures": [
 	{
-      "structure": "me:lothlorien_houses",
+      "structure": "middle-earth:lothlorien_houses",
       "weight": 2
     },
 	{
-      "structure": "me:lothlorien_watch_tower",
+      "structure": "middle-earth:lothlorien_watch_tower",
       "weight": 1
     }
   ],

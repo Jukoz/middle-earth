@@ -5,16 +5,16 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:isengard_banner_pattern",
+          "name": "middle-earth:isengard_banner_pattern",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:uruk_hai_leather_scout_cap"
+          "name": "middle-earth:uruk_hai_leather_scout_cap"
         },
         {
           "type": "minecraft:item",
-          "name": "me:uruk_hai_leather_chestplate"
+          "name": "middle-earth:uruk_hai_leather_chestplate"
         },
         {
           "type": "minecraft:item",
@@ -22,15 +22,15 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:crude_axe"
+          "name": "middle-earth:crude_axe"
         },
         {
           "type": "minecraft:item",
-          "name": "me:orcish_leather_skirt"
+          "name": "middle-earth:orcish_leather_skirt"
         },
         {
           "type": "minecraft:item",
-          "name": "me:heater_shield",
+          "name": "middle-earth:heater_shield",
 		  "functions": [
             {
               "function": "minecraft:set_banner_pattern",
@@ -44,7 +44,7 @@
                   "color": "gray"
                 },
                 {
-                  "pattern": "me:hand",
+                  "pattern": "middle-earth:hand",
                   "color": "white"
                 }
               ],
@@ -54,7 +54,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:orcish_sconce"
+          "name": "middle-earth:orcish_sconce"
         },
         {
           "type": "minecraft:empty",
@@ -83,7 +83,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:dirty_bone"
+          "name": "middle-earth:dirty_bone"
         }
       ]
     },
@@ -95,7 +95,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:crude_ingot"
+          "name": "middle-earth:crude_ingot"
         }
       ]
     },
@@ -107,7 +107,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:crude_nugget"
+          "name": "middle-earth:crude_nugget"
         }
       ]
     },
@@ -119,7 +119,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:crude_axe"
+          "name": "middle-earth:crude_axe"
         }
       ]
     },
@@ -143,7 +143,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:ash_block"
+          "name": "middle-earth:ash_block"
         }
       ]
     },

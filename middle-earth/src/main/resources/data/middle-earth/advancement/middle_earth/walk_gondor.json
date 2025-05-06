@@ -1,5 +1,5 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "middle-earth:middle_earth/root",
   "criteria": {
     "gondor": {
       "conditions": {
@@ -10,29 +10,29 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:anorien",
-                  "me:anorien_riverside",
-                  "me:belfalas",
-                  "me:belfalas_beach",
-                  "me:belfalas_forest",
-                  "me:belfalas_hills",
-                  "me:blackroot_forest",
-                  "me:blackroot_vale",
-                  "me:gondor",
-                  "me:gondor_hill",
-                  "me:gondor_forest",
-                  "me:lossarnach",
-                  "me:lossarnach_valley",
-                  "me:lossarnach_valley_green",
-                  "me:lossarnach_valley_yellow",
-                  "me:lossarnach_valley_orange",
-                  "me:lossarnach_valley_red",
-                  "me:lossarnach_cherry_blossom",
-                  "me:lebennin",
-                  "me:lebennin_hills",
-                  "me:lamedon",
-                  "me:lamedon_hills",
-                  "me:pelennor_fields"
+                  "middle-earth:anorien",
+                  "middle-earth:anorien_riverside",
+                  "middle-earth:belfalas",
+                  "middle-earth:belfalas_beach",
+                  "middle-earth:belfalas_forest",
+                  "middle-earth:belfalas_hills",
+                  "middle-earth:blackroot_forest",
+                  "middle-earth:blackroot_vale",
+                  "middle-earth:gondor",
+                  "middle-earth:gondor_hill",
+                  "middle-earth:gondor_forest",
+                  "middle-earth:lossarnach",
+                  "middle-earth:lossarnach_valley",
+                  "middle-earth:lossarnach_valley_green",
+                  "middle-earth:lossarnach_valley_yellow",
+                  "middle-earth:lossarnach_valley_orange",
+                  "middle-earth:lossarnach_valley_red",
+                  "middle-earth:lossarnach_cherry_blossom",
+                  "middle-earth:lebennin",
+                  "middle-earth:lebennin_hills",
+                  "middle-earth:lamedon",
+                  "middle-earth:lamedon_hills",
+                  "middle-earth:pelennor_fields"
                 ]
               }
             }
@@ -51,7 +51,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:lebethron_sapling"
+      "id":  "middle-earth:lebethron_sapling"
     },
     "show_toast": true,
     "title": {

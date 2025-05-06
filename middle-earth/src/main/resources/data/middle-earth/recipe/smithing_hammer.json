@@ -6,11 +6,11 @@
     " S "
   ],
   "key": {
-    "M": "me:steel_ingot",
+    "M": "middle-earth:steel_ingot",
     "S": "minecraft:stick"
   },
   "result": {
-    "id": "me:smithing_hammer",
+    "id": "middle-earth:smithing_hammer",
     "count": 1
   }
 }

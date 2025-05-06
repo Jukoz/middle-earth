@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "me:reeds"
+    "#": "middle-earth:reeds"
   },
   "pattern": [
     "##",
     "##"
   ],
   "result": {
-    "id": "me:reed_block"
+    "id": "middle-earth:reed_block"
   },
   "show_notification": true
 }

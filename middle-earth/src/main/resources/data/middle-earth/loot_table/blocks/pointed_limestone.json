@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:pointed_limestone"
+          "name": "middle-earth:pointed_limestone"
         }
       ],
       "rolls": 1.0

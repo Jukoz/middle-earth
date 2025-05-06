@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:dirty_bone",
+          "name": "middle-earth:dirty_bone",
           "weight": 2,
           "functions": [
             {
@@ -27,7 +27,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:fang",
+          "name": "middle-earth:fang",
           "weight": 1,
           "functions": [
             {
@@ -43,7 +43,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:fur",
+          "name": "middle-earth:fur",
           "weight": 1,
           "functions": [
             {

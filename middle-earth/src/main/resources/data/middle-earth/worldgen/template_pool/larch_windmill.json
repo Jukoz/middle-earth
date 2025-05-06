@@ -1,12 +1,12 @@
 {
-  "name": "me:larch_windmill",
+  "name": "middle-earth:larch_windmill",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:larch_windmill",
+        "location": "middle-earth:larch_windmill",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

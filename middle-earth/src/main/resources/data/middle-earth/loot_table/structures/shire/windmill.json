@@ -32,7 +32,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:straw"
+          "name": "middle-earth:straw"
         }
       ]
     },
@@ -68,7 +68,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:wheatgrass"
+          "name": "middle-earth:wheatgrass"
         }
       ]
     },
@@ -80,7 +80,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:wild_wheat"
+          "name": "middle-earth:wild_wheat"
         }
       ]
     }

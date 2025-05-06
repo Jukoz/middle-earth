@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "me:lothlorien",
-    "me:lothlorien_glade"
+    "middle-earth:lothlorien",
+    "middle-earth:lothlorien_glade"
   ]
 }

@@ -1,12 +1,12 @@
 {
-  "name": "me:granite_ruin_tower",
+  "name": "middle-earth:granite_ruin_tower",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:granite_ruin_tower",
+        "location": "middle-earth:granite_ruin_tower",
         "projection": "terrain_matching",
         "processors": "minecraft:empty"
       }

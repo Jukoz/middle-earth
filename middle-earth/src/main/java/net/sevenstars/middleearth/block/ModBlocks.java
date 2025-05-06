@@ -1276,9 +1276,8 @@ public class ModBlocks {
             BlockDrops.blocks.add(block);
         }
         group.add(block.asItem().getDefaultStack());
-
         TranslationEntries.blockEntries.add(block);
-        
+        Registries.BLOCK.addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, name));
         return Registry.register(Registries.BLOCK, keyOfBlock(name), block);
     }
 

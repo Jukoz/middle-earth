@@ -71,7 +71,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin",
+          "name": "middle-earth:copper_coin",
           "functions": [
             {
               "function": "minecraft:set_count",

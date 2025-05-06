@@ -5,12 +5,12 @@
       "id": "#fabric:axes",
       "required": false
     },
-    "me:khazad_steel_axe",
-    "me:crude_axe",
-    "me:burzum_steel_axe",
-    "me:edhel_steel_axe",
-    "me:steel_axe",
-    "me:bronze_axe",
-    "me:mithril_axe"
+    "middle-earth:khazad_steel_axe",
+    "middle-earth:crude_axe",
+    "middle-earth:burzum_steel_axe",
+    "middle-earth:edhel_steel_axe",
+    "middle-earth:steel_axe",
+    "middle-earth:bronze_axe",
+    "middle-earth:mithril_axe"
   ]
 }

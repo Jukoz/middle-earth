@@ -1,12 +1,12 @@
 {
-  "name": "me:barrow_down",
+  "name": "middle-earth:barrow_down",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:barrow_down",
+        "location": "middle-earth:barrow_down",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

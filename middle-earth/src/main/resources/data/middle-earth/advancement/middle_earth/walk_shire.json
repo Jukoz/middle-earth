@@ -1,7 +1,7 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "middle-earth:middle_earth/root",
   "criteria": {
-    "me:shire": {
+    "middle-earth:shire": {
       "conditions": {
         "player": [
           {
@@ -10,11 +10,11 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:shire",
-                  "me:shire_forest",
-                  "me:shire_hills",
-                  "me:shire_edge",
-                  "me:shire_woods"
+                  "middle-earth:shire",
+                  "middle-earth:shire_forest",
+                  "middle-earth:shire_hills",
+                  "middle-earth:shire_edge",
+                  "middle-earth:shire_woods"
                 ]
               }
             }
@@ -33,7 +33,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:white_daub_hobbit_window_pane"
+      "id":  "middle-earth:white_daub_hobbit_window_pane"
     },
     "show_toast": true,
     "title": {
@@ -42,7 +42,7 @@
   },
   "requirements": [
     [
-      "me:shire"
+      "middle-earth:shire"
     ]
   ]
 }

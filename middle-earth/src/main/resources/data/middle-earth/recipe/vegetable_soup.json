@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "#me:vegetable",
-    "#me:vegetable",
-    "#me:vegetable",
-    "#me:vegetable",
+    "#middle-earth:vegetable",
+    "#middle-earth:vegetable",
+    "#middle-earth:vegetable",
+    "#middle-earth:vegetable",
     "minecraft:bowl"
   ],
   "result": {
-    "id": "me:vegetable_soup"
+    "id": "middle-earth:vegetable_soup"
   }
 }

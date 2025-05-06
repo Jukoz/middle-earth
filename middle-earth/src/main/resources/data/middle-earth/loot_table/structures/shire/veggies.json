@@ -44,7 +44,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:lettuce"
+          "name": "middle-earth:lettuce"
         }
       ]
     },
@@ -56,7 +56,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:leek"
+          "name": "middle-earth:leek"
         }
       ]
     },
@@ -68,7 +68,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:onion"
+          "name": "middle-earth:onion"
         }
       ]
     },
@@ -80,7 +80,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:garlic"
+          "name": "middle-earth:garlic"
         }
       ]
     }

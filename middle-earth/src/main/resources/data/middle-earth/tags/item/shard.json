@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "minecraft:amethyst_shard",
-    "me:red_agate_shard",
-    "me:citrine_shard"
+    "middle-earth:red_agate_shard",
+    "middle-earth:citrine_shard"
   ]
 }

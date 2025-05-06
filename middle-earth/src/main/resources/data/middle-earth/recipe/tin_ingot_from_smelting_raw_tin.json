@@ -1,8 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "me:raw_tin",
+  "ingredient": "middle-earth:raw_tin",
   "result": {
-    "id": "me:tin_ingot"
+    "id": "middle-earth:tin_ingot"
   },
   "experience": 0.7,
   "cookingtime": 200

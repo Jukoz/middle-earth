@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "me:mirkwood",
-    "me:dark_mirkwood"
+    "middle-earth:mirkwood",
+    "middle-earth:dark_mirkwood"
   ]
 }

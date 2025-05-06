@@ -20,7 +20,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:lettuce"
+          "name": "middle-earth:lettuce"
         }
       ]
     },
@@ -32,7 +32,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:garlic"
+          "name": "middle-earth:garlic"
         }
       ]
     },
@@ -44,7 +44,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:lembas"
+          "name": "middle-earth:lembas"
         }
       ]
     },
@@ -56,7 +56,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:cooked_vegetable_skewer"
+          "name": "middle-earth:cooked_vegetable_skewer"
         }
       ]
     },
@@ -68,7 +68,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:vegetable_soup"
+          "name": "middle-earth:vegetable_soup"
         }
       ]
     },
@@ -80,7 +80,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:onion"
+          "name": "middle-earth:onion"
         }
       ]
     }

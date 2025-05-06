@@ -1,10 +1,10 @@
 {
-  "parent": "me:middle_earth/walk_shire",
+  "parent": "middle-earth:middle_earth/walk_shire",
   "criteria": {
     "strawberry": {
       "conditions": {
         "item": {
-          "items": "me:strawberry"
+          "items": "middle-earth:strawberry"
         }
       },
       "trigger": "minecraft:consume_item"
@@ -19,7 +19,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:strawberry"
+      "id":  "middle-earth:strawberry"
     },
     "show_toast": true,
     "title": {

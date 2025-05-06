@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "me:glowworm_bottle",
+    "middle-earth:glowworm_bottle",
     "minecraft:rooted_dirt"
   ]
 }

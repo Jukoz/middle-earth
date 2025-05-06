@@ -1,11 +1,11 @@
 {
   "structures": [
     {
-      "structure": "me:barrow_downs",
+      "structure": "middle-earth:barrow_downs",
       "weight": 1
     },
 	{
-      "structure": "me:stone_pillar",
+      "structure": "middle-earth:stone_pillar",
       "weight": 10
     }
   ],

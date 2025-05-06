@@ -4,12 +4,12 @@
     "minecraft:carrot",
     "minecraft:potato",
     "minecraft:beetroot",
-    "me:leek",
-    "me:cucumber",
-    "me:lettuce",
-    "me:garlic",
-    "me:tomato",
-    "me:bell_pepper",
-    "me:onion"
+    "middle-earth:leek",
+    "middle-earth:cucumber",
+    "middle-earth:lettuce",
+    "middle-earth:garlic",
+    "middle-earth:tomato",
+    "middle-earth:bell_pepper",
+    "middle-earth:onion"
   ]
 }

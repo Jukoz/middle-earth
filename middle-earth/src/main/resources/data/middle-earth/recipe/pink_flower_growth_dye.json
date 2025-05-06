@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "me:pink_flower_growth"
+    "middle-earth:pink_flower_growth"
   ],
   "result": {
     "id": "minecraft:pink_dye"

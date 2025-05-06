@@ -6,14 +6,14 @@
     " N "
   ],
   "key": {
-    "N": "me:steel_nugget"
+    "N": "middle-earth:steel_nugget"
   },
   "result": {
-    "id": "me:mail_ring",
+    "id": "middle-earth:mail_ring",
     "components": {
       "minecraft:trim": {
-        "material": "me:steel",
-        "pattern": "me:smithing_part"
+        "material": "middle-earth:steel",
+        "pattern": "middle-earth:smithing_part"
       }
     },
     "count": 4

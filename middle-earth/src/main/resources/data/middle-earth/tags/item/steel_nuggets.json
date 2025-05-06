@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "me:steel_nugget",
-    "me:khazad_steel_nugget",
-    "me:edhel_steel_nugget",
-    "me:burzum_steel_nugget"
+    "middle-earth:steel_nugget",
+    "middle-earth:khazad_steel_nugget",
+    "middle-earth:edhel_steel_nugget",
+    "middle-earth:burzum_steel_nugget"
   ]
 }

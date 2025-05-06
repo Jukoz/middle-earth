@@ -3,12 +3,12 @@
   "category": "misc",
   "ingredients": [
     "minecraft:cobbled_deepslate",
-    "me:cobbled_limestone",
-    "me:cobbled_granite",
-    "me:cobbled_andesite"
+    "middle-earth:cobbled_limestone",
+    "middle-earth:cobbled_granite",
+    "middle-earth:cobbled_andesite"
   ],
   "result": {
-    "id": "me:mixed_stones",
+    "id": "middle-earth:mixed_stones",
     "count": 4
   }
 }

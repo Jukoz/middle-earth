@@ -2,10 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "me:ash_block"
+    "middle-earth:ash_block"
   ],
   "result": {
-    "id": "me:ash",
+    "id": "middle-earth:ash",
     "count": 4
   }
 }

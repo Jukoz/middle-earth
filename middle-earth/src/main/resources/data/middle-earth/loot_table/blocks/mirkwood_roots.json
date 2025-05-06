@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:mirkwood_roots"
+          "name": "middle-earth:mirkwood_roots"
         }
       ],
       "rolls": 1.0

@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "#me:cooked_poultry",
-    "#me:vegetable",
-    "#me:vegetable",
-    "#me:vegetable",
+    "#middle-earth:cooked_poultry",
+    "#middle-earth:vegetable",
+    "#middle-earth:vegetable",
+    "#middle-earth:vegetable",
     "minecraft:bowl"
   ],
   "result": {
-    "id": "me:poultry_meal"
+    "id": "middle-earth:poultry_meal"
   }
 }

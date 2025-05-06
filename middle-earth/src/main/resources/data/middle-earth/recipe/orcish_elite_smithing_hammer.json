@@ -8,19 +8,19 @@
   "key": {
     "G": {
       "fabric:type": "fabric:components",
-      "base": "me:rod",
+      "base": "middle-earth:rod",
       "components": {
         "minecraft:trim": {
           "material": "gold",
-          "pattern": "me:smithing_part"
+          "pattern": "middle-earth:smithing_part"
         }
       }
     },
-    "M": "me:burzum_steel_ingot",
+    "M": "middle-earth:burzum_steel_ingot",
     "S": "minecraft:stick"
   },
   "result": {
-    "id": "me:orcish_elite_smithing_hammer",
+    "id": "middle-earth:orcish_elite_smithing_hammer",
     "count": 1
   }
 }

@@ -1,11 +1,11 @@
 {
   "structures": [
 	{
-      "structure": "me:gondor_house",
+      "structure": "middle-earth:gondor_house",
       "weight": 4
     },
 	{
-      "structure": "me:gondor_watch_tower",
+      "structure": "middle-earth:gondor_watch_tower",
       "weight": 2
     }
   ],

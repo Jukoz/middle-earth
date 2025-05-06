@@ -21,12 +21,12 @@
               "condition": "minecraft:location_check",
               "predicate": {
                 "biomes": [
-                  "me:oasis",
-                  "me:corsair_coasts",
-                  "me:umbar",
-                  "me:umbar_woods",
-                  "me:harad",
-                  "me:harad_desert"
+                  "middle-earth:oasis",
+                  "middle-earth:corsair_coasts",
+                  "middle-earth:umbar",
+                  "middle-earth:umbar_woods",
+                  "middle-earth:harad",
+                  "middle-earth:harad_desert"
                 ]
               }
             }
@@ -41,12 +41,12 @@
               "condition": "minecraft:location_check",
               "predicate": {
                 "biomes": [
-                  "me:oasis",
-                  "me:corsair_coasts",
-                  "me:umbar",
-                  "me:umbar_woods",
-                  "me:harad",
-                  "me:harad_desert"
+                  "middle-earth:oasis",
+                  "middle-earth:corsair_coasts",
+                  "middle-earth:umbar",
+                  "middle-earth:umbar_woods",
+                  "middle-earth:harad",
+                  "middle-earth:harad_desert"
                 ]
               }
             }

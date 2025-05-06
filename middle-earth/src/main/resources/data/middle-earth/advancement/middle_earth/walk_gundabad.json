@@ -1,5 +1,5 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "middle-earth:middle_earth/root",
   "criteria": {
     "enter_gundabad": {
       "conditions": {
@@ -10,9 +10,9 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:mount_gundabad",
-                  "me:mount_gundabad_base",
-                  "me:mount_gundabad_peaks"
+                  "middle-earth:mount_gundabad",
+                  "middle-earth:mount_gundabad_base",
+                  "middle-earth:mount_gundabad_peaks"
                 ]
               }
             }

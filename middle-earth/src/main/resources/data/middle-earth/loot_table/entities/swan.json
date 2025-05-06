@@ -26,7 +26,7 @@
               "enchantment": "minecraft:looting"
             }
           ],
-          "name": "me:swan_feather"
+          "name": "middle-earth:swan_feather"
         }
       ],
       "rolls": 1.0
@@ -61,7 +61,7 @@
               "enchantment": "minecraft:looting"
             }
           ],
-          "name": "me:raw_swan"
+          "name": "middle-earth:raw_swan"
         }
       ],
       "rolls": 1.0

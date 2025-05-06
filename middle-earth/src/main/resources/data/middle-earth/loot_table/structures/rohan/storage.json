@@ -5,32 +5,32 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:rohan_banner_pattern",
+          "name": "middle-earth:rohan_banner_pattern",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:arming_coat"
+          "name": "middle-earth:arming_coat"
         },
         {
           "type": "minecraft:item",
-          "name": "me:rohirric_leather_helmet"
+          "name": "middle-earth:rohirric_leather_helmet"
         },
         {
           "type": "minecraft:item",
-          "name": "me:bronze_spear"
+          "name": "middle-earth:bronze_spear"
         },
         {
           "type": "minecraft:item",
-          "name": "me:bronze_axe"
+          "name": "middle-earth:bronze_axe"
         },
         {
           "type": "minecraft:item",
-          "name": "me:rohirric_cape"
+          "name": "middle-earth:rohirric_cape"
         },
         {
           "type": "minecraft:item",
-          "name": "me:round_shield",
+          "name": "middle-earth:round_shield",
 		  "functions": [
             {
               "function": "minecraft:set_banner_pattern",
@@ -44,7 +44,7 @@
                   "color": "lime"
                 },
                 {
-                  "pattern": "me:horse",
+                  "pattern": "middle-earth:horse",
                   "color": "white"
                 }
               ],
@@ -67,7 +67,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin"
+          "name": "middle-earth:copper_coin"
         }
       ]
     },
@@ -79,7 +79,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:thatch"
+          "name": "middle-earth:thatch"
         }
       ]
     },
@@ -91,7 +91,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:straw"
+          "name": "middle-earth:straw"
         }
       ]
     },
@@ -103,7 +103,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:sack_of_horsefeed"
+          "name": "middle-earth:sack_of_horsefeed"
         }
       ]
     },

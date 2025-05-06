@@ -6,11 +6,11 @@
     "S"
   ],
   "key": {
-    "V": "#me:vegetable",
+    "V": "#middle-earth:vegetable",
     "S": "minecraft:stick"
   },
   "result": {
-    "id": "me:vegetable_skewer",
+    "id": "middle-earth:vegetable_skewer",
     "count": 1
   }
 }

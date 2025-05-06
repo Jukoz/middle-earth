@@ -1,19 +1,19 @@
 {
   "structures": [
 	{
-      "structure": "me:larch_windmill",
+      "structure": "middle-earth:larch_windmill",
       "weight": 1
     },
 	{
-      "structure": "me:traveler_camp",
+      "structure": "middle-earth:traveler_camp",
       "weight": 1
     },
 	{
-      "structure": "me:limestone_ruin",
+      "structure": "middle-earth:limestone_ruin",
       "weight": 2
     },
 	{
-      "structure": "me:limestone_well",
+      "structure": "middle-earth:limestone_well",
       "weight": 1
     }
   ],

@@ -23,7 +23,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:medium_citrine_bud"
+          "name": "middle-earth:medium_citrine_bud"
         }
       ],
       "rolls": 1.0

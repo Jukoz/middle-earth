@@ -5,33 +5,33 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:mordor_banner_pattern",
+          "name": "middle-earth:mordor_banner_pattern",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:orcish_sconce",
+          "name": "middle-earth:orcish_sconce",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:orcish_leather_chestplate"
+          "name": "middle-earth:orcish_leather_chestplate"
         },
         {
           "type": "minecraft:item",
-          "name": "me:crude_dagger"
+          "name": "middle-earth:crude_dagger"
         },
         {
           "type": "minecraft:item",
-          "name": "me:crude_axe"
+          "name": "middle-earth:crude_axe"
         },
         {
           "type": "minecraft:item",
-          "name": "me:crude_ingot"
+          "name": "middle-earth:crude_ingot"
         },
         {
           "type": "minecraft:item",
-          "name": "me:mordor_painted_wooden_shield",
+          "name": "middle-earth:mordor_painted_wooden_shield",
           "weight": 2
         },
         {
@@ -49,7 +49,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:dirty_bone"
+          "name": "middle-earth:dirty_bone"
         }
       ]
     },
@@ -73,7 +73,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:crude_nugget"
+          "name": "middle-earth:crude_nugget"
         }
       ]
     },
@@ -85,7 +85,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:tough_berries"
+          "name": "middle-earth:tough_berries"
         }
       ]
     },
@@ -97,7 +97,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:maggoty_bread"
+          "name": "middle-earth:maggoty_bread"
         }
       ]
     },
@@ -121,7 +121,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:ash_block"
+          "name": "middle-earth:ash_block"
         }
       ]
     }

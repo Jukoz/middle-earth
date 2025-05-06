@@ -8,21 +8,21 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "me:tall_wild_wheat",
+              "block": "middle-earth:tall_wild_wheat",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "me:straw",
+          "name": "middle-earth:straw",
           "weight": 4
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "me:tall_wild_wheat",
+              "block": "middle-earth:tall_wild_wheat",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "half": "lower"
@@ -36,7 +36,7 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "me:tall_wild_wheat",
+              "block": "middle-earth:tall_wild_wheat",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "half": "lower"

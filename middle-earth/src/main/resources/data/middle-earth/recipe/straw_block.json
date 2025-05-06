@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "me:straw"
+    "#": "middle-earth:straw"
   },
   "pattern": [
     "##",
     "##"
   ],
   "result": {
-    "id": "me:straw_block"
+    "id": "middle-earth:straw_block"
   },
   "show_notification": true
 }

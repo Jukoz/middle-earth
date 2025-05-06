@@ -6,14 +6,14 @@
     " N "
   ],
   "key": {
-    "N": "me:bronze_nugget"
+    "N": "middle-earth:bronze_nugget"
   },
   "result": {
-    "id": "me:scale",
+    "id": "middle-earth:scale",
     "components": {
       "minecraft:trim": {
-        "material": "me:bronze",
-        "pattern": "me:smithing_part"
+        "material": "middle-earth:bronze",
+        "pattern": "middle-earth:smithing_part"
       }
     },
     "count": 5

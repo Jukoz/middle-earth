@@ -1,12 +1,12 @@
 {
   "replace": false,
   "values": [
-    "me:anorien",
-    "me:lebennin",
-    "me:pelennor_fields",
-    "me:lamedon",
-    "me:blackroot_vale",
-    "me:belfalas",
-    "me:gondor"
+    "middle-earth:anorien",
+    "middle-earth:lebennin",
+    "middle-earth:pelennor_fields",
+    "middle-earth:lamedon",
+    "middle-earth:blackroot_vale",
+    "middle-earth:belfalas",
+    "middle-earth:gondor"
   ]
 }

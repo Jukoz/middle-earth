@@ -1,11 +1,11 @@
 {
   "structures": [
 	{
-      "structure": "me:isengard_camp",
+      "structure": "middle-earth:isengard_camp",
       "weight": 2
     },
 	{
-      "structure": "me:isengard_watch_tower",
+      "structure": "middle-earth:isengard_watch_tower",
       "weight": 1
     }
   ],

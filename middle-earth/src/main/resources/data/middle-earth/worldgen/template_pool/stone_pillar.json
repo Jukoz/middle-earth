@@ -1,14 +1,14 @@
 {
-  "name": "me:barrow_stone",
+  "name": "middle-earth:barrow_stone",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:barrow_stone",
+        "location": "middle-earth:barrow_stone",
         "projection": "rigid",
-        "processors": "me:randomize_stone"
+        "processors": "middle-earth:randomize_stone"
       }
     }
   ]

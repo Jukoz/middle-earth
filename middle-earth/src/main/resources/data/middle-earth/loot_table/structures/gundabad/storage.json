@@ -5,36 +5,36 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:misty_mountains_orcs_banner_pattern",
+          "name": "middle-earth:misty_mountains_orcs_banner_pattern",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:gundabad_bone_pauldron"
+          "name": "middle-earth:gundabad_bone_pauldron"
         },
         {
           "type": "minecraft:item",
-          "name": "me:gundabad_leather_scale_coat"
+          "name": "middle-earth:gundabad_leather_scale_coat"
         },
         {
           "type": "minecraft:item",
-          "name": "me:crude_spear"
+          "name": "middle-earth:crude_spear"
         },
         {
           "type": "minecraft:item",
-          "name": "me:crude_dagger"
+          "name": "middle-earth:crude_dagger"
         },
         {
           "type": "minecraft:item",
-          "name": "me:orcish_leather_skirt"
+          "name": "middle-earth:orcish_leather_skirt"
         },
         {
           "type": "minecraft:item",
-          "name": "me:gundabad_peaks_painted_wooden_shield"
+          "name": "middle-earth:gundabad_peaks_painted_wooden_shield"
         },
         {
           "type": "minecraft:item",
-          "name": "me:gundabad_bow"
+          "name": "middle-earth:gundabad_bow"
         },
         {
           "type": "minecraft:empty",
@@ -51,7 +51,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:dirty_bone"
+          "name": "middle-earth:dirty_bone"
         }
       ]
     },
@@ -63,7 +63,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:tough_berries"
+          "name": "middle-earth:tough_berries"
         }
       ]
     },
@@ -75,7 +75,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:maggoty_bread"
+          "name": "middle-earth:maggoty_bread"
         }
       ]
     },
@@ -99,7 +99,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:ash_block"
+          "name": "middle-earth:ash_block"
         }
       ]
     },
@@ -111,7 +111,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:fur"
+          "name": "middle-earth:fur"
         }
       ]
     },
@@ -123,7 +123,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:fang"
+          "name": "middle-earth:fang"
         }
       ]
     }

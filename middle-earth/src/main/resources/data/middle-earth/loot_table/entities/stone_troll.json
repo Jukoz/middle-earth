@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:dirty_bone",
+          "name": "middle-earth:dirty_bone",
           "weight": 3,
           "functions": [
             {

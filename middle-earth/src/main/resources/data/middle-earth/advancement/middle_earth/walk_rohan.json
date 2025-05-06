@@ -1,5 +1,5 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "middle-earth:middle_earth/root",
   "criteria": {
     "rohan": {
       "conditions": {
@@ -10,9 +10,9 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:rohan",
-                  "me:rohan_forest",
-                  "me:the_wold"
+                  "middle-earth:rohan",
+                  "middle-earth:rohan_forest",
+                  "middle-earth:the_wold"
                 ]
               }
             }

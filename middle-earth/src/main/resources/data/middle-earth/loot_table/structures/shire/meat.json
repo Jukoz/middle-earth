@@ -93,7 +93,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:cooked_venison"
+          "name": "middle-earth:cooked_venison"
         }
       ]
     },
@@ -105,7 +105,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:meat_skewer"
+          "name": "middle-earth:meat_skewer"
         }
       ]
     },

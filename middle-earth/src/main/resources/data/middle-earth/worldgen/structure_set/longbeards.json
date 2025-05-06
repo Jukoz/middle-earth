@@ -1,11 +1,11 @@
 {
   "structures": [
 	{
-      "structure": "me:longbeards_house",
+      "structure": "middle-earth:longbeards_house",
       "weight": 2
     },
 	{
-      "structure": "me:longbeards_watch_tower",
+      "structure": "middle-earth:longbeards_watch_tower",
       "weight": 1
     }
   ],

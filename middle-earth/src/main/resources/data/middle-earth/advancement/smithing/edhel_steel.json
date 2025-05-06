@@ -1,12 +1,12 @@
 {
-  "parent": "me:smithing/bronze_ingot",
+  "parent": "middle-earth:smithing/bronze_ingot",
   "criteria": {
     "edhel_steel": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:edhel_steel_ingot"
+              "middle-earth:edhel_steel_ingot"
             ]
           }
         ]
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:edhel_steel_ingot"
+      "id":  "middle-earth:edhel_steel_ingot"
     },
     "show_toast": true,
     "title": {

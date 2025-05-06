@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "me:straw",
-    "me:straw",
-    "me:straw",
+    "middle-earth:straw",
+    "middle-earth:straw",
+    "middle-earth:straw",
     "#minecraft:smelts_to_glass",
     "#minecraft:smelts_to_glass",
     "#minecraft:smelts_to_glass",
@@ -12,7 +12,7 @@
     "minecraft:clay"
   ],
   "result": {
-    "id": "me:white_daub",
+    "id": "middle-earth:white_daub",
     "count": 6
   }
 }

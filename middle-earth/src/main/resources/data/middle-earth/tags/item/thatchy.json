@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "minecraft:hay_block",
-    "me:reed_block",
-    "me:straw_block"
+    "middle-earth:reed_block",
+    "middle-earth:straw_block"
   ]
 }

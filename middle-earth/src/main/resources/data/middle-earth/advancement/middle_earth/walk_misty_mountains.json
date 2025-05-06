@@ -1,5 +1,5 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "middle-earth:middle_earth/root",
   "criteria": {
     "enter_misty_mountains": {
       "conditions": {
@@ -10,9 +10,9 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:misty_mountains",
-                  "me:misty_mountains_base",
-                  "me:misty_mountains_peaks"
+                  "middle-earth:misty_mountains",
+                  "middle-earth:misty_mountains_base",
+                  "middle-earth:misty_mountains_peaks"
                 ]
               }
             }

@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "me:horse_head",
-    "me:horse"
+    "middle-earth:horse_head",
+    "middle-earth:horse"
   ]
 }

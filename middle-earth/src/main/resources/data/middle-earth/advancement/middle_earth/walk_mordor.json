@@ -1,7 +1,7 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "middle-earth:middle_earth/root",
   "criteria": {
-    "me:mordor": {
+    "middle-earth:mordor": {
       "conditions": {
         "player": [
           {
@@ -10,22 +10,22 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:mordor",
-                  "me:mordor_ashen_forest",
-                  "me:mordor_hill",
-                  "me:mordor_wastes",
-                  "me:morgul_vale",
-                  "me:morgul_forest",
-                  "me:gorgoroth",
-                  "me:gorgoroth_ashen_woods",
-                  "me:gorgoroth_delta",
-                  "me:nurn",
-                  "me:nurn_forest",
-                  "me:nurn_hill",
-                  "me:nurn_edge",
-                  "me:nurn_edge_woods",
-                  "me:nurn_river",
-                  "me:nurn_sea"
+                  "middle-earth:mordor",
+                  "middle-earth:mordor_ashen_forest",
+                  "middle-earth:mordor_hill",
+                  "middle-earth:mordor_wastes",
+                  "middle-earth:morgul_vale",
+                  "middle-earth:morgul_forest",
+                  "middle-earth:gorgoroth",
+                  "middle-earth:gorgoroth_ashen_woods",
+                  "middle-earth:gorgoroth_delta",
+                  "middle-earth:nurn",
+                  "middle-earth:nurn_forest",
+                  "middle-earth:nurn_hill",
+                  "middle-earth:nurn_edge",
+                  "middle-earth:nurn_edge_woods",
+                  "middle-earth:nurn_river",
+                  "middle-earth:nurn_sea"
                 ]
               }
             }
@@ -44,7 +44,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:ashen_stone"
+      "id":  "middle-earth:ashen_stone"
     },
     "show_toast": true,
     "title": {
@@ -53,7 +53,7 @@
   },
   "requirements": [
     [
-      "me:mordor"
+      "middle-earth:mordor"
     ]
   ]
 }

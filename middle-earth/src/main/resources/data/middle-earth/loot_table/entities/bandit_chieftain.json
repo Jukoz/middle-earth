@@ -24,7 +24,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:gold_coin",
+          "name": "middle-earth:gold_coin",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -67,7 +67,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:silver_coin",
+          "name": "middle-earth:silver_coin",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -83,7 +83,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:bronze_nugget",
+          "name": "middle-earth:bronze_nugget",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -121,7 +121,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:bronze_nugget",
+          "name": "middle-earth:bronze_nugget",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -136,7 +136,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:silver_coin",
+          "name": "middle-earth:silver_coin",
           "functions": [
             {
               "function": "minecraft:set_count",

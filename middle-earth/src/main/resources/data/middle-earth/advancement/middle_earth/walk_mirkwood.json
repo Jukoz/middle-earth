@@ -1,5 +1,5 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "middle-earth:middle_earth/root",
   "criteria": {
     "mirkwood": {
       "conditions": {
@@ -10,22 +10,22 @@
             "predicate": {
               "location": {
                 "biomes": [
-                  "me:dark_mirkwood",
-                  "me:dark_mirkwood_edge",
-                  "me:mirkwood",
-                  "me:mirkwood_foothills",
-                  "me:mirkwood_mountains_base",
-                  "me:mirkwood_mountains",
-                  "me:mirkwood_marshes",
-                  "me:mirkwood_swamp",
-                  "me:mirkwood_edge",
-                  "me:northern_mirkwood_marshes",
-                  "me:northern_mirkwood_swamp",
-                  "me:webbed_woods",
-                  "me:webbed_dark_woods",
-                  "me:woodland_realm",
-                  "me:woodland_foothills",
-                  "me:woodland_hills"
+                  "middle-earth:dark_mirkwood",
+                  "middle-earth:dark_mirkwood_edge",
+                  "middle-earth:mirkwood",
+                  "middle-earth:mirkwood_foothills",
+                  "middle-earth:mirkwood_mountains_base",
+                  "middle-earth:mirkwood_mountains",
+                  "middle-earth:mirkwood_marshes",
+                  "middle-earth:mirkwood_swamp",
+                  "middle-earth:mirkwood_edge",
+                  "middle-earth:northern_mirkwood_marshes",
+                  "middle-earth:northern_mirkwood_swamp",
+                  "middle-earth:webbed_woods",
+                  "middle-earth:webbed_dark_woods",
+                  "middle-earth:woodland_realm",
+                  "middle-earth:woodland_foothills",
+                  "middle-earth:woodland_hills"
                 ]
               }
             }
@@ -44,7 +44,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:mirkwood_log"
+      "id":  "middle-earth:mirkwood_log"
     },
     "show_toast": true,
     "title": {

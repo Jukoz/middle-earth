@@ -1,12 +1,12 @@
 {
-  "name": "me:hobbit_holes",
+  "name": "middle-earth:hobbit_holes",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:hobbit_hole",
+        "location": "middle-earth:hobbit_hole",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

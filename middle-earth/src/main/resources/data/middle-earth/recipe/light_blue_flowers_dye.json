@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "me:light_blue_flowers"
+    "middle-earth:light_blue_flowers"
   ],
   "result": {
     "id": "minecraft:light_blue_dye"

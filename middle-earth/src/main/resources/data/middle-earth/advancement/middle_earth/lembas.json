@@ -1,12 +1,12 @@
 {
-  "parent": "me:middle_earth/walk_lothlorien",
+  "parent": "middle-earth:middle_earth/walk_lothlorien",
   "criteria": {
     "lembas": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:lembas"
+              "middle-earth:lembas"
             ]
           }
         ]
@@ -20,7 +20,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "me:lembas"
+      "id": "middle-earth:lembas"
     },
     "title": {
       "translate": "advancements.middle_earth.lembas.title"

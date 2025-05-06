@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:troll_statue"
+          "name": "middle-earth:troll_statue"
         }
       ]
     }

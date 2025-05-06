@@ -2,14 +2,14 @@
   "criteria": {
     "entered_middle_earth": {
       "conditions": {
-        "to": "me:middle_earth"
+        "to": "middle-earth:middle_earth"
       },
       "trigger": "minecraft:changed_dimension"
     }
   },
   "display": {
     "announce_to_chat": true,
-    "background": "me:textures/block/white_daub.png",
+    "background": "middle-earth:textures/block/white_daub.png",
     "description": {
       "translate": "advancements.middle_earth.root.description"
     },
@@ -17,7 +17,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:starlight_phial"
+      "id":  "middle-earth:starlight_phial"
     },
     "show_toast": true,
     "title": {

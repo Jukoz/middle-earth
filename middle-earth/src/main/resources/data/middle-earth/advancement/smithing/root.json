@@ -5,7 +5,7 @@
         "items": [
           {
             "items": [
-              "me:forge"
+              "middle-earth:forge"
             ]
           }
         ]
@@ -15,7 +15,7 @@
   },
   "display": {
     "announce_to_chat": true,
-    "background": "me:textures/block/dolomite_bricks.png",
+    "background": "middle-earth:textures/block/dolomite_bricks.png",
     "description": {
       "translate": "advancements.smithing.root.description"
     },
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:forge"
+      "id":  "middle-earth:forge"
     },
     "show_toast": true,
     "title": {

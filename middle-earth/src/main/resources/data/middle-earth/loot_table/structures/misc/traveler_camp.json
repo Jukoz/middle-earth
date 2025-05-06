@@ -5,36 +5,36 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:misty_mountains_orcs_banner_pattern",
+          "name": "middle-earth:misty_mountains_orcs_banner_pattern",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:gambeson"
+          "name": "middle-earth:gambeson"
         },
         {
           "type": "minecraft:item",
-          "name": "me:cape"
+          "name": "middle-earth:cape"
         },
         {
           "type": "minecraft:item",
-          "name": "me:round_shield"
+          "name": "middle-earth:round_shield"
         },
         {
           "type": "minecraft:item",
-          "name": "me:bronze_spear"
+          "name": "middle-earth:bronze_spear"
         },
         {
           "type": "minecraft:item",
-          "name": "me:hood"
+          "name": "middle-earth:hood"
         },
         {
           "type": "minecraft:item",
-          "name": "me:bronze_sword"
+          "name": "middle-earth:bronze_sword"
         },
         {
           "type": "minecraft:item",
-          "name": "me:bonfire"
+          "name": "middle-earth:bonfire"
         },
         {
           "type": "minecraft:empty",
@@ -51,7 +51,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:fur"
+          "name": "middle-earth:fur"
         }
       ]
     },
@@ -63,7 +63,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:garlic"
+          "name": "middle-earth:garlic"
         }
       ]
     },
@@ -75,7 +75,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:cooked_venison"
+          "name": "middle-earth:cooked_venison"
         }
       ]
     },
@@ -87,7 +87,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin"
+          "name": "middle-earth:copper_coin"
         }
       ]
     },
@@ -99,7 +99,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:straw_hat"
+          "name": "middle-earth:straw_hat"
         }
       ]
     },
@@ -111,7 +111,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:bronze_ingot"
+          "name": "middle-earth:bronze_ingot"
         }
       ]
     },
@@ -123,7 +123,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:bronze_nugget"
+          "name": "middle-earth:bronze_nugget"
         }
       ]
     }

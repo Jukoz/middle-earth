@@ -3,12 +3,12 @@
   "category": "misc",
   "ingredients": [
     "minecraft:torch",
-    "me:pinecone",
-    "me:pinecone",
-    "me:pinecone"
+    "middle-earth:pinecone",
+    "middle-earth:pinecone",
+    "middle-earth:pinecone"
   ],
   "result": {
-    "id": "me:lit_pinecone",
+    "id": "middle-earth:lit_pinecone",
     "count": 3
   }
 }

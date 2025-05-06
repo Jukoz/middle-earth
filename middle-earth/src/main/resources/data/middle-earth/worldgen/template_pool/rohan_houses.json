@@ -1,12 +1,12 @@
 {
-  "name": "me:rohan_houses",
+  "name": "middle-earth:rohan_houses",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:rohan_house",
+        "location": "middle-earth:rohan_house",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

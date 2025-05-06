@@ -23,7 +23,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:small_glowstone_bud"
+          "name": "middle-earth:small_glowstone_bud"
         }
       ],
       "rolls": 1.0

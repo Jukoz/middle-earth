@@ -6,11 +6,11 @@
     " S "
   ],
   "key": {
-    "M": "me:burzum_steel_ingot",
+    "M": "middle-earth:burzum_steel_ingot",
     "S": "minecraft:stick"
   },
   "result": {
-    "id": "me:orcish_smithing_hammer",
+    "id": "middle-earth:orcish_smithing_hammer",
     "count": 1
   }
 }

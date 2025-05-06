@@ -1,8 +1,8 @@
 {
   "type": "minecraft:blasting",
-  "ingredient": "#me:silver_ores",
+  "ingredient": "#middle-earth:silver_ores",
   "result": {
-    "id": "me:silver_ingot"
+    "id": "middle-earth:silver_ingot"
   },
   "experience": 1,
   "cookingtime": 100

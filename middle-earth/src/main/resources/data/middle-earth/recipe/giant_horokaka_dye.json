@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "me:giant_horokaka"
+    "middle-earth:giant_horokaka"
   ],
   "result": {
     "id": "minecraft:pink_dye"

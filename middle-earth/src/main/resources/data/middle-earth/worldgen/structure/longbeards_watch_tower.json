@@ -1,10 +1,10 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#me:has_structure/longbeards_biomes",
+  "biomes": "#middle-earth:has_structure/longbeards_biomes",
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
-  "start_pool": "me:longbeards_watch_tower",
+  "start_pool": "middle-earth:longbeards_watch_tower",
   "size": 1,
   "start_height": {
     "absolute": -3

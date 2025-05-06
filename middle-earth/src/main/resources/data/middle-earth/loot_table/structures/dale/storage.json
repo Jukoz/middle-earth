@@ -5,7 +5,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:bell_banner_pattern",
+          "name": "middle-earth:bell_banner_pattern",
           "weight": 2
         },
         {
@@ -15,31 +15,31 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:dalish_arming_coat_tan_fur"
+          "name": "middle-earth:dalish_arming_coat_tan_fur"
         },
         {
           "type": "minecraft:item",
-          "name": "me:dalish_arming_coat_brown_fur"
+          "name": "middle-earth:dalish_arming_coat_brown_fur"
         },
         {
           "type": "minecraft:item",
-          "name": "me:dalish_arming_coat_black_fur"
+          "name": "middle-earth:dalish_arming_coat_black_fur"
         },
         {
           "type": "minecraft:item",
-          "name": "me:dalish_longbow"
+          "name": "middle-earth:dalish_longbow"
         },
         {
           "type": "minecraft:item",
-          "name": "me:bronze_spear"
+          "name": "middle-earth:bronze_spear"
         },
         {
           "type": "minecraft:item",
-          "name": "me:dalish_boots"
+          "name": "middle-earth:dalish_boots"
         },
         {
           "type": "minecraft:item",
-          "name": "me:round_shield",
+          "name": "middle-earth:round_shield",
 		  "functions": [
             {
               "function": "minecraft:set_banner_pattern",
@@ -49,7 +49,7 @@
                   "color": "blue"
                 },
                 {
-                  "pattern": "me:bell",
+                  "pattern": "middle-earth:bell",
                   "color": "yellow"
                 }
               ],
@@ -72,7 +72,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin"
+          "name": "middle-earth:copper_coin"
         }
       ]
     },
@@ -84,7 +84,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:net"
+          "name": "middle-earth:net"
         }
       ]
     },
@@ -96,7 +96,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:fur"
+          "name": "middle-earth:fur"
         }
       ]
     },
@@ -108,7 +108,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:reeds"
+          "name": "middle-earth:reeds"
         }
       ]
     },
@@ -120,7 +120,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:fabric"
+          "name": "middle-earth:fabric"
         }
       ]
     },

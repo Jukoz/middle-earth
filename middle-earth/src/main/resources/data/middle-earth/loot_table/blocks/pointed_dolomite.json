@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:pointed_dolomite"
+          "name": "middle-earth:pointed_dolomite"
         }
       ],
       "rolls": 1.0

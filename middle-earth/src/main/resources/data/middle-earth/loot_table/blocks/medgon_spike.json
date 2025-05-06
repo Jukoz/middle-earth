@@ -13,14 +13,14 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "me:medgon_spike",
+              "block": "middle-earth:medgon_spike",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "me:medgon_spike"
+          "name": "middle-earth:medgon_spike"
         }
       ],
       "rolls": 1.0

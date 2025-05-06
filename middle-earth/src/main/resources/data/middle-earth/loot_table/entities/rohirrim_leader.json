@@ -23,7 +23,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:gold_coin",
+          "name": "middle-earth:gold_coin",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -48,7 +48,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:cooked_venison",
+          "name": "middle-earth:cooked_venison",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -63,7 +63,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:gold_coin",
+          "name": "middle-earth:gold_coin",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -79,7 +79,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:bronze_ingot",
+          "name": "middle-earth:bronze_ingot",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -157,7 +157,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:silver_coin",
+          "name": "middle-earth:silver_coin",
           "functions": [
             {
               "function": "minecraft:set_count",

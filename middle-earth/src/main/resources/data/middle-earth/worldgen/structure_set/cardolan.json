@@ -1,19 +1,19 @@
 {
   "structures": [
 	{
-      "structure": "me:granite_ruin",
+      "structure": "middle-earth:granite_ruin",
       "weight": 2
     },
 	{
-      "structure": "me:granite_ruin_brick_house",
+      "structure": "middle-earth:granite_ruin_brick_house",
       "weight": 2
     },
 	{
-      "structure": "me:granite_ruin_tower",
+      "structure": "middle-earth:granite_ruin_tower",
       "weight": 1
     },
 	{
-      "structure": "me:granite_ruin_arch",
+      "structure": "middle-earth:granite_ruin_arch",
       "weight": 2
     }
   ],

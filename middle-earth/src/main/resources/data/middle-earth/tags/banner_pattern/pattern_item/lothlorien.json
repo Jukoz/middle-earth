@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "me:goldenwood",
-    "me:star_and_leaf",
-    "me:mallorn"
+    "middle-earth:goldenwood",
+    "middle-earth:star_and_leaf",
+    "middle-earth:mallorn"
   ]
 }

@@ -1,12 +1,12 @@
 {
-  "name": "me:dale_houses",
+  "name": "middle-earth:dale_houses",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:dale_house",
+        "location": "middle-earth:dale_house",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

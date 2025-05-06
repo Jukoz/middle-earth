@@ -4,7 +4,7 @@
   "key": {
     "#": "minecraft:stick",
     "X": "minecraft:flint",
-    "Y": "#me:feathers"
+    "Y": "#middle-earth:feathers"
   },
   "pattern": [
     "X",

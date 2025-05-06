@@ -7,7 +7,7 @@
         {
           "type": "minecraft:loot_table",
           "quality": -2,
-          "value": "me:gameplay/fishing/junk",
+          "value": "middle-earth:gameplay/fishing/junk",
           "weight": 10
         },
         {
@@ -25,13 +25,13 @@
             }
           ],
           "quality": 2,
-          "value": "me:gameplay/fishing/treasure",
+          "value": "middle-earth:gameplay/fishing/treasure",
           "weight": 5
         },
         {
           "type": "minecraft:loot_table",
           "quality": -1,
-          "value": "me:gameplay/fishing/fish",
+          "value": "middle-earth:gameplay/fishing/fish",
           "weight": 85
         }
       ],

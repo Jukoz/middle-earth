@@ -5,37 +5,37 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:lothlorien_banner_pattern",
+          "name": "middle-earth:lothlorien_banner_pattern",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:lorien_bow",
+          "name": "middle-earth:lorien_bow",
 		  "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:lorien_leather_helmet"
+          "name": "middle-earth:lorien_leather_helmet"
         },
         {
           "type": "minecraft:item",
-          "name": "me:lorien_arming_coat"
+          "name": "middle-earth:lorien_arming_coat"
         },
         {
           "type": "minecraft:item",
-          "name": "me:lorien_marchwarden_hood"
+          "name": "middle-earth:lorien_marchwarden_hood"
         },
         {
           "type": "minecraft:item",
-          "name": "me:lorien_marchwarden_cape"
+          "name": "middle-earth:lorien_marchwarden_cape"
         },
         {
           "type": "minecraft:item",
-          "name": "me:elven_lantern"
+          "name": "middle-earth:elven_lantern"
         },
         {
           "type": "minecraft:item",
-          "name": "me:elven_boots",
+          "name": "middle-earth:elven_boots",
           "weight": 2
         },
         {
@@ -90,7 +90,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin"
+          "name": "middle-earth:copper_coin"
         }
       ]
     },
@@ -102,7 +102,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:flax_seeds"
+          "name": "middle-earth:flax_seeds"
         }
       ]
     },
@@ -126,7 +126,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:mallorn_sapling"
+          "name": "middle-earth:mallorn_sapling"
         }
       ]
     },
@@ -138,7 +138,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:elanor"
+          "name": "middle-earth:elanor"
         }
       ]
     },

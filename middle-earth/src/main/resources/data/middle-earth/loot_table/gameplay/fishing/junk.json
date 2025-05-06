@@ -11,22 +11,22 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:small_lily_pads",
+          "name": "middle-earth:small_lily_pads",
           "weight": 4
         },
         {
           "type": "minecraft:item",
-          "name": "me:small_flowering_lily_pads",
+          "name": "middle-earth:small_flowering_lily_pads",
           "weight": 3
         },
         {
           "type": "minecraft:item",
-          "name": "me:reeds",
+          "name": "middle-earth:reeds",
           "weight": 4
         },
         {
           "type": "minecraft:item",
-          "name": "me:pebble",
+          "name": "middle-earth:pebble",
           "weight": 4
         },
         {
@@ -42,7 +42,7 @@
               "function": "minecraft:set_damage"
             }
           ],
-          "name": "me:sturdy_boots",
+          "name": "middle-earth:sturdy_boots",
           "weight": 7
         },
         {
@@ -110,7 +110,7 @@
               "condition": "minecraft:location_check",
               "predicate": {
                 "biomes": [
-                  "me:oasis"
+                  "middle-earth:oasis"
                 ]
               }
             }

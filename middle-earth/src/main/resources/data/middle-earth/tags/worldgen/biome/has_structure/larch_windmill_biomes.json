@@ -1,15 +1,15 @@
 {
   "replace": false,
   "values": [
-    "me:old_cardolan",  
-	"me:old_arthedain",
-	"me:anduin_vales",
-	"me:dale",
-	"me:rohan",
-	"me:anorien",
-	"me:lossarnach",
-	"me:lebennin",
-	"me:belfalas",
-	"me:gondor"
+    "middle-earth:old_cardolan",  
+	"middle-earth:old_arthedain",
+	"middle-earth:anduin_vales",
+	"middle-earth:dale",
+	"middle-earth:rohan",
+	"middle-earth:anorien",
+	"middle-earth:lossarnach",
+	"middle-earth:lebennin",
+	"middle-earth:belfalas",
+	"middle-earth:gondor"
   ]
 }

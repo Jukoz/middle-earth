@@ -5,12 +5,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:dwarf_crown_banner_pattern",
+          "name": "middle-earth:dwarf_crown_banner_pattern",
           "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "me:anvil_banner_pattern",
+          "name": "middle-earth:anvil_banner_pattern",
           "weight": 1
         },
         {
@@ -20,23 +20,23 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:crystal_lamp"
+          "name": "middle-earth:crystal_lamp"
         },
         {
           "type": "minecraft:item",
-          "name": "me:copper_smithing_hammer"
+          "name": "middle-earth:copper_smithing_hammer"
         },
         {
           "type": "minecraft:item",
-          "name": "me:silver_coin"
+          "name": "middle-earth:silver_coin"
         },
         {
           "type": "minecraft:item",
-          "name": "me:dwarven_gambeson"
+          "name": "middle-earth:dwarven_gambeson"
         },
         {
           "type": "minecraft:item",
-          "name": "me:dwarven_boots"
+          "name": "middle-earth:dwarven_boots"
         },
         {
           "type": "minecraft:empty",
@@ -77,7 +77,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:bronze_nugget"
+          "name": "middle-earth:bronze_nugget"
         }
       ]
     },
@@ -113,7 +113,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:larch_log"
+          "name": "middle-earth:larch_log"
         }
       ]
     }

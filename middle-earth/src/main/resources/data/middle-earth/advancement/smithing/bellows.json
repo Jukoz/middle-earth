@@ -1,12 +1,12 @@
 {
-  "parent": "me:smithing/root",
+  "parent": "middle-earth:smithing/root",
   "criteria": {
     "bellows": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:bellows"
+              "middle-earth:bellows"
             ]
           }
         ]
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:bellows"
+      "id":  "middle-earth:bellows"
     },
     "show_toast": true,
     "title": {

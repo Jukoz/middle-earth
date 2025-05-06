@@ -23,7 +23,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:gold_coin",
+          "name": "middle-earth:gold_coin",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -50,7 +50,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:cooked_horse",
+          "name": "middle-earth:cooked_horse",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -66,7 +66,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:silver_coin",
+          "name": "middle-earth:silver_coin",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -82,7 +82,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:crude_nugget",
+          "name": "middle-earth:crude_nugget",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -97,7 +97,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:dirty_bone",
+          "name": "middle-earth:dirty_bone",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -120,7 +120,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:crude_nugget",
+          "name": "middle-earth:crude_nugget",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -135,7 +135,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:silver_coin",
+          "name": "middle-earth:silver_coin",
           "functions": [
             {
               "function": "minecraft:set_count",

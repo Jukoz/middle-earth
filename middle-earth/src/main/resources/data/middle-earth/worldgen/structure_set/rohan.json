@@ -1,11 +1,11 @@
 {
   "structures": [
 	{
-      "structure": "me:rohan_house",
+      "structure": "middle-earth:rohan_house",
       "weight": 4
     },
 	{
-      "structure": "me:rohan_watch_tower",
+      "structure": "middle-earth:rohan_watch_tower",
       "weight": 2
     }
   ],

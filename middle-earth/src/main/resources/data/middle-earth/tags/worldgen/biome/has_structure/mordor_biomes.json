@@ -1,11 +1,11 @@
 {
   "replace": false,
   "values": [
-    "me:mordor",
-    "me:morgul_vale",
-    "me:nurn",
-    "me:nurn_edge",
-    "me:udun",
-    "me:gorgoroth"
+    "middle-earth:mordor",
+    "middle-earth:morgul_vale",
+    "middle-earth:nurn",
+    "middle-earth:nurn_edge",
+    "middle-earth:udun",
+    "middle-earth:gorgoroth"
   ]
 }

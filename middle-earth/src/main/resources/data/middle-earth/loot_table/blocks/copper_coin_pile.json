@@ -5,7 +5,7 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "block": "me:copper_coin_pile",
+          "block": "middle-earth:copper_coin_pile",
           "condition": "minecraft:block_state_property",
           "properties": {
             "stage": "0"
@@ -15,7 +15,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin_pile"
+          "name": "middle-earth:copper_coin_pile"
         }
       ],
       "rolls": 1.0
@@ -24,7 +24,7 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "block": "me:copper_coin_pile",
+          "block": "middle-earth:copper_coin_pile",
           "condition": "minecraft:block_state_property",
           "properties": {
             "stage": "1"
@@ -34,7 +34,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin_pile"
+          "name": "middle-earth:copper_coin_pile"
         }
       ],
       "rolls": 2.0
@@ -43,7 +43,7 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "block": "me:copper_coin_pile",
+          "block": "middle-earth:copper_coin_pile",
           "condition": "minecraft:block_state_property",
           "properties": {
             "stage": "2"
@@ -53,7 +53,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin_pile"
+          "name": "middle-earth:copper_coin_pile"
         }
       ],
       "rolls": 3.0
@@ -62,7 +62,7 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "block": "me:copper_coin_pile",
+          "block": "middle-earth:copper_coin_pile",
           "condition": "minecraft:block_state_property",
           "properties": {
             "stage": "3"
@@ -72,7 +72,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin_pile"
+          "name": "middle-earth:copper_coin_pile"
         }
       ],
       "rolls": 4.0

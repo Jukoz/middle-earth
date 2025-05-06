@@ -6,9 +6,9 @@
     "###"
   ],
   "key": {
-    "#": "me:raw_mithril"
+    "#": "middle-earth:raw_mithril"
   },
   "result": {
-    "id": "me:raw_mithril_block"
+    "id": "middle-earth:raw_mithril_block"
   }
 }

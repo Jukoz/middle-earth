@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:green_jewel_cornflower"
+          "name": "middle-earth:green_jewel_cornflower"
         }
       ],
       "rolls": 1.0

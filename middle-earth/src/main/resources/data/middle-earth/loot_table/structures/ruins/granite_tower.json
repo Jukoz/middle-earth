@@ -5,11 +5,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:cape"
+          "name": "middle-earth:cape"
         },
         {
           "type": "minecraft:item",
-          "name": "me:bronze_spear"
+          "name": "middle-earth:bronze_spear"
         },
         {
           "type": "minecraft:item",
@@ -17,11 +17,11 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:bycocket"
+          "name": "middle-earth:bycocket"
         },
         {
           "type": "minecraft:item",
-          "name": "me:arming_coat"
+          "name": "middle-earth:arming_coat"
         },
         {
           "type": "minecraft:empty",
@@ -38,7 +38,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:dry_growth"
+          "name": "middle-earth:dry_growth"
         }
       ]
     },
@@ -74,7 +74,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin"
+          "name": "middle-earth:copper_coin"
         }
       ]
     },
@@ -86,7 +86,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:granite_rocks"
+          "name": "middle-earth:granite_rocks"
         }
       ]
     },
@@ -98,7 +98,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:bronze_ingot"
+          "name": "middle-earth:bronze_ingot"
         }
       ]
     },
@@ -110,7 +110,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:bronze_nugget"
+          "name": "middle-earth:bronze_nugget"
         }
       ]
     }

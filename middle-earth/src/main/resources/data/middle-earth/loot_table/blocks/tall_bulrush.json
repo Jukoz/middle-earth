@@ -10,7 +10,7 @@
           "children": [
             {
               "type": "minecraft:item",
-              "name": "me:straw",
+              "name": "middle-earth:straw",
               "conditions": [
                 {
                   "condition": "minecraft:match_tool",
@@ -19,7 +19,7 @@
                   }
                 },
                 {
-                  "block": "me:tall_bulrush",
+                  "block": "middle-earth:tall_bulrush",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "half": "lower"
@@ -31,7 +31,7 @@
                   "predicate": {
                     "block": {
                       "blocks": [
-                        "me:tall_bulrush"
+                        "middle-earth:tall_bulrush"
                       ],
                       "state": {
                         "half": "upper"
@@ -43,13 +43,13 @@
             },
             {
               "type": "minecraft:item",
-              "name": "me:tall_bulrush",
+              "name": "middle-earth:tall_bulrush",
               "conditions": [
                 {
                   "condition": "minecraft:survives_explosion"
                 },
                 {
-                  "block": "me:tall_bulrush",
+                  "block": "middle-earth:tall_bulrush",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "half": "lower"
@@ -61,7 +61,7 @@
                   "predicate": {
                     "block": {
                       "blocks": [
-                        "me:tall_bulrush"
+                        "middle-earth:tall_bulrush"
                       ],
                       "state": {
                         "half": "upper"
@@ -74,7 +74,7 @@
 
             {
               "type": "minecraft:item",
-              "name": "me:straw",
+              "name": "middle-earth:straw",
               "conditions": [
                 {
                   "condition": "minecraft:match_tool",
@@ -83,7 +83,7 @@
                   }
                 },
                 {
-                  "block": "me:tall_bulrush",
+                  "block": "middle-earth:tall_bulrush",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "half": "upper"
@@ -95,7 +95,7 @@
                   "predicate": {
                     "block": {
                       "blocks": [
-                        "me:tall_bulrush"
+                        "middle-earth:tall_bulrush"
                       ],
                       "state": {
                         "half": "lower"
@@ -107,13 +107,13 @@
             },
             {
               "type": "minecraft:item",
-              "name": "me:tall_bulrush",
+              "name": "middle-earth:tall_bulrush",
               "conditions": [
                 {
                   "condition": "minecraft:survives_explosion"
                 },
                 {
-                  "block": "me:tall_bulrush",
+                  "block": "middle-earth:tall_bulrush",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "half": "upper"
@@ -125,7 +125,7 @@
                   "predicate": {
                     "block": {
                       "blocks": [
-                        "me:tall_bulrush"
+                        "middle-earth:tall_bulrush"
                       ],
                       "state": {
                         "half": "lower"

@@ -11,16 +11,16 @@
         },
         {
           "type": "minecraft:item",
-          "name": "me:silver_coin",
+          "name": "middle-earth:silver_coin",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:amphora"
+          "name": "middle-earth:amphora"
         },
         {
           "type": "minecraft:item",
-          "name": "me:brown_amphora"
+          "name": "middle-earth:brown_amphora"
         },
         {
           "type": "minecraft:item",

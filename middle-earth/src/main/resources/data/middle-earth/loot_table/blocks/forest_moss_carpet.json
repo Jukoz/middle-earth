@@ -9,7 +9,7 @@
           "children": [
             {
               "type": "minecraft:item",
-              "name": "me:forest_moss_carpet"
+              "name": "middle-earth:forest_moss_carpet"
             }
           ]
         }

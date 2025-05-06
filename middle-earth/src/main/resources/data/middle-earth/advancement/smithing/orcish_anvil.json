@@ -1,12 +1,12 @@
 {
-  "parent": "me:smithing/burzum_steel",
+  "parent": "middle-earth:smithing/burzum_steel",
   "criteria": {
     "orcish_treated_anvil": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:orcish_treated_anvil"
+              "middle-earth:orcish_treated_anvil"
             ]
           }
         ]
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:orcish_treated_anvil"
+      "id":  "middle-earth:orcish_treated_anvil"
     },
     "show_toast": true,
     "title": {

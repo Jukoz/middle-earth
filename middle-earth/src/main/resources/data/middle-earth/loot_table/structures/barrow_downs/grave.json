@@ -44,7 +44,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:black_fur_cloak"
+          "name": "middle-earth:black_fur_cloak"
         }
       ]
     },
@@ -56,7 +56,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:black_fur_hood"
+          "name": "middle-earth:black_fur_hood"
         }
       ]
     }

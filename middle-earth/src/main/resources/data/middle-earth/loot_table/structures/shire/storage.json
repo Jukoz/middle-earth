@@ -5,33 +5,33 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:pipeweed_banner_pattern",
+          "name": "middle-earth:pipeweed_banner_pattern",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:clay_pipe"
+          "name": "middle-earth:clay_pipe"
         },
         {
           "type": "minecraft:item",
-          "name": "me:pipe",
+          "name": "middle-earth:pipe",
 		  "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "me:bronze_dagger"
+          "name": "middle-earth:bronze_dagger"
         },
         {
           "type": "minecraft:item",
-          "name": "me:watering_can"
+          "name": "middle-earth:watering_can"
         },
         {
           "type": "minecraft:item",
-          "name": "me:straw_hat"
+          "name": "middle-earth:straw_hat"
         },
         {
           "type": "minecraft:item",
-          "name": "me:woven_hat"
+          "name": "middle-earth:woven_hat"
         },
         {
           "type": "minecraft:item",
@@ -118,7 +118,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:dried_pipeweed"
+          "name": "middle-earth:dried_pipeweed"
         }
       ]
     },

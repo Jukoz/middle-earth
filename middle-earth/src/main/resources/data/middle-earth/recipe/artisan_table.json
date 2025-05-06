@@ -6,11 +6,11 @@
   ],
   "key": {
     "S": "#minecraft:stone_crafting_materials",
-    "T": "me:tin_ingot",
+    "T": "middle-earth:tin_ingot",
     "W": "#minecraft:logs"
   },
   "result": {
-    "id": "me:artisan_table",
+    "id": "middle-earth:artisan_table",
     "count": 1
   }
 }

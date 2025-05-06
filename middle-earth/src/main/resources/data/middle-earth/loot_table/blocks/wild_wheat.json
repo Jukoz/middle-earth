@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:straw",
+          "name": "middle-earth:straw",
           "weight": 4
         },
         {

@@ -6,9 +6,9 @@
     "###"
   ],
   "key": {
-    "#": "me:raw_tin"
+    "#": "middle-earth:raw_tin"
   },
   "result": {
-    "id": "me:raw_tin_block"
+    "id": "middle-earth:raw_tin_block"
   }
 }

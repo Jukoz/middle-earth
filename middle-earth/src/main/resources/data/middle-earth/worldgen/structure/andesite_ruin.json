@@ -1,10 +1,10 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#me:has_structure/andesite_ruin_biomes",
+  "biomes": "#middle-earth:has_structure/andesite_ruin_biomes",
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
-  "start_pool": "me:andesite_ruins",
+  "start_pool": "middle-earth:andesite_ruins",
   "size": 1,
   "start_height": {
     "absolute": -1

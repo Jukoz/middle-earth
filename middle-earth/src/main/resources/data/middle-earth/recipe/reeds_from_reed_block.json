@@ -4,10 +4,10 @@
     "#"
   ],
   "key": {
-    "#": "me:reed_block"
+    "#": "middle-earth:reed_block"
   },
   "result": {
-    "id": "me:reeds",
+    "id": "middle-earth:reeds",
     "count": 4
   }
 }

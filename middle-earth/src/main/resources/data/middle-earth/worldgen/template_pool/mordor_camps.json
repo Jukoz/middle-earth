@@ -1,12 +1,12 @@
 {
-  "name": "me:mordor_camps",
+  "name": "middle-earth:mordor_camps",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:mordor_camp",
+        "location": "middle-earth:mordor_camp",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

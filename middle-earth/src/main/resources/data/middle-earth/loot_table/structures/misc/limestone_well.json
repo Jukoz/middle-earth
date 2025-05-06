@@ -20,7 +20,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:limestone_rocks"
+          "name": "middle-earth:limestone_rocks"
         }
       ]
     },
@@ -32,7 +32,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:flax_seeds"
+          "name": "middle-earth:flax_seeds"
         }
       ]
     },
@@ -44,7 +44,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:copper_coin"
+          "name": "middle-earth:copper_coin"
         }
       ]
     },
@@ -56,7 +56,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:wooden_bucket"
+          "name": "middle-earth:wooden_bucket"
         }
       ]
     }

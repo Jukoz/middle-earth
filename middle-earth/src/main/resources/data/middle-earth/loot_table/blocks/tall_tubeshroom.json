@@ -13,14 +13,14 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "me:tall_tubeshroom",
+              "block": "middle-earth:tall_tubeshroom",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "me:tall_tubeshroom"
+          "name": "middle-earth:tall_tubeshroom"
         }
       ],
       "rolls": 1.0

@@ -1,10 +1,10 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "me:raw_tin_block"
+    "middle-earth:raw_tin_block"
   ],
   "result": {
-    "id": "me:raw_tin",
+    "id": "middle-earth:raw_tin",
     "count": 9
   }
 }

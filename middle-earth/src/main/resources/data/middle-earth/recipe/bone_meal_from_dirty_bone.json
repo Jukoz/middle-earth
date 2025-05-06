@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "me:dirty_bone"
+    "middle-earth:dirty_bone"
   ],
   "result": {
     "id": "minecraft:bone_meal",

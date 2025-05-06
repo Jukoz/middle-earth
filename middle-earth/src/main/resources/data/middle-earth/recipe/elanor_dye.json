@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "me:elanor"
+    "middle-earth:elanor"
   ],
   "result": {
     "id": "minecraft:yellow_dye"
