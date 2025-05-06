@@ -1,0 +1,9 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "middle-earth:block/cushion",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "middle-earth:block/green_cushion",
+		"particle": "block/green_wool"
+	}
+}

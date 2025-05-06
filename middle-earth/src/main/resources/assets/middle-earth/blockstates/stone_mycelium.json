@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "middle-earth:block/stone_mycelium"
+      },
+      {
+        "model": "middle-earth:block/stone_mycelium",
+        "y": 90
+      },
+      {
+        "model": "middle-earth:block/stone_mycelium",
+        "y": 180
+      },
+      {
+        "model": "middle-earth:block/stone_mycelium",
+        "y": 270
+      }
+    ]
+  }
+}
