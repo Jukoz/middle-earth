@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.registries;
 
 import net.fabricmc.fabric.api.registry.*;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -32,6 +33,9 @@ import net.minecraft.util.math.random.Random;
 public class ModRegistries {
 
     public static void registerRegistryAliases() {
+        for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
+            alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.name()), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
+        }
     }
 
 
