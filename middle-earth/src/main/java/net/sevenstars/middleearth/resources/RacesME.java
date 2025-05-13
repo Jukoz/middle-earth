@@ -8,6 +8,7 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
@@ -23,7 +24,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class MiddleEarthRaces {
+/**
+ * Middle-earth mod race registry<br>
+ * To fetch a race during runtime, use : {@link net.sevenstars.middleearth.resources.datas.races.RaceLookup#getRace(World, Identifier)}<br>
+ * <b><u>Datadriven content, do not use during runtime!</u></b>
+ * <hr>
+ */
+public class RacesME {
     public final static String PATH = "races";
     public static final RegistryKey<Registry<Race>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 
@@ -44,156 +51,156 @@ public class MiddleEarthRaces {
         put(EntityCategory.MALE, List.of(
                 new NpcTextureDataPreset()
                         .withPatterns(NpcTextureType.SKIN, List.of(
-                                MiddleEarthNpcTexturePatterns.Skin.MUSCULAR,
-                                MiddleEarthNpcTexturePatterns.Skin.SLIM
+                                NpcTexturePatternsME.Skin.MUSCULAR,
+                                NpcTexturePatternsME.Skin.SLIM
                         ))
                         .withPatterns(NpcTextureType.EAR, List.of(
-                                MiddleEarthNpcTexturePatterns.Ear.CUBE,
-                                MiddleEarthNpcTexturePatterns.Ear.POINTY
+                                NpcTexturePatternsME.Ear.CUBE,
+                                NpcTexturePatternsME.Ear.POINTY
                         ))
                         .withPatterns(NpcTextureType.NOSE, Stream.of(
-                                    MiddleEarthNpcTexturePatterns.Nose.CUBE,
-                                        MiddleEarthNpcTexturePatterns.Nose.LARGE_CUBE,
+                                    NpcTexturePatternsME.Nose.CUBE,
+                                        NpcTexturePatternsME.Nose.LARGE_CUBE,
                                         null)
                                 .toList()
                         )
                         .withMaterials(NpcTextureType.SKIN, List.of(
-                                MiddleEarthNpcTextureMaterials.Skin.PALE,
-                                MiddleEarthNpcTextureMaterials.Skin.TAN,
-                                MiddleEarthNpcTextureMaterials.Skin.OLIVE,
-                                MiddleEarthNpcTextureMaterials.Skin.NEUTRAL,
-                                MiddleEarthNpcTextureMaterials.Skin.GREENISH,
-                                MiddleEarthNpcTextureMaterials.Skin.TAN_DESATURATED,
-                                MiddleEarthNpcTextureMaterials.Skin.BROWN
+                                NpcTextureMaterialsME.Skin.PALE,
+                                NpcTextureMaterialsME.Skin.TAN,
+                                NpcTextureMaterialsME.Skin.OLIVE,
+                                NpcTextureMaterialsME.Skin.NEUTRAL,
+                                NpcTextureMaterialsME.Skin.GREENISH,
+                                NpcTextureMaterialsME.Skin.TAN_DESATURATED,
+                                NpcTextureMaterialsME.Skin.BROWN
                         ))
                         .withPatterns(NpcTextureType.EYE, List.of(
-                                MiddleEarthNpcTexturePatterns.Eye.COMMON
+                                NpcTexturePatternsME.Eye.COMMON
                         ))
                         .withMaterials(NpcTextureType.EYE, List.of(
-                                MiddleEarthNpcTextureMaterials.Eye.BLACK,
-                                MiddleEarthNpcTextureMaterials.Eye.BLUE,
-                                MiddleEarthNpcTextureMaterials.Eye.BROWN,
-                                MiddleEarthNpcTextureMaterials.Eye.DARK_GREEN,
-                                MiddleEarthNpcTextureMaterials.Eye.GREEN,
-                                MiddleEarthNpcTextureMaterials.Eye.NAVY
+                                NpcTextureMaterialsME.Eye.BLACK,
+                                NpcTextureMaterialsME.Eye.BLUE,
+                                NpcTextureMaterialsME.Eye.BROWN,
+                                NpcTextureMaterialsME.Eye.DARK_GREEN,
+                                NpcTextureMaterialsME.Eye.GREEN,
+                                NpcTextureMaterialsME.Eye.NAVY
                         ))
                         .withEmissiveEyes(false)
                         .withPatterns(NpcTextureType.HAIR, Stream.of(
-                                MiddleEarthNpcTexturePatterns.Hair.SHORT,
-                                        MiddleEarthNpcTexturePatterns.Hair.UNCUT,
-                                        MiddleEarthNpcTexturePatterns.Hair.BALD_SIDES,
-                                        MiddleEarthNpcTexturePatterns.Hair.SHARP,
-                                        MiddleEarthNpcTexturePatterns.Hair.BOWL,
+                                NpcTexturePatternsME.Hair.SHORT,
+                                        NpcTexturePatternsME.Hair.UNCUT,
+                                        NpcTexturePatternsME.Hair.BALD_SIDES,
+                                        NpcTexturePatternsME.Hair.SHARP,
+                                        NpcTexturePatternsME.Hair.BOWL,
                                         null)
                                 .toList()
                         )
                         .withPatterns(NpcTextureType.EYEBROW, List.of(
-                                MiddleEarthNpcTexturePatterns.Eyebrow.SHORT,
-                                MiddleEarthNpcTexturePatterns.Eyebrow.BASIC,
-                                MiddleEarthNpcTexturePatterns.Eyebrow.LONG
+                                NpcTexturePatternsME.Eyebrow.SHORT,
+                                NpcTexturePatternsME.Eyebrow.BASIC,
+                                NpcTexturePatternsME.Eyebrow.LONG
                         ))
                         .withPatterns(NpcTextureType.BEARD, Stream.of(
-                                MiddleEarthNpcTexturePatterns.Beard.SHORT,
-                                        MiddleEarthNpcTexturePatterns.Beard.LARGE,
-                                        MiddleEarthNpcTexturePatterns.Beard.SINGLE,
-                                        MiddleEarthNpcTexturePatterns.Beard.CLEAN,
-                                        MiddleEarthNpcTexturePatterns.Beard.UNCLEAN_ORNAMENTED,
-                                        MiddleEarthNpcTexturePatterns.Beard.LONG_SINGLE_ORNAMENTED,
-                                        MiddleEarthNpcTexturePatterns.Beard.DUAL_ORNAMENTED,
+                                NpcTexturePatternsME.Beard.SHORT,
+                                        NpcTexturePatternsME.Beard.LARGE,
+                                        NpcTexturePatternsME.Beard.SINGLE,
+                                        NpcTexturePatternsME.Beard.CLEAN,
+                                        NpcTexturePatternsME.Beard.UNCLEAN_ORNAMENTED,
+                                        NpcTexturePatternsME.Beard.LONG_SINGLE_ORNAMENTED,
+                                        NpcTexturePatternsME.Beard.DUAL_ORNAMENTED,
                                         null)
                                 .toList()
                         )
                         .withMaterials(NpcTextureType.HAIR, List.of(
-                                MiddleEarthNpcTextureMaterials.Hair.BLACK_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.BROWN_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.DARK_BROWN_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.STRAW_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.ORANGE_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.WHITE_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.GRAY_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.BLONDE_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.BLACK_GOLD,
-                                MiddleEarthNpcTextureMaterials.Hair.BROWN_GOLD,
-                                MiddleEarthNpcTextureMaterials.Hair.DARK_BROWN_GOLD,
-                                MiddleEarthNpcTextureMaterials.Hair.STRAW_GOLD,
-                                MiddleEarthNpcTextureMaterials.Hair.ORANGE_GOLD,
-                                MiddleEarthNpcTextureMaterials.Hair.WHITE_GOLD,
-                                MiddleEarthNpcTextureMaterials.Hair.GRAY_GOLD,
-                                MiddleEarthNpcTextureMaterials.Hair.BLONDE_GOLD,
-                                MiddleEarthNpcTextureMaterials.Hair.BLACK_COPPER,
-                                MiddleEarthNpcTextureMaterials.Hair.BROWN_COPPER,
-                                MiddleEarthNpcTextureMaterials.Hair.DARK_BROWN_COPPER,
-                                MiddleEarthNpcTextureMaterials.Hair.STRAW_COPPER,
-                                MiddleEarthNpcTextureMaterials.Hair.ORANGE_COPPER,
-                                MiddleEarthNpcTextureMaterials.Hair.WHITE_COPPER,
-                                MiddleEarthNpcTextureMaterials.Hair.GRAY_COPPER,
-                                MiddleEarthNpcTextureMaterials.Hair.BLONDE_COPPER
+                                NpcTextureMaterialsME.Hair.BLACK_BEADS,
+                                NpcTextureMaterialsME.Hair.BROWN_BEADS,
+                                NpcTextureMaterialsME.Hair.DARK_BROWN_BEADS,
+                                NpcTextureMaterialsME.Hair.STRAW_BEADS,
+                                NpcTextureMaterialsME.Hair.ORANGE_BEADS,
+                                NpcTextureMaterialsME.Hair.WHITE_BEADS,
+                                NpcTextureMaterialsME.Hair.GRAY_BEADS,
+                                NpcTextureMaterialsME.Hair.BLONDE_BEADS,
+                                NpcTextureMaterialsME.Hair.BLACK_GOLD,
+                                NpcTextureMaterialsME.Hair.BROWN_GOLD,
+                                NpcTextureMaterialsME.Hair.DARK_BROWN_GOLD,
+                                NpcTextureMaterialsME.Hair.STRAW_GOLD,
+                                NpcTextureMaterialsME.Hair.ORANGE_GOLD,
+                                NpcTextureMaterialsME.Hair.WHITE_GOLD,
+                                NpcTextureMaterialsME.Hair.GRAY_GOLD,
+                                NpcTextureMaterialsME.Hair.BLONDE_GOLD,
+                                NpcTextureMaterialsME.Hair.BLACK_COPPER,
+                                NpcTextureMaterialsME.Hair.BROWN_COPPER,
+                                NpcTextureMaterialsME.Hair.DARK_BROWN_COPPER,
+                                NpcTextureMaterialsME.Hair.STRAW_COPPER,
+                                NpcTextureMaterialsME.Hair.ORANGE_COPPER,
+                                NpcTextureMaterialsME.Hair.WHITE_COPPER,
+                                NpcTextureMaterialsME.Hair.GRAY_COPPER,
+                                NpcTextureMaterialsME.Hair.BLONDE_COPPER
                         ))
                         .withPatterns(NpcTextureType.CLOTHING, List.of(
-                                MiddleEarthNpcTexturePatterns.Clothing.FABRIC_SKIRT
+                                NpcTexturePatternsME.Clothing.FABRIC_SKIRT
                         ))
                         .withMaterials(NpcTextureType.CLOTHING, List.of(
-                                MiddleEarthNpcTextureMaterials.Clothing.WHITE,
-                                MiddleEarthNpcTextureMaterials.Clothing.BROWN
+                                NpcTextureMaterialsME.Clothing.WHITE,
+                                NpcTextureMaterialsME.Clothing.BROWN
                         ))
         ));
         put(EntityCategory.FEMALE, List.of(
                 new NpcTextureDataPreset()
                         .withPatterns(NpcTextureType.SKIN, List.of(
-                                MiddleEarthNpcTexturePatterns.Skin.FEMALE,
-                                MiddleEarthNpcTexturePatterns.Skin.SLIM
+                                NpcTexturePatternsME.Skin.FEMALE,
+                                NpcTexturePatternsME.Skin.SLIM
                         ))
                         .withPatterns(NpcTextureType.EAR, List.of(
-                                MiddleEarthNpcTexturePatterns.Ear.CUBE,
-                                MiddleEarthNpcTexturePatterns.Ear.POINTY
+                                NpcTexturePatternsME.Ear.CUBE,
+                                NpcTexturePatternsME.Ear.POINTY
                         ))
                         .withPatterns(NpcTextureType.NOSE, Stream.of(
-                                MiddleEarthNpcTexturePatterns.Nose.CUBE,
-                                        MiddleEarthNpcTexturePatterns.Nose.LARGE_CUBE,
+                                NpcTexturePatternsME.Nose.CUBE,
+                                        NpcTexturePatternsME.Nose.LARGE_CUBE,
                                         null)
                                 .toList()
                         )
                         .withMaterials(NpcTextureType.SKIN, List.of(
-                                MiddleEarthNpcTextureMaterials.Skin.PALE,
-                                MiddleEarthNpcTextureMaterials.Skin.TAN,
-                                MiddleEarthNpcTextureMaterials.Skin.OLIVE,
-                                MiddleEarthNpcTextureMaterials.Skin.NEUTRAL
+                                NpcTextureMaterialsME.Skin.PALE,
+                                NpcTextureMaterialsME.Skin.TAN,
+                                NpcTextureMaterialsME.Skin.OLIVE,
+                                NpcTextureMaterialsME.Skin.NEUTRAL
                         ))
                         .withPatterns(NpcTextureType.EYE, List.of(
-                                MiddleEarthNpcTexturePatterns.Eye.COMMON
+                                NpcTexturePatternsME.Eye.COMMON
                         ))
                         .withMaterials(NpcTextureType.EYE, List.of(
-                                MiddleEarthNpcTextureMaterials.Eye.BLACK,
-                                MiddleEarthNpcTextureMaterials.Eye.BLUE,
-                                MiddleEarthNpcTextureMaterials.Eye.BROWN,
-                                MiddleEarthNpcTextureMaterials.Eye.DARK_GREEN,
-                                MiddleEarthNpcTextureMaterials.Eye.GREEN,
-                                MiddleEarthNpcTextureMaterials.Eye.NAVY
+                                NpcTextureMaterialsME.Eye.BLACK,
+                                NpcTextureMaterialsME.Eye.BLUE,
+                                NpcTextureMaterialsME.Eye.BROWN,
+                                NpcTextureMaterialsME.Eye.DARK_GREEN,
+                                NpcTextureMaterialsME.Eye.GREEN,
+                                NpcTextureMaterialsME.Eye.NAVY
                         ))
                         .withEmissiveEyes(false)
                         .withPatterns(NpcTextureType.HAIR, List.of(
-                                MiddleEarthNpcTexturePatterns.Hair.LONG,
-                                MiddleEarthNpcTexturePatterns.Hair.FLAT_LONG
+                                NpcTexturePatternsME.Hair.LONG,
+                                NpcTexturePatternsME.Hair.FLAT_LONG
                         ))
                         .withPatterns(NpcTextureType.EYEBROW, List.of(
-                                MiddleEarthNpcTexturePatterns.Eyebrow.SHORT
+                                NpcTexturePatternsME.Eyebrow.SHORT
                         ))
                         .withMaterials(NpcTextureType.HAIR, List.of(
-                                MiddleEarthNpcTextureMaterials.Hair.BLACK_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.BROWN_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.DARK_BROWN_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.STRAW_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.ORANGE_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.WHITE_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.GRAY_BEADS,
-                                MiddleEarthNpcTextureMaterials.Hair.BLONDE_BEADS
+                                NpcTextureMaterialsME.Hair.BLACK_BEADS,
+                                NpcTextureMaterialsME.Hair.BROWN_BEADS,
+                                NpcTextureMaterialsME.Hair.DARK_BROWN_BEADS,
+                                NpcTextureMaterialsME.Hair.STRAW_BEADS,
+                                NpcTextureMaterialsME.Hair.ORANGE_BEADS,
+                                NpcTextureMaterialsME.Hair.WHITE_BEADS,
+                                NpcTextureMaterialsME.Hair.GRAY_BEADS,
+                                NpcTextureMaterialsME.Hair.BLONDE_BEADS
                         ))
                         .withPatterns(NpcTextureType.CLOTHING, List.of(
-                                MiddleEarthNpcTexturePatterns.Clothing.FABRIC_SKIRT_WITH_STROPHIUM
+                                NpcTexturePatternsME.Clothing.FABRIC_SKIRT_WITH_STROPHIUM
                         ))
                         .withMaterials(NpcTextureType.CLOTHING, List.of(
-                                MiddleEarthNpcTextureMaterials.Clothing.WHITE,
-                                MiddleEarthNpcTextureMaterials.Clothing.BROWN
+                                NpcTextureMaterialsME.Clothing.WHITE,
+                                NpcTextureMaterialsME.Clothing.BROWN
                         ))
         ));
     }});

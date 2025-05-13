@@ -19,10 +19,8 @@ public class FactionSelectionMapWidget extends MapWidget {
     List<SpawnData> spawns = new ArrayList<>();
     public FactionSelectionMapWidget(int mapWidth, int mapHeight, int maxMarkerAmount) {
         super(mapWidth, mapHeight);
-        final int[] maxSpawnCount = {0};
-
-        spawnMapMarkers = new MapMarkerWidget[maxSpawnCount[0]];
-        for(int i = 0; i< maxSpawnCount[0]; i++){
+        spawnMapMarkers = new MapMarkerWidget[maxMarkerAmount];
+        for(int i = 0; i< maxMarkerAmount; i++){
             int finalIndex = i;
             spawnMapMarkers[i] = new MapMarkerWidget("SpawnButton_" + i, x -> selectSpawn(finalIndex),
                     new Rectangle2D.Double(0, 0, uiWidth, uiHeight - 11));

@@ -8,7 +8,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.entry.RegistryElementCodec;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcTextureMaterials;
+import net.sevenstars.middleearth.resources.NpcTextureMaterialsME;
 
 public class NpcTextureMaterial {
 
@@ -48,7 +48,7 @@ public class NpcTextureMaterial {
         PACKET_CODEC = PacketCodec.tuple(
                 Identifier.PACKET_CODEC, NpcTextureMaterial::getIdentifier,
                 PacketCodecs.STRING, NpcTextureMaterial::getTypeValue, NpcTextureMaterial::new);
-        ENTRY_CODEC = RegistryElementCodec.of(MiddleEarthNpcTextureMaterials.Keys.SKIN_KEY, CODEC);
-        ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(MiddleEarthNpcTextureMaterials.Keys.SKIN_KEY, PACKET_CODEC);
+        ENTRY_CODEC = RegistryElementCodec.of(NpcTextureMaterialsME.Keys.SKIN_KEY, CODEC);
+        ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(NpcTextureMaterialsME.Keys.SKIN_KEY, PACKET_CODEC);
     }
 }

@@ -1,6 +1,14 @@
 package net.sevenstars.middleearth.resources;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
+import net.minecraft.block.entity.BannerPatterns;
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.ModBannerPatterns;
@@ -12,21 +20,19 @@ import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
 import net.sevenstars.middleearth.resources.datas.npcs.pools.*;
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-public class MiddleEarthFactions {
+/**
+ * Middle-earth mod faction registry<br>
+ * To fetch a faction during runtime, use : {@link net.sevenstars.middleearth.resources.datas.factions.FactionLookup#getFactionById}<br>
+ * <b><u>Datadriven content, do not use during runtime!</u></b>
+ * <hr>
+ */
+public class FactionsME {
     public final static String PATH = "factions";
     public static final RegistryKey<Registry<Faction>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 
@@ -109,7 +115,7 @@ public class MiddleEarthFactions {
         GONDOR = new Faction("gondor", true, Disposition.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HUMAN_CIVILIAN
+                            NpcME.HUMAN_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             GondorianNpcDataPool.GONDOR_MILITIA
@@ -152,7 +158,7 @@ public class MiddleEarthFactions {
         ROHAN = new Faction("rohan", true, Disposition.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HUMAN_CIVILIAN
+                            NpcME.HUMAN_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             RohirricNpcDataPool.ROHAN_MILITIA
@@ -191,7 +197,7 @@ public class MiddleEarthFactions {
         DALE = new Faction("dale", true, Disposition.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HUMAN_CIVILIAN
+                            NpcME.HUMAN_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             DalishNpcDataPool.DALE_MILITIA
@@ -420,7 +426,7 @@ public class MiddleEarthFactions {
         SHIRE = new Faction("shire", true, Disposition.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HOBBIT_CIVILIAN
+                            NpcME.HOBBIT_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             ShireNpcDataPool.SHIRE_MILITIA

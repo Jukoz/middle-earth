@@ -164,17 +164,16 @@ public class OnboardingFactionScreen extends Screen {
         addDrawableChild(elements.factionRandomizerButton);
 
         // Map Widget
-        // TODO add the map widget and add drawables
-
         elements.mapFocusButton = ButtonWidget.builder(Text.translatable("screen.me.button.focus_current"), this::doNothingButton).build(); // TODO
         elements.mapFocusButton.setDimensions(10, 10);
         addDrawableChild(elements.mapFocusButton);
 
-        elements.mapZoomInButton = ButtonWidget.builder(Text.translatable("screen.me.button.zoom_in"), this::doNothingButton).build(); // TODO
+        elements.mapZoomInButton = ButtonWidget.builder(Text.translatable("screen.me.button.zoom_in"), this::mapZoomIn).build();
         elements.mapZoomInButton.setDimensions(10, 10);
         addDrawableChild(elements.mapZoomInButton);
 
-        elements.mapZoomOutButton = ButtonWidget.builder(Text.translatable("screen.me.button.zoom_out"), this::doNothingButton).build(); // TODO
+        elements.mapZoomOutButton = ButtonWidget.builder(Text.translatable("screen.me.button.zoom_out"), this::mapZoomOut).build();
+
         elements.mapZoomOutButton.setDimensions(10, 10);
         addDrawableChild(elements.mapZoomOutButton);
 
@@ -332,14 +331,14 @@ public class OnboardingFactionScreen extends Screen {
 
         this.elements.mapZoomInButton.setPosition(startX, startY);
         context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_IDENTIFIER,
-                startX, startY, 224, false/*!this.elements.mapWidget.canZoomIn()*/ ? 20 : elements.mapZoomInButton.isFocused() || elements.mapZoomInButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
+                startX, startY, 224, !this.elements.mapWidget.canZoomIn() ? 20 : elements.mapZoomInButton.isFocused() || elements.mapZoomInButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
                 elements.mapZoomInButton.getWidth(), elements.mapZoomInButton.getHeight(), 256, 256);
 
         startX -= 12;
 
         this.elements.mapZoomOutButton.setPosition(startX, startY);
         context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_IDENTIFIER,
-                startX, startY, 213, false/*!this.elements.mapWidget.canZoomOut()*/ ? 20 : elements.mapZoomOutButton.isFocused() || elements.mapZoomOutButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
+                startX, startY, 213, !this.elements.mapWidget.canZoomOut() ? 20 : elements.mapZoomOutButton.isFocused() || elements.mapZoomOutButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
                 elements.mapZoomOutButton.getWidth(), elements.mapZoomOutButton.getHeight(), 256, 256);
 
         startY = this.elements.mapPanel.startY + this.elements.mapPanel.height + 4;
@@ -402,6 +401,12 @@ public class OnboardingFactionScreen extends Screen {
         MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
     }
 
+    private void mapZoomIn(ButtonWidget buttonWidget) {
+        elements.mapWidget.zoomClick();
+    }
+    private void mapZoomOut(ButtonWidget buttonWidget) {
+        elements.mapWidget.dezoomClick();
+    }
 
     @Override
     public void resize(MinecraftClient client, int width, int height) {
@@ -410,15 +415,35 @@ public class OnboardingFactionScreen extends Screen {
     }
 
     @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        this.elements.mapWidget.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         this.elements.npcPreviewWidget.mouseReleased(mouseX, mouseY, button);
+        this.elements.mapWidget.mouseReleased(mouseX, mouseY, button);
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
         this.elements.npcPreviewWidget.keyReleased(keyCode, scanCode, modifiers);
+        this.elements.mapWidget.keyReleased(keyCode, scanCode, modifiers);
         return super.keyReleased(keyCode, scanCode, modifiers);
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+        this.elements.mapWidget.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+        return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+    }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+        this.elements.mapWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }
 
     //endregion

@@ -3,8 +3,8 @@ package net.sevenstars.middleearth.datageneration;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.registry.RegistryWrapper;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcTextureMaterials;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcTexturePatterns;
+import net.sevenstars.middleearth.resources.NpcTextureMaterialsME;
+import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -15,14 +15,14 @@ public class NpcTextureProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, FabricDynamicRegistryProvider.Entries entries) {
-        entries.addAll(registries.getOrThrow(MiddleEarthNpcTextureMaterials.Keys.SKIN_KEY));
-        entries.addAll(registries.getOrThrow(MiddleEarthNpcTexturePatterns.Keys.SKIN_KEY));
-        entries.addAll(registries.getOrThrow(MiddleEarthNpcTextureMaterials.Keys.EYE_KEY));
-        entries.addAll(registries.getOrThrow(MiddleEarthNpcTexturePatterns.Keys.EYE_KEY));
-        entries.addAll(registries.getOrThrow(MiddleEarthNpcTextureMaterials.Keys.HAIR_KEY));
-        entries.addAll(registries.getOrThrow(MiddleEarthNpcTexturePatterns.Keys.HAIR_KEY));
-        entries.addAll(registries.getOrThrow(MiddleEarthNpcTextureMaterials.Keys.CLOTHING_KEY));
-        entries.addAll(registries.getOrThrow(MiddleEarthNpcTexturePatterns.Keys.CLOTHING_KEY));
+        entries.addAll(registries.getOrThrow(NpcTextureMaterialsME.Keys.SKIN_KEY));
+        entries.addAll(registries.getOrThrow(NpcTexturePatternsME.Keys.SKIN_KEY));
+        entries.addAll(registries.getOrThrow(NpcTextureMaterialsME.Keys.EYE_KEY));
+        entries.addAll(registries.getOrThrow(NpcTexturePatternsME.Keys.EYE_KEY));
+        entries.addAll(registries.getOrThrow(NpcTextureMaterialsME.Keys.HAIR_KEY));
+        entries.addAll(registries.getOrThrow(NpcTexturePatternsME.Keys.HAIR_KEY));
+        entries.addAll(registries.getOrThrow(NpcTextureMaterialsME.Keys.CLOTHING_KEY));
+        entries.addAll(registries.getOrThrow(NpcTexturePatternsME.Keys.CLOTHING_KEY));
     }
 
     @Override

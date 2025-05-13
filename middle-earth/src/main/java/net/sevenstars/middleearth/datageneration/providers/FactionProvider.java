@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.datageneration.providers;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.sevenstars.middleearth.resources.MiddleEarthFactions;
+import net.sevenstars.middleearth.resources.FactionsME;
 import net.minecraft.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
@@ -14,7 +14,7 @@ public class FactionProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getOrThrow(MiddleEarthFactions.KEY));
+        entries.addAll(registries.getOrThrow(FactionsME.KEY));
     }
 
     @Override

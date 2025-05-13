@@ -14,7 +14,13 @@ import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.Optional;
 
-public class MiddleEarthNpcTexturePatterns {
+/**
+ * Middle-earth mod npc texture patterns registry<br>
+ * Used to register the different patterns<br>
+ * <b><u>Datadriven content, do not use during runtime!</u></b>
+ * <hr>
+ */
+public class NpcTexturePatternsME {
     public record Keys(){
         public static final RegistryKey<Registry<NpcTexturePattern>> SKIN_KEY = ofRegistry("npc_skin_pattern");
         public static final RegistryKey<Registry<NpcTexturePattern>> EYE_KEY = ofRegistry("npc_eye_pattern");

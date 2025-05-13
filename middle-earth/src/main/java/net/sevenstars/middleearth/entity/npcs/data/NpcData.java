@@ -7,8 +7,8 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.resources.MiddleEarthFactions;
-import net.sevenstars.middleearth.resources.MiddleEarthRaces;
+import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
@@ -47,11 +47,11 @@ public class NpcData {
     }
 
     public Race getRaceValue(World world) {
-        return world.getRegistryManager().getOrThrow(MiddleEarthRaces.KEY).get(raceId);
+        return world.getRegistryManager().getOrThrow(RacesME.KEY).get(raceId);
     }
 
     public Faction getFactionValue(World world) {
-        return world.getRegistryManager().getOrThrow(MiddleEarthFactions.KEY).get(factionId);
+        return world.getRegistryManager().getOrThrow(FactionsME.KEY).get(factionId);
     }
 
     static {

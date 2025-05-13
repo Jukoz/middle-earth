@@ -10,7 +10,13 @@ import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcText
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
-public class MiddleEarthNpcTextureMaterials {
+/**
+ * Middle-earth mod npc texture materials registry<br>
+ * Used to register the different palette colors<br>
+ * <b><u>Datadriven content, do not use during runtime!</u></b>
+ * <hr>
+ */
+public class NpcTextureMaterialsME {
     public record Keys(){
         public static final RegistryKey<Registry<NpcTextureMaterial>> SKIN_KEY = ofRegistry("npc_skin_material");
         public static final RegistryKey<Registry<NpcTextureMaterial>> EYE_KEY = ofRegistry("npc_eye_material");

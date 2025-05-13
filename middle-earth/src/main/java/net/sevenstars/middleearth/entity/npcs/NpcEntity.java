@@ -26,9 +26,9 @@ import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.npcs.data.NpcData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
-import net.sevenstars.middleearth.resources.MiddleEarthFactions;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcTexturePatterns;
-import net.sevenstars.middleearth.resources.MiddleEarthRaces;
+import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
+import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
@@ -93,25 +93,25 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     private NpcData generateNpcData(DynamicRegistryManager manager) {
         var factions = List.of(
-                MiddleEarthFactions.GONDOR,
-                MiddleEarthFactions.LONGBEARDS_EREBOR,
-                MiddleEarthFactions.SHIRE,
-                MiddleEarthFactions.MORDOR
+                FactionsME.GONDOR,
+                FactionsME.LONGBEARDS_EREBOR,
+                FactionsME.SHIRE,
+                FactionsME.MORDOR
         );
 
         Faction faction = factions.get(random.nextBetween(0, factions.size() - 1));
-        faction = manager.getOrThrow(MiddleEarthFactions.KEY).get(faction.getId());
+        faction = manager.getOrThrow(FactionsME.KEY).get(faction.getId());
         List<Race> races = faction.getRaces(getWorld());
         Race randomRace = races.get(random.nextBetween(0, races.size()-1));
-        Identifier raceId = manager.getOrThrow(MiddleEarthRaces.KEY).getEntry(randomRace).value().getId();
+        Identifier raceId = manager.getOrThrow(RacesME.KEY).getEntry(randomRace).value().getId();
         return generateNpcData(manager, faction.getId(), raceId);
     }
     public NpcData generateNpcData(DynamicRegistryManager manager, Identifier factionId, Identifier raceId) {
-        Faction chosenFaction = manager.getOrThrow(MiddleEarthFactions.KEY).get(factionId);
+        Faction chosenFaction = manager.getOrThrow(FactionsME.KEY).get(factionId);
         if(chosenFaction == null)
             return null;
 
-        Race chosenRace = manager.getOrThrow(MiddleEarthRaces.KEY).get(raceId);
+        Race chosenRace = manager.getOrThrow(RacesME.KEY).get(raceId);
         if(chosenRace == null)
             return null;
 
@@ -153,7 +153,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
         // Hair
         Identifier hairPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.HAIR);
-        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundHairPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.HAIR, hairPatternId);
+        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundHairPattern = NpcTexturePatternsME.get(manager, NpcTextureType.HAIR, hairPatternId);
         if(foundHairPattern.isPresent() && foundHairPattern.get().value() instanceof NpcTexturePattern pattern){
             npcTextureData = npcTextureData.withHairTexture(RaceTextureData.buildId(hairPatternId, globalHairMaterialId));
             if(pattern.hasAddonRawValue()){
@@ -162,13 +162,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         }
         // Eyebrow
         Identifier eyebrowPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.EYEBROW);
-        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundEyebrowPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.EYEBROW, eyebrowPatternId);
+        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundEyebrowPattern = NpcTexturePatternsME.get(manager, NpcTextureType.EYEBROW, eyebrowPatternId);
         if(foundEyebrowPattern.isPresent()){
             npcTextureData = npcTextureData.withEyebrowTexture(RaceTextureData.buildId(eyebrowPatternId, globalHairMaterialId));
         }
         // Beard
         Identifier beardPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.BEARD);
-        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundBeardPattern = MiddleEarthNpcTexturePatterns.get(manager, NpcTextureType.BEARD, beardPatternId);
+        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundBeardPattern = NpcTexturePatternsME.get(manager, NpcTextureType.BEARD, beardPatternId);
         if(foundBeardPattern.isPresent() && foundBeardPattern.get().value() instanceof NpcTexturePattern pattern){
             npcTextureData = npcTextureData.withBeardTexture(RaceTextureData.buildId(beardPatternId, globalHairMaterialId));
             if(pattern.hasAddonRawValue()){

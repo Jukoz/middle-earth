@@ -94,8 +94,8 @@ public class MiddleEarth implements ModInitializer {
 
 		ModTrackedDataHandlerRegistry.register();
 
-		MiddleEarthNpcTextureMaterials.register();
-		MiddleEarthNpcTexturePatterns.register();
+		NpcTextureMaterialsME.register();
+		NpcTexturePatternsME.register();
 
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();
@@ -115,9 +115,9 @@ public class MiddleEarth implements ModInitializer {
 		//MiddleEarthNpcTextures.register();
 
 		// Dynamic Data
-		MiddleEarthRaces.register();
-		MiddleEarthNpcs.register();
-		MiddleEarthFactions.register();
+		RacesME.register();
+		NpcME.register();
+		FactionsME.register();
 
 		try {
 			new MiddleEarthMapGeneration();

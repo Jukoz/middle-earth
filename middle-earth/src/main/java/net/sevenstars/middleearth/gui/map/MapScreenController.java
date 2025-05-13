@@ -69,7 +69,7 @@ public class MapScreenController {
         if(KeyInputHandler.mapFullscreenToggle.matchesMouse(button)){
             screen.isFullscreen = !screen.isFullscreen;
         }
-        return screen.mouseClicked(mouseX, mouseY, button);
+        return true;
     }
 
     public boolean keyPressed(int keyCode, int scanCode, int modifiers, int mouseX, int mouseY) {
@@ -84,6 +84,6 @@ public class MapScreenController {
             ModWidget.enableFocus(true);
             return true;
         }
-        return screen.keyPressed(keyCode, scanCode, modifiers);
+        return true;
     }
 }

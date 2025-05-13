@@ -287,12 +287,14 @@ public class MapScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        return controller.keyPressed(keyCode, scanCode, modifiers, mouseX, mouseY);
+        controller.keyPressed(keyCode, scanCode, modifiers, mouseX, mouseY);
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        return controller.mouseClicked(mouseX, mouseY, button);
+        controller.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override

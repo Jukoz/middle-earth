@@ -119,7 +119,6 @@ public class OnboardingFactionScreenController {
         }
 
 
-
         this._screen.elements.raceList.setText(List.of(getRaceText()));
         this._screen.elements.descriptionTextBlock.setText(factionToUse.getDescription());
         this._screen.elements.bannerComponents = factionToUse.getBannerPatternsWithColors(_world);
