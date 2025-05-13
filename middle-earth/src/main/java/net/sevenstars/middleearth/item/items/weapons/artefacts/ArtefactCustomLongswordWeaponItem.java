@@ -68,7 +68,6 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
 
     @Override
     public void postDamageEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        System.out.println("bonk but first");
         if (stack.getDamage() < stack.getMaxDamage() - 1){
             super.postDamageEntity(stack, target, attacker);
         }
