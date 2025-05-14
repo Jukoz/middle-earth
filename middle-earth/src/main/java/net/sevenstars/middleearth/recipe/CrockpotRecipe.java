@@ -104,7 +104,7 @@ public class CrockpotRecipe implements Recipe<MultipleStackRecipeInput> {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                     Codec.INT.fieldOf("amount").forGetter(recipe -> recipe.amount),
                     Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
-                    ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
+                    ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output)
                     ).apply(instance, CrockpotRecipe::new));
 
             this.packetCodec = PacketCodec.ofStatic(Serializer::write, Serializer::read);
