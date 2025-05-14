@@ -19,15 +19,13 @@ import java.util.List;
 
 public class CrockpotRecipe implements Recipe<MultipleStackRecipeInput> {
     public final int ingredientsAmount;
-    public final int outputAmount;
     public final List<Ingredient> inputs;
     public final ItemStack output;
 
     private IngredientPlacement ingredientPlacement;
 
-    public CrockpotRecipe(int ingredientsAmount, int outputAmount, List<Ingredient> inputs, ItemStack output) {
+    public CrockpotRecipe(int ingredientsAmount, List<Ingredient> inputs, ItemStack output) {
         this.ingredientsAmount = ingredientsAmount;
-        this.outputAmount = outputAmount;
         this.inputs = inputs;
         this.output = output;
     }
@@ -62,9 +60,7 @@ public class CrockpotRecipe implements Recipe<MultipleStackRecipeInput> {
 
     @Override
     public ItemStack craft(MultipleStackRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
-        ItemStack copy = this.output.copy();
-        copy.setCount(outputAmount);
-        return copy;
+        return this.output.copy();
     }
 
     @Override
@@ -106,7 +102,6 @@ public class CrockpotRecipe implements Recipe<MultipleStackRecipeInput> {
         protected Serializer() {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                     Codec.INT.fieldOf("ingredients_amount").forGetter(recipe -> recipe.ingredientsAmount),
-                    Codec.INT.fieldOf("output_amount").forGetter(recipe -> recipe.outputAmount),
                     Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
                     ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output)
                     ).apply(instance, CrockpotRecipe::new));
@@ -126,11 +121,10 @@ public class CrockpotRecipe implements Recipe<MultipleStackRecipeInput> {
 
         private static CrockpotRecipe read(RegistryByteBuf buf) {
             int ingredientsAmount = buf.readVarInt();
-            int outputAmount = buf.readVarInt();
             DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(ingredientsAmount);
             ingredients.replaceAll(empty -> Ingredient.PACKET_CODEC.decode(buf));
             ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
-            return new CrockpotRecipe(ingredientsAmount, outputAmount, ingredients, output);
+            return new CrockpotRecipe(ingredientsAmount, ingredients, output);
         }
 
         private static void write(RegistryByteBuf buf, CrockpotRecipe recipe) {

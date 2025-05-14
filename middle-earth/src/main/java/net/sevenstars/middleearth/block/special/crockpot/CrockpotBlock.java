@@ -5,13 +5,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -24,10 +29,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import net.sevenstars.middleearth.block.ModBlockEntities;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.ForgePart;
 import org.jetbrains.annotations.Nullable;
@@ -103,5 +110,39 @@ public class CrockpotBlock extends BlockWithEntity {
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new CrockpotBlockEntity(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return validateTicker(world, type, ModBlockEntities.CROCKPOT);
+    }
+
+    @Nullable
+    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<CrockpotBlockEntity> expectedType) {
+        BlockEntityTicker ticker;
+        if (world instanceof ServerWorld serverWorld) {
+            ticker = validateTicker(givenType, expectedType, (worldx, pos, state, blockEntity) -> {
+                CrockpotBlockEntity.tick(serverWorld, pos, state, blockEntity);
+            });
+        } else {
+            ticker = null;
+        }
+        return ticker;
+    }
+
+    @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        super.randomDisplayTick(state, world, pos, random);
+        double x = (double)pos.getX() + 0.5;
+        double y = (double)pos.getY() + 0.6;
+        double z = (double)pos.getZ() + 0.5;
+        if (random.nextDouble() < 0.1) {
+            world.playSoundClient(x, y, z, SoundEvents.BLOCK_BUBBLE_COLUMN_BUBBLE_POP, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+        }
+
+        double i = random.nextDouble() * 0.4 - 0.2;
+        double j = random.nextDouble() * 0.4 - 0.2;
+        world.addParticleClient(ParticleTypes.BUBBLE_POP, x + i, y, z + j, 0.0, 0.15, 0.0);
     }
 }

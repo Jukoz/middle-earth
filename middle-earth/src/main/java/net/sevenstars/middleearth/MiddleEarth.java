@@ -51,6 +51,7 @@ public class MiddleEarth implements ModInitializer {
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();
 
+		ModRecipes.registerRecipes();
 		ModDataComponentTypes.registerModComponentTypes();
 
 		ModCommands.register();
@@ -87,7 +88,6 @@ public class MiddleEarth implements ModInitializer {
 		ModBlockEntities.registerBlockEntities();
 
 		ModScreenHandlers.registerAllScreenHandlers();
-		ModRecipes.registerRecipes();
 		ModRecipeSerializer.registerRecipeSerializers();
 
 		ModEntities.registerModEntities();
