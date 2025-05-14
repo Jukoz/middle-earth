@@ -8,7 +8,6 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.book.RecipeBookCategories;
 import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.registry.RegistryWrapper;
@@ -19,14 +18,16 @@ import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import java.util.List;
 
 public class CrockpotRecipe implements Recipe<MultipleStackRecipeInput> {
-    public final int amount;
+    public final int ingredientsAmount;
+    public final int outputAmount;
     public final List<Ingredient> inputs;
     public final ItemStack output;
 
     private IngredientPlacement ingredientPlacement;
 
-    public CrockpotRecipe(int amount, List<Ingredient> inputs, ItemStack output) {
-        this.amount = amount;
+    public CrockpotRecipe(int ingredientsAmount, int outputAmount, List<Ingredient> inputs, ItemStack output) {
+        this.ingredientsAmount = ingredientsAmount;
+        this.outputAmount = outputAmount;
         this.inputs = inputs;
         this.output = output;
     }
@@ -61,7 +62,9 @@ public class CrockpotRecipe implements Recipe<MultipleStackRecipeInput> {
 
     @Override
     public ItemStack craft(MultipleStackRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
-        return this.output.copy();
+        ItemStack copy = this.output.copy();
+        copy.setCount(outputAmount);
+        return copy;
     }
 
     @Override
@@ -102,7 +105,8 @@ public class CrockpotRecipe implements Recipe<MultipleStackRecipeInput> {
 
         protected Serializer() {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-                    Codec.INT.fieldOf("amount").forGetter(recipe -> recipe.amount),
+                    Codec.INT.fieldOf("ingredients_amount").forGetter(recipe -> recipe.ingredientsAmount),
+                    Codec.INT.fieldOf("output_amount").forGetter(recipe -> recipe.outputAmount),
                     Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
                     ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output)
                     ).apply(instance, CrockpotRecipe::new));
@@ -121,15 +125,16 @@ public class CrockpotRecipe implements Recipe<MultipleStackRecipeInput> {
         }
 
         private static CrockpotRecipe read(RegistryByteBuf buf) {
-            int amount = buf.readVarInt();
-            DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(amount);
+            int ingredientsAmount = buf.readVarInt();
+            int outputAmount = buf.readVarInt();
+            DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(ingredientsAmount);
             ingredients.replaceAll(empty -> Ingredient.PACKET_CODEC.decode(buf));
             ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
-            return new CrockpotRecipe(amount, ingredients, output);
+            return new CrockpotRecipe(ingredientsAmount, outputAmount, ingredients, output);
         }
 
         private static void write(RegistryByteBuf buf, CrockpotRecipe recipe) {
-            PacketCodecs.INTEGER.encode(buf, recipe.amount);
+            PacketCodecs.INTEGER.encode(buf, recipe.ingredientsAmount);
             buf.writeVarInt(recipe.inputs.size());
             for (Ingredient ingredient : recipe.inputs) {
                 Ingredient.PACKET_CODEC.encode(buf, ingredient);
