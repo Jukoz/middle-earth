@@ -40,6 +40,7 @@ import org.jetbrains.annotations.Nullable;
 public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
     private static final String ID = "crockpot";
     public static final int OUTPUT_SLOT = 4;
+    public static final int COOK_TIME = 60;
     private final DefaultedList<ItemStack> inventory =
             DefaultedList.ofSize(5, ItemStack.EMPTY);
     protected final PropertyDelegate propertyDelegate;
@@ -74,76 +75,52 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
 
     public static void tick(ServerWorld world, BlockPos pos, BlockState state, CrockpotBlockEntity blockEntity) {
         ItemStack outputStack = blockEntity.inventory.get(OUTPUT_SLOT);
+        boolean markDirty = false;
         if (blockEntity.isBoiling()) {
             MultipleStackRecipeInput recipeInput = new MultipleStackRecipeInput(blockEntity.inventory);
             RecipeEntry recipeEntry;
             if (blockEntity.inventory.size() >= 2) {
-                recipeEntry = (RecipeEntry)blockEntity.matchGetter.getFirstMatch(recipeInput, world).orElse((Object)null);
+                recipeEntry = blockEntity.matchGetter.getFirstMatch(recipeInput, world).orElse(null);
             } else {
                 recipeEntry = null;
             }
 
             int i = blockEntity.getMaxCountPerStack();
-            if (!blockEntity.isBurning() && canAcceptRecipeOutput(world.getRegistryManager(), recipeEntry, recipeInput, blockEntity.inventory, i)) {
-                blockEntity.litTimeRemaining = blockEntity.getFuelTime(world.getFuelRegistry(), outputStack);
-                blockEntity.litTotalTime = blockEntity.litTimeRemaining;
-                if (blockEntity.isBurning()) {
-                    bl2 = true;
-                    if (bl4) {
-                        Item item = outputStack.getItem();
-                        outputStack.decrement(1);
-                        if (outputStack.isEmpty()) {
-                            blockEntity.inventory.set(1, item.getRecipeRemainder());
-                        }
-                    }
-                }
-            }
-
-            if (blockEntity.isBurning() && canAcceptRecipeOutput(world.getRegistryManager(), recipeEntry, recipeInput, blockEntity.inventory, i)) {
-                ++blockEntity.cookingTimeSpent;
-                if (blockEntity.cookingTimeSpent == blockEntity.cookingTotalTime) {
-                    blockEntity.cookingTimeSpent = 0;
-                    blockEntity.cookingTotalTime = getCookTime(world, blockEntity);
-                    if (craftRecipe(world.getRegistryManager(), recipeEntry, recipeInput, blockEntity.inventory, i)) {
-                        blockEntity.setLastRecipe(recipeEntry);
-                    }
-
-                    bl2 = true;
+            if (canAcceptRecipeOutput(world.getRegistryManager(), recipeEntry, recipeInput, blockEntity.inventory, i)) {
+                markDirty = true;
+                System.out.println("canAcceptRecipeOutput");
+                ++blockEntity.progress;
+                if (blockEntity.progress >= COOK_TIME) {
+                    blockEntity.progress = 0;
+                    craftRecipe(world.getRegistryManager(), recipeEntry, recipeInput, blockEntity.inventory, i);
                 }
             } else {
-                blockEntity.cookingTimeSpent = 0;
+                blockEntity.progress = Math.max(blockEntity.progress - 1, 0);
             }
-        } else if (!blockEntity.isBurning() && blockEntity.cookingTimeSpent > 0) {
-            blockEntity.cookingTimeSpent = MathHelper.clamp(blockEntity.cookingTimeSpent - 2, 0, blockEntity.cookingTotalTime);
         }
 
-        if (bl != blockEntity.isBurning()) {
-            bl2 = true;
-            state = (BlockState)state.with(AbstractFurnaceBlock.LIT, blockEntity.isBurning());
-            world.setBlockState(pos, state, 3);
-        }
-
-        if (bl2) {
+        if (markDirty) {
             markDirty(world, pos, state);
         }
 
     }
 
-    private static boolean canAcceptRecipeOutput(DynamicRegistryManager dynamicRegistryManager, @Nullable RecipeEntry<? extends AbstractCookingRecipe> recipe, SingleStackRecipeInput input, DefaultedList<ItemStack> inventory, int maxCount) {
-        if (!((ItemStack)inventory.get(0)).isEmpty() && recipe != null) {
-            ItemStack itemStack = ((AbstractCookingRecipe)recipe.value()).craft(input, dynamicRegistryManager);
+    private static boolean canAcceptRecipeOutput(DynamicRegistryManager dynamicRegistryManager, @Nullable RecipeEntry<CrockpotRecipe> recipe,
+                                                 MultipleStackRecipeInput input, DefaultedList<ItemStack> inventory, int maxCount) {
+        if (!inventory.isEmpty() && recipe != null) {
+            ItemStack itemStack = (recipe.value()).craft(input, dynamicRegistryManager);
             if (itemStack.isEmpty()) {
                 return false;
             } else {
-                ItemStack itemStack2 = (ItemStack)inventory.get(2);
-                if (itemStack2.isEmpty()) {
+                ItemStack outputStack = inventory.get(OUTPUT_SLOT);
+                if (outputStack.isEmpty()) {
                     return true;
-                } else if (!ItemStack.areItemsAndComponentsEqual(itemStack2, itemStack)) {
+                } else if (!ItemStack.areItemsAndComponentsEqual(outputStack, itemStack)) {
                     return false;
-                } else if (itemStack2.getCount() < maxCount && itemStack2.getCount() < itemStack2.getMaxCount()) {
+                } else if (outputStack.getCount() < maxCount && outputStack.getCount() < outputStack.getMaxCount()) {
                     return true;
                 } else {
-                    return itemStack2.getCount() < itemStack.getMaxCount();
+                    return outputStack.getCount() < itemStack.getMaxCount();
                 }
             }
         } else {
@@ -151,22 +128,21 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
         }
     }
 
-    private static boolean craftRecipe(DynamicRegistryManager dynamicRegistryManager, @Nullable RecipeEntry<? extends AbstractCookingRecipe> recipe, SingleStackRecipeInput input, DefaultedList<ItemStack> inventory, int maxCount) {
+    private static boolean craftRecipe(DynamicRegistryManager dynamicRegistryManager, @Nullable RecipeEntry<CrockpotRecipe> recipe,
+                                       MultipleStackRecipeInput input, DefaultedList<ItemStack> inventory, int maxCount) {
         if (recipe != null && canAcceptRecipeOutput(dynamicRegistryManager, recipe, input, inventory, maxCount)) {
-            ItemStack itemStack = (ItemStack)inventory.get(0);
-            ItemStack itemStack2 = ((AbstractCookingRecipe)recipe.value()).craft(input, dynamicRegistryManager);
-            ItemStack itemStack3 = (ItemStack)inventory.get(2);
-            if (itemStack3.isEmpty()) {
-                inventory.set(2, itemStack2.copy());
-            } else if (ItemStack.areItemsAndComponentsEqual(itemStack3, itemStack2)) {
-                itemStack3.increment(1);
+            ItemStack craftedStack = recipe.value().craft(input, dynamicRegistryManager);
+            ItemStack outputStack = inventory.get(OUTPUT_SLOT);
+            if (outputStack.isEmpty()) {
+                inventory.set(2, craftedStack.copy());
+            } else if (ItemStack.areItemsAndComponentsEqual(outputStack, craftedStack)) {
+                outputStack.increment(outputStack.getCount());
             }
 
-            if (itemStack.isOf(Blocks.WET_SPONGE.asItem()) && !((ItemStack)inventory.get(1)).isEmpty() && ((ItemStack)inventory.get(1)).isOf(Items.BUCKET)) {
-                inventory.set(1, new ItemStack(Items.WATER_BUCKET));
+            for(int i = 0; i < OUTPUT_SLOT; i++) {
+                inventory.remove(i);
             }
 
-            itemStack.decrement(1);
             return true;
         } else {
             return false;
