@@ -38,19 +38,6 @@ public interface MEWeaponSettings {
                 .component(DataComponentTypes.WEAPON, new WeaponComponent(1));
     }
 
-    static Item.Settings createArtefactWeaponSettings(ToolMaterial material, Item.Settings settings, ModWeaponTypes type){
-        RegistryEntryLookup<Block> registryEntryLookup = Registries.createEntryLookup(Registries.BLOCK);
-
-        return settings.maxDamage(material.durability())
-                .repairable(material.repairItems())
-                .enchantable(material.enchantmentValue())
-                .attributeModifiers(createWeaponAttibutes(material, type.attack, type.attackSpeed, type.attackRange))
-                .component(DataComponentTypes.TOOL, new ToolComponent(List.of(
-                        ToolComponent.Rule.ofAlwaysDropping(RegistryEntryList.of(new RegistryEntry[]{Blocks.COBWEB.getRegistryEntry()}), 15.0F),
-                        ToolComponent.Rule.of(registryEntryLookup.getOrThrow(BlockTags.SWORD_INSTANTLY_MINES), Float.MAX_VALUE),
-                        ToolComponent.Rule.of(registryEntryLookup.getOrThrow(BlockTags.SWORD_EFFICIENT), 1.5F)), 1.0F, 2, false));
-    }
-
     static AttributeModifiersComponent createWeaponAttibutes(ToolMaterial material, float attackDamage, float attackSpeed, float attackRange){
         return AttributeModifiersComponent.builder()
                 .add(EntityAttributes.ATTACK_DAMAGE, new EntityAttributeModifier(Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, (double)(attackDamage + material.attackDamageBonus()), EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
