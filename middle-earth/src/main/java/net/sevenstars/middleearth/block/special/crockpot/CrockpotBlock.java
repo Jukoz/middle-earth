@@ -75,6 +75,20 @@ public class CrockpotBlock extends BlockWithEntity {
                 world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.1F);
                 world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
                 return ActionResult.SUCCESS;
+            } else {
+                ItemStack stackResult = crockpotBlockEntity.fillBowl(stack.getItem());
+                if(!stackResult.isEmpty()) {
+                    stack.decrement(1);
+                    world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 0.9F);
+
+                    if (stack.isEmpty()) {
+                        player.setStackInHand(hand, stackResult);
+                    } else if (!player.getInventory().insertStack(stackResult)) {
+                        player.dropItem(stackResult, false);
+                    }
+                    world.emitGameEvent(player, GameEvent.FLUID_PICKUP, pos);
+                }
+
             }
         }
         return super.onUseWithItem(stack, state, world, pos, player, hand, hit);

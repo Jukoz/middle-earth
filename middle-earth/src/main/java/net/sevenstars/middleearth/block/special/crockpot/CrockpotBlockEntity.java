@@ -3,11 +3,15 @@ package net.sevenstars.middleearth.block.special.crockpot;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.FoodComponent;
+import net.minecraft.component.type.UseRemainderComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -198,6 +202,27 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
             }
         }
         return false;
+    }
+
+    public ItemStack fillBowl(Item remainder) {
+        if(hasOutput()) {
+            ItemStack outputStack = getStack(OUTPUT_SLOT);
+            UseRemainderComponent remainderComponent = outputStack.get(DataComponentTypes.USE_REMAINDER);
+            if(remainderComponent != null) {
+                ItemStack recipeRemainder = remainderComponent.convertInto();
+                if (recipeRemainder.getItem() == remainder) {
+                    ItemStack result = outputStack.copy();
+                    result.setCount(1);
+                    outputStack.decrement(1);
+                    if(outputStack.getCount() == 0) {
+                        outputStack = ItemStack.EMPTY;
+                    }
+                    setStack(OUTPUT_SLOT, outputStack);
+                    return outputStack;
+                }
+            }
+        }
+        return ItemStack.EMPTY;
     }
 
     @Override
