@@ -11,6 +11,7 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.registry.DynamicRegistryManager;
@@ -19,10 +20,14 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
@@ -41,6 +46,7 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
     protected final PropertyDelegate propertyDelegate;
     private final ServerRecipeManager.MatchGetter<MultipleStackRecipeInput, ? extends CrockpotRecipe> matchGetter;
     private int progress = 0;
+    private Random random;
 
     public CrockpotBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CROCKPOT, pos, state);
@@ -66,9 +72,10 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
             }
         };
         this.matchGetter = ServerRecipeManager.createCachedMatchGetter(ModRecipes.CROCKPOT);
+        random = Random.create();
     }
 
-    public static void tick(ServerWorld world, BlockPos pos, BlockState state, CrockpotBlockEntity blockEntity) {
+    public static void serverTick(World world, BlockPos pos, BlockState state, CrockpotBlockEntity blockEntity) {
         ArrayList<ItemStack> ingredients = new ArrayList<>();
         for(int i = 0; i < blockEntity.inventory.size(); i++) {
             ItemStack ingredient = blockEntity.inventory.get(i);
@@ -77,22 +84,23 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
             }
         }
         boolean markDirty = false;
-        if (blockEntity.isBoiling()) {
+        if (blockEntity.isBoiling() && !world.isClient) {
+            blockEntity.randomBubbles();
+            ServerWorld serverWorld = (ServerWorld) world;
             MultipleStackRecipeInput recipeInput = new MultipleStackRecipeInput(ingredients);
             RecipeEntry recipeEntry;
             if (ingredients.size() >= 2) {
-                recipeEntry = blockEntity.matchGetter.getFirstMatch(recipeInput, world).orElse(null);
+                recipeEntry = blockEntity.matchGetter.getFirstMatch(recipeInput, serverWorld).orElse(null);
             } else {
                 recipeEntry = null;
                 blockEntity.progress = Math.max(blockEntity.progress - 1, 0);
             }
-            int i = blockEntity.getMaxCountPerStack();
             markDirty = true;
-            System.out.println("canAcceptRecipeOutput");
             ++blockEntity.progress;
             if (blockEntity.progress >= COOK_TIME) {
                 blockEntity.progress = 0;
-                craftRecipe(world.getRegistryManager(), recipeEntry, recipeInput, blockEntity.inventory, i);
+                craftRecipe(world.getRegistryManager(), recipeEntry, recipeInput, blockEntity.inventory);
+                blockEntity.recipeCraftedSound();
             }
         }
 
@@ -102,12 +110,43 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
 
     }
 
+    public static void clientTick(World world, BlockPos pos, BlockState state, CrockpotBlockEntity blockEntity) {
+        if(blockEntity.isCooking())
+        {
+            double x = (double)pos.getX() + 0.5;
+            double y = (double)pos.getY() + 0.5;
+            double z = (double)pos.getZ() + 0.5;
+            if (blockEntity.random.nextDouble() < 0.12) {
+                world.playSound(null, pos, SoundEvents.BLOCK_BUBBLE_COLUMN_BUBBLE_POP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+
+            double i = blockEntity.random.nextDouble() * 0.4 - 0.2;
+            double j = blockEntity.random.nextDouble() * 0.4 - 0.2;
+            world.addParticleClient(ParticleTypes.BUBBLE, x + i, y, z + j, 0.0, 0.1, 0.0);
+        }
+    }
+
+    public void randomBubbles() {
+        if(isCooking())
+        {
+            double x = (double)pos.getX() + 0.5;
+            double y = (double)pos.getY() + 0.5;
+            double z = (double)pos.getZ() + 0.5;
+            if (random.nextDouble() < 0.12) {
+                world.playSound(null, pos, SoundEvents.BLOCK_BUBBLE_COLUMN_BUBBLE_POP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+
+            double i = random.nextDouble() * 0.4 - 0.2;
+            double j = random.nextDouble() * 0.4 - 0.2;
+            world.addParticleClient(ParticleTypes.BUBBLE, x + i, y, z + j, 0.0, 0.1, 0.0);
+        }
+    }
+
     private static boolean craftRecipe(DynamicRegistryManager dynamicRegistryManager, @Nullable RecipeEntry<CrockpotRecipe> recipe,
-                                       MultipleStackRecipeInput input, DefaultedList<ItemStack> inventory, int maxCount) {
+                                       MultipleStackRecipeInput input, DefaultedList<ItemStack> inventory) {
         if (recipe != null) {
             ItemStack craftedStack = recipe.value().craft(input, dynamicRegistryManager);
             inventory.set(OUTPUT_SLOT, craftedStack.copy());
-
             for(int i = 0; i < OUTPUT_SLOT; i++) {
                 inventory.set(i, ItemStack.EMPTY);
             }
@@ -117,10 +156,21 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
         }
     }
 
+    public void recipeCraftedSound() {
+        double x = (double)pos.getX() + 0.5;
+        double y = (double)pos.getY() + 0.5;
+        double z = (double)pos.getZ() + 0.5;
+        world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1.1F, 0.8F);
+    }
+
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return new CrockpotScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+    }
+
+    public boolean isCooking() {
+        return progress > 0;
     }
 
     public boolean isHanging() {
