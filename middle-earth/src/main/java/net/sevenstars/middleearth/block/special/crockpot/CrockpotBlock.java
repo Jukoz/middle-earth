@@ -61,16 +61,11 @@ public class CrockpotBlock extends BlockWithEntity {
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
 
-        if(stack.isEmpty()) {
-            if (world.isClient) {
+        if(world.isClient) {
+            if(stack.isEmpty()) {
                 return ActionResult.SUCCESS;
-            } else {
-                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-                if(screenHandlerFactory != null) {
-                    player.openHandledScreen(screenHandlerFactory);
-                }
-                return ActionResult.CONSUME;
             }
+            return ActionResult.CONSUME;
         } else if(blockEntity instanceof CrockpotBlockEntity crockpotBlockEntity) {
             boolean filled = crockpotBlockEntity.fill(stack);
             if(filled) {
@@ -81,18 +76,26 @@ public class CrockpotBlock extends BlockWithEntity {
                 world.emitGameEvent(null, GameEvent.FLUID_PLACE, pos);
                 return ActionResult.SUCCESS;
             } else {
-                ItemStack stackResult = crockpotBlockEntity.fillBowl(stack.getItem());
-                if(!stackResult.isEmpty()) {
-                    stack.decrement(1);
-                    world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 0.9F);
-
-                    if (stack.isEmpty()) {
-                        player.setStackInHand(hand, stackResult);
-                    } else if (!player.getInventory().insertStack(stackResult)) {
-                        player.dropItem(stackResult, false);
+                if(stack.isEmpty()) {
+                    NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+                    if(screenHandlerFactory != null) {
+                        player.openHandledScreen(screenHandlerFactory);
                     }
-                    world.emitGameEvent(player, GameEvent.FLUID_PICKUP, pos);
-                    return ActionResult.SUCCESS;
+                    return ActionResult.CONSUME;
+                } else {
+                    ItemStack stackResult = crockpotBlockEntity.fillBowl(stack.getItem());
+                    if(!stackResult.isEmpty()) {
+                        stack.decrement(1);
+                        world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 0.9F);
+
+                        if (stack.isEmpty()) {
+                            player.setStackInHand(hand, stackResult);
+                        } else if (!player.getInventory().insertStack(stackResult)) {
+                            player.dropItem(stackResult, false);
+                        }
+                        world.emitGameEvent(player, GameEvent.FLUID_PICKUP, pos);
+                        return ActionResult.SUCCESS;
+                    }
                 }
             }
         }

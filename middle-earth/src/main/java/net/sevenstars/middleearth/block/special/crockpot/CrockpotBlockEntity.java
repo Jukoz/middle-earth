@@ -220,7 +220,8 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
                         outputStack = ItemStack.EMPTY;
                     }
                     setStack(OUTPUT_SLOT, outputStack);
-                    return outputStack;
+                    System.out.println(getStack(OUTPUT_SLOT));
+                    return result;
                 }
             }
         }
@@ -230,9 +231,11 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
     @Override
     public void onBlockReplaced(BlockPos pos, BlockState oldState) {
         if (this.world != null) {
-            DefaultedList<ItemStack> items = (DefaultedList<ItemStack>) getList();
+            List<ItemStack> items = new ArrayList<>(getList());
             items.removeLast();
-            ItemScatterer.spawn(this.world, pos, items);
+            for (ItemStack item : items) {
+                ItemScatterer.spawn(this.world, pos.getX(), pos.getY(), pos.getZ(), item);
+            }
         }
     }
 
