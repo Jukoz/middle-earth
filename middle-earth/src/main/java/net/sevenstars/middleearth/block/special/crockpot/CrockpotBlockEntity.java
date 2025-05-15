@@ -27,6 +27,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -40,6 +41,7 @@ import net.sevenstars.middleearth.recipe.ModRecipes;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
     private static final String ID = "crockpot";
@@ -226,6 +228,15 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     @Override
+    public void onBlockReplaced(BlockPos pos, BlockState oldState) {
+        if (this.world != null) {
+            DefaultedList<ItemStack> items = (DefaultedList<ItemStack>) getList();
+            items.removeLast();
+            ItemScatterer.spawn(this.world, pos, items);
+        }
+    }
+
+    @Override
     public int[] getAvailableSlots(Direction side) {
         int[] slots = new int[inventory.size()];
         for (int i = 0; i < slots.length; i++) {
@@ -257,6 +268,10 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
     @Override
     public ItemStack getStack(int slot) {
         return this.inventory.get(slot);
+    }
+
+    public List<ItemStack> getList() {
+        return new ArrayList<>(this.inventory.stream().toList());
     }
 
     @Override
