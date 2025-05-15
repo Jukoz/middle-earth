@@ -30,6 +30,8 @@ import net.sevenstars.middleearth.recipe.CrockpotRecipe;
 import net.sevenstars.middleearth.recipe.ModRecipes;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+
 public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
     private static final String ID = "crockpot";
     public static final int OUTPUT_SLOT = 4;
@@ -67,28 +69,30 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     public static void tick(ServerWorld world, BlockPos pos, BlockState state, CrockpotBlockEntity blockEntity) {
-        ItemStack outputStack = blockEntity.inventory.get(OUTPUT_SLOT);
+        ArrayList<ItemStack> ingredients = new ArrayList<>();
+        for(int i = 0; i < blockEntity.inventory.size(); i++) {
+            ItemStack ingredient = blockEntity.inventory.get(i);
+            if(!ingredient.isEmpty()) {
+                ingredients.add(ingredient);
+            }
+        }
         boolean markDirty = false;
         if (blockEntity.isBoiling()) {
-            MultipleStackRecipeInput recipeInput = new MultipleStackRecipeInput(blockEntity.inventory);
+            MultipleStackRecipeInput recipeInput = new MultipleStackRecipeInput(ingredients);
             RecipeEntry recipeEntry;
-            if (blockEntity.inventory.size() >= 2) {
+            if (ingredients.size() >= 2) {
                 recipeEntry = blockEntity.matchGetter.getFirstMatch(recipeInput, world).orElse(null);
             } else {
                 recipeEntry = null;
-            }
-
-            int i = blockEntity.getMaxCountPerStack();
-            if (canAcceptRecipeOutput(world.getRegistryManager(), recipeEntry, recipeInput, blockEntity.inventory, i)) {
-                markDirty = true;
-                System.out.println("canAcceptRecipeOutput");
-                ++blockEntity.progress;
-                if (blockEntity.progress >= COOK_TIME) {
-                    blockEntity.progress = 0;
-                    craftRecipe(world.getRegistryManager(), recipeEntry, recipeInput, blockEntity.inventory, i);
-                }
-            } else {
                 blockEntity.progress = Math.max(blockEntity.progress - 1, 0);
+            }
+            int i = blockEntity.getMaxCountPerStack();
+            markDirty = true;
+            System.out.println("canAcceptRecipeOutput");
+            ++blockEntity.progress;
+            if (blockEntity.progress >= COOK_TIME) {
+                blockEntity.progress = 0;
+                craftRecipe(world.getRegistryManager(), recipeEntry, recipeInput, blockEntity.inventory, i);
             }
         }
 
@@ -123,19 +127,13 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
 
     private static boolean craftRecipe(DynamicRegistryManager dynamicRegistryManager, @Nullable RecipeEntry<CrockpotRecipe> recipe,
                                        MultipleStackRecipeInput input, DefaultedList<ItemStack> inventory, int maxCount) {
-        if (recipe != null && canAcceptRecipeOutput(dynamicRegistryManager, recipe, input, inventory, maxCount)) {
+        if (recipe != null) {
             ItemStack craftedStack = recipe.value().craft(input, dynamicRegistryManager);
-            ItemStack outputStack = inventory.get(OUTPUT_SLOT);
-            if (outputStack.isEmpty()) {
-                inventory.set(2, craftedStack.copy());
-            } else if (ItemStack.areItemsAndComponentsEqual(outputStack, craftedStack)) {
-                outputStack.increment(outputStack.getCount());
-            }
+            inventory.set(OUTPUT_SLOT, craftedStack.copy());
 
             for(int i = 0; i < OUTPUT_SLOT; i++) {
-                inventory.remove(i);
+                inventory.set(i, ItemStack.EMPTY);
             }
-
             return true;
         } else {
             return false;

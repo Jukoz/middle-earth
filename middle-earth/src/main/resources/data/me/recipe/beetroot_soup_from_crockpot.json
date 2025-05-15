@@ -1,0 +1,13 @@
+{
+  "type": "me:crockpot",
+  "ingredients_amount": 3,
+  "ingredients": [
+    "minecraft:beetroot",
+    "minecraft:beetroot",
+    "minecraft:water_bucket"
+  ],
+  "output": {
+    "count": 3,
+    "id": "minecraft:beetroot_soup"
+  }
+}
