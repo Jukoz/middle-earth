@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.projectile.AbstractProjectileEntity;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -20,12 +20,12 @@ public class PebbleEntity extends AbstractProjectileEntity {
     }
 
     public PebbleEntity(World world, LivingEntity owner, float dmg) {
-        super(ModEntities.PEBBLE, owner, world, new ItemStack(ModResourceItems.PEBBLE));
+        super(ModEntities.PEBBLE, owner, world, new ItemStack(ResourceItemsME.PEBBLE));
         this.damage = dmg;
     }
 
     protected Item getDefaultItem() {
-        return ModResourceItems.PEBBLE;
+        return ResourceItemsME.PEBBLE;
     }
 
     @Override

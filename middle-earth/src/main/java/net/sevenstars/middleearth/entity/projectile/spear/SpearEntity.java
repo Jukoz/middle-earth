@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.entity.projectile.spear;
 
 import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.item.ModWeaponItems;
+import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -103,7 +103,7 @@ public class SpearEntity extends PersistentProjectileEntity {
 
     @Override
     protected ItemStack getDefaultItemStack() {
-        return ModWeaponItems.WOODEN_SPEAR.getDefaultStack();
+        return WeaponItemsME.WOODEN_SPEAR.getDefaultStack();
     }
 
     protected float getDragInWater() {

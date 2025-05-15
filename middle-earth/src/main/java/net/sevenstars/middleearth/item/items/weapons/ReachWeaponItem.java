@@ -3,21 +3,13 @@ package net.sevenstars.middleearth.item.items.weapons;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
-import net.sevenstars.middleearth.item.utils.MEWeaponSettings;
+import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
+import net.sevenstars.middleearth.item.utils.WeaponSettingsME;
 import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.component.type.ToolComponent;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
@@ -32,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
+public class ReachWeaponItem extends Item implements EquipmentTooltipME {
 
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
@@ -41,21 +33,21 @@ public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
     public ModWeaponTypes type;
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModWeaponTypes type, Item.Settings settings) {
-        super(MEWeaponSettings.createWeaponSettings(toolMaterial, settings, type));
+        super(WeaponSettingsME.createWeaponSettings(toolMaterial, settings, type));
         this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = type;
     }
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModFactions faction, ModWeaponTypes type, Item.Settings settings) {
-        super(MEWeaponSettings.createWeaponSettings(toolMaterial, settings, type));
+        super(WeaponSettingsME.createWeaponSettings(toolMaterial, settings, type));
         this.faction = faction;
         this.subFaction = null;
         this.type = type;
     }
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, ModWeaponTypes type, Item.Settings settings) {
-        super(MEWeaponSettings.createWeaponSettings(toolMaterial, settings, type));
+        super(WeaponSettingsME.createWeaponSettings(toolMaterial, settings, type));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = type;

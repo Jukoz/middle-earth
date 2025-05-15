@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.mixin.client;
 
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -64,7 +64,7 @@ public abstract class ItemRendererMixin {
 
     @Unique
     private static boolean isItemHot(ItemStack stack) {
-        return stack.getComponents().contains(ModDataComponentTypes.TEMPERATURE_DATA) && (
+        return stack.getComponents().contains(DataComponentTypesME.TEMPERATURE_DATA) && (
                 HotMetalsModel.nuggets.contains(stack.getItem()) ||
                 HotMetalsModel.ingots.contains(stack.getItem()) ||
                 HotMetalsModel.items.contains(stack.getItem())

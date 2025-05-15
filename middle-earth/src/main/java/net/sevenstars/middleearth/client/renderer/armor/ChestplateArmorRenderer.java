@@ -7,7 +7,7 @@ import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomChestplateModel;
 import net.sevenstars.middleearth.client.model.equipment.chest.ChestplateAddonModel;
 import net.sevenstars.middleearth.client.model.equipment.chest.capes.CloakCapeModel;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.CapeDataComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomChestplateItem;
 import net.sevenstars.middleearth.item.utils.armor.ModArmorModels;
@@ -68,7 +68,7 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
                 ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
             }
 
-            CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
+            CapeDataComponent capeDataComponent = stack.get(DataComponentTypesME.CAPE_DATA);
             if (capeDataComponent != null) {
                 this.capeModel = ModArmorModels.ModCapePairedModels.valueOf(capeDataComponent.cape().getName().toUpperCase()).getModel().getArmoredModel();
                 contextModel.copyTransforms(capeModel);

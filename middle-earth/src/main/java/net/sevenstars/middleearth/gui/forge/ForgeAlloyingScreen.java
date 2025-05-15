@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.network.packets.C2S.ForgeOutputPacket;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
@@ -14,7 +14,6 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -233,11 +232,11 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
                 context.drawItem(itemstack, x + 143, y + 54);
                 break;
             case 3:
-                itemstack = new ItemStack(ModResourceItems.ROD);
+                itemstack = new ItemStack(ResourceItemsME.ROD);
                 context.drawItem(itemstack, x + 143, y + 54);
                 break;
             case 4:
-                itemstack = new ItemStack(ModResourceItems.LARGE_ROD);
+                itemstack = new ItemStack(ResourceItemsME.LARGE_ROD);
                 context.drawItem(itemstack, x + 143, y + 54);
                 break;
         }

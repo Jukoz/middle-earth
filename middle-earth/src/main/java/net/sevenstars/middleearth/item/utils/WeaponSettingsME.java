@@ -21,7 +21,12 @@ import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.List;
 
-public interface MEWeaponSettings {
+public interface WeaponSettingsME {
+
+    /**
+     * Middle-earth mod custom Settings for weapons
+     */
+
     Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
     static Item.Settings createWeaponSettings(ToolMaterial material, Item.Settings settings, ModWeaponTypes type){

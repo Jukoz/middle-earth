@@ -13,7 +13,11 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.Function;
 
-public class ModNatureBlockItems {
+public class NatureBlockItemsME {
+
+    /**
+     * Middle-earth mod Nature Items registry for blocks
+     */
 
     public static final Item SMALL_LILY_PADS = registerItem("small_lily_pads",
             (settings) -> new PlaceableOnWaterItem(ModNatureBlocks.SMALL_LILY_PADS, settings), new Item.Settings());

@@ -16,7 +16,11 @@ import net.minecraft.util.Identifier;
 import java.util.function.Function;
 
 
-public class ModEggItems {
+public class EggItemsME {
+
+    /**
+     * Middle-earth mod Spawn Eggs registry
+     */
 
     public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.BARROW_WIGHT, settings), new Item.Settings());

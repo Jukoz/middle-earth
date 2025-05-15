@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.item.items;
 
 import net.minecraft.util.ActionResult;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -37,7 +37,7 @@ public class EmptyPhialItem  extends Item {
                 if (world.getFluidState(blockPos).isIn(FluidTags.WATER)) {
                     world.playSound(user, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.15F);
                     world.emitGameEvent(user, GameEvent.FLUID_PICKUP, blockPos);
-                    return ActionResult.SUCCESS.withNewHandStack(this.fill(itemStack, user, new ItemStack(ModResourceItems.WATER_PHIAL)));
+                    return ActionResult.SUCCESS.withNewHandStack(this.fill(itemStack, user, new ItemStack(ResourceItemsME.WATER_PHIAL)));
                 }
             }
 

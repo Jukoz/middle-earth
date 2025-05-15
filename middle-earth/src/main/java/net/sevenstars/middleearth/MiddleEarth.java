@@ -53,26 +53,26 @@ public class MiddleEarth implements ModInitializer {
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();
 
-		ModDataComponentTypes.registerModComponentTypes();
+		DataComponentTypesME.registerModComponentTypes();
 
 		ModCommands.register();
 		ModStatusEffects.registerStatusEffects();
 
 		OreRockSets.registerModBlockSets();
-		ModWeaponItems.registerModItems();
-		ModEquipmentItems.registerModItems();
+		WeaponItemsME.registerModItems();
+		EquipmentItemsME.registerModItems();
 		ModDyeablePieces.addDyeablePieces();
-		ModToolItems.registerModItems();
-		ModFoodItems.registerModItems();
-		ModResourceItems.registerModItems();
-		ModEggItems.registerModItems();
+		ToolItemsME.registerModItems();
+		FoodItemsME.registerModItems();
+		ResourceItemsME.registerModItems();
+		EggItemsME.registerModItems();
 		ModItemGroups.register();
 
 		WoodBlockSets.registerModBlockSets();
 		MushroomBlockSets.registerModBlockSets();
 		StoneBlockSets.registerModBlockSets();
-		ModDecorativeItems.registerModItems();
-		ModNatureBlockItems.registerModItems();
+		DecorativeItemsME.registerModItems();
+		NatureBlockItemsME.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();

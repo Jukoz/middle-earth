@@ -6,7 +6,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.chest.ChestplateAddonModel;
 import net.sevenstars.middleearth.client.model.equipment.chest.capes.CloakCapeModel;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.CapeDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ModArmorModels;
@@ -36,7 +36,7 @@ public class CapeRenderer implements ArmorRenderer {
         VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), stack.hasGlint());
         int color;
         if (chestplate){
-            color =  ColorHelper.fullAlpha(stack.get(ModDataComponentTypes.CAPE_DATA).capeColor());
+            color =  ColorHelper.fullAlpha(stack.get(DataComponentTypesME.CAPE_DATA).capeColor());
         } else {
             color = CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR);
         }
@@ -48,7 +48,7 @@ public class CapeRenderer implements ArmorRenderer {
         this.capeModel = new CloakCapeModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
 
         if (slot == EquipmentSlot.CHEST) {
-            CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
+            CapeDataComponent capeDataComponent = stack.get(DataComponentTypesME.CAPE_DATA);
 
             if (capeDataComponent != null) {
                 this.capeModel = ModArmorModels.ModCapePairedModels.valueOf(capeDataComponent.cape().getName().toUpperCase()).getModel().getUnarmoredModel();

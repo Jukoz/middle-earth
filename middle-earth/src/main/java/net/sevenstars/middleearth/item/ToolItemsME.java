@@ -16,7 +16,12 @@ import net.sevenstars.middleearth.item.utils.ModToolMaterials;
 
 import java.util.function.Function;
 
-public class ModToolItems {
+public class ToolItemsME {
+
+    /**
+     * Middle-earth mod Tool Items registry
+     */
+
     private static final int IRON_DAMAGE = 1;
     private static final int IRON_AXE_DAMAGE = IRON_DAMAGE + 5;
     private static final int IRON_PICKAXE_DAMAGE = IRON_DAMAGE - 1;

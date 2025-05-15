@@ -32,7 +32,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class ModWeaponItems {
+public class WeaponItemsME {
+
+    /**
+     * Middle-earth mod Weapon Items registry, weapons, shields
+     */
 
     public static List<Item> shields = new ArrayList<>();
 
