@@ -102,29 +102,6 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
 
     }
 
-    private static boolean canAcceptRecipeOutput(DynamicRegistryManager dynamicRegistryManager, @Nullable RecipeEntry<CrockpotRecipe> recipe,
-                                                 MultipleStackRecipeInput input, DefaultedList<ItemStack> inventory, int maxCount) {
-        if (!inventory.isEmpty() && recipe != null) {
-            ItemStack itemStack = (recipe.value()).craft(input, dynamicRegistryManager);
-            if (itemStack.isEmpty()) {
-                return false;
-            } else {
-                ItemStack outputStack = inventory.get(OUTPUT_SLOT);
-                if (outputStack.isEmpty()) {
-                    return true;
-                } else if (!ItemStack.areItemsAndComponentsEqual(outputStack, itemStack)) {
-                    return false;
-                } else if (outputStack.getCount() < maxCount && outputStack.getCount() < outputStack.getMaxCount()) {
-                    return true;
-                } else {
-                    return outputStack.getCount() < itemStack.getMaxCount();
-                }
-            }
-        } else {
-            return false;
-        }
-    }
-
     private static boolean craftRecipe(DynamicRegistryManager dynamicRegistryManager, @Nullable RecipeEntry<CrockpotRecipe> recipe,
                                        MultipleStackRecipeInput input, DefaultedList<ItemStack> inventory, int maxCount) {
         if (recipe != null) {
