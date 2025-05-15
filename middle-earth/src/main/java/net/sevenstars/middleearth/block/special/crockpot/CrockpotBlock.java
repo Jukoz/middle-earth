@@ -60,7 +60,18 @@ public class CrockpotBlock extends BlockWithEntity {
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
-        if(blockEntity instanceof CrockpotBlockEntity crockpotBlockEntity) {
+
+        if(stack.isEmpty()) {
+            if (world.isClient) {
+                return ActionResult.SUCCESS;
+            } else {
+                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+                if(screenHandlerFactory != null) {
+                    player.openHandledScreen(screenHandlerFactory);
+                }
+                return ActionResult.CONSUME;
+            }
+        } else if(blockEntity instanceof CrockpotBlockEntity crockpotBlockEntity) {
             boolean filled = crockpotBlockEntity.fill(stack);
             if(filled) {
                 ItemStack remainder = stack.getRecipeRemainder();
@@ -81,16 +92,7 @@ public class CrockpotBlock extends BlockWithEntity {
                         player.dropItem(stackResult, false);
                     }
                     world.emitGameEvent(player, GameEvent.FLUID_PICKUP, pos);
-                } else {
-                    if (world.isClient) {
-                        return ActionResult.SUCCESS;
-                    } else {
-                        NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-                        if(screenHandlerFactory != null) {
-                            player.openHandledScreen(screenHandlerFactory);
-                        }
-                        return ActionResult.CONSUME;
-                    }
+                    return ActionResult.SUCCESS;
                 }
             }
         }
