@@ -10,7 +10,7 @@ import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Bows;
 import net.sevenstars.middleearth.datageneration.content.tags.Crossbows;
-import net.sevenstars.middleearth.datageneration.content.tags.Swords;
+import net.sevenstars.middleearth.datageneration.content.tags.WeaponEnchants;
 import net.sevenstars.middleearth.item.items.HeldBannerItem;
 import net.sevenstars.middleearth.item.items.shields.ArtefactCustomShieldItem;
 import net.sevenstars.middleearth.item.items.shields.CustomBannerShieldItem;
@@ -621,7 +621,6 @@ public class WeaponItemsME {
     public static final Item HELD_BANNER = registerItemNoModel("held_banner",
             HeldBannerItem::new);
 
-    //TODO custom component settings system + sword tag enchant/swipe fix
     private static Item registerItemWithModel(String name, Function<Item.Settings, Item> factory, Item.Settings settings, boolean isDualModel) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
@@ -630,7 +629,6 @@ public class WeaponItemsME {
         } else {
             SimpleHandheldItemModel.items.add(item);
         }
-        Swords.swords.add(item);
         return registerItem(item, name);
     }
 
@@ -644,7 +642,6 @@ public class WeaponItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleSpearModel.items.add(item);
-        Swords.swords.add(item);
         return registerItem(item, name);
     }
 
@@ -676,7 +673,6 @@ public class WeaponItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleArtefactModels.artefacts.add(new SimpleArtefactModels.Artefact(item, isDualModel));
-        Swords.swords.add(item);
         return registerItem(item, name);
     }
 
@@ -695,6 +691,11 @@ public class WeaponItemsME {
 
     private static Item registerItem(Item item, String name){
         TranslationEntries.itemEntries.add(item);
+        if (item instanceof CustomLongswordWeaponItem || item instanceof CustomSwordWeaponItem){
+            WeaponEnchants.swords.add(item);
+        } else if (!(item instanceof CustomShieldItem)){
+            WeaponEnchants.sharpWeapons.add(item);
+        }
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
     }
 
