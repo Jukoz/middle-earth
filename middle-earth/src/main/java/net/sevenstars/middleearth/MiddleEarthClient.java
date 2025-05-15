@@ -15,6 +15,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.item.model.special.SpecialModelTypes;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.FoliageColors;
 import net.minecraft.world.biome.GrassColors;
@@ -39,7 +40,11 @@ import net.sevenstars.middleearth.client.model.hand.HeldBannerEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.HeaterShieldEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.KiteShieldEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.RoundShieldEntityModel;
-import net.sevenstars.middleearth.client.renderer.*;
+import net.sevenstars.middleearth.client.renderer.armor.*;
+import net.sevenstars.middleearth.client.renderer.handheld.HeaterShieldModelRenderer;
+import net.sevenstars.middleearth.client.renderer.handheld.HeldBannerModelRenderer;
+import net.sevenstars.middleearth.client.renderer.handheld.KiteShieldModelRenderer;
+import net.sevenstars.middleearth.client.renderer.handheld.RoundShieldModelRenderer;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Crops;
 import net.sevenstars.middleearth.entity.ModEntities;
@@ -153,12 +158,11 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(HELD_BANNER_LAYER, HeldBannerEntityModel::getTexturedModelData);
 
-        //TODO fix this too
-        /*BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.HEATER_SHIELD, new ModBuiltInModelItemRenderer());
-        BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.KITE_SHIELD, new ModBuiltInModelItemRenderer());
-        BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.ROUND_SHIELD, new ModBuiltInModelItemRenderer());
+        SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "held_banner"), HeldBannerModelRenderer.Unbaked.CODEC);
 
-        BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.HELD_BANNER, new ModBuiltInModelItemRenderer());*/
+        SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "heater_shield"), HeaterShieldModelRenderer.Unbaked.CODEC);
+        SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "kite_shield"), KiteShieldModelRenderer.Unbaked.CODEC);
+        SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "round_shield"), RoundShieldModelRenderer.Unbaked.CODEC);
 
         for(ModArmorModels.ModHelmetModels model : ModArmorModels.ModHelmetModels.values()){
             ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());
@@ -191,64 +195,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         ModelLoadingPlugin.register(pluginContext -> {
             pluginContext.addModel(ExtraModelKey.create(() -> "plate_apple"), SimpleUnbakedExtraModel.blockStateModel(Identifier.of(MiddleEarth.MOD_ID, "item/plate_apple")));
         });
-
-        //TODO to fix ? mixin also broken so doesn't do much for now
-        /*ModelLoadingPlugin.register(pluginContext -> {
-            for(Item item : SimpleBigItemModel.items) {
-                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
-                pluginContext.addModels(identifier);
-            }
-
-            for(Item item : SimpleBigItemModel.bigBows) {
-                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
-                pluginContext.addModels(identifier);
-                identifier = VariantsModelProvider.getInventoryLongbowModelIdentifierVariant(item, 0);
-                pluginContext.addModels(identifier);
-                identifier = VariantsModelProvider.getInventoryLongbowModelIdentifierVariant(item, 1);
-                pluginContext.addModels(identifier);
-                identifier = VariantsModelProvider.getInventoryLongbowModelIdentifierVariant(item, 2);
-                pluginContext.addModels(identifier);
-            }
-
-            for(Item item : SimpleBigItemModel.artefacts) {
-                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
-                pluginContext.addModels(identifier);
-            }
-
-            for(Item item : SimpleBigItemModel.artefactsGlowing) {
-                Identifier identifierGlowing = VariantsModelProvider.getInventoryModelGlowingItem(item);
-                pluginContext.addModels(identifierGlowing);
-            }
-
-            for(Item item : SimpleBigItemModel.artefactsBroken) {
-                Identifier identifierBroken = VariantsModelProvider.getInventoryModelBrokenItem(item);
-                pluginContext.addModels(identifierBroken);
-            }
-
-            for(Item item : SimpleSpearModel.items) {
-                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
-                pluginContext.addModels(identifier);
-            }
-
-            for(Item item : SimpleBigItemModel.genericItems){
-                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
-                pluginContext.addModels(identifier);
-            }
-        });
-        ModelLoadingPlugin.register(pluginContext -> {
-            for(Item item : HotMetalsModel.ingots) {
-                Identifier identifier = VariantsModelProvider.getHotModelIdentifierVariant(item);
-                pluginContext.addModels(identifier);
-            }
-            for(Item item : HotMetalsModel.nuggets) {
-                Identifier identifier = VariantsModelProvider.getHotModelIdentifierVariant(item);
-                pluginContext.addModels(identifier);
-            }
-            for(Item item : HotMetalsModel.items) {
-                Identifier identifier = VariantsModelProvider.getHotModelIdentifierVariant(item);
-                pluginContext.addModels(identifier);
-            }
-        });*/
 
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MALLORN_LEAVES_PARTICLE, LeavesParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE, LeavesParticle.Factory::new);
@@ -369,13 +315,6 @@ public class MiddleEarthClient implements ClientModInitializer {
                     }
                     return BiomeColors.getFoliageColor(view, pos);
                 }, ModNatureBlocks.FALLEN_LEAVES);
-
-        /*ColorProviderRegistry.ITEM.register((stack, tintIndex) -> GrassColors.getDefaultColor(), ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS,
-                ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT_STAIRS,
-                ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_SLAB, ModBlocks.PEBBLED_GRASS_STAIRS,
-                ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS, ModBlocks.TURF_VERTICAL_SLAB);
-
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.DEFAULT, ModNatureBlocks.FALLEN_LEAVES);*/
 
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());

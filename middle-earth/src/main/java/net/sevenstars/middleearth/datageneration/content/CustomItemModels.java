@@ -17,7 +17,4 @@ public class CustomItemModels {
 
     public static final Model CROSSBOW = new Model(Optional.of(
             Identifier.of("item/crossbow")), Optional.empty(), TextureKey.LAYER0);
-
-    public static final Model TEMPLATE_SPAWN_EGG = new Model(Optional.of(
-            Identifier.of("minecraft", "item/template_spawn_egg")), Optional.empty());
 }

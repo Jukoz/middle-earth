@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.BlockFace;
 import net.minecraft.block.enums.DoorHinge;
+import net.minecraft.block.enums.Thickness;
 import net.minecraft.client.data.*;
 import net.minecraft.client.render.model.json.ModelVariant;
 import net.minecraft.client.render.model.json.ModelVariantOperator;
@@ -259,11 +260,14 @@ public class BlockModelProvider extends FabricModelProvider {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             Block wall = block.wall();
 
-            Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+
+            blockStateModelGenerator.registerParentedItemModel(wall,inventory);
 
             WeightedVariant post = createWeightedVariant(Models.TEMPLATE_WALL_POST.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant low = createWeightedVariant(Models.TEMPLATE_WALL_SIDE.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant tall = createWeightedVariant(Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
                     .createWallBlockState(wall, post, low, tall));
@@ -279,11 +283,14 @@ public class BlockModelProvider extends FabricModelProvider {
             }
             Block wall = block.wall();
 
-            Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+
+            blockStateModelGenerator.registerParentedItemModel(wall,inventory);
 
             WeightedVariant post = createWeightedVariant(Models.TEMPLATE_WALL_POST.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant low = createWeightedVariant(Models.TEMPLATE_WALL_SIDE.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant tall = createWeightedVariant(Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
                     .createWallBlockState(wall, post, low, tall));
@@ -484,7 +491,7 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (Block block : SimpleDoubleBlockModel.doubleBlocks) {
-            blockStateModelGenerator.registerDoubleBlock(block, BlockStateModelGenerator.CrossType.NOT_TINTED);
+            registerDoubleBlock(blockStateModelGenerator, block, BlockStateModelGenerator.CrossType.NOT_TINTED);
         }
 
         for (Block block : SimpleDoubleBlockModel.doubleBlocksItems) {
@@ -516,7 +523,7 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimplePaneModel.Pane pane : SimplePaneModel.panes) {
-            registerGlassPane(blockStateModelGenerator, pane.glass(), pane.pane());
+            registerGlassAndPane(blockStateModelGenerator, pane.glass(), pane.pane());
         }
 
         for(Block block : SimpleWoodStoolModel.stools){
@@ -738,7 +745,19 @@ public class BlockModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.WHITE_FLOWER_GROWTH);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
 
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.MOSS);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.FOREST_MOSS);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.CORRUPTED_MOSS);
+
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.MORGUL_IVY);
+
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.STICKY_SNOW);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.STICKY_ICE);
+
+        registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_DOLOMITE);
+        registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_GALONN);
+        registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_LIMESTONE);
+        registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_IZHERABAN);
     }
 
     @Override
@@ -966,10 +985,43 @@ public class BlockModelProvider extends FabricModelProvider {
     }
 
     public final void registerDoubleBlock(BlockStateModelGenerator blockStateModelGenerator, Block doubleBlock, BlockStateModelGenerator.CrossType tintType) {
-        blockStateModelGenerator.registerItemModel(doubleBlock.asItem());
+        blockStateModelGenerator.registerItemModel(doubleBlock, "_top");
         WeightedVariant identifier = createWeightedVariant(blockStateModelGenerator.createSubModel(doubleBlock, "_top", tintType.getCrossModel(), TextureMap::cross));
         WeightedVariant identifier2 = createWeightedVariant(blockStateModelGenerator.createSubModel(doubleBlock, "_bottom", tintType.getCrossModel(), TextureMap::cross));
         blockStateModelGenerator.registerDoubleBlock(doubleBlock, identifier, identifier2);
+    }
+
+    public final void registerPointedBlock(BlockStateModelGenerator blockStateModelGenerator, Block pointedBlock) {
+        Identifier inventory = Models.GENERATED.upload(pointedBlock.asItem(), TextureMap.layer0(TextureMap.getId(pointedBlock.asItem())), blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.registerItemModel(pointedBlock.asItem(), inventory);
+
+        BlockStateVariantMap.DoubleProperty<WeightedVariant, Direction, Thickness> doubleProperty = BlockStateVariantMap.models(Properties.VERTICAL_DIRECTION, Properties.THICKNESS);
+        Thickness[] var2 = Thickness.values();
+        int var3 = var2.length;
+
+        int var4;
+        Thickness thickness;
+        for(var4 = 0; var4 < var3; ++var4) {
+            thickness = var2[var4];
+            doubleProperty.register(Direction.UP, thickness, getPointedVariant(blockStateModelGenerator, Direction.UP, thickness, pointedBlock));
+        }
+
+        var2 = Thickness.values();
+        var3 = var2.length;
+
+        for(var4 = 0; var4 < var3; ++var4) {
+            thickness = var2[var4];
+            doubleProperty.register(Direction.DOWN, thickness, getPointedVariant(blockStateModelGenerator, Direction.DOWN, thickness, pointedBlock));
+        }
+
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(pointedBlock).with(doubleProperty));
+    }
+
+    public final WeightedVariant getPointedVariant(BlockStateModelGenerator blockStateModelGenerator, Direction direction, Thickness thickness, Block pointedBlock) {
+        String var10000 = direction.asString();
+        String string = "_" + var10000 + "_" + thickness.asString();
+        TextureMap textureMap = TextureMap.cross(TextureMap.getSubId(pointedBlock, string));
+        return createWeightedVariant(Models.POINTED_DRIPSTONE.upload(pointedBlock, string, textureMap, blockStateModelGenerator.modelCollector));
     }
 
     public final void registerLargeDoor(BlockStateModelGenerator blockStateModelGenerator, LargeDoorBlock largeDoor, IntProperty part) {
@@ -1088,7 +1140,7 @@ public class BlockModelProvider extends FabricModelProvider {
     }
 
 
-    public final void registerGlassPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {
+    public final void registerGlassAndPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {
         blockStateModelGenerator.registerSimpleCubeAll(glass);
         TextureMap textureMap;
         if (Registries.BLOCK.getId(glassPane).getPath().contains("lead_glass")){
@@ -1102,6 +1154,7 @@ public class BlockModelProvider extends FabricModelProvider {
         WeightedVariant weightedVariant4 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_NOSIDE.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector));
         WeightedVariant weightedVariant5 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_NOSIDE_ALT.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector));
         Item item = glassPane.asItem();
+
         blockStateModelGenerator.registerItemModel(item, blockStateModelGenerator.uploadBlockItemModel(item, glass));
         blockStateModelGenerator.blockStateCollector.accept(MultipartBlockModelDefinitionCreator.create(glassPane).with(weightedVariant).with(createMultipartConditionBuilder().put(Properties.NORTH, true), weightedVariant2).with(createMultipartConditionBuilder().put(Properties.EAST, true), weightedVariant2.apply(ROTATE_Y_90)).with(createMultipartConditionBuilder().put(Properties.SOUTH, true), weightedVariant3).with(createMultipartConditionBuilder().put(Properties.WEST, true), weightedVariant3.apply(ROTATE_Y_90)).with(createMultipartConditionBuilder().put(Properties.NORTH, false), weightedVariant4).with(createMultipartConditionBuilder().put(Properties.EAST, false), weightedVariant5).with(createMultipartConditionBuilder().put(Properties.SOUTH, false), weightedVariant5.apply(ROTATE_Y_90)).with(createMultipartConditionBuilder().put(Properties.WEST, false), weightedVariant4.apply(ROTATE_Y_270)));
     }

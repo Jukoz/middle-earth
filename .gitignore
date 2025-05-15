@@ -24,3 +24,4 @@ src/main/generated/
 bin/main/*
 /middle-earth/src/main/generated/
 /of-beasts-and-wild-things/src/main/generated
+middle-earth/src/main/java/net/sevenstars/middleearth/block/ModBlocks.java

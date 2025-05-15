@@ -290,7 +290,7 @@ public class TranslationEntries {
 
             put("tooltip."+ MiddleEarth.MOD_ID +".shift", "Hold §3SHIFT§f to see information.");
             put("tooltip."+ MiddleEarth.MOD_ID +".alt", "Hold §3ALT§f to see custom parts information.");
-            put("tooltip."+ MiddleEarth.MOD_ID +".weapon_type", "§eType, §f");
+            put("tooltip."+ MiddleEarth.MOD_ID +".weapon_type", "§eType: §f");
             put("tooltip."+ MiddleEarth.MOD_ID +".faction", "§6Faction: §f");
             put("tooltip."+ MiddleEarth.MOD_ID +".sub_faction", "§7Sub Faction: §f");
             put("tooltip."+ MiddleEarth.MOD_ID +".customizations", "§6Custom Parts: §f");

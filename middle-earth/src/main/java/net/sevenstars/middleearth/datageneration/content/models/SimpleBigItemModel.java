@@ -21,20 +21,4 @@ public class SimpleBigItemModel {
     public static List<Item> genericItems = new ArrayList<>(){
 
     };
-
-    public static List<Item> artefacts = new ArrayList<>() {
-        {
-        }
-    };
-
-    public static List<Item> artefactsBroken = new ArrayList<>() {
-        {
-        }
-    };
-
-    public static List<Item> artefactsGlowing = new ArrayList<>() {
-        {
-        }
-    };
-
 }

@@ -6,6 +6,7 @@ import net.minecraft.client.data.*;
 import net.minecraft.client.render.item.model.ItemModel;
 import net.minecraft.client.render.item.model.RangeDispatchItemModel;
 import net.minecraft.client.render.item.model.SelectItemModel;
+import net.minecraft.client.render.item.property.bool.BrokenProperty;
 import net.minecraft.client.render.item.property.numeric.CrossbowPullProperty;
 import net.minecraft.client.render.item.property.numeric.UseDurationProperty;
 import net.minecraft.client.render.item.property.select.ChargeTypeProperty;
@@ -22,13 +23,15 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.datageneration.content.CustomItemModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.item.ModResourceItems;
 import net.sevenstars.middleearth.item.ModWeaponItems;
+import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import static net.minecraft.client.data.ItemModelGenerator.createModelWithInHandVariant;
 
@@ -58,20 +61,23 @@ public class ItemModelProvider extends FabricModelProvider {
             new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.DIAMOND, ArmorTrimMaterials.DIAMOND),
             new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.LAPIS, ArmorTrimMaterials.LAPIS),
             new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.AMETHYST, ArmorTrimMaterials.AMETHYST),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.RESIN, ArmorTrimMaterials.RESIN));
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.RESIN, ArmorTrimMaterials.RESIN),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("jade"), ModSmithingTrimMaterials.JADE),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("lead"), ModSmithingTrimMaterials.LEAD),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("tin"), ModSmithingTrimMaterials.TIN),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("bronze"), ModSmithingTrimMaterials.BRONZE),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("crude"), ModSmithingTrimMaterials.CRUDE),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("silver"), ModSmithingTrimMaterials.SILVER),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("steel"), ModSmithingTrimMaterials.STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("khazad_steel"), ModSmithingTrimMaterials.KHAZAD_STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("edhel_steel"), ModSmithingTrimMaterials.EDHEL_STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("burzum_steel"), ModSmithingTrimMaterials.BURZUM_STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("mithril"), ModSmithingTrimMaterials.MITHRIL)
+    );
 
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        for (SimpleWallModel.Wall wall : SimpleWallModel.blocks) {
-            Identifier id = Registries.BLOCK.getId(wall.wall());
-            itemModelGenerator.register(wall.wall().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath() + "_inventory")), Optional.empty()));
-        }
-
-        for (SimpleWallModel.Wall wall : SimpleWallModel.vanillaWalls) {
-            Identifier id = Registries.BLOCK.getId(wall.wall());
-            itemModelGenerator.register(wall.wall().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath() + "_inventory")), Optional.empty()));
-        }
 
         for (Item item : SimpleItemModel.items) {
             itemModelGenerator.register(item, Models.GENERATED);
@@ -79,10 +85,6 @@ public class ItemModelProvider extends FabricModelProvider {
 
         for (Item item : SimpleHandheldItemModel.items) {
             itemModelGenerator.register(item, Models.HANDHELD);
-        }
-
-        for (Item item : SimpleDoorInventoryModel.items) {
-            itemModelGenerator.register(item, Models.GENERATED);
         }
 
         for (Item item : SimpleBigItemModel.items) {
@@ -109,8 +111,12 @@ public class ItemModelProvider extends FabricModelProvider {
             registerGenericBigModels(itemModelGenerator, item);
         }
 
-        for (Item item: ModWeaponItems.shields){
+        for (Item item : ModWeaponItems.shields) {
             registerShield(itemModelGenerator, item);
+        }
+
+        for (SimpleArtefactModels.Artefact artefact : SimpleArtefactModels.artefacts) {
+            registerArtefact(itemModelGenerator, artefact.artefact(), artefact.dualModel());
         }
 
         //TODO to find solution for those
@@ -131,24 +137,6 @@ public class ItemModelProvider extends FabricModelProvider {
         SimpleDyeableItemModel.items.forEach(item -> {
             registerDyeableArmor(item, itemModelGenerator);
         });
-
-        // CLUSTERS
-        itemModelGenerator.register(ModBlocks.QUARTZ_CLUSTER.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.SMALL_QUARTZ_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.MEDIUM_QUARTZ_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.LARGE_QUARTZ_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.RED_AGATE_CLUSTER.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.SMALL_RED_AGATE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.MEDIUM_RED_AGATE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.LARGE_RED_AGATE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.CITRINE_CLUSTER.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.SMALL_CITRINE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.MEDIUM_CITRINE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.LARGE_CITRINE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.GLOWSTONE_CLUSTER.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.SMALL_GLOWSTONE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.MEDIUM_GLOWSTONE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.LARGE_GLOWSTONE_BUD.asItem(), Models.GENERATED);
 
         registerPalettedItem(ModResourceItems.ROD, itemModelGenerator);
         registerPalettedItem(ModResourceItems.LARGE_ROD, itemModelGenerator);
@@ -185,7 +173,30 @@ public class ItemModelProvider extends FabricModelProvider {
     public final void registerGenericBigModels(ItemModelGenerator itemModelGenerator, Item item) {
         ItemModel.Unbaked unbakedHand = ItemModels.basic(ModelIds.getItemModelId(item));
         ItemModel.Unbaked unbakedInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_inventory", Models.GENERATED));
+
         itemModelGenerator.output.accept(item, createModelWithInHandVariant(unbakedInventory, unbakedHand));
+    }
+
+    public final void registerArtefact(ItemModelGenerator itemModelGenerator, Item item, Boolean dualModel) {
+        if (dualModel) {
+            ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON));
+            ItemModel.Unbaked unbakedInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_inventory", Models.GENERATED));
+
+            ItemModel.Unbaked unbakedBrokenHand = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_broken", CustomItemModels.BIG_WEAPON));
+            ItemModel.Unbaked unbakedBrokenInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_broken_inventory", Models.GENERATED));
+
+            itemModelGenerator.output.accept(item, ItemModels.condition(new BrokenProperty(),
+                    ItemModels.select(new DisplayContextProperty(), unbakedBrokenHand,
+                            ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), unbakedBrokenInventory)),
+                    ItemModels.select(new DisplayContextProperty(), unbakedHand,
+                            ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), unbakedInventory))));
+        } else {
+            ItemModel.Unbaked unbaked = ItemModels.basic(itemModelGenerator.upload(item, Models.HANDHELD));
+            ItemModel.Unbaked unbakedBroken = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_broken", Models.HANDHELD));
+
+            itemModelGenerator.registerCondition(item, new BrokenProperty(), unbakedBroken, unbaked);
+        }
+
     }
 
     public final void registerSpearModels(ItemModelGenerator itemModelGenerator, Item item) {
@@ -255,10 +266,9 @@ public class ItemModelProvider extends FabricModelProvider {
         Models.GENERATED_TWO_LAYERS.upload(identifier, TextureMap.layered(identifier2, identifier3), itemModelGenerator.modelCollector);
         ItemModel.Unbaked unbaked2 = ItemModels.tinted(identifier, new DyeTintSource(-6265536));
 
-        itemModelGenerator.output.accept(armor,  unbaked2);
+        itemModelGenerator.output.accept(armor, unbaked2);
     }
 
-    //TODO doesn't work to fix
     public final void registerPalettedItem(Item item, ItemModelGenerator itemModelGenerator) {
         Identifier identifierItem = Identifier.of(MiddleEarth.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath());
 
@@ -268,12 +278,12 @@ public class ItemModelProvider extends FabricModelProvider {
         ItemModelGenerator.TrimMaterial trimMaterial;
         ItemModel.Unbaked unbaked;
 
-        for(Iterator<ItemModelGenerator.TrimMaterial> var9 = TRIM_MATERIALS.iterator(); var9.hasNext(); list.add(ItemModels.switchCase(trimMaterial.materialKey(), unbaked))) {
+        for (Iterator<ItemModelGenerator.TrimMaterial> var9 = TRIM_MATERIALS.iterator(); var9.hasNext(); list.add(ItemModels.switchCase(trimMaterial.materialKey(), unbaked))) {
             trimMaterial = var9.next();
             Identifier identifier4 = identifierItem.withSuffixedPath("_" + trimMaterial.assets().base().suffix() + "_trim");
 
             itemModelGenerator.uploadArmor(identifier4, identifier2,
-                    Identifier.of(MiddleEarth.MOD_ID, "trims/" + identifierItem.getPath().replaceAll("item", "items") + "_" + trimMaterial.assets().base().suffix() + "_trim"));
+                    Identifier.of(MiddleEarth.MOD_ID, "trims/" + identifierItem.getPath().replaceAll("item", "items") + "_trim" + "_" + trimMaterial.assets().base().suffix()));
             unbaked = ItemModels.basic(identifier4);
         }
 
