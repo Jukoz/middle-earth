@@ -22,7 +22,11 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.Function;
 
-public class ModFoodItems {
+public class FoodItemsME {
+    /**
+     * Middle-earth mod Food Items registry
+     */
+    
     public static final ConsumableComponent BIRCH_BOTTLE = ConsumableComponents.drink().consumeSeconds(2.0F)
             .consumeEffect(new RemoveEffectsConsumeEffect(StatusEffects.POISON)).build();;
     public static final ConsumableComponent MAPLE_BOTTLE = ConsumableComponents.drink().consumeSeconds(2.0F)

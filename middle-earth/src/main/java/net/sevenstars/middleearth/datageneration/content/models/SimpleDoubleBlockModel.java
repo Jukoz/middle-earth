@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
 import net.sevenstars.middleearth.block.ModNatureBlocks;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class SimpleDoubleBlockModel {
 
     public static List<Block> doubleBlocksItems = new ArrayList<>() {
         {
-            add(ModResourceItems.REEDS);
+            add(ResourceItemsME.REEDS);
         }
     };
 }

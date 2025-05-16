@@ -22,8 +22,8 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBuilder;
-import net.sevenstars.middleearth.item.ModEquipmentItems;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.EquipmentItemsME;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimPatterns;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 
@@ -85,77 +85,77 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
             public void generate() {
                 RegistryWrapper.Impl<Item> itemLookup = registries.getOrThrow(RegistryKeys.ITEM);
 
-                    ItemStack goldArmorPlate = new ItemStack(ModResourceItems.ARMOR_PLATE);
+                    ItemStack goldArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
                     goldArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
 
-                    ItemStack steelArmorPlate = new ItemStack(ModResourceItems.ARMOR_PLATE);
+                    ItemStack steelArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
                     steelArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
-                    ItemStack steelHelmetPlate = new ItemStack(ModResourceItems.HELMET_PLATE);
+                    ItemStack steelHelmetPlate = new ItemStack(ResourceItemsME.HELMET_PLATE);
                     steelHelmetPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
-                    ItemStack steelChainmail = new ItemStack(ModResourceItems.MAIL);
+                    ItemStack steelChainmail = new ItemStack(ResourceItemsME.MAIL);
                     steelChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
-                    ItemStack steelScaleMail = new ItemStack(ModResourceItems.SCALE_MAIL);
+                    ItemStack steelScaleMail = new ItemStack(ResourceItemsME.SCALE_MAIL);
                     steelScaleMail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
 
-                    ItemStack edhelSteelArmorPlate = new ItemStack(ModResourceItems.ARMOR_PLATE);
+                    ItemStack edhelSteelArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
                     edhelSteelArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
-                    ItemStack edhelSteelHelmetPlate = new ItemStack(ModResourceItems.HELMET_PLATE);
+                    ItemStack edhelSteelHelmetPlate = new ItemStack(ResourceItemsME.HELMET_PLATE);
                     edhelSteelHelmetPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
-                    ItemStack edhelSteelChainmail = new ItemStack(ModResourceItems.MAIL);
+                    ItemStack edhelSteelChainmail = new ItemStack(ResourceItemsME.MAIL);
                     edhelSteelChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
-                    ItemStack edhelSteelScaleMail = new ItemStack(ModResourceItems.SCALE_MAIL);
+                    ItemStack edhelSteelScaleMail = new ItemStack(ResourceItemsME.SCALE_MAIL);
                     edhelSteelScaleMail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
 
-                    ItemStack khazadSteelArmorPlate = new ItemStack(ModResourceItems.ARMOR_PLATE);
+                    ItemStack khazadSteelArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
                     khazadSteelArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
-                    ItemStack khazadSteelHelmetPlate = new ItemStack(ModResourceItems.HELMET_PLATE);
+                    ItemStack khazadSteelHelmetPlate = new ItemStack(ResourceItemsME.HELMET_PLATE);
                     khazadSteelHelmetPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
-                    ItemStack khazadSteelChainmail = new ItemStack(ModResourceItems.MAIL);
+                    ItemStack khazadSteelChainmail = new ItemStack(ResourceItemsME.MAIL);
                     khazadSteelChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
-                    ItemStack khazadSteelScaleMail = new ItemStack(ModResourceItems.SCALE_MAIL);
+                    ItemStack khazadSteelScaleMail = new ItemStack(ResourceItemsME.SCALE_MAIL);
                     khazadSteelScaleMail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
 
-                    ItemStack burzumSteelArmorPlate = new ItemStack(ModResourceItems.ARMOR_PLATE);
+                    ItemStack burzumSteelArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
                     burzumSteelArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
-                    ItemStack burzumSteelHelmetPlate = new ItemStack(ModResourceItems.HELMET_PLATE);
+                    ItemStack burzumSteelHelmetPlate = new ItemStack(ResourceItemsME.HELMET_PLATE);
                     burzumSteelHelmetPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
-                    ItemStack burzumSteelChainmail = new ItemStack(ModResourceItems.MAIL);
+                    ItemStack burzumSteelChainmail = new ItemStack(ResourceItemsME.MAIL);
                     burzumSteelChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
-                    ItemStack burzumSteelScaleMail = new ItemStack(ModResourceItems.SCALE_MAIL);
+                    ItemStack burzumSteelScaleMail = new ItemStack(ResourceItemsME.SCALE_MAIL);
                     burzumSteelScaleMail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
 
-                    ItemStack ironArmorPlate = new ItemStack(ModResourceItems.ARMOR_PLATE);
+                    ItemStack ironArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
                     ironArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MetalTypes.IRON.getName()))), getPattern()));
-                    ItemStack ironHelmetPlate = new ItemStack(ModResourceItems.HELMET_PLATE);
+                    ItemStack ironHelmetPlate = new ItemStack(ResourceItemsME.HELMET_PLATE);
                     ironHelmetPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MetalTypes.IRON.getName()))), getPattern()));
-                    ItemStack ironChainmail = new ItemStack(ModResourceItems.MAIL);
+                    ItemStack ironChainmail = new ItemStack(ResourceItemsME.MAIL);
                     ironChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MetalTypes.IRON.getName()))), getPattern()));
 
-                    ItemStack bronzeArmorPlate = new ItemStack(ModResourceItems.ARMOR_PLATE);
+                    ItemStack bronzeArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
                     bronzeArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                             Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BRONZE.getName()))), getPattern()));
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.SHIRRIFF_HAT.getDefaultStack(), "hat", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.SHIRRIFF_HAT.getDefaultStack(), "hat", Disposition.GOOD)
                             .input(Items.STRING)
                             .input(Items.LEATHER)
                             .input(Items.FEATHER)
@@ -170,17 +170,17 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                     //region GENERIC
 
                     //T1
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.STRAW_HAT.getDefaultStack(), "hat", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.STRAW_HAT.getDefaultStack(), "hat", Disposition.NEUTRAL)
                             .input(Items.STRING)
-                            .input(ModResourceItems.STRAW)
+                            .input(ResourceItemsME.STRAW)
                             .input(Items.STRING)
-                            .input(ModResourceItems.STRAW)
-                            .input(ModResourceItems.STRAW)
-                            .criterion(hasItem(ModResourceItems.STRAW),
-                                    conditionsFromItem(ModResourceItems.STRAW))
+                            .input(ResourceItemsME.STRAW)
+                            .input(ResourceItemsME.STRAW)
+                            .criterion(hasItem(ResourceItemsME.STRAW),
+                                    conditionsFromItem(ResourceItemsME.STRAW))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WOVEN_HAT.getDefaultStack(), "hat", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WOVEN_HAT.getDefaultStack(), "hat", Disposition.NEUTRAL)
                             .input(Items.STRING)
                             .input(Items.WHITE_WOOL)
                             .input(Items.STRING)
@@ -190,7 +190,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.WHITE_WOOL))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BYCOCKET.getDefaultStack(), "hat", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BYCOCKET.getDefaultStack(), "hat", Disposition.NEUTRAL)
                             .input(Items.LEATHER)
                             .input(Items.WHITE_WOOL)
                             .input(Items.LEATHER)
@@ -200,61 +200,61 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.WHITE_WOOL))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WANDERER_HAT.getDefaultStack(), "hat", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WANDERER_HAT.getDefaultStack(), "hat", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ARMING_COAT.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ARMING_COAT.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ARMING_SKIRT.getDefaultStack(), "leggings", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ARMING_SKIRT.getDefaultStack(), "leggings", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.SHOES.getDefaultStack(), "boots", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.SHOES.getDefaultStack(), "boots", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WORK_SHOES.getDefaultStack(), "boots", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WORK_SHOES.getDefaultStack(), "boots", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
                     //T2
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LEATHER_SKULLCAP.getDefaultStack(), "helmet", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LEATHER_SKULLCAP.getDefaultStack(), "helmet", Disposition.NEUTRAL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -264,27 +264,27 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GAMBESON_CAP.getDefaultStack(), "helmet", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GAMBESON_CAP.getDefaultStack(), "helmet", Disposition.NEUTRAL)
                             .input(Items.LEATHER)
                             .input(Items.WHITE_WOOL)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .criterion(hasItem(Items.LEATHER),
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GAMBESON_COWL.getDefaultStack(), "helmet", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GAMBESON_COWL.getDefaultStack(), "helmet", Disposition.NEUTRAL)
                             .input(Items.LEATHER)
                             .input(Items.WHITE_WOOL)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .criterion(hasItem(Items.LEATHER),
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.KETTLE_HAT.getDefaultStack(), "helmet", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.KETTLE_HAT.getDefaultStack(), "helmet", Disposition.NEUTRAL)
                             .input(Items.IRON_NUGGET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .input(Items.IRON_NUGGET)
@@ -294,33 +294,20 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GAMBESON.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GAMBESON.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
                             .input(Items.WHITE_WOOL)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .criterion(hasItem(Items.LEATHER),
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LEATHER_VEST.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .criterion(hasItem(Items.LEATHER),
-                                    conditionsFromItem(Items.LEATHER))
-                            .offerTo(exporter);
-
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LEATHER_SCALE_VEST.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LEATHER_VEST.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -333,7 +320,11 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.STURDY_BOOTS.getDefaultStack(), "boots", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LEATHER_SCALE_VEST.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -342,7 +333,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.TRAVELLING_BOOTS.getDefaultStack(), "boots", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.STURDY_BOOTS.getDefaultStack(), "boots", Disposition.NEUTRAL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -351,7 +342,16 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.HIGH_CUT_BOOTS.getDefaultStack(), "boots", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.TRAVELLING_BOOTS.getDefaultStack(), "boots", Disposition.NEUTRAL)
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
+                            .criterion(hasItem(Items.LEATHER),
+                                    conditionsFromItem(Items.LEATHER))
+                            .offerTo(exporter);
+
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.HIGH_CUT_BOOTS.getDefaultStack(), "boots", Disposition.NEUTRAL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -360,7 +360,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
                     //T3
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MAIL_COIF.getDefaultStack(), "helmet", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MAIL_COIF.getDefaultStack(), "helmet", Disposition.NEUTRAL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -370,7 +370,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.CLOSED_MAIL_COIF.getDefaultStack(), "helmet", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.CLOSED_MAIL_COIF.getDefaultStack(), "helmet", Disposition.NEUTRAL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -380,21 +380,21 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.KETTLE_HAT_WITH_COIF.getDefaultStack(), "helmet", Disposition.NEUTRAL)
-                            .input(ModEquipmentItems.MAIL_COIF)
-                            .input(ModEquipmentItems.KETTLE_HAT)
-                            .criterion(hasItem(ModEquipmentItems.MAIL_COIF),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_COIF))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.KETTLE_HAT_WITH_COIF.getDefaultStack(), "helmet", Disposition.NEUTRAL)
+                            .input(EquipmentItemsME.MAIL_COIF)
+                            .input(EquipmentItemsME.KETTLE_HAT)
+                            .criterion(hasItem(EquipmentItemsME.MAIL_COIF),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_COIF))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.KETTLE_HAT_WITH_CLOSED_COIF.getDefaultStack(), "helmet", Disposition.NEUTRAL)
-                            .input(ModEquipmentItems.CLOSED_MAIL_COIF)
-                            .input(ModEquipmentItems.KETTLE_HAT)
-                            .criterion(hasItem(ModEquipmentItems.CLOSED_MAIL_COIF),
-                                    conditionsFromItem(ModEquipmentItems.CLOSED_MAIL_COIF))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF.getDefaultStack(), "helmet", Disposition.NEUTRAL)
+                            .input(EquipmentItemsME.CLOSED_MAIL_COIF)
+                            .input(EquipmentItemsME.KETTLE_HAT)
+                            .criterion(hasItem(EquipmentItemsME.CLOSED_MAIL_COIF),
+                                    conditionsFromItem(EquipmentItemsME.CLOSED_MAIL_COIF))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.OPEN_FACE_HELMET.getDefaultStack(), "helmet", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.OPEN_FACE_HELMET.getDefaultStack(), "helmet", Disposition.NEUTRAL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -404,7 +404,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -417,7 +417,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MAIL_SHIRT.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MAIL_SHIRT.getDefaultStack(), "chestplate", Disposition.NEUTRAL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -430,7 +430,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MAIL_SKIRT.getDefaultStack(), "leggings", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MAIL_SKIRT.getDefaultStack(), "leggings", Disposition.NEUTRAL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -443,7 +443,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T4
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.SALLET.getDefaultStack(), "helmet", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.SALLET.getDefaultStack(), "helmet", Disposition.NEUTRAL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -454,255 +454,255 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //HOODS
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.TALL_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.TALL_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BLACK_FUR_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModEquipmentItems.HOOD)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_FUR_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FUR)
+                            .input(EquipmentItemsME.HOOD)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModEquipmentItems.HOOD),
-                                    conditionsFromItem(ModEquipmentItems.HOOD))
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(EquipmentItemsME.HOOD),
+                                    conditionsFromItem(EquipmentItemsME.HOOD))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BROWN_FUR_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModEquipmentItems.HOOD)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BROWN_FUR_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FUR)
+                            .input(EquipmentItemsME.HOOD)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModEquipmentItems.HOOD),
-                                    conditionsFromItem(ModEquipmentItems.HOOD))
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(EquipmentItemsME.HOOD),
+                                    conditionsFromItem(EquipmentItemsME.HOOD))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GRAY_FUR_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModEquipmentItems.HOOD)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GRAY_FUR_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FUR)
+                            .input(EquipmentItemsME.HOOD)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModEquipmentItems.HOOD),
-                                    conditionsFromItem(ModEquipmentItems.HOOD))
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(EquipmentItemsME.HOOD),
+                                    conditionsFromItem(EquipmentItemsME.HOOD))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.TAN_FUR_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModEquipmentItems.HOOD)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.TAN_FUR_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FUR)
+                            .input(EquipmentItemsME.HOOD)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModEquipmentItems.HOOD),
-                                    conditionsFromItem(ModEquipmentItems.HOOD))
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(EquipmentItemsME.HOOD),
+                                    conditionsFromItem(EquipmentItemsME.HOOD))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WHITE_FUR_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModEquipmentItems.HOOD)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WHITE_FUR_HOOD.getDefaultStack(), "hood", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FUR)
+                            .input(EquipmentItemsME.HOOD)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModEquipmentItems.HOOD),
-                                    conditionsFromItem(ModEquipmentItems.HOOD))
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(EquipmentItemsME.HOOD),
+                                    conditionsFromItem(EquipmentItemsME.HOOD))
                             .offerTo(exporter);
 
                     //CAPES
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.CAPE.getDefaultStack(), "cape", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.CAPE.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.SURCOAT.getDefaultStack(), "cape", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.SURCOAT.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WANDERER_ROBES.getDefaultStack(), "cape", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WANDERER_ROBES.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BLACK_FUR_CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_FUR_CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
                             .input(Items.STRING)
-                            .input(ModEquipmentItems.BLACK_FUR)
+                            .input(EquipmentItemsME.BLACK_FUR)
                             .input(Items.STRING)
                             .input(Items.STRING)
-                            .input(ModEquipmentItems.CLOAK)
+                            .input(EquipmentItemsME.CLOAK)
                             .input(Items.STRING)
-                            .criterion(hasItem(ModEquipmentItems.CLOAK),
-                                    conditionsFromItem(ModEquipmentItems.CLOAK))
+                            .criterion(hasItem(EquipmentItemsME.CLOAK),
+                                    conditionsFromItem(EquipmentItemsME.CLOAK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BROWN_FUR_CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BROWN_FUR_CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
                             .input(Items.STRING)
-                            .input(ModEquipmentItems.BROWN_FUR)
+                            .input(EquipmentItemsME.BROWN_FUR)
                             .input(Items.STRING)
                             .input(Items.STRING)
-                            .input(ModEquipmentItems.CLOAK)
+                            .input(EquipmentItemsME.CLOAK)
                             .input(Items.STRING)
-                            .criterion(hasItem(ModEquipmentItems.CLOAK),
-                                    conditionsFromItem(ModEquipmentItems.CLOAK))
+                            .criterion(hasItem(EquipmentItemsME.CLOAK),
+                                    conditionsFromItem(EquipmentItemsME.CLOAK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GRAY_FUR_CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GRAY_FUR_CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
                             .input(Items.STRING)
-                            .input(ModEquipmentItems.GRAY_FUR)
+                            .input(EquipmentItemsME.GRAY_FUR)
                             .input(Items.STRING)
                             .input(Items.STRING)
-                            .input(ModEquipmentItems.CLOAK)
+                            .input(EquipmentItemsME.CLOAK)
                             .input(Items.STRING)
-                            .criterion(hasItem(ModEquipmentItems.CLOAK),
-                                    conditionsFromItem(ModEquipmentItems.CLOAK))
+                            .criterion(hasItem(EquipmentItemsME.CLOAK),
+                                    conditionsFromItem(EquipmentItemsME.CLOAK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.TAN_FUR_CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.TAN_FUR_CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
                             .input(Items.STRING)
-                            .input(ModEquipmentItems.TAN_FUR)
+                            .input(EquipmentItemsME.TAN_FUR)
                             .input(Items.STRING)
                             .input(Items.STRING)
-                            .input(ModEquipmentItems.CLOAK)
+                            .input(EquipmentItemsME.CLOAK)
                             .input(Items.STRING)
-                            .criterion(hasItem(ModEquipmentItems.CLOAK),
-                                    conditionsFromItem(ModEquipmentItems.CLOAK))
+                            .criterion(hasItem(EquipmentItemsME.CLOAK),
+                                    conditionsFromItem(EquipmentItemsME.CLOAK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WHITE_FUR_CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WHITE_FUR_CLOAK.getDefaultStack(), "cape", Disposition.NEUTRAL)
                             .input(Items.STRING)
-                            .input(ModEquipmentItems.WHITE_FUR)
+                            .input(EquipmentItemsME.WHITE_FUR)
                             .input(Items.STRING)
                             .input(Items.STRING)
-                            .input(ModEquipmentItems.CLOAK)
+                            .input(EquipmentItemsME.CLOAK)
                             .input(Items.STRING)
-                            .criterion(hasItem(ModEquipmentItems.CLOAK),
-                                    conditionsFromItem(ModEquipmentItems.CLOAK))
+                            .criterion(hasItem(EquipmentItemsME.CLOAK),
+                                    conditionsFromItem(EquipmentItemsME.CLOAK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BLACK_FUR.getDefaultStack(), "cape", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_FUR.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BROWN_FUR.getDefaultStack(), "cape", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BROWN_FUR.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GRAY_FUR.getDefaultStack(), "cape", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GRAY_FUR.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.TAN_FUR.getDefaultStack(), "cape", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.TAN_FUR.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WHITE_FUR.getDefaultStack(), "cape", Disposition.NEUTRAL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WHITE_FUR.getDefaultStack(), "cape", Disposition.NEUTRAL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
                     //endregion
 
                     //region GONDOR
                     //T2
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -712,7 +712,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T3
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CABASSET_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_CABASSET_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -722,7 +722,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -735,46 +735,46 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_LEATHER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModEquipmentItems.GONDORIAN_MAIL_HAUBERK)
-                            .input(Items.LEATHER)
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                            .input(EquipmentItemsME.GONDORIAN_MAIL_HAUBERK)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_MAIL_HAUBERK))
+                            .input(Items.LEATHER)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_LEATHER_CUIRASS.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_LEATHER_CUIRASS.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModEquipmentItems.GONDORIAN_MAIL_HAUBERK)
-                            .input(Items.LEATHER)
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                            .input(EquipmentItemsME.GONDORIAN_MAIL_HAUBERK)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_MAIL_HAUBERK))
+                            .input(Items.LEATHER)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_TABBARD.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.GONDORIAN_MAIL_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_TABBARD.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.GONDORIAN_MAIL_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_MAIL_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_MAIL_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -787,7 +787,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T4
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -797,21 +797,21 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_SOLDIER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_SOLDIER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.GONDORIAN_MAIL_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.GONDORIAN_MAIL_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_MAIL_HAUBERK))
                             .offerTo(exporter);
 
                     //T5 PLATE
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -821,32 +821,32 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.GONDORIAN_SOLDIER_CHESTPLATE)
+                            .input(EquipmentItemsME.GONDORIAN_SOLDIER_CHESTPLATE)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_SOLDIER_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_SOLDIER_CHESTPLATE))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_SOLDIER_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_SOLDIER_CHESTPLATE))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_PLATE_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.GONDORIAN_MAIL_COAT)
+                            .input(EquipmentItemsME.GONDORIAN_MAIL_COAT)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_MAIL_COAT),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_MAIL_COAT))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_MAIL_COAT),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_MAIL_COAT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -856,53 +856,53 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T5 CAPTAIN
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.GONDORIAN_PLATE_HELMET)
+                            .input(EquipmentItemsME.GONDORIAN_PLATE_HELMET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_PLATE_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_PLATE_HELMET))
                             .offerTo(exporter);
 
                     //T5 KING'S GUARD
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_KINGS_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_KINGS_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.FEATHER)
-                            .input(ModEquipmentItems.GONDORIAN_PLATE_HELMET)
+                            .input(EquipmentItemsME.GONDORIAN_PLATE_HELMET)
                             .input(Items.FEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_PLATE_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_PLATE_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_KINGS_GUARD_CHESTKPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_KINGS_GUARD_CHESTKPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_KINGS_GUARD_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_KINGS_GUARD_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS)
+                            .input(EquipmentItemsME.GONDORIAN_PLATE_LEGGINGS)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_PLATE_LEGGINGS),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_PLATE_LEGGINGS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_KINGS_GUARD_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_KINGS_GUARD_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -912,42 +912,42 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T5 CITADEL GUARD
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_CITADEL_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.GONDORIAN_PLATE_HELMET)
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET))
-                            .offerTo(exporter);
-
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE)
-                            .input(ModResourceItems.FABRIC)
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                            .input(EquipmentItemsME.GONDORIAN_PLATE_HELMET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_PLATE_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_PLATE_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_CITADEL_GUARD_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_CITADEL_GUARD_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                            .input(EquipmentItemsME.GONDORIAN_PLATE_LEGGINGS)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_PLATE_LEGGINGS),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_PLATE_LEGGINGS))
+                            .offerTo(exporter);
+
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_CITADEL_GUARD_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -957,42 +957,42 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T5 FOUNTAIN GUARD
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
-                            .input(ModResourceItems.MITHRIL_NUGGET)
-                            .input(ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET)
-                            .input(ModResourceItems.MITHRIL_NUGGET)
-                            .input(ModResourceItems.SWAN_FEATHER)
-                            .input(ModResourceItems.SWAN_FEATHER)
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                            .input(ResourceItemsME.MITHRIL_NUGGET)
+                            .input(EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET)
+                            .input(ResourceItemsME.MITHRIL_NUGGET)
+                            .input(ResourceItemsME.SWAN_FEATHER)
+                            .input(ResourceItemsME.SWAN_FEATHER)
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.GONDORIAN_PLATE_LEGGINGS)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_PLATE_LEGGINGS),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_PLATE_LEGGINGS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1002,106 +1002,106 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //HOODS
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_HOOD.getDefaultStack(), "hood", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_CITADEL_GUARD_HOOD.getDefaultStack(), "hood", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
                     //CAPES
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CAPTAIN_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_CAPTAIN_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.IRON_NUGGET)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
                             .input(Items.WHITE_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.WHITE_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_HERO_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_HERO_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.IRON_NUGGET)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.WHITE_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.WHITE_DYE)
                             .input(Items.BLACK_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_KINGS_GUARD_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_KINGS_GUARD_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GOLD_NUGGET)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
                             .input(Items.WHITE_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.WHITE_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_CITADEL_GUARD_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GOLD_NUGGET)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
                             .input(Items.YELLOW_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.YELLOW_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GOLD_NUGGET)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
                     //endregion
 
                     //region ROHAN
                     //T1
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_REINFORCED_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.ARMING_COAT)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_REINFORCED_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.ARMING_COAT)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.ARMING_COAT),
-                                    conditionsFromItem(ModEquipmentItems.ARMING_COAT))
+                            .criterion(hasItem(EquipmentItemsME.ARMING_COAT),
+                                    conditionsFromItem(EquipmentItemsME.ARMING_COAT))
                             .offerTo(exporter);
 
                     //T2
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -1111,7 +1111,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_REINFORCED_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_REINFORCED_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -1121,57 +1121,57 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_ORNAMENTED_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_ORNAMENTED_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.BRONZE_NUGGET)
-                            .input(ModResourceItems.BRONZE_NUGGET)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
                             .criterion(hasItem(Items.LEATHER),
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_LEATHER_VEST.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_LEATHER_VEST.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.ARMING_COAT)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.ARMING_COAT)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.ARMING_COAT),
-                                    conditionsFromItem(ModEquipmentItems.ARMING_COAT))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.ARMING_COAT),
+                                    conditionsFromItem(EquipmentItemsME.ARMING_COAT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_LEATHER_SCALE_VEST.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.ARMING_COAT)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.ARMING_COAT)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.ARMING_COAT),
-                                    conditionsFromItem(ModEquipmentItems.ARMING_COAT))
+                            .criterion(hasItem(EquipmentItemsME.ARMING_COAT),
+                                    conditionsFromItem(EquipmentItemsME.ARMING_COAT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_GAMBESON.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_GAMBESON.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.GAMBESON)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.GAMBESON),
-                                    conditionsFromItem(ModEquipmentItems.GAMBESON))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.GAMBESON)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.GAMBESON),
+                                    conditionsFromItem(EquipmentItemsME.GAMBESON))
                             .offerTo(exporter);
 
                     //T3
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_MILITIA_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_MILITIA_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
@@ -1181,7 +1181,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(bronzeArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_BRACED_MILITIA_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_BRACED_MILITIA_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
@@ -1191,7 +1191,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_REINFORCED_MILITIA_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_REINFORCED_MILITIA_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
@@ -1201,7 +1201,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(bronzeArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_ORNAMENTED_MILITIA_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_ORNAMENTED_MILITIA_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
@@ -1211,47 +1211,47 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(bronzeArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_REINFORCED_LEATHER_VEST.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_REINFORCED_LEATHER_VEST.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.MAIL_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.MAIL_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_HAUBERK))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_REINFORCED_LEATHER_SCALE_VEST.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_REINFORCED_LEATHER_SCALE_VEST.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.MAIL_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.MAIL_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_BRACED_MAIL_SHIRT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_BRACED_MAIL_SHIRT.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.MAIL_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.MAIL_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_HAUBERK))
                             .offerTo(exporter);
 
                     ///T4
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1261,7 +1261,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_ORNAMENTED_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_ORNAMENTED_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1271,7 +1271,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_ROYAL_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1281,33 +1281,33 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_ORNAMENTED_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_ORNAMENTED_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.ROHIRRIC_SCALE_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GREEN_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GREEN_DYE)
-                            .criterion(hasItem(ModEquipmentItems.MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_SCALE_JACKET.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_SCALE_JACKET.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
@@ -1315,12 +1315,12 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_HAUBERK))
                             .offerTo(exporter);
 
                     //T5 EORLING MARSHAL
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EORLING_MARSHAL_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EORLING_MARSHAL_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1330,32 +1330,32 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EORLING_MARSHAL_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EORLING_MARSHAL_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK)
+                            .input(EquipmentItemsME.ROHIRRIC_SCALE_HAUBERK)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.ROHIRRIC_SCALE_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.ROHIRRIC_SCALE_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EORLING_MARSHAL_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EORLING_MARSHAL_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.ROHIRRIC_SCALE_JACKET)
+                            .input(EquipmentItemsME.ROHIRRIC_SCALE_JACKET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.ROHIRRIC_SCALE_JACKET),
-                                    conditionsFromItem(ModEquipmentItems.ROHIRRIC_SCALE_JACKET))
+                            .criterion(hasItem(EquipmentItemsME.ROHIRRIC_SCALE_JACKET),
+                                    conditionsFromItem(EquipmentItemsME.ROHIRRIC_SCALE_JACKET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EORLING_MARSHAL_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EORLING_MARSHAL_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1365,7 +1365,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T5 HORSE LORD
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.HORSE_LORD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.HORSE_LORD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1375,32 +1375,32 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.HORSE_LORD_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.HORSE_LORD_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK)
+                            .input(EquipmentItemsME.ROHIRRIC_SCALE_HAUBERK)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.ROHIRRIC_SCALE_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.ROHIRRIC_SCALE_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.HORSE_LORD_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.HORSE_LORD_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.ROHIRRIC_SCALE_JACKET)
+                            .input(EquipmentItemsME.ROHIRRIC_SCALE_JACKET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.ROHIRRIC_SCALE_JACKET),
-                                    conditionsFromItem(ModEquipmentItems.ROHIRRIC_SCALE_JACKET))
+                            .criterion(hasItem(EquipmentItemsME.ROHIRRIC_SCALE_JACKET),
+                                    conditionsFromItem(EquipmentItemsME.ROHIRRIC_SCALE_JACKET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.HORSE_LORD_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.HORSE_LORD_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1410,120 +1410,120 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //CAPES
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.BRONZE_NUGGET)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GREEN_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GREEN_DYE)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.BRONZE_NUGGET)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_ROYAL_GUARD_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.YELLOW_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.YELLOW_DYE)
                             .input(Items.GREEN_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GREEN_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EORLING_MARSHAL_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.STEEL_NUGGET)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EORLING_MARSHAL_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.STEEL_NUGGET)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GREEN_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GREEN_DYE)
                             .input(Items.YELLOW_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.WHITE_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.HORSE_LORD_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.BRONZE_NUGGET)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.HORSE_LORD_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLUE_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLUE_DYE)
                             .input(Items.RED_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.RED_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
                     //endregion
 
                     //region DALE
 
                     //T1
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_ARMING_COAT_BLACK_FUR.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_ARMING_COAT_BLACK_FUR.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_ARMING_COAT_BROWN_FUR.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_ARMING_COAT_BROWN_FUR.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_ARMING_COAT_TAN_FUR.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_ARMING_COAT_TAN_FUR.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_HEYDAY_ARMING_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_HEYDAY_ARMING_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.ORANGE_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.ORANGE_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
                     //T2
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -1533,7 +1533,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T3
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -1543,63 +1543,63 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_HELMET_BLACK_FUR.getDefaultStack(), "helmet", Disposition.GOOD)
-                            .input(ModResourceItems.FUR)
-                            .input(ModEquipmentItems.DALISH_HELMET)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModEquipmentItems.DALISH_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.DALISH_HELMET))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_HELMET_BLACK_FUR.getDefaultStack(), "helmet", Disposition.GOOD)
+                            .input(ResourceItemsME.FUR)
+                            .input(EquipmentItemsME.DALISH_HELMET)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(EquipmentItemsME.DALISH_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.DALISH_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_HELMET_BROWN_FUR.getDefaultStack(), "helmet", Disposition.GOOD)
-                            .input(ModResourceItems.FUR)
-                            .input(ModEquipmentItems.DALISH_HELMET)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModEquipmentItems.DALISH_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.DALISH_HELMET))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_HELMET_BROWN_FUR.getDefaultStack(), "helmet", Disposition.GOOD)
+                            .input(ResourceItemsME.FUR)
+                            .input(EquipmentItemsME.DALISH_HELMET)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(EquipmentItemsME.DALISH_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.DALISH_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_HELMET_TAN_FUR.getDefaultStack(), "helmet", Disposition.GOOD)
-                            .input(ModResourceItems.FUR)
-                            .input(ModEquipmentItems.DALISH_HELMET)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModEquipmentItems.DALISH_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.DALISH_HELMET))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_HELMET_TAN_FUR.getDefaultStack(), "helmet", Disposition.GOOD)
+                            .input(ResourceItemsME.FUR)
+                            .input(EquipmentItemsME.DALISH_HELMET)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(EquipmentItemsME.DALISH_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.DALISH_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.MAIL_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.MAIL_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_MAIL_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_MAIL_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.MAIL_SKIRT)
+                            .input(EquipmentItemsME.MAIL_SKIRT)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_HAUBERK))
                             .offerTo(exporter);
 
                     //T4
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_BURGONET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_BURGONET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1609,7 +1609,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelScaleMail.getItem()), steelScaleMail.getComponentChanges()))
@@ -1623,42 +1623,42 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T4 HEYDAY
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_HEYDAY_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_HEYDAY_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.DALISH_HELMET)
+                            .input(EquipmentItemsME.DALISH_HELMET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .criterion(hasItem(ModEquipmentItems.DALISH_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.DALISH_HELMET))
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .criterion(hasItem(EquipmentItemsME.DALISH_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.DALISH_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_HEYDAY_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_HEYDAY_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.DALISH_SCALE_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.DALISH_SCALE_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.ORANGE_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.ORANGE_DYE)
-                            .criterion(hasItem(ModEquipmentItems.DALISH_SCALE_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.DALISH_SCALE_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.DALISH_SCALE_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.DALISH_SCALE_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_HEYDAY_MAIL_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.DALISH_MAIL_COAT)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_HEYDAY_MAIL_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.DALISH_MAIL_COAT)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.DALISH_MAIL_COAT),
-                                    conditionsFromItem(ModEquipmentItems.DALISH_MAIL_COAT))
+                            .criterion(hasItem(EquipmentItemsME.DALISH_MAIL_COAT),
+                                    conditionsFromItem(EquipmentItemsME.DALISH_MAIL_COAT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_HEYDAY_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_HEYDAY_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1668,7 +1668,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T5 BARDING
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BARDING_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BARDING_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1678,32 +1678,32 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BARDING_SOLDIER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BARDING_SOLDIER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.DALISH_SCALE_HAUBERK)
+                            .input(EquipmentItemsME.DALISH_SCALE_HAUBERK)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.DALISH_SCALE_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.DALISH_SCALE_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.DALISH_SCALE_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.DALISH_SCALE_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BARDING_MAIL_SKIRT.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BARDING_MAIL_SKIRT.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.DALISH_MAIL_COAT)
+                            .input(EquipmentItemsME.DALISH_MAIL_COAT)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.DALISH_MAIL_COAT),
-                                    conditionsFromItem(ModEquipmentItems.DALISH_MAIL_COAT))
+                            .criterion(hasItem(EquipmentItemsME.DALISH_MAIL_COAT),
+                                    conditionsFromItem(EquipmentItemsME.DALISH_MAIL_COAT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BARDING_PLATED_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BARDING_PLATED_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -1713,70 +1713,70 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T5 BARDING SERGEANT
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BARDING_SERGEANT_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BARDING_SERGEANT_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.FEATHER)
-                            .input(ModEquipmentItems.BARDING_SOLDIER_HELMET)
+                            .input(EquipmentItemsME.BARDING_SOLDIER_HELMET)
                             .input(Items.FEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.BARDING_SOLDIER_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.BARDING_SOLDIER_HELMET))
+                            .criterion(hasItem(EquipmentItemsME.BARDING_SOLDIER_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.BARDING_SOLDIER_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BARDING_SERGEANT_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BARDING_SERGEANT_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.BARDING_SOLDIER_CHESTPLATE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.BARDING_SOLDIER_CHESTPLATE)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.BARDING_SERGEANT_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.BARDING_SERGEANT_CHESTPLATE))
+                            .criterion(hasItem(EquipmentItemsME.BARDING_SERGEANT_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.BARDING_SERGEANT_CHESTPLATE))
                             .offerTo(exporter);
 
                     //CAPES
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BARDING_SURCOAT.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BARDING_SURCOAT.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.PURPLE_DYE)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BARDING_SERGEANT_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BARDING_SERGEANT_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.ORANGE_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.ORANGE_DYE)
                             .input(Items.PURPLE_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.PURPLE_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_HEYDAY_CLOAK.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.BRONZE_NUGGET)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_HEYDAY_CLOAK.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
                             .input(Items.STRING)
-                            .input(ModResourceItems.BRONZE_NUGGET)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.RED_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.RED_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 //endregion
 
@@ -1791,45 +1791,45 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                     //region GENERIC
 
                     //T1
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ELVEN_ARMING_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ELVEN_ARMING_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ELVEN_ARMING_SKIRT.getDefaultStack(), "leggings", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ELVEN_ARMING_SKIRT.getDefaultStack(), "leggings", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ELVEN_OPEN_ARMING_SKIRT.getDefaultStack(), "leggings", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ELVEN_OPEN_ARMING_SKIRT.getDefaultStack(), "leggings", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
                     //T2
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ELVEN_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ELVEN_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -1839,7 +1839,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T3
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ELVEN_MAIL_COIF.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ELVEN_MAIL_COIF.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -1849,7 +1849,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ELVEN_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ELVEN_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -1862,7 +1862,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ELVEN_MAIL_SKIRT.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ELVEN_MAIL_SKIRT.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -1878,16 +1878,16 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
 
                     //region LOTHLORIEN
                     //T1
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_DIADEM.getDefaultStack(), "helmet", Disposition.GOOD)
-                            .input(ModResourceItems.BRONZE_NUGGET)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_DIADEM.getDefaultStack(), "helmet", Disposition.GOOD)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.BRONZE_NUGGET)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
                             .criterion(hasItem(bronzeArmorPlate.getItem()),
                                     conditionsFromItem(bronzeArmorPlate.getItem()))
                             .offerTo(exporter);
 
                     //T2
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -1897,80 +1897,80 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_ARMING_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_ARMING_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.ELVEN_ARMING_COAT)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.ELVEN_ARMING_COAT)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.ELVEN_ARMING_COAT),
-                                    conditionsFromItem(ModEquipmentItems.ELVEN_ARMING_COAT))
+                            .criterion(hasItem(EquipmentItemsME.ELVEN_ARMING_COAT),
+                                    conditionsFromItem(EquipmentItemsME.ELVEN_ARMING_COAT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_ARMING_SKIRT.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_ARMING_SKIRT.getDefaultStack(), "leggings", Disposition.GOOD)
                             .input(Items.LEATHER)
-                            .input(ModEquipmentItems.ELVEN_ARMING_SKIRT)
+                            .input(EquipmentItemsME.ELVEN_ARMING_SKIRT)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.ELVEN_ARMING_SKIRT),
-                                    conditionsFromItem(ModEquipmentItems.ELVEN_ARMING_SKIRT))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.ELVEN_ARMING_SKIRT),
+                                    conditionsFromItem(EquipmentItemsME.ELVEN_ARMING_SKIRT))
                             .offerTo(exporter);
 
                     //T3
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_MAIL_COIF_DIADEM.getDefaultStack(), "helmet", Disposition.GOOD)
-                            .input(ModEquipmentItems.ELVEN_MAIL_COIF)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_MAIL_COIF_DIADEM.getDefaultStack(), "helmet", Disposition.GOOD)
+                            .input(EquipmentItemsME.ELVEN_MAIL_COIF)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.LORIEN_DIADEM)
+                            .input(EquipmentItemsME.LORIEN_DIADEM)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.ELVEN_MAIL_COIF),
-                                    conditionsFromItem(ModEquipmentItems.ELVEN_MAIL_COIF))
+                            .criterion(hasItem(EquipmentItemsME.ELVEN_MAIL_COIF),
+                                    conditionsFromItem(EquipmentItemsME.ELVEN_MAIL_COIF))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_SHORT_MAIL_COIF_DIADEM.getDefaultStack(), "helmet", Disposition.GOOD)
-                            .input(ModEquipmentItems.ELVEN_MAIL_COIF)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_SHORT_MAIL_COIF_DIADEM.getDefaultStack(), "helmet", Disposition.GOOD)
+                            .input(EquipmentItemsME.ELVEN_MAIL_COIF)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.LORIEN_DIADEM)
+                            .input(EquipmentItemsME.LORIEN_DIADEM)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.ELVEN_MAIL_COIF),
-                                    conditionsFromItem(ModEquipmentItems.ELVEN_MAIL_COIF))
+                            .criterion(hasItem(EquipmentItemsME.ELVEN_MAIL_COIF),
+                                    conditionsFromItem(EquipmentItemsME.ELVEN_MAIL_COIF))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModEquipmentItems.ELVEN_MAIL_HAUBERK)
+                            .input(EquipmentItemsME.ELVEN_MAIL_HAUBERK)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.ELVEN_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.ELVEN_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.ELVEN_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.ELVEN_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_MARCHWARDEN_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.ELVEN_MAIL_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_MARCHWARDEN_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.ELVEN_MAIL_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.ELVEN_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.ELVEN_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.ELVEN_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.ELVEN_MAIL_HAUBERK))
                             .offerTo(exporter);
 
                     //T4
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelHelmetPlate.getItem()), edhelSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
@@ -1980,38 +1980,38 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(edhelSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_SOLDIER_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_SOLDIER_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.LORIEN_MAIL_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.LORIEN_MAIL_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.LORIEN_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.LORIEN_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.LORIEN_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.LORIEN_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_SOLDIER_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_SOLDIER_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                             .criterion(hasItem(edhelSteelScaleMail.getItem()),
                                     conditionsFromItem(edhelSteelScaleMail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_SCALE_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_SCALE_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                             .criterion(hasItem(edhelSteelScaleMail.getItem()),
@@ -2019,7 +2019,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T5 GALADHRIM
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GALADHRIM_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelHelmetPlate.getItem()), edhelSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
@@ -2029,32 +2029,32 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(edhelSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GALADHRIM_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.LORIEN_SOLDIER_SCALE_HAUBERK)
+                            .input(EquipmentItemsME.LORIEN_SOLDIER_SCALE_HAUBERK)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.LORIEN_SOLDIER_SCALE_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.LORIEN_SOLDIER_SCALE_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.LORIEN_SOLDIER_SCALE_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.LORIEN_SOLDIER_SCALE_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GALADHRIM_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.LORIEN_SCALE_COAT)
+                            .input(EquipmentItemsME.LORIEN_SCALE_COAT)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.LORIEN_SCALE_COAT),
-                                    conditionsFromItem(ModEquipmentItems.LORIEN_SCALE_COAT))
+                            .criterion(hasItem(EquipmentItemsME.LORIEN_SCALE_COAT),
+                                    conditionsFromItem(EquipmentItemsME.LORIEN_SCALE_COAT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GALADHRIM_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
@@ -2064,42 +2064,42 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T5 GALADHRIM LORD
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GALADHRIM_LORD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_LORD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.GALADHRIM_HELMET)
+                            .input(EquipmentItemsME.GALADHRIM_HELMET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GALADHRIM_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.GALADHRIM_HELMET))
+                            .criterion(hasItem(EquipmentItemsME.GALADHRIM_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.GALADHRIM_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GALADHRIM_LORD_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_LORD_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.GALADHRIM_CHESTPLATE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.GALADHRIM_CHESTPLATE)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GALADHRIM_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.GALADHRIM_CHESTPLATE))
+                            .criterion(hasItem(EquipmentItemsME.GALADHRIM_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.GALADHRIM_CHESTPLATE))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GALADHRIM_LORD_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.GALADHRIM_LEGGINGS)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_LORD_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.GALADHRIM_LEGGINGS)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GALADHRIM_LEGGINGS),
-                                    conditionsFromItem(ModEquipmentItems.GALADHRIM_LEGGINGS))
+                            .criterion(hasItem(EquipmentItemsME.GALADHRIM_LEGGINGS),
+                                    conditionsFromItem(EquipmentItemsME.GALADHRIM_LEGGINGS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GALADHRIM_LORD_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_LORD_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
@@ -2109,69 +2109,69 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //HOODS
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_MARCHWARDEN_HOOD.getDefaultStack(), "hood", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_MARCHWARDEN_HOOD.getDefaultStack(), "hood", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GRAY_DYE)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GALADHRIM_HOOD.getDefaultStack(), "hood", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_HOOD.getDefaultStack(), "hood", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLUE_DYE)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
                     //CAPES
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_MARCHWARDEN_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.BRONZE_NUGGET)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_MARCHWARDEN_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GRAY_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GRAY_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GALADHRIM_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLUE_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLUE_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GALADHRIM_LORD_SURCOAT.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_LORD_SURCOAT.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.WHITE_DYE)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.EDHEL_STEEL_NUGGET)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
                     //endregion
 
@@ -2180,30 +2180,30 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                     //region DWARVES
 
                     //region GENERIC
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DWARVEN_MINER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_MINER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.CANDLE)
                             .input(Items.LEATHER)
                             .input(Items.CANDLE)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DWARVEN_GAMBESON.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_GAMBESON.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
                             .input(Items.WHITE_WOOL)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DWARVEN_MAIL_COIF.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_MAIL_COIF.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -2213,27 +2213,8 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DWARVEN_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .criterion(hasItem(ironChainmail.getItem()),
-                                    conditionsFromItem(ironChainmail.getItem()))
-                            .offerTo(exporter);
-
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DWARVEN_MINER_GAMBESON.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModEquipmentItems.DWARVEN_MAIL_HAUBERK)
-                            .input(ModEquipmentItems.DWARVEN_GAMBESON)
-                            .criterion(hasItem(ModEquipmentItems.DWARVEN_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.DWARVEN_MAIL_HAUBERK))
-                            .offerTo(exporter);
-
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DWARVEN_MAIL_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -2245,7 +2226,17 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DWARVEN_MAIL_CHAUSSES.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_MINER_GAMBESON.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(EquipmentItemsME.DWARVEN_MAIL_HAUBERK)
+                            .input(EquipmentItemsME.DWARVEN_GAMBESON)
+                            .criterion(hasItem(EquipmentItemsME.DWARVEN_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.DWARVEN_MAIL_HAUBERK))
+                            .offerTo(exporter);
+
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_MAIL_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -2254,7 +2245,16 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DWARVEN_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_MAIL_CHAUSSES.getDefaultStack(), "boots", Disposition.GOOD)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .criterion(hasItem(ironChainmail.getItem()),
+                                    conditionsFromItem(ironChainmail.getItem()))
+                            .offerTo(exporter);
+
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .input(Items.IRON_INGOT)
                             .input(Items.IRON_INGOT)
                             .input(Items.LEATHER)
@@ -2263,7 +2263,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.IRON_INGOT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DWARVEN_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
@@ -2276,7 +2276,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(khazadSteelScaleMail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DWARVEN_SCALE_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_SCALE_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
@@ -2288,9 +2288,9 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(khazadSteelScaleMail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DWARVEN_REINFORCED_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
-                            .input(ModResourceItems.KHAZAD_STEEL_INGOT)
-                            .input(ModResourceItems.KHAZAD_STEEL_INGOT)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_REINFORCED_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                            .input(ResourceItemsME.KHAZAD_STEEL_INGOT)
+                            .input(ResourceItemsME.KHAZAD_STEEL_INGOT)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .criterion(hasItem(Items.IRON_INGOT),
@@ -2299,7 +2299,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                     //endregion
 
                     //region EREBOR
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_SEGMENTED_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LONGBEARD_SEGMENTED_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
@@ -2309,20 +2309,20 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(bronzeArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_LEATHER_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LONGBEARD_LEATHER_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.BRONZE_NUGGET)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
                             .input(Items.LEATHER)
                             .criterion(hasItem(Items.LEATHER),
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_WANDERER_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LONGBEARD_WANDERER_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -2335,9 +2335,9 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_LEATHER_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LONGBEARD_LEATHER_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.BRONZE_NUGGET)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -2347,33 +2347,33 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_PARTISAN_OUTFIT.getDefaultStack(), "chestplate", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.DWARVEN_MAIL_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LONGBEARD_PARTISAN_OUTFIT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.DWARVEN_MAIL_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
                             .input(Items.IRON_NUGGET)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.DWARVEN_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.DWARVEN_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.DWARVEN_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.DWARVEN_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LONGBEARD_REINFORCED_LEATHER_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LONGBEARD_REINFORCED_LEATHER_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModEquipmentItems.DWARVEN_MAIL_HAUBERK)
+                            .input(EquipmentItemsME.DWARVEN_MAIL_HAUBERK)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.BRONZE_NUGGET)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.DWARVEN_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.DWARVEN_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.DWARVEN_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.DWARVEN_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.IRON_INGOT)
                             .input(Items.LEATHER)
                             .input(Items.IRON_INGOT)
@@ -2383,7 +2383,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_BRACED_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_BRACED_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.IRON_INGOT)
                             .input(Items.LEATHER)
                             .input(Items.IRON_INGOT)
@@ -2393,7 +2393,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_NASAL_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_NASAL_LEATHER_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.IRON_INGOT)
                             .input(Items.LEATHER)
                             .input(Items.IRON_INGOT)
@@ -2403,9 +2403,9 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_LEATHER_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_LEATHER_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.BRONZE_NUGGET)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -2415,7 +2415,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_MAIL_COIF.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_MAIL_COIF.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -2425,17 +2425,17 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GILDED_MAIL_COIF.getDefaultStack(), "helmet", Disposition.GOOD)
-                            .input(ModResourceItems.BRONZE_NUGGET)
-                            .input(ModEquipmentItems.EREBOR_MAIL_COIF)
-                            .input(ModResourceItems.BRONZE_NUGGET)
-                            .input(ModResourceItems.BRONZE_NUGGET)
-                            .input(ModResourceItems.BRONZE_NUGGET)
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_MAIL_COIF),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_COIF))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_GILDED_MAIL_COIF.getDefaultStack(), "helmet", Disposition.GOOD)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
+                            .input(EquipmentItemsME.EREBOR_MAIL_COIF)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
+                            .input(ResourceItemsME.BRONZE_NUGGET)
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_MAIL_COIF),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_MAIL_COIF))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -2445,7 +2445,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -2458,20 +2458,20 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_PADDED_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_PADDED_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .input(Items.LEATHER)
-                            .input(ModEquipmentItems.EREBOR_MAIL_HAUBERK)
+                            .input(EquipmentItemsME.EREBOR_MAIL_HAUBERK)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.BRONZE_INGOT)
+                            .input(ResourceItemsME.BRONZE_INGOT)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_MAIL_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_MAIL_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -2483,7 +2483,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_MAIL_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_MAIL_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -2495,7 +2495,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_MAIL_CHAUSSES.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_MAIL_CHAUSSES.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -2504,7 +2504,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.IRON_INGOT)
@@ -2514,7 +2514,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //t4
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelHelmetPlate.getItem()), khazadSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
@@ -2524,14 +2524,14 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(khazadSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_GILDED_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
-                            .input(ModEquipmentItems.EREBOR_GILDED_MAIL_COIF)
-                            .input(ModEquipmentItems.RAVENHILL_HELMET)
-                            .criterion(hasItem(ModEquipmentItems.RAVENHILL_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.RAVENHILL_HELMET))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_GILDED_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                            .input(EquipmentItemsME.EREBOR_GILDED_MAIL_COIF)
+                            .input(EquipmentItemsME.RAVENHILL_HELMET)
+                            .criterion(hasItem(EquipmentItemsME.RAVENHILL_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.RAVENHILL_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_SCALE_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
@@ -2544,72 +2544,72 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(khazadSteelScaleMail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_LONG_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_LONG_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.EREBOR_MAIL_HAUBERK)
+                            .input(EquipmentItemsME.EREBOR_MAIL_HAUBERK)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_BRAWLER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_BRAWLER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.EREBOR_MAIL_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.EREBOR_MAIL_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
                             .input(Items.BLUE_DYE)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_REINFORCED_LEATHER_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_REINFORCED_LEATHER_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
-                            .input(ModEquipmentItems.EREBOR_MAIL_HAUBERK)
+                            .input(EquipmentItemsME.EREBOR_MAIL_HAUBERK)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_REINFORCED_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_REINFORCED_COAT.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.EREBOR_MAIL_HAUBERK)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.EREBOR_MAIL_HAUBERK)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
                             .input(Items.BLUE_DYE)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_REINFORCED_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_REINFORCED_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.EREBOR_MAIL_HAUBERK)
+                            .input(EquipmentItemsME.EREBOR_MAIL_HAUBERK)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_SCALE_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_SCALE_COAT.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
@@ -2621,7 +2621,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(khazadSteelScaleMail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_SCALE_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_SCALE_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
@@ -2633,7 +2633,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(khazadSteelScaleMail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
@@ -2642,7 +2642,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(khazadSteelArmorPlate.getItem()))
                             .offerTo(exporter);
                     //t5
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelHelmetPlate.getItem()), khazadSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
@@ -2652,32 +2652,32 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(khazadSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
-                            .input(ModEquipmentItems.EREBOR_SCALE_HAUBERK)
+                            .input(EquipmentItemsME.EREBOR_SCALE_HAUBERK)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_SCALE_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_SCALE_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_SCALE_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_SCALE_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_PLATE_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_PLATE_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.EREBOR_SCALE_LEGGINGS)
+                            .input(EquipmentItemsME.EREBOR_SCALE_LEGGINGS)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelScaleMail.getItem()), khazadSteelScaleMail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_SCALE_LEGGINGS),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_SCALE_LEGGINGS))
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_SCALE_LEGGINGS),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_SCALE_LEGGINGS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
@@ -2686,50 +2686,50 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(khazadSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.EREBOR_PLATE_HELMET)
+                            .input(EquipmentItemsME.EREBOR_PLATE_HELMET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_PLATE_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_HELMET))
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_PLATE_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_PLATE_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GATEWARDEN_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_GATEWARDEN_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.EREBOR_PLATE_HELMET)
+                            .input(EquipmentItemsME.EREBOR_PLATE_HELMET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.BRONZE_INGOT)
-                            .input(ModResourceItems.BRONZE_INGOT)
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_PLATE_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_HELMET))
+                            .input(ResourceItemsME.BRONZE_INGOT)
+                            .input(ResourceItemsME.BRONZE_INGOT)
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_PLATE_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_PLATE_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GATEWARDEN_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_GATEWARDEN_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.BRONZE_INGOT)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.BRONZE_INGOT)
                             .input(Items.BLUE_DYE)
-                            .input(ModResourceItems.BRONZE_INGOT)
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE))
+                            .input(ResourceItemsME.BRONZE_INGOT)
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GATEWARDEN_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_GATEWARDEN_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.EREBOR_PLATE_LEGGINGS)
+                            .input(EquipmentItemsME.EREBOR_PLATE_LEGGINGS)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_PLATE_LEGGINGS),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_PLATE_LEGGINGS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_GATEWARDEN_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_GATEWARDEN_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
@@ -2738,42 +2738,42 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(khazadSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_WATCHWARDEN_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_WATCHWARDEN_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.EREBOR_PLATE_HELMET)
+                            .input(EquipmentItemsME.EREBOR_PLATE_HELMET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_PLATE_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_HELMET))
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_PLATE_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_PLATE_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_WATCHWARDEN_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.BRONZE_INGOT)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.BRONZE_INGOT)
                             .input(Items.GRAY_DYE)
-                            .input(ModResourceItems.BRONZE_INGOT)
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE))
+                            .input(ResourceItemsME.BRONZE_INGOT)
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_WATCHWARDEN_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.EREBOR_PLATE_LEGGINGS)
+                            .input(EquipmentItemsME.EREBOR_PLATE_LEGGINGS)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_PLATE_LEGGINGS))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_PLATE_LEGGINGS),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_PLATE_LEGGINGS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_WATCHWARDEN_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_WATCHWARDEN_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
@@ -2782,50 +2782,50 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(khazadSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_CAPTAIN_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_CAPTAIN_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.GOAT_HORN)
-                            .input(ModEquipmentItems.EREBOR_GUARD_HELMET)
+                            .input(EquipmentItemsME.EREBOR_GUARD_HELMET)
                             .input(Items.GOAT_HORN)
-                            .criterion(hasItem(ModEquipmentItems.EREBOR_GUARD_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.EREBOR_GUARD_HELMET))
+                            .criterion(hasItem(EquipmentItemsME.EREBOR_GUARD_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.EREBOR_GUARD_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_SENTINEL_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_SENTINEL_HELMET.getDefaultStack(), "helmet", Disposition.GOOD)
                             .input(Items.FEATHER)
-                            .input(ModEquipmentItems.RAVENHILL_WATCHWARDEN_HELMET)
+                            .input(EquipmentItemsME.RAVENHILL_WATCHWARDEN_HELMET)
                             .input(Items.FEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_HELMET))
+                            .criterion(hasItem(EquipmentItemsME.RAVENHILL_WATCHWARDEN_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.RAVENHILL_WATCHWARDEN_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_SENTINEL_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_SENTINEL_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(EquipmentItemsME.RAVENHILL_WATCHWARDEN_CHESTPLATE)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeArmorPlate.getItem()), bronzeArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.RAVENHILL_WATCHWARDEN_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.RAVENHILL_WATCHWARDEN_CHESTPLATE))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_SENTINEL_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_SENTINEL_LEGGINGS.getDefaultStack(), "leggings", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS)
+                            .input(EquipmentItemsME.RAVENHILL_WATCHWARDEN_LEGGINGS)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS),
-                                    conditionsFromItem(ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.RAVENHILL_WATCHWARDEN_LEGGINGS),
+                                    conditionsFromItem(EquipmentItemsME.RAVENHILL_WATCHWARDEN_LEGGINGS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_SENTINEL_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_SENTINEL_BOOTS.getDefaultStack(), "boots", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
@@ -2835,32 +2835,32 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //capes
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.EREBOR_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.EREBOR_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLUE_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLUE_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RAVENHILL_SENTINEL_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RAVENHILL_SENTINEL_CAPE.getDefaultStack(), "cape", Disposition.GOOD)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GRAY_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.GRAY_DYE)
                             .input(Items.YELLOW_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.YELLOW_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
                     //endregion
@@ -2870,7 +2870,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                     //region ORCS
 
                     //region GENERIC
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LEATHER_STRAP.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_LEATHER_STRAP.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -2879,16 +2879,16 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_SANDALS.getDefaultStack(), "boots", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_SANDALS.getDefaultStack(), "boots", Disposition.EVIL)
                             .input(Items.STICK)
                             .input(Items.STICK)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_ORCISH_MAIL_COIF.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -2898,7 +2898,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LEATHER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -2911,7 +2911,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_LEATHER_SCALE_VEST.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -2924,20 +2924,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_ORCISH_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .criterion(hasItem(ironChainmail.getItem()),
-                                    conditionsFromItem(ironChainmail.getItem()))
-                            .offerTo(exporter);
-
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_ORCISH_MAIL_SHIRT.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_ORCISH_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -2950,7 +2937,20 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_ORCISH_MAIL_SHIRT.getDefaultStack(), "chestplate", Disposition.EVIL)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .criterion(hasItem(ironChainmail.getItem()),
+                                    conditionsFromItem(ironChainmail.getItem()))
+                            .offerTo(exporter);
+
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -2962,7 +2962,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_STRIP_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_STRIP_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -2974,7 +2974,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LEG_BRACER.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_LEG_BRACER.getDefaultStack(), "leggings", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.IRON_NUGGET)
                             .input(Items.LEATHER)
@@ -2986,7 +2986,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_ORCISH_MAIL_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_ORCISH_MAIL_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -2998,7 +2998,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_ORCISH_REINFORCED_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_ORCISH_REINFORCED_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -3010,7 +3010,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_ORCISH_REINFORCED_STRIP_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_ORCISH_REINFORCED_STRIP_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -3022,52 +3022,52 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BLACK_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_BLACK_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModResourceItems.FUR),
-                                    conditionsFromItem(ModResourceItems.FUR))
+                            .criterion(hasItem(ResourceItemsME.FUR),
+                                    conditionsFromItem(ResourceItemsME.FUR))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BROWN_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_BROWN_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModResourceItems.FUR),
-                                    conditionsFromItem(ModResourceItems.FUR))
+                            .criterion(hasItem(ResourceItemsME.FUR),
+                                    conditionsFromItem(ResourceItemsME.FUR))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_GRAY_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_GRAY_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModResourceItems.FUR),
-                                    conditionsFromItem(ModResourceItems.FUR))
+                            .criterion(hasItem(ResourceItemsME.FUR),
+                                    conditionsFromItem(ResourceItemsME.FUR))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_TAN_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_TAN_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModResourceItems.FUR),
-                                    conditionsFromItem(ModResourceItems.FUR))
+                            .criterion(hasItem(ResourceItemsME.FUR),
+                                    conditionsFromItem(ResourceItemsME.FUR))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_WHITE_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_WHITE_FUR_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModResourceItems.FUR),
-                                    conditionsFromItem(ModResourceItems.FUR))
+                            .criterion(hasItem(ResourceItemsME.FUR),
+                                    conditionsFromItem(ResourceItemsME.FUR))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BRACED_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_BRACED_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -3077,7 +3077,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -3087,7 +3087,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_MAIL_COIF.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_MAIL_COIF.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -3097,20 +3097,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .criterion(hasItem(ironChainmail.getItem()),
-                                    conditionsFromItem(ironChainmail.getItem()))
-                            .offerTo(exporter);
-
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_MAIL_SHIRT.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -3123,7 +3110,8 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_MAIL_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_MAIL_SHIRT.getDefaultStack(), "chestplate", Disposition.EVIL)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -3135,7 +3123,19 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_REINFORCED_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_MAIL_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .criterion(hasItem(ironChainmail.getItem()),
+                                    conditionsFromItem(ironChainmail.getItem()))
+                            .offerTo(exporter);
+
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_REINFORCED_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -3147,7 +3147,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_REINFORCED_STRIP_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_REINFORCED_STRIP_LEATHER_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -3159,7 +3159,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_SALLET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_SALLET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3169,7 +3169,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BELLY_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_BELLY_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
@@ -3182,7 +3182,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelScaleMail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_SCALE_VEST.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_SCALE_VEST.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
@@ -3195,7 +3195,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelScaleMail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_REINFORCED_LEG_BRACER.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_REINFORCED_LEG_BRACER.getDefaultStack(), "leggings", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -3207,7 +3207,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BRACED_SANDALS.getDefaultStack(), "boots", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_BRACED_SANDALS.getDefaultStack(), "boots", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges())).input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -3217,118 +3217,118 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_CAPE.getDefaultStack(), "cape", Disposition.EVIL)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_CAPE.getDefaultStack(), "cape", Disposition.EVIL)
+                            .input(ResourceItemsME.FABRIC)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_LONG_CAPE.getDefaultStack(), "cape", Disposition.EVIL)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_LONG_CAPE.getDefaultStack(), "cape", Disposition.EVIL)
+                            .input(ResourceItemsME.FABRIC)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_SHOULDERS.getDefaultStack(), "cape", Disposition.EVIL)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_SHOULDERS.getDefaultStack(), "cape", Disposition.EVIL)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.RED_DYE)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BLACK_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_BLACK_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
-                            .input(ModResourceItems.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                             .input(Items.STRING)
-                            .criterion(hasItem(ModResourceItems.FUR),
-                                    conditionsFromItem(ModResourceItems.FUR))
+                            .criterion(hasItem(ResourceItemsME.FUR),
+                                    conditionsFromItem(ResourceItemsME.FUR))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_BROWN_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_BROWN_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
-                            .input(ModResourceItems.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                             .input(Items.STRING)
-                            .criterion(hasItem(ModResourceItems.FUR),
-                                    conditionsFromItem(ModResourceItems.FUR))
+                            .criterion(hasItem(ResourceItemsME.FUR),
+                                    conditionsFromItem(ResourceItemsME.FUR))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_GRAY_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_GRAY_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
-                            .input(ModResourceItems.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                             .input(Items.STRING)
-                            .criterion(hasItem(ModResourceItems.FUR),
-                                    conditionsFromItem(ModResourceItems.FUR))
+                            .criterion(hasItem(ResourceItemsME.FUR),
+                                    conditionsFromItem(ResourceItemsME.FUR))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_TAN_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_TAN_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
-                            .input(ModResourceItems.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                             .input(Items.STRING)
-                            .criterion(hasItem(ModResourceItems.FUR),
-                                    conditionsFromItem(ModResourceItems.FUR))
+                            .criterion(hasItem(ResourceItemsME.FUR),
+                                    conditionsFromItem(ResourceItemsME.FUR))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORCISH_WHITE_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
-                            .input(ModResourceItems.FUR)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_WHITE_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "cape", Disposition.EVIL)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
-                            .input(ModResourceItems.FUR)
+                            .input(ResourceItemsME.FUR)
                             .input(Items.STRING)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                             .input(Items.STRING)
-                            .criterion(hasItem(ModResourceItems.FUR),
-                                    conditionsFromItem(ModResourceItems.FUR))
+                            .criterion(hasItem(ResourceItemsME.FUR),
+                                    conditionsFromItem(ResourceItemsME.FUR))
                             .offerTo(exporter);
                     //endregion
 
                     //region MORDOR
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -3338,7 +3338,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -3348,7 +3348,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_KETTLE_HAT.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_KETTLE_HAT.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -3358,7 +3358,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_KETTLE_HAT.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -3368,7 +3368,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_NASAL_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_NASAL_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -3378,7 +3378,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_NASAL_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_NASAL_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -3388,47 +3388,47 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_KETTLE_HAT_WITH_COIF.getDefaultStack(), "helmet", Disposition.EVIL)
-                            .input(ModEquipmentItems.ORCISH_MAIL_COIF)
-                            .input(ModEquipmentItems.MORDOR_KETTLE_HAT)
-                            .criterion(hasItem(ModEquipmentItems.ORCISH_MAIL_COIF),
-                                    conditionsFromItem(ModEquipmentItems.ORCISH_MAIL_COIF))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT_WITH_COIF.getDefaultStack(), "helmet", Disposition.EVIL)
+                            .input(EquipmentItemsME.ORCISH_MAIL_COIF)
+                            .input(EquipmentItemsME.MORDOR_KETTLE_HAT)
+                            .criterion(hasItem(EquipmentItemsME.ORCISH_MAIL_COIF),
+                                    conditionsFromItem(EquipmentItemsME.ORCISH_MAIL_COIF))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_KETTLE_HAT_WITH_COIF.getDefaultStack(), "helmet", Disposition.EVIL)
-                            .input(ModEquipmentItems.ORCISH_MAIL_COIF)
-                            .input(ModEquipmentItems.MORDOR_KETTLE_HAT)
-                            .criterion(hasItem(ModEquipmentItems.ORCISH_MAIL_COIF),
-                                    conditionsFromItem(ModEquipmentItems.ORCISH_MAIL_COIF))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_KETTLE_HAT_WITH_COIF.getDefaultStack(), "helmet", Disposition.EVIL)
+                            .input(EquipmentItemsME.ORCISH_MAIL_COIF)
+                            .input(EquipmentItemsME.MORDOR_KETTLE_HAT)
+                            .criterion(hasItem(EquipmentItemsME.ORCISH_MAIL_COIF),
+                                    conditionsFromItem(EquipmentItemsME.ORCISH_MAIL_COIF))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_LEATHER_CUIRASS.getDefaultStack(), "chestplate", Disposition.EVIL)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_LEATHER_CUIRASS.getDefaultStack(), "chestplate", Disposition.EVIL)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .criterion(hasItem(Items.LEATHER),
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_PAINTED_LEATHER_CUIRASS.getDefaultStack(), "chestplate", Disposition.EVIL)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_PAINTED_LEATHER_CUIRASS.getDefaultStack(), "chestplate", Disposition.EVIL)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.RED_DYE)
-                            .input(ModEquipmentItems.MORDOR_LEATHER_CUIRASS)
+                            .input(EquipmentItemsME.MORDOR_LEATHER_CUIRASS)
                             .input(Items.RED_DYE)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.MORDOR_LEATHER_CUIRASS),
-                                    conditionsFromItem(ModEquipmentItems.MORDOR_LEATHER_CUIRASS))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.MORDOR_LEATHER_CUIRASS),
+                                    conditionsFromItem(EquipmentItemsME.MORDOR_LEATHER_CUIRASS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_CREST_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_CREST_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3438,7 +3438,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_CREST_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_CREST_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3448,7 +3448,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_MANDIBLE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_MANDIBLE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3458,7 +3458,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_MANDIBLE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_MANDIBLE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3468,7 +3468,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_SALLET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_SALLET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3478,7 +3478,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_SALLET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_SALLET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3488,111 +3488,111 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_CUIRASS.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_CUIRASS.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.MORDOR_LEATHER_CUIRASS)
+                            .input(EquipmentItemsME.MORDOR_LEATHER_CUIRASS)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.MORDOR_LEATHER_CUIRASS),
-                                    conditionsFromItem(ModEquipmentItems.MORDOR_LEATHER_CUIRASS))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.MORDOR_LEATHER_CUIRASS),
+                                    conditionsFromItem(EquipmentItemsME.MORDOR_LEATHER_CUIRASS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_CUIRASS.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_CUIRASS.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.MORDOR_LEATHER_CUIRASS)
+                            .input(EquipmentItemsME.MORDOR_LEATHER_CUIRASS)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.MORDOR_LEATHER_CUIRASS),
-                                    conditionsFromItem(ModEquipmentItems.MORDOR_LEATHER_CUIRASS))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.MORDOR_LEATHER_CUIRASS),
+                                    conditionsFromItem(EquipmentItemsME.MORDOR_LEATHER_CUIRASS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_GORGET_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_GORGET_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .input(Items.LEATHER)
-                            .input(ModEquipmentItems.ORCISH_MAIL_HAUBERK)
+                            .input(EquipmentItemsME.ORCISH_MAIL_HAUBERK)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.ORCISH_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.ORCISH_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.ORCISH_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.ORCISH_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_GORGET_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_GORGET_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .input(Items.LEATHER)
-                            .input(ModEquipmentItems.ORCISH_MAIL_HAUBERK)
+                            .input(EquipmentItemsME.ORCISH_MAIL_HAUBERK)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.ORCISH_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.ORCISH_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.ORCISH_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.ORCISH_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_REINFORCED_COAT.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_REINFORCED_COAT.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.MORDOR_LEATHER_CUIRASS)
+                            .input(EquipmentItemsME.MORDOR_LEATHER_CUIRASS)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.MORDOR_LEATHER_CUIRASS),
-                                    conditionsFromItem(ModEquipmentItems.MORDOR_LEATHER_CUIRASS))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.MORDOR_LEATHER_CUIRASS),
+                                    conditionsFromItem(EquipmentItemsME.MORDOR_LEATHER_CUIRASS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_REINFORCED_COAT.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_REINFORCED_COAT.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.MORDOR_LEATHER_CUIRASS)
+                            .input(EquipmentItemsME.MORDOR_LEATHER_CUIRASS)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.MORDOR_LEATHER_CUIRASS),
-                                    conditionsFromItem(ModEquipmentItems.MORDOR_LEATHER_CUIRASS))
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.MORDOR_LEATHER_CUIRASS),
+                                    conditionsFromItem(EquipmentItemsME.MORDOR_LEATHER_CUIRASS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.ORCISH_MAIL_HAUBERK)
+                            .input(EquipmentItemsME.ORCISH_MAIL_HAUBERK)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.ORCISH_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.ORCISH_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.ORCISH_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.ORCISH_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.ORCISH_MAIL_HAUBERK)
+                            .input(EquipmentItemsME.ORCISH_MAIL_HAUBERK)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.ORCISH_MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.ORCISH_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.ORCISH_MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.ORCISH_MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
@@ -3601,7 +3601,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
@@ -3610,7 +3610,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_GREAT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_GREAT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3620,7 +3620,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_GREAT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_GREAT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3630,7 +3630,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_SNOUT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_SNOUT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3640,7 +3640,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.RUSTED_MORDOR_SNOUT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_MORDOR_SNOUT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3650,33 +3650,33 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_DEGRADED_GONDORIAN_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_DEGRADED_GONDORIAN_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
-                            .input(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE)
+                            .input(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .input(Items.RED_DYE)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE))
+                            .criterion(hasItem(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_PAINTED_CUIRASS.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_PAINTED_CUIRASS.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .input(Items.RED_DYE)
-                            .input(ModEquipmentItems.MORDOR_CUIRASS)
+                            .input(EquipmentItemsME.MORDOR_CUIRASS)
                             .input(Items.RED_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.RED_DYE)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.MORDOR_CUIRASS),
-                                    conditionsFromItem(ModEquipmentItems.MORDOR_CUIRASS))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.MORDOR_CUIRASS),
+                                    conditionsFromItem(EquipmentItemsME.MORDOR_CUIRASS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_SCALE_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_SCALE_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelScaleMail.getItem()), burzumSteelScaleMail.getComponentChanges()))
@@ -3689,7 +3689,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                             .offerTo(exporter);
 
                     //T5
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BLACK_URUK_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_URUK_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3699,32 +3699,32 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BLACK_URUK_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_URUK_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.MORDOR_CHESTPLATE)
+                            .input(EquipmentItemsME.MORDOR_CHESTPLATE)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.MORDOR_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.MORDOR_CHESTPLATE))
+                            .criterion(hasItem(EquipmentItemsME.MORDOR_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.MORDOR_CHESTPLATE))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BLACK_URUK_PLATE_LEGGINGS.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_URUK_PLATE_LEGGINGS.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.ORCISH_MAIL_COAT)
+                            .input(EquipmentItemsME.ORCISH_MAIL_COAT)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.ORCISH_MAIL_COAT),
-                                    conditionsFromItem(ModEquipmentItems.ORCISH_MAIL_COAT))
+                            .criterion(hasItem(EquipmentItemsME.ORCISH_MAIL_COAT),
+                                    conditionsFromItem(EquipmentItemsME.ORCISH_MAIL_COAT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BLACK_URUK_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_URUK_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3733,7 +3733,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BLACK_URUK_FACE_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_URUK_FACE_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3743,30 +3743,30 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BLACK_URUK_COMMANDER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_URUK_COMMANDER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .input(Items.SKELETON_SKULL)
-                            .input(ModEquipmentItems.BLACK_URUK_PLATE_HELMET)
+                            .input(EquipmentItemsME.BLACK_URUK_PLATE_HELMET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.RED_DYE)
                             .input(Items.RED_DYE)
-                            .criterion(hasItem(ModEquipmentItems.BLACK_URUK_PLATE_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.BLACK_URUK_PLATE_HELMET))
+                            .criterion(hasItem(EquipmentItemsME.BLACK_URUK_PLATE_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.BLACK_URUK_PLATE_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BLACK_URUK_COMMANDER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_URUK_COMMANDER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.RED_DYE)
-                            .input(ModEquipmentItems.BLACK_URUK_PLATE_CHESTPLATE)
+                            .input(EquipmentItemsME.BLACK_URUK_PLATE_CHESTPLATE)
                             .input(Items.RED_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.RED_DYE)
-                            .input(ModResourceItems.FABRIC)
-                            .criterion(hasItem(ModEquipmentItems.BLACK_URUK_PLATE_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.BLACK_URUK_PLATE_CHESTPLATE))
+                            .input(ResourceItemsME.FABRIC)
+                            .criterion(hasItem(EquipmentItemsME.BLACK_URUK_PLATE_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.BLACK_URUK_PLATE_CHESTPLATE))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -3776,32 +3776,32 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.MAIL_HAUBERK)
+                            .input(EquipmentItemsME.MAIL_HAUBERK)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_LEGGINGS.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_LEGGINGS.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.MAIL_SKIRT)
+                            .input(EquipmentItemsME.MAIL_SKIRT)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.MAIL_SKIRT),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_SKIRT))
+                            .criterion(hasItem(EquipmentItemsME.MAIL_SKIRT),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_SKIRT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -3810,24 +3810,24 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_CAPE.getDefaultStack(), "cape", Disposition.EVIL)
-                            .input(ModResourceItems.STEEL_NUGGET)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_CAPE.getDefaultStack(), "cape", Disposition.EVIL)
+                            .input(ResourceItemsME.STEEL_NUGGET)
                             .input(Items.STRING)
-                            .input(ModResourceItems.STEEL_NUGGET)
+                            .input(ResourceItemsME.STEEL_NUGGET)
                             .input(Items.BLACK_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
                             .input(Items.RED_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.RED_DYE)
-                            .criterion(hasItem(ModResourceItems.FABRIC),
-                                    conditionsFromItem(ModResourceItems.FABRIC))
+                            .criterion(hasItem(ResourceItemsME.FABRIC),
+                                    conditionsFromItem(ResourceItemsME.FABRIC))
                             .offerTo(exporter);
 
                     //endregion
 
                     //region ISENGARD
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_LEATHER_SCOUT_CAP.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_LEATHER_SCOUT_CAP.getDefaultStack(), "helmet", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -3837,27 +3837,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_LEATHER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
-                            .criterion(hasItem(Items.LEATHER),
-                                    conditionsFromItem(Items.LEATHER))
-                            .offerTo(exporter);
-
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_LEATHER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
-                            .input(ModEquipmentItems.URUK_HAI_LEATHER_CHESTPLATE)
-                            .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
-                            .criterion(hasItem(ModEquipmentItems.URUK_HAI_LEATHER_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.URUK_HAI_LEATHER_CHESTPLATE))
-                            .offerTo(exporter);
-
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_LEATHER_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -3870,7 +3850,18 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_PAINTED_LEATHER_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                            .input(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE)
+                            .input(ResourceItemsME.ISENGARD_BANNER_PATTERN)
+                            .criterion(hasItem(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE))
+                            .offerTo(exporter);
+
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_LEATHER_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -3879,7 +3870,16 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_LIGHT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
+                            .criterion(hasItem(Items.LEATHER),
+                                    conditionsFromItem(Items.LEATHER))
+                            .offerTo(exporter);
+
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_LIGHT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -3889,14 +3889,14 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_LIGHT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
-                            .input(ModEquipmentItems.URUK_HAI_LIGHT_HELMET)
-                            .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
-                            .criterion(hasItem(ModEquipmentItems.URUK_HAI_LIGHT_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.URUK_HAI_LIGHT_HELMET))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_PAINTED_LIGHT_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                            .input(EquipmentItemsME.URUK_HAI_LIGHT_HELMET)
+                            .input(ResourceItemsME.ISENGARD_BANNER_PATTERN)
+                            .criterion(hasItem(EquipmentItemsME.URUK_HAI_LIGHT_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.URUK_HAI_LIGHT_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_REINFORCED_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_REINFORCED_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -3906,14 +3906,14 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_REINFORCED_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
-                            .input(ModEquipmentItems.URUK_HAI_REINFORCED_HELMET)
-                            .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
-                            .criterion(hasItem(ModEquipmentItems.URUK_HAI_REINFORCED_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.URUK_HAI_REINFORCED_HELMET))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_PAINTED_REINFORCED_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                            .input(EquipmentItemsME.URUK_HAI_REINFORCED_HELMET)
+                            .input(ResourceItemsME.ISENGARD_BANNER_PATTERN)
+                            .criterion(hasItem(EquipmentItemsME.URUK_HAI_REINFORCED_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.URUK_HAI_REINFORCED_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -3926,7 +3926,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_MAIL_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_MAIL_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -3938,20 +3938,20 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_MAIL_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_MAIL_SKIRT.getDefaultStack(), "leggings", Disposition.EVIL)
                             .input(Items.LEATHER)
-                            .input(ModEquipmentItems.URUK_HAI_MAIL_COAT)
-                            .input(Items.LEATHER)
-                            .input(Items.LEATHER)
+                            .input(EquipmentItemsME.URUK_HAI_MAIL_COAT)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.URUK_HAI_MAIL_COAT),
-                                    conditionsFromItem(ModEquipmentItems.URUK_HAI_MAIL_COAT))
+                            .input(Items.LEATHER)
+                            .input(Items.LEATHER)
+                            .criterion(hasItem(EquipmentItemsME.URUK_HAI_MAIL_COAT),
+                                    conditionsFromItem(EquipmentItemsME.URUK_HAI_MAIL_COAT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3961,14 +3961,14 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
-                            .input(ModEquipmentItems.URUK_HAI_SOLDIER_HELMET)
-                            .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
-                            .criterion(hasItem(ModEquipmentItems.URUK_HAI_SOLDIER_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.URUK_HAI_SOLDIER_HELMET))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_PAINTED_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                            .input(EquipmentItemsME.URUK_HAI_SOLDIER_HELMET)
+                            .input(ResourceItemsME.ISENGARD_BANNER_PATTERN)
+                            .criterion(hasItem(EquipmentItemsME.URUK_HAI_SOLDIER_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.URUK_HAI_SOLDIER_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_CUIRASS.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_CUIRASS.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
@@ -3981,7 +3981,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -3991,32 +3991,32 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.URUK_HAI_CUIRASS)
+                            .input(EquipmentItemsME.URUK_HAI_CUIRASS)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.URUK_HAI_CUIRASS),
-                                    conditionsFromItem(ModEquipmentItems.URUK_HAI_CUIRASS))
+                            .criterion(hasItem(EquipmentItemsME.URUK_HAI_CUIRASS),
+                                    conditionsFromItem(EquipmentItemsME.URUK_HAI_CUIRASS))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PLATE_LEGGINGS.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_PLATE_LEGGINGS.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.URUK_HAI_MAIL_COAT)
+                            .input(EquipmentItemsME.URUK_HAI_MAIL_COAT)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.URUK_HAI_MAIL_COAT),
-                                    conditionsFromItem(ModEquipmentItems.URUK_HAI_MAIL_COAT))
+                            .criterion(hasItem(EquipmentItemsME.URUK_HAI_MAIL_COAT),
+                                    conditionsFromItem(EquipmentItemsME.URUK_HAI_MAIL_COAT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_PLATE_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -4025,14 +4025,14 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
-                            .input(ModEquipmentItems.URUK_HAI_PLATE_HELMET)
-                            .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
-                            .criterion(hasItem(ModEquipmentItems.URUK_HAI_PLATE_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.URUK_HAI_PLATE_HELMET))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_PAINTED_PLATE_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                            .input(EquipmentItemsME.URUK_HAI_PLATE_HELMET)
+                            .input(ResourceItemsME.ISENGARD_BANNER_PATTERN)
+                            .criterion(hasItem(EquipmentItemsME.URUK_HAI_PLATE_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.URUK_HAI_PLATE_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_SAPPER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_SAPPER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -4042,14 +4042,14 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_SAPPER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
-                            .input(ModEquipmentItems.URUK_HAI_SAPPER_HELMET)
-                            .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
-                            .criterion(hasItem(ModEquipmentItems.URUK_HAI_SAPPER_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.URUK_HAI_SAPPER_HELMET))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_PAINTED_SAPPER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                            .input(EquipmentItemsME.URUK_HAI_SAPPER_HELMET)
+                            .input(ResourceItemsME.ISENGARD_BANNER_PATTERN)
+                            .criterion(hasItem(EquipmentItemsME.URUK_HAI_SAPPER_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.URUK_HAI_SAPPER_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_BERSERKER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_BERSERKER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -4059,31 +4059,31 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_BERSERKER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
-                            .input(ModEquipmentItems.URUK_HAI_BERSERKER_HELMET)
-                            .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
-                            .criterion(hasItem(ModEquipmentItems.URUK_HAI_BERSERKER_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.URUK_HAI_BERSERKER_HELMET))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_PAINTED_BERSERKER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                            .input(EquipmentItemsME.URUK_HAI_BERSERKER_HELMET)
+                            .input(ResourceItemsME.ISENGARD_BANNER_PATTERN)
+                            .criterion(hasItem(EquipmentItemsME.URUK_HAI_BERSERKER_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.URUK_HAI_BERSERKER_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_COMMANDER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_COMMANDER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.URUK_HAI_PLATE_HELMET)
+                            .input(EquipmentItemsME.URUK_HAI_PLATE_HELMET)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.URUK_HAI_PLATE_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.URUK_HAI_PLATE_HELMET))
+                            .criterion(hasItem(EquipmentItemsME.URUK_HAI_PLATE_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.URUK_HAI_PLATE_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.URUK_HAI_PAINTED_COMMANDER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
-                            .input(ModEquipmentItems.URUK_HAI_COMMANDER_HELMET)
-                            .input(ModResourceItems.ISENGARD_BANNER_PATTERN)
-                            .criterion(hasItem(ModEquipmentItems.URUK_HAI_COMMANDER_HELMET),
-                                    conditionsFromItem(ModEquipmentItems.URUK_HAI_COMMANDER_HELMET))
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.URUK_HAI_PAINTED_COMMANDER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                            .input(EquipmentItemsME.URUK_HAI_COMMANDER_HELMET)
+                            .input(ResourceItemsME.ISENGARD_BANNER_PATTERN)
+                            .criterion(hasItem(EquipmentItemsME.URUK_HAI_COMMANDER_HELMET),
+                                    conditionsFromItem(EquipmentItemsME.URUK_HAI_COMMANDER_HELMET))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORTHANC_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORTHANC_GUARD_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -4093,32 +4093,32 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORTHANC_GUARD_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORTHANC_GUARD_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.MAIL_HAUBERK)
+                            .input(EquipmentItemsME.MAIL_HAUBERK)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.MAIL_HAUBERK),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.MAIL_HAUBERK),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_HAUBERK))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORTHANC_GUARD_LEGGINGS.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORTHANC_GUARD_LEGGINGS.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.MAIL_SKIRT)
+                            .input(EquipmentItemsME.MAIL_SKIRT)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.MAIL_SKIRT),
-                                    conditionsFromItem(ModEquipmentItems.MAIL_SKIRT))
+                            .criterion(hasItem(EquipmentItemsME.MAIL_SKIRT),
+                                    conditionsFromItem(EquipmentItemsME.MAIL_SKIRT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORTHANC_GUARD_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORTHANC_GUARD_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -4127,9 +4127,9 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORTHANC_COMMANDER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORTHANC_COMMANDER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .input(Items.FEATHER)
-                            .input(ModEquipmentItems.ORTHANC_GUARD_HELMET)
+                            .input(EquipmentItemsME.ORTHANC_GUARD_HELMET)
                             .input(Items.FEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -4137,15 +4137,15 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ORTHANC_GUARD_CAPE.getDefaultStack(), "cape", Disposition.EVIL)
-                            .input(ModResourceItems.FABRIC)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORTHANC_GUARD_CAPE.getDefaultStack(), "cape", Disposition.EVIL)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.STRING)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LIGHT_GRAY_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.BLACK_DYE)
                             .criterion(hasItem(steelHelmetPlate.getItem()),
                                     conditionsFromItem(steelHelmetPlate.getItem()))
@@ -4154,7 +4154,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                     //endregion
 
                     //region MISTIES
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_BONE_PAULDRON.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_BONE_PAULDRON.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
@@ -4164,7 +4164,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_SEEKER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_SEEKER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
@@ -4174,7 +4174,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_LEATHER_SCALE_COAT.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                             .input(Items.LEATHER)
@@ -4187,7 +4187,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_LEATHER_LEGGINGS.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_LEATHER_LEGGINGS.getDefaultStack(), "leggings", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -4199,7 +4199,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_LACED_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_LACED_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -4208,7 +4208,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_SKULLCAP_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_SKULLCAP_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
@@ -4218,7 +4218,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_MAIL_COIF.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_MAIL_COIF.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -4228,20 +4228,8 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_MAIL_HAUBERK.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                            .criterion(hasItem(ironChainmail.getItem()),
-                                    conditionsFromItem(ironChainmail.getItem()))
-                            .offerTo(exporter);
-
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_MAIL_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -4253,7 +4241,19 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_MAIL_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                            .criterion(hasItem(ironChainmail.getItem()),
+                                    conditionsFromItem(ironChainmail.getItem()))
+                            .offerTo(exporter);
+
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_SOLDIER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -4263,7 +4263,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_SCREECHER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_SCREECHER_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -4273,33 +4273,33 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_REINFORCED_LEATHER_SCALE_COAT.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_REINFORCED_LEATHER_SCALE_COAT.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT)
+                            .input(EquipmentItemsME.GUNDABAD_LEATHER_SCALE_COAT)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT),
-                                    conditionsFromItem(ModEquipmentItems.GUNDABAD_LEATHER_SCALE_COAT))
+                            .criterion(hasItem(EquipmentItemsME.GUNDABAD_LEATHER_SCALE_COAT),
+                                    conditionsFromItem(EquipmentItemsME.GUNDABAD_LEATHER_SCALE_COAT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_REINFORCED_LEATHER_VEST.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_REINFORCED_LEATHER_VEST.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST)
+                            .input(EquipmentItemsME.ORCISH_LEATHER_SCALE_VEST)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST),
-                                    conditionsFromItem(ModEquipmentItems.ORCISH_LEATHER_SCALE_VEST))
+                            .criterion(hasItem(EquipmentItemsME.ORCISH_LEATHER_SCALE_VEST),
+                                    conditionsFromItem(EquipmentItemsME.ORCISH_LEATHER_SCALE_VEST))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -4309,32 +4309,32 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .input(ModEquipmentItems.GUNDABAD_REINFORCED_LEATHER_VEST)
+                            .input(EquipmentItemsME.GUNDABAD_REINFORCED_LEATHER_VEST)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GUNDABAD_REINFORCED_LEATHER_VEST),
-                                    conditionsFromItem(ModEquipmentItems.GUNDABAD_REINFORCED_LEATHER_VEST))
+                            .criterion(hasItem(EquipmentItemsME.GUNDABAD_REINFORCED_LEATHER_VEST),
+                                    conditionsFromItem(EquipmentItemsME.GUNDABAD_REINFORCED_LEATHER_VEST))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_HOBGOBLIN_MAIL_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_HOBGOBLIN_MAIL_COAT.getDefaultStack(), "leggings", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.GUNDABAD_MAIL_COAT)
+                            .input(EquipmentItemsME.GUNDABAD_MAIL_COAT)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.ORCISH_MAIL_COAT),
-                                    conditionsFromItem(ModEquipmentItems.ORCISH_MAIL_COAT))
+                            .criterion(hasItem(EquipmentItemsME.ORCISH_MAIL_COAT),
+                                    conditionsFromItem(EquipmentItemsME.ORCISH_MAIL_COAT))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATED_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATED_BOOTS.getDefaultStack(), "boots", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -4343,7 +4343,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -4353,7 +4353,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -4363,7 +4363,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -4373,7 +4373,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_CAPTAIN_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_CAPTAIN_HELMET.getDefaultStack(), "helmet", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelHelmetPlate.getItem()), burzumSteelHelmetPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
@@ -4383,17 +4383,17 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
                             .input(Items.SKELETON_SKULL)
                             .input(Items.SKELETON_SKULL)
                             .input(Items.STICK)
-                            .input(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE)
+                            .input(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE)
                             .input(Items.STICK)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE),
-                                    conditionsFromItem(ModEquipmentItems.GUNDABAD_MAIL_HAUBERK))
+                            .criterion(hasItem(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE),
+                                    conditionsFromItem(EquipmentItemsME.GUNDABAD_MAIL_HAUBERK))
                             .offerTo(exporter);
 
                     //endregion
@@ -4402,11 +4402,11 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
 
                     //MOUNT ARMORS
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_HORSE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_HORSE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
@@ -4414,11 +4414,11 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.ROHIRRIC_HORSE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ROHIRRIC_HORSE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
@@ -4426,11 +4426,11 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.DALISH_HORSE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DALISH_HORSE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
@@ -4438,11 +4438,11 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(steelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.LORIEN_HORSE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_HORSE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
@@ -4450,35 +4450,35 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(edhelSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
                             .criterion(hasItem(Items.LEATHER),
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
                             .input(Items.LEATHER)
                             .input(Items.GOLD_INGOT)
-                            .input(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR)
+                            .input(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR)
                             .input(Items.GOLD_INGOT)
                             .input(Items.LEATHER)
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR),
-                                    conditionsFromItem(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR))
+                            .criterion(hasItem(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR),
+                                    conditionsFromItem(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.BROADHOOF_GOAT_PLATE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BROADHOOF_GOAT_PLATE_ARMOR.getDefaultStack(), "mount_armor", Disposition.GOOD)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
-                            .input(ModResourceItems.FABRIC)
+                            .input(ResourceItemsME.FABRIC)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelArmorPlate.getItem()), khazadSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(khazadSteelChainmail.getItem()), khazadSteelChainmail.getComponentChanges()))
@@ -4486,7 +4486,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(khazadSteelArmorPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WARG_LEATHER_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WARG_LEATHER_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
                             .input(Items.LEATHER)
@@ -4498,19 +4498,19 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(Items.LEATHER))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
                             .input(Items.LEATHER)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
-                            .input(ModEquipmentItems.WARG_LEATHER_ARMOR)
+                            .input(EquipmentItemsME.WARG_LEATHER_ARMOR)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                             .input(Items.LEATHER)
                             .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                             .input(Items.LEATHER)
-                            .criterion(hasItem(ModEquipmentItems.WARG_LEATHER_ARMOR),
-                                    conditionsFromItem(ModEquipmentItems.WARG_LEATHER_ARMOR))
+                            .criterion(hasItem(EquipmentItemsME.WARG_LEATHER_ARMOR),
+                                    conditionsFromItem(EquipmentItemsME.WARG_LEATHER_ARMOR))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WARG_MORDOR_MAIL_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WARG_MORDOR_MAIL_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                             .input(Items.LEATHER)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -4522,22 +4522,10 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WARG_MORDOR_PLATE_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(ModEquipmentItems.WARG_MORDOR_MAIL_ARMOR)
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .input(Items.LEATHER)
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                            .criterion(hasItem(ironChainmail.getItem()),
-                                    conditionsFromItem(ironChainmail.getItem()))
-                            .offerTo(exporter);
-
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WARG_ISENGARD_PLATE_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .input(Items.LEATHER)
+                            .input(EquipmentItemsME.WARG_MORDOR_MAIL_ARMOR)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                             .input(Items.LEATHER)
@@ -4546,7 +4534,19 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(ironChainmail.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ModEquipmentItems.WARG_GUNDABAD_PLATE_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WARG_ISENGARD_PLATE_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                            .input(Items.LEATHER)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                            .input(Items.LEATHER)
+                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                            .criterion(hasItem(ironChainmail.getItem()),
+                                    conditionsFromItem(ironChainmail.getItem()))
+                            .offerTo(exporter);
+
+                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WARG_GUNDABAD_PLATE_ARMOR.getDefaultStack(), "mount_armor", Disposition.EVIL)
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
                             .input(Items.LEATHER)

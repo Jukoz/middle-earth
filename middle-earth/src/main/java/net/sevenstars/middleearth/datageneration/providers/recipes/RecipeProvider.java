@@ -18,7 +18,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.StoneBlockSets;
 import net.sevenstars.middleearth.datageneration.custom.AlloyRecipeJsonBuilder;
 import net.sevenstars.middleearth.datageneration.custom.AnvilShapingRecipeJsonBuilder;
-import net.sevenstars.middleearth.item.ModDecorativeItems;
+import net.sevenstars.middleearth.item.DecorativeItemsME;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -2155,29 +2155,29 @@ public class RecipeProvider extends FabricRecipeProvider {
                 switch (ingots) {
                     case 1 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount)
                             .input(input)
-                            .criterion(hasItem(ModDecorativeItems.FORGE),
-                                    conditionsFromItem(ModDecorativeItems.FORGE))
+                            .criterion(hasItem(DecorativeItemsME.FORGE),
+                                    conditionsFromItem(DecorativeItemsME.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_1_" + input.id().getPath())));
                     case 2 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 2)
                             .input(input)
                             .input(input)
-                            .criterion(hasItem(ModDecorativeItems.FORGE),
-                                    conditionsFromItem(ModDecorativeItems.FORGE))
+                            .criterion(hasItem(DecorativeItemsME.FORGE),
+                                    conditionsFromItem(DecorativeItemsME.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_2_" + input.id().getPath())));
                     case 3 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 3)
                             .input(input)
                             .input(input)
                             .input(input)
-                            .criterion(hasItem(ModDecorativeItems.FORGE),
-                                    conditionsFromItem(ModDecorativeItems.FORGE))
+                            .criterion(hasItem(DecorativeItemsME.FORGE),
+                                    conditionsFromItem(DecorativeItemsME.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_3_" + input.id().getPath())));
                     case 4 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 4)
                             .input(input)
                             .input(input)
                             .input(input)
                             .input(input)
-                            .criterion(hasItem(ModDecorativeItems.FORGE),
-                                    conditionsFromItem(ModDecorativeItems.FORGE))
+                            .criterion(hasItem(DecorativeItemsME.FORGE),
+                                    conditionsFromItem(DecorativeItemsME.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_4_" + input.id().getPath())));
                 }
             }

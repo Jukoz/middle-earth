@@ -22,7 +22,12 @@ import net.minecraft.util.math.Direction;
 
 import java.util.function.Function;
 
-public class ModDecorativeItems {
+public class DecorativeItemsME {
+
+    /**
+     * Middle-earth mod Decorative Items registry for blocks
+     */
+
     public static final Item DWARVEN_LANTERN = registerItem("dwarven_lantern",
             (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.DWARVEN_LANTERN, ModDecorativeBlocks.WALL_DWARVEN_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
     public static final Item CRYSTAL_LAMP = registerItem("crystal_lamp",

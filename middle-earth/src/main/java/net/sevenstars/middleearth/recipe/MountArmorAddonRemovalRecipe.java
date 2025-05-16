@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.recipe;
 
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.items.armor.CustomAnimalArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -44,7 +44,7 @@ public class MountArmorAddonRemovalRecipe extends SpecialCraftingRecipe {
         for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
-                if (itemStack2.getItem() instanceof CustomAnimalArmorItem && itemStack2.get(ModDataComponentTypes.MOUNT_ARMOR_DATA) != null) {
+                if (itemStack2.getItem() instanceof CustomAnimalArmorItem && itemStack2.get(DataComponentTypesME.MOUNT_ARMOR_DATA) != null) {
                     if (!itemStackArmor.isEmpty()) {
                         return false;
                     }
@@ -67,7 +67,7 @@ public class MountArmorAddonRemovalRecipe extends SpecialCraftingRecipe {
         for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
-                if (itemStack2.getItem() instanceof CustomAnimalArmorItem && itemStack2.get(ModDataComponentTypes.MOUNT_ARMOR_DATA) != null) {
+                if (itemStack2.getItem() instanceof CustomAnimalArmorItem && itemStack2.get(DataComponentTypesME.MOUNT_ARMOR_DATA) != null) {
                     if (!itemStack.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
@@ -82,7 +82,7 @@ public class MountArmorAddonRemovalRecipe extends SpecialCraftingRecipe {
         }
 
         if (!itemStack.isEmpty()) {
-            itemStack.remove(ModDataComponentTypes.MOUNT_ARMOR_DATA);
+            itemStack.remove(DataComponentTypesME.MOUNT_ARMOR_DATA);
             return itemStack;
         } else {
             return ItemStack.EMPTY;

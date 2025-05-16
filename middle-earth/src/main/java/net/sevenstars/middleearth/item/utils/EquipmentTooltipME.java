@@ -15,7 +15,11 @@ import net.minecraft.util.Formatting;
 import java.util.List;
 import java.util.function.Consumer;
 
-public interface MEEquipmentTooltip {
+public interface EquipmentTooltipME {
+
+    /**
+     * Middle-earth mod Equipment Tooltip utils
+     */
 
     String COLOR_PREFIX = "#%06X";
 

@@ -11,17 +11,14 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
+import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
 
-import java.util.List;
 import java.util.function.Consumer;
 
-public class CustomHorseArmorItem extends Item implements MEEquipmentTooltip {
+public class CustomHorseArmorItem extends Item implements EquipmentTooltipME {
 
     private final ModFactions faction;
     private final ModSubFactions subFaction;

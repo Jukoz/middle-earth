@@ -69,8 +69,8 @@ import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreen;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreen;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
-import net.sevenstars.middleearth.item.ModEquipmentItems;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.EquipmentItemsME;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.utils.armor.ModArmorModels;
 import net.sevenstars.middleearth.network.ModClientNetworkHandler;
 import net.sevenstars.middleearth.network.connections.ConnectionToServer;
@@ -172,23 +172,23 @@ public class MiddleEarthClient implements ClientModInitializer {
             ArmorRenderer.register(new ChestplateArmorRenderer(model.getModel()), model.getItem());
         }
 
-        ModEquipmentItems.armorPiecesListHelmets.forEach(armor -> {
+        EquipmentItemsME.armorPiecesListHelmets.forEach(armor -> {
             ArmorRenderer.register(new HelmetArmorRenderer(), armor.asItem());
         });
-        ModEquipmentItems.armorPiecesListChestplates.forEach(armor -> {
+        EquipmentItemsME.armorPiecesListChestplates.forEach(armor -> {
             ArmorRenderer.register(new ChestplateArmorRenderer(), armor.asItem());
         });
-        ModEquipmentItems.armorPiecesListLeggings.forEach(armor -> {
+        EquipmentItemsME.armorPiecesListLeggings.forEach(armor -> {
             ArmorRenderer.register(new LeggingsArmorRenderer(), armor.asItem());
         });
-        ModEquipmentItems.armorPiecesListBoots.forEach(armor -> {
+        EquipmentItemsME.armorPiecesListBoots.forEach(armor -> {
             ArmorRenderer.register(new BootsArmorRenderer(), armor.asItem());
         });
 
-        ModEquipmentItems.hoods.forEach(hood -> {
+        EquipmentItemsME.hoods.forEach(hood -> {
             ArmorRenderer.register(new HoodRenderer(), hood);
         });
-        ModEquipmentItems.capes.forEach(cape -> {
+        EquipmentItemsME.capes.forEach(cape -> {
             ArmorRenderer.register(new CapeRenderer(), cape);
         });
 
@@ -591,7 +591,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WHITE_STAINED_LEAD_GLASS_PANE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.YELLOW_STAINED_LEAD_GLASS_PANE, RenderLayer.getTranslucent());
 
-        BlockRenderLayerMap.INSTANCE.putBlock(ModResourceItems.REEDS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ResourceItemsME.REEDS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.TALL_CATTAILS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.TALL_BULRUSH, RenderLayer.getCutout());
 
