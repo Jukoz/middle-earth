@@ -61,12 +61,7 @@ public class CrockpotBlock extends BlockWithEntity {
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
 
-        if(world.isClient) {
-            if(stack.isEmpty()) {
-                return ActionResult.SUCCESS;
-            }
-            return ActionResult.CONSUME;
-        } else if(blockEntity instanceof CrockpotBlockEntity crockpotBlockEntity) {
+        if(blockEntity instanceof CrockpotBlockEntity crockpotBlockEntity) {
             boolean filled = crockpotBlockEntity.fill(stack);
             if(filled) {
                 ItemStack remainder = stack.getRecipeRemainder();
@@ -88,11 +83,14 @@ public class CrockpotBlock extends BlockWithEntity {
                         stack.decrement(1);
                         world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 0.9F);
 
-                        if (stack.isEmpty()) {
-                            player.setStackInHand(hand, stackResult);
-                        } else if (!player.getInventory().insertStack(stackResult)) {
-                            player.dropItem(stackResult, false);
+                        if(world.isClient) {
+                            if (stack.isEmpty()) {
+                                player.setStackInHand(hand, stackResult);
+                            } else if (!player.getInventory().insertStack(stackResult)) {
+                                player.dropItem(stackResult, false);
+                            }
                         }
+
                         world.emitGameEvent(player, GameEvent.FLUID_PICKUP, pos);
                         return ActionResult.SUCCESS;
                     }
