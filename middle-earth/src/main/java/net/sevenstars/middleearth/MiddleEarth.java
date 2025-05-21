@@ -35,7 +35,7 @@ import net.sevenstars.middleearth.world.spawners.ModEntitySpawning;
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "middle-earth";
 	public static final String OLD_MOD_ID = "me";
-	public static final String MOD_VERSION = "1.5.1-1.21.1-alpha";
+	public static final String MOD_VERSION = "1.0.0-1.21.5-beta-dev";
 	public static final boolean IS_DEBUG = true;
 	public static final boolean ENABLE_INSTANT_BOOTING = true;
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
