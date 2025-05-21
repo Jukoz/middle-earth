@@ -1,8 +1,0 @@
-{
-	"credit": "Made with Blockbench",
-	"parent": "me:item/lorien_small_shield_template",
-	"texture_size": [64, 64],
-	"textures": {
-		"2": "me:item/lorien_shield"
-	}
-}

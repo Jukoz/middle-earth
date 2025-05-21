@@ -28,6 +28,7 @@ import net.sevenstars.middleearth.entity.projectile.spear.SpearEntity;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
 import net.sevenstars.middleearth.entity.swan.SwanEntity;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 
 public class ModEntities {
 
@@ -76,6 +77,7 @@ public class ModEntities {
     private static <T extends Entity> EntityType<T> register(RegistryKey<EntityType<?>> key, EntityType.Builder<T> type) {
         EntityType<T> entityType = (EntityType)Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
         TranslationEntries.entityEntries.add(entityType);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ENTITY_TYPE, entityType.getUntranslatedName()));
         return entityType;
     }
 

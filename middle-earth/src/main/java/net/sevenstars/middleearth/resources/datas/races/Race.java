@@ -12,6 +12,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.RaceType;
@@ -162,11 +163,12 @@ public class Race {
     public void drawTooltip(LivingEntity entity, DrawContext context, TextRenderer renderer, int x, int y){
         List<Text> texts = new ArrayList<>();
         texts.add(getFullName());
-        texts.add(Text.translatable("race_tooltip.me.attribute_header").formatted(Formatting.UNDERLINE));
+        texts.add(Text.translatable("race_tooltip.%s.attribute_header".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.UNDERLINE));
         List<AttributePoolElement> elements = playerAttributePool.getPool();
         for(var element : elements){
             double value = element.getValue();
             double difference = value - playerAttributePool.getEntityCurrentAttributeValue(entity, id);
+
             // Round them
             value = Math.round(value * 1000) / 1000.0;
             difference = Math.round(difference * 1000) / 1000.0;

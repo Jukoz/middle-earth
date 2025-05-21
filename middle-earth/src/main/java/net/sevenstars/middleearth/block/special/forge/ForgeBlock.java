@@ -1,10 +1,9 @@
 package net.sevenstars.middleearth.block.special.forge;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.block.ModBlockEntities;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -64,9 +63,9 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
 
                 if (metal != MetalTypes.EMPTY){
                     ItemStack ingotStack = new ItemStack(metal.getIngot(), storage / 144);
-                    ingotStack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                    ingotStack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
                     ItemStack nuggetStack = new ItemStack(metal.getNugget(), storage % 144 / 16);
-                    nuggetStack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                    nuggetStack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
 
                     ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), ingotStack);
                     ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), nuggetStack);

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " N ",
+    "NNN",
+    " N "
+  ],
+  "key": {
+    "N": {
+      "fabric:type": "fabric:components",
+      "base": "middle-earth:mail_ring",
+      "components": {
+        "minecraft:trim": {
+          "material": "middle-earth:edhel_steel",
+          "pattern": "middle-earth:smithing_part"
+        }
+      }
+    }
+  },
+  "result": {
+    "id": "middle-earth:mail",
+    "components": {
+      "minecraft:trim": {
+        "material": "middle-earth:edhel_steel",
+        "pattern": "middle-earth:smithing_part"
+      }
+    }
+  }
+}

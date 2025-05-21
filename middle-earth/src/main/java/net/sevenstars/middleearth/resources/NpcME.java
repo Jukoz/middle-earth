@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.resources;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.ModEquipmentItems;
+import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
@@ -98,16 +98,16 @@ public class NpcME {
         HUMAN_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "human.civilian"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.LEATHER_SKULLCAP).withWeight(2))
-                                .add(NpcGearItemData.create(ModEquipmentItems.STRAW_HAT).withWeight(2))
-                                .add(NpcGearItemData.create(ModEquipmentItems.WOVEN_HAT).withWeight(2))
-                                .add(NpcGearItemData.create(ModEquipmentItems.BYCOCKET).withWeight(1))
+                                .add(NpcGearItemData.create(EquipmentItemsME.LEATHER_SKULLCAP).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.BYCOCKET).withWeight(1))
                                 .add(NpcGearItemData.create().withWeight(4))
                         )
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.STURDY_BOOTS))
-                                .add(NpcGearItemData.create(ModEquipmentItems.WORK_SHOES).withWeight(2))
-                                .add(NpcGearItemData.create(ModEquipmentItems.SHOES).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.STURDY_BOOTS))
+                                .add(NpcGearItemData.create(EquipmentItemsME.WORK_SHOES).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.SHOES).withWeight(2))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
         ));

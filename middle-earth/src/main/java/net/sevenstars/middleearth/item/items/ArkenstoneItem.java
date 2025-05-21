@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.item.items;
 
 import net.minecraft.component.type.TooltipDisplayComponent;
-import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
+import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.VerticallyAttachableBlockItem;
@@ -10,10 +10,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Direction;
 
-import java.util.List;
 import java.util.function.Consumer;
 
-public class ArkenstoneItem extends VerticallyAttachableBlockItem implements MEEquipmentTooltip {
+public class ArkenstoneItem extends VerticallyAttachableBlockItem implements EquipmentTooltipME {
 
 
     public ArkenstoneItem(Block standingBlock, Block wallBlock, Direction verticalAttachmentDirection, Settings settings) {

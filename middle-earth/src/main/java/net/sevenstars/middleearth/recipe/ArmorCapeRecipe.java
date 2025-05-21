@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.recipe;
 
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.CapeDataComponent;
 import net.sevenstars.middleearth.item.items.armor.CapeChestplateItem;
 import net.sevenstars.middleearth.item.items.armor.CustomChestplateItem;
@@ -67,13 +67,13 @@ public class ArmorCapeRecipe extends SpecialCraftingRecipe {
 
         if (!itemStack.isEmpty()) {
             int color;
-            if (cape.get(ModDataComponentTypes.DYE_DATA) != null){
-                color = cape.get(ModDataComponentTypes.DYE_DATA).customRgb();
+            if (cape.get(DataComponentTypesME.DYE_DATA) != null){
+                color = cape.get(DataComponentTypesME.DYE_DATA).customRgb();
             } else {
                 color = 0;
             }
             return CapeDataComponent.setCapeWithColor(itemStack,
-                    cape.get(ModDataComponentTypes.CAPE_DATA).cape(),
+                    cape.get(DataComponentTypesME.CAPE_DATA).cape(),
                     color);
         } else {
             return ItemStack.EMPTY;

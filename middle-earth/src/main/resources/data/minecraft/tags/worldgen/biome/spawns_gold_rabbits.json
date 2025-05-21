@@ -2,9 +2,9 @@
   "replace": false,
   "values": [
     "minecraft:desert",
-    "me:harad_desert",
-    "me:harad",
-    "me:corsair_coasts",
-    "me:oasis"
+    "middle-earth:harad_desert",
+    "middle-earth:harad",
+    "middle-earth:corsair_coasts",
+    "middle-earth:oasis"
   ]
 }

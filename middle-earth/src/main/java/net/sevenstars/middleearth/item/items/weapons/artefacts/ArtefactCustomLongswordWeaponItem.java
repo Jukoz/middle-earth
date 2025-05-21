@@ -1,34 +1,29 @@
 package net.sevenstars.middleearth.item.items.weapons.artefacts;
 
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.item.Item;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
-import net.sevenstars.middleearth.utils.ModFactions;
-import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.ToolComponent;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
+import net.sevenstars.middleearth.utils.ModFactions;
+import net.sevenstars.middleearth.utils.ModSubFactions;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem {
-    public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
     public ArtefactCustomLongswordWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
         super(toolMaterial, settings);
@@ -40,10 +35,6 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
 
     public ArtefactCustomLongswordWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
         super(toolMaterial, subFaction, settings);
-    }
-
-    public static boolean isUsable(ItemStack stack) {
-        return stack.getDamage() < stack.getMaxDamage() - 1;
     }
 
     @Override
@@ -69,9 +60,6 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
 
     @Override
     public void postDamageEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (stack.getDamage() < stack.getMaxDamage() - 1){
-            stack.damage(1, attacker, EquipmentSlot.MAINHAND);
-        }
         if (stack.getDamage() == stack.getMaxDamage() - 1){
             stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
                     .add(EntityAttributes.ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID,
@@ -81,8 +69,8 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
                     .add(EntityAttributes.ENTITY_INTERACTION_RANGE, new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID,
                             0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                     .build());
+            stack.remove(DataComponentTypes.WEAPON);
         }
-
     }
 
     @Override
@@ -92,9 +80,6 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
             return false;
         } else {
             if (!world.isClient && state.getHardness(world, pos) != 0.0F && toolComponent.damagePerBlock() > 0) {
-                if (stack.getDamage() < stack.getMaxDamage() - 1){
-                    stack.damage(1, miner, EquipmentSlot.MAINHAND);
-                }
                 if (stack.getDamage() == stack.getMaxDamage() - 1){
                     stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
                             .add(EntityAttributes.ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID,
@@ -105,6 +90,7 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
                                     0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                             .build());
                 }
+                stack.remove(DataComponentTypes.WEAPON);
             }
             return true;
         }

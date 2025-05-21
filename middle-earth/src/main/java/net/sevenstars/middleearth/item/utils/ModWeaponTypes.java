@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.item.utils;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ToolMaterial;
+
 public enum ModWeaponTypes {
 
     SWORD("sword", 4, -2.4f, 0.0F, false),

@@ -7,9 +7,9 @@ import net.sevenstars.middleearth.block.OreRockSets;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
-import net.sevenstars.middleearth.item.ModEquipmentItems;
-import net.sevenstars.middleearth.item.ModFoodItems;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.EquipmentItemsME;
+import net.sevenstars.middleearth.item.FoodItemsME;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.recipe.ModTags;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -64,46 +64,46 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("logs"))).add(Logs.getItemPlanks().toArray(new Item[0]));
 
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("swords"))).add(Swords.swords.toArray(new Item[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/sword"))).add(WeaponEnchants.swords.toArray(new Item[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/sharp_weapon"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/bow"))).add(Bows.bows.toArray(new Item[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/crossbow"))).add(Crossbows.crossbows.toArray(new Item[0]));
-
 
         warg_food.add(Items.RABBIT);
         warg_food.add(Items.CHICKEN);
         warg_food.add(Items.PORKCHOP);
         warg_food.add(Items.BEEF);
         warg_food.add(Items.MUTTON);
-        warg_food.add(ModFoodItems.RAW_HORSE);
-        warg_food.add(ModFoodItems.RAW_SWAN);
-        warg_food.add(ModFoodItems.RAW_VENISON);
+        warg_food.add(FoodItemsME.RAW_HORSE);
+        warg_food.add(FoodItemsME.RAW_SWAN);
+        warg_food.add(FoodItemsME.RAW_VENISON);
 
-        warg_armor.add(ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR);
-        warg_armor.add(ModEquipmentItems.WARG_GUNDABAD_PLATE_ARMOR);
-        warg_armor.add(ModEquipmentItems.WARG_ISENGARD_PLATE_ARMOR);
-        warg_armor.add(ModEquipmentItems.WARG_MORDOR_MAIL_ARMOR);
-        warg_armor.add(ModEquipmentItems.WARG_LEATHER_ARMOR);
-        warg_armor.add(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);
+        warg_armor.add(EquipmentItemsME.WARG_MORDOR_PLATE_ARMOR);
+        warg_armor.add(EquipmentItemsME.WARG_GUNDABAD_PLATE_ARMOR);
+        warg_armor.add(EquipmentItemsME.WARG_ISENGARD_PLATE_ARMOR);
+        warg_armor.add(EquipmentItemsME.WARG_MORDOR_MAIL_ARMOR);
+        warg_armor.add(EquipmentItemsME.WARG_LEATHER_ARMOR);
+        warg_armor.add(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR);
 
-        broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_PLATE_ARMOR);
-        broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
-        broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
+        broadhoof_goat_armor.add(EquipmentItemsME.BROADHOOF_GOAT_PLATE_ARMOR);
+        broadhoof_goat_armor.add(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR);
+        broadhoof_goat_armor.add(EquipmentItemsME.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
 
         bones.add(Items.BONE);
-        bones.add(ModResourceItems.DIRTY_BONE);
-        bones.add(ModResourceItems.FANG);
+        bones.add(ResourceItemsME.DIRTY_BONE);
+        bones.add(ResourceItemsME.FANG);
 
-        feathers.add(ModResourceItems.SWAN_FEATHER);
+        feathers.add(ResourceItemsME.SWAN_FEATHER);
         feathers.add(Items.FEATHER);
 
-        ModEquipmentItems.hoods.forEach(cloaks::add);
-        ModEquipmentItems.capes.forEach(cloaks::add);
+        EquipmentItemsME.hoods.forEach(cloaks::add);
+        EquipmentItemsME.capes.forEach(cloaks::add);
 
-        dyeable.add(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
-        dyeable.add(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
+        dyeable.add(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR);
+        dyeable.add(EquipmentItemsME.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
 
-        dyeable.add(ModEquipmentItems.WARG_LEATHER_ARMOR);
-        dyeable.add(ModEquipmentItems.WARG_REINFORCED_LEATHER_ARMOR);
+        dyeable.add(EquipmentItemsME.WARG_LEATHER_ARMOR);
+        dyeable.add(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR);
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {

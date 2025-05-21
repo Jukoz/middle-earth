@@ -1,0 +1,8 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "middle-earth:item/very_small_round_shield_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"1": "middle-earth:item/dalish_royal_round_shield"
+	}
+}

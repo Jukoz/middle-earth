@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "MGM",
+    " S "
+  ],
+  "key": {
+    "G": {
+      "fabric:type": "fabric:components",
+      "base": "middle-earth:rod",
+      "components": {
+        "minecraft:trim": {
+          "material": "gold",
+          "pattern": "middle-earth:smithing_part"
+        }
+      }
+    },
+    "M": "middle-earth:edhel_steel_ingot",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "middle-earth:elven_noble_smithing_hammer",
+    "count": 1
+  }
+}

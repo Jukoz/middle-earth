@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:lead_ingot",
+    "middle-earth:raw_lead",
+    "middle-earth:deepslate_lead_ore",
+    "middle-earth:medgon_lead_ore",
+    "middle-earth:nurgon_lead_ore"
+  ]
+}

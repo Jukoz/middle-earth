@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "middle-earth:block/pot_of_gold",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "middle-earth:block/pot_of_gold"
+    },
+    "facing=south": {
+      "model": "middle-earth:block/pot_of_gold",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "middle-earth:block/pot_of_gold",
+      "y": 270
+    }
+  }
+}

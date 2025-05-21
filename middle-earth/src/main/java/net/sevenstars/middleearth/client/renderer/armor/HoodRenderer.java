@@ -7,7 +7,7 @@ import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 import net.sevenstars.middleearth.client.model.equipment.head.hoods.CloakHoodModel;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.HoodDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ModArmorModels;
@@ -39,7 +39,7 @@ public class HoodRenderer implements ArmorRenderer {
         VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), stack.hasGlint());
         int color;
         if (helmet){
-            color =  ColorHelper.fullAlpha(stack.get(ModDataComponentTypes.HOOD_DATA).hoodColor());
+            color =  ColorHelper.fullAlpha(stack.get(DataComponentTypesME.HOOD_DATA).hoodColor());
         } else {
             color = CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR);
         }
@@ -51,7 +51,7 @@ public class HoodRenderer implements ArmorRenderer {
         this.hoodModel = new CloakHoodModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
 
         if (slot == EquipmentSlot.HEAD) {
-            HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
+            HoodDataComponent hoodDataComponent = stack.get(DataComponentTypesME.HOOD_DATA);
 
             if(hoodDataComponent != null) {
                 Identifier texture;

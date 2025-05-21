@@ -17,6 +17,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
@@ -307,7 +308,7 @@ public class Faction {
     }
 
     public ItemStack getBannerItem(World world){
-        return bannerData.getBannerItem(world, Text.translatable("block.me.faction_banner", getFullName()).formatted(Formatting.GOLD));
+        return bannerData.getBannerItem(world, Text.translatable("block.%s.faction_banner".formatted(MiddleEarth.MOD_ID), getFullName()).formatted(Formatting.GOLD));
     }
 
     public List<Identifier> getSubFactions(){
@@ -384,7 +385,7 @@ public class Faction {
         if(descriptions == null){
             descriptions = new ArrayList<>();
             boolean hasDescription = true;
-            String base = "description.me.%s.description_%s".formatted(id.getPath(), "%s");
+            String base = "description.%s.%s.description_%s".formatted(MiddleEarth.MOD_ID, id.getPath(), "%s");
             while(hasDescription){
                 String langPath = base.formatted(descriptions.size());
                 Text text = Text.translatable(langPath);

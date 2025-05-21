@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 import java.awt.event.KeyEvent;
 
 public class ReturnConfirmationScreen extends Screen {
-    private static final Text RETURN_CONFIRMATION_TITLE = Text.translatable("ui.me.return_confirmation.title");
+    private static final Text RETURN_CONFIRMATION_TITLE = Text.translatable("ui.%s.return_confirmation.title".formatted(MiddleEarth.MOD_ID));
     private static final Identifier BUTTON_WIDGET = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/button_widget.png");
     public ButtonWidget returnToOverworldButton;
     public ButtonWidget closeButton;
@@ -29,7 +29,7 @@ public class ReturnConfirmationScreen extends Screen {
         ButtonWidget.PressAction returnToOverworldAction = button -> {
             returnToOverworld();
         };
-        returnToOverworldButton = ButtonWidget.builder(Text.translatable("ui.me.return_confirmation.continue_character.title"), returnToOverworldAction).build();
+        returnToOverworldButton = ButtonWidget.builder(Text.translatable("ui.%s.return_confirmation.continue_character.title".formatted(MiddleEarth.MOD_ID)), returnToOverworldAction).build();
         addDrawableChild(returnToOverworldButton);
         if(currentDelay > 0)
             returnToOverworldButton.active = false;
@@ -70,7 +70,7 @@ public class ReturnConfirmationScreen extends Screen {
                     startX, startY,0, returnToOverworldButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
                     panelSizeX, panelSizeY, 256, 256);
 
-            Text continueText = Text.translatable("ui.me.return_confirmation.continue_character.content");
+            Text continueText = Text.translatable("ui.%s.return_confirmation.continue_character.content".formatted(MiddleEarth.MOD_ID));
             context.drawText(textRenderer, continueText,
                     startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),
                     startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,

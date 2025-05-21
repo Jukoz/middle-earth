@@ -280,7 +280,7 @@ public class FactionSelectionControllerOld {
             Identifier spawnId = getCurrentSpawnIdentifier();
             return SpawnDataHandler.getTranslatableKey(spawnId);
         }
-        return "spawn.me.none";
+        return "spawn.%s.none".formatted(MiddleEarth.MOD_ID);
     }
     public boolean haveManySpawns(){
         if(!haveSpawns()){

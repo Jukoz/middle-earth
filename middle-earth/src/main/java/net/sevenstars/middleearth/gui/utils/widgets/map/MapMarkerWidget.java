@@ -169,7 +169,7 @@ public class MapMarkerWidget extends ModWidget {
                     texts.addAll(childs.get(i).getContent());
                 }
                 if(childs.size() > maxChildDisplay){
-                    texts.add(Text.translatable("widget.me.marker.more").formatted(Formatting.BLUE));
+                    texts.add(Text.translatable("widget.%s.marker.more".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.BLUE));
                 }
             }
             context.drawTooltip(client.textRenderer, texts, Optional.empty(), drawStart.x + (drawSize.x / 2), drawStart.y + (drawSize.y / 2));
@@ -194,9 +194,9 @@ public class MapMarkerWidget extends ModWidget {
         if(isSelected){
             List<Text> modifiedList = new ArrayList<>();
             modifiedList.add(
-                    Text.translatable("widget.me.marker.selected_title_container.before")
+                    Text.translatable("widget.%s.marker.selected_title_container.before".formatted(MiddleEarth.MOD_ID))
                             .append(content.get(0).copy().withColor(ModColors.SUCCESS.color))
-                            .append(Text.translatable("widget.me.marker.selected_title_container.after")));
+                            .append(Text.translatable("widget.%s.marker.selected_title_container.after".formatted(MiddleEarth.MOD_ID))));
             for(int i = 1; i < content.size(); i++){
                 modifiedList.add(content.get(i));
             }
