@@ -63,7 +63,7 @@ public class CommandCustomEquipment {
         ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getSelectedStack();
 
         if (handStack.isEmpty()){
-            MutableText sourceText = Text.translatable("command.me.cape.hand_empty");
+            MutableText sourceText = Text.translatable("command.%s.cape.hand_empty".formatted(MiddleEarth.MOD_ID));
             context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
             return 0;
         }
@@ -71,11 +71,11 @@ public class CommandCustomEquipment {
         // TODO: literally cape-thingy such as gondorian_hero_cape should not be setCape-d
         if ((handStack.getItem() instanceof CustomChestplateItem || handStack.getItem() instanceof CapeChestplateItem)){
             handStack.set(DataComponentTypesME.CAPE_DATA, CapeDataComponent.newCape(cape));
-            MutableText sourceText = Text.translatable("command.me.cape.success").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + cape.getName()));
+            MutableText sourceText = Text.translatable("command.%s.cape.success".formatted(MiddleEarth.MOD_ID)).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + cape.getName()));
             context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
             return 0;
         } else {
-            MutableText sourceText = Text.translatable("command.me.cape.wrong_item");
+            MutableText sourceText = Text.translatable("command.%s.cape.wrong_item".formatted(MiddleEarth.MOD_ID));
             context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
             return 0;
         }
@@ -87,7 +87,7 @@ public class CommandCustomEquipment {
         ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getSelectedStack();
 
         if (handStack.isEmpty()){
-            MutableText sourceText = Text.translatable("command.me.hood.hand_empty");
+            MutableText sourceText = Text.translatable("command.%s.hood.hand_empty".formatted(MiddleEarth.MOD_ID));
             context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
             return 0;
         }
@@ -98,11 +98,11 @@ public class CommandCustomEquipment {
             } else if (hood.getConstantState() == ModHoodStates.UP || hood.getConstantState() == null){
                 handStack.set(DataComponentTypesME.HOOD_DATA, new HoodDataComponent(false, hood, CustomDyeableDataComponent.DEFAULT_COLOR));
             }
-            MutableText sourceText = Text.translatable("command.me.hood.success").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hood.getName()));
+            MutableText sourceText = Text.translatable("command.%s.hood.success".formatted(MiddleEarth.MOD_ID)).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hood.getName()));
             context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
             return 0;
         } else {
-            MutableText sourceText = Text.translatable("command.me.hood.wrong_item");
+            MutableText sourceText = Text.translatable("command.%s.hood.wrong_item".formatted(MiddleEarth.MOD_ID));
             context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
             return 0;
         }

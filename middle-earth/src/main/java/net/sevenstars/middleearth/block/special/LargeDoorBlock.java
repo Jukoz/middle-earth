@@ -30,6 +30,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.explosion.Explosion;
+import net.sevenstars.middleearth.MiddleEarth;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
@@ -294,7 +295,7 @@ public class LargeDoorBlock extends Block {
             this.playOpenCloseSound(player, world, pos, (Boolean)state.get(OPEN));
             world.emitGameEvent(player, this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
         } else {
-            player.sendMessage(Text.translatable("alert.me.large_door.blocked"), true);
+            player.sendMessage(Text.translatable("alert.%s.large_door.blocked".formatted(MiddleEarth.MOD_ID)), true);
         }
 
         return ActionResult.SUCCESS;

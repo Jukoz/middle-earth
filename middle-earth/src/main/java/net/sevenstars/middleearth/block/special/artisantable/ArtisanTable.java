@@ -26,6 +26,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
@@ -35,7 +36,7 @@ import java.util.stream.Stream;
 
 public class ArtisanTable extends HorizontalFacingBlock {
     public static final EnumProperty<ArtisanTablePart> PART = EnumProperty.of("part", ArtisanTablePart.class);
-    private static final Text TITLE = Text.translatable("container.me.artisan_table");
+    private static final Text TITLE = Text.translatable("container.%s.artisan_table".formatted(MiddleEarth.MOD_ID));
 
 
     public ArtisanTable(Settings settings) {
