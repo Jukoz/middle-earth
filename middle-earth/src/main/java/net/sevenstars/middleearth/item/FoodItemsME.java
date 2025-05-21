@@ -17,7 +17,11 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.Function;
 
-public class ModFoodItems {
+public class FoodItemsME {
+
+    /**
+     * Middle-earth mod Food Items registry
+     */
 
     public static final Item LEMBAS = registerItem("lembas",
             Item::new,new Item.Settings()

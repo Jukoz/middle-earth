@@ -1,16 +1,8 @@
 package net.sevenstars.middleearth.item.utils;
 
-import com.google.common.base.Suppliers;
-import net.sevenstars.middleearth.item.ModResourceItems;
-import net.minecraft.block.Block;
-import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.TagKey;
 import net.sevenstars.middleearth.recipe.ModTags;
-
-import java.util.function.Supplier;
 
 public class ModToolMaterials {
     public static final ToolMaterial BRONZE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, ModTags.BRONZE_TOOL_MATERIALS);

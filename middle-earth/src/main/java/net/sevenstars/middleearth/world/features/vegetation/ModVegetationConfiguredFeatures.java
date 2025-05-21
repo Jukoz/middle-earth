@@ -5,7 +5,7 @@ import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
 import net.sevenstars.middleearth.block.StoneBlockSets;
 import net.sevenstars.middleearth.block.WoodBlockSets;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.world.features.columns.CaveColumnFeatureConfig;
 import net.sevenstars.middleearth.world.features.underground.CavesConfiguredFeatures;
 import net.sevenstars.middleearth.world.gen.ModFeatures;
@@ -459,8 +459,8 @@ public class ModVegetationConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_REEDS, Feature.RANDOM_PATCH,
                 new RandomPatchFeatureConfig(256, 12, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModResourceItems.REEDS)),
-                        BlockFilterPlacementModifier.of(BlockPredicate.allOf(BlockPredicate.IS_AIR, BlockPredicate.wouldSurvive(ModResourceItems.REEDS.getDefaultState(), BlockPos.ORIGIN),
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ResourceItemsME.REEDS)),
+                        BlockFilterPlacementModifier.of(BlockPredicate.allOf(BlockPredicate.IS_AIR, BlockPredicate.wouldSurvive(ResourceItemsME.REEDS.getDefaultState(), BlockPos.ORIGIN),
                                 BlockPredicate.anyOf(
                                     BlockPredicate.matchingFluids(new BlockPos(1, -1, 0), Fluids.WATER, Fluids.FLOWING_WATER),
                                     BlockPredicate.matchingFluids(new BlockPos(-1, -1, 0), Fluids.WATER, Fluids.FLOWING_WATER),

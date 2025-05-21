@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.block.special.forge;
 
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.StringIdentifiable;
@@ -9,22 +9,22 @@ public enum MetalTypes implements StringIdentifiable {
     EMPTY(-1, "empty", null, null, false, 0),
 
     COPPER(0, "copper", Items.COPPER_INGOT, null, true, 11823181),
-    TIN(1, "tin", ModResourceItems.TIN_INGOT, ModResourceItems.TIN_NUGGET, true, 13026492),
+    TIN(1, "tin", ResourceItemsME.TIN_INGOT, ResourceItemsME.TIN_NUGGET, true, 13026492),
 
-    BRONZE(2, "bronze", ModResourceItems.BRONZE_INGOT, ModResourceItems.BRONZE_NUGGET, false, 10714446),
-    CRUDE(3, "crude", ModResourceItems.CRUDE_INGOT, ModResourceItems.CRUDE_NUGGET, false, 7560021),
+    BRONZE(2, "bronze", ResourceItemsME.BRONZE_INGOT, ResourceItemsME.BRONZE_NUGGET, false, 10714446),
+    CRUDE(3, "crude", ResourceItemsME.CRUDE_INGOT, ResourceItemsME.CRUDE_NUGGET, false, 7560021),
 
-    LEAD(4, "lead", ModResourceItems.LEAD_INGOT, ModResourceItems.LEAD_NUGGET, false, 6384761),
-    SILVER(5, "silver", ModResourceItems.SILVER_INGOT, ModResourceItems.SILVER_NUGGET, false, 15397618),
+    LEAD(4, "lead", ResourceItemsME.LEAD_INGOT, ResourceItemsME.LEAD_NUGGET, false, 6384761),
+    SILVER(5, "silver", ResourceItemsME.SILVER_INGOT, ResourceItemsME.SILVER_NUGGET, false, 15397618),
     IRON(6, "iron", Items.IRON_INGOT, Items.IRON_NUGGET, true, 15527148),
     GOLD(7, "gold", Items.GOLD_INGOT, Items.GOLD_NUGGET, true, 14594349),
 
-    STEEL(8, "steel", ModResourceItems.STEEL_INGOT, ModResourceItems.STEEL_NUGGET, false, 12369344 ),
-    BURZUM_STEEL(9, "burzum_steel", ModResourceItems.BURZUM_STEEL_INGOT, ModResourceItems.BURZUM_STEEL_NUGGET, false, 5985355),
-    EDHEL_STEEL(10, "edhel_steel", ModResourceItems.EDHEL_STEEL_INGOT, ModResourceItems.EDHEL_STEEL_NUGGET, false, 15921385),
-    KHAZAD_STEEL(11, "khazad_steel", ModResourceItems.KHAZAD_STEEL_INGOT, ModResourceItems.KHAZAD_STEEL_NUGGET, false, 6778743),
+    STEEL(8, "steel", ResourceItemsME.STEEL_INGOT, ResourceItemsME.STEEL_NUGGET, false, 12369344 ),
+    BURZUM_STEEL(9, "burzum_steel", ResourceItemsME.BURZUM_STEEL_INGOT, ResourceItemsME.BURZUM_STEEL_NUGGET, false, 5985355),
+    EDHEL_STEEL(10, "edhel_steel", ResourceItemsME.EDHEL_STEEL_INGOT, ResourceItemsME.EDHEL_STEEL_NUGGET, false, 15921385),
+    KHAZAD_STEEL(11, "khazad_steel", ResourceItemsME.KHAZAD_STEEL_INGOT, ResourceItemsME.KHAZAD_STEEL_NUGGET, false, 6778743),
 
-    MITHRIL(12, "mithril", ModResourceItems.MITHRIL_INGOT, ModResourceItems.MITHRIL_NUGGET, false,14278631),
+    MITHRIL(12, "mithril", ResourceItemsME.MITHRIL_INGOT, ResourceItemsME.MITHRIL_NUGGET, false,14278631),
 
     NETHERITE(13, "netherite", Items.NETHERITE_INGOT, null, true, 6445145),
     ;

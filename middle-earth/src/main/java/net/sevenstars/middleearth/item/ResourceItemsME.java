@@ -6,7 +6,6 @@ import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
 import net.sevenstars.middleearth.block.special.CustomWaterloggableTallPlantBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
 import net.sevenstars.middleearth.item.items.*;
 import net.sevenstars.middleearth.item.items.weapons.ranged.LitPineconeItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.PebbleItem;
@@ -25,7 +24,12 @@ import net.minecraft.util.Rarity;
 
 import java.util.function.Function;
 
-public class ModResourceItems {
+public class ResourceItemsME {
+
+    /**
+     * Middle-earth mod Resource Items registry
+     */
+
     public static final Item MIDDLE_EARTH_MAP = registerItem("middle_earth_map",
             MiddleEarthMapItem::new, new Item.Settings().maxCount(1));
 

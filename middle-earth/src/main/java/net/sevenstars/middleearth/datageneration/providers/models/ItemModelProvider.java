@@ -25,8 +25,8 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.CustomItemModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
-import net.sevenstars.middleearth.item.ModResourceItems;
-import net.sevenstars.middleearth.item.ModWeaponItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
 
 import java.util.ArrayList;
@@ -111,7 +111,7 @@ public class ItemModelProvider extends FabricModelProvider {
             registerGenericBigModels(itemModelGenerator, item);
         }
 
-        for (Item item : ModWeaponItems.shields) {
+        for (Item item : WeaponItemsME.shields) {
             registerShield(itemModelGenerator, item);
         }
 
@@ -138,30 +138,30 @@ public class ItemModelProvider extends FabricModelProvider {
             registerDyeableArmor(item, itemModelGenerator);
         });
 
-        registerPalettedItem(ModResourceItems.ROD, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.LARGE_ROD, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.ROD, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.LARGE_ROD, itemModelGenerator);
 
-        registerPalettedItem(ModResourceItems.PICKAXE_HEAD, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.AXE_HEAD, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.SHOVEL_HEAD, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.HOE_HEAD, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.PICKAXE_HEAD, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.AXE_HEAD, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.SHOVEL_HEAD, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.HOE_HEAD, itemModelGenerator);
 
-        registerPalettedItem(ModResourceItems.BLADE, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.SHORT_BLADE, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.LONG_BLADE, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.SWORD_HILT, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.BLADE, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.SHORT_BLADE, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.LONG_BLADE, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.SWORD_HILT, itemModelGenerator);
 
-        registerPalettedItem(ModResourceItems.MAIL_RING, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.MAIL, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.MAIL_RING, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.MAIL, itemModelGenerator);
 
-        registerPalettedItem(ModResourceItems.SCALE, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.SCALE_MAIL, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.SCALE, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.SCALE_MAIL, itemModelGenerator);
 
-        registerPalettedItem(ModResourceItems.ARMOR_PLATE, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.ARMOR_PLATE, itemModelGenerator);
 
-        registerPalettedItem(ModResourceItems.HELMET_PLATE, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.SHIELD_BORDER, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.SHIELD_PLATE, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.HELMET_PLATE, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.SHIELD_BORDER, itemModelGenerator);
+        registerPalettedItem(ResourceItemsME.SHIELD_PLATE, itemModelGenerator);
     }
 
     public final void registerWeaponBigItemModels(ItemModelGenerator itemModelGenerator, Item item) {

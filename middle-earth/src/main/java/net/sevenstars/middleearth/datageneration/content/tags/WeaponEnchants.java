@@ -5,9 +5,14 @@ import net.minecraft.item.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Swords {
+public class WeaponEnchants {
     public static List<Item> swords = new ArrayList<>() {
     {
 
     }};
+
+    public static List<Item> sharpWeapons = new ArrayList<>() {
+        {
+
+        }};
 }

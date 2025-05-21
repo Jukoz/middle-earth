@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeBookCategory;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -35,7 +35,7 @@ public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
     public boolean matches(SingleStackRecipeInput input, World world) {
         if(input.item().isEmpty()) return false;
 
-        if(input.item().get(ModDataComponentTypes.TEMPERATURE_DATA) == null) return false;
+        if(input.item().get(DataComponentTypesME.TEMPERATURE_DATA) == null) return false;
 
         return this.input.test(input.item());
     }

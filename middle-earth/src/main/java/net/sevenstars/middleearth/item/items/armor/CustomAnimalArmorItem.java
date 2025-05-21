@@ -4,16 +4,14 @@ import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.MountArmorAddonComponent;
-import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
+import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
@@ -24,7 +22,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class CustomAnimalArmorItem extends Item implements MEEquipmentTooltip {
+public class CustomAnimalArmorItem extends Item implements EquipmentTooltipME {
     public ModFactions faction;
     public ModSubFactions subFaction;
     private final Identifier entityTexture;
@@ -71,8 +69,8 @@ public class CustomAnimalArmorItem extends Item implements MEEquipmentTooltip {
     @Override
     public List<Text> getAdditionalAltLines(ItemStack stack) {
         List<Text> list = new ArrayList<>(List.of());
-        MountArmorAddonComponent mountArmorAddonComponent = stack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA);
-        CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
+        MountArmorAddonComponent mountArmorAddonComponent = stack.get(DataComponentTypesME.MOUNT_ARMOR_DATA);
+        CustomDyeableDataComponent dyeDataComponent = stack.get(DataComponentTypesME.DYE_DATA);
 
         if(dyeDataComponent != null){
             list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));

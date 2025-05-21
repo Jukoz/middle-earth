@@ -9,7 +9,11 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.UnaryOperator;
 
-public class ModDataComponentTypes {
+public class DataComponentTypesME {
+
+    /**
+     * Middle-earth mod Data Components registry
+     */
 
     public static final ComponentType<TemperatureDataComponent> TEMPERATURE_DATA = register("temperature", (builder) -> {
         return builder.codec(TemperatureDataComponent.CODEC).packetCodec(TemperatureDataComponent.PACKET_CODEC);

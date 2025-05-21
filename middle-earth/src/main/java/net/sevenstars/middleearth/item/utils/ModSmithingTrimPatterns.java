@@ -2,16 +2,10 @@ package net.sevenstars.middleearth.item.utils;
 
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.ModToolItems;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.*;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-
-import java.util.Optional;
 
 public class ModSmithingTrimPatterns {
     public static final RegistryKey<ArmorTrimPattern> SMITHING_PART = of("smithing_part");
