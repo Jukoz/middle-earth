@@ -3,22 +3,37 @@
         {
             "type": "paletted_permutations",
             "textures": [
-                "me:npc_skin_textures/skin_female",
-                "me:npc_skin_textures/skin_muscular",
-                "me:npc_skin_textures/skin_slim",
+                "me:npc_skin_textures/body_female",
+                "me:npc_skin_textures/body_muscular",
+                "me:npc_skin_textures/body_slim",
                 "me:npc_skin_textures/ear_cube",
+                "me:npc_skin_textures/ear_flat_pointy",
+                "me:npc_skin_textures/ear_flat_round",
+                "me:npc_skin_textures/ear_flat_small",
                 "me:npc_skin_textures/ear_pointy",
+                "me:npc_skin_textures/head_female",
+                "me:npc_skin_textures/head_goblin",
+                "me:npc_skin_textures/head_goblin_small",
+                "me:npc_skin_textures/head_goblin_thick_brow",
+                "me:npc_skin_textures/head_goblin_very_wide",
+                "me:npc_skin_textures/head_goblin_wise",
+                "me:npc_skin_textures/head_male",
+                "me:npc_skin_textures/head_uruk_dumb",
+                "me:npc_skin_textures/head_uruk_tall_dumb",
                 "me:npc_skin_textures/nose_cube",
-                "me:npc_skin_textures/nose_large_cube"
+                "me:npc_skin_textures/nose_large_center",
+                "me:npc_skin_textures/nose_large_high",
+                "me:npc_skin_textures/nose_villager",
+                "me:npc_skin_textures/scar_eye_right"
             ],
             "palette_key": "me:npc_skin_textures/color_palettes/base_palette",
             "permutations": {
+                "brown": "me:npc_skin_textures/color_palettes/brown",
+                "default": "me:npc_skin_textures/color_palettes/default",
+                "greenish": "me:npc_skin_textures/color_palettes/greenish",
+                "olive": "me:npc_skin_textures/color_palettes/olive",
                 "pale": "me:npc_skin_textures/color_palettes/pale",
                 "tan": "me:npc_skin_textures/color_palettes/tan",
-                "neutral": "me:npc_skin_textures/color_palettes/neutral",
-                "olive": "me:npc_skin_textures/color_palettes/olive",
-                "brown": "me:npc_skin_textures/color_palettes/brown",
-                "greenish": "me:npc_skin_textures/color_palettes/greenish",
                 "tan_desaturated": "me:npc_skin_textures/color_palettes/tan_desaturated"
             }
         }

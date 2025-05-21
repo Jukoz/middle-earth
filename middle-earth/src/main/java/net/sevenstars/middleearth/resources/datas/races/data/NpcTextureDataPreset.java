@@ -254,8 +254,11 @@ public class NpcTextureDataPreset {
     public List<String> getPatterns(NpcTextureType npcTextureType) {
         return switch (npcTextureType){
             case SKIN -> skinPatterns;
+            case BODY -> skinPatterns;
+            case HEAD -> skinPatterns;
             case EAR -> earPatterns;
             case NOSE -> nosePatterns;
+            case SCAR -> skinPatterns;
             case EYE -> eyePatterns;
             case HAIR -> hairPatterns;
             case EYEBROW -> eyebrowPatterns;
@@ -264,8 +267,9 @@ public class NpcTextureDataPreset {
         };
     }
     public List<String> getMaterials(NpcTextureType npcTextureType) {
-        return switch (npcTextureType){
-            case SKIN, EAR, NOSE -> skinMaterials;
+
+        return switch (npcTextureType) {
+            case SKIN, BODY, HEAD, SCAR, EAR, NOSE -> skinMaterials;
             case EYE -> eyeMaterials;
             case HAIR, EYEBROW, BEARD -> hairMaterials;
             case CLOTHING -> clothingMaterials;

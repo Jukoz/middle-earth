@@ -3,12 +3,17 @@
         {
             "type": "paletted_permutations",
             "textures": [
-                "me:npc_eye_textures/common",
-                "me:npc_eye_textures/small"
+                "me:npc_eye_textures/eye_common",
+                "me:npc_eye_textures/eye_small",
+                "me:npc_eye_textures/eye_small_high_wide",
+                "me:npc_eye_textures/eye_small_wide",
+                "me:npc_eye_textures/eye_small_low_wide"
+
             ],
             "palette_key": "me:npc_eye_textures/color_palettes/base_palette",
             "permutations": {
                 "black": "me:npc_eye_textures/color_palettes/black",
+                "blind_left_green": "me:npc_eye_textures/color_palettes/blind_left_green",
                 "blue": "me:npc_eye_textures/color_palettes/blue",
                 "brown": "me:npc_eye_textures/color_palettes/brown",
                 "dark_green": "me:npc_eye_textures/color_palettes/dark_green",

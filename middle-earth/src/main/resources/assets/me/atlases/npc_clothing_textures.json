@@ -3,13 +3,18 @@
         {
             "type": "paletted_permutations",
             "textures": [
-                "me:npc_clothing_textures/fabric_skirt",
-                "me:npc_clothing_textures/fabric_skirt_with_strophium"
+                "me:npc_clothing_textures/clothing_full_toga",
+                "me:npc_clothing_textures/clothing_robe",
+                "me:npc_clothing_textures/clothing_skirt",
+                "me:npc_clothing_textures/clothing_skirt_with_strophium",
+                "me:npc_clothing_textures/clothing_toga"
             ],
             "palette_key": "me:npc_clothing_textures/color_palettes/base_palette",
             "permutations": {
-                "white": "me:npc_clothing_textures/color_palettes/white",
-                "brown": "me:npc_clothing_textures/color_palettes/brown"
+                "brown": "me:npc_clothing_textures/color_palettes/brown",
+                "gray": "me:npc_clothing_textures/color_palettes/gray",
+                "rot_green": "me:npc_clothing_textures/color_palettes/rot_green",
+                "white": "me:npc_clothing_textures/color_palettes/white"
             }
         }
     ]

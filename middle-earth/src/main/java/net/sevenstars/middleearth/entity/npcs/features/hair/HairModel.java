@@ -8,47 +8,25 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
 public class HairModel extends EntityModel<NpcEntityRenderState> {
     // https://i.pinimg.com/736x/9c/56/05/9c560508ceba0bc87b9d5beda7391adc.jpg
     public static final String BEARD = "beard";
-    public static final String BEARD2 = "beard2";
-    public static final String BEARD_TIP = "beard_tip";
-    public static final String NORI_BEARD_CENTER = "nori_beard_center";
-    public static final String NORI_BEARD_LEFT = "nori_beard_left";
-    public static final String NORI_BEARD_RIGHT = "nori_beard_right";
-    public static final float BEARD_PITCH_ANGLE = -0.174f;
     public final ModelPart hair;
-    public final ModelPart frontAddon;
-    public final ModelPart backAddon;
+    public final ModelPart hairBase;
+    public final ModelPart hairHat;
 
     public HairModel(ModelPart modelPart) {
         super(modelPart);
 
         this.hair = modelPart.getChild("hair");
-        this.frontAddon = hair.getChild("hair_front_addon");
-        this.backAddon = hair.getChild("hair_back_addon");
+        this.hairBase = hair.getChild("hairBase");
+        this.hairHat = hair.getChild("hairHat");
     }
 
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-
-        /*
-        head.addChild(NORI_BEARD_CENTER, ModelPartBuilder.create().uv(0, 16).cuboid(-1, 1.5f, -4.5f, 2.0f, 5.0f, 2.0f, dilation.add(0.15f)),
-                ModelTransform.of(0f, 0f, 0f, BEARD_PITCH_ANGLE - 0.2f, 0, 0));
-        head.addChild(NORI_BEARD_LEFT, ModelPartBuilder.create().uv(0, 16).cuboid(1f, 0.7f, -4f, 2.0f, 5.0f, 2.0f, dilation),
-                ModelTransform.of(0f, 0f, 0f, BEARD_PITCH_ANGLE, 0, -0.55f));
-        head.addChild(NORI_BEARD_RIGHT, ModelPartBuilder.create().uv(0, 16).cuboid(-3f, 0.7f, -4f, 2.0f, 5.0f, 2.0f, dilation),
-                ModelTransform.of(0f, 0f, 0f, BEARD_PITCH_ANGLE, 0, 0.55f));
-        */
-
         ModelPartData hairGroup = modelPartData.addChild("hair", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        ModelPartData frontAddon = hairGroup.addChild("hair_front_addon", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0f, 0.0F));
-        ModelPartData backAddon = hairGroup.addChild("hair_back_addon", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0f, 0.0F));
-
-        frontAddon.addChild("hair_addon_front_core", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0f, 0f, -4.0f, 8, 12, 2, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        frontAddon.addChild("hair_addon_front_hat", ModelPartBuilder.create().uv(20, 0).cuboid(-4.0f, 1f, -4f, 8, 12, 2, Dilation.NONE.add(0.5f)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-
-
-        backAddon.addChild("hair_addon_back_core", ModelPartBuilder.create().uv(0, 14).cuboid(-4.0f, 0f, 2.0f, 8, 12, 2, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        hairGroup.addChild("hairBase", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0f, 0f, -4.0f, 8, 11, 8, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        hairGroup.addChild("hairHat", ModelPartBuilder.create().uv(32, 0).cuboid(-4.0f, 1f, -4f, 8, 11, 8, Dilation.NONE.add(0.5f)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 64, 64);
     }
@@ -60,18 +38,13 @@ public class HairModel extends EntityModel<NpcEntityRenderState> {
         // Taken from BipedEntityModel.class
         float f = state.leaningPitch;
         boolean bl = state.isGliding;
-        this.frontAddon.pitch = state.pitch * 0.017453292F;
-        this.frontAddon.yaw = state.relativeHeadYaw * 0.017453292F;
-
-        this.backAddon.pitch = state.pitch * 0.017453292F;
-        this.backAddon.yaw = state.relativeHeadYaw * 0.017453292F;
+        this.hair.pitch = state.pitch * 0.017453292F;
+        this.hair.yaw = state.relativeHeadYaw * 0.017453292F;
 
         if (bl) {
-            this.frontAddon.pitch = -0.7853982F;
-            this.backAddon.pitch = -0.7853982F;
+            this.hair.pitch = -0.7853982F;
         } else if (f > 0.0F) {
-            this.frontAddon.pitch = MathHelper.lerpAngleRadians(f, this.frontAddon.pitch, -0.7853982F);
-            this.backAddon.pitch = MathHelper.lerpAngleRadians(f, this.backAddon.pitch, -0.7853982F);
+            this.hair.pitch = MathHelper.lerpAngleRadians(f, this.hair.pitch, -0.7853982F);
         }
     }
 }
