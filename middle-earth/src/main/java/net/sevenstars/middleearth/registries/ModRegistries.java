@@ -2,6 +2,8 @@ package net.sevenstars.middleearth.registries;
 
 import net.fabricmc.fabric.api.registry.*;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
@@ -29,8 +31,9 @@ import net.minecraft.util.math.random.Random;
 public class ModRegistries {
 
     public static void registerRegistryAliases() {
-        //Registries.BLOCK.addAlias(Identifier.of(MiddleEarth.MOD_ID, "medgon"), Identifier.of("me", "nurgon"));
-        //Registries.ITEM.addAlias(Identifier.of(MiddleEarth.MOD_ID, "medgon"), Identifier.of("me", "nurgon"));
+        for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
+            alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.name()), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
+        }
     }
 
 

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:anvil",
+    "middle-earth:anvil_bottom",
+    "middle-earth:anvil_hammer",
+    "middle-earth:anvil_hammer_bottom",
+    "middle-earth:anvil_hammer_top",
+    "middle-earth:anvil_top"
+  ]
+}

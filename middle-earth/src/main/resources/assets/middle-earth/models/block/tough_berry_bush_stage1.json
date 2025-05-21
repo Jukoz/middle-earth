@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "middle-earth:block/tough_berry_bush_stage1"
+  }
+}

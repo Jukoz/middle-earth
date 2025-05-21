@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B B",
+    "BFB",
+    "SSS"
+  ],
+  "key": {
+    "B": "minecraft:bricks",
+    "F": "minecraft:furnace",
+    "S": "#minecraft:stone_crafting_materials"
+  },
+  "result": {
+    "id": "middle-earth:forge",
+    "count": 1
+  }
+}

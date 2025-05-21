@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#middle-earth:cooked_fish",
+    "#middle-earth:vegetable",
+    "#middle-earth:vegetable",
+    "minecraft:dried_kelp",
+    "minecraft:bowl"
+  ],
+  "result": {
+    "id": "middle-earth:fish_stew"
+  }
+}

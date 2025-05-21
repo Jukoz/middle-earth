@@ -1,0 +1,9 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "middle-earth:block/bed_head_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "middle-earth:block/straw_bed",
+		"particle": "middle-earth:block/straw_bed"
+	}
+}

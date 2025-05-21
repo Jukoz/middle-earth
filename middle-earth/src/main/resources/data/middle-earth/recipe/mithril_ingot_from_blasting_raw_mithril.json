@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": "middle-earth:raw_mithril",
+  "result": {
+    "id": "middle-earth:mithril_ingot"
+  },
+  "experience": 2,
+  "cookingtime": 400
+}
