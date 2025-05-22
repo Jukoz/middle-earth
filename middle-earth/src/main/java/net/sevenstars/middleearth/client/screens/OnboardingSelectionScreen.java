@@ -20,7 +20,7 @@ import java.awt.event.KeyEvent;
 
 @Environment(EnvType.CLIENT)
 public class OnboardingSelectionScreen extends Screen {
-    private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.me.onboarding_selection.title");
+private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.onboarding_selection.title".formatted(MiddleEarth.MOD_ID));
     private static final Identifier BUTTON_WIDGET = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/button_widget.png");
     private boolean focusEnabled;
     public ButtonWidget continueAsCharacterButton;
@@ -102,7 +102,7 @@ public class OnboardingSelectionScreen extends Screen {
                     startX, startY, 0, continueAsCharacterButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
                     panelSizeX, panelSizeY, 256, 256);
 
-            Text continueText = Text.translatable("ui.me.continue_character");
+            Text continueText = Text.translatable("ui.%s.continue_character".formatted(MiddleEarth.MOD_ID));
             context.drawText(textRenderer, continueText,
                     startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),
                     startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
@@ -132,7 +132,7 @@ public class OnboardingSelectionScreen extends Screen {
                     startX, startY,0, resetCharacterButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
                     panelSizeX, panelSizeY, 256, 256);
 
-            Text resetText = Text.translatable("ui.me.reset_character");
+            Text resetText = Text.translatable("ui.%s.reset_character".formatted(MiddleEarth.MOD_ID));
             context.drawText(textRenderer, resetText,
                     startX + (int) ((panelSizeX - textRenderer.getWidth(resetText)) / 2f),
                     startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,

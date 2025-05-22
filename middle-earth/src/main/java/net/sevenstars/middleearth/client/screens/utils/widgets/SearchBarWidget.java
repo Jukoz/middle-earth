@@ -75,13 +75,13 @@ public class SearchBarWidget extends ModWidget {
             if (!searchBarToggle)
                 searchBarToggle = true;
         };
-        searchBarToggleButton = ButtonWidget.builder(Text.translatable("ui.me.search.toggle_button"), searchBarInputToggle).build();
+        searchBarToggleButton = ButtonWidget.builder(Text.translatable("ui.%s.search.toggle_button".formatted(MiddleEarth.MOD_ID)), searchBarInputToggle).build();
 
         // Screen click
         ButtonWidget.PressAction screenClickAction = button -> {
             clickOnScreen();
         };
-        screenClick = ButtonWidget.builder(Text.translatable("ui.me.search.screen_click_button"), screenClickAction).build();
+        screenClick = ButtonWidget.builder(Text.translatable("ui.%s.search.screen_click_button".formatted(MiddleEarth.MOD_ID)), screenClickAction).build();
     }
 
     private void clickOnScreen() {
@@ -126,7 +126,7 @@ public class SearchBarWidget extends ModWidget {
                     panelSizeX, panelSizeY, 256, 256);
         }
 
-        MutableText text = Text.translatable((!searchBarToggle && searchBarInput.isEmpty()) ? "ui.me.search.label" : searchBarInput);
+        MutableText text = Text.translatable((!searchBarToggle && searchBarInput.isEmpty()) ? "ui.%s.search.label".formatted(MiddleEarth.MOD_ID) : searchBarInput);
         text.asTruncatedString(16);
         context.drawText(textRenderer, text,
                 startX + magnifyingGlassSizeX + MINIMAL_MARGIN - 1,

@@ -1,9 +1,9 @@
 package net.sevenstars.middleearth.resources.datas.npcs.pools;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.ModEquipmentItems;
-import net.sevenstars.middleearth.item.ModToolItems;
-import net.sevenstars.middleearth.item.ModWeaponItems;
+import net.sevenstars.middleearth.item.EquipmentItemsME;
+import net.sevenstars.middleearth.item.ToolItemsME;
+import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
 import net.sevenstars.middleearth.resources.MiddleEarthRaces;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
@@ -37,47 +37,47 @@ public class ShireNpcDataPool {
         SHIRE_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), MiddleEarthRaces.HOBBIT, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.STRAW_HAT).withWeight(2))
-                                .add(NpcGearItemData.create(ModEquipmentItems.WOVEN_HAT).withWeight(2))
-                                .add(NpcGearItemData.create(ModEquipmentItems.BYCOCKET).withColor(BROWN).withWeight(2))
-                                .add(NpcGearItemData.create(ModEquipmentItems.KETTLE_HAT))
+                                .add(NpcGearItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.BYCOCKET).withColor(BROWN).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.KETTLE_HAT))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.GAMBESON).withColor(DARK))
-                                .add(NpcGearItemData.create(ModEquipmentItems.GAMBESON).withColor(DARK_BEIGE))
-                                .add(NpcGearItemData.create(ModEquipmentItems.GAMBESON).withColor(BROWN))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK).withCape(ModCapes.CLOAK, DARK))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK_BEIGE).withCape(ModCapes.CLOAK, DARK))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(BROWN).withCape(ModCapes.CLOAK, DARK))
+                                .add(NpcGearItemData.create(EquipmentItemsME.GAMBESON).withColor(DARK))
+                                .add(NpcGearItemData.create(EquipmentItemsME.GAMBESON).withColor(DARK_BEIGE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.GAMBESON).withColor(BROWN))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withColor(DARK).withCape(ModCapes.CLOAK, DARK))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withColor(DARK_BEIGE).withCape(ModCapes.CLOAK, DARK))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withColor(BROWN).withCape(ModCapes.CLOAK, DARK))
                         )
-                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.STURDY_BOOTS)))
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.STURDY_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModWeaponItems.BRONZE_SWORD))
+                                .add(NpcGearItemData.create(WeaponItemsME.BRONZE_SWORD))
                                 .add(NpcGearItemData.create(Items.IRON_SWORD))
-                                .add(NpcGearItemData.create(ModWeaponItems.STEEL_SWORD))
+                                .add(NpcGearItemData.create(WeaponItemsME.STEEL_SWORD))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
-                                .add(NpcGearItemData.create(ModWeaponItems.ROUND_SHIELD))
+                                .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                         )
         ));
 
         SHIRE_SHIRRIFF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "shirriff"), MiddleEarthRaces.HOBBIT, List.of(
                 NpcGearData.create()
-                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.SHIRRIFF_HAT)))
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.SHIRRIFF_HAT)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.SURCOAT).withColor(DARK_BEIGE))
-                                .add(NpcGearItemData.create(ModEquipmentItems.SURCOAT).withColor(DARK_GREEN))
+                                .add(NpcGearItemData.create(EquipmentItemsME.SURCOAT).withColor(DARK_BEIGE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.SURCOAT).withColor(DARK_GREEN))
                         )
-                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.STURDY_BOOTS)))
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.STURDY_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModWeaponItems.STEEL_SWORD))
+                                .add(NpcGearItemData.create(WeaponItemsME.STEEL_SWORD))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
-                                .add(NpcGearItemData.create(ModToolItems.PIPE).withWeight(3))
-                                .add(NpcGearItemData.create(ModToolItems.CLAY_PIPE).withWeight(2))
-                                .add(NpcGearItemData.create(ModToolItems.BRIMMINGBEND_PIPE))
+                                .add(NpcGearItemData.create(ToolItemsME.PIPE).withWeight(3))
+                                .add(NpcGearItemData.create(ToolItemsME.CLAY_PIPE).withWeight(2))
+                                .add(NpcGearItemData.create(ToolItemsME.BRIMMINGBEND_PIPE))
                                 .add(NpcGearItemData.create(Items.BOOK))
                         )
         ));

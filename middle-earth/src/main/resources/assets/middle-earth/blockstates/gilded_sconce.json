@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "middle-earth:block/gilded_sconce"
+    },
+    "lit=true": {
+      "model": "middle-earth:block/gilded_sconce_lit"
+    }
+  }
+}

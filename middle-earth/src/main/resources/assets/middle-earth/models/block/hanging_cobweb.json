@@ -1,0 +1,6 @@
+{
+  "parent": "middle-earth:block/cross_direction",
+  "textures": {
+    "cross": "middle-earth:block/hanging_cobweb"
+  }
+}

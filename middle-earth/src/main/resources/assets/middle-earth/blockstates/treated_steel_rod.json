@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "middle-earth:block/treated_steel_rod",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "middle-earth:block/treated_steel_rod",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "middle-earth:block/treated_steel_rod",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "middle-earth:block/treated_steel_rod",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,": {
+      "model": "middle-earth:block/treated_steel_rod"
+    },
+    "facing=west": {
+      "model": "middle-earth:block/treated_steel_rod",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "replace": false,
   "sources": [
-    {"type": "single", "resource": "me:gui/sprites/extract"},
-    {"type": "single", "resource": "me:gui/sprites/extract_focused"}
+    {"type": "single", "resource": "middle-earth:gui/sprites/extract"},
+    {"type": "single", "resource": "middle-earth:gui/sprites/extract_focused"}
   ]
 }

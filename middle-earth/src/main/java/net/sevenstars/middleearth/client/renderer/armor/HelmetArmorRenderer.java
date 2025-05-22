@@ -7,7 +7,7 @@ import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 import net.sevenstars.middleearth.client.model.equipment.head.hoods.CloakHoodModel;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.HoodDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ModArmorModels;
 import net.sevenstars.middleearth.item.utils.armor.ModDyeablePieces;
@@ -70,7 +70,7 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                 }
             }
 
-            HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
+            HoodDataComponent hoodDataComponent = stack.get(DataComponentTypesME.HOOD_DATA);
 
             if(hoodDataComponent != null) {
                 Identifier textureHood;

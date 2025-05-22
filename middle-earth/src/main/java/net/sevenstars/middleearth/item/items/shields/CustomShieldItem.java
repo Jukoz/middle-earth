@@ -6,10 +6,9 @@ import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundEvents;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
+import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.ModShieldTypes;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
@@ -24,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class CustomShieldItem extends ShieldItem implements MEEquipmentTooltip {
+public class CustomShieldItem extends ShieldItem implements EquipmentTooltipME {
     public final ModFactions faction;
     public final ModSubFactions subFaction;
     public final ModShieldTypes type;

@@ -22,6 +22,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import org.jetbrains.annotations.Nullable;
@@ -60,10 +61,10 @@ public class SeatBlock extends Block {
         } else if (player.shouldCancelInteraction()) {
             return ActionResult.SUCCESS;
         } else if (world.getBlockState(pos.up()).isOpaque()){
-            player.sendMessage(Text.translatable("alert.me.seat.space_not_empty"), true);
+            player.sendMessage(Text.translatable("alert.%s.seat.space_not_empty".formatted(MiddleEarth.MOD_ID)), true);
             return ActionResult.SUCCESS;
         }else if (state.get(OCCUPIED)){
-            player.sendMessage(Text.translatable("alert.me.seat.occupied"), true);
+        player.sendMessage(Text.translatable("alert.%s.seat.occupied".formatted(MiddleEarth.MOD_ID)), true);
             return ActionResult.SUCCESS;
         } else {
             if(world.spawnEntity(seat)) {

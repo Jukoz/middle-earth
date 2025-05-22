@@ -1,9 +1,0 @@
-{
-  "model": {
-    "type": "minecraft:special",
-    "base": "me:item/held_banner",
-    "model": {
-      "type": "me:held_banner"
-    }
-  }
-}

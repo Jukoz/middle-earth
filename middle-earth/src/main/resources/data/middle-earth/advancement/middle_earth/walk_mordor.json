@@ -1,0 +1,59 @@
+{
+  "parent": "middle-earth:middle_earth/root",
+  "criteria": {
+    "middle-earth:mordor": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "middle-earth:mordor",
+                  "middle-earth:mordor_ashen_forest",
+                  "middle-earth:mordor_hill",
+                  "middle-earth:mordor_wastes",
+                  "middle-earth:morgul_vale",
+                  "middle-earth:morgul_forest",
+                  "middle-earth:gorgoroth",
+                  "middle-earth:gorgoroth_ashen_woods",
+                  "middle-earth:gorgoroth_delta",
+                  "middle-earth:nurn",
+                  "middle-earth:nurn_forest",
+                  "middle-earth:nurn_hill",
+                  "middle-earth:nurn_edge",
+                  "middle-earth:nurn_edge_woods",
+                  "middle-earth:nurn_river",
+                  "middle-earth:nurn_sea"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_mordor.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:ashen_stone"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_mordor.title"
+    }
+  },
+  "requirements": [
+    [
+      "middle-earth:mordor"
+    ]
+  ]
+}

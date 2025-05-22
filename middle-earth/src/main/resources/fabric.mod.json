@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "me",
+  "id": "middle-earth",
   "version": "${version}",
 
   "name": "Middle-earth",
@@ -15,7 +15,7 @@
   },
 
   "license": "ARR",
-  "icon": "assets/me/icon.png",
+  "icon": "assets/middle-earth/icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -30,10 +30,10 @@
     ]
   },
   "mixins": [
-    "me.mixins.json"
+    "middle-earth.mixins.json"
   ],
 
-  "accessWidener" : "me.accesswidener",
+  "accessWidener" : "middle-earth.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.16.0",
