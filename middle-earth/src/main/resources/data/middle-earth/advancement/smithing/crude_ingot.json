@@ -1,0 +1,38 @@
+{
+  "parent": "middle-earth:smithing/bellows",
+  "criteria": {
+    "crude_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "middle-earth:crude_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.crude_ingot.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:crude_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.crude_ingot.title"
+    }
+  },
+  "requirements": [
+    [
+      "crude_ingot"
+    ]
+  ]
+}

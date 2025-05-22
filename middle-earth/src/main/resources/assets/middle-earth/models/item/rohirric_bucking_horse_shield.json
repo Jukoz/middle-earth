@@ -1,0 +1,8 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "middle-earth:item/small_round_shield_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"8": "middle-earth:item/rohirric_bucking_horse_shield"
+	}
+}

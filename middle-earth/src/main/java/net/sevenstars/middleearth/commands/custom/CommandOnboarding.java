@@ -11,6 +11,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.CommandUtils;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModServerConfigs;
@@ -73,7 +74,7 @@ public class CommandOnboarding {
                 if(playerPassedOnboarding){
                     ServerPlayNetworking.send(playerSource, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION));
                 } else {
-                    MutableText sourceText = Text.translatable("command.me.open.onboarding.error");
+                    MutableText sourceText = Text.translatable("command.%s.open.onboarding.error".formatted(MiddleEarth.MOD_ID));
                     playerSource.sendMessage(sourceText.withColor(ModColors.WARNING.color));
                 }
             }
@@ -87,10 +88,10 @@ public class CommandOnboarding {
             boolean playerPassedOnboarding = PlayerDataService.playerPassedOnboarding(playerTarget);
             if(playerPassedOnboarding){
                 ServerPlayNetworking.send(playerTarget, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION));
-                MutableText sourceText = Text.translatable("command.me.open_target.onboarding.success", playerTarget.getName());
+                MutableText sourceText = Text.translatable("command.%s.open_target.onboarding.success".formatted(MiddleEarth.MOD_ID), playerTarget.getName());
                 context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
             } else {
-                MutableText sourceText = Text.translatable("command.me.open_target.onboarding.error",playerTarget.getName());
+                MutableText sourceText = Text.translatable("command.%s.open_target.onboarding.error".formatted(MiddleEarth.MOD_ID), playerTarget.getName());
                 context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
             }
         }

@@ -1,0 +1,131 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:misty_mountains_orcs_banner_pattern",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gambeson"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:cape"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:round_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_spear"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:hood"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_sword"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bonfire"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:fur"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:garlic"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:cooked_venison"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:straw_hat"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_ingot"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_nugget"
+        }
+      ]
+    }
+  ]
+}

@@ -49,7 +49,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         var snapsGoatHorn = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("snaps_goat_horn")));
 
-        var cobwebs = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "cobwebs")));
+        var cobwebs = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs")));
 
         mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
         mineablePickaxe.add(MineablePickaxe.blocks.toArray(new Block[0]));
@@ -80,10 +80,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         TagKey<Block> copper_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of( "copper_ores"));
         TagKey<Block> coal_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of( "coal_ores"));
 
-        TagKey<Block> tin_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "tin_ores"));
-        TagKey<Block> lead_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "lead_ores"));
-        TagKey<Block> silver_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "silver_ores"));
-        TagKey<Block> mithril_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "mithril_ores"));
+        TagKey<Block> tin_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "tin_ores"));
+        TagKey<Block> lead_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "lead_ores"));
+        TagKey<Block> silver_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "silver_ores"));
+        TagKey<Block> mithril_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "mithril_ores"));
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {

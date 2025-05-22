@@ -1,0 +1,8 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "middle-earth:item/mordor_large_shield_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"3": "middle-earth:item/mordor_black_large_shield"
+	}
+}

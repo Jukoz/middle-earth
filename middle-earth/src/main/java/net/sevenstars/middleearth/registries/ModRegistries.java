@@ -1,7 +1,23 @@
 package net.sevenstars.middleearth.registries;
 
+import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
 import net.fabricmc.fabric.api.registry.*;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.LeveledCauldronBlock;
+import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.item.HoeItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
@@ -13,26 +29,18 @@ import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.recipe.ModTags;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LeveledCauldronBlock;
-import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.math.random.Random;
 
 public class ModRegistries {
 
     public static void registerRegistryAliases() {
-        //Registries.BLOCK.addAlias(Identifier.of(MiddleEarth.MOD_ID, "medgon"), Identifier.of("me", "nurgon"));
-        //Registries.ITEM.addAlias(Identifier.of(MiddleEarth.MOD_ID, "medgon"), Identifier.of("me", "nurgon"));
+        for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
+            alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.name()), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
+        }
     }
 
+    public static void registerToolTipAppenders() {
+        ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.TEMPERATURE_DATA);
+    }
 
     public static void registerFlammableBlocks() {
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.WHITE_WOOL_SLAB, 30, 60);

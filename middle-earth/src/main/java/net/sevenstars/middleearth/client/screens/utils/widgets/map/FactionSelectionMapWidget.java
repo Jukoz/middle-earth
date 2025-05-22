@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.client.screens.utils.widgets.map;
 
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.screens.faction_selection.FactionSelectionController;
 import net.sevenstars.middleearth.client.screens.utils.widgets.map.types.MapMarkerType;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
@@ -40,7 +41,7 @@ public class FactionSelectionMapWidget extends MapWidget {
             spawnMapMarkers[i].setType(MapMarkerType.DYNAMIC_SPAWN);
         }
         updateSelectedSpawn(controller.getCurrentSpawnIndex());
-        MapMarkerWidget.setTitle(Text.translatable("widget.me.spawn_tooltip_title").formatted(Formatting.UNDERLINE));
+        MapMarkerWidget.setTitle(Text.translatable("widget.%s.spawn_tooltip_title".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.UNDERLINE));
     }
     public ButtonWidget[] getButtons() {
         ButtonWidget[] spawnButtonArray = new ButtonWidget[spawnMapMarkers.length];
@@ -82,8 +83,8 @@ public class FactionSelectionMapWidget extends MapWidget {
                 mapMarker.setContent(
                         List.of(
                                 Text.translatable("spawn." + spawnData.getIdentifier().toTranslationKey()).formatted(Formatting.GOLD),
-                                Text.translatable("widget.me.marker.margin_front").append(Text.translatable("spawn.me.coordinates_base.dynamic").formatted(Formatting.GRAY)
-                                        .append(Text.translatable("spawn.me.coordinates_base_values.dynamic", spawnData.getWorldCoordinates().x, spawnData.getWorldCoordinates().z).formatted(Formatting.WHITE)))
+                                Text.translatable("widget.%s.marker.margin_front".formatted(MiddleEarth.MOD_ID)).append(Text.translatable("spawn.%s.coordinates_base.dynamic".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GRAY)
+                                        .append(Text.translatable("spawn.%s.coordinates_base_values.dynamic".formatted(MiddleEarth.MOD_ID), spawnData.getWorldCoordinates().x, spawnData.getWorldCoordinates().z).formatted(Formatting.WHITE)))
                         ));
             } else {
                 mapMarker.setType(MapMarkerType.CUSTOM_SPAWN);
@@ -91,8 +92,8 @@ public class FactionSelectionMapWidget extends MapWidget {
                 mapMarker.setContent(
                         List.of(
                                 Text.translatable("spawn." + spawnData.getIdentifier().toTranslationKey()).formatted(Formatting.GOLD),
-                                Text.translatable("widget.me.marker.margin_front").append(Text.translatable("spawn.me.coordinates_base.custom").formatted(Formatting.GRAY)
-                                        .append(Text.translatable("spawn.me.coordinates_base_values.custom", spawnData.getWorldCoordinates().x, spawnData.getWorldCoordinates().y, spawnData.getWorldCoordinates().z).formatted(Formatting.WHITE)))
+                                Text.translatable("widget.%s.marker.margin_front".formatted(MiddleEarth.MOD_ID)).append(Text.translatable("spawn.%s.coordinates_base.custom".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GRAY)
+                                        .append(Text.translatable("spawn.%s.coordinates_base_values.custom".formatted(MiddleEarth.MOD_ID), spawnData.getWorldCoordinates().x, spawnData.getWorldCoordinates().y, spawnData.getWorldCoordinates().z).formatted(Formatting.WHITE)))
                         ));
             }
 

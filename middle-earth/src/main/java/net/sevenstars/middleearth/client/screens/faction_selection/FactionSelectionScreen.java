@@ -47,7 +47,7 @@ public class FactionSelectionScreen extends Screen {
     private static final Identifier FACTION_SELECTION_BANNER_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
     private static final Identifier FACTION_SELECTION_BUTTONS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
     private static final Identifier MAP_SELECTION = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_map.png");
-    private static final Text FACTION_SELECTION_TITLE = Text.translatable("screen.me.faction_selection_screen");
+    private static final Text FACTION_SELECTION_TITLE = Text.translatable("screen.%s.faction_selection_screen".formatted(MiddleEarth.MOD_ID));
     private static final int MINIMAL_MARGIN = 4;
     private FactionSelectionController controller;
     private AbstractClientPlayerEntity player;
@@ -166,7 +166,7 @@ public class FactionSelectionScreen extends Screen {
         }
         // PlayerFactionPayload Randomizer
         factionRandomizerButton = ButtonWidget.builder(
-                Text.translatable("screen.me.button.faction_randomizer"),
+                Text.translatable("screen.%s.button.faction_randomizer".formatted(MiddleEarth.MOD_ID)),
                 button -> {
                     controller.randomizeFaction(5);
                     updateEquipment();
@@ -185,7 +185,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Focus current spawn point (from data)
         mapFocusButton = ButtonWidget.builder(
-                Text.translatable("screen.me.button.focus_current"),
+                Text.translatable("screen.%s.button.focus_current".formatted(MiddleEarth.MOD_ID)),
                 button -> {
                     controller.toggleMapFocus();
                     controller.setSpawnIndex(controller.getCurrentSpawnIndex());
@@ -195,7 +195,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Zoom out the map to have a more broad view
         mapZoomOutButton = ButtonWidget.builder(
-                Text.translatable("screen.me.button.zoom_out"),
+                Text.translatable("screen.%s.button.zoom_out".formatted(MiddleEarth.MOD_ID)),
                 button -> {
                     mapWidget.dezoomClick();
                 }).build();
@@ -203,7 +203,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Zoom into the map to have a closeup view
         mapZoomInButton = ButtonWidget.builder(
-                Text.translatable("screen.me.button.zoom_in"),
+                Text.translatable("screen.%s.button.zoom_in".formatted(MiddleEarth.MOD_ID)),
                 button -> {
                     mapWidget.zoomClick();
                 }).build();
@@ -242,7 +242,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Random spawn selection
         spawnSelectionRandomizerButton = ButtonWidget.builder(
-                Text.translatable("screen.me.button.spawn_randomizer"),
+                Text.translatable("screen.%s.button.spawn_randomizer".formatted(MiddleEarth.MOD_ID)),
                 button -> {
                     controller.randomizeSpawn(5);
                 }).build();
@@ -250,7 +250,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Confirm spawn selection
         spawnSelectionConfirmButton = ButtonWidget.builder(
-                Text.translatable("screen.me.button.confirm"),
+                Text.translatable("screen.%s.button.confirm".formatted(MiddleEarth.MOD_ID)),
                 button -> {
                     controller.confirmSpawnSelection(player);
                 }).build();
@@ -347,7 +347,7 @@ public class FactionSelectionScreen extends Screen {
             Faction subfaction = controller.getCurrentSubfaction();
             if(subfaction != null){
                 textStartY += textRenderer.fontHeight + MINIMAL_MARGIN;
-                Text dispositionText = Text.translatable("screen.me.information.subfaction");
+                Text dispositionText = Text.translatable("screen.%s.information.subfaction".formatted(MiddleEarth.MOD_ID));
                 context.drawText(textRenderer, dispositionText,
                         startX + (MINIMAL_MARGIN),
                         textStartY, 0, false);
@@ -359,7 +359,9 @@ public class FactionSelectionScreen extends Screen {
             List<Race> races = faction.getRaces(player.getWorld());
             if(races != null || !races.isEmpty()){
                 textStartY += textRenderer.fontHeight + MINIMAL_MARGIN;
-                context.drawText(client.textRenderer, Text.translatable((races.size() <= 1) ? "screen.me.information.races" : "screen.me.information.races.many").formatted(Formatting.UNDERLINE),
+                context.drawText(client.textRenderer, Text.translatable((races.size() <= 1)
+                                ? "screen.%s.information.races".formatted(MiddleEarth.MOD_ID)
+                                : "screen.%s.information.races.many".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.UNDERLINE),
                         startX + MINIMAL_MARGIN,
                         textStartY, 0, false);
 
@@ -384,7 +386,7 @@ public class FactionSelectionScreen extends Screen {
 
         int loreTextStart = startY + 95;
 
-        context.drawText(client.textRenderer, Text.translatable("screen.me.information.description").formatted(Formatting.UNDERLINE),
+        context.drawText(client.textRenderer, Text.translatable("screen.%s.information.description".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.UNDERLINE),
                 startX + MINIMAL_MARGIN,
                 loreTextStart - textRenderer.fontHeight - MINIMAL_MARGIN, 0, false);
 

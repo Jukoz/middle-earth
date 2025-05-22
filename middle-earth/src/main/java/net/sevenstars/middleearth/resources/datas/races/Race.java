@@ -12,6 +12,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
@@ -141,7 +142,7 @@ public class Race {
     public void drawTooltip(LivingEntity entity, DrawContext context, TextRenderer renderer, int x, int y){
         List<Text> texts = new ArrayList<>();
         texts.add(getFullName());
-        texts.add(Text.translatable("race_tooltip.me.attribute_header").formatted(Formatting.UNDERLINE));
+        texts.add(Text.translatable("race_tooltip.%s.attribute_header".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.UNDERLINE));
         Map<Identifier, Double> datas = attributeData.getDatas();
         for(Identifier id : datas.keySet()){
             double value = datas.get(id);
