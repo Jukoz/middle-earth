@@ -15,7 +15,6 @@
     "FishingBobberEntityMixin",
     "FoliagePlacerTypeInvoker",
     "GrassBlockMixin",
-    "ItemStackMixin",
     "PigEntityMixin",
     "PlayerEntityMixin",
     "PlayerMixin",
