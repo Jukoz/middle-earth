@@ -1,25 +1,17 @@
 package net.sevenstars.middleearth.enchantments;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.component.ComponentType;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.effect.EnchantmentEffectEntry;
 import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
-import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.enchantments.effects.MiningEnchantmentEffect;
-
-import java.util.List;
-import java.util.function.UnaryOperator;
 
 public class MEEnchantmentEffects {
-    public static final RegistryKey<Enchantment> MINING_ENCHANT = of("mining_enchant");
-    public static MapCodec<MiningEnchantmentEffect> MINING_EFFECT = register("mining_effect", MiningEnchantmentEffect.CODEC);
+    public static final RegistryKey<Enchantment> BROAD_MINING = of("broad_mining");
 
     private static RegistryKey<Enchantment> of(String path) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, path);

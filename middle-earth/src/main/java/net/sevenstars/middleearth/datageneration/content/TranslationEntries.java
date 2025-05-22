@@ -123,6 +123,8 @@ public class TranslationEntries {
 
             put("effect."+ MiddleEarth.MOD_ID +".hallucination", "Hallucination");
 
+            put("enchantment."+ MiddleEarth.MOD_ID +".broad_mining", "Broad Mining");
+
             put("block."+ MiddleEarth.MOD_ID +".potted_beech_sapling", "Potted Beech Sapling");
             put("block."+ MiddleEarth.MOD_ID +".potted_chestnut_sapling", "Potted Chestnut Sapling");
             put("block."+ MiddleEarth.MOD_ID +".potted_fir_sapling", "Potted Fir Sapling");

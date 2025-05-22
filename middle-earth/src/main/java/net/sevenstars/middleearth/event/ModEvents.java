@@ -8,11 +8,14 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.enchantments.MEEnchantmentEffects;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
@@ -44,14 +47,69 @@ public class ModEvents {
             }
         });
 
+        //TODO vertical facing mining
+        //TODO tool breakable only
+        //TODO add all hardness together
         PlayerBlockBreakEvents.AFTER.register((world, playerEntity, blockPos, blockState, blockEntity) -> {
             ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
-            RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(MEEnchantmentEffects.MINING_ENCHANT).orElseThrow();
+            RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(MEEnchantmentEffects.BROAD_MINING).orElseThrow();
             boolean hasEnchant = stack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
             int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, stack);
+
             if (hasEnchant){
-                System.out.println("your_mom is level: " + level);
+                if (!playerEntity.isCreative()){
+                    if (level == 1){
+                        level1Break(world, playerEntity, blockPos);
+                    } else if (level == 2){
+                        level2Break(world, playerEntity, blockPos);
+                    } else if (level == 3){
+                        level3Break(world, playerEntity, blockPos);
+                    }
+                }
             }
         });
+    }
+
+    private static void level1Break(World world, PlayerEntity player, BlockPos blockPos){
+        BlockPos blockPosUp = blockPos.up();
+        BlockPos blockPosDown = blockPos.down();
+
+        breakAndDamage(world, player, blockPosUp);
+        breakAndDamage(world, player, blockPosDown);
+    }
+
+    private static void level2Break(World world, PlayerEntity player, BlockPos blockPos){
+        BlockPos blockPosUp = blockPos.up();
+        BlockPos blockPosDown = blockPos.down();
+
+        breakAndDamage(world, player, blockPosUp);
+
+        breakAndDamage(world, player, blockPos.offset(player.getFacing().rotateYClockwise()));
+        breakAndDamage(world, player, blockPos.offset(player.getFacing().rotateYCounterclockwise()));
+
+        breakAndDamage(world, player, blockPosDown);
+    }
+
+    private static void level3Break(World world, PlayerEntity player, BlockPos blockPos){
+        BlockPos blockPosUp = blockPos.up();
+        BlockPos blockPosDown = blockPos.down();
+
+        breakAndDamage(world, player, blockPosUp);
+        breakAndDamage(world, player, blockPosUp.offset(player.getFacing().rotateYClockwise()));
+        breakAndDamage(world, player, blockPosUp.offset(player.getFacing().rotateYCounterclockwise()));
+
+        breakAndDamage(world, player, blockPos.offset(player.getFacing().rotateYClockwise()));
+        breakAndDamage(world, player, blockPos.offset(player.getFacing().rotateYCounterclockwise()));
+
+        breakAndDamage(world, player, blockPosDown);
+        breakAndDamage(world, player, blockPosDown.offset(player.getFacing().rotateYClockwise()));
+        breakAndDamage(world, player, blockPosDown.offset(player.getFacing().rotateYCounterclockwise()));
+    }
+
+    private static void breakAndDamage(World world, PlayerEntity player, BlockPos blockpos){
+        if (!world.getBlockState(blockpos).isAir()) {
+            world.breakBlock(blockpos, true, player);
+            player.getStackInHand(player.getActiveHand()).damage(1, player);
+        }
     }
 }

@@ -1,0 +1,20 @@
+{
+  "anvil_cost": 5,
+  "description": {
+    "translate": "enchantment.middle-earth.broad_mining"
+  },
+  "max_cost": {
+    "base": 1,
+    "per_level_above_first": 15
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#minecraft:pickaxes",
+  "weight": 10
+}
