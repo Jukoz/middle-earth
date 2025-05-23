@@ -28,19 +28,16 @@ import net.sevenstars.middleearth.entity.npcs.data.NpcEntityData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
-import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
-import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -68,9 +65,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         var generatedData = generateNpcData(manager);
         setNpcData(generatedData);
 
-        var faction = generatedData.getFactionValue(world);
-        var race = generatedData.getRaceValue(world);
         var npcData = generatedData.getNpcDataValue(world);
+        var race = generatedData.getRaceValue(world);
 
         NpcTextureData.Identity textureIdentity = NpcTextureData.Identity.create(npcData.getNpcTextureData(), generatedData.category);
 
@@ -98,36 +94,20 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     private NpcEntityData generateNpcData(DynamicRegistryManager manager) {
-        var factions = List.of(
-                FactionsME.GONDOR,
-                FactionsME.LONGBEARDS_EREBOR,
-                FactionsME.SHIRE,
-                FactionsME.MORDOR
-        );
-
-        Faction faction = factions.get(random.nextBetween(0, factions.size() - 1));
-        var civilianNpcDatas = NpcDataLookup.getAllNpcDatas(getWorld(), faction.getAllNpcDatas().get(NpcRank.CIVILIAN));
-
-        faction = manager.getOrThrow(FactionsME.KEY).get(faction.getId());
-        List<Race> races = faction.getRaces(getWorld());
-        Race randomRace = races.get(random.nextBetween(0, races.size()-1));
-        Identifier raceId = manager.getOrThrow(RacesME.KEY).getEntry(randomRace).value().getId();
-        return generateNpcData(manager, faction.getId(), raceId, civilianNpcDatas.getFirst());
+        Faction faction = (random.nextInt(2) == 1) ? FactionsME.GONDOR : FactionsME.MORDOR;
+        var civilianNpcDatas = NpcDataLookup.getAllNpcDatas(getWorld(), faction.getAllNpcDatas().get(NpcRank.MILITIA));
+        return generateNpcData(manager, faction.getId(), civilianNpcDatas.get(random.nextInt(civilianNpcDatas.size())));
     }
-    public NpcEntityData generateNpcData(DynamicRegistryManager manager, Identifier factionId, Identifier raceId, NpcData npcData) {
+    public NpcEntityData generateNpcData(DynamicRegistryManager manager, Identifier factionId, NpcData npcData) {
         Faction chosenFaction = manager.getOrThrow(FactionsME.KEY).get(factionId);
         if(chosenFaction == null)
-            return null;
-
-        Race chosenRace = manager.getOrThrow(RacesME.KEY).get(raceId);
-        if(chosenRace == null)
             return null;
 
         npcData.applyAttributes(this);
 
         EntityCategory category = (new Random()).nextBoolean() ? EntityCategory.MALE : EntityCategory.FEMALE;
 
-        return new NpcEntityData(chosenFaction.getId(), chosenRace.getId(), npcData.getId(), category);
+        return new NpcEntityData(chosenFaction.getId(), npcData.getId(), category);
     }
 
     private NpcEntityTextureData generateSkinTextureData(NpcEntityTextureData npcTextureData, NpcTextureData.Identity textureIdentity) {
@@ -206,7 +186,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
         builder.add(DATA, new NpcEntityData());
         builder.add(TEXTURE_DATA, new NpcEntityTextureData());
-
     }
 
     public void writeCustomDataToNbt(NbtCompound nbt) {

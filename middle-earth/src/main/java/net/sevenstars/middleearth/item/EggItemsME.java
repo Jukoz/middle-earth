@@ -1,17 +1,16 @@
 package net.sevenstars.middleearth.item;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
-import net.sevenstars.middleearth.entity.ModEntities;
-
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
+import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
+import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.item.utils.ModItemGroups;
 
 import java.util.function.Function;
 

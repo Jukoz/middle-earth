@@ -27,4 +27,7 @@ public class NpcDataLookup {
         }
         return list;
     }
+    public static NpcData getNpcData(World world, Identifier id) {
+        return world.getRegistryManager().getOrThrow(NpcME.KEY).get(id);
+    }
 }
