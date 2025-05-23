@@ -151,6 +151,7 @@ public class ModEvents {
         breakAndDamage(world, player, blockPosDown.offset(player.getFacing().rotateYCounterclockwise()), stack, hardness);
     }
 
+    //TODO make silk touch work
     private static void breakAndDamage(World world, PlayerEntity player, BlockPos blockpos, ItemStack stack, float hardness){
         ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
         BlockState blockState = world.getBlockState(blockpos);
