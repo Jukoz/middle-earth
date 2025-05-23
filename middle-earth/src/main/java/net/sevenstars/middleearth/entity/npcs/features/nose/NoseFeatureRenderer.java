@@ -46,7 +46,7 @@ public class NoseFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
         int k = bl2 ? 654311423 : -1;
         int color = ColorHelper.mix(k, (state.hurt) ? NpcEntityRenderer.HURT_COLOR : -1);
 
-        render(noseModel, vertexConsumer, matrices, light, state.noseTextureIdentifier, color);
+        render(noseModel, vertexConsumer, matrices, light, state.noseId, color);
     }
 
     private void render(EntityModel<NpcEntityRenderState> model, VertexConsumer vertexConsumer, MatrixStack matrices, int light, Identifier baseIdentifier, int color){

@@ -4,29 +4,35 @@ import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.util.Identifier;
 
 public class NpcEntityRenderState extends BipedEntityRenderState {
-    public Identifier skinTextureIdentifier;
-    public Identifier earTextureIdentifier;
-    public Identifier noseTextureIdentifier;
-    public Identifier eyeTextureIdentifier;
+    public Identifier skinId;
+    public Identifier headId;
+    public Identifier earId;
+    public Identifier noseId;
+    public Identifier eyesId;
+    public Identifier eyebrowId;
+    public Identifier scarId;
+    public Identifier beardId;
+    public Identifier beardAddonId;
+    public Identifier hairId;
+    public Identifier hairAddonId;
+    public Identifier clothingId;
+
     public boolean haveEmissiveEyes;
-    public Identifier hairTextureIdentifier;
-    public Identifier hairAddonTextureIdentifier;
-    public Identifier eyebrowTextureIdentifier;
-    public Identifier beardTextureIdentifier;
-    public Identifier beardAddonTextureIdentifier;
-    public Identifier clothingTextureIdentifier;
 
     public NpcEntityRenderState() {
-        this.skinTextureIdentifier = null;
-        this.earTextureIdentifier = null;
-        this.noseTextureIdentifier = null;
-        this.eyeTextureIdentifier = null;
+        this.skinId = null;
+        this.headId = null;
+        this.earId = null;
+        this.noseId = null;
+        this.eyesId = null;
+        this.eyebrowId = null;
+        this.scarId = null;
+        this.beardId = null;
+        this.beardAddonId = null;
+        this.hairId = null;
+        this.hairAddonId = null;
+        this.clothingId = null;
+
         this.haveEmissiveEyes = false;
-        this.hairTextureIdentifier = null;
-        this.hairAddonTextureIdentifier = null;
-        this.beardTextureIdentifier = null;
-        this.beardAddonTextureIdentifier = null;
-        this.eyebrowTextureIdentifier = null;
-        this.clothingTextureIdentifier = null;
     }
 }

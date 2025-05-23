@@ -16,7 +16,7 @@ import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElemen
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
-import net.sevenstars.middleearth.resources.datas.races.data.RaceTextureData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
 import java.util.HashMap;
@@ -47,14 +47,27 @@ public class RacesME {
     public final static Race ORC;
     public final static Race URUK;
 
-    private static RaceTextureData commonRaceTextureData = new RaceTextureData(new HashMap<>(){{
+    private static NpcTextureData commonNpcTextureData = new NpcTextureData(new HashMap<>(){{
         put(EntityCategory.MALE, List.of(
                 new NpcTextureDataPreset()
-                        .withPatterns(NpcTextureType.SKIN, List.of(
+                        .withPatterns(NpcTextureType.BODY, List.of(
                                 NpcTexturePatternsME.Body.MUSCULAR,
                                 NpcTexturePatternsME.Body.FEMALE,
                                 NpcTexturePatternsME.Body.SLIM
                         ))
+                        .withPatterns(NpcTextureType.HEAD, List.of(
+                                NpcTexturePatternsME.Head.MALE,
+                                NpcTexturePatternsME.Head.FEMALE,
+                                NpcTexturePatternsME.Head.GOBLIN_SMALL_WISE,
+                                NpcTexturePatternsME.Head.URUK_DUMB,
+                                NpcTexturePatternsME.Head.URUK_TALL_DUMB
+                        ))
+                        .withPatterns(NpcTextureType.SCAR,
+                                Stream.of(
+                                        NpcTexturePatternsME.Scar.EYE_RIGHT,
+                                        null)
+                                .toList()
+                        )
                         .withPatterns(NpcTextureType.EAR, List.of(
                                 NpcTexturePatternsME.Ear.CUBE,
                                 NpcTexturePatternsME.Ear.FLAT_POINTY,
@@ -175,11 +188,24 @@ public class RacesME {
         ));
         put(EntityCategory.FEMALE, List.of(
                 new NpcTextureDataPreset()
-                        .withPatterns(NpcTextureType.SKIN, List.of(
+                        .withPatterns(NpcTextureType.BODY, List.of(
                                 NpcTexturePatternsME.Body.MUSCULAR,
                                 NpcTexturePatternsME.Body.FEMALE,
                                 NpcTexturePatternsME.Body.SLIM
                         ))
+                        .withPatterns(NpcTextureType.HEAD, List.of(
+                                NpcTexturePatternsME.Head.MALE,
+                                NpcTexturePatternsME.Head.FEMALE,
+                                NpcTexturePatternsME.Head.GOBLIN_SMALL_WISE,
+                                NpcTexturePatternsME.Head.URUK_DUMB,
+                                NpcTexturePatternsME.Head.URUK_TALL_DUMB
+                        ))
+                        .withPatterns(NpcTextureType.SCAR,
+                                Stream.of(
+                                                NpcTexturePatternsME.Scar.EYE_RIGHT,
+                                                null)
+                                        .toList()
+                        )
                         .withPatterns(NpcTextureType.EAR, List.of(
                                 NpcTexturePatternsME.Ear.CUBE,
                                 NpcTexturePatternsME.Ear.FLAT_POINTY,
@@ -348,7 +374,7 @@ public class RacesME {
                     put(EntityCategory.FEMALE, new AttributePool()
                             .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.71, 0.78)));
                 }},
-                List.of(), List.of(), commonRaceTextureData);
+                List.of(), List.of(), commonNpcTextureData);
         ELF = new Race(Identifier.of(MiddleEarth.MOD_ID, "elf"), RaceType.ELF,
                 new AttributePool()
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.06))
@@ -370,7 +396,7 @@ public class RacesME {
                     put(EntityCategory.FEMALE, new AttributePool()
                             .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.00, 1.03)));
                 }},
-                List.of(), List.of(), commonRaceTextureData);
+                List.of(), List.of(), commonNpcTextureData);
 
         HOBBIT = new Race(Identifier.of(MiddleEarth.MOD_ID, "hobbit"), RaceType.HOBBIT,
                 new AttributePool()
@@ -395,7 +421,7 @@ public class RacesME {
                             .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.55, 0.58)));
                 }},
 
-                List.of(), List.of(), commonRaceTextureData);
+                List.of(), List.of(), commonNpcTextureData);
 
                 HUMAN = new Race(Identifier.of(MiddleEarth.MOD_ID, "human"), RaceType.HUMAN,
                         new AttributePool(),
@@ -406,7 +432,7 @@ public class RacesME {
                             put(EntityCategory.MALE, new AttributePool()
                                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.9, 0.98)));
                         }},
-                List.of(), List.of(), commonRaceTextureData);
+                List.of(), List.of(), commonNpcTextureData);
         ORC = new Race(Identifier.of(MiddleEarth.MOD_ID, "orc"), RaceType.ORC,
                 new AttributePool()
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.83).withBuffReversed())
@@ -427,7 +453,7 @@ public class RacesME {
                     put(EntityCategory.MALE, new AttributePool()
                             .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.78, 0.83)));
                 }},
-                List.of(), List.of(), commonRaceTextureData);
+                List.of(), List.of(), commonNpcTextureData);
         URUK = new Race(Identifier.of(MiddleEarth.MOD_ID, "uruk"), RaceType.URUK,
                 new AttributePool()
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.0))
@@ -449,7 +475,7 @@ public class RacesME {
                     put(EntityCategory.MALE, new AttributePool()
                             .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.96, 1.0)));
                 }},
-                List.of(), List.of(), commonRaceTextureData);
+                List.of(), List.of(), commonNpcTextureData);
     }
 }
 

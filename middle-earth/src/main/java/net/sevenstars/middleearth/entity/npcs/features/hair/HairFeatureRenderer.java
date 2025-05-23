@@ -36,8 +36,8 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
-        Identifier hairAddonTextureId = state.hairAddonTextureIdentifier;
-        Identifier beardAddonTextureId = state.beardAddonTextureIdentifier;
+        Identifier hairAddonTextureId = state.hairAddonId;
+        Identifier beardAddonTextureId = state.beardAddonId;
 
         EntityModel<NpcEntityRenderState> entityModel = hairModel;
 

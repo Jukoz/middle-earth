@@ -1,9 +1,11 @@
-package net.sevenstars.middleearth.resources.datas.races.data;
+package net.sevenstars.middleearth.resources.datas.npcs.data;
 
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
@@ -12,10 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class RaceTextureData {
+public class NpcTextureData {
     HashMap<EntityCategory, List<NpcTextureDataPreset>> presetsByCategory;
 
-    public RaceTextureData(NbtCompound compound) {
+    public NpcTextureData(NbtCompound compound) {
         if(compound == null) return;
         presetsByCategory = new HashMap<>();
 
@@ -32,7 +34,7 @@ public class RaceTextureData {
         }
     }
 
-    public RaceTextureData(HashMap<EntityCategory, List<NpcTextureDataPreset>> sourceDatas) {
+    public NpcTextureData(HashMap<EntityCategory, List<NpcTextureDataPreset>> sourceDatas) {
         presetsByCategory = sourceDatas;
     }
 
@@ -105,7 +107,7 @@ public class RaceTextureData {
     }
 
     public record Identity(EntityCategory category, NpcTextureDataPreset preset){
-        public static Identity create(RaceTextureData data, EntityCategory entityCategory){
+        public static Identity create(NpcTextureData data, EntityCategory entityCategory){
             if(!data.presetsByCategory.containsKey(entityCategory))
                 return null;
 

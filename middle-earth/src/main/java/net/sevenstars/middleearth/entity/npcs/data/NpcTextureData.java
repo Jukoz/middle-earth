@@ -9,17 +9,19 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
 
 public class NpcTextureData {
-    private Identifier skinTexture;
+    private Identifier bodyTexture;
+    private Identifier headTexture;
     private Identifier earTexture;
     private Identifier noseTexture;
     private Identifier eyeTexture;
-    private Boolean eyeEmissive;
-    private Identifier hairTexture;
-    private Identifier hairAddonTexture;
     private Identifier eyebrowTexture;
+    private Identifier scarTexture;
     private Identifier beardTexture;
     private Identifier beardAddonTexture;
+    private Identifier hairTexture;
+    private Identifier hairAddonTexture;
     private Identifier clothingTexture;
+    private Boolean eyeEmissive;
 
 
     public static final Codec<NpcTextureData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
@@ -29,13 +31,16 @@ public class NpcTextureData {
     public static final PacketCodec<RegistryByteBuf, NpcTextureData> PACKET_CODEC;
 
     public NpcTextureData(NbtCompound compound) {
-        this.skinTexture = Identifier.of(compound.getString("skin").get());
+        this.bodyTexture = Identifier.of(compound.getString("body").get());
+        this.headTexture = Identifier.of(compound.getString("head").get());
 
         if(compound.contains("ear"))
             this.earTexture = Identifier.of(compound.getString("ear").get());
 
         if(compound.contains("nose"))
             this.noseTexture = Identifier.of(compound.getString("nose").get());
+        if(compound.contains("scar"))
+            this.scarTexture = Identifier.of(compound.getString("scar").get());
 
         this.eyeTexture = Identifier.of(compound.getString("eye").get());
         this.eyeEmissive = compound.getBoolean("eye_emissive").get();
@@ -66,10 +71,17 @@ public class NpcTextureData {
     }
 
     public NpcTextureData withSkinTexture(Identifier texture){
-        this.skinTexture = texture;
+        this.bodyTexture = texture;
         return this;
     }
-
+    public NpcTextureData withHeadTexture(Identifier texture){
+        this.headTexture = texture;
+        return this;
+    }
+    public NpcTextureData withScarTexture(Identifier texture){
+        this.scarTexture = texture;
+        return this;
+    }
     public NpcTextureData withEarTexture(Identifier texture){
         this.earTexture = texture;
         return this;
@@ -117,7 +129,10 @@ public class NpcTextureData {
 
     private NbtCompound writeNbt() {
         NbtCompound nbt = new NbtCompound();
-        nbt.putString("skin", skinTexture.toString());
+        nbt.putString("body", bodyTexture.toString());
+        nbt.putString("head", headTexture.toString());
+        if(scarTexture != null)
+            nbt.putString("scar", scarTexture.toString());
         if(earTexture != null)
             nbt.putString("ear", earTexture.toString());
         if(noseTexture != null)
@@ -147,8 +162,11 @@ public class NpcTextureData {
     }
 
 
-    public Identifier getSkinTexture() {
-        return this.skinTexture;
+    public Identifier getBodyTexture() {
+        return this.bodyTexture;
+    }
+    public Identifier getHeadTexture() {
+        return this.headTexture;
     }
 
     public Identifier getEarTexture() {
@@ -170,9 +188,8 @@ public class NpcTextureData {
     public Identifier getHairAddonTexture() {
         return this.hairAddonTexture;
     }
-    public Identifier getEyebrowTexture() {
-        return this.eyebrowTexture;
-    }
+    public Identifier getEyebrowTexture() { return this.eyebrowTexture;}
+    public Identifier getScarTexture() { return this.scarTexture; }
     public Identifier getBeardTexture() {
         return this.beardTexture;
     }

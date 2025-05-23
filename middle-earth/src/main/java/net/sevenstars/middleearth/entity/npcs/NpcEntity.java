@@ -25,14 +25,13 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.npcs.data.NpcData;
-import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
-import net.sevenstars.middleearth.resources.datas.races.data.RaceTextureData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import org.jetbrains.annotations.Nullable;
@@ -45,7 +44,7 @@ import java.util.Random;
 public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     // Data to use
     private static final TrackedData<NpcData> DATA;
-    private static final TrackedData<NpcTextureData> TEXTURE_DATA;
+    private static final TrackedData<net.sevenstars.middleearth.entity.npcs.data.NpcTextureData> TEXTURE_DATA;
 
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
@@ -66,9 +65,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         setNpcData(generatedData);
 
         var race = generatedData.getRaceValue(world);
-        RaceTextureData.Identity textureIdentity = RaceTextureData.Identity.create(race.getRaceTextureData(), generatedData.category);
+        NpcTextureData.Identity textureIdentity = NpcTextureData.Identity.create(race.getRaceTextureData(), generatedData.category);
 
-        NpcTextureData generatedTextureData = generateSkinTextureData(new NpcTextureData(), textureIdentity);
+        net.sevenstars.middleearth.entity.npcs.data.NpcTextureData generatedTextureData = generateSkinTextureData(new net.sevenstars.middleearth.entity.npcs.data.NpcTextureData(), textureIdentity);
         generatedTextureData = generateEyeTextureData(generatedTextureData, textureIdentity, race.getRaceTextureData().haveEmissiveEyes(textureIdentity));
         generatedTextureData = generateHairTextureData(generatedTextureData, textureIdentity, manager);
         generatedTextureData = generateClothingTextureData(generatedTextureData, textureIdentity);
@@ -120,65 +119,70 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         return new NpcData(chosenFaction.getId(), chosenRace.getId(), category);
     }
 
-    private NpcTextureData generateSkinTextureData(NpcTextureData npcTextureData, RaceTextureData.Identity textureIdentity) {
-        Identifier materialId = RaceTextureData.getRawMaterial(textureIdentity, NpcTextureType.SKIN);
+    private net.sevenstars.middleearth.entity.npcs.data.NpcTextureData generateSkinTextureData(net.sevenstars.middleearth.entity.npcs.data.NpcTextureData npcTextureData, NpcTextureData.Identity textureIdentity) {
+        Identifier materialId = NpcTextureData.getRawMaterial(textureIdentity, NpcTextureType.SKIN);
+        Identifier bodyPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.BODY);
+        Identifier headPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.HEAD);
+        Identifier earPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.EAR);
+        Identifier nosePatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.NOSE);
+        Identifier scarPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.SCAR);
 
-        Identifier skinPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.SKIN);
-        Identifier earPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.EAR);
-        Identifier nosePatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.NOSE);
+        npcTextureData = npcTextureData.withSkinTexture(NpcTextureData.buildId(bodyPatternId, materialId));
+        npcTextureData = npcTextureData.withHeadTexture(NpcTextureData.buildId(headPatternId, materialId));
 
-        npcTextureData = npcTextureData.withSkinTexture(RaceTextureData.buildId(skinPatternId, materialId));
-
+        if(scarPatternId != null){
+            npcTextureData = npcTextureData.withScarTexture(NpcTextureData.buildId(scarPatternId, materialId));
+        }
         if(earPatternId != null){
-            npcTextureData = npcTextureData.withEarTexture(RaceTextureData.buildId(earPatternId, materialId));
+            npcTextureData = npcTextureData.withEarTexture(NpcTextureData.buildId(earPatternId, materialId));
         }
         if(nosePatternId != null){
-            npcTextureData = npcTextureData.withNoseTexture(RaceTextureData.buildId(nosePatternId, materialId));
+            npcTextureData = npcTextureData.withNoseTexture(NpcTextureData.buildId(nosePatternId, materialId));
         }
 
         return npcTextureData;
     }
 
-    private NpcTextureData generateEyeTextureData(NpcTextureData npcTextureData, RaceTextureData.Identity textureIdentity, boolean haveEmissiveEyes) {
-        Identifier materialId = RaceTextureData.getRawMaterial(textureIdentity, NpcTextureType.EYE);
-        Identifier patternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.EYE);
+    private net.sevenstars.middleearth.entity.npcs.data.NpcTextureData generateEyeTextureData(net.sevenstars.middleearth.entity.npcs.data.NpcTextureData npcTextureData, NpcTextureData.Identity textureIdentity, boolean haveEmissiveEyes) {
+        Identifier materialId = NpcTextureData.getRawMaterial(textureIdentity, NpcTextureType.EYE);
+        Identifier patternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.EYE);
 
-        npcTextureData = npcTextureData.withEyeTexture(RaceTextureData.buildId(patternId, materialId), haveEmissiveEyes);
+        npcTextureData = npcTextureData.withEyeTexture(NpcTextureData.buildId(patternId, materialId), haveEmissiveEyes);
 
         return npcTextureData;
     }
 
-    private NpcTextureData generateHairTextureData(NpcTextureData npcTextureData, RaceTextureData.Identity textureIdentity, DynamicRegistryManager manager) {
-        Identifier globalHairMaterialId = RaceTextureData.getRawMaterial(textureIdentity, NpcTextureType.HAIR);
+    private net.sevenstars.middleearth.entity.npcs.data.NpcTextureData generateHairTextureData(net.sevenstars.middleearth.entity.npcs.data.NpcTextureData npcTextureData, NpcTextureData.Identity textureIdentity, DynamicRegistryManager manager) {
+        Identifier globalHairMaterialId = NpcTextureData.getRawMaterial(textureIdentity, NpcTextureType.HAIR);
 
         // Hair
-        Identifier hairPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.HAIR);
+        Identifier hairPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.HAIR);
         Optional<RegistryEntry.Reference<NpcTexturePattern>> foundHairPattern = NpcTexturePatternsME.get(manager, NpcTextureType.HAIR, hairPatternId);
         if(foundHairPattern.isPresent() && foundHairPattern.get().value() instanceof NpcTexturePattern pattern){
-            npcTextureData = npcTextureData.withHairTexture(RaceTextureData.buildId(hairPatternId, globalHairMaterialId));
+            npcTextureData = npcTextureData.withHairTexture(NpcTextureData.buildId(hairPatternId, globalHairMaterialId));
             if(pattern.hasAddonRawValue()){
-                npcTextureData = npcTextureData.withHairAddonTexture(RaceTextureData.buildAddonId(hairPatternId, globalHairMaterialId));
+                npcTextureData = npcTextureData.withHairAddonTexture(NpcTextureData.buildAddonId(hairPatternId, globalHairMaterialId));
             }
         }
         // Eyebrow
-        Identifier eyebrowPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.EYEBROW);
+        Identifier eyebrowPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.EYEBROW);
         Optional<RegistryEntry.Reference<NpcTexturePattern>> foundEyebrowPattern = NpcTexturePatternsME.get(manager, NpcTextureType.EYEBROW, eyebrowPatternId);
         if(foundEyebrowPattern.isPresent()){
-            npcTextureData = npcTextureData.withEyebrowTexture(RaceTextureData.buildId(eyebrowPatternId, globalHairMaterialId));
+            npcTextureData = npcTextureData.withEyebrowTexture(NpcTextureData.buildId(eyebrowPatternId, globalHairMaterialId));
         }
         // Beard
-        Identifier beardPatternId = RaceTextureData.getRawPattern(textureIdentity, NpcTextureType.BEARD);
+        Identifier beardPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.BEARD);
         Optional<RegistryEntry.Reference<NpcTexturePattern>> foundBeardPattern = NpcTexturePatternsME.get(manager, NpcTextureType.BEARD, beardPatternId);
         if(foundBeardPattern.isPresent() && foundBeardPattern.get().value() instanceof NpcTexturePattern pattern){
-            npcTextureData = npcTextureData.withBeardTexture(RaceTextureData.buildId(beardPatternId, globalHairMaterialId));
+            npcTextureData = npcTextureData.withBeardTexture(NpcTextureData.buildId(beardPatternId, globalHairMaterialId));
             if(pattern.hasAddonRawValue()){
-                npcTextureData = npcTextureData.withBeardAddonTexture(RaceTextureData.buildAddonId(beardPatternId, globalHairMaterialId));
+                npcTextureData = npcTextureData.withBeardAddonTexture(NpcTextureData.buildAddonId(beardPatternId, globalHairMaterialId));
             }
         }
         return npcTextureData;
     }
-    private NpcTextureData generateClothingTextureData(NpcTextureData npcTextureData, RaceTextureData.Identity textureIdentity) {
-        npcTextureData = npcTextureData.withClothingTexture(RaceTextureData.getTextureWithMaterial(textureIdentity, NpcTextureType.CLOTHING));
+    private net.sevenstars.middleearth.entity.npcs.data.NpcTextureData generateClothingTextureData(net.sevenstars.middleearth.entity.npcs.data.NpcTextureData npcTextureData, NpcTextureData.Identity textureIdentity) {
+        npcTextureData = npcTextureData.withClothingTexture(NpcTextureData.getTextureWithMaterial(textureIdentity, NpcTextureType.CLOTHING));
 
         return npcTextureData;
     }
@@ -190,7 +194,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         super.initDataTracker(builder);
 
         builder.add(DATA, new NpcData());
-        builder.add(TEXTURE_DATA, new NpcTextureData());
+        builder.add(TEXTURE_DATA, new net.sevenstars.middleearth.entity.npcs.data.NpcTextureData());
 
     }
 
@@ -201,7 +205,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             nbt.put("NpcData", npcData.getOrThrow());
         }
 
-        DataResult<NbtElement> npcTextureData = NpcTextureData.CODEC.encodeStart(NbtOps.INSTANCE, this.getNpcTextureData());
+        DataResult<NbtElement> npcTextureData = net.sevenstars.middleearth.entity.npcs.data.NpcTextureData.CODEC.encodeStart(NbtOps.INSTANCE, this.getNpcTextureData());
         if(npcTextureData.isSuccess()){
             nbt.put("NpcTextureData", npcTextureData.getOrThrow());
         }
@@ -217,7 +221,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             }
         }
         if (nbt.contains("NpcTextureData")) {
-            DataResult<NpcTextureData> dataResult = NpcTextureData.CODEC.parse(NbtOps.INSTANCE, nbt.get("NpcTextureData"));
+            DataResult<net.sevenstars.middleearth.entity.npcs.data.NpcTextureData> dataResult = net.sevenstars.middleearth.entity.npcs.data.NpcTextureData.CODEC.parse(NbtOps.INSTANCE, nbt.get("NpcTextureData"));
             if(dataResult.isSuccess()){
                 setNpcTextureData(dataResult.getOrThrow());
             }
@@ -232,11 +236,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         return this.dataTracker.get(DATA);
     }
 
-    public void setNpcTextureData(NpcTextureData npcTextureData) {
+    public void setNpcTextureData(net.sevenstars.middleearth.entity.npcs.data.NpcTextureData npcTextureData) {
         this.dataTracker.set(TEXTURE_DATA, npcTextureData);
     }
 
-    public NpcTextureData getNpcTextureData() {
+    public net.sevenstars.middleearth.entity.npcs.data.NpcTextureData getNpcTextureData() {
         return this.dataTracker.get(TEXTURE_DATA);
     }
 

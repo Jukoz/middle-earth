@@ -46,7 +46,7 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
         int k = bl2 ? 654311423 : -1;
         int color = ColorHelper.mix(k, (state.hurt) ? NpcEntityRenderer.HURT_COLOR : -1);
 
-        render(earModel, vertexConsumer, matrices, light, state.earTextureIdentifier, color);
+        render(earModel, vertexConsumer, matrices, light, state.earId, color);
     }
 
     private void render(EntityModel<NpcEntityRenderState> model, VertexConsumer vertexConsumer, MatrixStack matrices, int light, Identifier baseIdentifier, int color){
