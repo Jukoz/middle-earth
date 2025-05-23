@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 
 public class MEEnchantmentEffects {
-    public static final RegistryKey<Enchantment> BROAD_MINING = of("broad_mining");
+    public static final RegistryKey<Enchantment> HEWING = of("hewing");
 
     private static RegistryKey<Enchantment> of(String path) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, path);

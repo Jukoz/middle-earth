@@ -1,8 +1,9 @@
 {
   "anvil_cost": 5,
   "description": {
-    "translate": "enchantment.middle-earth.broad_mining"
+    "translate": "enchantment.middle-earth.hewing"
   },
+  "exclusive_set": "#middle-earth:exclusive_set/hewing",
   "max_cost": {
     "base": 1,
     "per_level_above_first": 15
@@ -13,8 +14,8 @@
     "per_level_above_first": 10
   },
   "slots": [
-    "hand"
+    "mainhand"
   ],
-  "supported_items": "#minecraft:pickaxes",
+  "supported_items": "#minecraft:enchantable/mining",
   "weight": 10
 }
