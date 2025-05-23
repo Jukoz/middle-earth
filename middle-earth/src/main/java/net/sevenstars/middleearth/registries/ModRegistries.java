@@ -533,6 +533,7 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.MIRKWOOD_SPIDER_EGG, 0.8F);
 
         registry.add(FoodItemsME.LEMBAS, 1.0F);
+        registry.add(FoodItemsME.CRAM, 0.7F);
         registry.add(FoodItemsME.MAGGOTY_BREAD, 0.8F);
         registry.add(FoodItemsME.TOUGH_BERRIES, 0.3F);
         registry.add(FoodItemsME.STRAWBERRY, 0.5F);

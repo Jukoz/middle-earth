@@ -35,6 +35,9 @@ public class FoodItemsME {
     public static final Item LEMBAS = registerItem("lembas",
             Item::new,new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(20).saturationModifier(1).build()));
+    public static final Item CRAM = registerItem("cram",
+            Item::new,new Item.Settings()
+                    .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.2F).build()));
 
     public static final Item RAW_SWAN = registerItem("raw_swan",
             Item::new,new Item.Settings()

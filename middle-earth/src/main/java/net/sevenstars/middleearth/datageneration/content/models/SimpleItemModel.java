@@ -84,6 +84,7 @@ public class SimpleItemModel {
             add(FoodItemsME.COOKED_HORSE);
 
             add(FoodItemsME.LEMBAS);
+            add(FoodItemsME.CRAM);
             add(FoodItemsME.RAW_SWAN);
             add(FoodItemsME.COOKED_SWAN);
             add(FoodItemsME.MAGGOTY_BREAD);
