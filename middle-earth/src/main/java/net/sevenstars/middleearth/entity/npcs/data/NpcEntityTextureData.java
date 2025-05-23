@@ -8,7 +8,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
 
-public class NpcTextureData {
+public class NpcEntityTextureData {
     private Identifier bodyTexture;
     private Identifier headTexture;
     private Identifier earTexture;
@@ -24,13 +24,13 @@ public class NpcTextureData {
     private Boolean eyeEmissive;
 
 
-    public static final Codec<NpcTextureData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-        NbtCompound.CODEC.fieldOf("data").forGetter(NpcTextureData::writeNbt)
-    ).apply(instance, NpcTextureData::new));
+    public static final Codec<NpcEntityTextureData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+        NbtCompound.CODEC.fieldOf("data").forGetter(NpcEntityTextureData::writeNbt)
+    ).apply(instance, NpcEntityTextureData::new));
 
-    public static final PacketCodec<RegistryByteBuf, NpcTextureData> PACKET_CODEC;
+    public static final PacketCodec<RegistryByteBuf, NpcEntityTextureData> PACKET_CODEC;
 
-    public NpcTextureData(NbtCompound compound) {
+    public NpcEntityTextureData(NbtCompound compound) {
         this.bodyTexture = Identifier.of(compound.getString("body").get());
         this.headTexture = Identifier.of(compound.getString("head").get());
 
@@ -66,61 +66,61 @@ public class NpcTextureData {
         this.clothingTexture = Identifier.of(compound.getString("clothing").get());
     }
 
-    public NpcTextureData() {
+    public NpcEntityTextureData() {
         this.eyeEmissive = false;
     }
 
-    public NpcTextureData withSkinTexture(Identifier texture){
+    public NpcEntityTextureData withSkinTexture(Identifier texture){
         this.bodyTexture = texture;
         return this;
     }
-    public NpcTextureData withHeadTexture(Identifier texture){
+    public NpcEntityTextureData withHeadTexture(Identifier texture){
         this.headTexture = texture;
         return this;
     }
-    public NpcTextureData withScarTexture(Identifier texture){
+    public NpcEntityTextureData withScarTexture(Identifier texture){
         this.scarTexture = texture;
         return this;
     }
-    public NpcTextureData withEarTexture(Identifier texture){
+    public NpcEntityTextureData withEarTexture(Identifier texture){
         this.earTexture = texture;
         return this;
     }
-    public NpcTextureData withNoseTexture(Identifier texture){
+    public NpcEntityTextureData withNoseTexture(Identifier texture){
         this.noseTexture = texture;
         return this;
     }
-    public NpcTextureData withEyeTexture(Identifier texture, Boolean isEmissive){
+    public NpcEntityTextureData withEyeTexture(Identifier texture, Boolean isEmissive){
         this.eyeTexture = texture;
         this.eyeEmissive = isEmissive;
         return this;
     }
 
-    public NpcTextureData withHairTexture(Identifier texture){
+    public NpcEntityTextureData withHairTexture(Identifier texture){
         this.hairTexture = texture;
         return this;
     }
 
-    public NpcTextureData withHairAddonTexture(Identifier texture){
+    public NpcEntityTextureData withHairAddonTexture(Identifier texture){
         this.hairAddonTexture = texture;
         return this;
     }
 
-    public NpcTextureData withEyebrowTexture(Identifier texture){
+    public NpcEntityTextureData withEyebrowTexture(Identifier texture){
         this.eyebrowTexture = texture;
         return this;
     }
 
-    public NpcTextureData withBeardTexture(Identifier texture){
+    public NpcEntityTextureData withBeardTexture(Identifier texture){
         this.beardTexture = texture;
         return this;
     }
 
-    public NpcTextureData withBeardAddonTexture(Identifier texture){
+    public NpcEntityTextureData withBeardAddonTexture(Identifier texture){
         this.beardAddonTexture = texture;
         return this;
     }
-    public NpcTextureData withClothingTexture(Identifier texture){
+    public NpcEntityTextureData withClothingTexture(Identifier texture){
         this.clothingTexture = texture;
         return this;
     }
@@ -201,7 +201,7 @@ public class NpcTextureData {
     }
     static {
         PACKET_CODEC = PacketCodec.tuple(
-                PacketCodecs.NBT_COMPOUND, NpcTextureData::writeNbt,
-                NpcTextureData::new);
+                PacketCodecs.NBT_COMPOUND, NpcEntityTextureData::writeNbt,
+                NpcEntityTextureData::new);
     }
 }

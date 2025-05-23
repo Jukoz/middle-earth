@@ -1,20 +1,22 @@
 package net.sevenstars.middleearth.resources.datas.npcs.pools;
 
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
 import net.sevenstars.middleearth.item.utils.armor.hoods.ModHoods;
+import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MordorNpcDataPool {
@@ -72,7 +74,7 @@ public class MordorNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.BLACK_NUMENOREAN_TOWER_SHIELD))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         MORDOR_ORC_SNAGA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "orc_snaga"), RacesME.ORC, List.of(
                 NpcGearData.create()
@@ -115,7 +117,7 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_WOODEN_SHIELD).withWeight(2))
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_PAINTED_WOODEN_SHIELD))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         MORDOR_ORC_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "orc_militia"), RacesME.ORC, List.of(
                 NpcGearData.create()
@@ -176,7 +178,7 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD).withWeight(2))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         MORDOR_ORC_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "orc_scout"), RacesME.ORC, List.of(
                 NpcGearData.create()
@@ -229,7 +231,7 @@ public class MordorNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         MORDOR_ORC_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "orc_soldier"), RacesME.ORC, List.of(
                 NpcGearData.create()
@@ -314,7 +316,7 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_CONVERTED_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
 
         MORDOR_BLACK_URUK_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "black_uruk_soldier"), RacesME.URUK, List.of(
@@ -385,7 +387,7 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_CONVERTED_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         MORDOR_BLACK_URUK_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "black_uruk_veteran"), RacesME.URUK, List.of(
                 NpcGearData.create()
@@ -405,7 +407,7 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         MORDOR_BLACK_URUK_VETERAN_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "black_uruk_veteran_archer"), RacesME.URUK, List.of(
                 NpcGearData.create()
@@ -419,7 +421,7 @@ public class MordorNpcDataPool {
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_ELITE_LONGBOW))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         MORDOR_BLACK_URUK_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "black_uruk_leader"), RacesME.URUK, List.of(
                 NpcGearData.create()
@@ -439,6 +441,6 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
     }
 }

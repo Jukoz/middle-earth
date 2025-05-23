@@ -315,6 +315,10 @@ public class Faction {
         return subFactions;
     }
 
+    public HashMap<NpcRank, List<Identifier>> getAllNpcDatas(){
+        return npcDatasByRank;
+    }
+
     public Faction getSubfaction(World world, int index){
         if(world == null || this.subFactions == null || index >= this.subFactions.size())
             return null;

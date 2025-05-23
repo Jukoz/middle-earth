@@ -116,7 +116,6 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             }
         }
 
-
         float g = state.baseScale;
         matrices.scale(g, g, g);
         this.setupTransforms(state, matrices, state.bodyYaw, g);

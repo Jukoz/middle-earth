@@ -5,6 +5,7 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
+import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
@@ -14,6 +15,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MistyMountainsGoblinsNpcDataPool {
@@ -81,7 +83,7 @@ public class MistyMountainsGoblinsNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         MISTY_GOBLIN_WARRIOR = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "goblin_warrior"), RacesME.ORC, List.of(
                 NpcGearData.create()
@@ -132,7 +134,7 @@ public class MistyMountainsGoblinsNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(2))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         MISTY_GOBLIN_ARCHER= new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "goblin_archer"), RacesME.ORC, List.of(
                 NpcGearData.create()
@@ -172,7 +174,7 @@ public class MistyMountainsGoblinsNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_BOW).withWeight(2))
                                 .add(NpcGearItemData.create(WeaponItemsME.ORCISH_BOW))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         MISTY_HOBGOBLIN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "hobgoblin_soldier"), RacesME.URUK, List.of(
                 NpcGearData.create()
@@ -220,7 +222,7 @@ public class MistyMountainsGoblinsNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(2))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         MISTY_HOBGOBLIN_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "hobgoblin_veteran"), RacesME.URUK, List.of(
                 NpcGearData.create()
@@ -268,7 +270,7 @@ public class MistyMountainsGoblinsNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_HEAVY_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_REINFORCED_SHIELD))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         MISTY_HOBGOBLIN_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "hobgoblin_leader"), RacesME.URUK, List.of(
                 NpcGearData.create()
@@ -300,6 +302,6 @@ public class MistyMountainsGoblinsNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_REINFORCED_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(2))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
     }
 }

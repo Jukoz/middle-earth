@@ -2,17 +2,17 @@ package net.sevenstars.middleearth.entity;
 
 import net.minecraft.entity.data.TrackedDataHandler;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.sevenstars.middleearth.entity.npcs.data.NpcData;
-import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.entity.npcs.data.NpcEntityData;
+import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 
 public class ModTrackedDataHandlerRegistry {
 
-    public static final TrackedDataHandler<NpcData> NPC_ENTITY_DATA;
-    public static final TrackedDataHandler<NpcTextureData> NPC_ENTITY_TEXTURE_DATA;
+    public static final TrackedDataHandler<NpcEntityData> NPC_ENTITY_DATA;
+    public static final TrackedDataHandler<NpcEntityTextureData> NPC_ENTITY_TEXTURE_DATA;
 
     static {
-        NPC_ENTITY_DATA = TrackedDataHandler.create(NpcData.PACKET_CODEC);
-        NPC_ENTITY_TEXTURE_DATA = TrackedDataHandler.create(NpcTextureData.PACKET_CODEC);
+        NPC_ENTITY_DATA = TrackedDataHandler.create(NpcEntityData.PACKET_CODEC);
+        NPC_ENTITY_TEXTURE_DATA = TrackedDataHandler.create(NpcEntityTextureData.PACKET_CODEC);
     }
 
     public static void register() {

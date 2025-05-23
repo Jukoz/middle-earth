@@ -19,7 +19,6 @@ import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
@@ -34,8 +33,7 @@ public class Race {
             NbtCompound.CODEC.fieldOf("player_attributes").forGetter(Race::getPlayerAttributePool),
             NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(Race::getNpcAttributePool),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Race::getJoinCommands),
-            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Race::getLeaveCommands),
-            NbtCompound.CODEC.fieldOf("npc_textures").forGetter(Race::getNpcTextureData)
+            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Race::getLeaveCommands)
     ).apply(instance, Race::new));
 
     private final Identifier id;
@@ -45,10 +43,9 @@ public class Race {
     private final HashMap<EntityCategory, AttributePool> npcAttributePools;
     private List<String> joinCommands;
     private List<String> leaveCommands;
-    private final NpcTextureData npcTextureData;
 
 
-    public Race(String id, String raceTypeValue, NbtCompound playerAttributes, NbtCompound npcAttributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, NbtCompound npcTextureData){
+    public Race(String id, String raceTypeValue, NbtCompound playerAttributes, NbtCompound npcAttributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands){
         // Create id
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
@@ -70,12 +67,9 @@ public class Race {
         // Leave commands
         this.leaveCommands = new ArrayList<>();
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
-
-        // Skin Textures
-        this.npcTextureData = new NpcTextureData(npcTextureData);
     }
 
-    public Race(Identifier id, RaceType raceType, AttributePool playerAttributePool, HashMap<EntityCategory, AttributePool> npcAttributePools, List<String> joinCommands, List<String> leaveCommands, NpcTextureData npcTextureData) {
+    public Race(Identifier id, RaceType raceType, AttributePool playerAttributePool, HashMap<EntityCategory, AttributePool> npcAttributePools, List<String> joinCommands, List<String> leaveCommands) {
         this.id = id;
         this.raceType = raceType;
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
@@ -83,7 +77,6 @@ public class Race {
         this.npcAttributePools = npcAttributePools;
         this.joinCommands = joinCommands;
         this.leaveCommands = leaveCommands;
-        this.npcTextureData = npcTextureData;
     }
 
     public Identifier getId() {
@@ -108,12 +101,6 @@ public class Race {
             nbt.put(category.name(), npcAttributePools.get(category).getNbt());
         }
         return nbt;
-    }
-    private NbtCompound getNpcTextureData() {
-        return npcTextureData.getNbt();
-    }
-    public NpcTextureData getRaceTextureData() {
-        return npcTextureData;
     }
 
     public Optional<List<String>> getJoinCommands() {

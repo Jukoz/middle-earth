@@ -6,6 +6,7 @@ import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
 import net.sevenstars.middleearth.item.utils.armor.hoods.ModHoods;
+import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
@@ -15,6 +16,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class BanditNpcDataPool {
@@ -123,7 +125,7 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.BRONZE_DAGGER))
                                 .add(NpcGearItemData.create(WeaponItemsME.IRON_DAGGER))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         BANDIT_THIEF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "thief"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
@@ -161,7 +163,7 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.IRON_DAGGER))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(2))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         BANDIT_MERCENARY = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "mercenary"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
@@ -213,7 +215,7 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BRACED_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         BANDIT_CHIEFTAIN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "chieftain"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
@@ -280,7 +282,7 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BRACED_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
 
         WILD_GOBLIN_GATHERER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "wild_goblin_gatherer"), RacesME.ORC, List.of(
@@ -315,7 +317,7 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(ToolItemsME.CRUDE_HOE))
                                 .add(NpcGearItemData.create(ToolItemsME.CRUDE_SHOVEL))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         WILD_GOBLIN_WARRIOR= new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "wild_goblin_warrior"), RacesME.ORC, List.of(
                 NpcGearData.create()
@@ -360,7 +362,7 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ORC_KNIFE))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
         WILD_GOBLIN_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "wild_goblin_scout"), RacesME.ORC, List.of(
                 NpcGearData.create()
@@ -393,6 +395,6 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ORCISH_BOW).withWeight(4))
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_BOW))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
     }
 }

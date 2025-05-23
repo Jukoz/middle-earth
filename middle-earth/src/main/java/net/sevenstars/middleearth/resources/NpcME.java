@@ -7,6 +7,7 @@ import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.resources.datas.npcs.pools.*;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.registry.Registerable;
@@ -15,9 +16,14 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Middle-earth mod npc registry<br>
@@ -35,6 +41,287 @@ public class NpcME {
     public final static NpcData HOBBIT_CIVILIAN;
     public final static NpcData ORC_CIVILIAN;
     public final static NpcData URUK_CIVILIAN;
+
+    public static NpcTextureData COMMON_TEXTURE_TEST = new NpcTextureData(new HashMap<>(){{
+        put(EntityCategory.MALE, List.of(
+                new NpcTextureDataPreset()
+                        .withPatterns(NpcTextureType.BODY, List.of(
+                                NpcTexturePatternsME.Body.MUSCULAR,
+                                NpcTexturePatternsME.Body.FEMALE,
+                                NpcTexturePatternsME.Body.SLIM
+                        ))
+                        .withPatterns(NpcTextureType.HEAD, List.of(
+                                NpcTexturePatternsME.Head.MALE,
+                                NpcTexturePatternsME.Head.FEMALE,
+                                NpcTexturePatternsME.Head.GOBLIN_SMALL_WISE,
+                                NpcTexturePatternsME.Head.URUK_DUMB,
+                                NpcTexturePatternsME.Head.URUK_TALL_DUMB
+                        ))
+                        .withPatterns(NpcTextureType.SCAR,
+                                Stream.of(
+                                                NpcTexturePatternsME.Scar.EYE_RIGHT,
+                                                null)
+                                        .toList()
+                        )
+                        .withPatterns(NpcTextureType.EAR, List.of(
+                                NpcTexturePatternsME.Ear.CUBE,
+                                NpcTexturePatternsME.Ear.FLAT_POINTY,
+                                NpcTexturePatternsME.Ear.ANGLED_POINTY,
+                                NpcTexturePatternsME.Ear.FLAT_SMALL,
+                                NpcTexturePatternsME.Ear.FLAT_ROUND
+                        ))
+                        .withPatterns(NpcTextureType.NOSE, Stream.of(
+                                        NpcTexturePatternsME.Nose.CUBE,
+                                        NpcTexturePatternsME.Nose.LARGE_CUBE_CENTER,
+                                        NpcTexturePatternsME.Nose.LARGE_CUBE_HIGH,
+                                        NpcTexturePatternsME.Nose.VILLAGER)
+                                .toList()
+                        )
+                        .withMaterials(NpcTextureType.SKIN, List.of(
+                                NpcTextureMaterialsME.Skin.PALE,
+                                NpcTextureMaterialsME.Skin.OLIVE,
+                                NpcTextureMaterialsME.Skin.DEFAULT,
+                                NpcTextureMaterialsME.Skin.GREENISH,
+                                NpcTextureMaterialsME.Skin.BROWN,
+                                NpcTextureMaterialsME.Skin.TAN,
+                                NpcTextureMaterialsME.Skin.TAN_DESATURATED
+                        ))
+                        .withPatterns(NpcTextureType.EYE, List.of(
+                                NpcTexturePatternsME.Eye.COMMON,
+                                NpcTexturePatternsME.Eye.SMALL_WIDE,
+                                NpcTexturePatternsME.Eye.SMALL_HIGH_WIDE,
+                                NpcTexturePatternsME.Eye.SMALL
+                        ))
+                        .withMaterials(NpcTextureType.EYE, List.of(
+                                NpcTextureMaterialsME.Eye.BLACK,
+                                NpcTextureMaterialsME.Eye.BLUE,
+                                NpcTextureMaterialsME.Eye.BROWN,
+                                NpcTextureMaterialsME.Eye.DARK_GREEN,
+                                NpcTextureMaterialsME.Eye.BLIND_LEFT_GREEN,
+                                NpcTextureMaterialsME.Eye.GREEN,
+                                NpcTextureMaterialsME.Eye.NAVY
+                        ))
+                        .withEmissiveEyes(false)
+                        .withPatterns(NpcTextureType.HAIR, Stream.of(
+                                        NpcTexturePatternsME.Hair.SHORT,
+                                        NpcTexturePatternsME.Hair.UNCUT,
+                                        NpcTexturePatternsME.Hair.BALD_SIDES,
+                                        NpcTexturePatternsME.Hair.SHARP,
+                                        NpcTexturePatternsME.Hair.BOWL,
+                                        NpcTexturePatternsME.Hair.BALD_DREADLOCKS_ORNAMENTED,
+                                        NpcTexturePatternsME.Hair.BALD_SMALL_DREADLOCKS,
+                                        NpcTexturePatternsME.Hair.DIRTY_MOP,
+                                        NpcTexturePatternsME.Hair.PONYTAIL_SHORT_ORNAMENTED,
+                                        NpcTexturePatternsME.Hair.TOP_BALDING,
+                                        NpcTexturePatternsME.Hair.SIDE_BALDING)
+                                .toList()
+                        )
+                        .withPatterns(NpcTextureType.EYEBROW, List.of(
+                                NpcTexturePatternsME.Eyebrow.SHORT,
+                                NpcTexturePatternsME.Eyebrow.BASIC,
+                                NpcTexturePatternsME.Eyebrow.LONG,
+                                NpcTexturePatternsME.Eyebrow.UNI
+                        ))
+                        .withPatterns(NpcTextureType.BEARD, Stream.of(
+                                        NpcTexturePatternsME.Beard.SHORT,
+                                        NpcTexturePatternsME.Beard.LARGE,
+                                        NpcTexturePatternsME.Beard.SINGLE,
+                                        NpcTexturePatternsME.Beard.CLEAN,
+                                        NpcTexturePatternsME.Beard.UNCLEAN_ORNAMENTED,
+                                        NpcTexturePatternsME.Beard.LONG_SINGLE_ORNAMENTED,
+                                        NpcTexturePatternsME.Beard.DUAL_ORNAMENTED,
+                                        null)
+                                .toList()
+                        )
+                        .withMaterials(NpcTextureType.HAIR, List.of(
+                                NpcTextureMaterialsME.Hair.BLACK_BEADS,
+                                NpcTextureMaterialsME.Hair.BROWN_BEADS,
+                                NpcTextureMaterialsME.Hair.DARK_BROWN_BEADS,
+                                NpcTextureMaterialsME.Hair.STRAW_BEADS,
+                                NpcTextureMaterialsME.Hair.GINGER_BEADS,
+                                NpcTextureMaterialsME.Hair.WHITE_BEADS,
+                                NpcTextureMaterialsME.Hair.GRAY_BEADS,
+                                NpcTextureMaterialsME.Hair.BLONDE_BEADS,
+                                NpcTextureMaterialsME.Hair.BLACK_GOLD,
+                                NpcTextureMaterialsME.Hair.BROWN_GOLD,
+                                NpcTextureMaterialsME.Hair.DARK_BROWN_GOLD,
+                                NpcTextureMaterialsME.Hair.STRAW_GOLD,
+                                NpcTextureMaterialsME.Hair.GINGER_GOLD,
+                                NpcTextureMaterialsME.Hair.WHITE_GOLD,
+                                NpcTextureMaterialsME.Hair.GRAY_GOLD,
+                                NpcTextureMaterialsME.Hair.BLONDE_GOLD,
+                                NpcTextureMaterialsME.Hair.BLACK_COPPER,
+                                NpcTextureMaterialsME.Hair.BROWN_COPPER,
+                                NpcTextureMaterialsME.Hair.DARK_BROWN_COPPER,
+                                NpcTextureMaterialsME.Hair.STRAW_COPPER,
+                                NpcTextureMaterialsME.Hair.GINGER_COPPER,
+                                NpcTextureMaterialsME.Hair.WHITE_COPPER,
+                                NpcTextureMaterialsME.Hair.GRAY_COPPER,
+                                NpcTextureMaterialsME.Hair.BLONDE_COPPER,
+                                NpcTextureMaterialsME.Hair.BLACK_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.BROWN_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.DARK_BROWN_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.STRAW_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.GINGER_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.WHITE_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.GRAY_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.BLONDE_ALMANDINE
+                        ))
+                        .withPatterns(NpcTextureType.CLOTHING, List.of(
+                                NpcTexturePatternsME.Clothing.ROBE,
+                                NpcTexturePatternsME.Clothing.FULL_TOGA,
+                                NpcTexturePatternsME.Clothing.SKIRT,
+                                NpcTexturePatternsME.Clothing.TOGA,
+                                NpcTexturePatternsME.Clothing.SKIRT_WITH_STROPHIUM
+                        ))
+                        .withMaterials(NpcTextureType.CLOTHING, List.of(
+                                NpcTextureMaterialsME.Clothing.WHITE,
+                                NpcTextureMaterialsME.Clothing.BROWN,
+                                NpcTextureMaterialsME.Clothing.GRAY,
+                                NpcTextureMaterialsME.Clothing.ROT_GREEN
+                        ))
+        ));
+        put(EntityCategory.FEMALE, List.of(
+                new NpcTextureDataPreset()
+                        .withPatterns(NpcTextureType.BODY, List.of(
+                                NpcTexturePatternsME.Body.MUSCULAR,
+                                NpcTexturePatternsME.Body.FEMALE,
+                                NpcTexturePatternsME.Body.SLIM
+                        ))
+                        .withPatterns(NpcTextureType.HEAD, List.of(
+                                NpcTexturePatternsME.Head.MALE,
+                                NpcTexturePatternsME.Head.FEMALE,
+                                NpcTexturePatternsME.Head.GOBLIN_SMALL_WISE,
+                                NpcTexturePatternsME.Head.URUK_DUMB,
+                                NpcTexturePatternsME.Head.URUK_TALL_DUMB
+                        ))
+                        .withPatterns(NpcTextureType.SCAR,
+                                Stream.of(
+                                                NpcTexturePatternsME.Scar.EYE_RIGHT,
+                                                null)
+                                        .toList()
+                        )
+                        .withPatterns(NpcTextureType.EAR, List.of(
+                                NpcTexturePatternsME.Ear.CUBE,
+                                NpcTexturePatternsME.Ear.FLAT_POINTY,
+                                NpcTexturePatternsME.Ear.ANGLED_POINTY,
+                                NpcTexturePatternsME.Ear.FLAT_SMALL,
+                                NpcTexturePatternsME.Ear.FLAT_ROUND
+                        ))
+                        .withPatterns(NpcTextureType.NOSE, Stream.of(
+                                        NpcTexturePatternsME.Nose.CUBE,
+                                        NpcTexturePatternsME.Nose.LARGE_CUBE_CENTER,
+                                        NpcTexturePatternsME.Nose.LARGE_CUBE_HIGH,
+                                        NpcTexturePatternsME.Nose.VILLAGER)
+                                .toList()
+                        )
+                        .withMaterials(NpcTextureType.SKIN, List.of(
+                                NpcTextureMaterialsME.Skin.PALE,
+                                NpcTextureMaterialsME.Skin.OLIVE,
+                                NpcTextureMaterialsME.Skin.DEFAULT,
+                                NpcTextureMaterialsME.Skin.GREENISH,
+                                NpcTextureMaterialsME.Skin.BROWN,
+                                NpcTextureMaterialsME.Skin.TAN,
+                                NpcTextureMaterialsME.Skin.TAN_DESATURATED
+                        ))
+                        .withPatterns(NpcTextureType.EYE, List.of(
+                                NpcTexturePatternsME.Eye.COMMON,
+                                NpcTexturePatternsME.Eye.SMALL_WIDE,
+                                NpcTexturePatternsME.Eye.SMALL_HIGH_WIDE,
+                                NpcTexturePatternsME.Eye.SMALL
+                        ))
+                        .withMaterials(NpcTextureType.EYE, List.of(
+                                NpcTextureMaterialsME.Eye.BLACK,
+                                NpcTextureMaterialsME.Eye.BLUE,
+                                NpcTextureMaterialsME.Eye.BROWN,
+                                NpcTextureMaterialsME.Eye.DARK_GREEN,
+                                NpcTextureMaterialsME.Eye.BLIND_LEFT_GREEN,
+                                NpcTextureMaterialsME.Eye.GREEN,
+                                NpcTextureMaterialsME.Eye.NAVY
+                        ))
+                        .withEmissiveEyes(false)
+                        .withPatterns(NpcTextureType.HAIR, Stream.of(
+                                        NpcTexturePatternsME.Hair.SHORT,
+                                        NpcTexturePatternsME.Hair.UNCUT,
+                                        NpcTexturePatternsME.Hair.BALD_SIDES,
+                                        NpcTexturePatternsME.Hair.SHARP,
+                                        NpcTexturePatternsME.Hair.BOWL,
+                                        NpcTexturePatternsME.Hair.BALD_DREADLOCKS_ORNAMENTED,
+                                        NpcTexturePatternsME.Hair.BALD_SMALL_DREADLOCKS,
+                                        NpcTexturePatternsME.Hair.DIRTY_MOP,
+                                        NpcTexturePatternsME.Hair.PONYTAIL_SHORT_ORNAMENTED,
+                                        NpcTexturePatternsME.Hair.TOP_BALDING,
+                                        NpcTexturePatternsME.Hair.SIDE_BALDING)
+                                .toList()
+                        )
+                        .withPatterns(NpcTextureType.EYEBROW, List.of(
+                                NpcTexturePatternsME.Eyebrow.SHORT,
+                                NpcTexturePatternsME.Eyebrow.BASIC,
+                                NpcTexturePatternsME.Eyebrow.LONG,
+                                NpcTexturePatternsME.Eyebrow.UNI
+                        ))
+                        .withPatterns(NpcTextureType.BEARD, Stream.of(
+                                        NpcTexturePatternsME.Beard.SHORT,
+                                        NpcTexturePatternsME.Beard.LARGE,
+                                        NpcTexturePatternsME.Beard.SINGLE,
+                                        NpcTexturePatternsME.Beard.CLEAN,
+                                        NpcTexturePatternsME.Beard.UNCLEAN_ORNAMENTED,
+                                        NpcTexturePatternsME.Beard.LONG_SINGLE_ORNAMENTED,
+                                        NpcTexturePatternsME.Beard.DUAL_ORNAMENTED,
+                                        null)
+                                .toList()
+                        )
+                        .withMaterials(NpcTextureType.HAIR, List.of(
+                                NpcTextureMaterialsME.Hair.BLACK_BEADS,
+                                NpcTextureMaterialsME.Hair.BROWN_BEADS,
+                                NpcTextureMaterialsME.Hair.DARK_BROWN_BEADS,
+                                NpcTextureMaterialsME.Hair.STRAW_BEADS,
+                                NpcTextureMaterialsME.Hair.GINGER_BEADS,
+                                NpcTextureMaterialsME.Hair.WHITE_BEADS,
+                                NpcTextureMaterialsME.Hair.GRAY_BEADS,
+                                NpcTextureMaterialsME.Hair.BLONDE_BEADS,
+                                NpcTextureMaterialsME.Hair.BLACK_GOLD,
+                                NpcTextureMaterialsME.Hair.BROWN_GOLD,
+                                NpcTextureMaterialsME.Hair.DARK_BROWN_GOLD,
+                                NpcTextureMaterialsME.Hair.STRAW_GOLD,
+                                NpcTextureMaterialsME.Hair.GINGER_GOLD,
+                                NpcTextureMaterialsME.Hair.WHITE_GOLD,
+                                NpcTextureMaterialsME.Hair.GRAY_GOLD,
+                                NpcTextureMaterialsME.Hair.BLONDE_GOLD,
+                                NpcTextureMaterialsME.Hair.BLACK_COPPER,
+                                NpcTextureMaterialsME.Hair.BROWN_COPPER,
+                                NpcTextureMaterialsME.Hair.DARK_BROWN_COPPER,
+                                NpcTextureMaterialsME.Hair.STRAW_COPPER,
+                                NpcTextureMaterialsME.Hair.GINGER_COPPER,
+                                NpcTextureMaterialsME.Hair.WHITE_COPPER,
+                                NpcTextureMaterialsME.Hair.GRAY_COPPER,
+                                NpcTextureMaterialsME.Hair.BLONDE_COPPER,
+                                NpcTextureMaterialsME.Hair.BLACK_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.BROWN_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.DARK_BROWN_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.STRAW_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.GINGER_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.WHITE_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.GRAY_ALMANDINE,
+                                NpcTextureMaterialsME.Hair.BLONDE_ALMANDINE
+                        ))
+                        .withPatterns(NpcTextureType.CLOTHING, List.of(
+                                NpcTexturePatternsME.Clothing.ROBE,
+                                NpcTexturePatternsME.Clothing.FULL_TOGA,
+                                NpcTexturePatternsME.Clothing.SKIRT,
+                                NpcTexturePatternsME.Clothing.TOGA,
+                                NpcTexturePatternsME.Clothing.SKIRT_WITH_STROPHIUM
+                        ))
+                        .withMaterials(NpcTextureType.CLOTHING, List.of(
+                                NpcTextureMaterialsME.Clothing.WHITE,
+                                NpcTextureMaterialsME.Clothing.BROWN,
+                                NpcTextureMaterialsME.Clothing.GRAY,
+                                NpcTextureMaterialsME.Clothing.ROT_GREEN
+                        ))
+        ));
+    }});
+
+
     public static void register(){
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Npcs for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(KEY, NpcData.CODEC);
@@ -110,27 +397,27 @@ public class NpcME {
                                 .add(NpcGearItemData.create(EquipmentItemsME.SHOES).withWeight(2))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ));
+        ), new HashMap<>(), COMMON_TEXTURE_TEST);
 
         DWARF_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "dwarf.civilian"), RacesME.DWARF, List.of(
                 NpcGearData.create()
-        ));
+        ), new HashMap<>(), COMMON_TEXTURE_TEST);
 
         ELF_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "elf.civilian"), RacesME.ELF, List.of(
                 NpcGearData.create()
-        ));
+        ), new HashMap<>(), COMMON_TEXTURE_TEST);
 
         HOBBIT_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "hobbit.civilian"), RacesME.HOBBIT, List.of(
                 NpcGearData.create()
-        ));
+        ), new HashMap<>(), COMMON_TEXTURE_TEST);
 
         ORC_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "orc.civilian"), RacesME.ORC, List.of(
                 NpcGearData.create()
-        ));
+        ), new HashMap<>(), COMMON_TEXTURE_TEST);
 
         URUK_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "uruk.civilian"), RacesME.URUK, List.of(
                 NpcGearData.create()
-        ));
+        ), new HashMap<>(), COMMON_TEXTURE_TEST);
         // endregion
     }
 }
