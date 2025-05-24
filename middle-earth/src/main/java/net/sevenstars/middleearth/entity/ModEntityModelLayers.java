@@ -20,7 +20,6 @@ import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollModel;
 import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
 import net.sevenstars.middleearth.entity.beasts.warg.features.*;
 import net.sevenstars.middleearth.entity.deer.DeerModel;
-import net.sevenstars.middleearth.entity.model.*;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarModel;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
@@ -33,19 +32,11 @@ public final class ModEntityModelLayers {
     private static final String MAIN = "main";
     // region NPC
     public static final EntityModelLayer NPC = registerEntityModelLayer("npc", NpcEntityModel.getTexturedModelData(Dilation.NONE));
-    public static final EntityModelLayer NPC_INNER_ARMOR = registerEntityModelLayer("npc", "inner_armor", NpcEntityModel.getTexturedModelData(Dilation.NONE));
-    public static final EntityModelLayer NPC_OUTER_ARMOR =  registerEntityModelLayer("npc", "outer_armor", NpcEntityModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer NPC_ENTITY_HAIR = registerEntityModelLayer("npc_entity_hair",  HairModel.getTexturedModelData());
     public static final EntityModelLayer NPC_ENTITY_EAR = registerEntityModelLayer("npc_entity_ear",  EarModel.getTexturedModelData());
     public static final EntityModelLayer NPC_ENTITY_NOSE= registerEntityModelLayer("npc_entity_nose",  NoseModel.getTexturedModelData());
     // endregion
-    public static final EntityModelLayer DWARF = ModEntityModelLayers.registerEntityModelLayer("dwarf", DwarfModel.getTexturedModelData(Dilation.NONE));
-    public static final EntityModelLayer HUMAN = ModEntityModelLayers.registerEntityModelLayer("human", HumanModel.getTexturedModelData(Dilation.NONE));
-    public static final EntityModelLayer ELF = ModEntityModelLayers.registerEntityModelLayer("elf", ElfModel.getTexturedModelData(Dilation.NONE));
-    public static final EntityModelLayer HOBBIT = ModEntityModelLayers.registerEntityModelLayer("hobbit", HobbitModel.getTexturedModelData(Dilation.NONE));
-    public static final EntityModelLayer ORC = ModEntityModelLayers.registerEntityModelLayer("orc", OrcModel.getTexturedModelData(Dilation.NONE));
-    public static final EntityModelLayer URUK = ModEntityModelLayers.registerEntityModelLayer("uruk", UrukModel.getTexturedModelData(Dilation.NONE));
-    public static final EntityModelLayer BROADHOOF_GOAT = ModEntityModelLayers.registerEntityModelLayer("broadhoof_goat", BroadhoofGoatModel.getTexturedModelData());
+   public static final EntityModelLayer BROADHOOF_GOAT = ModEntityModelLayers.registerEntityModelLayer("broadhoof_goat", BroadhoofGoatModel.getTexturedModelData());
     public static final EntityModelLayer BROADHOOF_GOAT_ARMOR = ModEntityModelLayers.registerEntityModelLayer("broadhoof_goat_armor", BroadhoofGoatArmorModel.getTexturedModelData());
     public static final EntityModelLayer BROADHOOF_GOAT_SADDLE = ModEntityModelLayers.registerEntityModelLayer("broadhoof_goat_saddle", BroadhoofGoatSaddleModel.getTexturedModelData());
     public static final EntityModelLayer WARG = ModEntityModelLayers.registerEntityModelLayer("warg", WargModel.getTexturedModelData());

@@ -28,12 +28,6 @@ public class ModEntityModels {
         builder.put(ModEntityModelLayers.NPC_ENTITY_EAR, EarModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.NPC_ENTITY_NOSE, NoseModel.getTexturedModelData());
 
-        builder.put(ModEntityModelLayers.HUMAN, HumanModel.getTexturedModelData(Dilation.NONE));
-        builder.put(ModEntityModelLayers.DWARF, DwarfModel.getTexturedModelData(Dilation.NONE));
-        builder.put(ModEntityModelLayers.ELF, ElfModel.getTexturedModelData(Dilation.NONE));
-        builder.put(ModEntityModelLayers.HOBBIT, HobbitModel.getTexturedModelData(Dilation.NONE));
-        builder.put(ModEntityModelLayers.ORC, OrcModel.getTexturedModelData(Dilation.NONE));
-        builder.put(ModEntityModelLayers.URUK, UrukModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.SNOW_TROLL, SnowTrollModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.SPIDER, MirkwoodSpiderModel.getTexturedModelData());
 
