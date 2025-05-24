@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "me:item/plate_apple"
+		"1": "middle-earth:item/plate_apple"
 	},
 	"elements": [
 		{

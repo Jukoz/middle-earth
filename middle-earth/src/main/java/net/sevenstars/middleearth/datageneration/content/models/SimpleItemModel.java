@@ -21,8 +21,8 @@ public class SimpleItemModel {
             add(DecorativeItemsME.TAPPER);
             add(DecorativeItemsME.TROLL_STATUE);
 
-            add(ModFoodItems.BIRCH_WATER);
-            add(ModFoodItems.MAPLE_SYRUP);
+            add(FoodItemsME.BIRCH_WATER);
+            add(FoodItemsME.MAPLE_SYRUP);
 
             //Crops
             add(FoodItemsME.TOMATO);

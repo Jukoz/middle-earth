@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "me:item/plate_apple"
+    "model": "middle-earth:item/plate_apple"
   }
 }

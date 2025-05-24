@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"2": "me:block/crockpot",
-		"particle": "me:block/crockpot"
+		"2": "middle-earth:block/crockpot",
+		"particle": "middle-earth:block/crockpot"
 	},
 	"elements": [
 		{

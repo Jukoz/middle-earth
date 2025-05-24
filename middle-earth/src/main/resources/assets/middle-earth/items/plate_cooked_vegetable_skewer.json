@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "me:item/plate_cooked_vegetable_skewer"
+    "model": "middle-earth:item/plate_cooked_vegetable_skewer"
   }
 }

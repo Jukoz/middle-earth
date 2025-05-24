@@ -2,9 +2,9 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "me:block/crockpot_hanging",
-		"1": "me:block/pole",
-		"particle": "me:block/crockpot_hanging"
+		"0": "middle-earth:block/crockpot_hanging",
+		"1": "middle-earth:block/pole",
+		"particle": "middle-earth:block/crockpot_hanging"
 	},
 	"elements": [
 		{
