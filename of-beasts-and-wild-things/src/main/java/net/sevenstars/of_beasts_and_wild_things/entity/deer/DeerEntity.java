@@ -27,7 +27,7 @@ public class DeerEntity extends AnimalEntity {
     }
 
     public static DefaultAttributeContainer.Builder createDeerAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 10.0)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.3);
     }
