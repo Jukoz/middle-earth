@@ -67,7 +67,7 @@ public class SwanEntity extends AnimalEntity {
 
 
     public static DefaultAttributeContainer.Builder createSwanAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 10.0)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.25)
                 .add(EntityAttributes.ATTACK_DAMAGE, 1.0)
