@@ -10,7 +10,11 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 
-public class MEEnchantmentEffects {
+/**
+ * Middle-earth mod enchantment effects registry
+ * <hr>
+ */
+public class EnchantmentEffectsME {
     public static final RegistryKey<Enchantment> HEWING = of("hewing");
 
     private static RegistryKey<Enchantment> of(String path) {
