@@ -7,6 +7,7 @@ import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.event.ModEvents;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
@@ -77,6 +78,8 @@ public class MiddleEarth implements ModInitializer {
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
 		OtherBlockSets.registerModBlockSets();
+
+		EnchantmentEffectsME.registerModEnchantmentEffects();
 
 		ModRegistries.registerFuels();
 		ModRegistries.registerToolTipAppenders();

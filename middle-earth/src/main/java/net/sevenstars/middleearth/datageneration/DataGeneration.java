@@ -53,6 +53,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(FactionProvider::new);
         pack.addProvider(DataWorldGenerator::new);
         pack.addProvider(LanguageProvider::new);
+        pack.addProvider(EnchantmentProvider::new);
     }
 
     @Override
