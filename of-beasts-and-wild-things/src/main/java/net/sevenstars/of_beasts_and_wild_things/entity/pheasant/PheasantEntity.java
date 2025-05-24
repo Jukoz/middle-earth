@@ -35,7 +35,7 @@ public class PheasantEntity extends AnimalEntity {
     }
 
     public static DefaultAttributeContainer.Builder createPheasantAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 5.0)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.2);
     }

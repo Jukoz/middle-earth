@@ -66,7 +66,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.4)
                 .add(EntityAttributes.MAX_HEALTH, 24.0d)
                 .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.2d)

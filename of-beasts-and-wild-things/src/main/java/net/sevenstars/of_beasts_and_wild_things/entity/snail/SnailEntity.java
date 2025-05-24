@@ -42,7 +42,7 @@ public class SnailEntity extends AnimalEntity {
     }
 
     public static DefaultAttributeContainer.Builder createSnailAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 2)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.05f)
                 .add(EntityAttributes.KNOCKBACK_RESISTANCE, 1)
