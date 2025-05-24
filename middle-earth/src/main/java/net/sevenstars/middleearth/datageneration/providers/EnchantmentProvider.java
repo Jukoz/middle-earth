@@ -19,28 +19,6 @@ public class EnchantmentProvider extends FabricDynamicRegistryProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup, Entries entries) {
 
-        /*register(entries, MEEnchantmentEffects.MINING_ENCHANT, Enchantment.builder(
-                                Enchantment.definition(
-                                        wrapperLookup.getOrThrow(RegistryKeys.ITEM).getOrThrow(ItemTags.PICKAXES),
-                                        // this is the "weight" or probability of our enchantment showing up in the table
-                                        10,
-                                        // the maximum level of the enchantment
-                                        3,
-                                        // base cost for level 1 of the enchantment, and min levels required for something higher
-                                        Enchantment.leveledCost(1, 10),
-                                        // same fields as above but for max cost
-                                        Enchantment.leveledCost(1, 15),
-                                        // anvil cost
-                                        5,
-                                        // valid slots
-                                        AttributeModifierSlot.HAND
-                                )
-                        )
-                        .addEffect(
-                                EnchantmentEffectComponentTypes.HIT_BLOCK,
-                                new MiningEnchantmentEffect(EnchantmentLevelBasedValue.linear(0.4f, 0.2f))
-                        )
-        );*/
     }
 
     private void register(Entries entries, RegistryKey<Enchantment> key, Enchantment.Builder builder, ResourceCondition... resourceConditions) {
