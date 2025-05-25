@@ -610,7 +610,7 @@ public class TranslationEntries {
 
             put("screen."+ MiddleEarth.MOD_ID +".faction_selection_screen", "Faction Selection");
             put("screen."+ MiddleEarth.MOD_ID +".button.faction_randomizer", "Randomize Faction");
-            put("screen."+ MiddleEarth.MOD_ID +".button.spawn_randomizer", "Randomize Spawn");
+            put("screen."+ MiddleEarth.MOD_ID +".button.full_randomizer", "Fully Randomize");
             put("screen."+ MiddleEarth.MOD_ID +".button.focus_current", "Focus Toggle");
             put("screen."+ MiddleEarth.MOD_ID +".button.zoom_out", "Zoom In");
             put("screen."+ MiddleEarth.MOD_ID +".button.zoom_in", "Zoom Out");

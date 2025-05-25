@@ -1,0 +1,27 @@
+{
+    "sources": [
+        {
+            "type": "paletted_permutations",
+            "textures": [
+                "middle-earth:npc_eye_textures/eye_common",
+                "middle-earth:npc_eye_textures/eye_small",
+                "middle-earth:npc_eye_textures/eye_small_high_wide",
+                "middle-earth:npc_eye_textures/eye_small_wide",
+                "middle-earth:npc_eye_textures/eye_small_low_wide"
+
+            ],
+            "palette_key": "middle-earth:npc_eye_textures/color_palettes/base_palette",
+            "permutations": {
+                "black": "middle-earth:npc_eye_textures/color_palettes/black",
+                "blind_left_green": "middle-earth:npc_eye_textures/color_palettes/blind_left_green",
+                "blue": "middle-earth:npc_eye_textures/color_palettes/blue",
+                "brown": "middle-earth:npc_eye_textures/color_palettes/brown",
+                "dark_green": "middle-earth:npc_eye_textures/color_palettes/dark_green",
+                "deep_blue": "middle-earth:npc_eye_textures/color_palettes/deep_blue",
+                "green": "middle-earth:npc_eye_textures/color_palettes/green",
+                "navy": "middle-earth:npc_eye_textures/color_palettes/navy",
+                "yellow": "middle-earth:npc_eye_textures/color_palettes/yellow"
+            }
+        }
+    ]
+}

@@ -8,7 +8,7 @@ import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
-import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;

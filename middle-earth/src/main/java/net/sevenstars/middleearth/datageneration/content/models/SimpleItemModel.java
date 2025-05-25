@@ -20,6 +20,9 @@ public class SimpleItemModel {
 
             add(DecorativeItemsME.TROLL_STATUE);
 
+            add(FoodItemsME.BIRCH_WATER);
+            add(FoodItemsME.MAPLE_SYRUP);
+
             //Crops
             add(FoodItemsME.TOMATO);
             add(FoodItemsME.BELL_PEPPER);

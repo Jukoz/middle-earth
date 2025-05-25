@@ -5,7 +5,8 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
-import net.sevenstars.middleearth.resources.MiddleEarthRaces;
+import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
@@ -14,6 +15,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class RohirricNpcDataPool {
@@ -47,7 +49,7 @@ public class RohirricNpcDataPool {
     }
 
     static {
-        ROHAN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), MiddleEarthRaces.HUMAN, List.of(
+        ROHAN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_LEATHER_HELMET).withWeight(6))
@@ -88,8 +90,8 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(5))
                         )
-        ));
-        ROHAN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "soldier"), MiddleEarthRaces.HUMAN, List.of(
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ROHAN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "soldier"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_MILITIA_HELMET).withWeight(6))
@@ -137,8 +139,8 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_TWIN_HORSES_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(10))
                         )
-        ));
-        ROHAN_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "knight"), MiddleEarthRaces.HUMAN, List.of(
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ROHAN_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "knight"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_SOLDIER_HELMET).withWeight(6))
@@ -178,8 +180,8 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_PLAINSMAN_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_TWIN_HORSES_SHIELD))
                         )
-        ));
-        ROHAN_ROYAL_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "royal_guard"), MiddleEarthRaces.HUMAN, List.of(
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ROHAN_ROYAL_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "royal_guard"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_ROYAL_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
@@ -193,8 +195,8 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_NOBLE_SWORD))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_ROYAL_GUARD_SHIELD)))
-        ));
-        ROHAN_EORLING_MARSHAL = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "eorling_marhsal"), MiddleEarthRaces.HUMAN, List.of(
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ROHAN_EORLING_MARSHAL = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "eorling_marhsal"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.EORLING_MARSHAL_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.EORLING_MARSHAL_CHESTPLATE)))
@@ -208,8 +210,8 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_EORLING_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ));
-        ROHAN_HORSE_LORD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "horse_lord"), MiddleEarthRaces.HUMAN, List.of(
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ROHAN_HORSE_LORD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "horse_lord"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.HORSE_LORD_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.HORSE_LORD_CHESTPLATE)))
@@ -222,7 +224,7 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_ORNAMENTED_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
     }
 }

@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.snow;
 
+import net.sevenstars.middleearth.entity.TestNpcEntity;
+import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -8,8 +10,6 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.entity.NpcEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.entity.goals.TargetPlayerGoal;
 
@@ -40,7 +40,7 @@ public class SnowTrollEntity extends TrollEntity {
         this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
         this.targetSelector.add(2, new TargetPlayerGoal(this));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, NpcEntity.class, true));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, TestNpcEntity.class, true));
         this.targetSelector.add(5, new ActiveTargetGoal<>(this, AnimalEntity.class, true));
     }
 

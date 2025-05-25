@@ -73,6 +73,11 @@ public class SpawnDataHandler {
         return spawns.keySet().stream().toList();
     }
 
+    public SpawnData getDefaultSpawnData() {
+        if(spawns == null || spawns.isEmpty())
+            return null;
+        return spawns.values().stream().toList().getFirst();
+    }
     public Identifier getDefaultSpawn() {
         if(spawns == null || spawns.isEmpty())
             return null;

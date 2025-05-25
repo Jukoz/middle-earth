@@ -114,6 +114,9 @@ public class ModDecorativeBlocks {
     public static final Block TORCH_OF_ORTHANC = registerBlock("torch_of_orthanc",
             (settings) -> new TorchOfOrthancBlock(settings, ParticleTypes.FLAME), AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool());
 
+    public static final Block TAPPER = registerBlockWithItem("tapper",
+            TapperBlock::new, AbstractBlock.Settings.copy(Blocks.BEEHIVE).breakInstantly().nonOpaque());
+
     public static final Block WOOD_FRAMED_WINDOW = registerBlockWithItem("wood_framed_window",
             TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS));
     public static final Block WOOD_FRAMED_WINDOW_PANE = registerBlockWithItem("wood_framed_window_pane",

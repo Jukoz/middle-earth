@@ -22,6 +22,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
 
+            add(ModDecorativeBlocks.TAPPER);
+
             add(ModDecorativeBlocks.BROWN_JUG);
             add(ModDecorativeBlocks.GRAY_POT);
             add(ModDecorativeBlocks.LARGE_JUG);
