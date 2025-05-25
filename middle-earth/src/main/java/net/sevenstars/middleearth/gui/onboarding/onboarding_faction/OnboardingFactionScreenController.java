@@ -4,6 +4,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -17,7 +18,7 @@ import java.util.Random;
 
 public class OnboardingFactionScreenController {
     public static OnboardingFactionScreenController INSTANCE;
-    private static final Text TITLE = Text.translatable("screen.me.onboarding_faction_screen");
+    private static final Text TITLE = Text.translatable("screen." + MiddleEarth.MOD_ID + ".onboarding_faction_screen");
     private static final float DEFAULT_DELAY = 3;
 
     World _world;
