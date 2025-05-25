@@ -25,6 +25,7 @@ public class PlateFoodModels {
     private static void initMap() {
         plateModels = new HashMap<>();
         addVanillaModel("apple");
+        addVanillaModel("pumpkin_pie");
         addModel("cram");
         addModel("meat_skewer");
         addModel("cooked_meat_skewer");

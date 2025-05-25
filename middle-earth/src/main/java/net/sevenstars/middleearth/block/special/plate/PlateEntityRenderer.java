@@ -75,9 +75,6 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
             matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(rotOffset)));
         }
 
-
-
-
         int currentLight = getLightLevel(entity.getWorld(), entity.getPos(), direction);
 
         this.itemRenderer.renderItem(copyStack, ItemDisplayContext.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
