@@ -29,6 +29,7 @@ public class PlateFoodModels {
         addVanillaModel("pumpkin_pie");
         addVanillaModel("rabbit_stew");
         addModel("cram");
+        addModel("berry_pie");
         addModel("meat_skewer");
         addModel("cooked_meat_skewer");
         addModel("vegetable_skewer");
