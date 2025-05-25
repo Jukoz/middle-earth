@@ -131,13 +131,14 @@ public class LanguageProvider extends FabricLanguageProvider {
 
     public String generateName(String registryName) {
 
-        String[] splitName = registryName.split("_");
-        for(int i = 0; i < splitName.length; i++) {
+        String[] splitName = registryName.split("[_.]");
 
+        for (int i = 0; i < splitName.length; i++) {
             char[] characters = splitName[i].toCharArray();
             characters[0] = Character.toUpperCase(characters[0]);
             splitName[i] = new String(characters);
         }
+
         String result = String.join(" ", splitName);
         for (Map.Entry<String, String> map : this.specialNames.entrySet()){
             if (result.contains(map.getKey())){
