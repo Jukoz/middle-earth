@@ -1,11 +1,16 @@
 package net.sevenstars.middleearth.item;
 
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.CakeBlock;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.ConsumableComponents;
 import net.minecraft.component.type.FoodComponents;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.consume.RemoveEffectsConsumeEffect;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
@@ -100,6 +105,8 @@ public class FoodItemsME {
             (settings) -> new BlockItem(ModNatureBlocks.ONION_CROP, settings),new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.2f).build()));
 
+    public static final Item LAYERED_CAKE = registerItem("layered_cake",
+            (settings) -> new BlockItem(ModBlocks.LAYERED_CAKE, settings),new Item.Settings().maxCount(1));
     public static final Item BERRY_PIE = registerItem("berry_pie",
             Item::new,new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(8).saturationModifier(0.5f).build()));
@@ -140,6 +147,13 @@ public class FoodItemsME {
 
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
+        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        ModItemGroups.FOOD_CONTENTS.add(item.getDefaultStack());
+        TranslationEntries.itemEntries.add(item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    public static Item registerBlockItem(Block block, String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.FOOD_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);

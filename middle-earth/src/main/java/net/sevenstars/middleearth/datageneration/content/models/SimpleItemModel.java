@@ -66,6 +66,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.SNAIL_BANNER_PATTERN);
 
             //Food Items
+            add(FoodItemsME.LAYERED_CAKE);
             add(FoodItemsME.BERRY_PIE);
             add(FoodItemsME.BOILED_EGG);
             add(FoodItemsME.FISH_STEW);

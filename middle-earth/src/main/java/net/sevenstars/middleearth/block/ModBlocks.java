@@ -1270,6 +1270,12 @@ public class ModBlocks {
             (settings) -> new LayersBlock(settings, WHITE_SAND), AbstractBlock.Settings.copy(Blocks.SAND), false);
     //endregion
 
+    //region FOOD
+    public static final Block LAYERED_CAKE = registerTablessBlock("layered_cake",
+            (settings) -> new Block(settings), AbstractBlock.Settings.copy(Blocks.CAKE), false);
+    //
+
+
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop, List<ItemStack> group){
         Block block = (Block)factory.apply(settings.registryKey(keyOfBlock(name)));
         registerBlockItem(name, block);
@@ -1280,6 +1286,16 @@ public class ModBlocks {
         TranslationEntries.blockEntries.add(block);
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
         return Registry.register(Registries.BLOCK, keyOfBlock(name), block);
+    }
+
+    public static Block registerTablessBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop) {
+        Block block = factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
+        if(drop){
+            BlockDrops.blocks.add(block);
+        }
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
+
+        return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 
     public static Block registerStoneBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop) {
