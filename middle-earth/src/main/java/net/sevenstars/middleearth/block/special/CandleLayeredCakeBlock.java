@@ -27,6 +27,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
+import net.sevenstars.middleearth.block.ModBlocks;
 
 import java.util.List;
 import java.util.Map;
@@ -89,7 +90,7 @@ public class CandleLayeredCakeBlock extends AbstractCandleBlock {
     }
 
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        ActionResult actionResult = LayeredCakeBlock.tryEat(world, pos, Blocks.CAKE.getDefaultState(), player);
+        ActionResult actionResult = LayeredCakeBlock.tryEat(world, pos, ModBlocks.LAYERED_CAKE.getDefaultState(), player);
         if (actionResult.isAccepted()) {
             dropStacks(state, world, pos);
         }
