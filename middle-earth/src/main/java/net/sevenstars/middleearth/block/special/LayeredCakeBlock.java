@@ -6,6 +6,9 @@ import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -46,18 +49,18 @@ public class LayeredCakeBlock extends Block {
 
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         Item item = stack.getItem();
-        //if (stack.isIn(ItemTags.CANDLES) && (Integer)state.get(BITES) == 0) {
-        //    Block var10 = Block.getBlockFromItem(item);
-        //    if (var10 instanceof CandleBlock) {
-        //        CandleBlock candleBlock = (CandleBlock)var10;
-        //        stack.decrementUnlessCreative(1, player);
-        //        world.playSound((Entity)null, pos, SoundEvents.BLOCK_CAKE_ADD_CANDLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        //        world.setBlockState(pos, CandleCakeBlock.getCandleCakeFromCandle(candleBlock));
-        //        world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-        //        player.incrementStat(Stats.USED.getOrCreateStat(item));
-        //        return ActionResult.SUCCESS;
-        //    }
-        //}
+        if (stack.isIn(ItemTags.CANDLES) && (Integer)state.get(BITES) == 0) {
+            Block var10 = Block.getBlockFromItem(item);
+            if (var10 instanceof CandleBlock) {
+                CandleBlock candleBlock = (CandleBlock)var10;
+                stack.decrementUnlessCreative(1, player);
+                world.playSound(null, pos, SoundEvents.BLOCK_CAKE_ADD_CANDLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.setBlockState(pos, CandleLayeredCakeBlock.getCandleCakeFromCandle(candleBlock));
+                world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                player.incrementStat(Stats.USED.getOrCreateStat(item));
+                return ActionResult.SUCCESS;
+            }
+        }
 
         return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
     }
