@@ -9,8 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -32,7 +30,6 @@ public class LayeredCakeBlock extends Block {
     public static final IntProperty BITES;
     public static final int DEFAULT_COMPARATOR_OUTPUT;
     private static final VoxelShape[] SHAPES_BY_BITES;
-    private static final VoxelShape SHAPE;
 
     public MapCodec<net.minecraft.block.CakeBlock> getCodec() {
         return CODEC;
@@ -129,11 +126,9 @@ public class LayeredCakeBlock extends Block {
     static {
         BITES = IntProperty.of("bites", 0, MAX_BITES);;
         DEFAULT_COMPARATOR_OUTPUT = getComparatorOutput(0);
-        SHAPE = VoxelShapes.union(Block.createCuboidShape(0, 0.0, 16.0, 16.0, 8.0, 16.0),
-            Block.createCuboidShape(2, 8, 2, 14, 16, 14));
         SHAPES_BY_BITES = Block.createShapeArray(MAX_BITES, (bites) -> {
-            return VoxelShapes.union(Block.createCuboidShape(0, 0.0, 0, 16.0, 8.0, 16.0),
-                    Block.createCuboidShape(2, 8, 2 + (Math.clamp(bites, 0, 4) * 3), 14, 16, 14));
+            return VoxelShapes.union(Block.createCuboidShape(0, 0.0, 0, 16.0, 8.0, 16.0 - (Math.clamp(bites - 4, 0, 4) * 4) + Math.clamp(bites - 4, 0, 1) * 2),
+                    Block.createCuboidShape(2, 8, 2, 14, 16, 14 - (Math.clamp(bites, 0, 4) * 3)));
         });
     }
 }
