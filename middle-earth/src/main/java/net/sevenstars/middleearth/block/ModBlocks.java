@@ -1272,7 +1272,7 @@ public class ModBlocks {
 
     //region FOOD
     public static final Block LAYERED_CAKE = registerTablessBlock("layered_cake",
-            (settings) -> new Block(settings), AbstractBlock.Settings.copy(Blocks.CAKE), false);
+            (settings) -> new LayeredCakeBlock(settings), AbstractBlock.Settings.copy(Blocks.CAKE), false);
     //
 
 
