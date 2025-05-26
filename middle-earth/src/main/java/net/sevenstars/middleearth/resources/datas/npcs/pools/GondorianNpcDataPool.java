@@ -5,7 +5,10 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
-import net.sevenstars.middleearth.resources.MiddleEarthRaces;
+import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.resources.NpcTextureMaterialsME;
+import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
+import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
@@ -13,8 +16,14 @@ import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class GondorianNpcDataPool {
     private final static String FACTION_BASE = "gondor.";
@@ -54,8 +63,7 @@ public class GondorianNpcDataPool {
     }
 
     static {
-        GONDOR_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), MiddleEarthRaces.HUMAN, List.of(
-
+        GONDOR_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LEATHER_SKULLCAP))
@@ -142,8 +150,181 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(5))
                         )
-        ));
-        GONDOR_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "soldier"), MiddleEarthRaces.HUMAN, List.of(
+        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+            put(EntityCategory.MALE, List.of(
+                    new NpcTextureDataPreset()
+                            .withMaterials(NpcTextureType.SKIN, List.of(
+                                    NpcTextureMaterialsME.Skin.DEFAULT,
+                                    NpcTextureMaterialsME.Skin.PALE,
+                                    NpcTextureMaterialsME.Skin.TAN
+                            ))
+                            .withPatterns(NpcTextureType.BODY, List.of(
+                                    NpcTexturePatternsME.Body.MUSCULAR
+                            ))
+                            .withPatterns(NpcTextureType.HEAD, List.of(
+                                    NpcTexturePatternsME.Head.MALE
+                            ))
+                            .withMaterials(NpcTextureType.EYE, List.of(
+                                    NpcTextureMaterialsME.Eye.BLUE,
+                                    NpcTextureMaterialsME.Eye.GREEN,
+                                    NpcTextureMaterialsME.Eye.DARK_GREEN,
+                                    NpcTextureMaterialsME.Eye.NAVY,
+                                    NpcTextureMaterialsME.Eye.BROWN
+                            ))
+                            .withPatterns(NpcTextureType.EYE, List.of(
+                                    NpcTexturePatternsME.Eye.COMMON
+                            ))
+                            .withMaterials(NpcTextureType.HAIR, List.of(
+                                    NpcTextureMaterialsME.Hair.BROWN_ALMANDINE,
+                                    NpcTextureMaterialsME.Hair.DARK_BROWN_ALMANDINE,
+                                    NpcTextureMaterialsME.Hair.GINGER_ALMANDINE,
+                                    NpcTextureMaterialsME.Hair.GRAY_ALMANDINE,
+                                    NpcTextureMaterialsME.Hair.STRAW_ALMANDINE,
+                                    NpcTextureMaterialsME.Hair.BLACK_ALMANDINE
+                            ))
+                            .withPatterns(NpcTextureType.EYEBROW, List.of(
+                                    NpcTexturePatternsME.Eyebrow.UNI,
+                                    NpcTexturePatternsME.Eyebrow.BASIC,
+                                    NpcTexturePatternsME.Eyebrow.SHORT
+                            ))
+                            .withPatterns(NpcTextureType.HAIR, Stream.of(
+                                    NpcTexturePatternsME.Hair.BOWL,
+                                    NpcTexturePatternsME.Hair.BALD_SIDES,
+                                    NpcTexturePatternsME.Hair.DIRTY_MOP,
+                                    NpcTexturePatternsME.Hair.SHORT,
+                                    NpcTexturePatternsME.Hair.TOP_BALDING,
+                                    NpcTexturePatternsME.Hair.SIDE_BALDING,
+                                    null).toList()
+                            )
+                            .withPatterns(NpcTextureType.BEARD, Stream.of(
+                                    NpcTexturePatternsME.Beard.CLEAN,
+                                    NpcTexturePatternsME.Beard.SHORT,
+                                    NpcTexturePatternsME.Beard.SINGLE,
+                                    null).toList()
+                            )
+                            .withMaterials(NpcTextureType.CLOTHING, List.of(
+                                    NpcTextureMaterialsME.Clothing.WHITE,
+                                    NpcTextureMaterialsME.Clothing.BROWN
+                            ))
+                            .withPatterns(NpcTextureType.CLOTHING, List.of(
+                                    NpcTexturePatternsME.Clothing.TOGA,
+                                    NpcTexturePatternsME.Clothing.FULL_TOGA,
+                                    NpcTexturePatternsME.Clothing.ROBE,
+                                    NpcTexturePatternsME.Clothing.SKIRT
+                            )),
+                            new NpcTextureDataPreset()
+                                    .withMaterials(NpcTextureType.SKIN, List.of(
+                                            NpcTextureMaterialsME.Skin.DEFAULT,
+                                            NpcTextureMaterialsME.Skin.PALE,
+                                            NpcTextureMaterialsME.Skin.TAN
+                                    ))
+                                    .withPatterns(NpcTextureType.BODY, List.of(
+                                            NpcTexturePatternsME.Body.MUSCULAR
+                                    ))
+                                    .withPatterns(NpcTextureType.HEAD, List.of(
+                                            NpcTexturePatternsME.Head.MALE
+                                    ))
+                                    .withPatterns(NpcTextureType.SCAR, List.of(
+                                            NpcTexturePatternsME.Scar.EYE_RIGHT
+                                    ))
+                                    .withMaterials(NpcTextureType.EYE, List.of(
+                                            NpcTextureMaterialsME.Eye.BLIND_LEFT_GREEN
+                                    ))
+                                    .withPatterns(NpcTextureType.EYE, List.of(
+                                            NpcTexturePatternsME.Eye.COMMON
+                                    ))
+                                    .withMaterials(NpcTextureType.HAIR, List.of(
+                                            NpcTextureMaterialsME.Hair.BROWN_ALMANDINE,
+                                            NpcTextureMaterialsME.Hair.DARK_BROWN_ALMANDINE,
+                                            NpcTextureMaterialsME.Hair.GINGER_ALMANDINE,
+                                            NpcTextureMaterialsME.Hair.GRAY_ALMANDINE,
+                                            NpcTextureMaterialsME.Hair.STRAW_ALMANDINE,
+                                            NpcTextureMaterialsME.Hair.BLACK_ALMANDINE
+                                    ))
+                                    .withPatterns(NpcTextureType.EYEBROW, List.of(
+                                            NpcTexturePatternsME.Eyebrow.UNI,
+                                            NpcTexturePatternsME.Eyebrow.BASIC,
+                                            NpcTexturePatternsME.Eyebrow.SHORT
+                                    ))
+                                    .withPatterns(NpcTextureType.HAIR, Stream.of(
+                                            NpcTexturePatternsME.Hair.BOWL,
+                                            NpcTexturePatternsME.Hair.BALD_SIDES,
+                                            NpcTexturePatternsME.Hair.DIRTY_MOP,
+                                            NpcTexturePatternsME.Hair.SHORT,
+                                            NpcTexturePatternsME.Hair.TOP_BALDING,
+                                            NpcTexturePatternsME.Hair.SIDE_BALDING,
+                                            null).toList()
+                                    )
+                                    .withPatterns(NpcTextureType.BEARD, Stream.of(
+                                            NpcTexturePatternsME.Beard.CLEAN,
+                                            NpcTexturePatternsME.Beard.SHORT,
+                                            NpcTexturePatternsME.Beard.SINGLE,
+                                            null).toList()
+                                    )
+                                    .withMaterials(NpcTextureType.CLOTHING, List.of(
+                                            NpcTextureMaterialsME.Clothing.WHITE,
+                                            NpcTextureMaterialsME.Clothing.BROWN
+                                    ))
+                                    .withPatterns(NpcTextureType.CLOTHING, List.of(
+                                            NpcTexturePatternsME.Clothing.TOGA,
+                                            NpcTexturePatternsME.Clothing.FULL_TOGA,
+                                            NpcTexturePatternsME.Clothing.ROBE,
+                                            NpcTexturePatternsME.Clothing.SKIRT
+                                    ))
+
+            ));
+            put(EntityCategory.FEMALE, List.of(
+                    new NpcTextureDataPreset()
+                            .withMaterials(NpcTextureType.SKIN, List.of(
+                                    NpcTextureMaterialsME.Skin.DEFAULT,
+                                    NpcTextureMaterialsME.Skin.PALE,
+                                    NpcTextureMaterialsME.Skin.TAN
+                            ))
+                            .withPatterns(NpcTextureType.BODY, List.of(
+                                    NpcTexturePatternsME.Body.SLIM,
+                                    NpcTexturePatternsME.Body.FEMALE
+                            ))
+                            .withPatterns(NpcTextureType.HEAD, List.of(
+                                    NpcTexturePatternsME.Head.FEMALE
+                            ))
+                            .withMaterials(NpcTextureType.EYE, List.of(
+                                    NpcTextureMaterialsME.Eye.BLUE,
+                                    NpcTextureMaterialsME.Eye.GREEN,
+                                    NpcTextureMaterialsME.Eye.DARK_GREEN,
+                                    NpcTextureMaterialsME.Eye.NAVY,
+                                    NpcTextureMaterialsME.Eye.BROWN
+                            ))
+                            .withPatterns(NpcTextureType.EYE, List.of(
+                                    NpcTexturePatternsME.Eye.COMMON
+                            ))
+                            .withMaterials(NpcTextureType.HAIR, List.of(
+                                    NpcTextureMaterialsME.Hair.BROWN_ALMANDINE,
+                                    NpcTextureMaterialsME.Hair.DARK_BROWN_ALMANDINE,
+                                    NpcTextureMaterialsME.Hair.GINGER_ALMANDINE,
+                                    NpcTextureMaterialsME.Hair.GRAY_ALMANDINE,
+                                    NpcTextureMaterialsME.Hair.STRAW_ALMANDINE,
+                                    NpcTextureMaterialsME.Hair.BLACK_ALMANDINE
+                            ))
+                            .withPatterns(NpcTextureType.EYEBROW, List.of(
+                                    NpcTexturePatternsME.Eyebrow.BASIC,
+                                    NpcTexturePatternsME.Eyebrow.SHORT
+                            ))
+                            .withPatterns(NpcTextureType.HAIR, List.of(
+                                    NpcTexturePatternsME.Hair.LONG,
+                                    NpcTexturePatternsME.Hair.FLAT_LONG,
+                                    NpcTexturePatternsME.Hair.DIRTY_MOP
+                            ))
+                            .withMaterials(NpcTextureType.CLOTHING, List.of(
+                                    NpcTextureMaterialsME.Clothing.WHITE,
+                                    NpcTextureMaterialsME.Clothing.BROWN
+                            ))
+                            .withPatterns(NpcTextureType.CLOTHING, List.of(
+                                    NpcTexturePatternsME.Clothing.FULL_TOGA,
+                                    NpcTexturePatternsME.Clothing.SKIRT_WITH_STROPHIUM
+                            ))
+            ));
+        }}));
+        GONDOR_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "soldier"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CABASSET_HELMET))
@@ -170,8 +351,8 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create())
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_SHIELD))
                         )
-        ));
-        GONDOR_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "knight"), MiddleEarthRaces.HUMAN, List.of(
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        GONDOR_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "knight"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_PLATE_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
@@ -204,8 +385,8 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_TOWER_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ));
-        GONDOR_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "veteran"), MiddleEarthRaces.HUMAN, List.of(
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        GONDOR_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "veteran"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_PLATE_HELMET).withWeight(10))
@@ -222,8 +403,8 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_HERO_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(2))
                         )
-        ));
-        GONDOR_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "leader"), MiddleEarthRaces.HUMAN, List.of(
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        GONDOR_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "leader"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
@@ -241,8 +422,8 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_HERO_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD))
                         )
-        ));
-        GONDOR_CITADEL_GUARDS = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "citadel_guards"), MiddleEarthRaces.HUMAN, List.of(
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        GONDOR_CITADEL_GUARDS = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "citadel_guards"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_CHESTPLATE)))
@@ -255,16 +436,16 @@ public class GondorianNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_KNIGHT_SHIELD))
                         )
-        ));
-        GONDOR_FOUNTAIN_GUARDS = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "fountain_guards"), MiddleEarthRaces.HUMAN, List.of(
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        GONDOR_FOUNTAIN_GUARDS = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "fountain_guards"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE)))
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS)))
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(WeaponItemsME.GONDORIAN_FOUNTAIN_GUARD_SPEAR)))
-        ));
-        GONDOR_KING_GUARDS = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "king_guards"), MiddleEarthRaces.HUMAN, List.of(
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        GONDOR_KING_GUARDS = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "king_guards"), RacesME.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_CHESTKPLATE)))
@@ -278,6 +459,6 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_KINGS_GUARD_TOWER_SHIELD).withWeight(8))
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_TOWER_SHIELD))
                         )
-        ));
+        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
     }
 }

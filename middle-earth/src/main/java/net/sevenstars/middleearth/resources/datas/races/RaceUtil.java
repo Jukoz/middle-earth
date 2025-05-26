@@ -23,7 +23,6 @@ public class RaceUtil {
 
         // [SET]
         if(raceExists){
-            race.applyAttributes(player);
             PlayerDataService.setRace(player, player.getWorld(), race.getId());
         }
 

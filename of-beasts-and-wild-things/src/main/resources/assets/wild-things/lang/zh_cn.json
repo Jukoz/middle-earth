@@ -1,0 +1,9 @@
+{
+  "entity.wild-things.deer": "鹿",
+  "entity.wild-things.pheasant": "野鸡",
+  "entity.wild-things.snail": "蜗牛",
+  "item.wild-things.deer_spawn_egg": "鹿刷怪蛋",
+  "item.wild-things.pheasant_spawn_egg": "野鸡刷怪蛋",
+  "item.wild-things.snail_spawn_egg": "蜗牛刷怪蛋",
+  "itemGroup.wild-things.spawn_egg_items": "荒灵野物刷怪蛋"
+}

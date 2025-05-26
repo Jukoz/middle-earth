@@ -2,12 +2,10 @@ package net.sevenstars.middleearth.entity.swan;
 
 import com.google.common.collect.Maps;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 

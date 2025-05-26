@@ -1,16 +1,12 @@
 package net.sevenstars.middleearth.item;
 
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.CakeBlock;
-import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.ConsumableComponents;
 import net.minecraft.component.type.FoodComponents;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.consume.RemoveEffectsConsumeEffect;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
@@ -27,11 +23,10 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.Function;
 
+/**
+ * Middle-earth mod Food Items registry
+ */
 public class FoodItemsME {
-    /**
-     * Middle-earth mod Food Items registry
-     */
-    
     public static final ConsumableComponent BIRCH_BOTTLE = ConsumableComponents.drink().consumeSeconds(2.0F)
             .consumeEffect(new RemoveEffectsConsumeEffect(StatusEffects.POISON)).build();;
     public static final ConsumableComponent MAPLE_BOTTLE = ConsumableComponents.drink().consumeSeconds(2.0F)
@@ -147,13 +142,6 @@ public class FoodItemsME {
 
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.FOOD_CONTENTS.add(item.getDefaultStack());
-        TranslationEntries.itemEntries.add(item);
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
-    }
-
-    public static Item registerBlockItem(Block block, String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.FOOD_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);

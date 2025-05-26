@@ -1,17 +1,16 @@
 package net.sevenstars.middleearth.item;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
-import net.sevenstars.middleearth.entity.ModEntities;
-
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
+import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
+import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.item.utils.ModItemGroups;
 
 import java.util.function.Function;
 
@@ -46,6 +45,9 @@ public class EggItemsME {
     public static final Item SWAN_SPAWN_EGG = registerItem("swan_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.SWAN, settings), new Item.Settings());
 
+    // Npcs
+    public static final Item NPC_SPAWN_EGG = registerItem("npc_spawn_egg",
+            (settings) -> new SpawnEggItem(ModEntities.NPC, settings), new Item.Settings());
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));

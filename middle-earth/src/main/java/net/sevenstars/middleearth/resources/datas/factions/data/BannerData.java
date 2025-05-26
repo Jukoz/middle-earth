@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.resources.datas.factions.data;
 
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.block.entity.BannerPatterns;
@@ -82,9 +81,9 @@ public class BannerData {
 
         for(NbtElement element: patterns){
             try{
-                JsonObject json = (JsonObject) jsonParser.parse(element.asString().get());
-                Identifier id = Identifier.of(json.get("id").getAsString());
-                DyeColor color = DyeColor.byId(json.get("dye_color").getAsString(), DEFAULT_DYE);
+                NbtCompound elementCompound = element.asCompound().get();
+                Identifier id = Identifier.of(elementCompound.getString("id").get());
+                DyeColor color = DyeColor.byId(elementCompound.getString("dye_color", DEFAULT_DYE.asString()), DEFAULT_DYE);
 
                 BannerPatternWithColor bannerPatternWithColor = new BannerPatternWithColor(id, color);
                 bannerPatternWithColors.add(bannerPatternWithColor);
