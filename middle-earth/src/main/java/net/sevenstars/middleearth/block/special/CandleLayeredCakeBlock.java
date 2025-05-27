@@ -107,7 +107,7 @@ public class CandleLayeredCakeBlock extends AbstractCandleBlock {
     }
 
     protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
-        return new ItemStack(Blocks.CAKE);
+        return new ItemStack(ModBlocks.LAYERED_CAKE);
     }
 
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {

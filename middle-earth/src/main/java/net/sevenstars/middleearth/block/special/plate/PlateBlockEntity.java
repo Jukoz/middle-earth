@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.special.plate;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventories;
@@ -60,5 +61,11 @@ public class PlateBlockEntity extends BlockEntity implements SingleStackInventor
     @Override
     public void setStack(ItemStack stack) {
         this.food = stack;
+        update();
+    }
+
+    public void update() {
+        markDirty();
+        world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
     }
 }
