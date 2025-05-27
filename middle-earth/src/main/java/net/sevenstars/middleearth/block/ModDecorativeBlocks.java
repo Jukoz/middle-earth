@@ -755,6 +755,7 @@ public class ModDecorativeBlocks {
         ModBlocks.registerBlockItem(name, block);
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         TranslationEntries.blockEntries.add(block);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 
