@@ -47,7 +47,6 @@ public class MiddleEarth implements ModInitializer {
 		LOGGER.logInfoMsg("");
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
-		ModRegistries.registerRegistryAliases();
 
 		ModServerNetworkHandler.register(new ConnectionToClient());
 		ModEvents.register();
@@ -122,6 +121,8 @@ public class MiddleEarth implements ModInitializer {
 		RacesME.register();
 		NpcME.register();
 		FactionsME.register();
+
+		ModRegistries.registerRegistryAliases();
 
 		try {
 			new MiddleEarthMapGeneration();
