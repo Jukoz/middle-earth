@@ -17,6 +17,8 @@ import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.races.Race;
+import org.joml.Vector2d;
+import org.joml.Vector2i;
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,12 +53,21 @@ public class OnboardingFactionScreenController {
     public static OnboardingFactionScreenController getInstance(){
         return INSTANCE;
     }
+
     public void open(){
         MinecraftClient mc = MinecraftClient.getInstance();
-        if(mc.currentScreen == null)
-            mc.setScreen(_screen);
+        if(mc.currentScreen != null)
+            mc.currentScreen.close();
+        mc.setScreen(_screen);
+        if(_selectedFaction == null){
+            _screen.elements.mapWidget.zoom(10);
+            _screen.elements.mapWidget.isForcingTargetMovement = true;
+            setDisposition(_factions.keySet().stream().findFirst().orElse(Disposition.GOOD));
+        }
+
         updateScreenInformation();
     }
+
     public void close(){
         this._screen.close();
         INSTANCE = null;
@@ -77,7 +88,6 @@ public class OnboardingFactionScreenController {
             if(!foundFactions.isEmpty())
                 _factions.put(disposition, foundFactions);
         }
-        setDisposition(_factions.keySet().stream().findFirst().orElse(Disposition.GOOD));
     }
 
     private void updateScreenInformation() {
@@ -326,7 +336,18 @@ public class OnboardingFactionScreenController {
             currentSpawnPointIndex = 0;
 
         setSpawnPoint(currentSpawnPointIndex);
+    }
 
+    public void assignNewSpawnIndex(Integer index){
+        Faction currentFaction = getCurrentFaction();
+        if(index == null
+                || currentFaction == null
+                || currentFaction.getSpawnAmount() <= index) {
+            _selectedSpawn = null;
+            return;
+        }
+        _selectedSpawn = currentFaction.getSpawnData().getSpawnList().get(index);
+        moveToCurrentSpawn();
         updateScreenInformation();
     }
 
@@ -338,31 +359,40 @@ public class OnboardingFactionScreenController {
             _selectedSpawn = null;
             return;
         }
+
         _selectedSpawn = currentFaction.getSpawnData().getSpawnList().get(index);
+        _screen.elements.mapWidget.selectSpawn(index);
+
+        moveToCurrentSpawn();
+        updateScreenInformation();
     }
 
+    public void moveToCurrentSpawn(){
+        if(_screen.elements.mapWidget.isForcingTargetMovement){
+            BlockPos blockPos = _selectedSpawn.getBlockPos();
+            Vector2i point = new Vector2i(blockPos.getX(), blockPos.getZ());
+            _screen.elements.mapWidget.moveTo(point, new Vector2d(3.5, 45.0));
+        }
+    }
 
     public void randomizeFaction(){
-        randomize(true, true, true, false, false);
+        randomize(false, false);
         updateScreenInformation();
     }
     public void randomizeAll(){
-        randomize(true, true, true, true, true);
+        randomize( true, true);
         updateScreenInformation();
     }
 
-    private void randomize(boolean disposition, boolean faction, boolean subfaction, boolean spawn, boolean race){
+    private void randomize(boolean spawn, boolean race){
         Random random = new Random();
-        if(disposition)
-            setDisposition(_factions.keySet().stream().toList().get(random.nextInt(_factions.keySet().size())));
-        if(faction)
-            setFaction(random.nextInt(_factions.get(_selectedDisposition).size()));
-        if(subfaction){
-            if(_selectedFaction.getSubFactions() != null && !_selectedFaction.getSubFactions().isEmpty())
-                setSubfaction(random.nextInt(_selectedFaction.getSubFactions().size()));
-            else
-                _selectedSubfaction = null;
-        }
+        setDisposition(_factions.keySet().stream().toList().get(random.nextInt(_factions.keySet().size())));
+        setFaction(random.nextInt(_factions.get(_selectedDisposition).size()));
+        if(_selectedFaction.getSubFactions() != null && !_selectedFaction.getSubFactions().isEmpty())
+            setSubfaction(random.nextInt(_selectedFaction.getSubFactions().size()));
+        else
+            _selectedSubfaction = null;
+
         if(spawn){
             Faction factionToUse = getCurrentFaction();
             setSpawnPoint(random.nextInt(factionToUse.getSpawnAmount()));

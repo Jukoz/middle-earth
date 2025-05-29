@@ -164,7 +164,7 @@ public class OnboardingFactionScreen extends Screen {
         addDrawableChild(elements.factionRandomizerButton);
 
         // Map Widget
-        elements.mapFocusButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.focus_current"), this::doNothingButton).build(); // TODO
+        elements.mapFocusButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.focus_current"), this::mapFocusToggle).build(); // TODO
         elements.mapFocusButton.setDimensions(10, 10);
         addDrawableChild(elements.mapFocusButton);
 
@@ -313,7 +313,6 @@ public class OnboardingFactionScreen extends Screen {
             context.draw();
         }
         // Right panel
-
         startX = this.elements.mapPanel.startX;
         startY = this.elements.mapPanel.startY;
 
@@ -324,7 +323,7 @@ public class OnboardingFactionScreen extends Screen {
 
         this.elements.mapFocusButton.setPosition(startX, startY);
         context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_IDENTIFIER,
-                startX, startY, 235, (true /*this.elements.mapWidget.isForcingTargetMovement*/) ? 20 : elements.mapFocusButton.isFocused() || elements.mapFocusButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
+                startX, startY, 235, (this.elements.mapWidget.isForcingTargetMovement) ? 20 : elements.mapFocusButton.isFocused() || elements.mapFocusButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
                 elements.mapFocusButton.getWidth(), elements.mapFocusButton.getHeight(), 256, 256);
 
         startX = this.elements.mapPanel.startX + this.elements.mapPanel.width - 16;
@@ -399,6 +398,11 @@ public class OnboardingFactionScreen extends Screen {
     //region [Button Events]
     private void doNothingButton(ButtonWidget button) {
         MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
+    }
+
+    private void mapFocusToggle(ButtonWidget buttonWidget) {
+        elements.mapWidget.isForcingTargetMovement = !elements.mapWidget.isForcingTargetMovement;
+        _controller.moveToCurrentSpawn();
     }
 
     private void mapZoomIn(ButtonWidget buttonWidget) {
