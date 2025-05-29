@@ -1,12 +1,18 @@
 package net.sevenstars.middleearth.gui.onboarding.onboarding_faction;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.network.packets.C2S.*;
 import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
@@ -61,13 +67,16 @@ public class OnboardingFactionScreenController {
         for(Disposition disposition : Disposition.values()){
             List<Faction> foundFactions = _service.getFactionsByDisposition(disposition);
             for(int i = 0; i < foundFactions.size(); i++){
-                if(!foundFactions.get(i).isJoinable())
+                if(!foundFactions.get(i).isJoinable()){
+                    foundFactions.remove(i);
+                    continue;
+                }
+                if(foundFactions.get(i).getFactionType() == FactionType.SUBFACTION)
                     foundFactions.remove(i);
             }
             if(!foundFactions.isEmpty())
                 _factions.put(disposition, foundFactions);
         }
-
         setDisposition(_factions.keySet().stream().findFirst().orElse(Disposition.GOOD));
     }
 
@@ -366,8 +375,24 @@ public class OnboardingFactionScreenController {
     }
 
     public void confirmSelection(){
-        // TODO
-        updateScreenInformation();
+        Faction faction = getCurrentFaction();
+        if(faction == null) return;
+
+        Vec3d coordinate = _selectedSpawn.getCoordinates();
+        if(_selectedSpawn.isDynamic()){
+            ClientPlayNetworking.send(new PacketTeleportToDynamicCoordinate(coordinate.getX(), coordinate.getZ(), true));
+        } else {
+            ClientPlayNetworking.send(new PacketTeleportToCustomCoordinate(coordinate.getX(), coordinate.getY(), coordinate.getZ(), true));
+        }
+
+        ClientPlayNetworking.send(new PacketSetRace(_selectedRace.getId().toString()));
+        ClientPlayNetworking.send(new PacketSetAffiliation(_selectedDisposition.name(), faction.getId().toString(), _selectedSpawn.getIdentifier().toString()));
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        if(player != null){
+            BlockPos overworldBlockPos = player.getBlockPos();
+            ClientPlayNetworking.send(new PacketSetSpawnData(overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ()));
+        }
+        _screen.close();
     }
 
     public int getMaxSpawnAmount() {
