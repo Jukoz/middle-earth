@@ -11,8 +11,8 @@ import net.sevenstars.middleearth.utils.IEntityDataSaver;
 
 import java.util.Map;
 
-public class DelversFearStatusEffect extends StatusEffect {
-    public DelversFearStatusEffect(StatusEffectCategory statusEffectCategory, int i) {
+public class EnshroudedStatusEffect extends StatusEffect {
+    public EnshroudedStatusEffect(StatusEffectCategory statusEffectCategory, int i) {
         super(statusEffectCategory, i);
     }
 
@@ -25,11 +25,11 @@ public class DelversFearStatusEffect extends StatusEffect {
     public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
         if(entity instanceof PlayerEntity){
             Map<RegistryEntry<StatusEffect>, StatusEffectInstance> map = entity.getActiveStatusEffects();
-            int ticksLeft = map.get(ModStatusEffects.DELVERS_FEAR).getDuration();
-            if(ticksLeft != -1 && ticksLeft < HallucinationData.STOPPING_TICK)
-                DelversFearData.addEffect((IEntityDataSaver) entity, -2);
+            int ticksLeft = map.get(ModStatusEffects.ENSHROUDED).getDuration();
+            if(ticksLeft != -1 && ticksLeft < EnshroudedData.STOPPING_TICK)
+                EnshroudedData.addEffect((IEntityDataSaver) entity, -2);
             else{
-                DelversFearData.addEffect((IEntityDataSaver) entity, 2);
+                EnshroudedData.addEffect((IEntityDataSaver) entity, 2);
             }
         }
 
@@ -37,7 +37,7 @@ public class DelversFearStatusEffect extends StatusEffect {
     }
 
     public void stop(LivingEntity entity){
-        DelversFearData.stopEffect((IEntityDataSaver) entity);
+        EnshroudedData.stopEffect((IEntityDataSaver) entity);
     }
 
 

@@ -122,6 +122,7 @@ public class TranslationEntries {
             put("advancements.smithing.elven_lantern.description", "Light your way like the Quendi");
 
             put("effect."+ MiddleEarth.MOD_ID +".hallucination", "Hallucination");
+            put("effect."+ MiddleEarth.MOD_ID +".enshrouded", "Enshrouded");
 
             put("enchantment."+ MiddleEarth.MOD_ID +".hewing", "Hewing");
 

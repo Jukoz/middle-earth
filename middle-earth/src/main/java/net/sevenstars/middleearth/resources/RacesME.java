@@ -73,6 +73,7 @@ public class RacesME {
     static {
         DWARF = new Race(Identifier.of(MiddleEarth.MOD_ID, "dwarf"), RaceType.DWARF,
                 new AttributePool()
+                        .addElement(AttributePoolElement.create(ModEntityAttributes.CLIMBING_STRENGTH, 80.0f))
                         .addElement(AttributePoolElement.create(ModEntityAttributes.POWDERED_SNOW_IMMUNITY, 1.0f))
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.81).withBuffReversed())
                         .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))

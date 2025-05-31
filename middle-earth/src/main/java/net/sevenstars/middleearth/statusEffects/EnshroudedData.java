@@ -3,8 +3,8 @@ package net.sevenstars.middleearth.statusEffects;
 import net.minecraft.nbt.NbtCompound;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 
-public class DelversFearData {
-    public static final String KEY = "delvers_fear";
+public class EnshroudedData {
+    public static final String KEY = "enshrouded";
     public static final int STOPPING_TICK = 30;
 
     public static void addEffect(IEntityDataSaver player, int amount) {

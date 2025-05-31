@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 
 public class ModStatusEffects {
     public static final RegistryEntry<StatusEffect> HALLUCINATION = register("hallucination", new HallucinationStatusEffect(StatusEffectCategory.HARMFUL, 0x006666));
-    public static final RegistryEntry<StatusEffect> DELVERS_FEAR = register("delvers_fear", new DelversFearStatusEffect(StatusEffectCategory.HARMFUL, 0x006666));
+    public static final RegistryEntry<StatusEffect> ENSHROUDED = register("enshrouded", new EnshroudedStatusEffect(StatusEffectCategory.HARMFUL, 0x006666));
 
     private static RegistryEntry<StatusEffect> register(String id, StatusEffect statusEffect) {
         return Registry.registerReference(Registries.STATUS_EFFECT, Identifier.of(MiddleEarth.MOD_ID, id), statusEffect);

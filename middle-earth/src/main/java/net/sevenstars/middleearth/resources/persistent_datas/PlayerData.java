@@ -13,7 +13,6 @@ public class PlayerData {
 
     private int delversFearCountInSeconds = 0;
 
-
     public NbtCompound createNbt() {
         NbtCompound nbtCompound = new NbtCompound();
         if(faction != null)
@@ -28,6 +27,7 @@ public class PlayerData {
             nbtCompound.putString("dimensionOrigin", dimensionOrigin.toString());
 
         nbtCompound.putInt("delversFearCountInSeconds", delversFearCountInSeconds);
+        nbtCompound.putInt("climbingPeriod", climbingPeriod);
 
         return nbtCompound;
     }
@@ -85,6 +85,7 @@ public class PlayerData {
         return this.posOrigin;
     }
 
+
     public int getDelversFearCountInSeconds(){
         return this.delversFearCountInSeconds;
     }
@@ -94,5 +95,4 @@ public class PlayerData {
     public void resetDelversFearCount() {
         this.delversFearCountInSeconds = 0;
     }
-
 }
