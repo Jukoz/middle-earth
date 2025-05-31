@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 

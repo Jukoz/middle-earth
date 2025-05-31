@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.crop;
+package net.sevenstars.middleearth.block.special.crop;
 
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.block.Block;

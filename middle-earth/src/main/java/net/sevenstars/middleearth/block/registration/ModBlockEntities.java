@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block;
+package net.sevenstars.middleearth.block.registration;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;

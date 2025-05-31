@@ -1,11 +1,13 @@
-package net.sevenstars.middleearth.block;
+package net.sevenstars.middleearth.block.registration;
 
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.RocksBlock;
 import net.sevenstars.middleearth.block.special.StoneChairBlock;
 import net.sevenstars.middleearth.block.special.StoneTableBlock;
 import net.sevenstars.middleearth.block.special.StoolBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
+import net.sevenstars.middleearth.block.utils.StoneBlockSetBuilder;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
@@ -32,6 +34,10 @@ public class StoneBlockSets {
     public static final float MEDGON_BLAST_RESISTANCE = 9.0F;
     public static final float MEDGON_BRICKS_HARDNESS = 6.5F;
     public static final float MEDGON_BRICKS_BLAST_RESISTANCE = 9.0F;
+
+    public static StoneBlockSetBuilder TESTISTONE = new StoneBlockSetBuilder("testistone", MEDGON_HARDNESS, MEDGON_BLAST_RESISTANCE, MapColor.BLUE, NoteBlockInstrument.BANJO, BlockSoundGroup.STONE)
+            .add(StoneBlockSetBuilder.StoneBlockTypes.OLD_BLOCKS)
+            .add(StoneBlockSetBuilder.StoneBlockTypes.TILE_BLOCKS);
 
     public static SimpleBlockSetMain ASHEN_STONE = registerMainStoneSet("ashen_stone", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet ASHEN_COBBLESTONE = registerStoneSet("ashen_cobblestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, ASHEN_STONE.base);

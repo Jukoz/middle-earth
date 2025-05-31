@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.OtherBlockSets;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.OtherBlockSets;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 

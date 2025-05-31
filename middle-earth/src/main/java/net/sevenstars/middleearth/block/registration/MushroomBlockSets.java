@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block;
+package net.sevenstars.middleearth.block.registration;
 
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;

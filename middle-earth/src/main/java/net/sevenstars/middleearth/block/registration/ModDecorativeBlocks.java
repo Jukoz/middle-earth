@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block;
+package net.sevenstars.middleearth.block.registration;
 
 import net.minecraft.block.piston.PistonBehavior;
 import net.sevenstars.middleearth.MiddleEarth;

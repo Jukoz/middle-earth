@@ -27,7 +27,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
-import net.sevenstars.middleearth.block.WoodBlockSets;
+import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.item.FoodItemsME;
 
 public class TapperBlock extends HorizontalFacingBlock {

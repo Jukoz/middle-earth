@@ -2,9 +2,9 @@ package net.sevenstars.middleearth.world.features.tree;
 
 import com.google.common.collect.ImmutableList;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
-import net.sevenstars.middleearth.block.WoodBlockSets;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.world.features.tree.foliages.OvalFoliagePlacer;
 import net.sevenstars.middleearth.world.features.tree.foliages.PalmFoliagePlacer;
 import net.sevenstars.middleearth.world.features.tree.trunks.ArcTrunkPlacer;

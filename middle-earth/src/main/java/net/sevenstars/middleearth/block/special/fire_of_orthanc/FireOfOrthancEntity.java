@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.block.special.fire_of_orthanc;
 
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;

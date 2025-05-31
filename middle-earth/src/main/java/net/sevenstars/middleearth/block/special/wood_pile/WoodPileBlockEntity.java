@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.block.special.wood_pile;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlockEntities;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreenHandler;
 import net.sevenstars.middleearth.utils.ImplementedInventory;
 import net.minecraft.block.BlockState;

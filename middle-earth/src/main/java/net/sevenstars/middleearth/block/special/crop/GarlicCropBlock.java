@@ -1,6 +1,6 @@
-package net.sevenstars.middleearth.block.crop;
+package net.sevenstars.middleearth.block.special.crop;
 
-import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.item.FoodItemsME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
@@ -9,15 +9,15 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 
-public class CucumberCropBlock extends CropBlock {
+public class GarlicCropBlock extends CropBlock {
     public static final int MAX_AGE = 3;
     public static final IntProperty AGE = Properties.AGE_3;
-    public CucumberCropBlock(Settings settings) {
+    public GarlicCropBlock(Settings settings) {
         super(settings);
     }
     @Override
     protected ItemConvertible getSeedsItem() {
-        return ResourceItemsME.CUCUMBER_SEEDS;
+        return FoodItemsME.GARLIC;
     }
 
     @Override

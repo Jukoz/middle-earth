@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
@@ -21,7 +21,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
-import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBlockEntity>  {

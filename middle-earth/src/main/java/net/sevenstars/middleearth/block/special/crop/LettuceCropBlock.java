@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.crop;
+package net.sevenstars.middleearth.block.special.crop;
 
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.block.Block;
@@ -9,15 +9,15 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 
-public class BellpepperCropBlock extends CropBlock {
-    public static final int MAX_AGE = 4;
-    public static final IntProperty AGE = Properties.AGE_4;
-    public BellpepperCropBlock(Settings settings) {
+public class LettuceCropBlock extends CropBlock {
+    public static final int MAX_AGE = 3;
+    public static final IntProperty AGE = Properties.AGE_3;
+    public LettuceCropBlock(Settings settings) {
         super(settings);
     }
     @Override
     protected ItemConvertible getSeedsItem() {
-        return ResourceItemsME.BELL_PEPPER_SEEDS;
+        return ResourceItemsME.LETTUCE_SEEDS;
     }
 
     @Override

@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.world.features.vegetation;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
-import net.sevenstars.middleearth.block.StoneBlockSets;
-import net.sevenstars.middleearth.block.WoodBlockSets;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.world.features.columns.CaveColumnFeatureConfig;
 import net.sevenstars.middleearth.world.features.underground.CavesConfiguredFeatures;

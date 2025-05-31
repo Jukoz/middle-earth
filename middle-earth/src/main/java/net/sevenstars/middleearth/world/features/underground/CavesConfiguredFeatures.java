@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.world.features.underground;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
-import net.sevenstars.middleearth.block.OreRockSets;
-import net.sevenstars.middleearth.block.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.OreRockSets;
+import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.block.special.DroopingIciclesBlock;
 import net.sevenstars.middleearth.world.features.columns.ClusterFeatureConfig;
 import net.sevenstars.middleearth.world.features.columns.SmallPointedStoneFeatureConfig;

@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.world.chunkgen;
 
-import net.sevenstars.middleearth.block.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedCustomBiome;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;

@@ -1,8 +1,9 @@
-package net.sevenstars.middleearth.block;
+package net.sevenstars.middleearth.block.registration;
 
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.crop.*;
 import net.sevenstars.middleearth.block.special.*;
+import net.sevenstars.middleearth.block.special.crop.*;
 import net.sevenstars.middleearth.block.special.saplings.VariantSaplingBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
@@ -28,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static net.sevenstars.middleearth.block.WoodBlockSets.LEAVES_STRENGTH;
+import static net.sevenstars.middleearth.block.registration.WoodBlockSets.LEAVES_STRENGTH;
 
 public class ModNatureBlocks {
 

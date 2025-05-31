@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.world.features.boulder;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import net.sevenstars.middleearth.block.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

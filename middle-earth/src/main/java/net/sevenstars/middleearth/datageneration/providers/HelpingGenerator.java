@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.providers;
 
-import net.sevenstars.middleearth.block.*;
+import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.LeavesDrops;
 import net.minecraft.block.PillarBlock;

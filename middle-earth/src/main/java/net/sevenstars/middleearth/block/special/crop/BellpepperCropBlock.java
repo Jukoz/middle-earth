@@ -1,6 +1,6 @@
-package net.sevenstars.middleearth.block.crop;
+package net.sevenstars.middleearth.block.special.crop;
 
-import net.sevenstars.middleearth.item.FoodItemsME;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
@@ -9,15 +9,15 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 
-public class OnionCropBlock extends CropBlock {
-    public static final int MAX_AGE = 3;
-    public static final IntProperty AGE = Properties.AGE_3;
-    public OnionCropBlock(Settings settings) {
+public class BellpepperCropBlock extends CropBlock {
+    public static final int MAX_AGE = 4;
+    public static final IntProperty AGE = Properties.AGE_4;
+    public BellpepperCropBlock(Settings settings) {
         super(settings);
     }
     @Override
     protected ItemConvertible getSeedsItem() {
-        return FoodItemsME.ONION;
+        return ResourceItemsME.BELL_PEPPER_SEEDS;
     }
 
     @Override
