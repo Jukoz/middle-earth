@@ -27,7 +27,6 @@ public class PlayerData {
             nbtCompound.putString("dimensionOrigin", dimensionOrigin.toString());
 
         nbtCompound.putInt("delversFearCountInSeconds", delversFearCountInSeconds);
-        nbtCompound.putInt("climbingPeriod", climbingPeriod);
 
         return nbtCompound;
     }
