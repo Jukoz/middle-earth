@@ -1,47 +1,24 @@
 package net.sevenstars.middleearth.mixin;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
-import net.sevenstars.middleearth.item.items.shields.CustomShieldItem;
-import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
-import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
-import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
-import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
-import net.sevenstars.middleearth.utils.IEntityDataSaver;
-import net.sevenstars.middleearth.utils.PlayerMovementData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.ShieldItem;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.ModEntityAttributes;
+import net.sevenstars.middleearth.utils.IEntityDataSaver;
+import net.sevenstars.middleearth.utils.PlayerMovementData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static net.minecraft.entity.EquipmentSlot.OFFHAND;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -168,5 +145,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             }
         }
         return false;
+    }
+
+    @Inject(method = "createPlayerAttributes", require = 1, allow = 1, at = @At("return"))
+    private static void createPlayerAttributes(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info){
+        info.getReturnValue().add(ModEntityAttributes.POWDERED_SNOW_IMMUNITY);
     }
 }

@@ -30,6 +30,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
+
     }
 
     @Nullable
@@ -111,4 +112,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
     public boolean isCreative() {
         return this.interactionManager.getGameMode() == GameMode.CREATIVE;
     }
+
+
+
 }
