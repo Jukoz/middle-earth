@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.UUID;
 /**
  * <a href="https://fabricmc.net/wiki/tutorial:persistent_states">Documentation</a><br/>
@@ -77,11 +76,10 @@ public class StateSaverAndLoader extends PersistentState {
         return state;
     }
     public static PlayerData getPlayerState(PlayerEntity player) {
-        StateSaverAndLoader serverState = getServerState((MinecraftServer)Objects.requireNonNull(player.getServer()));
+        if(player == null) return null;
+        StateSaverAndLoader serverState = getServerState((MinecraftServer) player.getServer());
         UUID playerUUID = player.getUuid();
-        if (serverState.players.get(playerUUID) == null) {
-            serverState.players.put(playerUUID, new PlayerData());
-        }
+        serverState.players.computeIfAbsent(playerUUID, k -> new PlayerData());
         return serverState.players.get(playerUUID);
     }
 

@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.mixin;
 
 import com.mojang.authlib.GameProfile;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
@@ -12,8 +13,15 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.ModEntityAttributes;
+import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
+import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
+import net.sevenstars.middleearth.utils.IEntityDataSaver;
+import net.sevenstars.middleearth.utils.PlayerMovementData;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,12 +29,39 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerPlayerEntity.class)
 public class ServerPlayerEntityMixin extends PlayerEntity {
     @Shadow public MinecraftServer server;
     @Shadow public ServerPlayerInteractionManager interactionManager;
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    public void tick(CallbackInfo ci) {
+        PlayerMovementData.addAFKTime((IEntityDataSaver) this,1);
+        long currentTick = getWorld().getTickOrder();
+        if(currentTick % 5 == 0){
+            int currentLightLevel = getWorld().getLightLevel(getBlockPos());
+            if(getWorld() == null) return;
+            PlayerData data = StateSaverAndLoader.getPlayerState(getWorld().getPlayerByUuid(getUuid()));
+            if(data == null) return;
+
+            if(currentLightLevel < 3 && !getEntityWorld().isSkyVisible(getBlockPos())) {
+                data.addToDelversFearCountInSeconds();
+
+                if(data.getDelversFearCountInSeconds() > getAttributeValue(ModEntityAttributes.DELVERS_FEAR_STRENGTH)){
+                    MiddleEarth.LOGGER.logDebugMsg("Current tick = " + currentTick + " for " + currentLightLevel + " and " + getEntityWorld().isSkyVisible(getBlockPos()));
+                    addStatusEffect(new StatusEffectInstance(ModStatusEffects.DELVERS_FEAR, -1));
+                }
+            } else {
+                if(hasStatusEffect(ModStatusEffects.DELVERS_FEAR) && getStatusEffect(ModStatusEffects.DELVERS_FEAR).isInfinite()){
+                    setStatusEffect(new StatusEffectInstance(ModStatusEffects.DELVERS_FEAR, 40), this);
+                }
+                data.resetDelversFearCount();
+            }
+        }
+    }
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);

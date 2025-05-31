@@ -1,18 +1,18 @@
 package net.sevenstars.middleearth.statusEffects;
 
-import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.world.ServerWorld;
+import net.sevenstars.middleearth.utils.IEntityDataSaver;
 
 import java.util.Map;
 
-public class HallucinationStatusEffect extends StatusEffect {
-    public HallucinationStatusEffect(StatusEffectCategory statusEffectCategory, int i) {
+public class DelversFearStatusEffect extends StatusEffect {
+    public DelversFearStatusEffect(StatusEffectCategory statusEffectCategory, int i) {
         super(statusEffectCategory, i);
     }
 
@@ -25,11 +25,11 @@ public class HallucinationStatusEffect extends StatusEffect {
     public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
         if(entity instanceof PlayerEntity){
             Map<RegistryEntry<StatusEffect>, StatusEffectInstance> map = entity.getActiveStatusEffects();
-            int ticksLeft = map.get(ModStatusEffects.HALLUCINATION).getDuration();
+            int ticksLeft = map.get(ModStatusEffects.DELVERS_FEAR).getDuration();
             if(ticksLeft != -1 && ticksLeft < HallucinationData.STOPPING_TICK)
-                HallucinationData.addHallucination((IEntityDataSaver) entity, -2);
+                DelversFearData.addEffect((IEntityDataSaver) entity, -2);
             else{
-                HallucinationData.addHallucination((IEntityDataSaver) entity, 2);
+                DelversFearData.addEffect((IEntityDataSaver) entity, 2);
             }
         }
 
@@ -37,7 +37,7 @@ public class HallucinationStatusEffect extends StatusEffect {
     }
 
     public void stop(LivingEntity entity){
-        HallucinationData.stopHallucination((IEntityDataSaver) entity);
+        DelversFearData.stopEffect((IEntityDataSaver) entity);
     }
 
 

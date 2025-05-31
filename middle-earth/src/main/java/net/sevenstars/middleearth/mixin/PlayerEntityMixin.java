@@ -150,5 +150,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "createPlayerAttributes", require = 1, allow = 1, at = @At("return"))
     private static void createPlayerAttributes(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info){
         info.getReturnValue().add(ModEntityAttributes.POWDERED_SNOW_IMMUNITY);
+        info.getReturnValue().add(ModEntityAttributes.DELVERS_FEAR_STRENGTH);
     }
 }
