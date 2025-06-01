@@ -203,7 +203,6 @@ public class OnboardingFactionScreen extends Screen {
                 x -> _controller.confirmSelection()).build();
         addDrawableChild(elements.spawnConfirmButton);
 
-
         elements.factionName = ((MutableText)Text.of("N/A")).formatted(Formatting.BOLD).formatted(Formatting.DARK_GRAY);
         elements.subfactionName = Text.of("N/A");
         elements.raceList.setText(List.of(Text.of("N/A")));
@@ -365,9 +364,20 @@ public class OnboardingFactionScreen extends Screen {
         this.elements.spawnConfirmButton.setPosition(startX, startY);
         this.elements.spawnConfirmButton.setDimensions(52, 18);
 
-        context.drawTexture(RenderLayer::getGuiTextured, BUTTON_UI_IDENTIFIER,
-                this.elements.spawnConfirmButton.getX(), this.elements.spawnConfirmButton.getY(), 103, this.elements.spawnConfirmButton.isFocused() || this.elements.spawnConfirmButton.isMouseOver(mouseX, mouseY) ? 37 : 19,
-                this.elements.spawnConfirmButton.getWidth(), this.elements.spawnConfirmButton.getHeight(), 256, 256);
+        if(elements.spawnConfirmButton.active){
+            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_UI_IDENTIFIER,
+                    this.elements.spawnConfirmButton.getX(), this.elements.spawnConfirmButton.getY(), 103, this.elements.spawnConfirmButton.isFocused() || this.elements.spawnConfirmButton.isMouseOver(mouseX, mouseY) ? 37 : 19,
+                    this.elements.spawnConfirmButton.getWidth(), this.elements.spawnConfirmButton.getHeight(), 256, 256);
+        } else {
+            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_UI_IDENTIFIER,
+                    this.elements.spawnConfirmButton.getX(), this.elements.spawnConfirmButton.getY(), 156, 55,
+                    this.elements.spawnConfirmButton.getWidth(), this.elements.spawnConfirmButton.getHeight(), 256, 256);
+
+            Text delayText = Text.literal(String.valueOf(_controller.getCurrentDelay()));
+            context.drawText(textRenderer, delayText,
+                    this.elements.spawnConfirmButton.getX() + (52 / 2) - (textRenderer.getWidth(delayText) / 2),
+                    this.elements.spawnConfirmButton.getY() + 5, 0xc4343e, true);
+        }
 
         // Left panel
         startX = this.elements.informationPanel.startX - 6;
@@ -467,5 +477,12 @@ public class OnboardingFactionScreen extends Screen {
         this.elements.searchBarWidget.charTyped(chr, modifiers);
         return super.charTyped(chr, modifiers);
     }
+
+    @Override
+    public void tick() {
+        _controller.tick();
+        super.tick();
+    }
+
     //endregion
 }

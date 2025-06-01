@@ -40,6 +40,7 @@ public class OnboardingFactionScreenController {
     OnboardingFactionScreen _screen;
     OnboardingFactionScreenService _service;
     private float _currentDelay;
+
     private HashMap<Disposition, List<Faction>> _factions;
 
     private Disposition _selectedDisposition;
@@ -72,6 +73,7 @@ public class OnboardingFactionScreenController {
             _screen.elements.mapWidget.isForcingTargetMovement = true;
             setDisposition(_factions.keySet().stream().findFirst().orElse(Disposition.GOOD));
         }
+        _screen.elements.spawnConfirmButton.active = _currentDelay == 0;
 
         updateScreenInformation();
     }
@@ -522,5 +524,18 @@ public class OnboardingFactionScreenController {
         } catch (FactionIdentifierException ignored){
         }
     }
+
+    public void tick() {
+        if(this._currentDelay > 0){
+            this._currentDelay = Math.max(0, this._currentDelay - 1f / 20);
+            if(this._currentDelay == 0)
+                _screen.elements.spawnConfirmButton.active = true;
+        }
+    }
+
+    public float getCurrentDelay(){
+        return (Math.round(this._currentDelay * 10f) /10f);
+    }
+
     //endregion
 }

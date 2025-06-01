@@ -49,9 +49,7 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
 
         if(canResetCharacter){
             ButtonWidget.PressAction resetCharacterAction = button -> {
-                var controller = OnboardingFactionScreenController.getInstance();
-                if(controller == null)
-                    controller = new OnboardingFactionScreenController(this.player.getWorld(), currentDelay);
+                var controller = new OnboardingFactionScreenController(this.player.getWorld(), currentDelay);
                 controller.open();
             };
             resetCharacterButton = ButtonWidget.builder(Text.of("reset_character"), resetCharacterAction).build();
