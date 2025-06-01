@@ -2,6 +2,9 @@ package net.sevenstars.middleearth.gui.onboarding.onboarding_faction;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -535,6 +538,14 @@ public class OnboardingFactionScreenController {
 
     public float getCurrentDelay(){
         return (Math.round(this._currentDelay * 10f) /10f);
+    }
+
+    public Text getCurrentFactionFullName() {
+        return _selectedFaction.getFullName();
+    }
+
+    public void drawRaceTooltip(AbstractClientPlayerEntity player, DrawContext context, TextRenderer textRenderer, int x, int y) {
+        _selectedRace.drawTooltip(player, context, textRenderer, x, y);
     }
 
     //endregion

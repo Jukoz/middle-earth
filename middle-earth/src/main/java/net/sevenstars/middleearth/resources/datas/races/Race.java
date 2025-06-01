@@ -154,7 +154,12 @@ public class Race {
         List<AttributePoolElement> elements = playerAttributePool.getPool();
         for(var element : elements){
             double value = element.getValue();
-            double difference = value - playerAttributePool.getEntityCurrentAttributeValue(entity, id);
+            Double attributeValue = playerAttributePool.getEntityCurrentAttributeValue(entity, element.getIdentifier());
+            if(attributeValue == null){
+                MiddleEarth.LOGGER.logWarn("Can't find attribute in player : %s".formatted(element.getIdentifier()));
+                continue;
+            }
+            double difference = value - attributeValue;
 
             // Round them
             value = Math.round(value * 1000) / 1000.0;
@@ -163,12 +168,12 @@ public class Race {
             String differenceChar = (difference > 0) ? "+" : "";
             Formatting white = Formatting.WHITE;
             Formatting differenceColor = (difference < 0) ? Formatting.RED : (difference > 0) ? Formatting.GREEN : white;
-            if(playerAttributePool.isBuffReversed(id)){
+            if(playerAttributePool.isBuffReversed(element.getIdentifier())){
                 differenceColor = (difference < 0) ? Formatting.GREEN : (difference > 0) ? Formatting.RED : white;
             }
             MutableText rawValue = Text.literal(String.valueOf(value)).formatted(white);
             MutableText valueText = rawValue.append(Text.literal(" (").formatted(white).append(Text.literal(differenceChar + difference).formatted(differenceColor).append(Text.literal(") ").formatted(white))));
-            texts.add(valueText.append(Text.translatable("attribute.name."+id.getPath()).formatted(Formatting.WHITE)));
+            texts.add(valueText.append(Text.translatable("attribute.name."+element.getIdentifier().getPath()).formatted(Formatting.WHITE)));
         }
         context.drawTooltip(renderer, texts, x, y);
     }

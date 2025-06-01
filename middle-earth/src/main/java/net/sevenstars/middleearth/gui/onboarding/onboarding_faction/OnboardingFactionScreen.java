@@ -252,6 +252,9 @@ public class OnboardingFactionScreen extends Screen {
 
         int factionStartX = startX + ((elements.informationPanel.width - 50) / 2 - (textRenderer.getWidth(elements.factionName) / 2));
         context.drawText(textRenderer, elements.factionName, factionStartX, startY, 0, false);
+        if(isMouseOver(factionStartX, textRenderer.getWidth(elements.factionName), startY, textRenderer.fontHeight)){
+            context.drawTooltip(textRenderer, List.of(_controller.getCurrentFactionFullName()), ModWidget.getMouseX(), ModWidget.getMouseY());
+        }
 
         // Subfaction
         if(elements.subfactionName != null){
@@ -347,6 +350,9 @@ public class OnboardingFactionScreen extends Screen {
         startY += elements.spawnPointSelectionWidget.TOTAL_HEIGHT + 4;
 
         elements.raceSelectionWidget.drawAnchored(context, startX,  startY,true, textRenderer);
+        if(isMouseOver(startX, CycledSelectionWidget.TOTAL_WIDTH, startY, CycledSelectionWidget.TOTAL_HEIGHT)){
+            _controller.drawRaceTooltip(client.player, context, textRenderer, mouseX, mouseY);
+        }
 
         startX = this.elements.mapPanel.startX + 4;
         startY = this.elements.informationPanel.startY + this.elements.informationPanel.height - elements.fullRandomizerButton.getHeight();
@@ -483,6 +489,8 @@ public class OnboardingFactionScreen extends Screen {
         _controller.tick();
         super.tick();
     }
-
+    private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {
+        return ModWidget.isMouseOver(sizeX, sizeY, startX, startY);
+    }
     //endregion
 }
