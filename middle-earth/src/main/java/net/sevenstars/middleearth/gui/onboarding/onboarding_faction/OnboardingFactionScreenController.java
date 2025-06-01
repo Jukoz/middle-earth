@@ -3,23 +3,30 @@ package net.sevenstars.middleearth.gui.onboarding.onboarding_faction;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
+import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
+import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
 import net.sevenstars.middleearth.network.packets.C2S.*;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -41,6 +48,7 @@ public class OnboardingFactionScreenController {
     private SpawnData _selectedSpawn;
     private Race _selectedRace;
     private NpcEntity _currentNpcEntity;
+    private List<SearchBarResult> searchBarResults;
 
     public OnboardingFactionScreenController(World world, float delay) {
         _screen = new OnboardingFactionScreen(this);
@@ -88,9 +96,23 @@ public class OnboardingFactionScreenController {
             if(!foundFactions.isEmpty())
                 _factions.put(disposition, foundFactions);
         }
+
+        this.searchBarResults = fetchAllPossibleSearchBarResults();
     }
 
-    private void updateScreenInformation() {
+    public void updateScreenInformation() {
+        if(_screen.elements.searchBarWidget.searchIsToggled()){
+            _screen.elements.dispositionSelectionWidget.enableVisuals(false);
+            _screen.elements.factionSelectionWidget.enableVisuals(false);
+            _screen.elements.subfactionSelectionWidget.enableVisuals(false);
+            _screen.elements.factionRandomizerButton.active = false;
+        } else {
+            _screen.elements.dispositionSelectionWidget.enableVisuals(true);
+            _screen.elements.factionSelectionWidget.enableVisuals(true);
+            _screen.elements.subfactionSelectionWidget.enableVisuals(true);
+            _screen.elements.factionRandomizerButton.active = true;
+        }
+
         this._screen.elements.factionName = (_selectedFaction.tryGetShortName()).formatted(Formatting.BOLD).formatted(Formatting.DARK_GRAY);
         if(this._selectedSubfaction != null)
             this._screen.elements.subfactionName = (_selectedSubfaction.tryGetShortName());
@@ -276,6 +298,7 @@ public class OnboardingFactionScreenController {
 
         _selectedSubfaction = _selectedFaction.getSubfaction(_world, index);
         setSpawnPoint(0);
+        setRace(0);
     }
 
     public void updateRace(int indexDifference){
@@ -437,6 +460,67 @@ public class OnboardingFactionScreenController {
             }
         }));
         return maxMarkerCount[0];
+    }
+
+    public int getAllJoinableFactionAmount() {
+        int count = 0;
+        for(List<Faction> factions : this._factions.values()){
+            count += factions.size();
+        }
+        return count;
+    }
+
+    private List<SearchBarResult> fetchAllPossibleSearchBarResults() {
+        var newList = new ArrayList<SearchBarResult>();
+
+        for(List<Faction> factions : this._factions.values()){
+            for(Faction faction : factions) {
+                if(faction.isJoinable()){
+                    newList.add(getSearchBarResult(faction));
+                    if(faction.getSubFactions() != null){
+                        for(Identifier subfacId : faction.getSubFactions()){
+                            try{
+                                Faction subfac = FactionLookup.getFactionById(_world, subfacId);
+                                newList.add(getSearchBarResult(faction, subfac));
+                            } catch (FactionIdentifierException ignored){
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return newList;
+    }
+
+    private SearchBarResult getSearchBarResult(Faction faction) {
+        MutableText text = faction.tryGetShortName();
+        Identifier factionId = faction.getId();
+        SearchBarResultType type = SearchBarResultType.NORMAL;
+        return new SearchBarResult(text, factionId, type, button -> selectFactionByIdentifier(factionId, null));
+    }
+
+    private SearchBarResult getSearchBarResult(Faction faction, Faction subfaction) {
+        MutableText text = subfaction.tryGetShortName();
+        Identifier factionId = faction.getId();
+        Identifier subfactionId = subfaction.getId();
+        SearchBarResultType type = SearchBarResultType.SUB;
+        return new SearchBarResult(text, subfactionId, type, button -> selectFactionByIdentifier(factionId, subfactionId));
+    }
+
+    public List<SearchBarResult> getAllSearchBarResults(){
+        return searchBarResults;
+    }
+
+    public void selectFactionByIdentifier(Identifier factionId, Identifier subfactionId){
+        try{
+            Faction faction = FactionLookup.getFactionById(_world, factionId);
+            setDisposition(faction.getDisposition());
+            setFaction(_factions.get(_selectedDisposition).indexOf(faction));
+            if(subfactionId != null){
+                setSubfaction(_selectedFaction.getSubFactions().indexOf(subfactionId));
+            }
+        } catch (FactionIdentifierException ignored){
+        }
     }
     //endregion
 }

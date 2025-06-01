@@ -125,10 +125,10 @@ public class OnboardingFactionScreen extends Screen {
 
         elements.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.STANDING_BANNER_FLAG).getChild("flag");
 
-        ButtonWidget.PressAction searchBarWidgetPress = this::doNothingButton;
-        elements.searchBarWidget = new SearchBarWidget(9, searchBarWidgetPress);
+        elements.searchBarWidget = new SearchBarWidget(9, _controller.getAllSearchBarResults(), x -> _controller.updateScreenInformation());
         addDrawableChild(elements.searchBarWidget.getSearchBarToggleButton());
         elements.searchBarWidget.getAllButtons().forEach(this::addDrawableChild);
+        addDrawableChild(elements.searchBarWidget.getScreenClickButton());
 
         elements.npcPreviewWidget = new PlayableNpcPreviewWidget();
         elements.npcPreviewWidget.getButtons().forEach(this::addDrawableChild);
@@ -373,6 +373,17 @@ public class OnboardingFactionScreen extends Screen {
         startX = this.elements.informationPanel.startX - 6;
         startY = this.elements.informationPanel.startY;
 
+        int endY = (int) ((context.getScaledWindowHeight() / 2f) - (this.elements.informationPanel.height / 2f)) + this.elements.informationPanel.height;
+
+        // Search Bar Widget
+        startY += elements.searchBarWidget.drawSearchBarCentered(context, startX - (CycledSelectionWidget.TOTAL_WIDTH / 2), startY, textRenderer);
+        elements.searchBarWidget.setEndY(elements.informationPanel.startY + elements.informationPanel.height);
+
+        if(this.elements.searchBarWidget.searchIsToggled()) {
+            this.elements.searchBarWidget.drawSearchResultsCentered(context, startX - (CycledSelectionWidget.TOTAL_WIDTH / 2), startY - 20);
+            return;
+        }
+
         this.elements.dispositionSelectionWidget.drawAnchored(context, startX, startY, false, textRenderer);
 
         startY += this.elements.dispositionSelectionWidget.TOTAL_HEIGHT + 2;
@@ -396,10 +407,6 @@ public class OnboardingFactionScreen extends Screen {
     //endregion
 
     //region [Button Events]
-    private void doNothingButton(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
-    }
-
     private void mapFocusToggle(ButtonWidget buttonWidget) {
         elements.mapWidget.isForcingTargetMovement = !elements.mapWidget.isForcingTargetMovement;
         _controller.moveToCurrentSpawn();
@@ -421,6 +428,7 @@ public class OnboardingFactionScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         this.elements.mapWidget.keyPressed(keyCode, scanCode, modifiers);
+        this.elements.searchBarWidget.keyPressed(keyCode, scanCode, modifiers);
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
@@ -428,6 +436,7 @@ public class OnboardingFactionScreen extends Screen {
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         this.elements.npcPreviewWidget.mouseReleased(mouseX, mouseY, button);
         this.elements.mapWidget.mouseReleased(mouseX, mouseY, button);
+        this.elements.searchBarWidget.mouseReleased(mouseX, mouseY, button);
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
@@ -435,20 +444,28 @@ public class OnboardingFactionScreen extends Screen {
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
         this.elements.npcPreviewWidget.keyReleased(keyCode, scanCode, modifiers);
         this.elements.mapWidget.keyReleased(keyCode, scanCode, modifiers);
+        this.elements.searchBarWidget.keyReleased(keyCode, scanCode, modifiers);
         return super.keyReleased(keyCode, scanCode, modifiers);
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         this.elements.mapWidget.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+        this.elements.searchBarWidget.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         this.elements.mapWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        this.elements.searchBarWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }
 
+    @Override
+    public boolean charTyped(char chr, int modifiers) {
+        this.elements.searchBarWidget.charTyped(chr, modifiers);
+        return super.charTyped(chr, modifiers);
+    }
     //endregion
 }
