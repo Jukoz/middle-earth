@@ -185,7 +185,7 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, GONLUIN_GRASS_ORE, Feature.DISK,
                 new DiskFeatureConfig(PredicatedStateProvider.of(Blocks.GRASS_BLOCK),
-                        BlockPredicate.matchingBlocks(List.of(StoneBlockSets.GONLUIN_SET.baseBlocks.base())), UniformIntProvider.create(3, 6), 1));
+                        BlockPredicate.matchingBlocks(List.of(StoneBlockSets.KHAGALABAN_SET.baseBlocks.base())), UniformIntProvider.create(3, 6), 1));
 
         ConfiguredFeatures.register(featureRegisterable, OLD_PODZOL_ORE, Feature.ORE,
                 new OreFeatureConfig(grassTest, ModNatureBlocks.OLD_PODZOL.getDefaultState(), 64, 0.4f));

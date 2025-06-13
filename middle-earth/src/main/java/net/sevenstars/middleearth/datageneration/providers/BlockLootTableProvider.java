@@ -60,7 +60,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             } else if (Registries.BLOCK.getId(block).getPath().equals("medgon")) {
                 cobbleDrops(block, StoneBlockSets.MEDGON_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("gonluin")) {
-                cobbleDrops(block, StoneBlockSets.GONLUIN_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSets.KHAGALABAN_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("limestone")) {
                 cobbleDrops(block, StoneBlockSets.LIMESTONE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("dolomite")) {

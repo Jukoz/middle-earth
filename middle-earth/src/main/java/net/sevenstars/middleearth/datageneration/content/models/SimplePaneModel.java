@@ -23,7 +23,7 @@ public class SimplePaneModel {
             add(new Pane(ModDecorativeBlocks.PLASTER_ROUND_WINDOW, ModDecorativeBlocks.PLASTER_ROUND_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW, ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.MEDGON_CARVED_WINDOW, ModDecorativeBlocks.MEDGON_CARVED_WINDOW_PANE));
-            add(new Pane(ModDecorativeBlocks.GONLUIN_CARVED_WINDOW, ModDecorativeBlocks.GONLUIN_CARVED_WINDOW_PANE));
+            add(new Pane(ModDecorativeBlocks.KHAGALABAN_CARVED_WINDOW, ModDecorativeBlocks.KHAGALABAN_CARVED_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.TUFF_CARVED_WINDOW, ModDecorativeBlocks.TUFF_CARVED_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.BLACKSTONE_CARVED_WINDOW, ModDecorativeBlocks.BLACKSTONE_CARVED_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.IZHERABAN_CARVED_WINDOW, ModDecorativeBlocks.IZHERABAN_CARVED_WINDOW_PANE));

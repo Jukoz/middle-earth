@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "middle-earth:item/gonluin_statue"
+    "layer0": "middle-earth:item/khagalaban_statue"
   }
 }

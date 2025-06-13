@@ -150,7 +150,7 @@ public class CavesConfiguredFeatures {
     static TagMatchRuleTest baseStone = new TagMatchRuleTest(BlockTags.BASE_STONE_OVERWORLD);
     static TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES);
     static BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHEN_STONE_SET.baseBlocks.base());
-    static BlockMatchRuleTest blueTuffTest = new BlockMatchRuleTest(StoneBlockSets.GONLUIN_SET.baseBlocks.base());
+    static BlockMatchRuleTest blueTuffTest = new BlockMatchRuleTest(StoneBlockSets.KHAGALABAN_SET.baseBlocks.base());
     static BlockMatchRuleTest dolomiteTest = new BlockMatchRuleTest(StoneBlockSets.DOLOMITE_SET.baseBlocks.base());
     static BlockMatchRuleTest hematiteTest = new BlockMatchRuleTest(StoneBlockSets.HEMATITE_SET.baseBlocks.base());
     static BlockMatchRuleTest greenTuffTest = new BlockMatchRuleTest(StoneBlockSets.GREEN_TUFF_SET.baseBlocks.base());
@@ -159,7 +159,7 @@ public class CavesConfiguredFeatures {
     static BlockMatchRuleTest calciteTest = new BlockMatchRuleTest(Blocks.CALCITE);
     static BlockMatchRuleTest dioriteTest = new BlockMatchRuleTest(Blocks.DIORITE);
     static BlockMatchRuleTest ironStoneTest = new BlockMatchRuleTest(StoneBlockSets.IRONSTONE_SET.baseBlocks.base());
-    static BlockMatchRuleTest gonluinTest = new BlockMatchRuleTest(StoneBlockSets.GONLUIN_SET.baseBlocks.base());
+    static BlockMatchRuleTest gonluinTest = new BlockMatchRuleTest(StoneBlockSets.KHAGALABAN_SET.baseBlocks.base());
     static BlockMatchRuleTest limestoneTest = new BlockMatchRuleTest(StoneBlockSets.LIMESTONE_SET.baseBlocks.base());
     static BlockMatchRuleTest slateTest = new BlockMatchRuleTest(StoneBlockSets.SLATE_SET.baseBlocks.base());
     static TagMatchRuleTest deepslateTest = new TagMatchRuleTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
@@ -260,7 +260,7 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(medgonTest, Blocks.MAGMA_BLOCK.getDefaultState()));
     static List<OreFeatureConfig.Target> coalList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.COAL_ORE.getDefaultState()),
-            OreFeatureConfig.createTarget(blueTuffTest, OreRockSets.GONLUIN.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(blueTuffTest, OreRockSets.KHAGALABAN.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(dolomiteTest, Blocks.COAL_ORE.getDefaultState()),
             OreFeatureConfig.createTarget(hematiteTest, OreRockSets.IRONSTONE.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(galonnTest, OreRockSets.LIMESTONE.coal_ore().getDefaultState()),
@@ -270,13 +270,13 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(calciteTest, OreRockSets.CALCITE.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(dioriteTest, OreRockSets.CALCITE.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(ironStoneTest, OreRockSets.IRONSTONE.coal_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(gonluinTest, OreRockSets.GONLUIN.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(gonluinTest, OreRockSets.KHAGALABAN.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(limestoneTest, OreRockSets.LIMESTONE.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(slateTest, OreRockSets.SLATE.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_COAL_ORE.getDefaultState()));
     static List<OreFeatureConfig.Target> copperList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.COPPER_ORE.getDefaultState()),
-            OreFeatureConfig.createTarget(blueTuffTest, OreRockSets.GONLUIN.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(blueTuffTest, OreRockSets.KHAGALABAN.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(dolomiteTest, Blocks.COPPER_ORE.getDefaultState()),
             OreFeatureConfig.createTarget(hematiteTest, OreRockSets.IRONSTONE.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(galonnTest, OreRockSets.LIMESTONE.copper_ore().getDefaultState()),
@@ -286,13 +286,13 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(calciteTest, OreRockSets.CALCITE.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(dioriteTest, OreRockSets.CALCITE.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(ironStoneTest, OreRockSets.IRONSTONE.copper_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(gonluinTest, OreRockSets.GONLUIN.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(gonluinTest, OreRockSets.KHAGALABAN.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(limestoneTest, OreRockSets.LIMESTONE.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(slateTest, OreRockSets.SLATE.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_COPPER_ORE.getDefaultState()));
     static List<OreFeatureConfig.Target> tinList = List.of(
             OreFeatureConfig.createTarget(stoneTest, OreRockSets.STONE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(blueTuffTest, OreRockSets.GONLUIN.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(blueTuffTest, OreRockSets.KHAGALABAN.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(dolomiteTest, OreRockSets.STONE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(hematiteTest, OreRockSets.IRONSTONE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(galonnTest, OreRockSets.LIMESTONE.tin_ore().getDefaultState()),
@@ -302,7 +302,7 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(calciteTest, OreRockSets.CALCITE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(dioriteTest, OreRockSets.CALCITE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(ironStoneTest, OreRockSets.IRONSTONE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(gonluinTest, OreRockSets.GONLUIN.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(gonluinTest, OreRockSets.KHAGALABAN.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(limestoneTest, OreRockSets.LIMESTONE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, OreRockSets.DEEPSLATE.tin_ore().getDefaultState()),
             OreFeatureConfig.createTarget(slateTest, OreRockSets.SLATE.tin_ore().getDefaultState()),

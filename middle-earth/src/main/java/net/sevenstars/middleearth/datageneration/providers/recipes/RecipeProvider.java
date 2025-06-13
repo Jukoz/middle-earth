@@ -1993,9 +1993,9 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("TG")
                         .pattern("GT")
                         .input('T', Items.TUFF)
-                        .input('G', StoneBlockSets.GONLUIN_SET.baseBlocks.base())
-                        .criterion(hasItem(StoneBlockSets.GONLUIN_SET.baseBlocks.base()),
-                                conditionsFromItem(StoneBlockSets.GONLUIN_SET.baseBlocks.base()))
+                        .input('G', StoneBlockSets.KHAGALABAN_SET.baseBlocks.base())
+                        .criterion(hasItem(StoneBlockSets.KHAGALABAN_SET.baseBlocks.base()),
+                                conditionsFromItem(StoneBlockSets.KHAGALABAN_SET.baseBlocks.base()))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.HEMATITE_SET.baseBlocks.base(), 4)

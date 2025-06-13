@@ -30,11 +30,21 @@ import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.recipe.ModTags;
 
+import java.util.HashMap;
+
 public class ModRegistries {
 
+    public static final HashMap<String, String> specialAliases = new HashMap<>();
+
     public static void registerRegistryAliases() {
+        specialAliases.put("gonluin", "khagalaban");
+
         for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
-            alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.name()), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
+            String name = alias.name();
+            if (specialAliases.containsKey(alias.name())){
+                name = specialAliases.get(alias.name());
+            }
+            alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.name()), Identifier.of(MiddleEarth.MOD_ID, name));
         }
     }
 

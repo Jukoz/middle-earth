@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"1": "middle-earth:block/gonluin_statue",
-		"particle": "middle-earth:block/gonluin_statue"
+		"1": "middle-earth:block/khagalaban_statue",
+		"particle": "middle-earth:block/khagalaban_statue"
 	},
 	"elements": [
 		{

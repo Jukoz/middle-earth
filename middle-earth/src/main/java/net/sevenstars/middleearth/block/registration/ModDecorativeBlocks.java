@@ -101,7 +101,7 @@ public class ModDecorativeBlocks {
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque().requiresTool());
     public static final Block GALONN_STATUE = registerBlockWithItem("galonn_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
-    public static final Block GONLUIN_STATUE = registerBlockWithItem("gonluin_statue",
+    public static final Block KHAGALABAN_STATUE = registerBlockWithItem("khagalaban_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
     public static final Block TUFF_STATUE = registerBlockWithItem("tuff_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).nonOpaque().requiresTool());
@@ -167,9 +167,9 @@ public class ModDecorativeBlocks {
     public static final Block BLACKSTONE_CARVED_WINDOW_PANE = registerBlockWithItem("blackstone_carved_window_pane",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS_PANE));
 
-    public static final Block GONLUIN_CARVED_WINDOW = registerBlockWithItem("gonluin_carved_window",
+    public static final Block KHAGALABAN_CARVED_WINDOW = registerBlockWithItem("khagalaban_carved_window",
             TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS));
-    public static final Block GONLUIN_CARVED_WINDOW_PANE = registerBlockWithItem("gonluin_carved_window_pane",
+    public static final Block KHAGALABAN_CARVED_WINDOW_PANE = registerBlockWithItem("khagalaban_carved_window_pane",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS_PANE));
 
     public static final Block MEDGON_CARVED_WINDOW = registerBlockWithItem("medgon_carved_window",

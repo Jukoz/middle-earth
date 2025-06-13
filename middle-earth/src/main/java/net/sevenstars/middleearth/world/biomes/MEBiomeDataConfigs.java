@@ -21,7 +21,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(40, StoneBlockSets.DOLOMITE_SET.baseBlocks.base())
             .addSlopeData(45, Blocks.TUFF)
             .addSlopeData(47, StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base())
-            .addSlopeData(51, StoneBlockSets.GONLUIN_SET.baseBlocks.base())
+            .addSlopeData(51, StoneBlockSets.KHAGALABAN_SET.baseBlocks.base())
             .addSlopeData(MAX_ANGLE, Blocks.COBBLED_DEEPSLATE);
     public static SlopeMap blueMountains = new SlopeMap()
             .addSlopeData(30, Blocks.GRASS_BLOCK)
@@ -31,7 +31,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(40, StoneBlockSets.DOLOMITE_SET.baseBlocks.base())
             .addSlopeData(45, Blocks.TUFF)
             .addSlopeData(55, StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base())
-            .addSlopeData(67, StoneBlockSets.GONLUIN_SET.baseBlocks.base())
+            .addSlopeData(67, StoneBlockSets.KHAGALABAN_SET.baseBlocks.base())
             .addSlopeData(MAX_ANGLE, Blocks.COBBLED_DEEPSLATE);
     public static SlopeMap blueMountainHighLands = new SlopeMap()
             .addSlopeData(23, Blocks.GRASS_BLOCK)
@@ -41,7 +41,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(37, StoneBlockSets.DOLOMITE_SET.baseBlocks.base())
             .addSlopeData(42, Blocks.TUFF)
             .addSlopeData(49, StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base())
-            .addSlopeData(61, StoneBlockSets.GONLUIN_SET.baseBlocks.base())
+            .addSlopeData(61, StoneBlockSets.KHAGALABAN_SET.baseBlocks.base())
             .addSlopeData(MAX_ANGLE, Blocks.COBBLED_DEEPSLATE);
     public static SlopeMap blueMountainsPeaks = new SlopeMap()
             .addSlopeData(25, Blocks.SNOW_BLOCK)
@@ -49,7 +49,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(35, Blocks.ANDESITE)
             .addSlopeData(42, Blocks.TUFF)
             .addSlopeData(50, StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base())
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.GONLUIN_SET.baseBlocks.base());
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.KHAGALABAN_SET.baseBlocks.base());
 
     public static SlopeMap emynMuil = new SlopeMap().addSlopeData(30, Blocks.GRASS_BLOCK)
             .addSlopeData(35, Blocks.COARSE_DIRT)
@@ -278,7 +278,7 @@ public class MEBiomeDataConfigs {
     public static BlocksLayeringData frozenLayers = new BlocksLayeringData().addLayerData(1.0f, Blocks.STONE);
 
     public static BlocksLayeringData gonluinLayers = new BlocksLayeringData()
-            .addLayerData(0.55f, StoneBlockSets.GONLUIN_SET.baseBlocks.base())
+            .addLayerData(0.55f, StoneBlockSets.KHAGALABAN_SET.baseBlocks.base())
             .addLayerData(0.03f, StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base())
             .addLayerData(0.32f, StoneBlockSets.SLATE_SET.baseBlocks.base())
             .addLayerData(0.1f, Blocks.STONE);

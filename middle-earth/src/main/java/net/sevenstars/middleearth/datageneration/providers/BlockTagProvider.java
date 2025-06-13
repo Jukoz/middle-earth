@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
@@ -219,9 +218,9 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         climbable.add(ModNatureBlocks.MIRKWOOD_VINES);
         climbable.add(ModNatureBlocks.MIRKWOOD_VINES_PLANT);
 
-        needsStoneTools.add(OreRockSets.GONLUIN.copper_ore());
-        needsStoneTools.add(OreRockSets.GONLUIN.coal_ore());
-        needsStoneTools.add(OreRockSets.GONLUIN.tin_ore());
+        needsStoneTools.add(OreRockSets.KHAGALABAN.copper_ore());
+        needsStoneTools.add(OreRockSets.KHAGALABAN.coal_ore());
+        needsStoneTools.add(OreRockSets.KHAGALABAN.tin_ore());
         
         needsStoneTools.add(OreRockSets.ASHEN.copper_ore());
         needsStoneTools.add(OreRockSets.ASHEN.coal_ore());

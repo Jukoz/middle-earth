@@ -258,15 +258,18 @@ public class StoneBlockSets {
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS));
 
-    public static StoneBlockSetBuilder GONLUIN_SET = registerTestStoneSet(new StoneBlockSetBuilder("gonluin",
+    public static StoneBlockSetBuilder KHAGALABAN_SET = registerTestStoneSet(new StoneBlockSetBuilder("khagalaban",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLUE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
-            .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
+            .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
+            .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
     public static StoneBlockSetBuilder BLUE_TUFF_SET = registerTestStoneSet(new StoneBlockSetBuilder("blue_tuff",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLUE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
