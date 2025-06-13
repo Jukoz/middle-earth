@@ -30,8 +30,8 @@ public class ProceduralStructures {
     public static final float isengardRingHillThickness = 9;
     private static final float isengardWallsHeight = 12;
     private static final float isengardPathSize = 0.032f;
-    private static final BlockState isengardBlock = StoneBlockSets.SMOOTH_MEDGON.base().getDefaultState();
-    private static final BlockState isengardWallBlock = StoneBlockSets.COBBLED_NURGON.base().getDefaultState();
+    private static final BlockState isengardBlock = StoneBlockSets.MEDGON_SET.smoothBlocks.base().getDefaultState();
+    private static final BlockState isengardWallBlock = StoneBlockSets.MEDGON_SET.cobblestoneBlocks.base().getDefaultState();
 
     private static void generateIsengard(Chunk chunk, int x, int y, int z) {
         Vec2f coordinates = new Vec2f(x, z);

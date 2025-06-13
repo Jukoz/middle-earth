@@ -302,7 +302,7 @@ public class ModDecorativeBlocks {
             CushionBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque());
 
     //region VANILLA FURNITURE
-    public static final Block STONE_STOOL = registerBlockWithItem("stone_stool",
+   /* public static final Block STONE_STOOL = registerBlockWithItem("stone_stool",
             StoolBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque());
     public static final Block STONE_TABLE = registerBlockWithItem("stone_table",
             StoneTableBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque());
@@ -363,7 +363,7 @@ public class ModDecorativeBlocks {
     public static final Block TUFF_TABLE = registerBlockWithItem("tuff_table",
             StoneTableBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).requiresTool().nonOpaque());
     public static final Block TUFF_CHAIR = registerBlockWithItem("tuff_chair",
-            StoneChairBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).requiresTool().nonOpaque());
+            StoneChairBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).requiresTool().nonOpaque());*/
 
     public static final Block OAK_STOOL = registerBlockWithItem("oak_stool",
             WoodStoolBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());

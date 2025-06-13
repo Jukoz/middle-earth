@@ -22,7 +22,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.sevenstars.middleearth.block.crop.*;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.block.special.RocksBlock;
 import net.sevenstars.middleearth.block.special.crop.*;
@@ -118,6 +117,9 @@ public class BlockModelProvider extends FabricModelProvider {
             Block slab = block.slab();
 
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.origin());
+            if (block.origin() == Blocks.BASALT || block.origin() == Blocks.POLISHED_BASALT) {
+                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath() + "_side"));
+            }
             WeightedVariant bottom = createWeightedVariant(Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant top = createWeightedVariant(Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
 
@@ -187,6 +189,9 @@ public class BlockModelProvider extends FabricModelProvider {
 
         for (SimpleStairModel.Stair block : SimpleStairModel.stairs) {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.origin());
+            if (block.origin() == Blocks.BASALT || block.origin() == Blocks.POLISHED_BASALT) {
+                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath() + "_side"));
+            }
             Block stairs = block.stairs();
 
             WeightedVariant inner = createWeightedVariant(Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
@@ -259,6 +264,9 @@ public class BlockModelProvider extends FabricModelProvider {
 
         for (SimpleWallModel.Wall block : SimpleWallModel.blocks) {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
+            if (block.block() == Blocks.BASALT || block.block() == Blocks.POLISHED_BASALT) {
+                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath() + "_side"));
+            }
             Block wall = block.wall();
 
             Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -268,7 +276,6 @@ public class BlockModelProvider extends FabricModelProvider {
             WeightedVariant post = createWeightedVariant(Models.TEMPLATE_WALL_POST.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant low = createWeightedVariant(Models.TEMPLATE_WALL_SIDE.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant tall = createWeightedVariant(Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
                     .createWallBlockState(wall, post, low, tall));
@@ -416,6 +423,9 @@ public class BlockModelProvider extends FabricModelProvider {
 
         for (SimpleButtonModel.Button block : SimpleButtonModel.buttons) {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
+            if (block.block() == Blocks.BASALT || block.block() == Blocks.POLISHED_BASALT) {
+                texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.block()).getPath() + "_side"));
+            }
             Block button = block.button();
 
             WeightedVariant unpressed = createWeightedVariant(Models.BUTTON.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
@@ -431,6 +441,9 @@ public class BlockModelProvider extends FabricModelProvider {
 
         for (SimplePressurePlateModel.PressurePlate block : SimplePressurePlateModel.pressurePlates) {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
+            if (block.block() == Blocks.BASALT || block.block() == Blocks.POLISHED_BASALT) {
+                texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.block()).getPath() + "_side"));
+            }
             Block pressurePlate = block.pressurePlate();
 
             WeightedVariant up = createWeightedVariant(Models.PRESSURE_PLATE_UP.upload(pressurePlate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
@@ -441,15 +454,11 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.trapdoors) {
-            registerTrapdoor(blockStateModelGenerator, trapdoor.trapdoor(), true, false);
+            registerTrapdoor(blockStateModelGenerator, trapdoor.trapdoor(), trapdoor.block(), true);
         }
 
         for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.stoneTrapdoors) {
-            registerTrapdoor(blockStateModelGenerator, trapdoor.trapdoor(), false, false);
-        }
-
-        for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.vanillaStoneTrapdoors) {
-            registerTrapdoor(blockStateModelGenerator, trapdoor.trapdoor(), false, true);
+            registerTrapdoor(blockStateModelGenerator, trapdoor.trapdoor(), trapdoor.block(), false);
         }
 
         for (SimpleLadderModel.Ladder ladder : SimpleLadderModel.ladders) {
@@ -504,7 +513,11 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.verticalSlabs) {
-            registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), Registries.BLOCK.getId(verticalSlab.block()).getPath());
+            String id = Registries.BLOCK.getId(verticalSlab.block()).getPath();
+            if (verticalSlab.block() == Blocks.BASALT || verticalSlab.block() == Blocks.POLISHED_BASALT) {
+                id = id + "_side";
+            }
+            registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), id);
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.woodVerticalSlabs) {
@@ -535,36 +548,23 @@ public class BlockModelProvider extends FabricModelProvider {
             registerWoodBenchModelBlockStates(blockStateModelGenerator, block);
         }
 
-        for (Block block : SimpleStoneStoolModel.stools) {
-            registerStoneStoolModelBlockStates(blockStateModelGenerator, block,
-                    Identifier.of(MiddleEarth.MOD_ID, "block/" +
-                            Registries.BLOCK.getId(block).getPath().replaceAll("_stool", "")));
+        for(SimpleStoneStoolModel.Stool stool : SimpleStoneStoolModel.stools){
+            String id = "block/" + Registries.BLOCK.getId(stool.base()).getPath();
+            if (stool.base() == Blocks.BASALT) id += "_side";
+            registerStoneStoolModelBlockStates(blockStateModelGenerator, stool.stool(),
+                    Identifier.of(Registries.BLOCK.getId(stool.base()).getNamespace(), id));
         }
 
-        for(SimpleStoneStoolModel.VanillaStool stool : SimpleStoneStoolModel.vanillaStools){
-            String id = "block/" + Registries.BLOCK.getId(stool.origin()).getPath();
-            if (stool.origin() == Blocks.BASALT) id += "_side";
-            registerStoneStoolModelBlockStates(blockStateModelGenerator, stool.base(),
-                    Identifier.of("minecraft", id));
+        for(SimpleStoneTableModel.Table table : SimpleStoneTableModel.tables) {
+            String id = "block/" + Registries.BLOCK.getId(table.base()).getPath();
+            if(table.base() == Blocks.BASALT) id += "_side";
+            registerStoneTableModelBlockStates(blockStateModelGenerator, table.table(), Identifier.of(Registries.BLOCK.getId(table.base()).getNamespace(), id));
         }
 
-        for (Block block : SimpleStoneTableModel.tables) {
-            registerStoneTableModelBlockStates(blockStateModelGenerator, block, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_table", "")));
-        }
-        for(SimpleStoneTableModel.VanillaTable table : SimpleStoneTableModel.vanillaTables) {
-            String id = "block/" + Registries.BLOCK.getId(table.origin()).getPath();
-            if(table.origin() == Blocks.BASALT) id += "_side";
-            registerStoneTableModelBlockStates(blockStateModelGenerator, table.base(), Identifier.of("minecraft", id));
-        }
-
-        for (Block block : SimpleStoneChairModel.chairs) {
-            registerStoneChairModelBlockStates(blockStateModelGenerator, block, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_chair", "")));
-        }
-
-        for(SimpleStoneChairModel.VanillaChair chair : SimpleStoneChairModel.vanillaChairs){
-            String id = "block/" + Registries.BLOCK.getId(chair.origin()).getPath();
-            if(chair.origin() == Blocks.BASALT) id += "_side";
-            registerStoneChairModelBlockStates(blockStateModelGenerator, chair.base(), Identifier.of("minecraft", id));
+        for(SimpleStoneChairModel.Chair chair : SimpleStoneChairModel.chairs){
+            String id = "block/" + Registries.BLOCK.getId(chair.base()).getPath();
+            if(chair.base() == Blocks.BASALT) id += "_side";
+            registerStoneChairModelBlockStates(blockStateModelGenerator, chair.chair(), Identifier.of(Registries.BLOCK.getId(chair.base()).getNamespace(), id));
         }
 
         for(Block block : SimpleWoodTableModel.tables){
@@ -709,12 +709,6 @@ public class BlockModelProvider extends FabricModelProvider {
 
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.GREAT_ORCISH_GATE, LargeDoor10x4.PART);
 
-        blockStateModelGenerator.registerAxisRotated(ModBlocks.GILDED_CHISELED_GREEN_TUFF, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
-        blockStateModelGenerator.registerAxisRotated(ModBlocks.GILDED_CHISELED_GREEN_TUFF_BRICKS, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
-        blockStateModelGenerator.registerAxisRotated(ModBlocks.GILDED_CHISELED_POLISHED_GREEN_TUFF, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
-        blockStateModelGenerator.registerAxisRotated(ModBlocks.GILDED_CHISELED_GREEN_TUFF_TILES, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
-        blockStateModelGenerator.registerAxisRotated(ModBlocks.GILDED_CHISELED_SMOOTH_GREEN_TUFF, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
-
         registerPaneModel(blockStateModelGenerator, ModBlocks.NET);
 
         registerPaneModel(blockStateModelGenerator, ModBlocks.GILDED_BARS);
@@ -792,16 +786,17 @@ public class BlockModelProvider extends FabricModelProvider {
         registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId, inner, outer);
     }
 
-    public void registerVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath) {
-        Identifier fullBlockId = ModelIds.getBlockModelId(origin);
-        WeightedVariant variantId = createWeightedVariant(MEModels.VERTICAL_SLAB.upload(block,
-                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + slabPath)),
+    public void registerVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block verticalSlab, Block block, String slabPath) {
+        Identifier fullBlockId = ModelIds.getBlockModelId(block);
+
+        WeightedVariant variantId = createWeightedVariant(MEModels.VERTICAL_SLAB.upload(verticalSlab,
+                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(block).getNamespace(), "block/" + slabPath)),
                 blockStateModelGenerator.modelCollector));
 
-        WeightedVariant inner = createWeightedVariant(MEModels.VERTICAL_SLAB_INNER.upload(block, TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + slabPath)), blockStateModelGenerator.modelCollector));
-        WeightedVariant outer = createWeightedVariant(MEModels.VERTICAL_SLAB_OUTER.upload(block, TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + slabPath)), blockStateModelGenerator.modelCollector));
+        WeightedVariant inner = createWeightedVariant(MEModels.VERTICAL_SLAB_INNER.upload(verticalSlab, TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(block).getNamespace(), "block/" + slabPath)), blockStateModelGenerator.modelCollector));
+        WeightedVariant outer = createWeightedVariant(MEModels.VERTICAL_SLAB_OUTER.upload(verticalSlab, TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(block).getNamespace(), "block/" + slabPath)), blockStateModelGenerator.modelCollector));
 
-        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId, inner, outer);
+        registerVerticalSlab(blockStateModelGenerator, verticalSlab, fullBlockId, variantId, inner, outer);
     }
 
     public void registerColumnVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin,
@@ -1205,17 +1200,21 @@ public class BlockModelProvider extends FabricModelProvider {
     }
 
     public void registerRocksBlock(BlockStateModelGenerator blockStateModelGenerator, Block rocksBlock, Block origin) {
+        Identifier id = Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath());
+        if (origin == Blocks.BASALT || origin == Blocks.POLISHED_BASALT) {
+            id = id.withSuffixedPath("_side");
+        }
         WeightedVariant stage0 = createWeightedVariant(MEModels.ROCKS_STAGE_0.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
+                TextureMap.of(TextureKey.ALL, id),
                 blockStateModelGenerator.modelCollector));
         WeightedVariant stage1 = createWeightedVariant(MEModels.ROCKS_STAGE_1.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
+                TextureMap.of(TextureKey.ALL, id),
                 blockStateModelGenerator.modelCollector));
         WeightedVariant stage2 = createWeightedVariant(MEModels.ROCKS_STAGE_2.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
+                TextureMap.of(TextureKey.ALL, id),
                 blockStateModelGenerator.modelCollector));
         WeightedVariant stage3 = createWeightedVariant(MEModels.ROCKS_STAGE_3.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
+                TextureMap.of(TextureKey.ALL, id),
                 blockStateModelGenerator.modelCollector));
 
         VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(rocksBlock)
@@ -1244,13 +1243,10 @@ public class BlockModelProvider extends FabricModelProvider {
         blockStateModelGenerator.blockStateCollector.accept(blockstate);
     }
 
-    public void registerTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock, boolean orientable, boolean vanilla) {
+    public void registerTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock, Block block, boolean orientable) {
         TextureMap textureMap;
 
-        String modid = MiddleEarth.MOD_ID;
-        if (vanilla){
-            modid = "minecraft";
-        }
+        String modid = Registries.BLOCK.getId(block).getNamespace();
 
         WeightedVariant identifier;
         Identifier identifier2;
@@ -1262,10 +1258,10 @@ public class BlockModelProvider extends FabricModelProvider {
             identifier2 = Models.TEMPLATE_ORIENTABLE_TRAPDOOR_BOTTOM.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
             identifier3 = createWeightedVariant(Models.TEMPLATE_ORIENTABLE_TRAPDOOR_OPEN.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector));
         } else {
-            if (Registries.BLOCK.getId(trapdoorBlock).getPath().contains("basalt")) {
-                textureMap = TextureMap.texture(Identifier.of(modid, "block/" + Registries.BLOCK.getId(trapdoorBlock).getPath().replaceAll("_trapdoor", "_side")));
+            if (block == Blocks.BASALT) {
+                textureMap = TextureMap.texture(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block).getPath() + "_side"));
             } else {
-                textureMap = TextureMap.texture(Identifier.of(modid, "block/" + Registries.BLOCK.getId(trapdoorBlock).getPath().replaceAll("_trapdoor", "")));
+                textureMap = TextureMap.texture(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_trapdoor", "")));
             }
             identifier = createWeightedVariant(Models.TEMPLATE_TRAPDOOR_TOP.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector));
             identifier2 = Models.TEMPLATE_TRAPDOOR_BOTTOM.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);

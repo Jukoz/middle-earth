@@ -24,8 +24,8 @@ public class SimpleWallModel {
     public static List<Wall> vanillaWalls = new ArrayList<>() {
         {
             add(new Wall(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_WALL));
-            add(new Wall(Blocks.CALCITE, ModBlocks.CALCITE_WALL));
-            add(new Wall(Blocks.SMOOTH_BASALT, ModBlocks.SMOOTH_BASALT_WALL));
+            //add(new Wall(Blocks.CALCITE, ModBlocks.CALCITE_WALL));
+            //add(new Wall(Blocks.SMOOTH_BASALT, ModBlocks.SMOOTH_BASALT_WALL));
 
             add(new Wall(Blocks.CUT_COPPER, ModBlocks.CUT_COPPER_WALL));
             add(new Wall(Blocks.EXPOSED_CUT_COPPER, ModBlocks.EXPOSED_CUT_COPPER_WALL));

@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.sevenstars.middleearth.block.crop.*;
 import net.sevenstars.middleearth.block.special.crop.*;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;

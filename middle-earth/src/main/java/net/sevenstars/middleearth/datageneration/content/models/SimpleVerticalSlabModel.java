@@ -56,7 +56,7 @@ public class SimpleVerticalSlabModel {
 
     public static List<VerticalSlab> vanillaVerticalSlabs = new ArrayList<>() {
         {
-            add(new VerticalSlab(Blocks.STONE, Blocks.STONE_SLAB, ModBlocks.STONE_VERTICAL_SLAB));
+            /*add(new VerticalSlab(Blocks.STONE, Blocks.STONE_SLAB, ModBlocks.STONE_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.COBBLESTONE, Blocks.COBBLESTONE_SLAB, ModBlocks.COBBLESTONE_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.MOSSY_COBBLESTONE, Blocks.MOSSY_COBBLESTONE_SLAB, ModBlocks.MOSSY_COBBLESTONE_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.SMOOTH_STONE, Blocks.SMOOTH_STONE_SLAB, ModBlocks.SMOOTH_STONE_VERTICAL_SLAB));
@@ -71,7 +71,7 @@ public class SimpleVerticalSlabModel {
             add(new VerticalSlab(Blocks.COBBLED_DEEPSLATE, Blocks.COBBLED_DEEPSLATE_SLAB, ModBlocks.COBBLED_DEEPSLATE_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.POLISHED_DEEPSLATE, Blocks.POLISHED_DEEPSLATE_SLAB, ModBlocks.POLISHED_DEEPSLATE_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.DEEPSLATE_BRICKS, Blocks.DEEPSLATE_BRICKS, ModBlocks.DEEPSLATE_BRICK_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.DEEPSLATE_TILES, Blocks.DEEPSLATE_TILE_SLAB, ModBlocks.DEEPSLATE_TILE_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.DEEPSLATE_TILES, Blocks.DEEPSLATE_TILE_SLAB, ModBlocks.DEEPSLATE_TILE_VERTICAL_SLAB));*/
             add(new VerticalSlab(Blocks.BRICKS, Blocks.BRICK_SLAB, ModBlocks.BRICK_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.MUD_BRICKS, Blocks.MUD_BRICK_SLAB, ModBlocks.MUD_BRICK_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.SANDSTONE, Blocks.SANDSTONE_SLAB, ModBlocks.SANDSTONE_VERTICAL_SLAB));
@@ -85,9 +85,9 @@ public class SimpleVerticalSlabModel {
             add(new VerticalSlab(Blocks.DARK_PRISMARINE, Blocks.DARK_PRISMARINE_SLAB, ModBlocks.DARK_PRISMARINE_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.NETHER_BRICKS, Blocks.NETHER_BRICK_SLAB, ModBlocks.NETHER_BRICK_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.RED_NETHER_BRICKS, Blocks.RED_NETHER_BRICK_SLAB, ModBlocks.RED_NETHER_BRICK_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.BLACKSTONE, Blocks.BLACKSTONE_SLAB, ModBlocks.BLACKSTONE_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.POLISHED_BLACKSTONE, Blocks.POLISHED_BLACKSTONE_SLAB, ModBlocks.POLISHED_BLACKSTONE_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.POLISHED_BLACKSTONE_BRICK_SLAB, ModBlocks.POLISHED_BLACKSTONE_BRICK_VERTICAL_SLAB));
+            //add(new VerticalSlab(Blocks.BLACKSTONE, Blocks.BLACKSTONE_SLAB, ModBlocks.BLACKSTONE_VERTICAL_SLAB));
+            //add(new VerticalSlab(Blocks.POLISHED_BLACKSTONE, Blocks.POLISHED_BLACKSTONE_SLAB, ModBlocks.POLISHED_BLACKSTONE_VERTICAL_SLAB));
+            //add(new VerticalSlab(Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.POLISHED_BLACKSTONE_BRICK_SLAB, ModBlocks.POLISHED_BLACKSTONE_BRICK_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.END_STONE_BRICKS, Blocks.END_STONE_BRICK_SLAB, ModBlocks.END_STONE_BRICK_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.PURPUR_BLOCK, Blocks.PURPUR_SLAB, ModBlocks.PURPUR_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.QUARTZ_BLOCK, Blocks.QUARTZ_SLAB, ModBlocks.QUARTZ_VERTICAL_SLAB));
@@ -102,11 +102,11 @@ public class SimpleVerticalSlabModel {
             add(new VerticalSlab(Blocks.WAXED_OXIDIZED_CUT_COPPER, Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB, ModBlocks.WAXED_OXIDIZED_CUT_COPPER_VERTICAL_SLAB));
 
             add(new VerticalSlab(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_SLAB, ModBlocks.PACKED_MUD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.TUFF, Blocks.TUFF_SLAB, ModBlocks.TUFF_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.POLISHED_TUFF, Blocks.POLISHED_TUFF_SLAB, ModBlocks.POLISHED_TUFF_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.TUFF_BRICKS, Blocks.TUFF_BRICK_SLAB, ModBlocks.TUFF_BRICK_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.CALCITE, ModBlocks.CALCITE_SLAB, ModBlocks.CALCITE_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.SMOOTH_BASALT, ModBlocks.SMOOTH_BASALT_SLAB, ModBlocks.SMOOTH_BASALT_VERTICAL_SLAB));
+            //add(new VerticalSlab(Blocks.TUFF, Blocks.TUFF_SLAB, ModBlocks.TUFF_VERTICAL_SLAB));
+            //add(new VerticalSlab(Blocks.POLISHED_TUFF, Blocks.POLISHED_TUFF_SLAB, ModBlocks.POLISHED_TUFF_VERTICAL_SLAB));
+            //add(new VerticalSlab(Blocks.TUFF_BRICKS, Blocks.TUFF_BRICK_SLAB, ModBlocks.TUFF_BRICK_VERTICAL_SLAB));
+            //add(new VerticalSlab(Blocks.CALCITE, ModBlocks.CALCITE_SLAB, ModBlocks.CALCITE_VERTICAL_SLAB));
+            //add(new VerticalSlab(Blocks.SMOOTH_BASALT, ModBlocks.SMOOTH_BASALT_SLAB, ModBlocks.SMOOTH_BASALT_VERTICAL_SLAB));
 
             add(new VerticalSlab(Blocks.OAK_PLANKS, Blocks.OAK_SLAB, ModBlocks.OAK_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.SPRUCE_PLANKS, Blocks.SPRUCE_SLAB, ModBlocks.SPRUCE_VERTICAL_SLAB));

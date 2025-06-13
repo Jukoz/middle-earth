@@ -10,7 +10,7 @@ import java.util.List;
 public class MineablePickaxe {
     public static List<Block> blocks = new ArrayList<>() {
         {
-            add(ModBlocks.CHISELED_STONE);
+            /*add(ModBlocks.CHISELED_STONE);
             add(ModBlocks.CHISELED_POLISHED_STONE);
             add(ModBlocks.CHISELED_STONE_TILES);
             add(ModBlocks.CHISELED_SMOOTH_STONE);
@@ -119,7 +119,7 @@ public class MineablePickaxe {
 
             add(ModBlocks.NURGON_PILLAR);
             add(ModBlocks.CHISELED_NURGON_BRICKS);
-            add(ModBlocks.CHISELED_POLISHED_NURGON);
+            add(ModBlocks.CHISELED_POLISHED_NURGON);*/
             
 
             add(ModBlocks.POINTED_GALONN);
@@ -127,7 +127,7 @@ public class MineablePickaxe {
             add(ModBlocks.POINTED_DOLOMITE);
             add(ModBlocks.POINTED_IZHERABAN);
 
-            add(ModBlocks.STONE_PILLAR);
+            /*add(ModBlocks.STONE_PILLAR);
             add(ModBlocks.MOSSY_STONE_PILLAR);
             add(ModBlocks.CRACKED_STONE_PILLAR);
 
@@ -227,7 +227,7 @@ public class MineablePickaxe {
             add(ModBlocks.DEEPSLATE_ROCKS);
             add(ModBlocks.TUFF_ROCKS);
             add(ModBlocks.BASALT_ROCKS);
-            add(ModBlocks.BLACKSTONE_ROCKS);
+            add(ModBlocks.BLACKSTONE_ROCKS);*/
 
             add(ModDecorativeBlocks.CALCITE_STATUE);
             add(ModDecorativeBlocks.GALONN_STATUE);

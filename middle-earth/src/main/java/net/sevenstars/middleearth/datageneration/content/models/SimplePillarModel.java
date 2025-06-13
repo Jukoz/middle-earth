@@ -22,7 +22,7 @@ public class SimplePillarModel {
 
     public static List<StonePillar> stonePillars = new ArrayList<>() {
         {
-            add(new StonePillar(ModBlocks.LIMESTONE_PILLAR, StoneBlockSets.LIMESTONE_BRICKS.base()));
+            /*add(new StonePillar(ModBlocks.LIMESTONE_PILLAR, StoneBlockSets.LIMESTONE_BRICKS.base()));
             add(new StonePillar(ModBlocks.MOSSY_LIMESTONE_PILLAR, ModBlocks.LIMESTONE_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_LIMESTONE_PILLAR, ModBlocks.LIMESTONE_PILLAR));
 
@@ -104,7 +104,7 @@ public class SimplePillarModel {
 
             add(new StonePillar(ModBlocks.MEDGON_PILLAR, StoneBlockSets.MEDGON_BRICKS.base()));
             add(new StonePillar(ModBlocks.MOSSY_MEDGON_PILLAR, ModBlocks.MEDGON_PILLAR));
-            add(new StonePillar(ModBlocks.CRACKED_MEDGON_PILLAR, ModBlocks.MEDGON_PILLAR));
+            add(new StonePillar(ModBlocks.CRACKED_MEDGON_PILLAR, ModBlocks.MEDGON_PILLAR));*/
         }
     };
 }

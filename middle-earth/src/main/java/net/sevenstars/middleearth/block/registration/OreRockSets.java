@@ -19,11 +19,11 @@ public class OreRockSets {
     public static OreRockSet STONE = registerOreSet("", STONE_STRENGTH,
             List.of(ORES.TIN_ORE), Blocks.STONE);
     public static OreRockSet GONLUIN = registerOreSet("gonluin_", STONE_STRENGTH,
-            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSets.GONLUIN.base());
+            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSets.GONLUIN_SET.baseBlocks.base());
     public static OreRockSet ASHEN = registerOreSet("ashen_", STONE_STRENGTH,
-            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSets.ASHEN_STONE.base());
+            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSets.ASHEN_STONE_SET.baseBlocks.base());
     public static OreRockSet LIMESTONE = registerOreSet("limestone_", STONE_STRENGTH,
-            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSets.LIMESTONE.base());
+            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSets.LIMESTONE_SET.baseBlocks.base());
     public static OreRockSet CALCITE = registerOreSet("calcite_", STONE_STRENGTH,
             Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), Blocks.CALCITE);
     public static OreRockSet SLATE = registerOreSet("slate_", STONE_STRENGTH,
@@ -35,10 +35,10 @@ public class OreRockSets {
             Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE), Blocks.DEEPSLATE);
 
     public static OreRockSet NURGON = registerOreSet("nurgon_", NURGON_STRENGTH,
-            Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE), StoneBlockSets.NURGON.base());
+            Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE), StoneBlockSets.NURGON_SET.baseBlocks.base());
 
     public static OreRockSet MEDGON = registerOreSet("medgon_", MEDGON_STRENGTH,
-            Arrays.asList(ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE, ORES.MITHRIL_ORE), StoneBlockSets.MEDGON.base());
+            Arrays.asList(ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE, ORES.MITHRIL_ORE), StoneBlockSets.MEDGON_SET.baseBlocks.base());
 
     public static OreRockSet[] sets = new OreRockSet[] {
             STONE,

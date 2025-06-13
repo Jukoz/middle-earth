@@ -70,7 +70,7 @@ public class LargeDoorBlock extends Block {
         builder.add(getPart(), HORIZONTAL_FACING, OPEN, HINGE);
     }
 
-    //Get the origin of the door based on the state and pos
+    //Get the stool of the door based on the state and pos
     private BlockPos getOrigin(BlockPos pos, BlockState state){
         BlockPos blockPos;
         int part = state.get(getPart());
@@ -176,7 +176,7 @@ public class LargeDoorBlock extends Block {
         BlockPos blockPos = getOrigin(pos, state);
         BlockPos blockPos1 = blockPos;
 
-        //Breaks all blocks based on origin
+        //Breaks all blocks based on stool
         for (int j = 0; j < doorWidth; j++){
             for (int k = 0; k < doorHeight; k++) {
                 world.breakBlock(blockPos, j == 0 && k == 0 && !player.isCreative());
@@ -199,7 +199,7 @@ public class LargeDoorBlock extends Block {
         BlockPos blockPos = getOrigin(pos, state);
         BlockPos blockPos1 = blockPos;
 
-        //Breaks all blocks based on origin
+        //Breaks all blocks based on stool
         for (int j = 0; j < doorWidth; j++){
             for (int k = 0; k < doorHeight; k++) {
                 world.breakBlock(blockPos, j == 0 && k == 0);
