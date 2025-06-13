@@ -18,6 +18,9 @@ import net.sevenstars.middleearth.datageneration.content.tags.*;
 import java.util.Objects;
 
 public class HelpingGenerator {
+    //TODO recipe for stone blocks
+    //TODO tags for stone blocks
+    //TODO top models for pillar stuff
 
     public static void generateFiles() {
         for (StoneBlockSetBuilder set : StoneBlockSets.stoneSetsList){

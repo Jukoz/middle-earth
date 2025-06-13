@@ -339,9 +339,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                     }
                 }
 
-                for (SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledBlocks) {
-                    createChiseledRecipe(exporter, block.origin(), block.base(), 1);
-                }
                 for (SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledPolishedBlocksTopBottom) {
                     createChiseledRecipe(exporter, block.origin(), block.base(), 1);
                 }

@@ -302,69 +302,6 @@ public class ModDecorativeBlocks {
             CushionBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque());
 
     //region VANILLA FURNITURE
-   /* public static final Block STONE_STOOL = registerBlockWithItem("stone_stool",
-            StoolBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque());
-    public static final Block STONE_TABLE = registerBlockWithItem("stone_table",
-            StoneTableBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque());
-    public static final Block STONE_CHAIR = registerBlockWithItem("stone_chair",
-            StoneChairBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque());
-
-    public static final Block CALCITE_STOOL = registerBlockWithItem("calcite_stool",
-            StoolBlock::new, AbstractBlock.Settings.copy(Blocks.CALCITE).requiresTool().nonOpaque());
-    public static final Block CALCITE_TABLE = registerBlockWithItem("calcite_table",
-            StoneTableBlock::new, AbstractBlock.Settings.copy(Blocks.CALCITE).requiresTool().nonOpaque());
-    public static final Block CALCITE_CHAIR = registerBlockWithItem("calcite_chair",
-            StoneChairBlock::new, AbstractBlock.Settings.copy(Blocks.CALCITE).requiresTool().nonOpaque());
-
-    public static final Block ANDESITE_STOOL = registerBlockWithItem("andesite_stool",
-            StoolBlock::new, AbstractBlock.Settings.copy(Blocks.ANDESITE).requiresTool().nonOpaque());
-    public static final Block ANDESITE_TABLE = registerBlockWithItem("andesite_table",
-            StoneTableBlock::new, AbstractBlock.Settings.copy(Blocks.ANDESITE).requiresTool().nonOpaque());
-    public static final Block ANDESITE_CHAIR = registerBlockWithItem("andesite_chair",
-            StoneChairBlock::new, AbstractBlock.Settings.copy(Blocks.ANDESITE).requiresTool().nonOpaque());
-
-    public static final Block GRANITE_STOOL = registerBlockWithItem("granite_stool",
-            StoolBlock::new, AbstractBlock.Settings.copy(Blocks.GRANITE).requiresTool().nonOpaque());
-    public static final Block GRANITE_TABLE = registerBlockWithItem("granite_table",
-            StoneTableBlock::new, AbstractBlock.Settings.copy(Blocks.GRANITE).requiresTool().nonOpaque());
-    public static final Block GRANITE_CHAIR = registerBlockWithItem("granite_chair",
-            StoneChairBlock::new, AbstractBlock.Settings.copy(Blocks.GRANITE).requiresTool().nonOpaque());
-
-    public static final Block DIORITE_STOOL = registerBlockWithItem("diorite_stool",
-            StoolBlock::new, AbstractBlock.Settings.copy(Blocks.DIORITE).requiresTool().nonOpaque());
-    public static final Block DIORITE_TABLE = registerBlockWithItem("diorite_table",
-            StoneTableBlock::new, AbstractBlock.Settings.copy(Blocks.DIORITE).requiresTool().nonOpaque());
-    public static final Block DIORITE_CHAIR = registerBlockWithItem("diorite_chair",
-            StoneChairBlock::new, AbstractBlock.Settings.copy(Blocks.DIORITE).requiresTool().nonOpaque());
-
-    public static final Block DEEPSLATE_STOOL = registerBlockWithItem("deepslate_stool",
-            StoolBlock::new, AbstractBlock.Settings.copy(Blocks.DEEPSLATE).requiresTool().nonOpaque());
-    public static final Block DEEPSLATE_TABLE = registerBlockWithItem("deepslate_table",
-            StoneTableBlock::new, AbstractBlock.Settings.copy(Blocks.DEEPSLATE).requiresTool().nonOpaque());
-    public static final Block DEEPSLATE_CHAIR = registerBlockWithItem("deepslate_chair",
-            StoneChairBlock::new, AbstractBlock.Settings.copy(Blocks.DEEPSLATE).requiresTool().nonOpaque());
-
-    public static final Block BLACKSTONE_STOOL = registerBlockWithItem("blackstone_stool",
-            StoolBlock::new, AbstractBlock.Settings.copy(Blocks.BLACKSTONE).requiresTool().nonOpaque());
-    public static final Block BLACKSTONE_TABLE = registerBlockWithItem("blackstone_table",
-            StoneTableBlock::new, AbstractBlock.Settings.copy(Blocks.BLACKSTONE).requiresTool().nonOpaque());
-    public static final Block BLACKSTONE_CHAIR = registerBlockWithItem("blackstone_chair",
-            StoneChairBlock::new, AbstractBlock.Settings.copy(Blocks.BLACKSTONE).requiresTool().nonOpaque());
-
-    public static final Block BASALT_STOOL = registerBlockWithItem("basalt_stool",
-            StoolBlock::new, AbstractBlock.Settings.copy(Blocks.BASALT).requiresTool().nonOpaque());
-    public static final Block BASALT_TABLE = registerBlockWithItem("basalt_table",
-            StoneTableBlock::new, AbstractBlock.Settings.copy(Blocks.BASALT).requiresTool().nonOpaque());
-    public static final Block BASALT_CHAIR = registerBlockWithItem("basalt_chair",
-            StoneChairBlock::new, AbstractBlock.Settings.copy(Blocks.BASALT).requiresTool().nonOpaque());
-
-    public static final Block TUFF_STOOL = registerBlockWithItem("tuff_stool",
-            StoolBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).requiresTool().nonOpaque());
-    public static final Block TUFF_TABLE = registerBlockWithItem("tuff_table",
-            StoneTableBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).requiresTool().nonOpaque());
-    public static final Block TUFF_CHAIR = registerBlockWithItem("tuff_chair",
-            StoneChairBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).requiresTool().nonOpaque());*/
-
     public static final Block OAK_STOOL = registerBlockWithItem("oak_stool",
             WoodStoolBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block OAK_BENCH = registerBlockWithItem("oak_bench",

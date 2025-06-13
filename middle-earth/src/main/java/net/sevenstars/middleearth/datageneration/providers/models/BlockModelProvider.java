@@ -68,10 +68,6 @@ public class BlockModelProvider extends FabricModelProvider {
             blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block, BlockStateModelGenerator.modelWithMirroring(identifier, identifier2)));
         }
 
-        for (SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledBlocks) {
-            blockStateModelGenerator.registerSimpleCubeAll(block.base());
-        }
-
         for (SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledMainBlockTopBottom) {
             blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
         }
