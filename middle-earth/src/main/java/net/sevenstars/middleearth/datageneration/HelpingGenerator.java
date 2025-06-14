@@ -21,13 +21,15 @@ public class HelpingGenerator {
     //TODO recipe for stone blocks
     //TODO tags for stone blocks
     //TODO top models for pillar stuff
+    //TODO add carved windows to builder
+    //TODO bricks -> brick issue
 
     public static void generateFiles() {
         for (StoneBlockSetBuilder set : StoneBlockSets.stoneSetsList){
             set.existingList.forEach(stoneBlockTypes -> {
                 switch (stoneBlockTypes){
                     case BASE_BLOCKS -> mainStoneBlocks(set.baseBlocks);
-                    case COBBLESTONE_BLOCKS -> {
+                    case COBBLED_BLOCKS,COBBLESTONE_BLOCKS -> {
                         regularBlocks(set.cobblestoneBlocks);
                         if(set.hasMossy) regularBlocks(set.mossyCobblestoneBlocks);
                     }

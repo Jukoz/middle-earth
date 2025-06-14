@@ -42,6 +42,7 @@ public class ModRegistries {
 
     public static void registerRegistryAliases() {
         specialAliases.put("khagalaban", "gonluin");
+        specialAliases.put("chiseled_blackstone_bricks", "chiseled_polished_blackstone_bricks");
 
         if (MiddleEarth.IS_DEBUG){
             try {
@@ -61,7 +62,6 @@ public class ModRegistries {
                 FileWriter myWriter = new FileWriter("aliases.txt");
                 for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
                     String name = alias.name();
-                    System.out.println(name);
                     for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                         name = name.replaceAll(map.getKey(), map.getValue());
                     }

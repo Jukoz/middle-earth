@@ -30,21 +30,25 @@ public class StoneBlockSets {
             Blocks.STONE, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
+            .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
     public static StoneBlockSetBuilder GRANITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("granite",
             Blocks.GRANITE, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.ORANGE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
+            .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
@@ -52,11 +56,12 @@ public class StoneBlockSets {
             Blocks.DIORITE,STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
+            .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
@@ -64,25 +69,26 @@ public class StoneBlockSets {
             Blocks.ANDESITE, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
+            .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
     public static StoneBlockSetBuilder CALCITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("calcite",
             Blocks.CALCITE, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.CALCITE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
-            .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
     public static StoneBlockSetBuilder DRIPSTONE_SET = registerTestStoneSet(new StoneBlockSetBuilder("dripstone",
@@ -92,30 +98,34 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder DEEPSLATE_SET = registerTestStoneSet(new StoneBlockSetBuilder("deepslate",
             Blocks.DEEPSLATE, DEEPSLATE_HARDNESS, DEEPSLATE_BLAST_RESISTANCE, MapColor.DEEPSLATE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.DEEPSLATE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
+            .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
+            .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
     public static StoneBlockSetBuilder TUFF_SET = registerTestStoneSet(new StoneBlockSetBuilder("tuff",
             Blocks.TUFF, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.TUFF, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
-            .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
+            .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
     public static StoneBlockSetBuilder BASALT_SET = registerTestStoneSet(new StoneBlockSetBuilder("basalt",
             Blocks.BASALT, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.BASALT, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS_PILLAR)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
@@ -128,38 +138,39 @@ public class StoneBlockSets {
             Blocks.BLACKSTONE, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
+            .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
     public static StoneBlockSetBuilder DOLOMITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("dolomite",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.LIGHT_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
-            .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS_PILLAR));
 
     public static StoneBlockSetBuilder SLATE_SET = registerTestStoneSet(new StoneBlockSetBuilder("slate",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS));
 
     public static StoneBlockSetBuilder NURGON_SET = registerTestStoneSet(new StoneBlockSetBuilder("nurgon",
             null, NURGON_HARDNESS, NURGON_BLAST_RESISTANCE, MapColor.TERRACOTTA_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
@@ -170,7 +181,7 @@ public class StoneBlockSets {
             null, MEDGON_HARDNESS, MEDGON_BLAST_RESISTANCE, MapColor.TERRACOTTA_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
@@ -182,7 +193,7 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder GNEISS_SET = registerTestStoneSet(new StoneBlockSetBuilder("gneiss",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
@@ -203,7 +214,7 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder GALONN_SET = registerTestStoneSet(new StoneBlockSetBuilder("galonn",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.PALE_YELLOW, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
@@ -216,7 +227,7 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder LIMESTONE_SET = registerTestStoneSet(new StoneBlockSetBuilder("limestone",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.YELLOW, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
@@ -229,7 +240,7 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder IZHERABAN_SET = registerTestStoneSet(new StoneBlockSetBuilder("izheraban",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.PALE_YELLOW, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
@@ -249,7 +260,7 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder ASHEN_STONE_SET = registerTestStoneSet(new StoneBlockSetBuilder("ashen_stone",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS));
@@ -261,7 +272,7 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder KHAGALABAN_SET = registerTestStoneSet(new StoneBlockSetBuilder("khagalaban",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLUE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
@@ -274,7 +285,7 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder BLUE_TUFF_SET = registerTestStoneSet(new StoneBlockSetBuilder("blue_tuff",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLUE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
@@ -284,7 +295,7 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder SCHIST_SET = registerTestStoneSet(new StoneBlockSetBuilder("schist",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.LAPIS_BLUE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
@@ -293,7 +304,7 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder IRONSTONE_SET = registerTestStoneSet(new StoneBlockSetBuilder("ironstone",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.DARK_RED, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
@@ -304,7 +315,7 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder HEMATITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("hematite",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.RED, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
@@ -330,7 +341,7 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder JADEITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("jadeite",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.EMERALD_GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
@@ -339,7 +350,7 @@ public class StoneBlockSets {
     public static StoneBlockSetBuilder QUARTZITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("quartzite",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.RAW_IRON_PINK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.COBBLESTONE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS));
@@ -375,9 +386,13 @@ public class StoneBlockSets {
         set.existingList.forEach((stoneBlockTypes) -> {
             switch (stoneBlockTypes){
                 case BASE_BLOCKS -> set.baseBlocks = StoneBlockSetCreation.createMainStoneSet(set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, set.source);
-                case COBBLESTONE_BLOCKS -> {
+                case COBBLED_BLOCKS -> {
                     set.cobblestoneBlocks = StoneBlockSetCreation.createStoneSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix() , set.hardness + 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
                     if(set.hasMossy) set.mossyCobblestoneBlocks = StoneBlockSetCreation.createStoneSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness+ 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
+                }
+                case COBBLESTONE_BLOCKS -> {
+                    set.cobblestoneBlocks = StoneBlockSetCreation.createStoneSet("cobblestone", set.hardness + 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
+                    if(set.hasMossy) set.mossyCobblestoneBlocks = StoneBlockSetCreation.createStoneSet("mossy_cobblestone", set.hardness+ 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
                 }
                 case BRICK_BLOCKS, POLISHED_BRICK_BLOCKS -> {
                     set.brickBlocks = StoneBlockSetCreation.createStoneSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);

@@ -2,7 +2,8 @@ package net.sevenstars.middleearth.block.utils;
 
 public enum StoneBlockTypes {
     BASE_BLOCKS("", ""),
-    COBBLESTONE_BLOCKS("cobbled_", ""),
+    COBBLED_BLOCKS("cobbled_", ""),
+    COBBLESTONE_BLOCKS("", ""),
     BRICK_BLOCKS("", "_bricks"),
     POLISHED_BRICK_BLOCKS("polished_", "_bricks"),
     TILE_BLOCKS("","_tiles"),
