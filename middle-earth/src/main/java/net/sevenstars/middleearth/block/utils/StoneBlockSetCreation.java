@@ -124,6 +124,18 @@ public class StoneBlockSetCreation {
         return new BlockRecordTypes.PillarSet(block, verticalSlab, wall);
     }
 
+    public static BlockRecordTypes.GlassSet createGlassSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup) {
+        Block glass = getVanillaOrNew(name, TransparentBlock::new,
+                AbstractBlock.Settings.create()
+                        .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool()
+                        .nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never),false);
+
+        Block pane = getVanillaOrNew(name + "_pane", PaneBlock::new,
+                AbstractBlock.Settings.copy(glass).strength(hardness, blastResistance).requiresTool().nonOpaque(),false);
+
+        return new BlockRecordTypes.GlassSet(glass, pane);
+    }
+
     private static Block getVanillaOrNew(String path, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop){
         Block block;
         if (Registries.BLOCK.get(Identifier.ofVanilla(path)) == Blocks.AIR){

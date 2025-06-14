@@ -15,6 +15,7 @@ public enum StoneBlockTypes {
     CHISELED_BLOCKS("chiseled_", ""),
     OLD_BLOCKS("old_", ""),
     OLD_BLOCKS_PILLAR("old_", ""),
+    CARVED_WINDOW("", "_carved_window"),
     ;
 
     private final String prefix;

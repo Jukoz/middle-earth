@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
 import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -113,6 +114,40 @@ public class SimpleBlockModel {
             add(ModBlocks.WATTLE_AND_YELLOW_DAUB_LEFT);
             add(ModBlocks.WATTLE_AND_YELLOW_DAUB_PILLAR);
             add(ModBlocks.WATTLE_AND_YELLOW_DAUB_DIAMOND);
+
+            add(ModDecorativeBlocks.WOOD_FRAMED_WINDOW);
+            add(ModDecorativeBlocks.WATTLE_AND_BRICK_WINDOW);
+            add(ModDecorativeBlocks.WATTLE_FRAMED_WINDOW);
+            add(ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW);
+            add(ModDecorativeBlocks.BLACK_WATTLE_FRAMED_WINDOW);
+            add(ModDecorativeBlocks.GREEN_WATTLE_FRAMED_WINDOW);
+            add(ModDecorativeBlocks.RED_WATTLE_FRAMED_WINDOW);
+            add(ModDecorativeBlocks.WHITE_WATTLE_FRAMED_WINDOW);
+            add(ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW);
+            add(ModDecorativeBlocks.PLASTER_HOBBIT_WINDOW);
+            add(ModDecorativeBlocks.PLASTER_ROUND_WINDOW);
+            add(ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW);
+            add(ModDecorativeBlocks.MUD_BRICK_ROUND_WINDOW);
+            add(ModDecorativeBlocks.WHITE_DAUB_ROUND_WINDOW);
+            add(ModDecorativeBlocks.YELLOW_DAUB_ROUND_WINDOW);
+
+            add(ModDecorativeBlocks.LEAD_GLASS);
+            add(ModDecorativeBlocks.BLUE_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.BLACK_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.BROWN_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.CYAN_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.GRAY_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.GREEN_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.LIGHT_BLUE_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.LIGHT_GRAY_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.LIME_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.MAGENTA_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.ORANGE_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.PINK_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.PURPLE_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.RED_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.WHITE_STAINED_LEAD_GLASS);
+            add(ModDecorativeBlocks.YELLOW_STAINED_LEAD_GLASS);
         }
     };
 

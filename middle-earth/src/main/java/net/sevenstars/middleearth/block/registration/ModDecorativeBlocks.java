@@ -157,31 +157,6 @@ public class ModDecorativeBlocks {
     public static final Block WHITE_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("white_wattle_framed_window_pane",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS_PANE));
 
-    public static final Block TUFF_CARVED_WINDOW = registerBlockWithItem("tuff_carved_window",
-            TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS));
-    public static final Block TUFF_CARVED_WINDOW_PANE = registerBlockWithItem("tuff_carved_window_pane",
-            PaneBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS_PANE));
-
-    public static final Block BLACKSTONE_CARVED_WINDOW = registerBlockWithItem("blackstone_carved_window",
-            TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS));
-    public static final Block BLACKSTONE_CARVED_WINDOW_PANE = registerBlockWithItem("blackstone_carved_window_pane",
-            PaneBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS_PANE));
-
-    public static final Block KHAGALABAN_CARVED_WINDOW = registerBlockWithItem("khagalaban_carved_window",
-            TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS));
-    public static final Block KHAGALABAN_CARVED_WINDOW_PANE = registerBlockWithItem("khagalaban_carved_window_pane",
-            PaneBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS_PANE));
-
-    public static final Block MEDGON_CARVED_WINDOW = registerBlockWithItem("medgon_carved_window",
-            TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS));
-    public static final Block MEDGON_CARVED_WINDOW_PANE = registerBlockWithItem("medgon_carved_window_pane",
-            PaneBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS_PANE));
-
-    public static final Block IZHERABAN_CARVED_WINDOW = registerBlockWithItem("izheraban_carved_window",
-            TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS));
-    public static final Block IZHERABAN_CARVED_WINDOW_PANE = registerBlockWithItem("izheraban_carved_window_pane",
-            PaneBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS_PANE));
-
     public static final Block MUD_BRICK_ROUND_WINDOW = registerBlockWithItem("mud_brick_round_window",
             TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS));
     public static final Block MUD_BRICK_ROUND_WINDOW_PANE = registerBlockWithItem("mud_brick_round_window_pane",
@@ -415,7 +390,6 @@ public class ModDecorativeBlocks {
             WateringCanBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool());
     public static final Block WOODEN_BUCKET = registerBlockWithItem("wooden_bucket",
             WoodenBucketBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
-
 
     public static final Block POTTED_BEECH_SAPLING = registerBlock("potted_beech_sapling",
             (settings) -> new FlowerPotBlock(ModNatureBlocks.BEECH_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));

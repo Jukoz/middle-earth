@@ -50,4 +50,13 @@ public class BlockRecordTypes {
             return list;
         }
     }
+
+    public record GlassSet(Block glass, Block pane) {
+        public static List<Block> getAllBlocks(GlassSet set){
+            List<Block> list = new ArrayList<>();
+            list.add(set.glass);
+            list.add(set.pane);
+            return list;
+        }
+    }
 }

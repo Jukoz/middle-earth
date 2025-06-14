@@ -67,6 +67,9 @@ public class HelpingGenerator {
                         pillarBlocks(set.chiseledTilesBlocks);
                         pillarBlocks(set.chiseledSmoothBlocks);
                     }
+                    case CARVED_WINDOW -> {
+                        glassBlocks(set.carvedWindows);
+                    }
                 }
             });
         }
@@ -449,6 +452,7 @@ public class HelpingGenerator {
                     Walls.walls.add(wallBlock);
                     SimpleWallModel.blocks.add(new SimpleWallModel.Wall(base, wallBlock));
                 }
+                case PaneBlock paneBlock -> SimplePaneModel.panes.add(new SimplePaneModel.Pane(base, paneBlock));
                 case PressurePlateBlock pressurePlateBlock -> SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(base, pressurePlateBlock));
                 case ButtonBlock buttonBlock -> SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(base, buttonBlock));
                 case TrapdoorBlock trapdoorBlock -> SimpleTrapDoorModel.stoneTrapdoors.add(new SimpleTrapDoorModel.Trapdoor(base, trapdoorBlock));
@@ -462,20 +466,20 @@ public class HelpingGenerator {
     }
 
     public static void regularBlocks(BlockRecordTypes.RegularSet set) {
-        BlockRecordTypes.RegularSet.getAllBlocks(set).forEach(block -> {
-            addBlocksToLists(block, set.base(), set.slab());
-        });
+        BlockRecordTypes.RegularSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
     }
 
     public static void pillarBlocks(BlockRecordTypes.PillarSet set) {
-        BlockRecordTypes.PillarSet.getAllBlocks(set).forEach(block -> {
-            addBlocksToLists(block, set.base(), set.verticalSlab());
-        });
+        BlockRecordTypes.PillarSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.verticalSlab()));
+    }
+
+    public static void glassBlocks(BlockRecordTypes.GlassSet set) {
+        BlockRecordTypes.GlassSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.glass(), null));
     }
 
     public static void mainStoneBlocks(BlockRecordTypes.BaseStoneSet set){
-        BlockRecordTypes.BaseStoneSet.getAllBlocks(set).forEach(block -> {
-            addBlocksToLists(block, set.base(), set.slab());
-        });
+        BlockRecordTypes.BaseStoneSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
     }
+
+
 }

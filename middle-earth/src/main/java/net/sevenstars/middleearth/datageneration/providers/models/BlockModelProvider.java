@@ -1133,7 +1133,6 @@ public class BlockModelProvider extends FabricModelProvider {
 
 
     public final void registerGlassAndPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {
-        blockStateModelGenerator.registerSimpleCubeAll(glass);
         TextureMap textureMap;
         if (Registries.BLOCK.getId(glassPane).getPath().contains("lead_glass")){
             textureMap = TextureMap.paneAndTopForEdge(glass, ModDecorativeBlocks.LEAD_GLASS_PANE);
