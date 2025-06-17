@@ -1356,6 +1356,13 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.OAK_PLANKS))
                         .offerTo(exporter);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LARGE_BEECH_FENCE_GATE, 1)
+                        .pattern("FF")
+                        .input('F', WoodBlockSets.BEECH.planksGate())
+                        .criterion(hasItem(WoodBlockSets.BEECH.planksGate()),
+                                conditionsFromItem(WoodBlockSets.BEECH.planksGate()))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GREAT_GONDORIAN_GATE, 1)
                         .pattern("LCL")
                         .pattern("CCS")

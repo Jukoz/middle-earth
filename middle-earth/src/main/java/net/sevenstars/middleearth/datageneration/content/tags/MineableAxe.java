@@ -37,6 +37,7 @@ public class MineableAxe {
             add(ModDecorativeBlocks.RICKETY_SIMPLE_LARCH_DOOR);
             add(ModDecorativeBlocks.SPRUCE_STABLE_DOOR);
             add(ModDecorativeBlocks.LARGE_STURDY_DOOR);
+            add(ModDecorativeBlocks.LARGE_BEECH_FENCE_GATE);
             add(ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR);
             add(ModDecorativeBlocks.RUINED_DWARVEN_DOOR);
             add(ModDecorativeBlocks.GREAT_ELVEN_GATE);

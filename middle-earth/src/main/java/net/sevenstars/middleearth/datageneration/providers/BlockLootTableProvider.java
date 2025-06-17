@@ -181,6 +181,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         largeDoorDrop(ModDecorativeBlocks.RICKETY_SIMPLE_LARCH_DOOR);
         largeDoorDrop(ModDecorativeBlocks.SPRUCE_STABLE_DOOR);
         largeDoorDrop(ModDecorativeBlocks.LARGE_STURDY_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.LARGE_BEECH_FENCE_GATE);
         largeDoorDrop(ModDecorativeBlocks.GREAT_GONDORIAN_GATE);
         largeDoorDrop(ModDecorativeBlocks.GREAT_DWARVEN_GATE);
         largeDoorDrop(ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR);

@@ -164,6 +164,7 @@ public class SimpleItemModel {
             add(DecorativeItemsME.RICKETY_SIMPLE_LARCH_DOOR.asItem());
             add(DecorativeItemsME.SPRUCE_STABLE_DOOR.asItem());
             add(DecorativeItemsME.LARGE_STURDY_DOOR.asItem());
+            add(DecorativeItemsME.LARGE_BEECH_FENCE_GATE.asItem());
             add(DecorativeItemsME.GREAT_GONDORIAN_GATE.asItem());
             add(DecorativeItemsME.GREAT_DWARVEN_GATE.asItem());
             add(DecorativeItemsME.VARNISHED_DWARVEN_DOOR.asItem());

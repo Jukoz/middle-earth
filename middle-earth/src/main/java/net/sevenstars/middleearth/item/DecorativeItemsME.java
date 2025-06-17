@@ -91,6 +91,9 @@ public class DecorativeItemsME {
     public static final Item LARGE_STURDY_DOOR = registerItem("large_sturdy_door",
             (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.LARGE_STURDY_DOOR, settings), new Item.Settings().maxCount(16));
 
+    public static final Item LARGE_BEECH_FENCE_GATE = registerItem("large_beech_fence_gate",
+            (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.LARGE_BEECH_FENCE_GATE, settings), new Item.Settings().maxCount(16));
+
     public static final Item LARCH_HOBBIT_DOOR = registerItem("larch_hobbit_door",
             (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.LARCH_HOBBIT_DOOR, settings), new Item.Settings().maxCount(16));
     public static final Item SPRUCE_HOBBIT_DOOR = registerItem("spruce_hobbit_door",

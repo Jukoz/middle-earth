@@ -609,6 +609,9 @@ public class ModDecorativeBlocks {
     public static final Block LARGE_STURDY_DOOR = registerBlock("large_sturdy_door",
             LargeDoor5x3::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
+    public static final Block LARGE_BEECH_FENCE_GATE = registerBlock("large_beech_fence_gate",
+            LargeDoor1x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
+
     public static final Block LARCH_HOBBIT_DOOR = registerBlock("larch_hobbit_door",
             LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block SPRUCE_HOBBIT_DOOR = registerBlock("spruce_hobbit_door",

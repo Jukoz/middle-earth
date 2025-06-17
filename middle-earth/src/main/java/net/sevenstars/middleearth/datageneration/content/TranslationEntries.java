@@ -213,6 +213,8 @@ public class TranslationEntries {
 
             put("block."+ MiddleEarth.MOD_ID +".large_sturdy_door", "Large Sturdy Door");
 
+            put("block."+ MiddleEarth.MOD_ID +".large_beech_fence_gate", "Large Beech Fence Gate");
+
             put("block."+ MiddleEarth.MOD_ID +".larch_hobbit_door", "Larch Hobbit Door");
             put("block."+ MiddleEarth.MOD_ID +".spruce_hobbit_door", "Spruce Hobbit Door");
 
