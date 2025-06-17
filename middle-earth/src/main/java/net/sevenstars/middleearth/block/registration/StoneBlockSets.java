@@ -26,7 +26,7 @@ public class StoneBlockSets {
 
     public static List<StoneBlockSetBuilder> stoneSetsList = new ArrayList<>();
 
-    public static StoneBlockSetBuilder STONE_SET = registerTestStoneSet(new StoneBlockSetBuilder("stone",
+    public static StoneBlockSetBuilder STONE_SET = registerStoneSet(new StoneBlockSetBuilder("stone",
             Blocks.STONE, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -39,7 +39,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
-    public static StoneBlockSetBuilder GRANITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("granite",
+    public static StoneBlockSetBuilder GRANITE_SET = registerStoneSet(new StoneBlockSetBuilder("granite",
             Blocks.GRANITE, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.ORANGE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -52,7 +52,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
-    public static StoneBlockSetBuilder DIORITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("diorite",
+    public static StoneBlockSetBuilder DIORITE_SET = registerStoneSet(new StoneBlockSetBuilder("diorite",
             Blocks.DIORITE,STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -65,7 +65,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
-    public static StoneBlockSetBuilder ANDESITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("andesite",
+    public static StoneBlockSetBuilder ANDESITE_SET = registerStoneSet(new StoneBlockSetBuilder("andesite",
             Blocks.ANDESITE, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -78,7 +78,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
-    public static StoneBlockSetBuilder CALCITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("calcite",
+    public static StoneBlockSetBuilder CALCITE_SET = registerStoneSet(new StoneBlockSetBuilder("calcite",
             Blocks.CALCITE, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.CALCITE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -91,11 +91,11 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
-    public static StoneBlockSetBuilder DRIPSTONE_SET = registerTestStoneSet(new StoneBlockSetBuilder("dripstone",
+    public static StoneBlockSetBuilder DRIPSTONE_SET = registerStoneSet(new StoneBlockSetBuilder("dripstone",
             Blocks.DRIPSTONE_BLOCK, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.DRIPSTONE_BLOCK, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS));
 
-    public static StoneBlockSetBuilder DEEPSLATE_SET = registerTestStoneSet(new StoneBlockSetBuilder("deepslate",
+    public static StoneBlockSetBuilder DEEPSLATE_SET = registerStoneSet(new StoneBlockSetBuilder("deepslate",
             Blocks.DEEPSLATE, DEEPSLATE_HARDNESS, DEEPSLATE_BLAST_RESISTANCE, MapColor.DEEPSLATE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.DEEPSLATE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -108,7 +108,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
-    public static StoneBlockSetBuilder TUFF_SET = registerTestStoneSet(new StoneBlockSetBuilder("tuff",
+    public static StoneBlockSetBuilder TUFF_SET = registerStoneSet(new StoneBlockSetBuilder("tuff",
             Blocks.TUFF, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.TUFF, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -122,7 +122,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.OLD_BLOCKS)
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
-    public static StoneBlockSetBuilder BASALT_SET = registerTestStoneSet(new StoneBlockSetBuilder("basalt",
+    public static StoneBlockSetBuilder BASALT_SET = registerStoneSet(new StoneBlockSetBuilder("basalt",
             Blocks.BASALT, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.BASALT, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -135,7 +135,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
-    public static StoneBlockSetBuilder BLACKSTONE_SET = registerTestStoneSet(new StoneBlockSetBuilder("blackstone",
+    public static StoneBlockSetBuilder BLACKSTONE_SET = registerStoneSet(new StoneBlockSetBuilder("blackstone",
             Blocks.BLACKSTONE, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -149,7 +149,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.OLD_BLOCKS)
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
-    public static StoneBlockSetBuilder DOLOMITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("dolomite",
+    public static StoneBlockSetBuilder DOLOMITE_SET = registerStoneSet(new StoneBlockSetBuilder("dolomite",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.LIGHT_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -162,14 +162,14 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS_PILLAR));
 
-    public static StoneBlockSetBuilder SLATE_SET = registerTestStoneSet(new StoneBlockSetBuilder("slate",
+    public static StoneBlockSetBuilder SLATE_SET = registerStoneSet(new StoneBlockSetBuilder("slate",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS));
 
-    public static StoneBlockSetBuilder NURGON_SET = registerTestStoneSet(new StoneBlockSetBuilder("nurgon",
+    public static StoneBlockSetBuilder NURGON_SET = registerStoneSet(new StoneBlockSetBuilder("nurgon",
             null, NURGON_HARDNESS, NURGON_BLAST_RESISTANCE, MapColor.TERRACOTTA_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -179,7 +179,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
 
-    public static StoneBlockSetBuilder MEDGON_SET = registerTestStoneSet(new StoneBlockSetBuilder("medgon",
+    public static StoneBlockSetBuilder MEDGON_SET = registerStoneSet(new StoneBlockSetBuilder("medgon",
             null, MEDGON_HARDNESS, MEDGON_BLAST_RESISTANCE, MapColor.TERRACOTTA_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -193,7 +193,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.OLD_BLOCKS)
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
-    public static StoneBlockSetBuilder GNEISS_SET = registerTestStoneSet(new StoneBlockSetBuilder("gneiss",
+    public static StoneBlockSetBuilder GNEISS_SET = registerStoneSet(new StoneBlockSetBuilder("gneiss",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -205,7 +205,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS));
 
-    public static StoneBlockSetBuilder ZIGILABAN_SET = registerTestStoneSet(new StoneBlockSetBuilder("zigilaban",
+    public static StoneBlockSetBuilder ZIGILABAN_SET = registerStoneSet(new StoneBlockSetBuilder("zigilaban",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
@@ -214,7 +214,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
 
-    public static StoneBlockSetBuilder GALONN_SET = registerTestStoneSet(new StoneBlockSetBuilder("galonn",
+    public static StoneBlockSetBuilder GALONN_SET = registerStoneSet(new StoneBlockSetBuilder("galonn",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.PALE_YELLOW, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -227,7 +227,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS_PILLAR));
 
-    public static StoneBlockSetBuilder LIMESTONE_SET = registerTestStoneSet(new StoneBlockSetBuilder("limestone",
+    public static StoneBlockSetBuilder LIMESTONE_SET = registerStoneSet(new StoneBlockSetBuilder("limestone",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.YELLOW, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -240,7 +240,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS_PILLAR));
 
-    public static StoneBlockSetBuilder IZHERABAN_SET = registerTestStoneSet(new StoneBlockSetBuilder("izheraban",
+    public static StoneBlockSetBuilder IZHERABAN_SET = registerStoneSet(new StoneBlockSetBuilder("izheraban",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.PALE_YELLOW, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -254,7 +254,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.OLD_BLOCKS_PILLAR)
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
-    public static StoneBlockSetBuilder GABBRO_SET = registerTestStoneSet(new StoneBlockSetBuilder("gabbro",
+    public static StoneBlockSetBuilder GABBRO_SET = registerStoneSet(new StoneBlockSetBuilder("gabbro",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE,
             true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
@@ -269,7 +269,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.OLD_BLOCKS)
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
-    public static StoneBlockSetBuilder ASHEN_STONE_SET = registerTestStoneSet(new StoneBlockSetBuilder("ashen_stone",
+    public static StoneBlockSetBuilder ASHEN_STONE_SET = registerStoneSet(new StoneBlockSetBuilder("ashen_stone",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -277,11 +277,11 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS));
 
-    public static StoneBlockSetBuilder PUMICE_SET = registerTestStoneSet(new StoneBlockSetBuilder("pumice",
+    public static StoneBlockSetBuilder PUMICE_SET = registerStoneSet(new StoneBlockSetBuilder("pumice",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS));
 
-    public static StoneBlockSetBuilder KHAGALABAN_SET = registerTestStoneSet(new StoneBlockSetBuilder("khagalaban",
+    public static StoneBlockSetBuilder KHAGALABAN_SET = registerStoneSet(new StoneBlockSetBuilder("khagalaban",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLUE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -295,7 +295,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.OLD_BLOCKS)
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
-    public static StoneBlockSetBuilder BLUE_TUFF_SET = registerTestStoneSet(new StoneBlockSetBuilder("blue_tuff",
+    public static StoneBlockSetBuilder BLUE_TUFF_SET = registerStoneSet(new StoneBlockSetBuilder("blue_tuff",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLUE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -305,7 +305,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
 
-    public static StoneBlockSetBuilder SCHIST_SET = registerTestStoneSet(new StoneBlockSetBuilder("schist",
+    public static StoneBlockSetBuilder SCHIST_SET = registerStoneSet(new StoneBlockSetBuilder("schist",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.LAPIS_BLUE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -314,7 +314,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS));
 
-    public static StoneBlockSetBuilder IRONSTONE_SET = registerTestStoneSet(new StoneBlockSetBuilder("ironstone",
+    public static StoneBlockSetBuilder IRONSTONE_SET = registerStoneSet(new StoneBlockSetBuilder("ironstone",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.DARK_RED, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -325,7 +325,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
 
-    public static StoneBlockSetBuilder HEMATITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("hematite",
+    public static StoneBlockSetBuilder HEMATITE_SET = registerStoneSet(new StoneBlockSetBuilder("hematite",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.RED, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -336,7 +336,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS));
 
-    public static StoneBlockSetBuilder GREEN_TUFF_SET = registerTestStoneSet(new StoneBlockSetBuilder("green_tuff",
+    public static StoneBlockSetBuilder GREEN_TUFF_SET = registerStoneSet(new StoneBlockSetBuilder("green_tuff",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -346,12 +346,12 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
 
-    public static StoneBlockSetBuilder GILDED_GREEN_TUFF_SET = registerTestStoneSet(new StoneBlockSetBuilder("gilded_green_tuff",
+    public static StoneBlockSetBuilder GILDED_GREEN_TUFF_SET = registerStoneSet(new StoneBlockSetBuilder("gilded_green_tuff",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
 
-    public static StoneBlockSetBuilder JADEITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("jadeite",
+    public static StoneBlockSetBuilder JADEITE_SET = registerStoneSet(new StoneBlockSetBuilder("jadeite",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.EMERALD_GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -360,7 +360,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS));
 
-    public static StoneBlockSetBuilder QUARTZITE_SET = registerTestStoneSet(new StoneBlockSetBuilder("quartzite",
+    public static StoneBlockSetBuilder QUARTZITE_SET = registerStoneSet(new StoneBlockSetBuilder("quartzite",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.RAW_IRON_PINK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
@@ -394,7 +394,7 @@ public class StoneBlockSets {
     public static SimpleBlockSet OLD_BRICKS = registerStoneSet("old_bricks", Blocks.BRICKS.getHardness(), Blocks.BRICKS.getBlastResistance(), null);
 */
 
-    private static StoneBlockSetBuilder registerTestStoneSet(StoneBlockSetBuilder set) {
+    private static StoneBlockSetBuilder registerStoneSet(StoneBlockSetBuilder set) {
 
         set.existingList.forEach((stoneBlockTypes) -> {
             switch (stoneBlockTypes){

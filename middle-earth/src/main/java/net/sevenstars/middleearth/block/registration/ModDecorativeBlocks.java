@@ -594,54 +594,54 @@ public class ModDecorativeBlocks {
             LargeDoor3x1::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
 
     public static final Block OAK_STABLE_DOOR = registerBlock("oak_stable_door",
-            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block REINFORCED_BLACK_PINE_DOOR = registerBlock("reinforced_black_pine_door",
-            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block REINFORCED_SPRUCE_DOOR = registerBlock("reinforced_spruce_door",
-            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block SIMPLE_LARCH_GATE = registerBlock("simple_larch_gate",
-            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block RICKETY_SIMPLE_LARCH_DOOR = registerBlock("rickety_simple_larch_door",
-            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block SPRUCE_STABLE_DOOR = registerBlock("spruce_stable_door",
-            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
     public static final Block LARGE_STURDY_DOOR = registerBlock("large_sturdy_door",
-            LargeDoor5x3::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor5x3::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
     public static final Block LARCH_HOBBIT_DOOR = registerBlock("larch_hobbit_door",
-            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block SPRUCE_HOBBIT_DOOR = registerBlock("spruce_hobbit_door",
-            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
     public static final Block BLUE_HOBBIT_DOOR = registerBlock("blue_hobbit_door",
-            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block GREEN_HOBBIT_DOOR = registerBlock("green_hobbit_door",
-            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block LIGHT_BLUE_HOBBIT_DOOR = registerBlock("light_blue_hobbit_door",
-            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block RED_HOBBIT_DOOR = registerBlock("red_hobbit_door",
-            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block YELLOW_HOBBIT_DOOR = registerBlock("yellow_hobbit_door",
-            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+            LargeDoor2x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
     public static final Block GREAT_GONDORIAN_GATE = registerBlock("great_gondorian_gate",
-            LargeDoor10x5::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR));
+            LargeDoor10x5::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR).nonOpaque());
 
     public static final Block GREAT_DWARVEN_GATE = registerBlock("great_dwarven_gate",
-            LargeDoor5x2::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR));
+            LargeDoor5x2::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR).nonOpaque());
     public static final Block HIDDEN_DWARVEN_DOOR = registerBlock("hidden_dwarven_door",
-            LargeThickDoor3x2::new, AbstractBlock.Settings.copy(Blocks.STONE));
+            LargeThickDoor3x2::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque());
     public static final Block VARNISHED_DWARVEN_DOOR = registerBlock("varnished_dwarven_door",
-            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR));
+            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR).nonOpaque());
     public static final Block RUINED_DWARVEN_DOOR = registerBlock("ruined_dwarven_door",
-            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR));
+            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR).nonOpaque());
 
     public static final Block GREAT_ELVEN_GATE = registerBlock("great_elven_gate",
-            LargeDoor6x2::new, AbstractBlock.Settings.copy(Blocks.OAK_DOOR));
+            LargeDoor6x2::new, AbstractBlock.Settings.copy(Blocks.OAK_DOOR).nonOpaque());
 
     public static final Block GREAT_ORCISH_GATE = registerBlock("great_orcish_gate",
-            LargeDoor10x4::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR));
+            LargeDoor10x4::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR).nonOpaque());
 
     public static final Block FANCY_BED = registerBlockWithItem("fancy_bed",
             (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED));
