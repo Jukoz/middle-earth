@@ -638,7 +638,7 @@ public class ModDecorativeBlocks {
     public static final Block VARNISHED_DWARVEN_DOOR = registerBlock("varnished_dwarven_door",
             LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR).nonOpaque());
     public static final Block RUINED_DWARVEN_DOOR = registerBlock("ruined_dwarven_door",
-            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR).nonOpaque());
+            LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
     public static final Block GREAT_ELVEN_GATE = registerBlock("great_elven_gate",
             LargeDoor6x2::new, AbstractBlock.Settings.copy(Blocks.OAK_DOOR).nonOpaque());

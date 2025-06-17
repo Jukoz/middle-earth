@@ -92,8 +92,11 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
     public static StoneBlockSetBuilder DRIPSTONE_SET = registerStoneSet(new StoneBlockSetBuilder("dripstone",
-            Blocks.DRIPSTONE_BLOCK, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.DRIPSTONE_BLOCK, true, true)
-            .addToSet(StoneBlockTypes.BASE_BLOCKS));
+            Blocks.DRIPSTONE_BLOCK, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.DRIPSTONE_BLOCK, false, false)
+            .addToSet(StoneBlockTypes.BASE_BLOCKS)
+            .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
+            .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICK_BLOCKS));
 
     public static StoneBlockSetBuilder DEEPSLATE_SET = registerStoneSet(new StoneBlockSetBuilder("deepslate",
             Blocks.DEEPSLATE, DEEPSLATE_HARDNESS, DEEPSLATE_BLAST_RESISTANCE, MapColor.DEEPSLATE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.DEEPSLATE, true, true)
