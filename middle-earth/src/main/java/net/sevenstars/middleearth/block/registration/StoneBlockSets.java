@@ -170,7 +170,8 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
-            .addToSet(StoneBlockTypes.BRICK_BLOCKS));
+            .addToSet(StoneBlockTypes.BRICK_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS));
 
     public static StoneBlockSetBuilder NURGON_SET = registerStoneSet(new StoneBlockSetBuilder("nurgon",
             null, NURGON_HARDNESS, NURGON_BLAST_RESISTANCE, MapColor.TERRACOTTA_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
