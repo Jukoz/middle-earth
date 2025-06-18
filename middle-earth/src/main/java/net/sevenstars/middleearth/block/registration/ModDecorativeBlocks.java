@@ -65,6 +65,11 @@ public class ModDecorativeBlocks {
     public static final Block WALL_CRYSTAL_LAMP = registerBlock("crystal_lamp_wall",
             WallCrystalLampBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
 
+    public static final Block SHIRE_LANTERN = registerBlock("shire_lantern",
+            ShireLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque());
+    public static final Block WALL_SHIRE_LANTERN = registerBlock("shire_lantern_wall",
+            WallShireLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+
     public static final Block FORGE = registerBlock("forge",
             ForgeBlock::new, AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool());
     public static final Block TREATED_ANVIL = registerBlock("treated_anvil",
