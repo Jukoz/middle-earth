@@ -22,6 +22,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -113,15 +115,16 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putInt("Variant", this.getTypeVariant());
+    public void writeData(WriteView view) {
+        super.writeData(view);
+        view.putInt("Variant", this.getTypeVariant());
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(VARIANT, nbt.getInt("Variant").get() );
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
@@ -145,7 +148,7 @@ public class WargEntity extends AbstractBeastEntity {
                 this.chargeAnimationState.start(this.age);
             }
 
-            if(this.chargeTimeout <= maxChargeCooldown() - 10 && !this.isInAir()) {
+            if(this.chargeTimeout <= maxChargeCooldown() - 10 && this.isOnGround()) {
                 this.setCharging(false);
                 this.setHasCharged(false);
             }

@@ -1,13 +1,10 @@
 package net.sevenstars.middleearth.entity.beasts.warg;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 
 public class WargAnimations {
-	public static final Animation STAND_UP = Animation.Builder.create(1.5F)
+	public static final AnimationDefinition STAND_UP = AnimationDefinition.Builder.create(1.5F)
 			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 12.5F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.2917F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 18.1F), Transformation.Interpolations.CUBIC),
@@ -72,7 +69,7 @@ public class WargAnimations {
 			))
 			.build();
 
-	public static final Animation SIT_DOWN = Animation.Builder.create(1.6667F)
+	public static final AnimationDefinition SIT_DOWN = AnimationDefinition.Builder.create(1.6667F)
 			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 17.2F), Transformation.Interpolations.CUBIC),
@@ -142,7 +139,7 @@ public class WargAnimations {
 			))
 			.build();
 
-	public static final Animation SIT = Animation.Builder.create(4.75F).looping()
+	public static final AnimationDefinition SIT = AnimationDefinition.Builder.create(4.75F).looping()
 			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 12.5F), Transformation.Interpolations.CUBIC)
 			))
@@ -190,7 +187,7 @@ public class WargAnimations {
 			))
 			.build();
 
-	public static final Animation GROOM = Animation.Builder.create(7.0F)
+	public static final AnimationDefinition GROOM = AnimationDefinition.Builder.create(7.0F)
 			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 12.5F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.25F, AnimationHelper.createRotationalVector(-35.0F, -22.5F, 42.5F), Transformation.Interpolations.CUBIC),
@@ -272,7 +269,7 @@ public class WargAnimations {
 			))
 			.build();
 
-	public static final Animation LAY_DOWN = Animation.Builder.create(1.7083F)
+	public static final AnimationDefinition LAY_DOWN = AnimationDefinition.Builder.create(1.7083F)
 			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 12.5F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.625F, AnimationHelper.createRotationalVector(4.5336F, -2.1109F, 28.0414F), Transformation.Interpolations.CUBIC),
@@ -334,9 +331,9 @@ public class WargAnimations {
 					new Keyframe(0.625F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.7083F, AnimationHelper.createTranslationalVector(0.0F, -3.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
-			.addBoneAnimation("body_armor", new Transformation(Transformation.Targets.ROTATE,
+			/*.addBoneAnimation("body_armor", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
-			))
+			))*/
 			.addBoneAnimation("right_front_leg", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 27.5F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.625F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 27.5F), Transformation.Interpolations.CUBIC),
@@ -352,7 +349,7 @@ public class WargAnimations {
 			))
 			.build();
 
-	public static final Animation LYING = Animation.Builder.create(1.5833F).looping()
+	public static final AnimationDefinition LYING = AnimationDefinition.Builder.create(1.5833F).looping()
 			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -5.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -397,7 +394,7 @@ public class WargAnimations {
 			))
 			.build();
 
-	public static final Animation STAND_UP_FROM_LYING = Animation.Builder.create(2.0F)
+	public static final AnimationDefinition STAND_UP_FROM_LYING = AnimationDefinition.Builder.create(2.0F)
 			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -5.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -22.5F), Transformation.Interpolations.CUBIC),
@@ -473,7 +470,7 @@ public class WargAnimations {
 			))
 			.build();
 
-	public static final Animation WALK = Animation.Builder.create(1.25F).looping()
+	public static final AnimationDefinition WALK = AnimationDefinition.Builder.create(1.25F).looping()
 			.addBoneAnimation("root", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
@@ -561,7 +558,7 @@ public class WargAnimations {
 			))
 			.build();
 
-	public static final Animation RUN = Animation.Builder.create(0.5F).looping()
+	public static final AnimationDefinition RUN = AnimationDefinition.Builder.create(0.5F).looping()
 			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -12.5F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.0833F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -12.5F), Transformation.Interpolations.CUBIC),
@@ -637,7 +634,7 @@ public class WargAnimations {
 			))
 			.build();
 
-	public static final Animation BITE = Animation.Builder.create(1f)
+	public static final AnimationDefinition BITE = AnimationDefinition.Builder.create(1f)
 			.addBoneAnimation("jaw",
 					new Transformation(Transformation.Targets.ROTATE,
 							new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -646,16 +643,16 @@ public class WargAnimations {
 									Transformation.Interpolations.CUBIC),
 							new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
 									Transformation.Interpolations.CUBIC)))
-			.addBoneAnimation("leftEar",
+			.addBoneAnimation("ear_left",
 					new Transformation(Transformation.Targets.ROTATE,
 							new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, -20f),
 									Transformation.Interpolations.LINEAR)))
-			.addBoneAnimation("rightEar",
+			.addBoneAnimation("ear_right",
 					new Transformation(Transformation.Targets.ROTATE,
 							new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, -20f),
 									Transformation.Interpolations.LINEAR))).build();
 
-	public static final Animation EAT_FROM_HAND = Animation.Builder.create(1.7083433f)
+	public static final AnimationDefinition EAT_FROM_HAND = AnimationDefinition.Builder.create(1.7083433f)
 			.addBoneAnimation(EntityModelPartNames.HEAD,
 					new Transformation(Transformation.Targets.ROTATE,
 							new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, -7.5f),
@@ -678,11 +675,11 @@ public class WargAnimations {
 									Transformation.Interpolations.CUBIC),
 							new Keyframe(1.625f, AnimationHelper.createRotationalVector(0f, 0f, 0.83f),
 									Transformation.Interpolations.CUBIC)))
-			.addBoneAnimation("leftEar",
+			.addBoneAnimation("ear_left",
 					new Transformation(Transformation.Targets.ROTATE,
 							new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 57.5f, 0f),
 									Transformation.Interpolations.CUBIC)))
-			.addBoneAnimation("rightEar",
+			.addBoneAnimation("ear_right",
 					new Transformation(Transformation.Targets.ROTATE,
 							new Keyframe(0f, AnimationHelper.createRotationalVector(0f, -47.5f, 0f),
 									Transformation.Interpolations.CUBIC)))
@@ -699,7 +696,7 @@ public class WargAnimations {
 							new Keyframe(1.7083433f, AnimationHelper.createRotationalVector(0f, 30f, 0f),
 									Transformation.Interpolations.CUBIC))).build();
 
-	public static final Animation STRETCH = Animation.Builder.create(4.5F)
+	public static final AnimationDefinition STRETCH = AnimationDefinition.Builder.create(4.5F)
 			.addBoneAnimation(EntityModelPartNames.HEAD, new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -42.5F), Transformation.Interpolations.CUBIC),

@@ -1,14 +1,11 @@
 package net.sevenstars.middleearth.entity.beasts.trolls;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 
 public class TrollAnimations {
 
 
-    public static final Animation GOSLEEPING = Animation.Builder.create(0.68f)
+    public static final AnimationDefinition GOSLEEPING = AnimationDefinition.Builder.create(0.68f)
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -63,7 +60,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.6f, AnimationHelper.createTranslationalVector(0f, -15f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation WAKEUP = Animation.Builder.create(0.72f)
+    public static final AnimationDefinition WAKEUP = AnimationDefinition.Builder.create(0.72f)
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -14f, 0f),
@@ -118,7 +115,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation IDLE = Animation.Builder.create(3f).looping()
+    public static final AnimationDefinition IDLE = AnimationDefinition.Builder.create(3f).looping()
             .addBoneAnimation("boneJaw",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(1.4f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -127,7 +124,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(2.2f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation EATING = Animation.Builder.create(1.92f)
+    public static final AnimationDefinition EATING = AnimationDefinition.Builder.create(1.92f)
             .addBoneAnimation("head",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -204,7 +201,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.92f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation MOVING = Animation.Builder.create(1.92f).looping()
+    public static final AnimationDefinition MOVING = AnimationDefinition.Builder.create(1.92f).looping()
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -325,7 +322,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.92f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation ATTACK = Animation.Builder.create(1.68f)
+    public static final AnimationDefinition ATTACK = AnimationDefinition.Builder.create(1.68f)
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -474,7 +471,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.68f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation THROWING = Animation.Builder.create(1.68f)
+    public static final AnimationDefinition THROWING = AnimationDefinition.Builder.create(1.68f)
             .addBoneAnimation("head",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -543,7 +540,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.96f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation STARTCHARGING = Animation.Builder.create(1.92f)
+    public static final AnimationDefinition STARTCHARGING = AnimationDefinition.Builder.create(1.92f)
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -698,7 +695,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.44f, AnimationHelper.createRotationalVector(0f, 0f, 42.5f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation CHARGING = Animation.Builder.create(0.96f).looping()
+    public static final AnimationDefinition CHARGING = AnimationDefinition.Builder.create(0.96f).looping()
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 2f),

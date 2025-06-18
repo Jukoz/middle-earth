@@ -67,7 +67,7 @@ public class AnvilShapingRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
     }
 
     public AnvilShapingRecipeJsonBuilder input(TagKey<Item> tag) {
-        return this.input(Ingredient.fromTag(this.registryLookup.getOrThrow(tag)));
+        return this.input(Ingredient.ofTag(this.registryLookup.getOrThrow(tag)));
     }
 
     public AnvilShapingRecipeJsonBuilder input(ItemConvertible itemProvider) {

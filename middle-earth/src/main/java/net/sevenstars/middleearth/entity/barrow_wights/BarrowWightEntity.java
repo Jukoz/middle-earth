@@ -24,6 +24,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
@@ -135,16 +137,16 @@ public class BarrowWightEntity extends HostileEntity {
         super.tick();
     }
 
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putInt(LAST_SCREAM_TIME_KEY, !this.canScream() ? this.lastScreamTime : -1);
+    @Override
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.putInt(LAST_SCREAM_TIME_KEY, !this.canScream() ? this.lastScreamTime : -1);
     }
 
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        if (nbt.contains(LAST_SCREAM_TIME_KEY) && nbt.getInt(LAST_SCREAM_TIME_KEY).get() > -1) {
-            this.setScreamedTime(nbt.getInt(LAST_SCREAM_TIME_KEY).get());
-        }
+    @Override
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.setScreamedTime(view.getInt(LAST_SCREAM_TIME_KEY, 0));
     }
 
     protected void tryToScream() {

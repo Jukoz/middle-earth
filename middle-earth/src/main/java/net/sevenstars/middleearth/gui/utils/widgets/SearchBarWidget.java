@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.gui.utils.widgets;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -110,13 +111,13 @@ public class SearchBarWidget extends ModWidget {
         int magnifyingGlassSizeY = 14;
 
         // Search bar button
-        context.drawTexture(RenderLayer::getGuiTextured, SEARCH_WIDGET,
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
                 startX, startY, 0, searchBarToggleButton.isFocused() || isMouseOver(panelSizeX, panelSizeY, startX, startY) ? 19 : 0,
                 panelSizeX, panelSizeY, 256, 256);
 
         searchBarToggleButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
         if (getFocusEnabled() && searchBarToggleButton.isFocused()) {
-            context.drawTexture(RenderLayer::getGuiTextured, SEARCH_WIDGET,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
                     startX, startY, 0, 147,
                     panelSizeX, panelSizeY, 256, 256);
         }
@@ -130,7 +131,7 @@ public class SearchBarWidget extends ModWidget {
 
 
         // Search bar magnifying
-        context.drawTexture(RenderLayer::getGuiTextured, SEARCH_WIDGET,
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
                 startX + sideMargins, startY + 2, 102, 0,
                 magnifyingGlassSizeX, magnifyingGlassSizeY, 256, 256);
 
@@ -175,7 +176,7 @@ public class SearchBarWidget extends ModWidget {
                 }
             }
             // Top
-            context.drawTexture(RenderLayer::getGuiTextured, SEARCH_WIDGET,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
                     startX, startY, 0, 38,
                     panelSizeX, panelBorderSizeY, 256, 256);
 
@@ -185,18 +186,18 @@ public class SearchBarWidget extends ModWidget {
             currentAmount = Math.min(currentlyShownEntries, maximumShownLength);
 
             for (int i = 0; i < currentAmount; i++) {
-                context.drawTexture(RenderLayer::getGuiTextured, SEARCH_WIDGET,
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
                         startX, startY + panelSizeY * i, 0, 43,
                         panelSizeX, panelSizeY, 256, 256);
             }
 
             // Footer
-            context.drawTexture(RenderLayer::getGuiTextured, SEARCH_WIDGET,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
                     startX, startY + (currentAmount * panelSizeY), 0, 58,
                     panelSizeX, footerPanelSizeY, 256, 256);
 
             // End
-            context.drawTexture(RenderLayer::getGuiTextured, SEARCH_WIDGET,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
                     startX, startY + (currentAmount * panelSizeY) + footerPanelSizeY, 0, 70,
                     panelSizeX, panelBorderSizeY, 256, 256);
 
@@ -216,7 +217,7 @@ public class SearchBarWidget extends ModWidget {
             searchScrollbarButtonOffset = Math.min(currentSearchResultHeight, searchScrollbarButtonOffset);
             searchScrollbarButtonOffset = Math.max(0, searchScrollbarButtonOffset);
 
-            context.drawTexture(RenderLayer::getGuiTextured, SEARCH_WIDGET,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
                     startX + panelSizeX - 5, searchScrollbarButtonOffset + (startY + 1), 103, 39,
                     4, 9, 256, 256);
 
@@ -240,7 +241,7 @@ public class SearchBarWidget extends ModWidget {
                     if (type == FactionType.SUBFACTION)
                         uvY = mouseIsOver ? 117 : 103;
 
-                    context.drawTexture(RenderLayer::getGuiTextured, SEARCH_WIDGET,
+                    context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
                             valuePanelStartX, valuePanelStartY, 0, uvY,
                             valuePanelSizeX, valuePanelSizeY, 256, 256);
 

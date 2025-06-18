@@ -1,13 +1,18 @@
 package net.sevenstars.middleearth.entity.deer;
 
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.animation.CamelAnimations;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 
 public class DeerModel extends EntityModel<LivingEntityRenderState> {
     private final ModelPart deer;
+    private final Animation walkingAnimation;
+
     public DeerModel(ModelPart root) {
         super(root);
+        this.walkingAnimation = DeerAnimations.WALK.createAnimation(root);
 
         this.deer = root.getChild("deer");
     }
@@ -47,7 +52,7 @@ public class DeerModel extends EntityModel<LivingEntityRenderState> {
     public void setAngles(LivingEntityRenderState state) {
         super.setAngles(state);
 
-        animateWalking(DeerAnimations.WALK, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0f, 2.5f);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
     }
 }
 

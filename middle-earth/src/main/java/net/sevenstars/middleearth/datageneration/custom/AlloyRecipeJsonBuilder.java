@@ -76,7 +76,7 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
     }
 
     public AlloyRecipeJsonBuilder input(TagKey<Item> tag) {
-        return this.input(Ingredient.fromTag(this.registryLookup.getOrThrow(tag)));
+        return this.input(Ingredient.ofTag(this.registryLookup.getOrThrow(tag)));
     }
 
     public AlloyRecipeJsonBuilder input(ItemConvertible itemProvider) {
