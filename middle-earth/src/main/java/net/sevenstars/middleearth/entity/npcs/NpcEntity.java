@@ -22,6 +22,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityData;
@@ -98,6 +99,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         var civilianNpcDatas = NpcDataLookup.getAllNpcDatas(getWorld(), faction.getAllNpcDatas().get(NpcRank.MILITIA));
         return generateNpcData(manager, faction.getId(), civilianNpcDatas.get(random.nextInt(civilianNpcDatas.size())));
     }
+
     public NpcEntityData generateNpcData(DynamicRegistryManager manager, Identifier factionId, NpcData npcData) {
         Faction chosenFaction = manager.getOrThrow(FactionsME.KEY).get(factionId);
         if(chosenFaction == null)
@@ -178,6 +180,18 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         return npcEntityTextureData;
     }
 
+    StructureManagerBlockEntity structureManagerBlockEntity;
+    public void setStructureManagerHost(StructureManagerBlockEntity blockEntity){
+        structureManagerBlockEntity = blockEntity;
+    }
+
+    @Override
+    public void onDeath(DamageSource damageSource) {
+        super.onDeath(damageSource);
+        if(structureManagerBlockEntity != null){
+            structureManagerBlockEntity.alertDeath(this);
+        }
+    }
 
     // region NBT & DataTrackers
     @Override

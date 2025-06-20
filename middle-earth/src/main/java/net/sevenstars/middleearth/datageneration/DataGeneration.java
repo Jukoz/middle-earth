@@ -51,6 +51,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(RaceProvider::new);
         pack.addProvider(NpcProvider::new);
         pack.addProvider(FactionProvider::new);
+        pack.addProvider(StructureDataProvider::new);
         pack.addProvider(DataWorldGenerator::new);
         pack.addProvider(LanguageProvider::new);
         pack.addProvider(EnchantmentProvider::new);
@@ -91,6 +92,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RacesME.KEY, RacesME::bootstrap);
         registryBuilder.addRegistry(NpcME.KEY, NpcME::bootstrap);
         registryBuilder.addRegistry(FactionsME.KEY, FactionsME::bootstrap);
+        registryBuilder.addRegistry(StructureDatasME.KEY, StructureDatasME::bootstrap);
 
         // Vanilla registries
         registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, ModSmithingTrimMaterials::bootstrap);

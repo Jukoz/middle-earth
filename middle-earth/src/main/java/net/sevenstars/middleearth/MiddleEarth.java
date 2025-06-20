@@ -101,6 +101,8 @@ public class MiddleEarth implements ModInitializer {
 
 		NpcTextureMaterialsME.register();
 		NpcTexturePatternsME.register();
+		StructureDatasME.register();
+
 
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();

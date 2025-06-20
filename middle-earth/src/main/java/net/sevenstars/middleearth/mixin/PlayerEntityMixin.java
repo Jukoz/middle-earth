@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -154,6 +155,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         info.getReturnValue().add(ModEntityAttributes.POWDERED_SNOW_IMMUNITY);
         info.getReturnValue().add(ModEntityAttributes.DELVERS_FEAR_STRENGTH);
         info.getReturnValue().add(ModEntityAttributes.CLIMBING_STRENGTH);
+
     }
 
     @Inject(method = "isClimbing", at = @At("HEAD"), cancellable = true)
