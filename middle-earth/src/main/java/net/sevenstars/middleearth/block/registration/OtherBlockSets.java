@@ -61,6 +61,8 @@ public class OtherBlockSets {
     public static RoofBlockSet WILLOW_SHINGLES = registerWoodSet("willow_shingles", WoodBlockSets.WILLOW.planks());
     public static RoofBlockSet WILLOW_ROOFING = registerWoodSet("willow_roofing", WILLOW_SHINGLES.block);
 
+    public static RoofBlockSet ROTTEN_SHINGLES = registerWoodSet("rotten_shingles", WoodBlockSets.ROTTEN.planks());
+    public static RoofBlockSet ROTTEN_ROOFING = registerWoodSet("rotten_roofing", ROTTEN_SHINGLES.block);
     public static RoofBlockSet SCORCHED_SHINGLES = registerWoodSet("scorched_shingles", WoodBlockSets.SCORCHED.planks());
     public static RoofBlockSet SCORCHED_ROOFING = registerWoodSet("scorched_roofing", SCORCHED_SHINGLES.block);
 
@@ -200,6 +202,8 @@ public class OtherBlockSets {
             WILLOW_SHINGLES,
             WILLOW_ROOFING,
 
+            ROTTEN_SHINGLES,
+            ROTTEN_ROOFING,
             SCORCHED_SHINGLES,
             SCORCHED_ROOFING,
             

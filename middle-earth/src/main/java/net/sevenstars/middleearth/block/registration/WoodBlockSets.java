@@ -35,6 +35,7 @@ public class WoodBlockSets {
     public static SimpleBlockSet BLACK_PINE = registerWoodSet("black_pine", WOOD_STRENGTH, true, ModNatureBlocks.BLACK_PINE_SAPLING, true, false, null);
     public static SimpleBlockSet WILLOW = registerWoodSet("willow", WOOD_STRENGTH, true, ModNatureBlocks.WILLOW_SAPLING, true, false, null);
 
+    public static SimpleBlockSet ROTTEN = registerWoodSet("rotten", WOOD_STRENGTH, false, null, true, false, null);
     public static SimpleBlockSet SCORCHED = registerWoodSet("scorched", WOOD_STRENGTH, false, null, true, false, null);
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
@@ -55,6 +56,7 @@ public class WoodBlockSets {
             BLACK_PINE,
             WILLOW,
 
+            ROTTEN,
             SCORCHED,
     };
 

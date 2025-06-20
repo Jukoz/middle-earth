@@ -365,6 +365,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.PINE.ladder(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BLACK_PINE.ladder(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WILLOW.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.ROTTEN.ladder(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.SCORCHED.ladder(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.MUSHROOM.ladder(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.DARK_MUSHROOM.ladder(), RenderLayer.getCutout());
@@ -381,6 +382,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.DARK_MUSHROOM.trapdoor(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.GRAY_MUSHROOM.trapdoor(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.MUSHROOM.trapdoor(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.ROTTEN.trapdoor(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.SCORCHED.trapdoor(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WILLOW.trapdoor(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.PALM.trapdoor(), RenderLayer.getCutout());
@@ -400,6 +402,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.PALM.door(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WHITE_PALM.door(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WILLOW.door(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.ROTTEN.door(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.SCORCHED.door(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.GRAY_MUSHROOM.door(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.DARK_MUSHROOM.door(), RenderLayer.getCutout());
@@ -421,6 +424,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.PINE.chair(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BLACK_PINE.chair(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WILLOW.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.ROTTEN.chair(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.SCORCHED.chair(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.GRAY_MUSHROOM.chair(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.DARK_MUSHROOM.chair(), RenderLayer.getCutout());
