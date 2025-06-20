@@ -18,6 +18,9 @@ public class DataComponentTypesME {
     public static final ComponentType<TemperatureDataComponent> TEMPERATURE_DATA = register("temperature", (builder) -> {
         return builder.codec(TemperatureDataComponent.CODEC).packetCodec(TemperatureDataComponent.PACKET_CODEC);
     });
+    public static final ComponentType<BlockAuthorDataComponent> BLOCK_AUTHOR_DATA = register("block_author", (builder) -> {
+        return builder.codec(BlockAuthorDataComponent.CODEC).packetCodec(BlockAuthorDataComponent.PACKET_CODEC);
+    });
     public static final ComponentType<CapeDataComponent> CAPE_DATA = register("cape", (builder) -> {
         return builder.codec(CapeDataComponent.CODEC).packetCodec(CapeDataComponent.PACKET_CODEC);
     });

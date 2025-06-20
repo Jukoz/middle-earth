@@ -87,6 +87,7 @@ public class ModRegistries {
 
     public static void registerToolTipAppenders() {
         ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.TEMPERATURE_DATA);
+        ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.BLOCK_AUTHOR_DATA);
     }
 
     public static void registerFlammableBlocks() {

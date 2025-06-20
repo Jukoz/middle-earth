@@ -4,8 +4,10 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
+import net.sevenstars.middleearth.block.utils.BlockAuthor;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.item.dataComponents.BlockAuthorDataComponent;
 import net.sevenstars.middleearth.item.items.ArkenstoneItem;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.sevenstars.middleearth.item.items.DoorBlockItem;
@@ -73,6 +75,28 @@ public class DecorativeItemsME {
 
     public static final Item WOOD_PILE = registerItem("wood_pile",
             (settings) -> new BlockItem(ModDecorativeBlocks.WOOD_PILE, settings), new Item.Settings());
+
+    public static final Item BASALT_STATUE = registerItem("basalt_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.BASALT_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.SCOSHER)));
+    public static final Item CALCITE_STATUE = registerItem("calcite_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.CALCITE_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+    public static final Item GALONN_STATUE = registerItem("galonn_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.GALONN_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.SCOSHER)));
+    public static final Item KHAGALABAN_STATUE = registerItem("khagalaban_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.KHAGALABAN_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+    public static final Item MEDGON_SPIKE = registerItem("medgon_spike",
+            (settings) -> new BlockItem(ModDecorativeBlocks.MEDGON_SPIKE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+    public static final Item PUMICE_STATUE = registerItem("pumice_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.PUMICE_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.SCOSHER)));
+    public static final Item TUFF_STATUE = registerItem("tuff_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.TUFF_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
 
     public static final Item TALL_BLACK_PINE_DOOR = registerItem("tall_black_pine_door",
             (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.TALL_BLACK_PINE_DOOR, settings), new Item.Settings().maxCount(16));

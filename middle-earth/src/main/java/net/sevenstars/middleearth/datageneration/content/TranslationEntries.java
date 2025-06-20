@@ -301,6 +301,7 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".reach", "Reach: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".dyed", "Dyed: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".artisan", "Artisan: ");
+            put("tooltip."+ MiddleEarth.MOD_ID +".author", "Author: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".blocks_range", " Blocks");
             put("tooltip."+ MiddleEarth.MOD_ID +".backstab", "§7+50% damage when backstabbing");
             put("tooltip."+ MiddleEarth.MOD_ID +".door_size", "Door size: ");
