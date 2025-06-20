@@ -102,16 +102,20 @@ public class ModDecorativeBlocks {
     public static final Block CANDLE_HEAP = registerBlockWithItem("candle_heap",
             CandleHeapBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).nonOpaque().luminance(createLightLevelFromLitBlockState(10)));
 
+    public static final Block BASALT_STATUE = registerBlockWithItem("basalt_statue",
+            StatueBlock::new, AbstractBlock.Settings.copy(Blocks.BASALT).nonOpaque().requiresTool());
     public static final Block CALCITE_STATUE = registerBlockWithItem("calcite_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque().requiresTool());
     public static final Block GALONN_STATUE = registerBlockWithItem("galonn_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
     public static final Block KHAGALABAN_STATUE = registerBlockWithItem("khagalaban_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
-    public static final Block TUFF_STATUE = registerBlockWithItem("tuff_statue",
-            StatueBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).nonOpaque().requiresTool());
     public static final Block MEDGON_SPIKE = registerBlockWithItem("medgon_spike",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
+    public static final Block PUMICE_STATUE = registerBlockWithItem("pumice_statue",
+            StatueBlock::new, AbstractBlock.Settings.copy(Blocks.BASALT).nonOpaque().requiresTool());
+    public static final Block TUFF_STATUE = registerBlockWithItem("tuff_statue",
+            StatueBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).nonOpaque().requiresTool());
 
     public static final Block FIRE_OF_ORTHANC = registerBlock("fire_of_orthanc",
             FireOfOrthancBlock::new, AbstractBlock.Settings.create().requiresTool().mapColor(MapColor.BLACK)
