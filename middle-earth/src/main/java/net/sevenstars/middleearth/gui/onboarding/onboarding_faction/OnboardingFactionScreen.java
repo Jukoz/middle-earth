@@ -307,7 +307,11 @@ public class OnboardingFactionScreen extends Screen {
                 bannerBuilder.add(pattern, entry.color);
             }
 
-            /*context.draw((vertexConsumers) -> {
+            //TODO crab fix
+
+            //context.addBannerResult(this.elements.bannerField, ModelBaker.BANNER_BASE, true, DyeColor.GRAY, bannerBuilder.build());
+
+            /*context.((vertexConsumers) -> {
                 BannerBlockEntityRenderer.renderCanvas(matrixStack, vertexConsumers, 15728880, OverlayTexture.DEFAULT_UV, this.elements.bannerField, ModelBaker.BANNER_BASE, true, DyeColor.GRAY, bannerBuilder.build());
             });
             matrixStack.pop();
