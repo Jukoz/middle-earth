@@ -59,6 +59,8 @@ public class TintableCrossModel {
     public static List<Block> grassLikeBlocks = new ArrayList<>()
     {
         {
+            add(ModNatureBlocks.ATHELAS);
+
             add(ModNatureBlocks.BROWN_GRASS);
             add(ModNatureBlocks.GREEN_SHRUB);
             add(ModNatureBlocks.SMALL_DRY_SHRUB);
