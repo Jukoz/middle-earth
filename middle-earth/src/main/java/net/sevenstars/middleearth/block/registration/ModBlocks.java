@@ -371,17 +371,21 @@ public class ModBlocks {
     public static final Block WAXED_OXIDIZED_COPPER_BARS = registerMiscBlock("waxed_oxidized_copper_bars",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB), true);
 
+    public static final Block CRUDE_BARS = registerMiscBlock("crude_bars",
+            PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS), true);
     public static final Block TREATED_STEEL_BARS = registerMiscBlock("treated_steel_bars",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS), true);
-
     public static final Block SILVER_BARS = registerMiscBlock("silver_bars",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.METAL), true);
-
     public static final Block GILDED_BARS = registerMiscBlock("gilded_bars",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.COPPER), true);
 
+    public static final Block CRUDE_DOOR = registerMiscBlock("crude_door",
+            (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
     public static final Block TREATED_STEEL_DOOR = registerMiscBlock("treated_steel_door",
             (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
+    public static final Block CRUDE_TRAPDOOR = registerMiscBlock("crude_trapdoor",
+            (settings) -> new TrapdoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR), true);
     public static final Block TREATED_STEEL_TRAPDOOR = registerMiscBlock("treated_steel_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR), true);
     //endregion

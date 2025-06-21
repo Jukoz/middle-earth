@@ -17,6 +17,7 @@ public class SimpleTrapDoorModel {
             add(new Trapdoor(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB, ModBlocks.GREEN_WATTLE_TRAPDOOR));
             add(new Trapdoor(ModBlocks.RED_WATTLE_AND_WHITE_DAUB, ModBlocks.RED_WATTLE_TRAPDOOR));
             add(new Trapdoor(ModBlocks.WATTLE_AND_WHITE_DAUB, ModBlocks.WATTLE_TRAPDOOR));
+            add(new Trapdoor(ModBlocks.CRUDE_DOOR, ModBlocks.CRUDE_TRAPDOOR));
             add(new Trapdoor(ModBlocks.STEEL_BLOCK, ModBlocks.TREATED_STEEL_TRAPDOOR));
         }
     };

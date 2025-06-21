@@ -12,6 +12,7 @@ public class SimpleDoorModel {
 
     public static List<Door> doors = new ArrayList<>() {
         {
+            add(new Door(Blocks.IRON_BLOCK, ModBlocks.CRUDE_DOOR));
             add(new Door(Blocks.IRON_BLOCK, ModBlocks.TREATED_STEEL_DOOR));
         }
     };

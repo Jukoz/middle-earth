@@ -954,12 +954,29 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createCenterSurroundRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_PILLAR.asItem(), Items.RED_DYE, ModBlocks.RED_WATTLE_AND_WHITE_DAUB_PILLAR.asItem(), 8);
                 createCenterSurroundRecipe(exporter, ModBlocks.WATTLE_AND_WHITE_DAUB_DIAMOND.asItem(), Items.RED_DYE, ModBlocks.RED_WATTLE_AND_WHITE_DAUB_DIAMOND.asItem(), 8);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRUDE_BARS, 16)
+                        .pattern("SSS")
+                        .pattern("SSS")
+                        .input('S', ResourceItemsME.CRUDE_INGOT)
+                        .criterion(hasItem(ResourceItemsME.CRUDE_INGOT),
+                                conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.TREATED_STEEL_BARS, 16)
                         .pattern("SSS")
                         .pattern("SSS")
                         .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
                         .criterion(hasItem(ResourceItemsME.STEEL_INGOT),
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRUDE_TRAPDOOR, 2)
+                        .pattern("NSN")
+                        .pattern("NSN")
+                        .input('S', ResourceItemsME.CRUDE_INGOT)
+                        .input('N', ResourceItemsME.CRUDE_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.CRUDE_INGOT),
+                                conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.TREATED_STEEL_TRAPDOOR, 2)
@@ -969,6 +986,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
                         .criterion(hasItem(ResourceItemsME.STEEL_INGOT),
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRUDE_DOOR, 3)
+                        .pattern("SS")
+                        .pattern("SS")
+                        .pattern("SS")
+                        .input('S', ResourceItemsME.CRUDE_INGOT)
+                        .criterion(hasItem(ResourceItemsME.CRUDE_INGOT),
+                                conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.TREATED_STEEL_DOOR, 3)
@@ -1516,6 +1542,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input('P', TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .criterion(hasItem(ModDecorativeBlocks.ROPE),
                                 conditionsFromItem(ModDecorativeBlocks.ROPE))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CRUDE_ROD, 1)
+                        .pattern("S")
+                        .pattern("S")
+                        .pattern("S")
+                        .input('S', ResourceItemsME.CRUDE_INGOT)
+                        .criterion(hasItem(ResourceItemsME.CRUDE_INGOT),
+                                conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.TREATED_STEEL_ROD, 1)

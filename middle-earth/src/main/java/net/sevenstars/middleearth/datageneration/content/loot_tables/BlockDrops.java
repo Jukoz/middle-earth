@@ -104,6 +104,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WATERING_CAN);
             add(ModDecorativeBlocks.WOODEN_BUCKET);
 
+            add(ModDecorativeBlocks.CRUDE_ROD);
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 
             add(ModDecorativeBlocks.TREATED_ANVIL);

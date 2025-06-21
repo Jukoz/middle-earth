@@ -23,6 +23,7 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.PUMICE_STATUE);
             add(ModDecorativeBlocks.TUFF_STATUE);
 
+            add(ModDecorativeBlocks.CRUDE_ROD);
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 
             add(ModDecorativeBlocks.BRONZE_CHAIN);
@@ -65,9 +66,12 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.ORCISH_SCONCE);
             add(ModDecorativeBlocks.ORCISH_WALL_SCONCE);
 
+            add(ModBlocks.CRUDE_DOOR);
             add(ModBlocks.TREATED_STEEL_DOOR);
+            add(ModBlocks.CRUDE_TRAPDOOR);
             add(ModBlocks.TREATED_STEEL_TRAPDOOR);
 
+            add(ModBlocks.CRUDE_BARS);
             add(ModBlocks.TREATED_STEEL_BARS);
             add(ModBlocks.GILDED_BARS);
 

@@ -518,6 +518,8 @@ public class ModDecorativeBlocks {
     public static final Block GOLD_COIN_PILE = registerBlockWithItem("gold_coin_pile",
             CoinPileBlock::new, AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK).noCollision().nonOpaque());
 
+    public static final Block CRUDE_ROD = registerBlockWithItem("crude_rod",
+            DecorativeRodBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool());
     public static final Block TREATED_STEEL_ROD = registerBlockWithItem("treated_steel_rod",
             DecorativeRodBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool());
 
