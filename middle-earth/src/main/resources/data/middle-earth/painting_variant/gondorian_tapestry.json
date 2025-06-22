@@ -1,6 +1,6 @@
 {
-  "asset_id": "middle-earth:dwarven_plaque",
-  "height": 3,
+  "asset_id": "middle-earth:gondorian_tapestry",
+  "height": 6,
   "width": 3,
   "author": {
     "color": "gray",
@@ -8,6 +8,6 @@
   },
   "title": {
   "color": "yellow",
-  "translate": "painting.middle-earth.dwarven_plaque.title"
+  "translate": "painting.middle-earth.gondorian_tapestry.title"
   }
 }

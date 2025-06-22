@@ -670,46 +670,22 @@ public class TranslationEntries {
             put("tag.item."+ MiddleEarth.MOD_ID +".warg_food", "Warg Food");
             put("tag.item."+ MiddleEarth.MOD_ID +".worm", "Worm");
 
-            put("painting."+ MiddleEarth.MOD_ID +".dwarf_portrait.author", "Boenndal");
+            put("painting."+ MiddleEarth.MOD_ID +".author.boenndal", "Boenndal");
+            put("painting."+ MiddleEarth.MOD_ID +".author.scosher", "Scosher");
+
             put("painting."+ MiddleEarth.MOD_ID +".dwarf_portrait.title", "Dwarf Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".elf_portrait.author", "Scosher");
             put("painting."+ MiddleEarth.MOD_ID +".elf_portrait.title", "Elf Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".hobbit_portrait.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".hobbit_portrait.title", "Hobbit Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".human_portrait.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".human_portrait.title", "Human Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".orc_portrait.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".orc_portrait.title", "Orc Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".note_board.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".note_board.title", "Note Board");
-
-            put("painting."+ MiddleEarth.MOD_ID +".pan_board.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".pan_board.title", "Pan Board");
-
-            put("painting."+ MiddleEarth.MOD_ID +".rohirric_tapestry.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".rohirric_tapestry.title", "Rohirric Tapestry");
-
-            put("painting."+ MiddleEarth.MOD_ID +".small_mirror.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".small_mirror.title", "Small Mirror");
-
-            put("painting."+ MiddleEarth.MOD_ID +".tall_mirror.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".tall_mirror.title", "Tall Mirror");
-
-            put("painting."+ MiddleEarth.MOD_ID +".prancing_pony.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".prancing_pony.title", "Prancing Pony");
-
-            put("painting."+ MiddleEarth.MOD_ID +".tool_board.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".tool_board.title", "Tool Board");
-
-            put("painting."+ MiddleEarth.MOD_ID +".gondor_tapestry.author", "Boenndal");
-            put("painting."+ MiddleEarth.MOD_ID +".gondor_tapestry.title", "Gondor Tapestry");
-
-            put("painting."+ MiddleEarth.MOD_ID +".dwarven_plaque.author", "Boenndal");
+            put("painting."+ MiddleEarth.MOD_ID +".gondorian_tapestry.title", "Gondorian Tapestry");
             put("painting."+ MiddleEarth.MOD_ID +".dwarven_plaque.title", "Dwarven Plaque");
         }
     };
