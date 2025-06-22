@@ -109,7 +109,8 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
-            .addToSet(StoneBlockTypes.OLD_BLOCKS));
+            .addToSet(StoneBlockTypes.OLD_BLOCKS)
+            .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
     public static StoneBlockSetBuilder TUFF_SET = registerStoneSet(new StoneBlockSetBuilder("tuff",
             Blocks.TUFF, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.TUFF, true, true)
@@ -136,7 +137,8 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
-            .addToSet(StoneBlockTypes.OLD_BLOCKS));
+            .addToSet(StoneBlockTypes.OLD_BLOCKS)
+            .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
     public static StoneBlockSetBuilder BLACKSTONE_SET = registerStoneSet(new StoneBlockSetBuilder("blackstone",
             Blocks.BLACKSTONE, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
