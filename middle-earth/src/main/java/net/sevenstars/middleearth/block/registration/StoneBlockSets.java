@@ -37,7 +37,8 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
-            .addToSet(StoneBlockTypes.OLD_BLOCKS));
+            .addToSet(StoneBlockTypes.OLD_BLOCKS)
+            .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
     public static StoneBlockSetBuilder GRANITE_SET = registerStoneSet(new StoneBlockSetBuilder("granite",
             Blocks.GRANITE, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.ORANGE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
