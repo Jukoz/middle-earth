@@ -163,7 +163,8 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
-            .addToSet(StoneBlockTypes.OLD_BLOCKS_PILLAR));
+            .addToSet(StoneBlockTypes.OLD_BLOCKS_PILLAR)
+            .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
     public static StoneBlockSetBuilder SLATE_SET = registerStoneSet(new StoneBlockSetBuilder("slate",
             null, STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
