@@ -1,0 +1,13 @@
+{
+  "asset_id": "middle-earth:dwarven_plaque",
+  "height": 3,
+  "width": 3,
+  "author": {
+    "color": "gray",
+    "translate": "painting.middle-earth.dwarven_plaque.author"
+  },
+  "title": {
+  "color": "yellow",
+  "translate": "painting.middle-earth.dwarven_plaque.title"
+  }
+}

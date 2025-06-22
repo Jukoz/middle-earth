@@ -705,6 +705,12 @@ public class TranslationEntries {
 
             put("painting."+ MiddleEarth.MOD_ID +".tool_board.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".tool_board.title", "Tool Board");
+
+            put("painting."+ MiddleEarth.MOD_ID +".gondor_tapestry.author", "Boenndal");
+            put("painting."+ MiddleEarth.MOD_ID +".gondor_tapestry.title", "Gondor Tapestry");
+
+            put("painting."+ MiddleEarth.MOD_ID +".dwarven_plaque.author", "Boenndal");
+            put("painting."+ MiddleEarth.MOD_ID +".dwarven_plaque.title", "Dwarven Plaque");
         }
     };
 }
