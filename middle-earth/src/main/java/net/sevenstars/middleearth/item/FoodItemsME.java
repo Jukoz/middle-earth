@@ -26,8 +26,6 @@ import java.util.function.Function;
  * Middle-earth mod Food Items registry
  */
 public class FoodItemsME {
-
-
     public static final ConsumableComponent BIRCH_BOTTLE = ConsumableComponents.drink().consumeSeconds(2.0F)
             .consumeEffect(new RemoveEffectsConsumeEffect(StatusEffects.POISON)).build();;
     public static final ConsumableComponent MAPLE_BOTTLE = ConsumableComponents.drink().consumeSeconds(2.0F)
@@ -63,7 +61,7 @@ public class FoodItemsME {
                     .food(new FoodComponent.Builder().nutrition(5).saturationModifier(1.2f).build()));
     public static final Item TOUGH_BERRIES = registerItem("tough_berries",
             (settings) -> new BlockItem(ModNatureBlocks.TOUGH_BERRY_BUSH, settings), new Item.Settings());
-    public static final Item STRAWBERRY = registerItem("strawberry",
+    public static final Item STRAWBERRIES = registerItem("strawberries",
             (settings) -> new BlockItem(ModNatureBlocks.STRAWBERRY_BUSH, settings), new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.1f).build()));
 

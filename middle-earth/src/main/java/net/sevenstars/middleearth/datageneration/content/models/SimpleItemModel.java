@@ -87,7 +87,7 @@ public class SimpleItemModel {
             add(FoodItemsME.COOKED_SWAN);
             add(FoodItemsME.MAGGOTY_BREAD);
             add(FoodItemsME.TOUGH_BERRIES);
-            add(FoodItemsME.STRAWBERRY);
+            add(FoodItemsME.STRAWBERRIES);
 
             add(ResourceItemsME.GLOWWORM_BOTTLE);
 

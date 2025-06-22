@@ -585,7 +585,7 @@ public class ModRegistries {
         registry.add(FoodItemsME.LEMBAS, 1.0F);
         registry.add(FoodItemsME.MAGGOTY_BREAD, 0.8F);
         registry.add(FoodItemsME.TOUGH_BERRIES, 0.3F);
-        registry.add(FoodItemsME.STRAWBERRY, 0.5F);
+        registry.add(FoodItemsME.STRAWBERRIES, 0.5F);
         registry.add(FoodItemsME.TOMATO, 0.5F);
         registry.add(FoodItemsME.BELL_PEPPER, 0.5F);
         registry.add(FoodItemsME.CUCUMBER, 0.5F);
