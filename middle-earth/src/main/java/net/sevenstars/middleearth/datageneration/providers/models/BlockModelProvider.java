@@ -1175,9 +1175,8 @@ public class BlockModelProvider extends FabricModelProvider {
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(layers).with(BlockStateVariantMap.models(Properties.LAYERS).generate((integer) -> {
             WeightedVariant var2;
             if (integer < 8) {
-                Block var10000 = origin;
                 int var10001 = integer;
-                var2 = createWeightedVariant(ModelIds.getBlockSubModelId(var10000, "_layer_height" + var10001 * 2));
+                var2 = createWeightedVariant(ModelIds.getBlockSubModelId(origin, "_layer_height" + var10001 * 2));
             } else {
                 var2 = weightedVariant;
             }
@@ -1254,6 +1253,8 @@ public class BlockModelProvider extends FabricModelProvider {
             identifier = createWeightedVariant(Models.TEMPLATE_ORIENTABLE_TRAPDOOR_TOP.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector));
             identifier2 = Models.TEMPLATE_ORIENTABLE_TRAPDOOR_BOTTOM.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
             identifier3 = createWeightedVariant(Models.TEMPLATE_ORIENTABLE_TRAPDOOR_OPEN.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector));
+
+            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createOrientableTrapdoorBlockState(trapdoorBlock, identifier, createWeightedVariant(identifier2), identifier3));
         } else {
             if (block == Blocks.BASALT) {
                 textureMap = TextureMap.texture(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block).getPath() + "_side"));
@@ -1263,11 +1264,11 @@ public class BlockModelProvider extends FabricModelProvider {
             identifier = createWeightedVariant(Models.TEMPLATE_TRAPDOOR_TOP.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector));
             identifier2 = Models.TEMPLATE_TRAPDOOR_BOTTOM.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
             identifier3 = createWeightedVariant(Models.TEMPLATE_TRAPDOOR_OPEN.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector));
+
+            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createTrapdoorBlockState(trapdoorBlock, identifier, createWeightedVariant(identifier2), identifier3));
+
         }
-
         blockStateModelGenerator.registerParentedItemModel(trapdoorBlock, identifier2);
-
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createTrapdoorBlockState(trapdoorBlock, identifier, createWeightedVariant(identifier2), identifier3));
     }
 
     public void registerOrientableThickLadder(BlockStateModelGenerator blockStateModelGenerator, Block ladderBlock) {
