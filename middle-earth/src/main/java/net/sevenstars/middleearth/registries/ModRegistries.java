@@ -43,6 +43,7 @@ public class ModRegistries {
     public static void registerRegistryAliases() {
         specialAliases.put("khagalaban", "gonluin");
         specialAliases.put("chiseled_blackstone_bricks", "chiseled_polished_blackstone_bricks");
+        specialAliases.put("carved_window_vertical_slab", "carved_window_pane");
 
         if (MiddleEarth.IS_DEBUG){
             try {

@@ -18,6 +18,11 @@ public class SimpleVerticalSlabModel {
         }
     };
 
+    public static List<VerticalSlab> columnVerticalSlabs = new ArrayList<>() {
+        {
+        }
+    };
+
     public static List<VerticalSlab> woodVerticalSlabs = new ArrayList<>() {
         {
         }

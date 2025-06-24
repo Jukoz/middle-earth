@@ -25,4 +25,10 @@ public class SimplePillarModel {
 
         }
     };
+
+    public static List<StonePillar> carvedWindows = new ArrayList<>() {
+        {
+
+        }
+    };
 }

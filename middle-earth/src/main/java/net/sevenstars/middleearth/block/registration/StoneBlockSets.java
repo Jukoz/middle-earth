@@ -458,7 +458,7 @@ public class StoneBlockSets {
                     set.chiseledSmoothBlocks = StoneBlockSetCreation.createStoneChiseledSet("smooth_" + set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
                 }
                 //TODO make like pillars with vertical slab but no wall, vert slab = normal texture top and sides
-                case CARVED_WINDOW -> set.carvedWindows = StoneBlockSetCreation.createGlassSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
+                case CARVED_WINDOW -> set.carvedWindows = StoneBlockSetCreation.createCarvedWindowSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
             }
         });
 

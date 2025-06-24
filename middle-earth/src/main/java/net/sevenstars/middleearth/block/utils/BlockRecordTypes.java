@@ -51,11 +51,11 @@ public class BlockRecordTypes {
         }
     }
 
-    public record GlassSet(Block glass, Block pane) {
-        public static List<Block> getAllBlocks(GlassSet set){
+    public record CarvedWindow(Block block, Block verticalSlab) {
+        public static List<Block> getAllBlocks(CarvedWindow set){
             List<Block> list = new ArrayList<>();
-            list.add(set.glass);
-            list.add(set.pane);
+            list.add(set.block);
+            list.add(set.verticalSlab);
             return list;
         }
     }

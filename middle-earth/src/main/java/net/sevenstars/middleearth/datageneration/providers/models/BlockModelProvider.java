@@ -108,6 +108,17 @@ public class BlockModelProvider extends FabricModelProvider {
             blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
         }
 
+        for (SimplePillarModel.StonePillar block : SimplePillarModel.carvedWindows) {
+            TextureMap textureMap;
+            if (block.origin() == Blocks.BASALT || block.origin() == Blocks.DEEPSLATE){
+                textureMap = TextureMap.sideEnd(TextureMap.getId(block.base()), TextureMap.getSubId(block.origin(), "_top"));
+            } else {
+                textureMap = TextureMap.sideEnd(TextureMap.getId(block.base()), TextureMap.getId(block.origin()));
+            }
+            WeightedVariant weightedVariant = createWeightedVariant(Models.CUBE_COLUMN.upload(block.base(), textureMap, blockStateModelGenerator.modelCollector));
+            blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(block.base(), weightedVariant));
+        }
+
         for (SimpleSlabModel.Slab block : SimpleSlabModel.slabs) {
             WeightedVariant id = createWeightedVariant(ModelIds.getBlockModelId(block.origin()));
             Block slab = block.slab();
@@ -629,6 +640,14 @@ public class BlockModelProvider extends FabricModelProvider {
                 }
                 registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), id);
             }
+        }
+
+        for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.columnVerticalSlabs) {
+            Identifier identifier = Registries.BLOCK.getId(verticalSlab.block());
+            Identifier identifier2 = Registries.BLOCK.getId(verticalSlab.verticalSlab());
+            registerColumnVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(),
+                    identifier.getNamespace(), identifier.getPath(), identifier.getPath(), identifier2.getPath().replaceAll("_vertical_slab", ""));
+
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaWoodVerticalSlabs) {

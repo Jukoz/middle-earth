@@ -47,7 +47,7 @@ public class StoneBlockSetBuilder {
 
     public BlockRecordTypes.RegularSet oldBlocks;
 
-    public BlockRecordTypes.GlassSet carvedWindows;
+    public BlockRecordTypes.CarvedWindow carvedWindows;
 
     public String setName;
     public Block source;

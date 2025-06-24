@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.block.special.RocksBlock;
 import net.sevenstars.middleearth.block.special.StoneChairBlock;
 import net.sevenstars.middleearth.block.special.StoneTableBlock;
 import net.sevenstars.middleearth.block.special.StoolBlock;
+import net.sevenstars.middleearth.block.special.verticalSlabs.TransparentVerticalSlab;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 
@@ -124,16 +125,17 @@ public class StoneBlockSetCreation {
         return new BlockRecordTypes.PillarSet(block, verticalSlab, wall);
     }
 
-    public static BlockRecordTypes.GlassSet createGlassSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup) {
-        Block glass = getVanillaOrNew(name, TransparentBlock::new,
+    public static BlockRecordTypes.CarvedWindow createCarvedWindowSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup) {
+        Block block = getVanillaOrNew(name, TransparentBlock::new,
                 AbstractBlock.Settings.create()
                         .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool()
                         .nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never),false);
 
-        Block pane = getVanillaOrNew(name + "_pane", PaneBlock::new,
-                AbstractBlock.Settings.copy(glass).strength(hardness, blastResistance).requiresTool().nonOpaque(),false);
+        Block verticalSlab = getVanillaOrNew(name + "_vertical_slab", TransparentVerticalSlab::new,
+                AbstractBlock.Settings.copy(block).strength(hardness, blastResistance).requiresTool()
+                        .nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never),false);
 
-        return new BlockRecordTypes.GlassSet(glass, pane);
+        return new BlockRecordTypes.CarvedWindow(block, verticalSlab);
     }
 
     private static Block getVanillaOrNew(String path, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop){

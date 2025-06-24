@@ -56,19 +56,19 @@ public class HelpingGenerator {
                     case BRICKWORK_BLOCKS -> regularBlocks(set.brickworkBlocks);
                     case OLD_BLOCKS, OLD_BLOCKS_PILLAR -> regularBlocks(set.oldBlocks);
                     case PILLAR_BLOCKS -> {
-                        pillarBlocks(set.pillarBlocks);
-                        if(set.hasMossy) pillarBlocks(set.mossyPillarBlocks);
-                        if(set.hasCracked) pillarBlocks(set.crackedPillarBlocks);
+                        pillarBlocks(set.pillarBlocks, set.brickBlocks.base());
+                        if(set.hasMossy) pillarBlocks(set.mossyPillarBlocks, set.pillarBlocks.base());
+                        if(set.hasCracked) pillarBlocks(set.crackedPillarBlocks, set.pillarBlocks.base());
                     }
                     case CHISELED_BLOCKS -> {
-                        pillarBlocks(set.chiseledBlocks);
-                        pillarBlocks(set.chiseledBricksBlocks);
-                        pillarBlocks(set.chiseledPolishedBlocks);
-                        pillarBlocks(set.chiseledTilesBlocks);
-                        pillarBlocks(set.chiseledSmoothBlocks);
+                        pillarBlocks(set.chiseledBlocks, set.baseBlocks.slab());
+                        pillarBlocks(set.chiseledBricksBlocks, set.baseBlocks.slab());
+                        pillarBlocks(set.chiseledPolishedBlocks, set.baseBlocks.slab());
+                        pillarBlocks(set.chiseledTilesBlocks, set.baseBlocks.slab());
+                        pillarBlocks(set.chiseledSmoothBlocks, set.baseBlocks.slab());
                     }
                     case CARVED_WINDOW -> {
-                        glassBlocks(set.carvedWindows);
+                        carvedWindowBlocks(set.carvedWindows, set.baseBlocks.base());
                     }
                 }
             });
@@ -444,9 +444,15 @@ public class HelpingGenerator {
 
         if (!(Objects.equals(Registries.BLOCK.getId(block).getNamespace(), "minecraft"))){
             switch (block){
-                case PillarBlock pillarBlock -> SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(pillarBlock));
+                case PillarBlock pillarBlock -> SimplePillarModel.stonePillars.add(new SimplePillarModel.StonePillar(pillarBlock, base));
                 case SlabBlock slabBlock -> SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(base, slabBlock));
-                case VerticalSlabBlock verticalSlabBlock -> SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
+                case VerticalSlabBlock verticalSlabBlock -> {
+                    if (block.getName().toString().contains("carved_window")) {
+                        SimpleVerticalSlabModel.columnVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
+                    }else {
+                        SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
+                    }
+                }
                 case StairsBlock stairsBlock -> SimpleStairModel.stairs.add(new SimpleStairModel.Stair(base, stairsBlock));
                 case WallBlock wallBlock -> {
                     Walls.walls.add(wallBlock);
@@ -460,7 +466,13 @@ public class HelpingGenerator {
                 case StoneTableBlock tableBlock -> SimpleStoneTableModel.tables.add(new SimpleStoneTableModel.Table(base, tableBlock));
                 case StoneChairBlock chairBlock -> SimpleStoneChairModel.chairs.add(new SimpleStoneChairModel.Chair(base, chairBlock));
                 case RocksBlock rocksBlock -> SimpleRocksModel.rocks.add(new SimpleRocksModel.Rocks(base, rocksBlock));
-                case Block block1 -> SimpleBlockModel.blocks.add(block1);
+                case Block block1 -> {
+                    if (block.getName().toString().contains("carved_window")){
+                        SimplePillarModel.carvedWindows.add(new SimplePillarModel.StonePillar(block1, base));
+                    } else {
+                        SimpleBlockModel.blocks.add(block1);
+                    }
+                }
             }
         }
     }
@@ -469,12 +481,12 @@ public class HelpingGenerator {
         BlockRecordTypes.RegularSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
     }
 
-    public static void pillarBlocks(BlockRecordTypes.PillarSet set) {
-        BlockRecordTypes.PillarSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.verticalSlab()));
+    public static void pillarBlocks(BlockRecordTypes.PillarSet set, Block origin) {
+        BlockRecordTypes.PillarSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, origin, set.verticalSlab()));
     }
 
-    public static void glassBlocks(BlockRecordTypes.GlassSet set) {
-        BlockRecordTypes.GlassSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.glass(), null));
+    public static void carvedWindowBlocks(BlockRecordTypes.CarvedWindow set, Block origin) {
+        BlockRecordTypes.CarvedWindow.getAllBlocks(set).forEach(block -> addBlocksToLists(block, origin, null));
     }
 
     public static void mainStoneBlocks(BlockRecordTypes.BaseStoneSet set){
