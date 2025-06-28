@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -53,7 +54,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         return new StructureManagerScreenHandler(syncId, playerInventory);
     }
 
+
     public void alertDeath(LivingEntity entity) {
+        if(entity.getWorld().isClient)
+            return;
         this.entities.remove(entity);
 
         if(this.entities.isEmpty()){
@@ -74,5 +78,9 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             entities.add(npcEntityToSpawn);
             this.world.spawnEntity(npcEntityToSpawn);
         }
+    }
+    public static void tick(ServerWorld world, BlockPos blockPos, BlockState blockState, StructureManagerBlockEntity entity) {
+        // MiddleEarth.LOGGER.logDebugMsg("current time : " + world.getTime());
+        // Make it so the entities respawns after a tick delay (1 day = 24 000, 5 days = 120 000)
     }
 }

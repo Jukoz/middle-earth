@@ -1,10 +1,13 @@
 package net.sevenstars.middleearth.entity.npcs;
 
 import com.mojang.serialization.DataResult;
+import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentHolder;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -19,6 +22,9 @@ import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.GlobalPos;
+import net.minecraft.util.profiler.Profiler;
+import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -51,6 +57,25 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
         initializeData(world);
+    }
+    @Override
+    protected void mobTick(ServerWorld world) {
+        Profiler profiler = Profilers.get();
+        profiler.push("npcBrain");
+        this.getBrain().tick(world, this);
+        profiler.pop();
+        profiler.push("npcActivityUpdate");
+        NpcBrain.updateActivities(this);
+        profiler.pop();
+        super.mobTick(world);
+    }
+
+    protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
+        return NpcBrain.create(this, dynamic);
+    }
+
+    public Brain<NpcEntity> getBrain() {
+        return (Brain<NpcEntity>)super.getBrain();
     }
 
     public static NpcEntity create(World world){
@@ -188,7 +213,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     @Override
     public void onDeath(DamageSource damageSource) {
         super.onDeath(damageSource);
-        if(structureManagerBlockEntity != null){
+        if(structureManagerBlockEntity != null && !structureManagerBlockEntity.isRemoved()){
             structureManagerBlockEntity.alertDeath(this);
         }
     }
@@ -276,5 +301,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     @Override
     protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
         // No drop allowed
+    }
+
+    public void releaseTicketFor(MemoryModuleType<GlobalPos> destination) {
+        this.releaseTicketFor(MemoryModuleType.HOME);
     }
 }

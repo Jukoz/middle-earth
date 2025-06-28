@@ -9,7 +9,7 @@ public class StructureData {
     public static final Codec<StructureData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(StructureData::getIdString),
             Codec.STRING.fieldOf("faction_id").forGetter(StructureData::getFactionIdString)
-          ).apply(instance, StructureData::new));
+    ).apply(instance, StructureData::new));
 
     private final Identifier id;
     private final Identifier factionId;
