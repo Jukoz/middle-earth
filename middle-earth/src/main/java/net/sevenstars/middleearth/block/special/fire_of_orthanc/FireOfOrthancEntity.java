@@ -1,7 +1,11 @@
 package net.sevenstars.middleearth.block.special.fire_of_orthanc;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.minecraft.block.BlockState;
@@ -21,6 +25,7 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
     private static final TrackedData<BlockState> BLOCK_STATE;
     private static final int DEFAULT_FUSE = 16;
     public static final float EXPLOSION_FORCE = 12.31f;
+    public static final BlockState DEFAULT_BLOCK_STATE = ModDecorativeBlocks.FIRE_OF_ORTHANC.getDefaultState();
     protected boolean chainReaction = false;
     @Nullable
     private LivingEntity causingEntity;
@@ -58,17 +63,16 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
     }
 
     @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
-        this.setFuse(nbt.getShort("fuse", (short) 0));
-        if (nbt.contains("block_state")) {
-            this.setBlockState(NbtHelper.toBlockState(this.getWorld().createCommandRegistryWrapper(RegistryKeys.BLOCK), nbt.getCompound("block_state").get()));
-        }
+    protected void readCustomData(ReadView view) {
+        this.setFuse(view.getShort("fuse", (short) 0));
+        this.setBlockState((BlockState)view.read("block_state", BlockState.CODEC).orElse(DEFAULT_BLOCK_STATE));
+
     }
 
     @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
-        nbt.putShort("fuse", (short)this.getFuse());
-        nbt.put("block_state", NbtHelper.fromBlockState(this.getBlockState()));
+    protected void writeCustomData(WriteView view) {
+        view.putShort("fuse", (short)this.getFuse());
+        view.put("block_state", BlockState.CODEC, this.getBlockState());
     }
 
     protected double getGravity() {

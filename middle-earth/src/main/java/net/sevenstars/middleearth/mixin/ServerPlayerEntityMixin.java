@@ -37,53 +37,10 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
     @Shadow public MinecraftServer server;
     @Shadow public ServerPlayerInteractionManager interactionManager;
 
-    @Inject(method = "tick", at = @At("HEAD"))
-    public void tick(CallbackInfo ci) {
-        PlayerMovementData.addAFKTime((IEntityDataSaver) this,1);
-        if(isCreative() || isSpectator()) {
-            if(hasStatusEffect(ModStatusEffects.ENSHROUDED) && getStatusEffect(ModStatusEffects.ENSHROUDED).isInfinite()){
-                setStatusEffect(new StatusEffectInstance(ModStatusEffects.ENSHROUDED, 40), this);
-                setStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 40), this);
-                setStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 40), this);
-                setStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 40), this);
-            }
-            return;
-        }
-
-        long currentTick = getWorld().getTickOrder();
-        if(currentTick % 5 == 0){
-            if(getWorld() == null) return;
-            PlayerData data = StateSaverAndLoader.getPlayerState(getWorld().getPlayerByUuid(getUuid()));
-            if(data == null) return;
-
-            int currentLightLevel = getWorld().getLightLevel(getBlockPos());
-
-            double delversFearStrenght = getAttributeValue(ModEntityAttributes.DELVERS_FEAR_STRENGTH);
-
-            if(delversFearStrenght > 0.0 && currentLightLevel < 3 && !getEntityWorld().isSkyVisible(getBlockPos())) {
-                data.addToDelversFearCountInSeconds();
-
-                if(data.getDelversFearCountInSeconds() > delversFearStrenght){
-                    addStatusEffect(new StatusEffectInstance(ModStatusEffects.ENSHROUDED, -1));
-                    addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, -1));
-                    addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, -1));
-                }
-            } else {
-                if(hasStatusEffect(ModStatusEffects.ENSHROUDED) && getStatusEffect(ModStatusEffects.ENSHROUDED).isInfinite()){
-                    setStatusEffect(new StatusEffectInstance(ModStatusEffects.ENSHROUDED, 40), this);
-                    setStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 40), this);
-                    setStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 40), this);
-
-                }
-                data.resetDelversFearCount();
-            }
-        }
+    public ServerPlayerEntityMixin(World world, GameProfile profile) {
+        super(world, profile);
     }
 
-    public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
-        super(world, pos, yaw, gameProfile);
-
-    }
 
     @Nullable
     @Override
@@ -165,6 +122,46 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         return this.interactionManager.getGameMode() == GameMode.CREATIVE;
     }
 
+    @Inject(method = "tick", at = @At("HEAD"))
+    public void tick(CallbackInfo ci) {
+        PlayerMovementData.addAFKTime((IEntityDataSaver) this,1);
+        if(isCreative() || isSpectator()) {
+            if(hasStatusEffect(ModStatusEffects.ENSHROUDED) && getStatusEffect(ModStatusEffects.ENSHROUDED).isInfinite()){
+                setStatusEffect(new StatusEffectInstance(ModStatusEffects.ENSHROUDED, 40), this);
+                setStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 40), this);
+                setStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 40), this);
+                setStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 40), this);
+            }
+            return;
+        }
 
+        long currentTick = getWorld().getTickOrder();
+        if(currentTick % 5 == 0){
+            if(getWorld() == null) return;
+            PlayerData data = StateSaverAndLoader.getPlayerState(getWorld().getPlayerByUuid(getUuid()));
+            if(data == null) return;
 
+            int currentLightLevel = getWorld().getLightLevel(getBlockPos());
+
+            double delversFearStrenght = getAttributeValue(ModEntityAttributes.DELVERS_FEAR_STRENGTH);
+
+            if(delversFearStrenght > 0.0 && currentLightLevel < 3 && !getWorld().isSkyVisible(getBlockPos())) {
+                data.addToDelversFearCountInSeconds();
+
+                if(data.getDelversFearCountInSeconds() > delversFearStrenght){
+                    addStatusEffect(new StatusEffectInstance(ModStatusEffects.ENSHROUDED, -1));
+                    addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, -1));
+                    addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, -1));
+                }
+            } else {
+                if(hasStatusEffect(ModStatusEffects.ENSHROUDED) && getStatusEffect(ModStatusEffects.ENSHROUDED).isInfinite()){
+                    setStatusEffect(new StatusEffectInstance(ModStatusEffects.ENSHROUDED, 40), this);
+                    setStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 40), this);
+                    setStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 40), this);
+
+                }
+                data.resetDelversFearCount();
+            }
+        }
+    }
 }

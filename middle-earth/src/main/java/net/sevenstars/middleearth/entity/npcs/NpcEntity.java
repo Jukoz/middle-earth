@@ -21,6 +21,8 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.profiler.Profiler;
@@ -227,35 +229,37 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         builder.add(TEXTURE_DATA, new NpcEntityTextureData());
     }
 
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
+    //TODO crab to fix
+    /*@Override
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
         DataResult<NbtElement> npcData = NpcEntityData.CODEC.encodeStart(NbtOps.INSTANCE, this.getNpcData());
         if(npcData.isSuccess()){
-            nbt.put("NpcData", npcData.getOrThrow());
+            view.put("NpcData", npcData.getOrThrow());
         }
 
         DataResult<NbtElement> npcTextureData = NpcEntityTextureData.CODEC.encodeStart(NbtOps.INSTANCE, this.getNpcTextureData());
         if(npcTextureData.isSuccess()){
-            nbt.put("NpcTextureData", npcTextureData.getOrThrow());
+            view.put("NpcTextureData", npcTextureData.getOrThrow());
         }
     }
 
-
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        if (nbt.contains("NpcData")) {
-            DataResult<NpcEntityData> dataResult = NpcEntityData.CODEC.parse(NbtOps.INSTANCE, nbt.get("NpcData"));
+    @Override
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        if (view.contains("NpcData")) {
+            DataResult<NpcEntityData> dataResult = NpcEntityData.CODEC.parse(NbtOps.INSTANCE, view.get("NpcData"));
             if(dataResult.isSuccess()){
                 setNpcData(dataResult.getOrThrow());
             }
         }
-        if (nbt.contains("NpcTextureData")) {
-            DataResult<NpcEntityTextureData> dataResult = NpcEntityTextureData.CODEC.parse(NbtOps.INSTANCE, nbt.get("NpcTextureData"));
+        if (view.contains("NpcTextureData")) {
+            DataResult<NpcEntityTextureData> dataResult = NpcEntityTextureData.CODEC.parse(NbtOps.INSTANCE, view.get("NpcTextureData"));
             if(dataResult.isSuccess()){
                 setNpcTextureData(dataResult.getOrThrow());
             }
         }
-    }
+    }*/
 
     public void setNpcData(NpcEntityData npcEntityData) {
         this.dataTracker.set(DATA, npcEntityData);

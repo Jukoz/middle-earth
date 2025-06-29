@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.mixin;
 
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,17 +24,17 @@ public class EntityDataSaverMixin implements IEntityDataSaver {
         return persistentData;
     }
 
-    @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
-    protected void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
+    /*@Inject(method = "writeCustomData", at = @At("HEAD"))
+    protected void writeCustomDataToNbt(WriteView view, CallbackInfo ci) {
         if(persistentData != null) {
-            nbt.put(KEY, persistentData);
+            view.putString(KEY, persistentData);
         }
     }
 
-    @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
-    protected void readCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
-        if(nbt.contains(KEY)) {
-            persistentData = nbt.getCompound(KEY).get();
+    @Inject(method = "readCustomData", at = @At("HEAD"))
+    protected void readCustomDataToNbt(ReadView view, CallbackInfo ci) {
+        if(view.contains(KEY)) {
+            persistentData = view.getString(KEY).get();
         }
-    }
+    }*/
 }

@@ -50,7 +50,7 @@ public class PacketSetSpawnData extends ClientToServerPacket<PacketSetSpawnData>
         try{
             context.player().getServer().execute(() -> {
 
-                MinecraftServer server = context.player().server;
+                MinecraftServer server = context.player().getServer();
                 ServerPlayerEntity player = server.getPlayerManager().getPlayer(context.player().getUuid());
 
 

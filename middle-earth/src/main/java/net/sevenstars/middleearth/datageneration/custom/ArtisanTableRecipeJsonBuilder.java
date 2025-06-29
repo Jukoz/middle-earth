@@ -75,7 +75,7 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
     }
 
     public ArtisanTableRecipeJsonBuilder input(TagKey<Item> tag) {
-        return this.input(Ingredient.fromTag(this.registryLookup.getOrThrow(tag)));
+        return this.input(Ingredient.ofTag(this.registryLookup.getOrThrow(tag)));
     }
 
     public ArtisanTableRecipeJsonBuilder input(ItemConvertible itemProvider) {

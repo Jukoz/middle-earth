@@ -1,20 +1,32 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.stone;
 
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollAnimations;
+import net.sevenstars.middleearth.entity.beasts.warg.WargAnimations;
 
 public class StoneTrollModel extends EntityModel<TrollEntityRenderState> {
     private final ModelPart r;
     private final ModelPart head;
+
+    private final Animation walkingAnimation;
+    private final Animation attackinggAnimation;
+    private final Animation chargingAnimation;
+    private final Animation throwingAnimation;
 
     public StoneTrollModel(ModelPart root) {
         super(root);
 
         this.r = root.getChild("r");
         this.head = r.getChild("upperbody").getChild("upperbodynoarms").getChild("head");
+
+        this.walkingAnimation = StoneTrollAnimations.WALK.createAnimation(root);
+        this.attackinggAnimation = StoneTrollAnimations.ATTACK.createAnimation(root);
+        this.chargingAnimation = StoneTrollAnimations.CHARGE.createAnimation(root);
+        this.throwingAnimation = StoneTrollAnimations.THROW.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -75,10 +87,10 @@ public class StoneTrollModel extends EntityModel<TrollEntityRenderState> {
         super.setAngles(state);
         this.setHeadAngles(state.relativeHeadYaw, state.pitch);
 
-        animateWalking(SnowTrollAnimations.WALKING, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0f, 2.5f);
-        animate(state.attackAnimationState, SnowTrollAnimations.ATTACK, state.age);
-        animate(state.chargeAnimationState, SnowTrollAnimations.CHARGING, state.age);
-        animate(state.throwingAnimationState, SnowTrollAnimations.THROWING, state.age);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
+        this.attackinggAnimation.apply(state.attackAnimationState, state.age);
+        this.chargingAnimation.apply(state.chargeAnimationState, state.age);
+        this.throwingAnimation.apply(state.throwingAnimationState, state.age);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

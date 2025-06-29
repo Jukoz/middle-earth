@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -94,7 +95,7 @@ public class OnboardingFactionScreen extends Screen {
         public void draw(DrawContext context, int startX, int startY){
             this.startX = startX;
             this.startY = startY;
-            context.drawTexture(RenderLayer::getGuiTextured, texture, startX, startY, uvX, uvY, width, height, 256, 256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, texture, startX, startY, uvX, uvY, width, height, 256, 256);
         }
     }
 
@@ -218,14 +219,12 @@ public class OnboardingFactionScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         ModWidget.updateMouse(mouseX, mouseY);
 
-        this.renderBackground(context, mouseX, mouseY, delta);
         this.renderDisplays(context, mouseX, mouseY, delta);
     }
 
     @Override
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        DiffuseLighting.disableGuiDepthLighting();
-
+        //DiffuseLighting.disableGuiDepthLighting();
         super.renderBackground(context,mouseX,mouseY, deltaTicks);
 
         // Display center panel
@@ -245,7 +244,7 @@ public class OnboardingFactionScreen extends Screen {
     }
 
     private void renderDisplays(DrawContext context, int mouseX, int mouseY, float delta) {
-        DiffuseLighting.disableGuiDepthLighting();
+        //DiffuseLighting.disableGuiDepthLighting();
 
         int startX = elements.informationPanel.startX + 5;
         int startY = elements.informationPanel.startY + 5;
@@ -308,11 +307,15 @@ public class OnboardingFactionScreen extends Screen {
                 bannerBuilder.add(pattern, entry.color);
             }
 
-            context.draw((vertexConsumers) -> {
+            //TODO crab fix
+
+            //context.addBannerResult(this.elements.bannerField, ModelBaker.BANNER_BASE, true, DyeColor.GRAY, bannerBuilder.build());
+
+            /*context.((vertexConsumers) -> {
                 BannerBlockEntityRenderer.renderCanvas(matrixStack, vertexConsumers, 15728880, OverlayTexture.DEFAULT_UV, this.elements.bannerField, ModelBaker.BANNER_BASE, true, DyeColor.GRAY, bannerBuilder.build());
             });
             matrixStack.pop();
-            context.draw();
+            context.draw();*/
         }
         // Right panel
         startX = this.elements.mapPanel.startX;
@@ -324,21 +327,22 @@ public class OnboardingFactionScreen extends Screen {
         startY = this.elements.mapPanel.startY + this.elements.mapPanel.height - 16;
 
         this.elements.mapFocusButton.setPosition(startX, startY);
-        context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_IDENTIFIER,
-                startX, startY, 235, (this.elements.mapWidget.isForcingTargetMovement) ? 20 : elements.mapFocusButton.isFocused() || elements.mapFocusButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, MAP_UI_IDENTIFIER,
+                startX, startY, 235, (true /*this.elements.mapWidget.isForcingTargetMovement*/) ? 20 : elements.mapFocusButton.isFocused() || elements.mapFocusButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
                 elements.mapFocusButton.getWidth(), elements.mapFocusButton.getHeight(), 256, 256);
 
         startX = this.elements.mapPanel.startX + this.elements.mapPanel.width - 16;
 
         this.elements.mapZoomInButton.setPosition(startX, startY);
-        context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_IDENTIFIER,
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, MAP_UI_IDENTIFIER,
                 startX, startY, 224, !this.elements.mapWidget.canZoomIn() ? 20 : elements.mapZoomInButton.isFocused() || elements.mapZoomInButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
                 elements.mapZoomInButton.getWidth(), elements.mapZoomInButton.getHeight(), 256, 256);
 
         startX -= 12;
 
         this.elements.mapZoomOutButton.setPosition(startX, startY);
-        context.drawTexture(RenderLayer::getGuiTextured, MAP_UI_IDENTIFIER,
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, MAP_UI_IDENTIFIER,
                 startX, startY, 213, !this.elements.mapWidget.canZoomOut() ? 20 : elements.mapZoomOutButton.isFocused() || elements.mapZoomOutButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
                 elements.mapZoomOutButton.getWidth(), elements.mapZoomOutButton.getHeight(), 256, 256);
 
@@ -360,7 +364,7 @@ public class OnboardingFactionScreen extends Screen {
         this.elements.fullRandomizerButton.setPosition(startX, startY);
         this.elements.fullRandomizerButton.setDimensions(52, 18);
 
-        context.drawTexture(RenderLayer::getGuiTextured, BUTTON_UI_IDENTIFIER,
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_UI_IDENTIFIER,
                 this.elements.fullRandomizerButton.getX(), this.elements.fullRandomizerButton.getY(), 103, this.elements.fullRandomizerButton.isFocused() || this.elements.fullRandomizerButton.isMouseOver(mouseX, mouseY) ? 129 : 111,
                 this.elements.fullRandomizerButton.getWidth(), this.elements.fullRandomizerButton.getHeight(), 256, 256);
 
@@ -371,11 +375,11 @@ public class OnboardingFactionScreen extends Screen {
         this.elements.spawnConfirmButton.setDimensions(52, 18);
 
         if(elements.spawnConfirmButton.active){
-            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_UI_IDENTIFIER,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_UI_IDENTIFIER,
                     this.elements.spawnConfirmButton.getX(), this.elements.spawnConfirmButton.getY(), 103, this.elements.spawnConfirmButton.isFocused() || this.elements.spawnConfirmButton.isMouseOver(mouseX, mouseY) ? 37 : 19,
                     this.elements.spawnConfirmButton.getWidth(), this.elements.spawnConfirmButton.getHeight(), 256, 256);
         } else {
-            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_UI_IDENTIFIER,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_UI_IDENTIFIER,
                     this.elements.spawnConfirmButton.getX(), this.elements.spawnConfirmButton.getY(), 156, 55,
                     this.elements.spawnConfirmButton.getWidth(), this.elements.spawnConfirmButton.getHeight(), 256, 256);
 
@@ -414,11 +418,11 @@ public class OnboardingFactionScreen extends Screen {
         startY = this.elements.informationPanel.startY + this.elements.informationPanel.height - CycledSelectionWidget.TOTAL_HEIGHT;
 
         this.elements.factionRandomizerButton.setPosition(startX, startY);
-        context.drawTexture(RenderLayer::getGuiTextured, BUTTON_UI_IDENTIFIER,
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_UI_IDENTIFIER,
                 this.elements.factionRandomizerButton.getX() - (this.elements.factionRandomizerButton.getWidth() / 2), this.elements.factionRandomizerButton.getY(), 103, (this.elements.factionRandomizerButton.isFocused() || this.elements.factionRandomizerButton.isMouseOver(mouseX, mouseY)) ? 92 : 74,
                 this.elements.factionRandomizerButton.getWidth(), this.elements.factionRandomizerButton.getHeight(), 256, 256);
 
-        this.elements.npcPreviewWidget.drawCenteredAnchoredBottom(context, startX, startY - 6);
+        //this.elements.npcPreviewWidget.drawCenteredAnchoredBottom(context, startX, startY - 6);
     }
     //endregion
 

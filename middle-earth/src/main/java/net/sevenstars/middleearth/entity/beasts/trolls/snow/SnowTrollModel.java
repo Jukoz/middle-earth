@@ -3,19 +3,32 @@ package net.sevenstars.middleearth.entity.beasts.trolls.snow;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
+import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollAnimations;
 
 @Environment(value= EnvType.CLIENT)
 public class SnowTrollModel extends EntityModel<TrollEntityRenderState> {
     private final ModelPart troll;
     private final ModelPart head;
+
+    private final Animation walkingAnimation;
+    private final Animation attackinggAnimation;
+    private final Animation chargingAnimation;
+    private final Animation throwingAnimation;
+
     public SnowTrollModel(ModelPart root) {
         super(root);
 
         this.troll = root.getChild("roots");
         this.head = troll.getChild("torso").getChild("head");
+
+        this.walkingAnimation = SnowTrollAnimations.WALKING.createAnimation(root);
+        this.attackinggAnimation = SnowTrollAnimations.ATTACK.createAnimation(root);
+        this.chargingAnimation = SnowTrollAnimations.CHARGING.createAnimation(root);
+        this.throwingAnimation = SnowTrollAnimations.THROWING.createAnimation(root);
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -64,10 +77,10 @@ public class SnowTrollModel extends EntityModel<TrollEntityRenderState> {
         super.setAngles(state);
         this.setHeadAngles(state.relativeHeadYaw, state.pitch);
 
-        animateWalking(SnowTrollAnimations.WALKING, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0f, 2.5f);
-        animate(state.attackAnimationState, SnowTrollAnimations.ATTACK, state.age);
-        animate(state.chargeAnimationState, SnowTrollAnimations.CHARGING, state.age);
-        animate(state.throwingAnimationState, SnowTrollAnimations.THROWING, state.age);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
+        this.attackinggAnimation.apply(state.attackAnimationState, state.age);
+        this.chargingAnimation.apply(state.chargeAnimationState, state.age);
+        this.throwingAnimation.apply(state.throwingAnimationState, state.age);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

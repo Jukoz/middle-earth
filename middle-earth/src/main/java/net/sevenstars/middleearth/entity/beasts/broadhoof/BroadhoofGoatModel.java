@@ -1,8 +1,10 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof;
 
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntityAnimations;
 
 public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderState> {
     private final ModelPart broadhoofGoat;
@@ -12,6 +14,15 @@ public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderSta
     private final ModelPart brushedBeard;
     private final ModelPart[] leftHorns = new ModelPart[BroadhoofGoatHorns.values().length];
     private final ModelPart[] rightHorns = new ModelPart[BroadhoofGoatHorns.values().length];
+
+    private final Animation runningAnimation;
+    private final Animation eatingAnimation;
+    private final Animation rammingAnimation;
+    private final Animation layingAnimation;
+    private final Animation standingAnimation;
+    private final Animation lyingAnimation;
+    private final Animation chargingAnimation;
+    private final Animation jumpingAnimation;
 
     public BroadhoofGoatModel(ModelPart root) {
         super(root);
@@ -44,6 +55,15 @@ public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderSta
 
         this.leftHorns[6] = horns.getChild("huge_left_horn");
         this.rightHorns[6] = horns.getChild("huge_right_horn");
+
+        this.runningAnimation = BroadhoofGoatAnimations.RUN.createAnimation(root);
+        this.eatingAnimation = BroadhoofGoatAnimations.EAT.createAnimation(root);
+        this.rammingAnimation = BroadhoofGoatAnimations.RAM_ATTACK.createAnimation(root);
+        this.layingAnimation = BroadhoofGoatAnimations.LAY_DOWN.createAnimation(root);
+        this.standingAnimation = BroadhoofGoatAnimations.STAND_UP.createAnimation(root);
+        this.lyingAnimation = BroadhoofGoatAnimations.LYING.createAnimation(root);
+        this.chargingAnimation = BroadhoofGoatAnimations.CHARGE_ATTACK.createAnimation(root);
+        this.jumpingAnimation = BroadhoofGoatAnimations.JUMP.createAnimation(root);
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -170,13 +190,14 @@ public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderSta
             this.animateMovement(BroadhoofGoatAnimations.WALK, limbAngle, limbDistance, 4f, 4f);
         }*/
 
-        animateWalking(BroadhoofGoatAnimations.RUN, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0f, 2.5f);
-        animate(state.idleAnimationState, BroadhoofGoatAnimations.EAT, state.age);
-        animate(state.attackAnimationState, BroadhoofGoatAnimations.RAM_ATTACK, state.age);
-        animate(state.startSittingAnimationState, BroadhoofGoatAnimations.LAY_DOWN, state.age);
-        animate(state.stopSittingAnimationState, BroadhoofGoatAnimations.STAND_UP, state.age);
-        animate(state.sittingAnimationState, BroadhoofGoatAnimations.LYING, state.age);
-        animate(state.chargeAnimationState, BroadhoofGoatAnimations.CHARGE_ATTACK, state.age);
-        animate(state.jumpAnimationState, BroadhoofGoatAnimations.JUMP, state.age);
+        this.runningAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
+        this.eatingAnimation.apply(state.idleAnimationState, state.age);
+        this.rammingAnimation.apply(state.attackAnimationState, state.age);
+        this.layingAnimation.apply(state.startSittingAnimationState, state.age);
+        this.standingAnimation.apply(state.stopSittingAnimationState, state.age);
+        this.lyingAnimation.apply(state.sittingAnimationState, state.age);
+        this.chargingAnimation.apply(state.chargeAnimationState, state.age);
+        this.jumpingAnimation.apply(state.jumpAnimationState, state.age);
+
     }
 }

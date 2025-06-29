@@ -1,19 +1,36 @@
 package net.sevenstars.middleearth.entity.beasts.warg;
 
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.sevenstars.middleearth.entity.swan.SwanAnimations;
 
 public class WargModel extends EntityModel<WargEntityRenderState> {
     private final ModelPart warg;
     private final ModelPart head;
     private final ModelPart mane;
+
+    private final Animation runningAnimation;
+    private final Animation groomingAnimation;
+    private final Animation bittingAnimation;
+    private final Animation layingAnimation;
+    private final Animation standingAnimation;
+    private final Animation lyingAnimation;
+
     public WargModel(ModelPart root) {
         super(root);
 
         this.warg = root.getChild("root");
         this.head = warg.getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild(EntityModelPartNames.HEAD);
         this.mane = warg.getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild("mane");
+
+        this.runningAnimation = WargAnimations.RUN.createAnimation(root);
+        this.groomingAnimation = WargAnimations.GROOM.createAnimation(root);
+        this.bittingAnimation = WargAnimations.BITE.createAnimation(root);
+        this.layingAnimation = WargAnimations.LAY_DOWN.createAnimation(root);
+        this.standingAnimation = WargAnimations.STAND_UP.createAnimation(root);
+        this.lyingAnimation = WargAnimations.LYING.createAnimation(root);
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -73,11 +90,11 @@ public class WargModel extends EntityModel<WargEntityRenderState> {
             this.animateMovement(WargAnimations.WALK, limbAngle, limbDistance, 4f, 4f);
         }*/
 
-        animateWalking(WargAnimations.RUN, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0f, 2.5f);
-        animate(state.idleAnimationState, WargAnimations.GROOM, state.age);
-        animate(state.attackAnimationState, WargAnimations.BITE, state.age);
-        animate(state.startSittingAnimationState, WargAnimations.LAY_DOWN, state.age);
-        animate(state.stopSittingAnimationState, WargAnimations.STAND_UP, state.age);
-        animate(state.sittingAnimationState, WargAnimations.LYING, state.age);
+        this.runningAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
+        this.groomingAnimation.apply(state.idleAnimationState, state.age);
+        this.bittingAnimation.apply(state.attackAnimationState, state.age);
+        this.layingAnimation.apply(state.startSittingAnimationState, state.age);
+        this.standingAnimation.apply(state.stopSittingAnimationState, state.age);
+        this.lyingAnimation.apply(state.sittingAnimationState, state.age);
     }
 }

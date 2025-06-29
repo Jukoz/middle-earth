@@ -16,8 +16,8 @@ public class CommandUtils {
     public static final String COMMAND_PLAYER_REPLACEMENT = "<p>";
 
     public static void sendAllCommands(ServerPlayerEntity player, List<String> commands){
-        CommandManager commandManager =  player.server.getCommandManager();
-        ServerCommandSource commandSource = player.server.getCommandSource();
+        CommandManager commandManager =  player.getWorld().getServer().getCommandManager();
+        ServerCommandSource commandSource = player.getWorld().getServer().getCommandSource();
 
         for(String com : commands) {
             com = com.replace(COMMAND_PLAYER_REPLACEMENT, player.getName().getString());
