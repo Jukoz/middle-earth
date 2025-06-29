@@ -18,7 +18,7 @@ public class MineableHoe {
 
         add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES);
 
-        add(ModNatureBlocks.MAPLE_LEAVES);
+        //add(ModNatureBlocks.MAPLE_LEAVES);
         add(ModNatureBlocks.ORANGE_MAPLE_LEAVES);
         add(ModNatureBlocks.RED_MAPLE_LEAVES);
         add(ModNatureBlocks.YELLOW_MAPLE_LEAVES);

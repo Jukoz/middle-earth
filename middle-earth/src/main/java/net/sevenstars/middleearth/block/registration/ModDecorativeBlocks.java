@@ -286,7 +286,7 @@ public class ModDecorativeBlocks {
             CushionBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque());
 
     //region VANILLA FURNITURE
-    public static final Block OAK_STOOL = registerBlockWithItem("oak_stool",
+    /*public static final Block OAK_STOOL = registerBlockWithItem("oak_stool",
             WoodStoolBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block OAK_BENCH = registerBlockWithItem("oak_bench",
             WoodBenchBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
@@ -383,7 +383,7 @@ public class ModDecorativeBlocks {
     public static final Block WARPED_TABLE = registerBlockWithItem("warped_table",
             WoodTableBlock::new, AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque());
     public static final Block WARPED_CHAIR = registerBlockWithItem("warped_chair",
-            WoodChairBlock::new, AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque());
+            WoodChairBlock::new, AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque());*/
 
     public static final Block TREATED_WOOD_STOOL = registerBlockWithItem("treated_wood_stool",
             WoodStoolBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
@@ -572,7 +572,7 @@ public class ModDecorativeBlocks {
     public static final Block DWARVEN_GROUND_BOOK = registerBlockWithItem("dwarven_ground_book",
             DwarvenGroundBookBlock::new, AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision());
 
-    public static final Block OAK_LADDER = registerBlockWithItem("oak_ladder",
+    /*public static final Block OAK_LADDER = registerBlockWithItem("oak_ladder",
             ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
     public static final Block SPRUCE_LADDER = registerBlockWithItem("spruce_ladder",
             ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
@@ -593,7 +593,7 @@ public class ModDecorativeBlocks {
     public static final Block CRIMSON_LADDER = registerBlockWithItem("crimson_ladder",
             ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.CRIMSON_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
     public static final Block WARPED_LADDER = registerBlockWithItem("warped_ladder",
-            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
+            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).sounds(BlockSoundGroup.LADDER).burnable());*/
 
     public static final Block TREATED_WOOD_LADDER = registerBlockWithItem("treated_wood_ladder",
             ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.LADDER).burnable());

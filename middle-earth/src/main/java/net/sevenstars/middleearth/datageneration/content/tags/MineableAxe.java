@@ -56,7 +56,7 @@ public class MineableAxe {
             add(ModDecorativeBlocks.TREATED_WOOD_TABLE);
             add(ModDecorativeBlocks.TREATED_WOOD_BENCH);
 
-            add(ModDecorativeBlocks.OAK_LADDER);
+            /*add(ModDecorativeBlocks.OAK_LADDER);
             add(ModDecorativeBlocks.SPRUCE_LADDER);
             add(ModDecorativeBlocks.BIRCH_LADDER);
             add(ModDecorativeBlocks.JUNGLE_LADDER);
@@ -66,7 +66,7 @@ public class MineableAxe {
             add(ModDecorativeBlocks.CHERRY_LADDER);
             add(ModDecorativeBlocks.BAMBOO_LADDER);
             add(ModDecorativeBlocks.CRIMSON_LADDER);
-            add(ModDecorativeBlocks.WARPED_LADDER);
+            add(ModDecorativeBlocks.WARPED_LADDER);*/
 
             add(ModDecorativeBlocks.THIN_BARREL);
             add(ModDecorativeBlocks.SMALL_CRATE);

@@ -9,7 +9,7 @@ import java.util.List;
 public class WoodenVerticalSlabs {
     public static List<Block> woodenVericalSlabs = new ArrayList<>() {
         {
-            add(ModBlocks.OAK_VERTICAL_SLAB);
+            /*add(ModBlocks.OAK_VERTICAL_SLAB);
             add(ModBlocks.SPRUCE_VERTICAL_SLAB);
             add(ModBlocks.BIRCH_VERTICAL_SLAB);
             add(ModBlocks.JUNGLE_VERTICAL_SLAB);
@@ -19,7 +19,7 @@ public class WoodenVerticalSlabs {
             add(ModBlocks.CHERRY_VERTICAL_SLAB);
             add(ModBlocks.BAMBOO_VERTICAL_SLAB);
             add(ModBlocks.CRIMSON_VERTICAL_SLAB);
-            add(ModBlocks.WARPED_VERTICAL_SLAB);
+            add(ModBlocks.WARPED_VERTICAL_SLAB);*/
         }
     };
 }

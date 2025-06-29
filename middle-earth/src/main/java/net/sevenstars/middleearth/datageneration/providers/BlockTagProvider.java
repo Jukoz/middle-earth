@@ -456,7 +456,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.WAXED_WEATHERED_CUT_COPPER_WALL);
         mineablePickaxe.add(ModBlocks.WAXED_OXIDIZED_CUT_COPPER_WALL);
 
-        mineableAxe.add(ModBlocks.OAK_WOOD_SLAB);
+       /* mineableAxe.add(ModBlocks.OAK_WOOD_SLAB);
         mineableAxe.add(ModBlocks.SPRUCE_WOOD_SLAB);
         mineableAxe.add(ModBlocks.BIRCH_WOOD_SLAB);
         mineableAxe.add(ModBlocks.JUNGLE_WOOD_SLAB);
@@ -520,7 +520,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableAxe.add(ModBlocks.CHERRY_VERTICAL_SLAB);
         mineableAxe.add(ModBlocks.BAMBOO_VERTICAL_SLAB);
         mineableAxe.add(ModBlocks.CRIMSON_VERTICAL_SLAB);
-        mineableAxe.add(ModBlocks.WARPED_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.WARPED_VERTICAL_SLAB);*/
 
         mineableShovel.add(ModBlocks.GRAVEL_LAYER);
         mineableShovel.add(ModBlocks.SAND_LAYER);

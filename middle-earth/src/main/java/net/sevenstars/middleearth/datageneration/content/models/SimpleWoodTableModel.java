@@ -19,7 +19,7 @@ public class SimpleWoodTableModel {
 
     public static List<VanillaTable> vanillaTables = new ArrayList<>() {
         {
-            add(new VanillaTable(ModDecorativeBlocks.OAK_TABLE, Blocks.OAK_SLAB, Blocks.STRIPPED_OAK_LOG));
+            /*add(new VanillaTable(ModDecorativeBlocks.OAK_TABLE, Blocks.OAK_SLAB, Blocks.STRIPPED_OAK_LOG));
             add(new VanillaTable(ModDecorativeBlocks.SPRUCE_TABLE, Blocks.SPRUCE_SLAB, Blocks.STRIPPED_SPRUCE_LOG));
             add(new VanillaTable(ModDecorativeBlocks.BIRCH_TABLE, Blocks.BIRCH_SLAB, Blocks.STRIPPED_BIRCH_LOG));
             add(new VanillaTable(ModDecorativeBlocks.JUNGLE_TABLE, Blocks.JUNGLE_SLAB, Blocks.STRIPPED_JUNGLE_LOG));
@@ -29,7 +29,7 @@ public class SimpleWoodTableModel {
             add(new VanillaTable(ModDecorativeBlocks.BAMBOO_TABLE, Blocks.BAMBOO_BLOCK, Blocks.STRIPPED_BAMBOO_BLOCK));
             add(new VanillaTable(ModDecorativeBlocks.CHERRY_TABLE, Blocks.CHERRY_SLAB, Blocks.STRIPPED_CHERRY_LOG));
             add(new VanillaTable(ModDecorativeBlocks.CRIMSON_TABLE, Blocks.CRIMSON_SLAB, Blocks.STRIPPED_CRIMSON_STEM));
-            add(new VanillaTable(ModDecorativeBlocks.WARPED_TABLE, Blocks.WARPED_SLAB, Blocks.STRIPPED_WARPED_STEM));
+            add(new VanillaTable(ModDecorativeBlocks.WARPED_TABLE, Blocks.WARPED_SLAB, Blocks.STRIPPED_WARPED_STEM));*/
         }
     };
 }

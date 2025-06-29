@@ -15,8 +15,6 @@ public class SimpleBlockModel {
 
     public record ChiseledPolishedBlock(Block base, Block origin) {}
 
-    public record CobbleableStoneBlock(Block base, Block origin) {}
-
 
     public static List<Block> blocks = new ArrayList<>() {
         {

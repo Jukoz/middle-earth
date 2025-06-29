@@ -20,7 +20,7 @@ public class SimpleLadderModel {
 
     public static List<Ladder> vanillaLadders = new ArrayList<>() {
         {
-            add(new Ladder(Blocks.OAK_PLANKS, ModDecorativeBlocks.OAK_LADDER));
+            /*add(new Ladder(Blocks.OAK_PLANKS, ModDecorativeBlocks.OAK_LADDER));
             add(new Ladder(Blocks.SPRUCE_PLANKS, ModDecorativeBlocks.SPRUCE_LADDER));
             add(new Ladder(Blocks.BIRCH_PLANKS, ModDecorativeBlocks.BIRCH_LADDER));
             add(new Ladder(Blocks.JUNGLE_PLANKS, ModDecorativeBlocks.JUNGLE_LADDER));
@@ -30,7 +30,7 @@ public class SimpleLadderModel {
             add(new Ladder(Blocks.CHERRY_PLANKS, ModDecorativeBlocks.CHERRY_LADDER));
             add(new Ladder(Blocks.BAMBOO_PLANKS, ModDecorativeBlocks.BAMBOO_LADDER));
             add(new Ladder(Blocks.CRIMSON_PLANKS, ModDecorativeBlocks.CRIMSON_LADDER));
-            add(new Ladder(Blocks.WARPED_PLANKS, ModDecorativeBlocks.WARPED_LADDER));
+            add(new Ladder(Blocks.WARPED_PLANKS, ModDecorativeBlocks.WARPED_LADDER));*/
         }
     };
 }

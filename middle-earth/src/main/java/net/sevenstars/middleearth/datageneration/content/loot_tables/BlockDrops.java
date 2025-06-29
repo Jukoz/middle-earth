@@ -148,7 +148,7 @@ public class BlockDrops {
 
             add(ModNatureBlocks.FLOATING_ICE);
 
-            add(ModDecorativeBlocks.OAK_LADDER);
+            /*add(ModDecorativeBlocks.OAK_LADDER);
             add(ModDecorativeBlocks.SPRUCE_LADDER);
             add(ModDecorativeBlocks.BIRCH_LADDER);
             add(ModDecorativeBlocks.JUNGLE_LADDER);
@@ -158,7 +158,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.CHERRY_LADDER);
             add(ModDecorativeBlocks.BAMBOO_LADDER);
             add(ModDecorativeBlocks.CRIMSON_LADDER);
-            add(ModDecorativeBlocks.WARPED_LADDER);
+            add(ModDecorativeBlocks.WARPED_LADDER);*/
 
             add(ModDecorativeBlocks.ROPE_LADDER);
 

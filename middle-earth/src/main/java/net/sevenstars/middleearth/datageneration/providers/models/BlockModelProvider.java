@@ -461,11 +461,7 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.trapdoors) {
-            registerTrapdoor(blockStateModelGenerator, trapdoor.trapdoor(), trapdoor.block(), true);
-        }
-
-        for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.stoneTrapdoors) {
-            registerTrapdoor(blockStateModelGenerator, trapdoor.trapdoor(), trapdoor.block(), false);
+            registerTrapdoor(blockStateModelGenerator, trapdoor.trapdoor(), trapdoor.block(), trapdoor.orientable());
         }
 
         for (SimpleLadderModel.Ladder ladder : SimpleLadderModel.ladders) {

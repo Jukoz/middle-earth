@@ -1,9 +1,11 @@
-package net.sevenstars.middleearth.block.utils;
+package net.sevenstars.middleearth.block.utils.setBuilders;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.sound.BlockSoundGroup;
+import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
+import net.sevenstars.middleearth.block.utils.StoneBlockTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +52,6 @@ public class StoneBlockSetBuilder {
     public BlockRecordTypes.CarvedWindow carvedWindows;
 
     public String setName;
-    public Block source;
     public float hardness;
     public float blastResistance;
     public MapColor mapColor;
@@ -59,10 +60,9 @@ public class StoneBlockSetBuilder {
     public boolean hasMossy;
     public boolean hasCracked;
 
-    public StoneBlockSetBuilder(String name, Block source, float hardness, float blastResistance,
+    public StoneBlockSetBuilder(String name, float hardness, float blastResistance,
                                 MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean hasMossy, boolean hasCracked){
         this.setName = name;
-        this.source = source;
         this.hardness = hardness;
         this.blastResistance = blastResistance;
         this.mapColor = mapColor;

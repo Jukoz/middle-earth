@@ -19,7 +19,7 @@ public class SimpleWoodChairModel {
 
     public static List<VanillaChair> vanillaChairs = new ArrayList<>() {
         {
-            add(new VanillaChair(ModDecorativeBlocks.OAK_CHAIR, Blocks.OAK_PLANKS));
+            /*add(new VanillaChair(ModDecorativeBlocks.OAK_CHAIR, Blocks.OAK_PLANKS));
             add(new VanillaChair(ModDecorativeBlocks.SPRUCE_CHAIR, Blocks.SPRUCE_PLANKS));
             add(new VanillaChair(ModDecorativeBlocks.BIRCH_CHAIR, Blocks.BIRCH_PLANKS));
             add(new VanillaChair(ModDecorativeBlocks.JUNGLE_CHAIR, Blocks.JUNGLE_PLANKS));
@@ -29,7 +29,7 @@ public class SimpleWoodChairModel {
             add(new VanillaChair(ModDecorativeBlocks.BAMBOO_CHAIR, Blocks.BAMBOO_BLOCK));
             add(new VanillaChair(ModDecorativeBlocks.CHERRY_CHAIR, Blocks.CHERRY_PLANKS));
             add(new VanillaChair(ModDecorativeBlocks.CRIMSON_CHAIR, Blocks.CRIMSON_PLANKS));
-            add(new VanillaChair(ModDecorativeBlocks.WARPED_CHAIR, Blocks.WARPED_PLANKS));
+            add(new VanillaChair(ModDecorativeBlocks.WARPED_CHAIR, Blocks.WARPED_PLANKS));*/
         }
     };
 }

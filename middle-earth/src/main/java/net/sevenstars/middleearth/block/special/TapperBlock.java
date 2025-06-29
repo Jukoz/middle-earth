@@ -86,7 +86,7 @@ public class TapperBlock extends HorizontalFacingBlock {
             BlockState behindBlock = world.getBlockState(pos.offset(state.get(FACING).getOpposite()));
 
             Item result = Items.RESIN_CLUMP;
-            if(behindBlock.getBlock() == WoodBlockSets.MAPLE.log() || behindBlock.getBlock() == WoodBlockSets.SILVER_MAPLE.log()) {
+            if(behindBlock.getBlock() == WoodBlockSets.MAPLE_SET.logBlocks.log() || behindBlock.getBlock() == WoodBlockSets.SILVER_MAPLE_SET.logBlocks.log()) {
                 result = FoodItemsME.MAPLE_SYRUP;
             } else if (behindBlock.getBlock() == Blocks.BIRCH_LOG) {
                 result = FoodItemsME.BIRCH_WATER;

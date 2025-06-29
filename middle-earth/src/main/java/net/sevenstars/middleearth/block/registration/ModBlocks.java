@@ -476,7 +476,7 @@ public class ModBlocks {
     //endregion
 
     //region VANILLA VERTICAL SLABS
-    public static final Block OAK_WOOD_SLAB = registerWoodBlock("oak_wood_slab",
+    /*public static final Block OAK_WOOD_SLAB = registerWoodBlock("oak_wood_slab",
             SlabBlock::new,AbstractBlock.Settings.copy(Blocks.OAK_SLAB).burnable(), true);
     public static final Block SPRUCE_WOOD_SLAB = registerWoodBlock("spruce_wood_slab",
             SlabBlock::new,AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).burnable(), true);
@@ -667,7 +667,7 @@ public class ModBlocks {
     public static final Block CRIMSON_VERTICAL_SLAB = registerWoodBlock("crimson_vertical_slab",
             VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.CRIMSON_SLAB).burnable(), true);
     public static final Block WARPED_VERTICAL_SLAB = registerWoodBlock("warped_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).burnable(), true);
+            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).burnable(), true);*/
 
     public static final Block BRICK_VERTICAL_SLAB = registerStoneBlock("brick_vertical_slab",
             VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.BRICK_SLAB), true);
@@ -852,13 +852,5 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         MiddleEarth.LOGGER.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
-    }
-
-    public static boolean never(BlockState state, BlockView world, BlockPos pos) {
-        return false;
-    }
-
-    public static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
-        return type == EntityType.OCELOT || type == EntityType.PARROT;
     }
 }

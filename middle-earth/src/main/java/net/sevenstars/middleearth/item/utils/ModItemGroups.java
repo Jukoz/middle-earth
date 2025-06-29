@@ -33,7 +33,7 @@ public class ModItemGroups {
     public static final List<ItemStack> WOOD_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup WOOD_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".wood_blocks"))
-            .icon(() -> new ItemStack(WoodBlockSets.WILLOW.log().asItem()))
+            .icon(() -> new ItemStack(WoodBlockSets.WILLOW_SET.logBlocks.log().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : WOOD_BLOCKS_CONTENTS) {
                     entries.add(item);

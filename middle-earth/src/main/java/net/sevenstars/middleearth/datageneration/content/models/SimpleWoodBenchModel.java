@@ -19,7 +19,7 @@ public class SimpleWoodBenchModel {
 
     public static List<VanillaBench> vanillaBenchs = new ArrayList<>() {
         {
-            add(new VanillaBench(ModDecorativeBlocks.OAK_BENCH, Blocks.OAK_PLANKS));
+            /*add(new VanillaBench(ModDecorativeBlocks.OAK_BENCH, Blocks.OAK_PLANKS));
             add(new VanillaBench(ModDecorativeBlocks.SPRUCE_BENCH, Blocks.SPRUCE_PLANKS));
             add(new VanillaBench(ModDecorativeBlocks.BIRCH_BENCH, Blocks.BIRCH_PLANKS));
             add(new VanillaBench(ModDecorativeBlocks.JUNGLE_BENCH, Blocks.JUNGLE_PLANKS));
@@ -29,7 +29,7 @@ public class SimpleWoodBenchModel {
             add(new VanillaBench(ModDecorativeBlocks.BAMBOO_BENCH, Blocks.BAMBOO_BLOCK));
             add(new VanillaBench(ModDecorativeBlocks.CHERRY_BENCH, Blocks.CHERRY_PLANKS));
             add(new VanillaBench(ModDecorativeBlocks.CRIMSON_BENCH, Blocks.CRIMSON_PLANKS));
-            add(new VanillaBench(ModDecorativeBlocks.WARPED_BENCH, Blocks.WARPED_PLANKS));
+            add(new VanillaBench(ModDecorativeBlocks.WARPED_BENCH, Blocks.WARPED_PLANKS));*/
         }
     };
 }

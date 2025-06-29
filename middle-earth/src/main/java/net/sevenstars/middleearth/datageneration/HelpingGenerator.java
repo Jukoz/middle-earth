@@ -2,13 +2,12 @@ package net.sevenstars.middleearth.datageneration;
 
 import net.minecraft.block.*;
 import net.sevenstars.middleearth.block.registration.*;
-import net.sevenstars.middleearth.block.special.RocksBlock;
-import net.sevenstars.middleearth.block.special.StoneChairBlock;
-import net.sevenstars.middleearth.block.special.StoneTableBlock;
-import net.sevenstars.middleearth.block.special.StoolBlock;
+import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
-import net.sevenstars.middleearth.block.utils.StoneBlockSetBuilder;
+import net.sevenstars.middleearth.block.utils.StoneBlockTypes;
+import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
+import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.LeavesDrops;
 import net.minecraft.registry.Registries;
@@ -61,11 +60,11 @@ public class HelpingGenerator {
                         if(set.hasCracked) pillarBlocks(set.crackedPillarBlocks, set.pillarBlocks.base());
                     }
                     case CHISELED_BLOCKS -> {
-                        pillarBlocks(set.chiseledBlocks, set.baseBlocks.slab());
-                        pillarBlocks(set.chiseledBricksBlocks, set.baseBlocks.slab());
-                        pillarBlocks(set.chiseledPolishedBlocks, set.baseBlocks.slab());
-                        pillarBlocks(set.chiseledTilesBlocks, set.baseBlocks.slab());
-                        pillarBlocks(set.chiseledSmoothBlocks, set.baseBlocks.slab());
+                        if (set.existingList.contains(StoneBlockTypes.BASE_BLOCKS)) pillarBlocks(set.chiseledBlocks, set.baseBlocks.slab());
+                        if (set.existingList.contains(StoneBlockTypes.BRICK_BLOCKS)) pillarBlocks(set.chiseledBricksBlocks, set.brickBlocks.slab());
+                        if (set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS)) pillarBlocks(set.chiseledPolishedBlocks, set.polishedBlocks.slab());
+                        if (set.existingList.contains(StoneBlockTypes.TILE_BLOCKS)) pillarBlocks(set.chiseledTilesBlocks, set.tileBlocks.slab());
+                        if (set.existingList.contains(StoneBlockTypes.SMOOTH_BLOCKS)) pillarBlocks(set.chiseledSmoothBlocks, set.smoothBlocks.slab());
                     }
                     case CARVED_WINDOW -> {
                         carvedWindowBlocks(set.carvedWindows, set.baseBlocks.base());
@@ -74,7 +73,26 @@ public class HelpingGenerator {
             });
         }
 
-        for (WoodBlockSets.SimpleBlockSet set : WoodBlockSets.sets) {
+        for (WoodBlockSetBuilder set : WoodBlockSets.woodSetsList){
+            set.existingList.forEach(stoneBlockTypes -> {
+                switch (stoneBlockTypes){
+                    case LOG_BLOCKS -> woodBlocks(set.logBlocks);
+                    case STRIPPED_LOG_BLOCKS -> woodBlocks(set.strippedLogBlocks);
+                    case PLANK_BLOCKS -> plankBlocks(set.planksBlocks);
+                    case SHINGLE_BLOCKS -> regularBlocks(set.shinglesBlocks);
+                    case ROOFING_BLOCKS -> regularBlocks(set.roofingBlocks);
+                    case FURNITURE_BLOCKS -> furnitureBlocks(set.furnitureBlocks, set.planksBlocks.base());
+                    case REDSTONE_BLOCKS -> woodRedstoneBlocks(set.redstoneBlocks, set.planksBlocks.base());
+                    case LEAVES -> {
+                        if (!Objects.equals(Registries.BLOCK.getId(set.leaves).getNamespace(), "minecraft")){
+                            LeavesSets.blocks.add(set.leaves);
+                        }
+                    }
+                }
+            });
+        }
+
+        /*for (WoodBlockSets.SimpleBlockSet set : WoodBlockSets.sets) {
             if(set.leaves() != null) {
                 LeavesSets.blocks.add(set.leaves());
                 if(set.sapling() != null){
@@ -210,7 +228,7 @@ public class HelpingGenerator {
             LogsThatBurn.logsThatBurn.add(set.wood());
             LogsThatBurn.logsThatBurn.add(set.strippedLog());
             LogsThatBurn.logsThatBurn.add(set.strippedWood());
-        }
+        }*/
 
         SimpleBlockModel.blocks.addAll(LeavesSets.blocks);
 
@@ -231,7 +249,7 @@ public class HelpingGenerator {
             SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
             SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(set.planks(), set.button()));
             SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
-            SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor()));
+            SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor(), true));
             SimpleDoorModel.doors.add(new SimpleDoorModel.Door(set.planks(), set.door()));
             SimpleLadderModel.ladders.add(new SimpleLadderModel.Ladder(set.planks(), set.ladder()));
 
@@ -442,32 +460,96 @@ public class HelpingGenerator {
         MineablePickaxe.blocks.add(block);
         BlockDrops.blocks.add(block);
 
+        String blockName = block.getName().toString();
+
         if (!(Objects.equals(Registries.BLOCK.getId(block).getNamespace(), "minecraft"))){
             switch (block){
-                case PillarBlock pillarBlock -> SimplePillarModel.stonePillars.add(new SimplePillarModel.StonePillar(pillarBlock, base));
-                case SlabBlock slabBlock -> SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(base, slabBlock));
+                case PillarBlock pillarBlock -> {
+                    if (blockName.contains("_wood")){
+                        SimpleBlockModel.woodBlocks.add(pillarBlock);
+                    } else {
+                        SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(pillarBlock));
+                    }
+                }
+                case SlabBlock slabBlock -> {
+                    if (blockName.contains("stripped")){
+                        SimpleSlabModel.strippedSlabs.add(new SimpleSlabModel.Slab(base, slab));
+                    } else if (blockName.contains("wood")){
+                        SimpleSlabModel.woodSlabs.add(new SimpleSlabModel.Slab(base, slab));
+                    } else{
+                        SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(base, slabBlock));
+                    }
+                }
                 case VerticalSlabBlock verticalSlabBlock -> {
-                    if (block.getName().toString().contains("carved_window")) {
+                    if (blockName.contains("carved_window")
+                            || blockName.contains("chiseled")
+                            || blockName.contains("pillar")) {
                         SimpleVerticalSlabModel.columnVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
-                    }else {
+                    }else if (blockName.contains("stripped")){
+                        SimpleVerticalSlabModel.strippedVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
+                    } else if (blockName.contains("wood")){
+                        SimpleVerticalSlabModel.woodVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
+                    } else{
                         SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
                     }
                 }
-                case StairsBlock stairsBlock -> SimpleStairModel.stairs.add(new SimpleStairModel.Stair(base, stairsBlock));
+                case StairsBlock stairsBlock -> {
+                    if (blockName.contains("stripped")){
+                        SimpleStairModel.strippedStairs.add(new SimpleStairModel.Stair(base, stairsBlock));
+                    } else if (blockName.contains("wood")){
+                        SimpleStairModel.woodStairs.add(new SimpleStairModel.Stair(base, stairsBlock));
+                    } else{
+                        SimpleStairModel.stairs.add(new SimpleStairModel.Stair(base, stairsBlock));
+                    }
+                }
                 case WallBlock wallBlock -> {
                     Walls.walls.add(wallBlock);
-                    SimpleWallModel.blocks.add(new SimpleWallModel.Wall(base, wallBlock));
+                    if (blockName.contains("stripped")){
+                        SimpleWallModel.strippedWalls.add(new SimpleWallModel.Wall(base, wallBlock));
+                    } else {
+                        SimpleWallModel.blocks.add(new SimpleWallModel.Wall(base, wallBlock));
+                    }
+                }
+                case FenceBlock fenceBlock -> {
+                    Fences.fences.add(fenceBlock);
+                    if (blockName.contains("stripped")){
+                        SimpleFenceModel.strippedFences.add(new SimpleFenceModel.Fence(base, fenceBlock));
+                    } else {
+                        SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(base, fenceBlock));
+                    }
+                }
+                case FenceGateBlock fenceGateBlock -> {
+                    FenceGates.fenceGates.add(fenceGateBlock);
+                    SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(base, fenceGateBlock));
                 }
                 case PaneBlock paneBlock -> SimplePaneModel.panes.add(new SimplePaneModel.Pane(base, paneBlock));
-                case PressurePlateBlock pressurePlateBlock -> SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(base, pressurePlateBlock));
-                case ButtonBlock buttonBlock -> SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(base, buttonBlock));
-                case TrapdoorBlock trapdoorBlock -> SimpleTrapDoorModel.stoneTrapdoors.add(new SimpleTrapDoorModel.Trapdoor(base, trapdoorBlock));
+                case PressurePlateBlock pressurePlateBlock -> {
+                    PressurePlates.pressurePlates.add(pressurePlateBlock);
+                    SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(base, pressurePlateBlock));
+                }
+                case ButtonBlock buttonBlock -> {
+                    Buttons.buttons.add(buttonBlock);
+                    SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(base, buttonBlock));
+                }
+                case TrapdoorBlock trapdoorBlock -> {
+                    Trapdoors.trapdoors.add(trapdoorBlock);
+                    SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(base, trapdoorBlock, true));
+                }
                 case StoolBlock stoolBlock -> SimpleStoneStoolModel.stools.add(new SimpleStoneStoolModel.Stool(base, stoolBlock));
+                case WoodStoolBlock stoolBlock -> SimpleWoodStoolModel.stools.add(stoolBlock);
                 case StoneTableBlock tableBlock -> SimpleStoneTableModel.tables.add(new SimpleStoneTableModel.Table(base, tableBlock));
+                case WoodTableBlock tableBlock -> SimpleWoodTableModel.tables.add(tableBlock);
                 case StoneChairBlock chairBlock -> SimpleStoneChairModel.chairs.add(new SimpleStoneChairModel.Chair(base, chairBlock));
+                case WoodChairBlock chairBlock -> SimpleWoodChairModel.chairs.add(chairBlock);
+                case WoodBenchBlock benchBlock -> SimpleWoodBenchModel.benchs.add(benchBlock);
+                case DoorBlock doorBlock -> {
+                    Doors.doors.add(doorBlock);
+                    SimpleDoorModel.doors.add(new SimpleDoorModel.Door(base, doorBlock));
+                }
+                case ThickLadderBlock ladderBlock -> SimpleLadderModel.ladders.add(new SimpleLadderModel.Ladder(base, ladderBlock));
                 case RocksBlock rocksBlock -> SimpleRocksModel.rocks.add(new SimpleRocksModel.Rocks(base, rocksBlock));
                 case Block block1 -> {
-                    if (block.getName().toString().contains("carved_window")){
+                    if (blockName.contains("carved_window")){
                         SimplePillarModel.carvedWindows.add(new SimplePillarModel.StonePillar(block1, base));
                     } else {
                         SimpleBlockModel.blocks.add(block1);
@@ -493,5 +575,19 @@ public class HelpingGenerator {
         BlockRecordTypes.BaseStoneSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
     }
 
+    public static void plankBlocks(BlockRecordTypes.PlanksSet set) {
+        BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
+    }
 
+    public static void woodBlocks(BlockRecordTypes.WoodSet set) {
+        BlockRecordTypes.WoodSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.log(), set.slab()));
+    }
+
+    public static void furnitureBlocks(BlockRecordTypes.WoodFurnitureBlocks set, Block base) {
+        BlockRecordTypes.WoodFurnitureBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, base, null));
+    }
+
+    public static void woodRedstoneBlocks(BlockRecordTypes.WoodRedstoneBlocks set, Block base) {
+        BlockRecordTypes.WoodRedstoneBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, base, null));
+    }
 }

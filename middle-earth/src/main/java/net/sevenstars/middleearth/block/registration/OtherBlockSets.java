@@ -16,7 +16,7 @@ public class OtherBlockSets {
     public static MiscBlockSet TREATED_WOOD_PANELS = registerMiscSet("treated_wood_panels", null, Blocks.OAK_PLANKS, true);
     public static MiscBlockSet TREATED_WOOD_TILING = registerMiscSet("treated_wood_tiling", null, Blocks.OAK_PLANKS, false);
 
-    public static RoofBlockSet OAK_SHINGLES = registerWoodSet("oak_shingles", Blocks.OAK_PLANKS);
+    /*public static RoofBlockSet OAK_SHINGLES = registerWoodSet("oak_shingles", Blocks.OAK_PLANKS);
     public static RoofBlockSet SPRUCE_SHINGLES = registerWoodSet("spruce_shingles", Blocks.SPRUCE_PLANKS);
     public static RoofBlockSet BIRCH_SHINGLES = registerWoodSet("birch_shingles", Blocks.BIRCH_PLANKS);
     public static RoofBlockSet JUNGLE_SHINGLES = registerWoodSet("jungle_shingles", Blocks.JUNGLE_PLANKS);
@@ -64,7 +64,7 @@ public class OtherBlockSets {
     public static RoofBlockSet ROTTEN_SHINGLES = registerWoodSet("rotten_shingles", WoodBlockSets.ROTTEN.planks());
     public static RoofBlockSet ROTTEN_ROOFING = registerWoodSet("rotten_roofing", ROTTEN_SHINGLES.block);
     public static RoofBlockSet SCORCHED_SHINGLES = registerWoodSet("scorched_shingles", WoodBlockSets.SCORCHED.planks());
-    public static RoofBlockSet SCORCHED_ROOFING = registerWoodSet("scorched_roofing", SCORCHED_SHINGLES.block);
+    public static RoofBlockSet SCORCHED_ROOFING = registerWoodSet("scorched_roofing", SCORCHED_SHINGLES.block);*/
 
     public static RoofBlockSet GRAY_MUSHROOM_SHINGLES = registerWoodSet("gray_mushroom_shingles", MushroomBlockSets.GRAY_MUSHROOM.planks());
     public static RoofBlockSet DARK_MUSHROOM_SHINGLES = registerWoodSet("dark_mushroom_shingles", MushroomBlockSets.DARK_MUSHROOM.planks());
@@ -157,7 +157,7 @@ public class OtherBlockSets {
             WAXED_OLD_THATCH,
             WAXED_ROTTEN_THATCH,
 
-            OAK_SHINGLES,
+            /*OAK_SHINGLES,
             SPRUCE_SHINGLES,
             BIRCH_SHINGLES,
             JUNGLE_SHINGLES,
@@ -205,7 +205,7 @@ public class OtherBlockSets {
             ROTTEN_SHINGLES,
             ROTTEN_ROOFING,
             SCORCHED_SHINGLES,
-            SCORCHED_ROOFING,
+            SCORCHED_ROOFING,*/
             
             DARK_MUSHROOM_SHINGLES,
             GRAY_MUSHROOM_SHINGLES,

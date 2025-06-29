@@ -11,6 +11,7 @@ import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -84,6 +85,8 @@ public class ModRegistries {
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
             }
         }
+
+        Registries.ITEM.addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, "strawberry"), Identifier.of(MiddleEarth.MOD_ID, "strawberries"));
     }
 
     public static void registerToolTipAppenders() {
@@ -145,7 +148,7 @@ public class ModRegistries {
 
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.WOOD_PILE, 5, 5);
 
-        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.OAK_STOOL, 5, 20);
+        /*FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.OAK_STOOL, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.OAK_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.OAK_CHAIR, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.OAK_TABLE, 5, 20);
@@ -188,13 +191,13 @@ public class ModRegistries {
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_STOOL, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_CHAIR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_TABLE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_TABLE, 5, 20);*/
 
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.LEBETHRON_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.BERRY_HOLLY_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.DRY_LARCH_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.MAPLE_LEAVES, 30, 60);
+        //FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.MAPLE_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.ORANGE_MAPLE_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.RED_MAPLE_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.YELLOW_MAPLE_LEAVES, 30, 60);
@@ -384,7 +387,7 @@ public class ModRegistries {
 
             builder.add(WeaponItemsME.WOODEN_DAGGER, 150);
 
-            builder.add(ModDecorativeBlocks.OAK_STOOL, 300);
+            /*builder.add(ModDecorativeBlocks.OAK_STOOL, 300);
             builder.add(ModDecorativeBlocks.OAK_BENCH, 300);
             builder.add(ModDecorativeBlocks.OAK_CHAIR, 300);
             builder.add(ModDecorativeBlocks.OAK_TABLE, 300);
@@ -427,7 +430,7 @@ public class ModRegistries {
             builder.add(ModDecorativeBlocks.BAMBOO_STOOL, 300);
             builder.add(ModDecorativeBlocks.BAMBOO_BENCH, 300);
             builder.add(ModDecorativeBlocks.BAMBOO_CHAIR, 300);
-            builder.add(ModDecorativeBlocks.BAMBOO_TABLE, 300);
+            builder.add(ModDecorativeBlocks.BAMBOO_TABLE, 300);*/
                 }));
     }
 
@@ -558,11 +561,10 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.DRY_PINE_LEAVES, 0.2F);
         registry.add(ModNatureBlocks.PINE_BRANCHES, 0.2F);
 
-        registry.add(ModNatureBlocks.MAPLE_LEAVES, 0.3F);
+        //registry.add(ModNatureBlocks.MAPLE_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.ORANGE_MAPLE_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.RED_MAPLE_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.YELLOW_MAPLE_LEAVES, 0.3F);
-
 
         registry.add(ModNatureBlocks.WILD_PIPEWEED, 0.5F);
         registry.add(ModNatureBlocks.WILD_FLAX, 0.5F);

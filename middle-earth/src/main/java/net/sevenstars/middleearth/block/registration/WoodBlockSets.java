@@ -1,184 +1,367 @@
 package net.sevenstars.middleearth.block.registration;
 
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.special.*;
-import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.particles.ModParticleTypes;
+import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
+import net.sevenstars.middleearth.block.utils.WoodBlockTypes;
+import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.minecraft.block.*;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.BlockSoundGroup;
+import net.sevenstars.middleearth.item.utils.ModItemGroups;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static net.sevenstars.middleearth.block.utils.BlockSetRegistration.getVanillaOrCreateNew;
 
 public class WoodBlockSets {
-    public static final float WOOD_STRENGTH = 2f;
+    public static final float WOOD_STRENGTH = 2.0f;
+    public static final float WOOD_BLAST_RESISTANCE = 3.0f;
     public static final float PLATE_BUTTON_STRENGTH = 0.5f;
     public static final float LEAVES_STRENGTH = 0.1f;
 
-    public static SimpleBlockSet BEECH = registerWoodSet("beech", WOOD_STRENGTH, true, ModNatureBlocks.BEECH_SAPLING, true, false, null);
-    public static SimpleBlockSet LARCH = registerWoodSet("larch", WOOD_STRENGTH, true, ModNatureBlocks.LARCH_SAPLING, true, false, null);
-    public static SimpleBlockSet BLACK_LEBETHRON = registerWoodSet("black_lebethron", WOOD_STRENGTH, false, null, true, false, null);
-    public static SimpleBlockSet WHITE_LEBETHRON = registerWoodSet("white_lebethron", WOOD_STRENGTH, false, null, true, false, null);
-    public static SimpleBlockSet CHESTNUT = registerWoodSet("chestnut", WOOD_STRENGTH, true, ModNatureBlocks.CHESTNUT_SAPLING, true, false, null);
-    public static SimpleBlockSet FIR = registerWoodSet("fir", WOOD_STRENGTH, true, ModNatureBlocks.FIR_SAPLING, true, false, null);
-    public static SimpleBlockSet HOLLY = registerWoodSet("holly", WOOD_STRENGTH, true, ModNatureBlocks.HOLLY_SAPLING, true, false, null);
-    public static SimpleBlockSet MALLORN = registerWoodSet("mallorn", WOOD_STRENGTH, true, ModNatureBlocks.MALLORN_SAPLING, false, true, ModParticleTypes.MALLORN_LEAVES_PARTICLE);
-    public static SimpleBlockSet MAPLE = registerWoodSet("maple", WOOD_STRENGTH, false, null, false, false, null);
-    public static SimpleBlockSet SILVER_MAPLE = registerWoodSet("silver_maple", WOOD_STRENGTH, false, null, false, false, null);
-    public static SimpleBlockSet MIRKWOOD = registerWoodSet("mirkwood", WOOD_STRENGTH, true, ModNatureBlocks.MIRKWOOD_SAPLING, true, true, ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE);
-    public static SimpleBlockSet PALM = registerWoodSet("palm", WOOD_STRENGTH, true, ModNatureBlocks.PALM_SAPLING,  true,  true, null);
-    public static SimpleBlockSet WHITE_PALM = registerWoodSet("white_palm", WOOD_STRENGTH, false, null, true, true, null);
-    public static SimpleBlockSet PINE = registerWoodSet("pine", WOOD_STRENGTH, true, ModNatureBlocks.PINE_SAPLING, true, false, null);
-    public static SimpleBlockSet BLACK_PINE = registerWoodSet("black_pine", WOOD_STRENGTH, true, ModNatureBlocks.BLACK_PINE_SAPLING, true, false, null);
-    public static SimpleBlockSet WILLOW = registerWoodSet("willow", WOOD_STRENGTH, true, ModNatureBlocks.WILLOW_SAPLING, true, false, null);
+    public static List<WoodBlockSetBuilder> woodSetsList = new ArrayList<>();
 
-    public static SimpleBlockSet ROTTEN = registerWoodSet("rotten", WOOD_STRENGTH, false, null, true, false, null);
-    public static SimpleBlockSet SCORCHED = registerWoodSet("scorched", WOOD_STRENGTH, false, null, true, false, null);
+    public static WoodBlockSetBuilder OAK_SET = registerWoodSet(new WoodBlockSetBuilder("oak",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.OAK_TAN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.OAK_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
 
-    public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
-            BEECH,
-            LARCH,
-            BLACK_LEBETHRON,
-            WHITE_LEBETHRON,
-            CHESTNUT,
-            HOLLY,
-            FIR,
-            MALLORN,
-            MAPLE,
-            SILVER_MAPLE,
-            MIRKWOOD,
-            PALM,
-            WHITE_PALM,
-            PINE,
-            BLACK_PINE,
-            WILLOW,
+    public static WoodBlockSetBuilder SPRUCE_SET = registerWoodSet(new WoodBlockSetBuilder("spruce",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.SPRUCE_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
 
-            ROTTEN,
-            SCORCHED,
-    };
+    public static WoodBlockSetBuilder BIRCH_SET = registerWoodSet(new WoodBlockSetBuilder("birch",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.PALE_YELLOW, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.BIRCH_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
 
-    public record SimpleBlockSet(Block leaves, Block log, Block wood, Block woodSlab, Block woodVerticalSlab, Block woodStairs, Block woodWall, Block woodFence,
-                                 Block strippedLog, Block strippedWood, Block strippedWoodSlab, Block strippedWoodVerticalSlab, Block strippedWoodStairs, Block strippedWoodWall, Block strippedWoodFence,
-                                 Block planks, Block planksSlab, Block planksVerticalSlab, Block planksStairs, Block planksFence, Block planksGate,
-                                 Block door, Block trapdoor, Block pressurePlate, Block button, Block stool, Block bench, Block table, Block chair, Block ladder, Block sapling) {
-    }
+    public static WoodBlockSetBuilder JUNGLE_SET = registerWoodSet(new WoodBlockSetBuilder("jungle",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DIRT_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.JUNGLE_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
 
-    private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves, Block sapling, boolean castShadow, boolean range, ParticleEffect particleEffect) {
-        Block leaves = null;
-        if(hasLeaves) {
-            if(range) {
-                leaves = ModNatureBlocks.registerBlock(name + "_leaves", (settings) -> new ModLeavesBlock(0.01f, settings, castShadow, particleEffect),
-                        AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
-                        .strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(ModBlocks::canSpawnOnLeaves).suffocates(ModBlocks::never)
-                        .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never), true);
-            } else {
-                leaves = ModNatureBlocks.registerBlock(name + "_leaves", (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
-                        .strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(ModBlocks::canSpawnOnLeaves).suffocates(ModBlocks::never)
-                        .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never), true);
+    public static WoodBlockSetBuilder ACACIA_SET = registerWoodSet(new WoodBlockSetBuilder("acacia",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.ORANGE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.ACACIA_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder DAK_OAK_SET = registerWoodSet(new WoodBlockSetBuilder("dark_oak",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.DARK_OAK_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder MANGROVE_SET = registerWoodSet(new WoodBlockSetBuilder("mangrove",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.RED, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.MANGROVE_PROPAGULE)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder CHERRY_SET = registerWoodSet(new WoodBlockSetBuilder("cherry",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.TERRACOTTA_WHITE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.CHERRY_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder PALE_OAK_SET = registerWoodSet(new WoodBlockSetBuilder("pale_oak",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.PALE_OAK_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder CRIMSON_SET = registerWoodSet(new WoodBlockSetBuilder("crimson",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DULL_PINK, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.CRIMSON_FUNGUS)
+            .addToSet(WoodBlockTypes.STEM_BLOCKS)
+            //.addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
+
+    public static WoodBlockSetBuilder WARPED_SET = registerWoodSet(new WoodBlockSetBuilder("warped",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DARK_AQUA, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.WARPED_FUNGUS)
+            .addToSet(WoodBlockTypes.STEM_BLOCKS)
+            //.addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
+
+    public static WoodBlockSetBuilder BEECH_SET = registerWoodSet(new WoodBlockSetBuilder("beech",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.LIGHT_GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.BEECH_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder LARCH_SET = registerWoodSet(new WoodBlockSetBuilder("larch",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DIRT_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.LARCH_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder BLACK_LEBETHRON_SET = registerWoodSet(new WoodBlockSetBuilder("black_lebethron",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.LEBETHRON_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder WHITE_LEBETHRON_SET = registerWoodSet(new WoodBlockSetBuilder("white_lebethron",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.WHITE_LEBETHRON_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
+
+    public static WoodBlockSetBuilder CHESTNUT_SET = registerWoodSet(new WoodBlockSetBuilder("chestnut",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.TERRACOTTA_YELLOW, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.CHESTNUT_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder FIR_SET = registerWoodSet(new WoodBlockSetBuilder("fir",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.FIR_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder HOLLY_SET = registerWoodSet(new WoodBlockSetBuilder("holly",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.WHITE_GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.HOLLY_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder MALLORN_SET = registerWoodSet(new WoodBlockSetBuilder("mallorn",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.MALLORN_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder MAPLE_SET = registerWoodSet(new WoodBlockSetBuilder("maple",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DULL_RED, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.MAPLE_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder SILVER_MAPLE_SET = registerWoodSet(new WoodBlockSetBuilder("silver_maple",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.SILVER_MAPLE_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
+
+    public static WoodBlockSetBuilder MIRKWOOD_SET = registerWoodSet(new WoodBlockSetBuilder("mirkwood",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.PALE_GREEN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.MIRKWOOD_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder PALM_SET = registerWoodSet(new WoodBlockSetBuilder("palm",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DIRT_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.PALM_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder WHITE_PALM_SET = registerWoodSet(new WoodBlockSetBuilder("white_palm",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.WHITE_PALM_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
+
+    public static WoodBlockSetBuilder PINE_SET = registerWoodSet(new WoodBlockSetBuilder("pine",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.PINE_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder BLACK_PINE_SET = registerWoodSet(new WoodBlockSetBuilder("black_pine",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.TERRACOTTA_ORANGE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.BLACK_PINE_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder WILLOW_SET = registerWoodSet(new WoodBlockSetBuilder("willow",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.PALE_GREEN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.WILLOW_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder ROTTEN_SET = registerWoodSet(new WoodBlockSetBuilder("rotten",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.PALE_GREEN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, null)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
+
+    public static WoodBlockSetBuilder SCORCHED_SET = registerWoodSet(new WoodBlockSetBuilder("scorched",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, null)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
+
+
+    private static WoodBlockSetBuilder registerWoodSet(WoodBlockSetBuilder set) {
+        set.existingList.forEach((woodStoneTypes) -> {
+            switch (woodStoneTypes) {
+                case LOG_BLOCKS -> {
+                    set.logBlocks = BlockSetRegistration.createWoodSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
+                    ModItemGroups.NATURE_BLOCKS_CONTENTS.add(set.logBlocks.log().asItem().getDefaultStack());
+                }
+                case STRIPPED_LOG_BLOCKS -> {
+                    set.strippedLogBlocks = BlockSetRegistration.createWoodSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
+                    StrippableBlockRegistry.register(set.logBlocks.log(), set.strippedLogBlocks.log());
+                    StrippableBlockRegistry.register(set.logBlocks.wood(), set.strippedLogBlocks.wood());
+                }
+                case PLANK_BLOCKS ->
+                        set.planksBlocks = BlockSetRegistration.createPlanksSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
+                case REDSTONE_BLOCKS ->
+                        set.redstoneBlocks = BlockSetRegistration.createWoodRedstoneSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.soundGroup, set.planksBlocks.base());
+                case FURNITURE_BLOCKS -> {
+                    set.furnitureBlocks = BlockSetRegistration.createWoodFurnitureSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.soundGroup, set.planksBlocks.base());
+                    ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(set.furnitureBlocks.stool().asItem().getDefaultStack());
+                    ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(set.furnitureBlocks.bench().asItem().getDefaultStack());
+                    ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(set.furnitureBlocks.table().asItem().getDefaultStack());
+                    ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(set.furnitureBlocks.chair().asItem().getDefaultStack());
+                    ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(set.furnitureBlocks.ladder().asItem().getDefaultStack());
+                }
+                        case ROOFING_BLOCKS ->
+                        set.roofingBlocks = BlockSetRegistration.createRegularSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
+                case SHINGLE_BLOCKS ->
+                        set.shinglesBlocks = BlockSetRegistration.createRegularSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
+                case LEAVES ->
+                        set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
+                                (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable());
             }
-        }
+        });
 
+        woodSetsList.add(set);
 
-        Block log = ModBlocks.registerWoodBlock(name + "_log", PillarBlock::new,
-                AbstractBlock.Settings.copy(Blocks.OAK_LOG).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block wood = ModBlocks.registerWoodBlock(name + "_wood", PillarBlock::new,
-                AbstractBlock.Settings.copy(Blocks.OAK_WOOD).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block woodSlab = ModBlocks.registerWoodBlock(name + "_wood_slab", SlabBlock::new,
-                AbstractBlock.Settings.copy(wood).strength(strength, ModBlocks.SLAB_RESISTANCE).sounds(BlockSoundGroup.WOOD),false);
-
-        Block woodVerticalSlab = ModBlocks.registerWoodBlock(name + "_wood_vertical_slab", VerticalSlabBlock::new,
-                AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block woodStairs = ModBlocks.registerWoodBlock(name + "_wood_stairs", (settings) -> new StairsBlock(
-                wood.getDefaultState(), settings), AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-        
-        Block woodWall = ModBlocks.registerWoodBlock(name + "_wood_wall", WallBlock::new,
-                AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block woodFence = ModBlocks.registerWoodBlock(name + "_wood_fence", FenceBlock::new,
-                AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block strippedLog = ModBlocks.registerWoodBlock("stripped_" + name + "_log", PillarBlock::new,
-                AbstractBlock.Settings.copy(Blocks.OAK_LOG).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block strippedWood = ModBlocks.registerWoodBlock("stripped_" + name + "_wood", PillarBlock::new,
-                AbstractBlock.Settings.copy(Blocks.OAK_WOOD).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-        
-        Block strippedSlab = ModBlocks.registerWoodBlock("stripped_" + name + "_wood_slab", SlabBlock::new,
-                AbstractBlock.Settings.copy(strippedWood).strength(strength, ModBlocks.SLAB_RESISTANCE).sounds(BlockSoundGroup.WOOD),false);
-
-        Block strippedVerticalSlab = ModBlocks.registerWoodBlock("stripped_" + name + "_wood_vertical_slab", VerticalSlabBlock::new,
-                AbstractBlock.Settings.copy(strippedWood).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block strippedStairs = ModBlocks.registerWoodBlock("stripped_" + name + "_wood_stairs", (settings) -> new StairsBlock(
-                strippedWood.getDefaultState(), settings), AbstractBlock.Settings.copy(strippedWood).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-        
-        Block strippedWoodWall = ModBlocks.registerWoodBlock("stripped_" + name + "_wood_wall", WallBlock::new,
-                AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block strippedWoodFence = ModBlocks.registerWoodBlock("stripped_" + name + "_wood_fence", FenceBlock::new,
-                AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block planks = ModBlocks.registerWoodBlock(name + "_planks", Block::new,
-                AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block slab = ModBlocks.registerWoodBlock(name + "_slab", SlabBlock::new,
-                AbstractBlock.Settings.copy(planks).strength(strength, ModBlocks.SLAB_RESISTANCE).sounds(BlockSoundGroup.WOOD),false);
-
-        Block verticalSlab = ModBlocks.registerWoodBlock(name + "_vertical_slab", VerticalSlabBlock::new,
-                AbstractBlock.Settings.copy(planks).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block stairs = ModBlocks.registerWoodBlock(name + "_stairs", (settings) -> new StairsBlock(
-                planks.getDefaultState(), settings), AbstractBlock.Settings.copy(planks).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block fence = ModBlocks.registerWoodBlock(name + "_fence", FenceBlock::new,
-                AbstractBlock.Settings.copy(planks).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block gate = ModBlocks.registerWoodBlock(name + "_fence_gate", (settings) -> new FenceGateBlock(
-                WoodType.OAK, settings), AbstractBlock.Settings.copy(planks).strength(strength).sounds(BlockSoundGroup.WOOD),false);
-
-        Block door = ModBlocks.registerWoodBlock(name + "_door", (settings) -> new DoorBlock(
-                BlockSetType.OAK, settings), AbstractBlock.Settings.copy(planks).strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque(),false);
-
-        Block trapdoor = ModBlocks.registerWoodBlock(name + "_trapdoor", (settings) -> new TrapdoorBlock(
-                BlockSetType.OAK, settings), AbstractBlock.Settings.copy(planks).strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque(),false);
-
-        Block pressurePlate = ModBlocks.registerWoodBlock(name + "_pressure_plate", (settings) -> new PressurePlateBlock(
-                BlockSetType.OAK, settings), AbstractBlock.Settings.copy(planks).strength(PLATE_BUTTON_STRENGTH).sounds(BlockSoundGroup.WOOD).noCollision(),false);
-
-        Block button = ModBlocks.registerWoodBlock(name + "_button", (settings) -> new ButtonBlock(
-                BlockSetType.OAK, 30, settings), AbstractBlock.Settings.copy(planks).noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.WOOD).noCollision(),false);
-
-        Block stool = ModBlocks.registerWoodBlock(name + "_stool", WoodStoolBlock::new,
-                AbstractBlock.Settings.copy(planks).strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque(),false);
-
-        Block bench = ModBlocks.registerWoodBlock(name + "_bench", WoodBenchBlock::new,
-                AbstractBlock.Settings.copy(planks).strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque(),false);
-
-        Block table = ModBlocks.registerWoodBlock(name + "_table", WoodTableBlock::new,
-                AbstractBlock.Settings.copy(planks).strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque(),false);
-
-        Block chair = ModBlocks.registerWoodBlock(name + "_chair", WoodChairBlock::new,
-                AbstractBlock.Settings.copy(planks).sounds(BlockSoundGroup.WOOD).nonOpaque(),false);
-
-        Block ladder = ModBlocks.registerWoodBlock(name + "_ladder", ThickLadderBlock::new,
-                AbstractBlock.Settings.copy(planks).sounds(BlockSoundGroup.LADDER).nonOpaque(),false);
-
-        ModItemGroups.NATURE_BLOCKS_CONTENTS.add(log.asItem().getDefaultStack());
-
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(stool.asItem().getDefaultStack());
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(bench.asItem().getDefaultStack());
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(ladder.asItem().getDefaultStack());
-
-        StrippableBlockRegistry.register(log, strippedLog);
-        StrippableBlockRegistry.register(wood, strippedWood);
+        return set;
+    }
+    /*
 
         FlammableBlockRegistry.getDefaultInstance().add(leaves, 5, 60);
         FlammableBlockRegistry.getDefaultInstance().add(log, 5, 5);
@@ -232,15 +415,10 @@ public class WoodBlockSets {
             builder.add(door, 200);
             builder.add(trapdoor, 200);
         }));
-
-        return new SimpleBlockSet(leaves, log, wood, woodSlab, woodVerticalSlab, woodStairs, woodWall, woodFence,
-                strippedLog, strippedWood, strippedSlab, strippedVerticalSlab, strippedStairs, strippedWoodWall, strippedWoodFence,
-                planks, slab, verticalSlab, stairs, fence, gate,
-                door, trapdoor, pressurePlate, button, stool, bench, table, chair, ladder, sapling);
-    }
+    }*/
 
 
     public static void registerModBlockSets() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering Wood Block Sets for " + MiddleEarth.MOD_ID);
     }
 }

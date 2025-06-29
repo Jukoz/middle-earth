@@ -19,7 +19,7 @@ public class SimpleWoodStoolModel {
 
     public static List<VanillaStool> vanillaStools = new ArrayList<>() {
         {
-            add(new VanillaStool(ModDecorativeBlocks.OAK_STOOL, Blocks.OAK_PLANKS));
+            /*add(new VanillaStool(ModDecorativeBlocks.OAK_STOOL, Blocks.OAK_PLANKS));
             add(new VanillaStool(ModDecorativeBlocks.SPRUCE_STOOL, Blocks.SPRUCE_PLANKS));
             add(new VanillaStool(ModDecorativeBlocks.BIRCH_STOOL, Blocks.BIRCH_PLANKS));
             add(new VanillaStool(ModDecorativeBlocks.JUNGLE_STOOL, Blocks.JUNGLE_PLANKS));
@@ -29,7 +29,7 @@ public class SimpleWoodStoolModel {
             add(new VanillaStool(ModDecorativeBlocks.BAMBOO_STOOL, Blocks.BAMBOO_BLOCK));
             add(new VanillaStool(ModDecorativeBlocks.CHERRY_STOOL, Blocks.CHERRY_PLANKS));
             add(new VanillaStool(ModDecorativeBlocks.CRIMSON_STOOL, Blocks.CRIMSON_PLANKS));
-            add(new VanillaStool(ModDecorativeBlocks.WARPED_STOOL, Blocks.WARPED_PLANKS));
+            add(new VanillaStool(ModDecorativeBlocks.WARPED_STOOL, Blocks.WARPED_PLANKS));*/
         }
     };
 }

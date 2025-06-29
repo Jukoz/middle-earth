@@ -39,27 +39,27 @@ public class SimpleWallModel {
 
     public static List<Wall> vanillaStrippedWalls = new ArrayList<>() {
         {
-            add(new Wall(Blocks.STRIPPED_OAK_WOOD, ModBlocks.STRIPPED_OAK_WOOD_WALL));
+            /*add(new Wall(Blocks.STRIPPED_OAK_WOOD, ModBlocks.STRIPPED_OAK_WOOD_WALL));
             add(new Wall(Blocks.STRIPPED_SPRUCE_WOOD, ModBlocks.STRIPPED_SPRUCE_WOOD_WALL));
             add(new Wall(Blocks.STRIPPED_BIRCH_WOOD, ModBlocks.STRIPPED_BIRCH_WOOD_WALL));
             add(new Wall(Blocks.STRIPPED_JUNGLE_WOOD, ModBlocks.STRIPPED_JUNGLE_WOOD_WALL));
             add(new Wall(Blocks.STRIPPED_ACACIA_WOOD, ModBlocks.STRIPPED_ACACIA_WOOD_WALL));
             add(new Wall(Blocks.STRIPPED_DARK_OAK_WOOD, ModBlocks.STRIPPED_DARK_OAK_WOOD_WALL));
             add(new Wall(Blocks.STRIPPED_MANGROVE_WOOD, ModBlocks.STRIPPED_MANGROVE_WOOD_WALL));
-            add(new Wall(Blocks.STRIPPED_CHERRY_WOOD, ModBlocks.STRIPPED_CHERRY_WOOD_WALL));
+            add(new Wall(Blocks.STRIPPED_CHERRY_WOOD, ModBlocks.STRIPPED_CHERRY_WOOD_WALL));*/
         }
     };
 
     public static List<Wall> vanillaWoodWalls = new ArrayList<>() {
         {
-            add(new Wall(Blocks.OAK_WOOD, ModBlocks.OAK_WOOD_WALL));
+            /*add(new Wall(Blocks.OAK_WOOD, ModBlocks.OAK_WOOD_WALL));
             add(new Wall(Blocks.SPRUCE_WOOD, ModBlocks.SPRUCE_WOOD_WALL));
             add(new Wall(Blocks.BIRCH_WOOD, ModBlocks.BIRCH_WOOD_WALL));
             add(new Wall(Blocks.JUNGLE_WOOD, ModBlocks.JUNGLE_WOOD_WALL));
             add(new Wall(Blocks.ACACIA_WOOD, ModBlocks.ACACIA_WOOD_WALL));
             add(new Wall(Blocks.DARK_OAK_WOOD, ModBlocks.DARK_OAK_WOOD_WALL));
             add(new Wall(Blocks.MANGROVE_WOOD, ModBlocks.MANGROVE_WOOD_WALL));
-            add(new Wall(Blocks.CHERRY_WOOD, ModBlocks.CHERRY_WOOD_WALL));
+            add(new Wall(Blocks.CHERRY_WOOD, ModBlocks.CHERRY_WOOD_WALL));*/
         }
     };
 }
