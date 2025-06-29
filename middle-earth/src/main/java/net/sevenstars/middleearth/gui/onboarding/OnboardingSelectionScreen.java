@@ -8,7 +8,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -70,7 +69,6 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
                 this.player = clientPlayerEntity;
                 this.mouseX = mouseX;
                 this.mouseY = mouseY;
-                this.renderBackground(context, mouseX, mouseY, delta);
                 this.drawContent(context);
             } else {
                 this.player = null;

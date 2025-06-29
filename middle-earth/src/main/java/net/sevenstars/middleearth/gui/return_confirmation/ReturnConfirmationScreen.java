@@ -43,7 +43,6 @@ public class ReturnConfirmationScreen extends Screen {
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         ModWidget.updateMouse(mouseX, mouseY);
-        this.renderBackground(context, mouseX, mouseY, delta);
         this.drawContent(context);
     }
 

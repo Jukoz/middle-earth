@@ -1,15 +1,14 @@
 package net.sevenstars.middleearth.gui.utils.widgets;
 
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.render.RenderLayer;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.utils.CycledSelectionButtonType;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.gui.utils.CycledSelectionButtonType;
 
 import java.util.ArrayList;
 import java.util.List;
