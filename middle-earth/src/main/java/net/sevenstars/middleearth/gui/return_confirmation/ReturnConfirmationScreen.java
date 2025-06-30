@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.gui.return_confirmation;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
@@ -66,7 +67,7 @@ public class ReturnConfirmationScreen extends Screen {
         int startX = (width / 2) - (panelSizeX / 2);
         int startY = (height / 2) - (panelSizeY / 2);
         if(returnToOverworldButton.active){
-            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_WIDGET,
                     startX, startY,0, returnToOverworldButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
                     panelSizeX, panelSizeY, 256, 256);
 
@@ -78,12 +79,12 @@ public class ReturnConfirmationScreen extends Screen {
 
             returnToOverworldButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
             if(ModWidget.getFocusEnabled() && returnToOverworldButton.isFocused()){
-                context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_WIDGET,
                         startX, startY,103, 0,
                         panelSizeX, panelSizeY, 256, 256);
             }
         } else {
-            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_WIDGET,
                     startX, startY,0, 38,
                     panelSizeX, panelSizeY, 256, 256);
 

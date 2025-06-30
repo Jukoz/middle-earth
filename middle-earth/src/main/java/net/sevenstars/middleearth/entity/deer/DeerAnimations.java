@@ -1,12 +1,9 @@
 package net.sevenstars.middleearth.entity.deer;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 
 public class DeerAnimations {
-    public static final Animation WALK = Animation.Builder.create(1f).looping()
+    public static final AnimationDefinition WALK = AnimationDefinition.Builder.create(1f).looping()
             .addBoneAnimation("leg_front_right",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -83,7 +80,7 @@ public class DeerAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 2.5f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation IDLE = Animation.Builder.create(3.5834335f)
+    public static final AnimationDefinition IDLE = AnimationDefinition.Builder.create(3.5834335f)
             .addBoneAnimation("head",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -102,7 +99,7 @@ public class DeerAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(2.6766665f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation GOINGTOSLEEP = Animation.Builder.create(1.5f)
+    public static final AnimationDefinition GOINGTOSLEEP = AnimationDefinition.Builder.create(1.5f)
             .addBoneAnimation("leg_back_left",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -249,7 +246,7 @@ public class DeerAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(104.69f, -16.88f, -39.62f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation SLEEPING = Animation.Builder.create(1.25f)
+    public static final AnimationDefinition SLEEPING = AnimationDefinition.Builder.create(1.25f)
             .addBoneAnimation("leg_back_left",
                                       new Transformation(Transformation.Targets.MOVE_ORIGIN,
 		new Keyframe(1.25f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
@@ -300,7 +297,7 @@ public class DeerAnimations {
     Transformation.Interpolations.LINEAR),
             new Keyframe(1.25f, AnimationHelper.createRotationalVector(104.69f, -16.88f, -39.62f),
     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation STANDINGUP = Animation.Builder.create(1.5f)
+    public static final AnimationDefinition STANDINGUP = AnimationDefinition.Builder.create(1.5f)
             .addBoneAnimation("leg_back_left",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),

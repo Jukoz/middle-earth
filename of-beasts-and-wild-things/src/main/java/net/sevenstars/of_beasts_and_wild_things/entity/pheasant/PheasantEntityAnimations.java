@@ -1,12 +1,9 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.pheasant;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 
 public class PheasantEntityAnimations {
-    public static final Animation RUN = Animation.Builder.create(0.5f).looping()
+    public static final AnimationDefinition RUN = AnimationDefinition.Builder.create(0.5f).looping()
             .addBoneAnimation("pheasant",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -135,7 +132,7 @@ public class PheasantEntityAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, 0f, 17.5f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation WALK = Animation.Builder.create(1f).looping()
+    public static final AnimationDefinition WALK = AnimationDefinition.Builder.create(1f).looping()
             .addBoneAnimation("pheasant",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -248,7 +245,7 @@ public class PheasantEntityAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 2.5f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation IDLE = Animation.Builder.create(2f).looping()
+    public static final AnimationDefinition IDLE = AnimationDefinition.Builder.create(2f).looping()
             .addBoneAnimation("upper_body",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -257,7 +254,7 @@ public class PheasantEntityAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(2f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation DIGGING = Animation.Builder.create(5.125f)
+    public static final AnimationDefinition DIGGING = AnimationDefinition.Builder.create(5.125f)
             .addBoneAnimation("pheasant",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),

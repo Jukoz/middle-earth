@@ -3,7 +3,9 @@ package net.sevenstars.middleearth.entity.swan;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntityAnimations;
 
 @Environment(value= EnvType.CLIENT)
 public class SwanModel extends EntityModel<SwanEntityRenderState> {
@@ -13,6 +15,11 @@ public class SwanModel extends EntityModel<SwanEntityRenderState> {
     private final ModelPart rightWing;
     private final ModelPart leftWing;
 
+    private final Animation walkingAnimation;
+    private final Animation swimmingAnimation;
+    private final Animation cleaningAnimation;
+    private final Animation attackingAnimation;
+
     public SwanModel(ModelPart root) {
         super(root);
 
@@ -21,6 +28,11 @@ public class SwanModel extends EntityModel<SwanEntityRenderState> {
         this.head = swan.getChild("body").getChild("headAndNeck").getChild("head");
         this.rightWing = swan.getChild("body").getChild("rightWing");
         this.leftWing = swan.getChild("body").getChild("leftWing");
+
+        this.walkingAnimation = SwanAnimations.WALK.createAnimation(root);
+        this.swimmingAnimation = SwanAnimations.SWIM.createAnimation(root);
+        this.cleaningAnimation = SwanAnimations.WINGCLEAN.createAnimation(root);
+        this.attackingAnimation = SwanAnimations.ATTACK.createAnimation(root);
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -71,9 +83,9 @@ public class SwanModel extends EntityModel<SwanEntityRenderState> {
         this.headAndNeck.yaw = state.relativeHeadYaw * 0.017453292F;
         this.headAndNeck.pitch = state.pitch * 0.017453292F;
 
-        animateWalking(SwanAnimations.WALK, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0f, 2.5f);
-        animate(state.swimAnimationState, SwanAnimations.SWIM, state.age);
-        animate(state.idleAnimationState, SwanAnimations.WINGCLEAN, state.age);
-        animate(state.attackAnimationState, SwanAnimations.ATTACK, state.age);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
+        this.swimmingAnimation.apply(state.swimAnimationState, state.age);
+        this.cleaningAnimation.apply(state.idleAnimationState, state.age);
+        this.attackingAnimation.apply(state.attackAnimationState, state.age);
     }
 }

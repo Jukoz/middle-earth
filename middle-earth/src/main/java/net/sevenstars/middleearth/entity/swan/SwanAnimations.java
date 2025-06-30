@@ -1,12 +1,9 @@
 package net.sevenstars.middleearth.entity.swan;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 
 public class SwanAnimations {
-    public static final Animation WALK = Animation.Builder.create(1.5f).looping()
+    public static final AnimationDefinition WALK = AnimationDefinition.Builder.create(1.5f).looping()
             .addBoneAnimation("rightLeg",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -69,7 +66,7 @@ public class SwanAnimations {
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation ATTACK = Animation.Builder.create(1.25f)
+    public static final AnimationDefinition ATTACK = AnimationDefinition.Builder.create(1.25f)
             .addBoneAnimation("root",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -160,7 +157,7 @@ public class SwanAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation EATING = Animation.Builder.create(3.5f)
+    public static final AnimationDefinition EATING = AnimationDefinition.Builder.create(3.5f)
             .addBoneAnimation("root",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -249,7 +246,7 @@ public class SwanAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(3.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation WINGCLEAN = Animation.Builder.create(3.75f)
+    public static final AnimationDefinition WINGCLEAN = AnimationDefinition.Builder.create(3.75f)
             .addBoneAnimation("rightWing",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -320,7 +317,7 @@ public class SwanAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(3.75f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation WINGRUFFLE = Animation.Builder.create(1.0834333f)
+    public static final AnimationDefinition WINGRUFFLE = AnimationDefinition.Builder.create(1.0834333f)
             .addBoneAnimation("leftInnerWing",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -345,7 +342,7 @@ public class SwanAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1.0834333f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation SWIM = Animation.Builder.create(2f).looping()
+    public static final AnimationDefinition SWIM = AnimationDefinition.Builder.create(2f).looping()
             .addBoneAnimation("rightLeg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(47.5f, 0f, 0f),
@@ -388,7 +385,7 @@ public class SwanAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(2f, AnimationHelper.createRotationalVector(0f, 10f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation EATINGINWATER = Animation.Builder.create(2f)
+    public static final AnimationDefinition EATINGINWATER = AnimationDefinition.Builder.create(2f)
             .addBoneAnimation("rightLeg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(47.5f, 0f, 0f),

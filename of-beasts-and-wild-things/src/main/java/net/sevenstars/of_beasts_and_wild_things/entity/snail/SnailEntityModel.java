@@ -1,6 +1,8 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.snail;
 
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.animation.CamelAnimations;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 
@@ -8,8 +10,11 @@ import static java.lang.Math.PI;
 
 public class SnailEntityModel extends EntityModel<SnailEntityRenderState> {
 
+    private final Animation walkingAnimation;
+
     protected SnailEntityModel(ModelPart root) {
         super(root);
+        this.walkingAnimation = SnailEntityAnimations.CRAWL.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -28,7 +33,7 @@ public class SnailEntityModel extends EntityModel<SnailEntityRenderState> {
     public void setAngles(SnailEntityRenderState state) {
         super.setAngles(state);
 
-        animateWalking(SnailEntityAnimations.CRAWL, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 20.0f, 30.0f);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 20.0F, 30.0F);
 
         getRootPart().getChild("snail").pitch = -(float)PI/2 * ((float)state.climbingTicks / SnailEntity.CLIMBING_TIME_TRANSITION);
     }

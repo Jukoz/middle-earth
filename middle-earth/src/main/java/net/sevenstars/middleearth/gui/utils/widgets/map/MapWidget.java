@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.gui.utils.widgets.map;
 
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
@@ -144,7 +145,7 @@ public class MapWidget extends ModWidget {
     protected void drawMapTexture(DrawContext context, int startX, int startY) {
         int size = Math.max(getCurrentWidth(), getCurrentHeight());
 
-        context.drawTexture(RenderLayer::getGuiTextured, getMapTexture(),
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, getMapTexture(),
                 startX, startY, uvX.floatValue(), uvY.floatValue(),
                 getWidth(), getHeight(),
                 size, size
@@ -154,7 +155,7 @@ public class MapWidget extends ModWidget {
     protected void drawOverlayMapTexture(DrawContext context, int startX, int startY) {
         int size = Math.max(getCurrentWidth(), getCurrentHeight());
 
-        context.drawTexture(RenderLayer::getGuiTextured, getOverlayMapTexture(),
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, getOverlayMapTexture(),
                 startX, startY, uvX.floatValue(), uvY.floatValue(),
                 getWidth(), getHeight(),
                 size, size

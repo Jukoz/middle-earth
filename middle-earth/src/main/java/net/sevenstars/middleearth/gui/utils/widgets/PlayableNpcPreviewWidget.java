@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.gui.utils.widgets;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -155,8 +156,8 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         int x = centerX;
         int y = endY;
 
-        DiffuseLighting.disableGuiDepthLighting();
-        DiffuseLighting.disableForLevel();
+        //DiffuseLighting.disableGuiDepthLighting();
+        //DiffuseLighting.disableForLevel();
         if(this.entity == null) return;
 
         if(currentButtonClicked != null){
@@ -170,7 +171,10 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         }
 
         // TODO : Find a way to display the entity behind the buttons.
-        InventoryScreen.drawEntity(context, x, y - 9, size, VECTOR, ENTITY_ROTATION, (Quaternionf)null, this.entity);
+        //TODO also fix
+        InventoryScreen.drawEntity(context, x, y, x, y - 9, size, VECTOR, ENTITY_ROTATION, (Quaternionf)null, this.entity);
+
+
         int horizontalMargin = MINIMAL_MARGIN + 1;
 
         if(leftButton.active){
@@ -178,12 +182,12 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             int height = leftButton.getHeight();
             boolean isMouseOver = isMouseOver(width, height, x - width - horizontalMargin, y - MINIMAL_MARGIN);
 
-            context.drawTexture(RenderLayer::getGuiTextured, NPC_PREVIEW,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, NPC_PREVIEW,
                     x - width - horizontalMargin, y - MINIMAL_MARGIN, 0, (currentButtonClicked != null && isLeftButton) ? 18 : (leftButton.isFocused() || isMouseOver) ? 9 : 0,
                     width, height, 256, 256);
 
             if(leftButton.isFocused() && getFocusEnabled()){
-                context.drawTexture(RenderLayer::getGuiTextured, NPC_PREVIEW,
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, NPC_PREVIEW,
                         x - width - horizontalMargin, y - MINIMAL_MARGIN, 0, 27,
                         width, height, 256, 256);
             }
@@ -196,12 +200,12 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             int height = resetButton.getHeight();
             boolean isMouseOver = isMouseOver(width, height, x - (width / 2), y - MINIMAL_MARGIN + 2);
 
-            context.drawTexture(RenderLayer::getGuiTextured, NPC_PREVIEW,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, NPC_PREVIEW,
                     x - 3, y - MINIMAL_MARGIN + 2, 28, (resetButton.isFocused() || isMouseOver) ? 6 : 0,
                     width, height, 256, 256);
 
             if(resetButton.isFocused() && getFocusEnabled()){
-                context.drawTexture(RenderLayer::getGuiTextured, NPC_PREVIEW,
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, NPC_PREVIEW,
                         x - 3, y - MINIMAL_MARGIN + 2, 28, 12,
                         width, height, 256, 256);
             }
@@ -213,11 +217,11 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             int height = rightButton.getHeight();
             boolean isMouseOver = isMouseOver(width, height, x + horizontalMargin, y - MINIMAL_MARGIN);
 
-            context.drawTexture(RenderLayer::getGuiTextured, NPC_PREVIEW,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, NPC_PREVIEW,
                     x + horizontalMargin, y - MINIMAL_MARGIN, 14, (currentButtonClicked != null && !isLeftButton) ? 18 : (rightButton.isFocused() || isMouseOver) ? 9 : 0,
                     width, height, 256, 256);
             if(rightButton.isFocused() && getFocusEnabled()){
-                context.drawTexture(RenderLayer::getGuiTextured, NPC_PREVIEW,
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, NPC_PREVIEW,
                         x + horizontalMargin, y - MINIMAL_MARGIN, 14, 27,
                         width, height, 256, 256);
             }
