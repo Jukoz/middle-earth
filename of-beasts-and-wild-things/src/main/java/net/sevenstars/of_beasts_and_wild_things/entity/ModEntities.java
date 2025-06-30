@@ -10,6 +10,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
+import net.sevenstars.of_beasts_and_wild_things.datageneration.content.TranslationEntries;
 import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntity;
 import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntity;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
@@ -23,7 +24,9 @@ public class ModEntities {
 
 
     private static <T extends Entity> EntityType<T> register(RegistryKey<EntityType<?>> key, EntityType.Builder<T> type) {
-        return (EntityType) Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
+        EntityType<T> entityType = (EntityType)Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
+        TranslationEntries.entityEntries.add(entityType);
+        return entityType;
     }
 
     private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> type) {

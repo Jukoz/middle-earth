@@ -2,12 +2,17 @@ package net.sevenstars.middleearth.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.registry.RegistryBuilder;
+import net.minecraft.registry.RegistryKeys;
 import net.sevenstars.middleearth.datageneration.providers.*;
+import net.sevenstars.middleearth.datageneration.providers.models.BlockModelProvider;
+import net.sevenstars.middleearth.datageneration.providers.models.ItemModelProvider;
+import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableArmorRecipeProvider;
+import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableHandheldRecipeProvider;
+import net.sevenstars.middleearth.datageneration.providers.recipes.RecipeProvider;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimPatterns;
-import net.sevenstars.middleearth.resources.MiddleEarthFactions;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcs;
-import net.sevenstars.middleearth.resources.MiddleEarthRaces;
+import net.sevenstars.middleearth.resources.*;
 import net.sevenstars.middleearth.world.biomes.caves.ModCaveBiomes;
 import net.sevenstars.middleearth.world.biomes.surface.ModBiomes;
 import net.sevenstars.middleearth.world.features.boulder.BoulderConfiguredFeatures;
@@ -23,8 +28,6 @@ import net.sevenstars.middleearth.world.features.underground.CavesConfiguredFeat
 import net.sevenstars.middleearth.world.features.underground.CavesPlacedFeatures;
 import net.sevenstars.middleearth.world.features.vegetation.ModVegetationConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.vegetation.ModVegetationPlacedFeatures;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
 
 public class DataGeneration implements DataGeneratorEntrypoint {
     public static boolean isDataGen = false;
@@ -39,7 +42,9 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(BlockTagProvider::new);
         pack.addProvider(BlockLootTableProvider::new);
         pack.addProvider(ItemTagProvider::new);
-        pack.addProvider(ModelProvider::new);
+        pack.addProvider(NpcTextureProvider::new);
+        pack.addProvider(BlockModelProvider::new);
+        pack.addProvider(ItemModelProvider::new);
         pack.addProvider(RecipeProvider::new);
         pack.addProvider(ArtisanTableHandheldRecipeProvider::new);
         pack.addProvider(ArtisanTableArmorRecipeProvider::new);
@@ -47,6 +52,8 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(NpcProvider::new);
         pack.addProvider(FactionProvider::new);
         pack.addProvider(DataWorldGenerator::new);
+        pack.addProvider(LanguageProvider::new);
+        pack.addProvider(EnchantmentProvider::new);
     }
 
     @Override
@@ -67,10 +74,25 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, OrePlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, CavesPlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModMiscPlacedFeatures::bootstrap);
-        // Dynamic
-        registryBuilder.addRegistry(MiddleEarthRaces.RACE_KEY, MiddleEarthRaces::bootstrap);
-        registryBuilder.addRegistry(MiddleEarthNpcs.NPC_KEY, MiddleEarthNpcs::bootstrap);
-        registryBuilder.addRegistry(MiddleEarthFactions.FACTION_KEY, MiddleEarthFactions::bootstrap);
+
+        registryBuilder.addRegistry(NpcTextureMaterialsME.Keys.SKIN_KEY, NpcTextureMaterialsME::bootstrapSkins);
+        registryBuilder.addRegistry(NpcTexturePatternsME.Keys.SKIN_KEY, NpcTexturePatternsME::bootstrapSkins);
+
+        registryBuilder.addRegistry(NpcTextureMaterialsME.Keys.HAIR_KEY, NpcTextureMaterialsME::bootstrapHairs);
+        registryBuilder.addRegistry(NpcTexturePatternsME.Keys.HAIR_KEY, NpcTexturePatternsME::bootstrapHairs);
+
+        registryBuilder.addRegistry(NpcTextureMaterialsME.Keys.CLOTHING_KEY, NpcTextureMaterialsME::bootstrapClothings);
+        registryBuilder.addRegistry(NpcTexturePatternsME.Keys.CLOTHING_KEY, NpcTexturePatternsME::bootstrapClothings);
+
+        registryBuilder.addRegistry(NpcTextureMaterialsME.Keys.EYE_KEY, NpcTextureMaterialsME::bootstrapEyes);
+        registryBuilder.addRegistry(NpcTexturePatternsME.Keys.EYE_KEY, NpcTexturePatternsME::bootstrapEyes);
+
+        // Mod Dynamic
+        registryBuilder.addRegistry(RacesME.KEY, RacesME::bootstrap);
+        registryBuilder.addRegistry(NpcME.KEY, NpcME::bootstrap);
+        registryBuilder.addRegistry(FactionsME.KEY, FactionsME::bootstrap);
+
+        // Vanilla registries
         registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, ModSmithingTrimMaterials::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.TRIM_PATTERN, ModSmithingTrimPatterns::bootstrap);
     }

@@ -35,7 +35,7 @@ public class PheasantEntity extends AnimalEntity {
     }
 
     public static DefaultAttributeContainer.Builder createPheasantAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 5.0)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.2);
     }
@@ -92,7 +92,7 @@ public class PheasantEntity extends AnimalEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
+        this.dataTracker.set(VARIANT, nbt.getInt("Variant").get());
     }
 
     @Override
@@ -111,11 +111,6 @@ public class PheasantEntity extends AnimalEntity {
         if (!this.isOnGround() && velocity.y < 0.0) {
             this.setVelocity(velocity.multiply(1.0, 0.6, 1.0));
         }
-    }
-
-    @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
-        return false;
     }
 
     private void setupAnimationStates() {

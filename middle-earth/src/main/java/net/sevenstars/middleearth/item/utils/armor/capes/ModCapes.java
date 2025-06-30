@@ -65,7 +65,7 @@ public enum ModCapes implements StringIdentifiable {
     ORTHANC_GUARD_CAPE(41,"orthanc_guard_cape"),
     ;
 
-    private static final IntFunction<ModCapes> BY_ID = ValueLists.createIdToValueFunction(ModCapes::getId, ModCapes.values(), ValueLists.OutOfBoundsHandling.ZERO);;
+    private static final IntFunction<ModCapes> BY_ID = ValueLists.createIndexToValueFunction(ModCapes::getId, ModCapes.values(), ValueLists.OutOfBoundsHandling.ZERO);;
     private final String name;
     private final int id;
 

@@ -42,7 +42,7 @@ public class SnailEntity extends AnimalEntity {
     }
 
     public static DefaultAttributeContainer.Builder createSnailAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 2)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.05f)
                 .add(EntityAttributes.KNOCKBACK_RESISTANCE, 1)
@@ -139,7 +139,7 @@ public class SnailEntity extends AnimalEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
+        this.dataTracker.set(VARIANT, nbt.getInt("Variant").get());
     }
 
     public SnailEntityVariant getVariant() {

@@ -1,8 +1,9 @@
 package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.item.ModFoodItems;
+import net.sevenstars.middleearth.item.FoodItemsME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
@@ -52,7 +53,7 @@ public class ToughBerryBushBlock extends CustomPlantBlock
 
     @Override
     public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
-        return new ItemStack(ModFoodItems.TOUGH_BERRIES);
+        return new ItemStack(FoodItemsME.TOUGH_BERRIES);
     }
 
     @Override
@@ -82,7 +83,7 @@ public class ToughBerryBushBlock extends CustomPlantBlock
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
         if (entity instanceof LivingEntity && entity.getType() != ModEntities.WARG || entity.getType() == EntityType.FOX || entity.getType() == EntityType.BAT) {
             entity.slowMovement(state, new Vec3d(0.800000011920929, 0.75, 0.800000011920929));
             if (world instanceof ServerWorld) {
@@ -96,11 +97,8 @@ public class ToughBerryBushBlock extends CustomPlantBlock
                             entity.damage(serverWorld, world.getDamageSources().sweetBerryBush(), 1.0F);
                         }
                     }
-
-                    return;
                 }
             }
-
         }
     }
 
@@ -115,7 +113,7 @@ public class ToughBerryBushBlock extends CustomPlantBlock
         }
         if (i > 1) {
             int j = 1 + world.random.nextInt(2);
-            ToughBerryBushBlock.dropStack(world, pos, new ItemStack(ModFoodItems.TOUGH_BERRIES, j + (bl ? 1 : 0)));
+            ToughBerryBushBlock.dropStack(world, pos, new ItemStack(FoodItemsME.TOUGH_BERRIES, j + (bl ? 1 : 0)));
             world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f);
             BlockState blockState = (BlockState) state.with(AGE, 1);
             world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);

@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "middle-earth:barrow_downs",
+      "weight": 1
+    },
+	{
+      "structure": "middle-earth:stone_pillar",
+      "weight": 10
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 3,
+    "separation": 2,
+    "salt": 1220492154
+  }
+}

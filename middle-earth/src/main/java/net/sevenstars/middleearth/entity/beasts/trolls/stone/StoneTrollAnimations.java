@@ -73,7 +73,7 @@ public class StoneTrollAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation EATING = Animation.Builder.create(1.4583433f)
             .addBoneAnimation("r",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("right_arm",
@@ -120,7 +120,7 @@ public class StoneTrollAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation SITDOWN = Animation.Builder.create(1.5f)
             .addBoneAnimation("r",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.5f, AnimationHelper.createTranslationalVector(0f, -4f, 0f),
@@ -200,7 +200,7 @@ public class StoneTrollAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("frontloin",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(1f, 1f, 0f),
@@ -300,7 +300,7 @@ public class StoneTrollAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation THROW = Animation.Builder.create(2.4167665f).looping()
             .addBoneAnimation("r",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(2.125f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -451,7 +451,7 @@ public class StoneTrollAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("frontloin",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(1f, 1f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("frontloin",
@@ -459,7 +459,7 @@ public class StoneTrollAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-60f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("upperbody",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -13f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("backloin",
@@ -469,7 +469,7 @@ public class StoneTrollAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legs",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -13f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
 }

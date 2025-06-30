@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "me",
+  "id": "middle-earth",
   "version": "${version}",
 
   "name": "Middle-earth",
@@ -15,7 +15,7 @@
   },
 
   "license": "ARR",
-  "icon": "assets/me/icon.png",
+  "icon": "assets/middle-earth/icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -30,18 +30,18 @@
     ]
   },
   "mixins": [
-    "me.mixins.json"
+    "middle-earth.mixins.json"
   ],
 
-  "accessWidener" : "me.accesswidener",
+  "accessWidener" : "middle-earth.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.16.0",
     "fabric-api": "*",
-    "minecraft": "~1.21.4",
+    "minecraft": "~1.21.5",
     "java": ">=21",
-    "sevenstars-api": "1.5.3-1.21.4-alpha",
-    "wild-things": "1.5.3-1.21.4-alpha"
+    "sevenstars-api": "1.0.0-1.21.5-beta-dev",
+    "wild-things": "1.0.0-1.21.5-beta-dev"
   },
   "recommends": {
     "modmenu": "*"

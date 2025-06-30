@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.mixin.client;
 
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.Unique;
 public abstract class ItemRendererMixin {
 
     /*@Debug(export = true)
-    @ModifyVariable(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",
+    @ModifyVariable(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ItemDisplayContext;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",
             at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private BakedModel renderItem(BakedModel model, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        if(renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED) {
+    private BakedModel renderItem(BakedModel model, ItemStack stack, ItemDisplayContext renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        if(renderMode == ItemDisplayContext.GUI || renderMode == ItemDisplayContext.GROUND || renderMode == ItemDisplayContext.FIXED) {
             if(SimpleBigItemModel.artefacts.contains(stack.getItem())
                     || SimpleBigItemModel.items.contains(stack.getItem())
                     || SimpleBigItemModel.bigBows.contains(stack.getItem())
@@ -64,7 +64,7 @@ public abstract class ItemRendererMixin {
 
     @Unique
     private static boolean isItemHot(ItemStack stack) {
-        return stack.getComponents().contains(ModDataComponentTypes.TEMPERATURE_DATA) && (
+        return stack.getComponents().contains(DataComponentTypesME.TEMPERATURE_DATA) && (
                 HotMetalsModel.nuggets.contains(stack.getItem()) ||
                 HotMetalsModel.ingots.contains(stack.getItem()) ||
                 HotMetalsModel.items.contains(stack.getItem())

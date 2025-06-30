@@ -52,6 +52,7 @@ public class HeldItemRendererMixin {
         return (stack.getItem() instanceof CustomCrossbowWeaponItem || stack.isOf(Items.CROSSBOW)) && CrossbowItem.isCharged(stack);
     }
 
+    //TODO to fix
     /*@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z",
             ordinal = 1),method = "renderFirstPersonItem")
     private boolean renderFirstPersonItem(ItemStack instance, Item item, Operation<Boolean> original) {

@@ -38,17 +38,17 @@
       ],
       "palette_key": "trims/color_palettes/trim_palette",
       "permutations": {
-        "jade": "me:trims/color_palettes/jade",
-        "tin": "me:trims/color_palettes/tin",
-        "lead": "me:trims/color_palettes/lead",
-        "silver": "me:trims/color_palettes/silver",
-        "bronze": "me:trims/color_palettes/bronze",
-        "steel": "me:trims/color_palettes/steel",
-        "crude": "me:trims/color_palettes/crude",
-        "burzum_steel": "me:trims/color_palettes/burzum_steel",
-        "edhel_steel": "me:trims/color_palettes/edhel_steel",
-        "khazad_steel": "me:trims/color_palettes/khazad_steel",
-        "mithril": "me:trims/color_palettes/mithril"
+        "jade": "middle-earth:trims/color_palettes/jade",
+        "tin": "middle-earth:trims/color_palettes/tin",
+        "lead": "middle-earth:trims/color_palettes/lead",
+        "silver": "middle-earth:trims/color_palettes/silver",
+        "bronze": "middle-earth:trims/color_palettes/bronze",
+        "steel": "middle-earth:trims/color_palettes/steel",
+        "crude": "middle-earth:trims/color_palettes/crude",
+        "burzum_steel": "middle-earth:trims/color_palettes/burzum_steel",
+        "edhel_steel": "middle-earth:trims/color_palettes/edhel_steel",
+        "khazad_steel": "middle-earth:trims/color_palettes/khazad_steel",
+        "mithril": "middle-earth:trims/color_palettes/mithril"
       }
     }
   ]

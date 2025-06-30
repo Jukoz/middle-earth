@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.item.items.weapons;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
+import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class CustomDaggerWeaponItem extends ReachWeaponItem implements MEEquipmentTooltip {
+public class CustomDaggerWeaponItem extends ReachWeaponItem implements EquipmentTooltipME {
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
     public CustomDaggerWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {

@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:brown_mushroom",
+    "minecraft:red_mushroom",
+    "middle-earth:brown_bolete",
+    "middle-earth:brown_bolete_tiller",
+    "middle-earth:white_mushroom",
+    "middle-earth:morsel",
+    "middle-earth:morsel_tiller"
+  ]
+}

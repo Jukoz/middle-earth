@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.block.special.bellows;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.state.property.EnumProperty;
 import net.sevenstars.middleearth.block.ModBlockEntities;
 import net.minecraft.block.*;
@@ -73,14 +74,15 @@ public class BellowsBlock extends BlockWithEntity {
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
         if(!world.isClient){
             if (entity.getVelocity().y < -0.1f && entity instanceof LivingEntity) {
                 this.pump(world, pos, state, entity);
             }
         }
-        super.onEntityCollision(state, world, pos, entity);
+        super.onEntityCollision(state, world, pos, entity, handler);
     }
+
     public void onEntityLand(BlockView world, Entity entity) {
         if (entity.bypassesLandingEffects()) {
             super.onEntityLand(world, entity);

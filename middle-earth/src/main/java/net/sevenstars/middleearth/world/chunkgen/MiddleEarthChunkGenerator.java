@@ -402,16 +402,16 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     height = MiddleEarthHeightMap.lerp(height, oldHeight, percentage);
                 }
 
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), false);
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), 0);
                 for(int y = bottomY + 1; y <= LAVA_HEIGHT; y++) {
-                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState(), false);
+                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState(), 0);
                 }
 
                 for(int y = bottomY + 1; y < MEDGON_LEVEL + caveBlendNoise; y++) {
                     trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.MEDGON.base().getDefaultState());
                 }
                 if(Math.random() < 0.5f) chunk.setBlockState(chunk.getPos().getBlockPos(x, chunk.getBottomY() + 1, z),
-                        Blocks.BEDROCK.getDefaultState(), false);
+                        Blocks.BEDROCK.getDefaultState(), 0);
 
                 for(int y = MEDGON_LEVEL + (int) caveBlendNoise; y < NURGON_LEVEL + caveBlendNoise; y++) {
                     trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.NURGON.base().getDefaultState());
@@ -429,7 +429,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                         trySetBlock(chunk, chunk.getPos().getBlockPos(x, currentHeight++, z), layerData.block.getDefaultState());
                     }
                 }
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 2), z), customHeightBiomeHeightData.getBiome().getBlocksLayering().layers.getFirst().block.getDefaultState(), false);
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 2), z), customHeightBiomeHeightData.getBiome().getBlocksLayering().layers.getFirst().block.getDefaultState());
                 BlockState surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().slopeDatas.getFirst().block.getDefaultState();
                 BlockState underSurfaceBlock;
 
@@ -445,22 +445,22 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     else underSurfaceBlock = surfaceBlock;
                 }
 
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 1), z), underSurfaceBlock, false);
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 1), z), underSurfaceBlock);
                 for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height; y++) {
-                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), underSurfaceBlock, false);
+                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), underSurfaceBlock);
                 }
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), surfaceBlock, false);
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), surfaceBlock);
 
                 if(biomeRegistryKey == MEBiomeKeys.MOUNT_DOOM || biomeRegistryKey == MEBiomeKeys.MOUNT_DOOM_PIT) {
                     for(int y = (int) (DIRT_HEIGHT + height + 1); y <= 100; y++) {
-                        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState(), false);
+                        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState());
                     }
                     if(DIRT_HEIGHT + height < 110) {
-                        chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), Blocks.MAGMA_BLOCK.getDefaultState(), false);
+                        chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), Blocks.MAGMA_BLOCK.getDefaultState());
                     }
                 } else {
                     for(int y = (int) (DIRT_HEIGHT + height + 1); y <= waterHeight; y++) {
-                        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.WATER.getDefaultState(), false);
+                        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.WATER.getDefaultState());
                     }
                 }
 
@@ -506,7 +506,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         combinedSpaghettiNoise /= 3;
 
         if(noise < 0.4f && noise3 < 0.75f && miniNoise < 0.8f && combinedSpaghettiNoise > 0.09f) {
-            chunk.setBlockState(blockPos, blockState, false);
+            chunk.setBlockState(blockPos, blockState);
         }
     }
 

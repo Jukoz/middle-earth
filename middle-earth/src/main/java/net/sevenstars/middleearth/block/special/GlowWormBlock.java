@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.block.AbstractPlantBlock;
 import net.minecraft.block.AbstractPlantStemBlock;
 import net.minecraft.block.Block;
@@ -37,9 +37,9 @@ public class GlowWormBlock extends AbstractPlantBlock {
             itemStack.decrement(1);
             world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
             if (itemStack.isEmpty()) {
-                player.setStackInHand(hand, new ItemStack(ModResourceItems.GLOWWORM_BOTTLE));
-            } else if (!player.getInventory().insertStack(new ItemStack(ModResourceItems.GLOWWORM_BOTTLE))) {
-                player.dropItem(new ItemStack(ModResourceItems.GLOWWORM_BOTTLE), false);
+                player.setStackInHand(hand, new ItemStack(ResourceItemsME.GLOWWORM_BOTTLE));
+            } else if (!player.getInventory().insertStack(new ItemStack(ResourceItemsME.GLOWWORM_BOTTLE))) {
+                player.dropItem(new ItemStack(ResourceItemsME.GLOWWORM_BOTTLE), false);
             }
             world.removeBlock(pos,false);
         }

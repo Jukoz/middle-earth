@@ -1,0 +1,6 @@
+{
+  "parent": "middle-earth:block/tall_crop",
+  "textures": {
+    "crop": "middle-earth:block/tomato_crop_stage1"
+  }
+}

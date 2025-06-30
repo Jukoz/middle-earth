@@ -5,8 +5,7 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
-import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
-import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 
 public class StoneTrollRenderer extends MobEntityRenderer<StoneTrollEntity, TrollEntityRenderState, StoneTrollModel> {
     private static final String PATH = "textures/entities/trolls/stone/";

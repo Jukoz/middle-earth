@@ -1,0 +1,18 @@
+{
+  "structures": [
+	{
+      "structure": "middle-earth:mordor_camp",
+      "weight": 2
+    },
+	{
+      "structure": "middle-earth:mordor_watch_tower",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 21,
+    "separation": 10,
+    "salt": 12986271354
+  }
+}

@@ -1,15 +1,11 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.snow;
 
-import com.google.common.collect.Maps;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
-import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
-
-import java.util.Map;
 
 public class SnowTrollRenderer extends MobEntityRenderer<SnowTrollEntity, TrollEntityRenderState, SnowTrollModel> {
     private static final String PATH = "textures/entities/trolls/snow/snow_troll1.png";

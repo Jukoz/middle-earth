@@ -15,15 +15,14 @@ import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.condition.TableBonusLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LeafEntry;
-import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.StatePredicate;
+import net.minecraft.predicate.component.ComponentPredicateTypes;
 import net.minecraft.predicate.item.EnchantmentPredicate;
 import net.minecraft.predicate.item.EnchantmentsPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.predicate.item.ItemSubPredicateTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -38,7 +37,7 @@ import net.sevenstars.middleearth.datageneration.content.loot_tables.PotDrops;
 import net.sevenstars.middleearth.datageneration.content.models.SimplePaneModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleRocksModel;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -141,13 +140,13 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 addDrop(set.copper_ore(), copperOreDrops(set.copper_ore()));
             }
             if (set.tin_ore() != null) {
-                addDrop(set.tin_ore(), oreDrops(set.tin_ore(), ModResourceItems.RAW_TIN));
+                addDrop(set.tin_ore(), oreDrops(set.tin_ore(), ResourceItemsME.RAW_TIN));
             }
             if (set.lead_ore() != null) {
-                addDrop(set.lead_ore(), oreDrops(set.lead_ore(), ModResourceItems.RAW_LEAD));
+                addDrop(set.lead_ore(), oreDrops(set.lead_ore(), ResourceItemsME.RAW_LEAD));
             }
             if (set.silver_ore() != null) {
-                addDrop(set.silver_ore(), oreDrops(set.silver_ore(), ModResourceItems.RAW_SILVER));
+                addDrop(set.silver_ore(), oreDrops(set.silver_ore(), ResourceItemsME.RAW_SILVER));
             }
             if (set.gold_ore() != null) {
                 addDrop(set.gold_ore(), oreDrops(set.gold_ore(), Items.RAW_GOLD));
@@ -156,7 +155,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 addDrop(set.iron_ore(), oreDrops(set.iron_ore(), Items.RAW_IRON));
             }
             if (set.mithril_ore() != null) {
-                addDrop(set.mithril_ore(), oreDrops(set.mithril_ore(), ModResourceItems.RAW_MITHRIL));
+                addDrop(set.mithril_ore(), oreDrops(set.mithril_ore(), ResourceItemsME.RAW_MITHRIL));
             }
         }
 
@@ -242,14 +241,15 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         } catch (Exception ignored) {
             throw new IllegalStateException("Data generation without registries failed!");
         }
+        //TODO to fix/update -> enchant issue
         addDrop(stoneBlock,
                 LootTable.builder()
                         .pool(LootPool.builder()
-                                .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().subPredicate(ItemSubPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(enchantmentRegistry.getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1)))))))
+                                .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().components(net.minecraft.predicate.component.ComponentsPredicate.Builder.create().partial(ComponentPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(this.registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1))))).build())))
                                 .rolls(ConstantLootNumberProvider.create(1.0F))
                                 .with(ItemEntry.builder(stoneBlock)))
                         .pool(LootPool.builder()
-                                .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().subPredicate(ItemSubPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(enchantmentRegistry.getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1)))))).invert())
+                                .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().components(net.minecraft.predicate.component.ComponentsPredicate.Builder.create().partial(ComponentPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(this.registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1))))).build())).invert())
                                 .rolls(ConstantLootNumberProvider.create(1.0F))
                                 .with(ItemEntry.builder(cobbledBlock))));
     }

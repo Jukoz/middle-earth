@@ -1,0 +1,22 @@
+{
+  "display": {
+        "icon": {
+      "count": 1,
+      "id":  "middle-earth:mithril_ingot"
+    },
+    "title": "Middle Earth",
+    "description": "One Advancement to rule them all",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "background": "middle-earth:textures/block/mordor_dirt.png"
+  },
+  "criteria": {
+    "entered_middle_earth": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "middle-earth:middle_earth"
+      }
+    }
+  }
+}

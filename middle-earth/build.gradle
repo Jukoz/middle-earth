@@ -15,7 +15,7 @@ loom {
             runDir "build/datagen"
         }
     }
-    accessWidenerPath = file("src/main/resources/me.accesswidener")
+    accessWidenerPath = file("src/main/resources/middle-earth.accesswidener")
 }
 
 // FIXME:

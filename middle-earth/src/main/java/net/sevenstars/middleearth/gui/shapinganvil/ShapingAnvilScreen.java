@@ -5,13 +5,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.ModToolItems;
+import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -72,7 +71,6 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
         //RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
@@ -86,7 +84,7 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawItem(ModToolItems.SMITHING_HAMMER.getDefaultStack(), x + 81, y + 34);
+        context.drawItem(ToolItemsME.SMITHING_HAMMER.getDefaultStack(), x + 81, y + 34);
 
         renderHammerTooltip(context, mouseX, mouseY);
 

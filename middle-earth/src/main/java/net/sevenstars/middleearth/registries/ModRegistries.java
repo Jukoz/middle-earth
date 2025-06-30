@@ -1,21 +1,11 @@
 package net.sevenstars.middleearth.registries;
 
+import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
 import net.fabricmc.fabric.api.registry.*;
-import net.minecraft.util.ActionResult;
-import net.sevenstars.middleearth.block.*;
-import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
-import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
-import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
-import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
-import net.sevenstars.middleearth.item.ModFoodItems;
-import net.sevenstars.middleearth.item.ModResourceItems;
-import net.sevenstars.middleearth.item.ModWeaponItems;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
-import net.sevenstars.middleearth.recipe.ModTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
@@ -24,9 +14,33 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.util.math.random.Random;
+import net.sevenstars.middleearth.block.*;
+import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
+import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
+import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
+import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.FoodItemsME;
+import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.item.WeaponItemsME;
+import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
+import net.sevenstars.middleearth.recipe.ModTags;
 
 public class ModRegistries {
+
+    public static void registerRegistryAliases() {
+        for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
+            alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.name()), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
+        }
+    }
+
+    public static void registerToolTipAppenders() {
+        ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.TEMPERATURE_DATA);
+    }
 
     public static void registerFlammableBlocks() {
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.WHITE_WOOL_SLAB, 30, 60);
@@ -291,35 +305,35 @@ public class ModRegistries {
             builder.add(ModBlocks.RED_WOOL_STAIRS, 100);
             builder.add(ModBlocks.BLACK_WOOL_STAIRS, 100);
 
-            builder.add(ModWeaponItems.GONDORIAN_BOW, 300);
-            builder.add(ModWeaponItems.GONDORIAN_LONGBOW, 400);
-            builder.add(ModWeaponItems.GONDORIAN_NOBLE_LONGBOW, 400);
+            builder.add(WeaponItemsME.GONDORIAN_BOW, 300);
+            builder.add(WeaponItemsME.GONDORIAN_LONGBOW, 400);
+            builder.add(WeaponItemsME.GONDORIAN_NOBLE_LONGBOW, 400);
 
-            builder.add(ModWeaponItems.ROHIRRIC_BOW, 300);
-            builder.add(ModWeaponItems.ROHIRRIC_NOBLE_BOW, 300);
-            builder.add(ModWeaponItems.ROHIRRIC_LONGBOW, 400);
+            builder.add(WeaponItemsME.ROHIRRIC_BOW, 300);
+            builder.add(WeaponItemsME.ROHIRRIC_NOBLE_BOW, 300);
+            builder.add(WeaponItemsME.ROHIRRIC_LONGBOW, 400);
 
-            builder.add(ModWeaponItems.LORIEN_BOW, 300);
-            builder.add(ModWeaponItems.LORIEN_LONGBOW, 400);
-            builder.add(ModWeaponItems.LORIEN_NOBLE_LONGBOW, 400);
+            builder.add(WeaponItemsME.LORIEN_BOW, 300);
+            builder.add(WeaponItemsME.LORIEN_LONGBOW, 400);
+            builder.add(WeaponItemsME.LORIEN_NOBLE_LONGBOW, 400);
 
-            builder.add(ModWeaponItems.EREBOR_BOW, 300);
-            builder.add(ModWeaponItems.EREBOR_NOBLE_BOW, 300);
-            builder.add(ModWeaponItems.EREBOR_CROSSBOW, 400);
-            builder.add(ModWeaponItems.EREBOR_NOBLE_CROSSBOW, 400);
+            builder.add(WeaponItemsME.EREBOR_BOW, 300);
+            builder.add(WeaponItemsME.EREBOR_NOBLE_BOW, 300);
+            builder.add(WeaponItemsME.EREBOR_CROSSBOW, 400);
+            builder.add(WeaponItemsME.EREBOR_NOBLE_CROSSBOW, 400);
 
-            builder.add(ModWeaponItems.ORCISH_BOW, 300);
+            builder.add(WeaponItemsME.ORCISH_BOW, 300);
 
-            builder.add(ModWeaponItems.MORDOR_BOW, 300);
-            builder.add(ModWeaponItems.MORDOR_ELITE_LONGBOW, 400);
+            builder.add(WeaponItemsME.MORDOR_BOW, 300);
+            builder.add(WeaponItemsME.MORDOR_ELITE_LONGBOW, 400);
 
-            builder.add(ModWeaponItems.URUK_HAI_BOW, 300);
-            builder.add(ModWeaponItems.URUK_HAI_CROSSBOW, 400);
+            builder.add(WeaponItemsME.URUK_HAI_BOW, 300);
+            builder.add(WeaponItemsME.URUK_HAI_CROSSBOW, 400);
 
-            builder.add(ModWeaponItems.GUNDABAD_BOW, 300);
-            builder.add(ModWeaponItems.GUNDABAD_CROSSBOW, 400);
+            builder.add(WeaponItemsME.GUNDABAD_BOW, 300);
+            builder.add(WeaponItemsME.GUNDABAD_CROSSBOW, 400);
 
-            builder.add(ModWeaponItems.WOODEN_DAGGER, 150);
+            builder.add(WeaponItemsME.WOODEN_DAGGER, 150);
 
             builder.add(ModDecorativeBlocks.OAK_STOOL, 300);
             builder.add(ModDecorativeBlocks.OAK_BENCH, 300);
@@ -518,24 +532,24 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.MIRKWOOD_ROOTS, 0.3F);
         registry.add(ModNatureBlocks.MIRKWOOD_SPIDER_EGG, 0.8F);
 
-        registry.add(ModFoodItems.LEMBAS, 1.0F);
-        registry.add(ModFoodItems.MAGGOTY_BREAD, 0.8F);
-        registry.add(ModFoodItems.TOUGH_BERRIES, 0.3F);
-        registry.add(ModFoodItems.STRAWBERRY, 0.5F);
-        registry.add(ModFoodItems.TOMATO, 0.5F);
-        registry.add(ModFoodItems.BELL_PEPPER, 0.5F);
-        registry.add(ModFoodItems.CUCUMBER, 0.5F);
-        registry.add(ModFoodItems.GARLIC, 0.5F);
-        registry.add(ModFoodItems.LEEK, 0.5F);
-        registry.add(ModFoodItems.LETTUCE, 0.5F);
-        registry.add(ModFoodItems.ONION, 0.5F);
+        registry.add(FoodItemsME.LEMBAS, 1.0F);
+        registry.add(FoodItemsME.MAGGOTY_BREAD, 0.8F);
+        registry.add(FoodItemsME.TOUGH_BERRIES, 0.3F);
+        registry.add(FoodItemsME.STRAWBERRY, 0.5F);
+        registry.add(FoodItemsME.TOMATO, 0.5F);
+        registry.add(FoodItemsME.BELL_PEPPER, 0.5F);
+        registry.add(FoodItemsME.CUCUMBER, 0.5F);
+        registry.add(FoodItemsME.GARLIC, 0.5F);
+        registry.add(FoodItemsME.LEEK, 0.5F);
+        registry.add(FoodItemsME.LETTUCE, 0.5F);
+        registry.add(FoodItemsME.ONION, 0.5F);
 
-        registry.add(ModFoodItems.BERRY_PIE, 1.0F);
-        registry.add(ModFoodItems.VEGETABLE_SKEWER, 1.0F);
-        registry.add(ModFoodItems.VEGETABLE_SOUP, 1.0F);
-        registry.add(ModFoodItems.SACK_OF_HORSEFEED, 1.0F);
+        registry.add(FoodItemsME.BERRY_PIE, 1.0F);
+        registry.add(FoodItemsME.VEGETABLE_SKEWER, 1.0F);
+        registry.add(FoodItemsME.VEGETABLE_SOUP, 1.0F);
+        registry.add(FoodItemsME.SACK_OF_HORSEFEED, 1.0F);
 
-        registry.add(ModResourceItems.STRAW, 0.3F);
+        registry.add(ResourceItemsME.STRAW, 0.3F);
 
         registry.add(ModBlocks.STRAW_BLOCK, 0.5F);
         registry.add(ModBlocks.STRAW_STAIRS, 0.5F);
@@ -543,7 +557,7 @@ public class ModRegistries {
         registry.add(ModBlocks.STRAW_VERTICAL_SLAB, 0.5F);
         registry.add(ModBlocks.STRAW_WALL, 0.5F);
 
-        registry.add(ModResourceItems.REEDS, 0.3F);
+        registry.add(ResourceItemsME.REEDS, 0.3F);
 
         registry.add(ModBlocks.REED_BLOCK, 0.5F);
         registry.add(ModBlocks.REED_STAIRS, 0.5F);
@@ -551,16 +565,16 @@ public class ModRegistries {
         registry.add(ModBlocks.REED_VERTICAL_SLAB, 0.5F);
         registry.add(ModBlocks.REED_WALL, 0.5F);
 
-        registry.add(ModResourceItems.FLAX, 0.3F);
-        registry.add(ModResourceItems.PIPEWEED, 0.3F);
-        registry.add(ModResourceItems.PINECONE, 0.3F);
+        registry.add(ResourceItemsME.FLAX, 0.3F);
+        registry.add(ResourceItemsME.PIPEWEED, 0.3F);
+        registry.add(ResourceItemsME.PINECONE, 0.3F);
 
-        registry.add(ModResourceItems.BELL_PEPPER_SEEDS, 0.3F);
-        registry.add(ModResourceItems.CUCUMBER_SEEDS, 0.3F);
-        registry.add(ModResourceItems.FLAX_SEEDS, 0.3F);
-        registry.add(ModResourceItems.LETTUCE_SEEDS, 0.3F);
-        registry.add(ModResourceItems.TOMATO_SEEDS, 0.3F);
-        registry.add(ModResourceItems.PIPEWEED_SEEDS, 0.3F);
+        registry.add(ResourceItemsME.BELL_PEPPER_SEEDS, 0.3F);
+        registry.add(ResourceItemsME.CUCUMBER_SEEDS, 0.3F);
+        registry.add(ResourceItemsME.FLAX_SEEDS, 0.3F);
+        registry.add(ResourceItemsME.LETTUCE_SEEDS, 0.3F);
+        registry.add(ResourceItemsME.TOMATO_SEEDS, 0.3F);
+        registry.add(ResourceItemsME.PIPEWEED_SEEDS, 0.3F);
     }
 
     //This not good but will do for now until more cases appear
@@ -578,11 +592,11 @@ public class ModRegistries {
         if (!stack.isIn(ModTags.DYEABLE)) {
             return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         }
-        if (!stack.contains(ModDataComponentTypes.DYE_DATA)) {
+        if (!stack.contains(DataComponentTypesME.DYE_DATA)) {
             return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         }
         if (!world.isClient) {
-            stack.set(ModDataComponentTypes.DYE_DATA,
+            stack.set(DataComponentTypesME.DYE_DATA,
                      new CustomDyeableDataComponent(CustomDyeableDataComponent.DEFAULT_COLOR));
             player.incrementStat(Stats.CLEAN_ARMOR);
             LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
@@ -595,13 +609,13 @@ public class ModRegistries {
         int smokeAmount = random.nextInt(9) + 4;
         int bigSmokeAmount = random.nextInt(3) + 2;
 
-        if (!stack.contains(ModDataComponentTypes.TEMPERATURE_DATA)) {
+        if (!stack.contains(DataComponentTypesME.TEMPERATURE_DATA)) {
             return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         }
         if (!world.isClient) {
             ItemStack originalStack = stack.copy();
             originalStack.setCount(1);
-            originalStack.remove(ModDataComponentTypes.TEMPERATURE_DATA);
+            originalStack.remove(DataComponentTypesME.TEMPERATURE_DATA);
             stack.decrement(1);
             player.getInventory().offerOrDrop(originalStack);
 
@@ -610,7 +624,7 @@ public class ModRegistries {
             world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0f, 1.0f);
         } else {
             for (int i = 0; i < bigSmokeAmount; i++){
-                world.addParticle(ParticleTypes.POOF,
+                world.addParticleClient(ParticleTypes.POOF,
                         pos.getX() + random.nextDouble(),
                         pos.getY() + 0.9f,
                         pos.getZ()+ random.nextDouble(),
@@ -619,7 +633,7 @@ public class ModRegistries {
                         0.0f);
             }
             for (int i = 0; i < smokeAmount; i++) {
-                world.addParticle(ParticleTypes.SMOKE,
+                world.addParticleClient(ParticleTypes.SMOKE,
                         pos.getX() + random.nextDouble(),
                         pos.getY() + 0.8f,
                         pos.getZ() + random.nextDouble(),
@@ -648,7 +662,7 @@ public class ModRegistries {
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
         });
 
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModResourceItems.DIRTY_BONE, CLEAN_ITEM);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ResourceItemsME.DIRTY_BONE, CLEAN_ITEM);
     }
 
     public static void registerLandPathNodeTypesBlocks() {

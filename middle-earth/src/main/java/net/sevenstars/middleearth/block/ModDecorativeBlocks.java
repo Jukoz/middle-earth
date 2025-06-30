@@ -22,11 +22,13 @@ import net.sevenstars.middleearth.block.special.shapingAnvil.elvenTreatedAnvil.E
 import net.sevenstars.middleearth.block.special.shapingAnvil.orcishTreatedAnvil.OrcishTreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.statues.StatueBlock;
+import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlock;
 import net.sevenstars.middleearth.block.special.toggeable_lights.*;
 import net.sevenstars.middleearth.block.special.torches.METorchBlock;
 import net.sevenstars.middleearth.block.special.torches.MEWallTorchBlock;
 import net.sevenstars.middleearth.block.special.torches.OrcSconceBlock;
 import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlock;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
@@ -36,7 +38,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
@@ -78,6 +80,9 @@ public class ModDecorativeBlocks {
             BellowsBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
             ArtisanTable::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
+
+    public static final Block STRUCTURE_MANAGER = registerBlock("structure_manager",
+            StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
     public static final Block SMALL_CRATE = registerBlock("small_crate",
             CrateBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
@@ -474,7 +479,6 @@ public class ModDecorativeBlocks {
     public static final Block WOODEN_BUCKET = registerBlockWithItem("wooden_bucket",
             WoodenBucketBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
-    //TODO update all that
 
     public static final Block POTTED_BEECH_SAPLING = registerBlock("potted_beech_sapling",
             (settings) -> new FlowerPotBlock(ModNatureBlocks.BEECH_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
@@ -742,6 +746,7 @@ public class ModDecorativeBlocks {
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 
@@ -749,6 +754,8 @@ public class ModDecorativeBlocks {
         Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
         ModBlocks.registerBlockItem(name, block);
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
+        TranslationEntries.blockEntries.add(block);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 

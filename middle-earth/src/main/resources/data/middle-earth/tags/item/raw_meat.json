@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:porkchop",
+    "minecraft:beef",
+    "minecraft:chicken",
+    "minecraft:mutton",
+    "minecraft:rabbit",
+    "middle-earth:raw_swan",
+    "middle-earth:raw_horse"
+  ]
+}

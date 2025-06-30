@@ -9,8 +9,6 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.util.Identifier;
 
 public class CustomLongswordWeaponItem extends ReachWeaponItem {
-    public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
-
     public CustomLongswordWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
         super(toolMaterial, ModWeaponTypes.LONGSWORD, settings);
     }

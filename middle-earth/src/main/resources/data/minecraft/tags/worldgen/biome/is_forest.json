@@ -2,14 +2,14 @@
   "replace": false,
   "values": [
     "minecraft:forest",
-    "me:anduin_vales_forest",
-    "me:eregion",
-    "me:ithilien",
-    "me:lothlorien",
-    "me:lorien_edge",
-    "me:northern_dunland",
-    "me:old_cardolan_forest",
-    "me:shire_woods",
-    "me:southern_dunland"
+    "middle-earth:anduin_vales_forest",
+    "middle-earth:eregion",
+    "middle-earth:ithilien",
+    "middle-earth:lothlorien",
+    "middle-earth:lorien_edge",
+    "middle-earth:northern_dunland",
+    "middle-earth:old_cardolan_forest",
+    "middle-earth:shire_woods",
+    "middle-earth:southern_dunland"
   ]
 }

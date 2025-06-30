@@ -57,7 +57,7 @@ public class StoneTrollEntity extends TrollEntity {
     @Override
     public double getMountedHeightOffset() {
         float f = Math.min(0.25F, this.limbAnimator.getSpeed());
-        float g = this.limbAnimator.getPos();
+        float g = this.limbAnimator.getAnimationProgress(); // Todo : getPos()
         float h = this.isSitting() ? -0.75f : 0;
         return (double)this.getHeight() - 1.0d + (double)(0.12F * MathHelper.cos(g * 1.5F) * 2.0F * f) + h;
     }
@@ -142,7 +142,7 @@ public class StoneTrollEntity extends TrollEntity {
             }
         }
         if(getPetrifying() != -1 && getPetrifying() < PETRIFYING_DURATION && this.getWorld().isClient() && this.age % 3 == 0) {
-            this.getWorld().addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + ((random.nextFloat() * 2f) - 1f), this.getY() + 1d + random.nextFloat(), this.getZ() + ((random.nextFloat() * 2f) - 1f), random.nextFloat() / 8.0f, 0.2f, random.nextFloat() / 8.0f);
+            this.getWorld().addParticleClient(ParticleTypes.LARGE_SMOKE, this.getX() + ((random.nextFloat() * 2f) - 1f), this.getY() + 1d + random.nextFloat(), this.getZ() + ((random.nextFloat() * 2f) - 1f), random.nextFloat() / 8.0f, 0.2f, random.nextFloat() / 8.0f);
         }
 
         super.tickMovement();
@@ -163,7 +163,7 @@ public class StoneTrollEntity extends TrollEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(PETRIFYING, nbt.getInt("Petrifying"));
+        this.dataTracker.set(PETRIFYING, nbt.getInt("Petrifying").get());
     }
 
     @Override

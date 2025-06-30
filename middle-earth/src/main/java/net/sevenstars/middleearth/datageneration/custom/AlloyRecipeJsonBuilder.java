@@ -5,7 +5,7 @@ import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.recipe.AlloyingRecipe;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;
@@ -17,7 +17,6 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,7 +50,7 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
 
     @Override
     public Item getOutputItem() {
-        return ModResourceItems.ROD;
+        return ResourceItemsME.ROD;
     }
 
     @Override
