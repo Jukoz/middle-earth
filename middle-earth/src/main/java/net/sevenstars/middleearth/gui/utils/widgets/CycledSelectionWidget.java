@@ -6,6 +6,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.CycledSelectionButtonType;
@@ -144,7 +145,8 @@ public class CycledSelectionWidget extends ModWidget{
         context.drawText(textRenderer, text,
                 x + (int)((PANEL_SIZE_X - textRenderer.getWidth(text)) / 2f),
                 startY + (int) ((PANEL_SIZE_Y / 2f) - (textRenderer.fontHeight / 2f)) + 1,
-                0, false);
+                Colors.BLACK, false);
+
 
         x += PANEL_SIZE_X + MARGIN;
         // Left arrow

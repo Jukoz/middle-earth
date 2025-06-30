@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringHelper;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -123,7 +124,7 @@ public class SearchBarWidget extends ModWidget {
         context.drawText(textRenderer, text,
                 startX + magnifyingGlassSizeX + MINIMAL_MARGIN - 1,
                 startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
-                16777215, false);
+                Colors.WHITE, false);
 
 
         // Search bar magnifying
@@ -242,7 +243,7 @@ public class SearchBarWidget extends ModWidget {
 
                 context.drawText(client.textRenderer, searchBarResult.getText(),
                         valuePanelStartX + 3, valuePanelStartY + 3,
-                        0, false);
+                        Colors.DARK_GRAY, false);
             }
 
             for (int i = currentAmount; i < resultButtons.size(); i++) {

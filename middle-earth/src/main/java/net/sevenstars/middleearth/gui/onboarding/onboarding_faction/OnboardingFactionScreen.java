@@ -9,22 +9,18 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.model.ModelBaker;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.gui.render.states.BannerResultWithScaleGuiElementRenderState;
 import net.sevenstars.middleearth.gui.utils.CycledSelectionButtonType;
 import net.sevenstars.middleearth.gui.utils.widgets.CycledSelectionWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
@@ -34,6 +30,7 @@ import net.sevenstars.middleearth.gui.utils.widgets.map.FactionSelectionMapWidge
 import net.sevenstars.middleearth.gui.utils.widgets.text.TextBlockWidget;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,6 +38,7 @@ import java.util.List;
 public class OnboardingFactionScreen extends Screen {
     private static final Identifier MAP_UI_IDENTIFIER = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_map.png");
     private static final Identifier BUTTON_UI_IDENTIFIER = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
+    private static final int TEXT_COLOR = Color.BLACK.getRGB();
 
     public class OnboardingFactionScreenElements {
         //region [Event Senders]
@@ -250,7 +248,8 @@ public class OnboardingFactionScreen extends Screen {
         int startY = elements.informationPanel.startY + 5;
 
         int factionStartX = startX + ((elements.informationPanel.width - 50) / 2 - (textRenderer.getWidth(elements.factionName) / 2));
-        context.drawText(textRenderer, elements.factionName, factionStartX, startY, 0, false);
+
+        context.drawText(textRenderer, elements.factionName, factionStartX, startY, TEXT_COLOR, false);
         if(isMouseOver(factionStartX, textRenderer.getWidth(elements.factionName), startY, textRenderer.fontHeight)){
             context.drawTooltip(textRenderer, List.of(_controller.getCurrentFactionFullName()), ModWidget.getMouseX(), ModWidget.getMouseY());
         }
@@ -260,8 +259,8 @@ public class OnboardingFactionScreen extends Screen {
             startY += textRenderer.fontHeight + 3;
             Text subfactionTitle = Text.translatable("screen." + MiddleEarth.MOD_ID + ".information.subfaction");
 
-            context.drawText(textRenderer, subfactionTitle, startX, startY, 0, false);
-            context.drawText(textRenderer, elements.subfactionName, startX + textRenderer.getWidth(subfactionTitle), startY, 0, false);
+            context.drawText(textRenderer, subfactionTitle, startX, startY, TEXT_COLOR, false);
+            context.drawText(textRenderer, elements.subfactionName, startX + textRenderer.getWidth(subfactionTitle), startY, TEXT_COLOR, false);
         }
         // Race.s
         if(elements.raceList != null){
@@ -271,7 +270,7 @@ public class OnboardingFactionScreen extends Screen {
             Text raceTitle = Text.translatable((hasManyRaces)
                     ? "screen." + MiddleEarth.MOD_ID + ".information.races.many"
                     : "screen." + MiddleEarth.MOD_ID + ".information.races").formatted(Formatting.UNDERLINE);
-            context.drawText(client.textRenderer, raceTitle, startX, startY, 0, false);
+            context.drawText(client.textRenderer, raceTitle, startX, startY, TEXT_COLOR, false);
             startY += textRenderer.fontHeight + 3;
 
             elements.raceList.setStartX(startX);
@@ -283,7 +282,7 @@ public class OnboardingFactionScreen extends Screen {
         startY =  elements.informationPanel.startY + 90;
 
         context.drawText(client.textRenderer, Text.translatable("screen." + MiddleEarth.MOD_ID + ".information.description").formatted(Formatting.UNDERLINE),
-                startX,startY - textRenderer.fontHeight, 0, false);
+                startX,startY - textRenderer.fontHeight, TEXT_COLOR, false);
         startY += 3;
         elements.descriptionTextBlock.setStartX(startX);
         elements.descriptionTextBlock.setStartY(startY);
@@ -291,14 +290,6 @@ public class OnboardingFactionScreen extends Screen {
 
         // Banner
         if(elements.bannerComponents != null && !elements.bannerComponents.isEmpty()) {
-            float size = 32f;
-            // Positioning
-            MatrixStack matrixStack = new MatrixStack();
-            matrixStack.translate(startX  + (size / 2f) + 120, startY + 3, 1f);
-            matrixStack.push();
-            matrixStack.scale(-size, size, 0.1f);
-            this.elements.bannerField.pitch = 0.0F;
-
             var bannerPatternRegistry = this.client.world.getRegistryManager().getOptional(RegistryKeys.BANNER_PATTERN);
             BannerPatternsComponent.Builder bannerBuilder = new BannerPatternsComponent.Builder();
             for(BannerData.BannerPatternWithColor entry : elements.bannerComponents){
@@ -306,17 +297,11 @@ public class OnboardingFactionScreen extends Screen {
                 RegistryEntry<BannerPattern> pattern = bannerPatternRegistry.get().getEntry(entry.pattern);
                 bannerBuilder.add(pattern, entry.color);
             }
-
-            //TODO crab fix
-
-            //context.addBannerResult(this.elements.bannerField, ModelBaker.BANNER_BASE, true, DyeColor.GRAY, bannerBuilder.build());
-
-            /*context.((vertexConsumers) -> {
-                BannerBlockEntityRenderer.renderCanvas(matrixStack, vertexConsumers, 15728880, OverlayTexture.DEFAULT_UV, this.elements.bannerField, ModelBaker.BANNER_BASE, true, DyeColor.GRAY, bannerBuilder.build());
-            });
-            matrixStack.pop();
-            context.draw();*/
+            int bannerX = elements.informationPanel.startX + elements.informationPanel.width - 48;
+            int bannerY = elements.informationPanel.startY + 8;
+            context.state.addSpecialElement(new BannerResultWithScaleGuiElementRenderState(this.elements.bannerField, DyeColor.GRAY, bannerBuilder.build(), bannerX, 0, bannerX + 40, bannerY + 80, context.scissorStack.peekLast()));
         }
+        
         // Right panel
         startX = this.elements.mapPanel.startX;
         startY = this.elements.mapPanel.startY;
@@ -386,7 +371,7 @@ public class OnboardingFactionScreen extends Screen {
             Text delayText = Text.literal(String.valueOf(_controller.getCurrentDelay()));
             context.drawText(textRenderer, delayText,
                     this.elements.spawnConfirmButton.getX() + (52 / 2) - (textRenderer.getWidth(delayText) / 2),
-                    this.elements.spawnConfirmButton.getY() + 5, 0xc4343e, true);
+                    this.elements.spawnConfirmButton.getY() + 5, Colors.LIGHT_RED, true);
         }
 
         // Left panel
@@ -425,6 +410,7 @@ public class OnboardingFactionScreen extends Screen {
         //this.elements.npcPreviewWidget.drawCenteredAnchoredBottom(context, startX, startY - 6);
     }
     //endregion
+
 
     //region [Button Events]
     private void mapFocusToggle(ButtonWidget buttonWidget) {

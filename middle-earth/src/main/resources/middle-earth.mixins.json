@@ -31,6 +31,7 @@
     "client.HeldItemRendererMixin",
     "client.InGameHudMixin",
     "client.MouseMixin",
+    "client.GuiRendererMixin",
     "client.BakedModelManagerMixin"
   ],
   "server": [
