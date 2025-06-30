@@ -299,9 +299,9 @@ public class OnboardingFactionScreen extends Screen {
             }
             int bannerX = elements.informationPanel.startX + elements.informationPanel.width - 48;
             int bannerY = elements.informationPanel.startY + 8;
-            context.state.addSpecialElement(new BannerResultWithScaleGuiElementRenderState(this.elements.bannerField, DyeColor.GRAY, bannerBuilder.build(), bannerX, 0, bannerX + 40, bannerY + 80, context.scissorStack.peekLast()));
+            context.state.addSpecialElement(new BannerResultWithScaleGuiElementRenderState(this.elements.bannerField, DyeColor.GRAY, bannerBuilder.build(), bannerX, 0, bannerX + 40, bannerY + 80, 32f, context.scissorStack.peekLast()));
         }
-        
+
         // Right panel
         startX = this.elements.mapPanel.startX;
         startY = this.elements.mapPanel.startY;
@@ -407,7 +407,7 @@ public class OnboardingFactionScreen extends Screen {
                 this.elements.factionRandomizerButton.getX() - (this.elements.factionRandomizerButton.getWidth() / 2), this.elements.factionRandomizerButton.getY(), 103, (this.elements.factionRandomizerButton.isFocused() || this.elements.factionRandomizerButton.isMouseOver(mouseX, mouseY)) ? 92 : 74,
                 this.elements.factionRandomizerButton.getWidth(), this.elements.factionRandomizerButton.getHeight(), 256, 256);
 
-        //this.elements.npcPreviewWidget.drawCenteredAnchoredBottom(context, startX, startY - 6);
+        this.elements.npcPreviewWidget.drawCenteredAnchoredBottom(context, startX, startY - 6);
     }
     //endregion
 

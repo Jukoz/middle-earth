@@ -13,13 +13,13 @@ import net.sevenstars.middleearth.gui.render.InstancedGuiElementRenderer;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
-public record BannerResultWithScaleGuiElementRenderState(ModelPart flag, DyeColor baseColor, BannerPatternsComponent resultBannerPatterns, int x1, int y1, int x2, int y2, @Nullable ScreenRect scissorArea, @Nullable ScreenRect bounds) implements InstancedGuiElementRenderState {
-    public BannerResultWithScaleGuiElementRenderState(ModelPart flag, DyeColor color, BannerPatternsComponent bannerPatterns, int x1, int y1, int x2, int y2, @Nullable ScreenRect scissorArea) {
-        this(flag, color, bannerPatterns, x1, y1, x2, y2, scissorArea, SpecialGuiElementRenderState.createBounds(x1, y1, x2, y2, scissorArea));
+public record BannerResultWithScaleGuiElementRenderState(ModelPart flag, DyeColor baseColor, BannerPatternsComponent resultBannerPatterns, int x1, int y1, int x2, int y2, float scale, @Nullable ScreenRect scissorArea, @Nullable ScreenRect bounds) implements InstancedGuiElementRenderState {
+    public BannerResultWithScaleGuiElementRenderState(ModelPart flag, DyeColor color, BannerPatternsComponent bannerPatterns, int x1, int y1, int x2, int y2, float scale, @Nullable ScreenRect scissorArea) {
+        this(flag, color, bannerPatterns, x1, y1, x2, y2, scale, scissorArea, SpecialGuiElementRenderState.createBounds(x1, y1, x2, y2, scissorArea));
     }
 
     public float scale() {
-        return 32.0f;
+        return scale;
     }
 
     @Override
