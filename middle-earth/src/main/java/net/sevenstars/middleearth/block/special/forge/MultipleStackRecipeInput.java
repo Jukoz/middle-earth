@@ -9,14 +9,15 @@ public record MultipleStackRecipeInput(List<ItemStack> items) implements RecipeI
 
     @Override
     public ItemStack getStackInSlot(int slot) {
-        if (slot >= getSize()) {
+        if (slot >= size()) {
             throw new IllegalArgumentException("No item for index " + slot);
         }
         return this.items.get(slot);
     }
 
     @Override
-    public int getSize() {
+    public int size() {
         return items.size();
+
     }
 }

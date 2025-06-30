@@ -2,9 +2,10 @@ package net.sevenstars.middleearth.block.special.bellows;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
-import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.client.model.*;
@@ -20,6 +21,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
+import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBlockEntity>  {
@@ -47,7 +49,7 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
                 .uv(1, 1).mirrored().cuboid(-13.0F, -3.0F, 4.0F, 10.0F, 1.0F, 10.0F,
                         new Dilation(0.0F)).mirrored(false)
                 .uv(0, 17).cuboid(-10.0F, -4.0F, 3.0F, 4.0F, 4.0F, 3.0F,
-                        new Dilation(0.0F)), ModelTransform.pivot(8.0F, 24.0F, -9.0F));
+                        new Dilation(0.0F)), ModelTransform.origin(8.0F, 24.0F, -9.0F));
 
         modelPartData.addChild("top", ModelPartBuilder.create().uv(0, 0)
                 .cuboid(-5.0F, 0.0F, 0.0F, 10.0F, 1.0F, 11.0F, new Dilation(0.0F))
@@ -56,21 +58,21 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
 
         modelPartData.addChild("cavity", ModelPartBuilder.create().uv(10, 17).mirrored()
                 .cuboid(-4.0F, -7.0F, -4.0F, 8.0F, 6.0F, 8.0F,
-                        new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+                        new Dilation(0.0F)).mirrored(false), ModelTransform.origin(0.0F, 24.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 48, 48);
     }
 
     @Override
-    public void render(BellowsBlockEntity bellowsBlockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        World world = bellowsBlockEntity.getWorld();
+    public void render(BellowsBlockEntity entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
+        World world = entity.getWorld();
         BlockState blockState = world != null
-                ? bellowsBlockEntity.getCachedState()
+                ? entity.getCachedState()
                 : ModDecorativeBlocks.BELLOWS.getDefaultState().with(BellowsBlock.FACING, Direction.SOUTH);
 
-        float animationProgress = getAnimationProgress(bellowsBlockEntity);
+        float animationProgress = getAnimationProgress(entity);
 
-        float rotation = blockState.get(ChestBlock.FACING).asRotation();
+        float rotation = blockState.get(ChestBlock.FACING).getPositiveHorizontalDegrees();
         matrices.translate(0.5D, 1.5D, 0.5D);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
@@ -82,6 +84,7 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
         this.bottom.render(matrices, vertexConsumer, light, overlay);
         this.cavity.render(matrices, vertexConsumer, light, overlay);
     }
+
 
     private float getAnimationProgress(BellowsBlockEntity bellowsBlockEntity){
         float animationProgress = 0;

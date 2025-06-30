@@ -24,6 +24,6 @@ public class FlowerbedMushroomBlock extends FlowerbedBlock {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isOpaqueFullCube(world, pos);
+        return floor.isOpaqueFullCube();
     }
 }

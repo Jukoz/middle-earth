@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.goals;
 
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -30,7 +31,7 @@ public class BeastActiveTargetGoal<T extends LivingEntity> extends TrackTargetGo
         this(mob, targetClass, 10, checkVisibility, false, null);
     }
 
-    public BeastActiveTargetGoal(AbstractBeastEntity mob, Class<T> targetClass, boolean checkVisibility, Predicate<LivingEntity> targetPredicate) {
+    public BeastActiveTargetGoal(AbstractBeastEntity mob, Class<T> targetClass, boolean checkVisibility, TargetPredicate.EntityPredicate targetPredicate) {
         this(mob, targetClass, 10, checkVisibility, false, targetPredicate);
     }
 
@@ -38,7 +39,7 @@ public class BeastActiveTargetGoal<T extends LivingEntity> extends TrackTargetGo
         this(mob, targetClass, 10, checkVisibility, checkCanNavigate, null);
     }
 
-    public BeastActiveTargetGoal(AbstractBeastEntity mob, Class<T> targetClass, int reciprocalChance, boolean checkVisibility, boolean checkCanNavigate, @Nullable Predicate<LivingEntity> targetPredicate) {
+    public BeastActiveTargetGoal(AbstractBeastEntity mob, Class<T> targetClass, int reciprocalChance, boolean checkVisibility, boolean checkCanNavigate, @Nullable TargetPredicate.EntityPredicate targetPredicate) {
         super(mob, checkVisibility, checkCanNavigate);
         this.targetClass = targetClass;
         this.reciprocalChance = ActiveTargetGoal.toGoalTicks(reciprocalChance);
@@ -63,7 +64,9 @@ public class BeastActiveTargetGoal<T extends LivingEntity> extends TrackTargetGo
     }
 
     protected void findClosestTarget() {
-        this.targetEntity = this.targetClass == PlayerEntity.class || this.targetClass == ServerPlayerEntity.class ? this.mob.getWorld().getClosestPlayer(this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ()) : this.mob.getWorld().getClosestEntity(this.mob.getWorld().getEntitiesByClass(this.targetClass, this.getSearchBox(this.getFollowRange()), livingEntity -> true), this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+        if(this.mob.getWorld() instanceof ServerWorld serverWorld) {
+            this.targetEntity = this.targetClass == PlayerEntity.class || this.targetClass == ServerPlayerEntity.class ? serverWorld.getClosestPlayer(this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ()) : serverWorld.getClosestEntity(this.mob.getWorld().getEntitiesByClass(this.targetClass, this.getSearchBox(this.getFollowRange()), livingEntity -> true), this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+        }
     }
 
     @Override

@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.recipe;
 
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.items.armor.CustomAnimalArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -21,13 +21,13 @@ public class MountArmorAddonRemovalRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public DefaultedList<ItemStack> getRemainder(CraftingRecipeInput input) {
-        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(input.getSize(), ItemStack.EMPTY);
+    public DefaultedList<ItemStack> getRecipeRemainders(CraftingRecipeInput input) {
+        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(input.size(), ItemStack.EMPTY);
 
         for(int i = 0; i < defaultedList.size(); ++i) {
             ItemStack itemStack = input.getStackInSlot(i);
-            if (itemStack.getItem().hasRecipeRemainder()) {
-                defaultedList.set(i, new ItemStack(itemStack.getItem().getRecipeRemainder()));
+            if (!itemStack.getItem().getRecipeRemainder().isEmpty()) {
+                defaultedList.set(i, new ItemStack(itemStack.getItem().getRecipeRemainder().getItem()));
             } else if (itemStack.getItem() instanceof ShearsItem) {
                 defaultedList.set(i, itemStack.copyWithCount(1));
                 break;
@@ -41,10 +41,10 @@ public class MountArmorAddonRemovalRecipe extends SpecialCraftingRecipe {
         ItemStack itemStackArmor = ItemStack.EMPTY;
         ItemStack itemStackShears = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
-                if (itemStack2.getItem() instanceof CustomAnimalArmorItem && itemStack2.get(ModDataComponentTypes.MOUNT_ARMOR_DATA) != null) {
+                if (itemStack2.getItem() instanceof CustomAnimalArmorItem && itemStack2.get(DataComponentTypesME.MOUNT_ARMOR_DATA) != null) {
                     if (!itemStackArmor.isEmpty()) {
                         return false;
                     }
@@ -64,10 +64,10 @@ public class MountArmorAddonRemovalRecipe extends SpecialCraftingRecipe {
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack itemStack = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
-                if (itemStack2.getItem() instanceof CustomAnimalArmorItem && itemStack2.get(ModDataComponentTypes.MOUNT_ARMOR_DATA) != null) {
+                if (itemStack2.getItem() instanceof CustomAnimalArmorItem && itemStack2.get(DataComponentTypesME.MOUNT_ARMOR_DATA) != null) {
                     if (!itemStack.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
@@ -82,7 +82,7 @@ public class MountArmorAddonRemovalRecipe extends SpecialCraftingRecipe {
         }
 
         if (!itemStack.isEmpty()) {
-            itemStack.remove(ModDataComponentTypes.MOUNT_ARMOR_DATA);
+            itemStack.remove(DataComponentTypesME.MOUNT_ARMOR_DATA);
             return itemStack;
         } else {
             return ItemStack.EMPTY;
@@ -93,7 +93,7 @@ public class MountArmorAddonRemovalRecipe extends SpecialCraftingRecipe {
         return width * height >= 2;
     }
 
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
         return ModRecipeSerializer.CUSTOM_MOUNT_ARMOR_ADDON_REMOVAL;
     }
 }

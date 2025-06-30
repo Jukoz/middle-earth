@@ -17,7 +17,7 @@ import net.minecraft.world.BlockView;
 public class ReinforcedChestBlock extends ChestBlock {
 
     public ReinforcedChestBlock(Settings settings) {
-        super(settings, () -> ModBlockEntities.REINFORCED_CHEST);
+        super(() -> ModBlockEntities.REINFORCED_CHEST, settings);
     }
 
     @Override

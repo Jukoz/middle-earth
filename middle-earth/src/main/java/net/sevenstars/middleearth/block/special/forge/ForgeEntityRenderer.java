@@ -5,12 +5,13 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
@@ -23,9 +24,7 @@ public class ForgeEntityRenderer implements BlockEntityRenderer<ForgeBlockEntity
     }
 
     @Override
-    public void render(ForgeBlockEntity entity, float tickDelta, MatrixStack matrices,
-                       VertexConsumerProvider vertexConsumers, int light, int overlay) {
-
+    public void render(ForgeBlockEntity entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
         ItemStack stack = entity.getRenderStack(entity);
 
         if(stack.isEmpty()) return;
@@ -47,7 +46,7 @@ public class ForgeEntityRenderer implements BlockEntityRenderer<ForgeBlockEntity
 
         int currentLight = getLightLevel(entity.getWorld(), entity.getPos(), direction);
 
-        this.context.getItemRenderer().renderItem(stack, ModelTransformationMode.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
+        this.context.getItemRenderer().renderItem(stack, ItemDisplayContext.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
                 matrices, vertexConsumers, entity.getWorld(), 1);
 
         matrices.pop();

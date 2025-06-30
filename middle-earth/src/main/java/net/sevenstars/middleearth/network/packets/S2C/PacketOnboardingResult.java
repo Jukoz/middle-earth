@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.network.packets.S2C;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.client.screens.ReturnConfirmationScreen;
+import net.sevenstars.middleearth.gui.return_confirmation.ReturnConfirmationScreen;
 import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
 import net.sevenstars.middleearth.network.handlers.OnboardingScreenHandler;
 import net.sevenstars.middleearth.network.packets.ServerToClientPacket;
@@ -17,9 +17,9 @@ import net.minecraft.util.Identifier;
 public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardingResult> {
     public static final Id<PacketOnboardingResult> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_onboarding_result"));
     public static final PacketCodec<RegistryByteBuf, PacketOnboardingResult> CODEC = PacketCodec.tuple(
-            PacketCodecs.BOOL, p -> p.havePlayerData,
-            PacketCodecs.BOOL, p -> p.canChangeFaction,
-            PacketCodecs.BOOL, p -> p.canReturnToOverworld,
+            PacketCodecs.BOOLEAN, p -> p.havePlayerData,
+            PacketCodecs.BOOLEAN, p -> p.canChangeFaction,
+            PacketCodecs.BOOLEAN, p -> p.canReturnToOverworld,
             PacketCodecs.FLOAT, p -> p.delayOnTeleportationConfirm,
             PacketOnboardingResult::new
     );

@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.block.special.fire_of_orthanc;
 
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.minecraft.block.BlockState;
@@ -39,9 +41,9 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
         }
         else this.setFuse(DEFAULT_FUSE);
 
-        this.prevX = x;
-        this.prevY = y;
-        this.prevZ = z;
+        this.lastX = x;
+        this.lastY = y;
+        this.lastZ = z;
         this.causingEntity = igniter;
     }
 
@@ -57,9 +59,9 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
 
     @Override
     protected void readCustomDataFromNbt(NbtCompound nbt) {
-        this.setFuse(nbt.getShort("fuse"));
-        if (nbt.contains("block_state", 10)) {
-            this.setBlockState(NbtHelper.toBlockState(this.getWorld().createCommandRegistryWrapper(RegistryKeys.BLOCK), nbt.getCompound("block_state")));
+        this.setFuse(nbt.getShort("fuse", (short) 0));
+        if (nbt.contains("block_state")) {
+            this.setBlockState(NbtHelper.toBlockState(this.getWorld().createCommandRegistryWrapper(RegistryKeys.BLOCK), nbt.getCompound("block_state").get()));
         }
     }
 
@@ -71,6 +73,11 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
 
     protected double getGravity() {
         return 0.04f;
+    }
+
+    @Override
+    public boolean damage(ServerWorld world, DamageSource source, float amount) {
+        return false;
     }
 
     public void tick() {
@@ -92,7 +99,7 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
             this.updateWaterState();
             if (this.getWorld().isClient && !chainReaction) {
                 for(int j = 0; j < 4; j++) {
-                    this.getWorld().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.8f, this.getZ(),
+                    this.getWorld().addParticleClient(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.8f, this.getZ(),
                             (Math.random() - 0.5f) * 0.3f, 0.4f, (Math.random() - 0.5f) * 0.5f);
                 }
             }

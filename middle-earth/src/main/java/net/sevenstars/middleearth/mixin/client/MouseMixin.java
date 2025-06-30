@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.mixin.client;
 
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightEntity;
 import net.sevenstars.middleearth.statusEffects.HallucinationStatusEffect;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
@@ -29,7 +30,7 @@ public class MouseMixin {
 
                 if(lookAt == null){
                     ((HallucinationStatusEffect)player.getActiveStatusEffects().get(ModStatusEffects.HALLUCINATION).getEffectType()).stop(player);
-                    player.sendMessage(Text.literal("is dead _ " + player.getActiveStatusEffects().get(ModStatusEffects.HALLUCINATION).getDuration()));
+                    player.sendMessage(Text.literal("is dead _ " + player.getActiveStatusEffects().get(ModStatusEffects.HALLUCINATION).getDuration()), false);
                     id = -1;
                     return;
                 }
@@ -55,11 +56,11 @@ public class MouseMixin {
                 player.setYaw(destYaw);
                 player.setYaw(destYaw);
                 player.setHeadYaw(player.getYaw());
-                player.prevPitch = player.getPitch();
-                player.prevYaw = player.getYaw();
+                player.lastPitch = player.getPitch();
+                player.lastYaw = player.getYaw();
             } else if(id == -1){
-
-                this.lookAt = player.getWorld().getClosestEntity(BarrowWightEntity.class, TargetPredicate.createNonAttackable(), null, player.getX(), player.getY(), player.getZ(), player.getBoundingBox().expand(28));
+                ServerWorld serverWorld = (ServerWorld) player.getWorld();
+                this.lookAt = serverWorld.getClosestEntity(BarrowWightEntity.class, TargetPredicate.createNonAttackable(), null, player.getX(), player.getY(), player.getZ(), player.getBoundingBox().expand(28));
                 if(lookAt != null)
                     this.id = lookAt.getId();
                 cir.cancel();

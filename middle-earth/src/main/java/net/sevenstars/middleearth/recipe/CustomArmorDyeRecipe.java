@@ -24,7 +24,7 @@ public class CustomArmorDyeRecipe extends SpecialCraftingRecipe {
         ItemStack itemStack = ItemStack.EMPTY;
         ArrayList<ItemStack> list = Lists.newArrayList();
 
-        for (int i = 0; i < craftingRecipeInput.getSize(); ++i) {
+        for (int i = 0; i < craftingRecipeInput.size(); ++i) {
             ItemStack itemStack2 = craftingRecipeInput.getStackInSlot(i);
             if (itemStack2.isEmpty()) continue;
             if (itemStack2.isIn(ModTags.DYEABLE)) {
@@ -48,7 +48,7 @@ public class CustomArmorDyeRecipe extends SpecialCraftingRecipe {
         ArrayList<DyeItem> list = Lists.newArrayList();
         ItemStack itemStack = ItemStack.EMPTY;
 
-        for (int i = 0; i < craftingRecipeInput.getSize(); ++i) {
+        for (int i = 0; i < craftingRecipeInput.size(); ++i) {
             ItemStack itemStack2 = craftingRecipeInput.getStackInSlot(i);
             if (itemStack2.isEmpty()) continue;
             if (itemStack2.isIn(ModTags.DYEABLE)) {
@@ -75,7 +75,7 @@ public class CustomArmorDyeRecipe extends SpecialCraftingRecipe {
         return width * height >= 2;
     }
 
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
         return ModRecipeSerializer.CUSTOM_ARMOR_DYE;
     }
 }

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "middle-earth:block/turf_slab"
+    },
+    "type=double": {
+      "model": "middle-earth:block/turf"
+    },
+    "type=top": {
+      "model": "middle-earth:block/turf_slab_top"
+    }
+  }
+}

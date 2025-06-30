@@ -1,12 +1,13 @@
 package net.sevenstars.middleearth.entity.projectile;
 
-import net.sevenstars.middleearth.entity.hobbits.shire.ShireHobbitEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
@@ -18,18 +19,18 @@ public abstract class AbstractProjectileEntity extends ThrownItemEntity {
         super(entityType, world);
     }
 
-    public AbstractProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, double d, double e, double f, World world) {
-        super(entityType, d, e, f, world);
+    public AbstractProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, double d, double e, double f, World world, ItemStack stack) {
+        super(entityType, d, e, f, world, stack);
     }
 
-    public AbstractProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, LivingEntity livingEntity, World world) {
-        super(entityType, livingEntity, world);
+    public AbstractProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, LivingEntity livingEntity, World world, ItemStack stack) {
+        super(entityType, livingEntity, world, stack);
     }
 
     public void handleStatus(byte status) {
         if (status == 3) {
             for(int i = 0; i < 8; ++i) {
-                this.getWorld().addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, this.getStack()), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08);
+                this.getWorld().addParticleClient(new ItemStackParticleEffect(ParticleTypes.ITEM, this.getStack()), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08);
             }
         }
     }
@@ -41,8 +42,9 @@ public abstract class AbstractProjectileEntity extends ThrownItemEntity {
     public void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
-        entity.damage(this.getDamageSources().thrown(this, this.getOwner()), this.damage);
+        ServerWorld serverWorld = (ServerWorld) entity.getWorld();
+        //if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
+        entity.damage(serverWorld, this.getDamageSources().thrown(this, this.getOwner()), this.damage);
     }
 
     protected void onCollision(HitResult hitResult) {

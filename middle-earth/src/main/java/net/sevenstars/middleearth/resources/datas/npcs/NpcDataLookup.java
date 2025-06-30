@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.resources.datas.npcs;
 
-import net.sevenstars.middleearth.resources.MiddleEarthNpcs;
+import net.sevenstars.middleearth.resources.NpcME;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class NpcDataLookup {
     public static List<NpcData> getAllNpcDatas(World world, List<Identifier> ids) {
-        Registry<NpcData> registry = world.getRegistryManager().get(MiddleEarthNpcs.NPC_KEY);
+        Registry<NpcData> registry = world.getRegistryManager().getOrThrow(NpcME.KEY);
         List<NpcData> list = new ArrayList<>();
         for(Identifier id : ids){
             list.add(registry.get(id));
@@ -26,5 +26,8 @@ public class NpcDataLookup {
                 list.add(npcData);
         }
         return list;
+    }
+    public static NpcData getNpcData(World world, Identifier id) {
+        return world.getRegistryManager().getOrThrow(NpcME.KEY).get(id);
     }
 }

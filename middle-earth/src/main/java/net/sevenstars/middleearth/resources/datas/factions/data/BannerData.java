@@ -1,8 +1,6 @@
 package net.sevenstars.middleearth.resources.datas.factions.data;
 
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.component.DataComponentTypes;
@@ -19,7 +17,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Unit;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -75,20 +72,24 @@ public class BannerData {
         }
         NbtCompound compound = optionalBannerDataNbt.get();
 
-        baseBannerColor = DyeColor.byName(compound.getString("base_color"), DEFAULT_DYE);
+        baseBannerColor = DyeColor.byId(compound.getString("base_color").get(), DEFAULT_DYE);
 
-        NbtList patterns = compound.getList("patterns", NbtType.COMPOUND);
+        NbtList patterns = compound.getList("patterns").get();
         this.bannerPatternWithColors = new ArrayList<>();
 
         JsonParser jsonParser = new JsonParser();
 
         for(NbtElement element: patterns){
-            JsonObject json = (JsonObject) jsonParser.parse(element.asString());
-            Identifier id = Identifier.of(json.get("id").getAsString());
-            DyeColor color = DyeColor.byName(json.get("dye_color").getAsString(), DEFAULT_DYE);
+            try{
+                NbtCompound elementCompound = element.asCompound().get();
+                Identifier id = Identifier.of(elementCompound.getString("id").get());
+                DyeColor color = DyeColor.byId(elementCompound.getString("dye_color", DEFAULT_DYE.asString()), DEFAULT_DYE);
 
-            BannerPatternWithColor bannerPatternWithColor = new BannerPatternWithColor(id, color);
-            bannerPatternWithColors.add(bannerPatternWithColor);
+                BannerPatternWithColor bannerPatternWithColor = new BannerPatternWithColor(id, color);
+                bannerPatternWithColors.add(bannerPatternWithColor);
+            } catch (Exception ignored){
+
+            }
         }
     }
 
@@ -146,7 +147,7 @@ public class BannerData {
     public ItemStack getBannerItem(World world, Text text) {
         BannerPatternsComponent.Builder builder = new BannerPatternsComponent.Builder();
 
-        var registry = world.getRegistryManager().get(RegistryKeys.BANNER_PATTERN);
+        var registry = world.getRegistryManager().getOrThrow(RegistryKeys.BANNER_PATTERN);
         for(BannerPatternWithColor bannerPatternWithColor :  bannerPatternWithColors){
             RegistryEntry<BannerPattern> bannerPattern = registry.getEntry(bannerPatternWithColor.id).get();
             BannerPatternsComponent.Layer layer = new BannerPatternsComponent.Layer(bannerPattern, bannerPatternWithColor.color);
@@ -158,7 +159,7 @@ public class BannerData {
 
     public static ItemStack formatBanner(ItemStack itemStack, BannerPatternsComponent bannerPatternsComponent, Text translationKey) {
         itemStack.set(DataComponentTypes.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
+        // itemStack.set(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE); // TODO : Not existing
         itemStack.set(DataComponentTypes.ITEM_NAME, translationKey);
         return itemStack;
     }

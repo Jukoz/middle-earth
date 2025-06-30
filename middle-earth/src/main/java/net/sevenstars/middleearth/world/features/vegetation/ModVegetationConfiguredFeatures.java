@@ -5,7 +5,7 @@ import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
 import net.sevenstars.middleearth.block.StoneBlockSets;
 import net.sevenstars.middleearth.block.WoodBlockSets;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.world.features.columns.CaveColumnFeatureConfig;
 import net.sevenstars.middleearth.world.features.underground.CavesConfiguredFeatures;
 import net.sevenstars.middleearth.world.gen.ModFeatures;
@@ -16,7 +16,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DataPool;
+import net.minecraft.util.collection.Pool;
 import net.minecraft.util.dynamic.Range;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
@@ -199,7 +199,7 @@ public class ModVegetationConfiguredFeatures {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
                                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                                        new WeightedBlockStateProvider(DataPool.<BlockState>builder()
+                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
                                                 .add(ModNatureBlocks.TALL_WILD_WHEAT.getDefaultState(), 1)
                                                 .add(ModNatureBlocks.WILD_WHEAT.getDefaultState(), 3))
                                 )))));
@@ -459,8 +459,8 @@ public class ModVegetationConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_REEDS, Feature.RANDOM_PATCH,
                 new RandomPatchFeatureConfig(256, 12, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModResourceItems.REEDS)),
-                        BlockFilterPlacementModifier.of(BlockPredicate.allOf(BlockPredicate.IS_AIR, BlockPredicate.wouldSurvive(ModResourceItems.REEDS.getDefaultState(), BlockPos.ORIGIN),
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ResourceItemsME.REEDS)),
+                        BlockFilterPlacementModifier.of(BlockPredicate.allOf(BlockPredicate.IS_AIR, BlockPredicate.wouldSurvive(ResourceItemsME.REEDS.getDefaultState(), BlockPos.ORIGIN),
                                 BlockPredicate.anyOf(
                                     BlockPredicate.matchingFluids(new BlockPos(1, -1, 0), Fluids.WATER, Fluids.FLOWING_WATER),
                                     BlockPredicate.matchingFluids(new BlockPos(-1, -1, 0), Fluids.WATER, Fluids.FLOWING_WATER),
@@ -530,7 +530,7 @@ public class ModVegetationConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_MIRKWOOD, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder()
+                        new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(Pool.<BlockState>builder()
                                 .add(Blocks.SHORT_GRASS.getDefaultState(), 8)
                                 .add(Blocks.FERN.getDefaultState(), 8)
                                 .add(Blocks.TALL_GRASS.getDefaultState(), 15)
@@ -538,7 +538,7 @@ public class ModVegetationConfiguredFeatures {
                                 .add(Blocks.BROWN_MUSHROOM.getDefaultState(), 1))), List.of(), 15));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_MIRKWOOD_ROOTS, Feature.BLOCK_PILE,
-                new BlockPileFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder()
+                new BlockPileFeatureConfig(new WeightedBlockStateProvider(Pool.<BlockState>builder()
                         .add(ModNatureBlocks.MIRKWOOD_ROOTS.getDefaultState(), 3))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_MOSS, Feature.MULTIFACE_GROWTH,
@@ -556,7 +556,7 @@ public class ModVegetationConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_MIXED_WILD_WHEAT, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(new WeightedBlockStateProvider((DataPool.<BlockState>builder()
+                        new SimpleBlockFeatureConfig(new WeightedBlockStateProvider((Pool.<BlockState>builder()
                                 .add(ModNatureBlocks.TALL_WILD_WHEAT.getDefaultState(), 1)
                                 .add(ModNatureBlocks.WILD_WHEAT.getDefaultState(), 3))
                         ))));

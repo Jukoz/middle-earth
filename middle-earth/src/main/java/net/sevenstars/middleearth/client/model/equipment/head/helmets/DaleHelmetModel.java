@@ -4,7 +4,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 
-public class DaleHelmetModel<T extends LivingEntity> extends HelmetAddonModel<T> {
+public class DaleHelmetModel extends HelmetAddonModel {
 
     public DaleHelmetModel(ModelPart root) {
         super(root);
@@ -14,14 +14,14 @@ public class DaleHelmetModel<T extends LivingEntity> extends HelmetAddonModel<T>
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 1.5F, 0.0F));
+        head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         ModelPartData addon = head.addChild("addons", ModelPartBuilder.create().uv(0, 37).cuboid(-5.0F, -5.3F, -6.0F, 10.0F, 1.0F, 3.0F, new Dilation(0.0F))
-                .uv(0, 29).cuboid(0.0F, -13.3F, -6.0F, 0.0F, 11.0F, 12.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+                .uv(0, 29).cuboid(0.0F, -13.3F, -6.0F, 0.0F, 11.0F, 12.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        ModelPartData bone = addon.addChild("spike", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -11.0F, 0.0F));
+        ModelPartData bone = addon.addChild("spike", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -11.0F, 0.0F));
         bone.addChild("spike_cube", ModelPartBuilder.create().uv(0, 0).cuboid(-0.5F, -1.0F, -0.5F, 1.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.5F, 0.0F, 0.0F, -0.7854F, 0.0F));
 
         ModelPartData Plumes = bone.addChild("Plumes", ModelPartBuilder.create(), ModelTransform.of(0.0F, 0.0F, 0.0F, -0.1309F, 0.0F, 0.0F));
@@ -41,17 +41,12 @@ public class DaleHelmetModel<T extends LivingEntity> extends HelmetAddonModel<T>
         ModelPartData Plume5 = Plumes.addChild("plume_4", ModelPartBuilder.create().uv(42, 39).cuboid(0.0F, -6.0F, -3.0F, 0.0F, 6.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, -1.7964F, -0.9478F, 1.7551F));
         Plume5.addChild("plume_cube_4", ModelPartBuilder.create().uv(42, 33).cuboid(0.0F, -6.0F, -3.0F, 0.0F, 6.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -6.0F, 0.0F, 0.0F, 0.0F, 0.5236F));
 
-        modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         return TexturedModelData.of(modelData, 64, 64);
-    }
-
-    @Override
-    public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-
     }
 }

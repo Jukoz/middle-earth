@@ -2,126 +2,125 @@ package net.sevenstars.middleearth.item.utils.armor;
 
 import net.sevenstars.middleearth.client.model.equipment.chest.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.*;
-import net.sevenstars.middleearth.item.ModEquipmentItems;
+import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.utils.armor.capes.ModCapeModels;
 import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
 import net.sevenstars.middleearth.item.utils.armor.hoods.ModHoodModels;
 import net.sevenstars.middleearth.item.utils.armor.hoods.ModHoods;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.StringIdentifiable;
 
 public class ModArmorModels {
 
     public enum ModHelmetModels{
-        STRAW_HAT(ModEquipmentItems.STRAW_HAT, new HatArmorAddonModel<>(HatArmorAddonModel.getTexturedModelData().createModel())),
-        WOVEN_HAT(ModEquipmentItems.WOVEN_HAT, new HatArmorAddonModel<>(HatArmorAddonModel.getTexturedModelData().createModel())),
-        WANDERER_HAT(ModEquipmentItems.WANDERER_HAT, new WizardHatModel<>(WizardHatModel.getTexturedModelData().createModel())),
-        KETTLE_HAT(ModEquipmentItems.KETTLE_HAT, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
-        KETTLE_HAT_WITH_COIF(ModEquipmentItems.KETTLE_HAT_WITH_COIF, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
-        KETTLE_HAT_WITH_CLOSED_COIF(ModEquipmentItems.KETTLE_HAT_WITH_CLOSED_COIF, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
-        SALLET(ModEquipmentItems.SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
+        STRAW_HAT(EquipmentItemsME.STRAW_HAT, new HatArmorAddonModel(HatArmorAddonModel.getTexturedModelData().createModel())),
+        WOVEN_HAT(EquipmentItemsME.WOVEN_HAT, new HatArmorAddonModel(HatArmorAddonModel.getTexturedModelData().createModel())),
+        WANDERER_HAT(EquipmentItemsME.WANDERER_HAT, new WizardHatModel(WizardHatModel.getTexturedModelData().createModel())),
+        KETTLE_HAT(EquipmentItemsME.KETTLE_HAT, new KettleHatArmorAddonModel(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        KETTLE_HAT_WITH_COIF(EquipmentItemsME.KETTLE_HAT_WITH_COIF, new KettleHatArmorAddonModel(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        KETTLE_HAT_WITH_CLOSED_COIF(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF, new KettleHatArmorAddonModel(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        SALLET(EquipmentItemsME.SALLET, new SalletHelmetAddonModel(SalletHelmetAddonModel.getTexturedModelData().createModel())),
 
-        SHIRRIF_HAT(ModEquipmentItems.SHIRRIFF_HAT, new HatArmorAddonModel<>(HatArmorAddonModel.getTexturedModelData().createModel())),
+        SHIRRIF_HAT(EquipmentItemsME.SHIRRIFF_HAT, new HatArmorAddonModel(HatArmorAddonModel.getTexturedModelData().createModel())),
 
-        GONDORIAN_CABASSET_HELMET(ModEquipmentItems.GONDORIAN_CABASSET_HELMET, new GondorianHelmetModel<>(GondorianHelmetModel.getTexturedModelData().createModel())),
-        GONDORIAN_SOLDIER_HELMET(ModEquipmentItems.GONDORIAN_SOLDIER_HELMET, new GondorianHelmetModel<>(GondorianHelmetModel.getTexturedModelData().createModel())),
-        GONDORIAN_PLATE_HELMET(ModEquipmentItems.GONDORIAN_PLATE_HELMET, new GondorianHelmetModel<>(GondorianHelmetModel.getTexturedModelData().createModel())),
-        GONDORIAN_CAPTAIN_HELMET(ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET, new GondorianHelmetModel<>(GondorianHelmetModel.getTexturedModelData().createModel())),
-        GONDORIAN_KINGS_GUARD_HELMET(ModEquipmentItems.GONDORIAN_KINGS_GUARD_HELMET, new GondorianHelmetModel<>(GondorianHelmetModel.getTexturedModelData().createModel())),
-        GONDORIAN_CITADEL_GUARD_HELMET(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_HELMET, new GondorianHelmetModel<>(GondorianHelmetModel.getTexturedModelData().createModel())),
-        GONDORIAN_FOUNTAIN_GUARD_HELMET(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_HELMET, new GondorianHelmetModel<>(GondorianHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_CABASSET_HELMET(EquipmentItemsME.GONDORIAN_CABASSET_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_SOLDIER_HELMET(EquipmentItemsME.GONDORIAN_SOLDIER_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_PLATE_HELMET(EquipmentItemsME.GONDORIAN_PLATE_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_CAPTAIN_HELMET(EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_KINGS_GUARD_HELMET(EquipmentItemsME.GONDORIAN_KINGS_GUARD_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_CITADEL_GUARD_HELMET(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_FOUNTAIN_GUARD_HELMET(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
 
-        ROHIRRIC_REINFORCED_LEATHER_HELMET(ModEquipmentItems.ROHIRRIC_REINFORCED_LEATHER_HELMET, new RohirricHelmetArmorAddonModel<>(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        ROHIRRIC_BRACED_MILITIA_HELMET(ModEquipmentItems.ROHIRRIC_BRACED_MILITIA_HELMET, new RohirricHelmetArmorAddonModel<>(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        ROHIRRIC_ORNAMENTED_MILITIA_HELMET(ModEquipmentItems.ROHIRRIC_ORNAMENTED_MILITIA_HELMET, new RohirricHelmetArmorAddonModel<>(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        ROHIRRIC_ORNAMENTED_SOLDIER_HELMET(ModEquipmentItems.ROHIRRIC_ORNAMENTED_SOLDIER_HELMET, new RohirricHelmetArmorAddonModel<>(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        ROHIRRIC_ROYAL_GUARD_HELMET(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_HELMET, new RohirricHelmetArmorAddonModel<>(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        EORLING_MARSHAL_HELMET(ModEquipmentItems.EORLING_MARSHAL_HELMET, new RohirricHelmetArmorAddonModel<>(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        HORSE_LORD_HELMET(ModEquipmentItems.HORSE_LORD_HELMET, new RohirricHelmetArmorAddonModel<>(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        ROHIRRIC_REINFORCED_LEATHER_HELMET(EquipmentItemsME.ROHIRRIC_REINFORCED_LEATHER_HELMET, new RohirricHelmetArmorAddonModel(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        ROHIRRIC_BRACED_MILITIA_HELMET(EquipmentItemsME.ROHIRRIC_BRACED_MILITIA_HELMET, new RohirricHelmetArmorAddonModel(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        ROHIRRIC_ORNAMENTED_MILITIA_HELMET(EquipmentItemsME.ROHIRRIC_ORNAMENTED_MILITIA_HELMET, new RohirricHelmetArmorAddonModel(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        ROHIRRIC_ORNAMENTED_SOLDIER_HELMET(EquipmentItemsME.ROHIRRIC_ORNAMENTED_SOLDIER_HELMET, new RohirricHelmetArmorAddonModel(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        ROHIRRIC_ROYAL_GUARD_HELMET(EquipmentItemsME.ROHIRRIC_ROYAL_GUARD_HELMET, new RohirricHelmetArmorAddonModel(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        EORLING_MARSHAL_HELMET(EquipmentItemsME.EORLING_MARSHAL_HELMET, new RohirricHelmetArmorAddonModel(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        HORSE_LORD_HELMET(EquipmentItemsME.HORSE_LORD_HELMET, new RohirricHelmetArmorAddonModel(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
 
-        DALISH_HELMET(ModEquipmentItems.DALISH_HELMET, new DaleTallSpikeHelmetModel<>(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
-        DALISH_HELMET_BLACK_FUR(ModEquipmentItems.DALISH_HELMET_BLACK_FUR, new DaleTallSpikeHelmetModel<>(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
-        DALISH_HELMET_BROWN_FUR(ModEquipmentItems.DALISH_HELMET_BROWN_FUR, new DaleTallSpikeHelmetModel<>(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
-        DALISH_HELMET_TAN_FUR(ModEquipmentItems.DALISH_HELMET_TAN_FUR, new DaleTallSpikeHelmetModel<>(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
-        DALISH_BURGONET(ModEquipmentItems.DALISH_BURGONET, new DaleHelmetModel<>(DaleHelmetModel.getTexturedModelData().createModel())),
-        DALISH_HEYDAY_HELMET(ModEquipmentItems.DALISH_HEYDAY_HELMET, new DaleTallSpikeHelmetModel<>(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
-        BARDING_SOLDIER_HELMET(ModEquipmentItems.BARDING_SOLDIER_HELMET, new DaleHelmetModel<>(DaleHelmetModel.getTexturedModelData().createModel())),
-        BARDING_SERGEANT_HELMET(ModEquipmentItems.BARDING_SERGEANT_HELMET, new DaleHelmetModel<>(DaleHelmetModel.getTexturedModelData().createModel())),
+        DALISH_HELMET(EquipmentItemsME.DALISH_HELMET, new DaleTallSpikeHelmetModel(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
+        DALISH_HELMET_BLACK_FUR(EquipmentItemsME.DALISH_HELMET_BLACK_FUR, new DaleTallSpikeHelmetModel(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
+        DALISH_HELMET_BROWN_FUR(EquipmentItemsME.DALISH_HELMET_BROWN_FUR, new DaleTallSpikeHelmetModel(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
+        DALISH_HELMET_TAN_FUR(EquipmentItemsME.DALISH_HELMET_TAN_FUR, new DaleTallSpikeHelmetModel(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
+        DALISH_BURGONET(EquipmentItemsME.DALISH_BURGONET, new DaleHelmetModel(DaleHelmetModel.getTexturedModelData().createModel())),
+        DALISH_HEYDAY_HELMET(EquipmentItemsME.DALISH_HEYDAY_HELMET, new DaleTallSpikeHelmetModel(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
+        BARDING_SOLDIER_HELMET(EquipmentItemsME.BARDING_SOLDIER_HELMET, new DaleHelmetModel(DaleHelmetModel.getTexturedModelData().createModel())),
+        BARDING_SERGEANT_HELMET(EquipmentItemsME.BARDING_SERGEANT_HELMET, new DaleHelmetModel(DaleHelmetModel.getTexturedModelData().createModel())),
 
-        DWARVEN_MINER_HELMET(ModEquipmentItems.DWARVEN_MINER_HELMET, new DwarvenMinerHelmetModel<>(DwarvenMinerHelmetModel.getTexturedModelData().createModel())),
+        DWARVEN_MINER_HELMET(EquipmentItemsME.DWARVEN_MINER_HELMET, new DwarvenMinerHelmetModel(DwarvenMinerHelmetModel.getTexturedModelData().createModel())),
 
-        EREBOR_CAPTAIN_HELMET(ModEquipmentItems.EREBOR_CAPTAIN_HELMET, new EreborHornsHelmetModel<>(EreborHornsHelmetModel.getTexturedModelData().createModel())),
+        EREBOR_CAPTAIN_HELMET(EquipmentItemsME.EREBOR_CAPTAIN_HELMET, new EreborHornsHelmetModel(EreborHornsHelmetModel.getTexturedModelData().createModel())),
 
-        EREBOR_PLATE_HELMET(ModEquipmentItems.EREBOR_PLATE_HELMET, new EreborHelmetModel<>(EreborHelmetModel.getTexturedModelData().createModel())),
-        RAVENHILL_SENTINEL_HELMET(ModEquipmentItems.RAVENHILL_SENTINEL_HELMET, new EreborWingsHelmetModel<>(EreborWingsHelmetModel.getTexturedModelData().createModel())),
-        EREBOR_GATEWARDEN_HELMET(ModEquipmentItems.EREBOR_GATEWARDEN_HELMET, new EreborHelmetModel<>(EreborHelmetModel.getTexturedModelData().createModel())),
+        EREBOR_PLATE_HELMET(EquipmentItemsME.EREBOR_PLATE_HELMET, new EreborHelmetModel(EreborHelmetModel.getTexturedModelData().createModel())),
+        RAVENHILL_SENTINEL_HELMET(EquipmentItemsME.RAVENHILL_SENTINEL_HELMET, new EreborWingsHelmetModel(EreborWingsHelmetModel.getTexturedModelData().createModel())),
+        EREBOR_GATEWARDEN_HELMET(EquipmentItemsME.EREBOR_GATEWARDEN_HELMET, new EreborHelmetModel(EreborHelmetModel.getTexturedModelData().createModel())),
 
-        LORIEN_DIADEM(ModEquipmentItems.LORIEN_DIADEM, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        LORIEN_LEATHER_HELMET(ModEquipmentItems.LORIEN_LEATHER_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        LORIEN_MAIL_COIF_DIADEM(ModEquipmentItems.LORIEN_MAIL_COIF_DIADEM, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        LORIEN_SHORT_MAIL_COIF_DIADEM(ModEquipmentItems.LORIEN_SHORT_MAIL_COIF_DIADEM, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        LORIEN_SOLDIER_HELMET(ModEquipmentItems.LORIEN_SOLDIER_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        GALADHRIM_HELMET(ModEquipmentItems.GALADHRIM_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        GALADHRIM_LORD_HELMET(ModEquipmentItems.GALADHRIM_LORD_HELMET, new LorienHelmetArmorAddonModel<>(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        LORIEN_DIADEM(EquipmentItemsME.LORIEN_DIADEM, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        LORIEN_LEATHER_HELMET(EquipmentItemsME.LORIEN_LEATHER_HELMET, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        LORIEN_MAIL_COIF_DIADEM(EquipmentItemsME.LORIEN_MAIL_COIF_DIADEM, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        LORIEN_SHORT_MAIL_COIF_DIADEM(EquipmentItemsME.LORIEN_SHORT_MAIL_COIF_DIADEM, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        LORIEN_SOLDIER_HELMET(EquipmentItemsME.LORIEN_SOLDIER_HELMET, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        GALADHRIM_HELMET(EquipmentItemsME.GALADHRIM_HELMET, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        GALADHRIM_LORD_HELMET(EquipmentItemsME.GALADHRIM_LORD_HELMET, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
 
-        ORCISH_BRACED_HELMET(ModEquipmentItems.ORCISH_BRACED_HELMET, new OrcSpikeHelmetModel<>(OrcSpikeHelmetModel.getTexturedModelData().createModel())),
-        ORCISH_SALLET(ModEquipmentItems.ORCISH_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
+        ORCISH_BRACED_HELMET(EquipmentItemsME.ORCISH_BRACED_HELMET, new OrcSpikeHelmetModel(OrcSpikeHelmetModel.getTexturedModelData().createModel())),
+        ORCISH_SALLET(EquipmentItemsME.ORCISH_SALLET, new SalletHelmetAddonModel(SalletHelmetAddonModel.getTexturedModelData().createModel())),
 
-        MORDOR_CREST_HELMET(ModEquipmentItems.MORDOR_CREST_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
-        RUSTED_MORDOR_CREST_HELMET(ModEquipmentItems.RUSTED_MORDOR_CREST_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
-        MORDOR_GREAT_HELMET(ModEquipmentItems.MORDOR_GREAT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
-        RUSTED_MORDOR_GREAT_HELMET(ModEquipmentItems.RUSTED_MORDOR_GREAT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
-        MORDOR_KETTLE_HAT(ModEquipmentItems.MORDOR_KETTLE_HAT, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
-        RUSTED_MORDOR_KETTLE_HAT(ModEquipmentItems.RUSTED_MORDOR_KETTLE_HAT, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
-        MORDOR_KETTLE_HAT_WITH_COIF(ModEquipmentItems.MORDOR_KETTLE_HAT_WITH_COIF, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
-        RUSTED_MORDOR_KETTLE_HAT_WITH_COIF(ModEquipmentItems.RUSTED_MORDOR_KETTLE_HAT_WITH_COIF, new KettleHatArmorAddonModel<>(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
-        MORDOR_SALLET(ModEquipmentItems.MORDOR_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
-        RUSTED_MORDOR_SALLET(ModEquipmentItems.RUSTED_MORDOR_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
-        MORDOR_SNOUT_HELMET(ModEquipmentItems.MORDOR_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
-        RUSTED_MORDOR_SNOUT_HELMET(ModEquipmentItems.RUSTED_MORDOR_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        MORDOR_CREST_HELMET(EquipmentItemsME.MORDOR_CREST_HELMET, new MordorOrcHelmetModel(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_CREST_HELMET(EquipmentItemsME.RUSTED_MORDOR_CREST_HELMET, new MordorOrcHelmetModel(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        MORDOR_GREAT_HELMET(EquipmentItemsME.MORDOR_GREAT_HELMET, new MordorOrcHelmetModel(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_GREAT_HELMET(EquipmentItemsME.RUSTED_MORDOR_GREAT_HELMET, new MordorOrcHelmetModel(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        MORDOR_KETTLE_HAT(EquipmentItemsME.MORDOR_KETTLE_HAT, new KettleHatArmorAddonModel(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_KETTLE_HAT(EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT, new KettleHatArmorAddonModel(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        MORDOR_KETTLE_HAT_WITH_COIF(EquipmentItemsME.MORDOR_KETTLE_HAT_WITH_COIF, new KettleHatArmorAddonModel(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_KETTLE_HAT_WITH_COIF(EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT_WITH_COIF, new KettleHatArmorAddonModel(KettleHatArmorAddonModel.getTexturedModelData().createModel())),
+        MORDOR_SALLET(EquipmentItemsME.MORDOR_SALLET, new SalletHelmetAddonModel(SalletHelmetAddonModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_SALLET(EquipmentItemsME.RUSTED_MORDOR_SALLET, new SalletHelmetAddonModel(SalletHelmetAddonModel.getTexturedModelData().createModel())),
+        MORDOR_SNOUT_HELMET(EquipmentItemsME.MORDOR_SNOUT_HELMET, new MordorOrcHelmetModel(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_SNOUT_HELMET(EquipmentItemsME.RUSTED_MORDOR_SNOUT_HELMET, new MordorOrcHelmetModel(MordorOrcHelmetModel.getTexturedModelData().createModel())),
 
-        BLACK_URUK_COMMANDER_HELMET(ModEquipmentItems.BLACK_URUK_COMMANDER_HELMET, new HelmetSkullModel<>(HelmetSkullModel.getTexturedModelData().createModel())),
+        BLACK_URUK_COMMANDER_HELMET(EquipmentItemsME.BLACK_URUK_COMMANDER_HELMET, new HelmetSkullModel(HelmetSkullModel.getTexturedModelData().createModel())),
 
-        MORDOR_BLACK_NUMENOREAN_PLATE_HELMET(ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET, new MordorBNHelmetModel<>(MordorBNHelmetModel.getTexturedModelData().createModel())),
+        MORDOR_BLACK_NUMENOREAN_PLATE_HELMET(EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET, new MordorBNHelmetModel(MordorBNHelmetModel.getTexturedModelData().createModel())),
 
-        URUK_HAI_LEATHER_SCOUT_CAP(ModEquipmentItems.URUK_HAI_LEATHER_SCOUT_CAP, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_LIGHT_HELMET(ModEquipmentItems.URUK_HAI_LIGHT_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_PAINTED_LIGHT_HELMET(ModEquipmentItems.URUK_HAI_PAINTED_LIGHT_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_REINFORCED_HELMET(ModEquipmentItems.URUK_HAI_REINFORCED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_PAINTED_REINFORCED_HELMET(ModEquipmentItems.URUK_HAI_PAINTED_REINFORCED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_SOLDIER_HELMET(ModEquipmentItems.URUK_HAI_SOLDIER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_PAINTED_SOLDIER_HELMET(ModEquipmentItems.URUK_HAI_PAINTED_SOLDIER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_PLATE_HELMET(ModEquipmentItems.URUK_HAI_PLATE_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_PLATE_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_PAINTED_PLATE_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_SAPPER_HELMET(ModEquipmentItems.URUK_HAI_SAPPER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_SAPPER_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_PAINTED_SAPPER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_BERSERKER_HELMET(ModEquipmentItems.URUK_HAI_BERSERKER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_BERSERKER_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_PAINTED_BERSERKER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_COMMANDER_HELMET(ModEquipmentItems.URUK_HAI_COMMANDER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_COMMANDER_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_PAINTED_COMMANDER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_LEATHER_SCOUT_CAP(EquipmentItemsME.URUK_HAI_LEATHER_SCOUT_CAP, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_LIGHT_HELMET(EquipmentItemsME.URUK_HAI_LIGHT_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_PAINTED_LIGHT_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_LIGHT_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_REINFORCED_HELMET(EquipmentItemsME.URUK_HAI_REINFORCED_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_PAINTED_REINFORCED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_REINFORCED_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_SOLDIER_HELMET(EquipmentItemsME.URUK_HAI_SOLDIER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_PAINTED_SOLDIER_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_SOLDIER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_PLATE_HELMET(EquipmentItemsME.URUK_HAI_PLATE_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_PLATE_PAINTED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_PLATE_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_SAPPER_HELMET(EquipmentItemsME.URUK_HAI_SAPPER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_SAPPER_PAINTED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_SAPPER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_BERSERKER_HELMET(EquipmentItemsME.URUK_HAI_BERSERKER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_BERSERKER_PAINTED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_BERSERKER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_COMMANDER_HELMET(EquipmentItemsME.URUK_HAI_COMMANDER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_COMMANDER_PAINTED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_COMMANDER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
 
-        ORTHANC_GUARD_HELMET(ModEquipmentItems.ORTHANC_GUARD_HELMET, new OrthancCommanderHelmetModel<>(OrthancCommanderHelmetModel.getTexturedModelData().createModel())),
-        ORTHANC_COMMANDER_HELMET(ModEquipmentItems.ORTHANC_COMMANDER_HELMET, new OrthancCommanderHelmetModel<>(OrthancCommanderHelmetModel.getTexturedModelData().createModel())),
+        ORTHANC_GUARD_HELMET(EquipmentItemsME.ORTHANC_GUARD_HELMET, new OrthancCommanderHelmetModel(OrthancCommanderHelmetModel.getTexturedModelData().createModel())),
+        ORTHANC_COMMANDER_HELMET(EquipmentItemsME.ORTHANC_COMMANDER_HELMET, new OrthancCommanderHelmetModel(OrthancCommanderHelmetModel.getTexturedModelData().createModel())),
 
-        GUNDABAD_CAPTAIN_HELMET(ModEquipmentItems.GUNDABAD_CAPTAIN_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_SCREECHER_HELMET(ModEquipmentItems.GUNDABAD_SCREECHER_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_SEEKER_HELMET(ModEquipmentItems.GUNDABAD_SEEKER_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_SKULLCAP_HELMET(ModEquipmentItems.GUNDABAD_SKULLCAP_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_SOLDIER_HELMET(ModEquipmentItems.GUNDABAD_SOLDIER_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_CAPTAIN_HELMET(EquipmentItemsME.GUNDABAD_CAPTAIN_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_SCREECHER_HELMET(EquipmentItemsME.GUNDABAD_SCREECHER_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_SEEKER_HELMET(EquipmentItemsME.GUNDABAD_SEEKER_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_SKULLCAP_HELMET(EquipmentItemsME.GUNDABAD_SKULLCAP_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_SOLDIER_HELMET(EquipmentItemsME.GUNDABAD_SOLDIER_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
 
-        GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
 
-        HELMET_OF_HELM_HAMMERHAND(ModEquipmentItems.HELMET_OF_HELM_HAMMERHAND, new HammerhandHelmModel<>(HammerhandHelmModel.getTexturedModelData().createModel())),
+        HELMET_OF_HELM_HAMMERHAND(EquipmentItemsME.HELMET_OF_HELM_HAMMERHAND, new HammerhandHelmModel(HammerhandHelmModel.getTexturedModelData().createModel())),
         ;
 
         private final Item item;
-        private final HelmetAddonModel<LivingEntity> model;
+        private final HelmetAddonModel model;
 
-        ModHelmetModels(Item item, HelmetAddonModel<LivingEntity> model){
+        ModHelmetModels(Item item, HelmetAddonModel model){
             this.item = item;
             this.model = model;
         }
@@ -130,36 +129,36 @@ public class ModArmorModels {
             return item;
         }
 
-        public HelmetAddonModel<LivingEntity> getModel() {
+        public HelmetAddonModel getModel() {
             return model;
         }
     }
 
     public enum ModChestplateModels{
-        GONDORIAN_PLATE_CHESTPLATE(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
-        GONDORIAN_KINGS_GUARD_CHESTPLATE(ModEquipmentItems.GONDORIAN_KINGS_GUARD_CHESTKPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
-        GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
+        GONDORIAN_PLATE_CHESTPLATE(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
+        GONDORIAN_KINGS_GUARD_CHESTPLATE(EquipmentItemsME.GONDORIAN_KINGS_GUARD_CHESTKPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
+        GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
 
-        EREBOR_PLATE_CHESTPLATE(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
-        RAVENHILL_WATCHWARDEN_CHESTPLATE(ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
-        RAVENHILL_SENTINEL_CHESTPLATE(ModEquipmentItems.RAVENHILL_SENTINEL_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
-        EREBOR_GATEWARDEN_CHESTPLATE(ModEquipmentItems.EREBOR_GATEWARDEN_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
+        EREBOR_PLATE_CHESTPLATE(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
+        RAVENHILL_WATCHWARDEN_CHESTPLATE(EquipmentItemsME.RAVENHILL_WATCHWARDEN_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
+        RAVENHILL_SENTINEL_CHESTPLATE(EquipmentItemsME.RAVENHILL_SENTINEL_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
+        EREBOR_GATEWARDEN_CHESTPLATE(EquipmentItemsME.EREBOR_GATEWARDEN_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
 
-        BLACK_URUK_PLATE_CHESTPLATE(ModEquipmentItems.BLACK_URUK_PLATE_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
-        BLACK_URUK_COMMANDER_CHESTPLATE(ModEquipmentItems.BLACK_URUK_COMMANDER_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
+        BLACK_URUK_PLATE_CHESTPLATE(EquipmentItemsME.BLACK_URUK_PLATE_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
+        BLACK_URUK_COMMANDER_CHESTPLATE(EquipmentItemsME.BLACK_URUK_COMMANDER_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
 
-        MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE(ModEquipmentItems.MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE, new MordorBNChestplateModel<>(MordorBNChestplateModel.getTexturedModelData().createModel())),
+        MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE(EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE, new MordorBNChestplateModel(MordorBNChestplateModel.getTexturedModelData().createModel())),
 
-        URUK_HAI_PLATE_CHESTPLATE(ModEquipmentItems.URUK_HAI_PLATE_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
+        URUK_HAI_PLATE_CHESTPLATE(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
 
-        GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE, new HobgoblinPlateChestplateModel<>(HobgoblinPlateChestplateModel.getTexturedModelData().createModel())),
-        GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE, new HobgoblinTrophyPlateChestplateModel<>(HobgoblinTrophyPlateChestplateModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE, new HobgoblinPlateChestplateModel(HobgoblinPlateChestplateModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE, new HobgoblinTrophyPlateChestplateModel(HobgoblinTrophyPlateChestplateModel.getTexturedModelData().createModel())),
         ;
 
         private final Item item;
-        private final ChestplateAddonModel<LivingEntity> model;
+        private final ChestplateAddonModel model;
 
-        ModChestplateModels(Item item, ChestplateAddonModel<LivingEntity> model){
+        ModChestplateModels(Item item, ChestplateAddonModel model){
             this.item = item;
             this.model = model;
         }
@@ -168,7 +167,7 @@ public class ModArmorModels {
             return item;
         }
 
-        public ChestplateAddonModel<LivingEntity> getModel() {
+        public ChestplateAddonModel getModel() {
             return model;
         }
     }

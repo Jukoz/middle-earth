@@ -1,0 +1,41 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.sevenstars.middleearth.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AbstractHorseEntityMixin",
+    "BannerPatternRegisterMixin",
+    "BlockMixin",
+    "ChunkGenerationStepMixin",
+    "ChunkGeneratorMixin",
+    "EntityDataSaverMixin",
+    "EntitySpawnMixin",
+    "FishingBobberEntityMixin",
+    "FoliagePlacerTypeInvoker",
+    "GrassBlockMixin",
+    "PigEntityMixin",
+    "PlayerEntityMixin",
+    "PotionEntityMixin",
+    "PowderSnowBlockMixin",
+    "RepairItemRecipeMixin",
+    "ServerPlayerEntityMixin",
+    "ServerPlayNetworkHandlerMixin",
+    "ShearItemMixin",
+    "ShovelItemMixin",
+    "TrunkPlacerTypeInvoker"
+  ],
+  "client": [
+    "IntegratedServerLoaderMixin",
+    "client.AbstractClientPlayerEntityMixin",
+    "client.HeldItemRendererMixin",
+    "client.InGameHudMixin",
+    "client.MouseMixin",
+    "client.BakedModelManagerMixin"
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

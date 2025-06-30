@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NNN",
+    "NNN",
+    " N "
+  ],
+  "key": {
+    "N": "middle-earth:edhel_steel_nugget"
+  },
+  "result": {
+    "id": "middle-earth:scale",
+    "components": {
+      "minecraft:trim": {
+        "material": "middle-earth:edhel_steel",
+        "pattern": "middle-earth:smithing_part"
+      }
+    },
+    "count": 5
+  }
+}

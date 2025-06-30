@@ -1,7 +1,9 @@
 package net.sevenstars.middleearth.item.items.shields;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
+import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.ModShieldTypes;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
@@ -12,15 +14,16 @@ import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class ArtefactCustomShieldItem extends CustomShieldItem implements MEEquipmentTooltip {
+public class ArtefactCustomShieldItem extends CustomShieldItem implements EquipmentTooltipME {
 
-    public ArtefactCustomShieldItem(ModShieldTypes type, ModFactions faction) {
-        super(type, faction);
+    public ArtefactCustomShieldItem(ModShieldTypes type, ModFactions faction, Item.Settings settings) {
+        super(type, faction, settings);
     }
 
-    public ArtefactCustomShieldItem(ModShieldTypes type, ModSubFactions subFaction) {
-        super(type, subFaction);
+    public ArtefactCustomShieldItem(ModShieldTypes type, ModSubFactions subFaction, Item.Settings settings) {
+        super(type, subFaction, settings);
     }
 
     @Override
@@ -31,18 +34,13 @@ public class ArtefactCustomShieldItem extends CustomShieldItem implements MEEqui
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseArtefactTooltip(tooltip, stack);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
     }
 
     @Override
     public Text getName(ItemStack stack) {
-        return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
-    }
-
-    @Override
-    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-        return false;
+        return Text.translatable(this.getTranslationKey()).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
     }
 
     @Override

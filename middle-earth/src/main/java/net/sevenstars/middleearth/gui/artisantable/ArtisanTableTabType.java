@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.gui.artisantable;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
@@ -34,7 +35,7 @@ enum ArtisanTableTabType {
         Textures textures;
         Textures textures2 = textures = selected ? this.selectedTextures : this.unselectedTextures;
         Identifier identifier = index == 0 ? textures.first() : (index == this.tabCount - 1 ? textures.last() : textures.middle());
-        context.drawGuiTexture(identifier, x + this.getTabX(index), y + this.getTabY(index), this.width, this.height);
+        context.drawGuiTexture(RenderLayer::getGuiTextured, identifier, x + this.getTabX(index), y + this.getTabY(index), this.width, this.height);
     }
 
     public void drawIcon(DrawContext context, int x, int y, int index, ItemStack stack) {

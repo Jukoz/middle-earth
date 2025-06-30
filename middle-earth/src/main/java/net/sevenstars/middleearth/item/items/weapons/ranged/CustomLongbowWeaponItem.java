@@ -1,7 +1,9 @@
 package net.sevenstars.middleearth.item.items.weapons.ranged;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
+import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
@@ -21,37 +23,39 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentTooltip{
+public class CustomLongbowWeaponItem extends BowItem implements EquipmentTooltipME {
     private final ModFactions faction;
     private final ModSubFactions subFaction;
     public ModRangedWeaponTypes type;
 
     public static final int RANGE = 25;
 
-    public CustomLongbowWeaponItem(ModRangedWeaponTypes type) {
-        super(new Settings().maxDamage(type.durability));
+    public CustomLongbowWeaponItem(ModRangedWeaponTypes type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability));
         this.faction = null;
         this.subFaction = null;
         this.type = type;
     }
 
-    public CustomLongbowWeaponItem(ModFactions faction, ModRangedWeaponTypes type) {
-        super(new Settings().maxDamage(type.durability));
+    public CustomLongbowWeaponItem(ModFactions faction, ModRangedWeaponTypes type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability));
         this.faction = faction;
         this.subFaction = null;
         this.type = type;
     }
 
-    public CustomLongbowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type) {
-        super(new Settings().maxDamage(type.durability));
+    public CustomLongbowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = type;
     }
 
+
     @Override
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if (user instanceof PlayerEntity playerEntity) {
             ItemStack itemStack = playerEntity.getProjectileType(stack);
             if (!itemStack.isEmpty()) {
@@ -71,6 +75,7 @@ public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentToolt
                 }
             }
         }
+        return true;
     }
 
     public static float getPullProgressLongbow(int useTicks) {
@@ -93,9 +98,9 @@ public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentToolt
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
     @Override
@@ -105,7 +110,7 @@ public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentToolt
                 || Registries.ITEM.getId(this).getPath().contains("uruk_hai")
                 || Registries.ITEM.getId(this).getPath().contains("heyday")
                 || Registries.ITEM.getId(this).getPath().contains("numenorean")){
-            return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
+            return Text.translatable(this.getTranslationKey()).formatted(Formatting.GOLD);
         }
         return super.getName(stack);
     }

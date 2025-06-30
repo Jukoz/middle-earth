@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.entity.projectile.spear;
 
 import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.item.ModWeaponItems;
+import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -63,7 +63,7 @@ public class SpearEntity extends PersistentProjectileEntity {
         DamageSource damageSource = this.getDamageSources().trident(this, entity2 == null ? this : entity2);
         World world = this.getWorld();
 
-        if (entity.damage(damageSource, f)) {
+        if (entity.damage((ServerWorld) world, damageSource, f)) {
             if (entity.getType() == EntityType.ENDERMAN) {
                 return;
             }
@@ -90,7 +90,7 @@ public class SpearEntity extends PersistentProjectileEntity {
             f = 0.0f;
         }
         double d = f;
-        double e = Math.max(0.0, 1.0 - target.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
+        double e = Math.max(0.0, 1.0 - target.getAttributeValue(EntityAttributes.KNOCKBACK_RESISTANCE));
         Vec3d velocity = this.getVelocity();
         velocity = velocity.multiply(1.0, 0.0, 1.0);
         velocity = velocity.normalize();
@@ -103,7 +103,7 @@ public class SpearEntity extends PersistentProjectileEntity {
 
     @Override
     protected ItemStack getDefaultItemStack() {
-        return ModWeaponItems.WOODEN_SPEAR.getDefaultStack();
+        return WeaponItemsME.WOODEN_SPEAR.getDefaultStack();
     }
 
     protected float getDragInWater() {

@@ -1,17 +1,17 @@
 {
   "replace": false,
   "values": [
-    "me:dwarf_portrait",
-    "me:elf_portrait",
-    "me:hobbit_portrait",
-    "me:human_portrait",
-    "me:orc_portrait",
-    "me:note_board",
-    "me:pan_board",
-    "me:rohirric_tapestry",
-    "me:small_mirror",
-    "me:tall_mirror",
-    "me:prancing_pony",
-    "me:tool_board"
+    "middle-earth:dwarf_portrait",
+    "middle-earth:elf_portrait",
+    "middle-earth:hobbit_portrait",
+    "middle-earth:human_portrait",
+    "middle-earth:orc_portrait",
+    "middle-earth:note_board",
+    "middle-earth:pan_board",
+    "middle-earth:rohirric_tapestry",
+    "middle-earth:small_mirror",
+    "middle-earth:tall_mirror",
+    "middle-earth:prancing_pony",
+    "middle-earth:tool_board"
   ]
 }

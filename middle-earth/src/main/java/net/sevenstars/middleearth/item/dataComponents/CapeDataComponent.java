@@ -4,7 +4,7 @@ package net.sevenstars.middleearth.item.dataComponents;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodec;
@@ -30,8 +30,8 @@ public record CapeDataComponent(ModCapes cape, int capeColor){
     }
 
     public static int getColor(ItemStack stack, int defaultColor) {
-        CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
-        return capeDataComponent != null ? ColorHelper.Argb.fullAlpha(capeDataComponent.capeColor) : defaultColor;
+        CapeDataComponent capeDataComponent = stack.get(DataComponentTypesME.CAPE_DATA);
+        return capeDataComponent != null ? ColorHelper.fullAlpha(capeDataComponent.capeColor) : defaultColor;
     }
 
     public static CapeDataComponent newCape(ModCapes cape) {
@@ -45,14 +45,14 @@ public record CapeDataComponent(ModCapes cape, int capeColor){
     public static ItemStack setCape(ItemStack stack, ModCapes cape){
         ItemStack itemStack = stack.copyWithCount(1);
 
-        itemStack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(cape , CustomDyeableDataComponent.DEFAULT_COLOR));
+        itemStack.set(DataComponentTypesME.CAPE_DATA, new CapeDataComponent(cape , CustomDyeableDataComponent.DEFAULT_COLOR));
         return itemStack;
     }
 
     public static ItemStack setCapeWithColor(ItemStack stack, ModCapes cape, int capeColor){
         ItemStack itemStack = stack.copyWithCount(1);
 
-        itemStack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(cape, capeColor));
+        itemStack.set(DataComponentTypesME.CAPE_DATA, new CapeDataComponent(cape, capeColor));
         return itemStack;
     }
 

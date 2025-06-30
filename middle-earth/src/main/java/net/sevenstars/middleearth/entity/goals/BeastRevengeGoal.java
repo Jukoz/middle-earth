@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.goals;
 
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -37,7 +38,7 @@ public class BeastRevengeGoal extends TrackTargetGoal {
         if (i == this.lastAttackedTime || livingEntity == null) {
             return false;
         }
-        if (livingEntity.getType() == EntityType.PLAYER && this.mob.getWorld().getGameRules().getBoolean(GameRules.UNIVERSAL_ANGER)) {
+        if (this.mob.getWorld() instanceof ServerWorld serverWorld && livingEntity.getType() == EntityType.PLAYER && serverWorld.getGameRules().getBoolean(GameRules.UNIVERSAL_ANGER)) {
             return false;
         }
         if (((AbstractBeastEntity)this.mob).isTame()) {

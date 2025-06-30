@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.block.special.shapingAnvil;
 
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.EnumProperty;
 import net.sevenstars.middleearth.item.items.SmithingHammerItem;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
@@ -24,7 +25,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implements BlockEntityProvider {
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
     public AbstractTreatedAnvilBlock(Settings settings) {
         super(settings);
@@ -37,14 +38,8 @@ public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implemen
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof TreatedAnvilBlockEntity treatedAnvilBlockEntity) {
-                ItemScatterer.spawn(world, pos, treatedAnvilBlockEntity);
-            }
-            super.onStateReplaced(state, world, pos, newState, moved);
-        }
+    protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+        ItemScatterer.onStateReplaced(state, world, pos);
     }
 
     @Override
@@ -102,7 +97,8 @@ public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implemen
                 stack.use(world, player, player.getActiveHand());
                 player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
                 if (blockEntity instanceof TreatedAnvilBlockEntity shapingAnvilBlockEntity) {
-                    shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity);
+                    ServerWorld serverWorld = (ServerWorld) world;
+                    shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity, serverWorld);
                 }
             }
         }

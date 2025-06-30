@@ -1,8 +1,7 @@
 package net.sevenstars.middleearth.item.utils.armor;
 
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.item.equipment.ArmorMaterial;
 
 
-public record ExtendedArmorMaterial(RegistryEntry<ArmorMaterial> material, int durabilityModifier, ModArmorMaterials.Tiers tier) {
+public record ExtendedArmorMaterial(ArmorMaterial material, int durabilityModifier, ModArmorMaterials.Tiers tier) {
 }

@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.recipe;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomChestplateItem;
 import net.minecraft.item.ItemStack;
@@ -25,19 +25,19 @@ public class ArmorCapeRemovalRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public DefaultedList<ItemStack> getRemainder(CraftingRecipeInput input) {
-        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(input.getSize(), ItemStack.EMPTY);
+    public DefaultedList<ItemStack> getRecipeRemainders(CraftingRecipeInput input) {
+        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(input.size(), ItemStack.EMPTY);
 
         for(int i = 0; i < defaultedList.size(); ++i) {
             ItemStack itemStack = input.getStackInSlot(i);
-            if (itemStack.getItem().hasRecipeRemainder()) {
-                defaultedList.set(i, new ItemStack(itemStack.getItem().getRecipeRemainder()));
+            if (!itemStack.getItem().getRecipeRemainder().isEmpty()) {
+                defaultedList.set(i, new ItemStack(itemStack.getItem().getRecipeRemainder().getItem()));
             } else if (itemStack.getItem() instanceof ShearsItem) {
                 defaultedList.set(i, itemStack.copyWithCount(1));
-            } else if (itemStack.get(ModDataComponentTypes.CAPE_DATA) != null){
-                ItemStack cape = new ItemStack(Registries.ITEM.get(Identifier.of(MiddleEarth.MOD_ID, itemStack.get(ModDataComponentTypes.CAPE_DATA).cape().getName())));
-                cape.set(ModDataComponentTypes.CAPE_DATA, itemStack.get(ModDataComponentTypes.CAPE_DATA));
-                cape.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(itemStack.get(ModDataComponentTypes.CAPE_DATA).capeColor()));
+            } else if (itemStack.get(DataComponentTypesME.CAPE_DATA) != null){
+                ItemStack cape = new ItemStack(Registries.ITEM.get(Identifier.of(MiddleEarth.MOD_ID, itemStack.get(DataComponentTypesME.CAPE_DATA).cape().getName())));
+                cape.set(DataComponentTypesME.CAPE_DATA, itemStack.get(DataComponentTypesME.CAPE_DATA));
+                cape.set(DataComponentTypesME.DYE_DATA, new CustomDyeableDataComponent(itemStack.get(DataComponentTypesME.CAPE_DATA).capeColor()));
                 defaultedList.set(i, cape);
             }
         }
@@ -51,10 +51,10 @@ public class ArmorCapeRemovalRecipe extends SpecialCraftingRecipe {
         ItemStack itemStackChest = ItemStack.EMPTY;
         ItemStack itemStackShears = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
-                if (itemStack2.getItem() instanceof CustomChestplateItem && itemStack2.get(ModDataComponentTypes.CAPE_DATA) != null) {
+                if (itemStack2.getItem() instanceof CustomChestplateItem && itemStack2.get(DataComponentTypesME.CAPE_DATA) != null) {
                     if (!itemStackChest.isEmpty()) {
                         return false;
                     }
@@ -74,10 +74,10 @@ public class ArmorCapeRemovalRecipe extends SpecialCraftingRecipe {
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack itemStack = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
-                if (itemStack2.getItem() instanceof CustomChestplateItem && itemStack2.get(ModDataComponentTypes.CAPE_DATA) != null) {
+                if (itemStack2.getItem() instanceof CustomChestplateItem && itemStack2.get(DataComponentTypesME.CAPE_DATA) != null) {
                     if (!itemStack.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
@@ -92,7 +92,7 @@ public class ArmorCapeRemovalRecipe extends SpecialCraftingRecipe {
         }
 
         if (!itemStack.isEmpty()) {
-            itemStack.remove(ModDataComponentTypes.CAPE_DATA);
+            itemStack.remove(DataComponentTypesME.CAPE_DATA);
             return itemStack;
         } else {
             return ItemStack.EMPTY;
@@ -103,7 +103,7 @@ public class ArmorCapeRemovalRecipe extends SpecialCraftingRecipe {
         return width * height >= 2;
     }
 
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
         return ModRecipeSerializer.CUSTOM_ARMOR_CAPE_REMOVAL;
     }
 }

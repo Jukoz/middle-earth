@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:silver_ingot",
+    "middle-earth:raw_silver",
+    "middle-earth:medgon_silver_ore",
+    "middle-earth:nurgon_silver_ore"
+  ]
+}

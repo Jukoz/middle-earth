@@ -3,17 +3,17 @@ package net.sevenstars.middleearth.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer;
 import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
+import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
+import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
@@ -48,7 +48,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
     @Override
     public boolean matches(MultipleStackRecipeInput input, World world) {
         int i = 0;
-        for (int j = 0; j < input.getSize(); j++) {
+        for (int j = 0; j < input.size(); j++) {
             ItemStack itemStack = input.getStackInSlot(j);
             if (itemStack.isEmpty()) continue;
             i++;
@@ -62,11 +62,11 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
                 return false;
             }
 
-            if (ingredient.getMatchingStacks().length == 1){
+            /*if (ingredient.getMatchingStacks().length == 1){
                 for (ItemStack itemStack2 : ingredient.getMatchingStacks()) {
                     if (!Objects.equals(itemStack2.get(DataComponentTypes.TRIM), input.getStackInSlot(j).get(DataComponentTypes.TRIM))) return false;
                 }
-            }
+            }*/
         }
 
         return true;
@@ -75,16 +75,6 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
     @Override
     public ItemStack craft(MultipleStackRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         return this.output.copy();
-    }
-
-    @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
-        return output;
     }
 
     public ItemStack getOutput() {
@@ -102,13 +92,23 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<MultipleStackRecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<MultipleStackRecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public IngredientPlacement getIngredientPlacement() {
+        return null;
+    }
+
+    @Override
+    public RecipeBookCategory getRecipeBookCategory() {
+        return null;
     }
 
     public static class Type implements RecipeType<ArtisanRecipe> {
@@ -132,7 +132,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                     Codec.STRING.fieldOf("category").forGetter(recipe -> recipe.category),
                     ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
-                    CustomIngredientImpl.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
+                    Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
                     Codec.STRING.fieldOf("disposition").forGetter(recipe -> recipe.disposition)
             ).apply(instance, ArtisanRecipe::new));
 
@@ -153,7 +153,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
             String category = buf.readString();
             ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
             int i = buf.readVarInt();
-            DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i, Ingredient.EMPTY);
+            DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i);
             defaultedList.replaceAll(empty -> CustomIngredientImpl.PACKET_CODEC.decode(buf));
             String disposition = buf.readString();
             return new ArtisanRecipe(category, output, defaultedList, disposition);

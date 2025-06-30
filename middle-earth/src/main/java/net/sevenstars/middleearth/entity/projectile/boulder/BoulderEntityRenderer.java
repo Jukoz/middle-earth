@@ -9,6 +9,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -17,7 +18,7 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-public class BoulderEntityRenderer extends EntityRenderer<BoulderEntity> {
+public class BoulderEntityRenderer extends EntityRenderer<BoulderEntity, EntityRenderState> {
     private final BlockRenderManager blockRenderManager;
     public BoulderEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
@@ -25,11 +26,16 @@ public class BoulderEntityRenderer extends EntityRenderer<BoulderEntity> {
     }
 
     @Override
-    public Identifier getTexture(BoulderEntity entity) {
+    public EntityRenderState createRenderState() {
+        return new EntityRenderState();
+    }
+    /*
+    @Override
+    public Identifier getTexture(EntityRenderState state) {
         return Identifier.of("minecraft", "textures/block/stone.png");
     }
 
-    @Override
+
     public void render(BoulderEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         if(entity.getOwner() == null) {
             return;
@@ -51,4 +57,6 @@ public class BoulderEntityRenderer extends EntityRenderer<BoulderEntity> {
         matrices.pop();
         super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
     }
+
+     */
 }

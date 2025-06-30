@@ -13,7 +13,7 @@ public class ModEntitySpawning {
     private static HashMap<RegistryKey<Biome>, List<EntitySpawningSettings>> spawns = new HashMap<>();
 
     public static void addSpawns() {
-        List<EntitySpawningSettings> banditSpawnSettings = List.of(
+        /*List<EntitySpawningSettings> banditSpawnSettings = List.of(
                 new EntitySpawningSettings(ModEntities.BANDIT_MILITIA, 1, 4, 50, true),
                 new EntitySpawningSettings(ModEntities.BANDIT_SOLDIER, 1, 3, 40, true),
                 new EntitySpawningSettings(ModEntities.BANDIT_CHIEFTAIN, 1, 2, 10, true)
@@ -109,11 +109,11 @@ public class ModEntitySpawning {
                 new EntitySpawningSettings(ModEntities.ISENGARD_URUK_HAI_SOLDIER, 1, 3, 24),
                 new EntitySpawningSettings(ModEntities.ISENGARD_URUK_HAI_VETERAN, 1, 2, 8),
                 new EntitySpawningSettings(ModEntities.ISENGARD_URUK_HAI_LEADER, 1, 1, 2)
-        );
+        );*/
         List<EntitySpawningSettings> mirkwoodSpiders = List.of(
                 new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 2, 5, 100, true)
         );
-
+/*
         List<EntitySpawningSettings> stoneTroll  = List.of(new EntitySpawningSettings(ModEntities.STONE_TROLL, 0, 1, 20, true));
         List<EntitySpawningSettings> goblinsAndBandits = Stream.concat(wildGoblinsSpawnSettings.stream(), banditSpawnSettings.stream()).toList();
         List<EntitySpawningSettings> goblinsAndStoneTroll = Stream.concat(wildGoblinsSpawnSettings.stream(), stoneTroll.stream()).toList();
@@ -121,10 +121,10 @@ public class ModEntitySpawning {
         List<EntitySpawningSettings> gondorAndMordor = Stream.concat(gondorSpawnSettings.stream(), wildMordorSpawnSettings.stream()).toList();
         List<EntitySpawningSettings> gondorGarrisonAndMordor = Stream.concat(garrisonGondorSpawnSettings.stream(), wildMordorSpawnSettings.stream()).toList();
         List<EntitySpawningSettings> mordorAndSpiders = Stream.concat(wildMordorSpawnSettings.stream(), mirkwoodSpiders.stream()).toList();
-
+*/
         spawns.put(MEBiomeKeys.BARROW_DOWNS, List.of(new EntitySpawningSettings(ModEntities.BARROW_WIGHT, 0, 1)));
 
-        spawns.put(MEBiomeKeys.TROLLSHAWS, List.of(
+        /*spawns.put(MEBiomeKeys.TROLLSHAWS, List.of(
                 new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_SNAGA, 1, 3, 2, true) ,
                 new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_WARRIOR, 1, 2, 2, true)
         ));
@@ -241,7 +241,7 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.ERED_LITHUI_PEAKS, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.EPHEL_DUATH, wildMordorSpawnSettings);
         spawns.put(MEBiomeKeys.EPHEL_DUATH_BASE, wildMordorSpawnSettings);
-        spawns.put(MEBiomeKeys.EPHEL_DUATH_PEAKS, wildMordorSpawnSettings);
+        spawns.put(MEBiomeKeys.EPHEL_DUATH_PEAKS, wildMordorSpawnSettings);*/
     }
 
     public static List<EntitySpawningSettings> getSpawnsAt(RegistryKey<Biome> biomeRegistryKey) {

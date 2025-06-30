@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public class CraftingMixin {
 
 
-    @Inject(method = "updateResult", at = @At(value = "INVOKE",
+    /*@Inject(method = "updateResult", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/inventory/CraftingResultInventory;setStack(ILnet/minecraft/item/ItemStack;)V", ordinal = 0),
             cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
     private static void updateResultCancel(ScreenHandler handler, World world, PlayerEntity player, RecipeInputInventory craftingInventory,
@@ -39,5 +39,5 @@ public class CraftingMixin {
         }
         resultInventory.setStack(0, itemStack);
         ci.cancel();
-    }
+    }*/
 }

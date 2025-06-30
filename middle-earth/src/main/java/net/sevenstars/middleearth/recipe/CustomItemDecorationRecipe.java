@@ -15,6 +15,8 @@ import net.minecraft.world.World;
 
 public class CustomItemDecorationRecipe extends SpecialCraftingRecipe {
 
+    //TODO NO WORKY
+
     public CustomItemDecorationRecipe(CraftingRecipeCategory category) {
         super(category);
     }
@@ -23,7 +25,7 @@ public class CustomItemDecorationRecipe extends SpecialCraftingRecipe {
         ItemStack itemStack = ItemStack.EMPTY;
         ItemStack itemStack2 = ItemStack.EMPTY;
 
-        for(int i = 0; i < craftingRecipeInput.getSize(); ++i) {
+        for(int i = 0; i < craftingRecipeInput.size(); ++i) {
             ItemStack itemStack3 = craftingRecipeInput.getStackInSlot(i);
             if (!itemStack3.isEmpty()) {
                 if (itemStack3.getItem() instanceof BannerItem) {
@@ -62,7 +64,7 @@ public class CustomItemDecorationRecipe extends SpecialCraftingRecipe {
         ItemStack itemStack = ItemStack.EMPTY;
         ItemStack itemStack2 = ItemStack.EMPTY;
 
-        for(int i = 0; i < craftingRecipeInput.getSize(); ++i) {
+        for(int i = 0; i < craftingRecipeInput.size(); ++i) {
             ItemStack itemStack3 = craftingRecipeInput.getStackInSlot(i);
             if (!itemStack3.isEmpty()) {
                 if (itemStack3.getItem() instanceof BannerItem) {
@@ -86,7 +88,7 @@ public class CustomItemDecorationRecipe extends SpecialCraftingRecipe {
         return width * height >= 2;
     }
 
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
         return ModRecipeSerializer.CUSTOM_ITEM_DECORATION;
     }
 }

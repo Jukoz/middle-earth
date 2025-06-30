@@ -1,15 +1,17 @@
 package net.sevenstars.middleearth.item.items.armor;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.item.Item;
+import net.minecraft.item.equipment.EquipmentType;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.HoodDataComponent;
-import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
+import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
 import net.sevenstars.middleearth.item.utils.armor.ModDyeablePieces;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -18,8 +20,9 @@ import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
+public class CustomHelmetItem extends Item implements EquipmentTooltipME {
 
     public ModFactions faction;
     public ModSubFactions subFaction;
@@ -27,7 +30,8 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     private ExtendedArmorMaterial material;
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
-        super(material.material(), Type.HELMET, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
+        super(settings.armor(material.material(), EquipmentType.HELMET).maxCount(1));
+
 
         this.material = material;
         this.faction = faction;
@@ -35,7 +39,7 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     }
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
-        super(material.material(), Type.HELMET, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
+        super(settings.armor(material.material(), EquipmentType.HELMET).maxCount(1));
 
         this.material = material;
         this.faction = subFaction.getParent();
@@ -53,11 +57,11 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     @Override
     public List<Text> getAdditionalAltLines(ItemStack stack) {
         List<Text> list = new ArrayList<>(List.of());
-        HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
-        CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
+        HoodDataComponent hoodDataComponent = stack.get(DataComponentTypesME.HOOD_DATA);
+        CustomDyeableDataComponent dyeDataComponent = stack.get(DataComponentTypesME.DYE_DATA);
 
         if(dyeDataComponent != null){
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color").append(": " + String.format(MEEquipmentTooltip.COLOR_PREFIX, (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color").append(": " + String.format(EquipmentTooltipME.COLOR_PREFIX, (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
         }
         if (hoodDataComponent != null) {
             if (ModDyeablePieces.dyeableHoods.containsKey(hoodDataComponent.hood())){
@@ -75,19 +79,19 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
     public static void toggleHoodState(ServerPlayerEntity player, ItemStack stack){
-        HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
+        HoodDataComponent hoodDataComponent = stack.get(DataComponentTypesME.HOOD_DATA);
         if (hoodDataComponent != null){
             if (hoodDataComponent.down() && hoodDataComponent.getHood().getConstantState() == null) {
-                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, hoodDataComponent.hood(), hoodDataComponent.hoodColor()));
+                stack.set(DataComponentTypesME.HOOD_DATA, new HoodDataComponent(false, hoodDataComponent.hood(), hoodDataComponent.hoodColor()));
                 player.sendMessage(Text.translatable("alert." + MiddleEarth.MOD_ID + ".hood_up"), true);
             } else if (!hoodDataComponent.down() && hoodDataComponent.getHood().getConstantState() == null){
-                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, hoodDataComponent.hood(), hoodDataComponent.hoodColor()));
+                stack.set(DataComponentTypesME.HOOD_DATA, new HoodDataComponent(true, hoodDataComponent.hood(), hoodDataComponent.hoodColor()));
                 player.sendMessage(Text.translatable("alert." + MiddleEarth.MOD_ID + ".hood_down"), true);
             }
         }

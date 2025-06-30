@@ -1,7 +1,9 @@
 package net.sevenstars.middleearth.item.items.weapons.ranged;
 
+import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
+import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
@@ -14,29 +16,30 @@ import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class CustomCrossbowWeaponItem extends CrossbowItem implements MEEquipmentTooltip {
+public class CustomCrossbowWeaponItem extends CrossbowItem implements EquipmentTooltipME {
     private final ModFactions faction;
     private final ModSubFactions subFaction;
     public ModRangedWeaponTypes type;
 
-    public CustomCrossbowWeaponItem(ModRangedWeaponTypes type) {
-        super(new Settings().maxDamage(type.durability));
+    public CustomCrossbowWeaponItem(ModRangedWeaponTypes type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability));
         this.faction = null;
         this.subFaction = null;
         this.type = type;
     }
 
-    public CustomCrossbowWeaponItem(ModFactions faction, ModRangedWeaponTypes type) {
-        super(new Settings().maxDamage(type.durability));
+    public CustomCrossbowWeaponItem(ModFactions faction, ModRangedWeaponTypes type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability));
         this.faction = faction;
         this.subFaction = null;
         this.type = type;
     }
 
-    public CustomCrossbowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type) {
-        super(new Settings().maxDamage(type.durability));
+    public CustomCrossbowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = type;
@@ -60,9 +63,9 @@ public class CustomCrossbowWeaponItem extends CrossbowItem implements MEEquipmen
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
     @Override
@@ -72,7 +75,7 @@ public class CustomCrossbowWeaponItem extends CrossbowItem implements MEEquipmen
                 || Registries.ITEM.getId(this).getPath().contains("uruk_hai")
                 || Registries.ITEM.getId(this).getPath().contains("heyday")
                 || Registries.ITEM.getId(this).getPath().contains("numenorean")){
-            return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
+            return Text.translatable(this.getTranslationKey()).formatted(Formatting.GOLD);
         }
         return super.getName(stack);
     }

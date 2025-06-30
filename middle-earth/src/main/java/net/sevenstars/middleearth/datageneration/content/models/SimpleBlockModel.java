@@ -31,10 +31,6 @@ public class SimpleBlockModel {
 
             add(ModBlocks.ASHEN_DIRT);
 
-            add(ModBlocks.ASHEN_SAND);
-
-            add(ModBlocks.ASHEN_GRAVEL);
-
             add(ModBlocks.COBBLY_ASHEN_DIRT);
 
             //METALS
@@ -67,8 +63,6 @@ public class SimpleBlockModel {
             add(ModBlocks.BUDDING_GLOWSTONE);
 
             add(ModBlocks.RIVER_SAND);
-            add(ModBlocks.BLACK_SAND);
-            add(ModBlocks.WHITE_SAND);
             add(ModBlocks.ASH_BLOCK);
 
             add(ModBlocks.WATTLE_AND_BRICK);

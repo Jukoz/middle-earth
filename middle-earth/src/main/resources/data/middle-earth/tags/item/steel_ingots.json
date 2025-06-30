@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:steel_ingot",
+    "middle-earth:khazad_steel_ingot",
+    "middle-earth:edhel_steel_ingot",
+    "middle-earth:burzum_steel_ingot"
+  ]
+}

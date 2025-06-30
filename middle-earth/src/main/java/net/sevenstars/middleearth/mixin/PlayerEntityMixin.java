@@ -50,18 +50,21 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow public abstract PlayerInventory getInventory();
 
-    @Shadow protected abstract void takeShieldHit(LivingEntity attacker);
+    //TODO Shield stuff broken, most likely because of new data comps
+    //@Shadow protected abstract void takeShieldHit(LivingEntity attacker);
+
+    //@Shadow public abstract boolean canUseSlot(EquipmentSlot slot);
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
-
+/*
     @WrapOperation(method = "damageShield", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 0))
     protected boolean canWalkOnPowderSnowTag(ItemStack instance, Item item, Operation<Boolean> original) {
         return original.call(instance, item) || instance.getItem() instanceof ShieldItem;
     }
 
-    @Inject(at = @At(value = "HEAD"), method = "disableShield()V", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    @Inject(at = @At(value = "HEAD"), method = "disableShield", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private void disableShieldHead(CallbackInfo ci) {
         Item activeItem = activeItemStack.getItem();
 
@@ -71,7 +74,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 f += 0.75F;
             }
             if (this.getRandom().nextFloat() < f) {
-                this.getItemCooldownManager().set(shield, 100);
+                this.getItemCooldownManager().set(activeItemStack, 100);
                 this.clearActiveItem();
                 this.getWorld().sendEntityStatus(this, (byte) 30);
                 ci.cancel();
@@ -79,27 +82,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
+    //TODO test if this works, cooldown manager set takes stack now not item
     @Inject(method = "disableShield", at = @At("HEAD"))
     public void shield_api$disableShield(CallbackInfo ci) {
         for (CustomShieldItem customShieldItem : CustomShieldItem.instances) {
-            this.getItemCooldownManager().set(customShieldItem, 100);
-        }
-    }
-
-    private void getEntryList(PlayerEntity player) {
-        Optional<RegistryEntryList.Named<Item>> opt = Registries.ITEM.getEntryList(ConventionalItemTags.SHIELDS);
-        List<Item> list = new ArrayList<>();
-        if (opt.isPresent()) {
-            list = opt.get().stream().map(RegistryEntry::value).toList();
-        }
-
-        for (int amountOfShields = list.size(); amountOfShields > 0; amountOfShields--) {
-
-            if (list.get(amountOfShields - 1) instanceof ShieldItem) {
-                player.getItemCooldownManager().set(Items.SHIELD, 100);
-            }
-            player.clearActiveItem();
-            player.getWorld().sendEntityStatus(player, (byte) 30);
+            this.getItemCooldownManager().set(new ItemStack(customShieldItem), 100);
         }
     }
 
@@ -133,7 +120,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 cir.cancel();
             }
         }
-    }
+    }*/
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {
@@ -152,7 +139,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         PlayerMovementData.resetAFK((IEntityDataSaver) this);
     }
 
-    @ModifyVariable(method = "attack", ordinal = 3, at = @At(value = "INVOKE", shift = At.Shift.BEFORE,
+    /*@ModifyVariable(method = "attack", ordinal = 3, at = @At(value = "INVOKE", shift = At.Shift.BEFORE,
             target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", ordinal = 0))
     public float attackBackStab(float value, Entity target) {
         ItemStack mainStack = this.getStackInHand(Hand.MAIN_HAND);
@@ -162,7 +149,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             }
         }
         return value;
-    }
+    }*/
 
     @Inject(method = "resetLastAttackedTicks", at = @At("HEAD"))
     public void resetLastAttackedTicks(CallbackInfo ci) {

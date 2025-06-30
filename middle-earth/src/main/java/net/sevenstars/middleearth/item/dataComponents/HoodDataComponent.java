@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.item.dataComponents;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.utils.armor.hoods.ModHoods;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodec;
@@ -21,7 +21,7 @@ public record HoodDataComponent(boolean down, ModHoods hood, int hoodColor) {
     public static final Codec<HoodDataComponent> CODEC = Codec.withAlternative(BASE_CODEC, Codec.BOOL, (enabled) -> {
         return new HoodDataComponent(false, ModHoods.HOOD, CustomDyeableDataComponent.DEFAULT_COLOR);
     });
-    public static final PacketCodec<ByteBuf, HoodDataComponent> PACKET_CODEC  = PacketCodec.tuple(PacketCodecs.BOOL, HoodDataComponent::down, ModHoods.PACKET_CODEC, HoodDataComponent::getHood, PacketCodecs.INTEGER, HoodDataComponent::hoodColor, HoodDataComponent::new);
+    public static final PacketCodec<ByteBuf, HoodDataComponent> PACKET_CODEC  = PacketCodec.tuple(PacketCodecs.BOOLEAN, HoodDataComponent::down, ModHoods.PACKET_CODEC, HoodDataComponent::getHood, PacketCodecs.INTEGER, HoodDataComponent::hoodColor, HoodDataComponent::new);
     ;
 
     public HoodDataComponent(boolean down, ModHoods hood, int hoodColor) {
@@ -31,8 +31,8 @@ public record HoodDataComponent(boolean down, ModHoods hood, int hoodColor) {
     }
 
     public static int getColor(ItemStack stack, int defaultColor) {
-        HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
-        return hoodDataComponent != null ? ColorHelper.Argb.fullAlpha(hoodDataComponent.hoodColor) : defaultColor;
+        HoodDataComponent hoodDataComponent = stack.get(DataComponentTypesME.HOOD_DATA);
+        return hoodDataComponent != null ? ColorHelper.fullAlpha(hoodDataComponent.hoodColor) : defaultColor;
     }
 
     public static HoodDataComponent newHood(ModHoods hood) {
@@ -46,7 +46,7 @@ public record HoodDataComponent(boolean down, ModHoods hood, int hoodColor) {
     public static ItemStack setHood(ItemStack stack, boolean down, ModHoods hood) {
         ItemStack itemStack = stack.copyWithCount(1);
 
-        itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(down, hood, CustomDyeableDataComponent.DEFAULT_COLOR));
+        itemStack.set(DataComponentTypesME.HOOD_DATA, new HoodDataComponent(down, hood, CustomDyeableDataComponent.DEFAULT_COLOR));
         return itemStack;
     }
 
@@ -57,7 +57,7 @@ public record HoodDataComponent(boolean down, ModHoods hood, int hoodColor) {
     public static ItemStack setHoodWithcolor(ItemStack stack, boolean down, ModHoods hood, int hoodColor) {
         ItemStack itemStack = stack.copyWithCount(1);
 
-        itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(down, hood, hoodColor));
+        itemStack.set(DataComponentTypesME.HOOD_DATA, new HoodDataComponent(down, hood, hoodColor));
         return itemStack;
     }
 

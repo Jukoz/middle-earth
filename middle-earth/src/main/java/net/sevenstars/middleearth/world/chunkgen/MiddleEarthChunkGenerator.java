@@ -2,18 +2,6 @@ package net.sevenstars.middleearth.world.chunkgen;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.block.StoneBlockSets;
-import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.utils.noises.BlendedNoise;
-import net.sevenstars.middleearth.utils.noises.SimplexNoise;
-import net.sevenstars.middleearth.world.biomes.BlocksLayeringData;
-import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
-import net.sevenstars.middleearth.world.biomes.surface.*;
-import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
-import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
-import net.sevenstars.middleearth.world.map.MiddleEarthMapRuntime;
-import net.sevenstars.middleearth.world.map.MiddleEarthMapUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -31,12 +19,23 @@ import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.Blender;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.noise.NoiseConfig;
+import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.block.StoneBlockSets;
+import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.utils.noises.BlendedNoise;
+import net.sevenstars.middleearth.utils.noises.SimplexNoise;
+import net.sevenstars.middleearth.world.biomes.BlocksLayeringData;
+import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
+import net.sevenstars.middleearth.world.biomes.surface.*;
+import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
+import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
+import net.sevenstars.middleearth.world.map.MiddleEarthMapRuntime;
+import net.sevenstars.middleearth.world.map.MiddleEarthMapUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -353,11 +352,10 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     }
 
     @Override
-    public void carve(ChunkRegion chunkRegion, long seed, NoiseConfig noiseConfig,
-                      BiomeAccess biomeAccess, StructureAccessor structureAccessor,
-                      Chunk chunk2, GenerationStep.Carver carverStep) {
+    public void carve(ChunkRegion chunkRegion, long seed, NoiseConfig noiseConfig, BiomeAccess biomeAccess, StructureAccessor structureAccessor, Chunk chunk) {
 
     }
+
 
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
@@ -369,7 +367,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 int posZ = (chunk.getPos().z * 16) + z;
                  MapBasedCustomBiome customHeightBiomeHeightData = null;
                 if(middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) {
-                    RegistryEntry<Biome> biome = region.getBiome(new BlockPos(posX, chunk.getTopY(), posZ));
+                    RegistryEntry<Biome> biome = region.getBiome(new BlockPos(posX, chunk.getTopYInclusive(), posZ));
                     customHeightBiomeHeightData = MapBasedBiomePool.getBiome(biome, posX, posZ);
                 }
                 if(customHeightBiomeHeightData == null) {
@@ -404,16 +402,16 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     height = MiddleEarthHeightMap.lerp(height, oldHeight, percentage);
                 }
 
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), false);
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), 0);
                 for(int y = bottomY + 1; y <= LAVA_HEIGHT; y++) {
-                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState(), false);
+                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState(), 0);
                 }
 
                 for(int y = bottomY + 1; y < MEDGON_LEVEL + caveBlendNoise; y++) {
                     trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.MEDGON.base().getDefaultState());
                 }
                 if(Math.random() < 0.5f) chunk.setBlockState(chunk.getPos().getBlockPos(x, chunk.getBottomY() + 1, z),
-                        Blocks.BEDROCK.getDefaultState(), false);
+                        Blocks.BEDROCK.getDefaultState(), 0);
 
                 for(int y = MEDGON_LEVEL + (int) caveBlendNoise; y < NURGON_LEVEL + caveBlendNoise; y++) {
                     trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.NURGON.base().getDefaultState());
@@ -431,7 +429,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                         trySetBlock(chunk, chunk.getPos().getBlockPos(x, currentHeight++, z), layerData.block.getDefaultState());
                     }
                 }
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 2), z), customHeightBiomeHeightData.getBiome().getBlocksLayering().layers.getFirst().block.getDefaultState(), false);
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 2), z), customHeightBiomeHeightData.getBiome().getBlocksLayering().layers.getFirst().block.getDefaultState());
                 BlockState surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().slopeDatas.getFirst().block.getDefaultState();
                 BlockState underSurfaceBlock;
 
@@ -447,22 +445,22 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     else underSurfaceBlock = surfaceBlock;
                 }
 
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 1), z), underSurfaceBlock, false);
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 1), z), underSurfaceBlock);
                 for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height; y++) {
-                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), underSurfaceBlock, false);
+                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), underSurfaceBlock);
                 }
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), surfaceBlock, false);
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), surfaceBlock);
 
                 if(biomeRegistryKey == MEBiomeKeys.MOUNT_DOOM || biomeRegistryKey == MEBiomeKeys.MOUNT_DOOM_PIT) {
                     for(int y = (int) (DIRT_HEIGHT + height + 1); y <= 100; y++) {
-                        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState(), false);
+                        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState());
                     }
                     if(DIRT_HEIGHT + height < 110) {
-                        chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), Blocks.MAGMA_BLOCK.getDefaultState(), false);
+                        chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), Blocks.MAGMA_BLOCK.getDefaultState());
                     }
                 } else {
                     for(int y = (int) (DIRT_HEIGHT + height + 1); y <= waterHeight; y++) {
-                        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.WATER.getDefaultState(), false);
+                        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.WATER.getDefaultState());
                     }
                 }
 
@@ -508,7 +506,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         combinedSpaghettiNoise /= 3;
 
         if(noise < 0.4f && noise3 < 0.75f && miniNoise < 0.8f && combinedSpaghettiNoise > 0.09f) {
-            chunk.setBlockState(blockPos, blockState, false);
+            chunk.setBlockState(blockPos, blockState);
         }
     }
 
@@ -532,7 +530,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     @Override
     public void populateEntities(ChunkRegion region) {
         ChunkPos chunkPos = region.getCenterPos();
-        RegistryEntry<Biome> registryEntry = region.getBiome(chunkPos.getStartPos().withY(region.getTopY() - 1));
+        RegistryEntry<Biome> registryEntry = region.getBiome(chunkPos.getStartPos().withY(region.getTopY(Heightmap.Type.WORLD_SURFACE_WG, chunkPos.getStartX(), chunkPos.getStartZ()) - 1));
         ChunkRandom chunkRandom = new ChunkRandom(new CheckedRandom(RandomSeed.getSeed()));
         chunkRandom.setPopulationSeed(region.getSeed(), chunkPos.getStartX(), chunkPos.getStartZ());
         SpawnHelper.populateEntities(region, registryEntry, chunkPos, chunkRandom);
@@ -570,6 +568,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     }
 
     @Override
-    public void getDebugHudText(List<String> text, NoiseConfig noiseConfig, BlockPos pos) {
+    public void appendDebugHudText(List<String> text, NoiseConfig noiseConfig, BlockPos pos) {
+
     }
 }

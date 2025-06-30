@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.world.spawners;
 
-import net.sevenstars.middleearth.entity.NpcEntity;
+import net.sevenstars.middleearth.entity.TestNpcEntity;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -37,11 +37,11 @@ public class SpawnerNPCs implements SpecialSpawner {
     private int cooldown = BASE_COOLDOWN + COOLDOWN_RANGE;
 
     @Override
-    public int spawn(ServerWorld world, boolean spawnMonsters, boolean spawnAnimals) {
+    public void spawn(ServerWorld world, boolean spawnMonsters, boolean spawnAnimals) {
         Random random = world.random;
         --this.cooldown;
         if (this.cooldown > 0) {
-            return 0;
+            return;
         }
 
         this.cooldown += (BASE_COOLDOWN + random.nextInt(COOLDOWN_RANGE)) * 20;
@@ -57,7 +57,7 @@ public class SpawnerNPCs implements SpecialSpawner {
             Vec3d offset = new Vec3d(MAX_SPAWN_RAD, 0, MAX_SPAWN_RAD);
             Vec3d pos1 = blockPos.toCenterPos().add(offset).add(0, 321 - playerEntity.getPos().y, 0);
             Vec3d pos2 = blockPos.toCenterPos().subtract(offset).add(0, -63 - playerEntity.getPos().y, 0);
-            int size = world.getEntitiesByClass(NpcEntity.class, new Box(pos1, pos2), (entity) -> true).size();
+            int size = world.getEntitiesByClass(TestNpcEntity.class, new Box(pos1, pos2), (entity) -> true).size();
             if(size <= SPAWN_COUNT_CAP) {
                 float randomAngle = random.nextInt(360);
                 int distance = SPAWN_DISTANCE + random.nextInt(SPAWN_RAND);
@@ -99,7 +99,8 @@ public class SpawnerNPCs implements SpecialSpawner {
                         targetBlockPos.subtract(new Vec3i(0, 1, 0)), entitySpawningSettings.getEntity(), blockState)) continue;
 
                 for (int m = 0; m < entityCount; ++m) {
-                    PathAwareEntity entity = (PathAwareEntity) entitySpawningSettings.getEntity().create(world);
+                    //TODO added spawn reason but needs testing
+                    PathAwareEntity entity = (PathAwareEntity) entitySpawningSettings.getEntity().create(world, SpawnReason.NATURAL);
                     if (entity == null) continue;
                     entity.refreshPositionAndAngles(targetBlockPos, 0.0f, 0.0f);
                     entityData = entity.initialize(world, localDifficulty, SpawnReason.NATURAL, entityData);
@@ -108,7 +109,7 @@ public class SpawnerNPCs implements SpecialSpawner {
                 }
             }
         }
-        return i;
+        return; // TODO : Was 1
     }
 
     public static int getHighestYAtXZ(World world, int x, int z) {

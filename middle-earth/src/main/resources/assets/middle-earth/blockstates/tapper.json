@@ -1,0 +1,94 @@
+{
+  "variants": {
+    "facing=east,tap_level=0": {
+      "model": "me:block/tapper",
+      "y": 90
+    },
+    "facing=east,tap_level=1": {
+      "model": "me:block/tapper",
+      "y": 90
+    },
+    "facing=east,tap_level=2": {
+      "model": "me:block/tapper",
+      "y": 90
+    },
+    "facing=east,tap_level=3": {
+      "model": "me:block/tapper",
+      "y": 90
+    },
+    "facing=east,tap_level=4": {
+      "model": "me:block/tapper",
+      "y": 90
+    },
+    "facing=east,tap_level=5": {
+      "model": "me:block/tapper_full",
+      "y": 90
+    },
+    "facing=north,tap_level=0": {
+      "model": "me:block/tapper"
+    },
+    "facing=north,tap_level=1": {
+      "model": "me:block/tapper"
+    },
+    "facing=north,tap_level=2": {
+      "model": "me:block/tapper"
+    },
+    "facing=north,tap_level=3": {
+      "model": "me:block/tapper"
+    },
+    "facing=north,tap_level=4": {
+      "model": "me:block/tapper"
+    },
+    "facing=north,tap_level=5": {
+      "model": "me:block/tapper_full"
+    },
+    "facing=south,tap_level=0": {
+      "model": "me:block/tapper",
+      "y": 180
+    },
+    "facing=south,tap_level=1": {
+      "model": "me:block/tapper",
+      "y": 180
+    },
+    "facing=south,tap_level=2": {
+      "model": "me:block/tapper",
+      "y": 180
+    },
+    "facing=south,tap_level=3": {
+      "model": "me:block/tapper",
+      "y": 180
+    },
+    "facing=south,tap_level=4": {
+      "model": "me:block/tapper",
+      "y": 180
+    },
+    "facing=south,tap_level=5": {
+      "model": "me:block/tapper_full",
+      "y": 180
+    },
+    "facing=west,tap_level=0": {
+      "model": "me:block/tapper",
+      "y": 270
+    },
+    "facing=west,tap_level=1": {
+      "model": "me:block/tapper",
+      "y": 270
+    },
+    "facing=west,tap_level=2": {
+      "model": "me:block/tapper",
+      "y": 270
+    },
+    "facing=west,tap_level=3": {
+      "model": "me:block/tapper",
+      "y": 270
+    },
+    "facing=west,tap_level=4": {
+      "model": "me:block/tapper",
+      "y": 270
+    },
+    "facing=west,tap_level=5": {
+      "model": "me:block/tapper_full",
+      "y": 270
+    }
+  }
+}

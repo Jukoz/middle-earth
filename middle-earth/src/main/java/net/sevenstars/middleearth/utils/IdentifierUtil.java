@@ -11,4 +11,8 @@ public class IdentifierUtil {
             return Identifier.of(MiddleEarth.MOD_ID, id);
         }
     }
+
+    public static Identifier create(String name) {
+        return Identifier.of(MiddleEarth.MOD_ID, name);
+    }
 }

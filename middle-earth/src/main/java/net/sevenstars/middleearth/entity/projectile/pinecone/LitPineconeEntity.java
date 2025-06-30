@@ -1,9 +1,10 @@
 package net.sevenstars.middleearth.entity.projectile.pinecone;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.hobbits.shire.ShireHobbitEntity;
 import net.sevenstars.middleearth.entity.projectile.AbstractProjectileEntity;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -20,25 +21,21 @@ public class LitPineconeEntity extends AbstractProjectileEntity {
     }
 
     public LitPineconeEntity(World world, LivingEntity owner, float dmg) {
-        super(ModEntities.LIT_PINECONE, owner, world);
+        super(ModEntities.LIT_PINECONE, owner, world, new ItemStack(ResourceItemsME.LIT_PINECONE));
         this.damage = dmg;
-    }
-
-    public LitPineconeEntity(World world, double x, double y, double z) {
-        super(ModEntities.LIT_PINECONE, x, y, z, world);
     }
 
     @Override
     public void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
         entity.setOnFireFor(4);
-        entity.damage(this.getDamageSources().thrown(this, this.getOwner()), this.damage);
+        if(this.getWorld() instanceof ServerWorld serverWorld)
+            entity.damage(serverWorld, this.getDamageSources().thrown( this, this.getOwner()), this.damage);
     }
 
     protected Item getDefaultItem() {
-        return ModResourceItems.LIT_PINECONE;
+        return ResourceItemsME.LIT_PINECONE;
     }
 
 }

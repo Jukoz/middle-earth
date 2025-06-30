@@ -1,20 +1,21 @@
 package net.sevenstars.middleearth.resources.datas.races;
 
-import net.sevenstars.middleearth.resources.MiddleEarthRaces;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.resources.RacesME;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class RaceLookup {
     public static List<Race> getAllRaces(World world) {
-        return world.getRegistryManager().get(MiddleEarthRaces.RACE_KEY).stream().toList();
+        return world.getRegistryManager().getOrThrow(RacesME.KEY).stream().toList();
     }
 
     public static List<Race> getAllRaces(World world, List<Identifier> ids) {
-        Registry<Race> registry = world.getRegistryManager().get(MiddleEarthRaces.RACE_KEY);
+        Registry<Race> registry = world.getRegistryManager().getOrThrow(RacesME.KEY);
         List<Race> list = new ArrayList<>();
         for(Identifier id : ids){
             Race race = registry.get(id);
@@ -25,6 +26,7 @@ public class RaceLookup {
     }
 
     public static Race getRace(World world, Identifier identifier) {
-        return world.getRegistryManager().get(MiddleEarthRaces.RACE_KEY).get(identifier);
+        Optional<Race> race = world.getRegistryManager().getOrThrow(RacesME.KEY).getOptionalValue(identifier);
+        return race.orElse(null);
     }
 }

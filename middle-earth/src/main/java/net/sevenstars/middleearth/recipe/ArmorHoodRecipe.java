@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.recipe;
 
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.HoodDataComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomHelmetItem;
 import net.sevenstars.middleearth.item.items.armor.HoodHelmetItem;
@@ -24,7 +24,7 @@ public class ArmorHoodRecipe extends SpecialCraftingRecipe {
         ItemStack itemStackHelmet = ItemStack.EMPTY;
         ItemStack itemStackHood = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomHelmetItem) {
@@ -48,7 +48,7 @@ public class ArmorHoodRecipe extends SpecialCraftingRecipe {
         ItemStack itemStack = ItemStack.EMPTY;
         ItemStack hood = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomHelmetItem) {
@@ -68,15 +68,15 @@ public class ArmorHoodRecipe extends SpecialCraftingRecipe {
 
         if (!itemStack.isEmpty()) {
             int color;
-            if (hood.get(ModDataComponentTypes.DYE_DATA) != null){
-                color = hood.get(ModDataComponentTypes.DYE_DATA).customRgb();
+            if (hood.get(DataComponentTypesME.DYE_DATA) != null){
+                color = hood.get(DataComponentTypesME.DYE_DATA).customRgb();
             } else {
                 color = 0;
             }
-            if (hood.get(ModDataComponentTypes.HOOD_DATA).hood().getConstantState() == ModHoodStates.DOWN){
-                return HoodDataComponent.setHoodWithcolor(itemStack, true, hood.get(ModDataComponentTypes.HOOD_DATA).hood(), color);
+            if (hood.get(DataComponentTypesME.HOOD_DATA).hood().getConstantState() == ModHoodStates.DOWN){
+                return HoodDataComponent.setHoodWithcolor(itemStack, true, hood.get(DataComponentTypesME.HOOD_DATA).hood(), color);
             } else {
-                return HoodDataComponent.setHoodWithcolor(itemStack, false, hood.get(ModDataComponentTypes.HOOD_DATA).hood(), color);
+                return HoodDataComponent.setHoodWithcolor(itemStack, false, hood.get(DataComponentTypesME.HOOD_DATA).hood(), color);
             }
         } else {
             return ItemStack.EMPTY;
@@ -87,7 +87,7 @@ public class ArmorHoodRecipe extends SpecialCraftingRecipe {
         return width * height >= 2;
     }
 
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
         return ModRecipeSerializer.CUSTOM_ARMOR_HOOD;
     }
 }

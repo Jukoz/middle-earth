@@ -51,15 +51,15 @@ public class DeerEntity extends AnimalEntity {
 
     public static DefaultAttributeContainer.Builder createDeerAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f);
+                .add(EntityAttributes.MAX_HEALTH, 8.0)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.3f);
     }
 
-    @Override
+    /*@Override
     protected void updateLimbs(float posDelta) {
         float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
         this.limbAnimator.updateLimbs(f, 0.2f);
-    }
+    }*/
 
     private void setupAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {

@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.recipe;
 
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.CapeDataComponent;
 import net.sevenstars.middleearth.item.items.armor.CapeChestplateItem;
 import net.sevenstars.middleearth.item.items.armor.CustomChestplateItem;
@@ -24,7 +24,7 @@ public class ArmorCapeRecipe extends SpecialCraftingRecipe {
         ItemStack itemStackChest = ItemStack.EMPTY;
         ItemStack itemStackCape = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomChestplateItem) {
@@ -48,7 +48,7 @@ public class ArmorCapeRecipe extends SpecialCraftingRecipe {
         ItemStack itemStack = ItemStack.EMPTY;
         ItemStack cape = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomChestplateItem) {
@@ -67,13 +67,13 @@ public class ArmorCapeRecipe extends SpecialCraftingRecipe {
 
         if (!itemStack.isEmpty()) {
             int color;
-            if (cape.get(ModDataComponentTypes.DYE_DATA) != null){
-                color = cape.get(ModDataComponentTypes.DYE_DATA).customRgb();
+            if (cape.get(DataComponentTypesME.DYE_DATA) != null){
+                color = cape.get(DataComponentTypesME.DYE_DATA).customRgb();
             } else {
                 color = 0;
             }
             return CapeDataComponent.setCapeWithColor(itemStack,
-                    cape.get(ModDataComponentTypes.CAPE_DATA).cape(),
+                    cape.get(DataComponentTypesME.CAPE_DATA).cape(),
                     color);
         } else {
             return ItemStack.EMPTY;
@@ -84,7 +84,7 @@ public class ArmorCapeRecipe extends SpecialCraftingRecipe {
         return width * height >= 2;
     }
 
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
         return ModRecipeSerializer.CUSTOM_ARMOR_CAPE;
     }
 }

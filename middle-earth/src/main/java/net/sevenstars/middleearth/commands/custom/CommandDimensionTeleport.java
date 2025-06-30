@@ -3,8 +3,6 @@ package net.sevenstars.middleearth.commands.custom;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.sevenstars.middleearth.commands.ModCommands;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.PosArgument;
@@ -12,7 +10,9 @@ import net.minecraft.command.argument.Vec3ArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.commands.ModCommands;
+import net.sevenstars.middleearth.world.dimension.ModDimensions;
 
 public class CommandDimensionTeleport {
     private static final String TP = "tp";
@@ -30,11 +30,11 @@ public class CommandDimensionTeleport {
     public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         try{
             PosArgument posArgument = Vec3ArgumentType.getPosArgument(context, LOCATION);
-            Vec3d coordinates = posArgument.toAbsolutePos(context.getSource());
+            BlockPos coordinates = posArgument.toAbsoluteBlockPos(context.getSource());
 
             ServerPlayerEntity targettedPlayer = EntityArgumentType.getPlayer(context, PLAYER);
 
-            ModDimensions.teleportPlayerToMe(targettedPlayer, coordinates, true, true);
+            ModDimensions.teleportPlayerToMe(targettedPlayer, coordinates.toCenterPos(), true, true);
             return 1;
         } catch (Exception e){
             return 0;

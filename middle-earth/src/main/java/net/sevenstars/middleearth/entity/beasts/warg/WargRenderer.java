@@ -3,40 +3,32 @@ package net.sevenstars.middleearth.entity.beasts.warg;
 import com.google.common.collect.Maps;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.warg.features.*;
-import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 import java.util.Map;
 
-public class WargRenderer extends MobEntityRenderer<WargEntity, WargModel> {
+public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRenderState, WargModel> {
     private static final String PATH = "textures/entities/warg/";
     private static final float SIZE = 1f;
 
     public WargRenderer(EntityRendererFactory.Context context) {
         super(context, new WargModel(context.getPart(ModEntityModelLayers.WARG)), 0.8f);
         this.addFeature(new WargEyesFeatureRenderer(this));
-        this.addFeature(new WargArmorFeatureRenderer(this, context.getModelLoader()));
-        this.addFeature(new WargArmorSpineFeatureRenderer(this, context.getModelLoader()));
-        this.addFeature(new WargArmorSideSkullsFeatureRenderer(this, context.getModelLoader()));
-        this.addFeature(new WargSaddleFeatureRenderer(this, context.getModelLoader()));
-        this.addFeature(new WargArmorFrontSkullFeatureRenderer(this, context.getModelLoader()));
-        this.addFeature(new WargArmorBackSkullFeatureRenderer(this, context.getModelLoader()));
+        this.addFeature(new WargArmorFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargArmorSpineFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargArmorSideSkullsFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargArmorFrontSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargArmorBackSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
     }
 
     @Override
-    public void render(WargEntity entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        if(entity.isBaby()) {
-            matrixStack.scale(SIZE / 2, SIZE / 2, SIZE / 2);
-        } else {
-            matrixStack.scale(SIZE, SIZE, SIZE);
-        }
-
-        super.render(entity, f, g, matrixStack, vertexConsumerProvider, i);
+    public WargEntityRenderState createRenderState() {
+        return new WargEntityRenderState();
     }
 
     public static final Map<WargVariant, Identifier> LOCATION_BY_VARIANT =
@@ -60,7 +52,7 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargModel> {
             });
 
     @Override
-    public Identifier getTexture(WargEntity entity) {
-        return LOCATION_BY_VARIANT.get(entity.getVariant());
+    public Identifier getTexture(WargEntityRenderState state) {
+        return LOCATION_BY_VARIANT.get(state.variant);
     }
 }

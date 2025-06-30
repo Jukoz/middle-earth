@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.recipe;
 
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.MountArmorAddonComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomAnimalArmorItem;
 import net.minecraft.item.ItemStack;
@@ -23,7 +23,7 @@ public class MountArmorSideSkullAddonRecipe extends SpecialCraftingRecipe {
         ItemStack itemStackString = ItemStack.EMPTY;
         ItemStack itemStackSkull= ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomAnimalArmorItem) {
@@ -53,7 +53,7 @@ public class MountArmorSideSkullAddonRecipe extends SpecialCraftingRecipe {
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack itemStack = ItemStack.EMPTY;
 
-        for(int i = 0; i < input.getSize(); ++i) {
+        for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomAnimalArmorItem) {
@@ -66,24 +66,19 @@ public class MountArmorSideSkullAddonRecipe extends SpecialCraftingRecipe {
         }
 
         boolean topArmorAddons = false;
-        if(itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA) != null) {
-            topArmorAddons = itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA).topArmorAddon();
+        if(itemStack.get(DataComponentTypesME.MOUNT_ARMOR_DATA) != null) {
+            topArmorAddons = itemStack.get(DataComponentTypesME.MOUNT_ARMOR_DATA).topArmorAddon();
         }
 
         ItemStack output = itemStack.copyWithCount(1);
 
-        output.set(ModDataComponentTypes.MOUNT_ARMOR_DATA, new MountArmorAddonComponent(topArmorAddons, true));
+        output.set(DataComponentTypesME.MOUNT_ARMOR_DATA, new MountArmorAddonComponent(topArmorAddons, true));
 
         return output;
     }
 
     @Override
-    public boolean fits(int width, int height) {
-        return width * height >= 2;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
         return ModRecipeSerializer.CUSTOM_MOUNT_ARMOR_SIDE_SKULL_ADDON;
     }
 }

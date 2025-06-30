@@ -1,0 +1,43 @@
+dependencies {
+    implementation project(path: ':sevenstars-api', configuration: 'dev')
+}
+
+// I really don't know why it tells me errors when I use genSources
+// but luckily the solution works
+// https://stackoverflow.com/questions/72194499/remove-implicit-dependency-warning-from-gradle-output
+tasks.configureEach {
+    if (name == "genSourcesWithVineflower") {
+        mustRunAfter(":sevenstars-api:genSourcesWithVineflower")
+    }
+    if (name == "genSourcesWithFernFlower") {
+        mustRunAfter(":sevenstars-api:genSourcesWithFernFlower")
+    }
+    if (name == "genSourcesWithCfr") {
+        mustRunAfter(":sevenstars-api:genSourcesWithCfr")
+    }
+}
+
+loom {
+    runs {
+        datagenClient {
+            inherit client
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.modid=${modid}"
+
+            runDir "build/datagen"
+        }
+    }
+}
+
+configurations {
+    dev {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+}
+
+artifacts {
+    dev jar
+}

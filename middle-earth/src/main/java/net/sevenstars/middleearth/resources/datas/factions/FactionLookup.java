@@ -1,11 +1,11 @@
 package net.sevenstars.middleearth.resources.datas.factions;
 
-import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.MiddleEarthFactions;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
+import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.FactionType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,10 +14,10 @@ import java.util.stream.Stream;
 
 public class FactionLookup {
     public static List<Faction> getAllFactions(World world) {
-        return world.getRegistryManager().get(MiddleEarthFactions.FACTION_KEY).stream().toList();
+        return world.getRegistryManager().getOrThrow(FactionsME.KEY).stream().toList();
     }
     public static Faction getFactionById(World world, Identifier id) throws FactionIdentifierException {
-        Faction faction = world.getRegistryManager().get(MiddleEarthFactions.FACTION_KEY).get(id);
+        Faction faction = world.getRegistryManager().getOrThrow(FactionsME.KEY).get(id);
         if(faction == null)
             throw new FactionIdentifierException();
         return faction;

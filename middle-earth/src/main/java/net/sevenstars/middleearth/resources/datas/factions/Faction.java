@@ -2,19 +2,6 @@ package net.sevenstars.middleearth.resources.datas.factions;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.fabricmc.fabric.api.util.NbtType;
-import net.sevenstars.middleearth.resources.MiddleEarthFactions;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.FactionType;
-import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
-import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.item.ItemStack;
@@ -29,6 +16,19 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.FactionType;
+import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
+import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
+import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.*;
 
@@ -64,7 +64,7 @@ public class Faction {
     private List<Identifier> subFactions = null;
     private List<String> joinCommands;
     private List<String> leaveCommands;
-    public List<Race> races = null;
+    private List<Race> races = null;
     private List<Text> descriptions = null;
     private Text raceList = null;
 
@@ -85,21 +85,26 @@ public class Faction {
         }
 
         this.npcDatasByRank = new HashMap<>();
-        npcs.ifPresent(nbtCompound -> {
-            NbtList list = nbtCompound.getList("ranks", NbtType.COMPOUND);
+        if(npcs.isPresent()){
+            NbtList list = npcs.get().getList("ranks").get();
             for(int i = 0; i < list.size(); i++){
-                NbtCompound rankCompound = list.getCompound(i);
-                NpcRank rank = NpcRank.valueOf(rankCompound.getString("rank").toUpperCase());
-                NbtList npcDataList = rankCompound.getList("pool", NbtType.STRING);
-                List<Identifier> dataList = new ArrayList<>();
-                for(int j = 0; j < npcDataList.size(); j++){
-                    dataList.add(IdentifierUtil.getIdentifierFromString(npcDataList.getString(j)));
-                }
-                this.npcDatasByRank.put(rank, dataList);
-            }
-        });
+                NbtCompound rankCompound = list.getCompound(i).get();
+                String rankName = rankCompound.getString("rank").get().toUpperCase();
+                try{
+                    NpcRank rank = NpcRank.valueOf(rankName);
+                    NbtList npcDataList = rankCompound.getList("pool").get();
+                    List<Identifier> dataList = new ArrayList<>();
+                    for(int j = 0; j < npcDataList.size(); j++){
+                        dataList.add(IdentifierUtil.getIdentifierFromString(npcDataList.getString(j).get()));
+                    }
+                    this.npcDatasByRank.put(rank, dataList);
+                } catch (Exception ignored){
 
-        this.bannerData = (bannerDataNbt.isEmpty()) ? null : new BannerData(bannerDataNbt);;
+                }
+            }
+        }
+
+        this.bannerData = (bannerDataNbt.isEmpty()) ? null : new BannerData(bannerDataNbt);
         this.spawnDataHandler = new SpawnDataHandler(spawnsNbt);
 
         this.joinCommands = new ArrayList<>();
@@ -169,18 +174,18 @@ public class Faction {
         // Need these data for a functional faction
         if((this.factionType == FactionType.SUBFACTION) || (this.factionType == FactionType.FACTION) && (subFactions == null || subFactions.isEmpty())){
             if(this.npcDatasByRank == null || this.npcDatasByRank.isEmpty()){
-                throw new RuntimeException("Faction [%s] is missing their npc data, make sure they have at least 1 available npc data per rank.".formatted(id));
+                //throw new RuntimeException("PlayerFactionPayload [%s] is missing their npc data, make sure they have at least 1 available npc data per rank.".formatted(id));
             } else {
                 if(!npcDatasByRank.containsKey(NpcRank.MILITIA)
                         || !npcDatasByRank.containsKey(NpcRank.SOLDIER)
                         || !npcDatasByRank.containsKey(NpcRank.KNIGHT)
                         || !npcDatasByRank.containsKey(NpcRank.VETERAN)
                         || !npcDatasByRank.containsKey(NpcRank.LEADER)) {
-                    throw new RuntimeException("Faction [%s] is missing their npc data, make sure they have at least 1 npc data per rank.".formatted(id));
+                    //throw new RuntimeException("PlayerFactionPayload [%s] is missing their npc data, make sure they have at least 1 npc data per rank.".formatted(id));
                 }
             }
             if(this.bannerData == null){
-                throw new RuntimeException("Faction [%s] is missing their banner data, make sure they have one.".formatted(id));
+                //throw new RuntimeException("PlayerFactionPayload [%s] is missing their banner data, make sure they have one.".formatted(id));
             }
         }
     }
@@ -303,11 +308,15 @@ public class Faction {
     }
 
     public ItemStack getBannerItem(World world){
-        return bannerData.getBannerItem(world, Text.translatable("block.me.faction_banner", getFullName()).formatted(Formatting.GOLD));
+        return bannerData.getBannerItem(world, Text.translatable("block.%s.faction_banner".formatted(MiddleEarth.MOD_ID), getFullName()).formatted(Formatting.GOLD));
     }
 
     public List<Identifier> getSubFactions(){
         return subFactions;
+    }
+
+    public HashMap<NpcRank, List<Identifier>> getAllNpcDatas(){
+        return npcDatasByRank;
     }
 
     public Faction getSubfaction(World world, int index){
@@ -354,7 +363,7 @@ public class Faction {
     public Faction getSubfactionById(World world, Identifier id) {
         if(subFactions == null)
             return null;
-        return world.getRegistryManager().get(MiddleEarthFactions.FACTION_KEY).get(id);
+        return world.getRegistryManager().getOrThrow(FactionsME.KEY).get(id);
     }
 
     public List<Race> getRaces(World world) {
@@ -380,7 +389,7 @@ public class Faction {
         if(descriptions == null){
             descriptions = new ArrayList<>();
             boolean hasDescription = true;
-            String base = "description.me.%s.description_%s".formatted(id.getPath(), "%s");
+            String base = "description.%s.%s.description_%s".formatted(MiddleEarth.MOD_ID, id.getPath(), "%s");
             while(hasDescription){
                 String langPath = base.formatted(descriptions.size());
                 Text text = Text.translatable(langPath);
@@ -407,6 +416,12 @@ public class Faction {
             raceList = Text.literal(raceListStringBuilder.toString());
         }
         return raceList;
+    }
+
+    public int getSpawnAmount(){
+        if(spawnDataHandler == null)
+            return 0;
+        return spawnDataHandler.getSpawnList().size();
     }
 
     public BannerPatternsComponent getBannerPatternComponents(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {

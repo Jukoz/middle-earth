@@ -1,6 +1,8 @@
 package net.sevenstars.middleearth.block.special.bellows;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.entity.EntityCollisionHandler;
+import net.minecraft.state.property.EnumProperty;
 import net.sevenstars.middleearth.block.ModBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,7 +13,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
@@ -26,7 +27,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class BellowsBlock extends BlockWithEntity {
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
     public BellowsBlock(Settings settings) {
         super(settings);
@@ -69,18 +70,19 @@ public class BellowsBlock extends BlockWithEntity {
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         player.swingHand(player.getActiveHand());
-        return this.pump(world, pos, state, player) ? ActionResult.success(world.isClient) : ActionResult.CONSUME;
+        return this.pump(world, pos, state, player) ? ActionResult.SUCCESS : ActionResult.CONSUME;
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
         if(!world.isClient){
             if (entity.getVelocity().y < -0.1f && entity instanceof LivingEntity) {
                 this.pump(world, pos, state, entity);
             }
         }
-        super.onEntityCollision(state, world, pos, entity);
+        super.onEntityCollision(state, world, pos, entity, handler);
     }
+
     public void onEntityLand(BlockView world, Entity entity) {
         if (entity.bypassesLandingEffects()) {
             super.onEntityLand(world, entity);

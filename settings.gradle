@@ -8,6 +8,9 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-include 'middle-earth'
+
+rootProject.name = 'sevenstars-project'
 include 'sevenstars-api'
+include 'of-beasts-and-wild-things'
+include 'middle-earth'
 

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "middle-earth:block/bonfire"
+    },
+    "lit=true": {
+      "model": "middle-earth:block/bonfire_lit"
+    }
+  }
+}

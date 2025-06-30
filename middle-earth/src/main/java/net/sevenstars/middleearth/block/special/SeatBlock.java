@@ -1,7 +1,5 @@
 package net.sevenstars.middleearth.block.special;
 
-import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
@@ -11,7 +9,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -20,12 +18,19 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.tick.ScheduledTickView;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 public class SeatBlock extends Block {
-    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final BooleanProperty OCCUPIED = Properties.OCCUPIED;
 
@@ -36,7 +41,11 @@ public class SeatBlock extends Block {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        float yaw = state.get(FACING).getOpposite().asRotation();
+        Quaternionf quaternion = state.get(FACING).getOpposite().getRotationQuaternion().normalize();
+        Vector3f eulerAngles = new Vector3f(0, 0, 0);
+        eulerAngles = quaternion.getEulerAnglesXYZ(eulerAngles);
+        float yaw = (float) Math.atan2(eulerAngles.x, eulerAngles.z);
+
         SeatEntity seat = new SeatEntity(ModEntities.SEAT_ENTITY, world);
         seat.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
         seat.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, yaw, 0);
@@ -52,10 +61,10 @@ public class SeatBlock extends Block {
         } else if (player.shouldCancelInteraction()) {
             return ActionResult.SUCCESS;
         } else if (world.getBlockState(pos.up()).isOpaque()){
-            player.sendMessage(Text.translatable("alert.me.seat.space_not_empty"), true);
+            player.sendMessage(Text.translatable("alert.%s.seat.space_not_empty".formatted(MiddleEarth.MOD_ID)), true);
             return ActionResult.SUCCESS;
         }else if (state.get(OCCUPIED)){
-            player.sendMessage(Text.translatable("alert.me.seat.occupied"), true);
+        player.sendMessage(Text.translatable("alert.%s.seat.occupied".formatted(MiddleEarth.MOD_ID)), true);
             return ActionResult.SUCCESS;
         } else {
             if(world.spawnEntity(seat)) {
@@ -78,13 +87,14 @@ public class SeatBlock extends Block {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);
     }
+
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         if (state.get(WATERLOGGED)) {
-            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
 
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override

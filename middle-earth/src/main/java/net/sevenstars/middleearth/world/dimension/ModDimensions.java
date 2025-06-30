@@ -1,16 +1,6 @@
 package net.sevenstars.middleearth.world.dimension;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
-import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
-import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.world.chunkgen.MiddleEarthChunkGenerator;
-import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
-import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -21,8 +11,20 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
+import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
+import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
+import net.sevenstars.middleearth.world.chunkgen.MiddleEarthChunkGenerator;
+import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
+import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
 import org.joml.Vector3i;
 
 public class ModDimensions {
@@ -44,6 +46,7 @@ public class ModDimensions {
     public static void register() {
         Registry.register(Registries.CHUNK_GENERATOR, ME_DIMENSION_ID, MiddleEarthChunkGenerator.CODEC);
         ME_WORLD_KEY = RegistryKey.of(RegistryKeys.WORLD, ME_DIMENSION_ID);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.CHUNK_GENERATOR, ME_DIMENSION_ID.getPath()));
 
         MiddleEarth.LOGGER.logDebugMsg("Registering ModDimensions for " + MiddleEarth.MOD_ID);
     }
@@ -59,21 +62,22 @@ public class ModDimensions {
             RegistryKey<World> registryKey = ME_WORLD_KEY;
             ServerWorld serverWorld = (ServerWorld) player.getWorld();
             if (serverWorld != null) {
-                serverWorld = serverWorld.getServer().getWorld(registryKey);
 
-                player.wakeUp();
-
-                ((ServerPlayerEntity) player).teleport(serverWorld, coordinates.x , coordinates.y, coordinates.z, 0, 0);
-                player.refreshPositionAfterTeleport(coordinates.x, coordinates.y, coordinates.z);
-                if(setSpawnPoint)
-                    ((ServerPlayerEntity) player).setSpawnPoint(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true, true);
+                player.teleportTo(new TeleportTarget(player.getServer().getWorld(ME_WORLD_KEY), coordinates, Vec3d.ZERO, 0, 0, new TeleportTarget.PostDimensionTransition() {
+                    @Override
+                    public void onTransition(Entity entity) {
+                        // idk
+                    }
+                }));
+                if(setSpawnPoint){
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true);
+                    ((ServerPlayerEntity) player).setSpawnPoint(respawn, true);
+                }
                 if(welcomeNeeded)
                     FactionUtil.sendOnFactionJoinMessage(player);
-                PlayerData data = StateSaverAndLoader.getPlayerState(player);
-                if(data != null){
-                    Race playerRace = data.getRace(player.getWorld());
-                    if(playerRace != null)
-                        RaceUtil.updateRace(player, playerRace, false);
+                Race race =  PlayerDataService.getPlayerRace(player, player.getWorld());
+                if(race != null){
+                    RaceUtil.updateRace(player, race, false);
                 }
 
             }
@@ -92,20 +96,20 @@ public class ModDimensions {
         if(!player.getWorld().isClient()) {
             RegistryKey<World> registryKey = OW_WORLD_KEY;
             ServerWorld serverWorld = (ServerWorld) player.getWorld();
-            PlayerData data = StateSaverAndLoader.getPlayerState(player);
-            BlockPos coordinate = data.getOverworldSpawnCoordinates();
-            if(coordinate == null) {
+            PlayerDataService.OriginAggregate origin = PlayerDataService.getOriginAggregate(player, player.getWorld());
+            BlockPos coordinate;
+            if(origin == null) {
                 coordinate = player.getServer().getOverworld().getSpawnPos();
+            } else {
+                coordinate = origin.origin();
             }
 
             if (serverWorld != null) {
-                serverWorld = serverWorld.getServer().getWorld(registryKey);
-
-                player.wakeUp();
-                ((ServerPlayerEntity) player).setSpawnPoint(World.OVERWORLD, player.getServer().getOverworld().getSpawnPos(), player.getServer().getOverworld().getSpawnAngle(), true, true);
-                ((ServerPlayerEntity) player).teleport(serverWorld, coordinate.getX() , coordinate.getY(), coordinate.getZ(), 0, 0);
-                player.refreshPositionAfterTeleport(coordinate.getX() , coordinate.getY(), coordinate.getZ());
-
+                Vec3d coordinates = new Vec3d(coordinate.getX(), coordinate.getY(), coordinate.getZ());
+                player.teleportTo(new TeleportTarget(player.getServer().getOverworld(), coordinates, Vec3d.ZERO, 0, 0, entity -> {
+                    // idk
+                }));
+                
                 if(!ModServerConfigs.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){
                     AttributeData.reset(player);
                 }

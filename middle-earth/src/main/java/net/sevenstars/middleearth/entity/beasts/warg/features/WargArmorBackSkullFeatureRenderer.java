@@ -1,49 +1,39 @@
 package net.sevenstars.middleearth.entity.beasts.warg.features;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
+import net.minecraft.client.render.entity.equipment.EquipmentModel;
+import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
+import net.minecraft.client.render.entity.model.LoadedEntityModels;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.EquippableComponent;
+import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.entity.beasts.warg.WargEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
-import net.sevenstars.middleearth.entity.model.ModEntityModelLayers;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
-import net.sevenstars.middleearth.item.ModEquipmentItems;
-import net.sevenstars.middleearth.item.items.armor.CustomAnimalArmorItem;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
+import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 
-public class WargArmorBackSkullFeatureRenderer extends FeatureRenderer<WargEntity, WargModel> {
+public class WargArmorBackSkullFeatureRenderer extends FeatureRenderer<WargEntityRenderState, WargModel> {
     private final WargArmorTopAddonsModel model;
+    private final EquipmentRenderer equipmentRenderer;
 
-    public WargArmorBackSkullFeatureRenderer(FeatureRendererContext<WargEntity, WargModel> context, EntityModelLoader loader) {
+    public WargArmorBackSkullFeatureRenderer(FeatureRendererContext<WargEntityRenderState, WargModel> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
         super(context);
         this.model = new WargArmorTopAddonsModel(loader.getModelPart(ModEntityModelLayers.WARG_ARMOR_ADDONS_BACK));
+
+        this.equipmentRenderer = equipmentRenderer;
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, WargEntity wargEntity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        ItemStack itemStack = wargEntity.getBodyArmor();
-        Item item = itemStack.getItem();
-        if(item instanceof CustomAnimalArmorItem animalArmorItem) {
-            if (itemStack.isOf(ModEquipmentItems.WARG_GUNDABAD_PLATE_ARMOR)) {
-                if(itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA) != null && itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA).topArmorAddon()) {
-                    ((WargModel)this.getContextModel()).copyStateTo(this.model);
-
-                    this.model.setAngles(wargEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-
-                    Identifier addonTexture = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_addons.png");
-
-                    VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(addonTexture));
-                    this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
-                }
-            }
+    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, WargEntityRenderState state, float limbAngle, float limbDistance) {
+        ItemStack itemStack = state.armor;
+        EquippableComponent equippableComponent = (EquippableComponent)itemStack.get(DataComponentTypes.EQUIPPABLE);
+        if (equippableComponent != null && !equippableComponent.assetId().isEmpty()) {
+            WargArmorTopAddonsModel armorModel = this.model;
+            armorModel.setAngles(state);
+            this.equipmentRenderer.render(EquipmentModel.LayerType.HORSE_BODY, (RegistryKey)equippableComponent.assetId().get(), armorModel, itemStack, matrices, vertexConsumers, light);
         }
     }
 }

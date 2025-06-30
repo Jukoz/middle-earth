@@ -55,7 +55,7 @@ public class ModItemGroups {
     public static final List<ItemStack> DECORATIVES_BLOCKS_CONTENT = new LinkedList<>();
     public static final ItemGroup DECORATIVES_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".decorative_blocks"))
-            .icon(() -> new ItemStack(ModDecorativeItems.DWARVEN_LANTERN))
+            .icon(() -> new ItemStack(DecorativeItemsME.DWARVEN_LANTERN))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : DECORATIVES_BLOCKS_CONTENT) {
                     entries.add(item);
@@ -77,7 +77,7 @@ public class ModItemGroups {
     public static final List<ItemStack> FOOD_CONTENTS = new LinkedList<>();
     public static final ItemGroup FOOD = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".food_items"))
-            .icon(() -> new ItemStack(ModFoodItems.LEMBAS))
+            .icon(() -> new ItemStack(FoodItemsME.LEMBAS))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : FOOD_CONTENTS) {
                     entries.add(item);
@@ -88,7 +88,7 @@ public class ModItemGroups {
     public static final List<ItemStack> WEAPONS_CONTENTS = new LinkedList<>();
     public static final ItemGroup WEAPONS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".weapon_items"))
-            .icon(() -> new ItemStack(ModWeaponItems.GONDORIAN_SWORD))
+            .icon(() -> new ItemStack(WeaponItemsME.GONDORIAN_SWORD))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : WEAPONS_CONTENTS) {
                     entries.add(item);
@@ -99,7 +99,7 @@ public class ModItemGroups {
     public static final List<ItemStack> EQUIPMENT_CONTENTS = new LinkedList<>();
     public static final ItemGroup EQUIPMENT = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".equipment_items"))
-            .icon(() -> new ItemStack(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_HELMET))
+            .icon(() -> new ItemStack(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_HELMET))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : EQUIPMENT_CONTENTS) {
                     entries.add(item);
@@ -110,7 +110,7 @@ public class ModItemGroups {
     public static final List<ItemStack> TOOLS_CONTENTS = new LinkedList<>();
     public static final ItemGroup TOOLS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".tool_items"))
-            .icon(() -> new ItemStack(ModToolItems.KHAZAD_STEEL_PICKAXE))
+            .icon(() -> new ItemStack(ToolItemsME.KHAZAD_STEEL_PICKAXE))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : TOOLS_CONTENTS) {
                     entries.add(item);
@@ -121,7 +121,7 @@ public class ModItemGroups {
     public static final List<ItemStack> RESOURCES_CONTENTS = new LinkedList<>();
     public static final ItemGroup RESOURCES = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".resource_items"))
-            .icon(() -> new ItemStack(ModResourceItems.MITHRIL_INGOT))
+            .icon(() -> new ItemStack(ResourceItemsME.MITHRIL_INGOT))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : RESOURCES_CONTENTS) {
                     entries.add(item);
@@ -133,7 +133,7 @@ public class ModItemGroups {
 
     public static final ItemGroup SPAWN_EGGS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".spawn_egg_items"))
-            .icon(() -> new ItemStack(ModEggItems.HOBBIT_CIVILIAN_SPAWN_EGG))
+            .icon(() -> new ItemStack(EggItemsME.DEER_SPAWN_EGG))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : SPAWN_EGGS_CONTENTS) {
                     entries.add(item);

@@ -1,30 +1,11 @@
 package net.sevenstars.middleearth.mixin.client;
 
-import net.sevenstars.middleearth.item.ModDecorativeItems;
-import net.sevenstars.middleearth.item.ModWeaponItems;
-import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
-import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
-import net.sevenstars.middleearth.utils.IEntityDataSaver;
-import net.sevenstars.middleearth.utils.PlayerMovementData;
-import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Mixin(BipedEntityModel.class)
 public class BipedEntityModelMixin {
-    @Shadow public BipedEntityModel.ArmPose leftArmPose;
+    /*@Shadow public BipedEntityModel.ArmPose leftArmPose;
 
     @Shadow public BipedEntityModel.ArmPose rightArmPose;
 
@@ -87,5 +68,5 @@ public class BipedEntityModelMixin {
                 this.leftArm.pitch = VERTICAL_ANGLE;
             }
         }
-    }
+    }*/
 }
