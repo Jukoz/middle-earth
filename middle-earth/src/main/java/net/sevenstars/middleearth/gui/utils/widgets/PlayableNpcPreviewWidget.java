@@ -173,11 +173,8 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         EntityRenderState entityRenderState = entityRenderer.getAndUpdateRenderState(entity, 1.0F);
         entityRenderState.hitbox = null;
 
-        y += 50;
-        context.addEntity(entityRenderState, 35f, VECTOR, ENTITY_ROTATION, new Quaternionf(), x - 20, y - 120, x + 20, y);
-
-        //InventoryScreen.drawEntity(context, x, y, x, y - 9, size, VECTOR, ENTITY_ROTATION, (Quaternionf)null, this.entity);
-
+        int entityY = y + 50;
+        context.addEntity(entityRenderState, 35f, VECTOR, ENTITY_ROTATION, new Quaternionf(), x - 20, entityY - 120, x + 20, entityY);
 
         int horizontalMargin = MINIMAL_MARGIN + 1;
 
