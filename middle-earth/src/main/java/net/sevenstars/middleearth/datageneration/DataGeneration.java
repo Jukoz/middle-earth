@@ -92,7 +92,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RacesME.KEY, RacesME::bootstrap);
         registryBuilder.addRegistry(NpcME.KEY, NpcME::bootstrap);
         registryBuilder.addRegistry(FactionsME.KEY, FactionsME::bootstrap);
-        registryBuilder.addRegistry(StructureDatasME.KEY, StructureDatasME::bootstrap);
+        registryBuilder.addRegistry(StructureManagerDatasME.KEY, StructureManagerDatasME::bootstrap);
 
         // Vanilla registries
         registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, ModSmithingTrimMaterials::bootstrap);
