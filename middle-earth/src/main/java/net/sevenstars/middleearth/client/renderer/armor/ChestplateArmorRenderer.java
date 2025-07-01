@@ -3,18 +3,14 @@ package net.sevenstars.middleearth.client.renderer.armor;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomChestplateModel;
-import net.sevenstars.middleearth.client.model.equipment.CustomLeggingsModel;
 import net.sevenstars.middleearth.client.model.equipment.chest.ChestplateAddonModel;
-import net.sevenstars.middleearth.client.model.equipment.chest.capes.CloakCapeModel;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.item.dataComponents.CapeDataComponent;
+import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomChestplateItem;
-import net.sevenstars.middleearth.item.utils.armor.ModArmorModels;
-import net.sevenstars.middleearth.item.utils.armor.ModDyeablePieces;
+import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
+import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.sevenstars.middleearth.recipe.ModTags;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
@@ -67,9 +63,9 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
                 ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
             }
 
-            CapeDataComponent capeDataComponent = stack.get(DataComponentTypesME.CAPE_DATA);
+            BackAttachmentDataComponent capeDataComponent = stack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA);
             if (capeDataComponent != null) {
-                this.capeModel = ModArmorModels.ModCapePairedModels.valueOf(capeDataComponent.cape().getName().toUpperCase()).getModel().getArmoredModel();
+                this.capeModel = ArmorModelsME.ModBackAttachmentPairedModels.valueOf(capeDataComponent.backAttachment().getName().toUpperCase()).getModel().getArmoredModel();
                 contextModel.copyTransforms(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;
@@ -79,13 +75,13 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
                 capeModel.leftLeg.visible = true;
                 //capeModel.setAngles(bipedEntityRenderState);
 
-                if (ModDyeablePieces.dyeableCapes.containsKey(capeDataComponent.getCape())) {
-                    CapeRenderer.renderDyeableCape(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), true);
-                    if (ModDyeablePieces.dyeableCapes.get(capeDataComponent.cape()).booleanValue()){
-                        ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + "_overlay.png"));
+                if (DyeablePiecesME.dyeableBackAttachments.containsKey(capeDataComponent.getBackAttachment())) {
+                    BackAttachmentRenderer.renderDyeableBackAttachment(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + ".png"), true);
+                    if (DyeablePiecesME.dyeableBackAttachments.get(capeDataComponent.backAttachment()).booleanValue()){
+                        ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + "_overlay.png"));
                     }
                 } else {
-                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"));
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + ".png"));
                 }}
         }
     }

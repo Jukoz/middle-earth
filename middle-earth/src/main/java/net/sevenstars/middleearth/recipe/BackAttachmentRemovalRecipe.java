@@ -1,0 +1,109 @@
+package net.sevenstars.middleearth.recipe;
+
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
+import net.sevenstars.middleearth.item.items.armor.CustomChestplateItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.ShearsItem;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.input.CraftingRecipeInput;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.world.World;
+
+
+public class BackAttachmentRemovalRecipe extends SpecialCraftingRecipe {
+
+    public BackAttachmentRemovalRecipe(CraftingRecipeCategory category) {
+        super(category);
+    }
+
+    @Override
+    public DefaultedList<ItemStack> getRecipeRemainders(CraftingRecipeInput input) {
+        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(input.size(), ItemStack.EMPTY);
+
+        for(int i = 0; i < defaultedList.size(); ++i) {
+            ItemStack itemStack = input.getStackInSlot(i);
+            if (!itemStack.getItem().getRecipeRemainder().isEmpty()) {
+                defaultedList.set(i, new ItemStack(itemStack.getItem().getRecipeRemainder().getItem()));
+            } else if (itemStack.getItem() instanceof ShearsItem) {
+                defaultedList.set(i, itemStack.copyWithCount(1));
+            } else if (itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA) != null){
+                ItemStack backAttachment = new ItemStack(Registries.ITEM.get(Identifier.of(MiddleEarth.MOD_ID, itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA).backAttachment().getName())));
+                backAttachment.set(DataComponentTypesME.BACK_ATTACHMENT_DATA, itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA));
+                backAttachment.set(DataComponentTypesME.DYE_DATA, new CustomDyeableDataComponent(itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA).backAttachmentColor()));
+                defaultedList.set(i, backAttachment);
+            }
+        }
+
+        return defaultedList;
+    }
+
+
+    @Override
+    public boolean matches(CraftingRecipeInput input, World world) {
+        ItemStack itemStackChest = ItemStack.EMPTY;
+        ItemStack itemStackShears = ItemStack.EMPTY;
+
+        for(int i = 0; i < input.size(); ++i) {
+            ItemStack itemStack2 = input.getStackInSlot(i);
+            if (!itemStack2.isEmpty()) {
+                if (itemStack2.getItem() instanceof CustomChestplateItem && itemStack2.get(DataComponentTypesME.BACK_ATTACHMENT_DATA) != null) {
+                    if (!itemStackChest.isEmpty()) {
+                        return false;
+                    }
+                    itemStackChest = itemStack2;
+                } else {
+                    if (!itemStack2.isOf(Items.SHEARS)) {
+                        return false;
+                    }
+                    itemStackShears = itemStack2;
+                }
+            }
+        }
+        return !itemStackChest.isEmpty() && !itemStackShears.isEmpty();
+    }
+
+    @Override
+    public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
+        ItemStack itemStack = ItemStack.EMPTY;
+
+        for(int i = 0; i < input.size(); ++i) {
+            ItemStack itemStack2 = input.getStackInSlot(i);
+            if (!itemStack2.isEmpty()) {
+                if (itemStack2.getItem() instanceof CustomChestplateItem && itemStack2.get(DataComponentTypesME.BACK_ATTACHMENT_DATA) != null) {
+                    if (!itemStack.isEmpty()) {
+                        return ItemStack.EMPTY;
+                    }
+
+                    itemStack = itemStack2.copy();
+                } else {
+                    if (!itemStack2.isOf(Items.SHEARS)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+            }
+        }
+
+        if (!itemStack.isEmpty()) {
+            itemStack.remove(DataComponentTypesME.BACK_ATTACHMENT_DATA);
+            return itemStack;
+        } else {
+            return ItemStack.EMPTY;
+        }
+    }
+
+    public boolean fits(int width, int height) {
+        return width * height >= 2;
+    }
+
+    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
+        return ModRecipeSerializer.CUSTOM_ARMOR_BACK_ATTACHMENT_REMOVAL;
+    }
+}

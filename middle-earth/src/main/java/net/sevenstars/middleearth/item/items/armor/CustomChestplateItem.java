@@ -5,11 +5,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.equipment.EquipmentType;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.item.dataComponents.CapeDataComponent;
+import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
-import net.sevenstars.middleearth.item.utils.armor.ModDyeablePieces;
+import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.item.ItemStack;
@@ -55,21 +55,21 @@ public class CustomChestplateItem extends Item implements EquipmentTooltipME {
     @Override
     public List<Text> getAdditionalAltLines(ItemStack stack) {
         List<Text> list = new ArrayList<>(List.of());
-        CapeDataComponent capeDataComponent = stack.get(DataComponentTypesME.CAPE_DATA);
+        BackAttachmentDataComponent capeDataComponent = stack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA);
         CustomDyeableDataComponent dyeDataComponent = stack.get(DataComponentTypesME.DYE_DATA);
 
         if(dyeDataComponent != null){
             list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color").formatted(Formatting.GRAY).append(": " + String.format(EquipmentTooltipME.COLOR_PREFIX, (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
         }
         if (capeDataComponent != null) {
-            if (ModDyeablePieces.dyeableCapes.containsKey(capeDataComponent.cape())){
-                list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape().getName())
+            if (DyeablePiecesME.dyeableBackAttachments.containsKey(capeDataComponent.backAttachment())){
+                list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.backAttachment().getName())
                         .append(" (")
                         .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color")
-                                .append(": " + String.format("#%06X", (0xFFFFFF & CapeDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR))))
+                                .append(": " + String.format("#%06X", (0xFFFFFF & BackAttachmentDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR))))
                                 .append(")")).formatted(Formatting.GRAY));
             } else {
-                list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape().getName()).formatted(Formatting.GRAY));
+                list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.backAttachment().getName()).formatted(Formatting.GRAY));
             }
         }
 

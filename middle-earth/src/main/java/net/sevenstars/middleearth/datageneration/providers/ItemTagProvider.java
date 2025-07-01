@@ -96,8 +96,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         feathers.add(ResourceItemsME.SWAN_FEATHER);
         feathers.add(Items.FEATHER);
 
-        EquipmentItemsME.hoods.forEach(cloaks::add);
-        EquipmentItemsME.capes.forEach(cloaks::add);
+        EquipmentItemsME.helmeAtttachments.forEach(cloaks::add);
+        EquipmentItemsME.backAttachments.forEach(cloaks::add);
 
         dyeable.add(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR);
         dyeable.add(EquipmentItemsME.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);

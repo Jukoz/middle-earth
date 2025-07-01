@@ -7,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -25,9 +24,9 @@ import net.sevenstars.middleearth.client.model.equipment.CustomBootsModel;
 import net.sevenstars.middleearth.client.model.equipment.CustomChestplateModel;
 import net.sevenstars.middleearth.client.model.equipment.CustomHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.CustomLeggingsModel;
-import net.sevenstars.middleearth.client.model.equipment.chest.capes.armored.CapeMediumModel;
+import net.sevenstars.middleearth.client.model.equipment.chest.backAttachments.armored.CapeMediumModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.RohirricHelmetArmorAddonModel;
-import net.sevenstars.middleearth.client.model.equipment.head.hoods.armored.HoodModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmetAttachments.armored.HoodModel;
 import net.sevenstars.middleearth.client.model.hand.HeldBannerEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.HeaterShieldEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.KiteShieldEntityModel;
@@ -64,7 +63,7 @@ import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.sevenstars.middleearth.item.utils.armor.ModArmorModels;
+import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.network.ModClientNetworkHandler;
 import net.sevenstars.middleearth.network.connections.ConnectionToServer;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
@@ -79,8 +78,8 @@ public class MiddleEarthClient implements ClientModInitializer {
     public static final EntityModelLayer CUSTOM_ARMOR_LEGGINGS = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "_3");
     public static final EntityModelLayer CUSTOM_ARMOR_BOOTS = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "_4");
     public static final EntityModelLayer HELMET_ADDON_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "helmet_addon");
-    public static final EntityModelLayer CAPE_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "cape");
-    public static final EntityModelLayer HOOD_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "hood");
+    public static final EntityModelLayer BACK_ATTACHMENT_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "back_attachment");
+    public static final EntityModelLayer HELMET_ATTACHMENT_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "helmet_attachment");
 
     public static final EntityModelLayer HEATER_SHIELD_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "heater_shield"), "main");
     public static final EntityModelLayer KITE_SHIELD_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "kite_shield"), "main");
@@ -141,8 +140,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_LEGGINGS, CustomLeggingsModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_BOOTS, CustomBootsModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HELMET_ADDON_MODEL_LAYER, RohirricHelmetArmorAddonModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(CAPE_MODEL_LAYER, CapeMediumModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(HOOD_MODEL_LAYER, HoodModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(BACK_ATTACHMENT_MODEL_LAYER, CapeMediumModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HELMET_ATTACHMENT_MODEL_LAYER, HoodModel::getTexturedModelData);
 
         EntityModelLayerRegistry.registerModelLayer(HEATER_SHIELD_LAYER, HeaterShieldEntityModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(KITE_SHIELD_LAYER, KiteShieldEntityModel::getTexturedModelData);
@@ -157,11 +156,11 @@ public class MiddleEarthClient implements ClientModInitializer {
         SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "kite_shield"), KiteShieldModelRenderer.Unbaked.CODEC);
         SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "round_shield"), RoundShieldModelRenderer.Unbaked.CODEC);
 
-        for(ModArmorModels.ModHelmetModels model : ModArmorModels.ModHelmetModels.values()){
+        for(ArmorModelsME.ModHelmetModels model : ArmorModelsME.ModHelmetModels.values()){
             ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());
         }
 
-        for(ModArmorModels.ModChestplateModels model : ModArmorModels.ModChestplateModels.values()){
+        for(ArmorModelsME.ModChestplateModels model : ArmorModelsME.ModChestplateModels.values()){
             ArmorRenderer.register(new ChestplateArmorRenderer(model.getModel()), model.getItem());
         }
 
@@ -178,11 +177,11 @@ public class MiddleEarthClient implements ClientModInitializer {
             ArmorRenderer.register(new BootsArmorRenderer(), armor.asItem());
         });
 
-        EquipmentItemsME.hoods.forEach(hood -> {
-            ArmorRenderer.register(new HoodRenderer(), hood);
+        EquipmentItemsME.helmeAtttachments.forEach(hood -> {
+            ArmorRenderer.register(new HelmetAttachmentRenderer(), hood);
         });
-        EquipmentItemsME.capes.forEach(cape -> {
-            ArmorRenderer.register(new CapeRenderer(), cape);
+        EquipmentItemsME.backAttachments.forEach(cape -> {
+            ArmorRenderer.register(new BackAttachmentRenderer(), cape);
         });
 
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MALLORN_LEAVES_PARTICLE, LeavesParticle.Factory::new);

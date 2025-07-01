@@ -8,7 +8,7 @@ import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
+import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
@@ -56,7 +56,7 @@ public class IsengardNpcDataPool {
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ORTHANC_GUARD_CHESTPLATE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORTHANC_GUARD_CHESTPLATE).withCape(ModCapes.ORTHANC_GUARD_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORTHANC_GUARD_CHESTPLATE).withCape(BackAttachmentsME.ORTHANC_GUARD_CAPE))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ORTHANC_GUARD_LEGGINGS))
@@ -78,13 +78,13 @@ public class IsengardNpcDataPool {
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_STRAP).withColors(allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_STRAP).withColors(allColors).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_STRAP).withColors(allColors).withCape(ModCapes.ORCISH_SHOULDERS, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_STRAP).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_STRAP).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
 
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.CAPE, allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_SHOULDERS, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
 
                                 .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_CAPE))
                         )
@@ -124,13 +124,13 @@ public class IsengardNpcDataPool {
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(ModCapes.ORCISH_SHOULDERS, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
 
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.CAPE, allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_SHOULDERS, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COAT).withColors(allColors))
@@ -171,13 +171,13 @@ public class IsengardNpcDataPool {
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(ModCapes.ORCISH_SHOULDERS, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
 
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.CAPE, allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_SHOULDERS, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COAT).withColors(allColors))
@@ -285,7 +285,7 @@ public class IsengardNpcDataPool {
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE).withCape(ModCapes.CAPE, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE).withCape(BackAttachmentsME.CAPE, allColors))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.MAIL_SKIRT)))
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PLATE_BOOTS)))

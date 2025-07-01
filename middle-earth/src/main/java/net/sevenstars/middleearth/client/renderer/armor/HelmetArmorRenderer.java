@@ -3,17 +3,13 @@ package net.sevenstars.middleearth.client.renderer.armor;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomHelmetModel;
-import net.sevenstars.middleearth.client.model.equipment.CustomLeggingsModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
-import net.sevenstars.middleearth.client.model.equipment.head.hoods.CloakHoodModel;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.item.dataComponents.HoodDataComponent;
-import net.sevenstars.middleearth.item.utils.armor.ModArmorModels;
-import net.sevenstars.middleearth.item.utils.armor.ModDyeablePieces;
+import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
+import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
+import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.sevenstars.middleearth.recipe.ModTags;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
@@ -25,7 +21,7 @@ import net.minecraft.util.Identifier;
 public class HelmetArmorRenderer implements ArmorRenderer {
 
     private CustomHelmetModel customHelmetModel = new CustomHelmetModel(CustomHelmetModel.getTexturedModelData().createModel());
-    private HelmetAddonModel hoodModel;
+    private HelmetAddonModel helmetAttachmentModel;
     private HelmetAddonModel helmetAddonModel;
 
     public HelmetArmorRenderer() {
@@ -68,28 +64,28 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                 }
             }
 
-            HoodDataComponent hoodDataComponent = stack.get(DataComponentTypesME.HOOD_DATA);
+            HelmetAttachmentDataComponent hoodDataComponent = stack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA);
 
             if(hoodDataComponent != null) {
-                Identifier textureHood;
+                Identifier textureHelmetAttachment;
                 if (hoodDataComponent.down()){
-                    textureHood = Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().getName().toLowerCase() + "_down.png");
-                    this.hoodModel = ModArmorModels.ModHoodPairedModels.valueOf(hoodDataComponent.hood().getName().toUpperCase()).getModel().getArmoredDownModel();
+                    textureHelmetAttachment = Identifier.of(MiddleEarth.MOD_ID, "textures/models/helmet_attachment/" + hoodDataComponent.helmetAttachment().getName().toLowerCase() + "_down.png");
+                    this.helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(hoodDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getArmoredDownModel();
                 } else {
-                    textureHood = Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().getName().toLowerCase() + ".png");
-                    this.hoodModel = ModArmorModels.ModHoodPairedModels.valueOf(hoodDataComponent.hood().getName().toUpperCase()).getModel().getArmoredModel();
+                    textureHelmetAttachment = Identifier.of(MiddleEarth.MOD_ID, "textures/models/helmet_attachment/" + hoodDataComponent.helmetAttachment().getName().toLowerCase() + ".png");
+                    this.helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(hoodDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getArmoredModel();
                 }
-                contextModel.copyTransforms(hoodModel);
-                hoodModel.setVisible(false);
-                hoodModel.head.visible = true;
-                hoodModel.hat.visible = true;
-                if (ModDyeablePieces.dyeableHoods.containsKey(hoodDataComponent.getHood())) {
-                    HoodRenderer.renderDyeableHood(matrices, vertexConsumers, light, stack, hoodModel, textureHood, true);
-                    if (ModDyeablePieces.dyeableHoods.get(hoodDataComponent.hood())){
-                        ModArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, textureHood.getPath().replaceAll(".png", "_overlay.png")));
+                contextModel.copyTransforms(helmetAttachmentModel);
+                helmetAttachmentModel.setVisible(false);
+                helmetAttachmentModel.head.visible = true;
+                helmetAttachmentModel.hat.visible = true;
+                if (DyeablePiecesME.dyeableHelmetAttachments.containsKey(hoodDataComponent.getHelmetAttachment())) {
+                    HelmetAttachmentRenderer.renderDyeableHelmetAttachment(matrices, vertexConsumers, light, stack, helmetAttachmentModel, textureHelmetAttachment, true);
+                    if (DyeablePiecesME.dyeableHelmetAttachments.get(hoodDataComponent.helmetAttachment())){
+                        ModArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, helmetAttachmentModel, Identifier.of(MiddleEarth.MOD_ID, textureHelmetAttachment.getPath().replaceAll(".png", "_overlay.png")));
                     }
                 } else {
-                    ModArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, hoodModel, textureHood);
+                    ModArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, helmetAttachmentModel, textureHelmetAttachment);
                 }
             }
         }
