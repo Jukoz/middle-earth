@@ -97,7 +97,6 @@ public class OnboardingFactionScreen extends Screen {
         }
     }
 
-
     private static final Text TITLE = Text.translatable("screen." + MiddleEarth.MOD_ID + ".onboarding_faction_screen");
 
 

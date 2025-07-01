@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.entity.npcs;
 
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -15,15 +14,11 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
@@ -40,8 +35,11 @@ import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
@@ -86,7 +84,30 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         entity.initializeData(world);
         return entity;
     }
+    public static NpcEntity create(World world, BlockPos pos, NpcData npcData, Identifier factionIdenfifier) {
+        var entity = new NpcEntity(ModEntities.NPC, world);
+        //entity.initialize((ServerWorldAccess) world, world.getLocalDifficulty(pos), SpawnReason.STRUCTURE, new NpcEntityData(factionIdenfifier, npcData.getId(), EntityCategory.MALE));
+        return entity;
+    }
+    public void AssignNpcEntityData(World world, NpcEntityData data){
+        NpcData npcData = NpcDataLookup.getNpcData(world, data.npcDataId);
+        Race race = RaceLookup.getRace(world, npcData.getRaceId());
 
+        NpcTextureData.Identity textureIdentity = NpcTextureData.Identity.create(npcData.getNpcTextureData(), data.category);
+
+        NpcEntityTextureData generatedTextureData = generateSkinTextureData(new NpcEntityTextureData(), textureIdentity);
+
+        DynamicRegistryManager manager = world.getRegistryManager();
+
+        generatedTextureData = generateEyeTextureData(generatedTextureData, textureIdentity, npcData.getNpcTextureData().haveEmissiveEyes(textureIdentity));
+        generatedTextureData = generateHairTextureData(generatedTextureData, textureIdentity, manager);
+        generatedTextureData = generateClothingTextureData(generatedTextureData, textureIdentity);
+
+        setNpcTextureData(generatedTextureData);
+
+        race.applyNpcAttributes(this);
+        NpcUtil.equipAll(this, npcData.getGear());
+    }
     private void initializeData(World world) {
         DynamicRegistryManager manager = world.getRegistryManager();
 

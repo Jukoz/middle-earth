@@ -25,6 +25,9 @@ import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
@@ -341,7 +344,8 @@ public class OnboardingFactionScreenController {
         }
 
         _selectedRace = currentFaction.getRaces(_world).get(index);
-        _currentNpcEntity = NpcEntity.create(_world);
+        NpcData npcData = NpcDataLookup.getNpcData(_world, currentFaction.getAllNpcDatas().get(NpcRank.VETERAN).getFirst());
+        _currentNpcEntity = NpcEntity.create(_world, MinecraftClient.getInstance().player.getBlockPos(), npcData, _selectedFaction.getId());
     }
 
     public void updateSpawnPoint(int indexDifference){

@@ -124,13 +124,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
     public void setEntity(NpcEntity npcEntity) {
         this.entity = npcEntity;
     }
-    public void updateToDefaultEntity(World world) {
-        //BanditHumanEntity entity = new BanditHumanEntity(ModEntities.BANDIT_MILITIA, world);
-        //entity.setAiDisabled(true);
 
-        //this.entity = new NpcEntity(ModEntities.NPC, world);
-        this.entity = NpcEntity.create(world);
-    }
 
     private void updateEquipment(NpcGearData data){
         if(data == null) {

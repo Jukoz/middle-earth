@@ -55,12 +55,10 @@ public class StructureSpawnNest {
     public int getBedRadius() {
         return this.bedRadius;
     }
-    private BlockPos getBlockPosOffset() {
+    public BlockPos getBlockPosOffset() {
         return this.blockPosOffset;
     }
-    private List<StructureSpawnNestPool> getNpcSpawnNestPool() {
+    public List<StructureSpawnNestPool> getNpcSpawnNestPool() {
         return structureSpawnNestPools;
     }
-
-
 }

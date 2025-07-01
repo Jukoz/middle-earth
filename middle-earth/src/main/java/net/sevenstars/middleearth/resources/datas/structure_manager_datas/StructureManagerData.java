@@ -35,7 +35,7 @@ public class StructureManagerData {
         return this.id;
     }
 
-    private List<StructureSpawnNest> getNpcSpawnNest() {
+    public List<StructureSpawnNest> getNpcSpawnNest() {
         return structureSpawnNests;
     }
 }

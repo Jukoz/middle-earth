@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.resources.datas.structure_manager_datas;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.resources.FactionsME;
 
 import java.util.Optional;
 
@@ -61,7 +62,9 @@ public class StructureSpawnNestPool {
     public Identifier getNpcIdentifier() {
         return this.npcIdentifier;
     }
-
+    public Identifier getFactionIdentifier() {
+        return FactionsME.GONDOR.getId();
+    }
     public int getWeight() {
         return this.weight;
     }

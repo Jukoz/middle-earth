@@ -10,6 +10,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
@@ -104,7 +105,7 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
             context.drawText(textRenderer, continueText,
                     startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),
                     startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
-                    0, false);
+                    Colors.BLACK, false);
 
             continueAsCharacterButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
             if(focusEnabled && continueAsCharacterButton.isFocused()){
@@ -119,7 +120,7 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
             Text delayText = Text.literal(String.valueOf((Math.round(this.currentDelay * 10f) /10f)));
             context.drawText(textRenderer, delayText,
                     startX + (panelSizeX / 2) - (textRenderer.getWidth(delayText) / 2),
-                    startY + 5, 0xc4343e, true);
+                    startY + 5, Colors.LIGHT_RED, true);
         }
 
         if(canResetCharacter) {
@@ -134,7 +135,7 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
             context.drawText(textRenderer, resetText,
                     startX + (int) ((panelSizeX - textRenderer.getWidth(resetText)) / 2f),
                     startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
-                    0, false);
+                    Colors.BLACK, false);
             resetCharacterButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
             if(focusEnabled && resetCharacterButton.isFocused()){
                 context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_WIDGET,

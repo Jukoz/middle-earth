@@ -6,6 +6,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
@@ -73,7 +74,7 @@ public class ReturnConfirmationScreen extends Screen {
             context.drawText(textRenderer, continueText,
                     startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),
                     startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
-                    0, false);
+                    Colors.BLACK, false);
 
             returnToOverworldButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
             if(ModWidget.getFocusEnabled() && returnToOverworldButton.isFocused()){
