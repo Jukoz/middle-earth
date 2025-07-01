@@ -71,6 +71,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         Random random = new Random();
         MiddleEarth.LOGGER.logDebugMsg("Respawning all entities");
 
+
         for(int i = 0; i < 3; i ++){
             NpcEntity npcEntityToSpawn = new NpcEntity(ModEntities.NPC, this.getWorld());
             npcEntityToSpawn.setPos(pos.getX() + random.nextInt(-3, 3), pos.getY() + 2, pos.getZ() + random.nextInt(-3, 3));

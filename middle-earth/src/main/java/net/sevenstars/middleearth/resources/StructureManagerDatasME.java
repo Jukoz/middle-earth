@@ -51,14 +51,14 @@ public class StructureManagerDatasME {
 
     static {
         TEMPLATE = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "template"), List.of(
-            new StructureSpawnNest(IdentifierUtil.getIdentifierFromString("npc_nest_a"), 20, new BlockPos(0,0,0), List.of(
+            new StructureSpawnNest(IdentifierUtil.getIdentifierFromString("npc_nest_a"), 100, new BlockPos(0,0,0), List.of(
                     new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_CITADEL_GUARDS.getId(), 3).SetFixAmount(5),
                     new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_KNIGHT.getId(), 2).SetRangeAmount(3, 4)
-            )),
-            new StructureSpawnNest(IdentifierUtil.getIdentifierFromString("npc_nest_b"), 15, new BlockPos(0,0,0), List.of(
+            )).WithBedRadius(20),
+            new StructureSpawnNest(IdentifierUtil.getIdentifierFromString("npc_nest_b"), 200, new BlockPos(0,0,0), List.of(
                     new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_CITADEL_GUARDS.getId(), 2).SetFixAmount(3),
                     new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_KNIGHT.getId(), 4).SetRangeAmount(1, 4)
-            ))
+            )).WithBedRadius(10)
         ));
     }
 }
