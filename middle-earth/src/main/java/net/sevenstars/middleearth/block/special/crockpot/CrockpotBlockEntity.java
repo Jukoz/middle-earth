@@ -26,6 +26,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
@@ -316,17 +318,17 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
-        Inventories.writeNbt(nbt, this.inventory, true, registries);
-        nbt.putInt(ID + ".progress", this.progress);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
+        Inventories.writeData(view, this.inventory);
+        view.putInt(ID + ".progress", this.progress);
     }
 
     @Override
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
         this.inventory.clear();
-        Inventories.readNbt(nbt, this.inventory, registries);
-        this.progress = nbt.getInt(ID + ".progress", 0);
+        Inventories.readData(view, this.inventory);
+        this.progress = view.getInt(ID + ".progress", 0);
     }
 }

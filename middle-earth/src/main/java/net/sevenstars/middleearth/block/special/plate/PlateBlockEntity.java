@@ -11,6 +11,8 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.block.ModBlockEntities;
 
@@ -22,20 +24,17 @@ public class PlateBlockEntity extends BlockEntity implements SingleStackInventor
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
-
+    protected void writeData(WriteView view) {
+        super.writeData(view);
         if (!food.isEmpty()) {
-            RegistryOps<NbtElement> registryOps = registries.getOps(NbtOps.INSTANCE);
-            nbt.put("Item", ItemStack.CODEC, registryOps, food);
+            view.put("Item", ItemStack.CODEC, food);
         }
     }
 
     @Override
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
-        RegistryOps<NbtElement> registryOps = registries.getOps(NbtOps.INSTANCE);
-        food = nbt.get("Item", ItemStack.CODEC, registryOps).orElse(ItemStack.EMPTY);
+    protected void readData(ReadView view) {
+        super.readData(view);
+        food = view.read("Item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
     }
 
     @Override
