@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.loading.v1.*;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
@@ -293,10 +292,10 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.FIRE_OF_ORTHANC, BlockRenderLayer.CUTOUT);
 
-        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CROCKPOT, RenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SILVER_PLATE, RenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CERAMIC_PLATE, RenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.TAPPER, RenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CROCKPOT, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SILVER_PLATE, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CERAMIC_PLATE, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.TAPPER, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModBlocks.POINTED_LIMESTONE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.POINTED_GALONN, BlockRenderLayer.CUTOUT);
