@@ -123,6 +123,8 @@ public class MiddleEarth implements ModInitializer {
 		NpcME.register();
 		FactionsME.register();
 
+		ModRegistries.registerRegistryAliases();
+
 		try {
 			new MiddleEarthMapGeneration();
 		} catch (Exception e) {

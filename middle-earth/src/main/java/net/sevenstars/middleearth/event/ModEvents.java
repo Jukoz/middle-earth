@@ -29,7 +29,7 @@ public class ModEvents {
     public static void register(){
         ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {
             ServerPlayerEntity player = serverPlayNetworkHandler.getPlayer();
-            MiddleEarthHeightMap.setSeed(player.getServerWorld().getSeed());
+            MiddleEarthHeightMap.setSeed(player.getWorld().getSeed());
 
             PlayerData data = StateSaverAndLoader.getPlayerState(player);
             if(data == null)

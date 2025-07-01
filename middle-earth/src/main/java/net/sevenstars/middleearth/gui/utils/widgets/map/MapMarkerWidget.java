@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.gui.utils.widgets.map;
 
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
@@ -177,14 +178,14 @@ public class MapMarkerWidget extends ModWidget {
 
         // draw marker or arrow
 
-        context.drawTexture(RenderLayer::getGuiTextured, (isArrow) ? MAP_ARROWS : MAP_MARKERS,
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, (isArrow) ? MAP_ARROWS : MAP_MARKERS,
                 drawStart.x, drawStart.y, drawUvs.x, drawUvs.y,
                 drawSize.x, drawSize.y,256, 256);
 
 
         // draw marker or arrow (FOCUSED)
         if(isFocused || ((isSelected || forceSelectedVisual) && getFocusEnabled())){
-            context.drawTexture(RenderLayer::getGuiTextured, (isArrow) ? MAP_ARROWS : MAP_MARKERS,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, (isArrow) ? MAP_ARROWS : MAP_MARKERS,
                     focusedStart.x, focusedStart.y, focusedUvs.x, focusedUvs.y,
                     focusedSize.x, focusedSize.y,256, 256);
         }

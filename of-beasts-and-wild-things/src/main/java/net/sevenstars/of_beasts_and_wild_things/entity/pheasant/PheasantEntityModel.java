@@ -1,12 +1,20 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.pheasant;
 
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.animation.CamelAnimations;
 import net.minecraft.client.render.entity.model.EntityModel;
 
 public class PheasantEntityModel extends EntityModel<PheasantEntityRenderState> {
+    private final Animation walkingAnimation;
+    private final Animation idlingAnimation;
+    private final Animation diggingAnimation;
 
     public PheasantEntityModel(ModelPart root) {
         super(root);
+        this.walkingAnimation = PheasantEntityAnimations.WALK.createAnimation(root);
+        this.idlingAnimation = PheasantEntityAnimations.IDLE.createAnimation(root);
+        this.diggingAnimation = PheasantEntityAnimations.DIGGING.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -50,8 +58,8 @@ public class PheasantEntityModel extends EntityModel<PheasantEntityRenderState> 
     public void setAngles(PheasantEntityRenderState state) {
         super.setAngles(state);
 
-        animateWalking(PheasantEntityAnimations.WALK, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 5.0F, 5.0F);
-        animate(state.idleAnimationState, PheasantEntityAnimations.IDLE, state.age);
-        animate(state.diggingAnimationState, PheasantEntityAnimations.DIGGING, state.age, 1.2F);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 5.0F, 5.0F);
+        this.idlingAnimation.apply(state.idleAnimationState, state.age);
+        this.diggingAnimation.apply(state.diggingAnimationState, state.age, 1.2F);
     }
 }

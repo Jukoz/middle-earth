@@ -23,32 +23,32 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        var mineablePickaxe = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "mineable/pickaxe")));
-        var mineableAxe = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "mineable/axe")));
-        var mineableShovel = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("mineable/shovel")));
-        var mineableHoe = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("mineable/hoe")));
-        var swordEfficient = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("sword_efficient")));
+        var mineablePickaxe = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "mineable/pickaxe")));
+        var mineableAxe = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "mineable/axe")));
+        var mineableShovel = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("mineable/shovel")));
+        var mineableHoe = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("mineable/hoe")));
+        var swordEfficient = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("sword_efficient")));
 
-        var needsStoneTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("needs_stone_tool")));
-        var needsIronTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("needs_iron_tool")));
-        var needsDiamondTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("needs_diamond_tool")));
-        var needsNetheriteTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("fabric", "needs_tool_level_4")));
+        var needsStoneTools = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("needs_stone_tool")));
+        var needsIronTools = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("needs_iron_tool")));
+        var needsDiamondTools = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("needs_diamond_tool")));
+        var needsNetheriteTools = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("fabric", "needs_tool_level_4")));
 
-        var baseStoneOverworld = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("base_stone_overworld")));
+        var baseStoneOverworld = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("base_stone_overworld")));
 
-        var climbable = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("climbable")));
-        var impermeable = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("impermeable")));
+        var climbable = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("climbable")));
+        var impermeable = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("impermeable")));
 
-        var seat = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")));
-        var table = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "table")));
+        var seat = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")));
+        var table = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "table")));
 
-        var leaves = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("leaves")));
+        var leaves = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("leaves")));
 
-        var wool = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("wool")));
+        var wool = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("wool")));
 
-        var snapsGoatHorn = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("snaps_goat_horn")));
+        var snapsGoatHorn = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("snaps_goat_horn")));
 
-        var cobwebs = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs")));
+        var cobwebs = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs")));
 
         mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
         mineablePickaxe.add(MineablePickaxe.blocks.toArray(new Block[0]));
@@ -60,18 +60,18 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         swordEfficient.add(LeavesSets.blocks.toArray(new Block[0]));
 
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "saplings"))).add(Saplings.saplings.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "doors"))).add(Doors.doors.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "trapdoors"))).add(Trapdoors.trapdoors.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "buttons"))).add(Buttons.buttons.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fences"))).add(Fences.fences.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "wooden_fences"))).add(Fences.fences.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fence_gates"))).add(FenceGates.fenceGates.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "logs"))).add(Logs.logs.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "pressure_plates"))).add(PressurePlates.pressurePlates.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "walls"))).add(Walls.walls.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "planks"))).add(Planks.planks.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "crops"))).add(Crops.crops.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "saplings"))).add(Saplings.saplings.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "doors"))).add(Doors.doors.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "trapdoors"))).add(Trapdoors.trapdoors.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "buttons"))).add(Buttons.buttons.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fences"))).add(Fences.fences.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "wooden_fences"))).add(Fences.fences.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fence_gates"))).add(FenceGates.fenceGates.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "logs"))).add(Logs.logs.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "pressure_plates"))).add(PressurePlates.pressurePlates.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "walls"))).add(Walls.walls.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "planks"))).add(Planks.planks.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "crops"))).add(Crops.crops.toArray(new Block[0]));
 
         //Ores
         TagKey<Block> iron_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of( "iron_ores"));
@@ -86,35 +86,35 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {
-                getOrCreateTagBuilder(coal_ores)
+                valueLookupBuilder(coal_ores)
                         .add(set.coal_ore());
             }
             if(set.copper_ore() != null) {
-                getOrCreateTagBuilder(copper_ores)
+                valueLookupBuilder(copper_ores)
                         .add(set.copper_ore());
             }
             if(set.tin_ore() != null) {
-                getOrCreateTagBuilder(tin_ores)
+                valueLookupBuilder(tin_ores)
                         .add(set.tin_ore());
             }
             if(set.lead_ore() != null) {
-                getOrCreateTagBuilder(lead_ores)
+                valueLookupBuilder(lead_ores)
                         .add(set.lead_ore());
             }
             if(set.silver_ore() != null) {
-                getOrCreateTagBuilder(silver_ores)
+                valueLookupBuilder(silver_ores)
                         .add(set.silver_ore());
             }
             if(set.gold_ore() != null) {
-                getOrCreateTagBuilder(gold_ores)
+                valueLookupBuilder(gold_ores)
                         .add(set.gold_ore());
             }
             if(set.iron_ore() != null) {
-                getOrCreateTagBuilder(iron_ores)
+                valueLookupBuilder(iron_ores)
                         .add(set.iron_ore());
             }
             if(set.mithril_ore() != null) {
-                getOrCreateTagBuilder(mithril_ores)
+                valueLookupBuilder(mithril_ores)
                         .add(set.mithril_ore());
             }
         }

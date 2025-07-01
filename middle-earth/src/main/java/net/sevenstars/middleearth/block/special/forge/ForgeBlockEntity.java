@@ -6,6 +6,8 @@ import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
@@ -194,30 +196,30 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.writeNbt(nbt, registryLookup);
-        Inventories.writeNbt(nbt, this.inventory, true, registryLookup);
-        nbt.putInt(ID + ".progress", this.progress);
-        nbt.putInt(ID + ".boost-time", this.boostTime);
-        nbt.putInt(ID + ".fuel-time", this.fuelTime);
-        nbt.putInt(ID + ".max-fuel-time", this.maxFuelTime);
-        nbt.putInt(ID + ".mode", this.mode);
-        nbt.putInt(ID + ".storage", this.storage);
-        nbt.putString(ID + ".current-metal", this.currentMetal.getName());
+    protected void writeData(WriteView view) {
+        super.writeData(view);
+        Inventories.writeData(view, this.inventory, true);
+        view.putInt(ID + ".progress", this.progress);
+        view.putInt(ID + ".boost-time", this.boostTime);
+        view.putInt(ID + ".fuel-time", this.fuelTime);
+        view.putInt(ID + ".max-fuel-time", this.maxFuelTime);
+        view.putInt(ID + ".mode", this.mode);
+        view.putInt(ID + ".storage", this.storage);
+        view.putString(ID + ".current-metal", this.currentMetal.getName());
     }
 
     @Override
-    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
+    protected void readData(ReadView view) {
+        super.readData(view);
         this.inventory.clear();
-        Inventories.readNbt(nbt, this.inventory, registryLookup);
-        this.progress = nbt.getInt(ID + ".progress", 0);
-        this.boostTime = nbt.getInt(ID + ".boost-time", 0);
-        this.fuelTime = nbt.getInt(ID + ".fuel-time", 0);
-        this.maxFuelTime = nbt.getInt(ID + ".max-fuel-time", 0);
-        this.mode = nbt.getInt(ID + ".mode", 0);
-        this.storage = nbt.getInt(ID + ".storage", 0);
-        this.currentMetal = MetalTypes.valueOf(nbt.getString(ID + ".current-metal").get().toUpperCase());
+        Inventories.readData(view, this.inventory);
+        this.progress = view.getInt(ID + ".progress", 0);
+        this.boostTime = view.getInt(ID + ".boost-time", 0);
+        this.fuelTime = view.getInt(ID + ".fuel-time", 0);
+        this.maxFuelTime = view.getInt(ID + ".max-fuel-time", 0);
+        this.mode = view.getInt(ID + ".mode", 0);
+        this.storage = view.getInt(ID + ".storage", 0);
+        this.currentMetal = MetalTypes.valueOf(view.getString(ID + ".current-metal", "bronze").toUpperCase());
     }
 
     public void update() {

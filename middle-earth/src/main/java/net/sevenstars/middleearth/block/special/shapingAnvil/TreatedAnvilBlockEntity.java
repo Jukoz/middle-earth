@@ -5,6 +5,8 @@ import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.recipe.ServerRecipeManager;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
@@ -266,20 +268,20 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.writeNbt(nbt, registryLookup);
-        Inventories.writeNbt(nbt, this.inventory, true, registryLookup);
-        nbt.putInt("current-index", this.outputIndex);
-        nbt.putInt("current-max-index", this.maxOutputIndex);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
+        Inventories.writeData(view, this.inventory, true);
+        view.putInt("current-index", this.outputIndex);
+        view.putInt("current-max-index", this.maxOutputIndex);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
+    protected void readData(ReadView view) {
+        super.readData(view);
         this.inventory.clear();
-        Inventories.readNbt(nbt, this.inventory, registryLookup);
-        this.outputIndex = nbt.getInt("current-index", 0);
-        this.maxOutputIndex = nbt.getInt("current-max-index", 0);
+        Inventories.readData(view, this.inventory);
+        this.outputIndex = view.getInt("current-index", 0);
+        this.maxOutputIndex = view.getInt("current-max-index", 0);
     }
 
     @Override

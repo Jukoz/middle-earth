@@ -13,6 +13,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
@@ -228,10 +229,12 @@ public class TestNpcEntity extends PathAwareEntity implements RangedAttackMob {
         return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier, shotFrom);
     }
 
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
+    @Override
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
         this.updateAttackType();
     }
+
     /*
      @Override
     public int getXpToDrop() {

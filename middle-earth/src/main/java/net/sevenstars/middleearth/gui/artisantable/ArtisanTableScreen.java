@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
@@ -53,7 +54,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     private int scrollOffset;
     private boolean canCraft;
 
-    private static final Vector3f field_45497 = new Vector3f();
+    private static final Vector3f ARMOR_STAND_TRANSLATION = new Vector3f();
     private static final Quaternionf ARMOR_STAND_ROTATION = new Quaternionf().rotationXYZ(0.43633232f, 0.0f, (float)Math.PI);
 
     private ArmorStandEntity armorStand;
@@ -168,14 +169,11 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        //RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        //RenderSystem.setShaderTexture(0, TEXTURE);
         int i = this.x;
         int j = this.y;
-        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
         int k = (int)(41.0F * this.scrollAmount);
-        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, i + 143, j + 15 + k, 232 + (this.shouldScroll() ? 0 : 12), 0, 12, 15, 256, 256);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 143, j + 15 + k, 232 + (this.shouldScroll() ? 0 : 12), 0, 12, 15, 256, 256);
 
         int l = this.x + 76;
         int m = this.y + 14;
@@ -185,17 +183,17 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         for(int w = 0; w < 3; w++) {
             for(int z = 0; z < 3; z++) {
                 if(handler.slots.get(w*3 + z).isEnabled()) {
-                    context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SLOT_OFFSET_X + SLOT_SCALE*z,y + SLOT_OFFSET_Y + SLOT_SCALE*w, 232, 15, SLOT_SCALE, SLOT_SCALE, 256, 256);
+                    context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,x + SLOT_OFFSET_X + SLOT_SCALE*z,y + SLOT_OFFSET_Y + SLOT_SCALE*w, 232, 15, SLOT_SCALE, SLOT_SCALE, 256, 256);
                     InputType inputType = shape.getInputType(z, w);
                     if(!handler.slots.get(w*3 + z).hasStack()) {
                         switch (inputType){
-                            case HANDLE -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 87, 16, 16, 256, 256);
-                            case HILT -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 103, 16, 16, 256, 256);
-                            case BLADE -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 119, 16, 16, 256, 256);
-                            case AXE -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 135, 16, 16, 256, 256);
-                            case PICKAXE -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 151, 16, 16, 256, 256);
-                            case SHOVEL -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 167, 16, 16, 256, 256);
-                            case HOE -> context.drawTexture(RenderLayer::getGuiTextured, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 183, 16, 16, 256, 256);
+                            case HANDLE -> context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 87, 16, 16, 256, 256);
+                            case HILT -> context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 103, 16, 16, 256, 256);
+                            case BLADE -> context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 119, 16, 16, 256, 256);
+                            case AXE -> context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 135, 16, 16, 256, 256);
+                            case PICKAXE -> context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 151, 16, 16, 256, 256);
+                            case SHOVEL -> context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 167, 16, 16, 256, 256);
+                            case HOE -> context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 183, 16, 16, 256, 256);
                         }
                     }
                 }
@@ -204,7 +202,8 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
         this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
         this.renderRecipeIcons(context, l, m, n);
-        InventoryScreen.drawEntity(context, this.x + 206, this.y + 75, 30.0f, field_45497, ARMOR_STAND_ROTATION, null, this.armorStand);
+        InventoryScreen.drawEntity(context, i, j, this.x + 206, this.y + 75, 25.0F, ARMOR_STAND_TRANSLATION, ARMOR_STAND_ROTATION, (Quaternionf)null, this.armorStand);
+
     }
 
     @Override
@@ -265,7 +264,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                 n += 36;
             }
 
-            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, k, m - 1, 0, n, 16, 18, 256,256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, k, m - 1, 0, n, 16, 18, 256,256);
         }
 
     }
