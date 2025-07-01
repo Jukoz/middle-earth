@@ -16,6 +16,7 @@ import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
+import net.minecraft.inventory.StackWithSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -24,6 +25,8 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -34,6 +37,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -114,10 +118,10 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putBoolean("Sitting", this.isSitting());
-        nbt.putBoolean("ChestedBeast", this.hasChest());
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.putBoolean("Sitting", this.isSitting());
+        view.putBoolean("ChestedBeast", this.hasChest());
         if (this.hasChest()) {
             /* Will be readded on Mount refactor
             NbtList nbtList = new NbtList();
@@ -134,19 +138,18 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.setSitting(nbt.getBoolean("Sitting").get());
-        this.setHasChest(nbt.getBoolean("ChestedBeast").get());
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.setSitting(view.getBoolean("Sitting", false));
+        this.setHasChest(view.getBoolean("ChestedBeast", false));
         this.onChestedStatusChanged();
         if (this.hasChest()) {
-            NbtList nbtList = nbt.getList("Items").get();
+            Iterator list = view.getTypedListView("Items", StackWithSlot.CODEC).iterator();
 
-            for(int i = 0; i < nbtList.size(); ++i) {
-                NbtCompound nbtCompound = nbtList.getCompound(i).get();
-                int j = nbtCompound.getByte("Slot").get() & 255;
-                if (j >= 2 && j < this.items.size()) {
-                    this.items.setStack(j, (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY));
+            while(list.hasNext()) {
+                StackWithSlot stackWithSlot = (StackWithSlot)list.next();
+                if (stackWithSlot.isValidSlot(this.items.size())) {
+                    this.items.setStack(stackWithSlot.slot(), stackWithSlot.stack());
                 }
             }
         }

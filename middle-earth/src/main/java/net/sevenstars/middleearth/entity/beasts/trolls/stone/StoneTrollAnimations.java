@@ -1,12 +1,9 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.stone;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 
 public class StoneTrollAnimations {
-    public static final Animation WALK = Animation.Builder.create(1f).looping()
+    public static final AnimationDefinition WALK = AnimationDefinition.Builder.create(1f).looping()
             .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(15f, 0f, 0f),
@@ -71,7 +68,7 @@ public class StoneTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-0.09f, 0.33f, 4.98f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation EATING = Animation.Builder.create(1.4583433f)
+    public static final AnimationDefinition EATING = AnimationDefinition.Builder.create(1.4583433f)
             .addBoneAnimation("r",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -118,7 +115,7 @@ public class StoneTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.4583433f, AnimationHelper.createRotationalVector(-5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation SITDOWN = Animation.Builder.create(1.5f)
+    public static final AnimationDefinition SITDOWN = AnimationDefinition.Builder.create(1.5f)
             .addBoneAnimation("r",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -223,7 +220,7 @@ public class StoneTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation CHARGE = Animation.Builder.create(1.0416767f).looping()
+    public static final AnimationDefinition CHARGE = AnimationDefinition.Builder.create(1.0416767f).looping()
             .addBoneAnimation("r",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, -2.5f),
@@ -298,7 +295,7 @@ public class StoneTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-35f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation THROW = Animation.Builder.create(2.4167665f).looping()
+    public static final AnimationDefinition THROW = AnimationDefinition.Builder.create(2.4167665f).looping()
             .addBoneAnimation("r",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -403,7 +400,7 @@ public class StoneTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(2.0834335f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation ATTACK = Animation.Builder.create(1f)
+    public static final AnimationDefinition ATTACK = AnimationDefinition.Builder.create(1f)
             .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -413,7 +410,7 @@ public class StoneTrollAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
 
-    public static final Animation SITTING = Animation.Builder.create(1f).looping()
+    public static final AnimationDefinition SITTING = AnimationDefinition.Builder.create(1f).looping()
             .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-20f, 0f, 0f),

@@ -1,7 +1,10 @@
 package net.sevenstars.middleearth.entity;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricTrackedDataRegistry;
 import net.minecraft.entity.data.TrackedDataHandler;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 
@@ -16,7 +19,7 @@ public class ModTrackedDataHandlerRegistry {
     }
 
     public static void register() {
-        TrackedDataHandlerRegistry.register(ModTrackedDataHandlerRegistry.NPC_ENTITY_DATA);
-        TrackedDataHandlerRegistry.register(ModTrackedDataHandlerRegistry.NPC_ENTITY_TEXTURE_DATA);
+        FabricTrackedDataRegistry.register(Identifier.of(MiddleEarth.MOD_ID, "npc_entity_data"), ModTrackedDataHandlerRegistry.NPC_ENTITY_DATA);
+        FabricTrackedDataRegistry.register(Identifier.of(MiddleEarth.MOD_ID, "npc_entity_texture_data"), ModTrackedDataHandlerRegistry.NPC_ENTITY_TEXTURE_DATA);
     }
 }

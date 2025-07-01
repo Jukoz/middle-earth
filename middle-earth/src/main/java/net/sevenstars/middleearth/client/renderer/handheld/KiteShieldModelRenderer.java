@@ -26,8 +26,10 @@ import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.client.model.hand.HeldBannerEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.KiteShieldEntityModel;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class KiteShieldModelRenderer implements SpecialModelRenderer<ComponentMap> {
 
@@ -56,6 +58,12 @@ public class KiteShieldModelRenderer implements SpecialModelRenderer<ComponentMa
         matrices.pop();
     }
 
+    @Override
+    public void collectVertices(Set<Vector3f> vertices) {
+        MatrixStack matrixStack = new MatrixStack();
+        matrixStack.scale(1.0F, -1.0F, -1.0F);
+        this.model.getRootPart().collectVertices(matrixStack, vertices);
+    }
 
     public static void renderCanvas(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, ModelPart canvas, SpriteIdentifier baseSprite, boolean isBanner, DyeColor color, BannerPatternsComponent patterns, boolean glint, boolean solid) {
         canvas.render(matrices, baseSprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntitySolid, solid, glint), light, overlay);

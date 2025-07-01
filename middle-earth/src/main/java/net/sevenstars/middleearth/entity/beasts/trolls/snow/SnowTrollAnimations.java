@@ -1,12 +1,9 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.snow;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 
 public class SnowTrollAnimations {
-    public static final Animation ROAR = Animation.Builder.create(2.5f)
+    public static final AnimationDefinition ROAR = AnimationDefinition.Builder.create(2.5f)
             .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -103,7 +100,7 @@ public class SnowTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(2.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation WALKING = Animation.Builder.create(1f).looping()
+    public static final AnimationDefinition WALKING = AnimationDefinition.Builder.create(1f).looping()
             .addBoneAnimation("right_leg",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -190,7 +187,7 @@ public class SnowTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation CHARGING = Animation.Builder.create(1f).looping()
+    public static final AnimationDefinition CHARGING = AnimationDefinition.Builder.create(1f).looping()
             .addBoneAnimation("right_leg",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -285,7 +282,7 @@ public class SnowTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(15f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation THROWING = Animation.Builder.create(3.5f)
+    public static final AnimationDefinition THROWING = AnimationDefinition.Builder.create(3.5f)
             .addBoneAnimation("torso",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -368,7 +365,7 @@ public class SnowTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(3.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation ATTACK = Animation.Builder.create(1.25f)
+    public static final AnimationDefinition ATTACK = AnimationDefinition.Builder.create(1.25f)
             .addBoneAnimation("torso",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),

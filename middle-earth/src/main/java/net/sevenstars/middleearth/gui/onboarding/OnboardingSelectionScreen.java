@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.gui.onboarding;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -99,7 +100,7 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
         int startX = (width / 2) - (panelSizeX / 2);
         int startY = (height / 2) - (panelSizeY / 2);
         if(continueAsCharacterButton.active){
-            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_WIDGET,
                     startX, startY, 0, continueAsCharacterButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
                     panelSizeX, panelSizeY, 256, 256);
 
@@ -111,12 +112,12 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
 
             continueAsCharacterButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
             if(focusEnabled && continueAsCharacterButton.isFocused()){
-                context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_WIDGET,
                         startX, startY, 103, 0,
                         panelSizeX, panelSizeY, 256, 256);
             }
         } else {
-            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_WIDGET,
                     startX, startY, 0, 38,
                     panelSizeX, panelSizeY, 256, 256);
             Text delayText = Text.literal(String.valueOf((Math.round(this.currentDelay * 10f) /10f)));
@@ -129,7 +130,7 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
 
             startY += panelSizeY + margin;
 
-            context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_WIDGET,
                     startX, startY,0, resetCharacterButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
                     panelSizeX, panelSizeY, 256, 256);
 
@@ -140,7 +141,7 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
                     0, false);
             resetCharacterButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
             if(focusEnabled && resetCharacterButton.isFocused()){
-                context.drawTexture(RenderLayer::getGuiTextured, BUTTON_WIDGET,
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_WIDGET,
                         startX, startY,0, 103, 0,
                         panelSizeX, panelSizeY, 256, 256);
             }
