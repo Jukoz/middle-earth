@@ -78,7 +78,7 @@ public interface ModArmorMaterials {
                 map.put(EquipmentType.CHESTPLATE, 1);
                 map.put(EquipmentType.HELMET, 1);
                 map.put(EquipmentType.BODY, 1);
-                durabilityMultiplier = 5;
+                durabilityMultiplier = 2;
                 toughness = 0.0f;
                 knockbackResistance = 0.0f;
                 enchantability = 10;
@@ -89,7 +89,7 @@ public interface ModArmorMaterials {
                 map.put(EquipmentType.CHESTPLATE, 3);
                 map.put(EquipmentType.HELMET, 1);
                 map.put(EquipmentType.BODY, 4);
-                durabilityMultiplier = 7;
+                durabilityMultiplier = 6;
                 toughness = 0.0f;
                 knockbackResistance = 0.0f;
                 enchantability = 10;
@@ -111,7 +111,7 @@ public interface ModArmorMaterials {
                 map.put(EquipmentType.CHESTPLATE, 5);
                 map.put(EquipmentType.HELMET, 2);
                 map.put(EquipmentType.BODY, 6);
-                durabilityMultiplier = 15;
+                durabilityMultiplier = 18;
                 toughness = 0.5f;
                 knockbackResistance = 0.0f;
                 enchantability = 10;
@@ -122,21 +122,20 @@ public interface ModArmorMaterials {
                 map.put(EquipmentType.CHESTPLATE, 6);
                 map.put(EquipmentType.HELMET, 2);
                 map.put(EquipmentType.BODY, 8);
-                durabilityMultiplier = 25;
+                durabilityMultiplier = 23;
                 toughness = 1.0f;
-                knockbackResistance = 0.1f;
+                knockbackResistance = 0.0f;
                 enchantability = 10;
-
             }
             case HEAVY -> {
                 map.put(EquipmentType.BOOTS, 3);
                 map.put(EquipmentType.LEGGINGS, 6);
-                map.put(EquipmentType.CHESTPLATE, 7);
+                map.put(EquipmentType.CHESTPLATE, 8);
                 map.put(EquipmentType.HELMET, 3);
                 map.put(EquipmentType.BODY, 10);
-                durabilityMultiplier = 35;
+                durabilityMultiplier = 37;
                 toughness = 2.0f;
-                knockbackResistance = 0.1f;
+                knockbackResistance = 0.0f;
                 enchantability = 10;
             }
             default -> {
