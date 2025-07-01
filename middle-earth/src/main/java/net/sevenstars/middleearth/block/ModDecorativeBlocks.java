@@ -116,6 +116,8 @@ public class ModDecorativeBlocks {
     public static final Block TORCH_OF_ORTHANC = registerBlock("torch_of_orthanc",
             (settings) -> new TorchOfOrthancBlock(settings, ParticleTypes.FLAME), AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool());
 
+    public static final Block CERAMIC_CROCKPOT = registerBlockWithItem("ceramic_crockpot",
+            CrockpotBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
     public static final Block CROCKPOT = registerBlockWithItem("crockpot",
             CrockpotBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
     public static final Block CERAMIC_PLATE = registerBlockWithItem("ceramic_plate",

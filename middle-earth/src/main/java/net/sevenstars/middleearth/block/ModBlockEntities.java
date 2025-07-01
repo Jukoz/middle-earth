@@ -35,6 +35,7 @@ public class ModBlockEntities {
     public static BlockEntityType<BellowsBlockEntity> BELLOWS = register("bellows", BellowsBlockEntity::new,
             ModDecorativeBlocks.BELLOWS);
     public static BlockEntityType<CrockpotBlockEntity> CROCKPOT = register("crockpot", CrockpotBlockEntity::new,
+            ModDecorativeBlocks.CERAMIC_CROCKPOT,
             ModDecorativeBlocks.CROCKPOT);
     public static BlockEntityType<PlateBlockEntity> PLATE = register("plate", PlateBlockEntity::new,
             ModDecorativeBlocks.SILVER_PLATE, ModDecorativeBlocks.CERAMIC_PLATE);

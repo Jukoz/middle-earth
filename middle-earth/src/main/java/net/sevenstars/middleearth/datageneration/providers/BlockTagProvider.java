@@ -275,6 +275,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         needsDiamondTools.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
+        needsStoneTools.add(ModDecorativeBlocks.CERAMIC_CROCKPOT);
         needsStoneTools.add(ModDecorativeBlocks.CROCKPOT);
 
         needsIronTools.add(ModDecorativeBlocks.BIG_BRAZIER);
@@ -321,6 +322,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineablePickaxe.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
+        mineablePickaxe.add(ModDecorativeBlocks.CERAMIC_CROCKPOT);
         mineablePickaxe.add(ModDecorativeBlocks.CROCKPOT);
 
         mineablePickaxe.add(ModDecorativeBlocks.DWARVEN_LANTERN);

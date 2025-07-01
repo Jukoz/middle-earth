@@ -292,6 +292,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.FIRE_OF_ORTHANC, BlockRenderLayer.CUTOUT);
 
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CERAMIC_CROCKPOT, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CROCKPOT, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SILVER_PLATE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CERAMIC_PLATE, BlockRenderLayer.CUTOUT);
