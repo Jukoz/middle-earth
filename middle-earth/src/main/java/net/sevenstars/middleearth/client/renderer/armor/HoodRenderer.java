@@ -28,12 +28,10 @@ import net.minecraft.util.math.ColorHelper;
 
 public class HoodRenderer implements ArmorRenderer {
 
-    private CustomHelmetModel customHelmetModel;
     private HelmetAddonModel hoodModel;
 
     public HoodRenderer() {
     }
-
 
     static void renderDyeableHood(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean helmet) {
         VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), stack.hasGlint());
@@ -48,7 +46,6 @@ public class HoodRenderer implements ArmorRenderer {
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        this.hoodModel = new CloakHoodModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
 
         if (slot == EquipmentSlot.HEAD) {
             HoodDataComponent hoodDataComponent = stack.get(DataComponentTypesME.HOOD_DATA);

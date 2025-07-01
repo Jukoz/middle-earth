@@ -5,6 +5,7 @@ import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomChestplateModel;
+import net.sevenstars.middleearth.client.model.equipment.CustomLeggingsModel;
 import net.sevenstars.middleearth.client.model.equipment.chest.ChestplateAddonModel;
 import net.sevenstars.middleearth.client.model.equipment.chest.capes.CloakCapeModel;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
@@ -24,22 +25,20 @@ import net.minecraft.util.Identifier;
 
 public class ChestplateArmorRenderer implements ArmorRenderer {
 
-    private CustomChestplateModel customChestplateModel;
+    private CustomChestplateModel customChestplateModel = new CustomChestplateModel(CustomChestplateModel.getTexturedModelData().createModel());;
+
     private ChestplateAddonModel capeModel;
-    private ChestplateAddonModel chestplateModel;
+    private ChestplateAddonModel chestplateAddonModel;
 
     public ChestplateArmorRenderer() {
     }
 
     public ChestplateArmorRenderer(ChestplateAddonModel chestplateModel) {
-        this.chestplateModel = chestplateModel;
+        this.chestplateAddonModel = chestplateModel;
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        this.customChestplateModel = new CustomChestplateModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_CHESTPLATE));
-        this.capeModel = new CloakCapeModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
-
         CustomChestplateItem item = (CustomChestplateItem)stack.getItem();
         boolean dyeable = false;
 
@@ -59,13 +58,13 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
             String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
             ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customChestplateModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
 
-            if (this.chestplateModel != null) {
-                contextModel.copyTransforms(this.chestplateModel);
-                this.chestplateModel.setVisible(false);
-                this.chestplateModel.body.visible = true;
-                this.chestplateModel.rightArm.visible = true;
-                this.chestplateModel.leftArm.visible = true;
-                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
+            if (this.chestplateAddonModel != null) {
+                contextModel.copyTransforms(this.chestplateAddonModel);
+                this.chestplateAddonModel.setVisible(false);
+                this.chestplateAddonModel.body.visible = true;
+                this.chestplateAddonModel.rightArm.visible = true;
+                this.chestplateAddonModel.leftArm.visible = true;
+                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
             }
 
             CapeDataComponent capeDataComponent = stack.get(DataComponentTypesME.CAPE_DATA);
@@ -79,6 +78,7 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
                 capeModel.rightLeg.visible = true;
                 capeModel.leftLeg.visible = true;
                 //capeModel.setAngles(bipedEntityRenderState);
+
                 if (ModDyeablePieces.dyeableCapes.containsKey(capeDataComponent.getCape())) {
                     CapeRenderer.renderDyeableCape(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), true);
                     if (ModDyeablePieces.dyeableCapes.get(capeDataComponent.cape()).booleanValue()){

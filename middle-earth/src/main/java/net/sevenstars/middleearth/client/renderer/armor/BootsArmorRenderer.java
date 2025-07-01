@@ -5,6 +5,7 @@ import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomBootsModel;
+import net.sevenstars.middleearth.client.model.equipment.chest.capes.armored.CapeSlimModel;
 import net.sevenstars.middleearth.recipe.ModTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -17,15 +18,13 @@ import net.minecraft.util.Identifier;
 
 public class BootsArmorRenderer implements ArmorRenderer {
 
-    private CustomBootsModel customBootsModel;
+    private CustomBootsModel customBootsModel = new CustomBootsModel(CustomBootsModel.getTexturedModelData().createModel());
 
     public BootsArmorRenderer() {
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        this.customBootsModel = new CustomBootsModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_BOOTS));
-
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.FEET) {

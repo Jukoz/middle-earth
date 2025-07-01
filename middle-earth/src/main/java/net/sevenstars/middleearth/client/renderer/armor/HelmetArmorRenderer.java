@@ -5,6 +5,7 @@ import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.equipment.CustomHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.CustomLeggingsModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 import net.sevenstars.middleearth.client.model.equipment.head.hoods.CloakHoodModel;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
@@ -23,23 +24,20 @@ import net.minecraft.util.Identifier;
 
 public class HelmetArmorRenderer implements ArmorRenderer {
 
-    private CustomHelmetModel customHelmetModel;
+    private CustomHelmetModel customHelmetModel = new CustomHelmetModel(CustomHelmetModel.getTexturedModelData().createModel());
     private HelmetAddonModel hoodModel;
-    private HelmetAddonModel helmetModel;
+    private HelmetAddonModel helmetAddonModel;
 
     public HelmetArmorRenderer() {
     }
 
     public HelmetArmorRenderer(HelmetAddonModel helmetModel) {
-        this.helmetModel = helmetModel;
+        this.helmetAddonModel = helmetModel;
     }
 
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        this.customHelmetModel = new CustomHelmetModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_HELMET));
-        this.hoodModel = new CloakHoodModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
-
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.HEAD) {
@@ -58,15 +56,15 @@ public class HelmetArmorRenderer implements ArmorRenderer {
             String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
             ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customHelmetModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
 
-            if (this.helmetModel != null) {
-                contextModel.copyTransforms(this.helmetModel);
-                this.helmetModel.setVisible(false);
-                this.helmetModel.head.visible = true;
+            if (this.helmetAddonModel != null) {
+                contextModel.copyTransforms(this.helmetAddonModel);
+                this.helmetAddonModel.setVisible(false);
+                this.helmetAddonModel.head.visible = true;
                 //this.helmetModel.setAngles(bipedEntityRenderState);
                 if(texture.contains("_helmet.png")){
-                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
                 } else {
-                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
                 }
             }
 

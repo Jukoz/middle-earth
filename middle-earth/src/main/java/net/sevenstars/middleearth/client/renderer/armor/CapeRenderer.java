@@ -45,8 +45,6 @@ public class CapeRenderer implements ArmorRenderer {
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        this.capeModel = new CloakCapeModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
-
         if (slot == EquipmentSlot.CHEST) {
             CapeDataComponent capeDataComponent = stack.get(DataComponentTypesME.CAPE_DATA);
 
