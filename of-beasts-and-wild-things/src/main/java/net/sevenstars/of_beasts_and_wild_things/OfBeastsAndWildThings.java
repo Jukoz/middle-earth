@@ -8,7 +8,7 @@ import net.sevenstars.of_beasts_and_wild_things.item.ModItemGroups;
 
 public class OfBeastsAndWildThings implements ModInitializer {
 	public static final String MOD_ID = "wild-things";
-	public static final String MOD_VERSION = "1.0.0-1.21.5-beta-dev";
+	public static final String MOD_VERSION = "1.0.0-1.21.7-beta-dev";
 	public static final boolean IS_DEBUG = true;
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
 	@Override
