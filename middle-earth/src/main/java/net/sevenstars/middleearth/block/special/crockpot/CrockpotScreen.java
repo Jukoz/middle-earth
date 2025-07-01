@@ -30,13 +30,10 @@ public class CrockpotScreen extends HandledScreen<CrockpotScreenHandler> {
 
     @Override
     protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
-
-        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
-
-        context.drawTexture(RenderLayer::getGuiTextured, WATER_TEXTURE, this.x + 120, this.y + 31, 0, 0, 24, 24, 16, 16, 0xFF66AAEE);
+        //RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        //int x = (width - backgroundWidth) / 2;
+        //int y = (height - backgroundHeight) / 2;
+        //context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
+        //context.drawTexture(RenderLayer::getGuiTextured, WATER_TEXTURE, this.x + 120, this.y + 31, 0, 0, 24, 24, 16, 16, 0xFF66AAEE);
     }
 }
