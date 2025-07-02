@@ -12,6 +12,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -29,11 +30,9 @@ import java.util.List;
 
 public class StructureManagerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
     private static final String ID = "structure_manager";
-
+    private Identifier structureManagerDataIdentifier;
     private StructureManagerData structureManagerData;
-
-    private List<LivingEntity> entities = new ArrayList<>();
-    private StructureManagerNestData structureManagerNestData;
+    private StructureManagerNestDataMap structureManagerNestDataMap;
 
     public StructureManagerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STRUCTURE_MANAGER, pos, state);
@@ -42,14 +41,30 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     @Override
     public void setWorld(World world) {
         super.setWorld(world);
+        if(world == null || world.isClient)
+            return;
         Initialize();
-        entities.clear();
     }
 
     private void Initialize() {
-        structureManagerData = StructureManagerService.GetStructureManagerData(world, StructureManagerDatasME.TEMPLATE.getId());
-        if(structureManagerData == null)
-            MiddleEarth.LOGGER.logWarn("StructureManagerBlockEntity :: Data couldn't be found for the structure manager block %s".formatted(pos.toString()));
+        MiddleEarth.LOGGER.logDebugMsg("SMBE : Initialization");
+        if(structureManagerDataIdentifier != null){
+            structureManagerData = StructureManagerService.GetStructureManagerData(world, structureManagerDataIdentifier);
+        } else {
+            structureManagerData = StructureManagerService.GetStructureManagerData(world, StructureManagerDatasME.TEMPLATE.getId());
+        }
+
+        if(structureManagerData == null){
+            MiddleEarth.LOGGER.logWarn("SMBE :: Data couldn't be found for the structure manager block %s".formatted(pos.toString()));
+            return;
+        }
+        List<StructureManagerNestData> nestDatas = new ArrayList<>();
+        for(StructureSpawnNest nest : structureManagerData.getNpcSpawnNest()){
+            nestDatas.add(new StructureManagerNestData(nest));
+        }
+        structureManagerNestDataMap = new StructureManagerNestDataMap(nestDatas);
+
+        MiddleEarth.LOGGER.logWarn("SMBE :: Data is successfully initialized %s".formatted(pos.toString()));
     }
 
     @Override
@@ -70,58 +85,75 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     @Override
     protected void writeData(WriteView view) {
         super.writeData(view);
-        if(this.structureManagerNestData != null){
-            this.structureManagerNestData.setRespawnTickProgress(world.getTickManager().getStepTicks());
-            view.put("%s.entities".formatted(ID), StructureManagerNestData.CODEC, this.structureManagerNestData);
-            MiddleEarth.LOGGER.logDebugMsg("Write Data : %s".formatted(this.structureManagerNestData.getRespawnTickProgress()));
+        MiddleEarth.LOGGER.logWarn("SMBE :: WriteData :: began");
+        view.putString("%s.structure_manager_id".formatted(ID), structureManagerData.getId().toString());
+
+        if(this.structureManagerNestDataMap != null){
+            view.put("%s.nests".formatted(ID), StructureManagerNestDataMap.CODEC, this.structureManagerNestDataMap);
         }
-      }
+    }
+
+
 
     @Override
     protected void readData(ReadView view) {
         super.readData(view);
-        var list = view.getTypedListView("%s.entities".formatted(ID), StructureManagerNestData.CODEC).stream().toList();
-        if(!list.isEmpty())
-            this.structureManagerNestData = list.getFirst();
-        if(structureManagerNestData == null)
-            structureManagerData = StructureManagerService.GetStructureManagerData(world, StructureManagerDatasME.TEMPLATE.getId());
+        MiddleEarth.LOGGER.logWarn("SMBE :: ReadData :: began");
 
-        if(structureManagerNestData != null)
-            MiddleEarth.LOGGER.logDebugMsg("Read Data : %s".formatted(this.structureManagerNestData.getRespawnTickProgress()));
+        var foundId = view.getString("%s.structure_manager_id".formatted(ID), null);
+        if(foundId != null){
+            structureManagerDataIdentifier = Identifier.of(foundId);
+            if(world != null){
+                structureManagerData = StructureManagerService.GetStructureManagerData(world, Identifier.of(foundId));
+                if(structureManagerData == null)
+                    return;
+            }
+        }
+
+        var query = view.read("%s.nests".formatted(ID), StructureManagerNestDataMap.CODEC);
+        query.ifPresent(managerNestData -> this.structureManagerNestDataMap = managerNestData);
+
+        if(structureManagerNestDataMap != null)
+            MiddleEarth.LOGGER.logDebugMsg("SMBE :: ReadData :: %s".formatted(this.structureManagerNestDataMap.datas().size()));
         else
-            MiddleEarth.LOGGER.logDebugMsg("Read Data : Couldn't read structure manager nest data");
+            MiddleEarth.LOGGER.logDebugMsg("SMBE :: ReadData :: Couldn't read structure manager nest data");
     }
 
     public void alertDeath(LivingEntity entity) {
         if(entity.getWorld().isClient)
             return;
-        this.entities.remove(entity);
 
-        if(this.entities.isEmpty()){
-            MiddleEarth.LOGGER.logDebugMsg("Attempting to respawn all entities");
-            RespawnAll();
-        }
+        this.structureManagerNestDataMap.alertDeath(entity);
     }
 
-    private void RespawnAll(){
+    private void Respawn(StructureManagerNestData nestData){
         if(this.world == null)
                 return;
-        MiddleEarth.LOGGER.logDebugMsg("Respawning all entities");
+        MiddleEarth.LOGGER.logDebugMsg("SMBE :: Respawn :: Respawning all entities for %s".formatted(nestData.getId()));
 
         for(int i = 0; i < 3; i ++){
             StructureSpawnNest nest = structureManagerData.getNpcSpawnNest().getFirst();
             StructureSpawnNestPool pool = nest.getNpcSpawnNestPool().getFirst();
 
             NpcEntity entityToAdd = StructureManagerService.SpawnEntity(world, pool.getNpcIdentifier(), pool.getFactionIdentifier(), pos.add(nest.getBlockPosOffset()), 10);
-            this.entities.add(entityToAdd);
+            for(StructureManagerNestData data : structureManagerNestDataMap.datas()){
+                data.addEntity(entityToAdd);
+            }
             entityToAdd.setStructureManagerHost(this);
         }
     }
 
-    public static void tick(ServerWorld world, BlockPos blockPos, BlockState blockState, StructureManagerBlockEntity entity) {
-        if(entity.entities.isEmpty()){
-            entity.RespawnAll();
+    private void tick(ServerWorld world, BlockPos blockPos, BlockState blockState) {
+        for(StructureManagerNestData data : structureManagerNestDataMap.datas()){
+            if(data.canRespawn(world)){
+                MiddleEarth.LOGGER.logDebugMsg("SMBE :: AlertDeath :: Attempting to respawn all entities");
+                Respawn(data);
+            }
         }
     }
 
+    public static void tick(ServerWorld world, BlockPos blockPos, BlockState blockState, StructureManagerBlockEntity entity) {
+        entity.tick(world, blockPos, blockState);
+
+    }
 }
