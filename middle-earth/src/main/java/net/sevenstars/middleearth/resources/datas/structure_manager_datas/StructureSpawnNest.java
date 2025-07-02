@@ -6,6 +6,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
+import java.util.Random;
 
 /// NpcSpawnNest is a specific area where entities can spawn with the different parameters.
 public class StructureSpawnNest {
@@ -60,5 +61,10 @@ public class StructureSpawnNest {
     }
     public List<StructureSpawnNestPool> getNpcSpawnNestPool() {
         return structureSpawnNestPools;
+    }
+
+    public StructureSpawnNestPool getRandomPool() {
+        Random random = new Random();
+        return structureSpawnNestPools.get(random.nextInt(0, structureSpawnNestPools.size()));
     }
 }

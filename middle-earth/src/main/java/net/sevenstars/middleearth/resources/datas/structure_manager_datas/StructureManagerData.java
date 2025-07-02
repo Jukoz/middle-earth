@@ -38,4 +38,12 @@ public class StructureManagerData {
     public List<StructureSpawnNest> getNpcSpawnNest() {
         return structureSpawnNests;
     }
+
+    public StructureSpawnNest getNpcSpawnNest(Identifier id) {
+        for (var nest : structureSpawnNests){
+            if(nest.getId() == id)
+                return nest;
+        }
+        return structureSpawnNests.getFirst();
+    }
 }

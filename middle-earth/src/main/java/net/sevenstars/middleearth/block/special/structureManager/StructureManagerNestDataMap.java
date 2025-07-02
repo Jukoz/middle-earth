@@ -6,10 +6,20 @@ import net.minecraft.entity.LivingEntity;
 
 import java.util.List;
 
-public record StructureManagerNestDataMap(List<StructureManagerNestData> datas){
+public class StructureManagerNestDataMap{
     public static final Codec<StructureManagerNestDataMap> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.list(StructureManagerNestData.CODEC, 0, 10).fieldOf("datas").forGetter(StructureManagerNestDataMap::datas)
+            Codec.list(StructureManagerNestData.CODEC, 0, 10).fieldOf("datas").forGetter(StructureManagerNestDataMap::getDatas)
     ).apply(instance, StructureManagerNestDataMap::new));
+
+    private List<StructureManagerNestData> datas;
+
+    public StructureManagerNestDataMap(List<StructureManagerNestData> datas){
+        this.datas = datas;
+    }
+
+    public List<StructureManagerNestData> getDatas() {
+        return datas;
+    }
 
     public void addNest(StructureManagerNestData structureManagerNestData) {
         this.datas.add(structureManagerNestData);

@@ -55,8 +55,10 @@ public class StructureManagerNestData {
     }
 
     public StructureManagerNestData(StructureSpawnNest structureSpawnNest) {
-        entityUuids = new ArrayList<>();
+        this.entityUuids = new ArrayList<>();
+        this.id = structureSpawnNest.getId();
         this.respawnTickDelay = structureSpawnNest.getRespawnTickDelay();
+        this.respawnEventTriggerTick = 0;
     }
 
     public boolean addEntity(LivingEntity entity){

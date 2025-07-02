@@ -48,10 +48,12 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     private void Initialize() {
         MiddleEarth.LOGGER.logDebugMsg("SMBE : Initialization");
+        structureManagerDataIdentifier = StructureManagerDatasME.TEMPLATE.getId();
+
         if(structureManagerDataIdentifier != null){
             structureManagerData = StructureManagerService.GetStructureManagerData(world, structureManagerDataIdentifier);
         } else {
-            structureManagerData = StructureManagerService.GetStructureManagerData(world, StructureManagerDatasME.TEMPLATE.getId());
+            structureManagerData = StructureManagerService.GetStructureManagerData(world, structureManagerDataIdentifier);
         }
 
         if(structureManagerData == null){
@@ -87,10 +89,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         super.writeData(view);
         MiddleEarth.LOGGER.logWarn("SMBE :: WriteData :: began");
         view.putString("%s.structure_manager_id".formatted(ID), structureManagerData.getId().toString());
-
-        if(this.structureManagerNestDataMap != null){
-            view.put("%s.nests".formatted(ID), StructureManagerNestDataMap.CODEC, this.structureManagerNestDataMap);
-        }
+        view.put("%s.nests".formatted(ID), StructureManagerNestDataMap.CODEC, this.structureManagerNestDataMap);
     }
 
 
@@ -114,7 +113,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         query.ifPresent(managerNestData -> this.structureManagerNestDataMap = managerNestData);
 
         if(structureManagerNestDataMap != null)
-            MiddleEarth.LOGGER.logDebugMsg("SMBE :: ReadData :: %s".formatted(this.structureManagerNestDataMap.datas().size()));
+            MiddleEarth.LOGGER.logDebugMsg("SMBE :: ReadData :: %s".formatted(this.structureManagerNestDataMap.getDatas().size()));
         else
             MiddleEarth.LOGGER.logDebugMsg("SMBE :: ReadData :: Couldn't read structure manager nest data");
     }
@@ -131,12 +130,14 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
                 return;
         MiddleEarth.LOGGER.logDebugMsg("SMBE :: Respawn :: Respawning all entities for %s".formatted(nestData.getId()));
 
-        for(int i = 0; i < 3; i ++){
-            StructureSpawnNest nest = structureManagerData.getNpcSpawnNest().getFirst();
-            StructureSpawnNestPool pool = nest.getNpcSpawnNestPool().getFirst();
+        StructureSpawnNest nest = structureManagerData.getNpcSpawnNest(nestData.getId());
+        StructureSpawnNestPool pool = nest.getRandomPool();
+
+        int npcAmount = pool.getEntityAmount();
+        for(int i = 0; i < npcAmount; i ++){
 
             NpcEntity entityToAdd = StructureManagerService.SpawnEntity(world, pool.getNpcIdentifier(), pool.getFactionIdentifier(), pos.add(nest.getBlockPosOffset()), 10);
-            for(StructureManagerNestData data : structureManagerNestDataMap.datas()){
+            for(StructureManagerNestData data : structureManagerNestDataMap.getDatas()){
                 data.addEntity(entityToAdd);
             }
             entityToAdd.setStructureManagerHost(this);
@@ -144,7 +145,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     private void tick(ServerWorld world, BlockPos blockPos, BlockState blockState) {
-        for(StructureManagerNestData data : structureManagerNestDataMap.datas()){
+        for(StructureManagerNestData data : structureManagerNestDataMap.getDatas()){
             if(data.canRespawn(world)){
                 MiddleEarth.LOGGER.logDebugMsg("SMBE :: AlertDeath :: Attempting to respawn all entities");
                 Respawn(data);

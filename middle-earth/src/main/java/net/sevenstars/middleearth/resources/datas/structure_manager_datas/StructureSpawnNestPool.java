@@ -6,6 +6,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.resources.FactionsME;
 
 import java.util.Optional;
+import java.util.Random;
 
 /// StructureSpawnNestPool is a list of npcs with spawn parameters such as weight, category, etc.
 public class StructureSpawnNestPool {
@@ -31,6 +32,7 @@ public class StructureSpawnNestPool {
     private int getAmount(){
         return this.amount;
     }
+
     private Optional<Integer> getMaxAmount(){
         return this.maxAmount;
     }
@@ -67,5 +69,13 @@ public class StructureSpawnNestPool {
     }
     public int getWeight() {
         return this.weight;
+    }
+
+    public int getEntityAmount(){
+        if(maxAmount.isPresent()){
+            Random random = new Random();
+            return random.nextInt(amount, (maxAmount.get() + 1));
+        }
+        return this.amount;
     }
 }
