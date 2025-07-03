@@ -33,12 +33,7 @@ public class CrockpotEntityRenderer implements BlockEntityRenderer<CrockpotBlock
         int blue = color & 255;
 
         matrices.push();
-        if(!entity.isHanging()) {
-            matrices.translate(0.5f, 0, 0.5f);
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(45)));
-            matrices.translate(-0.5f, 0, -0.5f);
-        }
-        matrices.translate(0, 0.375f, 0);
+        matrices.translate(0, 0.8125f, 0); // 0.0625 per pixel
 
         VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getTranslucentMovingBlock());
         matrices.peek();
