@@ -30,13 +30,13 @@ public class SwanRenderer extends MobEntityRenderer<SwanEntity, SwanEntityRender
     public static final Map<SwanVariant, Identifier> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(SwanVariant.class), (map) -> {
                 map.put(SwanVariant.WHITE,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "white_swan.png"));
+                        Identifier.of(MiddleEarth.MOD_ID, PATH + "swan_white.png"));
                 map.put(SwanVariant.BLACK,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "black_swan.png"));
+                        Identifier.of(MiddleEarth.MOD_ID, PATH + "swan_black.png"));
                 map.put(SwanVariant.TRUMPETER,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "trumpeter_swan.png"));
+                        Identifier.of(MiddleEarth.MOD_ID, PATH + "swan_trumpeter.png"));
                 map.put(SwanVariant.WHOOPER,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "whooper_swan.png"));
+                        Identifier.of(MiddleEarth.MOD_ID, PATH + "swan_whooper.png"));
             });
 
     @Override

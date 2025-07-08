@@ -20,6 +20,8 @@ public class ModEggItems {
     // Animals
     public static final Item DEER_SPAWN_EGG = registerItem("deer_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.DEER, settings), new Item.Settings());
+    public static final Item SWAN_SPAWN_EGG = registerItem("swan_spawn_egg",
+            (settings) -> new SpawnEggItem(ModEntities.SWAN, settings), new Item.Settings());
     public static final Item PHEASANT_SPAWN_EGG = registerItem("pheasant_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.PHEASANT, settings), new Item.Settings());
     public static final Item SNAIL_SPAWN_EGG = registerItem("snail_spawn_egg",

@@ -3,17 +3,16 @@ package net.sevenstars.of_beasts_and_wild_things.entity.deer;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 
 public class DeerEntityModel extends EntityModel<DeerEntityRenderState> {
 
     private final Animation walkingAnimation;
+    private final Animation runningAnimation;
 
     protected DeerEntityModel(ModelPart root) {
         super(root);
         this.walkingAnimation = DeerEntityAnimations.WALK.createAnimation(root);
-
-
+        this.runningAnimation = DeerEntityAnimations.RUN.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -59,7 +58,7 @@ public class DeerEntityModel extends EntityModel<DeerEntityRenderState> {
         super.setAngles(state);
 
         if(state.isRunning) {
-            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.5F, 1.0F);
+            this.runningAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.5F, 1.0F);
         }
         else {
             this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 1.0F);

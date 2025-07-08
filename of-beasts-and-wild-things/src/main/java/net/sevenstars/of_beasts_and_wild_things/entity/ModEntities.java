@@ -14,11 +14,14 @@ import net.sevenstars.of_beasts_and_wild_things.datageneration.content.Translati
 import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntity;
 import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntity;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntityModel;
 
 public class ModEntities {
 
     public static final EntityType<SnailEntity> SNAIL = register("snail", EntityType.Builder.create(SnailEntity::new, SpawnGroup.CREATURE).dimensions(0.3f, 0.3f));
     public static final EntityType<PheasantEntity> PHEASANT = register("pheasant", EntityType.Builder.create(PheasantEntity::new, SpawnGroup.CREATURE).dimensions(0.6f, 0.6f));
+    public static final EntityType<SwanEntity> SWAN = register("swan", EntityType.Builder.create(SwanEntity::new, SpawnGroup.CREATURE).dimensions(0.8f, 0.8f));
     public static final EntityType<DeerEntity> DEER = register("deer", EntityType.Builder.create(DeerEntity::new, SpawnGroup.CREATURE).dimensions(0.8f, 1.5f));
 
 
@@ -40,6 +43,7 @@ public class ModEntities {
     public static void registerModEntities() {
         FabricDefaultAttributeRegistry.register(SNAIL, SnailEntity.createSnailAttributes());
         FabricDefaultAttributeRegistry.register(PHEASANT, PheasantEntity.createPheasantAttributes());
+        FabricDefaultAttributeRegistry.register(SWAN, SwanEntity.createSwanAttributes());
         FabricDefaultAttributeRegistry.register(DEER, DeerEntity.createDeerAttributes());
 
         OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering Mod Entities for " + OfBeastsAndWildThings.MOD_ID);

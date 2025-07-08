@@ -20,7 +20,7 @@ public class DeerEntityRenderer extends MobEntityRenderer<DeerEntity, DeerEntity
     private static final String PATH = "textures/entity/deer/";
 
     public DeerEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new DeerEntityModel(context.getPart(ModEntityModelLayers.DEER)), 1.0f);
+        super(context, new DeerEntityModel(context.getPart(ModEntityModelLayers.DEER)), 0.5f);
     }
 
     public static final Map<DeerEntityVariant, String> LOCATION_BY_VARIANT =

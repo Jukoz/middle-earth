@@ -10,11 +10,13 @@ import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityModel;
 import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntityModel;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityModel;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntityModel;
 
 @Environment(value= EnvType.CLIENT)
 public class ModEntityModelLayers {
     public static final EntityModelLayer SNAIL = ModEntityModelLayers.registerEntityModelLayer("snail", SnailEntityModel.getTexturedModelData());
     public static final EntityModelLayer PHEASANT = ModEntityModelLayers.registerEntityModelLayer("pheasant", PheasantEntityModel.getTexturedModelData());
+    public static final EntityModelLayer SWAN = ModEntityModelLayers.registerEntityModelLayer("swan", SwanEntityModel.getTexturedModelData());
     public static final EntityModelLayer DEER = ModEntityModelLayers.registerEntityModelLayer("deer", DeerEntityModel.getTexturedModelData());
 
     private static EntityModelLayer registerEntityModelLayer(String registryName, TexturedModelData modelData) {

@@ -7,6 +7,7 @@ import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityRenderer;
 import net.sevenstars.of_beasts_and_wild_things.entity.model.ModEntityModels;
 import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntityRenderer;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityRenderer;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntityRenderer;
 
 public class OfBeastsAndWildThingsClient implements ClientModInitializer {
     @Override
@@ -16,6 +17,7 @@ public class OfBeastsAndWildThingsClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntities.SNAIL, SnailEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PHEASANT, PheasantEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.SWAN, SwanEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.DEER, DeerEntityRenderer::new);
 
     }
