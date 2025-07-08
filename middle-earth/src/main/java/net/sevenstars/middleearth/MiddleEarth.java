@@ -6,6 +6,8 @@ import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.event.ModEvents;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
@@ -18,9 +20,7 @@ import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.recipe.ModRecipeSerializer;
 import net.sevenstars.middleearth.recipe.ModRecipes;
 import net.sevenstars.middleearth.registries.ModRegistries;
-import net.sevenstars.middleearth.resources.MiddleEarthFactions;
-import net.sevenstars.middleearth.resources.MiddleEarthNpcs;
-import net.sevenstars.middleearth.resources.MiddleEarthRaces;
+import net.sevenstars.middleearth.resources.*;
 import net.sevenstars.middleearth.sound.ModSounds;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 import net.sevenstars.middleearth.utils.LootModifiers;
@@ -34,8 +34,9 @@ import net.sevenstars.middleearth.world.map.MiddleEarthMapGeneration;
 import net.sevenstars.middleearth.world.spawners.ModEntitySpawning;
 
 public class MiddleEarth implements ModInitializer {
-	public static final String MOD_ID = "me";
-	public static final String MOD_VERSION = "1.5.1-1.21.1-alpha";
+	public static final String MOD_ID = "middle-earth";
+	public static final String OLD_MOD_ID = "me";
+	public static final String MOD_VERSION = "1.0.0-1.21.7-beta-dev";
 	public static final boolean IS_DEBUG = true;
 	public static final boolean ENABLE_INSTANT_BOOTING = true;
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
@@ -46,37 +47,41 @@ public class MiddleEarth implements ModInitializer {
 		LOGGER.logInfoMsg("");
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
+
 		ModServerNetworkHandler.register(new ConnectionToClient());
 		ModEvents.register();
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();
 
-		ModDataComponentTypes.registerModComponentTypes();
+		DataComponentTypesME.registerModComponentTypes();
 
 		ModCommands.register();
 		ModStatusEffects.registerStatusEffects();
 
 		OreRockSets.registerModBlockSets();
-		ModWeaponItems.registerModItems();
-		ModEquipmentItems.registerModItems();
+		WeaponItemsME.registerModItems();
+		EquipmentItemsME.registerModItems();
 		ModDyeablePieces.addDyeablePieces();
-		ModToolItems.registerModItems();
-		ModFoodItems.registerModItems();
-		ModResourceItems.registerModItems();
-		ModEggItems.registerModItems();
+		ToolItemsME.registerModItems();
+		FoodItemsME.registerModItems();
+		ResourceItemsME.registerModItems();
+		EggItemsME.registerModItems();
 		ModItemGroups.register();
 
 		WoodBlockSets.registerModBlockSets();
 		MushroomBlockSets.registerModBlockSets();
 		StoneBlockSets.registerModBlockSets();
-		ModDecorativeItems.registerModItems();
-		ModNatureBlockItems.registerModItems();
+		DecorativeItemsME.registerModItems();
+		NatureBlockItemsME.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
 		OtherBlockSets.registerModBlockSets();
 
+		EnchantmentEffectsME.registerModEnchantmentEffects();
+
 		ModRegistries.registerFuels();
+		ModRegistries.registerToolTipAppenders();
 		ModRegistries.registerFlammableBlocks();
 		ModRegistries.registerTillableBlocks();
 		ModRegistries.registerAgingCopperBlocks();
@@ -89,6 +94,11 @@ public class MiddleEarth implements ModInitializer {
 		ModScreenHandlers.registerAllScreenHandlers();
 		ModRecipes.registerRecipes();
 		ModRecipeSerializer.registerRecipeSerializers();
+
+		ModTrackedDataHandlerRegistry.register();
+
+		NpcTextureMaterialsME.register();
+		NpcTexturePatternsME.register();
 
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();
@@ -105,9 +115,14 @@ public class MiddleEarth implements ModInitializer {
 		ModWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();
 
-		MiddleEarthRaces.register();
-		MiddleEarthNpcs.register();
-		MiddleEarthFactions.register();
+		//MiddleEarthNpcTextures.register();
+
+		// Dynamic Data
+		RacesME.register();
+		NpcME.register();
+		FactionsME.register();
+
+		ModRegistries.registerRegistryAliases();
 
 		try {
 			new MiddleEarthMapGeneration();

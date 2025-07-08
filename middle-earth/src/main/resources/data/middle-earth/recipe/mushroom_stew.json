@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#middle-earth:mushroom_stew_ingredient",
+    "#middle-earth:mushroom_stew_ingredient",
+    "minecraft:bowl"
+  ],
+  "result": {
+    "id": "minecraft:mushroom_stew"
+  }
+}

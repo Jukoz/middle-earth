@@ -2,6 +2,6 @@
   "replace": false,
   "values": [
     "minecraft:quartz",
-    "me:quartz_shard"
+    "middle-earth:quartz_shard"
   ]
 }

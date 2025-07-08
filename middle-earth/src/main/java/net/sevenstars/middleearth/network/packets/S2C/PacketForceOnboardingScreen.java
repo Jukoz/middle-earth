@@ -2,15 +2,14 @@ package net.sevenstars.middleearth.network.packets.S2C;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.client.screens.faction_selection.FactionSelectionScreen;
-import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
-import net.sevenstars.middleearth.network.packets.ServerToClientPacket;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
+import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
+import net.sevenstars.middleearth.network.packets.ServerToClientPacket;
 
 public class PacketForceOnboardingScreen extends ServerToClientPacket<PacketForceOnboardingScreen> {
     public static final Id<PacketForceOnboardingScreen> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_force_onboarding_screen"));
@@ -40,7 +39,10 @@ public class PacketForceOnboardingScreen extends ServerToClientPacket<PacketForc
         float delay = delayOnTeleportationConfirm;
         if(context.player().isInCreativeMode())
             delay = 0;
-        MinecraftClient client = MinecraftClient.getInstance();
-        client.setScreen(new FactionSelectionScreen(delay));
+
+        var controller = OnboardingFactionScreenController.getInstance();
+        if(controller == null)
+            controller = new OnboardingFactionScreenController(context.player().getWorld(), delay);
+        controller.open();
     }
 }

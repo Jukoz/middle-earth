@@ -123,6 +123,8 @@ public class TranslationEntries {
 
             put("effect."+ MiddleEarth.MOD_ID +".hallucination", "Hallucination");
 
+            put("enchantment."+ MiddleEarth.MOD_ID +".hewing", "Hewing");
+
             put("block."+ MiddleEarth.MOD_ID +".potted_beech_sapling", "Potted Beech Sapling");
             put("block."+ MiddleEarth.MOD_ID +".potted_chestnut_sapling", "Potted Chestnut Sapling");
             put("block."+ MiddleEarth.MOD_ID +".potted_fir_sapling", "Potted Fir Sapling");
@@ -290,7 +292,7 @@ public class TranslationEntries {
 
             put("tooltip."+ MiddleEarth.MOD_ID +".shift", "Hold §3SHIFT§f to see information.");
             put("tooltip."+ MiddleEarth.MOD_ID +".alt", "Hold §3ALT§f to see custom parts information.");
-            put("tooltip."+ MiddleEarth.MOD_ID +".weapon_type", "§eType, §f");
+            put("tooltip."+ MiddleEarth.MOD_ID +".weapon_type", "§eType: §f");
             put("tooltip."+ MiddleEarth.MOD_ID +".faction", "§6Faction: §f");
             put("tooltip."+ MiddleEarth.MOD_ID +".sub_faction", "§7Sub Faction: §f");
             put("tooltip."+ MiddleEarth.MOD_ID +".customizations", "§6Custom Parts: §f");
@@ -608,7 +610,7 @@ public class TranslationEntries {
 
             put("screen."+ MiddleEarth.MOD_ID +".faction_selection_screen", "Faction Selection");
             put("screen."+ MiddleEarth.MOD_ID +".button.faction_randomizer", "Randomize Faction");
-            put("screen."+ MiddleEarth.MOD_ID +".button.spawn_randomizer", "Randomize Spawn");
+            put("screen."+ MiddleEarth.MOD_ID +".button.full_randomizer", "Fully Randomize");
             put("screen."+ MiddleEarth.MOD_ID +".button.focus_current", "Focus Toggle");
             put("screen."+ MiddleEarth.MOD_ID +".button.zoom_out", "Zoom In");
             put("screen."+ MiddleEarth.MOD_ID +".button.zoom_in", "Zoom Out");

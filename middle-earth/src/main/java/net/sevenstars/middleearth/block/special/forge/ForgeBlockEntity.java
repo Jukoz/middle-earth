@@ -6,6 +6,8 @@ import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlockEntities;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
@@ -13,8 +15,8 @@ import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreenHandler;
 import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreenHandler;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
 import net.sevenstars.middleearth.recipe.AlloyingRecipe;
 import net.minecraft.block.AbstractFurnaceBlock;
@@ -54,7 +56,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.recipe.ModRecipes;
-import org.apache.logging.log4j.core.jmx.Server;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -195,30 +196,30 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.writeNbt(nbt, registryLookup);
-        Inventories.writeNbt(nbt, this.inventory, true, registryLookup);
-        nbt.putInt(ID + ".progress", this.progress);
-        nbt.putInt(ID + ".boost-time", this.boostTime);
-        nbt.putInt(ID + ".fuel-time", this.fuelTime);
-        nbt.putInt(ID + ".max-fuel-time", this.maxFuelTime);
-        nbt.putInt(ID + ".mode", this.mode);
-        nbt.putInt(ID + ".storage", this.storage);
-        nbt.putString(ID + ".current-metal", this.currentMetal.getName());
+    protected void writeData(WriteView view) {
+        super.writeData(view);
+        Inventories.writeData(view, this.inventory, true);
+        view.putInt(ID + ".progress", this.progress);
+        view.putInt(ID + ".boost-time", this.boostTime);
+        view.putInt(ID + ".fuel-time", this.fuelTime);
+        view.putInt(ID + ".max-fuel-time", this.maxFuelTime);
+        view.putInt(ID + ".mode", this.mode);
+        view.putInt(ID + ".storage", this.storage);
+        view.putString(ID + ".current-metal", this.currentMetal.getName());
     }
 
     @Override
-    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
+    protected void readData(ReadView view) {
+        super.readData(view);
         this.inventory.clear();
-        Inventories.readNbt(nbt, this.inventory, registryLookup);
-        this.progress = nbt.getInt(ID + ".progress", 0);
-        this.boostTime = nbt.getInt(ID + ".boost-time", 0);
-        this.fuelTime = nbt.getInt(ID + ".fuel-time", 0);
-        this.maxFuelTime = nbt.getInt(ID + ".max-fuel-time", 0);
-        this.mode = nbt.getInt(ID + ".mode", 0);
-        this.storage = nbt.getInt(ID + ".storage", 0);
-        this.currentMetal = MetalTypes.valueOf(nbt.getString(ID + ".current-metal").get().toUpperCase());
+        Inventories.readData(view, this.inventory);
+        this.progress = view.getInt(ID + ".progress", 0);
+        this.boostTime = view.getInt(ID + ".boost-time", 0);
+        this.fuelTime = view.getInt(ID + ".fuel-time", 0);
+        this.maxFuelTime = view.getInt(ID + ".max-fuel-time", 0);
+        this.mode = view.getInt(ID + ".mode", 0);
+        this.storage = view.getInt(ID + ".storage", 0);
+        this.currentMetal = MetalTypes.valueOf(view.getString(ID + ".current-metal", "bronze").toUpperCase());
     }
 
     public void update() {
@@ -341,15 +342,15 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 case 16 -> {
                     if (entity.currentMetal.getNugget() != null){
                         itemstack = new ItemStack(entity.currentMetal.getNugget());
-                        itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(100));
+                        itemstack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                     }
                 }
                 case 144 -> {
                     itemstack = new ItemStack(entity.currentMetal.getIngot());
-                    itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(100));
+                    itemstack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                 }
                 case 288 -> {
-                    itemstack = new ItemStack(ModResourceItems.ROD);
+                    itemstack = new ItemStack(ResourceItemsME.ROD);
                     if (entity.currentMetal.isVanilla()){
                         itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
                                 armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(entity.currentMetal.getName()))),
@@ -360,10 +361,10 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                                 armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, entity.currentMetal.getName()))),
                                 armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
 
-                    }itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(100));
+                    }itemstack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                 }
                 case 432 -> {
-                    itemstack = new ItemStack(ModResourceItems.LARGE_ROD);
+                    itemstack = new ItemStack(ResourceItemsME.LARGE_ROD);
                     if (entity.currentMetal.isVanilla()){
                         itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
                                 armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(entity.currentMetal.getName()))),
@@ -375,7 +376,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                                 armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
 
                     }
-                    itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(100));
+                    itemstack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                 }
             }
 
@@ -464,7 +465,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                     entity.update();
                     if(entity.progress >= MAX_PROGRESS) {
                         for (int i = 1; i <= 4; i++) {
-                            entity.getStack(i).set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(100));
+                            entity.getStack(i).set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                         }
                         entity.progress = 0;
                         entity.update();
@@ -570,7 +571,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 } else if(!HotMetalsModel.nuggets.contains(item) && !HotMetalsModel.ingots.contains(item) && !HotMetalsModel.items.contains(item)) {
                     return false; // One of the items cannot be heated
                 } else {
-                    TemperatureDataComponent temperatureComponent = entity.getStack(i).get(ModDataComponentTypes.TEMPERATURE_DATA);
+                    TemperatureDataComponent temperatureComponent = entity.getStack(i).get(DataComponentTypesME.TEMPERATURE_DATA);
                     if(temperatureComponent == null || temperatureComponent.temperature() < 100) {
                         hasColdItem = true;
                         inputs.add(entity.getStack(i));

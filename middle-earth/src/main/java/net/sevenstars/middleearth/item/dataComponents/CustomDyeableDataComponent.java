@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.item.dataComponents;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.recipe.ModTags;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
@@ -23,7 +23,7 @@ public record CustomDyeableDataComponent(int customRgb) {
     public static final int DEFAULT_COLOR = -6265536;
 
     public static int getColor(ItemStack stack, int defaultColor) {
-        CustomDyeableDataComponent dyedColorComponent = stack.get(ModDataComponentTypes.DYE_DATA);
+        CustomDyeableDataComponent dyedColorComponent = stack.get(DataComponentTypesME.DYE_DATA);
         return dyedColorComponent != null ? ColorHelper.fullAlpha(dyedColorComponent.customRgb()) : defaultColor;
     }
 
@@ -37,12 +37,12 @@ public record CustomDyeableDataComponent(int customRgb) {
             int k = 0;
             int l = 0;
             int m = 0;
-            CustomDyeableDataComponent dyedColorComponent = (CustomDyeableDataComponent) itemStack.get(ModDataComponentTypes.DYE_DATA);
+            CustomDyeableDataComponent dyedColorComponent = (CustomDyeableDataComponent) itemStack.get(DataComponentTypesME.DYE_DATA);
             int n;
             int o;
             int p;
             if(dyedColorComponent != null){
-                if (!(dyedColorComponent.customRgb == stack.getItem().getDefaultStack().get(ModDataComponentTypes.DYE_DATA).customRgb())) {
+                if (!(dyedColorComponent.customRgb == stack.getItem().getDefaultStack().get(DataComponentTypesME.DYE_DATA).customRgb())) {
                     if(dyedColorComponent.customRgb != CustomDyeableDataComponent.DEFAULT_COLOR){
                         n = ColorHelper.getRed(dyedColorComponent.customRgb());
                         o = ColorHelper.getGreen(dyedColorComponent.customRgb());
@@ -78,7 +78,7 @@ public record CustomDyeableDataComponent(int customRgb) {
             o = (int) ((float) o * f / g);
             p = (int) ((float) p * f / g);
             s = ColorHelper.getArgb(0, n, o, p);
-            itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(s));
+            itemStack.set(DataComponentTypesME.DYE_DATA, new CustomDyeableDataComponent(s));
             return itemStack;
         }
     }

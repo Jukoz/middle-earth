@@ -3,15 +3,15 @@ package net.sevenstars.middleearth.gui.shapinganvil;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.ModToolItems;
+import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -70,11 +70,9 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        //RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
-        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
     }
 
     @Override
@@ -85,12 +83,12 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawItem(ModToolItems.SMITHING_HAMMER.getDefaultStack(), x + 81, y + 34);
+        context.drawItem(ToolItemsME.SMITHING_HAMMER.getDefaultStack(), x + 81, y + 34);
 
         renderHammerTooltip(context, mouseX, mouseY);
 
         if (this.handler.getOutput().isEmpty()){
-            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 79, y + 15, 177, 115,18, 18, 256, 256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 79, y + 15, 177, 115,18, 18, 256, 256);
         } else {
             context.drawItem(this.handler.getOutput(), x + 80, y + 16);
             renderOutputTooltip(context, mouseX, mouseY);

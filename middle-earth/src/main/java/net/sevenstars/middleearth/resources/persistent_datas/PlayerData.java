@@ -68,7 +68,7 @@ public class PlayerData {
     }
 
     public Identifier getDimensionOrigin(){
-        return this.spawn;
+        return this.dimensionOrigin;
     }
     public BlockPos getOriginPos(){
         return this.posOrigin;
@@ -99,7 +99,7 @@ public class PlayerData {
     }
 
     public Race getRace(World world){
-        return world.getRegistryManager().getOrThrow(MiddleEarthRaces.RACE_KEY).get(this.race);
+        return world.getRegistryManager().getOrThrow(MiddleEarthRaces.KEY).get(this.race);
     }
     public Faction getFaction(World world) throws FactionIdentifierException{
         if(!hasAffilition())

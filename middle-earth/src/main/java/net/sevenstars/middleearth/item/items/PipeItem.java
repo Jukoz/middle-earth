@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.item.items;
 
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.util.ActionResult;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.sound.ModSounds;
 import net.minecraft.entity.LivingEntity;
@@ -48,7 +48,7 @@ public class PipeItem extends Item {
         if (itemStack.isDamageable() && itemStack.getDamage() >= itemStack.getMaxDamage()) {
             // Attempt to refill the pipe using a leaf
             ItemStack driedPipeweedStack = user.getInventory().getMainStacks().stream()
-                    .filter(stack -> stack.getItem() == ModResourceItems.DRIED_PIPEWEED)
+                    .filter(stack -> stack.getItem() == ResourceItemsME.DRIED_PIPEWEED)
                     .findFirst()
                     .orElse(ItemStack.EMPTY);
 

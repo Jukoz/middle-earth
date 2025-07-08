@@ -2,6 +2,8 @@ package net.sevenstars.middleearth.resources.datas.factions.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
@@ -78,6 +80,12 @@ public class SpawnData {
     public Identifier getIdentifier(){
         return identifier;
     }
+
+    public MutableText getFullName(){
+        return Text.translatable("spawn." + identifier.toTranslationKey());
+    }
+
+
 
     private String getIdentifierValue() {
         return this.identifier.toString();

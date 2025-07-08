@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "middle-earth:straw",
+    "middle-earth:straw",
+    "middle-earth:straw",
+    "#minecraft:smelts_to_glass",
+    "#minecraft:smelts_to_glass",
+    "#minecraft:smelts_to_glass",
+    "minecraft:clay",
+    "minecraft:clay",
+    "minecraft:clay"
+  ],
+  "result": {
+    "id": "middle-earth:white_daub",
+    "count": 6
+  }
+}

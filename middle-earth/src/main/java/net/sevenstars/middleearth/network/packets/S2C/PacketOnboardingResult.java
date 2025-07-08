@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.network.packets.S2C;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.client.screens.ReturnConfirmationScreen;
+import net.sevenstars.middleearth.gui.return_confirmation.ReturnConfirmationScreen;
 import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
 import net.sevenstars.middleearth.network.handlers.OnboardingScreenHandler;
 import net.sevenstars.middleearth.network.packets.ServerToClientPacket;

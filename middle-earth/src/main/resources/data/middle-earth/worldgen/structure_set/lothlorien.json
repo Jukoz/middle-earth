@@ -1,0 +1,18 @@
+{
+  "structures": [
+	{
+      "structure": "middle-earth:lothlorien_houses",
+      "weight": 2
+    },
+	{
+      "structure": "middle-earth:lothlorien_watch_tower",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 16,
+    "separation": 8,
+    "salt": 13238135
+  }
+}

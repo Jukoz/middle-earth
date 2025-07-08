@@ -1,0 +1,121 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarf_crown_banner_pattern",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:anvil_banner_pattern",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_nugget",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:crystal_lamp"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_smithing_hammer"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_coin"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_gambeson"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_boots"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:tuff"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_nugget"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:copper_ingot"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:spruce_log"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:larch_log"
+        }
+      ]
+    }
+  ]
+}

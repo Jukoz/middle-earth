@@ -8,6 +8,7 @@ import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 import net.sevenstars.middleearth.world.features.tree.ModTreeConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.tree.MushroomTreeConfiguredFeatures;
 import net.minecraft.block.*;
@@ -480,6 +481,7 @@ public class ModNatureBlocks {
         Saplings.saplings.add(resultBlock);
 
         TranslationEntries.blockEntries.add(resultBlock);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
 
         return resultBlock;
     }
@@ -499,6 +501,8 @@ public class ModNatureBlocks {
 
         registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
+
         return resultBlock;
     }
 
@@ -509,6 +513,8 @@ public class ModNatureBlocks {
             TranslationEntries.blockEntries.add(block);
         }
 
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
+
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 
@@ -518,6 +524,7 @@ public class ModNatureBlocks {
         Item.BLOCK_ITEMS.put(block, item);
 
         ModItemGroups.NATURE_BLOCKS_CONTENTS.add(item.getDefaultStack());
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
     }
 
     public static void registerModBlocks() {

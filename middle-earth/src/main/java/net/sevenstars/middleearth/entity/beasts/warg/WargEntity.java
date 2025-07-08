@@ -11,7 +11,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -23,6 +22,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -45,7 +46,6 @@ import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 
@@ -66,7 +66,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.4)
                 .add(EntityAttributes.MAX_HEALTH, 24.0d)
                 .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.2d)
@@ -115,15 +115,16 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putInt("Variant", this.getTypeVariant());
+    public void writeData(WriteView view) {
+        super.writeData(view);
+        view.putInt("Variant", this.getTypeVariant());
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(VARIANT, nbt.getInt("Variant").get() );
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
@@ -147,7 +148,7 @@ public class WargEntity extends AbstractBeastEntity {
                 this.chargeAnimationState.start(this.age);
             }
 
-            if(this.chargeTimeout <= maxChargeCooldown() - 10 && !this.isInAir()) {
+            if(this.chargeTimeout <= maxChargeCooldown() - 10 && this.isOnGround()) {
                 this.setCharging(false);
                 this.setHasCharged(false);
             }
@@ -321,7 +322,7 @@ public class WargEntity extends AbstractBeastEntity {
         List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
 
         for(Entity entity : entities) {
-            if(entity.getUuid() != Objects.requireNonNull(this.getOwner()).getUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
+            if(this.getOwner() != null && entity.getUuid() != this.getOwner().getUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
                 if(getWorld() instanceof ServerWorld serverWorld)
                     entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), this.getAttackDamage());
 

@@ -16,6 +16,7 @@ import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.exceptions.IdenticalFactionException;
 import net.sevenstars.middleearth.exceptions.NoFactionException;
 import net.sevenstars.middleearth.exceptions.SpawnIdentifierException;
+import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import net.sevenstars.middleearth.utils.ModColors;
@@ -43,16 +44,18 @@ public class FactionUtil {
         if(previousFaction != null){
             sendOnLeaveCommand(player, previousFaction);
             // Send leaving message to affected player
-            MutableText targetText = Text.translatable("event.me.leave.faction.success", previousFaction.getFullName());
+            MutableText targetText = Text.translatable("event.%s.leave.faction.success".formatted(MiddleEarth.MOD_ID), previousFaction.getFullName());
             player.sendMessage(targetText.withColor(ModColors.WARNING.color));
         }
 
         // [JOIN] Add new affiliation data
+        if(spawnId == null)
+            spawnId = faction.getSpawnData().getDefaultSpawn();
         PlayerDataService.setNewFactionInformation(player, player.getWorld(), faction.getId(), spawnId);
         sendOnJoinCommand(player, faction);
 
         // Send join message to affected player
-        MutableText targetText = Text.translatable("event.me.join.faction.success", faction.getFullName());
+        MutableText targetText = Text.translatable("event.%s.join.faction.success".formatted(MiddleEarth.MOD_ID), faction.getFullName());
         player.sendMessage(targetText.withColor(ModColors.SUCCESS.color));
 
         sendOnFactionJoinMessage(player);
@@ -71,8 +74,10 @@ public class FactionUtil {
             return true;
 
         // If there is no faction update, return true
-        if(previousFaction.getId() == faction.getId() || spawnId == PlayerDataService.getPlayerSpawnData(player, player.getWorld()).getIdentifier()) {
-            throw new IdenticalFactionException();
+        if(previousFaction.getId() == faction.getId()) {
+            SpawnData spawnData = PlayerDataService.getPlayerSpawnData(player, player.getWorld());
+            if(spawnData != null && spawnId != spawnData.getIdentifier())
+                throw new IdenticalFactionException();
         };
 
         // Verify spawnId
@@ -129,7 +134,7 @@ public class FactionUtil {
         }
 
 
-        MutableText targetText = Text.translatable("event.me.join.faction.success", faction.getFullName());
+        MutableText targetText = Text.translatable("event.%s.join.faction.success".formatted(MiddleEarth.MOD_ID), faction.getFullName());
         ((ServerPlayerEntity) player).networkHandler.sendPacket(
             new TitleS2CPacket(Text.of(""))
         );
@@ -145,7 +150,7 @@ public class FactionUtil {
             throw new NoFactionException();
         if(PlayerDataService.clearPlayerData(player)){
             sendOnLeaveCommand(player, faction);
-            MutableText targetText = Text.translatable("event.me.leave.faction.success", faction.getFullName());
+            MutableText targetText = Text.translatable("event.%s.leave.faction.success".formatted(MiddleEarth.MOD_ID), faction.getFullName());
             player.sendMessage(targetText.withColor(ModColors.WARNING.color));
             return true;
         }

@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.utils;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.sevenstars.middleearth.item.ModFoodItems;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.FoodItemsME;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
@@ -29,7 +29,7 @@ public class LootModifiers {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
                         .conditionally(RandomChanceLootCondition.builder(1f))
-                        .with(ItemEntry.builder(ModFoodItems.RAW_HORSE))
+                        .with(ItemEntry.builder(FoodItemsME.RAW_HORSE))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 2.0f)).build());
                 tableBuilder.pool(pool);
             }
@@ -38,7 +38,7 @@ public class LootModifiers {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
                         .conditionally(RandomChanceLootCondition.builder(1f))
-                        .with(ItemEntry.builder(ModResourceItems.FUR))
+                        .with(ItemEntry.builder(ResourceItemsME.FUR))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 2.0f)).build());
                 tableBuilder.pool(pool);
             }

@@ -16,7 +16,8 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.resources.MiddleEarthFactions;
+import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
@@ -63,7 +64,7 @@ public class Faction {
     private List<Identifier> subFactions = null;
     private List<String> joinCommands;
     private List<String> leaveCommands;
-    public List<Race> races = null;
+    private List<Race> races = null;
     private List<Text> descriptions = null;
     private Text raceList = null;
 
@@ -84,11 +85,11 @@ public class Faction {
         }
 
         this.npcDatasByRank = new HashMap<>();
-        npcs.ifPresent(nbtCompound -> {
-            NbtList list = nbtCompound.getList("ranks").get();
+        if(npcs.isPresent()){
+            NbtList list = npcs.get().getList("ranks").get();
             for(int i = 0; i < list.size(); i++){
                 NbtCompound rankCompound = list.getCompound(i).get();
-                String rankName = rankCompound.getString("rank").toString().toUpperCase();
+                String rankName = rankCompound.getString("rank").get().toUpperCase();
                 try{
                     NpcRank rank = NpcRank.valueOf(rankName);
                     NbtList npcDataList = rankCompound.getList("pool").get();
@@ -101,9 +102,9 @@ public class Faction {
 
                 }
             }
-        });
+        }
 
-        this.bannerData = (bannerDataNbt.isEmpty()) ? null : new BannerData(bannerDataNbt);;
+        this.bannerData = (bannerDataNbt.isEmpty()) ? null : new BannerData(bannerDataNbt);
         this.spawnDataHandler = new SpawnDataHandler(spawnsNbt);
 
         this.joinCommands = new ArrayList<>();
@@ -307,11 +308,15 @@ public class Faction {
     }
 
     public ItemStack getBannerItem(World world){
-        return bannerData.getBannerItem(world, Text.translatable("block.me.faction_banner", getFullName()).formatted(Formatting.GOLD));
+        return bannerData.getBannerItem(world, Text.translatable("block.%s.faction_banner".formatted(MiddleEarth.MOD_ID), getFullName()).formatted(Formatting.GOLD));
     }
 
     public List<Identifier> getSubFactions(){
         return subFactions;
+    }
+
+    public HashMap<NpcRank, List<Identifier>> getAllNpcDatas(){
+        return npcDatasByRank;
     }
 
     public Faction getSubfaction(World world, int index){
@@ -358,7 +363,7 @@ public class Faction {
     public Faction getSubfactionById(World world, Identifier id) {
         if(subFactions == null)
             return null;
-        return world.getRegistryManager().getOrThrow(MiddleEarthFactions.FACTION_KEY).get(id);
+        return world.getRegistryManager().getOrThrow(FactionsME.KEY).get(id);
     }
 
     public List<Race> getRaces(World world) {
@@ -384,7 +389,7 @@ public class Faction {
         if(descriptions == null){
             descriptions = new ArrayList<>();
             boolean hasDescription = true;
-            String base = "description.me.%s.description_%s".formatted(id.getPath(), "%s");
+            String base = "description.%s.%s.description_%s".formatted(MiddleEarth.MOD_ID, id.getPath(), "%s");
             while(hasDescription){
                 String langPath = base.formatted(descriptions.size());
                 Text text = Text.translatable(langPath);
@@ -411,6 +416,12 @@ public class Faction {
             raceList = Text.literal(raceListStringBuilder.toString());
         }
         return raceList;
+    }
+
+    public int getSpawnAmount(){
+        if(spawnDataHandler == null)
+            return 0;
+        return spawnDataHandler.getSpawnList().size();
     }
 
     public BannerPatternsComponent getBannerPatternComponents(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {

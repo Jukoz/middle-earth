@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.item.items.weapons.ranged;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
+import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class CustomLongbowWeaponItem extends BowItem implements MEEquipmentTooltip{
+public class CustomLongbowWeaponItem extends BowItem implements EquipmentTooltipME {
     private final ModFactions faction;
     private final ModSubFactions subFaction;
     public ModRangedWeaponTypes type;

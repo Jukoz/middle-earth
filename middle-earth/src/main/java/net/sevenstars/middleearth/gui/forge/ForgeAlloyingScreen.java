@@ -3,10 +3,11 @@ package net.sevenstars.middleearth.gui.forge;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.network.packets.C2S.ForgeOutputPacket;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
@@ -14,7 +15,6 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -157,12 +157,10 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
 
         renderProgressArrow(context, x, y);
         renderLiquidStorage(context, x, y);
@@ -171,16 +169,16 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     private void renderProgressArrow(DrawContext context, int x, int y) {
         if(handler.isCooking()) {
             int cookingTime = (int) (handler.getScaledCooking() * COOKING_FIRE_SIZE);
-            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 42, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime, 256, 256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 42, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime, 256, 256);
         }
         if(handler.isCrafting()) {
-            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 87, y + 15, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17, 256, 256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 87, y + 15, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17, 256, 256);
         }
     }
 
     private void renderLiquidStorage(DrawContext context, int x, int y) {
         int storedLiquid = (int) (handler.getScaledStoredLiquid() * LIQUID_HEIGHT);
-        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 113, y + 71 - storedLiquid, 177, 114 - storedLiquid, 16, storedLiquid, 256 ,256);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 113, y + 71 - storedLiquid, 177, 114 - storedLiquid, 16, storedLiquid, 256 ,256);
     }
 
     private void renderLiquidStorageTooltip(DrawContext context, int mouseX, int mouseY) {
@@ -221,7 +219,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         ItemStack itemstack;
         switch (outputMode){
             case 0:
-                context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 140, y + 51, 177, 115,22, 22, 256 ,256);
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 140, y + 51, 177, 115,22, 22, 256 ,256);
                 break;
             case 1:
                 itemstack = new ItemStack(Items.IRON_NUGGET);
@@ -233,11 +231,11 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
                 context.drawItem(itemstack, x + 143, y + 54);
                 break;
             case 3:
-                itemstack = new ItemStack(ModResourceItems.ROD);
+                itemstack = new ItemStack(ResourceItemsME.ROD);
                 context.drawItem(itemstack, x + 143, y + 54);
                 break;
             case 4:
-                itemstack = new ItemStack(ModResourceItems.LARGE_ROD);
+                itemstack = new ItemStack(ResourceItemsME.LARGE_ROD);
                 context.drawItem(itemstack, x + 143, y + 54);
                 break;
         }

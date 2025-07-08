@@ -30,6 +30,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -77,7 +79,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.2)
                 .add(EntityAttributes.MAX_HEALTH, 50.0d)
                 .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.4d)
@@ -123,23 +125,23 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putInt("Variant", this.getTypeVariant());
-        nbt.putInt("Horns", this.getTypeHorns());
-        nbt.putBoolean("HasLeftHorn", this.hasLeftHorn());
-        nbt.putBoolean("HasRightHorn", this.hasRightHorn());
-        nbt.putBoolean("HasBrushedBeard", this.hasBrushedBeard());
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.putInt("Variant", this.getTypeVariant());
+        view.putInt("Horns", this.getTypeHorns());
+        view.putBoolean("HasLeftHorn", this.hasLeftHorn());
+        view.putBoolean("HasRightHorn", this.hasRightHorn());
+        view.putBoolean("HasBrushedBeard", this.hasBrushedBeard());
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(VARIANT, nbt.getInt("Variant").get());
-        this.dataTracker.set(HORNS, nbt.getInt("Horns").get());
-        this.dataTracker.set(LEFT_HORN, nbt.getBoolean("HasLeftHorn").get());
-        this.dataTracker.set(RIGHT_HORN, nbt.getBoolean("HasRightHorn").get());
-        this.dataTracker.set(BRUSHED_BEARD, nbt.getBoolean("HasBrushedBeard").get());
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+        this.dataTracker.set(HORNS, view.getInt("Horns", 0));
+        this.dataTracker.set(LEFT_HORN, view.getBoolean("HasLeftHorn", true));
+        this.dataTracker.set(RIGHT_HORN, view.getBoolean("HasRightHorn", true));
+        this.dataTracker.set(BRUSHED_BEARD, view.getBoolean("HasBrushedBeard", false));
         this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
     }
 
@@ -331,7 +333,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
             double d = this.getJumpVelocity(strength);
             Vec3d vec3d = this.getVelocity().multiply(4);
             this.setVelocity(vec3d.x, d, vec3d.z);
-            this.setInAir(true);
+            this.setOnGround(false);
             this.velocityDirty = true;
             if (movementInput.z > 0.0) {
                 float f = MathHelper.sin(this.getYaw() * ((float)Math.PI / 180));
@@ -426,7 +428,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
             this.stopSittingAnimationState.start(this.age);
         }
 
-        if(this.isInAir() && this.hasControllingPassenger()) {
+        if(!this.isOnGround() && this.hasControllingPassenger()) {
             this.jumpAnimationState.startIfNotRunning(this.age);
         }
         else {

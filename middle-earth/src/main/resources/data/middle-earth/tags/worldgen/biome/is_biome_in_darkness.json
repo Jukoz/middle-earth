@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:mordor",
+    "middle-earth:gorgoroth",
+    "middle-earth:udun",
+    "middle-earth:ered_lithui_base",
+    "middle-earth:ered_lithui",
+    "middle-earth:ered_lithui_peaks",
+    "middle-earth:torogwaith",
+    "middle-earth:mount_doom"
+  ]
+}

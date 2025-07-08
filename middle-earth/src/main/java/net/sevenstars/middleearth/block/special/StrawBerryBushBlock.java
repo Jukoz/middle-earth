@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.entity.EntityCollisionHandler;
-import net.sevenstars.middleearth.item.ModFoodItems;
+import net.sevenstars.middleearth.item.FoodItemsME;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -43,7 +43,7 @@ public class StrawBerryBushBlock extends CustomPlantBlock
 
     @Override
     public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
-        return new ItemStack(ModFoodItems.STRAWBERRY);
+        return new ItemStack(FoodItemsME.STRAWBERRY);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class StrawBerryBushBlock extends CustomPlantBlock
         }
         if (i > 1) {
             int j = 1 + world.random.nextInt(2);
-            SweetBerryBushBlock.dropStack(world, pos, new ItemStack(ModFoodItems.STRAWBERRY, j + (bl ? 1 : 0)));
+            SweetBerryBushBlock.dropStack(world, pos, new ItemStack(FoodItemsME.STRAWBERRY, j + (bl ? 1 : 0)));
             world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f);
             BlockState blockState = (BlockState) state.with(AGE, 1);
             world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);

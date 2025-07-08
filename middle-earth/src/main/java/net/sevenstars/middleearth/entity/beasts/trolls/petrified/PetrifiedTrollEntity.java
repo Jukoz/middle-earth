@@ -1,27 +1,23 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.petrified;
 
-import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ToolComponent;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import org.jetbrains.annotations.Nullable;
 
 public class PetrifiedTrollEntity extends MobEntity {
@@ -32,7 +28,7 @@ public class PetrifiedTrollEntity extends MobEntity {
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 30.0);
     }
 

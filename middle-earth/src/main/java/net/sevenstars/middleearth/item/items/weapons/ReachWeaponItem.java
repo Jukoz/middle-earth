@@ -3,20 +3,13 @@ package net.sevenstars.middleearth.item.items.weapons;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.MEEquipmentTooltip;
+import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
+import net.sevenstars.middleearth.item.utils.WeaponSettingsME;
 import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.component.type.ToolComponent;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
@@ -31,52 +24,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
+public class ReachWeaponItem extends Item implements EquipmentTooltipME {
 
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
-    public float rangeDistance;
 
     public ModFactions faction;
     public ModSubFactions subFaction;
     public ModWeaponTypes type;
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModWeaponTypes type, Item.Settings settings) {
-        super(settings.attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
-        this.rangeDistance = type.attackRange;
+        super(WeaponSettingsME.createWeaponSettings(toolMaterial, settings, type));
         this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = type;
     }
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModFactions faction, ModWeaponTypes type, Item.Settings settings) {
-        super(settings.attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
-        this.rangeDistance = type.attackRange;
+        super(WeaponSettingsME.createWeaponSettings(toolMaterial, settings, type));
         this.faction = faction;
         this.subFaction = null;
         this.type = type;
     }
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, ModWeaponTypes type, Item.Settings settings) {
-        super(settings.attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
-        this.rangeDistance = type.attackRange;
+        super(WeaponSettingsME.createWeaponSettings(toolMaterial, settings, type));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = type;
     }
 
-    public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
-        return !miner.isCreative();
-    }
-
-    public static AttributeModifiersComponent createAttributeModifiers(ToolMaterial material, float baseAttackDamage, float attackSpeed, float rangeDistance) {
-        return AttributeModifiersComponent.builder()
-                .add(EntityAttributes.ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID,
-                        (float)baseAttackDamage + material.attackDamageBonus(), EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-                .add(EntityAttributes.ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID,
-                        attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-                .add(EntityAttributes.ENTITY_INTERACTION_RANGE, new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID,
-                        rangeDistance, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-                .build();
+    @Override
+    public boolean canMine(ItemStack stack, BlockState state, World world, BlockPos pos, LivingEntity user) {
+        return !user.isInCreativeMode();
     }
 
     @Override
@@ -94,9 +73,6 @@ public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
         super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
-    public float getRangeDistance() {
-        return rangeDistance;
-    }
 
     public ModWeaponTypes getType() {
         return type;
@@ -112,24 +88,5 @@ public class ReachWeaponItem extends Item implements MEEquipmentTooltip {
             return Text.translatable(this.getTranslationKey()).formatted(Formatting.GOLD);
         }
         return super.getName(stack);
-    }
-
-    @Override
-    public void postDamageEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        stack.damage(1, attacker, EquipmentSlot.MAINHAND);
-    }
-
-    @Override
-    public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-        ToolComponent toolComponent = (ToolComponent)stack.get(DataComponentTypes.TOOL);
-        if (toolComponent == null) {
-            return false;
-        } else {
-            if (!world.isClient && state.getHardness(world, pos) != 0.0F && toolComponent.damagePerBlock() > 0) {
-                stack.damage(1, miner, EquipmentSlot.MAINHAND);
-            }
-
-            return true;
-        }
     }
 }

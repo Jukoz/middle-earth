@@ -1,0 +1,8 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "middle-earth:item/dalish_heavy_shield_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"2": "middle-earth:item/dalish_barding_heavy_shield"
+	}
+}

@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.block.crop;
 
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
@@ -17,7 +17,7 @@ public class FlaxCropBlock extends CropBlock {
     }
     @Override
     protected ItemConvertible getSeedsItem() {
-        return ModResourceItems.FLAX_SEEDS;
+        return ResourceItemsME.FLAX_SEEDS;
     }
 
     @Override

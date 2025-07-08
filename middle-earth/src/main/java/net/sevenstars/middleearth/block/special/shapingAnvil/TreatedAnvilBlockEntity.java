@@ -5,11 +5,13 @@ import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.recipe.ServerRecipeManager;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.recipe.AnvilShapingRecipe;
@@ -157,8 +159,8 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
         ServerRecipeManager serverRecipeManager = (ServerRecipeManager)entity.getWorld().getRecipeManager();
         List<RecipeEntry<AnvilShapingRecipe>> match = serverRecipeManager.getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld()).toList();
 
-        if (!match.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity)){
-            int temperature = input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature();
+        if (!match.isEmpty() && input.get(DataComponentTypesME.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity)){
+            int temperature = input.get(DataComponentTypesME.TEMPERATURE_DATA).temperature();
 
             entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.5f, 1.0f - (float) temperature / 1000);
 
@@ -181,10 +183,10 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
             int maxRandTemperature = 18;
             int value = (int) (Math.random() * (maxRandTemperature - minRandTemperature) + minRandTemperature);
 
-            if ((input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - value) <= 0){
-                input.remove(ModDataComponentTypes.TEMPERATURE_DATA);
+            if ((input.get(DataComponentTypesME.TEMPERATURE_DATA).temperature() - value) <= 0){
+                input.remove(DataComponentTypesME.TEMPERATURE_DATA);
             } else {
-                input.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - value));
+                input.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(DataComponentTypesME.TEMPERATURE_DATA).temperature() - value));
             }
             RegistryWrapper.Impl<ArmorTrimMaterial>  armorTrimMaterialRegistry = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.TRIM_MATERIAL);
             RegistryWrapper.Impl<ArmorTrimPattern>  armorTrimPatternRegistry = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.TRIM_PATTERN);
@@ -212,8 +214,8 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
                                 armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
                     }
                 }
-                if (input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null){
-                    output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
+                if (input.get(DataComponentTypesME.TEMPERATURE_DATA) != null){
+                    output.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(DataComponentTypesME.TEMPERATURE_DATA).temperature()));
                 }
                 entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
                 entity.setStack(0, output);
@@ -266,20 +268,20 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.writeNbt(nbt, registryLookup);
-        Inventories.writeNbt(nbt, this.inventory, true, registryLookup);
-        nbt.putInt("current-index", this.outputIndex);
-        nbt.putInt("current-max-index", this.maxOutputIndex);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
+        Inventories.writeData(view, this.inventory, true);
+        view.putInt("current-index", this.outputIndex);
+        view.putInt("current-max-index", this.maxOutputIndex);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
+    protected void readData(ReadView view) {
+        super.readData(view);
         this.inventory.clear();
-        Inventories.readNbt(nbt, this.inventory, registryLookup);
-        this.outputIndex = nbt.getInt("current-index", 0);
-        this.maxOutputIndex = nbt.getInt("current-max-index", 0);
+        Inventories.readData(view, this.inventory);
+        this.outputIndex = view.getInt("current-index", 0);
+        this.maxOutputIndex = view.getInt("current-max-index", 0);
     }
 
     @Override

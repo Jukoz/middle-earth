@@ -8,7 +8,9 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.StackWithSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -18,6 +20,8 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -29,6 +33,7 @@ import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class TrollEntity extends AbstractBeastEntity {
@@ -53,7 +58,7 @@ public class TrollEntity extends AbstractBeastEntity {
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.35f)
                 .add(EntityAttributes.MAX_HEALTH, 120.0)
                 .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.6)
@@ -173,45 +178,42 @@ public class TrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putBoolean("ChestedTroll", this.hasChest());
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.putBoolean("ChestedTroll", this.hasChest());
         if (this.hasChest()) {
-            NbtList nbtList = new NbtList();
-            for(int i = 2; i < this.items.size(); ++i) {
+            WriteView.ListAppender<StackWithSlot> listAppender = view.getListAppender("Items", StackWithSlot.CODEC);
+
+            for(int i = 0; i < this.items.size(); ++i) {
                 ItemStack itemStack = this.items.getStack(i);
                 if (!itemStack.isEmpty()) {
-                    NbtCompound nbtCompound = new NbtCompound();
-                    nbtCompound.putByte("Slot", (byte)i);
-                    nbtList.add(itemStack.toNbt(this.getRegistryManager()));
+                    listAppender.add(new StackWithSlot(i, itemStack));
                 }
             }
-            nbt.put("Items", nbtList);
         }
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.setHasChest(nbt.getBoolean("ChestedTroll").get());
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.setHasChest(view.getBoolean("ChestedTroll", false));
         this.onChestedStatusChanged();
         if (this.hasChest()) {
-            NbtList nbtList = nbt.getList("Items").get();
+            Iterator list = view.getTypedListView("Items", StackWithSlot.CODEC).iterator();
 
-            for(int i = 0; i < nbtList.size(); ++i) {
-                NbtCompound nbtCompound = nbtList.getCompound(i).get();
-                int j = nbtCompound.getByte("Slot").get() & 255;
-                if (j >= 2 && j < this.items.size()) {
-                    this.items.setStack(j, ItemStack.fromNbt(getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY));
+            while(list.hasNext()) {
+                StackWithSlot stackWithSlot = (StackWithSlot)list.next();
+                if (stackWithSlot.isValidSlot(this.items.size())) {
+                    this.items.setStack(stackWithSlot.slot(), stackWithSlot.stack());
                 }
             }
         }
-        if (nbt.contains("SaddleItem")) {
+        /*if (nbt.contains("SaddleItem")) {
             ItemStack itemStack = (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbt.getCompound("SaddleItem").get()).orElse(ItemStack.EMPTY);
             if (itemStack.isOf(Items.SADDLE)) {
                 this.items.setStack(0, itemStack);
             }
-        }
+        }*/
 
         //this.updateSaddledFlag(); // TODO
     }

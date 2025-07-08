@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "me:river_sand",
-    "me:ashen_sand",
-    "me:white_sand",
-    "me:black_sand"
+    "middle-earth:river_sand",
+    "middle-earth:ashen_sand",
+    "middle-earth:white_sand",
+    "middle-earth:black_sand"
   ]
 }

@@ -1,0 +1,36 @@
+{
+  "parent": "middle-earth:middle_earth/walk_lothlorien",
+  "criteria": {
+    "lembas": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "middle-earth:lembas"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.middle_earth.lembas.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "middle-earth:lembas"
+    },
+    "title": {
+      "translate": "advancements.middle_earth.lembas.title"
+    },
+    "announce_to_chat": true
+  },
+  "requirements": [
+    [
+      "lembas"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

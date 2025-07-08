@@ -111,6 +111,6 @@ public class ModBannerPatterns {
     }
 
     public static void register(Registerable<BannerPattern> registry, RegistryKey<BannerPattern> key) {
-        registry.register(key, new BannerPattern(key.getValue(), "block.me.banner." + key.getValue().toShortTranslationKey()));
+        registry.register(key, new BannerPattern(key.getValue(), "block.%s.banner.".formatted(MiddleEarth.MOD_ID) + key.getValue().toShortTranslationKey()));
     }
 }

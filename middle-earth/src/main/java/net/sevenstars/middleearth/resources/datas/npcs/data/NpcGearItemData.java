@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.resources.datas.npcs.data;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.CapeDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.HoodDataComponent;
@@ -148,26 +148,26 @@ public class NpcGearItemData {
             if(tags.contains(ItemTags.DYEABLE))
                 itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color));
             else if(itemStack.isIn(ModTags.DYEABLE))
-                itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(this.color));
+                itemStack.set(DataComponentTypesME.DYE_DATA, new CustomDyeableDataComponent(this.color));
         } else if(this.colors != null){
             List<TagKey<Item>> tags = itemStack.streamTags().toList();
             if(tags.contains(ItemTags.DYEABLE))
                 itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(getRandomColor(colors)));
             else if(itemStack.isIn(ModTags.DYEABLE))
-                itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(getRandomColor(colors)));
+                itemStack.set(DataComponentTypesME.DYE_DATA, new CustomDyeableDataComponent(getRandomColor(colors)));
         }
-        if(this.noCape != null && this.noCape && itemStack.getComponents().contains(ModDataComponentTypes.CAPE_DATA)){
-            itemStack.remove(ModDataComponentTypes.CAPE_DATA);
+        if(this.noCape != null && this.noCape && itemStack.getComponents().contains(DataComponentTypesME.CAPE_DATA)){
+            itemStack.remove(DataComponentTypesME.CAPE_DATA);
         } else if (cape != null)
             if(capeColor != null)
-                itemStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCapeWithColor(cape, capeColor));
+                itemStack.set(DataComponentTypesME.CAPE_DATA, CapeDataComponent.newCapeWithColor(cape, capeColor));
             else if(capeColors != null){
-                itemStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCapeWithColor(cape, getRandomColor(capeColors)));
+                itemStack.set(DataComponentTypesME.CAPE_DATA, CapeDataComponent.newCapeWithColor(cape, getRandomColor(capeColors)));
             }
             else
-                itemStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(cape));
-        if(this.noHood != null && this.noHood && itemStack.getComponents().contains(ModDataComponentTypes.HOOD_DATA)){
-            itemStack.remove(ModDataComponentTypes.HOOD_DATA);
+                itemStack.set(DataComponentTypesME.CAPE_DATA, CapeDataComponent.newCape(cape));
+        if(this.noHood != null && this.noHood && itemStack.getComponents().contains(DataComponentTypesME.HOOD_DATA)){
+            itemStack.remove(DataComponentTypesME.HOOD_DATA);
         } else if(hood != null){
             boolean hoodState = false;
             if(this.hood.getConstantState() != null){
@@ -184,7 +184,7 @@ public class NpcGearItemData {
                 newHoodColor = hoodColor;
             if(hoodColors != null)
                 newHoodColor = getRandomColor(hoodColors);
-            itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, newHoodColor));
+            itemStack.set(DataComponentTypesME.HOOD_DATA, new HoodDataComponent(hoodState, hood, newHoodColor));
         }
         return itemStack;
     }

@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.recipe;
 
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.MountArmorAddonComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomAnimalArmorItem;
 import net.minecraft.item.ItemStack;
@@ -66,13 +66,13 @@ public class MountArmorSideSkullAddonRecipe extends SpecialCraftingRecipe {
         }
 
         boolean topArmorAddons = false;
-        if(itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA) != null) {
-            topArmorAddons = itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA).topArmorAddon();
+        if(itemStack.get(DataComponentTypesME.MOUNT_ARMOR_DATA) != null) {
+            topArmorAddons = itemStack.get(DataComponentTypesME.MOUNT_ARMOR_DATA).topArmorAddon();
         }
 
         ItemStack output = itemStack.copyWithCount(1);
 
-        output.set(ModDataComponentTypes.MOUNT_ARMOR_DATA, new MountArmorAddonComponent(topArmorAddons, true));
+        output.set(DataComponentTypesME.MOUNT_ARMOR_DATA, new MountArmorAddonComponent(topArmorAddons, true));
 
         return output;
     }

@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.recipe;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomHelmetItem;
 import net.minecraft.item.ItemStack;
@@ -34,10 +34,10 @@ public class ArmorHoodRemovalRecipe extends SpecialCraftingRecipe {
                 defaultedList.set(i, new ItemStack(itemStack.getItem().getRecipeRemainder().getItem()));
             } else if (itemStack.getItem() instanceof ShearsItem) {
                 defaultedList.set(i, itemStack.copyWithCount(1));
-            }else if (itemStack.get(ModDataComponentTypes.HOOD_DATA) != null){
-                ItemStack hood = new ItemStack(Registries.ITEM.get(Identifier.of(MiddleEarth.MOD_ID, itemStack.get(ModDataComponentTypes.HOOD_DATA).hood().getName())));
-                hood.set(ModDataComponentTypes.HOOD_DATA, itemStack.get(ModDataComponentTypes.HOOD_DATA));
-                hood.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(itemStack.get(ModDataComponentTypes.HOOD_DATA).hoodColor()));
+            }else if (itemStack.get(DataComponentTypesME.HOOD_DATA) != null){
+                ItemStack hood = new ItemStack(Registries.ITEM.get(Identifier.of(MiddleEarth.MOD_ID, itemStack.get(DataComponentTypesME.HOOD_DATA).hood().getName())));
+                hood.set(DataComponentTypesME.HOOD_DATA, itemStack.get(DataComponentTypesME.HOOD_DATA));
+                hood.set(DataComponentTypesME.DYE_DATA, new CustomDyeableDataComponent(itemStack.get(DataComponentTypesME.HOOD_DATA).hoodColor()));
                 defaultedList.set(i, hood);
             }
         }
@@ -54,7 +54,7 @@ public class ArmorHoodRemovalRecipe extends SpecialCraftingRecipe {
         for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
-                if (itemStack2.getItem() instanceof CustomHelmetItem && itemStack2.get(ModDataComponentTypes.HOOD_DATA) != null) {
+                if (itemStack2.getItem() instanceof CustomHelmetItem && itemStack2.get(DataComponentTypesME.HOOD_DATA) != null) {
                     if (!itemStackHelmet.isEmpty()) {
                         return false;
                     }
@@ -77,7 +77,7 @@ public class ArmorHoodRemovalRecipe extends SpecialCraftingRecipe {
         for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
-                if (itemStack2.getItem() instanceof CustomHelmetItem && itemStack2.get(ModDataComponentTypes.HOOD_DATA) != null) {
+                if (itemStack2.getItem() instanceof CustomHelmetItem && itemStack2.get(DataComponentTypesME.HOOD_DATA) != null) {
                     if (!itemStack.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
@@ -92,7 +92,7 @@ public class ArmorHoodRemovalRecipe extends SpecialCraftingRecipe {
         }
 
         if (!itemStack.isEmpty()) {
-            itemStack.remove(ModDataComponentTypes.HOOD_DATA);
+            itemStack.remove(DataComponentTypesME.HOOD_DATA);
             return itemStack;
         } else {
             return ItemStack.EMPTY;

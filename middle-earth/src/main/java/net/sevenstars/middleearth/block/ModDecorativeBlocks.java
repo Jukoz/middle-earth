@@ -38,6 +38,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.DyeColor;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
@@ -112,6 +113,9 @@ public class ModDecorativeBlocks {
                     .sounds(BlockSoundGroup.METAL).strength(6f).burnable().solidBlock(Blocks::never).nonOpaque());
     public static final Block TORCH_OF_ORTHANC = registerBlock("torch_of_orthanc",
             (settings) -> new TorchOfOrthancBlock(settings, ParticleTypes.FLAME), AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool());
+
+    public static final Block TAPPER = registerBlockWithItem("tapper",
+            TapperBlock::new, AbstractBlock.Settings.copy(Blocks.BEEHIVE).breakInstantly().nonOpaque());
 
     public static final Block WOOD_FRAMED_WINDOW = registerBlockWithItem("wood_framed_window",
             TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS));
@@ -475,7 +479,6 @@ public class ModDecorativeBlocks {
     public static final Block WOODEN_BUCKET = registerBlockWithItem("wooden_bucket",
             WoodenBucketBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
-    //TODO update all that
 
     public static final Block POTTED_BEECH_SAPLING = registerBlock("potted_beech_sapling",
             (settings) -> new FlowerPotBlock(ModNatureBlocks.BEECH_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
@@ -743,6 +746,7 @@ public class ModDecorativeBlocks {
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 
@@ -751,6 +755,7 @@ public class ModDecorativeBlocks {
         ModBlocks.registerBlockItem(name, block);
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         TranslationEntries.blockEntries.add(block);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 

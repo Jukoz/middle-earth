@@ -15,6 +15,8 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
@@ -35,7 +37,7 @@ public class PheasantEntity extends AnimalEntity {
     }
 
     public static DefaultAttributeContainer.Builder createPheasantAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 5.0)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.2);
     }
@@ -83,16 +85,17 @@ public class PheasantEntity extends AnimalEntity {
         builder.add(VARIANT, 0);
     }
 
+    //TODO to test
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putInt("Variant", this.getTypeVariant());
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.putInt("Variant", this.getTypeVariant());
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(VARIANT, nbt.getInt("Variant").get());
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
     }
 
     @Override
