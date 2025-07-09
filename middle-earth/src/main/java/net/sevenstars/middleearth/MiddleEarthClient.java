@@ -7,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -46,14 +45,12 @@ import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollR
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.warg.WargRenderer;
-import net.sevenstars.middleearth.entity.deer.DeerRenderer;
 import net.sevenstars.middleearth.entity.model.ModEntityModels;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderer;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntityRenderer;
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntityRenderer;
 import net.sevenstars.middleearth.entity.seat.SeatRenderer;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderRenderer;
-import net.sevenstars.middleearth.entity.swan.SwanRenderer;
 import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
@@ -115,10 +112,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.LIT_PINECONE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.SPEAR, SpearEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
-
-        // Animals
-        EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
-        EntityRendererRegistry.register(ModEntities.DEER, DeerRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.NPC, NpcEntityRenderer::new);
 

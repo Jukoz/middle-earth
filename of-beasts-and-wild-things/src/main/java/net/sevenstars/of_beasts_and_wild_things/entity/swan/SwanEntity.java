@@ -1,11 +1,13 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.swan;
 
+import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -24,10 +26,14 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.profiler.Profiler;
+import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
+import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailBrain;
+import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
 import org.jetbrains.annotations.Nullable;
 
 public class SwanEntity extends AnimalEntity {
@@ -52,8 +58,24 @@ public class SwanEntity extends AnimalEntity {
 
     @Override
     protected void mobTick(ServerWorld world) {
+        Profiler profiler = Profilers.get();
+        profiler.push("swanBrain");
+        this.getBrain().tick(world, this);
+        profiler.pop();
+        profiler.push("swanActivityUpdate");
+        SwanBrain.updateActivities(this);
+        profiler.pop();
+
         this.updateFloating();
         super.mobTick(world);
+    }
+
+    protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
+        return SwanBrain.create(this, dynamic);
+    }
+
+    public Brain<SwanEntity> getBrain() {
+        return (Brain<SwanEntity>)super.getBrain();
     }
 
     @Override
