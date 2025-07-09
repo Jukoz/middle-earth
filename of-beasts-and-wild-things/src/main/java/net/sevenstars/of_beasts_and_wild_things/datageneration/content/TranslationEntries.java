@@ -24,6 +24,8 @@ public class TranslationEntries {
     public static Map<String, String> manualEntries = new HashMap<>() {
         {
             put("itemGroup." + OfBeastsAndWildThings.MOD_ID + ".spawn_egg_items", "Wild Things Spawn Eggs");
+            put("itemGroup." + OfBeastsAndWildThings.MOD_ID + ".blocks", "Wild Things Blocks");
+            put("itemGroup." + OfBeastsAndWildThings.MOD_ID + ".items", "Wild Things Items");
         }
     };
 }
