@@ -1,7 +1,10 @@
 package net.sevenstars.of_beasts_and_wild_things;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.render.BlockRenderLayer;
+import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
 import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityRenderer;
 import net.sevenstars.of_beasts_and_wild_things.entity.model.ModEntityModels;
@@ -20,6 +23,7 @@ public class OfBeastsAndWildThingsClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SWAN, SwanEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.DEER, DeerEntityRenderer::new);
 
-    }
+        BlockRenderLayerMap.putBlock(ModBlocks.BIRD_NEST, BlockRenderLayer.CUTOUT);
 
+    }
 }
