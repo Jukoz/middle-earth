@@ -7,10 +7,19 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
-import net.minecraft.entity.ai.brain.task.RandomTask;
+import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
+import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.EatCropTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsBlockTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.SearchForHomeTask;
 
 public class SwanBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super SwanEntity>>> SENSORS;
@@ -32,16 +41,14 @@ public class SwanBrain {
     }
 
     private static void addCoreActivities(Brain<SwanEntity> brain) {
-        brain.setTaskList(Activity.CORE, 0, ImmutableList.of());
+        brain.setTaskList(Activity.CORE, 0, ImmutableList.of(new MoveToTargetTask()));
     }
 
     private static void addIdleActivities(Brain<SwanEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, new RandomTask(ImmutableMap.of(), ImmutableList.of(
-
-                ))),
-                Pair.of(1, new RandomTask(ImmutableMap.of(), ImmutableList.of(
-
+                Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
+                        Pair.of(SearchForHomeTask.create(TagKey.of(RegistryKeys.BLOCK, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_homes"))), 2),
+                        Pair.of(StrollTask.create(1.0F), 1)
                 )))
         ));
     }
@@ -51,8 +58,8 @@ public class SwanBrain {
     }
 
     static {
-        SENSORS = ImmutableList.of();
-        MEMORY_MODULES = ImmutableList.of();
+        SENSORS = ImmutableList.of(SensorType.NEAREST_PLAYERS);
+        MEMORY_MODULES = ImmutableList.of(MemoryModuleType.WALK_TARGET, MemoryModuleType.HOME);
     }
 
 }
