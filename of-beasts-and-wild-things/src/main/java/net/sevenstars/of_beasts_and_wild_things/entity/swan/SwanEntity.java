@@ -6,8 +6,11 @@ import net.minecraft.block.FluidBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleState;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -16,6 +19,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.FluidTags;
@@ -26,6 +30,7 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
@@ -33,6 +38,9 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Optional;
 
 public class SwanEntity extends AnimalEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -66,6 +74,16 @@ public class SwanEntity extends AnimalEntity {
 
         this.updateFloating();
         super.mobTick(world);
+    }
+
+    @Override
+    public void tickMovement() {
+        if(!this.getWorld().isClient) {
+            defendTerritory();
+            this.setAttacking(this.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET));
+        }
+
+        super.tickMovement();
     }
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
@@ -122,6 +140,34 @@ public class SwanEntity extends AnimalEntity {
                 this.setOnGround(true);
             }
         }
+    }
+
+    public void defendTerritory() {
+        Optional<GlobalPos> optional = this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HOME);
+        if(optional.isEmpty()) {
+            return;
+        }
+
+        List<PlayerEntity> list = (List<PlayerEntity>)this.brain.getOptionalRegisteredMemory(MemoryModuleType.NEAREST_PLAYERS).orElse(List.of());
+        if(list.isEmpty()) {
+            return;
+        }
+
+        GlobalPos globalPos = optional.get();
+        if(!globalPos.dimension().equals(this.getWorld().getRegistryKey())) {
+            return;
+        }
+
+        for(PlayerEntity player : list){
+            if(player.getBlockPos().getSquaredDistance(globalPos.pos()) < 25)
+            {
+                this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
+                return;
+            }
+
+        }
+
+        this.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
     }
 
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
