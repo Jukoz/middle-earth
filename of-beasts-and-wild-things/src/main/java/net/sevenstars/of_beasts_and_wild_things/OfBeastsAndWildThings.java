@@ -6,6 +6,7 @@ import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
 import net.sevenstars.of_beasts_and_wild_things.item.ModEggItems;
 import net.sevenstars.of_beasts_and_wild_things.item.ModItemGroups;
+import net.sevenstars.of_beasts_and_wild_things.item.ModItems;
 
 public class OfBeastsAndWildThings implements ModInitializer {
 	public static final String MOD_ID = "wild-things";
@@ -18,6 +19,7 @@ public class OfBeastsAndWildThings implements ModInitializer {
 
 		ModItemGroups.register();
 		ModBlocks.registerModBlocks();
+		ModItems.registerModItems();
 		ModEggItems.registerModItems();
 	}
 }
