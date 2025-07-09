@@ -122,10 +122,10 @@ public class ModSpawnSettingsBuilder {
     }
 
     public static void addSwan(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, 7, new SpawnSettings.SpawnEntry(ModEntities.SWAN, 1, 3));
+        builder.spawn(SpawnGroup.CREATURE, 7, new SpawnSettings.SpawnEntry(net.sevenstars.of_beasts_and_wild_things.entity.ModEntities.SWAN, 1, 3));
     }
 
     public static void addDeer(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, 10, new SpawnSettings.SpawnEntry(ModEntities.DEER, 1, 4));
+        builder.spawn(SpawnGroup.CREATURE, 10, new SpawnSettings.SpawnEntry(net.sevenstars.of_beasts_and_wild_things.entity.ModEntities.DEER, 1, 4));
     }
 }

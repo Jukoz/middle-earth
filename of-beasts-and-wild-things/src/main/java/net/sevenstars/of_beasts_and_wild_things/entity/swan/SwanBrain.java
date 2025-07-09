@@ -11,13 +11,10 @@ import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
-import net.minecraft.entity.ai.brain.task.*;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.EatCropTask;
+import net.minecraft.entity.ai.brain.task.MoveToTargetTask;
+import net.minecraft.entity.ai.brain.task.RandomTask;
+import net.minecraft.entity.ai.brain.task.StrollTask;
+import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsBlockTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.SearchForHomeTask;
 
@@ -41,14 +38,18 @@ public class SwanBrain {
     }
 
     private static void addCoreActivities(Brain<SwanEntity> brain) {
+        brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(new MoveToTargetTask()));
     }
 
     private static void addIdleActivities(Brain<SwanEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
-                        Pair.of(SearchForHomeTask.create(TagKey.of(RegistryKeys.BLOCK, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_homes"))), 2),
+                        Pair.of(SearchForHomeTask.create(ModBlocks.BIRD_NEST), 2),
                         Pair.of(StrollTask.create(1.0F), 1)
+                ))),
+                Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_PRESENT, MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
+                        
                 )))
         ));
     }
@@ -58,8 +59,8 @@ public class SwanBrain {
     }
 
     static {
-        SENSORS = ImmutableList.of(SensorType.NEAREST_PLAYERS);
-        MEMORY_MODULES = ImmutableList.of(MemoryModuleType.WALK_TARGET, MemoryModuleType.HOME);
+        SENSORS = ImmutableList.of();
+        MEMORY_MODULES = ImmutableList.of(MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.HOME);
     }
 
 }
