@@ -1,5 +1,6 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.swan;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
@@ -11,6 +12,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -37,6 +39,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -67,10 +70,13 @@ public class SwanEntity extends AnimalEntity {
         Profiler profiler = Profilers.get();
         profiler.push("swanBrain");
         this.getBrain().tick(world, this);
-        profiler.pop();
-        profiler.push("swanActivityUpdate");
-        SwanBrain.updateActivities(this);
-        profiler.pop();
+        if(!this.getBrain().getSchedule().equals(ModSchedule.SWAN_DEFAULT))
+        {
+            profiler.swap("swanActivityUpdate");
+            SwanBrain.updateActivities(this);
+            profiler.pop();
+        }
+
 
         this.updateFloating();
         super.mobTick(world);
@@ -84,6 +90,20 @@ public class SwanEntity extends AnimalEntity {
         }
 
         super.tickMovement();
+    }
+
+    public Optional<LivingEntity> getHurtBy() {
+        return this.getBrain()
+                .getOptionalRegisteredMemory(MemoryModuleType.HURT_BY)
+                .map(DamageSource::getAttacker)
+                .filter(attacker -> attacker instanceof LivingEntity)
+                .map(livingAttacker -> (LivingEntity)livingAttacker);
+    }
+
+    @Nullable
+    @Override
+    public LivingEntity getTarget() {
+        return getTargetInBrain();
     }
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
@@ -162,12 +182,16 @@ public class SwanEntity extends AnimalEntity {
             if(player.getBlockPos().getSquaredDistance(globalPos.pos()) < 25)
             {
                 this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
+                this.getBrain().setSchedule(Schedule.EMPTY);
                 return;
             }
 
         }
 
         this.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
+        this.getBrain().setSchedule(ModSchedule.SWAN_DEFAULT);
+        this.getBrain().resetPossibleActivities(ImmutableList.of());
+        this.getBrain().refreshActivities(this.getWorld().getTimeOfDay(), this.getWorld().getTime());
     }
 
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,

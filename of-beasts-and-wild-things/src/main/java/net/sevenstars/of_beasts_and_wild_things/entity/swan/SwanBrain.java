@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
@@ -16,10 +17,13 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.mob.AbstractPiglinEntity;
 import net.minecraft.entity.mob.BreezeEntity;
+import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.FleeFromEntityTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsBlockTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsPosMemoryTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.SearchForHomeTask;
@@ -37,20 +41,22 @@ public class SwanBrain {
         addCoreActivities(brain);
         addIdleActivities(brain);
         addRestActivities(brain);
+        addFightActivities(swanEntity, brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
-        brain.setDefaultActivity(Activity.IDLE);
-        brain.doExclusively(Activity.IDLE);
+        brain.setDefaultActivity(Activity.FIGHT);
 
         brain.setSchedule(ModSchedule.SWAN_DEFAULT);
 
         brain.refreshActivities(swanEntity.getWorld().getTimeOfDay(), swanEntity.getWorld().getTime());
-        brain.resetPossibleActivities();
         return brain;
     }
 
     private static void addCoreActivities(Brain<SwanEntity> brain) {
         brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-        brain.setTaskList(Activity.CORE, 0, ImmutableList.of(new MoveToTargetTask()));
+        brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
+                new MoveToTargetTask(),
+                new UpdateLookControlTask(45, 90)
+        ));
     }
 
     private static void addIdleActivities(Brain<SwanEntity> brain) {
@@ -66,21 +72,32 @@ public class SwanBrain {
 
     private static void addRestActivities(Brain<SwanEntity> brain) {
         brain.setTaskList(Activity.REST, ImmutableList.of(
-                Pair.of(98, MeleeAttackTask.create(20)),
                 Pair.of(4, MoveTowardsPosMemoryTask.create(MemoryModuleType.HOME, 1.0F, 2, 20, 300)),
                 Pair.of(5, new SleepTask()),
                 Pair.of(99, ScheduleActivityTask.create())
         ));
     }
 
+    private static void addFightActivities(SwanEntity swan, Brain<SwanEntity> brain) {
+        brain.setTaskList(Activity.FIGHT, ImmutableList.of(
+                Pair.of(0, UpdateAttackTargetTask.create((world, breeze) -> swan.getHurtBy())),
+                Pair.of(1, FindEntityTask.create(EntityType.PLAYER, 11, MemoryModuleType.ATTACK_TARGET, 1.5f, 0)),
+                Pair.of(2, MeleeAttackTask.create(30))
+        ),
+                ImmutableSet.of(
+                        Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT)
+                ));
+    }
+
     public static void updateActivities(SwanEntity swan) {
-        swan.getBrain().resetPossibleActivities(ImmutableList.of());
+        swan.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT));
     }
 
     static {
         SENSORS = ImmutableList.of(
                 SensorType.HURT_BY,
-                SensorType.NEAREST_PLAYERS
+                SensorType.NEAREST_PLAYERS,
+                SensorType.NEAREST_LIVING_ENTITIES
         );
         MEMORY_MODULES = ImmutableList.of(
                 MemoryModuleType.WALK_TARGET,
@@ -91,7 +108,11 @@ public class SwanBrain {
                 MemoryModuleType.VISIBLE_MOBS,
                 MemoryModuleType.ATTACK_TARGET,
                 MemoryModuleType.LOOK_TARGET,
-                MemoryModuleType.ATTACK_COOLING_DOWN
+                MemoryModuleType.ATTACK_COOLING_DOWN,
+                MemoryModuleType.LOOK_TARGET,
+                MemoryModuleType.NEAREST_ATTACKABLE,
+                MemoryModuleType.HURT_BY,
+                MemoryModuleType.HURT_BY_ENTITY
         );
     }
 }
