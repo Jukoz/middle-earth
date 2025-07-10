@@ -14,11 +14,15 @@ import static java.lang.Math.PI;
 
 public class SwanEntityModel extends EntityModel<SwanEntityRenderState> {
     private final Animation walkingAnimation;
+    private final Animation swimmingAnimation;
+    private final Animation sleepingAnimation;
 
     protected SwanEntityModel(ModelPart root) {
         super(root);
 
         this.walkingAnimation = SwanEntityAnimations.WALK.createAnimation(root);;
+        this.swimmingAnimation = SwanEntityAnimations.SWIM.createAnimation(root);
+        this.sleepingAnimation = SwanEntityAnimations.SLEEP.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -68,5 +72,7 @@ public class SwanEntityModel extends EntityModel<SwanEntityRenderState> {
         super.setAngles(state);
 
         this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 1.0F);
+        this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
+        this.swimmingAnimation.apply(state.swimmingAnimationState, state.age);
     }
 }

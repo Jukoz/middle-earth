@@ -2,13 +2,8 @@ package net.sevenstars.of_beasts_and_wild_things.entity.swan;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -31,8 +26,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.GlobalPos;
+import net.minecraft.util.math.*;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
@@ -47,6 +41,9 @@ import java.util.Optional;
 
 public class SwanEntity extends AnimalEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public final AnimationState swimmingAnimationState = new AnimationState();
+    public final AnimationState sleepingAnimationState = new AnimationState();
     public SwanEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -63,6 +60,7 @@ public class SwanEntity extends AnimalEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(VARIANT, 0);
+        builder.add(SLEEPING, false);
     }
 
     @Override
@@ -77,9 +75,25 @@ public class SwanEntity extends AnimalEntity {
             profiler.pop();
         }
 
-
         this.updateFloating();
         super.mobTick(world);
+    }
+
+    public void startSleeping() {
+        if (this.hasVehicle()) {
+            this.stopRiding();
+        }
+
+        this.setSleeping(true);
+        this.setVelocity(Vec3d.ZERO);
+        this.velocityDirty = true;
+
+        this.brain.forget(MemoryModuleType.WALK_TARGET);
+        this.brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    }
+
+    public void stopSleeping() {
+        this.setSleeping(false);
     }
 
     @Override
@@ -88,8 +102,27 @@ public class SwanEntity extends AnimalEntity {
             defendTerritory();
             this.setAttacking(this.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET));
         }
+        if(this.getWorld().isClient()) {
+            setupAnimationStates();
+        }
 
         super.tickMovement();
+    }
+
+    private void setupAnimationStates() {
+        if(isSleeping()) {
+            this.sleepingAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.sleepingAnimationState.stop();
+        }
+        if(this.isTouchingWater()) {
+            this.swimmingAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.swimmingAnimationState.stop();
+        }
+
     }
 
     public Optional<LivingEntity> getHurtBy() {
@@ -124,6 +157,15 @@ public class SwanEntity extends AnimalEntity {
     public void readCustomData(ReadView view) {
         super.readCustomData(view);
         this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+    }
+
+    @Override
+    public boolean isSleeping() {
+        return dataTracker.get(SLEEPING);
+    }
+
+    public void setSleeping(boolean isSleeping) {
+        dataTracker.set(SLEEPING, isSleeping);
     }
 
     @Override
@@ -185,13 +227,14 @@ public class SwanEntity extends AnimalEntity {
                 this.getBrain().setSchedule(Schedule.EMPTY);
                 return;
             }
-
         }
-
-        this.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
-        this.getBrain().setSchedule(ModSchedule.SWAN_DEFAULT);
-        this.getBrain().resetPossibleActivities(ImmutableList.of());
-        this.getBrain().refreshActivities(this.getWorld().getTimeOfDay(), this.getWorld().getTime());
+        if(!this.getBrain().getSchedule().equals(ModSchedule.SWAN_DEFAULT)) {
+            this.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
+            this.getBrain().setSchedule(ModSchedule.SWAN_DEFAULT);
+            this.getBrain().resetPossibleActivities(ImmutableList.of());
+            this.getBrain().refreshActivities(this.getWorld().getTimeOfDay(), this.getWorld().getTime());
+            this.setTarget(null);
+        }
     }
 
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,

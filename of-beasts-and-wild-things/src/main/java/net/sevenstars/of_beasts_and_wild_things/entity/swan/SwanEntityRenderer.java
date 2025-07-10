@@ -44,6 +44,7 @@ public class SwanEntityRenderer  extends MobEntityRenderer<SwanEntity, SwanEntit
     public void updateRenderState(SwanEntity swan, SwanEntityRenderState swanEntityRenderState, float f) {
         super.updateRenderState(swan, swanEntityRenderState, f);
         swanEntityRenderState.variant = swan.getVariant();
-        // TODO Add possible animation dependencies
+        swanEntityRenderState.sleepingAnimationState = swan.sleepingAnimationState;
+        swanEntityRenderState.swimmingAnimationState = swan.swimmingAnimationState;
     }
 }

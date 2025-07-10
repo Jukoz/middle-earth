@@ -364,7 +364,7 @@ public class SwanEntityAnimations {
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("root",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
-                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -4f, 0f),
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("wing_left",
                     new Transformation(Transformation.Targets.ROTATE,
@@ -388,6 +388,40 @@ public class SwanEntityAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(2f, AnimationHelper.createRotationalVector(0f, 10f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
+    public static final AnimationDefinition SLEEP = AnimationDefinition.Builder.create(1.5f).looping()
+            .addBoneAnimation("leg_right",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(90f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("leg_left",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(90f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("root",
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -4f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("head_and_neck",
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(-0.5f, -1f, -1f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("head_and_neck",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(-89.04f, -32.48f, 90.87f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("head",
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(1.3f, -1f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("head",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, -90f, -55f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("tail",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(5f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR))).build();
+
     public static final AnimationDefinition EATING_IN_WATER = AnimationDefinition.Builder.create(2f).looping()
             .addBoneAnimation("leg_right",
                     new Transformation(Transformation.Targets.ROTATE,
