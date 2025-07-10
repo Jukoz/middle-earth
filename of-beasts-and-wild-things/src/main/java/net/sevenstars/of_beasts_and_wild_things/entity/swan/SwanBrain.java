@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.WardenAngerManager;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
@@ -45,7 +46,8 @@ public class SwanBrain {
         brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
                 new MoveToTargetTask(),
-                new UpdateLookControlTask(45, 90)
+                new UpdateLookControlTask(45, 90),
+                UpdateAttackTargetTask.create((world, swan) -> swan.getHurtBy())
         ));
     }
 
@@ -55,15 +57,22 @@ public class SwanBrain {
                         Pair.of(SearchForHomeTask.create(ModBlocks.BIRD_NEST), 2),
                         Pair.of(StrollTask.create(1.0F), 1)
                 ))),
-                Pair.of(1, StrollTask.create(1.0F)),
+                Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_PRESENT), ImmutableList.of(
+                        Pair.of(StrollTask.create(1.0F), 2),
+                        Pair.of(new WaitTask(20, 100), 1)
+                ))),
                 Pair.of(99, ScheduleActivityTask.create())
         ));
     }
 
     private static void addRestActivities(Brain<SwanEntity> brain) {
         brain.setTaskList(Activity.REST, ImmutableList.of(
+                Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
+                        Pair.of(SearchForHomeTask.create(ModBlocks.BIRD_NEST), 2),
+                        Pair.of(StrollTask.create(1.0F), 1)
+                ))),
                 Pair.of(1, MoveTowardsPosMemoryTask.create(MemoryModuleType.HOME, 1.0f, 2, 20, 300)),
-                Pair.of(3, new SleepOnGroundTask()),
+                Pair.of(2, new SleepOnGroundTask()),
                 Pair.of(99, ScheduleActivityTask.create())
         ));
     }
@@ -71,8 +80,7 @@ public class SwanBrain {
     private static void addFightActivities(Brain<SwanEntity> brain) {
         brain.setTaskList(Activity.FIGHT, ImmutableList.of(
                 Pair.of(0, ForgetAttackTargetTask.create()),
-                Pair.of(1, UpdateAttackTargetTask.create((world, swan) -> swan.getHurtBy())),
-                Pair.of(2, FindEntityTask.create(EntityType.PLAYER, 11, MemoryModuleType.ATTACK_TARGET, 1.25f, 0)),
+                Pair.of(2, FindEntityTask.create(EntityType.PLAYER, 15, MemoryModuleType.ATTACK_TARGET, 1.25f, 0)),
                 Pair.of(3, MeleeAttackTask.create(30))
         ),
                 ImmutableSet.of(

@@ -44,6 +44,7 @@ public class SwanEntity extends AnimalEntity {
     private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState swimmingAnimationState = new AnimationState();
     public final AnimationState sleepingAnimationState = new AnimationState();
+    public final AnimationState intimidateAnimationState = new AnimationState();
     public SwanEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -100,7 +101,17 @@ public class SwanEntity extends AnimalEntity {
     public void tickMovement() {
         if(!this.getWorld().isClient) {
             defendTerritory();
-            this.setAttacking(this.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET));
+            this.setAttacking(this.getTarget() != null);
+
+            if(this.isAttacking()) {
+                this.getBrain().setSchedule(Schedule.EMPTY);
+            }
+            else {
+                this.getBrain().setSchedule(ModSchedule.SWAN_DEFAULT);
+                this.getBrain().resetPossibleActivities(ImmutableList.of());
+                this.getBrain().refreshActivities(this.getWorld().getTimeOfDay(), this.getWorld().getTime());
+            }
+
         }
         if(this.getWorld().isClient()) {
             setupAnimationStates();
@@ -121,6 +132,12 @@ public class SwanEntity extends AnimalEntity {
         }
         else {
             this.swimmingAnimationState.stop();
+        }
+        if(isAttacking()) {
+            this.intimidateAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.intimidateAnimationState.stop();
         }
 
     }
@@ -221,20 +238,16 @@ public class SwanEntity extends AnimalEntity {
         }
 
         for(PlayerEntity player : list){
-            if(player.getBlockPos().getSquaredDistance(globalPos.pos()) < 25)
+            if(player.getBlockPos().getSquaredDistance(globalPos.pos()) < 25 && player.getBlockPos().getSquaredDistance(this.getBlockPos()) < 144)
             {
                 this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
-                this.getBrain().setSchedule(Schedule.EMPTY);
                 return;
             }
         }
-        if(!this.getBrain().getSchedule().equals(ModSchedule.SWAN_DEFAULT)) {
-            this.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
-            this.getBrain().setSchedule(ModSchedule.SWAN_DEFAULT);
-            this.getBrain().resetPossibleActivities(ImmutableList.of());
-            this.getBrain().refreshActivities(this.getWorld().getTimeOfDay(), this.getWorld().getTime());
-            this.setTarget(null);
-        }
+
+        this.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
+        this.setTarget(null);
+
     }
 
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,

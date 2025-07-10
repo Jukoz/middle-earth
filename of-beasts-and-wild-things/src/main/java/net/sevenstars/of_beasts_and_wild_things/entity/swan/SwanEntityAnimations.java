@@ -421,6 +421,63 @@ public class SwanEntityAnimations {
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
+    public static final AnimationDefinition INTIMIDATE = AnimationDefinition.Builder.create(0.75f).looping()
+            .addBoneAnimation("wing_left_outer",
+                                      new Transformation(Transformation.Targets.ROTATE,
+                    new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                Transformation.Interpolations.CUBIC),
+                        new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                Transformation.Interpolations.CUBIC)))
+                        .addBoneAnimation("wing_left_inner",
+                                                  new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                    new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -4f, 2f),
+                Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.75f, AnimationHelper.createTranslationalVector(0f, -4f, 2f),
+                Transformation.Interpolations.CUBIC)))
+                        .addBoneAnimation("wing_left_inner",
+                                                  new Transformation(Transformation.Targets.ROTATE,
+                    new Keyframe(0f, AnimationHelper.createRotationalVector(-109.84f, -65.45f, -97.69f),
+                Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.375f, AnimationHelper.createRotationalVector(-94.94f, -66.34f, -114.17f),
+                Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.625f, AnimationHelper.createRotationalVector(-127.21f, -60.61f, -78.25f),
+                Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.75f, AnimationHelper.createRotationalVector(-109.84f, -65.45f, -97.69f),
+                Transformation.Interpolations.CUBIC)))
+                        .addBoneAnimation("wing_right_inner",
+                                                  new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                    new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -3f, 2f),
+                Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.75f, AnimationHelper.createTranslationalVector(0f, -3f, 2f),
+                Transformation.Interpolations.CUBIC)))
+                        .addBoneAnimation("wing_right_inner",
+                                                  new Transformation(Transformation.Targets.ROTATE,
+                    new Keyframe(0f, AnimationHelper.createRotationalVector(-122.92f, 63.26f, 85.88f),
+                Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.375f, AnimationHelper.createRotationalVector(-98.68f, 67f, 112.64f),
+                Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.625f, AnimationHelper.createRotationalVector(-130.4f, 60.27f, 77.4f),
+                Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.75f, AnimationHelper.createRotationalVector(-122.92f, 63.26f, 85.88f),
+                Transformation.Interpolations.CUBIC)))
+                        .addBoneAnimation("head_and_neck",
+                                                  new Transformation(Transformation.Targets.ROTATE,
+                    new Keyframe(0f, AnimationHelper.createRotationalVector(20f, 0f, 0f),
+                Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.375f, AnimationHelper.createRotationalVector(30f, 0f, 0f),
+                Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.75f, AnimationHelper.createRotationalVector(20f, 0f, 0f),
+                Transformation.Interpolations.CUBIC)))
+                        .addBoneAnimation("head",
+                                                  new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                    new Keyframe(0.375f, AnimationHelper.createTranslationalVector(0f, 0f, -0.5f),
+                Transformation.Interpolations.CUBIC)))
+                        .addBoneAnimation("head",
+                                                  new Transformation(Transformation.Targets.ROTATE,
+                    new Keyframe(0.375f, AnimationHelper.createRotationalVector(-25f, 0f, 0f),
+                Transformation.Interpolations.CUBIC),
+                        new Keyframe(0.75f, AnimationHelper.createRotationalVector(-26.09f, 0f, 0f),
+                Transformation.Interpolations.CUBIC))).build();
 
     public static final AnimationDefinition EATING_IN_WATER = AnimationDefinition.Builder.create(2f).looping()
             .addBoneAnimation("leg_right",
