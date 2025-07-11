@@ -126,7 +126,7 @@ public class CrockpotBlock extends BlockWithEntity {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new CrockpotBlockEntity(pos, state, 0.4375f);
+        return new CrockpotBlockEntity(pos, state, 0.375f);
     }
 
     @Nullable
