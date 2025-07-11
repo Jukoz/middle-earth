@@ -5,7 +5,6 @@ import com.mojang.serialization.Dynamic;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -14,19 +13,20 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.EntityTypeTags;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.*;
 import net.minecraft.util.profiler.Profiler;
@@ -34,16 +34,18 @@ import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Optional;
 
 public class SwanEntity extends AnimalEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> INTIMIDATING = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState swimmingAnimationState = new AnimationState();
     public final AnimationState sleepingAnimationState = new AnimationState();
     public final AnimationState intimidateAnimationState = new AnimationState();
@@ -64,6 +66,7 @@ public class SwanEntity extends AnimalEntity {
         super.initDataTracker(builder);
         builder.add(VARIANT, 0);
         builder.add(SLEEPING, false);
+        builder.add(INTIMIDATING, false);
     }
 
     @Override
@@ -103,15 +106,17 @@ public class SwanEntity extends AnimalEntity {
     public void tickMovement() {
         if(!this.getWorld().isClient) {
             this.setAttacking(this.getTarget() != null);
-            System.out.println(this.getTarget());
 
             if(this.isAttacking() && this.getBrain().getSchedule() != Schedule.EMPTY) {
                 this.getBrain().setSchedule(Schedule.EMPTY);
+                this.setIntimidating(getTarget() instanceof PlayerEntity);
             }
             else if(!this.isAttacking() && this.getBrain().getSchedule() != ModSchedule.SWAN_DEFAULT) {
                 this.getBrain().setSchedule(ModSchedule.SWAN_DEFAULT);
                 this.getBrain().forget(MemoryModuleType.LOOK_TARGET);
                 this.getBrain().forget(MemoryModuleType.WALK_TARGET);
+                this.getBrain().forget(ModMemoryModules.DEFENDING_HOME);
+                this.setIntimidating(false);
                 this.getBrain().resetPossibleActivities(ImmutableList.of());
                 this.getBrain().refreshActivities(this.getWorld().getTimeOfDay(), this.getWorld().getTime());
             }
@@ -137,7 +142,7 @@ public class SwanEntity extends AnimalEntity {
         else {
             this.swimmingAnimationState.stop();
         }
-        if(isAttacking()) {
+        if(isIntimidating()) {
             this.intimidateAnimationState.startIfNotRunning(this.age);
         }
         else {
@@ -180,13 +185,20 @@ public class SwanEntity extends AnimalEntity {
         this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
     }
 
-    @Override
     public boolean isSleeping() {
         return dataTracker.get(SLEEPING);
     }
 
     public void setSleeping(boolean isSleeping) {
         dataTracker.set(SLEEPING, isSleeping);
+    }
+
+    public boolean isIntimidating() {
+        return dataTracker.get(INTIMIDATING);
+    }
+
+    public void setIntimidating(boolean isIntimidating) {
+        dataTracker.set(INTIMIDATING, isIntimidating);
     }
 
     @Override
@@ -226,7 +238,7 @@ public class SwanEntity extends AnimalEntity {
     }
 
     public static boolean isValidSwanFood(LivingEntity entity) {
-        return entity.getType().equals(ModEntities.SNAIL) || entity.getType().equals(EntityType.TADPOLE);
+        return entity.getType().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_food")));
     }
 
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,

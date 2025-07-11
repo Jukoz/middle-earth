@@ -41,7 +41,7 @@ public class SwanBrain {
         addCoreActivities(brain);
         addIdleActivities(brain);
         addRestActivities(brain);
-        addFightActivities(brain);
+        addFightActivities(swanEntity, brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.FIGHT);
 
@@ -88,10 +88,10 @@ public class SwanBrain {
         ));
     }
 
-    private static void addFightActivities(Brain<SwanEntity> brain) {
+    private static void addFightActivities(SwanEntity swan, Brain<SwanEntity> brain) {
         brain.setTaskList(Activity.FIGHT, ImmutableList.of(
                 Pair.of(0, UpdateAttackTargetTask.create(SwanBrain::getAttackTarget)),
-                Pair.of(1, ForgetAttackTargetTask.create()),
+                Pair.of(1, ForgetAttackTargetTask.create(((world, target) -> shouldForgetTarget(world, target, swan)))),
                 Pair.of(2, RangedApproachTask.create(1.25F)),
                 Pair.of(3, MeleeAttackTask.create(30))
         ),
@@ -102,6 +102,17 @@ public class SwanBrain {
 
     public static void updateActivities(SwanEntity swan) {
         swan.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT));
+    }
+
+    private static boolean shouldForgetTarget(ServerWorld world, LivingEntity target, SwanEntity swan) {
+        Optional<Boolean> defendingHome = swan.getBrain().getOptionalMemory(ModMemoryModules.DEFENDING_HOME);
+        Optional<GlobalPos> home = swan.getBrain().getOptionalMemory(MemoryModuleType.HOME);
+
+        if(home != null && home.isPresent() && defendingHome != null && defendingHome.isPresent()) {
+            return target.getBlockPos().getSquaredDistance(home.get().pos()) > 25;
+        }
+
+        return false;
     }
 
     private static Optional<? extends LivingEntity> getAttackTarget(ServerWorld world, SwanEntity swan) {
@@ -130,7 +141,8 @@ public class SwanBrain {
                 MemoryModuleType.NEAREST_ATTACKABLE,
                 MemoryModuleType.HURT_BY,
                 MemoryModuleType.HURT_BY_ENTITY,
-                MemoryModuleType.IS_IN_WATER
+                MemoryModuleType.IS_IN_WATER,
+                ModMemoryModules.DEFENDING_HOME
         );
     }
 }

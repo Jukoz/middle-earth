@@ -19,8 +19,9 @@ public class DefendHomeTask {
                     Optional<LivingEntity> optional = Optional.ofNullable(threatClose(entity, radius));
 
                     if(optional.isEmpty()) {
-                        return false;
+                        return true;
                     }
+                    entity.getBrain().remember(ModMemoryModules.DEFENDING_HOME, true);
                     attackTarget.remember(optional);
                     return true;
                 };
@@ -36,7 +37,7 @@ public class DefendHomeTask {
         if(optionalHome != null && optionalHome.isPresent()) {
             if(optionalPlayers != null && optionalPlayers.isPresent()) {
                 for(PlayerEntity player : optionalPlayers.get()) {
-                    if(player.getPos().squaredDistanceTo(optionalHome.get().pos().toCenterPos()) < (radius*radius)) {
+                    if(player.getPos().squaredDistanceTo(optionalHome.get().pos().toCenterPos()) < (radius*radius) && !player.isInCreativeMode()) {
                         return player;
                     }
                 }

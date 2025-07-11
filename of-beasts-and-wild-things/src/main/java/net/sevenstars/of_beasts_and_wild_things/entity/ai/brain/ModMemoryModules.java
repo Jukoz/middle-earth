@@ -12,6 +12,8 @@ import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import java.util.Optional;
 
 public class ModMemoryModules<U> {
+
+    public static final MemoryModuleType<Boolean> DEFENDING_HOME = register("defending_home", Codec.BOOL);
     private final Optional<Codec<Memory<U>>> codec;
 
     @VisibleForTesting

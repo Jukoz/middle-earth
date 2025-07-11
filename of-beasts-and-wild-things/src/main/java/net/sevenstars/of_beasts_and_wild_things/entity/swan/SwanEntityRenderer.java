@@ -6,10 +6,12 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
 import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityModel;
 import net.sevenstars.of_beasts_and_wild_things.entity.model.ModEntityModelLayers;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class SwanEntityRenderer  extends MobEntityRenderer<SwanEntity, SwanEntityRenderState, SwanEntityModel> {
     private static final String PATH = "textures/entity/swan/";
@@ -47,5 +49,11 @@ public class SwanEntityRenderer  extends MobEntityRenderer<SwanEntity, SwanEntit
         swanEntityRenderState.sleepingAnimationState = swan.sleepingAnimationState;
         swanEntityRenderState.swimmingAnimationState = swan.swimmingAnimationState;
         swanEntityRenderState.intimidateAnimationState = swan.intimidateAnimationState;
+    }
+
+    private static boolean isDefending(SwanEntity swan) {
+        Optional<Boolean> optional = swan.getBrain().getOptionalMemory(ModMemoryModules.DEFENDING_HOME);
+
+        return optional != null && optional.isPresent();
     }
 }
