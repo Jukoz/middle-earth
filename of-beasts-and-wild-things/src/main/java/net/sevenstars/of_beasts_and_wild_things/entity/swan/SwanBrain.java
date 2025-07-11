@@ -20,6 +20,7 @@ import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsPosMemoryTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.SearchForHomeTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.SleepOnGroundTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.StrollAroundHomeTask;
 
 public class SwanBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super SwanEntity>>> SENSORS;
@@ -58,7 +59,7 @@ public class SwanBrain {
                         Pair.of(StrollTask.create(1.0F), 1)
                 ))),
                 Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_PRESENT), ImmutableList.of(
-                        Pair.of(StrollTask.create(1.0F), 2),
+                        Pair.of(StrollAroundHomeTask.create(1.0f, 20, true), 2),
                         Pair.of(new WaitTask(20, 100), 1)
                 ))),
                 Pair.of(99, ScheduleActivityTask.create())

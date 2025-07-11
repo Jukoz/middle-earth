@@ -245,6 +245,9 @@ public class SwanEntity extends AnimalEntity {
             }
         }
 
+        if(this.isAttacking()) {
+            this.getBrain().forget(MemoryModuleType.WALK_TARGET);
+        }
         this.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
         this.setTarget(null);
 
