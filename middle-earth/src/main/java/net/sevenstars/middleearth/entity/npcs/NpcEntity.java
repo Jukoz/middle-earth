@@ -17,6 +17,8 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
@@ -30,9 +32,11 @@ import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
+import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
@@ -53,6 +57,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     // Data to use
     private static final TrackedData<NpcEntityData> DATA;
     private static final TrackedData<NpcEntityTextureData> TEXTURE_DATA;
+    private static final TrackedData<BlockPos> STRUCTURE_MANAGER_HOST_POS;
+
+    public Faction faction;
+    public NpcData npcData;
+    public EntityCategory npcCategory;
 
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
@@ -142,6 +151,42 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         // TODO : add stuff here
     }
 
+    @Override
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.putString("faction_id", (this.faction == null) ? null : this.faction.getId().toString());
+        view.putString("npc_data_id", (this.npcData == null) ? null : this.npcData.getId().toString());
+        view.putString("npc_category", this.npcCategory.name());
+    }
+
+    @Override
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.setFaction(Identifier.of(view.getString("faction_id", null)));
+        this.setNpcData(Identifier.of(view.getString("npc_data_id", null)));
+        this.setNpcCategory(view.getString("npc_category", EntityCategory.MALE.name()));
+    }
+
+    public void setFaction(Identifier id){
+        if(id == null)
+            return;
+        try{
+            this.faction = FactionLookup.getFactionById(getWorld(), id);
+        } catch (FactionIdentifierException e) {
+            // Default faction?
+        }
+    }
+
+    public void setNpcData(Identifier id){
+        if(id == null)
+            return;
+        this.npcData = NpcDataLookup.getNpcData(getWorld(), id);
+    }
+
+    public void setNpcCategory(String name){
+        this.npcCategory = EntityCategory.valueOf(name);
+    }
+
     private NpcEntityData generateNpcData(DynamicRegistryManager manager) {
         Faction faction = (random.nextInt(2) == 1) ? FactionsME.GONDOR : FactionsME.MORDOR;
         var civilianNpcDatas = NpcDataLookup.getAllNpcDatas(getWorld(), faction.getAllNpcDatas().get(NpcRank.MILITIA));
@@ -228,17 +273,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         return npcEntityTextureData;
     }
 
-    StructureManagerBlockEntity structureManagerBlockEntity;
-    public void setStructureManagerHost(StructureManagerBlockEntity blockEntity){
-        structureManagerBlockEntity = blockEntity;
-    }
-
     @Override
     public void onDeath(DamageSource damageSource) {
         super.onDeath(damageSource);
-        if(structureManagerBlockEntity != null && !structureManagerBlockEntity.isRemoved()){
-            structureManagerBlockEntity.alertDeath(this);
-        }
+        StructureManagerBlockEntity.triggerDeathSignal(this.dataTracker.get(STRUCTURE_MANAGER_HOST_POS), this);
     }
 
     // region NBT & DataTrackers
@@ -248,6 +286,29 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
         builder.add(DATA, new NpcEntityData());
         builder.add(TEXTURE_DATA, new NpcEntityTextureData());
+        builder.add(STRUCTURE_MANAGER_HOST_POS, getBlockPos());
+    }
+
+    @Override
+    public boolean isPersistent() {
+        return true; // Todo : Make is so the persistence is tracked
+    }
+
+    @Override
+    public void writeData(WriteView view) {
+        super.writeData(view);
+        view.put("StructureManagerHostPos", BlockPos.CODEC, dataTracker.get(STRUCTURE_MANAGER_HOST_POS));
+        view.put("NpcData", NpcEntityData.CODEC, dataTracker.get(DATA));
+        //view.put("NpcTextureData", NpcTextureData.CODEC, dataTracker.get(TEXTURE_DATA));
+    }
+
+    @Override
+    public void readData(ReadView view) {
+        super.readData(view);
+        if(view.read("StructureManagerHostPos", BlockPos.CODEC).isPresent())
+            this.dataTracker.set(STRUCTURE_MANAGER_HOST_POS, view.read("StructureManagerHostPos", BlockPos.CODEC).get());
+        if(view.read("NpcData", NpcEntityData.CODEC).isPresent())
+            this.dataTracker.set(DATA, view.read("NpcData", NpcEntityData.CODEC).get());
     }
 
     //TODO crab to fix
@@ -293,6 +354,12 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     public void setNpcTextureData(NpcEntityTextureData npcEntityTextureData) {
         this.dataTracker.set(TEXTURE_DATA, npcEntityTextureData);
     }
+    public void setStructureManagerHost(BlockPos blockPos) {
+        this.dataTracker.set(STRUCTURE_MANAGER_HOST_POS, blockPos);
+    }
+    public BlockPos getStructureManagerHostPos() {
+        return this.dataTracker.get(STRUCTURE_MANAGER_HOST_POS);
+    }
 
     public NpcEntityTextureData getNpcTextureData() {
         return this.dataTracker.get(TEXTURE_DATA);
@@ -301,6 +368,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     static {
         DATA = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_ENTITY_DATA);
         TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_ENTITY_TEXTURE_DATA);
+        STRUCTURE_MANAGER_HOST_POS = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.STRUCTURE_MANAGER_HOST_POS);
     }
     // endregion
 

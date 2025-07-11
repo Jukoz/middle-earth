@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.resources.datas.npcs.pools.GondorianNpcDataPool;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNest;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
@@ -51,11 +51,11 @@ public class StructureManagerDatasME {
 
     static {
         TEMPLATE = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "template"), List.of(
-            new StructureSpawnNest(IdentifierUtil.getIdentifierFromString("npc_nest_a"), 100, new BlockPos(0,0,0), List.of(
+            new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("npc_nest_a"), 100, new BlockPos(0,0,0), List.of(
                     new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_CITADEL_GUARDS.getId(), 3).SetFixAmount(5),
                     new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_KNIGHT.getId(), 2).SetRangeAmount(3, 4)
             )).WithBedRadius(20),
-            new StructureSpawnNest(IdentifierUtil.getIdentifierFromString("npc_nest_b"), 200, new BlockPos(0,0,0), List.of(
+            new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("npc_nest_b"), 200, new BlockPos(0,0,0), List.of(
                     new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_CITADEL_GUARDS.getId(), 2).SetFixAmount(3),
                     new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_KNIGHT.getId(), 4).SetRangeAmount(1, 4)
             )).WithBedRadius(10)

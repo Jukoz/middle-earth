@@ -5,10 +5,11 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
@@ -35,6 +36,14 @@ public class StructureManagerBlock extends BlockWithEntity implements BlockEntit
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return createCodec(StructureManagerBlock::new);
+    }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        StructureManagerBlockEntity entity = (StructureManagerBlockEntity) world.getBlockEntity(pos);
+        if(entity != null)
+            entity.initializeData(world, placer != null && placer.isPlayer());
     }
 
     @Override
@@ -103,13 +112,13 @@ public class StructureManagerBlock extends BlockWithEntity implements BlockEntit
     @Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<StructureManagerBlockEntity> expectedType) {
         BlockEntityTicker ticker;
-        if (world instanceof ServerWorld serverWorld) {
-            ticker = validateTicker(givenType, expectedType, (worldx, pos, state, blockEntity) -> {
-                StructureManagerBlockEntity.tick(serverWorld, pos, state, blockEntity);
-            });
-        } else {
-            ticker = null;
+        if (world.isClient) {
+            return null;
         }
+
+        ticker = validateTicker(givenType, expectedType, (worldx, pos, state, blockEntity) -> {
+            StructureManagerBlockEntity.tickEvent(world, pos, state, blockEntity);
+        });
 
         return ticker;
     }

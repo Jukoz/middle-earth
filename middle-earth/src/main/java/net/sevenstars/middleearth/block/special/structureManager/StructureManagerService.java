@@ -6,8 +6,6 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityData;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerDataLookup;
@@ -19,9 +17,10 @@ public class StructureManagerService {
     }
 
     public static NpcEntity SpawnEntity(World world, Identifier npcIdentifier, Identifier factionIdentifier, BlockPos pos, int spawnRadius){
-        NpcData data = NpcDataLookup.getNpcData(world, npcIdentifier);
-
         NpcEntity npcEntityToSpawn = new NpcEntity(ModEntities.NPC, world);
+        npcEntityToSpawn.setFaction(factionIdentifier);
+        npcEntityToSpawn.setNpcData(npcIdentifier);
+        npcEntityToSpawn.setNpcCategory(EntityCategory.MALE.name());
 
         var random = world.getRandom();
         int chances = 5;
@@ -38,9 +37,9 @@ public class StructureManagerService {
 
 
         npcEntityToSpawn.setPos(chosenBlockPos.getX(), chosenBlockPos.getY(), chosenBlockPos.getZ());
-        world.spawnEntity(npcEntityToSpawn);
         npcEntityToSpawn.AssignNpcEntityData(world, new NpcEntityData(factionIdentifier, npcIdentifier, EntityCategory.MALE));
 
+        world.spawnEntity(npcEntityToSpawn);
         return npcEntityToSpawn;
     }
 }

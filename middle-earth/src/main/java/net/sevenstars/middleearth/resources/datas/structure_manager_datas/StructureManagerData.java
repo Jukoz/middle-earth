@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.resources.datas.structure_manager_datas;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.List;
@@ -12,38 +13,42 @@ import java.util.List;
 public class StructureManagerData {
     public static final Codec<StructureManagerData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(StructureManagerData::getIdString),
-            Codec.list(StructureSpawnNest.CODEC).fieldOf("spawn_nest").forGetter(StructureManagerData::getNpcSpawnNest)
+            Codec.list(SpawnNestNodeData.CODEC).fieldOf("spawn_nest").forGetter(StructureManagerData::getNpcSpawnNest)
     ).apply(instance, StructureManagerData::new));
 
     private final Identifier id;
-    private final List<StructureSpawnNest> structureSpawnNests;
+    private final List<SpawnNestNodeData> spawnNestNodeData;
 
-    public StructureManagerData(String id, List<StructureSpawnNest> nests) {
+    public StructureManagerData(String id, List<SpawnNestNodeData> nests) {
         this.id = IdentifierUtil.getIdentifierFromString(id);
-        this.structureSpawnNests = nests;
+        this.spawnNestNodeData = nests;
     }
 
-    public StructureManagerData(Identifier id, List<StructureSpawnNest> nests) {
+    public StructureManagerData(Identifier id, List<SpawnNestNodeData> nests) {
         this.id = id;
-        this.structureSpawnNests = nests;
+        this.spawnNestNodeData = nests;
     }
 
     private String getIdString() {
         return this.id.toString();
     }
+
     public Identifier getId() {
         return this.id;
     }
 
-    public List<StructureSpawnNest> getNpcSpawnNest() {
-        return structureSpawnNests;
+    public List<SpawnNestNodeData> getNpcSpawnNest() {
+        if(this.spawnNestNodeData.isEmpty())
+            return List.of();
+        return spawnNestNodeData;
     }
 
-    public StructureSpawnNest getNpcSpawnNest(Identifier id) {
-        for (var nest : structureSpawnNests){
-            if(nest.getId() == id)
+    public SpawnNestNodeData getNpcSpawnNest(Identifier idToCompare) {
+        for (var nest : spawnNestNodeData){
+            if(nest.getId().equals(idToCompare))
                 return nest;
         }
-        return structureSpawnNests.getFirst();
+        MiddleEarth.LOGGER.logDebugMsg("StructureManagerData :: Couldn't find nest id : %s".formatted(idToCompare));
+        return spawnNestNodeData.getFirst();
     }
 }
