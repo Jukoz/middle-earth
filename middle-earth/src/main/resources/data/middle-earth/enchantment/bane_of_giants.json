@@ -34,9 +34,9 @@
             "base": 1.5,
             "per_level_above_first": 0.5
           },
-          "min_amplifier": 3.0,
+          "min_amplifier": 0.0,
           "min_duration": 1.5,
-          "to_apply": "minecraft:slowness"
+          "to_apply": "minecraft:weakness"
         },
         "enchanted": "attacker",
         "requirements": {
@@ -46,7 +46,7 @@
               "condition": "minecraft:entity_properties",
               "entity": "this",
               "predicate": {
-                "type": "#minecraft:sensitive_to_bane_of_arthropods"
+                "type": "#minecraft:sensitive_to_bane_of_giants"
               }
             },
             {
