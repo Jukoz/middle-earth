@@ -2,6 +2,9 @@ package net.sevenstars.middleearth.item.utils.armor;
 
 import net.sevenstars.middleearth.client.model.equipment.chest.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.*;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.gondor.CitadelGuardHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.gondor.FountainGuardHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.gondor.KingsGuardHelmetModel;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentModelsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
@@ -23,13 +26,13 @@ public class ArmorModelsME {
 
         SHIRRIF_HAT(EquipmentItemsME.SHIRRIFF_HAT, new HatArmorAddonModel(HatArmorAddonModel.getTexturedModelData().createModel())),
 
-        GONDORIAN_CABASSET_HELMET(EquipmentItemsME.GONDORIAN_CABASSET_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
-        GONDORIAN_SOLDIER_HELMET(EquipmentItemsME.GONDORIAN_SOLDIER_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
-        GONDORIAN_PLATE_HELMET(EquipmentItemsME.GONDORIAN_PLATE_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
-        GONDORIAN_CAPTAIN_HELMET(EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
-        GONDORIAN_KINGS_GUARD_HELMET(EquipmentItemsME.GONDORIAN_KINGS_GUARD_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
-        GONDORIAN_CITADEL_GUARD_HELMET(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
-        GONDORIAN_FOUNTAIN_GUARD_HELMET(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_HELMET, new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_CABASSET_HELMET(EquipmentItemsME.GONDORIAN_CABASSET_HELMET, new EggHelmetModel(EggHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_SOLDIER_HELMET(EquipmentItemsME.GONDORIAN_SOLDIER_HELMET, new EggHelmetModel(EggHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_PLATE_HELMET(EquipmentItemsME.GONDORIAN_PLATE_HELMET, new EggHelmetModel(EggHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_CAPTAIN_HELMET(EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET, new EggHelmetModel(EggHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_KINGS_GUARD_HELMET(EquipmentItemsME.GONDORIAN_KINGS_GUARD_HELMET, new KingsGuardHelmetModel(KingsGuardHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_CITADEL_GUARD_HELMET(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_HELMET, new CitadelGuardHelmetModel(CitadelGuardHelmetModel.getTexturedModelData().createModel())),
+        GONDORIAN_FOUNTAIN_GUARD_HELMET(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_HELMET, new FountainGuardHelmetModel(FountainGuardHelmetModel.getTexturedModelData().createModel())),
 
         ROHIRRIC_REINFORCED_LEATHER_HELMET(EquipmentItemsME.ROHIRRIC_REINFORCED_LEATHER_HELMET, new RohirricHelmetArmorAddonModel(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
         ROHIRRIC_BRACED_MILITIA_HELMET(EquipmentItemsME.ROHIRRIC_BRACED_MILITIA_HELMET, new RohirricHelmetArmorAddonModel(RohirricHelmetArmorAddonModel.getTexturedModelData().createModel())),
