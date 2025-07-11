@@ -33,6 +33,6 @@ public class CeramicCrockpotBlock extends CrockpotBlock {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new CrockpotBlockEntity(pos, state);
+        return new CrockpotBlockEntity(pos, state, 0.8125f);
     }
 }

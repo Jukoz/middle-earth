@@ -55,8 +55,13 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
     private final ServerRecipeManager.MatchGetter<MultipleStackRecipeInput, ? extends CrockpotRecipe> matchGetter;
     private int progress = 0;
     private Random random;
+    private float liquidTopLevel;
 
     public CrockpotBlockEntity(BlockPos pos, BlockState state) {
+        this(pos, state, 0.5f);
+    }
+
+    public CrockpotBlockEntity(BlockPos pos, BlockState state, float liquidTopLevel) {
         super(ModBlockEntities.CROCKPOT, pos, state);
         this.propertyDelegate = new PropertyDelegate() {
             @Override
@@ -80,6 +85,7 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
             }
         };
         this.matchGetter = ServerRecipeManager.createCachedMatchGetter(ModRecipes.CROCKPOT);
+        this.liquidTopLevel = liquidTopLevel;
         random = Random.create();
     }
 
@@ -196,6 +202,10 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
 
     public boolean hasOutput() {
         return !getStack(OUTPUT_SLOT).isEmpty();
+    }
+
+    public float getLiquidTopLevel() {
+        return this.liquidTopLevel;
     }
 
     public boolean fill(ItemStack itemStack) {

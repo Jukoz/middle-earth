@@ -32,13 +32,14 @@ public class CrockpotEntityRenderer implements BlockEntityRenderer<CrockpotBlock
         int green = color >> 8 & 255;
         int blue = color & 255;
 
-        matrices.push();
-        matrices.translate(0, 0.8125f, 0); // 0.0625 per pixel
-
-        VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getTranslucentMovingBlock());
-        matrices.peek();
-
         if(entity.hasOutput()) {
+            float liquidTopLevel = entity.getLiquidTopLevel();
+            matrices.push();
+            matrices.translate(0, liquidTopLevel, 0); // 0.0625 per pixel
+
+            VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getTranslucentMovingBlock());
+            //matrices.peek();
+
             Sprite waterSprite = waterSpriteId.getSprite();
 
             MatrixStack.Entry entry = matrices.peek();
