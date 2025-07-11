@@ -16,6 +16,7 @@ import net.sevenstars.middleearth.MiddleEarth;
  */
 public class EnchantmentEffectsME {
     public static final RegistryKey<Enchantment> HEWING = of("hewing");
+    public static final RegistryKey<Enchantment> BANE_OF_GIANTS = of("bane_of_giants");
 
     private static RegistryKey<Enchantment> of(String path) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, path);
