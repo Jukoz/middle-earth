@@ -9,12 +9,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.block.ModBlockEntities;
+import org.jetbrains.annotations.Nullable;
 
 public class PlateBlockEntity extends BlockEntity implements SingleStackInventory.SingleStackBlockEntityInventory {
     private ItemStack food = ItemStack.EMPTY;
@@ -34,17 +38,19 @@ public class PlateBlockEntity extends BlockEntity implements SingleStackInventor
     @Override
     protected void readData(ReadView view) {
         super.readData(view);
+        this.food.copyAndEmpty();
         food = view.read("Item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
     }
 
     @Override
     public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
-        NbtCompound nbtCompound = new NbtCompound();
-        if (!food.isEmpty()) {
-            RegistryOps<NbtElement> registryOps = registries.getOps(NbtOps.INSTANCE);
-            nbtCompound.put("Item", ItemStack.CODEC, registryOps, food);
-        }
-        return nbtCompound;
+        return createNbt(registries);
     }
 
     @Override
