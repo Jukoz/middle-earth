@@ -19,6 +19,6 @@ public class ModSchedule {
     }
 
     public static void registerModSchedules() {
-        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering Mod Entities for " + OfBeastsAndWildThings.MOD_ID);
+        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering Mod Schedules for " + OfBeastsAndWildThings.MOD_ID);
     }
 }

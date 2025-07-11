@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.WardenAngerManager;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
@@ -14,13 +15,20 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.entity.passive.AxolotlBrain;
+import net.minecraft.entity.passive.AxolotlEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.poi.PointOfInterestTypes;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsPosMemoryTask;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.SearchForHomeTask;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.SleepOnGroundTask;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.StrollAroundHomeTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSensors;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.*;
+
+import java.util.List;
+import java.util.Optional;
 
 public class SwanBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super SwanEntity>>> SENSORS;
@@ -48,20 +56,22 @@ public class SwanBrain {
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
                 new MoveToTargetTask(),
                 new UpdateLookControlTask(45, 90),
+                DefendHomeTask.create(5),
                 UpdateAttackTargetTask.create((world, swan) -> swan.getHurtBy())
         ));
     }
 
     private static void addIdleActivities(Brain<SwanEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
+                Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
                         Pair.of(SearchForHomeTask.create(ModBlocks.BIRD_NEST), 2),
                         Pair.of(StrollTask.create(1.0F), 1)
                 ))),
-                Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_PRESENT), ImmutableList.of(
+                Pair.of(2, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_PRESENT), ImmutableList.of(
                         Pair.of(StrollAroundHomeTask.create(1.0f, 20, true), 2),
                         Pair.of(new WaitTask(20, 100), 1)
                 ))),
+                Pair.of(3, UpdateAttackTargetTask.create(SwanBrain::getAttackTarget)),
                 Pair.of(99, ScheduleActivityTask.create())
         ));
     }
@@ -80,8 +90,9 @@ public class SwanBrain {
 
     private static void addFightActivities(Brain<SwanEntity> brain) {
         brain.setTaskList(Activity.FIGHT, ImmutableList.of(
-                Pair.of(0, ForgetAttackTargetTask.create()),
-                Pair.of(2, FindEntityTask.create(EntityType.PLAYER, 15, MemoryModuleType.ATTACK_TARGET, 1.25f, 0)),
+                Pair.of(0, UpdateAttackTargetTask.create(SwanBrain::getAttackTarget)),
+                Pair.of(1, ForgetAttackTargetTask.create()),
+                Pair.of(2, RangedApproachTask.create(1.25F)),
                 Pair.of(3, MeleeAttackTask.create(30))
         ),
                 ImmutableSet.of(
@@ -93,12 +104,17 @@ public class SwanBrain {
         swan.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT));
     }
 
+    private static Optional<? extends LivingEntity> getAttackTarget(ServerWorld world, SwanEntity swan) {
+        return swan.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+    }
+
     static {
         SENSORS = ImmutableList.of(
                 SensorType.HURT_BY,
                 SensorType.NEAREST_PLAYERS,
                 SensorType.NEAREST_LIVING_ENTITIES,
-                SensorType.IS_IN_WATER
+                SensorType.IS_IN_WATER,
+                ModSensors.SWAN_ATTACKABLES
         );
         MEMORY_MODULES = ImmutableList.of(
                 MemoryModuleType.WALK_TARGET,

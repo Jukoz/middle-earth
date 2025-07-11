@@ -14,11 +14,13 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.EntityTypeTags;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -100,14 +102,16 @@ public class SwanEntity extends AnimalEntity {
     @Override
     public void tickMovement() {
         if(!this.getWorld().isClient) {
-            defendTerritory();
             this.setAttacking(this.getTarget() != null);
+            System.out.println(this.getTarget());
 
-            if(this.isAttacking()) {
+            if(this.isAttacking() && this.getBrain().getSchedule() != Schedule.EMPTY) {
                 this.getBrain().setSchedule(Schedule.EMPTY);
             }
-            else {
+            else if(!this.isAttacking() && this.getBrain().getSchedule() != ModSchedule.SWAN_DEFAULT) {
                 this.getBrain().setSchedule(ModSchedule.SWAN_DEFAULT);
+                this.getBrain().forget(MemoryModuleType.LOOK_TARGET);
+                this.getBrain().forget(MemoryModuleType.WALK_TARGET);
                 this.getBrain().resetPossibleActivities(ImmutableList.of());
                 this.getBrain().refreshActivities(this.getWorld().getTimeOfDay(), this.getWorld().getTime());
             }
@@ -221,36 +225,8 @@ public class SwanEntity extends AnimalEntity {
         }
     }
 
-    public void defendTerritory() {
-        Optional<GlobalPos> optional = this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HOME);
-        if(optional.isEmpty()) {
-            return;
-        }
-
-        List<PlayerEntity> list = (List<PlayerEntity>)this.brain.getOptionalRegisteredMemory(MemoryModuleType.NEAREST_PLAYERS).orElse(List.of());
-        if(list.isEmpty()) {
-            return;
-        }
-
-        GlobalPos globalPos = optional.get();
-        if(!globalPos.dimension().equals(this.getWorld().getRegistryKey())) {
-            return;
-        }
-
-        for(PlayerEntity player : list){
-            if(player.getBlockPos().getSquaredDistance(globalPos.pos()) < 25 && player.getBlockPos().getSquaredDistance(this.getBlockPos()) < 144)
-            {
-                this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
-                return;
-            }
-        }
-
-        if(this.isAttacking()) {
-            this.getBrain().forget(MemoryModuleType.WALK_TARGET);
-        }
-        this.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
-        this.setTarget(null);
-
+    public static boolean isValidSwanFood(LivingEntity entity) {
+        return entity.getType().equals(ModEntities.SNAIL) || entity.getType().equals(EntityType.TADPOLE);
     }
 
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
