@@ -56,7 +56,7 @@ public class SwanEntityModel extends EntityModel<SwanEntityRenderState> {
                 .uv(0, 20).cuboid(-1.5F, -4.75F, -1.0F, 3.0F, 8.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(-0.5F, -1.25F, 1.0F));
 
         ModelPartData head = head_and_neck.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-1.0F, -1.0F, -6.5F, 2.0F, 1.0F, 2.0F, new Dilation(0.0F))
-                .uv(0, 55).cuboid(-1.5F, -3.0F, -4.5F, 3.0F, 3.0F, 6.0F, new Dilation(0.0F)), ModelTransform.origin(-0.5F, -6.0F, 1.5F));
+                .uv(0, 55).cuboid(-1.5F, -3.0F, -4.5F, 3.0F, 3.0F, 6.0F, new Dilation(0.01F)), ModelTransform.origin(-0.5F, -6.0F, 1.5F));
 
         ModelPartData tail = body.addChild("tail", ModelPartBuilder.create().uv(32, 23).cuboid(-3.5F, -2.25F, -0.25F, 7.0F, 2.0F, 8.0F, new Dilation(0.0F))
                 .uv(7, 26).cuboid(-3.5F, -0.25F, -0.25F, 7.0F, 3.0F, 5.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -1.25F, 5.25F));
@@ -73,7 +73,7 @@ public class SwanEntityModel extends EntityModel<SwanEntityRenderState> {
     public void setAngles(SwanEntityRenderState state) {
         super.setAngles(state);
 
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 1.0F);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 6.0F, 1.0F);
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
         this.swimmingAnimation.apply(state.swimmingAnimationState, state.age);
         this.intimidateAnimation.apply(state.intimidateAnimationState, state.age);
