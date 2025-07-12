@@ -2,26 +2,28 @@ package net.sevenstars.middleearth.client.model.equipment.head.helmets;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.entity.LivingEntity;
 
-public class KettleHatArmorAddonModel extends HelmetAddonModel {
+public class HatHelmetModel extends HelmetAddonModel {
 
-    public final ModelPart kettleHat;
-
-    public KettleHatArmorAddonModel(ModelPart root) {
+    public HatHelmetModel(ModelPart root) {
         super(root);
-        kettleHat = root.getChild("head").getChild("kettle_hat");
     }
 
     public static TexturedModelData getTexturedModelData() {
+        ModelData modelData = getModelData();
+        return TexturedModelData.of(modelData, 64, 64);
+    }
+
+    public static ModelData getModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 1.5F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        head.addChild("kettle_hat", ModelPartBuilder.create()
-                .uv(0, 0).cuboid(-7.0F, -8.1F, -7.0F, 14.0F, 1.0F, 14.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 2.766F, 0.0F));
+        head.addChild("brim", ModelPartBuilder.create()
+                        .uv(-6, 0).cuboid(-8.0F, -4.15F, -8.0F, 16.0F, 0.0F, 16.0F, new Dilation(0.0F)),
+                ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
@@ -30,6 +32,6 @@ public class KettleHatArmorAddonModel extends HelmetAddonModel {
         modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(modelData, 64, 64);
+        return modelData;
     }
 }

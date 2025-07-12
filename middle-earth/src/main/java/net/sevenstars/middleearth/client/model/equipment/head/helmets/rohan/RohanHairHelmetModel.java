@@ -1,36 +1,32 @@
-package net.sevenstars.middleearth.client.model.equipment.head.helmets;
+package net.sevenstars.middleearth.client.model.equipment.head.helmets.rohan;
 
-import net.minecraft.client.render.entity.state.BipedEntityRenderState;
-import net.sevenstars.middleearth.utils.ToRad;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 
-public class RohirricHelmetArmorAddonModel extends HelmetAddonModel {
+public class RohanHairHelmetModel extends RohanHelmetModel {
     private static final float MAX_ANGLE_HAIR = 75f;
 
     public final ModelPart hair;
 
-    public RohirricHelmetArmorAddonModel(ModelPart root) {
+    public RohanHairHelmetModel(ModelPart root) {
         super(root);
-        hair = root.getChild("head").getChild("hair");
+        hair = root.getChild("head").getChild("hair_bone").getChild("hair");
     }
 
     public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
+        ModelData modelData = getModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(30, 17)
-                .cuboid(0.0F, -14.5F, -9.5F, 0.0F, 11.0F, 17.0F, new Dilation(0.0F)),
-                ModelTransform.origin(0.0F, -1.0F, 0.0F));
-
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        head.addChild("hair", ModelPartBuilder.create().uv(0, 27)
-                        .cuboid(-1.0F, -2.0F, 0.0F, 2.0F, 3.0F, 18.0F, new Dilation(0.0F)),
-                ModelTransform.of(0.0F, -9.0F, 5.0F, -1.5708F, 0.0F, 0.0F));
+        ModelPartData hair_bone = head.addChild("hair_bone", ModelPartBuilder.create(),
+                ModelTransform.of(0.0F, -9.5F, 5.5F, 0.48F, 0.0F, 0.0F));
+        hair_bone.addChild("hair", ModelPartBuilder.create()
+                .uv(0, 27).cuboid(-1.0F, -2.25F, 0.0F, 2.0F, 3.0F, 18.0F, new Dilation(0.0F)),
+                ModelTransform.of(0.0F, 1.0F, -1.0F, -2.0508F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
