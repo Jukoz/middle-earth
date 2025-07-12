@@ -1,27 +1,25 @@
-package net.sevenstars.middleearth.client.model.equipment.head.helmets;
+package net.sevenstars.middleearth.client.model.equipment.head.helmets.dale;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.entity.LivingEntity;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 
-public class DaleTallSpikeHelmetModel extends HelmetAddonModel {
+public class DaleSpikeFurHelmetModel extends DaleSpikeHelmetModel {
 
-    public DaleTallSpikeHelmetModel(ModelPart root) {
+    public DaleSpikeFurHelmetModel(ModelPart root) {
         super(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
+        ModelData modelData = getModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 1.5F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        ModelPartData addon = head.addChild("addon", ModelPartBuilder.create()
-                .uv(0, 0).cuboid(-5.0F, -6.7F, -5.0F, 10.0F, 2.0F, 10.0F, new Dilation(0.2F))
-                .uv(37, 0).cuboid(-2.5F, -11.5F, -3.0F, 5.0F, 3.0F, 6.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-
-        addon.addChild("spike_tall", ModelPartBuilder.create().uv(6, 0).cuboid(-0.5F, -3.5F, -0.5F, 1.0F, 8.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -12.5F, 0.0F, 0.0F, -0.7854F, 0.0F));
+       head.addChild("fur", ModelPartBuilder.create()
+               .uv(0, 0).cuboid(-5.0F, -6.95F, -5.0F, 10.0F, 2.0F, 10.0F, new Dilation(0.2F)),
+               ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));

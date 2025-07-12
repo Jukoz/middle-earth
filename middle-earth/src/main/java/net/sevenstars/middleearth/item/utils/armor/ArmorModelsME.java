@@ -2,6 +2,10 @@ package net.sevenstars.middleearth.item.utils.armor;
 
 import net.sevenstars.middleearth.client.model.equipment.chest.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.*;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.dale.DaleFeatherHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.dale.DaleHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.dale.DaleSpikeFurHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.dale.DaleSpikeHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.gondor.CitadelGuardHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.gondor.FountainGuardHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.gondor.KingsGuardHelmetModel;
@@ -46,14 +50,14 @@ public class ArmorModelsME {
         EORLING_MARSHAL_HELMET(EquipmentItemsME.EORLING_MARSHAL_HELMET, new RohanHairHelmetModel(RohanHairHelmetModel.getTexturedModelData().createModel())),
         HORSE_LORD_HELMET(EquipmentItemsME.HORSE_LORD_HELMET, new RohanHelmetModel(RohanHelmetModel.getTexturedModelData().createModel())),
 
-        DALISH_HELMET(EquipmentItemsME.DALISH_HELMET, new DaleTallSpikeHelmetModel(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
-        DALISH_HELMET_BLACK_FUR(EquipmentItemsME.DALISH_HELMET_BLACK_FUR, new DaleTallSpikeHelmetModel(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
-        DALISH_HELMET_BROWN_FUR(EquipmentItemsME.DALISH_HELMET_BROWN_FUR, new DaleTallSpikeHelmetModel(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
-        DALISH_HELMET_TAN_FUR(EquipmentItemsME.DALISH_HELMET_TAN_FUR, new DaleTallSpikeHelmetModel(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
+        DALISH_HELMET(EquipmentItemsME.DALISH_HELMET, new DaleSpikeHelmetModel(DaleSpikeHelmetModel.getTexturedModelData().createModel())),
+        DALISH_HELMET_BLACK_FUR(EquipmentItemsME.DALISH_HELMET_BLACK_FUR, new DaleSpikeFurHelmetModel(DaleSpikeFurHelmetModel.getTexturedModelData().createModel())),
+        DALISH_HELMET_BROWN_FUR(EquipmentItemsME.DALISH_HELMET_BROWN_FUR, new DaleSpikeFurHelmetModel(DaleSpikeFurHelmetModel.getTexturedModelData().createModel())),
+        DALISH_HELMET_TAN_FUR(EquipmentItemsME.DALISH_HELMET_TAN_FUR, new DaleSpikeFurHelmetModel(DaleSpikeFurHelmetModel.getTexturedModelData().createModel())),
         DALISH_BURGONET(EquipmentItemsME.DALISH_BURGONET, new DaleHelmetModel(DaleHelmetModel.getTexturedModelData().createModel())),
-        DALISH_HEYDAY_HELMET(EquipmentItemsME.DALISH_HEYDAY_HELMET, new DaleTallSpikeHelmetModel(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())),
+        DALISH_HEYDAY_HELMET(EquipmentItemsME.DALISH_HEYDAY_HELMET, new DaleSpikeFurHelmetModel(DaleSpikeFurHelmetModel.getTexturedModelData().createModel())),
         BARDING_SOLDIER_HELMET(EquipmentItemsME.BARDING_SOLDIER_HELMET, new DaleHelmetModel(DaleHelmetModel.getTexturedModelData().createModel())),
-        BARDING_SERGEANT_HELMET(EquipmentItemsME.BARDING_SERGEANT_HELMET, new DaleHelmetModel(DaleHelmetModel.getTexturedModelData().createModel())),
+        BARDING_SERGEANT_HELMET(EquipmentItemsME.BARDING_SERGEANT_HELMET, new DaleFeatherHelmetModel(DaleFeatherHelmetModel.getTexturedModelData().createModel())),
 
         DWARVEN_MINER_HELMET(EquipmentItemsME.DWARVEN_MINER_HELMET, new DwarvenMinerHelmetModel(DwarvenMinerHelmetModel.getTexturedModelData().createModel())),
 
