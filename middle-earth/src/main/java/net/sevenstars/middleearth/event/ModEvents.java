@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -78,6 +79,40 @@ public class ModEvents {
                 }
             }
         });
+
+        PlayerBlockBreakEvents.AFTER.register((world, playerEntity, blockPos, blockState, blockEntity) -> {
+            ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
+            ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
+            RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager()
+                    .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.TREE_FELLER).orElseThrow();
+            boolean hasEnchant = stack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
+            int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, stack);
+            float hardness = blockState.getBlock().getHardness();
+
+            if (hasEnchant) {
+                if (!playerEntity.isCreative()) {
+                    assert toolComponent != null;
+                    if (toolComponent.isCorrectForDrops(blockState)){
+                        breakTopLogs(world, playerEntity, blockPos, stack, hardness, 30);
+                    }
+                }
+            }
+        });
+    }
+
+    private static void breakTopLogs(World world, PlayerEntity player, BlockPos blockPos, ItemStack stack, float hardness, int attempts) {
+        if(attempts-- <= 0) return;
+        BlockPos offsetY = blockPos.offset(Direction.Axis.Y, 1);
+        for(int z = -2; z < 2; z++) {
+            BlockPos offsetZ = offsetY.offset(Direction.Axis.Z, z);
+            for(int x = -2; x < 2; x++) {
+                BlockPos offset = offsetZ.offset(Direction.Axis.X, x);
+                if(world.getBlockState(offset).isIn(BlockTags.LOGS)) {
+                    breakTopLogs(world, player, new BlockPos(offset), stack, hardness, attempts);
+                }
+            }
+        }
+        breakAndDamage(world, player, blockPos, stack, hardness);
     }
 
     private static void level1BreakVertical(World world, PlayerEntity player, BlockPos blockPos, ItemStack stack, float hardness){

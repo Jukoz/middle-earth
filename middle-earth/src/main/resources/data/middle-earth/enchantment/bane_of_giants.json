@@ -46,7 +46,7 @@
               "condition": "minecraft:entity_properties",
               "entity": "this",
               "predicate": {
-                "type": "#minecraft:sensitive_to_bane_of_giants"
+                "type": "#middle-earth:sensitive_to_bane_of_giants"
               }
             },
             {
