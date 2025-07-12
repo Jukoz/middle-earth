@@ -125,7 +125,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         StructureManagerBlockEntity blockEntity = (StructureManagerBlockEntity) entity.getWorld().getBlockEntity(pos);
         if(blockEntity!=null && !blockEntity.isRemoved()){
             blockEntity.spawnNestList.computeDeath(entity);
-            markDirty(blockEntity.world, pos, blockEntity.getCachedState());
+            blockEntity.world.markDirty(pos);
         }
     }
 

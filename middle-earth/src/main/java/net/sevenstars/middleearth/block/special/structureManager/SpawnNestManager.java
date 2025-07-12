@@ -116,6 +116,7 @@ public class SpawnNestManager {
                 NpcEntity entityToAdd = StructureManagerService.SpawnEntity(world, pool.getNpcIdentifier(), pool.getFactionIdentifier(), sourcePos.add(data.getBlockPosOffset()), data.getBedRadius());
                 entityToAdd.setStructureManagerHost(sourcePos);
                 addEntity(entityToAdd);
+                world.markDirty(sourcePos);
             }
         }
     }

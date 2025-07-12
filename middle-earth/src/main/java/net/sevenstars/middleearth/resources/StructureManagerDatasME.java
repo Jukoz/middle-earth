@@ -52,12 +52,12 @@ public class StructureManagerDatasME {
     static {
         TEMPLATE = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "template"), List.of(
             new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("npc_nest_a"), 100, new BlockPos(0,0,0), List.of(
-                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_CITADEL_GUARDS.getId(), 3).SetFixAmount(5),
-                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_KNIGHT.getId(), 2).SetRangeAmount(3, 4)
+                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_KNIGHT.getId(), 2).SetFixAmount(1),
+                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_MILITIA.getId(), 4).SetRangeAmount(1, 4)
             )).WithBedRadius(20),
             new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("npc_nest_b"), 200, new BlockPos(0,0,0), List.of(
-                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_CITADEL_GUARDS.getId(), 2).SetFixAmount(3),
-                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_KNIGHT.getId(), 4).SetRangeAmount(1, 4)
+                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARDS.getId(), 2).SetFixAmount(1),
+                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_SOLDIER.getId(), 4).SetRangeAmount(1, 4)
             )).WithBedRadius(10)
         ));
     }

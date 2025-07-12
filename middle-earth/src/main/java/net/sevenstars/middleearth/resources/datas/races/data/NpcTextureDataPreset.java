@@ -4,6 +4,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureMaterial;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
@@ -230,6 +231,8 @@ public class NpcTextureDataPreset {
     }
 
     public NpcTextureDataPreset withPatterns(NpcTextureType type, List<RegistryKey<NpcTexturePattern>> patterns){
+        if(type == NpcTextureType.BEARD)
+            MiddleEarth.LOGGER.logDebugMsg("aa");
         if(patterns != null)
             patterns.forEach(x -> {
                 if(x == null){
@@ -238,11 +241,29 @@ public class NpcTextureDataPreset {
                     addToPattern(type, x.getValue().getPath());
                 }
             });
+
         return this;
     }
-
+    public NpcTextureDataPreset overwritePatterns(NpcTextureType type, List<RegistryKey<NpcTexturePattern>> patterns){
+        clearAllPatterns(type);
+        withPatterns(type, patterns);
+        return this;
+    }
+    public NpcTextureDataPreset clearPatterns(NpcTextureType type) {
+        clearAllPatterns(type);
+        return this;
+    }
     public NpcTextureDataPreset withMaterials(NpcTextureType type, List<RegistryKey<NpcTextureMaterial>> materials){
         materials.forEach(x -> addToMaterial(type, x.getValue().getPath()));
+        return this;
+    }
+    public NpcTextureDataPreset overwriteMaterials(NpcTextureType type, List<RegistryKey<NpcTextureMaterial>> materials){
+        clearAllMaterials(type);
+        withMaterials(type, materials);
+        return this;
+    }
+    public NpcTextureDataPreset clearMaterials(NpcTextureType type) {
+        clearAllMaterials(type);
         return this;
     }
 
@@ -264,12 +285,35 @@ public class NpcTextureDataPreset {
             case CLOTHING -> clothingPatterns.add(value);
         };
     }
+    private void clearAllPatterns(NpcTextureType npcTextureType) {
+        switch (npcTextureType){
+            case BODY -> bodyPatterns.clear();
+            case HEAD -> headPatterns.clear();
+            case SCAR -> scarPatterns.clear();
+            case EAR -> earPatterns.clear();
+            case NOSE -> nosePatterns.clear();
+            case EYE -> eyePatterns.clear();
+            case HAIR -> hairPatterns.clear();
+            case EYEBROW -> eyebrowPatterns.clear();
+            case BEARD -> beardPatterns.clear();
+            case CLOTHING -> clothingPatterns.clear();
+        };
+    }
+
     public void addToMaterial(NpcTextureType npcTextureType, String value) {
         switch (npcTextureType){
             case SKIN -> skinMaterials.add(value);
             case EYE -> eyeMaterials.add(value);
             case HAIR, EYEBROW, BEARD -> hairMaterials.add(value);
             case CLOTHING -> clothingMaterials.add(value);
+        };
+    }
+    private void clearAllMaterials(NpcTextureType npcTextureType) {
+        switch (npcTextureType){
+            case SKIN -> skinMaterials.clear();
+            case EYE -> eyeMaterials.clear();
+            case HAIR, EYEBROW, BEARD -> hairMaterials.clear();
+            case CLOTHING -> clothingMaterials.clear();
         };
     }
 
@@ -299,5 +343,38 @@ public class NpcTextureDataPreset {
 
     public Boolean haveEmissiveEyes() {
         return haveEmissiveEyes;
+    }
+
+    public NpcTextureDataPreset copy() {
+        var copiedNpcTextureDataPreset = new NpcTextureDataPreset();
+        for(String value : getMaterials(NpcTextureType.SKIN))
+            copiedNpcTextureDataPreset.addToMaterial(NpcTextureType.SKIN, value);
+        for(String value : getPatterns(NpcTextureType.BODY))
+            copiedNpcTextureDataPreset.addToPattern(NpcTextureType.BODY, value);
+        for(String value : getPatterns(NpcTextureType.NOSE))
+            copiedNpcTextureDataPreset.addToPattern(NpcTextureType.NOSE, value);
+        for(String value : getPatterns(NpcTextureType.EAR))
+            copiedNpcTextureDataPreset.addToPattern(NpcTextureType.EAR, value);
+
+        for(String value : getMaterials(NpcTextureType.EYE))
+            copiedNpcTextureDataPreset.addToMaterial(NpcTextureType.EYE, value);
+        for(String value : getPatterns(NpcTextureType.EYE))
+            copiedNpcTextureDataPreset.addToPattern(NpcTextureType.EYE, value);
+
+        for(String value : getMaterials(NpcTextureType.HAIR))
+            copiedNpcTextureDataPreset.addToMaterial(NpcTextureType.HAIR, value);
+        for(String value : getPatterns(NpcTextureType.EYEBROW))
+            copiedNpcTextureDataPreset.addToPattern(NpcTextureType.EYEBROW, value);
+        for(String value : getPatterns(NpcTextureType.HAIR))
+            copiedNpcTextureDataPreset.addToPattern(NpcTextureType.HAIR, value);
+        for(String value : getPatterns(NpcTextureType.BEARD))
+            copiedNpcTextureDataPreset.addToPattern(NpcTextureType.BEARD, value);
+
+        for(String value : getMaterials(NpcTextureType.CLOTHING))
+            copiedNpcTextureDataPreset.addToMaterial(NpcTextureType.CLOTHING, value);
+        for(String value : getPatterns(NpcTextureType.CLOTHING))
+            copiedNpcTextureDataPreset.addToPattern(NpcTextureType.CLOTHING, value);
+
+        return copiedNpcTextureDataPreset;
     }
 }

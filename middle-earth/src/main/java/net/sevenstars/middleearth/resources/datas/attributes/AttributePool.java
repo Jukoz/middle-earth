@@ -1,12 +1,10 @@
 package net.sevenstars.middleearth.resources.datas.attributes;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +49,8 @@ public class AttributePool {
             var attributeInstance = entity.getAttributeInstance(Registries.ATTRIBUTE.getEntry(element.getIdentifier()).get());
             if(attributeInstance != null){
                 attributeInstance.setBaseValue(element.getValue());
-                if(!attributeInstance.hasModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf")))
-                    attributeInstance.addPersistentModifier(new EntityAttributeModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf"), -0.20, EntityAttributeModifier.Operation.valueOf("ADD_MULTIPLIED_TOTAL")));
+                //if(!attributeInstance.hasModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf")))
+                    //attributeInstance.addPersistentModifier(new EntityAttributeModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf"), -0.20, EntityAttributeModifier.Operation.valueOf("ADD_MULTIPLIED_TOTAL")));
             } else {
                 return false;
             }
@@ -67,8 +65,8 @@ public class AttributePool {
                 var defaultAttribute = Registries.ATTRIBUTE.get(identifier);
                 if(defaultAttribute != null){
                     attributeInstance.setBaseValue(defaultAttribute.getDefaultValue());
-                    if(attributeInstance.hasModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf")))
-                        attributeInstance.removeModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf"));
+                    //if(attributeInstance.hasModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf")))
+                        //attributeInstance.removeModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf"));
                 }
             }
         }
