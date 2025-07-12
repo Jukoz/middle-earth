@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 
 public class BootsArmorRenderer implements ArmorRenderer {
 
-    private CustomBootsModel customBootsModel = new CustomBootsModel(CustomBootsModel.getTexturedModelData().createModel());
+    private final CustomBootsModel customBootsModel = new CustomBootsModel(CustomBootsModel.getTexturedModelData().createModel());
 
     public BootsArmorRenderer() {
     }

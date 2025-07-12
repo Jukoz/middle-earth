@@ -24,8 +24,6 @@ import net.minecraft.util.math.ColorHelper;
 
 public class BackAttachmentRenderer implements ArmorRenderer {
 
-    private ChestplateAddonModel backAttachmentModel;
-
     public BackAttachmentRenderer() {
     }
 
@@ -46,7 +44,7 @@ public class BackAttachmentRenderer implements ArmorRenderer {
             BackAttachmentDataComponent backAttachmentDataComponent = stack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA);
 
             if (backAttachmentDataComponent != null) {
-                this.backAttachmentModel = ArmorModelsME.ModBackAttachmentPairedModels.valueOf(backAttachmentDataComponent.backAttachment().getName().toUpperCase()).getModel().getUnarmoredModel();
+                ChestplateAddonModel backAttachmentModel = ArmorModelsME.ModBackAttachmentPairedModels.valueOf(backAttachmentDataComponent.backAttachment().getName().toUpperCase()).getModel().getUnarmoredModel();
                 contextModel.copyTransforms(backAttachmentModel);
                 backAttachmentModel.setVisible(false);
                 backAttachmentModel.body.visible = true;

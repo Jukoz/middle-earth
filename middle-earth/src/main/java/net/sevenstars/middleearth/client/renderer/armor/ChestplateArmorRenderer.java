@@ -21,9 +21,8 @@ import net.minecraft.util.Identifier;
 
 public class ChestplateArmorRenderer implements ArmorRenderer {
 
-    private CustomChestplateModel customChestplateModel = new CustomChestplateModel(CustomChestplateModel.getTexturedModelData().createModel());;
+    private final CustomChestplateModel customChestplateModel = new CustomChestplateModel(CustomChestplateModel.getTexturedModelData().createModel());;
 
-    private ChestplateAddonModel capeModel;
     private ChestplateAddonModel chestplateAddonModel;
 
     public ChestplateArmorRenderer() {
@@ -65,7 +64,7 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
 
             BackAttachmentDataComponent capeDataComponent = stack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA);
             if (capeDataComponent != null) {
-                this.capeModel = ArmorModelsME.ModBackAttachmentPairedModels.valueOf(capeDataComponent.backAttachment().getName().toUpperCase()).getModel().getArmoredModel();
+                ChestplateAddonModel capeModel = ArmorModelsME.ModBackAttachmentPairedModels.valueOf(capeDataComponent.backAttachment().getName().toUpperCase()).getModel().getArmoredModel();
                 contextModel.copyTransforms(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;

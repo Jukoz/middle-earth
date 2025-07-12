@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.client.model.equipment.head.helmets.gondor;
+package net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.gondor;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;

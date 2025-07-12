@@ -1,8 +1,7 @@
-package net.sevenstars.middleearth.client.model.equipment.head.helmets.dale;
+package net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.dale;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 
 public class DaleFeatherHelmetModel extends DaleHelmetModel {
 

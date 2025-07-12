@@ -20,8 +20,7 @@ import net.minecraft.util.Identifier;
 
 public class HelmetArmorRenderer implements ArmorRenderer {
 
-    private CustomHelmetModel customHelmetModel = new CustomHelmetModel(CustomHelmetModel.getTexturedModelData().createModel());
-    private HelmetAddonModel helmetAttachmentModel;
+    private final CustomHelmetModel customHelmetModel = new CustomHelmetModel(CustomHelmetModel.getTexturedModelData().createModel());
     private HelmetAddonModel helmetAddonModel;
 
     public HelmetArmorRenderer() {
@@ -68,12 +67,13 @@ public class HelmetArmorRenderer implements ArmorRenderer {
 
             if(hoodDataComponent != null) {
                 Identifier textureHelmetAttachment;
+                HelmetAddonModel helmetAttachmentModel;
                 if (hoodDataComponent.down()){
                     textureHelmetAttachment = Identifier.of(MiddleEarth.MOD_ID, "textures/models/helmet_attachment/" + hoodDataComponent.helmetAttachment().getName().toLowerCase() + "_down.png");
-                    this.helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(hoodDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getArmoredDownModel();
+                    helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(hoodDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getArmoredDownModel();
                 } else {
                     textureHelmetAttachment = Identifier.of(MiddleEarth.MOD_ID, "textures/models/helmet_attachment/" + hoodDataComponent.helmetAttachment().getName().toLowerCase() + ".png");
-                    this.helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(hoodDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getArmoredModel();
+                    helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(hoodDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getArmoredModel();
                 }
                 contextModel.copyTransforms(helmetAttachmentModel);
                 helmetAttachmentModel.setVisible(false);

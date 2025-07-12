@@ -1,8 +1,7 @@
-package net.sevenstars.middleearth.client.model.equipment.head.helmets.rohan;
+package net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 
 public class HammerhandHelmModel extends RohanHelmetModel {
     

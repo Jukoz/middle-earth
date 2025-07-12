@@ -18,7 +18,7 @@ import net.minecraft.util.Identifier;
 
 public class LeggingsArmorRenderer implements ArmorRenderer {
 
-    private CustomLeggingsModel customLeggingsModel = new CustomLeggingsModel(CustomLeggingsModel.getTexturedModelData().createModel());
+    private final CustomLeggingsModel customLeggingsModel = new CustomLeggingsModel(CustomLeggingsModel.getTexturedModelData().createModel());
 
     public LeggingsArmorRenderer() {
     }

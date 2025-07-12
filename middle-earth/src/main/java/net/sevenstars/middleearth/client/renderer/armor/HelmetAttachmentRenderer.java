@@ -24,8 +24,6 @@ import net.minecraft.util.math.ColorHelper;
 
 public class HelmetAttachmentRenderer implements ArmorRenderer {
 
-    private HelmetAddonModel helmetAttachmentModel;
-
     public HelmetAttachmentRenderer() {
     }
 
@@ -48,12 +46,13 @@ public class HelmetAttachmentRenderer implements ArmorRenderer {
 
             if(helmetAttachmentDataComponent != null) {
                 Identifier texture;
+                HelmetAddonModel helmetAttachmentModel;
                 if (helmetAttachmentDataComponent.down()){
                     texture = Identifier.of(MiddleEarth.MOD_ID, "textures/models/helmet_attachment/" + helmetAttachmentDataComponent.helmetAttachment().getName().toLowerCase() + "_down.png");
-                    this.helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(helmetAttachmentDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getUnarmoredDownModel();
+                    helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(helmetAttachmentDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getUnarmoredDownModel();
                 } else {
                     texture = Identifier.of(MiddleEarth.MOD_ID, "textures/models/helmet_attachment/" + helmetAttachmentDataComponent.helmetAttachment().getName().toLowerCase() + ".png");
-                    this.helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(helmetAttachmentDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getUnarmoredModel();
+                    helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(helmetAttachmentDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getUnarmoredModel();
                 }
                 contextModel.copyTransforms(helmetAttachmentModel);
                 helmetAttachmentModel.setVisible(false);
