@@ -104,15 +104,13 @@ public class ModEvents {
     }
 
     private static void breakTopLogs(World world, PlayerEntity player, BlockPos blockPos, ItemStack stack, float hardness, int[] attempts) {
-        if(attempts[0] <= 0) return;
         BlockPos offsetY = blockPos.offset(Direction.Axis.Y, 1);
         for(int z = -2; z < 2; z++) {
             BlockPos offsetZ = offsetY.offset(Direction.Axis.Z, z);
             for(int x = -2; x < 2; x++) {
                 BlockPos offset = offsetZ.offset(Direction.Axis.X, x);
                 if(world.getBlockState(offset).isIn(BlockTags.LOGS)) {
-                    attempts[0]--;
-                    System.out.println(attempts[0]);
+                    if(attempts[0]-- <= 0) return;
                     breakTopLogs(world, player, new BlockPos(offset), stack, hardness, attempts);
                 }
             }
