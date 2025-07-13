@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.item.utils.armor;
 
 import net.sevenstars.middleearth.client.model.equipment.chest.*;
+import net.sevenstars.middleearth.client.model.equipment.head.helmetAttachments.armored.HelmetSkullModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.dwarves.DwarvenMinerHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.dwarves.EreborHelmetModel;
@@ -99,8 +100,6 @@ public class ArmorModelsME {
         RUSTED_MORDOR_SALLET(EquipmentItemsME.RUSTED_MORDOR_SALLET, new SalletHelmetModel(SalletHelmetModel.getTexturedModelData().createModel())),
         MORDOR_SNOUT_HELMET(EquipmentItemsME.MORDOR_SNOUT_HELMET, new MordorSnoutHelmetModel(MordorSnoutHelmetModel.getTexturedModelData().createModel())),
         RUSTED_MORDOR_SNOUT_HELMET(EquipmentItemsME.RUSTED_MORDOR_SNOUT_HELMET, new MordorSnoutHelmetModel(MordorSnoutHelmetModel.getTexturedModelData().createModel())),
-
-        BLACK_URUK_COMMANDER_HELMET(EquipmentItemsME.BLACK_URUK_COMMANDER_HELMET, new HelmetSkullModel(HelmetSkullModel.getTexturedModelData().createModel())),
 
         MORDOR_BLACK_NUMENOREAN_PLATE_HELMET(EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET, new MordorBNHelmetModel(MordorBNHelmetModel.getTexturedModelData().createModel())),
 
@@ -283,7 +282,9 @@ public class ArmorModelsME {
         LORIEN_MARCHWARDEN_HOOD(HelmetAttachmentsME.LORIEN_MARCHWARDEN_HOOD, HelmetAttachmentModelsME.REGULAR_MODELS),
         GALADHRIM_HOOD(HelmetAttachmentsME.GALADHRIM_HOOD, HelmetAttachmentModelsME.REGULAR_MODELS),
         NAZGUL_HOOD(HelmetAttachmentsME.NAZGUL_HOOD, HelmetAttachmentModelsME.NAZGUL_MODELS),
+        SKULL(HelmetAttachmentsME.SKULL, HelmetAttachmentModelsME.SKULL_MODELS),
         ;
+
         private final HelmetAttachmentsME helmetAttachment;
         private final HelmetAttachmentModelsME models;
 

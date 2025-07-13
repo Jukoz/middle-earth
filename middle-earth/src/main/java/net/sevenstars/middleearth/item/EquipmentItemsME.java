@@ -1003,8 +1003,9 @@ public class EquipmentItemsME {
     public static final Item BLACK_URUK_PLATE_BOOTS = registerArmorPiece("black_uruk_plate_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModFactions.MORDOR), new Item.Settings());
 
-    public static final Item BLACK_URUK_COMMANDER_HELMET = registerCustomModelArmorPiece("black_uruk_commander_helmet",
-            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModFactions.MORDOR), new Item.Settings());
+    public static final Item BLACK_URUK_COMMANDER_HELMET = registerArmorPiece("black_uruk_commander_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModFactions.MORDOR), new Item.Settings()
+                    .component(DataComponentTypesME.HELMET_ATTACHMENT_DATA, HelmetAttachmentDataComponent.newHelmetAttachment(HelmetAttachmentsME.SKULL)));
     public static final Item BLACK_URUK_COMMANDER_CHESTPLATE = registerCustomModelArmorPiece("black_uruk_commander_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModFactions.MORDOR), new Item.Settings());
 

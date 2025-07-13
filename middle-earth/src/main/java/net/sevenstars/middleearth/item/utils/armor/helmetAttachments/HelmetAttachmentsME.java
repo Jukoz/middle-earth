@@ -26,6 +26,7 @@ public enum HelmetAttachmentsME implements StringIdentifiable {
     GALADHRIM_HOOD(9,"galadhrim_hood"),
 
     NAZGUL_HOOD(10,"nazgul_hood", HelmetAttachmentsStatesME.UP),
+    SKULL(11,"skull", HelmetAttachmentsStatesME.UP),
     ;
 
     private static final IntFunction<HelmetAttachmentsME> BY_ID = ValueLists.createIndexToValueFunction(HelmetAttachmentsME::getId, HelmetAttachmentsME.values(), ValueLists.OutOfBoundsHandling.ZERO);;

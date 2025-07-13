@@ -16,6 +16,8 @@ public enum HelmetAttachmentModelsME {
             new UnarmoredFurHoodModel(UnarmoredFurHoodModel.getTexturedModelData().createModel()), new UnarmoredFurHoodDownModel(UnarmoredFurHoodDownModel.getTexturedModelData().createModel())),
     NAZGUL_MODELS(new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().createModel()), new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().createModel()),
             new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().createModel()), new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().createModel())),
+    SKULL_MODELS(new HelmetSkullModel(HelmetSkullModel.getTexturedModelData().createModel()), new HelmetSkullModel(HelmetSkullModel.getTexturedModelData().createModel()),
+            new HelmetSkullModel(NazgulHoodModel.getTexturedModelData().createModel()), new HelmetSkullModel(HelmetSkullModel.getTexturedModelData().createModel())),
     ;
 
     private final HelmetAddonModel armoredModel;

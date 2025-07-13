@@ -86,7 +86,7 @@ public class CommandCustomEquipment {
         ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getSelectedStack();
 
         if (handStack.isEmpty()){
-            MutableText sourceText = Text.translatable("command.%s.helmetAttachment.hand_empty".formatted(MiddleEarth.MOD_ID));
+            MutableText sourceText = Text.translatable("command.%s.helmet_attachment.hand_empty".formatted(MiddleEarth.MOD_ID));
             context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
             return 0;
         }
@@ -97,7 +97,7 @@ public class CommandCustomEquipment {
             } else if (helmetAttachment.getConstantState() == HelmetAttachmentsStatesME.UP || helmetAttachment.getConstantState() == null){
                 handStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(false, helmetAttachment, CustomDyeableDataComponent.DEFAULT_COLOR));
             }
-            MutableText sourceText = Text.translatable("command.%s.helme_attachment.success".formatted(MiddleEarth.MOD_ID)).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + helmetAttachment.getName()));
+            MutableText sourceText = Text.translatable("command.%s.helmet_attachment.success".formatted(MiddleEarth.MOD_ID)).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + helmetAttachment.getName()));
             context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
             return 0;
         } else {
