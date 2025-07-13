@@ -48,6 +48,7 @@ public class SwanEntity extends AnimalEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> INTIMIDATING = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> FIGHTING = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState swimmingAnimationState = new AnimationState();
     public final AnimationState sleepingAnimationState = new AnimationState();
     public final AnimationState intimidateAnimationState = new AnimationState();
@@ -69,6 +70,7 @@ public class SwanEntity extends AnimalEntity {
         builder.add(VARIANT, 0);
         builder.add(SLEEPING, false);
         builder.add(INTIMIDATING, false);
+        builder.add(FIGHTING, false);
     }
 
     @Override
@@ -130,11 +132,12 @@ public class SwanEntity extends AnimalEntity {
         if(!this.getWorld().isClient) {
             this.setAttacking(this.getTarget() != null);
 
-            if(this.isAttacking() && this.getBrain().getSchedule() != Schedule.EMPTY) {
+            if(this.isAttacking() && !this.isFighting()) {
                 this.getBrain().setSchedule(Schedule.EMPTY);
                 this.setIntimidating(getTarget() instanceof PlayerEntity);
+                this.setFighting(true);
             }
-            else if(!this.isAttacking() && this.getBrain().getSchedule() != ModSchedule.SWAN_DEFAULT) {
+            else if (!this.isAttacking() && this.isFighting()) {
                 this.getBrain().setSchedule(ModSchedule.SWAN_DEFAULT);
                 this.getBrain().forget(MemoryModuleType.LOOK_TARGET);
                 this.getBrain().forget(MemoryModuleType.WALK_TARGET);
@@ -142,6 +145,7 @@ public class SwanEntity extends AnimalEntity {
                 this.setIntimidating(false);
                 this.getBrain().resetPossibleActivities(ImmutableList.of());
                 this.getBrain().refreshActivities(this.getWorld().getTimeOfDay(), this.getWorld().getTime());
+                this.setFighting(false);
             }
 
         }
@@ -190,8 +194,7 @@ public class SwanEntity extends AnimalEntity {
 
     @Override
     public void setTarget(@Nullable LivingEntity target) {
-
-        super.setTarget(target);
+        this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, target);
     }
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
@@ -212,6 +215,14 @@ public class SwanEntity extends AnimalEntity {
     public void readCustomData(ReadView view) {
         super.readCustomData(view);
         this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+    }
+
+    public boolean isFighting() {
+        return dataTracker.get(FIGHTING);
+    }
+
+    public void setFighting(boolean isSleeping) {
+        dataTracker.set(FIGHTING, isSleeping);
     }
 
     public boolean isSleeping() {

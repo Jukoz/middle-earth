@@ -69,8 +69,10 @@ public class BirdNest extends Block {
             List<SwanEntity> swans = world.getEntitiesByClass(SwanEntity.class, box, Entity::isAlive);
 
             swans.forEach(swan -> {
-                swan.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
-                swan.getBrain().forget(ModMemoryModules.DEFENDING_HOME);
+                if(!player.isInCreativeMode()) {
+                    swan.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
+                    swan.getBrain().forget(ModMemoryModules.DEFENDING_HOME);
+                }
             });
         }
         return super.onBreak(world, pos, state, player);
