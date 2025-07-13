@@ -103,7 +103,14 @@ public class SwanBrain {
     }
 
     public static void updateActivities(SwanEntity swan) {
-        swan.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT));
+        Optional<LivingEntity> optional = swan.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
+        if(optional != null && optional.isPresent()) {
+            swan.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT));
+        }
+        else {
+            swan.getBrain().resetPossibleActivities(ImmutableList.of());
+        }
+        swan.getBrain().refreshActivities(swan.getWorld().getTimeOfDay(), swan.getWorld().getTime());
     }
 
     private static boolean shouldForgetTarget(ServerWorld world, LivingEntity target, SwanEntity swan) {
@@ -111,7 +118,7 @@ public class SwanBrain {
         Optional<GlobalPos> home = swan.getBrain().getOptionalMemory(MemoryModuleType.HOME);
 
         if(home != null && home.isPresent() && defendingHome != null && defendingHome.isPresent()) {
-            return target.getBlockPos().getSquaredDistance(home.get().pos()) > 25;
+            return target.getBlockPos().getSquaredDistance(home.get().pos()) > 36;
         }
 
         return false;

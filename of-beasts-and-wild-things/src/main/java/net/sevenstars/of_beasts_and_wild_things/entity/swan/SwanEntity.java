@@ -78,12 +78,9 @@ public class SwanEntity extends AnimalEntity {
         Profiler profiler = Profilers.get();
         profiler.push("swanBrain");
         this.getBrain().tick(world, this);
-        if(!this.getBrain().getSchedule().equals(ModSchedule.SWAN_DEFAULT))
-        {
-            profiler.swap("swanActivityUpdate");
-            SwanBrain.updateActivities(this);
-            profiler.pop();
-        }
+        profiler.swap("swanActivityUpdate");
+        SwanBrain.updateActivities(this);
+        profiler.pop();
 
         this.updateHome();
         this.updateFloating();
@@ -143,8 +140,6 @@ public class SwanEntity extends AnimalEntity {
                 this.getBrain().forget(MemoryModuleType.WALK_TARGET);
                 this.getBrain().forget(ModMemoryModules.DEFENDING_HOME);
                 this.setIntimidating(false);
-                this.getBrain().resetPossibleActivities(ImmutableList.of());
-                this.getBrain().refreshActivities(this.getWorld().getTimeOfDay(), this.getWorld().getTime());
                 this.setFighting(false);
             }
 
