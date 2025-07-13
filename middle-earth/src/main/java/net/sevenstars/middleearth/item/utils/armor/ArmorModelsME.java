@@ -18,6 +18,10 @@ import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.hob
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.HammerhandHelmModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.RohanHairHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.RohanHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.OrcSpikeHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorBNHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorSnoutHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorSpikyHelmetModel;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentModelsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
@@ -83,18 +87,18 @@ public class ArmorModelsME {
         ORCISH_BRACED_HELMET(EquipmentItemsME.ORCISH_BRACED_HELMET, new OrcSpikeHelmetModel(OrcSpikeHelmetModel.getTexturedModelData().createModel())),
         ORCISH_SALLET(EquipmentItemsME.ORCISH_SALLET, new SalletHelmetModel(SalletHelmetModel.getTexturedModelData().createModel())),
 
-        MORDOR_CREST_HELMET(EquipmentItemsME.MORDOR_CREST_HELMET, new MordorOrcHelmetModel(MordorOrcHelmetModel.getTexturedModelData().createModel())),
-        RUSTED_MORDOR_CREST_HELMET(EquipmentItemsME.RUSTED_MORDOR_CREST_HELMET, new MordorOrcHelmetModel(MordorOrcHelmetModel.getTexturedModelData().createModel())),
-        MORDOR_GREAT_HELMET(EquipmentItemsME.MORDOR_GREAT_HELMET, new MordorOrcHelmetModel(MordorOrcHelmetModel.getTexturedModelData().createModel())),
-        RUSTED_MORDOR_GREAT_HELMET(EquipmentItemsME.RUSTED_MORDOR_GREAT_HELMET, new MordorOrcHelmetModel(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        MORDOR_CREST_HELMET(EquipmentItemsME.MORDOR_CREST_HELMET, new MordorSpikyHelmetModel(MordorSpikyHelmetModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_CREST_HELMET(EquipmentItemsME.RUSTED_MORDOR_CREST_HELMET, new MordorSpikyHelmetModel(MordorSpikyHelmetModel.getTexturedModelData().createModel())),
+        MORDOR_GREAT_HELMET(EquipmentItemsME.MORDOR_GREAT_HELMET, new MordorSpikyHelmetModel(MordorSpikyHelmetModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_GREAT_HELMET(EquipmentItemsME.RUSTED_MORDOR_GREAT_HELMET, new MordorSpikyHelmetModel(MordorSpikyHelmetModel.getTexturedModelData().createModel())),
         MORDOR_KETTLE_HAT(EquipmentItemsME.MORDOR_KETTLE_HAT, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
         RUSTED_MORDOR_KETTLE_HAT(EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
         MORDOR_KETTLE_HAT_WITH_COIF(EquipmentItemsME.MORDOR_KETTLE_HAT_WITH_COIF, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
         RUSTED_MORDOR_KETTLE_HAT_WITH_COIF(EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT_WITH_COIF, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
         MORDOR_SALLET(EquipmentItemsME.MORDOR_SALLET, new SalletHelmetModel(SalletHelmetModel.getTexturedModelData().createModel())),
         RUSTED_MORDOR_SALLET(EquipmentItemsME.RUSTED_MORDOR_SALLET, new SalletHelmetModel(SalletHelmetModel.getTexturedModelData().createModel())),
-        MORDOR_SNOUT_HELMET(EquipmentItemsME.MORDOR_SNOUT_HELMET, new MordorOrcHelmetModel(MordorOrcHelmetModel.getTexturedModelData().createModel())),
-        RUSTED_MORDOR_SNOUT_HELMET(EquipmentItemsME.RUSTED_MORDOR_SNOUT_HELMET, new MordorOrcHelmetModel(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        MORDOR_SNOUT_HELMET(EquipmentItemsME.MORDOR_SNOUT_HELMET, new MordorSnoutHelmetModel(MordorSnoutHelmetModel.getTexturedModelData().createModel())),
+        RUSTED_MORDOR_SNOUT_HELMET(EquipmentItemsME.RUSTED_MORDOR_SNOUT_HELMET, new MordorSnoutHelmetModel(MordorSnoutHelmetModel.getTexturedModelData().createModel())),
 
         BLACK_URUK_COMMANDER_HELMET(EquipmentItemsME.BLACK_URUK_COMMANDER_HELMET, new HelmetSkullModel(HelmetSkullModel.getTexturedModelData().createModel())),
 

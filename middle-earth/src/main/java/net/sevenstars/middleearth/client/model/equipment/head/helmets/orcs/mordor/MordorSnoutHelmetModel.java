@@ -1,12 +1,12 @@
-package net.sevenstars.middleearth.client.model.equipment.head.helmets;
+package net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.entity.LivingEntity;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 
-public class HelmetSkullModel extends HelmetAddonModel {
+public class MordorSnoutHelmetModel extends HelmetAddonModel {
 
-    public HelmetSkullModel(ModelPart root) {
+    public MordorSnoutHelmetModel(ModelPart root) {
         super(root);
     }
 
@@ -17,12 +17,21 @@ public class HelmetSkullModel extends HelmetAddonModel {
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        head.addChild("skull", ModelPartBuilder.create().uv(0, 0).cuboid(-3.0F, -40.0F, -3.0F, 6.0F, 7.0F, 6.0F, new Dilation(0.0F))
-                .uv(0, 13).cuboid(-3.0F, -39.25F, -3.0F, 6.0F, 7.0F, 6.0F, new Dilation(0.2F))
-                .uv(0, 26).cuboid(-3.0F, -39.25F, -3.0F, 6.0F, 9.0F, 6.0F, new Dilation(0.4F))
-                .uv(36, 53).cuboid(-0.5F, -41.25F, -0.5F, 1.0F, 10.0F, 1.0F, new Dilation(0.0F))
-                .uv(40, 60).cuboid(-5.0F, -37.55F, -1.0F, 10.0F, 2.0F, 2.0F, new Dilation(0.0F)),
-                ModelTransform.origin(0.0F, 23.0F, 0.0F));
+        ModelPartData snout = head.addChild("snout", ModelPartBuilder.create(),
+                //edit -0.75 for height, nothing else
+                ModelTransform.of(0.0F, -0.75F, -2.59F, 1.1345F, 0.0F, 0.0F));
+        snout.addChild("snout_cube", ModelPartBuilder.create()
+                .uv(0, 16).cuboid(-3.5F, -3.5F, -7.5F, 7.0F, 7.0F, 12.0F, new Dilation(0.0F)),
+                ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.7854F));
+
+        head.addChild("side_extension_left", ModelPartBuilder.create()
+                .uv(18, 0).cuboid(0.0F, -2.25F, 1.0F, 1.0F, 6.0F, 4.0F, new Dilation(0.5F)),
+                ModelTransform.of(-4.0F, -6.0F, 0.2F, 0.0F, -0.4363F, 0.0F));
+
+        head.addChild("side_extension_right", ModelPartBuilder.create()
+                .uv(29, 0).cuboid(-1.0F, -2.25F, 1.0F, 1.0F, 6.0F, 4.0F, new Dilation(0.5F)),
+                ModelTransform.of(4.0F, -6.0F, 0.2F, 0.0F, 0.4363F, 0.0F));
+
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
@@ -32,5 +41,6 @@ public class HelmetSkullModel extends HelmetAddonModel {
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 64, 64);
+
     }
 }
