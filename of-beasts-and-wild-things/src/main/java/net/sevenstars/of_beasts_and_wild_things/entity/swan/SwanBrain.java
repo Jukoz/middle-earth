@@ -56,7 +56,7 @@ public class SwanBrain {
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
                 new MoveToTargetTask(),
                 new UpdateLookControlTask(45, 90),
-                //DefendHomeTask.create(5),
+                DefendHomeTask.create(5),
                 UpdateAttackTargetTask.create((world, swan) -> swan.getHurtBy())
         ));
     }

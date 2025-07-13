@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,8 +18,10 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
 import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 import net.sevenstars.of_beasts_and_wild_things.item.ModItems;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Random;
@@ -67,6 +70,7 @@ public class BirdNest extends Block {
 
             swans.forEach(swan -> {
                 swan.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
+                swan.getBrain().forget(ModMemoryModules.DEFENDING_HOME);
             });
         }
         return super.onBreak(world, pos, state, player);
