@@ -12,6 +12,7 @@ public enum BackAttachmentModelsME {
     SURCOAT_MODELS(new CapeSurcoatModel(CapeSurcoatModel.getTexturedModelData().createModel()), new UnarmoredCapeSurcoatModel(UnarmoredCapeSurcoatModel.getTexturedModelData().createModel())),
     SURCOAT_FUR_MODELS(new FurSurcoatModel(FurSurcoatModel.getTexturedModelData().createModel()), new UnarmoredFurSurcoatModel(UnarmoredFurSurcoatModel.getTexturedModelData().createModel())),
     NAZGUL_ROBES_MODEL(new NazgulRobesModel(NazgulRobesModel.getTexturedModelData().createModel()), new NazgulRobesModel(NazgulRobesModel.getTexturedModelData().createModel())),
+    SKULL_SPIKES(new SkullSpikesModel(SkullSpikesModel.getTexturedModelData().createModel()), new SkullSpikesModel(SkullSpikesModel.getTexturedModelData().createModel())),
     ;
 
     private final ChestplateAddonModel armoredModel;

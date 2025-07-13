@@ -4383,19 +4383,6 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                     conditionsFromItem(burzumSteelHelmetPlate.getItem()))
                             .offerTo(exporter);
 
-                    ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE.getDefaultStack(), "chestplate", Disposition.EVIL)
-                            .input(Items.SKELETON_SKULL)
-                            .input(Items.SKELETON_SKULL)
-                            .input(Items.STICK)
-                            .input(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE)
-                            .input(Items.STICK)
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                            .criterion(hasItem(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE),
-                                    conditionsFromItem(EquipmentItemsME.GUNDABAD_MAIL_HAUBERK))
-                            .offerTo(exporter);
-
                     //endregion
 
                     //endregion

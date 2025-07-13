@@ -1183,9 +1183,6 @@ public class EquipmentItemsME {
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
     public static final Item GUNDABAD_HOBGOBLIN_PLATED_BOOTS = registerArmorPiece("gundabad_hobgoblin_plated_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
-
-    public static final Item GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_trophy_chestplate",
-            (settings) -> new CustomChestplateItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
     //endregion
 
     //endregion

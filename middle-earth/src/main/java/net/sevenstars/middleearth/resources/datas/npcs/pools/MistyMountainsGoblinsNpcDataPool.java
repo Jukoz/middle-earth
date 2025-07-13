@@ -280,10 +280,6 @@ public class MistyMountainsGoblinsNpcDataPool {
                                 .add(NpcGearItemData.create(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE).withWeight(4))
-                                .add(NpcGearItemData.create(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_TAN_FUR_SURCOAT_WITH_BONE, allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_BROWN_FUR_SURCOAT_WITH_BONE, allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_BLACK_FUR_SURCOAT_WITH_BONE, allColors))
 
                                 .add(NpcGearItemData.create(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE).withWeight(2).withCape(BackAttachmentsME.CAPE, allColors))
                                 .add(NpcGearItemData.create(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE).withWeight(2).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))

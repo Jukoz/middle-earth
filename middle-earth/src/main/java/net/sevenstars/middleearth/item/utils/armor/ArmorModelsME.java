@@ -173,7 +173,6 @@ public class ArmorModelsME {
         URUK_HAI_PLATE_CHESTPLATE(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
 
         GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE, new HobgoblinPlateChestplateModel(HobgoblinPlateChestplateModel.getTexturedModelData().createModel())),
-        GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE, new HobgoblinTrophyPlateChestplateModel(HobgoblinTrophyPlateChestplateModel.getTexturedModelData().createModel())),
         ;
 
         private final Item item;
@@ -247,6 +246,8 @@ public class ArmorModelsME {
         NAZGUL_ROBES(BackAttachmentsME.NAZGUL_ROBES, BackAttachmentModelsME.NAZGUL_ROBES_MODEL),
 
         ORTHANC_GUARD_CAPE(BackAttachmentsME.ORTHANC_GUARD_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+
+        SKULL_SPIKES(BackAttachmentsME.SKULL_SPIKES, BackAttachmentModelsME.SKULL_SPIKES),
         ;
 
         private final BackAttachmentsME backAttachment;
