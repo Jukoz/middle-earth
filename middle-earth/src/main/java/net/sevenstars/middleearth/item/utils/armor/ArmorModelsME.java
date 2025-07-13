@@ -19,7 +19,7 @@ import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.roh
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.RohanHairHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.RohanHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.OrcSpikeHelmetModel;
-import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.hobgoblins.HobgoblinPlateHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.hobgoblins.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.isengard.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorBNHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorSnoutHelmetModel;
@@ -124,16 +124,16 @@ public class ArmorModelsME {
         ORTHANC_GUARD_HELMET(EquipmentItemsME.ORTHANC_GUARD_HELMET, new OrthancGuardHelmetModel(OrthancGuardHelmetModel.getTexturedModelData().createModel())),
         ORTHANC_COMMANDER_HELMET(EquipmentItemsME.ORTHANC_COMMANDER_HELMET, new OrthancCommanderHelmetModel(OrthancCommanderHelmetModel.getTexturedModelData().createModel())),
 
-        GUNDABAD_CAPTAIN_HELMET(EquipmentItemsME.GUNDABAD_CAPTAIN_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_SCREECHER_HELMET(EquipmentItemsME.GUNDABAD_SCREECHER_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_SEEKER_HELMET(EquipmentItemsME.GUNDABAD_SEEKER_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_SKULLCAP_HELMET(EquipmentItemsME.GUNDABAD_SKULLCAP_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_SOLDIER_HELMET(EquipmentItemsME.GUNDABAD_SOLDIER_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_CAPTAIN_HELMET(EquipmentItemsME.GUNDABAD_CAPTAIN_HELMET, new HobgoblinCaptainHelmetModel(HobgoblinCaptainHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_SCREECHER_HELMET(EquipmentItemsME.GUNDABAD_SCREECHER_HELMET, new HobgoblinScreecherHelmetModel(HobgoblinScreecherHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_SEEKER_HELMET(EquipmentItemsME.GUNDABAD_SEEKER_HELMET, new HobgoblinSeekerHelmetModel(HobgoblinSeekerHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_SKULLCAP_HELMET(EquipmentItemsME.GUNDABAD_SKULLCAP_HELMET, new FlapHelmetModel(FlapHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_SOLDIER_HELMET(EquipmentItemsME.GUNDABAD_SOLDIER_HELMET, new HobgoblinCrestHelmetModel(HobgoblinCrestHelmetModel.getTexturedModelData().createModel())),
 
-        GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
-        GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET, new HobgoblinCrestedHelmetModel(HobgoblinCrestedHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET, new HobgoblinLargeCrestHelmetModel(HobgoblinLargeCrestHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET, new HobgoblinCrestHelmetModel(HobgoblinCrestHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET, new HobgoblinSmallHornHelmetModel(HobgoblinSmallHornHelmetModel.getTexturedModelData().createModel())),
 
         HELMET_OF_HELM_HAMMERHAND(EquipmentItemsME.HELMET_OF_HELM_HAMMERHAND, new HammerhandHelmModel(HammerhandHelmModel.getTexturedModelData().createModel())),
         ;
