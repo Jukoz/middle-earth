@@ -231,8 +231,6 @@ public class NpcTextureDataPreset {
     }
 
     public NpcTextureDataPreset withPatterns(NpcTextureType type, List<RegistryKey<NpcTexturePattern>> patterns){
-        if(type == NpcTextureType.BEARD)
-            MiddleEarth.LOGGER.logDebugMsg("aa");
         if(patterns != null)
             patterns.forEach(x -> {
                 if(x == null){

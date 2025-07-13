@@ -60,6 +60,8 @@ public class SearchBarWidget extends ModWidget {
 
         // Screen click
         screenClick = ButtonWidget.builder(Text.translatable("ui.%s.search.screen_click_button".formatted(MiddleEarth.MOD_ID)), button -> clickOnScreen(button, additionalScreenClickAction)).build();
+        screenClick.setAlpha(0);
+        screenClick.setMessage(Text.of(""));
 
         resultButtons = new ArrayList<>();
         for(int i = 0; i < maxAmountOnScreen; i++){

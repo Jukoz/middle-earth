@@ -6,11 +6,13 @@ import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -34,6 +36,8 @@ import java.util.Objects;
 
 public class StructureManagerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
     private static final String ID = "structure_manager";
+    @Nullable
+    protected RegistryKey<StructureManagerData> structureManagerDataRegistryKey;
 
     private boolean isActive;
     private Identifier managerId;
@@ -44,6 +48,12 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     public StructureManagerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STRUCTURE_MANAGER, pos, state);
     }
+
+    public StructureManagerBlockEntity(BlockEntityType blockEntityType, BlockPos blockPos, BlockState blockState) {
+        super(blockEntityType, blockPos, blockState);
+        // Set Default Values
+    }
+
     @Override
     public Text getDisplayName() {
         return Text.translatable("screen.%s.%s".formatted(MiddleEarth.MOD_ID, ID));
@@ -71,7 +81,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
         this.isActive = isPlayer;
 
-        managerId = StructureManagerDatasME.TEMPLATE.getId(); // TODO : Find a way to get the ID with the block (to be persistent when procedurally placed)
+        managerId = StructureManagerDatasME.NPC_TESTING_AREA_A.getId(); // TODO : Find a way to get the ID with the block (to be persistent when procedurally placed)
         managerData = StructureManagerService.GetStructureManagerData(world, managerId);
 
         if(managerData == null) {
@@ -86,20 +96,22 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         this.spawnNestList = new SpawnNestList(spawnNestManagerList);
     }
 
+    @Override
     protected void writeData(WriteView view) {
         super.writeData(view);
         view.putBoolean("%s.IsActive".formatted(ID), this.isActive);
-        view.putString("%s.Id".formatted(ID), Objects.requireNonNullElse(managerData, StructureManagerDatasME.TEMPLATE).getId().toString());
+        view.putString("%s.Id".formatted(ID), Objects.requireNonNullElse(managerData, StructureManagerDatasME.NPC_TESTING_AREA_A).getId().toString());
         view.put("%s.SpawnNestList".formatted(ID), SpawnNestList.CODEC, this.spawnNestList);
     }
 
+    @Override
     protected void readData(ReadView view) {
         super.readData(view);
         MiddleEarth.LOGGER.logDebugMsg("%s::[%s] Reading Data :: Begin".formatted(ID, pos));
 
         isActive = view.getBoolean("%s.IsActive".formatted(ID), false);
 
-        managerId = Identifier.of(view.getString("%s.Id".formatted(ID), StructureManagerDatasME.TEMPLATE.getId().toString()));
+        managerId = Identifier.of(view.getString("%s.Id".formatted(ID), StructureManagerDatasME.NPC_TESTING_AREA_A.getId().toString()));
         if (this.getWorld() instanceof ServerWorld serverWorld) {
             managerData = StructureManagerService.GetStructureManagerData(serverWorld, managerId);
         }
@@ -135,7 +147,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         long tick = world.getTickOrder();
         for(SpawnNestManager data : spawnNestList.managers){
             if(managerData == null)
-                managerData = StructureManagerService.GetStructureManagerData(world, StructureManagerDatasME.TEMPLATE.getId());
+                managerData = StructureManagerService.GetStructureManagerData(world, StructureManagerDatasME.NPC_TESTING_AREA_A.getId());
             data.tick(managerData, tick, world, blockPos);
         }
     }
