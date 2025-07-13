@@ -6,6 +6,7 @@ import net.sevenstars.middleearth.client.model.equipment.head.helmets.dwarves.Dw
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.dwarves.EreborHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.dwarves.EreborHornsHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.dwarves.EreborWingsHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.LorienHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.dale.DaleFeatherHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.dale.DaleHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.dale.DaleSpikeFurHelmetModel;
@@ -71,13 +72,13 @@ public class ArmorModelsME {
         RAVENHILL_SENTINEL_HELMET(EquipmentItemsME.RAVENHILL_SENTINEL_HELMET, new EreborWingsHelmetModel(EreborWingsHelmetModel.getTexturedModelData().createModel())),
         EREBOR_GATEWARDEN_HELMET(EquipmentItemsME.EREBOR_GATEWARDEN_HELMET, new EreborHelmetModel(EreborHelmetModel.getTexturedModelData().createModel())),
 
-        LORIEN_DIADEM(EquipmentItemsME.LORIEN_DIADEM, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        LORIEN_LEATHER_HELMET(EquipmentItemsME.LORIEN_LEATHER_HELMET, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        LORIEN_MAIL_COIF_DIADEM(EquipmentItemsME.LORIEN_MAIL_COIF_DIADEM, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        LORIEN_SHORT_MAIL_COIF_DIADEM(EquipmentItemsME.LORIEN_SHORT_MAIL_COIF_DIADEM, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        LORIEN_SOLDIER_HELMET(EquipmentItemsME.LORIEN_SOLDIER_HELMET, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        GALADHRIM_HELMET(EquipmentItemsME.GALADHRIM_HELMET, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
-        GALADHRIM_LORD_HELMET(EquipmentItemsME.GALADHRIM_LORD_HELMET, new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())),
+        LORIEN_DIADEM(EquipmentItemsME.LORIEN_DIADEM, new LorienHelmetModel(LorienHelmetModel.getTexturedModelData().createModel())),
+        LORIEN_LEATHER_HELMET(EquipmentItemsME.LORIEN_LEATHER_HELMET, new LorienHelmetModel(LorienHelmetModel.getTexturedModelData().createModel())),
+        LORIEN_MAIL_COIF_DIADEM(EquipmentItemsME.LORIEN_MAIL_COIF_DIADEM, new LorienHelmetModel(LorienHelmetModel.getTexturedModelData().createModel())),
+        LORIEN_SHORT_MAIL_COIF_DIADEM(EquipmentItemsME.LORIEN_SHORT_MAIL_COIF_DIADEM, new LorienHelmetModel(LorienHelmetModel.getTexturedModelData().createModel())),
+        LORIEN_SOLDIER_HELMET(EquipmentItemsME.LORIEN_SOLDIER_HELMET, new LorienHelmetModel(LorienHelmetModel.getTexturedModelData().createModel())),
+        GALADHRIM_HELMET(EquipmentItemsME.GALADHRIM_HELMET, new LorienHelmetModel(LorienHelmetModel.getTexturedModelData().createModel())),
+        GALADHRIM_LORD_HELMET(EquipmentItemsME.GALADHRIM_LORD_HELMET, new LorienHelmetModel(LorienHelmetModel.getTexturedModelData().createModel())),
 
         ORCISH_BRACED_HELMET(EquipmentItemsME.ORCISH_BRACED_HELMET, new OrcSpikeHelmetModel(OrcSpikeHelmetModel.getTexturedModelData().createModel())),
         ORCISH_SALLET(EquipmentItemsME.ORCISH_SALLET, new SalletHelmetModel(SalletHelmetModel.getTexturedModelData().createModel())),

@@ -1,12 +1,12 @@
-package net.sevenstars.middleearth.client.model.equipment.head.helmets;
+package net.sevenstars.middleearth.client.model.equipment.head.helmets.elves;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.entity.LivingEntity;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 
-public class LorienHelmetArmorAddonModel extends HelmetAddonModel {
+public class LorienHelmetModel extends HelmetAddonModel {
 
-    public LorienHelmetArmorAddonModel(ModelPart root) {
+    public LorienHelmetModel(ModelPart root) {
         super(root);
     }
 
@@ -17,7 +17,9 @@ public class LorienHelmetArmorAddonModel extends HelmetAddonModel {
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 1.5F, 0.0F));
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        head.addChild("spike", ModelPartBuilder.create().uv(0, 33).cuboid(-5.0F, 0.5F, 0.5F, 0.0F, 5.0F, 10.0F, new Dilation(0.0F)), ModelTransform.of(5.0F, -4.0F, -8.0F, 1.5708F, 0.0F, 0.0F));
+        head.addChild("Large_Crest", ModelPartBuilder.create()
+                .uv(1, 15).cuboid(0.0F, -17.25F, -7.0F, 0.0F, 13.0F, 14.0F, new Dilation(0.0F)),
+                ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
@@ -26,6 +28,6 @@ public class LorienHelmetArmorAddonModel extends HelmetAddonModel {
         modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(modelData, 64, 48);
+        return TexturedModelData.of(modelData, 64, 64);
     }
 }
