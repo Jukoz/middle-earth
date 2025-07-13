@@ -35,6 +35,8 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
+import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
+import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
@@ -81,13 +83,34 @@ public class SwanEntity extends AnimalEntity {
             profiler.pop();
         }
 
+        this.updateHome();
         this.updateFloating();
         super.mobTick(world);
+    }
+
+    private void updateHome() {
+        Optional<GlobalPos> optional = this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HOME);
+
+        if(optional.isPresent()) {
+            if(!this.getWorld().getBlockState(optional.get().pos()).isOf(ModBlocks.BIRD_NEST)) {
+                this.getBrain().forget(MemoryModuleType.HOME);
+            }
+        }
     }
 
     public void startSleeping() {
         if (this.hasVehicle()) {
             this.stopRiding();
+        }
+
+        Optional<GlobalPos> optional = this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HOME);
+
+        if(optional.isPresent()) {
+            BlockPos pos = optional.get().pos();
+            BlockState homeBlock = this.getWorld().getBlockState(optional.get().pos());
+            if(homeBlock.isOf(ModBlocks.BIRD_NEST) && homeBlock.get(BirdNest.NEST_LEVEL) < 2) {
+                this.getWorld().setBlockState(pos, homeBlock.with(BirdNest.NEST_LEVEL, homeBlock.get(BirdNest.NEST_LEVEL) + 1));
+            }
         }
 
         this.setSleeping(true);
@@ -163,6 +186,12 @@ public class SwanEntity extends AnimalEntity {
     @Override
     public LivingEntity getTarget() {
         return getTargetInBrain();
+    }
+
+    @Override
+    public void setTarget(@Nullable LivingEntity target) {
+
+        super.setTarget(target);
     }
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {

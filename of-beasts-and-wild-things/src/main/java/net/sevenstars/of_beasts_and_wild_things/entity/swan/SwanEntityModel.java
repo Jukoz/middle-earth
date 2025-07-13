@@ -3,14 +3,6 @@ package net.sevenstars.of_beasts_and_wild_things.entity.swan;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityAnimations;
-import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityRenderState;
-import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
-import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityAnimations;
-import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityRenderState;
-
-import static java.lang.Math.PI;
 
 public class SwanEntityModel extends EntityModel<SwanEntityRenderState> {
     private final Animation walkingAnimation;
