@@ -16,6 +16,7 @@ import net.sevenstars.middleearth.MiddleEarth;
  */
 public class EnchantmentEffectsME {
     public static final RegistryKey<Enchantment> BANE_OF_GIANTS = of("bane_of_giants");
+    public static final RegistryKey<Enchantment> BEHEADING = of("beheading");
     public static final RegistryKey<Enchantment> HEWING = of("hewing");
     public static final RegistryKey<Enchantment> STRIDE = of("stride");
     public static final RegistryKey<Enchantment> TREE_FELLER = of("tree_feller");
