@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.item.utils.armor;
 
 import net.sevenstars.middleearth.client.model.equipment.chest.*;
-import net.sevenstars.middleearth.client.model.equipment.head.helmetAttachments.armored.HelmetSkullModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.dwarves.DwarvenMinerHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.dwarves.EreborHelmetModel;
@@ -20,6 +19,8 @@ import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.roh
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.RohanHairHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.RohanHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.OrcSpikeHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.hobgoblins.HobgoblinPlateHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.isengard.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorBNHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorSnoutHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorSpikyHelmetModel;
@@ -103,23 +104,24 @@ public class ArmorModelsME {
 
         MORDOR_BLACK_NUMENOREAN_PLATE_HELMET(EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET, new MordorBNHelmetModel(MordorBNHelmetModel.getTexturedModelData().createModel())),
 
-        URUK_HAI_LEATHER_SCOUT_CAP(EquipmentItemsME.URUK_HAI_LEATHER_SCOUT_CAP, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_LIGHT_HELMET(EquipmentItemsME.URUK_HAI_LIGHT_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_PAINTED_LIGHT_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_LIGHT_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_REINFORCED_HELMET(EquipmentItemsME.URUK_HAI_REINFORCED_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_PAINTED_REINFORCED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_REINFORCED_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_SOLDIER_HELMET(EquipmentItemsME.URUK_HAI_SOLDIER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_PAINTED_SOLDIER_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_SOLDIER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_PLATE_HELMET(EquipmentItemsME.URUK_HAI_PLATE_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_PLATE_PAINTED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_PLATE_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_SAPPER_HELMET(EquipmentItemsME.URUK_HAI_SAPPER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_SAPPER_PAINTED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_SAPPER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_LEATHER_SCOUT_CAP(EquipmentItemsME.URUK_HAI_LEATHER_SCOUT_CAP, new IsenUrukScoutHelmetModel(IsenUrukScoutHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_LIGHT_HELMET(EquipmentItemsME.URUK_HAI_LIGHT_HELMET, new IsenUrukCrestHelmetModel(IsenUrukCrestHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_PAINTED_LIGHT_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_LIGHT_HELMET, new IsenUrukCrestHelmetModel(IsenUrukCrestHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_REINFORCED_HELMET(EquipmentItemsME.URUK_HAI_REINFORCED_HELMET, new IsenUrukReinforcedHelmetModel(IsenUrukReinforcedHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_PAINTED_REINFORCED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_REINFORCED_HELMET, new IsenUrukReinforcedHelmetModel(IsenUrukReinforcedHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_SOLDIER_HELMET(EquipmentItemsME.URUK_HAI_SOLDIER_HELMET, new IsenUrukSoldierHelmetModel(IsenUrukSoldierHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_PAINTED_SOLDIER_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_SOLDIER_HELMET, new IsenUrukSoldierHelmetModel(IsenUrukSoldierHelmetModel.getTexturedModelData().createModel())),
+
+        URUK_HAI_PLATE_HELMET(EquipmentItemsME.URUK_HAI_PLATE_HELMET, new IsenUrukPlateHelmetModel(IsenUrukPlateHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_PLATE_PAINTED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_PLATE_HELMET, new IsenUrukPlateHelmetModel(IsenUrukPlateHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_SAPPER_HELMET(EquipmentItemsME.URUK_HAI_SAPPER_HELMET, new IsenUrukSapperHelmetModel(IsenUrukSapperHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_SAPPER_PAINTED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_SAPPER_HELMET, new IsenUrukSapperHelmetModel(IsenUrukSapperHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_BERSERKER_HELMET(EquipmentItemsME.URUK_HAI_BERSERKER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_BERSERKER_PAINTED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_BERSERKER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_COMMANDER_HELMET(EquipmentItemsME.URUK_HAI_COMMANDER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
-        URUK_HAI_COMMANDER_PAINTED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_COMMANDER_HELMET, new IsenUrukHelmetModel(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_COMMANDER_HELMET(EquipmentItemsME.URUK_HAI_COMMANDER_HELMET, new IsenUrukCommanderHelmetModel(IsenUrukCommanderHelmetModel.getTexturedModelData().createModel())),
+        URUK_HAI_COMMANDER_PAINTED_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_COMMANDER_HELMET, new IsenUrukCommanderHelmetModel(IsenUrukCommanderHelmetModel.getTexturedModelData().createModel())),
 
-        ORTHANC_GUARD_HELMET(EquipmentItemsME.ORTHANC_GUARD_HELMET, new OrthancCommanderHelmetModel(OrthancCommanderHelmetModel.getTexturedModelData().createModel())),
+        ORTHANC_GUARD_HELMET(EquipmentItemsME.ORTHANC_GUARD_HELMET, new OrthancGuardHelmetModel(OrthancGuardHelmetModel.getTexturedModelData().createModel())),
         ORTHANC_COMMANDER_HELMET(EquipmentItemsME.ORTHANC_COMMANDER_HELMET, new OrthancCommanderHelmetModel(OrthancCommanderHelmetModel.getTexturedModelData().createModel())),
 
         GUNDABAD_CAPTAIN_HELMET(EquipmentItemsME.GUNDABAD_CAPTAIN_HELMET, new HobgoblinPlateHelmetModel(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),

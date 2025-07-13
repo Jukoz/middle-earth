@@ -1,8 +1,8 @@
-package net.sevenstars.middleearth.client.model.equipment.head.helmets;
+package net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.hobgoblins;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.entity.LivingEntity;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 
 public class HobgoblinPlateHelmetModel extends HelmetAddonModel {
 
