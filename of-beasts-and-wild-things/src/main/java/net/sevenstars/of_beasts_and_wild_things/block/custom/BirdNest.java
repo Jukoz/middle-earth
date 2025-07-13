@@ -9,6 +9,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
@@ -38,9 +40,9 @@ public class BirdNest extends Block {
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Random random = new Random();
-        if (!world.isClient){
-            if(player.getStackInHand(player.getActiveHand()).isEmpty()){
-                int level = state.get(NEST_LEVEL);
+        if(player.getStackInHand(player.getActiveHand()).isEmpty()){
+            int level = state.get(NEST_LEVEL);
+            if (level > 0){
                 if (level == 1){
                     player.giveItemStack(new ItemStack(ModItems.SWAN_EGG));
                     player.giveItemStack(new ItemStack(ModItems.SWAN_FEATHER, random.nextInt(3)));
@@ -51,10 +53,15 @@ public class BirdNest extends Block {
                     world.setBlockState(pos, state.with(NEST_LEVEL, 0));
                 }
 
-                return ActionResult.SUCCESS;
-            } else {
-                return super.onUse(state, world, pos, player, hit);
+                player.swingHand(player.getActiveHand());
+
+                //TODO to test in multiplayer
+                world.playSound(null , pos, SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+                angerSwans(world, pos, player);
             }
+            
+            return ActionResult.SUCCESS;
         } else {
             return super.onUse(state, world, pos, player, hit);
         }
@@ -63,19 +70,23 @@ public class BirdNest extends Block {
     @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient){
+            angerSwans(world, pos, player);
+        }
+        return super.onBreak(world, pos, state, player);
+    }
+
+    private void angerSwans(World world, BlockPos pos, PlayerEntity player) {
+        if(!player.isInCreativeMode()) {
             Box box = new Box(pos.getX() + 10, pos.getY() + 10, pos.getZ() + 10,
                     pos.getX() - 10, pos.getY() - 10, pos.getZ() - 10);
 
             List<SwanEntity> swans = world.getEntitiesByClass(SwanEntity.class, box, Entity::isAlive);
 
             swans.forEach(swan -> {
-                if(!player.isInCreativeMode()) {
-                    swan.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
-                    swan.getBrain().forget(ModMemoryModules.DEFENDING_HOME);
-                }
+                swan.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
+                swan.getBrain().forget(ModMemoryModules.DEFENDING_HOME);
             });
         }
-        return super.onBreak(world, pos, state, player);
     }
 
     @Override
