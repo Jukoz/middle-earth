@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
@@ -11,11 +13,14 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 import net.sevenstars.of_beasts_and_wild_things.item.ModItems;
 
+import java.util.List;
 import java.util.Random;
 
 public class BirdNest extends Block {
@@ -50,6 +55,21 @@ public class BirdNest extends Block {
         } else {
             return super.onUse(state, world, pos, player, hit);
         }
+    }
+
+    @Override
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        if (!world.isClient){
+            Box box = new Box(pos.getX() + 10, pos.getY() + 10, pos.getZ() + 10,
+                    pos.getX() - 10, pos.getY() - 10, pos.getZ() - 10);
+
+            List<SwanEntity> swans = world.getEntitiesByClass(SwanEntity.class, box, Entity::isAlive);
+
+            swans.forEach(swan -> {
+                swan.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
+            });
+        }
+        return super.onBreak(world, pos, state, player);
     }
 
     @Override
