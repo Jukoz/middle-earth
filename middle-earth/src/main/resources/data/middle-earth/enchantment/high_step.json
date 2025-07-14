@@ -1,23 +1,23 @@
 {
   "anvil_cost": 8,
   "description": {
-    "translate": "enchantment.middle-earth.miner_reach"
+    "translate": "enchantment.middle-earth.high_step"
   },
   "effects": {
     "minecraft:attributes": [
       {
         "amount": {
           "type": "minecraft:linear",
-          "base": 1.0,
+          "base": 0.5,
           "per_level_above_first": 0.5
         },
-        "attribute": "minecraft:block_interaction_range",
-        "id": "minecraft:middle-earth.miner_reach",
+        "attribute": "minecraft:step_height",
+        "id": "minecraft:middle-earth.high_step",
         "operation": "add_value"
       }
     ]
   },
-  "exclusive_set": "#minecraft:exclusive_set/armor",
+  "exclusive_set": "#minecraft:exclusive_set/boots",
   "max_cost": {
     "base": 75,
     "per_level_above_first": 25
@@ -28,8 +28,8 @@
     "per_level_above_first": 25
   },
   "slots": [
-    "chest"
+    "feet"
   ],
-  "supported_items": "#minecraft:enchantable/chest_armor",
+  "supported_items": "#minecraft:enchantable/foot_armor",
   "weight": 1
 }
