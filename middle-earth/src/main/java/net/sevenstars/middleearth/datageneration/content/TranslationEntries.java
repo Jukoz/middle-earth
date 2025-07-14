@@ -352,10 +352,6 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".dale", "Dale");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".color", "Color");
-            put("tooltip."+ MiddleEarth.MOD_ID +".impaled_skulls", "Impaled Skulls");
-            put("tooltip."+ MiddleEarth.MOD_ID +".skull", "Skull");
-            put("tooltip."+ MiddleEarth.MOD_ID +".pouch", "Pouch");
-            put("tooltip."+ MiddleEarth.MOD_ID +".feather", "Feather");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_top", "Top Armor Addon, Enabled");
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_side", "Side Armor Addon, Enabled");
