@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.resources.datas.npcs.pools;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
+import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
@@ -102,9 +102,9 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(EquipmentItemsME.DALISH_HELMET_TAN_FUR))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.DALISH_ARMING_COAT_BROWN_FUR).withCape(ModCapes.SURCOAT))
-                                .add(NpcGearItemData.create(EquipmentItemsME.DALISH_ARMING_COAT_BLACK_FUR).withCape(ModCapes.SURCOAT))
-                                .add(NpcGearItemData.create(EquipmentItemsME.DALISH_ARMING_COAT_TAN_FUR).withCape(ModCapes.SURCOAT))
+                                .add(NpcGearItemData.create(EquipmentItemsME.DALISH_ARMING_COAT_BROWN_FUR).withCape(BackAttachmentsME.SURCOAT))
+                                .add(NpcGearItemData.create(EquipmentItemsME.DALISH_ARMING_COAT_BLACK_FUR).withCape(BackAttachmentsME.SURCOAT))
+                                .add(NpcGearItemData.create(EquipmentItemsME.DALISH_ARMING_COAT_TAN_FUR).withCape(BackAttachmentsME.SURCOAT))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.DALISH_MAIL_COAT))
@@ -181,8 +181,8 @@ public class DalishNpcDataPool {
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SOLDIER_CHESTPLATE))
                                 .add(NpcGearItemData.create(EquipmentItemsME.DALISH_SCALE_HAUBERK))
-                                .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SOLDIER_CHESTPLATE).withCape(ModCapes.BARDING_SURCOAT))
-                                .add(NpcGearItemData.create(EquipmentItemsME.DALISH_SCALE_HAUBERK).withCape(ModCapes.BARDING_SURCOAT))
+                                .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SOLDIER_CHESTPLATE).withCape(BackAttachmentsME.BARDING_SURCOAT))
+                                .add(NpcGearItemData.create(EquipmentItemsME.DALISH_SCALE_HAUBERK).withCape(BackAttachmentsME.BARDING_SURCOAT))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.DALISH_MAIL_COAT))
@@ -211,9 +211,9 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SERGEANT_HELMET).withWeight(3))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SERGEANT_CHESTPLATE).withWeight(3).withCape(ModCapes.BARDING_SERGEANT_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SERGEANT_CHESTPLATE).withWeight(3).withCape(BackAttachmentsME.BARDING_SERGEANT_CAPE))
                                 .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SERGEANT_CHESTPLATE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SOLDIER_CHESTPLATE).withCape(ModCapes.BARDING_SERGEANT_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SOLDIER_CHESTPLATE).withCape(BackAttachmentsME.BARDING_SERGEANT_CAPE))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.BARDING_MAIL_SKIRT))
