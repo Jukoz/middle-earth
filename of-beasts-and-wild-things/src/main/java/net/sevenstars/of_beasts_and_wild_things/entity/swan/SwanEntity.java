@@ -45,6 +45,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class SwanEntity extends AnimalEntity {
+    private static final int EGG_COOLDOWN = 12000; // = 10 minutes
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> INTIMIDATING = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -102,13 +103,21 @@ public class SwanEntity extends AnimalEntity {
             this.stopRiding();
         }
 
-        Optional<GlobalPos> optional = this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HOME);
+        Optional<Integer> cooldown = this.getBrain().getOptionalRegisteredMemory(ModMemoryModules.EGG_COOLDOWN);
+        if(cooldown.isEmpty()) {
+            Optional<GlobalPos> optional = this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HOME);
 
-        if(optional.isPresent()) {
-            BlockPos pos = optional.get().pos();
-            BlockState homeBlock = this.getWorld().getBlockState(optional.get().pos());
-            if(homeBlock.isOf(ModBlocks.BIRD_NEST) && homeBlock.get(BirdNest.NEST_LEVEL) < 2) {
-                this.getWorld().setBlockState(pos, homeBlock.with(BirdNest.NEST_LEVEL, homeBlock.get(BirdNest.NEST_LEVEL) + 1));
+            if(optional.isPresent()) {
+                double rand = this.random.nextDouble();
+
+                if(rand < 0.15) {
+                    BlockPos pos = optional.get().pos();
+                    BlockState homeBlock = this.getWorld().getBlockState(optional.get().pos());
+                    if(homeBlock.isOf(ModBlocks.BIRD_NEST) && homeBlock.get(BirdNest.NEST_LEVEL) < 2) {
+                        this.getWorld().setBlockState(pos, homeBlock.with(BirdNest.NEST_LEVEL, homeBlock.get(BirdNest.NEST_LEVEL) + 1));
+                        this.getBrain().remember(ModMemoryModules.EGG_COOLDOWN, EGG_COOLDOWN);
+                    }
+                }
             }
         }
 

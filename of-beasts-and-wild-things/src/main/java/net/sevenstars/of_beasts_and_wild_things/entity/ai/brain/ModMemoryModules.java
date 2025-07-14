@@ -14,6 +14,7 @@ import java.util.Optional;
 public class ModMemoryModules<U> {
 
     public static final MemoryModuleType<Boolean> DEFENDING_HOME = register("defending_home", Codec.BOOL);
+    public static final MemoryModuleType<Integer> EGG_COOLDOWN = register("egg_cooldown", Codec.INT);
     private final Optional<Codec<Memory<U>>> codec;
 
     @VisibleForTesting

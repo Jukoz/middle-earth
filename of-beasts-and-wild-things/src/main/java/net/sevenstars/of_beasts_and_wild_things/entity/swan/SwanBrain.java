@@ -59,7 +59,8 @@ public class SwanBrain {
                 new MoveToTargetTask(),
                 new UpdateLookControlTask(45, 90),
                 DefendHomeTask.create(5),
-                UpdateAttackTargetTask.create((world, swan) -> swan.getHurtBy())
+                UpdateAttackTargetTask.create((world, swan) -> swan.getHurtBy()),
+                new TickCooldownTask(ModMemoryModules.EGG_COOLDOWN)
         ));
     }
 
@@ -151,7 +152,8 @@ public class SwanBrain {
                 MemoryModuleType.HURT_BY,
                 MemoryModuleType.HURT_BY_ENTITY,
                 MemoryModuleType.IS_IN_WATER,
-                ModMemoryModules.DEFENDING_HOME
+                ModMemoryModules.DEFENDING_HOME,
+                ModMemoryModules.EGG_COOLDOWN
         );
     }
 }
