@@ -142,6 +142,8 @@ public class MiddleEarthMapGeneration {
     }
 
     private boolean validateBaseColors(BufferedImage initialMap) {
+        if(initialMap == null)
+            return false;
         for(int x = 0; x < initialMap.getWidth(); x++){
             for(int y = 0; y < initialMap.getWidth(); y++){
                 try{
@@ -172,6 +174,8 @@ public class MiddleEarthMapGeneration {
     }
 
     private int findAmountOfIterationToGenerate(BufferedImage initialMap) {
+        if(initialMap == null)
+            return 0;
         int currentRegionAmountX = initialMap.getWidth() / MiddleEarthMapConfigs.REGION_SIZE;
         int currentRegionAmountY = initialMap.getHeight() / MiddleEarthMapConfigs.REGION_SIZE;
         int absoluteMapIteration = MiddleEarthMapConfigs.MAP_ITERATION + 1;
