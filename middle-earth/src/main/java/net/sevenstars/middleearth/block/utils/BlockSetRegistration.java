@@ -12,12 +12,14 @@ import net.sevenstars.middleearth.block.special.verticalSlabs.TransparentVertica
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 public class BlockSetRegistration {
 
     public static BlockRecordTypes.RegularSet createRegularSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean pillar) {
         Block base;
+
         if(pillar){
             base = getVanillaOrCreateNew(name, PillarBlock::new,
                     AbstractBlock.Settings.create()
@@ -138,9 +140,16 @@ public class BlockSetRegistration {
     }
 
     public static BlockRecordTypes.BaseStoneSet createMainStoneSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup) {
+        if (Objects.equals(name, "dripstone"))
+        {
+            name = "dripstone_block";
+        }
+
         Block base = getVanillaOrCreateNew(name, Block::new,
                 AbstractBlock.Settings.create().strength(hardness, blastResistance)
                         .mapColor(mapColor).instrument(instrument).sounds(soundGroup).requiresTool());
+
+        name = name.replaceAll("dripstone_block", "dripstone");
 
         Block slab = getVanillaOrCreateNew(name + "_slab", SlabBlock::new,
                 AbstractBlock.Settings.copy(base));

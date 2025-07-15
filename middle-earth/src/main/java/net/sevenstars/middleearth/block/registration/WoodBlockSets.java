@@ -159,8 +159,7 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
-            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
-            .addToSet(WoodBlockTypes.LEAVES));
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
 
     public static WoodBlockSetBuilder WHITE_LEBETHRON_SET = registerWoodSet(new WoodBlockSetBuilder("white_lebethron",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.WHITE_LEBETHRON_SAPLING)

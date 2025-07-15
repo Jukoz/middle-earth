@@ -323,6 +323,9 @@ public class HelpingGenerator {
         String baseName = base.getName().toString();
 
         if (!(Objects.equals(Registries.BLOCK.getId(block).getNamespace(), "minecraft"))){
+            final boolean isPillar = blockName.contains("carved_window")
+                    || blockName.contains("chiseled")
+                    || blockName.contains("pillar");
             switch (block){
                 case PillarBlock pillarBlock -> {
                     if (blockName.contains("_wood")){
@@ -341,9 +344,7 @@ public class HelpingGenerator {
                     }
                 }
                 case VerticalSlabBlock verticalSlabBlock -> {
-                    if (blockName.contains("carved_window")
-                            || blockName.contains("chiseled")
-                            || blockName.contains("pillar")) {
+                    if (isPillar) {
                         SimpleVerticalSlabModel.columnVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
                     }else if (blockName.contains("stripped")){
                         SimpleVerticalSlabModel.strippedVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
@@ -366,9 +367,11 @@ public class HelpingGenerator {
                 }
                 case WallBlock wallBlock -> {
                     Walls.walls.add(wallBlock);
-                    if (blockName.contains("stripped")){
+                    if (isPillar){
+                        SimpleWallModel.columnWalls.add(new SimpleWallModel.Wall(base, wallBlock));
+                    } else if (blockName.contains("stripped")){
                         SimpleWallModel.strippedWalls.add(new SimpleWallModel.Wall(base, wallBlock));
-                    } else {
+                    } else  {
                         SimpleWallModel.blocks.add(new SimpleWallModel.Wall(base, wallBlock));
                     }
                 }

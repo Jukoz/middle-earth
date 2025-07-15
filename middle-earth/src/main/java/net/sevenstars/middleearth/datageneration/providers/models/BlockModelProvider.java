@@ -31,6 +31,8 @@ import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabShape;
 import net.sevenstars.middleearth.datageneration.content.MEModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 
+import java.util.Objects;
+
 import static net.minecraft.client.data.BlockStateModelGenerator.*;
 
 public class BlockModelProvider extends FabricModelProvider {
@@ -443,7 +445,7 @@ public class BlockModelProvider extends FabricModelProvider {
         for (SimpleButtonModel.Button block : SimpleButtonModel.buttons) {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             if (block.block() == Blocks.BASALT || block.block() == Blocks.POLISHED_BASALT) {
-                texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.block()).getPath() + "_side"));
+                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath() + "_side"));
             }
             Block button = block.button();
 
@@ -461,7 +463,7 @@ public class BlockModelProvider extends FabricModelProvider {
         for (SimplePressurePlateModel.PressurePlate block : SimplePressurePlateModel.pressurePlates) {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             if (block.block() == Blocks.BASALT || block.block() == Blocks.POLISHED_BASALT) {
-                texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.block()).getPath() + "_side"));
+                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath() + "_side"));
             }
             Block pressurePlate = block.pressurePlate();
 
@@ -666,6 +668,17 @@ public class BlockModelProvider extends FabricModelProvider {
                     identifier.getNamespace(), topBottomPath, topBottomPath, sidePath);
         }
 
+        for (SimpleWallModel.Wall wall : SimpleWallModel.columnWalls) {
+            Identifier identifier = Registries.BLOCK.getId(wall.wall());
+            String sidePath = identifier.getPath().replaceAll("_wall", "");
+
+            Identifier identifier2 = Registries.BLOCK.getId(wall.wall()).withSuffixedPath("_top");
+            String topBottomPath = identifier2.getPath().replaceAll("_wall", "");
+
+            registerColumnWallModelBlockStates(blockStateModelGenerator, wall.wall(), wall.block(),
+                    identifier.getNamespace(), topBottomPath, topBottomPath, sidePath);
+        }
+
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaWoodVerticalSlabs) {
             String id = Registries.BLOCK.getId(verticalSlab.block()).getPath();
             String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_log";
@@ -832,14 +845,110 @@ public class BlockModelProvider extends FabricModelProvider {
         registerVerticalSlab(blockStateModelGenerator, verticalSlab, fullBlockId, variantId, inner, outer);
     }
 
+    public void registerColumnWallModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin,
+                                                           String modId, String topTexturePath, String bottomTexturePath, String sideTexturePath) {
+        String modIdTopBottom = modId;
+        if (sideTexturePath.contains("deepslate_carved_window")){
+            modIdTopBottom = "minecraft";
+        }
+
+        if (sideTexturePath.contains("basalt_carved_window")){
+            topTexturePath = topTexturePath.concat("_top");
+            modIdTopBottom = "minecraft";
+        }
+
+        //TODO redo later cause this shit bad
+        if (Objects.equals(topTexturePath, "stone") ||
+                Objects.equals(topTexturePath, "blackstone") ||
+                Objects.equals(topTexturePath, "tuff")){
+            modIdTopBottom = "minecraft";
+        }
+
+        if (Objects.equals(sideTexturePath, "chiseled_tuff") ||
+                Objects.equals(sideTexturePath, "chiseled_tuff_bricks")){
+            modId = "minecraft";
+            modIdTopBottom = "minecraft";
+        }
+
+        if (Objects.equals(sideTexturePath, "chiseled_stone_bricks") ||
+                Objects.equals(sideTexturePath, "chiseled_deepslate")||
+                Objects.equals(sideTexturePath, "chiseled_polished_blackstone")){
+            modId = "minecraft";
+            modIdTopBottom = "minecraft";
+
+            topTexturePath = sideTexturePath;
+            bottomTexturePath = sideTexturePath;
+        }
+
+        Identifier sideTexture = Identifier.of(modId, "block/" + sideTexturePath);
+
+        WeightedVariant post = createWeightedVariant(MEModels.COLUMN_WALL_POST.upload(block, (new TextureMap())
+                        .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
+                        .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
+                        .put(TextureKey.WALL, sideTexture)
+                        .put(TextureKey.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelCollector));
+
+        WeightedVariant low = createWeightedVariant(MEModels.COLUMN_WALL_SIDE.upload(block, (new TextureMap())
+                        .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
+                        .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
+                        .put(TextureKey.WALL, sideTexture)
+                        .put(TextureKey.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelCollector));
+
+        WeightedVariant tall = createWeightedVariant(MEModels.COLUMN_WALL_SIDE_TALL.upload(block, (new TextureMap())
+                        .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
+                        .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
+                        .put(TextureKey.WALL, sideTexture)
+                        .put(TextureKey.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelCollector));
+
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
+                .createWallBlockState(block, post, low, tall));
+
+        Identifier inventory = MEModels.COLUMN_WALL_INVENTORY.upload(block, (new TextureMap())
+                .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
+                .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
+                .put(TextureKey.WALL, sideTexture)
+                .put(TextureKey.PARTICLE, sideTexture), blockStateModelGenerator.modelCollector);
+
+        blockStateModelGenerator.registerParentedItemModel(block, inventory);
+    }
+
     public void registerColumnVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin,
                                                            String modId, String topTexturePath, String bottomTexturePath, String sideTexturePath) {
         Identifier fullBlockId = ModelIds.getBlockModelId(origin);
         String modIdTopBottom = modId;
-        if (topTexturePath.contains("deepslate") || topTexturePath.contains("basalt")){
+        if (sideTexturePath.contains("deepslate_carved_window")){
+            modIdTopBottom = "minecraft";
+        }
+
+        if (sideTexturePath.contains("basalt_carved_window")){
             topTexturePath = topTexturePath.concat("_top");
             bottomTexturePath = bottomTexturePath.concat("_top");
             modIdTopBottom = "minecraft";
+        }
+
+        if (Objects.equals(topTexturePath, "stone") ||
+                Objects.equals(topTexturePath, "blackstone") ||
+                Objects.equals(topTexturePath, "tuff")){
+            modIdTopBottom = "minecraft";
+        }
+
+        if (Objects.equals(sideTexturePath, "chiseled_tuff") ||
+                Objects.equals(sideTexturePath, "chiseled_tuff_bricks")){
+            modId = "minecraft";
+            modIdTopBottom = "minecraft";
+        }
+
+        if (Objects.equals(sideTexturePath, "chiseled_stone_bricks") ||
+                Objects.equals(sideTexturePath, "chiseled_deepslate")||
+                Objects.equals(sideTexturePath, "chiseled_polished_blackstone")){
+            modId = "minecraft";
+            modIdTopBottom = "minecraft";
+
+            topTexturePath = sideTexturePath;
+            bottomTexturePath = sideTexturePath;
         }
 
         Identifier sideTexture = Identifier.of(modId, "block/" + sideTexturePath);
