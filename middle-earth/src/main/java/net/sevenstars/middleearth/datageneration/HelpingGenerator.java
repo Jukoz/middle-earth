@@ -57,11 +57,11 @@ public class HelpingGenerator {
                         if(set.hasCracked) pillarBlocks(set.crackedPillarBlocks, set.pillarBlocks.base());
                     }
                     case CHISELED_BLOCKS -> {
-                        if (set.existingList.contains(StoneBlockTypes.BASE_BLOCKS)) pillarBlocks(set.chiseledBlocks, set.baseBlocks.slab());
-                        if (set.existingList.contains(StoneBlockTypes.BRICK_BLOCKS)) pillarBlocks(set.chiseledBricksBlocks, set.brickBlocks.slab());
-                        if (set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS)) pillarBlocks(set.chiseledPolishedBlocks, set.polishedBlocks.slab());
-                        if (set.existingList.contains(StoneBlockTypes.TILE_BLOCKS)) pillarBlocks(set.chiseledTilesBlocks, set.tileBlocks.slab());
-                        if (set.existingList.contains(StoneBlockTypes.SMOOTH_BLOCKS)) pillarBlocks(set.chiseledSmoothBlocks, set.smoothBlocks.slab());
+                        if (set.existingList.contains(StoneBlockTypes.BASE_BLOCKS)) pillarBlocks(set.chiseledBlocks, set.baseBlocks.base());
+                        if (set.existingList.contains(StoneBlockTypes.BRICK_BLOCKS)) pillarBlocks(set.chiseledBricksBlocks, set.brickBlocks.base());
+                        if (set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS)) pillarBlocks(set.chiseledPolishedBlocks, set.polishedBlocks.base());
+                        if (set.existingList.contains(StoneBlockTypes.TILE_BLOCKS)) pillarBlocks(set.chiseledTilesBlocks, set.tileBlocks.base());
+                        if (set.existingList.contains(StoneBlockTypes.SMOOTH_BLOCKS)) pillarBlocks(set.chiseledSmoothBlocks, set.smoothBlocks.base());
                     }
                     case CARVED_WINDOW -> {
                         carvedWindowBlocks(set.carvedWindows, set.baseBlocks.base());

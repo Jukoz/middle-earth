@@ -835,25 +835,32 @@ public class BlockModelProvider extends FabricModelProvider {
     public void registerColumnVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin,
                                                            String modId, String topTexturePath, String bottomTexturePath, String sideTexturePath) {
         Identifier fullBlockId = ModelIds.getBlockModelId(origin);
+        String modIdTopBottom = modId;
+        if (topTexturePath.contains("deepslate") || topTexturePath.contains("basalt")){
+            topTexturePath = topTexturePath.concat("_top");
+            bottomTexturePath = bottomTexturePath.concat("_top");
+            modIdTopBottom = "minecraft";
+        }
+
         Identifier sideTexture = Identifier.of(modId, "block/" + sideTexturePath);
 
         WeightedVariant variantId = createWeightedVariant(MEModels.VERTICAL_COLUMN_SLAB.upload(block, (new TextureMap())
-                        .put(TextureKey.TOP, Identifier.of(modId, "block/" + topTexturePath))
-                        .put(TextureKey.BOTTOM, Identifier.of(modId, "block/" + bottomTexturePath))
+                        .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
+                        .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
                         .put(TextureKey.SIDE, sideTexture)
                         .put(TextureKey.PARTICLE, sideTexture),
                 blockStateModelGenerator.modelCollector));
 
         WeightedVariant inner = createWeightedVariant(MEModels.VERTICAL_COLUMN_SLAB_INNER.upload(block, (new TextureMap())
-                        .put(TextureKey.TOP, Identifier.of(modId, "block/" + topTexturePath))
-                        .put(TextureKey.BOTTOM, Identifier.of(modId, "block/" + bottomTexturePath))
+                        .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
+                        .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
                         .put(TextureKey.SIDE, sideTexture)
                         .put(TextureKey.PARTICLE, sideTexture),
                 blockStateModelGenerator.modelCollector));
 
         WeightedVariant outer = createWeightedVariant(MEModels.VERTICAL_COLUMN_SLAB_OUTER.upload(block, (new TextureMap())
-                        .put(TextureKey.TOP, Identifier.of(modId, "block/" + topTexturePath))
-                        .put(TextureKey.BOTTOM, Identifier.of(modId, "block/" + bottomTexturePath))
+                        .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
+                        .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
                         .put(TextureKey.SIDE, sideTexture)
                         .put(TextureKey.PARTICLE, sideTexture),
                 blockStateModelGenerator.modelCollector));
