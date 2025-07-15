@@ -14,6 +14,7 @@
     "FishingBobberEntityMixin",
     "FoliagePlacerTypeInvoker",
     "GrassBlockMixin",
+    "LivingEntityMixin",
     "PigEntityMixin",
     "PlayerEntityMixin",
     "PotionEntityMixin",
@@ -28,10 +29,10 @@
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
+    "client.BakedModelManagerMixin",
     "client.HeldItemRendererMixin",
     "client.InGameHudMixin",
-    "client.MouseMixin",
-    "client.BakedModelManagerMixin"
+    "client.MouseMixin"
   ],
   "server": [
   ],

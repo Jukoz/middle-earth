@@ -21,6 +21,7 @@ public class EnchantmentEffectsME {
     public static final RegistryKey<Enchantment> HEWING = of("hewing");
     public static final RegistryKey<Enchantment> HIGH_STEP = of("high_step");
     public static final RegistryKey<Enchantment> MINER_REACH = of("miner_reach");
+    public static final RegistryKey<Enchantment> STEALTHY_TRAIL = of("stealthy_trail");
     public static final RegistryKey<Enchantment> STRIDE = of("stride");
     public static final RegistryKey<Enchantment> TREE_FELLER = of("tree_feller");
 
