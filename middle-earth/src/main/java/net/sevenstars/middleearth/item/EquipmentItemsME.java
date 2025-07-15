@@ -1,7 +1,5 @@
 package net.sevenstars.middleearth.item;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.equipment.ArmorMaterial;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
@@ -44,7 +42,7 @@ public class EquipmentItemsME {
     public static List<Item> heavyArmors = new ArrayList<>();
 
     public static List<Item> backAttachments = new ArrayList<>();
-    public static List<Item> helmeAtttachments = new ArrayList<>();
+    public static List<Item> helmetAtttachments = new ArrayList<>();
 
     //region GENERIC
     //Hoods
@@ -1230,7 +1228,7 @@ public class EquipmentItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
-        helmeAtttachments.add(item);
+        helmetAtttachments.add(item);
         return registerItem(item, name);
     }
 
@@ -1238,7 +1236,7 @@ public class EquipmentItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
-        helmeAtttachments.add(item);
+        helmetAtttachments.add(item);
         return registerItem(item, name);
     }
 

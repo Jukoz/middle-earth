@@ -177,7 +177,7 @@ public class MiddleEarthClient implements ClientModInitializer {
             ArmorRenderer.register(new BootsArmorRenderer(), armor.asItem());
         });
 
-        EquipmentItemsME.helmeAtttachments.forEach(hood -> {
+        EquipmentItemsME.helmetAtttachments.forEach(hood -> {
             ArmorRenderer.register(new HelmetAttachmentRenderer(), hood);
         });
         EquipmentItemsME.backAttachments.forEach(cape -> {
