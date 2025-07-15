@@ -18,6 +18,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -87,6 +88,34 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/medium_armor"))).add(EquipmentItemsME.mediumArmors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/sturdy_armor"))).add(EquipmentItemsME.sturdyArmors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/heavy_armor"))).add(EquipmentItemsME.heavyArmors.toArray(new Item[0]));
+
+        ArrayList<Item> upToArmor = (ArrayList<Item>) EquipmentItemsME.basicArmors;
+        upToArmor.addAll(EquipmentItemsME.lightArmors);
+
+        ArrayList<Item> lightChest = new ArrayList<>();
+        ArrayList<Item> lightLegging = new ArrayList<>();
+        for(Item chestItem : EquipmentItemsME.armorPiecesListChestplates) {
+            if(upToArmor.contains(chestItem)) {
+                lightChest.add(chestItem);
+            }
+        }
+        for(Item legItem : EquipmentItemsME.armorPiecesListLeggings) {
+            if(upToArmor.contains(legItem)) {
+                lightLegging.add(legItem);
+            }
+        }
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/light_chest"))).add(lightChest);
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/light_leg"))).add(lightLegging);
+
+        upToArmor.addAll(EquipmentItemsME.mediumArmors);
+
+        ArrayList<Item> mediumBoots = new ArrayList<>();
+        for(Item bootItem : EquipmentItemsME.armorPiecesListBoots) {
+            if(upToArmor.contains(bootItem)) {
+                mediumBoots.add(bootItem);
+            }
+        }
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/medium_foot"))).add(mediumBoots);
 
         warg_food.add(Items.RABBIT);
         warg_food.add(Items.CHICKEN);
