@@ -12,6 +12,7 @@ public class ModEntityAttributes {
     public static final RegistryEntry<EntityAttribute> POWDERED_SNOW_IMMUNITY;
     public static final RegistryEntry<EntityAttribute> DELVERS_FEAR_STRENGTH;
     public static final RegistryEntry<EntityAttribute> CLIMBING_STRENGTH;
+    public static final RegistryEntry<EntityAttribute> DETECTION_RANGE;
 
     private static RegistryEntry<EntityAttribute> register(String name, double defaultValue, double minValue , double MaxValue, boolean tracked) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);
@@ -27,5 +28,6 @@ public class ModEntityAttributes {
         POWDERED_SNOW_IMMUNITY = register("powdered_snow_immunity", 0.0, 0.0, 1.0, true);
         DELVERS_FEAR_STRENGTH = register("delvers_fear_strength", 0.0, 0.0, Double.MAX_VALUE, true);
         CLIMBING_STRENGTH = register("climbing_strength", 0.0, 0.0, Double.MAX_VALUE, true);
+        DETECTION_RANGE = register("detection_range", 1.0, 0.1, 1.0, true);
     }
 }

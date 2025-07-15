@@ -18,16 +18,15 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class StructureManagerScreen extends HandledScreen<StructureManagerScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/structure_manager.png");
 
     public SearchBarWidget searchBarWidget;
     public Text currentDataText;
-    public RegistryKey<StructureManagerData> currentKey;
+    public Identifier currentKey;
 
-    public Set<RegistryKey<StructureManagerData>> keys;
+    public ArrayList<Identifier> identifiers;
 
     private static final int TEXT_COLOR = Color.WHITE.getRGB();
 
@@ -40,24 +39,20 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
     protected void init() {
         super.init();
 
-        keys = client.world.getRegistryManager().getOptional(StructureManagerDatasME.KEY).get().getKeys();
-
-        List<SearchBarResult> results = new ArrayList<>();
-        for(RegistryKey<StructureManagerData> key : keys){
-            results.add(new SearchBarResult(Text.translatable(key.getValue().toTranslationKey()), key.getValue(), SearchBarResultType.NORMAL, button -> selectRegistryKey(key)));
+        this.identifiers = new ArrayList<>();
+        for(RegistryKey<StructureManagerData> data : this.client.world.getRegistryManager().getOptional(StructureManagerDatasME.KEY).get().getKeys()){
+            this.identifiers.add(data.getValue());
         }
 
-        searchBarWidget = new SearchBarWidget(9, results, x -> updateScreenInformation());
-        addDrawableChild(searchBarWidget.getSearchBarToggleButton());
-        searchBarWidget.getAllButtons().forEach(this::addDrawableChild);
-        addDrawableChild(searchBarWidget.getScreenClickButton());
+        List<SearchBarResult> results = new ArrayList<>();
+        for(Identifier identifier : this.identifiers){
+            results.add(new SearchBarResult(Text.translatable(identifier.toTranslationKey()), identifier, SearchBarResultType.NORMAL, button -> selectIdentifier(identifier)));
+        }
 
-        currentKey = null;
-
-        currentDataText = Text.of(Text.translatable("Current : %s", (currentKey == null)
-            ? "N/A"
-            : currentKey.getValue().toTranslationKey("structure_manager_data"))
-                .formatted(Formatting.BOLD).formatted(Formatting.WHITE));
+        this.searchBarWidget = new SearchBarWidget(9, results, x -> updateScreenInformation());
+        addDrawableChild(this.searchBarWidget.getSearchBarToggleButton());
+        this.searchBarWidget.getAllButtons().forEach(this::addDrawableChild);
+        addDrawableChild(this.searchBarWidget.getScreenClickButton());
     }
 
     @Override
@@ -71,17 +66,21 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
         ModWidget.updateMouse(mouseX, mouseY);
 
         // 600 is total "screen size"
-        int centerX = (int) (client.currentScreen.width * 0.25f);
+        int centerX = (int) (client.currentScreen.width * 0.35f);
         int startY = 100;
 
         int searchBarWidgetStartY = startY;
-        searchBarWidgetStartY += searchBarWidget.drawSearchBar(context, centerX - 5 - searchBarWidget.searchBarToggleButton.getWidth(), searchBarWidgetStartY, textRenderer);
-        searchBarWidget.setEndY(startY + 500);
+        searchBarWidgetStartY += this.searchBarWidget.drawSearchBar(context, centerX - 5 - this.searchBarWidget.searchBarToggleButton.getWidth(), searchBarWidgetStartY, textRenderer);
+        this.searchBarWidget.setEndY(startY + 500);
 
         if(this.searchBarWidget.searchIsToggled()) {
-            this.searchBarWidget.drawSearchResults(context, centerX - 5 - searchBarWidget.searchBarToggleButton.getWidth(), searchBarWidgetStartY - 20);
+            this.searchBarWidget.drawSearchResults(context, centerX - 5 - this.searchBarWidget.searchBarToggleButton.getWidth(), searchBarWidgetStartY - 20);
         }
-        context.drawText(textRenderer, currentDataText, centerX + 5, startY + 5, TEXT_COLOR, false);
+        this.currentDataText = Text.of(Text.translatable("Current : %s", (currentKey == null)
+                        ? "N/A"
+                        : currentKey.toTranslationKey("structure_manager_data"))
+                .formatted(Formatting.BOLD).formatted(Formatting.WHITE));
+        context.drawText(this.textRenderer, this.currentDataText, centerX + 5, startY + 5, TEXT_COLOR, false);
     }
 
     @Override
@@ -125,15 +124,9 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
         return ModWidget.isMouseOver(sizeX, sizeY, startX, startY);
     }
 
-    private void selectRegistryKey(RegistryKey<StructureManagerData> key) {
-        this.currentKey = key;
-
-
-        currentDataText = Text.of(Text.translatable("Current : %s", (currentKey == null)
-                        ? "N/A"
-                        : currentKey.getValue().toTranslationKey("structure_manager_data"))
-                .formatted(Formatting.BOLD).formatted(Formatting.WHITE));
-        searchBarWidget.toggleSearch(false);
+    private void selectIdentifier(Identifier identifier) {
+        this.handler.selectIdentifier(client.player, identifier);
+        this.currentKey = identifier;
     }
 
     private void updateScreenInformation() {

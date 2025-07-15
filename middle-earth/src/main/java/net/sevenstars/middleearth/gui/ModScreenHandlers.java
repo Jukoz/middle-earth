@@ -13,6 +13,7 @@ import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreenHandler;
 import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreenHandler;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
+import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreenHandler;
 
@@ -22,7 +23,7 @@ public class ModScreenHandlers {
     public static ScreenHandlerType<WoodPileScreenHandler> WOOD_PILE_SCREEN_HANDLER;
     public static final ScreenHandlerType<ForgeAlloyingScreenHandler> FORGE_ALLOYING_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(ForgeAlloyingScreenHandler::new, BlockPos.PACKET_CODEC.cast());
     public static final ScreenHandlerType<ForgeHeatingScreenHandler> FORGE_HEATING_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(ForgeHeatingScreenHandler::new, BlockPos.PACKET_CODEC.cast());
-    public static final ScreenHandlerType<StructureManagerScreenHandler> STRUCTURE_MANAGER_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(StructureManagerScreenHandler::new, BlockPos.PACKET_CODEC.cast());
+    public static final ScreenHandlerType<StructureManagerScreenHandler> STRUCTURE_MANAGER_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(StructureManagerScreenHandler::new, StructureManagerScreenData.PACKET_CODEC);
 
     public static void registerAllScreenHandlers() {
         WOOD_PILE_SCREEN_HANDLER = new ScreenHandlerType<>(WoodPileScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
