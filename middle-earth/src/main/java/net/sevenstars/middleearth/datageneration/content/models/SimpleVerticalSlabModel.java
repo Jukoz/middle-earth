@@ -33,6 +33,11 @@ public class SimpleVerticalSlabModel {
         }
     };
 
+    public static List<VerticalSlab> plansVerticalSlabs = new ArrayList<>() {
+        {
+        }
+    };
+
     public static List<VerticalSlab> vanillaWoodVerticalSlabs = new ArrayList<>() {
         {
             /*add(new VerticalSlab(Blocks.OAK_WOOD, ModBlocks.OAK_WOOD_SLAB, ModBlocks.OAK_WOOD_VERTICAL_SLAB));

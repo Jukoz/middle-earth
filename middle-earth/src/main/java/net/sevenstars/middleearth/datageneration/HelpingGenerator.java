@@ -20,8 +20,6 @@ public class HelpingGenerator {
     //TODO recipe for stone blocks
     //TODO tags for stone blocks
     //TODO top models for pillar stuff
-    //TODO add carved windows to builder
-    //TODO bricks -> brick issue
 
     public static void generateFiles() {
         for (StoneBlockSetBuilder set : StoneBlockSets.stoneSetsList){
@@ -461,6 +459,7 @@ public class HelpingGenerator {
         BlockDrops.blocks.add(block);
 
         String blockName = block.getName().toString();
+        String baseName = base.getName().toString();
 
         if (!(Objects.equals(Registries.BLOCK.getId(block).getNamespace(), "minecraft"))){
             switch (block){
@@ -489,6 +488,8 @@ public class HelpingGenerator {
                         SimpleVerticalSlabModel.strippedVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
                     } else if (blockName.contains("wood")){
                         SimpleVerticalSlabModel.woodVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
+                    } else if (baseName.contains("planks")){
+                        SimpleVerticalSlabModel.plansVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
                     } else{
                         SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
                     }

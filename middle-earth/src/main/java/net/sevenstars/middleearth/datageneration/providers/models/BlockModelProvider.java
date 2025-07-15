@@ -138,7 +138,9 @@ public class BlockModelProvider extends FabricModelProvider {
             WeightedVariant id = createWeightedVariant(ModelIds.getBlockModelId(block.origin()));
             Block slab = block.slab();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            String modid = Registries.BLOCK.getId(block.origin()).getNamespace();
+
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             WeightedVariant bottom = createWeightedVariant(Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant top = createWeightedVariant(Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
 
@@ -150,7 +152,9 @@ public class BlockModelProvider extends FabricModelProvider {
             WeightedVariant id = createWeightedVariant(ModelIds.getBlockModelId(block.origin()));
             Block slab = block.slab();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            String modid = Registries.BLOCK.getId(block.origin()).getNamespace();
+
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             WeightedVariant bottom = createWeightedVariant(Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
             WeightedVariant top = createWeightedVariant(Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
 
@@ -210,7 +214,9 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimpleStairModel.Stair block : SimpleStairModel.woodStairs) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            String modid = Registries.BLOCK.getId(block.origin()).getNamespace();
+
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             Block stairs = block.stairs();
 
             WeightedVariant inner = createWeightedVariant(Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
@@ -222,7 +228,9 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimpleStairModel.Stair block : SimpleStairModel.strippedStairs) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            String modid = Registries.BLOCK.getId(block.origin()).getNamespace();
+
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             Block stairs = block.stairs();
 
             WeightedVariant inner = createWeightedVariant(Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
@@ -312,7 +320,9 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimpleWallModel.Wall block : SimpleWallModel.strippedWalls) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
+            String modid = Registries.BLOCK.getId(block.block()).getNamespace();
+
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
             Block wall = block.wall();
 
             Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -374,7 +384,9 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimpleFenceModel.Fence block : SimpleFenceModel.strippedFences) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
+            String modid = Registries.BLOCK.getId(block.block()).getNamespace();
+
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
             Block fence = block.fence();
 
             WeightedVariant post = createWeightedVariant(Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
@@ -529,6 +541,10 @@ public class BlockModelProvider extends FabricModelProvider {
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.strippedVerticalSlabs) {
             registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), Registries.BLOCK.getId(verticalSlab.block()).getPath().replaceAll("_wood", "_log"));
+        }
+
+        for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.plansVerticalSlabs) {
+            registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), Registries.BLOCK.getId(verticalSlab.block()).getPath());
         }
 
         for (SimpleLayersModel.Layers block : SimpleLayersModel.layers) {

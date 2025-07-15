@@ -33,7 +33,6 @@ public class ModBlocks {
 
     public static final Block POINTED_DOLOMITE = registerStoneBlock("pointed_dolomite",
             PointedDolomiteBlock::new,AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never), false);
-
     public static final Block POINTED_LIMESTONE = registerStoneBlock("pointed_limestone",
             PointedLimestoneBlock::new,AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never), false);
     public static final Block POINTED_IZHERABAN = registerStoneBlock("pointed_izheraban",

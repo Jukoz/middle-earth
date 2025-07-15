@@ -28,6 +28,9 @@ public class BlockSetRegistration {
                             .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool());
         }
 
+        name = name.replaceAll("_bricks", "_brick");
+        name = name.replaceAll("_tiles", "_tile");
+
         Block slab = getVanillaOrCreateNew(name + "_slab", SlabBlock::new,
                 AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool());
 
@@ -76,6 +79,8 @@ public class BlockSetRegistration {
         Block base = getVanillaOrCreateNew(name, Block::new,
                     AbstractBlock.Settings.create()
                             .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance));
+
+        name = name.replaceAll("_planks", "");
 
         Block slab = getVanillaOrCreateNew(name + "_slab", SlabBlock::new,
                 AbstractBlock.Settings.copy(base).strength(hardness, blastResistance));

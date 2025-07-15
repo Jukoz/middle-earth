@@ -46,6 +46,11 @@ public class ModRegistries {
         specialAliases.put("chiseled_blackstone_bricks", "chiseled_polished_blackstone_bricks");
         specialAliases.put("carved_window_vertical_slab", "carved_window_pane");
 
+        //_planks
+        //_bricks
+        //ashen_stone
+        //gilded_green_tuff
+
         if (MiddleEarth.IS_DEBUG){
             try {
                 File aliases = new File("aliases.txt");
@@ -67,7 +72,7 @@ public class ModRegistries {
                     for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                         name = name.replaceAll(map.getKey(), map.getValue());
                     }
-                    alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
+                    //alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
                     myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, name) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.name()) + "\r\n");
                 }
                 myWriter.close();
@@ -82,11 +87,11 @@ public class ModRegistries {
                 for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                     name = name.replaceAll(map.getKey(), map.getValue());
                 }
-                alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
+                //alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
             }
         }
 
-        Registries.ITEM.addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, "strawberry"), Identifier.of(MiddleEarth.MOD_ID, "strawberries"));
+        //Registries.ITEM.addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, "strawberry"), Identifier.of(MiddleEarth.MOD_ID, "strawberries"));
     }
 
     public static void registerToolTipAppenders() {
