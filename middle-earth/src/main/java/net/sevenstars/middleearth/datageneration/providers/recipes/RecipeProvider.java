@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.datageneration.providers.recipes;
 
-import com.nimbusds.jose.util.Resource;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.block.Block;
@@ -824,10 +823,10 @@ public class RecipeProvider extends FabricRecipeProvider {
 
 
                 ComplexRecipeJsonBuilder.create(CustomArmorDyeRecipe::new).offerTo(exporter, "custom_armor_dye");
-                ComplexRecipeJsonBuilder.create(ArmorHoodRecipe::new).offerTo(exporter, "custom_armor_hood");
-                ComplexRecipeJsonBuilder.create(ArmorHoodRemovalRecipe::new).offerTo(exporter, "custom_armor_hood_removal");
-                ComplexRecipeJsonBuilder.create(ArmorCapeRecipe::new).offerTo(exporter, "custom_armor_cape");
-                ComplexRecipeJsonBuilder.create(ArmorCapeRemovalRecipe::new).offerTo(exporter, "custom_armor_cape_removal");
+                ComplexRecipeJsonBuilder.create(HelmetAttachmentRecipe::new).offerTo(exporter, "custom_armor_hood");
+                ComplexRecipeJsonBuilder.create(HelmetAttachmentRemovalRecipe::new).offerTo(exporter, "custom_armor_hood_removal");
+                ComplexRecipeJsonBuilder.create(BackAttachmentRecipe::new).offerTo(exporter, "custom_armor_cape");
+                ComplexRecipeJsonBuilder.create(BackAttachmentRemovalRecipe::new).offerTo(exporter, "custom_armor_cape_removal");
                 ComplexRecipeJsonBuilder.create(MountArmorAddonRemovalRecipe::new).offerTo(exporter, "custom_mount_armor_addon_removal");
                 ComplexRecipeJsonBuilder.create(MountArmorSideSkullAddonRecipe::new).offerTo(exporter, "custom_mount_armor_side_skull_addon");
                 ComplexRecipeJsonBuilder.create(MountArmorTopSkullAddonRecipe::new).offerTo(exporter, "custom_mount_armor_top_skull_addon");

@@ -8,8 +8,8 @@ import net.minecraft.registry.RegistryWrapper;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
-import net.sevenstars.middleearth.item.utils.armor.hoods.ModHoods;
+import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
+import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 
 import java.util.Arrays;
@@ -67,11 +67,11 @@ public class LanguageProvider extends FabricLanguageProvider {
             createTranslation(translationBuilder, "tooltip", "liquid_" + metalTypes.getName());
         }
 
-        for (ModCapes cape : ModCapes.values()){
+        for (BackAttachmentsME cape : BackAttachmentsME.values()){
             createTranslation(translationBuilder, "tooltip", cape.getName());
         }
 
-        for (ModHoods hood : ModHoods.values()){
+        for (HelmetAttachmentsME hood : HelmetAttachmentsME.values()){
             createTranslation(translationBuilder, "tooltip", hood.getName());
         }
 
