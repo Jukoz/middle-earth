@@ -77,6 +77,11 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         EquipmentItemsME.heavyArmors.addAll(List.of(new Item[]{Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS,
                 Items.NETHERITE_HELMET, Items.NETHERITE_CHESTPLATE, Items.NETHERITE_LEGGINGS, Items.NETHERITE_BOOTS}));
 
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/head_armor"))).add(EquipmentItemsME.armorPiecesListHelmets.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/chest_armor"))).add(EquipmentItemsME.armorPiecesListChestplates.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/leg_armor"))).add(EquipmentItemsME.armorPiecesListLeggings.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/foot_armor"))).add(EquipmentItemsME.armorPiecesListBoots.toArray(new Item[0]));
+
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/basic_armor"))).add(EquipmentItemsME.basicArmors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/light_armor"))).add(EquipmentItemsME.lightArmors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/medium_armor"))).add(EquipmentItemsME.mediumArmors.toArray(new Item[0]));
