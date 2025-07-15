@@ -40,27 +40,11 @@ public class SimpleVerticalSlabModel {
 
     public static List<VerticalSlab> vanillaWoodVerticalSlabs = new ArrayList<>() {
         {
-            /*add(new VerticalSlab(Blocks.OAK_WOOD, ModBlocks.OAK_WOOD_SLAB, ModBlocks.OAK_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.SPRUCE_WOOD, ModBlocks.SPRUCE_WOOD_SLAB, ModBlocks.SPRUCE_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.BIRCH_WOOD, ModBlocks.BIRCH_WOOD_SLAB, ModBlocks.BIRCH_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.JUNGLE_WOOD, ModBlocks.JUNGLE_WOOD_SLAB, ModBlocks.JUNGLE_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.ACACIA_WOOD, ModBlocks.ACACIA_WOOD_SLAB, ModBlocks.ACACIA_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.DARK_OAK_WOOD, ModBlocks.DARK_OAK_WOOD_SLAB, ModBlocks.DARK_OAK_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.MANGROVE_WOOD, ModBlocks.MANGROVE_WOOD_SLAB, ModBlocks.MANGROVE_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.CHERRY_WOOD, ModBlocks.CHERRY_WOOD_SLAB, ModBlocks.CHERRY_WOOD_VERTICAL_SLAB));*/
         }
     };
 
     public static List<VerticalSlab> vanillaStrippedVerticalSlabs = new ArrayList<>() {
         {
-            /*add(new VerticalSlab(Blocks.STRIPPED_OAK_WOOD, ModBlocks.STRIPPED_OAK_WOOD_SLAB, ModBlocks.STRIPPED_OAK_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.STRIPPED_SPRUCE_WOOD, ModBlocks.STRIPPED_SPRUCE_WOOD_SLAB, ModBlocks.STRIPPED_SPRUCE_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.STRIPPED_BIRCH_WOOD, ModBlocks.STRIPPED_BIRCH_WOOD_SLAB, ModBlocks.STRIPPED_BIRCH_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.STRIPPED_JUNGLE_WOOD, ModBlocks.STRIPPED_JUNGLE_WOOD_SLAB, ModBlocks.STRIPPED_JUNGLE_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.STRIPPED_ACACIA_WOOD, ModBlocks.STRIPPED_ACACIA_WOOD_SLAB, ModBlocks.STRIPPED_ACACIA_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.STRIPPED_DARK_OAK_WOOD, ModBlocks.STRIPPED_DARK_OAK_WOOD_SLAB, ModBlocks.STRIPPED_DARK_OAK_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.STRIPPED_MANGROVE_WOOD, ModBlocks.STRIPPED_MANGROVE_WOOD_SLAB, ModBlocks.STRIPPED_MANGROVE_WOOD_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.STRIPPED_CHERRY_WOOD, ModBlocks.STRIPPED_CHERRY_WOOD_SLAB, ModBlocks.STRIPPED_CHERRY_WOOD_VERTICAL_SLAB));*/
         }
     };
 
@@ -93,18 +77,6 @@ public class SimpleVerticalSlabModel {
             add(new VerticalSlab(Blocks.WAXED_OXIDIZED_CUT_COPPER, Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB, ModBlocks.WAXED_OXIDIZED_CUT_COPPER_VERTICAL_SLAB));
 
             add(new VerticalSlab(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_SLAB, ModBlocks.PACKED_MUD_VERTICAL_SLAB));
-
-            /*add(new VerticalSlab(Blocks.OAK_PLANKS, Blocks.OAK_SLAB, ModBlocks.OAK_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.SPRUCE_PLANKS, Blocks.SPRUCE_SLAB, ModBlocks.SPRUCE_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.BIRCH_PLANKS, Blocks.BIRCH_SLAB, ModBlocks.BIRCH_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.JUNGLE_PLANKS, Blocks.JUNGLE_SLAB, ModBlocks.JUNGLE_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.ACACIA_PLANKS, Blocks.ACACIA_SLAB, ModBlocks.ACACIA_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.DARK_OAK_PLANKS, Blocks.DARK_OAK_SLAB, ModBlocks.DARK_OAK_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.MANGROVE_PLANKS, Blocks.MANGROVE_SLAB, ModBlocks.MANGROVE_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.CHERRY_PLANKS, Blocks.CHERRY_SLAB, ModBlocks.CHERRY_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.BAMBOO_PLANKS, Blocks.BAMBOO_SLAB, ModBlocks.BAMBOO_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.CRIMSON_PLANKS, Blocks.CRIMSON_SLAB, ModBlocks.CRIMSON_VERTICAL_SLAB));
-            add(new VerticalSlab(Blocks.WARPED_PLANKS, Blocks.WARPED_SLAB, ModBlocks.WARPED_VERTICAL_SLAB));*/
 
             add(new VerticalSlab(Blocks.BLACK_WOOL, ModBlocks.BLACK_WOOL_SLAB, ModBlocks.BLACK_WOOL_VERTICAL_SLAB));
             add(new VerticalSlab(Blocks.BLUE_WOOL, ModBlocks.BLUE_WOOL_SLAB, ModBlocks.BLUE_WOOL_VERTICAL_SLAB));

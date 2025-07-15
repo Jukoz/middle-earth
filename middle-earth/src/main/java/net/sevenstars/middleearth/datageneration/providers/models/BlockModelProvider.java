@@ -655,11 +655,15 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.columnVerticalSlabs) {
-            Identifier identifier = Registries.BLOCK.getId(verticalSlab.block());
-            Identifier identifier2 = Registries.BLOCK.getId(verticalSlab.verticalSlab());
-            registerColumnVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(),
-                    identifier.getNamespace(), identifier.getPath(), identifier.getPath(), identifier2.getPath().replaceAll("_vertical_slab", ""));
+            Identifier identifier = Registries.BLOCK.getId(verticalSlab.verticalSlab());
+            String sidePath = identifier.getPath().replaceAll("_vertical_slab", "");
 
+            Identifier identifier2 = Registries.BLOCK.getId(verticalSlab.verticalSlab()).withSuffixedPath("_top");
+            String topBottomPath = identifier2.getPath().replaceAll("_vertical_slab", "");
+            topBottomPath = topBottomPath.replaceAll("_carved_window_top", "");
+
+            registerColumnVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(),
+                    identifier.getNamespace(), topBottomPath, topBottomPath, sidePath);
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaWoodVerticalSlabs) {
