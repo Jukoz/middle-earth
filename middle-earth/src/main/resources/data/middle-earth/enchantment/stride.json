@@ -17,6 +17,7 @@
       }
     ]
   },
+  "exclusive_set": "#middle-earth:exclusive_set/stride",
   "max_cost": {
     "base": 75,
     "per_level_above_first": 25
