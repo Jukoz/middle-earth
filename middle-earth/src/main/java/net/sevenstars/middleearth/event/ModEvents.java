@@ -117,9 +117,9 @@ public class ModEvents {
                 if (!playerEntity.isCreative()) {
                     assert toolComponent != null;
                     if (toolComponent.isCorrectForDrops(blockState)){
-                        int[] blockCount = new int[]{32};
-                        if(level == 2) blockCount[0] = 128;
-                        else if(level == 3) blockCount[0] = 512;
+                        int[] blockCount = new int[]{16};
+                        if(level == 2) blockCount[0] = 64;
+                        else if(level == 3) blockCount[0] = 256;
                         breakTopLogs(world, playerEntity, blockPos, stack, hardness, blockCount);
                     }
                 }

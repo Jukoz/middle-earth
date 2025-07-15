@@ -5,12 +5,12 @@
   },
   "exclusive_set": "#middle-earth:exclusive_set/hewing",
   "max_cost": {
-    "base": 1,
+    "base": 75,
     "per_level_above_first": 15
   },
   "max_level": 3,
   "min_cost": {
-    "base": 1,
+    "base": 25,
     "per_level_above_first": 10
   },
   "slots": [
