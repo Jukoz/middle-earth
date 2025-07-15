@@ -30,6 +30,6 @@
   "slots": [
     "feet"
   ],
-  "supported_items": "#minecraft:enchantable/foot_armor",
+  "supported_items": "#middle-earth:enchantable/medium_foot",
   "weight": 1
 }

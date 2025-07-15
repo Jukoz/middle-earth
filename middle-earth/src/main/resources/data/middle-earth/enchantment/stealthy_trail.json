@@ -16,6 +16,6 @@
   "slots": [
     "chest"
   ],
-  "supported_items": "#minecraft:enchantable/chest_armor",
+  "supported_items": "#middle-earth:enchantable/light_chest",
   "weight": 1
 }

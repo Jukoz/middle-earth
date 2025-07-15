@@ -29,6 +29,6 @@
   "slots": [
     "legs"
   ],
-  "supported_items": "#minecraft:enchantable/leg_armor",
+  "supported_items": "#middle-earth:enchantable/light_leg",
   "weight": 1
 }
