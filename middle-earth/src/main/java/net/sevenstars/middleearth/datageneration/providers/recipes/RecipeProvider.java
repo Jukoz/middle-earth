@@ -1504,7 +1504,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("DC")
                         .pattern("CD")
                         .input('D', ModBlocks.ASHEN_DIRT)
-                        .input('C', StoneBlockSets.ASHEN_STONE_SET.cobblestoneBlocks.base())
+                        .input('C', StoneBlockSets.ASHENSTONE_SET.cobblestoneBlocks.base())
                         .criterion(hasItem(Items.DIRT),
                                 conditionsFromItem(Items.DIRT))
                         .offerTo(exporter);

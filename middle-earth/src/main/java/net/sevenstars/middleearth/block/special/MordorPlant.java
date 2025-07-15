@@ -23,7 +23,7 @@ public class MordorPlant extends CustomPlantBlock implements Fertilizable {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return  floor.isIn(BlockTags.DIRT) || floor.isIn(BlockTags.SAND) || floor.isOf(StoneBlockSets.ASHEN_STONE_SET.baseBlocks.base())
+        return  floor.isIn(BlockTags.DIRT) || floor.isIn(BlockTags.SAND) || floor.isOf(StoneBlockSets.ASHENSTONE_SET.baseBlocks.base())
                 || floor.isOf(Blocks.BASALT) || floor.isOf(Blocks.FARMLAND);
     }
 

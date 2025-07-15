@@ -127,9 +127,9 @@ public class BoulderConfiguredFeatures {
             StoneBlockSets.ANDESITE_SET.mossyCobblestoneBlocks.base().getDefaultState());
 
     private static final List<BlockState> ashenStone = Arrays.asList(
-            StoneBlockSets.ASHEN_STONE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.ASHEN_STONE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.ASHEN_STONE_SET.cobblestoneBlocks.base().getDefaultState(),
+            StoneBlockSets.ASHENSTONE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSets.ASHENSTONE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSets.ASHENSTONE_SET.cobblestoneBlocks.base().getDefaultState(),
             ModBlocks.ASHEN_GRAVEL.getDefaultState(),
             ModBlocks.ASH_BLOCK.getDefaultState());
 

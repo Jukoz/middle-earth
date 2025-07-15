@@ -279,7 +279,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.OLD_BLOCKS)
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
-    public static StoneBlockSetBuilder ASHEN_STONE_SET = registerStoneSet(new StoneBlockSetBuilder("ashen_stone",
+    public static StoneBlockSetBuilder ASHENSTONE_SET = registerStoneSet(new StoneBlockSetBuilder("ashenstone",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)

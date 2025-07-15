@@ -11,7 +11,7 @@ public class MEBiomeDataConfigs {
 
     public static SlopeMap ashenDirt = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_DIRT)
             .addSlopeData(32, ModBlocks.ASHEN_GRAVEL)
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHEN_STONE_SET.baseBlocks.base());
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base());
 
     public static SlopeMap blueMountainsBase = new SlopeMap()
             .addSlopeData(30, Blocks.GRASS_BLOCK)
@@ -57,14 +57,14 @@ public class MEBiomeDataConfigs {
             .addSlopeData(60, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.GRANITE);
 
-    public static SlopeMap mordor = new SlopeMap().addSlopeData(30, StoneBlockSets.ASHEN_STONE_SET.baseBlocks.base())
+    public static SlopeMap mordor = new SlopeMap().addSlopeData(30, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base())
             .addSlopeData(36, ModBlocks.ASH_BLOCK)
             .addSlopeData(44, Blocks.BASALT)
             .addSlopeData(MAX_ANGLE, Blocks.BLACKSTONE);
     public static SlopeMap mordorGrass = new SlopeMap().addSlopeData(25, Blocks.GRASS_BLOCK)
             .addSlopeData(32, ModBlocks.ASHEN_DIRT)
             .addSlopeData(37, ModBlocks.ASHEN_GRAVEL)
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHEN_STONE_SET.baseBlocks.base());
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base());
 
     public static SlopeMap greyMountains = new SlopeMap().addSlopeData(28, Blocks.GRASS_BLOCK)
             .addSlopeData(32, Blocks.COARSE_DIRT)
@@ -181,11 +181,11 @@ public class MEBiomeDataConfigs {
     public static SlopeMap mordorMountains = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_DIRT)
             .addSlopeData(30, ModBlocks.ASHEN_GRAVEL)
             .addSlopeData(41, Blocks.SMOOTH_BASALT)
-            .addSlopeData(55, StoneBlockSets.ASHEN_STONE_SET.baseBlocks.base())
+            .addSlopeData(55, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base())
             .addSlopeData(MAX_ANGLE, Blocks.BLACKSTONE);
     public static SlopeMap mordorMountainsPeaks = new SlopeMap().addSlopeData(26, ModBlocks.ASHEN_GRAVEL)
             .addSlopeData(40, Blocks.SMOOTH_BASALT)
-            .addSlopeData(54, StoneBlockSets.ASHEN_STONE_SET.baseBlocks.base())
+            .addSlopeData(54, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base())
             .addSlopeData(MAX_ANGLE, Blocks.BLACKSTONE);
 
     public static SlopeMap stoneHills = new SlopeMap().addSlopeData(33, Blocks.GRASS_BLOCK)
@@ -273,7 +273,7 @@ public class MEBiomeDataConfigs {
 
     public static BlocksLayeringData stoneLayers = new BlocksLayeringData().addLayerData(1.0f, Blocks.STONE);
 
-    public static BlocksLayeringData ashenStoneLayers = new BlocksLayeringData().addLayerData(1.0f, StoneBlockSets.ASHEN_STONE_SET.baseBlocks.base());
+    public static BlocksLayeringData ashenStoneLayers = new BlocksLayeringData().addLayerData(1.0f, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base());
 
     public static BlocksLayeringData frozenLayers = new BlocksLayeringData().addLayerData(1.0f, Blocks.STONE);
 
@@ -309,7 +309,7 @@ public class MEBiomeDataConfigs {
 
     public static BlocksLayeringData greyMountainsLayers = new BlocksLayeringData()
             .addLayerData(0.03f, Blocks.SMOOTH_BASALT)
-            .addLayerData(0.3f, StoneBlockSets.ASHEN_STONE_SET.baseBlocks.base())
+            .addLayerData(0.3f, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base())
             .addLayerData(0.02f, Blocks.SMOOTH_BASALT)
             .addLayerData(0.35f, StoneBlockSets.SLATE_SET.baseBlocks.base())
             .addLayerData(0.3f, Blocks.STONE);
