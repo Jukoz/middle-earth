@@ -567,7 +567,6 @@ public class WeaponItemsME {
     public static final Item GUNDABAD_HEAVY_SHIELD = registerShield("gundabad_heavy_shield",
             (settings) -> new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.GUNDABAD, settings), new Item.Settings());
     //endregion
-
     //endregion
 
     //region ARTEFACTS

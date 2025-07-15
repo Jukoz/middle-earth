@@ -16,16 +16,16 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.utils.item.DamageableItemUtils;
+import net.sevenstars.middleearth.utils.item.ItemSearchUtils;
+import net.sevenstars.middleearth.utils.sounds.SoundUtils;
 
 public class PipeItem extends Item {
     private final int USAGE_TIME = 60;
     private boolean smoking;
-    private int usesPerLeaf;
-
 
     public PipeItem(Settings settings, int amountOfUses) {
         super(settings.maxDamage(amountOfUses));
-        usesPerLeaf = amountOfUses;
     }
 
 
@@ -44,75 +44,81 @@ public class PipeItem extends Item {
 
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
-        if (itemStack.isDamageable() && itemStack.getDamage() >= itemStack.getMaxDamage()) {
-            // Attempt to refill the pipe using a leaf
-            ItemStack driedPipeweedStack = user.getInventory().getMainStacks().stream()
-                    .filter(stack -> stack.getItem() == ResourceItemsME.DRIED_PIPEWEED)
-                    .findFirst()
-                    .orElse(ItemStack.EMPTY);
+        ItemStack pipe = user.getStackInHand(hand);
 
-            if (driedPipeweedStack.isEmpty() && !user.isCreative()) {
-                return ActionResult.FAIL;
-            }
-
-            driedPipeweedStack.decrementUnlessCreative(1, user);
-            itemStack.setDamage(0);
-            ((PlayerEntity)user).getItemCooldownManager().set(itemStack, 20);
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), ModSounds.PIPE_REFILL, SoundCategory.PLAYERS, 1.0F, 1.0F);
-
+        if (DamageableItemUtils.isFullyDamaged(pipe)) {
+            boolean refilled = tryRefillPipe(pipe, user, world);
+            return refilled ? ActionResult.CONSUME.withNewHandStack(pipe) : ActionResult.FAIL;
         }
-        else{
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), ModSounds.PIPE_IGNITE, SoundCategory.PLAYERS, 1.0F, 1.0F);
-            user.setCurrentHand(hand);
-            this.smoking = true;
-            user.incrementStat(Stats.USED.getOrCreateStat(this));
-            itemStack.setDamage(itemStack.getDamage() + 1);
-        }
-        return ActionResult.CONSUME.withNewHandStack(itemStack);
+
+        startSmoking(pipe, user, world, hand);
+        return ActionResult.CONSUME.withNewHandStack(pipe);
     }
 
     @Override
-    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        // add a particle of smoke traveling away from the player "a final breath" -- froosty
-        if(smoking && remainingUseTicks < USAGE_TIME / 2){
+    public boolean onStoppedUsing(ItemStack pipe, World world, LivingEntity user, int remainingUseTicks) {
+
+        this.smoking = false;
+        applyCooldown((PlayerEntity) user, pipe);
+
+        // "a final breath" -- froosty
+        if (world.isClient()) return false;
+        if (remainingUseTicks < USAGE_TIME / 2 && smoking) {
             spawnSmoke(remainingUseTicks, user, world);
             return true;
         }
-        this.smoking = false;
-        ((PlayerEntity)user).getItemCooldownManager().set(stack, 20);
+
         return false;
     }
 
     @Override
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
-        if (smoking) {
-            int totalTicks = USAGE_TIME - remainingUseTicks;
-            int frequency = Math.max(4, (int) Math.pow((USAGE_TIME - totalTicks) / 10.0, 2));
-            if (remainingUseTicks % frequency == 0) {
-                if (!world.isClient && world instanceof ServerWorld serverWorld) {
-                    serverWorld.spawnParticles(
-                            ParticleTypes.SMOKE,
-                            user.getX() + user.getRotationVec(1.0F).x * 0.5,
-                            user.getY() + user.getEyeHeight(user.getPose()) + user.getRotationVec(1.0F).y * 0.5 + 0.04,
-                            user.getZ() + user.getRotationVec(1.0F).z * 0.5,
-                            1, // Number of particles
-                            0, // Offset X
-                            0.02, // Offset Y
-                            0, // Offset Z
-                            0 // Speed
-                    );
-                }
-            }
+        if (!smoking) return;
+
+        int elapsedTicks = USAGE_TIME - remainingUseTicks;
+        int frequency = Math.max(4, (int) Math.pow(elapsedTicks / 10.0, 2));
+
+        if (remainingUseTicks % frequency != 0) return;
+
+        if (!world.isClient && world instanceof ServerWorld serverWorld) {
+            Vec3d direction = user.getRotationVec(1.0F);
+            double x = user.getX() + direction.x * 0.5;
+            double y = user.getY() + user.getEyeHeight(user.getPose()) + direction.y * 0.5 + 0.04;
+            double z = user.getZ() + direction.z * 0.5;
+
+            serverWorld.spawnParticles(ParticleTypes.SMOKE, x, y, z, 1,       // count
+                    0,       // offsetX
+                    0.02,    // offsetY
+                    0,       // offsetZ
+                    0        // speed
+            );
         }
     }
 
-    public ItemStack finishUsing(ItemStack item, World world, LivingEntity user){
-        spawnSmoke(0, user, world);
+    public ItemStack finishUsing(ItemStack item, World world, LivingEntity user) {
+        if (!world.isClient()) {
+            spawnSmoke(0, user, world);
+        }
 
         this.smoking = false;
-        ((PlayerEntity)user).getItemCooldownManager().set(item, 20);
+        ((PlayerEntity) user).getItemCooldownManager().set(item, 20);
         return item;
+    }
+
+    public void spawnSmoke(int remainingUseTicks, LivingEntity user, World world) {
+        float f = (float) (USAGE_TIME - remainingUseTicks) / 500;
+        Vec3d vec = user.getRotationVec(1.0F);
+        if (!world.isClient()) {
+            ServerWorld serverWorld = (ServerWorld) world;
+            serverWorld.spawnParticles(ModParticleTypes.RING_OF_SMOKE, user.getX() + vec.x * 0.5, user.getY() + user.getEyeHeight(user.getPose()) + vec.y * 0.5, user.getZ() + vec.z * 0.5, 1, vec.x * f, vec.y * f, vec.z * f, 1.0);
+        }
+
+        /*
+         * Sound License
+         * https://pixabay.com/service/license-summary/
+         * https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=106654
+         */
+        SoundUtils.playSoundAtEntity(world, user, ModSounds.PIPE_EXHALE, SoundCategory.PLAYERS);
     }
 
     @Override
@@ -120,29 +126,43 @@ public class PipeItem extends Item {
         return USAGE_TIME;
     }
 
-    //TODO To test if works, client -> server
-    public void spawnSmoke(int remainingUseTicks, LivingEntity user, World world){
-        float f = (float) (USAGE_TIME - remainingUseTicks) / 500;
-        Vec3d vec = user.getRotationVec(1.0F);
-        ServerWorld serverWorld = (ServerWorld)world;
-        serverWorld.spawnParticles(ModParticleTypes.RING_OF_SMOKE,
-                user.getX() + vec.x * 0.5,
-                user.getY() + user.getEyeHeight(user.getPose()) + vec.y * 0.5,
-                user.getZ() + vec.z * 0.5,
-                1,
-                vec.x * f, vec.y *f, vec.z *f
-                ,1.0);
-        //https://pixabay.com/service/license-summary/
-        //https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=106654"
-        world.playSound(null, user.getX(), user.getY(), user.getZ(), ModSounds.PIPE_EXHALE, SoundCategory.PLAYERS, 1.0F, 1.0F);
-    }
-
     @Override
     public UseAction getUseAction(ItemStack stack) {
-        return this.smoking ? UseAction.TOOT_HORN : UseAction.NONE;
+        return UseAction.TOOT_HORN;
     }
 
     public boolean isSmoking() {
         return this.smoking;
+    }
+
+    private boolean tryRefillPipe(ItemStack pipe, PlayerEntity user, World world) {
+        ItemStack pipeweed = ItemSearchUtils.findFirstInInventory(user, ResourceItemsME.DRIED_PIPEWEED);
+
+        if (pipeweed.isEmpty() && !user.isCreative()) {
+            return false;
+        }
+
+        if (!user.isCreative()) {
+            pipeweed.decrement(1);
+        }
+
+        DamageableItemUtils.resetDamage(pipe);
+        applyCooldown(user, pipe);
+
+        SoundUtils.playSoundAtEntity(world, user, ModSounds.PIPE_REFILL, SoundCategory.PLAYERS);
+
+        return true;
+    }
+
+    private void startSmoking(ItemStack pipe, PlayerEntity user, World world, Hand hand) {
+        SoundUtils.playSoundAtEntity(world, user, ModSounds.PIPE_IGNITE, SoundCategory.PLAYERS);
+        user.setCurrentHand(hand);
+        this.smoking = true;
+        user.incrementStat(Stats.USED.getOrCreateStat(this));
+        DamageableItemUtils.incrementDamage(pipe, 1);
+    }
+
+    private void applyCooldown(PlayerEntity user, ItemStack pipe) {
+        user.getItemCooldownManager().set(pipe, 20);
     }
 }

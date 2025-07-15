@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.event.ModEvents;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.item.utils.armor.ModDyeablePieces;
+import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.sevenstars.middleearth.network.ModServerNetworkHandler;
 import net.sevenstars.middleearth.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
@@ -62,7 +62,7 @@ public class MiddleEarth implements ModInitializer {
 		OreRockSets.registerModBlockSets();
 		WeaponItemsME.registerModItems();
 		EquipmentItemsME.registerModItems();
-		ModDyeablePieces.addDyeablePieces();
+		DyeablePiecesME.addDyeablePieces();
 		ToolItemsME.registerModItems();
 		FoodItemsME.registerModItems();
 		ResourceItemsME.registerModItems();
