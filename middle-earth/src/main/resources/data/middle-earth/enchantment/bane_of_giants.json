@@ -28,7 +28,7 @@
         "affected": "victim",
         "effect": {
           "type": "minecraft:apply_mob_effect",
-          "max_amplifier": 3.0,
+          "max_amplifier": 0.0,
           "max_duration": {
             "type": "minecraft:linear",
             "base": 1.5,
@@ -70,10 +70,10 @@
     "base": 5,
     "per_level_above_first": 8
   },
-  "primary_items": "#minecraft:enchantable/sword",
+  "primary_items": "#middle-earth:enchantable/spear",
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/weapon",
+  "supported_items": "#middle-earth:enchantable/spear",
   "weight": 5
 }

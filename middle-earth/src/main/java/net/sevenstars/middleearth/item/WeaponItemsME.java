@@ -38,6 +38,7 @@ public class WeaponItemsME {
      * Middle-earth mod Weapon Items registry, weapons, shields
      */
 
+    public static List<Item> spears = new ArrayList<>();
     public static List<Item> shields = new ArrayList<>();
 
     //region GENERIC
@@ -640,6 +641,7 @@ public class WeaponItemsME {
     private static Item registerItemWithSpearModel(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
+        spears.add(item);
         SimpleSpearModel.items.add(item);
         return registerItem(item, name);
     }

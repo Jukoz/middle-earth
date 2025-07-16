@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.datageneration.content.tags.*;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.recipe.ModTags;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -82,6 +83,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/chest_armor"))).add(EquipmentItemsME.armorPiecesListChestplates.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/leg_armor"))).add(EquipmentItemsME.armorPiecesListLeggings.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/foot_armor"))).add(EquipmentItemsME.armorPiecesListBoots.toArray(new Item[0]));
+
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/spear"))).add(WeaponItemsME.spears.toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/basic_armor"))).add(EquipmentItemsME.basicArmors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/light_armor"))).add(EquipmentItemsME.lightArmors.toArray(new Item[0]));
