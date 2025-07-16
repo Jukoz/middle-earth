@@ -430,6 +430,10 @@ public class ModDecorativeBlocks {
             ChainBlock::new, AbstractBlock.Settings.copy(Blocks.CHAIN));
     public static final Block BRONZE_BROAD_CHAIN = registerBlockWithItem("bronze_broad_chain",
             ChainBlock::new, AbstractBlock.Settings.copy(Blocks.CHAIN));
+    public static final Block CRUDE_CHAIN = registerBlockWithItem("crude_chain",
+            ChainBlock::new, AbstractBlock.Settings.copy(Blocks.CHAIN));
+    public static final Block CRUDE_BROAD_CHAIN = registerBlockWithItem("crude_broad_chain",
+            ChainBlock::new, AbstractBlock.Settings.copy(Blocks.CHAIN));
     public static final Block SPIKY_CHAIN = registerBlockWithItem("spiky_chain",
             ChainBlock::new, AbstractBlock.Settings.copy(Blocks.CHAIN));
 

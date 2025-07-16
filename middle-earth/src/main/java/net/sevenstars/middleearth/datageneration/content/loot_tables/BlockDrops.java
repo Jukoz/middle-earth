@@ -60,6 +60,8 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.BRONZE_CHAIN);
             add(ModDecorativeBlocks.BRONZE_BROAD_CHAIN);
+            add(ModDecorativeBlocks.CRUDE_CHAIN);
+            add(ModDecorativeBlocks.CRUDE_BROAD_CHAIN);
             add(ModDecorativeBlocks.SPIKY_CHAIN);
 
             add(ModDecorativeBlocks.BLUE_CUSHION);

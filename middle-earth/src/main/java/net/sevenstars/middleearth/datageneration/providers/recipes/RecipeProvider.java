@@ -1627,6 +1627,26 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
                         .offerTo(exporter);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CRUDE_CHAIN, 4)
+                        .pattern("N")
+                        .pattern("I")
+                        .pattern("N")
+                        .input('N', ResourceItemsME.CRUDE_NUGGET)
+                        .input('I', ResourceItemsME.CRUDE_INGOT)
+                        .criterion(hasItem(ResourceItemsME.CRUDE_INGOT),
+                                conditionsFromItem(ResourceItemsME.STEEL_INGOT))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CRUDE_BROAD_CHAIN, 8)
+                        .pattern("NN")
+                        .pattern("II")
+                        .pattern("NN")
+                        .input('N', ResourceItemsME.CRUDE_NUGGET)
+                        .input('I', ResourceItemsME.CRUDE_INGOT)
+                        .criterion(hasItem(ResourceItemsME.CRUDE_INGOT),
+                                conditionsFromItem(ResourceItemsME.STEEL_INGOT))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SPIKY_CHAIN, 4)
                         .pattern(" N ")
                         .pattern("NIN")
