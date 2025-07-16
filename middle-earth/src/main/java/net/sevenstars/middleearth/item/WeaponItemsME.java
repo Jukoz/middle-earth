@@ -694,6 +694,8 @@ public class WeaponItemsME {
         TranslationEntries.itemEntries.add(item);
         if (item instanceof CustomLongswordWeaponItem || item instanceof CustomSwordWeaponItem){
             WeaponEnchants.swords.add(item);
+        } else if (item instanceof CustomAxeWeaponItem){
+            WeaponEnchants.axes.add(item);
         } else if (!(item instanceof CustomShieldItem)){
             WeaponEnchants.sharpWeapons.add(item);
         }
