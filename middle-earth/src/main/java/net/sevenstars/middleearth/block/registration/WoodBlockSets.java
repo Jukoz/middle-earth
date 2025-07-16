@@ -35,6 +35,7 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.LEAVES));
 
     public static WoodBlockSetBuilder SPRUCE_SET = registerWoodSet(new WoodBlockSetBuilder("spruce",
@@ -45,6 +46,7 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.LEAVES));
 
     public static WoodBlockSetBuilder BIRCH_SET = registerWoodSet(new WoodBlockSetBuilder("birch",
@@ -55,6 +57,7 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.LEAVES));
 
     public static WoodBlockSetBuilder JUNGLE_SET = registerWoodSet(new WoodBlockSetBuilder("jungle",
@@ -65,6 +68,7 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.LEAVES));
 
     public static WoodBlockSetBuilder ACACIA_SET = registerWoodSet(new WoodBlockSetBuilder("acacia",
@@ -75,6 +79,7 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.LEAVES));
 
     public static WoodBlockSetBuilder DAK_OAK_SET = registerWoodSet(new WoodBlockSetBuilder("dark_oak",
@@ -85,6 +90,7 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.LEAVES));
 
     public static WoodBlockSetBuilder MANGROVE_SET = registerWoodSet(new WoodBlockSetBuilder("mangrove",
@@ -95,6 +101,7 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.LEAVES));
 
     public static WoodBlockSetBuilder CHERRY_SET = registerWoodSet(new WoodBlockSetBuilder("cherry",
@@ -105,6 +112,7 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.LEAVES));
 
     public static WoodBlockSetBuilder PALE_OAK_SET = registerWoodSet(new WoodBlockSetBuilder("pale_oak",
@@ -122,7 +130,8 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
-            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS));
 
     public static WoodBlockSetBuilder WARPED_SET = registerWoodSet(new WoodBlockSetBuilder("warped",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DARK_AQUA, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.WARPED_FUNGUS)
@@ -131,7 +140,8 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
-            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS));
 
     public static WoodBlockSetBuilder BEECH_SET = registerWoodSet(new WoodBlockSetBuilder("beech",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.LIGHT_GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.BEECH_SAPLING)
