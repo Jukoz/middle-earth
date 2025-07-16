@@ -6,6 +6,8 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.Optional;
+
 public class StructureManagerScreenData{
     private BlockPos pos;
     private Identifier currentId;
@@ -16,9 +18,12 @@ public class StructureManagerScreenData{
     public BlockPos getPos() {
         return this.pos;
     }
-
     public Identifier getCurrentId() {
         return this.currentId;
+    }
+
+    private Optional<Identifier> getCurrentIdOptional() {
+        return Optional.ofNullable(this.currentId);
     }
 
     public boolean getIsActive() {
@@ -36,17 +41,20 @@ public class StructureManagerScreenData{
     public StructureManagerScreenData(){
 
     }
-    public StructureManagerScreenData(BlockPos pos, Identifier id, boolean isActive){
+    public StructureManagerScreenData(BlockPos pos, boolean isActive, Optional<Identifier> id){
         this.pos = pos;
         setActive(isActive);
-        setCurrentId(id);
+        if(id.isPresent())
+            setCurrentId(id.get());
+        else
+            id = null;
     }
 
     static {
         PACKET_CODEC = PacketCodec.tuple(
                 BlockPos.PACKET_CODEC, StructureManagerScreenData::getPos,
-                Identifier.PACKET_CODEC, StructureManagerScreenData::getCurrentId,
                 PacketCodecs.BOOLEAN, StructureManagerScreenData::getIsActive,
+                PacketCodecs.optional(Identifier.PACKET_CODEC), StructureManagerScreenData::getCurrentIdOptional,
                 StructureManagerScreenData::new
         );
     }
