@@ -166,13 +166,13 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         cobwebs.add(ModNatureBlocks.CORNER_COBWEB);
 
         SimpleStoneStoolModel.stools.forEach(block -> {
-            seat.add(block.base());
+            seat.add(block.stool());
         });
         SimpleStoneChairModel.chairs.forEach(block -> {
-            seat.add(block.base());
+            seat.add(block.chair());
         });
         SimpleStoneTableModel.tables.forEach(block -> {
-            table.add(block.base());
+            table.add(block.table());
         });
         SimpleWoodStoolModel.stools.forEach(seat::add);
         SimpleWoodStoolModel.vanillaStools.forEach(block -> {
