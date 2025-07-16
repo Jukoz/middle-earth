@@ -288,8 +288,8 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.heavy_shield", "Heavy Shield");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.misc", "Misc");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.hat", "Hat");
-            put("screen."+ MiddleEarth.MOD_ID +".artisan_table.hood", "Hood");
-            put("screen."+ MiddleEarth.MOD_ID +".artisan_table.cape", "Cape");
+            put("screen."+ MiddleEarth.MOD_ID +".artisan_table.helmet_attachment", "Helmet Attachment");
+            put("screen."+ MiddleEarth.MOD_ID +".artisan_table.back_attachment", "Back Attachment");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.pipe", "Pipe");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".shift", "Hold §3SHIFT§f to see information.");
@@ -355,10 +355,6 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".dale", "Dale");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".color", "Color");
-            put("tooltip."+ MiddleEarth.MOD_ID +".impaled_skulls", "Impaled Skulls");
-            put("tooltip."+ MiddleEarth.MOD_ID +".skull", "Skull");
-            put("tooltip."+ MiddleEarth.MOD_ID +".pouch", "Pouch");
-            put("tooltip."+ MiddleEarth.MOD_ID +".feather", "Feather");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_top", "Top Armor Addon, Enabled");
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_side", "Side Armor Addon, Enabled");
@@ -560,17 +556,17 @@ public class TranslationEntries {
             put("command."+ MiddleEarth.MOD_ID +".race.reset.target.success", "%s race is reset");
             put("command."+ MiddleEarth.MOD_ID +".race.reset.target.fail", "Failed to reset race for %s");
 
-            put("command."+ MiddleEarth.MOD_ID +".cape.success", "Cape successfully applied, ");
-            put("command."+ MiddleEarth.MOD_ID +".cape.fail", "Failed to apply cape.");
+            put("command."+ MiddleEarth.MOD_ID +".back_attachment.success", "Back Attachment successfully applied, ");
+            put("command."+ MiddleEarth.MOD_ID +".back_attachment.fail", "Failed to apply Back Attachment.");
 
-            put("command."+ MiddleEarth.MOD_ID +".hood.success", "Hood successfully applied, ");
-            put("command."+ MiddleEarth.MOD_ID +".hood.fail", "Failed to apply hood.");
+            put("command."+ MiddleEarth.MOD_ID +".helmet_attachment.success", "Helmet Attachment successfully applied, ");
+            put("command."+ MiddleEarth.MOD_ID +".helmet_attachment.fail", "Failed to apply Helmet Attachment.");
 
-            put("command."+ MiddleEarth.MOD_ID +".cape.hand_empty", "Hand Empty. Take a Middle-earth Mod chestplate in your main hand to apply a cape.");
-            put("command."+ MiddleEarth.MOD_ID +".hood.hand_empty", "Hand Empty. Take a Middle-earth Mod helmet in your main hand to apply a hood.");
+            put("command."+ MiddleEarth.MOD_ID +".back_attachment.hand_empty", "Hand Empty. Take a Middle-earth Mod chestplate in your main hand to apply a Back Attachment.");
+            put("command."+ MiddleEarth.MOD_ID +".helmet_attachment.hand_empty", "Hand Empty. Take a Middle-earth Mod helmet in your main hand to apply a Helmet Attachment.");
 
-            put("command."+ MiddleEarth.MOD_ID +".cape.wrong_item", "Wrong Item type. Take a Middle-earth Mod chestplate in your main hand to apply a cape.");
-            put("command."+ MiddleEarth.MOD_ID +".hood.wrong_item", "Wrong Item type. Take a Middle-earth Mod helmet in your main hand to apply a hood.");
+            put("command."+ MiddleEarth.MOD_ID +".back_attachment.wrong_item", "Wrong Item type. Take a Middle-earth Mod chestplate in your main hand to apply a Back Attachment.");
+            put("command."+ MiddleEarth.MOD_ID +".helmet_attachment.wrong_item", "Wrong Item type. Take a Middle-earth Mod helmet in your main hand to apply a Helmet Attachment.");
 
             put("alert."+ MiddleEarth.MOD_ID +".large_door.blocked", "Something seems to prevent the door from moving.");
 

@@ -4,7 +4,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
+import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.NpcTextureMaterialsME;
 import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
@@ -408,9 +408,9 @@ public class GondorianNpcDataPool {
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE).withCape(ModCapes.GONDORIAN_HERO_CAPE).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_CHESTKPLATE).withCape(ModCapes.GONDORIAN_HERO_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_CHESTPLATE).withCape(ModCapes.GONDORIAN_HERO_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE).withCape(BackAttachmentsME.GONDORIAN_HERO_CAPE).withWeight(3))
+                                .add(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_CHESTKPLATE).withCape(BackAttachmentsME.GONDORIAN_HERO_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_CHESTPLATE).withCape(BackAttachmentsME.GONDORIAN_HERO_CAPE))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_CHESTPLATE)))
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_BOOTS)))
