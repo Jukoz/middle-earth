@@ -2,9 +2,7 @@ package net.sevenstars.middleearth.datageneration.content.models;
 
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +41,8 @@ public class SimpleBlockModel {
             add(ModBlocks.SILVER_BLOCK);
             add(ModBlocks.CUT_LEAD);
             add(ModBlocks.CUT_SILVER);
+            add(ModBlocks.CUT_BRONZE);
+            add(ModBlocks.CUT_CRUDE_PLATES);
 
             add(ModBlocks.BRONZE_BLOCK);
             add(ModBlocks.CRUDE_BLOCK);

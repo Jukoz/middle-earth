@@ -22,6 +22,8 @@ public class SimpleSlabModel {
             add(new Slab(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB));
             add(new Slab(ModBlocks.CUT_LEAD, ModBlocks.CUT_LEAD_SLAB));
             add(new Slab(ModBlocks.CUT_SILVER, ModBlocks.CUT_SILVER_SLAB));
+            add(new Slab(ModBlocks.CUT_BRONZE, ModBlocks.CUT_BRONZE_SLAB));
+            add(new Slab(ModBlocks.CUT_CRUDE_PLATES, ModBlocks.CUT_CRUDE_PLATES_SLAB));
         }
     };
 

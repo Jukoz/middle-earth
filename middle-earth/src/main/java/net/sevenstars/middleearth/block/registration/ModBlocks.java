@@ -12,7 +12,6 @@ import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -20,8 +19,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.ColorCode;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.sevenstars.middleearth.registries.RegistryAliases;
 
 import java.util.List;
@@ -289,10 +286,28 @@ public class ModBlocks {
     public static final Block CUT_LEAD_VERTICAL_SLAB = registerMiscBlock("cut_lead_vertical_slab",
             VerticalSlabBlock::new, AbstractBlock.Settings.copy(ModBlocks.CUT_LEAD_SLAB),true);
 
+    public static final Block CUT_BRONZE = registerMiscBlock("cut_bronze",
+            Block::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
+    public static final Block CUT_BRONZE_STAIRS = registerMiscBlock("cut_bronze_stairs",
+            (settings) -> new StairsBlock(CUT_BRONZE.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
+    public static final Block CUT_BRONZE_SLAB = registerMiscBlock("cut_bronze_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
+    public static final Block CUT_BRONZE_VERTICAL_SLAB = registerMiscBlock("cut_bronze_vertical_slab",
+            VerticalSlabBlock::new, AbstractBlock.Settings.copy(ModBlocks.CUT_BRONZE_SLAB),true);
+
+    public static final Block CUT_CRUDE_PLATES = registerMiscBlock("cut_crude_plates",
+            Block::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
+    public static final Block CUT_CRUDE_PLATES_STAIRS = registerMiscBlock("cut_crude_plates_stairs",
+            (settings) -> new StairsBlock(CUT_CRUDE_PLATES.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
+    public static final Block CUT_CRUDE_PLATES_SLAB = registerMiscBlock("cut_crude_plates_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
+    public static final Block CUT_CRUDE_PLATES_VERTICAL_SLAB = registerMiscBlock("cut_crude_plates_vertical_slab",
+            VerticalSlabBlock::new, AbstractBlock.Settings.copy(ModBlocks.CUT_CRUDE_PLATES_SLAB),true);
+
     public static final Block CUT_SILVER = registerMiscBlock("cut_silver",
             Block::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
     public static final Block CUT_SILVER_STAIRS = registerMiscBlock("cut_silver_stairs",
-            (settings) -> new StairsBlock(REED_BLOCK.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
+            (settings) -> new StairsBlock(CUT_SILVER.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
     public static final Block CUT_SILVER_SLAB = registerMiscBlock("cut_silver_slab",
             SlabBlock::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
     public static final Block CUT_SILVER_VERTICAL_SLAB = registerMiscBlock("cut_silver_vertical_slab",

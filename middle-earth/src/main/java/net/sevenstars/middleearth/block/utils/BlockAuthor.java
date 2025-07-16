@@ -6,8 +6,6 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.function.ValueLists;
-import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
-
 import java.util.function.IntFunction;
 
 public enum BlockAuthor implements StringIdentifiable {

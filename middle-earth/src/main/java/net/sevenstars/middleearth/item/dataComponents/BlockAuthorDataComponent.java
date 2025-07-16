@@ -8,11 +8,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.text.Text;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.utils.BlockAuthor;
-import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
 
 import java.util.function.Consumer;
 
