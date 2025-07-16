@@ -769,6 +769,7 @@ public class BlockModelProvider extends FabricModelProvider {
         registerPaneModel(blockStateModelGenerator, ModBlocks.WAXED_WEATHERED_COPPER_BARS);
         registerPaneModel(blockStateModelGenerator, ModBlocks.WAXED_OXIDIZED_COPPER_BARS);
 
+        registerPaneModel(blockStateModelGenerator, ModBlocks.BRONZE_BARS);
         registerPaneModel(blockStateModelGenerator, ModBlocks.CRUDE_BARS);
         registerPaneModel(blockStateModelGenerator, ModBlocks.TREATED_STEEL_BARS);
         registerPaneModel(blockStateModelGenerator, ModBlocks.SILVER_BARS);

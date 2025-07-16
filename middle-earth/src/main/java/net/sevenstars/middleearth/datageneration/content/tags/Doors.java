@@ -9,6 +9,7 @@ import java.util.List;
 public class Doors {
     public static List<Block> doors = new ArrayList<>() {
         {
+            add(ModBlocks.BRONZE_DOOR);
             add(ModBlocks.CRUDE_DOOR);
             add(ModBlocks.TREATED_STEEL_DOOR);
         }

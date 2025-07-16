@@ -277,6 +277,7 @@ public class ModBlocks {
     public static final Block BURZUM_STEEL_BLOCK = registerMiscBlock("burzum_steel_block",
             Block::new,AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(6f).requiresTool(),true);
 
+    //TODO convert all cut blocks to new standalone block sets
     public static final Block CUT_LEAD = registerMiscBlock("cut_lead",
             Block::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
     public static final Block CUT_LEAD_STAIRS = registerMiscBlock("cut_lead_stairs",
@@ -385,6 +386,8 @@ public class ModBlocks {
     public static final Block WAXED_OXIDIZED_COPPER_BARS = registerMiscBlock("waxed_oxidized_copper_bars",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB), true);
 
+    public static final Block BRONZE_BARS = registerMiscBlock("bronze_bars",
+            PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS), true);
     public static final Block CRUDE_BARS = registerMiscBlock("crude_bars",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS), true);
     public static final Block TREATED_STEEL_BARS = registerMiscBlock("treated_steel_bars",
@@ -394,10 +397,14 @@ public class ModBlocks {
     public static final Block GILDED_BARS = registerMiscBlock("gilded_bars",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.COPPER), true);
 
+    public static final Block BRONZE_DOOR = registerMiscBlock("bronze_door",
+            (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
     public static final Block CRUDE_DOOR = registerMiscBlock("crude_door",
             (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
     public static final Block TREATED_STEEL_DOOR = registerMiscBlock("treated_steel_door",
             (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
+    public static final Block BRONZE_TRAPDOOR = registerMiscBlock("bronze_trapdoor",
+            (settings) -> new TrapdoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR), true);
     public static final Block CRUDE_TRAPDOOR = registerMiscBlock("crude_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR), true);
     public static final Block TREATED_STEEL_TRAPDOOR = registerMiscBlock("treated_steel_trapdoor",
@@ -490,199 +497,6 @@ public class ModBlocks {
     //endregion
 
     //region VANILLA VERTICAL SLABS
-    /*public static final Block OAK_WOOD_SLAB = registerWoodBlock("oak_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.OAK_SLAB).burnable(), true);
-    public static final Block SPRUCE_WOOD_SLAB = registerWoodBlock("spruce_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).burnable(), true);
-    public static final Block BIRCH_WOOD_SLAB = registerWoodBlock("birch_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.BIRCH_SLAB).burnable(), true);
-    public static final Block JUNGLE_WOOD_SLAB = registerWoodBlock("jungle_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.JUNGLE_SLAB).burnable(), true);
-    public static final Block ACACIA_WOOD_SLAB = registerWoodBlock("acacia_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.ACACIA_SLAB).burnable(), true);
-    public static final Block DARK_OAK_WOOD_SLAB = registerWoodBlock("dark_oak_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB).burnable(), true);
-    public static final Block MANGROVE_WOOD_SLAB = registerWoodBlock("mangrove_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.MANGROVE_SLAB).burnable(), true);
-    public static final Block CHERRY_WOOD_SLAB = registerWoodBlock("cherry_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.CHERRY_SLAB).burnable(), true);
-
-    public static final Block OAK_WOOD_VERTICAL_SLAB = registerWoodBlock("oak_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB).burnable(), true);
-    public static final Block SPRUCE_WOOD_VERTICAL_SLAB = registerWoodBlock("spruce_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).burnable(), true);
-    public static final Block BIRCH_WOOD_VERTICAL_SLAB = registerWoodBlock("birch_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.BIRCH_SLAB).burnable(), true);
-    public static final Block JUNGLE_WOOD_VERTICAL_SLAB = registerWoodBlock("jungle_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.JUNGLE_SLAB).burnable(), true);
-    public static final Block ACACIA_WOOD_VERTICAL_SLAB = registerWoodBlock("acacia_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.ACACIA_SLAB).burnable(), true);
-    public static final Block DARK_OAK_WOOD_VERTICAL_SLAB = registerWoodBlock("dark_oak_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB).burnable(), true);
-    public static final Block MANGROVE_WOOD_VERTICAL_SLAB = registerWoodBlock("mangrove_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.MANGROVE_SLAB).burnable(), true);
-    public static final Block CHERRY_WOOD_VERTICAL_SLAB = registerWoodBlock("cherry_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.CHERRY_SLAB).burnable(), true);
-
-    public static final Block OAK_WOOD_STAIRS = registerWoodBlock("oak_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.OAK_WOOD.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.OAK_STAIRS).burnable(), true);
-    public static final Block SPRUCE_WOOD_STAIRS = registerWoodBlock("spruce_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.OAK_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.SPRUCE_STAIRS).burnable(), true);
-    public static final Block BIRCH_WOOD_STAIRS = registerWoodBlock("birch_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.BIRCH_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.BIRCH_STAIRS).burnable(), true);
-    public static final Block JUNGLE_WOOD_STAIRS = registerWoodBlock("jungle_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.JUNGLE_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.JUNGLE_STAIRS).burnable(), true);
-    public static final Block ACACIA_WOOD_STAIRS = registerWoodBlock("acacia_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.ACACIA_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.ACACIA_STAIRS).burnable(), true);
-    public static final Block DARK_OAK_WOOD_STAIRS = registerWoodBlock("dark_oak_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.DARK_OAK_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.DARK_OAK_STAIRS).burnable(), true);
-    public static final Block MANGROVE_WOOD_STAIRS = registerWoodBlock("mangrove_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.MANGROVE_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.MANGROVE_STAIRS).burnable(), true);
-    public static final Block CHERRY_WOOD_STAIRS = registerWoodBlock("cherry_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.CHERRY_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.CHERRY_STAIRS).burnable(), true);
-
-    public static final Block OAK_WOOD_WALL = registerWoodBlock("oak_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.OAK_WOOD).burnable(), true);
-    public static final Block SPRUCE_WOOD_WALL = registerWoodBlock("spruce_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.SPRUCE_WOOD).burnable(), true);
-    public static final Block BIRCH_WOOD_WALL = registerWoodBlock("birch_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.BIRCH_WOOD).burnable(), true);
-    public static final Block JUNGLE_WOOD_WALL = registerWoodBlock("jungle_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.JUNGLE_WOOD).burnable(), true);
-    public static final Block ACACIA_WOOD_WALL = registerWoodBlock("acacia_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.ACACIA_WOOD).burnable(), true);
-    public static final Block DARK_OAK_WOOD_WALL = registerWoodBlock("dark_oak_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.DARK_OAK_WOOD).burnable(), true);
-    public static final Block MANGROVE_WOOD_WALL = registerWoodBlock("mangrove_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.MANGROVE_WOOD).burnable(), true);
-    public static final Block CHERRY_WOOD_WALL = registerWoodBlock("cherry_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.CHERRY_WOOD).burnable(), true);
-
-    public static final Block OAK_WOOD_FENCE = registerWoodBlock("oak_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.OAK_WOOD).burnable(), true);
-    public static final Block SPRUCE_WOOD_FENCE = registerWoodBlock("spruce_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.SPRUCE_WOOD).burnable(), true);
-    public static final Block BIRCH_WOOD_FENCE = registerWoodBlock("birch_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.BIRCH_WOOD).burnable(), true);
-    public static final Block JUNGLE_WOOD_FENCE = registerWoodBlock("jungle_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.JUNGLE_WOOD).burnable(), true);
-    public static final Block ACACIA_WOOD_FENCE = registerWoodBlock("acacia_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.ACACIA_WOOD).burnable(), true);
-    public static final Block DARK_OAK_WOOD_FENCE = registerWoodBlock("dark_oak_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.DARK_OAK_WOOD).burnable(), true);
-    public static final Block MANGROVE_WOOD_FENCE = registerWoodBlock("mangrove_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.MANGROVE_WOOD).burnable(), true);
-    public static final Block CHERRY_WOOD_FENCE = registerWoodBlock("cherry_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.CHERRY_WOOD).burnable(), true);
-
-    public static final Block STRIPPED_OAK_WOOD_SLAB = registerWoodBlock("stripped_oak_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.OAK_SLAB).burnable(), true);
-    public static final Block STRIPPED_SPRUCE_WOOD_SLAB = registerWoodBlock("stripped_spruce_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).burnable(), true);
-    public static final Block STRIPPED_BIRCH_WOOD_SLAB = registerWoodBlock("stripped_birch_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.BIRCH_SLAB).burnable(), true);
-    public static final Block STRIPPED_JUNGLE_WOOD_SLAB = registerWoodBlock("stripped_jungle_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.JUNGLE_SLAB).burnable(), true);
-    public static final Block STRIPPED_ACACIA_WOOD_SLAB = registerWoodBlock("stripped_acacia_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.ACACIA_SLAB).burnable(), true);
-    public static final Block STRIPPED_DARK_OAK_WOOD_SLAB = registerWoodBlock("stripped_dark_oak_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB).burnable(), true);
-    public static final Block STRIPPED_MANGROVE_WOOD_SLAB = registerWoodBlock("stripped_mangrove_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.MANGROVE_SLAB).burnable(), true);
-    public static final Block STRIPPED_CHERRY_WOOD_SLAB = registerWoodBlock("stripped_cherry_wood_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.CHERRY_SLAB).burnable(), true);
-
-    public static final Block STRIPPED_OAK_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_oak_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB).burnable(), true);
-    public static final Block STRIPPED_SPRUCE_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_spruce_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB), true);
-    public static final Block STRIPPED_BIRCH_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_birch_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.BIRCH_SLAB).burnable(), true);
-    public static final Block STRIPPED_JUNGLE_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_jungle_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.JUNGLE_SLAB).burnable(), true);
-    public static final Block STRIPPED_ACACIA_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_acacia_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.ACACIA_SLAB).burnable(), true);
-    public static final Block STRIPPED_DARK_OAK_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_dark_oak_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB).burnable(), true);
-    public static final Block STRIPPED_MANGROVE_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_mangrove_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.MANGROVE_SLAB).burnable(), true);
-    public static final Block STRIPPED_CHERRY_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_cherry_wood_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.CHERRY_SLAB).burnable(), true);
-
-    public static final Block STRIPPED_OAK_WOOD_STAIRS = registerWoodBlock("stripped_oak_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.STRIPPED_OAK_WOOD.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.OAK_STAIRS).burnable(), true);
-    public static final Block STRIPPED_SPRUCE_WOOD_STAIRS = registerWoodBlock("stripped_spruce_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.STRIPPED_OAK_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.SPRUCE_STAIRS).burnable(), true);
-    public static final Block STRIPPED_BIRCH_WOOD_STAIRS = registerWoodBlock("stripped_birch_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.STRIPPED_BIRCH_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.BIRCH_STAIRS).burnable(), true);
-    public static final Block STRIPPED_JUNGLE_WOOD_STAIRS = registerWoodBlock("stripped_jungle_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.STRIPPED_JUNGLE_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.JUNGLE_STAIRS).burnable(), true);
-    public static final Block STRIPPED_ACACIA_WOOD_STAIRS = registerWoodBlock("stripped_acacia_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.STRIPPED_ACACIA_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.ACACIA_STAIRS).burnable(), true);
-    public static final Block STRIPPED_DARK_OAK_WOOD_STAIRS = registerWoodBlock("stripped_dark_oak_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.STRIPPED_DARK_OAK_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.DARK_OAK_STAIRS).burnable(), true);
-    public static final Block STRIPPED_MANGROVE_WOOD_STAIRS = registerWoodBlock("stripped_mangrove_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.STRIPPED_MANGROVE_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.MANGROVE_STAIRS).burnable(), true);
-    public static final Block STRIPPED_CHERRY_WOOD_STAIRS = registerWoodBlock("stripped_cherry_wood_stairs",
-            (settings) -> new StairsBlock(Blocks.STRIPPED_CHERRY_WOOD.getDefaultState(), settings),AbstractBlock.Settings.copy(Blocks.CHERRY_STAIRS).burnable(), true);
-
-    public static final Block STRIPPED_OAK_WOOD_WALL = registerWoodBlock("stripped_oak_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.OAK_WOOD).burnable(), true);
-    public static final Block STRIPPED_SPRUCE_WOOD_WALL = registerWoodBlock("stripped_spruce_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.SPRUCE_WOOD).burnable(), true);
-    public static final Block STRIPPED_BIRCH_WOOD_WALL = registerWoodBlock("stripped_birch_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.BIRCH_WOOD).burnable(), true);
-    public static final Block STRIPPED_JUNGLE_WOOD_WALL = registerWoodBlock("stripped_jungle_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.JUNGLE_WOOD).burnable(), true);
-    public static final Block STRIPPED_ACACIA_WOOD_WALL = registerWoodBlock("stripped_acacia_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.ACACIA_WOOD).burnable(), true);
-    public static final Block STRIPPED_DARK_OAK_WOOD_WALL = registerWoodBlock("stripped_dark_oak_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.DARK_OAK_WOOD).burnable(), true);
-    public static final Block STRIPPED_MANGROVE_WOOD_WALL = registerWoodBlock("stripped_mangrove_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.MANGROVE_WOOD).burnable(), true);
-    public static final Block STRIPPED_CHERRY_WOOD_WALL = registerWoodBlock("stripped_cherry_wood_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.CHERRY_WOOD).burnable(), true);
-
-    public static final Block STRIPPED_OAK_WOOD_FENCE = registerWoodBlock("stripped_oak_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.OAK_WOOD).burnable(), true);
-    public static final Block STRIPPED_SPRUCE_WOOD_FENCE = registerWoodBlock("stripped_spruce_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.SPRUCE_WOOD).burnable(), true);
-    public static final Block STRIPPED_BIRCH_WOOD_FENCE = registerWoodBlock("stripped_birch_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.BIRCH_WOOD).burnable(), true);
-    public static final Block STRIPPED_JUNGLE_WOOD_FENCE = registerWoodBlock("stripped_jungle_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.JUNGLE_WOOD).burnable(), true);
-    public static final Block STRIPPED_ACACIA_WOOD_FENCE = registerWoodBlock("stripped_acacia_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.ACACIA_WOOD).burnable(), true);
-    public static final Block STRIPPED_DARK_OAK_WOOD_FENCE = registerWoodBlock("stripped_dark_oak_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.DARK_OAK_WOOD).burnable(), true);
-    public static final Block STRIPPED_MANGROVE_WOOD_FENCE = registerWoodBlock("stripped_mangrove_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.MANGROVE_WOOD).burnable(), true);
-    public static final Block STRIPPED_CHERRY_WOOD_FENCE = registerWoodBlock("stripped_cherry_wood_fence",
-            FenceBlock::new,AbstractBlock.Settings.copy(Blocks.CHERRY_WOOD).burnable(), true);
-
-    public static final Block OAK_VERTICAL_SLAB = registerWoodBlock("oak_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB).burnable(), true);
-    public static final Block SPRUCE_VERTICAL_SLAB = registerWoodBlock("spruce_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).burnable(), true);
-    public static final Block BIRCH_VERTICAL_SLAB = registerWoodBlock("birch_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.BIRCH_SLAB).burnable(), true);
-    public static final Block JUNGLE_VERTICAL_SLAB = registerWoodBlock("jungle_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.JUNGLE_SLAB).burnable(), true);
-    public static final Block ACACIA_VERTICAL_SLAB = registerWoodBlock("acacia_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.ACACIA_SLAB).burnable(), true);
-    public static final Block DARK_OAK_VERTICAL_SLAB = registerWoodBlock("dark_oak_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB).burnable(), true);
-    public static final Block MANGROVE_VERTICAL_SLAB = registerWoodBlock("mangrove_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.MANGROVE_SLAB).burnable(), true);
-    public static final Block CHERRY_VERTICAL_SLAB = registerWoodBlock("cherry_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.CHERRY_SLAB).burnable(), true);
-    public static final Block BAMBOO_VERTICAL_SLAB = registerWoodBlock("bamboo_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.BAMBOO_SLAB).burnable(), true);
-    public static final Block CRIMSON_VERTICAL_SLAB = registerWoodBlock("crimson_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.CRIMSON_SLAB).burnable(), true);
-    public static final Block WARPED_VERTICAL_SLAB = registerWoodBlock("warped_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).burnable(), true);*/
-
     public static final Block BRICK_VERTICAL_SLAB = registerStoneBlock("brick_vertical_slab",
             VerticalSlabBlock::new, AbstractBlock.Settings.copy(Blocks.BRICK_SLAB), true);
     public static final Block MUD_BRICK_VERTICAL_SLAB = registerStoneBlock("mud_brick_vertical_slab",
