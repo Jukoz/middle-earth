@@ -59,7 +59,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     @Override
     public Object getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
-        return pos;
+        return new StructureManagerScreenData(this.pos, this.managerId, this.isActive);
     }
 
     @Nullable

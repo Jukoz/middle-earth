@@ -17,7 +17,7 @@ public class StructureManagerScreenData{
         return this.pos;
     }
 
-    private Identifier getCurrentId() {
+    public Identifier getCurrentId() {
         return this.currentId;
     }
 
@@ -33,6 +33,9 @@ public class StructureManagerScreenData{
         this.isActive = isActive;
     }
 
+    public StructureManagerScreenData(){
+
+    }
     public StructureManagerScreenData(BlockPos pos, Identifier id, boolean isActive){
         this.pos = pos;
         setActive(isActive);

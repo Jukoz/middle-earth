@@ -7,6 +7,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.SearchBarWidget;
@@ -31,18 +32,22 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
     private static final int TEXT_COLOR = Color.WHITE.getRGB();
 
 
-    public StructureManagerScreen(StructureManagerScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
+    public StructureManagerScreen(StructureManagerScreenHandler handler, PlayerInventory playerInventory, Text title) {
+        super(handler, playerInventory, title);
+
+        World world = playerInventory.player.getWorld();
+
+        this.identifiers = new ArrayList<>();
+        for(RegistryKey<StructureManagerData> data : world.getRegistryManager().getOptional(StructureManagerDatasME.KEY).get().getKeys()){
+            this.identifiers.add(data.getValue());
+        }
+
+        this.currentKey = handler.getCurrentKey();
     }
 
     @Override
     protected void init() {
         super.init();
-
-        this.identifiers = new ArrayList<>();
-        for(RegistryKey<StructureManagerData> data : this.client.world.getRegistryManager().getOptional(StructureManagerDatasME.KEY).get().getKeys()){
-            this.identifiers.add(data.getValue());
-        }
 
         List<SearchBarResult> results = new ArrayList<>();
         for(Identifier identifier : this.identifiers){
@@ -57,12 +62,10 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
 
     @Override
     protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-        //context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        //super.render(context, mouseX, mouseY, deltaTicks);
         ModWidget.updateMouse(mouseX, mouseY);
 
         // 600 is total "screen size"

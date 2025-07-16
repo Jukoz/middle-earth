@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.gui.structuremanager;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -9,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerUpdateBlockEntityRequest;
 
 public class StructureManagerScreenHandler extends ScreenHandler {
 
@@ -17,11 +19,10 @@ public class StructureManagerScreenHandler extends ScreenHandler {
     StructureManagerBlockEntity blockEntity;
 
     // Client side Constructor
-    // Server side Constructor
-    public StructureManagerScreenHandler(int syncId, PlayerInventory playerInventory, StructureManagerScreenData data) {
+    public StructureManagerScreenHandler(int syncId, PlayerInventory playerInventory, StructureManagerScreenData structureManagerScreenData) {
         super(ModScreenHandlers.STRUCTURE_MANAGER_SCREEN_HANDLER, syncId);
-        this.data = data;
         this.world = playerInventory.player.getWorld();
+        this.data = structureManagerScreenData;
         this.blockEntity = (StructureManagerBlockEntity) this.world.getBlockEntity(data.getPos());
     }
 
@@ -37,7 +38,7 @@ public class StructureManagerScreenHandler extends ScreenHandler {
 
     public void selectIdentifier(PlayerEntity player, Identifier identifier) {
         this.data.setCurrentId(identifier);
-        //updateServerData(player);
+        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(data.getPos(), data.getCurrentId(), data.getIsActive()));
     }
 
     public void updateClientData(Identifier structureManagerDataId, boolean isActive) {
@@ -45,18 +46,16 @@ public class StructureManagerScreenHandler extends ScreenHandler {
         this.data.setActive(isActive);
     }
 
-    public void requestClientDataRefresh(){
-        //if(world.isClient)
-            //ClientPlayNetworking.send(PacketStructureManagerRefreshRequest.INSTANCE);
-    }
-
-    public void updateServerData(PlayerEntity player){
-        //if(!world.isClient)
-            //ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(currentId, isActive));
-    }
-
     public BlockPos getPos() {
-        return data.getPos();
+        return this.data.getPos();
+    }
+
+    public Identifier getCurrentKey() {
+        return this.data.getCurrentId();
+    }
+
+    public boolean getIsActive() {
+        return this.data.getIsActive();
     }
 }
 
