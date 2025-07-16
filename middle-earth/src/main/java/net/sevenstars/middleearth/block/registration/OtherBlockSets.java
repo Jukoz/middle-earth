@@ -16,56 +16,6 @@ public class OtherBlockSets {
     public static MiscBlockSet TREATED_WOOD_PANELS = registerMiscSet("treated_wood_panels", null, Blocks.OAK_PLANKS, true);
     public static MiscBlockSet TREATED_WOOD_TILING = registerMiscSet("treated_wood_tiling", null, Blocks.OAK_PLANKS, false);
 
-    /*public static RoofBlockSet OAK_SHINGLES = registerWoodSet("oak_shingles", Blocks.OAK_PLANKS);
-    public static RoofBlockSet SPRUCE_SHINGLES = registerWoodSet("spruce_shingles", Blocks.SPRUCE_PLANKS);
-    public static RoofBlockSet BIRCH_SHINGLES = registerWoodSet("birch_shingles", Blocks.BIRCH_PLANKS);
-    public static RoofBlockSet JUNGLE_SHINGLES = registerWoodSet("jungle_shingles", Blocks.JUNGLE_PLANKS);
-    public static RoofBlockSet ACACIA_SHINGLES = registerWoodSet("acacia_shingles", Blocks.ACACIA_PLANKS);
-    public static RoofBlockSet DARK_OAK_SHINGLES = registerWoodSet("dark_oak_shingles", Blocks.ACACIA_PLANKS);
-    public static RoofBlockSet MANGROVE_SHINGLES = registerWoodSet("mangrove_shingles", Blocks.MANGROVE_PLANKS);
-    public static RoofBlockSet CHERRY_SHINGLES = registerWoodSet("cherry_shingles", Blocks.CHERRY_PLANKS);
-    public static RoofBlockSet BAMBOO_SHINGLES = registerWoodSet("bamboo_shingles", Blocks.BAMBOO_PLANKS);
-    public static RoofBlockSet CRIMSON_SHINGLES = registerWoodSet("crimson_shingles", Blocks.CRIMSON_PLANKS);
-    public static RoofBlockSet WARPED_SHINGLES = registerWoodSet("warped_shingles", Blocks.WARPED_PLANKS);
-
-    public static RoofBlockSet BEECH_SHINGLES = registerWoodSet("beech_shingles", WoodBlockSets.BEECH.planks());
-    public static RoofBlockSet BEECH_ROOFING = registerWoodSet("beech_roofing", BEECH_SHINGLES.block);
-    public static RoofBlockSet BLACK_LEBETHRON_SHINGLES = registerWoodSet("black_lebethron_shingles", WoodBlockSets.BLACK_LEBETHRON.planks());
-    public static RoofBlockSet BLACK_LEBETHRON_ROOFING = registerWoodSet("black_lebethron_roofing", BLACK_LEBETHRON_SHINGLES.block);
-    public static RoofBlockSet WHITE_LEBETHRON_SHINGLES = registerWoodSet("white_lebethron_shingles", WoodBlockSets.WHITE_LEBETHRON.planks());
-    public static RoofBlockSet WHITE_LEBETHRON_ROOFING = registerWoodSet("white_lebethron_roofing", WHITE_LEBETHRON_SHINGLES.block);
-    public static RoofBlockSet CHESTNUT_SHINGLES = registerWoodSet("chestnut_shingles", WoodBlockSets.CHESTNUT.planks());
-    public static RoofBlockSet CHESTNUT_ROOFING = registerWoodSet("chestnut_roofing", CHESTNUT_SHINGLES.block);
-    public static RoofBlockSet FIR_SHINGLES = registerWoodSet("fir_shingles", WoodBlockSets.FIR.planks());
-    public static RoofBlockSet FIR_ROOFING = registerWoodSet("fir_roofing", FIR_SHINGLES.block);
-    public static RoofBlockSet HOLLY_SHINGLES = registerWoodSet("holly_shingles", WoodBlockSets.HOLLY.planks());
-    public static RoofBlockSet HOLLY_ROOFING = registerWoodSet("holly_roofing", HOLLY_SHINGLES.block);
-    public static RoofBlockSet LARCH_SHINGLES = registerWoodSet("larch_shingles", WoodBlockSets.LARCH.planks());
-    public static RoofBlockSet LARCH_ROOFING = registerWoodSet("larch_roofing", LARCH_SHINGLES.block);
-    public static RoofBlockSet MALLORN_SHINGLES = registerWoodSet("mallorn_shingles", WoodBlockSets.MALLORN.planks());
-    public static RoofBlockSet MALLORN_ROOFING = registerWoodSet("mallorn_roofing", MALLORN_SHINGLES.block);
-    public static RoofBlockSet MAPLE_SHINGLES = registerWoodSet("maple_shingles", WoodBlockSets.MAPLE.planks());
-    public static RoofBlockSet MAPLE_ROOFING = registerWoodSet("maple_roofing", MAPLE_SHINGLES.block);
-    public static RoofBlockSet SILVER_MAPLE_SHINGLES = registerWoodSet("silver_maple_shingles", WoodBlockSets.SILVER_MAPLE.planks());
-    public static RoofBlockSet SILVER_MAPLE_ROOFING = registerWoodSet("silver_maple_roofing", SILVER_MAPLE_SHINGLES.block);
-    public static RoofBlockSet MIRKWOOD_SHINGLES = registerWoodSet("mirkwood_shingles", WoodBlockSets.MIRKWOOD.planks());
-    public static RoofBlockSet MIRKWOOD_ROOFING = registerWoodSet("mirkwood_roofing", MIRKWOOD_SHINGLES.block);
-    public static RoofBlockSet PALM_SHINGLES = registerWoodSet("palm_shingles", WoodBlockSets.PALM.planks());
-    public static RoofBlockSet PALM_ROOFING = registerWoodSet("palm_roofing", PALM_SHINGLES.block);
-    public static RoofBlockSet WHITE_PALM_SHINGLES = registerWoodSet("white_palm_shingles", WoodBlockSets.WHITE_PALM.planks());
-    public static RoofBlockSet WHITE_PALM_ROOFING = registerWoodSet("white_palm_roofing", WHITE_PALM_SHINGLES.block);
-    public static RoofBlockSet PINE_SHINGLES = registerWoodSet("pine_shingles", WoodBlockSets.PINE.planks());
-    public static RoofBlockSet PINE_ROOFING = registerWoodSet("pine_roofing", PINE_SHINGLES.block);
-    public static RoofBlockSet BLACK_PINE_SHINGLES = registerWoodSet("black_pine_shingles", WoodBlockSets.BLACK_PINE.planks());
-    public static RoofBlockSet BLACK_PINE_ROOFING = registerWoodSet("black_pine_roofing", BLACK_PINE_SHINGLES.block);
-    public static RoofBlockSet WILLOW_SHINGLES = registerWoodSet("willow_shingles", WoodBlockSets.WILLOW.planks());
-    public static RoofBlockSet WILLOW_ROOFING = registerWoodSet("willow_roofing", WILLOW_SHINGLES.block);
-
-    public static RoofBlockSet ROTTEN_SHINGLES = registerWoodSet("rotten_shingles", WoodBlockSets.ROTTEN.planks());
-    public static RoofBlockSet ROTTEN_ROOFING = registerWoodSet("rotten_roofing", ROTTEN_SHINGLES.block);
-    public static RoofBlockSet SCORCHED_SHINGLES = registerWoodSet("scorched_shingles", WoodBlockSets.SCORCHED.planks());
-    public static RoofBlockSet SCORCHED_ROOFING = registerWoodSet("scorched_roofing", SCORCHED_SHINGLES.block);*/
-
     public static RoofBlockSet GRAY_MUSHROOM_SHINGLES = registerWoodSet("gray_mushroom_shingles", MushroomBlockSets.GRAY_MUSHROOM.planks());
     public static RoofBlockSet DARK_MUSHROOM_SHINGLES = registerWoodSet("dark_mushroom_shingles", MushroomBlockSets.DARK_MUSHROOM.planks());
     public static RoofBlockSet MUSHROOM_SHINGLES = registerWoodSet("mushroom_shingles", MushroomBlockSets.MUSHROOM.planks());
@@ -130,7 +80,6 @@ public class OtherBlockSets {
     public static RoofBlockSet LIGHT_YELLOW_ROOF_TILES = registerClaySet("light_yellow_roof_tiles", null);
     public static RoofBlockSet OFF_YELLOW_ROOF_TILES = registerClaySet("off_yellow_roof_tiles", null);
 
-
     public static RoofBlockSet THATCH = registerThatchSet("thatch", Oxidizable.OxidationLevel.UNAFFECTED);
     public static RoofBlockSet WEATHERED_THATCH = registerThatchSet("weathered_thatch", Oxidizable.OxidationLevel.EXPOSED);
     public static RoofBlockSet AGED_THATCH = registerThatchSet("aged_thatch", Oxidizable.OxidationLevel.WEATHERED);
@@ -142,6 +91,32 @@ public class OtherBlockSets {
     public static RoofBlockSet WAXED_AGED_THATCH = registerWaxedThatchSet("waxed_aged_thatch");
     public static RoofBlockSet WAXED_OLD_THATCH = registerWaxedThatchSet("waxed_old_thatch");
     public static RoofBlockSet WAXED_ROTTEN_THATCH = registerWaxedThatchSet("waxed_rotten_thatch");
+
+    //TODO move to different registration
+/*
+    public static SimpleBlockSet MIXED_STONES = registerStoneSet("mixed_stones", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, null);
+    public static SimpleBlockSet MOSSY_MIXED_STONES = registerStoneSet("mossy_mixed_stones", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, MIXED_STONES.base);
+    public static SimpleBlockSet CRACKED_MIXED_STONES = registerStoneSet("cracked_mixed_stones", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, MIXED_STONES.base);
+
+    public static SimpleBlockSet PACKED_MIRE = registerStoneSet("packed_mire",STONE_HARDNESS, STONE_BLAST_RESISTANCE, ModBlocks.MIRE);
+    public static SimpleBlockSet MIRE_BRICKS = registerStoneSet("mire_bricks", STONE_HARDNESS, STONE_BLAST_RESISTANCE, PACKED_MIRE.base);
+
+    public static SimpleBlockSet PLASTER = registerStoneSet("plaster", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+
+    public static SimpleBlockSet TAN_CLAY_BRICKS = registerStoneSet("tan_clay_bricks", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+    public static SimpleBlockSet TAN_CLAY_TILES = registerStoneSet("tan_clay_tiles", STONE_HARDNESS, STONE_BLAST_RESISTANCE, TAN_CLAY_BRICKS.base);
+
+    public static SimpleBlockSet TAN_CLAY_BRICKWORK = registerStoneSet("tan_clay_brickwork", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+
+    public static SimpleBlockSet WHITE_DAUB = registerStoneSet("white_daub", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
+    public static SimpleBlockSet DARK_DAUB = registerStoneSet("dark_daub", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
+    public static SimpleBlockSet YELLOW_DAUB = registerStoneSet("yellow_daub", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
+
+    public static SimpleBlockSet STUCCO = registerStoneSet("stucco", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
+    public static SimpleBlockSet MIXED_STONES_BRICKWORK = registerStoneSet("mixed_stones_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
+
+    public static SimpleBlockSet OLD_BRICKS = registerStoneSet("old_bricks", Blocks.BRICKS.getHardness(), Blocks.BRICKS.getBlastResistance(), null);
+*/
 
     public static RoofBlockSet[] sets = new RoofBlockSet[] {
 

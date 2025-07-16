@@ -1,13 +1,17 @@
 package net.sevenstars.middleearth.block.registration;
 
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.MapColor;
+import net.minecraft.block.TintedParticleLeavesBlock;
 import net.minecraft.block.enums.NoteBlockInstrument;
+import net.minecraft.sound.BlockSoundGroup;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
 import net.sevenstars.middleearth.block.utils.WoodBlockTypes;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
-import net.minecraft.block.*;
-import net.minecraft.sound.BlockSoundGroup;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 
 import java.util.ArrayList;
@@ -114,7 +118,7 @@ public class WoodBlockSets {
     public static WoodBlockSetBuilder CRIMSON_SET = registerWoodSet(new WoodBlockSetBuilder("crimson",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DULL_PINK, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.CRIMSON_FUNGUS)
             .addToSet(WoodBlockTypes.STEM_BLOCKS)
-            //.addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_STEM_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
@@ -123,7 +127,7 @@ public class WoodBlockSets {
     public static WoodBlockSetBuilder WARPED_SET = registerWoodSet(new WoodBlockSetBuilder("warped",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DARK_AQUA, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.WARPED_FUNGUS)
             .addToSet(WoodBlockTypes.STEM_BLOCKS)
-            //.addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_STEM_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
@@ -321,7 +325,6 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
 
-
     private static WoodBlockSetBuilder registerWoodSet(WoodBlockSetBuilder set) {
         set.existingList.forEach((woodStoneTypes) -> {
             switch (woodStoneTypes) {
@@ -329,8 +332,17 @@ public class WoodBlockSets {
                     set.logBlocks = BlockSetRegistration.createWoodSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
                     ModItemGroups.NATURE_BLOCKS_CONTENTS.add(set.logBlocks.log().asItem().getDefaultStack());
                 }
+                case STEM_BLOCKS -> {
+                    set.logBlocks = BlockSetRegistration.createStemSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
+                    ModItemGroups.NATURE_BLOCKS_CONTENTS.add(set.logBlocks.log().asItem().getDefaultStack());
+                }
                 case STRIPPED_LOG_BLOCKS -> {
                     set.strippedLogBlocks = BlockSetRegistration.createWoodSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
+                    StrippableBlockRegistry.register(set.logBlocks.log(), set.strippedLogBlocks.log());
+                    StrippableBlockRegistry.register(set.logBlocks.wood(), set.strippedLogBlocks.wood());
+                }
+                case STRIPPED_STEM_BLOCKS -> {
+                    set.strippedLogBlocks = BlockSetRegistration.createStemSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
                     StrippableBlockRegistry.register(set.logBlocks.log(), set.strippedLogBlocks.log());
                     StrippableBlockRegistry.register(set.logBlocks.wood(), set.strippedLogBlocks.wood());
                 }
@@ -346,13 +358,15 @@ public class WoodBlockSets {
                     ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(set.furnitureBlocks.chair().asItem().getDefaultStack());
                     ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(set.furnitureBlocks.ladder().asItem().getDefaultStack());
                 }
-                        case ROOFING_BLOCKS ->
+                case ROOFING_BLOCKS ->
                         set.roofingBlocks = BlockSetRegistration.createRegularSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
                 case SHINGLE_BLOCKS ->
                         set.shinglesBlocks = BlockSetRegistration.createRegularSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                case LEAVES ->
-                        set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
-                                (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable());
+                case LEAVES -> {
+                    set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
+                            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable());
+                    FlammableBlockRegistry.getDefaultInstance().add(set.leaves, 5, 60);
+                }
             }
         });
 
@@ -360,62 +374,6 @@ public class WoodBlockSets {
 
         return set;
     }
-    /*
-
-        FlammableBlockRegistry.getDefaultInstance().add(leaves, 5, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(log, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(wood, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(woodSlab, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(woodVerticalSlab, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(woodStairs, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(woodWall, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(woodFence, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(strippedLog, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(strippedWood, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(strippedSlab, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(strippedVerticalSlab, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(strippedStairs, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(strippedWoodWall, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(strippedWoodFence, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(planks, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(slab, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(verticalSlab, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(stairs, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(fence, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(gate, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(stool, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(bench, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(table, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(chair, 5, 20);
-
-        FuelRegistryEvents.BUILD.register(((builder, context) -> {
-            builder.add(table, 300);
-            builder.add(chair, 300);
-            builder.add(bench, 300);
-            builder.add(stool, 300);
-            builder.add(woodSlab, 150);
-            builder.add(woodStairs, 300);
-            builder.add(woodVerticalSlab, 150);
-            builder.add(woodWall, 300);
-            builder.add(woodFence, 300);
-            builder.add(strippedSlab, 150);
-            builder.add(strippedVerticalSlab, 150);
-            builder.add(strippedStairs, 300);
-            builder.add(strippedWoodWall, 300);
-            builder.add(strippedWoodFence, 300);
-
-            builder.add(slab, 150);
-            builder.add(verticalSlab, 150);
-            builder.add(stairs, 300);
-            builder.add(fence, 300);
-            builder.add(gate, 300);
-            builder.add(button, 100);
-            builder.add(pressurePlate, 300);
-            builder.add(door, 200);
-            builder.add(trapdoor, 200);
-        }));
-    }*/
-
 
     public static void registerModBlockSets() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Wood Block Sets for " + MiddleEarth.MOD_ID);

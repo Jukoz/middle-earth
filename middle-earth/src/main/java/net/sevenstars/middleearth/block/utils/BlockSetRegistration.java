@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.block.utils;
 
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
@@ -73,6 +75,50 @@ public class BlockSetRegistration {
         Block fence = getVanillaOrCreateNew(name + "_wood_fence", FenceBlock::new,
                 AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance));
 
+        FlammableBlockRegistry.getDefaultInstance().add(log, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(wood, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(slab, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(verticalSlab, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(stairs, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(wall, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(fence, 5, 5);
+
+        FuelRegistryEvents.BUILD.register(((builder, context) -> {
+            builder.add(slab, 150);
+            builder.add(stairs, 300);
+            builder.add(verticalSlab, 150);
+            builder.add(wall, 300);
+            builder.add(fence, 300);
+        }));
+
+        return new BlockRecordTypes.WoodSet(log, wood, slab, verticalSlab, stairs, wall, fence);
+    }
+
+    public static BlockRecordTypes.WoodSet createStemSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup) {
+
+        Block log = getVanillaOrCreateNew(name + "_stem", PillarBlock::new,
+                AbstractBlock.Settings.create()
+                        .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance));
+
+        Block wood = getVanillaOrCreateNew(name + "_hyphae", PillarBlock::new,
+                AbstractBlock.Settings.create()
+                        .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance));
+
+        Block slab = getVanillaOrCreateNew(name + "_hyphae_slab", SlabBlock::new,
+                AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance));
+
+        Block verticalSlab = getVanillaOrCreateNew(name + "_hyphae_vertical_slab", VerticalSlabBlock::new,
+                AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance));
+
+        Block stairs = getVanillaOrCreateNew(name + "_hyphae_stairs", (settings) -> new StairsBlock(
+                wood.getDefaultState(), settings), AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance));
+
+        Block wall = getVanillaOrCreateNew(name + "_hyphae_wall", WallBlock::new,
+                AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance));
+
+        Block fence = getVanillaOrCreateNew(name + "_hyphae_fence", FenceBlock::new,
+                AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance));
+
         return new BlockRecordTypes.WoodSet(log, wood, slab, verticalSlab, stairs, wall, fence);
     }
 
@@ -99,6 +145,21 @@ public class BlockSetRegistration {
         Block gate = getVanillaOrCreateNew(name + "_fence_gate", (settings) -> new FenceGateBlock(
                 WoodType.OAK, settings), AbstractBlock.Settings.copy(base).strength(hardness, blastResistance));
 
+        FlammableBlockRegistry.getDefaultInstance().add(base, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(slab, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(verticalSlab, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(stairs, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(fence, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(gate, 5, 20);
+
+        FuelRegistryEvents.BUILD.register(((builder, context) -> {
+            builder.add(slab, 150);
+            builder.add(verticalSlab, 150);
+            builder.add(stairs, 300);
+            builder.add(fence, 300);
+            builder.add(gate, 300);
+        }));
+
         return new BlockRecordTypes.PlanksSet(base, slab, verticalSlab, stairs, fence, gate);
     }
 
@@ -115,6 +176,13 @@ public class BlockSetRegistration {
 
         Block button = getVanillaOrCreateNew(name + "_button", (settings) -> new ButtonBlock(
                 BlockSetType.OAK, 30, settings), AbstractBlock.Settings.copy(base).strength(0.5f, blastResistance).mapColor(mapColor).sounds(soundGroup).noCollision().pistonBehavior(PistonBehavior.DESTROY));
+
+        FuelRegistryEvents.BUILD.register(((builder, context) -> {
+            builder.add(button, 100);
+            builder.add(pressurePlate, 300);
+            builder.add(door, 200);
+            builder.add(trapdoor, 200);
+        }));
 
         return new BlockRecordTypes.WoodRedstoneBlocks(door, trapdoor, pressurePlate, button);
     }
@@ -135,6 +203,18 @@ public class BlockSetRegistration {
 
         Block ladder = ModBlocks.registerWoodBlock(name + "_ladder", ThickLadderBlock::new,
                 AbstractBlock.Settings.copy(base).sounds(BlockSoundGroup.LADDER).nonOpaque(),false);
+
+        FlammableBlockRegistry.getDefaultInstance().add(stool, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(bench, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(table, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(chair, 5, 20);
+
+        FuelRegistryEvents.BUILD.register(((builder, context) -> {
+            builder.add(table, 300);
+            builder.add(chair, 300);
+            builder.add(bench, 300);
+            builder.add(stool, 300);
+        }));
 
         return new BlockRecordTypes.WoodFurnitureBlocks(table, chair, stool, bench, ladder);
     }

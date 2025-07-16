@@ -73,8 +73,8 @@ public class HelpingGenerator {
         for (WoodBlockSetBuilder set : WoodBlockSets.woodSetsList){
             set.existingList.forEach(stoneBlockTypes -> {
                 switch (stoneBlockTypes){
-                    case LOG_BLOCKS -> woodBlocks(set.logBlocks);
-                    case STRIPPED_LOG_BLOCKS -> woodBlocks(set.strippedLogBlocks);
+                    case LOG_BLOCKS, STEM_BLOCKS -> woodBlocks(set.logBlocks);
+                    case STRIPPED_LOG_BLOCKS, STRIPPED_STEM_BLOCKS -> woodBlocks(set.strippedLogBlocks);
                     case PLANK_BLOCKS -> plankBlocks(set.planksBlocks);
                     case SHINGLE_BLOCKS -> regularBlocks(set.shinglesBlocks);
                     case ROOFING_BLOCKS -> regularBlocks(set.roofingBlocks);
@@ -328,7 +328,7 @@ public class HelpingGenerator {
                     || blockName.contains("pillar");
             switch (block){
                 case PillarBlock pillarBlock -> {
-                    if (blockName.contains("_wood")){
+                    if (blockName.contains("wood") || blockName.contains("hyphae")){
                         SimpleBlockModel.woodBlocks.add(pillarBlock);
                     } else {
                         SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(pillarBlock));
@@ -337,7 +337,7 @@ public class HelpingGenerator {
                 case SlabBlock slabBlock -> {
                     if (blockName.contains("stripped")){
                         SimpleSlabModel.strippedSlabs.add(new SimpleSlabModel.Slab(base, slab));
-                    } else if (blockName.contains("wood")){
+                    } else if (blockName.contains("wood") || blockName.contains("hyphae")){
                         SimpleSlabModel.woodSlabs.add(new SimpleSlabModel.Slab(base, slab));
                     } else{
                         SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(base, slabBlock));
@@ -348,7 +348,7 @@ public class HelpingGenerator {
                         SimpleVerticalSlabModel.columnVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
                     }else if (blockName.contains("stripped")){
                         SimpleVerticalSlabModel.strippedVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
-                    } else if (blockName.contains("wood")){
+                    } else if (blockName.contains("wood") || blockName.contains("hyphae")){
                         SimpleVerticalSlabModel.woodVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
                     } else if (baseName.contains("planks")){
                         SimpleVerticalSlabModel.plansVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
@@ -359,7 +359,7 @@ public class HelpingGenerator {
                 case StairsBlock stairsBlock -> {
                     if (blockName.contains("stripped")){
                         SimpleStairModel.strippedStairs.add(new SimpleStairModel.Stair(base, stairsBlock));
-                    } else if (blockName.contains("wood")){
+                    } else if (blockName.contains("wood") || blockName.contains("hyphae")){
                         SimpleStairModel.woodStairs.add(new SimpleStairModel.Stair(base, stairsBlock));
                     } else{
                         SimpleStairModel.stairs.add(new SimpleStairModel.Stair(base, stairsBlock));
@@ -449,7 +449,7 @@ public class HelpingGenerator {
     }
 
     public static void woodBlocks(BlockRecordTypes.WoodSet set) {
-        BlockRecordTypes.WoodSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.log(), set.slab()));
+        BlockRecordTypes.WoodSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.wood(), set.slab()));
     }
 
     public static void furnitureBlocks(BlockRecordTypes.WoodFurnitureBlocks set, Block base) {
