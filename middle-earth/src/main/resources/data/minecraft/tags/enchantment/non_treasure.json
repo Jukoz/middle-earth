@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:bane_of_giants",
+    "middle-earth:grounded",
+    "middle-earth:hewing",
+    "middle-earth:high_step",
+    "middle-earth:miner_reach",
+    "middle-earth:stealthy_trail",
+    "middle-earth:stride",
+    "middle-earth:tree_feller"
+  ]
+}
