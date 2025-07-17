@@ -48,6 +48,7 @@ public class PacketStructureManagerUpdateBlockEntityRequest extends ClientToServ
             server.execute(() -> {
                 if(context.player().getWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity){
                     blockEntity.setDataId(structureManagerId);
+                    blockEntity.toggle(isActive);
                 }
             });
         } catch (Exception e){

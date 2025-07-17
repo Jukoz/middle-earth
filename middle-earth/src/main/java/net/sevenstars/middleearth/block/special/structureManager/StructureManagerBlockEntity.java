@@ -15,7 +15,6 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
@@ -34,24 +33,38 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class StructureManagerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
     ModLogger logger = MiddleEarth.LOGGER;
     private static final String ID = "structure_manager";
 
-    @Nullable
-    protected Identifier structureManagerDataRegistryIdentifier;
+    private enum SyncedData {
+        ENABLED("%s.Enabled".formatted(ID)),
+        SPAWN_NEST_LIST("%s.Nests".formatted(ID)),
+        SELECTED_ID("%s.SelectedId".formatted(ID)),
+        RUNTIME_ID("%s.RuntimeId".formatted(ID));
 
-    private boolean isActive;
+        public final String name;
+        SyncedData(String name){
+            this.name = name;
+        }
+    }
+
+    @Nullable
+    protected Identifier selectedStructureManagerData;
+    @Nullable
+    protected Identifier runtimeStructureManagerData;
+
+    private boolean enabled;
     private StructureManagerData managerData;
     private SpawnNestList spawnNestList;
 
     public StructureManagerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STRUCTURE_MANAGER, pos, state);
-        this.isActive = true;
-        this.structureManagerDataRegistryIdentifier = null;
+        this.enabled = true;
+        this.runtimeStructureManagerData = null;
+        this.selectedStructureManagerData = null;
         this.spawnNestList = null;
     }
 
@@ -62,65 +75,56 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     @Override
     public Object getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
-        return new StructureManagerScreenData(this.pos, this.isActive, Optional.ofNullable(this.structureManagerDataRegistryIdentifier));
+        return new StructureManagerScreenData(this.pos, this.enabled,
+                Optional.ofNullable(this.selectedStructureManagerData),
+                Optional.ofNullable(this.runtimeStructureManagerData)
+        );
     }
 
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new StructureManagerScreenHandler(syncId, playerInventory, new StructureManagerScreenData(this.pos, this.isActive, Optional.ofNullable(this.structureManagerDataRegistryIdentifier)));
+        return new StructureManagerScreenHandler(syncId, playerInventory,
+                new StructureManagerScreenData(this.pos, this.enabled,
+                    Optional.ofNullable(this.selectedStructureManagerData),
+                    Optional.ofNullable(this.runtimeStructureManagerData))
+        );
     }
 
     public static void tickEvent(World world, BlockPos blockPos, BlockState blockState, StructureManagerBlockEntity entity) {
         entity.tickEvent(world, blockPos, blockState);
     }
 
-    void initializeData(World world, boolean isPlayer) {
-        if(world.isClient)
-            return;
-
-        if(structureManagerDataRegistryIdentifier != null){
-            managerData = StructureManagerService.GetStructureManagerData(world, this.structureManagerDataRegistryIdentifier);
-
-            if(managerData == null) {
-                this.logger.logDebugMsg("%s::[%s] Couldn't find managerData under <%s>".formatted(ID, pos, structureManagerDataRegistryIdentifier));
-                return;
-            };
-
-            List<SpawnNestManager> spawnNestManagerList = new ArrayList<>();
-            for(SpawnNestNodeData nestNode : managerData.getNpcSpawnNest()){
-                spawnNestManagerList.add(new SpawnNestManager(nestNode));
-            }
-            this.spawnNestList = new SpawnNestList(spawnNestManagerList);
-        }
-    }
-
     @Override
     protected void writeData(WriteView view) {
         super.writeData(view);
-        view.putBoolean("%s.IsActive".formatted(ID), this.isActive);
-        if(managerData != null)
-            view.putString("%s.Id".formatted(ID), Objects.requireNonNullElse(managerData, StructureManagerDatasME.NPC_TESTING_AREA_A).getId().toString());
+        view.putBoolean(SyncedData.ENABLED.name, this.enabled);
+        if(runtimeStructureManagerData != null)
+            view.put(SyncedData.RUNTIME_ID.name, Identifier.CODEC, this.runtimeStructureManagerData);
+        else if(selectedStructureManagerData != null)
+            view.put(SyncedData.SELECTED_ID.name, Identifier.CODEC, this.selectedStructureManagerData);
         if(spawnNestList != null)
-            view.put("%s.SpawnNestList".formatted(ID), SpawnNestList.CODEC, this.spawnNestList);
+            view.put(SyncedData.SPAWN_NEST_LIST.name, SpawnNestList.CODEC, this.spawnNestList);
     }
 
     @Override
     protected void readData(ReadView view) {
         super.readData(view);
-        this.logger.logDebugMsg("%s::[%s] Reading Data :: Begin".formatted(ID, pos));
-
-        isActive = view.getBoolean("%s.IsActive".formatted(ID), false);
-
-        structureManagerDataRegistryIdentifier = Identifier.of(view.getString("%s.Id".formatted(ID), StructureManagerDatasME.NPC_TESTING_AREA_A.getId().toString()));
-        if (this.getWorld() instanceof ServerWorld serverWorld) {
-            managerData = StructureManagerService.GetStructureManagerData(serverWorld, structureManagerDataRegistryIdentifier);
+        this.enabled = view.getBoolean(SyncedData.ENABLED.name, false);
+        Optional<Identifier> runtime = view.read(SyncedData.RUNTIME_ID.name, Identifier.CODEC);
+        runtime.ifPresent(x -> runtimeStructureManagerData = x);
+        if(runtimeStructureManagerData == null){
+            Optional<Identifier> selected = view.read(SyncedData.SELECTED_ID.name, Identifier.CODEC);
+            selected.ifPresent(x -> selectedStructureManagerData = x);
         }
 
-        spawnNestList = view.read("%s.SpawnNestList".formatted(ID), SpawnNestList.CODEC).orElseGet(SpawnNestList::new);
+        Optional<SpawnNestList> nests = view.read(SyncedData.SPAWN_NEST_LIST.name, SpawnNestList.CODEC);
+        nests.ifPresent(x -> spawnNestList = x);
 
-        this.logger.logDebugMsg("%s::[%s] Reading Data :: Completed\nIsActive = %s\nManagerId = %s\nManagerData = %s\nSpawnNestList = %s"
-                .formatted(ID, pos, isActive, structureManagerDataRegistryIdentifier, managerData, spawnNestList.managers.size()));
+        if(enabled && selectedStructureManagerData != null){
+            runtimeStructureManagerData = selectedStructureManagerData;
+            selectedStructureManagerData = null;
+        }
     }
 
     public static void triggerDeathSignal(BlockPos pos, LivingEntity entity) {
@@ -134,25 +138,49 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     private void tickEvent(World world, BlockPos blockPos, BlockState blockState) {
-        if(spawnNestList == null || !isActive)
+        if(runtimeStructureManagerData != null && managerData == null) {
+            initializeData(world);
+        }
+        if(spawnNestList == null || !enabled)
             return;
         long tick = world.getTickOrder();
         for(SpawnNestManager data : spawnNestList.managers){
             if(managerData == null)
-                managerData = StructureManagerService.GetStructureManagerData(world, StructureManagerDatasME.NPC_TESTING_AREA_A.getId());
+                managerData = StructureManagerService.GetStructureManagerData(world, StructureManagerDatasME.NPC_TESTING_AREA_GONDOR.getId());
             data.tick(managerData, tick, world, blockPos);
         }
     }
 
-    public void setDataId(Identifier identifier) {
-        this.structureManagerDataRegistryIdentifier = identifier;
+    private void initializeData(World world){
+        if(runtimeStructureManagerData != null && managerData == null){
+            this.managerData = StructureManagerService.GetStructureManagerData(world, runtimeStructureManagerData);
+            if(managerData == null) {
+                this.logger.logDebugMsg("%s::[%s] Couldn't find managerData under <%s>".formatted(ID, pos, managerData));
+                return;
+            };
+            if(spawnNestList == null){
+                List<SpawnNestManager> spawnNestManagerList = new ArrayList<>();
+                for(SpawnNestNodeData nestNode : managerData.getNpcSpawnNest()){
+                    spawnNestManagerList.add(new SpawnNestManager(nestNode));
+                }
+                this.spawnNestList = new SpawnNestList(spawnNestManagerList);
+                updateListeners();
+            }
+        }
+    }
+    public void toggle(boolean activate) {
+        this.enabled = activate;
         updateListeners();
-        this.logger.logDebugMsg("%s::[%s] Setting Data Id :: New is - %s".formatted(ID, pos, isActive, structureManagerDataRegistryIdentifier.toString()));
+    }
+    public void setDataId(Identifier identifier) {
+        this.selectedStructureManagerData = identifier;
+        this.runtimeStructureManagerData = null;
+        this.enabled = false;
+        updateListeners();
     }
 
     public Identifier getDataId() {
-        MiddleEarth.LOGGER.logDebugMsg("%s::[%s] Grabbing Data Id :: Current is - %s".formatted(ID, pos, isActive, structureManagerDataRegistryIdentifier.toString()));
-        return structureManagerDataRegistryIdentifier;
+        return selectedStructureManagerData;
     }
     private void updateListeners() {
         this.markDirty();
@@ -165,7 +193,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     public boolean getIsActive() {
-        return isActive;
+        return enabled;
     }
 
     private static final class SpawnNestList {
@@ -178,14 +206,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
         private SpawnNestList(List<SpawnNestManager> spawnNestManagers) {
             this.managers = spawnNestManagers;
-            this.logger.logDebugMsg("%s:: Constructor :: From list with %s nest sources".formatted(ID, spawnNestManagers.size()));
-            for (SpawnNestManager data : managers)
-                this.logger.logDebugMsg("%s:: Constructor :: Added %s entities for <%s>".formatted(ID, data.getEntityUuids().size(), data.getId()));
         }
 
         public SpawnNestList() {
             this.managers = List.of();
-            this.logger.logDebugMsg("%s:: Constructor :: Added blank list".formatted(ID));
         }
 
         public void computeDeath(LivingEntity entity) {
@@ -193,7 +217,6 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
                 if(nest.computeDeath(entity))
                     return;
             }
-            this.logger.logDebugMsg("SMBE :: No nest contain the entity");
         }
 
         public List<SpawnNestManager> content() {

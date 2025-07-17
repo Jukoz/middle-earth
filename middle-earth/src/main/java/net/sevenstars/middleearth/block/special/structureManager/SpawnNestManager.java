@@ -39,7 +39,6 @@ public class SpawnNestManager {
         this.entities.addAll(dataEntities);
         this.respawnEventTriggerTick = dataRespawnEventTriggerTick;
         this.respawnTickDelay = dataRespawnTickDelay;
-        MiddleEarth.LOGGER.logDebugMsg("SMND :: Created new Structure Manager Nest Data, %s with %s entities".formatted(id, entities.size()));
     }
 
     public SpawnNestManager(SpawnNestNodeData spawnNestNodeData) {
@@ -47,7 +46,6 @@ public class SpawnNestManager {
         this.id = spawnNestNodeData.getId();
         this.respawnTickDelay = spawnNestNodeData.getRespawnTickDelay();
         this.respawnEventTriggerTick = 0;
-        MiddleEarth.LOGGER.logDebugMsg("SMND :: Created a new Structure Manager based on a nest, %s with %s entities".formatted(id, entities.size()));
     }
 
     public Identifier getId() {
@@ -55,7 +53,6 @@ public class SpawnNestManager {
     }
 
     public ArrayList<UUID> getEntityUuids() {
-        MiddleEarth.LOGGER.logDebugMsg("SMND :: Getting all entity uuids : %s".formatted(entities.size()));
         return entities;
     }
 
@@ -72,7 +69,6 @@ public class SpawnNestManager {
             return;
 
         UUID uuid = entity.getUuid();
-        MiddleEarth.LOGGER.logDebugMsg("SMND :: Added one entity : %s".formatted(uuid.toString()));
         if(this.entities == null)
             this.entities = new ArrayList<UUID>();
 
@@ -83,7 +79,6 @@ public class SpawnNestManager {
         if(entity.getWorld().isClient || !this.entities.contains(entity.getUuid()))
             return false;
         this.entities.remove(entity.getUuid());
-        MiddleEarth.LOGGER.logDebugMsg("SMND :: Removed one entity : %s. Now has %s entities.".formatted(entity.getUuid(), entities.size()));
         if(this.entities.isEmpty()){
             beginRespawnSequence(entity.getWorld());
         }
@@ -106,7 +101,6 @@ public class SpawnNestManager {
     }
 
     private void triggerRespawnAlert(StructureManagerData structureManagerData, World world, BlockPos sourcePos) {
-        MiddleEarth.LOGGER.logDebugMsg("%s :: Respawn :: Respawning all entities for %s".formatted(ID, id));
         SpawnNestNodeData data = structureManagerData.getNpcSpawnNest(id);
 
         if(data != null){
@@ -123,7 +117,6 @@ public class SpawnNestManager {
 
     public boolean computeDeath(LivingEntity entity) {
         if (removeEntity(entity)) {
-            MiddleEarth.LOGGER.logDebugMsg("%s :: Nest contains entity and will be removed.".formatted(ID));
             return true;
         }
         return false;

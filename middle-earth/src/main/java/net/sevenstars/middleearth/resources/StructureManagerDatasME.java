@@ -13,8 +13,8 @@ import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.resources.datas.npcs.pools.EreborNpcDataPool;
 import net.sevenstars.middleearth.resources.datas.npcs.pools.GondorianNpcDataPool;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.List;
@@ -29,14 +29,14 @@ public class StructureManagerDatasME {
         DynamicRegistries.registerSynced(KEY, StructureManagerData.CODEC);
     }
 
-    public final static StructureManagerData NPC_TESTING_AREA_A;
-    public final static StructureManagerData NPC_TESTING_AREA_B;
+    public final static StructureManagerData NPC_TESTING_AREA_GONDOR;
+    public final static StructureManagerData NPC_TESTING_AREA_EREBOR;
 
     public static void bootstrap(Registerable<StructureManagerData> context) {
         RegistryEntryLookup<StructureManagerData> structureDataRegistryEntryLookup = context.getRegistryLookup(KEY);
         // [TEMPLATE]
-        register(context, structureDataRegistryEntryLookup, NPC_TESTING_AREA_A);
-        register(context, structureDataRegistryEntryLookup, NPC_TESTING_AREA_B);
+        register(context, structureDataRegistryEntryLookup, NPC_TESTING_AREA_GONDOR);
+        register(context, structureDataRegistryEntryLookup, NPC_TESTING_AREA_EREBOR);
     }
 
     private static StructureManagerData register(Registerable<StructureManagerData> context, RegistryEntryLookup<StructureManagerData> registryEntryLookup, StructureManagerData structureManagerData) {
@@ -53,26 +53,28 @@ public class StructureManagerDatasME {
     }
 
     static {
-        NPC_TESTING_AREA_A = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "npc_testing_area_a"), List.of(
-            new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("npc_nest_a"), 100, new BlockPos(0,0,0), List.of(
-                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_KNIGHT.getId(), 2).SetFixAmount(1),
-                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_MILITIA.getId(), 4).SetRangeAmount(1, 4)
-            )).WithBedRadius(20),
-            new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("npc_nest_b"), 200, new BlockPos(0,0,0), List.of(
-                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARDS.getId(), 2).SetFixAmount(1),
-                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_SOLDIER.getId(), 4).SetRangeAmount(1, 4)
-            )).WithBedRadius(10)
+        NPC_TESTING_AREA_GONDOR = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "npc_testing_area_gondor"), List.of(
+            new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("npc_testing_area_gondor.captain_room"), 100, new BlockPos(-3,14,-5), List.of(
+                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_LEADER.getId(), 2).SetFixAmount(1),
+                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_VETERAN.getId(), 4).SetFixAmount(1),
+                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_KNIGHT.getId(), 4).SetFixAmount(1)
+            )).WithBedRadius(5),
+            new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("npc_testing_area_gondor.barracks_room"), 200, new BlockPos(0,0,0), List.of(
+                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_MILITIA.getId(), 4).SetRangeAmount(2, 6),
+                    new StructureSpawnNestPool(GondorianNpcDataPool.GONDOR_SOLDIER.getId(), 2).SetRangeAmount(2, 4)
+            )).WithBedRadius(8)
         ));
 
-        NPC_TESTING_AREA_B = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "npc_testing_area_b"), List.of(
-                new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("npc_nest_a"), 100, new BlockPos(0,0,0), List.of(
-                        new StructureSpawnNestPool(EreborNpcDataPool.EREBOR_GATEWARDEN.getId(), 2).SetFixAmount(1),
-                        new StructureSpawnNestPool(EreborNpcDataPool.EREBOR_LEADER.getId(), 4).SetRangeAmount(1, 4)
-                )).WithBedRadius(20),
-                new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("npc_nest_b"), 200, new BlockPos(0,0,0), List.of(
-                        new StructureSpawnNestPool(EreborNpcDataPool.EREBOR_SOLDIER.getId(), 2).SetFixAmount(1),
-                        new StructureSpawnNestPool(EreborNpcDataPool.EREBOR_MILITIA.getId(), 4).SetRangeAmount(1, 4)
-                )).WithBedRadius(10)
+        NPC_TESTING_AREA_EREBOR = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "npc_testing_area_erebor"), List.of(
+                new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("npc_testing_area_erebor.captain_room"), 100, new BlockPos(-3,14,-5), List.of(
+                        new StructureSpawnNestPool(EreborNpcDataPool.EREBOR_LEADER.getId(), 2).SetFixAmount(1),
+                        new StructureSpawnNestPool(EreborNpcDataPool.EREBOR_VETERAN.getId(), 4).SetFixAmount(1),
+                        new StructureSpawnNestPool(EreborNpcDataPool.EREBOR_ELITE.getId(), 4).SetFixAmount(1)
+                )).WithBedRadius(5),
+                new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("npc_testing_area_erebor.barracks_room"), 200, new BlockPos(0,0,0), List.of(
+                        new StructureSpawnNestPool(EreborNpcDataPool.EREBOR_SOLDIER.getId(), 4).SetRangeAmount(2, 6),
+                        new StructureSpawnNestPool(EreborNpcDataPool.EREBOR_MINER.getId(), 2).SetRangeAmount(2, 4)
+                )).WithBedRadius(8)
         ));
     }
 }

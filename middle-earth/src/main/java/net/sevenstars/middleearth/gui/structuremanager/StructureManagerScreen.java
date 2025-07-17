@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.gui.structuremanager;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
@@ -24,8 +25,11 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/structure_manager.png");
 
     public SearchBarWidget searchBarWidget;
-    public Text currentDataText;
-    public Identifier currentKey;
+    public Text selectedDataText;
+    public Identifier selectedKey;
+    public Text runtimeDataText;
+    public Identifier runtimeKey;
+    public ButtonWidget toggleButton;
 
     public ArrayList<Identifier> identifiers;
 
@@ -42,7 +46,8 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
             this.identifiers.add(data.getValue());
         }
 
-        this.currentKey = handler.getCurrentKey();
+        this.selectedKey = handler.getSelectedKey();
+        this.runtimeKey = handler.getRuntimeKey();
     }
 
     @Override
@@ -51,13 +56,18 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
 
         List<SearchBarResult> results = new ArrayList<>();
         for(Identifier identifier : this.identifiers){
-            results.add(new SearchBarResult(Text.translatable(identifier.toTranslationKey()), identifier, SearchBarResultType.NORMAL, button -> selectIdentifier(identifier)));
+            results.add(new SearchBarResult(Text.translatable(identifier.toTranslationKey("structure_manager_data")), identifier, SearchBarResultType.NORMAL, button -> selectIdentifier(identifier)));
         }
 
         this.searchBarWidget = new SearchBarWidget(9, results, x -> updateScreenInformation());
         addDrawableChild(this.searchBarWidget.getSearchBarToggleButton());
         this.searchBarWidget.getAllButtons().forEach(this::addDrawableChild);
         addDrawableChild(this.searchBarWidget.getScreenClickButton());
+
+        toggleButton = ButtonWidget.builder(Text.of("toggle button"),
+                x -> this.handler.toggleActive()).build();
+        toggleButton.setDimensions(100, 18);
+        addDrawableChild(toggleButton);
     }
 
     @Override
@@ -79,11 +89,27 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
         if(this.searchBarWidget.searchIsToggled()) {
             this.searchBarWidget.drawSearchResults(context, centerX - 5 - this.searchBarWidget.searchBarToggleButton.getWidth(), searchBarWidgetStartY - 20);
         }
-        this.currentDataText = Text.of(Text.translatable("Current : %s", (currentKey == null)
-                        ? "N/A"
-                        : currentKey.toTranslationKey("structure_manager_data"))
-                .formatted(Formatting.BOLD).formatted(Formatting.WHITE));
-        context.drawText(this.textRenderer, this.currentDataText, centerX + 5, startY + 5, TEXT_COLOR, false);
+        Text selectedIdText = (selectedKey == null)
+                ? Text.translatable("N/A")
+                : Text.translatable(selectedKey.toTranslationKey("structure_manager_data"));
+        this.selectedDataText = Text.translatable("ui.middle-earth.structure_manager.label_selected_id", selectedIdText).formatted(Formatting.BOLD).formatted(Formatting.WHITE);
+
+        context.drawText(this.textRenderer, this.selectedDataText, centerX + 5, startY + 5, TEXT_COLOR, false);
+
+
+        Text runtimeIdText = (runtimeKey == null)
+                ? Text.translatable("N/A")
+                : Text.translatable(runtimeKey.toTranslationKey("structure_manager_data"));
+        this.runtimeDataText = Text.translatable("ui.middle-earth.structure_manager.label_runtime_id", runtimeIdText).formatted(Formatting.BOLD).formatted(Formatting.WHITE);
+
+        context.drawText(this.textRenderer, this.runtimeDataText, centerX + 5, startY + 25, TEXT_COLOR, false);
+
+
+        Text isEnabledText = Text.translatable("ui.middle-earth.structure_manager.label_enable_status", handler.getIsActive()).formatted(Formatting.BOLD).formatted(Formatting.WHITE);
+        context.drawText(this.textRenderer, isEnabledText, centerX + 5, startY + 50, TEXT_COLOR, false);
+
+        toggleButton.setPosition(centerX + 5, startY + 80);
+        toggleButton.render(context, mouseX, mouseY, deltaTicks);
     }
 
     @Override
@@ -129,7 +155,7 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
 
     private void selectIdentifier(Identifier identifier) {
         this.handler.selectIdentifier(client.player, identifier);
-        this.currentKey = identifier;
+        this.selectedKey = identifier;
     }
 
     private void updateScreenInformation() {

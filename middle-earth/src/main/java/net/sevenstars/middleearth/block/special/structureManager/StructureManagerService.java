@@ -10,6 +10,8 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 
 public class StructureManagerService {
     public static StructureManagerData GetStructureManagerData(World world, Identifier structureManagerDataId){
+        if(world == null)
+            return null;
         var data =  StructureManagerDataLookup.getStructureManagerData(world, structureManagerDataId);
         return data.orElse(null);
     }

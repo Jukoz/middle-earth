@@ -41,9 +41,6 @@ public class StructureManagerBlock extends BlockWithEntity implements BlockEntit
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        StructureManagerBlockEntity entity = (StructureManagerBlockEntity) world.getBlockEntity(pos);
-        if(entity != null)
-            entity.initializeData(world, placer != null && placer.isPlayer());
     }
 
     @Override
