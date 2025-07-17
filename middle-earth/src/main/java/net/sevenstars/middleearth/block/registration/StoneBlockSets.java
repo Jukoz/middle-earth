@@ -1,12 +1,15 @@
 package net.sevenstars.middleearth.block.registration;
 
 import net.minecraft.block.enums.NoteBlockInstrument;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
 import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.StoneBlockTypes;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
+import net.sevenstars.middleearth.item.utils.ModItemGroups;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -381,58 +384,60 @@ public class StoneBlockSets {
 
     private static StoneBlockSetBuilder registerStoneSet(StoneBlockSetBuilder set) {
 
+        List<ItemStack> itemGroup = ModItemGroups.STONE_BLOCKS_CONTENTS;
+
         set.existingList.forEach((stoneBlockTypes) -> {
             switch (stoneBlockTypes){
-                case BASE_BLOCKS -> set.baseBlocks = BlockSetRegistration.createMainStoneSet(set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
+                case BASE_BLOCKS -> set.baseBlocks = BlockSetRegistration.createMainStoneSet(set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
                 case COBBLED_BLOCKS -> {
-                    set.cobblestoneBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix() , set.hardness + 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                    if(set.hasMossy) set.mossyCobblestoneBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness+ 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
+                    set.cobblestoneBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix() , set.hardness + 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                    if(set.hasMossy) set.mossyCobblestoneBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness+ 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
                 }
                 case COBBLESTONE_BLOCKS -> {
-                    set.cobblestoneBlocks = BlockSetRegistration.createRegularSet("cobblestone", set.hardness + 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                    if(set.hasMossy) set.mossyCobblestoneBlocks = BlockSetRegistration.createRegularSet("mossy_cobblestone", set.hardness+ 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
+                    set.cobblestoneBlocks = BlockSetRegistration.createRegularSet("cobblestone", set.hardness + 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                    if(set.hasMossy) set.mossyCobblestoneBlocks = BlockSetRegistration.createRegularSet("mossy_cobblestone", set.hardness+ 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
                 }
                 case BRICK_BLOCKS, POLISHED_BRICK_BLOCKS -> {
-                    set.brickBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                    if(set.hasMossy) set.mossyBrickBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                    if(set.hasCracked) set.crackedBrickBlocks = BlockSetRegistration.createRegularSet("cracked_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
+                    set.brickBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                    if(set.hasMossy) set.mossyBrickBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                    if(set.hasCracked) set.crackedBrickBlocks = BlockSetRegistration.createRegularSet("cracked_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
                 }
                 case TILE_BLOCKS -> {
-                    set.tileBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                    if(set.hasMossy) set.mossyTileBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                    if(set.hasCracked) set.crackedTileBlocks = BlockSetRegistration.createRegularSet("cracked_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
+                    set.tileBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                    if(set.hasMossy) set.mossyTileBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                    if(set.hasCracked) set.crackedTileBlocks = BlockSetRegistration.createRegularSet("cracked_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
                 }
                 case SMOOTH_BLOCKS -> {
-                    set.smoothBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                    if(set.hasMossy) set.mossySmoothBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                    if(set.hasCracked) set.crackedSmoothBlocks = BlockSetRegistration.createRegularSet("cracked_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
+                    set.smoothBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                    if(set.hasMossy) set.mossySmoothBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                    if(set.hasCracked) set.crackedSmoothBlocks = BlockSetRegistration.createRegularSet("cracked_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
                 }
                 case POLISHED_BLOCKS -> {
-                    set.polishedBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                    if(set.hasMossy) set.mossyPolishedBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                    if(set.hasCracked) set.crackedPolishedBlocks = BlockSetRegistration.createRegularSet("cracked_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
+                    set.polishedBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                    if(set.hasMossy) set.mossyPolishedBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                    if(set.hasCracked) set.crackedPolishedBlocks = BlockSetRegistration.createRegularSet("cracked_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
                 }
                 case POLISHED_BLOCKS_PILLAR -> {
-                    set.polishedBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true);
-                    if(set.hasMossy) set.mossyPolishedBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true);
-                    if(set.hasCracked) set.crackedPolishedBlocks = BlockSetRegistration.createRegularSet("cracked_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true);
+                    set.polishedBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true, itemGroup);
+                    if(set.hasMossy) set.mossyPolishedBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true, itemGroup);
+                    if(set.hasCracked) set.crackedPolishedBlocks = BlockSetRegistration.createRegularSet("cracked_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true, itemGroup);
                 }
-                case BRICKWORK_BLOCKS -> set.brickworkBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                case OLD_BLOCKS -> set.oldBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false);
-                case OLD_BLOCKS_PILLAR -> set.oldBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true);
+                case BRICKWORK_BLOCKS -> set.brickworkBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                case OLD_BLOCKS -> set.oldBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                case OLD_BLOCKS_PILLAR -> set.oldBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true, itemGroup);
                 case PILLAR_BLOCKS -> {
-                    set.pillarBlocks = BlockSetRegistration.createStonePillarSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
-                    if(set.hasMossy) set.mossyPillarBlocks = BlockSetRegistration.createStonePillarSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
-                    if(set.hasCracked) set.crackedPillarBlocks = BlockSetRegistration.createStonePillarSet("cracked_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
+                    set.pillarBlocks = BlockSetRegistration.createStonePillarSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                    if(set.hasMossy) set.mossyPillarBlocks = BlockSetRegistration.createStonePillarSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                    if(set.hasCracked) set.crackedPillarBlocks = BlockSetRegistration.createStonePillarSet("cracked_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
                 }
                 case CHISELED_BLOCKS -> {
-                    if (set.existingList.contains(StoneBlockTypes.BASE_BLOCKS)) set.chiseledBlocks = BlockSetRegistration.createStoneChiseledSet(set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
-                    if (set.existingList.contains(StoneBlockTypes.BRICK_BLOCKS)) set.chiseledBricksBlocks = BlockSetRegistration.createStoneChiseledSet(set.setName + "_bricks", set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
-                    if (set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS)) set.chiseledPolishedBlocks = BlockSetRegistration.createStoneChiseledSet("polished_" + set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
-                    if (set.existingList.contains(StoneBlockTypes.TILE_BLOCKS)) set.chiseledTilesBlocks = BlockSetRegistration.createStoneChiseledSet(set.setName + "_tiles", set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
-                    if (set.existingList.contains(StoneBlockTypes.SMOOTH_BLOCKS)) set.chiseledSmoothBlocks = BlockSetRegistration.createStoneChiseledSet("smooth_" + set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
+                    if (set.existingList.contains(StoneBlockTypes.BASE_BLOCKS)) set.chiseledBlocks = BlockSetRegistration.createStoneChiseledSet(set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                    if (set.existingList.contains(StoneBlockTypes.BRICK_BLOCKS)) set.chiseledBricksBlocks = BlockSetRegistration.createStoneChiseledSet(set.setName + "_bricks", set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                    if (set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS)) set.chiseledPolishedBlocks = BlockSetRegistration.createStoneChiseledSet("polished_" + set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                    if (set.existingList.contains(StoneBlockTypes.TILE_BLOCKS)) set.chiseledTilesBlocks = BlockSetRegistration.createStoneChiseledSet(set.setName + "_tiles", set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                    if (set.existingList.contains(StoneBlockTypes.SMOOTH_BLOCKS)) set.chiseledSmoothBlocks = BlockSetRegistration.createStoneChiseledSet("smooth_" + set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
                 }
-                case CARVED_WINDOW -> set.carvedWindows = BlockSetRegistration.createCarvedWindowSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup);
+                case CARVED_WINDOW -> set.carvedWindows = BlockSetRegistration.createCarvedWindowSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
             }
         });
 

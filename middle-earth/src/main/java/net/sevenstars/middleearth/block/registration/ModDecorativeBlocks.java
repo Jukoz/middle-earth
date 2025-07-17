@@ -481,29 +481,6 @@ public class ModDecorativeBlocks {
     public static final Block DWARVEN_GROUND_BOOK = registerBlockWithItem("dwarven_ground_book",
             DwarvenGroundBookBlock::new, AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision());
 
-    /*public static final Block OAK_LADDER = registerBlockWithItem("oak_ladder",
-            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
-    public static final Block SPRUCE_LADDER = registerBlockWithItem("spruce_ladder",
-            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
-    public static final Block BIRCH_LADDER = registerBlockWithItem("birch_ladder",
-            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.BIRCH_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
-    public static final Block JUNGLE_LADDER = registerBlockWithItem("jungle_ladder",
-            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.JUNGLE_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
-    public static final Block ACACIA_LADDER = registerBlockWithItem("acacia_ladder",
-            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.ACACIA_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
-    public static final Block DARK_OAK_LADDER = registerBlockWithItem("dark_oak_ladder",
-            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
-    public static final Block MANGROVE_LADDER = registerBlockWithItem("mangrove_ladder",
-            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.MANGROVE_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
-    public static final Block CHERRY_LADDER = registerBlockWithItem("cherry_ladder",
-            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.CHERRY_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
-    public static final Block BAMBOO_LADDER = registerBlockWithItem("bamboo_ladder",
-            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.BAMBOO_SLAB).sounds(BlockSoundGroup.WOOL).burnable());
-    public static final Block CRIMSON_LADDER = registerBlockWithItem("crimson_ladder",
-            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.CRIMSON_SLAB).sounds(BlockSoundGroup.LADDER).burnable());
-    public static final Block WARPED_LADDER = registerBlockWithItem("warped_ladder",
-            ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).sounds(BlockSoundGroup.LADDER).burnable());*/
-
     public static final Block TREATED_WOOD_LADDER = registerBlockWithItem("treated_wood_ladder",
             ThickLadderBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.LADDER).burnable());
 

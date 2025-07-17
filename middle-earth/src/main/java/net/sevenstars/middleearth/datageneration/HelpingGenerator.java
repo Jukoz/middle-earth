@@ -7,6 +7,7 @@ import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.block.utils.StoneBlockTypes;
+import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
@@ -21,6 +22,7 @@ public class HelpingGenerator {
     //TODO top models for pillar stuff
 
     public static void generateFiles() {
+
         for (StoneBlockSetBuilder set : StoneBlockSets.stoneSetsList){
             set.existingList.forEach(stoneBlockTypes -> {
                 switch (stoneBlockTypes){
@@ -87,6 +89,10 @@ public class HelpingGenerator {
                     }
                 }
             });
+        }
+
+        for (GenericBlockSetBuilder set : GenericBlockSets.genericSetsList) {
+            regularBlocks(set.blockSet);
         }
 
         SimpleBlockModel.blocks.addAll(LeavesSets.blocks);
@@ -165,7 +171,7 @@ public class HelpingGenerator {
             SimpleWoodChairModel.chairs.add(set.chair());
         }
 
-        for (OtherBlockSets.RoofBlockSet set : OtherBlockSets.sets) {
+        /*for (GenericBlockSets.RoofBlockSet set : GenericBlockSets.sets) {
             SimpleBlockModel.blocks.add(set.block());
             SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.block(), set.slab()));
             SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.block(), set.slab(), set.verticalSlab()));
@@ -204,7 +210,7 @@ public class HelpingGenerator {
             }
         }
 
-        for (OtherBlockSets.MiscBlockSet set : OtherBlockSets.specialWoodSets) {
+        for (GenericBlockSets.MiscBlockSet set : GenericBlockSets.specialWoodSets) {
             if (set.block() instanceof PillarBlock){
                 SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.block()));
             } else {
@@ -228,7 +234,7 @@ public class HelpingGenerator {
             MineableAxe.blocks.add(set.wall());
 
             Walls.walls.add(set.wall());
-        }
+        }*/
 
         for (SimpleVerticalSlabModel.VerticalSlab set : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
             BlockDrops.blocks.add(set.verticalSlab());

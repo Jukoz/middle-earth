@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.block.utils.setBuilders;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.sound.BlockSoundGroup;

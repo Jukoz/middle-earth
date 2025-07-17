@@ -75,7 +75,7 @@ public class MiddleEarth implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
-		OtherBlockSets.registerModBlockSets();
+		GenericBlockSets.registerModBlockSets();
 
 		EnchantmentEffectsME.registerModEnchantmentEffects();
 

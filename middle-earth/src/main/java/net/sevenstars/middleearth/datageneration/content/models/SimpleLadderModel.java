@@ -1,9 +1,8 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.registration.OtherBlockSets;
+import net.sevenstars.middleearth.block.registration.GenericBlockSets;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ public class SimpleLadderModel {
 
     public static List<Ladder> ladders = new ArrayList<>() {
         {
-            add(new Ladder(OtherBlockSets.TREATED_WOOD_PLANKS.block(), ModDecorativeBlocks.TREATED_WOOD_LADDER));
+            //add(new Ladder(GenericBlockSets.TREATED_WOOD_PLANKS.block(), ModDecorativeBlocks.TREATED_WOOD_LADDER));
         }
     };
 
