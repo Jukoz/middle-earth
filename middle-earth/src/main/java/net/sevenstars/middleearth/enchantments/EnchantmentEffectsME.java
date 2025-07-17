@@ -24,6 +24,7 @@ public class EnchantmentEffectsME {
     public static final RegistryKey<Enchantment> STEALTHY_TRAIL = of("stealthy_trail");
     public static final RegistryKey<Enchantment> STRIDE = of("stride");
     public static final RegistryKey<Enchantment> TREE_FELLER = of("tree_feller");
+    public static final RegistryKey<Enchantment> VANTAGE = of("vantage");
 
     private static RegistryKey<Enchantment> of(String path) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, path);
