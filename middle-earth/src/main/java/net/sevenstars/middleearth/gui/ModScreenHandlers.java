@@ -15,6 +15,7 @@ import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreenHandler;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
+import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenHandler;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreenHandler;
 
 public class ModScreenHandlers {
@@ -35,6 +36,9 @@ public class ModScreenHandlers {
     public static final ScreenHandlerType<StructureManagerScreenHandler> STRUCTURE_MANAGER_SCREEN_HANDLER
             = new ExtendedScreenHandlerType<>(StructureManagerScreenHandler::new, StructureManagerScreenData.PACKET_CODEC.cast());
 
+    public static final ScreenHandlerType<StructureNestScreenHandler> STRUCTURE_NEST_SCREEN_HANDLER
+            = new ExtendedScreenHandlerType<>(StructureNestScreenHandler::new, Identifier.PACKET_CODEC.cast());
+
 
     public static void registerAllScreenHandlers() {
         WOOD_PILE_SCREEN_HANDLER = new ScreenHandlerType<>(WoodPileScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
@@ -44,6 +48,7 @@ public class ModScreenHandlers {
         register("artisan_table", ARTISAN_SCREEN_HANDLER);
         register("treated_anvil", TREATED_ANVIL_SCREEN_HANDLER);
         register("structure_manager", STRUCTURE_MANAGER_SCREEN_HANDLER);
+        register("structure_nest", STRUCTURE_NEST_SCREEN_HANDLER);
     }
 
     private static void register(String name, ScreenHandlerType handlerType) {
