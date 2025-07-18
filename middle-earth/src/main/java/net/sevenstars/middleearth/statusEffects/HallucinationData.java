@@ -1,6 +1,7 @@
-package net.sevenstars.middleearth.utils;
+package net.sevenstars.middleearth.statusEffects;
 
 import net.minecraft.nbt.NbtCompound;
+import net.sevenstars.middleearth.utils.IEntityDataSaver;
 
 public class HallucinationData {
     public static final String KEY = "hallucination";

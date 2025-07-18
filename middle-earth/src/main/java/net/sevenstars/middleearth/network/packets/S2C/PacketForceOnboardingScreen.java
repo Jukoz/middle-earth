@@ -40,9 +40,7 @@ public class PacketForceOnboardingScreen extends ServerToClientPacket<PacketForc
         if(context.player().isInCreativeMode())
             delay = 0;
 
-        var controller = OnboardingFactionScreenController.getInstance();
-        if(controller == null)
-            controller = new OnboardingFactionScreenController(context.player().getWorld(), delay);
+        var controller = new OnboardingFactionScreenController(context.player().getWorld(), delay);
         controller.open();
     }
 }
