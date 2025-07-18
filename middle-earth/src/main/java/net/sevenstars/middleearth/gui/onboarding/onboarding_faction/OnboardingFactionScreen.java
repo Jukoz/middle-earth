@@ -104,11 +104,11 @@ public class OnboardingFactionScreen extends Screen {
     public OnboardingFactionScreenElements elements;
 
     // Private fields
-    private OnboardingFactionScreenController _controller;
+    private OnboardingFactionScreenController controller;
 
     public OnboardingFactionScreen(OnboardingFactionScreenController controller) {
         super(TITLE);
-        this._controller = controller;
+        this.controller = controller;
     }
 
     @Override
@@ -123,7 +123,7 @@ public class OnboardingFactionScreen extends Screen {
 
         elements.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.STANDING_BANNER_FLAG).getChild("flag");
 
-        elements.searchBarWidget = new SearchBarWidget(9, _controller.getAllSearchBarResults(), x -> _controller.updateScreenInformation());
+        elements.searchBarWidget = new SearchBarWidget(9, controller.getAllSearchBarResults(), x -> controller.updateScreenInformation());
         addDrawableChild(elements.searchBarWidget.getSearchBarToggleButton());
         elements.searchBarWidget.getAllButtons().forEach(this::addDrawableChild);
         addDrawableChild(elements.searchBarWidget.getScreenClickButton());
@@ -133,31 +133,31 @@ public class OnboardingFactionScreen extends Screen {
 
         // Disposition
         elements.dispositionSelectionWidget = new CycledSelectionWidget(
-                x -> this._controller.updateDisposition(-1),
-                x -> this._controller.updateDisposition(1),
+                x -> this.controller.updateDisposition(-1),
+                x -> this.controller.updateDisposition(1),
                 null,
                 CycledSelectionButtonType.GOLD);
         elements.dispositionSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // PlayerFactionPayload
         elements.factionSelectionWidget = new CycledSelectionWidget(
-                x -> this._controller.updateFaction(-1),
-                x -> this._controller.updateFaction(1),
+                x -> this.controller.updateFaction(-1),
+                x -> this.controller.updateFaction(1),
                 null,
                 CycledSelectionButtonType.SILVER);
         elements.factionSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // Subfaction
         elements.subfactionSelectionWidget = new CycledSelectionWidget(
-                x -> this._controller.updateSubfaction(-1),
-                x -> this._controller.updateSubfaction(1),
+                x -> this.controller.updateSubfaction(-1),
+                x -> this.controller.updateSubfaction(1),
                 null,
                 CycledSelectionButtonType.NORMAL);
         elements.subfactionSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // PlayerFactionPayload Randomizer
         elements.factionRandomizerButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.faction_randomizer"),
-                x -> this._controller.randomizeFaction()).build();
+                x -> this.controller.randomizeFaction()).build();
         elements.factionRandomizerButton.setDimensions(52, 18);
         addDrawableChild(elements.factionRandomizerButton);
 
@@ -177,16 +177,16 @@ public class OnboardingFactionScreen extends Screen {
 
         // Race
         elements.raceSelectionWidget = new CycledSelectionWidget(
-                x -> this._controller.updateRace(-1),
-                x -> this._controller.updateRace(1),
+                x -> this.controller.updateRace(-1),
+                x -> this.controller.updateRace(1),
                 null,
                 CycledSelectionButtonType.NORMAL);
         elements.raceSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // Spawn Point
         elements.spawnPointSelectionWidget = new CycledSelectionWidget(
-                x -> this._controller.updateSpawnPoint(-1),
-                x -> this._controller.updateSpawnPoint(1),
+                x -> this.controller.updateSpawnPoint(-1),
+                x -> this.controller.updateSpawnPoint(1),
                 null,
                 CycledSelectionButtonType.NORMAL);
         elements.spawnPointSelectionWidget.getButtons().forEach(this::addDrawableChild);
@@ -194,11 +194,11 @@ public class OnboardingFactionScreen extends Screen {
 
         // Random spawn selection
         elements.fullRandomizerButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.full_randomizer"),
-                x -> _controller.randomizeAll()).build();
+                x -> controller.randomizeAll()).build();
         addDrawableChild(elements.fullRandomizerButton);
 
         elements.spawnConfirmButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.confirm"),
-                x -> _controller.confirmSelection()).build();
+                x -> controller.confirmSelection()).build();
         addDrawableChild(elements.spawnConfirmButton);
 
         elements.factionName = ((MutableText)Text.of("N/A")).formatted(Formatting.BOLD).formatted(Formatting.DARK_GRAY);
@@ -207,7 +207,7 @@ public class OnboardingFactionScreen extends Screen {
         elements.descriptionTextBlock = new TextBlockWidget(0,0, elements.informationPanel.width - 9,textRenderer.fontHeight * 10);
         elements.descriptionTextBlock.setText(List.of(Text.of("N/A")));
 
-        this.elements.mapWidget = new FactionSelectionMapWidget(114, 114, this._controller.getMaxSpawnAmount());
+        this.elements.mapWidget = new FactionSelectionMapWidget(114, 114, this.controller.getMaxSpawnAmount());
         Arrays.stream(this.elements.mapWidget.getButtons()).forEach(this::addDrawableChild);
     }
 
@@ -250,7 +250,7 @@ public class OnboardingFactionScreen extends Screen {
 
         context.drawText(textRenderer, elements.factionName, factionStartX, startY, TEXT_COLOR, false);
         if(isMouseOver(factionStartX, textRenderer.getWidth(elements.factionName), startY, textRenderer.fontHeight)){
-            context.drawTooltip(textRenderer, List.of(_controller.getCurrentFactionFullName()), ModWidget.getMouseX(), ModWidget.getMouseY());
+            context.drawTooltip(textRenderer, List.of(controller.getCurrentFactionFullName()), ModWidget.getMouseX(), ModWidget.getMouseY());
         }
 
         // Subfaction
@@ -339,7 +339,7 @@ public class OnboardingFactionScreen extends Screen {
 
         elements.raceSelectionWidget.drawAnchored(context, startX,  startY,true, textRenderer);
         if(isMouseOver(startX, CycledSelectionWidget.TOTAL_WIDTH, startY, CycledSelectionWidget.TOTAL_HEIGHT)){
-            _controller.drawRaceTooltip(client.player, context, textRenderer, mouseX, mouseY);
+            controller.drawRaceTooltip(client.player, context, textRenderer, mouseX, mouseY);
         }
 
         startX = this.elements.mapPanel.startX + 4;
@@ -367,7 +367,7 @@ public class OnboardingFactionScreen extends Screen {
                     this.elements.spawnConfirmButton.getX(), this.elements.spawnConfirmButton.getY(), 156, 55,
                     this.elements.spawnConfirmButton.getWidth(), this.elements.spawnConfirmButton.getHeight(), 256, 256);
 
-            Text delayText = Text.literal(String.valueOf(_controller.getCurrentDelay()));
+            Text delayText = Text.literal(String.valueOf(controller.getCurrentDelay()));
             context.drawText(textRenderer, delayText,
                     this.elements.spawnConfirmButton.getX() + (52 / 2) - (textRenderer.getWidth(delayText) / 2),
                     this.elements.spawnConfirmButton.getY() + 5, Colors.LIGHT_RED, true);
@@ -414,7 +414,7 @@ public class OnboardingFactionScreen extends Screen {
     //region [Button Events]
     private void mapFocusToggle(ButtonWidget buttonWidget) {
         elements.mapWidget.isForcingTargetMovement = !elements.mapWidget.isForcingTargetMovement;
-        _controller.moveToCurrentSpawn();
+        controller.moveToCurrentSpawn();
     }
 
     private void mapZoomIn(ButtonWidget buttonWidget) {
@@ -427,7 +427,7 @@ public class OnboardingFactionScreen extends Screen {
     @Override
     public void resize(MinecraftClient client, int width, int height) {
         super.resize(client, width, height);
-        _controller.screenResize();
+        controller.screenResize();
     }
 
     @Override
@@ -475,7 +475,7 @@ public class OnboardingFactionScreen extends Screen {
 
     @Override
     public void tick() {
-        _controller.tick();
+        controller.tick();
         super.tick();
     }
     private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {
