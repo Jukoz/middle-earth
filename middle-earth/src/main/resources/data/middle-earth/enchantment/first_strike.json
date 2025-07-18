@@ -13,9 +13,10 @@
     "base": 1,
     "per_level_above_first": 10
   },
+  "primary_items": "#middle-earth:daggers",
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/weapon",
+  "supported_items": "#middle-earth:daggers",
   "weight": 10
 }

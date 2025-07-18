@@ -126,6 +126,7 @@ public class TranslationEntries {
             put("enchantment."+ MiddleEarth.MOD_ID +".bane_of_giants", "Bane of Giants");
             put("enchantment."+ MiddleEarth.MOD_ID +".beheading", "Beheading");
             put("enchantment."+ MiddleEarth.MOD_ID +".celerity", "Celerity");
+            put("enchantment."+ MiddleEarth.MOD_ID +".first_strike", "First Strike");
             put("enchantment."+ MiddleEarth.MOD_ID +".grounded", "Grounded");
             put("enchantment."+ MiddleEarth.MOD_ID +".hewing", "Hewing");
             put("enchantment."+ MiddleEarth.MOD_ID +".high_step", "High Step");

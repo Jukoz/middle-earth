@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.datageneration.content.tags;
 
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.item.ToolItemsME;
+import net.sevenstars.middleearth.item.WeaponItemsME;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,12 @@ public class WeaponEnchants {
         add(ToolItemsME.STEEL_AXE.asItem());
         add(ToolItemsME.MITHRIL_AXE.asItem());
     }};
+
+    public static List<Item> daggers = new ArrayList<>() {
+    {
+
+    }};
+
     public static List<Item> swords = new ArrayList<>() {
     {
 
