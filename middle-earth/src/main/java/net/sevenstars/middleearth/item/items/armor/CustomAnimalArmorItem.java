@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.item.items.armor;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,7 +11,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.MountArmorAddonComponent;
 import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
@@ -70,10 +71,10 @@ public class CustomAnimalArmorItem extends Item implements EquipmentTooltipME {
     public List<Text> getAdditionalAltLines(ItemStack stack) {
         List<Text> list = new ArrayList<>(List.of());
         MountArmorAddonComponent mountArmorAddonComponent = stack.get(DataComponentTypesME.MOUNT_ARMOR_DATA);
-        CustomDyeableDataComponent dyeDataComponent = stack.get(DataComponentTypesME.DYE_DATA);
+        DyedColorComponent dyeDataComponent = stack.get(DataComponentTypes.DYED_COLOR);
 
         if(dyeDataComponent != null){
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color").append(": " + String.format("#%06X", (0xFFFFFF & DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
         }
         if(mountArmorAddonComponent != null && mountArmorAddonComponent.topArmorAddon()) {
             list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mount_armor_addon_top"));

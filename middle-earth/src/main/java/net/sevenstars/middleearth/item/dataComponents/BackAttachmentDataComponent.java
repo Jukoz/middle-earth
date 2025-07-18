@@ -4,6 +4,7 @@ package net.sevenstars.middleearth.item.dataComponents;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.component.type.DyedColorComponent;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.minecraft.item.ItemStack;
@@ -15,11 +16,11 @@ public record BackAttachmentDataComponent(BackAttachmentsME backAttachment, int 
 
     private static final Codec<BackAttachmentDataComponent> BASE_CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(BackAttachmentsME.CODEC.fieldOf("back_attachment").forGetter(BackAttachmentDataComponent::getBackAttachment),
-                Codec.INT.optionalFieldOf("back_attachment_color", CustomDyeableDataComponent.DEFAULT_COLOR).forGetter(BackAttachmentDataComponent::backAttachmentColor))
+                Codec.INT.optionalFieldOf("back_attachment_color", DyedColorComponent.DEFAULT_COLOR).forGetter(BackAttachmentDataComponent::backAttachmentColor))
                 .apply(instance, BackAttachmentDataComponent::new);
     });
     public static final Codec<BackAttachmentDataComponent> CODEC  = Codec.withAlternative(BASE_CODEC, Codec.BOOL, (enabled) -> {
-        return new BackAttachmentDataComponent(BackAttachmentsME.CAPE, CustomDyeableDataComponent.DEFAULT_COLOR);
+        return new BackAttachmentDataComponent(BackAttachmentsME.CAPE, DyedColorComponent.DEFAULT_COLOR);
     });
     public static final PacketCodec<ByteBuf, BackAttachmentDataComponent> PACKET_CODEC  = PacketCodec.tuple(BackAttachmentsME.PACKET_CODEC, BackAttachmentDataComponent::getBackAttachment, PacketCodecs.INTEGER, BackAttachmentDataComponent::backAttachmentColor, BackAttachmentDataComponent::new);
     ;
@@ -35,7 +36,7 @@ public record BackAttachmentDataComponent(BackAttachmentsME backAttachment, int 
     }
 
     public static BackAttachmentDataComponent newBackAttachment(BackAttachmentsME backAttachment) {
-        return new BackAttachmentDataComponent(backAttachment, CustomDyeableDataComponent.DEFAULT_COLOR);
+        return new BackAttachmentDataComponent(backAttachment, DyedColorComponent.DEFAULT_COLOR);
     }
 
     public static BackAttachmentDataComponent newBackAttachmentWithColor(BackAttachmentsME backAttachment, int backAttachmentColor) {
@@ -45,7 +46,7 @@ public record BackAttachmentDataComponent(BackAttachmentsME backAttachment, int 
     public static ItemStack setBackAttachment(ItemStack stack, BackAttachmentsME backAttachment){
         ItemStack itemStack = stack.copyWithCount(1);
 
-        itemStack.set(DataComponentTypesME.BACK_ATTACHMENT_DATA, new BackAttachmentDataComponent(backAttachment , CustomDyeableDataComponent.DEFAULT_COLOR));
+        itemStack.set(DataComponentTypesME.BACK_ATTACHMENT_DATA, new BackAttachmentDataComponent(backAttachment , DyedColorComponent.DEFAULT_COLOR));
         return itemStack;
     }
 

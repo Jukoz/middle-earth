@@ -34,7 +34,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var warg_food = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
         var warg_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor")));
         var broadhoof_goat_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
-        var dyeable = valueLookupBuilder(ModTags.DYEABLE);
+        var dyeable = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("dyeable")));
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("iron_ores"));
         TagKey<Item> gold_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("gold_ores"));

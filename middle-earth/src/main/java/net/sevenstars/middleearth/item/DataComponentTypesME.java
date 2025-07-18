@@ -26,10 +26,6 @@ public class DataComponentTypesME {
         return builder.codec(HelmetAttachmentDataComponent.CODEC).packetCodec(HelmetAttachmentDataComponent.PACKET_CODEC);
     });
 
-    public static final ComponentType<CustomDyeableDataComponent> DYE_DATA = register("dye", (builder) -> {
-        return builder.codec(CustomDyeableDataComponent.CODEC).packetCodec(CustomDyeableDataComponent.PACKET_CODEC);
-    });
-
     public static final ComponentType<MountArmorAddonComponent> MOUNT_ARMOR_DATA = register("mount_armor_addon", (builder) -> {
         return builder.codec(MountArmorAddonComponent.CODEC).packetCodec(MountArmorAddonComponent.PACKET_CODEC);
     });
