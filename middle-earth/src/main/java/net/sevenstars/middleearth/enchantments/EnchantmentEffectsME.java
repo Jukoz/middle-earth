@@ -18,6 +18,7 @@ public class EnchantmentEffectsME {
     public static final RegistryKey<Enchantment> BANE_OF_GIANTS = of("bane_of_giants");
     public static final RegistryKey<Enchantment> BEHEADING = of("beheading");
     public static final RegistryKey<Enchantment> CELERITY = of("celerity");
+    public static final RegistryKey<Enchantment> FIRST_STRIKE = of("first_strike");
     public static final RegistryKey<Enchantment> GROUNDED = of("grounded");
     public static final RegistryKey<Enchantment> HEWING = of("hewing");
     public static final RegistryKey<Enchantment> HIGH_STEP = of("high_step");

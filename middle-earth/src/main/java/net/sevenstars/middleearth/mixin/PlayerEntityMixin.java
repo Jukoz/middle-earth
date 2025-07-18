@@ -1,31 +1,21 @@
 package net.sevenstars.middleearth.mixin;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
-import net.sevenstars.middleearth.item.items.shields.CustomShieldItem;
-import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
-import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
-import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
-import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.world.ServerWorld;
+import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.sevenstars.middleearth.utils.PlayerMovementData;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.ShieldItem;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,14 +24,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static net.minecraft.entity.EquipmentSlot.OFFHAND;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -58,6 +40,24 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
+
+    @ModifyVariable(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;resetLastAttackedTicks()V",
+    shift = At.Shift.AFTER), ordinal = 0)
+    public float attack(float damage, Entity target) {
+        RegistryEntry<Enchantment> enchantmentRegistryEntry = getWorld().getRegistryManager()
+                .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.FIRST_STRIKE).orElseThrow();
+        boolean hasEnchant = getStackInHand(getActiveHand()).getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
+        if(hasEnchant) {
+            if(target instanceof LivingEntity livingEntity) {
+                float healthRatio = livingEntity.getHealth() / livingEntity.getMaxHealth();
+                if(healthRatio > 0.9f) {
+                    return damage * 1.5f;
+                }
+            }
+        }
+        return damage;
+    }
+
 /*
     @WrapOperation(method = "damageShield", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 0))
     protected boolean canWalkOnPowderSnowTag(ItemStack instance, Item item, Operation<Boolean> original) {
@@ -134,12 +134,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
+/*
     @Inject(method = "attack", at = @At("HEAD"))
     public void attack(Entity target, CallbackInfo ci) {
         PlayerMovementData.resetAFK((IEntityDataSaver) this);
     }
 
-    /*@ModifyVariable(method = "attack", ordinal = 3, at = @At(value = "INVOKE", shift = At.Shift.BEFORE,
+    @ModifyVariable(method = "attack", ordinal = 3, at = @At(value = "INVOKE", shift = At.Shift.BEFORE,
             target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", ordinal = 0))
     public float attackBackStab(float value, Entity target) {
         ItemStack mainStack = this.getStackInHand(Hand.MAIN_HAND);
