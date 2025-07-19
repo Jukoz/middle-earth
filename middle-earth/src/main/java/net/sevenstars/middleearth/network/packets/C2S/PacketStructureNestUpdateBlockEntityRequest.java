@@ -21,6 +21,7 @@ public class PacketStructureNestUpdateBlockEntityRequest extends ClientToServerP
             BlockPos.PACKET_CODEC, p -> p.pos,
             PacketCodecs.optional(Identifier.PACKET_CODEC), p -> p.getStructureManagerId(),
             PacketCodecs.optional(Identifier.PACKET_CODEC), p -> p.getStructureNestId(),
+            PacketCodecs.INTEGER, p -> p.spawnRadius,
             PacketStructureNestUpdateBlockEntityRequest::new
     );
 
@@ -35,9 +36,12 @@ public class PacketStructureNestUpdateBlockEntityRequest extends ClientToServerP
     private final BlockPos pos;
     private final Identifier structureManagerId;
     private final Identifier structureNestId;
+    private final int spawnRadius;
 
-    public PacketStructureNestUpdateBlockEntityRequest(BlockPos pos, Optional<Identifier> structureManagerId, Optional<Identifier> structureNestId) {
+    public PacketStructureNestUpdateBlockEntityRequest(BlockPos pos, Optional<Identifier> structureManagerId, Optional<Identifier> structureNestId, int spawnRadius) {
         this.pos = pos;
+        this.spawnRadius = spawnRadius;
+
         if(structureManagerId.isPresent())
             this.structureManagerId = structureManagerId.get();
         else
@@ -67,6 +71,7 @@ public class PacketStructureNestUpdateBlockEntityRequest extends ClientToServerP
                 if(context.player().getWorld().getBlockEntity(pos) instanceof StructureNestBlockEntity blockEntity){
                     blockEntity.setStructureManagerId(structureManagerId);
                     blockEntity.setStructureNestId(structureNestId);
+                    blockEntity.setSpawnRadius(spawnRadius);
                 }
             });
         } catch (Exception e){

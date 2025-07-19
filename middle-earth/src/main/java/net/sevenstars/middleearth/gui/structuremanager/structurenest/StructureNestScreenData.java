@@ -12,11 +12,15 @@ public class StructureNestScreenData {
     private BlockPos pos;
     private Identifier structureManagerId;
     private Identifier structureNestId;
+    private int spawnRadius;
 
     public static final PacketCodec<? super RegistryByteBuf, StructureNestScreenData> PACKET_CODEC;
 
     public BlockPos getPos() {
         return this.pos;
+    }
+    public int getSpawnRadius() {
+        return this.spawnRadius;
     }
     public Identifier getStructureManagerId() {
         return this.structureManagerId;
@@ -39,10 +43,11 @@ public class StructureNestScreenData {
     }
 
 
-    public StructureNestScreenData(BlockPos pos, Optional<Identifier> structureManagerId, Optional<Identifier> structureNestId){
+    public StructureNestScreenData(BlockPos pos, Optional<Identifier> structureManagerId, Optional<Identifier> structureNestId, int spawnRadius){
         this.pos = pos;
         structureManagerId.ifPresentOrElse(x -> setStructureManagerId(x), () -> setStructureManagerId(null));
         structureNestId.ifPresentOrElse(x -> setStructureNestId(x), () -> setStructureNestId(null));
+        this.spawnRadius = spawnRadius;
     }
 
     static {
@@ -50,6 +55,7 @@ public class StructureNestScreenData {
                 BlockPos.PACKET_CODEC, StructureNestScreenData::getPos,
                 PacketCodecs.optional(Identifier.PACKET_CODEC), StructureNestScreenData::getStructureManagerIdOptional,
                 PacketCodecs.optional(Identifier.PACKET_CODEC), StructureNestScreenData::getStructureNestIdOptional,
+                PacketCodecs.INTEGER, StructureNestScreenData::getSpawnRadius,
                 StructureNestScreenData::new
         );
     }

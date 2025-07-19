@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.special.structureManager.nest;
 
+import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -30,7 +31,8 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
 
     private enum SyncedData {
         MANAGER_ID("%s.ManagerId".formatted(ID)),
-        NEST_ID("%s.NestId".formatted(ID));
+        NEST_ID("%s.NestId".formatted(ID)),
+        SPAWN_RADIUS("%s.SpawnRadius".formatted(ID));
 
         public final String name;
         SyncedData(String name){
@@ -41,6 +43,8 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     protected Identifier managerId;
     @Nullable
     protected Identifier nestId;
+    protected int spawnRadius;
+
     boolean initialized = false;
 
     public StructureNestBlockEntity(BlockPos pos, BlockState state) {
@@ -51,7 +55,8 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     public Object getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
         return new StructureNestScreenData(this.pos,
                 Optional.ofNullable(this.managerId),
-                Optional.ofNullable(this.nestId)
+                Optional.ofNullable(this.nestId),
+                spawnRadius
         );
     }
 
@@ -64,7 +69,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return new StructureNestScreenHandler(syncId, playerInventory, new StructureNestScreenData(this.pos,
                 Optional.ofNullable(this.managerId),
-                Optional.ofNullable(this.nestId)));
+                Optional.ofNullable(this.nestId), this.spawnRadius));
     }
 
     @Override
@@ -74,6 +79,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
         managerId.ifPresent(identifier -> this.managerId = identifier);
         Optional<Identifier> nestId = view.read(SyncedData.NEST_ID.name, Identifier.CODEC);
         nestId.ifPresent(identifier -> this.nestId = identifier);
+        spawnRadius = view.getInt(SyncedData.SPAWN_RADIUS.name, 0);
     }
 
     @Override
@@ -83,6 +89,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
             view.put(SyncedData.NEST_ID.name, Identifier.CODEC, this.nestId);
         if(managerId != null)
             view.put(SyncedData.MANAGER_ID.name, Identifier.CODEC, this.managerId);
+        view.put(SyncedData.SPAWN_RADIUS.name, Codec.INT, this.spawnRadius);
     }
 
     @Override
@@ -97,6 +104,11 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
 
     public void setStructureNestId(Identifier structureNestId) {
         this.nestId = structureNestId;
+        updateListeners();
+    }
+
+    public void setSpawnRadius(int newRadius) {
+        this.spawnRadius = newRadius;
         updateListeners();
     }
 
@@ -128,7 +140,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
 
         if(nearestBlockEntity.isPresent()){
             StructureManagerBlockEntity blockEntity= ((StructureManagerBlockEntity)world.getBlockEntity(nearestBlockEntity.get()));
-            if(blockEntity.subscribeNest(this.pos, this.managerId, this.nestId))
+            if(blockEntity.subscribeNest(this.pos, this.managerId, this.nestId, this.spawnRadius))
             {
                 world.breakBlock(pos, false);
                 world.removeBlockEntity(pos);

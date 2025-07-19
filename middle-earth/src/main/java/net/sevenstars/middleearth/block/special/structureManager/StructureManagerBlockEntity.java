@@ -127,12 +127,12 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
     // endregion
 
-    public boolean subscribeNest(BlockPos nestPos, Identifier managerId, Identifier nestId) {
+    public boolean subscribeNest(BlockPos nestPos, Identifier managerId, Identifier nestId, int spawnRadius) {
         if(!isRuntimeEnabled() || managerId.compareTo(this.runtimeStructureManagerData) != 0)
             return false;
 
         SpawnNestNodeData data = managerData.getNpcSpawnNest(nestId);
-        SpawnNestManager manager = new SpawnNestManager(data);
+        SpawnNestManager manager = new SpawnNestManager(data, nestPos, spawnRadius);
         this.structureNestList.addNest(manager);
         MiddleEarth.LOGGER.logDebugMsg("Subscribed new nest to [%s] with a nest at [%s] which is <%s>".formatted(this.pos, nestPos, nestId));
         return true;

@@ -8,7 +8,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
@@ -23,7 +22,10 @@ public class SpawnNestManager {
             Identifier.CODEC.fieldOf("id").forGetter(SpawnNestManager::getId),
             Codec.list(Uuids.CODEC).fieldOf("entity_uuid").forGetter(SpawnNestManager::getEntityUuids),
             Codec.LONG.fieldOf("respawn_event_trigger_tick").forGetter(SpawnNestManager::getRespawnEventTriggerTick),
-            Codec.INT.fieldOf("respawn_tick_delay").forGetter(SpawnNestManager::getRespawnTickDelay)
+            Codec.INT.fieldOf("respawn_tick_delay").forGetter(SpawnNestManager::getRespawnTickDelay),
+            BlockPos.CODEC.fieldOf("origin_pos").forGetter(SpawnNestManager::getOriginPos),
+            Codec.INT.fieldOf("spawn_radius").forGetter(SpawnNestManager::getSpawnRadius)
+
     ).apply(instance, SpawnNestManager::new));
 
     private static final String ID = "spawn_nest_data";
@@ -32,20 +34,26 @@ public class SpawnNestManager {
     private ArrayList<UUID> entities;
     private long respawnEventTriggerTick;
     private int respawnTickDelay;
+    private BlockPos originPos;
+    private int spawnRadius;
 
-    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay) {
+    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius) {
         this.id = dataId;
         this.entities =  Lists.newArrayList();
         this.entities.addAll(dataEntities);
         this.respawnEventTriggerTick = dataRespawnEventTriggerTick;
         this.respawnTickDelay = dataRespawnTickDelay;
+        this.originPos = position;
+        this.spawnRadius = spawnRadius;
     }
 
-    public SpawnNestManager(SpawnNestNodeData spawnNestNodeData) {
+    public SpawnNestManager(SpawnNestNodeData spawnNestNodeData, BlockPos position, int spawnRadius) {
         this.entities = new ArrayList<UUID>();
         this.id = spawnNestNodeData.getId();
         this.respawnTickDelay = spawnNestNodeData.getRespawnTickDelay();
         this.respawnEventTriggerTick = 0;
+        this.originPos = position;
+        this.spawnRadius = spawnRadius;
     }
 
     public Identifier getId() {
@@ -62,6 +70,12 @@ public class SpawnNestManager {
 
     public int getRespawnTickDelay() {
         return this.respawnTickDelay;
+    }
+    public BlockPos getOriginPos() {
+        return this.originPos;
+    }
+    public int getSpawnRadius() {
+        return this.spawnRadius;
     }
 
     public void addEntity(LivingEntity entity){
@@ -107,7 +121,7 @@ public class SpawnNestManager {
             StructureSpawnNestPool pool = data.getRandomPool();
             int entityAmountToSpawn = pool.getEntityAmount();
             for(int i = 0; i < entityAmountToSpawn; i ++){
-                NpcEntity entityToAdd = StructureManagerService.SpawnEntity(world, pool.getNpcIdentifier(), pool.getFactionIdentifier(), sourcePos.add(data.getBlockPosOffset()), data.getBedRadius());
+                NpcEntity entityToAdd = StructureManagerService.SpawnEntity(world, pool.getNpcIdentifier(), pool.getFactionIdentifier(), originPos, spawnRadius);
                 entityToAdd.setStructureManagerHost(sourcePos);
                 addEntity(entityToAdd);
                 world.markDirty(sourcePos);

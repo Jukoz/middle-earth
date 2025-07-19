@@ -15,12 +15,10 @@ import net.sevenstars.middleearth.network.packets.C2S.PacketStructureNestUpdateB
 import java.util.Optional;
 
 public class StructureNestScreenHandler  extends ScreenHandler {
-
     private final World world;
     private StructureNestScreenData data;
     StructureNestBlockEntity blockEntity;
 
-    // Client side Constructor
     public StructureNestScreenHandler(int syncId, PlayerInventory playerInventory, StructureNestScreenData structureNestScreenData) {
         super(ModScreenHandlers.STRUCTURE_NEST_SCREEN_HANDLER, syncId);
         this.world = playerInventory.player.getWorld();
@@ -58,6 +56,6 @@ public class StructureNestScreenHandler  extends ScreenHandler {
     }
 
     private void updateBlockEntity() {
-        ClientPlayNetworking.send(new PacketStructureNestUpdateBlockEntityRequest(data.getPos(), Optional.ofNullable(getManagerKey()), Optional.ofNullable(getNestKey())));
+        ClientPlayNetworking.send(new PacketStructureNestUpdateBlockEntityRequest(data.getPos(), Optional.ofNullable(getManagerKey()), Optional.ofNullable(getNestKey()), data.getSpawnRadius()));
     }
 }
