@@ -23,12 +23,17 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
 
     private transient boolean isFadingOut = false;
 
-    public SmokeRingProjectileEntity(EntityType<? extends SmokeRingProjectileEntity> type, World world) {
+    public SmokeRingProjectileEntity(
+            EntityType<? extends SmokeRingProjectileEntity> type,
+            World world) {
         super(type, world);
         this.setNoGravity(true);
     }
 
-    public SmokeRingProjectileEntity(EntityType<? extends SmokeRingProjectileEntity> type, World world, LivingEntity owner) {
+    public SmokeRingProjectileEntity(
+            EntityType<? extends SmokeRingProjectileEntity> type,
+            World world,
+            LivingEntity owner) {
         this(type, world);
         this.setOwner(owner);
         this.setPosition(owner.getX(), owner.getEyeY() - 0.1, owner.getZ());
@@ -108,7 +113,13 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
         Vec3d end = getEndPosition();
 
         // Get entity collision result
-        EntityHitResult hit = ProjectileUtil.getEntityCollision(this.getWorld(), this, start, end, this.getBoundingBox().stretch(this.getVelocity()).expand(ENTITY_BOX_EXPANSION), this::canHit, ENTITY_COLLISION_MARGIN);
+        EntityHitResult hit = ProjectileUtil.getEntityCollision(this.getWorld(),
+                this,
+                start,
+                end,
+                this.getBoundingBox().stretch(this.getVelocity()).expand(ENTITY_BOX_EXPANSION),
+                this::canHit,
+                ENTITY_COLLISION_MARGIN);
 
         if (hit != null) {
             this.setPosition(hit.getPos());
@@ -120,13 +131,11 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
     }
 
     private boolean checkBlockCollision() {
-        return ModCollisionUtils.checkBlockFanCollision(
-                this.getWorld(),
+        return ModCollisionUtils.checkBlockFanCollision(this.getWorld(),
                 this.getBoundingBox(),
                 this.getVelocity(),
                 this,
-                this::onCollision
-        );
+                this::onCollision);
     }
 
     private Vec3d getEndPosition() {

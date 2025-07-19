@@ -37,7 +37,11 @@ public class SmokeRingProjectileRenderer extends EntityRenderer<SmokeRingProject
     }
 
     @Override
-    public void render(SmokeRingProjectileRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+    public void render(
+            SmokeRingProjectileRenderState state,
+            MatrixStack matrices,
+            VertexConsumerProvider vertexConsumers,
+            int light) {
         matrices.push();
         matrices.translate(0, 0.2, 0);
         matrices.multiply(state.orientationQuat);
@@ -73,14 +77,18 @@ public class SmokeRingProjectileRenderer extends EntityRenderer<SmokeRingProject
     }
 
     @Override
-    public void updateRenderState(SmokeRingProjectileEntity entity, SmokeRingProjectileRenderState state, float tickDelta) {
+    public void updateRenderState(
+            SmokeRingProjectileEntity entity,
+            SmokeRingProjectileRenderState state,
+            float tickDelta) {
         super.updateRenderState(entity, state, tickDelta);
 
         this.updateOrientationQuaternion(entity, state, tickDelta);
     }
 
     private Sprite[] loadFrames() {
-        SpriteAtlasTexture atlas = (SpriteAtlasTexture) MinecraftClient.getInstance().getTextureManager().getTexture(SPRITES_ATLAS_ID);
+        SpriteAtlasTexture atlas = (SpriteAtlasTexture) MinecraftClient.getInstance().getTextureManager().getTexture(
+                SPRITES_ATLAS_ID);
 
         Sprite[] sprites = new Sprite[FRAME_COUNT];
         for (int i = 0; i < FRAME_COUNT; i++) {
@@ -90,17 +98,37 @@ public class SmokeRingProjectileRenderer extends EntityRenderer<SmokeRingProject
         return sprites;
     }
 
-    private void drawQuad(VertexConsumer vc, Matrix4f matrix, float size, float minU, float maxU, float minV, float maxV, int light, int overlay) {
+    private void drawQuad(
+            VertexConsumer vc,
+            Matrix4f matrix,
+            float size,
+            float minU,
+            float maxU,
+            float minV,
+            float maxV,
+            int light,
+            int overlay) {
         float half = size / 2f;
-        vc.vertex(matrix, -half, -half, 0).color(255, 255, 255, 255).texture(minU, minV).overlay(overlay).light(light).normal(0, 0, 1);
-        vc.vertex(matrix, -half, +half, 0).color(255, 255, 255, 255).texture(minU, maxV).overlay(overlay).light(light).normal(0, 0, 1);
-        vc.vertex(matrix, +half, +half, 0).color(255, 255, 255, 255).texture(maxU, maxV).overlay(overlay).light(light).normal(0, 0, 1);
-        vc.vertex(matrix, +half, -half, 0).color(255, 255, 255, 255).texture(maxU, minV).overlay(overlay).light(light).normal(0, 0, 1);
+        vc.vertex(matrix, -half, -half, 0).color(255, 255, 255, 255).texture(minU, minV).overlay(
+                overlay).light(light).normal(0, 0, 1);
+        vc.vertex(matrix, -half, +half, 0).color(255, 255, 255, 255).texture(minU, maxV).overlay(
+                overlay).light(light).normal(0, 0, 1);
+        vc.vertex(matrix, +half, +half, 0).color(255, 255, 255, 255).texture(maxU, maxV).overlay(
+                overlay).light(light).normal(0, 0, 1);
+        vc.vertex(matrix, +half, -half, 0).color(255, 255, 255, 255).texture(maxU, minV).overlay(
+                overlay).light(light).normal(0, 0, 1);
     }
 
-    private void updateOrientationQuaternion(SmokeRingProjectileEntity entity, SmokeRingProjectileRenderState state, float tickDelta) {
-        float yawRad = (float) Math.toRadians(-MathHelper.lerp(tickDelta, entity.lastYaw, entity.getYaw()));
-        float pitchRad = (float) Math.toRadians(MathHelper.lerp(tickDelta, entity.lastPitch, entity.getPitch()));
+    private void updateOrientationQuaternion(
+            SmokeRingProjectileEntity entity,
+            SmokeRingProjectileRenderState state,
+            float tickDelta) {
+        float yawRad = (float) Math.toRadians(-MathHelper.lerp(tickDelta,
+                entity.lastYaw,
+                entity.getYaw()));
+        float pitchRad = (float) Math.toRadians(MathHelper.lerp(tickDelta,
+                entity.lastPitch,
+                entity.getPitch()));
         state.orientationQuat = new Quaternionf().rotateYXZ(yawRad, pitchRad, 0f);
     }
 }
