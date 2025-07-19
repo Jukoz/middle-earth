@@ -6,6 +6,7 @@ import net.sevenstars.middleearth.block.*;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.entity.ModEntityAttributes;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
 import net.sevenstars.middleearth.entity.ModEntities;
@@ -67,6 +68,7 @@ public class MiddleEarth implements ModInitializer {
 		ResourceItemsME.registerModItems();
 		EggItemsME.registerModItems();
 		ModItemGroups.register();
+		ModEntityAttributes.register();
 
 		WoodBlockSets.registerModBlockSets();
 		MushroomBlockSets.registerModBlockSets();
@@ -99,6 +101,8 @@ public class MiddleEarth implements ModInitializer {
 
 		NpcTextureMaterialsME.register();
 		NpcTexturePatternsME.register();
+		StructureManagerDatasME.register();
+
 
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();

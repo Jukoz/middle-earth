@@ -1,26 +1,29 @@
 package net.sevenstars.middleearth.gui.structuremanager;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerUpdateBlockEntityRequest;
 
 public class StructureManagerScreenHandler extends ScreenHandler {
-    protected BlockPos pos;
-    protected final World world;
 
-    public StructureManagerScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
-        this(syncId, playerInventory);
-        this.pos = blockPos;
-    }
+    private final World world;
+    private StructureManagerScreenData data;
+    StructureManagerBlockEntity blockEntity;
 
-    public StructureManagerScreenHandler(int syncId, PlayerInventory playerInventory) {
+    // Client side Constructor
+    public StructureManagerScreenHandler(int syncId, PlayerInventory playerInventory, StructureManagerScreenData structureManagerScreenData) {
         super(ModScreenHandlers.STRUCTURE_MANAGER_SCREEN_HANDLER, syncId);
         this.world = playerInventory.player.getWorld();
-        this.pos = BlockPos.ORIGIN;
+        this.data = structureManagerScreenData;
+        this.blockEntity = (StructureManagerBlockEntity) this.world.getBlockEntity(data.getPos());
     }
 
     @Override
@@ -32,4 +35,35 @@ public class StructureManagerScreenHandler extends ScreenHandler {
     public boolean canUse(PlayerEntity player) {
         return true;
     }
+
+    public void selectIdentifier(PlayerEntity player, Identifier identifier) {
+        this.data.setSelectedId(identifier);
+        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(data.getPos(), data.getSelectedId(), data.getIsActive()));
+    }
+
+    public void updateClientData(Identifier structureManagerDataId, boolean isActive) {
+        this.data.setSelectedId(structureManagerDataId);
+        this.data.setActive(isActive);
+    }
+
+    public BlockPos getPos() {
+        return this.data.getPos();
+    }
+
+    public Identifier getSelectedKey() {
+        return this.data.getSelectedId();
+    }
+    public Identifier getRuntimeKey() {
+        return this.data.getRuntimeId();
+    }
+
+    public boolean getIsActive() {
+        return this.data.getIsActive();
+    }
+
+    public void toggleActive() {
+        this.data.setActive(!this.data.getIsActive());
+        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(data.getPos(), data.getSelectedId(), data.getIsActive()));
+    }
 }
+

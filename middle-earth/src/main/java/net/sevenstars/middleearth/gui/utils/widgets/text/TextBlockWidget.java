@@ -150,9 +150,9 @@ public class TextBlockWidget extends ModWidget {
             Text text = getJustifiedTextFromList(currentLine);
             Text lastWordText = Text.literal(currentLine.getLast().content);
             context.drawText(textRenderer, text,
-                    startX, startY + currentStart, 0, false);
+                    startX, startY + currentStart, Colors.BLACK, false);
             context.drawText(textRenderer, lastWordText,
-                    startX + width - textRenderer.getWidth(lastWordText), startY + currentStart, 0, false);
+                    startX + width - textRenderer.getWidth(lastWordText), startY + currentStart, Colors.BLACK, false);
         } else {
             Text text = getTextFromList(currentLine);
             // draw alignment
@@ -163,7 +163,7 @@ public class TextBlockWidget extends ModWidget {
             };
 
             context.drawText(textRenderer, text,
-                    x, startY + currentStart, 0, false);
+                    x, startY + currentStart, Colors.BLACK, false);
         }
     }
 

@@ -3,8 +3,12 @@ package net.sevenstars.middleearth.block.special.structureManager;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
@@ -18,7 +22,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.special.forge.ForgePart;
+import net.sevenstars.middleearth.block.ModBlockEntities;
 import org.jetbrains.annotations.Nullable;
 
 public class StructureManagerBlock extends BlockWithEntity implements BlockEntityProvider {
@@ -32,6 +36,11 @@ public class StructureManagerBlock extends BlockWithEntity implements BlockEntit
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return createCodec(StructureManagerBlock::new);
+    }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
     }
 
     @Override
@@ -89,5 +98,25 @@ public class StructureManagerBlock extends BlockWithEntity implements BlockEntit
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new StructureManagerBlockEntity(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return validateTicker(world, type, ModBlockEntities.STRUCTURE_MANAGER);
+    }
+
+    @Nullable
+    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<StructureManagerBlockEntity> expectedType) {
+        BlockEntityTicker ticker;
+        if (world.isClient) {
+            return null;
+        }
+
+        ticker = validateTicker(givenType, expectedType, (worldx, pos, state, blockEntity) -> {
+            StructureManagerBlockEntity.tickEvent(world, pos, state, blockEntity);
+        });
+
+        return ticker;
     }
 }
