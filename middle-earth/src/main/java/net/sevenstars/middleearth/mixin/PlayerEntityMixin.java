@@ -9,6 +9,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
+import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.sevenstars.middleearth.utils.PlayerMovementData;
 import net.minecraft.entity.Entity;
@@ -28,6 +29,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -38,6 +40,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow public abstract PlayerInventory getInventory();
 
+    @Shadow protected float damageTiltYaw;
     int climbDistance = 0;
     //TODO Shield stuff broken, most likely because of new data comps
     //@Shadow protected abstract void takeShieldHit(LivingEntity attacker);
@@ -51,18 +54,25 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @ModifyVariable(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;resetLastAttackedTicks()V",
     shift = At.Shift.AFTER), ordinal = 0)
     public float attack(float damage, Entity target) {
+        float newDamage = damage;
+        ItemStack mainStack = getStackInHand(getActiveHand());
         RegistryEntry<Enchantment> enchantmentRegistryEntry = getWorld().getRegistryManager()
                 .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.FIRST_STRIKE).orElseThrow();
-        boolean hasEnchant = getStackInHand(getActiveHand()).getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
+        boolean hasEnchant = mainStack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
         if(hasEnchant) {
             if(target instanceof LivingEntity livingEntity) {
                 float healthRatio = livingEntity.getHealth() / livingEntity.getMaxHealth();
                 if(healthRatio > 0.9f) {
-                    return damage * 1.5f;
+                    newDamage *= 1.5f;
                 }
             }
         }
-        return damage;
+        if(mainStack.getItem() instanceof CustomDaggerWeaponItem) {
+            if(CustomDaggerWeaponItem.canBackStab(target, this)) {
+                newDamage *= 1.5f;
+            }
+        }
+        return newDamage;
     }
 
 /*
@@ -150,12 +160,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @ModifyVariable(method = "attack", ordinal = 3, at = @At(value = "INVOKE", shift = At.Shift.BEFORE,
             target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", ordinal = 0))
     public float attackBackStab(float value, Entity target) {
-        ItemStack mainStack = this.getStackInHand(Hand.MAIN_HAND);
-        if(mainStack.getItem() instanceof CustomDaggerWeaponItem) {
-            if(CustomDaggerWeaponItem.canBackStab(target, this)) {
-                return value * 1.5f;
-            }
-        }
+
         return value;
     }*/
 
