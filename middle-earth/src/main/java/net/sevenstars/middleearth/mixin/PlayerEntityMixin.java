@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
@@ -75,70 +76,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         return newDamage;
     }
 
-/*
-    @WrapOperation(method = "damageShield", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 0))
-    protected boolean canWalkOnPowderSnowTag(ItemStack instance, Item item, Operation<Boolean> original) {
-        return original.call(instance, item) || instance.getItem() instanceof ShieldItem;
-    }
-
-    @Inject(at = @At(value = "HEAD"), method = "disableShield", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private void disableShieldHead(CallbackInfo ci) {
-        Item activeItem = activeItemStack.getItem();
-
-        if (activeItem instanceof ShieldItem shield) {
-            float f = 0.25F; //+ (float) EnchantmentHelper.getEfficiency(this) * 0.05F; //TODO Test this
-            if (isSprinting()) {
-                f += 0.75F;
-            }
-            if (this.getRandom().nextFloat() < f) {
-                this.getItemCooldownManager().set(activeItemStack, 100);
-                this.clearActiveItem();
-                this.getWorld().sendEntityStatus(this, (byte) 30);
-                ci.cancel();
-            }
-        }
-    }
-
-    //TODO test if this works, cooldown manager set takes stack now not item
-    @Inject(method = "disableShield", at = @At("HEAD"))
-    public void shield_api$disableShield(CallbackInfo ci) {
-        for (CustomShieldItem customShieldItem : CustomShieldItem.instances) {
-            this.getItemCooldownManager().set(new ItemStack(customShieldItem), 100);
-        }
-    }
-
-    @Inject(method = "getEquippedStack", at = @At("HEAD"), cancellable = true)
-    public void getEquippedStack(EquipmentSlot slot, CallbackInfoReturnable<ItemStack> cir) {
-        if(isCalledFrom("net.minecraft.server.network.ServerPlayNetworkHandler", "onPlayerAction")) {
-            return;
-        }
-        boolean twoHanded = false;
-        ItemStack stackMainHand = this.getInventory().getMainHandStack();
-        ItemStack stackOffHand = this.getInventory().getStack(PlayerInventory.OFF_HAND_SLOT);
-
-        if(stackMainHand != null){
-            if ((stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded))
-                    || (stackMainHand.getItem() instanceof CustomSiegeShieldItem)
-                    || (stackMainHand.getItem() instanceof CustomLongbowWeaponItem)) {
-                twoHanded = true;
-            }
-        }
-        if(stackOffHand != null){
-            if ((stackOffHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackOffHand.getItem()).type.twoHanded))
-                    || (stackOffHand.getItem() instanceof CustomSiegeShieldItem)
-                    || (stackOffHand.getItem() instanceof CustomLongbowWeaponItem)) {
-                twoHanded = true;
-            }
-        }
-
-        if (slot == OFFHAND) {
-            if (twoHanded) {
-                cir.setReturnValue(ItemStack.EMPTY);
-                cir.cancel();
-            }
-        }
-    }*/
-
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {
         PlayerMovementData.addAFKTime((IEntityDataSaver) this,1);
@@ -169,19 +106,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         PlayerMovementData.resetAFK((IEntityDataSaver) this);
     }
 
-
-    private boolean isCalledFrom(String className, String methodName) {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-
-        for (StackTraceElement element : stackTrace) {
-            if (element.getClassName().contains(className)) {
-                if(element.getMethodName().contains(methodName)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     @Inject(method = "createPlayerAttributes", require = 1, allow = 1, at = @At("return"))
     private static void createPlayerAttributesInject(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info){
