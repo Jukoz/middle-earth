@@ -7,6 +7,6 @@ import org.joml.Quaternionf;
  * Stores render-specific state for {@link SmokeRingProjectileEntity}.
  */
 public class SmokeRingProjectileRenderState extends ProjectileEntityRenderState {
-
     public Quaternionf orientationQuat;
+    public int maxLifespan;
 }

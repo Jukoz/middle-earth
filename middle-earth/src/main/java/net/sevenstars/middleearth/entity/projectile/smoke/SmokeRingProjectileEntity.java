@@ -13,7 +13,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class SmokeRingProjectileEntity extends ProjectileEntity {
-    private static final int LIFESPAN_TICKS = 40;
+    public static final int MAX_LIFESPAN_TICKS = 40;
 
     public SmokeRingProjectileEntity(EntityType<? extends SmokeRingProjectileEntity> type, World world) {
         super(type, world);
@@ -36,7 +36,7 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
 
         this.move(MovementType.SELF, this.getVelocity());
 
-        if (this.age > LIFESPAN_TICKS) {
+        if (this.age > MAX_LIFESPAN_TICKS) {
             this.discard();
         }
     }

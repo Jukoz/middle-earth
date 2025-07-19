@@ -42,8 +42,9 @@ public class SmokeRingProjectileRenderer extends EntityRenderer<SmokeRingProject
         matrices.translate(0, 0.2, 0);
         matrices.multiply(state.orientationQuat);
 
-        int frameDurationTicks = 2;
-        int frame = ((int) (state.age / frameDurationTicks)) % frames.length;
+        // Select animation frame based on age, scaled to lifespan (no looping)
+        int totalFrames = frames.length;
+        int frame = Math.min((int) (state.age / state.maxLifespan * totalFrames), totalFrames - 1);
         Sprite sprite = frames[frame];
 
 
@@ -65,7 +66,10 @@ public class SmokeRingProjectileRenderer extends EntityRenderer<SmokeRingProject
 
     @Override
     public SmokeRingProjectileRenderState createRenderState() {
-        return new SmokeRingProjectileRenderState();
+        SmokeRingProjectileRenderState state = new SmokeRingProjectileRenderState();
+        state.maxLifespan = SmokeRingProjectileEntity.MAX_LIFESPAN_TICKS;
+
+        return state;
     }
 
     @Override
