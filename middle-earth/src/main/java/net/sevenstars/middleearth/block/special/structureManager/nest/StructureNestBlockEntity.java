@@ -14,13 +14,16 @@ import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlockEntities;
+import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class StructureNestBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
     private static final String ID = "structure_nest";
@@ -38,6 +41,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     protected Identifier managerId;
     @Nullable
     protected Identifier nestId;
+    boolean initialized = false;
 
     public StructureNestBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STRUCTURE_NEST, pos, state);
@@ -99,5 +103,38 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     private void updateListeners() {
         this.markDirty();
         this.world.updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
+    }
+
+    public static void tickEvent(World world, BlockPos blockPos, BlockState blockState, StructureNestBlockEntity entity) {
+        entity.tickEvent(world);
+    }
+
+    private void tickEvent(World world) {
+        if(world.isClient || initialized)
+            return;
+
+        if(managerId == null || nestId == null || world.getTickOrder() % 100 != 0) // every 5 seconds
+            return;
+
+        Optional<BlockPos> nearestBlockEntity =  BlockPos.findClosest(pos, 20, 20, new Predicate<BlockPos>() {
+            @Override
+            public boolean test(BlockPos blockPos) {
+                var blockEntity = world.getBlockEntity(blockPos);
+                if(blockEntity != null && blockEntity instanceof StructureManagerBlockEntity)
+                    return true;
+                return false;
+            }
+        });
+
+        if(nearestBlockEntity.isPresent()){
+            StructureManagerBlockEntity blockEntity= ((StructureManagerBlockEntity)world.getBlockEntity(nearestBlockEntity.get()));
+            if(blockEntity.subscribeNest(this.pos, this.managerId, this.nestId))
+            {
+                world.breakBlock(pos, false);
+                world.removeBlockEntity(pos);
+                initialized = true;
+                updateListeners();
+            }
+        }
     }
 }

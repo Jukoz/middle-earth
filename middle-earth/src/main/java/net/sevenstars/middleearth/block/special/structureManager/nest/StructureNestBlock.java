@@ -3,6 +3,8 @@ package net.sevenstars.middleearth.block.special.structureManager.nest;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -21,6 +23,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
+import net.sevenstars.middleearth.block.ModBlockEntities;
 import org.jetbrains.annotations.Nullable;
 
 public class StructureNestBlock extends BlockWithEntity implements BlockEntityProvider, Waterloggable {
@@ -85,5 +88,24 @@ public class StructureNestBlock extends BlockWithEntity implements BlockEntityPr
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(new Property[]{WATERLOGGED});
+    }
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return validateTicker(world, type, ModBlockEntities.STRUCTURE_NEST);
+    }
+
+    @Nullable
+    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<StructureNestBlockEntity> expectedType) {
+        BlockEntityTicker ticker;
+        if (world.isClient) {
+            return null;
+        }
+
+        ticker = validateTicker(givenType, expectedType, (worldx, pos, state, blockEntity) -> {
+            StructureNestBlockEntity.tickEvent(world, pos, state, blockEntity);
+        });
+
+        return ticker;
     }
 }

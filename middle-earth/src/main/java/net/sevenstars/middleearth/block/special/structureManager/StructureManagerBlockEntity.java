@@ -1,8 +1,5 @@
 package net.sevenstars.middleearth.block.special.structureManager;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -10,8 +7,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -58,14 +53,14 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     private boolean enabled;
     private StructureManagerData managerData;
-    private SpawnNestList spawnNestList;
+    private StructureNestList structureNestList;
 
     public StructureManagerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STRUCTURE_MANAGER, pos, state);
         this.enabled = true;
         this.runtimeStructureManagerData = null;
         this.selectedStructureManagerData = null;
-        this.spawnNestList = null;
+        this.structureNestList = null;
     }
 
     @Override
@@ -103,8 +98,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             view.put(SyncedData.RUNTIME_ID.name, Identifier.CODEC, this.runtimeStructureManagerData);
         else if(selectedStructureManagerData != null)
             view.put(SyncedData.SELECTED_ID.name, Identifier.CODEC, this.selectedStructureManagerData);
-        if(spawnNestList != null)
-            view.put(SyncedData.SPAWN_NEST_LIST.name, SpawnNestList.CODEC, this.spawnNestList);
+        if(structureNestList != null)
+            view.put(SyncedData.SPAWN_NEST_LIST.name, StructureNestList.CODEC, this.structureNestList);
     }
 
     @Override
@@ -118,8 +113,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             selected.ifPresent(x -> selectedStructureManagerData = x);
         }
 
-        Optional<SpawnNestList> nests = view.read(SyncedData.SPAWN_NEST_LIST.name, SpawnNestList.CODEC);
-        nests.ifPresent(x -> spawnNestList = x);
+        Optional<StructureNestList> nests = view.read(SyncedData.SPAWN_NEST_LIST.name, StructureNestList.CODEC);
+        nests.ifPresent(x -> structureNestList = x);
 
         if(enabled && selectedStructureManagerData != null){
             runtimeStructureManagerData = selectedStructureManagerData;
@@ -127,12 +122,23 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         }
     }
 
+    public boolean subscribeNest(BlockPos nestPos, Identifier managerId, Identifier nestId) {
+        if(!isRuntimeEnabled() || managerId.compareTo(this.runtimeStructureManagerData) != 0)
+            return false;
+
+        SpawnNestNodeData data = managerData.getNpcSpawnNest(nestId);
+        SpawnNestManager manager = new SpawnNestManager(data);
+        this.structureNestList.addNest(manager);
+        MiddleEarth.LOGGER.logDebugMsg("Subscribed new nest to [%s] with a nest at [%s] which is <%s>".formatted(this.pos, nestPos, nestId));
+        return true;
+    }
+
     public static void triggerDeathSignal(BlockPos pos, LivingEntity entity) {
         if(entity.getWorld().isClient)
             return;
         StructureManagerBlockEntity blockEntity = (StructureManagerBlockEntity) entity.getWorld().getBlockEntity(pos);
         if(blockEntity!=null && !blockEntity.isRemoved()){
-            blockEntity.spawnNestList.computeDeath(entity);
+            blockEntity.structureNestList.computeDeath(entity);
             blockEntity.world.markDirty(pos);
         }
     }
@@ -141,10 +147,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(runtimeStructureManagerData != null && managerData == null) {
             initializeData(world);
         }
-        if(spawnNestList == null || !enabled)
+        if(structureNestList == null || !enabled)
             return;
         long tick = world.getTickOrder();
-        for(SpawnNestManager data : spawnNestList.managers){
+        for(SpawnNestManager data : structureNestList.getManagers()){
             if(managerData == null)
                 managerData = StructureManagerService.GetStructureManagerData(world, StructureManagerDatasME.NPC_TESTING_AREA_GONDOR.getId());
             data.tick(managerData, tick, world, blockPos);
@@ -158,12 +164,12 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
                 this.logger.logDebugMsg("%s::[%s] Couldn't find managerData under <%s>".formatted(ID, pos, managerData));
                 return;
             };
-            if(spawnNestList == null){
+            if(structureNestList == null){
                 List<SpawnNestManager> spawnNestManagerList = new ArrayList<>();
                 for(SpawnNestNodeData nestNode : managerData.getNpcSpawnNest()){
                     spawnNestManagerList.add(new SpawnNestManager(nestNode));
                 }
-                this.spawnNestList = new SpawnNestList(spawnNestManagerList);
+                this.structureNestList = new StructureNestList(spawnNestManagerList);
                 updateListeners();
             }
         }
@@ -192,42 +198,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         return BlockEntityUpdateS2CPacket.create(this);
     }
 
-    public boolean getIsActive() {
-        return enabled;
-    }
-
-    private static final class SpawnNestList {
-        ModLogger logger = MiddleEarth.LOGGER;
-        public static final Codec<SpawnNestList> CODEC;
-            public static final PacketCodec<ByteBuf, SpawnNestList> PACKET_CODEC;
-        private static final String ID = "spawn_nest_list";
-
-        private final List<SpawnNestManager> managers;
-
-        private SpawnNestList(List<SpawnNestManager> spawnNestManagers) {
-            this.managers = spawnNestManagers;
-        }
-
-        public SpawnNestList() {
-            this.managers = List.of();
-        }
-
-        public void computeDeath(LivingEntity entity) {
-            for (SpawnNestManager nest : managers) {
-                if(nest.computeDeath(entity))
-                    return;
-            }
-        }
-
-        public List<SpawnNestManager> content() {
-            return managers;
-        }
-
-        static {
-            CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                    Codec.list(SpawnNestManager.CODEC).fieldOf("Managers").forGetter(SpawnNestList::content)
-            ).apply(instance, SpawnNestList::new));
-            PACKET_CODEC = PacketCodecs.codec(CODEC);
-        }
+    public boolean isRuntimeEnabled() {
+        return enabled && runtimeStructureManagerData != null;
     }
 }
