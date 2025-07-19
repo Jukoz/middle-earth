@@ -49,6 +49,7 @@ import net.sevenstars.middleearth.entity.deer.DeerRenderer;
 import net.sevenstars.middleearth.entity.model.ModEntityModels;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderer;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntityRenderer;
+import net.sevenstars.middleearth.entity.projectile.smoke.SmokeRingProjectileRenderer;
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntityRenderer;
 import net.sevenstars.middleearth.entity.seat.SeatRenderer;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderRenderer;
@@ -115,6 +116,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.LIT_PINECONE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.SPEAR, SpearEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.SMOKE_RING_PROJECTILE, SmokeRingProjectileRenderer::new);
 
         // Animals
         EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
