@@ -11,19 +11,25 @@ import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.sevenstars.middleearth.utils.PlayerMovementData;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.ModEntityAttributes;
+import net.sevenstars.middleearth.utils.IEntityDataSaver;
+import net.sevenstars.middleearth.utils.PlayerMovementData;
+import net.sevenstars.middleearth.utils.PlayerUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -32,6 +38,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow public abstract PlayerInventory getInventory();
 
+    int climbDistance = 0;
     //TODO Shield stuff broken, most likely because of new data comps
     //@Shadow protected abstract void takeShieldHit(LivingEntity attacker);
 
@@ -169,5 +176,28 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             }
         }
         return false;
+    }
+
+    @Inject(method = "createPlayerAttributes", require = 1, allow = 1, at = @At("return"))
+    private static void createPlayerAttributesInject(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info){
+        info.getReturnValue().add(ModEntityAttributes.POWDERED_SNOW_IMMUNITY);
+        info.getReturnValue().add(ModEntityAttributes.DELVERS_FEAR_STRENGTH);
+        info.getReturnValue().add(ModEntityAttributes.CLIMBING_STRENGTH);
+        info.getReturnValue().add(ModEntityAttributes.DETECTION_RANGE);
+
+    }
+
+    @Inject(method = "isClimbing", at = @At("HEAD"), cancellable = true)
+    private void isClimbingInject(CallbackInfoReturnable<Boolean> cir) {
+        if ((LivingEntity) this instanceof PlayerEntity entity){
+            if(!entity.isTouchingWater() && !entity.isOnGround() && PlayerUtil.isAgainstWall(entity)){
+                climbDistance += 1;
+                if(climbDistance < entity.getAttributeValue(ModEntityAttributes.CLIMBING_STRENGTH)){
+                    cir.setReturnValue(true);
+                }
+            } else if(entity.isOnGround()){
+                climbDistance = 0;
+            }
+        }
     }
 }

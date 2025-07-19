@@ -39,6 +39,8 @@ public class NpcTextureData {
     }
 
     public static Identifier buildId(Identifier pattern, Identifier material) {
+        if(pattern == null || material == null)
+            return null;
         return IdentifierUtil.create(pattern.getPath() + "_" + material.getPath());
     }
 
@@ -64,7 +66,7 @@ public class NpcTextureData {
 
     public static Identifier getRawMaterial(Identity identity, NpcTextureType npcTextureType) {
         List<String> materials = identity.preset.getMaterials(npcTextureType);
-        if(materials == null)
+        if(materials == null || materials.isEmpty())
             return null;
         Random random = new Random();
         int materialIndex = random.nextInt(materials.size());
@@ -73,7 +75,7 @@ public class NpcTextureData {
 
     public static Identifier getRawPattern(Identity identity, NpcTextureType npcTextureType) {
         List<String> patterns = identity.preset.getPatterns(npcTextureType);
-        if(patterns.isEmpty())
+        if(patterns == null || patterns.isEmpty())
             return null;
         Random random = new Random();
         String value = patterns.get(random.nextInt(patterns.size()));
@@ -85,7 +87,7 @@ public class NpcTextureData {
     public static Identifier getTextureWithMaterial(Identity identity, NpcTextureType npcTextureType) {
         List<String> patterns = identity.preset.getPatterns(npcTextureType);
         List<String> materials = identity.preset.getMaterials(npcTextureType);
-        if(patterns.isEmpty() || materials == null)
+        if(patterns == null || patterns.isEmpty() || materials == null || materials.isEmpty())
             return null;
 
         Random random = new Random();

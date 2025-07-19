@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.entity.npcs.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.entity.EntityData;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -16,7 +17,7 @@ import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 
-public class NpcEntityData {
+public class NpcEntityData implements EntityData {
     public Identifier factionId;
     public Identifier npcDataId;
     public EntityCategory category;
