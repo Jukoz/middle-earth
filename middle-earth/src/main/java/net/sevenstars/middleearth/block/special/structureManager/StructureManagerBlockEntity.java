@@ -26,8 +26,6 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnN
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class StructureManagerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
@@ -63,6 +61,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         this.structureNestList = null;
     }
 
+    // region [Basic Overrides]
+
     @Override
     public Text getDisplayName() {
         return Text.translatable("screen.%s.%s".formatted(MiddleEarth.MOD_ID, ID));
@@ -74,6 +74,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
                 Optional.ofNullable(this.selectedStructureManagerData),
                 Optional.ofNullable(this.runtimeStructureManagerData)
         );
+    }
+    @Override
+    public BlockEntityUpdateS2CPacket toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
     }
 
     @Nullable
@@ -121,6 +125,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             selectedStructureManagerData = null;
         }
     }
+    // endregion
 
     public boolean subscribeNest(BlockPos nestPos, Identifier managerId, Identifier nestId) {
         if(!isRuntimeEnabled() || managerId.compareTo(this.runtimeStructureManagerData) != 0)
@@ -144,9 +149,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     private void tickEvent(World world, BlockPos blockPos, BlockState blockState) {
-        if(runtimeStructureManagerData != null && managerData == null) {
-            initializeData(world);
-        }
+        tryToInitializeManager(world);
         if(structureNestList == null || !enabled)
             return;
         long tick = world.getTickOrder();
@@ -157,21 +160,14 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         }
     }
 
-    private void initializeData(World world){
-        if(runtimeStructureManagerData != null && managerData == null){
+    private void tryToInitializeManager(World world){
+        if(runtimeStructureManagerData != null && managerData == null && enabled) {
             this.managerData = StructureManagerService.GetStructureManagerData(world, runtimeStructureManagerData);
+            this.structureNestList = new StructureNestList();
             if(managerData == null) {
                 this.logger.logDebugMsg("%s::[%s] Couldn't find managerData under <%s>".formatted(ID, pos, managerData));
                 return;
             };
-            if(structureNestList == null){
-                List<SpawnNestManager> spawnNestManagerList = new ArrayList<>();
-                for(SpawnNestNodeData nestNode : managerData.getNpcSpawnNest()){
-                    spawnNestManagerList.add(new SpawnNestManager(nestNode));
-                }
-                this.structureNestList = new StructureNestList(spawnNestManagerList);
-                updateListeners();
-            }
         }
     }
     public void toggle(boolean activate) {
@@ -185,17 +181,9 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         updateListeners();
     }
 
-    public Identifier getDataId() {
-        return selectedStructureManagerData;
-    }
     private void updateListeners() {
         this.markDirty();
         this.world.updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
-    }
-
-    @Override
-    public BlockEntityUpdateS2CPacket toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
     }
 
     public boolean isRuntimeEnabled() {
