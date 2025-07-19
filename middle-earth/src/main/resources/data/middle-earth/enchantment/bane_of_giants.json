@@ -70,10 +70,10 @@
     "base": 5,
     "per_level_above_first": 8
   },
-  "primary_items": "#middle-earth:enchantable/spear",
+  "primary_items": "#middle-earth:spears",
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#middle-earth:enchantable/spear",
+  "supported_items": "#middle-earth:spears",
   "weight": 5
 }

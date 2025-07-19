@@ -3,7 +3,6 @@
   "description": {
     "translate": "enchantment.middle-earth.first_strike"
   },
-  "exclusive_set": "#minecraft:exclusive_set/damage",
   "max_cost": {
     "base": 1,
     "per_level_above_first": 15

@@ -698,7 +698,7 @@ public class WeaponItemsME {
             WeaponEnchants.daggers.add(item);
         } else if (item instanceof CustomAxeWeaponItem){
             WeaponEnchants.axes.add(item);
-        } else if (!(item instanceof CustomShieldItem)){
+        } else if (item instanceof CustomSpearWeaponItem){
             WeaponEnchants.sharpWeapons.add(item);
         }
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
