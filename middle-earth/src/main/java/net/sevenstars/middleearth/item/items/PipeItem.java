@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.item.items;
 
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.util.ActionResult;
 import net.sevenstars.middleearth.entity.ModEntities;
@@ -22,12 +24,14 @@ import net.sevenstars.middleearth.utils.item.ItemSearchUtils;
 import net.sevenstars.middleearth.utils.sounds.SoundUtils;
 
 public class PipeItem extends Item {
-    private static final int MAX_USE_TIME_TICKS = 60;
+    private static final int MAX_USE_TIME_TICKS = 200; // Total time for using the pipe (10 seconds)
+    private static final int MIN_SMOKE_TIME_FOR_RING_SPAWN_TICKS = 40; // Time before the smoke ring spawns (2 seconds)
+    private static final int BLINDNESS_DEBUFF_DURATION_TICKS = 60; // Time for the blindness debuff
+    private static final int NAUSEA_DEBUFF_DURATION_TICKS = 200; // Time for the nausea debuff
 
     public PipeItem(Settings settings, int amountOfUses) {
         super(settings.maxDamage(amountOfUses));
     }
-
 
     @Override
     public int getItemBarColor(ItemStack stack) {
@@ -56,13 +60,17 @@ public class PipeItem extends Item {
     }
 
     @Override
-    public boolean onStoppedUsing(ItemStack pipe, World world, LivingEntity user, int remainingUseTicks) {
+    public boolean onStoppedUsing(
+            ItemStack pipe,
+            World world,
+            LivingEntity user,
+            int remainingUseTicks) {
         if (world.isClient()) return false;
 
-        if (remainingUseTicks < MAX_USE_TIME_TICKS / 2 && isSmoking(user)) {
+        int elapsedTicks = MAX_USE_TIME_TICKS - remainingUseTicks;
+
+        if (smokedLongEnoughForSmokeRing(elapsedTicks)) {
             spawnSmokeRing(user, world);
-            applyCooldown((PlayerEntity) user, pipe);
-            return true;
         }
 
         applyCooldown((PlayerEntity) user, pipe);
@@ -85,30 +93,11 @@ public class PipeItem extends Item {
 
     public ItemStack finishUsing(ItemStack item, World world, LivingEntity user) {
         if (!world.isClient()) {
-            spawnSmokeRing(user, world);
+            startCoughing(user);
         }
 
         ((PlayerEntity) user).getItemCooldownManager().set(item, 20);
         return item;
-    }
-
-    /**
-     * Spawns the smoke ring projectile and plays the exhale sound.
-     * Called when smoking completes.
-     */
-    public void spawnSmokeRing(LivingEntity user, World world) {
-        SoundUtils.playSoundAtEntity(world, user, ModSounds.PIPE_EXHALE, SoundCategory.PLAYERS);
-
-        if (world.isClient()) return;
-
-        SmokeRingProjectileEntity smoke = new SmokeRingProjectileEntity(ModEntities.SMOKE_RING_PROJECTILE, world, user);
-
-        smoke.refreshPositionAndAngles(user.getX(), user.getEyeY() - 0.1, user.getZ(), user.getYaw(1.0F), user.getPitch(1.0F));
-
-        Vec3d dir = user.getRotationVec(1.0F).normalize().multiply(0.25);
-        smoke.setVelocity(dir.x, dir.y, dir.z);
-
-        world.spawnEntity(smoke);
     }
 
     @Override
@@ -122,7 +111,8 @@ public class PipeItem extends Item {
     }
 
     private boolean tryRefillPipe(ItemStack pipe, PlayerEntity user, World world) {
-        ItemStack pipeweed = ItemSearchUtils.findFirstInInventory(user, ResourceItemsME.DRIED_PIPEWEED);
+        ItemStack pipeweed = ItemSearchUtils.findFirstInInventory(user,
+                ResourceItemsME.DRIED_PIPEWEED);
 
         if (pipeweed.isEmpty() && !user.isCreative()) {
             return false;
@@ -165,11 +155,65 @@ public class PipeItem extends Item {
         double y = user.getY() + user.getEyeHeight(user.getPose()) + direction.y * 0.5 + 0.04;
         double z = user.getZ() + direction.z * 0.5;
 
-        world.spawnParticles(ParticleTypes.SMOKE, x, y, z, 1,    // count
-                0,    // offsetX
-                0.02, // offsetY
-                0,    // offsetZ
-                0     // speed
-        );
+        world.spawnParticles(ParticleTypes.SMOKE, x, y, z, 1, 0, 0.02, 0, 0);
+    }
+
+    /**
+     * Spawns the smoke ring projectile and plays the "exhale" sound.
+     * Called when smoking completes.
+     */
+    public void spawnSmokeRing(LivingEntity user, World world) {
+        /*
+         * Sound License
+         * https://pixabay.com/service/license-summary/
+         * https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=106654
+         */
+        SoundUtils.playSoundAtEntity(world, user, ModSounds.PIPE_EXHALE, SoundCategory.PLAYERS);
+
+        if (world.isClient()) return;
+
+        SmokeRingProjectileEntity smoke = new SmokeRingProjectileEntity(ModEntities.SMOKE_RING_PROJECTILE,
+                world,
+                user);
+
+        smoke.refreshPositionAndAngles(user.getX(),
+                user.getEyeY() - 0.1,
+                user.getZ(),
+                user.getYaw(1.0F),
+                user.getPitch(1.0F));
+
+        Vec3d dir = user.getRotationVec(1.0F).normalize().multiply(0.25);
+        smoke.setVelocity(dir.x, dir.y, dir.z);
+
+        world.spawnEntity(smoke);
+    }
+
+    private void startCoughing(LivingEntity user) {
+        if (user instanceof PlayerEntity player) {
+            /*
+             * Sound License
+             * double_cough_01.wav by joedeshon -- https://freesound.org/s/266019/ -- License: Attribution 4.0
+             */
+            SoundUtils.playSoundAtEntity(player.getWorld(),
+                    player,
+                    ModSounds.PIPE_COUGH,
+                    SoundCategory.PLAYERS);
+
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS,
+                    BLINDNESS_DEBUFF_DURATION_TICKS,
+                    0,
+                    false,
+                    true));
+
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA,
+                    NAUSEA_DEBUFF_DURATION_TICKS,
+                    0,
+                    false,
+                    true));
+        }
+    }
+
+    private boolean smokedLongEnoughForSmokeRing(int elapsedTicks) {
+        return elapsedTicks >= MIN_SMOKE_TIME_FOR_RING_SPAWN_TICKS;
     }
 }
