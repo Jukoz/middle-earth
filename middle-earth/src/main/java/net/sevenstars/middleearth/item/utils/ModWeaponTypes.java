@@ -10,6 +10,7 @@ public enum ModWeaponTypes {
     DAGGER("dagger", 1, -0.7f, -1.0F, false),
     SPEAR("spear", 3, -2.5f, 1.0F, false),
     LONGSWORD("longsword", 5, -2.6f, 1.0F, true),
+    TROLL_WEAPON("troll_weapon", 6, -3.7f, 1.0F, true),
     ;
 
     public final String name;

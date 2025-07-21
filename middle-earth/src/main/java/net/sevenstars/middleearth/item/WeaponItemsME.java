@@ -569,6 +569,11 @@ public class WeaponItemsME {
     //endregion
     //endregion
 
+    //region TROLL WEAPONS
+    public static final Item TROLL_MACE = registerItemNoModel("troll_mace",
+            (settings) -> new TrollWeaponItem(ModToolMaterials.BURZUM_STEEL, settings));
+    //endregion
+
     //region ARTEFACTS
     public static final Item DAGAMARTH = registerArtefact("dagamarth",
             (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
