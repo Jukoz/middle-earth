@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Bows;
 import net.sevenstars.middleearth.datageneration.content.tags.Crossbows;
 import net.sevenstars.middleearth.datageneration.content.tags.WeaponEnchants;
+import net.sevenstars.middleearth.item.dataComponents.ArtisanDataComponent;
 import net.sevenstars.middleearth.item.items.HeldBannerItem;
 import net.sevenstars.middleearth.item.items.shields.ArtefactCustomShieldItem;
 import net.sevenstars.middleearth.item.items.shields.CustomBannerShieldItem;
@@ -30,6 +31,7 @@ import net.sevenstars.middleearth.utils.ModSubFactions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Function;
 
 public class WeaponItemsME {
@@ -571,7 +573,9 @@ public class WeaponItemsME {
 
     //region TROLL WEAPONS
     public static final Item TROLL_MACE = registerItemNoModel("troll_mace",
-            (settings) -> new TrollWeaponItem(ModToolMaterials.BURZUM_STEEL, settings));
+            (settings) -> new TrollWeaponItem(ModToolMaterials.BURZUM_STEEL, settings
+                    .component(DataComponentTypesME.ARTISAN_DATA, new ArtisanDataComponent(UUID.fromString("fc1d52a6-e9ef-4ad9-960d-a1d65d17d453"))
+            )));
     //endregion
 
     //region ARTEFACTS
