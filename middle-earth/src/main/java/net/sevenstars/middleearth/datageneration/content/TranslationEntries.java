@@ -124,6 +124,7 @@ public class TranslationEntries {
             put("effect."+ MiddleEarth.MOD_ID +".hallucination", "Hallucination");
             put("effect."+ MiddleEarth.MOD_ID +".enshrouded", "Enshrouded");
 
+            put("enchantment."+ MiddleEarth.MOD_ID +".ailment_protection", "Ailment Protection");
             put("enchantment."+ MiddleEarth.MOD_ID +".bane_of_giants", "Bane of Giants");
             put("enchantment."+ MiddleEarth.MOD_ID +".beheading", "Beheading");
             put("enchantment."+ MiddleEarth.MOD_ID +".celerity", "Celerity");

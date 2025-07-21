@@ -3,7 +3,8 @@ package net.sevenstars.middleearth.mixin;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -18,6 +19,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
@@ -82,5 +84,35 @@ public abstract class LivingEntityMixin extends Entity {
             }
         }
         stackTraceLock = false;
+    }
+
+    @ModifyVariable(method = "addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;Lnet/minecraft/entity/Entity;)Z",
+            at = @At("HEAD"), index = 1, argsOnly = true)
+    public final StatusEffectInstance addStatusEffect(StatusEffectInstance effect) {
+        if(effect.getEffectType().value().getCategory().equals(StatusEffectCategory.HARMFUL)) {
+            float ailmentLevel = 0;
+            World world = this.getWorld();
+            ailmentLevel += getAilmentProtectionLevel(this.getEquippedStack(EquipmentSlot.HEAD), world);
+            ailmentLevel += getAilmentProtectionLevel(this.getEquippedStack(EquipmentSlot.CHEST), world);
+            ailmentLevel += getAilmentProtectionLevel(this.getEquippedStack(EquipmentSlot.LEGS), world);
+            ailmentLevel += getAilmentProtectionLevel(this.getEquippedStack(EquipmentSlot.FEET), world);
+            if(ailmentLevel > 0) {
+                float scale = 0.08f * ailmentLevel;
+                scale = 1 - Math.min(0.8f, scale);
+                effect = effect.withScaledDuration(scale);
+            }
+        }
+        return effect;
+    }
+
+    private static int getAilmentProtectionLevel(ItemStack itemStack, World world) {
+        int level = 0;
+        RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT)
+                .getOptional(EnchantmentEffectsME.AILMENT_PROTECTION).orElseThrow();
+        boolean hasEnchant = itemStack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
+        if(hasEnchant) {
+            level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, itemStack);
+        }
+        return level;
     }
 }

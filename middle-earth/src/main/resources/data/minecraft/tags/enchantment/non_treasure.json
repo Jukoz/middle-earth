@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "middle-earth:ailment_protection",
     "middle-earth:bane_of_giants",
     "middle-earth:celerity",
     "middle-earth:first_strike",
