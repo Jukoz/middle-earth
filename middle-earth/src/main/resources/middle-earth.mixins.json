@@ -30,11 +30,14 @@
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
     "client.BakedModelManagerMixin",
+    "client.BipedEntityModelMixin",
+    "client.BipedEntityRendererMixin",
+    "client.GuiRendererMixin",
     "client.HeldItemRendererMixin",
     "client.InGameHudMixin",
-    "client.MouseMixin",
-    "client.GuiRendererMixin",
-    "client.BakedModelManagerMixin"
+    "client.LivingEntityRendererMixin",
+    "client.LivingEntityRenderStateMixin",
+    "client.MouseMixin"
   ],
   "server": [
   ],
