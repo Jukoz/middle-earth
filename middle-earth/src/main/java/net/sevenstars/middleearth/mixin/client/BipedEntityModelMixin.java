@@ -45,7 +45,7 @@ public class BipedEntityModelMixin {
     }
 
     private void tryItemAnimation(ItemStack itemStack, boolean rightHand) {
-        if(itemStack.getItem().equals(ModDecorativeBlocks.FIRE_OF_ORTHANC)) {
+        if(itemStack.getItem().equals(DecorativeItemsME.FIRE_OF_ORTHANC)) {
             float pitch = this.rightArm.pitch * 0.25F - 0.5F;
             this.rightArm.pitch = pitch;
             this.rightArm.yaw = 0.0F;
@@ -57,6 +57,7 @@ public class BipedEntityModelMixin {
             this.leftArm.pitch = pitch - 0.2f;
             this.rightArm.yaw = -0.35f;
             this.leftArm.yaw = 0.8f;
+            // TODO: Fix me later
         //} else if((itemStack.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) itemStack.getItem()).type == ModWeaponTypes.SPEAR))) {
         //    if(!entity.isUsingItem() && entity instanceof PlayerEntity playerEntity) {
         //        int afkTime = PlayerMovementData.readAFK((IEntityDataSaver) playerEntity);

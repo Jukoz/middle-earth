@@ -16,7 +16,6 @@ public class BipedEntityRendererMixin {
     @Inject(at = @At("TAIL"), method = "updateRenderState(Lnet/minecraft/entity/mob/MobEntity;Lnet/minecraft/client/render/entity/state/BipedEntityRenderState;F)V")
     private <T extends MobEntity, S extends BipedEntityRenderState>
     void positionRightArm(T mobEntity, S bipedEntityRenderState, float f, CallbackInfo ci) {
-        System.out.println("HELP ME 1");
         ItemStack mainHandStack = mobEntity.getMainHandStack();
         ItemStack offHandStack = mobEntity.getOffHandStack();
         ((ArmedEntityRenderStateAccess)bipedEntityRenderState).setMainHandStack(mainHandStack);
