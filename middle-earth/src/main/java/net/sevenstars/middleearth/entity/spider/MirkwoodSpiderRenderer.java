@@ -31,11 +31,11 @@ public class MirkwoodSpiderRenderer extends MobEntityRenderer<MirkwoodSpiderEnti
     public static final Map<MirkwoodSpiderVariants, String> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(MirkwoodSpiderVariants.class), (resourceLocation) -> {
                 resourceLocation.put(MirkwoodSpiderVariants.BLACK,
-                        PATH + "spider1.png");
+                        PATH + "mirkwood_shelobite_scuttler.png");
                 resourceLocation.put(MirkwoodSpiderVariants.BROWN,
-                        PATH + "spider2.png");
+                        PATH + "mirkwood_shelobite_scuttler.png");
                 resourceLocation.put(MirkwoodSpiderVariants.DARK_GREEN,
-                        PATH + "spider3.png");
+                        PATH + "mirkwood_shelobite_scuttler.png");
             });
 
     @Override
