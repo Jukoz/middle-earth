@@ -1,15 +1,24 @@
 package net.sevenstars.middleearth.entity.spider;
 
+import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Dynamic;
 import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.entity.AnimationState;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.sensor.Sensor;
+import net.minecraft.entity.ai.brain.sensor.SensorType;
+import net.minecraft.entity.mob.PiglinBruteBrain;
+import net.minecraft.entity.mob.PiglinBruteEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.profiler.Profiler;
+import net.minecraft.util.profiler.Profilers;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
 import net.sevenstars.middleearth.entity.goals.FastPonceAtTargetGoal;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.SpiderNavigation;
@@ -29,6 +38,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class MirkwoodSpiderEntity extends HostileEntity {
     public static final int CLIMBING_TIME_TRANSITION = 12;
@@ -36,12 +46,34 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     public static final float MOVEMENT_SPEED = 1.2f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
 
+    protected static final ImmutableList<SensorType<? extends Sensor<? super MirkwoodSpiderEntity>>> SENSOR_TYPES = ImmutableList.of(
+            SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.NEAREST_ITEMS, SensorType.HURT_BY
+    );
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULE_TYPES = ImmutableList.of(
+            MemoryModuleType.LOOK_TARGET,
+            MemoryModuleType.DOORS_TO_CLOSE,
+            MemoryModuleType.MOBS,
+            MemoryModuleType.VISIBLE_MOBS,
+            MemoryModuleType.NEAREST_VISIBLE_PLAYER,
+            MemoryModuleType.NEAREST_VISIBLE_TARGETABLE_PLAYER,
+            MemoryModuleType.HURT_BY,
+            MemoryModuleType.HURT_BY_ENTITY,
+            MemoryModuleType.WALK_TARGET,
+            MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+            MemoryModuleType.ATTACK_TARGET,
+            MemoryModuleType.ATTACK_COOLING_DOWN,
+            MemoryModuleType.INTERACTION_TARGET,
+            MemoryModuleType.PATH,
+            MemoryModuleType.ANGRY_AT,
+            MemoryModuleType.NEAREST_VISIBLE_NEMESIS,
+            MemoryModuleType.HOME
+    );
+
     public final AnimationState idleAnimation = new AnimationState();
     public final AnimationState walkingAnimation = new AnimationState();
     public final AnimationState biteAnimation = new AnimationState();
 
     private int idleAnimationCooldown = 0;
-
     private int climbingTicks = 0;
 
     public MirkwoodSpiderEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -51,21 +83,37 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     public static DefaultAttributeContainer.Builder setAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 16.0)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.4)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.35)
                 .add(EntityAttributes.FOLLOW_RANGE, 36.0);
     }
 
-    protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(3, new FastPonceAtTargetGoal(this, 0.3F, 0.4f));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(6, new LookAroundGoal(this));
-
-        this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        ShelobiteScuttlerBrain.setCurrentPosAsHome(this);
+        return super.initialize(world, difficulty, spawnReason, entityData);
     }
+
+    @Override
+    protected Brain.Profile<MirkwoodSpiderEntity> createBrainProfile() {
+        return Brain.createProfile(MEMORY_MODULE_TYPES, SENSOR_TYPES);
+    }
+
+    @Override
+    protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
+        return ShelobiteScuttlerBrain.create(this, this.createBrainProfile().deserialize(dynamic));
+    }
+
+    //protected void initGoals() {
+    //    this.goalSelector.add(1, new SwimGoal(this));
+    //    this.goalSelector.add(3, new FastPonceAtTargetGoal(this, 0.3F, 0.4f));
+    //    this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
+    //    this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
+    //    this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+    //    this.goalSelector.add(6, new LookAroundGoal(this));
+    //    this.targetSelector.add(1, new RevengeGoal(this));
+    //    this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+    //}
 
     public double getMountedHeightOffset() {
         return (double)(this.getHeight() * 0.5F);
@@ -80,9 +128,14 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         builder.add(SPIDER_FLAGS, (byte)0);
     }
 
+    @Override
+    public Brain<MirkwoodSpiderEntity> getBrain() {
+        return (Brain<MirkwoodSpiderEntity>) super.getBrain();
+    }
+
     protected void setupAnimationStates() {
-        if (this.idleAnimationCooldown <= 0) {
-            this.idleAnimationCooldown = this.random.nextInt(40) + 80;
+        if (!this.idleAnimation.isRunning()) {
+            //this.idleAnimationCooldown = this.random.nextInt(40) + 80;
             this.idleAnimation.start(this.age);
         } else {
             this.idleAnimationCooldown--;
@@ -102,6 +155,18 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         } else {
             setupAnimationStates();
         }
+
+    }
+
+    @Override
+    protected void mobTick(ServerWorld world) {
+        super.mobTick(world);
+        Profiler profiler = Profilers.get();
+        profiler.push("shelobiteScuttlerBrain");
+        this.getBrain().tick(world, this);
+        profiler.pop();
+        ShelobiteScuttlerBrain.tick(this);
+        ShelobiteScuttlerBrain.playSoundRandomly(this);
     }
 
     @Override
