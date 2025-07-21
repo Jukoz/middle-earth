@@ -23,7 +23,6 @@ public class NpcEntityTextureData {
     private Identifier clothingTexture;
     private Boolean eyeEmissive;
 
-
     public static final Codec<NpcEntityTextureData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
         NbtCompound.CODEC.fieldOf("data").forGetter(NpcEntityTextureData::writeNbt)
     ).apply(instance, NpcEntityTextureData::new));

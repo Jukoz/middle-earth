@@ -429,4 +429,15 @@ public class Faction {
             return null;
         return bannerData.getBannerPatternComponents(bannerPatternLookup);
     }
+
+    public Identifier getRandomNpcDataIdentifier() {
+        List<Identifier> allNpcIds = new ArrayList<>();
+        for (List<Identifier> npcIds : this.npcDatasByRank.values())
+            allNpcIds.addAll(npcIds);
+        if(allNpcIds.size() == 0)
+            return null;
+
+        Random random = new Random();
+        return allNpcIds.get(random.nextInt(allNpcIds.size()));
+    }
 }

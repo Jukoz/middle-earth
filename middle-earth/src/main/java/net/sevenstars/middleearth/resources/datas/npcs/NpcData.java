@@ -132,4 +132,8 @@ public class NpcData {
         if(npcAttributePools.containsKey(category))
             npcAttributePools.get(category).apply(npcEntity);
     }
+
+    public EntityCategory getRandomCategory() {
+        return this.npcTextureData.getRandomCategory();
+    }
 }
