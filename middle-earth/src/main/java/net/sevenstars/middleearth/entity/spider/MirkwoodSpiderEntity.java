@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.entity.spider;
 
+import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.entity.AnimationState;
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
 import net.sevenstars.middleearth.entity.goals.FastPonceAtTargetGoal;
 import net.minecraft.block.BlockState;
@@ -32,6 +35,13 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     public static final int ADULT_AGE = 20 * 60 * 2; // 2 min of baby time
     public static final float MOVEMENT_SPEED = 1.2f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
+
+    public final AnimationState idleAnimation = new AnimationState();
+    public final AnimationState walkingAnimation = new AnimationState();
+    public final AnimationState biteAnimation = new AnimationState();
+
+    private int idleAnimationCooldown = 0;
+
     private int climbingTicks = 0;
 
     public MirkwoodSpiderEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -70,10 +80,27 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         builder.add(SPIDER_FLAGS, (byte)0);
     }
 
+    protected void setupAnimationStates() {
+        if (this.idleAnimationCooldown <= 0) {
+            this.idleAnimationCooldown = this.random.nextInt(40) + 80;
+            this.idleAnimation.start(this.age);
+        } else {
+            this.idleAnimationCooldown--;
+        }
+    }
+
+    @Override
+    public boolean tryAttack(ServerWorld world, Entity target) {
+        biteAnimation.start(this.age);
+        return super.tryAttack(world, target);
+    }
+
     public void tick() {
         super.tick();
         if (!this.getWorld().isClient) {
             this.setClimbingWall(this.horizontalCollision);
+        } else {
+            setupAnimationStates();
         }
     }
 

@@ -10,11 +10,14 @@ import net.minecraft.client.util.math.MatrixStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MirkwoodSpiderModel extends EntityModel<LivingEntityRenderState> {
+public class MirkwoodSpiderModel extends EntityModel<ShelobiteScuttlerRenderState> {
     private final ModelPart root;
     private final ModelPart legscore;
     private final ModelPart body;
 
+    private final Animation idleAnimation;
+    private final Animation walkingAnimation;
+    private final Animation biteAnimation;
 
     public MirkwoodSpiderModel(ModelPart root) {
         super(root);
@@ -22,6 +25,10 @@ public class MirkwoodSpiderModel extends EntityModel<LivingEntityRenderState> {
         this.root = root.getChild("root");
         this.legscore = this.root.getChild("legscore");
         this.body = this.root.getChild("body");
+
+        this.idleAnimation = ShelobiteScuttlerAnimations.SHELOBITE_SCUTTLER_IDLE.createAnimation(root);
+        this.walkingAnimation = ShelobiteScuttlerAnimations.SHELOBITE_SCUTTLER_WALK.createAnimation(root);
+        this.biteAnimation = ShelobiteScuttlerAnimations.SHELOBITE_SCUTTLER_BITE.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -127,5 +134,14 @@ public class MirkwoodSpiderModel extends EntityModel<LivingEntityRenderState> {
 
         ModelPartData fang2 = rightchel.addChild("fang2", ModelPartBuilder.create().uv(0, 32).cuboid(-3.0F, -3.0F, -6.0F, 3.0F, 3.0F, 7.0F, new Dilation(0.0F)), ModelTransform.origin(0.5F, 1.5F, -3.5F));
         return TexturedModelData.of(modelData, 256, 256);
+    }
+
+    @Override
+    public void setAngles(ShelobiteScuttlerRenderState state) {
+        super.setAngles(state);
+
+        this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.5F, 2.5F);
+        this.biteAnimation.apply(state.walkAnimationState, state.age, 1.25f);
     }
 }

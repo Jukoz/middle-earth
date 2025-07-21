@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 
 import java.util.Map;
 
-public class MirkwoodSpiderRenderer extends MobEntityRenderer<MirkwoodSpiderEntity, MirkwoodSpiderEntityRenderState, MirkwoodSpiderModel> {
+public class MirkwoodSpiderRenderer extends MobEntityRenderer<MirkwoodSpiderEntity, ShelobiteScuttlerRenderState, MirkwoodSpiderModel> {
     private static final String PATH = "textures/entities/spiders/";
 
     public MirkwoodSpiderRenderer(EntityRendererFactory.Context context) {
@@ -20,31 +20,24 @@ public class MirkwoodSpiderRenderer extends MobEntityRenderer<MirkwoodSpiderEnti
     }
 
     @Override
-    public MirkwoodSpiderEntityRenderState createRenderState() {
-        return new MirkwoodSpiderEntityRenderState();
+    public ShelobiteScuttlerRenderState createRenderState() {
+        return new ShelobiteScuttlerRenderState();
     }
 
     protected MirkwoodSpiderRenderer(EntityRendererFactory.Context ctx, float shadowRadius, EntityModelLayer layer) {
         super(ctx, new MirkwoodSpiderModel(ctx.getPart(layer)), shadowRadius);
     }
 
-    public static final Map<MirkwoodSpiderVariants, String> LOCATION_BY_VARIANT =
-            Util.make(Maps.newEnumMap(MirkwoodSpiderVariants.class), (resourceLocation) -> {
-                resourceLocation.put(MirkwoodSpiderVariants.BLACK,
-                        PATH + "mirkwood_shelobite_scuttler.png");
-                resourceLocation.put(MirkwoodSpiderVariants.BROWN,
-                        PATH + "mirkwood_shelobite_scuttler.png");
-                resourceLocation.put(MirkwoodSpiderVariants.DARK_GREEN,
-                        PATH + "mirkwood_shelobite_scuttler.png");
-            });
 
     @Override
-    public Identifier getTexture(MirkwoodSpiderEntityRenderState state) {
-        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(state.variant));
+    public Identifier getTexture(ShelobiteScuttlerRenderState state) {
+        return Identifier.of(MiddleEarth.MOD_ID, PATH + "mirkwood_shelobite_scuttler.png");
     }
 
-    public void updateRenderState(MirkwoodSpiderEntity mirkwoodSpiderEntity, MirkwoodSpiderEntityRenderState mirkwoodSpiderEntityRenderState, float f) {
-        super.updateRenderState(mirkwoodSpiderEntity, mirkwoodSpiderEntityRenderState, f);
-        mirkwoodSpiderEntityRenderState.variant = mirkwoodSpiderEntity.getVariant();
+    public void updateRenderState(MirkwoodSpiderEntity shelobiteScuttlerEntity, ShelobiteScuttlerRenderState shelobiteScuttlerEntityRenderState, float f) {
+        super.updateRenderState(shelobiteScuttlerEntity, shelobiteScuttlerEntityRenderState, f);
+        shelobiteScuttlerEntityRenderState.idleAnimationState.copyFrom(shelobiteScuttlerEntity.idleAnimation);
+        shelobiteScuttlerEntityRenderState.walkAnimationState.copyFrom(shelobiteScuttlerEntity.walkingAnimation);
+        shelobiteScuttlerEntityRenderState.biteAnimationState.copyFrom(shelobiteScuttlerEntity.biteAnimation);
     }
 }
