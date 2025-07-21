@@ -573,9 +573,7 @@ public class WeaponItemsME {
 
     //region TROLL WEAPONS
     public static final Item TROLL_MACE = registerItemNoModel("troll_mace",
-            (settings) -> new TrollWeaponItem(ModToolMaterials.BURZUM_STEEL, settings
-                    .component(DataComponentTypesME.ARTISAN_DATA, new ArtisanDataComponent(UUID.fromString("fc1d52a6-e9ef-4ad9-960d-a1d65d17d453"))
-            )));
+            (settings) -> new TrollWeaponItem(ModToolMaterials.BURZUM_STEEL, settings));
     //endregion
 
     //region ARTEFACTS
