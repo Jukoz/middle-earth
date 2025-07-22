@@ -801,6 +801,27 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createMetalsRecipe(exporter, ResourceItemsME.STEEL_NUGGET, ResourceItemsME.STEEL_INGOT, ModBlocks.STEEL_BLOCK);
                 createMetalsRecipe(exporter, ResourceItemsME.EDHEL_STEEL_NUGGET, ResourceItemsME.EDHEL_STEEL_INGOT, ModBlocks.EDHEL_STEEL_BLOCK);
                 createMetalsRecipe(exporter, ResourceItemsME.KHAZAD_STEEL_NUGGET, ResourceItemsME.KHAZAD_STEEL_INGOT, ModBlocks.KHAZAD_STEEL_BLOCK);
+
+                createFilledRecipe(exporter, ResourceItemsME.ADAMANT, ModBlocks.ADAMANT_BLOCK, 1);
+                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.ADAMANT, 9)
+                        .input(ModBlocks.ADAMANT_BLOCK)
+                        .criterion(hasItem(ModBlocks.ADAMANT_BLOCK),
+                                conditionsFromItem(ModBlocks.ADAMANT_BLOCK))
+                        .offerTo(exporter);
+
+                createFilledRecipe(exporter, ResourceItemsME.RUBY, ModBlocks.RUBY_BLOCK, 1);
+                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.RUBY, 9)
+                        .input(ModBlocks.RUBY_BLOCK)
+                        .criterion(hasItem(ModBlocks.RUBY_BLOCK),
+                                conditionsFromItem(ModBlocks.RUBY_BLOCK))
+                        .offerTo(exporter);
+
+                createFilledRecipe(exporter, ResourceItemsME.SAPPHIRE, ModBlocks.SAPPHIRE_BLOCK, 1);
+                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.SAPPHIRE, 9)
+                        .input(ModBlocks.SAPPHIRE_BLOCK)
+                        .criterion(hasItem(ModBlocks.SAPPHIRE_BLOCK),
+                                conditionsFromItem(ModBlocks.SAPPHIRE_BLOCK))
+                        .offerTo(exporter);
                 //endregion
 
                 //region SEEDS

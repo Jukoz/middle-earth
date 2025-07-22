@@ -662,6 +662,13 @@ public class ModBlocks {
     public static final Block CUT_SILVER_VERTICAL_SLAB = registerMiscBlock("cut_silver_vertical_slab",
             VerticalSlabBlock::new, AbstractBlock.Settings.copy(ModBlocks.CUT_SILVER_SLAB),true);
 
+    public static final Block ADAMANT_BLOCK = registerMiscBlock("adamant_block",
+            Block::new, AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).strength(6f).requiresTool(),true);
+    public static final Block RUBY_BLOCK = registerMiscBlock("ruby_block",
+            Block::new, AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).strength(6f).requiresTool(),true);
+    public static final Block SAPPHIRE_BLOCK = registerMiscBlock("sapphire_block",
+            Block::new, AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).strength(6f).requiresTool(),true);
+
     public static final Block QUARTZ_BLOCK = registerMiscBlock("quartz_block",
             AmethystBlock::new,AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK), true);
     public static final Block QUARTZ_CLUSTER = registerMiscBlock("quartz_cluster",

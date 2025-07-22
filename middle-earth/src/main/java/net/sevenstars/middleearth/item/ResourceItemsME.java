@@ -98,6 +98,12 @@ public class ResourceItemsME {
     public static final Item MITHRIL_NUGGET = registerItem("mithril_nugget",
             Item::new, new Item.Settings().fireproof());
 
+    public static final Item ADAMANT = registerItem("adamant",
+            Item::new, new Item.Settings());
+    public static final Item RUBY = registerItem("ruby",
+            Item::new, new Item.Settings());
+    public static final Item SAPPHIRE = registerItem("sapphire",
+            Item::new, new Item.Settings());
 
     public static final Item RED_AGATE_SHARD = registerItem("red_agate_shard",
             Item::new, new Item.Settings());

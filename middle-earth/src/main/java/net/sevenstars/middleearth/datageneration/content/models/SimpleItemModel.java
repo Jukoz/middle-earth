@@ -145,6 +145,10 @@ public class SimpleItemModel {
             add(ResourceItemsME.MITHRIL_INGOT);
             add(ResourceItemsME.MITHRIL_NUGGET);
 
+            add(ResourceItemsME.ADAMANT);
+            add(ResourceItemsME.RUBY);
+            add(ResourceItemsME.SAPPHIRE);
+
             add(ResourceItemsME.PEBBLE);
             add(ResourceItemsME.PINECONE);
             add(ResourceItemsME.LIT_PINECONE);
