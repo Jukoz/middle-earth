@@ -115,8 +115,11 @@ public class CavesConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SILVER = registerKey("ore_silver");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_JADE = registerKey("ore_jade");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GOLD = registerKey("ore_gold");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_EMERALD = registerKey("ore_emerald");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_MITHRIL = registerKey("ore_mithril");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_ADAMANT = registerKey("ore_adamant");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_EMERALD = registerKey("ore_emerald");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_RUBY = registerKey("ore_ruby");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SAPPHIRE = registerKey("ore_sapphire");
     // endregion
 
     // region MUSHROOMS
@@ -480,9 +483,11 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_JADE, Feature.ORE, new OreFeatureConfig(jadeList, 16, 0.5f));
         ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, Feature.ORE, new OreFeatureConfig(goldList, 5, 0.42f));
         ConfiguredFeatures.register(featureRegisterable, ORE_GOLD_GREEN_TUFF, Feature.SCATTERED_ORE, new OreFeatureConfig(greenTuffTest, Blocks.RAW_GOLD_BLOCK.getDefaultState(), 1, 1.0f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_EMERALD, Feature.ORE, new OreFeatureConfig(emeraldList, 3, 0.6f));
         ConfiguredFeatures.register(featureRegisterable, ORE_MITHRIL, Feature.SCATTERED_ORE, new OreFeatureConfig(medgonTest, OreRockSets.MEDGON.mithril_ore().getDefaultState(), 1, 1.0f));
-
+        ConfiguredFeatures.register(featureRegisterable, ORE_ADAMANT, Feature.SCATTERED_ORE, new OreFeatureConfig(medgonTest, OreRockSets.MEDGON.adamant_ore().getDefaultState(), 2, 0.75f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_EMERALD, Feature.SCATTERED_ORE, new OreFeatureConfig(medgonTest, OreRockSets.MEDGON.emerald_ore().getDefaultState(), 2, 0.75f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_RUBY, Feature.SCATTERED_ORE, new OreFeatureConfig(medgonTest, OreRockSets.MEDGON.ruby_ore().getDefaultState(), 2, 0.75f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SAPPHIRE, Feature.SCATTERED_ORE, new OreFeatureConfig(medgonTest, OreRockSets.MEDGON.sapphire_ore().getDefaultState(), 2, 0.75f));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_CAVE_AMANITA, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,

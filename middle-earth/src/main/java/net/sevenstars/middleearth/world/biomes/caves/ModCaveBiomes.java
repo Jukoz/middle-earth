@@ -408,7 +408,10 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.ORE_SILVER);
         undergroundOres.add(CavesPlacedFeatures.ORE_JADE);
         undergroundOres.add(CavesPlacedFeatures.ORE_GOLD);
+        undergroundOres.add(CavesPlacedFeatures.ORE_ADAMANT);
         undergroundOres.add(CavesPlacedFeatures.ORE_EMERALD);
+        undergroundOres.add(CavesPlacedFeatures.ORE_RUBY);
+        undergroundOres.add(CavesPlacedFeatures.ORE_SAPPHIRE);
         undergroundOres.add(CavesPlacedFeatures.SPRING_LAVA);
         undergroundOres.add(MiscPlacedFeatures.SPRING_WATER);
 
