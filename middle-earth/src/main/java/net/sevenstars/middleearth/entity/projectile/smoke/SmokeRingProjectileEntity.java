@@ -3,8 +3,6 @@ package net.sevenstars.middleearth.entity.projectile.smoke;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.server.world.ServerWorld;
@@ -18,7 +16,6 @@ import net.sevenstars.middleearth.utils.ModCollisionUtils;
 
 public class SmokeRingProjectileEntity extends ProjectileEntity {
     public static final int MAX_LIFESPAN_TICKS = 40;
-    public static final int DEBUFF_EFFECT_DURATION_TICKS = 40;
 
     private static final double INITIAL_SPEED = 0.5;
     private static final double ENTITY_BOX_EXPANSION = 1.0;
@@ -55,9 +52,6 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
     @Override
     protected void onEntityHit(EntityHitResult hitResult) {
         super.onEntityHit(hitResult);
-
-        Entity target = hitResult.getEntity();
-        applySmokeRingEffectToTarget(target);
     }
 
     @Override
@@ -141,15 +135,5 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
                 this.getVelocity(),
                 this,
                 this::onCollision);
-    }
-
-    private void applySmokeRingEffectToTarget(Entity target) {
-        if (target instanceof LivingEntity livingTarget) {
-            livingTarget.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS,
-                    DEBUFF_EFFECT_DURATION_TICKS,
-                    0,
-                    false,
-                    true));
-        }
     }
 }

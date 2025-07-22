@@ -198,18 +198,6 @@ public class PipeItem extends Item {
                     player,
                     ModSounds.PIPE_COUGH,
                     SoundCategory.PLAYERS);
-
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS,
-                    BLINDNESS_DEBUFF_DURATION_TICKS,
-                    0,
-                    false,
-                    true));
-
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA,
-                    NAUSEA_DEBUFF_DURATION_TICKS,
-                    0,
-                    false,
-                    true));
         }
     }
 
