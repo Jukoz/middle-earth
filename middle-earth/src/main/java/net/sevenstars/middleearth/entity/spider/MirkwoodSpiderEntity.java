@@ -51,7 +51,6 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     );
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULE_TYPES = ImmutableList.of(
             MemoryModuleType.LOOK_TARGET,
-            MemoryModuleType.DOORS_TO_CLOSE,
             MemoryModuleType.MOBS,
             MemoryModuleType.VISIBLE_MOBS,
             MemoryModuleType.NEAREST_VISIBLE_PLAYER,
@@ -66,7 +65,9 @@ public class MirkwoodSpiderEntity extends HostileEntity {
             MemoryModuleType.PATH,
             MemoryModuleType.ANGRY_AT,
             MemoryModuleType.NEAREST_VISIBLE_NEMESIS,
-            MemoryModuleType.HOME
+            MemoryModuleType.HOME,
+            MemoryModuleType.LONG_JUMP_COOLING_DOWN,
+            MemoryModuleType.LONG_JUMP_MID_JUMP
     );
 
     public final AnimationState idleAnimation = new AnimationState();
