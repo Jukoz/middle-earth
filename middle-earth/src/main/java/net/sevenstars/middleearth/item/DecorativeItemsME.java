@@ -63,8 +63,11 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.ORCISH_TREATED_ANVIL, settings), new Item.Settings());
     public static final Item BELLOWS = registerItem("bellows",
             (settings) -> new BlockItem(ModDecorativeBlocks.BELLOWS, settings), new Item.Settings());
+
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",
             (settings) -> new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, settings), new Item.Settings());
+    public static final Item INSCRIPTION_TABLE = registerItem("inscription_table",
+            (settings) -> new BlockItem(ModDecorativeBlocks.INSCRIPTION_TABLE, settings), new Item.Settings());
 
     public static final Item STRUCTURE_MANAGER = registerItem("structure_manager",
             (settings) -> new BlockItem(ModDecorativeBlocks.STRUCTURE_MANAGER, settings), new Item.Settings());

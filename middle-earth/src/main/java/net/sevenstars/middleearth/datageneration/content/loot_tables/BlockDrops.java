@@ -92,6 +92,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.ELVEN_FORGE);
             add(ModDecorativeBlocks.ORCISH_FORGE);
 
+            add(ModDecorativeBlocks.INSCRIPTION_TABLE);
+
             add(ModDecorativeBlocks.REINFORCED_CHEST);
 
             add(ModDecorativeBlocks.BIG_BRAZIER);
