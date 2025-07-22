@@ -88,6 +88,9 @@ public class BlockDrops {
             add(ModNatureBlocks.WHITE_PALM_SAPLING);
 
             add(ModDecorativeBlocks.FORGE);
+            add(ModDecorativeBlocks.DWARVEN_FORGE);
+            add(ModDecorativeBlocks.ELVEN_FORGE);
+            add(ModDecorativeBlocks.ORCISH_FORGE);
 
             add(ModDecorativeBlocks.REINFORCED_CHEST);
 

@@ -1,5 +1,10 @@
 package net.sevenstars.middleearth.block.special.bellows;
 
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlockEntities;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
@@ -51,7 +56,7 @@ public class BellowsBlockEntity extends BlockEntity {
             if (!world.isClient){
                 if(blockEntity.activate(direction)){
                     BlockPos forgePos = pos.offset(state.get(BellowsBlock.FACING));
-                    if(world.getBlockState(forgePos).getBlock() == ModDecorativeBlocks.FORGE) {
+                    if(world.getBlockState(forgePos).isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "forge")))) {
                         ForgeBlockEntity forgeBlockEntity = (ForgeBlockEntity) world.getBlockEntity(forgePos);
                         if(forgeBlockEntity != null) {
                             forgeBlockEntity.bellowsBoost();
