@@ -1,9 +1,5 @@
 package net.sevenstars.middleearth.gui.inscriptiontable;
 
-import com.google.common.collect.Lists;
-import com.mojang.authlib.GameProfile;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -12,8 +8,6 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.ServerRecipeManager;
-import net.minecraft.screen.Property;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
@@ -23,17 +17,12 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableInputsShape;
+import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableSlot;
-import net.sevenstars.middleearth.gui.artisantable.InputType;
-import net.sevenstars.middleearth.gui.forge.ForgeSlot;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
-import net.sevenstars.middleearth.recipe.ModRecipes;
-import net.sevenstars.middleearth.resources.datas.Disposition;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,6 +37,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     Runnable contentsChangedListener;
     public final Inventory input;
     final CraftingResultInventory output;
+    final Slot outputSlot;
     private PlayerEntity playerEntity;
     private ArtisanTableInputsShape inputsShape = null;
 
@@ -70,7 +60,37 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(this.input, 5, 27, 45));
         this.addSlot(new Slot(this.input, 6, 27, 25));
 
-        this.addSlot(new Slot(this.input, 7, 129, 35));
+        this.outputSlot = this.addSlot(new Slot(this.input, 7, 129, 35) {
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return false;
+            }
+
+            @Override
+            public void onTakeItem(PlayerEntity player, ItemStack itemStack) {
+                itemStack.onCraftByPlayer(player, itemStack.getCount());
+
+                for(int y = 0; y < 6; y++) {
+                    slots.forEach(slot -> {
+                        slot.takeStack(1);
+                    });
+                }
+
+                long l = world.getTime();
+                if (InscriptionTableScreenHandler.this.lastTakeTime != l) {
+                    world.playSound(null, (BlockPos)player.getBlockPos(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                    InscriptionTableScreenHandler.this.lastTakeTime = l;
+                }
+
+                super.onTakeItem(player, itemStack);
+            }
+
+            private List<ItemStack> getInputStacks() {
+                return Arrays.stream(inputSlots)
+                        .flatMap(slots -> Arrays.stream(slots).map(Slot::getStack))
+                        .collect(Collectors.toList());
+            }
+        });
 
         this.output = new CraftingResultInventory();
         this.context = context;
