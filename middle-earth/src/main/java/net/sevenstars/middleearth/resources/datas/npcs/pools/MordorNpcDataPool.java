@@ -88,22 +88,22 @@ public class MordorNpcDataPool {
                                     NpcTextureMaterialsME.Skin.OLIVE
                             ))
                             .withPatterns(NpcTextureType.BODY, List.of(
-                                    NpcTexturePatternsME.Body.MUSCULAR
+                                    NpcTexturePatternsME.Skins.Body.MUSCULAR
                             ))
                             .withPatterns(NpcTextureType.HEAD, List.of(
-                                    NpcTexturePatternsME.Head.MALE
+                                    NpcTexturePatternsME.Skins.Head.MALE
                             ))
                             .withPatterns(NpcTextureType.SCAR, List.of(
-                                    NpcTexturePatternsME.Scar.EYE_RIGHT
+                                    NpcTexturePatternsME.Skins.Scar.EYE_RIGHT
                             ))
                             .withPatterns(NpcTextureType.EAR, List.of(
-                                    NpcTexturePatternsME.Ear.FLAT_POINTY
+                                    NpcTexturePatternsME.Skins.Ear.WIDE_POINTY
                             ))
                             .withMaterials(NpcTextureType.EYE, List.of(
                                     NpcTextureMaterialsME.Eye.BROWN
                             ))
                             .withPatterns(NpcTextureType.EYE, List.of(
-                                    NpcTexturePatternsME.Eye.COMMON
+                                    NpcTexturePatternsME.Eyes.Eye.COMMON
                             ))
                             .withMaterials(NpcTextureType.HAIR, List.of(
                                     NpcTextureMaterialsME.Hair.BROWN_ALMANDINE,
@@ -114,23 +114,23 @@ public class MordorNpcDataPool {
                                     NpcTextureMaterialsME.Hair.BLACK_ALMANDINE
                             ))
                             .withPatterns(NpcTextureType.EYEBROW, List.of(
-                                    NpcTexturePatternsME.Eyebrow.UNI,
-                                    NpcTexturePatternsME.Eyebrow.BASIC,
-                                    NpcTexturePatternsME.Eyebrow.SHORT
+                                    NpcTexturePatternsME.Hairs.Eyebrow.UNI,
+                                    NpcTexturePatternsME.Hairs.Eyebrow.BASIC,
+                                    NpcTexturePatternsME.Hairs.Eyebrow.SHORT
                             ))
                             .withPatterns(NpcTextureType.HAIR, Stream.of(
-                                    NpcTexturePatternsME.Hair.BOWL,
-                                    NpcTexturePatternsME.Hair.BALD_SIDES,
-                                    NpcTexturePatternsME.Hair.DIRTY_MOP,
-                                    NpcTexturePatternsME.Hair.SHORT,
-                                    NpcTexturePatternsME.Hair.TOP_BALDING,
-                                    NpcTexturePatternsME.Hair.SIDE_BALDING,
+                                    NpcTexturePatternsME.Hairs.Hair.BOWL,
+                                    NpcTexturePatternsME.Hairs.Hair.BALD_SIDES,
+                                    NpcTexturePatternsME.Hairs.Hair.DIRTY_MOP,
+                                    NpcTexturePatternsME.Hairs.Hair.SHORT,
+                                    NpcTexturePatternsME.Hairs.Hair.TOP_BALDING,
+                                    NpcTexturePatternsME.Hairs.Hair.SIDE_BALDING,
                                     null).toList()
                             )
                             .withPatterns(NpcTextureType.BEARD, Stream.of(
-                                    NpcTexturePatternsME.Beard.CLEAN,
-                                    NpcTexturePatternsME.Beard.SHORT,
-                                    NpcTexturePatternsME.Beard.UNCLEAN_ORNAMENTED,
+                                    NpcTexturePatternsME.Hairs.Beard.CLEAN,
+                                    NpcTexturePatternsME.Hairs.Beard.SHORT,
+                                    NpcTexturePatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
                                     null).toList()
                             )
                             .withMaterials(NpcTextureType.CLOTHING, List.of(
@@ -149,14 +149,14 @@ public class MordorNpcDataPool {
                                     NpcTextureMaterialsME.Skin.OLIVE
                             ))
                             .withPatterns(NpcTextureType.BODY, List.of(
-                                    NpcTexturePatternsME.Body.SLIM,
-                                    NpcTexturePatternsME.Body.FEMALE
+                                    NpcTexturePatternsME.Skins.Body.SLIM,
+                                    NpcTexturePatternsME.Skins.Body.FEMALE
                             ))
                             .withPatterns(NpcTextureType.HEAD, List.of(
-                                    NpcTexturePatternsME.Head.FEMALE
+                                    NpcTexturePatternsME.Skins.Head.FEMALE
                             ))
                             .withPatterns(NpcTextureType.EAR, List.of(
-                                    NpcTexturePatternsME.Ear.FLAT_POINTY
+                                    NpcTexturePatternsME.Skins.Ear.LARGE_POINTY
                             ))
                             .withMaterials(NpcTextureType.EYE, List.of(
                                     NpcTextureMaterialsME.Eye.BLUE,
@@ -166,7 +166,7 @@ public class MordorNpcDataPool {
                                     NpcTextureMaterialsME.Eye.BROWN
                             ))
                             .withPatterns(NpcTextureType.EYE, List.of(
-                                    NpcTexturePatternsME.Eye.COMMON
+                                    NpcTexturePatternsME.Eyes.Eye.COMMON
                             ))
                             .withMaterials(NpcTextureType.HAIR, List.of(
                                     NpcTextureMaterialsME.Hair.BROWN_ALMANDINE,
@@ -174,13 +174,13 @@ public class MordorNpcDataPool {
                                     NpcTextureMaterialsME.Hair.BLACK_ALMANDINE
                             ))
                             .withPatterns(NpcTextureType.EYEBROW, List.of(
-                                    NpcTexturePatternsME.Eyebrow.BASIC,
-                                    NpcTexturePatternsME.Eyebrow.SHORT
+                                    NpcTexturePatternsME.Hairs.Eyebrow.BASIC,
+                                    NpcTexturePatternsME.Hairs.Eyebrow.SHORT
                             ))
                             .withPatterns(NpcTextureType.HAIR, List.of(
-                                    NpcTexturePatternsME.Hair.LONG,
-                                    NpcTexturePatternsME.Hair.FLAT_LONG,
-                                    NpcTexturePatternsME.Hair.DIRTY_MOP
+                                    NpcTexturePatternsME.Hairs.Hair.LONG,
+                                    NpcTexturePatternsME.Hairs.Hair.FLAT_LONG,
+                                    NpcTexturePatternsME.Hairs.Hair.DIRTY_MOP
                             ))
                             .withMaterials(NpcTextureType.CLOTHING, List.of(
                                     NpcTextureMaterialsME.Clothing.WHITE,
@@ -244,25 +244,25 @@ public class MordorNpcDataPool {
                                     NpcTextureMaterialsME.Skin.BROWN
                             ))
                             .withPatterns(NpcTextureType.BODY, List.of(
-                                    NpcTexturePatternsME.Body.MUSCULAR
+                                    NpcTexturePatternsME.Skins.Body.MUSCULAR
                             ))
                             .withPatterns(NpcTextureType.HEAD, List.of(
-                                    NpcTexturePatternsME.Head.GOBLIN_SMALL,
-                                    NpcTexturePatternsME.Head.GOBLIN_SMALL_THICK_BROW,
-                                    NpcTexturePatternsME.Head.GOBLIN_SMALL_WISE,
-                                    NpcTexturePatternsME.Head.GOBLIN_SMALL_VERY_WIDE
+                                    NpcTexturePatternsME.Skins.Head.GOBLIN_SMALL,
+                                    NpcTexturePatternsME.Skins.Head.GOBLIN_SMALL_THICK_BROW,
+                                    NpcTexturePatternsME.Skins.Head.GOBLIN_SMALL_WISE,
+                                    NpcTexturePatternsME.Skins.Head.GOBLIN_SMALL_VERY_WIDE
                             ))
                             .withPatterns(NpcTextureType.EAR, List.of(
-                                    NpcTexturePatternsME.Ear.FLAT_POINTY,
-                                    NpcTexturePatternsME.Ear.FLAT_ROUND,
-                                    NpcTexturePatternsME.Ear.FLAT_SMALL
+                                    NpcTexturePatternsME.Skins.Ear.SQUARE_POINTY,
+                                    NpcTexturePatternsME.Skins.Ear.WIDE_POINTY,
+                                    NpcTexturePatternsME.Skins.Ear.LARGE_POINTY
                             ))
                             .withMaterials(NpcTextureType.EYE, List.of(
                                     NpcTextureMaterialsME.Eye.YELLOW
                             ))
                             .withEmissiveEyes(true)
                             .withPatterns(NpcTextureType.EYE, List.of(
-                                    NpcTexturePatternsME.Eye.SMALL_LOW_WIDE
+                                    NpcTexturePatternsME.Eyes.Eye.SMALL_LOW_WIDE
                             ))
                             .withMaterials(NpcTextureType.HAIR, List.of(
                                     NpcTextureMaterialsME.Hair.BROWN_ALMANDINE,
@@ -273,14 +273,14 @@ public class MordorNpcDataPool {
                                     NpcTextureMaterialsME.Hair.BLACK_BEADS
                             ))
                             .withPatterns(NpcTextureType.HAIR, Stream.of(
-                                    NpcTexturePatternsME.Hair.BALD_SIDES,
-                                    NpcTexturePatternsME.Hair.DIRTY_MOP,
-                                    NpcTexturePatternsME.Hair.BALD_SMALL_DREADLOCKS,
-                                    NpcTexturePatternsME.Hair.PONYTAIL_SHORT_ORNAMENTED,
-                                    NpcTexturePatternsME.Hair.BALD_DREADLOCKS_ORNAMENTED,
-                                    NpcTexturePatternsME.Hair.UNCUT,
-                                    NpcTexturePatternsME.Hair.TOP_BALDING,
-                                    NpcTexturePatternsME.Hair.SIDE_BALDING,
+                                    NpcTexturePatternsME.Hairs.Hair.BALD_SIDES,
+                                    NpcTexturePatternsME.Hairs.Hair.DIRTY_MOP,
+                                    NpcTexturePatternsME.Hairs.Hair.BALD_SMALL_DREADLOCKS,
+                                    NpcTexturePatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED,
+                                    NpcTexturePatternsME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED,
+                                    NpcTexturePatternsME.Hairs.Hair.UNCUT,
+                                    NpcTexturePatternsME.Hairs.Hair.TOP_BALDING,
+                                    NpcTexturePatternsME.Hairs.Hair.SIDE_BALDING,
                                     null).toList()
                             )
                             .withMaterials(NpcTextureType.CLOTHING, List.of(
@@ -300,25 +300,25 @@ public class MordorNpcDataPool {
                                     NpcTextureMaterialsME.Skin.BROWN
                             ))
                             .withPatterns(NpcTextureType.BODY, List.of(
-                                    NpcTexturePatternsME.Body.SLIM
+                                    NpcTexturePatternsME.Skins.Body.SLIM
                             ))
                             .withPatterns(NpcTextureType.HEAD, List.of(
-                                    NpcTexturePatternsME.Head.GOBLIN_SMALL,
-                                    NpcTexturePatternsME.Head.GOBLIN_SMALL_THICK_BROW,
-                                    NpcTexturePatternsME.Head.GOBLIN_SMALL_WISE,
-                                    NpcTexturePatternsME.Head.GOBLIN_SMALL_VERY_WIDE
+                                    NpcTexturePatternsME.Skins.Head.GOBLIN_SMALL,
+                                    NpcTexturePatternsME.Skins.Head.GOBLIN_SMALL_THICK_BROW,
+                                    NpcTexturePatternsME.Skins.Head.GOBLIN_SMALL_WISE,
+                                    NpcTexturePatternsME.Skins.Head.GOBLIN_SMALL_VERY_WIDE
                             ))
                             .withPatterns(NpcTextureType.EAR, List.of(
-                                    NpcTexturePatternsME.Ear.FLAT_POINTY,
-                                    NpcTexturePatternsME.Ear.FLAT_ROUND,
-                                    NpcTexturePatternsME.Ear.FLAT_SMALL
+                                    NpcTexturePatternsME.Skins.Ear.POINTY,
+                                    NpcTexturePatternsME.Skins.Ear.WIDE_POINTY,
+                                    NpcTexturePatternsME.Skins.Ear.LARGE_POINTY
                             ))
                             .withMaterials(NpcTextureType.EYE, List.of(
                                     NpcTextureMaterialsME.Eye.YELLOW
                             ))
                             .withEmissiveEyes(true)
                             .withPatterns(NpcTextureType.EYE, List.of(
-                                    NpcTexturePatternsME.Eye.SMALL_LOW_WIDE
+                                    NpcTexturePatternsME.Eyes.Eye.SMALL_LOW_WIDE
                             ))
                             .withMaterials(NpcTextureType.HAIR, List.of(
                                     NpcTextureMaterialsME.Hair.BROWN_ALMANDINE,
@@ -329,14 +329,14 @@ public class MordorNpcDataPool {
                                     NpcTextureMaterialsME.Hair.BLACK_BEADS
                             ))
                             .withPatterns(NpcTextureType.HAIR, Stream.of(
-                                    NpcTexturePatternsME.Hair.BALD_SIDES,
-                                    NpcTexturePatternsME.Hair.DIRTY_MOP,
-                                    NpcTexturePatternsME.Hair.BALD_SMALL_DREADLOCKS,
-                                    NpcTexturePatternsME.Hair.PONYTAIL_SHORT_ORNAMENTED,
-                                    NpcTexturePatternsME.Hair.BALD_DREADLOCKS_ORNAMENTED,
-                                    NpcTexturePatternsME.Hair.UNCUT,
-                                    NpcTexturePatternsME.Hair.TOP_BALDING,
-                                    NpcTexturePatternsME.Hair.SIDE_BALDING).toList()
+                                    NpcTexturePatternsME.Hairs.Hair.BALD_SIDES,
+                                    NpcTexturePatternsME.Hairs.Hair.DIRTY_MOP,
+                                    NpcTexturePatternsME.Hairs.Hair.BALD_SMALL_DREADLOCKS,
+                                    NpcTexturePatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED,
+                                    NpcTexturePatternsME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED,
+                                    NpcTexturePatternsME.Hairs.Hair.UNCUT,
+                                    NpcTexturePatternsME.Hairs.Hair.TOP_BALDING,
+                                    NpcTexturePatternsME.Hairs.Hair.SIDE_BALDING).toList()
                             )
                             .withMaterials(NpcTextureType.CLOTHING, List.of(
                                     NpcTextureMaterialsME.Clothing.BROWN,

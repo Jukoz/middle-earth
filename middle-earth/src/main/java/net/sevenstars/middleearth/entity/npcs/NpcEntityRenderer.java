@@ -173,8 +173,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
                         id = Identifier.of(state.hairId.getNamespace(), "npc_hair_textures/" + state.hairId.getPath());
                         vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
                         sprite = hairAtlasTexture.getSprite(id);
-                        break;
                     }
+                    break;
                 case 6:
                     if(state.beardId != null){
                         id = Identifier.of(state.beardId.getNamespace(), "npc_hair_textures/" + state.beardId.getPath());

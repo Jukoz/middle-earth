@@ -11,6 +11,7 @@ public class HairModel extends EntityModel<NpcEntityRenderState> {
     public final ModelPart hair;
     public final ModelPart hairBase;
     public final ModelPart hairHat;
+    public final ModelPart largeBeard;
 
     public HairModel(ModelPart modelPart) {
         super(modelPart);
@@ -18,6 +19,7 @@ public class HairModel extends EntityModel<NpcEntityRenderState> {
         this.hair = modelPart.getChild("hair");
         this.hairBase = hair.getChild("hairBase");
         this.hairHat = hair.getChild("hairHat");
+        this.largeBeard = hair.getChild("largeBeard");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -27,7 +29,7 @@ public class HairModel extends EntityModel<NpcEntityRenderState> {
         ModelPartData hairGroup = modelPartData.addChild("hair", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         hairGroup.addChild("hairBase", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0f, 0f, -4.0f, 8, 11, 8, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         hairGroup.addChild("hairHat", ModelPartBuilder.create().uv(32, 0).cuboid(-4.0f, 1f, -4f, 8, 11, 8, Dilation.NONE.add(0.5f)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-
+        hairGroup.addChild("largeBeard", ModelPartBuilder.create().uv(41, 42).cuboid(-5.5F, -1.5F, -4.1F,12.0F, 23.0F, -0.6F, Dilation.NONE.add(0.3f)), ModelTransform.NONE);
         return TexturedModelData.of(modelData, 64, 64);
     }
 

@@ -1,19 +1,20 @@
 package net.sevenstars.middleearth.resources.datas.npcs.pools;
 
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
-import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -79,7 +80,10 @@ public class EreborNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
+            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
+        }}));
 
         EREBOR_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), RacesME.DWARF, List.of(
                 NpcGearData.create()
@@ -107,7 +111,10 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.HEATER_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
+            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
+        }}));
 
         EREBOR_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "soldier"), RacesME.DWARF, List.of(
                 NpcGearData.create()
@@ -147,7 +154,10 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.HEATER_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
+            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
+        }}));
 
         EREBOR_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "archer"), RacesME.DWARF, List.of(
                 NpcGearData.create()
@@ -180,7 +190,10 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_BOW).withWeight(3))
                                 .add(NpcGearItemData.create(Items.BOW))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
+            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
+        }}));
 
         EREBOR_ELITE = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "elite"), RacesME.DWARF, List.of(
                 NpcGearData.create()
@@ -219,7 +232,10 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_CROSS_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(5))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
+            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
+        }}));
 
         EREBOR_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "veteran"), RacesME.DWARF, List.of(
                 NpcGearData.create()
@@ -249,7 +265,10 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_REINFORCED_TOWER_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_REINFORCED_SHIELD).withWeight(5))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
+            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
+        }}));
 
         EREBOR_GATEWARDEN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "gatewarden"), RacesME.DWARF, List.of(
                 NpcGearData.create()
@@ -277,7 +296,10 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_REINFORCED_TOWER_SHIELD).withWeight(3))
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_BUCKLER_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
+            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
+        }}));
 
         EREBOR_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "leader"), RacesME.DWARF, List.of(
                 NpcGearData.create()
@@ -305,6 +327,9 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_ORNAMENTED_TOWER_SHIELD).withWeight(3))
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_BUCKLER_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
+            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
+        }}));
     }
 }

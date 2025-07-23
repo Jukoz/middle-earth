@@ -1,8 +1,12 @@
 package net.sevenstars.middleearth.block.special.structureManager;
 
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
@@ -29,6 +33,11 @@ public class StructureManagerService {
         }
         if(chosenBlockPos == null)
             chosenBlockPos = pos;
+
+        var entity = world.getRegistryManager().getOptional(RegistryKeys.ENTITY_TYPE).get().get(Identifier.of(MiddleEarth.MOD_ID, "npc")).create(world, SpawnReason.STRUCTURE);
+
+        if(entity instanceof LivingEntity livEntity){
+        }
 
         var npcEntityToSpawn = NpcEntity.create(world, chosenBlockPos)
                 .withCategory(EntityCategory.MALE)
