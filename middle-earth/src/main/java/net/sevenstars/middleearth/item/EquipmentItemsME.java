@@ -36,8 +36,14 @@ public class EquipmentItemsME {
     public static List<Item> armorPiecesListLeggings = new ArrayList<>();
     public static List<Item> armorPiecesListBoots = new ArrayList<>();
 
+    public static List<Item> basicArmors = new ArrayList<>();
+    public static List<Item> lightArmors = new ArrayList<>();
+    public static List<Item> mediumArmors = new ArrayList<>();
+    public static List<Item> sturdyArmors = new ArrayList<>();
+    public static List<Item> heavyArmors = new ArrayList<>();
+
     public static List<Item> backAttachments = new ArrayList<>();
-    public static List<Item> helmeAtttachments = new ArrayList<>();
+    public static List<Item> helmetAtttachments = new ArrayList<>();
 
     //region GENERIC
     //Hoods
@@ -319,6 +325,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent( 15256475))
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.ROHIRRIC_CAPE)));
 
+
     public static final Item ROHIRRIC_LEATHER_HELMET = registerArmorPiece("rohirric_leather_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.LEATHER_T2, settings, ModFactions.ROHAN), new Item.Settings());
     public static final Item ROHIRRIC_REINFORCED_LEATHER_HELMET = registerCustomModelArmorPiece("rohirric_reinforced_leather_helmet",
@@ -356,6 +363,7 @@ public class EquipmentItemsME {
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.IRON_T3, settings, ModFactions.ROHAN), new Item.Settings()
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(15256475))
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.ROHIRRIC_CAPE)));
+
     public static final Item ROHIRRIC_REINFORCED_LEATHER_SCALE_VEST = registerArmorPiece("rohirric_reinforced_leather_scale_vest",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.IRON_T3, settings, ModFactions.ROHAN), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.ROHIRRIC_CAPE)));
@@ -1223,7 +1231,7 @@ public class EquipmentItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
-        helmeAtttachments.add(item);
+        helmetAtttachments.add(item);
         return registerItem(item, name);
     }
 
@@ -1231,7 +1239,7 @@ public class EquipmentItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
-        helmeAtttachments.add(item);
+        helmetAtttachments.add(item);
         return registerItem(item, name);
     }
 
@@ -1262,12 +1270,13 @@ public class EquipmentItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
+        boolean isMountArmor = false;
         switch (item){
             case CustomHelmetItem helmetItem -> armorPiecesListHelmets.add(helmetItem);
             case CustomChestplateItem chestplateItem -> armorPiecesListChestplates.add(chestplateItem);
             case CustomLeggingsItem leggingsItem -> armorPiecesListLeggings.add(leggingsItem);
             case CustomBootsItem bootsItem -> armorPiecesListBoots.add(bootsItem);
-            case CustomAnimalArmorItem animalArmorItem -> {}
+            case CustomAnimalArmorItem animalArmorItem -> isMountArmor = true;
             default -> throw new IllegalStateException("Unexpected value: " + item);
         }
         return registerItem(item, name);

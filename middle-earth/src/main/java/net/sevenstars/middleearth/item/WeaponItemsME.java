@@ -40,6 +40,7 @@ public class WeaponItemsME {
      * Middle-earth mod Weapon Items registry, weapons, shields
      */
 
+    public static List<Item> spears = new ArrayList<>();
     public static List<Item> shields = new ArrayList<>();
 
     //region GENERIC
@@ -647,6 +648,7 @@ public class WeaponItemsME {
     private static Item registerItemWithSpearModel(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
+        spears.add(item);
         SimpleSpearModel.items.add(item);
         return registerItem(item, name);
     }
@@ -699,7 +701,11 @@ public class WeaponItemsME {
         TranslationEntries.itemEntries.add(item);
         if (item instanceof CustomLongswordWeaponItem || item instanceof CustomSwordWeaponItem){
             WeaponEnchants.swords.add(item);
-        } else if (!(item instanceof CustomShieldItem)){
+        } else if (item instanceof CustomDaggerWeaponItem){
+            WeaponEnchants.daggers.add(item);
+        } else if (item instanceof CustomAxeWeaponItem){
+            WeaponEnchants.axes.add(item);
+        } else if (item instanceof CustomSpearWeaponItem){
             WeaponEnchants.sharpWeapons.add(item);
         }
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);

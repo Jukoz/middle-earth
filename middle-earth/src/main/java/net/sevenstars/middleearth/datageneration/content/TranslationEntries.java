@@ -124,7 +124,19 @@ public class TranslationEntries {
             put("effect."+ MiddleEarth.MOD_ID +".hallucination", "Hallucination");
             put("effect."+ MiddleEarth.MOD_ID +".enshrouded", "Enshrouded");
 
+            put("enchantment."+ MiddleEarth.MOD_ID +".ailment_protection", "Ailment Protection");
+            put("enchantment."+ MiddleEarth.MOD_ID +".bane_of_giants", "Bane of Giants");
+            put("enchantment."+ MiddleEarth.MOD_ID +".beheading", "Beheading");
+            put("enchantment."+ MiddleEarth.MOD_ID +".celerity", "Celerity");
+            put("enchantment."+ MiddleEarth.MOD_ID +".first_strike", "First Strike");
+            put("enchantment."+ MiddleEarth.MOD_ID +".grounded", "Grounded");
             put("enchantment."+ MiddleEarth.MOD_ID +".hewing", "Hewing");
+            put("enchantment."+ MiddleEarth.MOD_ID +".high_step", "High Step");
+            put("enchantment."+ MiddleEarth.MOD_ID +".miner_reach", "Miner Reach");
+            put("enchantment."+ MiddleEarth.MOD_ID +".stealthy_trail", "Stealthy Trail");
+            put("enchantment."+ MiddleEarth.MOD_ID +".stride", "Stride");
+            put("enchantment."+ MiddleEarth.MOD_ID +".tree_feller", "Tree Feller");
+            put("enchantment."+ MiddleEarth.MOD_ID +".vantage", "Vantage");
 
             put("block."+ MiddleEarth.MOD_ID +".potted_beech_sapling", "Potted Beech Sapling");
             put("block."+ MiddleEarth.MOD_ID +".potted_chestnut_sapling", "Potted Chestnut Sapling");
