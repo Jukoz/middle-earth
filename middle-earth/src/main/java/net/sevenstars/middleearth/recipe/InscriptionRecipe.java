@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
@@ -54,13 +55,21 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
             }
         }
 
+        ItemEnchantmentsComponent enchants = input.getStackInSlot(0).getEnchantments();
+        if(enchants.getLevel(this.enchant) != this.level - 1) {
+            return false;
+        }
+
         return true;
     }
 
     @Override
     public ItemStack craft(MultipleStackRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack result = input.getStackInSlot(0).copy();
-        result.addEnchantment(this.enchant, this.level);
+        ItemEnchantmentsComponent enchants = result.getEnchantments();
+        if(enchants.getLevel(this.enchant) == this.level - 1) {
+            result.addEnchantment(this.enchant, this.level);
+        }
         return result;
     }
 
