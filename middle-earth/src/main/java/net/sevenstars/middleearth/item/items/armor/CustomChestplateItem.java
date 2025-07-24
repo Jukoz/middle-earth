@@ -22,25 +22,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class CustomChestplateItem extends Item implements EquipmentTooltipME {
+public class CustomChestplateItem extends ArmorItem implements EquipmentTooltipME {
 
     public ModFactions faction;
     public ModSubFactions subFaction;
 
-    private ExtendedArmorMaterial material;
 
     public CustomChestplateItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
-        super(settings.armor(material.material(), EquipmentType.CHESTPLATE).maxCount(1));
+        super(material, settings.armor(material.material(), EquipmentType.CHESTPLATE).maxCount(1));
 
-        this.material = material;
         this.faction = faction;
         this.subFaction = null;
     }
 
     public CustomChestplateItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
-        super(settings.armor(material.material(), EquipmentType.CHESTPLATE).maxCount(1));
+        super(material, settings.armor(material.material(), EquipmentType.CHESTPLATE).maxCount(1));
 
-        this.material = material;
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
     }
@@ -48,7 +45,7 @@ public class CustomChestplateItem extends Item implements EquipmentTooltipME {
     @Override
     public List<Text> getAdditionalShiftLines(ItemStack stack) {
         List<Text> list = new ArrayList<>(List.of());
-        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier_" + this.material.tier().toString().toLowerCase()));
+        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier_" + this.getMaterial().tier().toString().toLowerCase()));
 
         return list;
     }

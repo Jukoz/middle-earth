@@ -7,6 +7,7 @@ import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
+import net.sevenstars.middleearth.datageneration.content.tags.ArmorTags;
 import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
 import net.sevenstars.middleearth.item.items.armor.*;
@@ -35,12 +36,6 @@ public class EquipmentItemsME {
     public static List<Item> armorPiecesListChestplates = new ArrayList<>();
     public static List<Item> armorPiecesListLeggings = new ArrayList<>();
     public static List<Item> armorPiecesListBoots = new ArrayList<>();
-
-    public static List<Item> basicArmors = new ArrayList<>();
-    public static List<Item> lightArmors = new ArrayList<>();
-    public static List<Item> mediumArmors = new ArrayList<>();
-    public static List<Item> sturdyArmors = new ArrayList<>();
-    public static List<Item> heavyArmors = new ArrayList<>();
 
     public static List<Item> backAttachments = new ArrayList<>();
     public static List<Item> helmetAtttachments = new ArrayList<>();
@@ -1270,13 +1265,12 @@ public class EquipmentItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
-        boolean isMountArmor = false;
         switch (item){
             case CustomHelmetItem helmetItem -> armorPiecesListHelmets.add(helmetItem);
             case CustomChestplateItem chestplateItem -> armorPiecesListChestplates.add(chestplateItem);
             case CustomLeggingsItem leggingsItem -> armorPiecesListLeggings.add(leggingsItem);
             case CustomBootsItem bootsItem -> armorPiecesListBoots.add(bootsItem);
-            case CustomAnimalArmorItem animalArmorItem -> isMountArmor = true;
+            case CustomAnimalArmorItem ignored -> {}
             default -> throw new IllegalStateException("Unexpected value: " + item);
         }
         return registerItem(item, name);
@@ -1291,6 +1285,7 @@ public class EquipmentItemsME {
             case CustomChestplateItem chestplateItem -> armorPiecesListChestplates.add(chestplateItem);
             case CustomLeggingsItem leggingsItem -> armorPiecesListLeggings.add(leggingsItem);
             case CustomBootsItem bootsItem -> armorPiecesListBoots.add(bootsItem);
+            case CustomAnimalArmorItem ignored -> {}
             default -> throw new IllegalStateException("Unexpected value: " + item);
         }
         return registerItem(item, name);
@@ -1312,6 +1307,15 @@ public class EquipmentItemsME {
 
     private static Item registerItem(Item item, String name){
         TranslationEntries.itemEntries.add(item);
+        if (item instanceof ArmorItem armorItem){
+            switch (armorItem.getMaterial().tier()){
+                case BASIC -> ArmorTags.basicArmors.add(item);
+                case LIGHT -> ArmorTags.lightArmors.add(item);
+                case MEDIUM -> ArmorTags.mediumArmors.add(item);
+                case STURDY -> ArmorTags.sturdyArmors.add(item);
+                case HEAVY -> ArmorTags.heavyArmors.add(item);
+            }
+        }
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
     }
 
