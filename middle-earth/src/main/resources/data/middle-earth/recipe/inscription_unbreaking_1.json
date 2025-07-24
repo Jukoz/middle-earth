@@ -1,0 +1,11 @@
+{
+  "type": "middle-earth:inscription_table",
+  "enchant": "minecraft:unbreaking",
+  "level": 1,
+  "ingredients": [
+    "#minecraft:enchantable/durability",
+    "minecraft:lapis_lazuli",
+    "middle-earth:bronze_ingot",
+    "middle-earth:bronze_ingot"
+  ]
+}

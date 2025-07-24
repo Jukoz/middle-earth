@@ -1,0 +1,14 @@
+{
+  "type": "middle-earth:inscription_table",
+  "enchant": "minecraft:unbreaking",
+  "level": 3,
+  "ingredients": [
+    "#minecraft:enchantable/durability",
+    "middle-earth:adamant",
+    "#middle-earth:steel_ingots",
+    "minecraft:obsidian",
+    "middle-earth:adamant",
+    "minecraft:obsidian",
+    "#middle-earth:steel_ingots"
+  ]
+}
