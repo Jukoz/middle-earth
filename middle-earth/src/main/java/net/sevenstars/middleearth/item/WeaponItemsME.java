@@ -11,7 +11,6 @@ import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Bows;
 import net.sevenstars.middleearth.datageneration.content.tags.Crossbows;
 import net.sevenstars.middleearth.datageneration.content.tags.WeaponEnchants;
-import net.sevenstars.middleearth.item.dataComponents.ArtisanDataComponent;
 import net.sevenstars.middleearth.item.items.HeldBannerItem;
 import net.sevenstars.middleearth.item.items.shields.ArtefactCustomShieldItem;
 import net.sevenstars.middleearth.item.items.shields.CustomBannerShieldItem;

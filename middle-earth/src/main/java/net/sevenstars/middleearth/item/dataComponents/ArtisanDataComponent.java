@@ -32,12 +32,11 @@ public record ArtisanDataComponent(UUID uuid) implements TooltipAppender {
     });
     public static final Codec<ArtisanDataComponent> CODEC = Codec.withAlternative(BASE_CODEC, Uuids.CODEC, ArtisanDataComponent::new);
 
-    public static final PacketCodec<ByteBuf, ArtisanDataComponent> PACKET_CODEC  = PacketCodec.tuple(Uuids.PACKET_CODEC, ArtisanDataComponent::uuid, ArtisanDataComponent::new);
-
+    public static final PacketCodec<ByteBuf, ArtisanDataComponent> PACKET_CODEC  = PacketCodec.tuple(Uuids.PACKET_CODEC, ArtisanDataComponent::uuid,
+            ArtisanDataComponent::new);
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        //https://api.minecraftservices.com/minecraft/profile/lookup/
         CompletableFuture<Optional<GameProfile>> profile = SkullBlockEntity.fetchProfileByUuid(uuid);
         try {
             if (profile.get().isPresent()){

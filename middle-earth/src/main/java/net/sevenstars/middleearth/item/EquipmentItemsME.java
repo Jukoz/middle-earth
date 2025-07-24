@@ -2,6 +2,9 @@ package net.sevenstars.middleearth.item;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
@@ -9,13 +12,17 @@ import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableIte
 import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.ArmorTags;
 import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
+import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
+import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
 import net.sevenstars.middleearth.item.items.armor.*;
 import net.sevenstars.middleearth.item.items.armor.artefact.CustomArtefactHelmetItem;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.armor.ArmorMaterialsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
+import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.item.Item;
@@ -221,7 +228,9 @@ public class EquipmentItemsME {
     //region MEN
     //region GONDOR
     public static final Item GONDORIAN_BOOTS = registerArmorPiece("gondorian_boots",
-            (settings) -> new CustomBootsItem(ArmorMaterialsME.LEATHER_T2, settings, ModFactions.GONDOR), new Item.Settings());
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.LEATHER_T2, settings, ModFactions.GONDOR), new Item.Settings()
+                    .component(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getId())));
 
     public static final Item GONDORIAN_CABASSET_HELMET = registerCustomModelArmorPiece("gondorian_cabasset_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.IRON_T3, settings, ModFactions.GONDOR), new Item.Settings());
