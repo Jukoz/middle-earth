@@ -129,8 +129,10 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             if (inputs.size() >= 2 && !this.world.isClient){
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
                 Optional<RecipeEntry<InscriptionRecipe>> optionalOutput = serverRecipeManager.getFirstMatch(ModRecipes.INSCRIPTION_TABLE, new MultipleStackRecipeInput(inputs), this.world);
-                optionalOutput.ifPresent(inscriptionRecipeRecipeEntry -> this.outputRecipe = inscriptionRecipeRecipeEntry);
-                populateResult();
+                if(optionalOutput.isPresent()) {
+                    this.outputRecipe = optionalOutput.get();
+                    populateResult();
+                }
             }
         }
     }
