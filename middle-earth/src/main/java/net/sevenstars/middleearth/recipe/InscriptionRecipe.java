@@ -59,7 +59,7 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
 
     @Override
     public ItemStack craft(MultipleStackRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
-        ItemStack result = input.getStackInSlot(0);
+        ItemStack result = input.getStackInSlot(0).copy();
         result.addEnchantment(this.enchant, this.level);
         return result;
     }

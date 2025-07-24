@@ -86,10 +86,8 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             public void onTakeItem(PlayerEntity player, ItemStack itemStack) {
                 itemStack.onCraftByPlayer(player, itemStack.getCount());
 
-                for(int y = 0; y < 6; y++) {
-                    slots.forEach(slot -> {
-                        slot.takeStack(1);
-                    });
+                for(int y = 0; y <= 6; y++) {
+                    slots.get(y).takeStack(1);
                 }
 
                 long l = world.getTime();
