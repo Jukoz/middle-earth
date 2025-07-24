@@ -97,6 +97,7 @@ public class NpcTextureMaterialsME {
         public final static RegistryKey<NpcTextureMaterial> BROWN = of("brown", NpcTextureType.CLOTHING);
         public final static RegistryKey<NpcTextureMaterial> ROT_GREEN = of("rot_green", NpcTextureType.CLOTHING);
         public final static RegistryKey<NpcTextureMaterial> GRAY = of("gray", NpcTextureType.CLOTHING);
+        public final static RegistryKey<NpcTextureMaterial> BLUE_AND_COPPER = of("blue_and_copper", NpcTextureType.CLOTHING);
     }
 
     public static void bootstrapSkins(Registerable<NpcTextureMaterial> registry) {
@@ -176,6 +177,7 @@ public class NpcTextureMaterialsME {
         register(registry, Clothing.BROWN, NpcTextureType.CLOTHING);
         register(registry, Clothing.ROT_GREEN, NpcTextureType.CLOTHING);
         register(registry, Clothing.GRAY, NpcTextureType.CLOTHING);
+        register(registry, Clothing.BLUE_AND_COPPER, NpcTextureType.CLOTHING);
     }
 
     public static void register() {

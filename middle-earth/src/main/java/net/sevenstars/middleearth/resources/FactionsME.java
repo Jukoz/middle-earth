@@ -236,6 +236,7 @@ public class FactionsME {
         LONGBEARDS_EREBOR = new Faction(LONGBEARDS.getName().concat(".erebor"), true, Disposition.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
+                            EreborNpcDataPool.EREBOR_CIVILIAN,
                             EreborNpcDataPool.EREBOR_MINER
                     ));
                     put(NpcRank.MILITIA, List.of(

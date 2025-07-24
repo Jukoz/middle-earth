@@ -4,7 +4,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureMaterial;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
@@ -347,6 +346,8 @@ public class NpcTextureDataPreset {
         var copiedNpcTextureDataPreset = new NpcTextureDataPreset();
         for(String value : getMaterials(NpcTextureType.SKIN))
             copiedNpcTextureDataPreset.addToMaterial(NpcTextureType.SKIN, value);
+        for(String value : getPatterns(NpcTextureType.HEAD))
+            copiedNpcTextureDataPreset.addToPattern(NpcTextureType.HEAD, value);
         for(String value : getPatterns(NpcTextureType.BODY))
             copiedNpcTextureDataPreset.addToPattern(NpcTextureType.BODY, value);
         for(String value : getPatterns(NpcTextureType.NOSE))

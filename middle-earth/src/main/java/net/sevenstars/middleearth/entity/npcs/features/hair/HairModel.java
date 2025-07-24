@@ -29,7 +29,7 @@ public class HairModel extends EntityModel<NpcEntityRenderState> {
         ModelPartData hairGroup = modelPartData.addChild("hair", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         hairGroup.addChild("hairBase", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0f, 0f, -4.0f, 8, 11, 8, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         hairGroup.addChild("hairHat", ModelPartBuilder.create().uv(32, 0).cuboid(-4.0f, 1f, -4f, 8, 11, 8, Dilation.NONE.add(0.5f)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        hairGroup.addChild("largeBeard", ModelPartBuilder.create().uv(41, 42).cuboid(-5.5F, -1.5F, -4.1F,12.0F, 23.0F, -0.6F, Dilation.NONE.add(0.3f)), ModelTransform.NONE);
+        hairGroup.addChild("largeBeard", ModelPartBuilder.create().uv(38, 42).cuboid(-6.5F, -1.5F, -4.1F,14.0F, 23.0F, -0.5F, Dilation.NONE.add(0.3f)), ModelTransform.NONE);
         return TexturedModelData.of(modelData, 64, 64);
     }
 

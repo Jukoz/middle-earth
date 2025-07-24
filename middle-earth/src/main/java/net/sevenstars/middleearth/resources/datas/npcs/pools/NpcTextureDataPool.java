@@ -192,10 +192,12 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                 .withPatterns(NpcTextureType.HEAD, List.of(
                         NpcTexturePatternsME.Skins.Head.MALE
                 ))
+                .withPatterns(NpcTextureType.NOSE, List.of(
+                        NpcTexturePatternsME.Skins.Nose.CUBE
+                ))
                 .withPatterns(NpcTextureType.EAR, List.of(
                         NpcTexturePatternsME.Skins.Ear.SQUARE,
-                        NpcTexturePatternsME.Skins.Ear.NORMAL,
-                        NpcTexturePatternsME.Skins.Ear.SMALL
+                        NpcTexturePatternsME.Skins.Ear.NORMAL
                 ))
                 .withPatterns(NpcTextureType.SCAR, Stream.of(
                         null,
@@ -245,15 +247,14 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         NpcTexturePatternsME.Hairs.Beard.SINGLE,
                         NpcTexturePatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
                         NpcTexturePatternsME.Hairs.Beard.VERY_BROAD).toList())
-                .withMaterials(NpcTextureType.CLOTHING, List.of( // TODO add garment
-                        NpcTextureMaterialsME.Clothing.WHITE,
+                .withMaterials(NpcTextureType.CLOTHING, List.of(
+                        NpcTextureMaterialsME.Clothing.BLUE_AND_COPPER,
                         NpcTextureMaterialsME.Clothing.BROWN
                 ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        NpcTexturePatternsME.Clothing.TOGA,
-                        NpcTexturePatternsME.Clothing.FULL_TOGA,
-                        NpcTexturePatternsME.Clothing.ROBE,
-                        NpcTexturePatternsME.Clothing.SKIRT
+                        NpcTexturePatternsME.Clothing.DWARVEN_GARMENT,
+                        NpcTexturePatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS,
+                        NpcTexturePatternsME.Clothing.PANTS
                 ));
         DWARF_FEMALE = new NpcTextureDataPreset()
                 .withMaterials(NpcTextureType.SKIN, List.of(
@@ -271,8 +272,8 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         NpcTexturePatternsME.Skins.Head.FEMALE
                 ))
                 .withPatterns(NpcTextureType.EAR, List.of(
-                        NpcTexturePatternsME.Skins.Ear.NORMAL,
-                        NpcTexturePatternsME.Skins.Ear.SMALL
+                        NpcTexturePatternsME.Skins.Ear.SQUARE,
+                        NpcTexturePatternsME.Skins.Ear.NORMAL
                 ))
                 .withPatterns(NpcTextureType.SCAR, Stream.of(
                         null,
@@ -301,22 +302,22 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                 .withPatterns(NpcTextureType.HAIR, Stream.of(
                         NpcTexturePatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED,
                         NpcTexturePatternsME.Hairs.Hair.LONG,
-                        NpcTexturePatternsME.Hairs.Hair.FLAT_LONG
+                        NpcTexturePatternsME.Hairs.Hair.FLAT_LONG,
+                        NpcTexturePatternsME.Hairs.Hair.VERY_LONG
                     ).toList()
                 )
                 .withPatterns(NpcTextureType.BEARD, Stream.of(
                         NpcTexturePatternsME.Hairs.Beard.CLEAN,
                         NpcTexturePatternsME.Hairs.Beard.LONG_SINGLE_ORNAMENTED,
-                        NpcTexturePatternsME.Hairs.Beard.SHORT,
-                        null).toList())
-                .withMaterials(NpcTextureType.CLOTHING, List.of( // TODO add garment
+                        NpcTexturePatternsME.Hairs.Beard.SHORT).toList())
+                .withMaterials(NpcTextureType.CLOTHING, List.of(
+                        NpcTextureMaterialsME.Clothing.BLUE_AND_COPPER,
                         NpcTextureMaterialsME.Clothing.WHITE,
-                        NpcTextureMaterialsME.Clothing.BROWN
+                        NpcTextureMaterialsME.Clothing.GRAY
                 ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        NpcTexturePatternsME.Clothing.TOGA,
-                        NpcTexturePatternsME.Clothing.FULL_TOGA,
-                        NpcTexturePatternsME.Clothing.ROBE
+                        NpcTexturePatternsME.Clothing.DWARVEN_GARMENT,
+                        NpcTexturePatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
                 ));
         // endregion
     }

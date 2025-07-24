@@ -4,10 +4,12 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
+import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
@@ -15,6 +17,7 @@ import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +33,7 @@ public class EreborNpcDataPool {
     private final static int DARK_BROWN = 0x3b291e;
     // endregion
     // NPC ========================================>>
+    public final static NpcData EREBOR_CIVILIAN;
     public final static NpcData EREBOR_MINER;
     public final static NpcData EREBOR_MILITIA;
     public final static NpcData EREBOR_SOLDIER;
@@ -42,6 +46,7 @@ public class EreborNpcDataPool {
 
     public static List<NpcData> fetchAll() {
         return List.of(
+                EREBOR_CIVILIAN,
                 EREBOR_MINER,
                 EREBOR_MILITIA,
                 EREBOR_SOLDIER,
@@ -53,33 +58,57 @@ public class EreborNpcDataPool {
     }
 
     static {
-        EREBOR_MINER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "miner"), RacesME.DWARF, List.of(
+        EREBOR_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "civilian"), RacesME.DWARF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(4))
                                 .add(NpcGearItemData.create(EquipmentItemsME.BYCOCKET).withColor(DARK_RED).withWeight(4))
                                 .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_MINER_HELMET))
-                        )
-                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_GAMBESON).withColor(LIGHT_RED))
-                                .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_MINER_GAMBESON).withColor(LIGHT_RED))
-                                .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_GAMBESON).withColor(LIGHT_RED).withCape(BackAttachmentsME.SURCOAT, DARK_BROWN))
-                                .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_MINER_GAMBESON).withColor(LIGHT_RED).withCape(BackAttachmentsME.SURCOAT, DARK_BROWN))
-                        )
-                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.LONGBEARD_LEATHER_LEGGINGS).withColor(DARK_RED))
-                        )
-                        .add(EquipmentSlot.FEET, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_BOOTS).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_REINFORCED_BOOTS))
+                                .add(NpcGearItemData.create())
                         )
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ToolItemsME.KHAZAD_STEEL_PICKAXE))
-                                .add(NpcGearItemData.create(ToolItemsME.KHAZAD_STEEL_AXE))
+                                .add(NpcGearItemData.create(Items.WOODEN_HOE))
+                                .add(NpcGearItemData.create(Items.WHEAT))
+                                .add(NpcGearItemData.create(Items.WOODEN_SHOVEL))
+                                .add(NpcGearItemData.create(ModDecorativeBlocks.WATERING_CAN.asItem()))
+                                .add(NpcGearItemData.create(Items.AIR))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
+        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
+            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
+        }}));
+
+        EREBOR_MINER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "miner"), RacesME.DWARF, List.of(
+            NpcGearData.create()
+                .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                        .add(NpcGearItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(4))
+                        .add(NpcGearItemData.create(EquipmentItemsME.BYCOCKET).withColor(DARK_RED).withWeight(4))
+                        .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_MINER_HELMET))
+                        .add(NpcGearItemData.create())
+                )
+                .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
+                        .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_GAMBESON).withColor(LIGHT_RED))
+                        .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_MINER_GAMBESON).withColor(LIGHT_RED))
+                        .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_GAMBESON).withColor(LIGHT_RED).withCape(BackAttachmentsME.SURCOAT, DARK_BROWN))
+                        .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_MINER_GAMBESON).withColor(LIGHT_RED).withCape(BackAttachmentsME.SURCOAT, DARK_BROWN))
+                )
+                .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
+                        .add(NpcGearItemData.create(EquipmentItemsME.LONGBEARD_LEATHER_LEGGINGS).withColor(DARK_RED))
+                )
+                .add(EquipmentSlot.FEET, NpcGearSlotData.create()
+                        .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_BOOTS).withWeight(3))
+                        .add(NpcGearItemData.create(EquipmentItemsME.DWARVEN_REINFORCED_BOOTS))
+                )
+                .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
+                        .add(NpcGearItemData.create(ToolItemsME.KHAZAD_STEEL_PICKAXE))
+                        .add(NpcGearItemData.create(ToolItemsME.KHAZAD_STEEL_AXE))
+                )
+                .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
+                        .add(NpcGearItemData.create(Items.AIR))
+                )
         ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
             put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
@@ -92,6 +121,7 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_LEATHER_HELMET))
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_BRACED_LEATHER_HELMET))
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_NASAL_LEATHER_HELMET))
+                                .add(NpcGearItemData.create())
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LONGBEARD_PARTISAN_OUTFIT).withColor(LIGHT_RED).withCape(BackAttachmentsME.SURCOAT, LIGHT_BLUE))
@@ -125,6 +155,7 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_LEATHER_HELMET))
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_BRACED_LEATHER_HELMET))
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_NASAL_LEATHER_HELMET))
+                                .add(NpcGearItemData.create())
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_PADDED_MAIL_HAUBERK).withCape(BackAttachmentsME.EREBOR_CAPE))
@@ -168,6 +199,7 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_LEATHER_HELMET))
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_BRACED_LEATHER_HELMET))
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_NASAL_LEATHER_HELMET))
+                                .add(NpcGearItemData.create())
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_PADDED_MAIL_HAUBERK).withCape(BackAttachmentsME.EREBOR_CAPE))
@@ -201,6 +233,7 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_GUARD_HELMET).withWeight(8))
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_GILDED_MAIL_COIF).withWeight(4))
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_CAPTAIN_HELMET))
+                                .add(NpcGearItemData.create())
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_BRAWLER_CHESTPLATE).withColor(DARK_RED).withWeight(3))
@@ -242,6 +275,7 @@ public class EreborNpcDataPool {
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_PLATE_HELMET))
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_GUARD_HELMET))
+                                .add(NpcGearItemData.create())
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE))
@@ -266,14 +300,14 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_REINFORCED_SHIELD).withWeight(5))
                         )
         ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
-            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
+            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE.copy().withPatterns(NpcTextureType.BEARD, List.of(NpcTexturePatternsME.Hairs.Beard.VERY_LONG))));
         }}));
 
         EREBOR_GATEWARDEN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "gatewarden"), RacesME.DWARF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_GATEWARDEN_HELMET))
+                                .add(NpcGearItemData.create())
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_GATEWARDEN_CHESTPLATE).withCape(BackAttachmentsME.EREBOR_CAPE))
@@ -297,14 +331,14 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_BUCKLER_SHIELD))
                         )
         ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
-            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
+            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE.copy().withPatterns(NpcTextureType.BEARD, List.of(NpcTexturePatternsME.Hairs.Beard.VERY_LONG))));
         }}));
 
         EREBOR_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "leader"), RacesME.DWARF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_CAPTAIN_HELMET))
+                                .add(NpcGearItemData.create())
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE).withCape(BackAttachmentsME.EREBOR_CAPE))
@@ -328,8 +362,7 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_BUCKLER_SHIELD))
                         )
         ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE));
-            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.DWARF_FEMALE));
+            put(EntityCategory.MALE, List.of(NpcTextureDataPool.DWARF_MALE.copy().withPatterns(NpcTextureType.BEARD, List.of(NpcTexturePatternsME.Hairs.Beard.VERY_LONG))));
         }}));
     }
 }

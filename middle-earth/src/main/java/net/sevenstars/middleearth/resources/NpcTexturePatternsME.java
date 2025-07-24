@@ -100,8 +100,9 @@ public class NpcTexturePatternsME {
             public final static RegistryKey<NpcTexturePattern> PONYTAIL_SHORT_ORNAMENTED = of("hair_ponytail_short_ornamented", NpcTextureType.HAIR);
             public final static RegistryKey<NpcTexturePattern> SHARP = of("hair_sharp", NpcTextureType.HAIR);
             public final static RegistryKey<NpcTexturePattern> SHORT = of("hair_short", NpcTextureType.HAIR);
-
             public final static RegistryKey<NpcTexturePattern> UNCUT = of("hair_uncut", NpcTextureType.HAIR);
+            public final static RegistryKey<NpcTexturePattern> VERY_LONG = of("hair_very_long", NpcTextureType.HAIR);
+
         }
 
         public record Beard() {
@@ -134,6 +135,11 @@ public class NpcTexturePatternsME {
         public final static RegistryKey<NpcTexturePattern> SKIRT = of("clothing_skirt", NpcTextureType.CLOTHING);
         public final static RegistryKey<NpcTexturePattern> SKIRT_WITH_STROPHIUM = of("clothing_skirt_with_strophium", NpcTextureType.CLOTHING);
         public final static RegistryKey<NpcTexturePattern> TOGA = of("clothing_toga", NpcTextureType.CLOTHING);
+        public final static RegistryKey<NpcTexturePattern> THONG = of("clothing_thong", NpcTextureType.CLOTHING);
+        public final static RegistryKey<NpcTexturePattern> PANTS = of("clothing_pants", NpcTextureType.CLOTHING);
+        public final static RegistryKey<NpcTexturePattern> DWARVEN_GARMENT = of("clothing_dwarven_garment", NpcTextureType.CLOTHING);
+        public final static RegistryKey<NpcTexturePattern> DWARVEN_GARMENT_WITH_PANTS = of("clothing_dwarven_garment_with_pants", NpcTextureType.CLOTHING);
+
     }
 
     public static void bootstrapSkins(Registerable<NpcTexturePattern> registry) {
@@ -195,6 +201,7 @@ public class NpcTexturePatternsME {
         register(registry, Hairs.Hair.SIDE_BALDING, NpcTextureType.HAIR);
         register(registry, Hairs.Hair.TOP_BALDING, NpcTextureType.HAIR,true);
         register(registry, Hairs.Hair.UNCUT, NpcTextureType.HAIR);
+        register(registry, Hairs.Hair.VERY_LONG, NpcTextureType.HAIR, true);
 
         register(registry, Hairs.Eyebrow.BASIC, NpcTextureType.EYEBROW);
         register(registry, Hairs.Eyebrow.LONG, NpcTextureType.EYEBROW);
@@ -222,6 +229,10 @@ public class NpcTexturePatternsME {
         register(registry, Clothing.SKIRT, NpcTextureType.CLOTHING);
         register(registry, Clothing.SKIRT_WITH_STROPHIUM, NpcTextureType.CLOTHING);
         register(registry, Clothing.TOGA, NpcTextureType.CLOTHING);
+        register(registry, Clothing.PANTS, NpcTextureType.CLOTHING);
+        register(registry, Clothing.DWARVEN_GARMENT, NpcTextureType.CLOTHING);
+        register(registry, Clothing.DWARVEN_GARMENT_WITH_PANTS, NpcTextureType.CLOTHING);
+        register(registry, Clothing.THONG, NpcTextureType.CLOTHING);
     }
 
     private static void register(Registerable<NpcTexturePattern> registry, RegistryKey<NpcTexturePattern> key, NpcTextureType type) {

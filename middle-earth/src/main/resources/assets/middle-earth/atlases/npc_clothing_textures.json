@@ -3,14 +3,19 @@
         {
             "type": "paletted_permutations",
             "textures": [
+                "middle-earth:npc_clothing_textures/clothing_dwarven_garment",
+                "middle-earth:npc_clothing_textures/clothing_dwarven_garment_with_pants",
                 "middle-earth:npc_clothing_textures/clothing_full_toga",
+                "middle-earth:npc_clothing_textures/clothing_pants",
                 "middle-earth:npc_clothing_textures/clothing_robe",
                 "middle-earth:npc_clothing_textures/clothing_skirt",
                 "middle-earth:npc_clothing_textures/clothing_skirt_with_strophium",
+                "middle-earth:npc_clothing_textures/clothing_thong",
                 "middle-earth:npc_clothing_textures/clothing_toga"
             ],
             "palette_key": "middle-earth:npc_clothing_textures/color_palettes/base_palette",
             "permutations": {
+                "blue_and_copper": "middle-earth:npc_clothing_textures/color_palettes/blue_and_copper",
                 "brown": "middle-earth:npc_clothing_textures/color_palettes/brown",
                 "gray": "middle-earth:npc_clothing_textures/color_palettes/gray",
                 "rot_green": "middle-earth:npc_clothing_textures/color_palettes/rot_green",
