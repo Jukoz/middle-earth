@@ -1,0 +1,14 @@
+{
+  "type": "middle-earth:inscription_table",
+  "enchant": "minecraft:sharpness",
+  "level": 5,
+  "ingredients": [
+    "#minecraft:enchantable/weapon",
+    "middle-earth:ruby",
+    "middle-earth:adamant",
+    "middle-earth:red_agate_shard",
+    "middle-earth:ruby",
+    "middle-earth:red_agate_shard",
+    "middle-earth:mithril_ingot"
+  ]
+}

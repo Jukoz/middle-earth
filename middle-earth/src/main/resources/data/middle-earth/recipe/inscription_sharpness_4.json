@@ -1,0 +1,13 @@
+{
+  "type": "middle-earth:inscription_table",
+  "enchant": "minecraft:sharpness",
+  "level": 4,
+  "ingredients": [
+    "#minecraft:enchantable/weapon",
+    "middle-earth:ruby",
+    "middle-earth:red_agate_shard",
+    "#middle-earth:quartz",
+    "middle-earth:ruby",
+    "minecraft:iron_ingot"
+  ]
+}

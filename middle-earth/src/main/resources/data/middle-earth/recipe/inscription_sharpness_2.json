@@ -1,0 +1,12 @@
+{
+  "type": "middle-earth:inscription_table",
+  "enchant": "minecraft:sharpness",
+  "level": 2,
+  "ingredients": [
+    "#minecraft:enchantable/weapon",
+    "minecraft:lapis_lazuli",
+    "minecraft:iron_ingot",
+    "minecraft:flint",
+    "minecraft:iron_ingot"
+  ]
+}
