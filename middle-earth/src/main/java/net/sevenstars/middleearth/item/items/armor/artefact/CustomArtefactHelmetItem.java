@@ -3,23 +3,17 @@ package net.sevenstars.middleearth.item.items.armor.artefact;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomHelmetItem;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
-import net.sevenstars.middleearth.utils.ModFactions;
-import net.sevenstars.middleearth.utils.ModSubFactions;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class CustomArtefactHelmetItem extends CustomHelmetItem {
-    public CustomArtefactHelmetItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
-        super(material, settings, faction);
-    }
-
-    public CustomArtefactHelmetItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
-        super(material, settings, subFaction);
+    public CustomArtefactHelmetItem(ExtendedArmorMaterial material, Settings settings, Faction faction) {
+        super(material, settings);
     }
 
     @Override
