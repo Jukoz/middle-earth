@@ -122,8 +122,21 @@ public class TranslationEntries {
             put("advancements.smithing.elven_lantern.description", "Light your way like the Quendi");
 
             put("effect."+ MiddleEarth.MOD_ID +".hallucination", "Hallucination");
+            put("effect."+ MiddleEarth.MOD_ID +".enshrouded", "Enshrouded");
 
+            put("enchantment."+ MiddleEarth.MOD_ID +".ailment_protection", "Ailment Protection");
+            put("enchantment."+ MiddleEarth.MOD_ID +".bane_of_giants", "Bane of Giants");
+            put("enchantment."+ MiddleEarth.MOD_ID +".beheading", "Beheading");
+            put("enchantment."+ MiddleEarth.MOD_ID +".celerity", "Celerity");
+            put("enchantment."+ MiddleEarth.MOD_ID +".first_strike", "First Strike");
+            put("enchantment."+ MiddleEarth.MOD_ID +".grounded", "Grounded");
             put("enchantment."+ MiddleEarth.MOD_ID +".hewing", "Hewing");
+            put("enchantment."+ MiddleEarth.MOD_ID +".high_step", "High Step");
+            put("enchantment."+ MiddleEarth.MOD_ID +".miner_reach", "Miner Reach");
+            put("enchantment."+ MiddleEarth.MOD_ID +".stealthy_trail", "Stealthy Trail");
+            put("enchantment."+ MiddleEarth.MOD_ID +".stride", "Stride");
+            put("enchantment."+ MiddleEarth.MOD_ID +".tree_feller", "Tree Feller");
+            put("enchantment."+ MiddleEarth.MOD_ID +".vantage", "Vantage");
 
             put("block."+ MiddleEarth.MOD_ID +".potted_beech_sapling", "Potted Beech Sapling");
             put("block."+ MiddleEarth.MOD_ID +".potted_chestnut_sapling", "Potted Chestnut Sapling");
@@ -607,6 +620,12 @@ public class TranslationEntries {
             put("ui."+ MiddleEarth.MOD_ID +".map_screen.tooltip.teleport_keybind", "[%s] to teleport");
             put("ui."+ MiddleEarth.MOD_ID +".map_screen.map_title_text", "Middle-earth Map");
 
+            put("ui."+ MiddleEarth.MOD_ID +".structure_manager.label_selected_id", "Selected : %s");
+            put("ui."+ MiddleEarth.MOD_ID +".structure_manager.label_runtime_id", "Runtime : %s");
+            put("ui."+ MiddleEarth.MOD_ID +".structure_manager.label_enable_status", "Enabled : %s");
+            put("ui."+ MiddleEarth.MOD_ID +".structure_manager.button_kill_all", "Kill All");
+            put("ui."+ MiddleEarth.MOD_ID +".structure_manager.button_spawn_all", "Spawn All");
+
             put("screen."+ MiddleEarth.MOD_ID +".faction_selection_screen", "Faction Selection");
             put("screen."+ MiddleEarth.MOD_ID +".button.faction_randomizer", "Randomize Faction");
             put("screen."+ MiddleEarth.MOD_ID +".button.full_randomizer", "Fully Randomize");
@@ -618,6 +637,7 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".information.races", "Race");
             put("screen."+ MiddleEarth.MOD_ID +".information.races.many", "Races");
             put("screen."+ MiddleEarth.MOD_ID +".information.description", "Description");
+
 
             put("widget."+ MiddleEarth.MOD_ID +".spawn_tooltip_title", "Spawns");
             put("widget."+ MiddleEarth.MOD_ID +".marker.selected_title_container.before", "[");
@@ -683,6 +703,14 @@ public class TranslationEntries {
             put("painting."+ MiddleEarth.MOD_ID +".tool_board.title", "Tool Board");
             put("painting."+ MiddleEarth.MOD_ID +".gondorian_tapestry.title", "Gondorian Tapestry");
             put("painting."+ MiddleEarth.MOD_ID +".dwarven_plaque.title", "Dwarven Plaque");
+
+            put("structure_manager_data."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor", "Gondor Testing Area");
+            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor.captain_room", "Captain Room");
+            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor.barracks_room", "Barracks Room");
+
+            put("structure_manager_data."+ MiddleEarth.MOD_ID +".npc_testing_area_erebor", "Erebor Testing Area");
+            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_erebor.captain_room", "Captain Room");
+            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_erebor.barracks_room", "Barracks Room");
         }
     };
 }

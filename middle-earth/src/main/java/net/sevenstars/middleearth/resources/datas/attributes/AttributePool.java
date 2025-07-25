@@ -49,6 +49,8 @@ public class AttributePool {
             var attributeInstance = entity.getAttributeInstance(Registries.ATTRIBUTE.getEntry(element.getIdentifier()).get());
             if(attributeInstance != null){
                 attributeInstance.setBaseValue(element.getValue());
+                //if(!attributeInstance.hasModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf")))
+                    //attributeInstance.addPersistentModifier(new EntityAttributeModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf"), -0.20, EntityAttributeModifier.Operation.valueOf("ADD_MULTIPLIED_TOTAL")));
             } else {
                 return false;
             }
@@ -61,8 +63,11 @@ public class AttributePool {
             var attributeInstance = entity.getAttributeInstance(Registries.ATTRIBUTE.getEntry(identifier).get());
             if(attributeInstance != null){
                 var defaultAttribute = Registries.ATTRIBUTE.get(identifier);
-                if(defaultAttribute != null)
+                if(defaultAttribute != null){
                     attributeInstance.setBaseValue(defaultAttribute.getDefaultValue());
+                    //if(attributeInstance.hasModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf")))
+                        //attributeInstance.removeModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf"));
+                }
             }
         }
         return true;
@@ -73,7 +78,10 @@ public class AttributePool {
     }
 
     public Double getEntityCurrentAttributeValue(LivingEntity entity, Identifier id) {
-        return entity.getAttributeInstance(Registries.ATTRIBUTE.getEntry(id).get()).getValue();
+        if(Registries.ATTRIBUTE.getEntry(id).isPresent()){
+            return entity.getAttributeInstance(Registries.ATTRIBUTE.getEntry(id).get()).getValue();
+        }
+        return null;
     }
 
     public List<AttributePoolElement> getPool() {

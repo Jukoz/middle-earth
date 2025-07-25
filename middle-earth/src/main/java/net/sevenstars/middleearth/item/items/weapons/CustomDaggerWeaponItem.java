@@ -55,6 +55,6 @@ public class CustomDaggerWeaponItem extends ReachWeaponItem implements Equipment
         Vector3f attackerPosDifference = target.getPos().add(attacker.getPos().multiply(-1)).toVector3f();
         Vector2f attackerDirection = new Vector2f(attackerPosDifference.x, attackerPosDifference.z).normalize();
         float dotProduct = direction.dot(attackerDirection);
-        return dotProduct > 0.2f;
+        return dotProduct > 0.1f;
     }
 }

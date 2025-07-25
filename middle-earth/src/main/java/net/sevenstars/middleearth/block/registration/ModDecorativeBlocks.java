@@ -23,6 +23,7 @@ import net.sevenstars.middleearth.block.special.shapingAnvil.orcishTreatedAnvil.
 import net.sevenstars.middleearth.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.statues.StatueBlock;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlock;
+import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlock;
 import net.sevenstars.middleearth.block.special.toggeable_lights.*;
 import net.sevenstars.middleearth.block.special.torches.METorchBlock;
 import net.sevenstars.middleearth.block.special.torches.MEWallTorchBlock;
@@ -93,6 +94,8 @@ public class ModDecorativeBlocks {
 
     public static final Block STRUCTURE_MANAGER = registerBlock("structure_manager",
             StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
+    public static final Block STRUCTURE_NEST = registerBlock("structure_nest",
+            StructureNestBlock::new, AbstractBlock.Settings.create().strength(-1.0F, 3600000.8F).noCollision().dropsNothing().nonOpaque().allowsSpawning(Blocks::never).noBlockBreakParticles().pistonBehavior(PistonBehavior.BLOCK));
 
     public static final Block SMALL_CRATE = registerBlock("small_crate",
             CrateBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
