@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " H ",
+    "PWP",
+    "L L"
+  ],
+  "key": {
+    "H": "#middle-earth:smithing_hammers",
+    "P": "#minecraft:planks",
+    "W": "middle-earth:fabric",
+    "L": "#minecraft:logs"
+  },
+  "result": {
+    "id": "middle-earth:inscription_table",
+    "count": 1
+  }
+}
