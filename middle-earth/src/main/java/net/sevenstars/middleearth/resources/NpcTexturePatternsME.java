@@ -111,12 +111,15 @@ public class NpcTexturePatternsME {
             public final static RegistryKey<NpcTexturePattern> CLEAN                    = of("beard_clean", NpcTextureType.BEARD);
             public final static RegistryKey<NpcTexturePattern> DUAL_LARGE_ORNAMENTED    = of("beard_dual_large_ornamented", NpcTextureType.BEARD);
             public final static RegistryKey<NpcTexturePattern> DUAL_ORNAMENTED          = of("beard_dual_ornamented", NpcTextureType.BEARD);
+            public final static RegistryKey<NpcTexturePattern> FANCY_MUSTACHE_ORNAMENTED= of("beard_fancy_mustache_ornamented", NpcTextureType.BEARD);
             public final static RegistryKey<NpcTexturePattern> LARGE                    = of("beard_large", NpcTextureType.BEARD);
+            public final static RegistryKey<NpcTexturePattern> LONG_BRAIDS_ORNAMENTED   = of("beard_long_braids_ornamented", NpcTextureType.BEARD);
             public final static RegistryKey<NpcTexturePattern> LONG_SINGLE_ORNAMENTED   = of("beard_long_single_ornamented", NpcTextureType.BEARD);
             public final static RegistryKey<NpcTexturePattern> SHORT                    = of("beard_short", NpcTextureType.BEARD);
             public final static RegistryKey<NpcTexturePattern> SINGLE                   = of("beard_single", NpcTextureType.BEARD);
             public final static RegistryKey<NpcTexturePattern> UNCLEAN_ORNAMENTED       = of("beard_unclean_ornamented", NpcTextureType.BEARD);
             public final static RegistryKey<NpcTexturePattern> VERY_BROAD               = of("beard_very_broad", NpcTextureType.BEARD);
+            public final static RegistryKey<NpcTexturePattern> VERY_LARGE_MUSTACHE      = of("beard_very_large_mustache", NpcTextureType.BEARD);
             public final static RegistryKey<NpcTexturePattern> VERY_LONG                = of("beard_very_long", NpcTextureType.BEARD);
         }
 
@@ -213,13 +216,16 @@ public class NpcTexturePatternsME {
         register(registry, Hairs.Beard.CHUNKY_BRAIDS, NpcTextureType.BEARD, true);
         register(registry, Hairs.Beard.CLEAN, NpcTextureType.BEARD, true);
         register(registry, Hairs.Beard.DUAL_LARGE_ORNAMENTED, NpcTextureType.BEARD, true);
+        register(registry, Hairs.Beard.LONG_SINGLE_ORNAMENTED, NpcTextureType.BEARD, true);
+        register(registry, Hairs.Beard.FANCY_MUSTACHE_ORNAMENTED, NpcTextureType.BEARD, true);
         register(registry, Hairs.Beard.DUAL_ORNAMENTED, NpcTextureType.BEARD, true);
         register(registry, Hairs.Beard.LARGE, NpcTextureType.BEARD, true);
-        register(registry, Hairs.Beard.LONG_SINGLE_ORNAMENTED, NpcTextureType.BEARD, true);
+        register(registry, Hairs.Beard.LONG_BRAIDS_ORNAMENTED, NpcTextureType.BEARD, true);
         register(registry, Hairs.Beard.SHORT, NpcTextureType.BEARD, false);
         register(registry, Hairs.Beard.SINGLE, NpcTextureType.BEARD, true);
         register(registry, Hairs.Beard.UNCLEAN_ORNAMENTED, NpcTextureType.BEARD, true);
         register(registry, Hairs.Beard.VERY_BROAD, NpcTextureType.BEARD, true);
+        register(registry, Hairs.Beard.VERY_LARGE_MUSTACHE, NpcTextureType.BEARD, true);
         register(registry, Hairs.Beard.VERY_LONG, NpcTextureType.BEARD, true);
     }
 

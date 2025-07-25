@@ -29,7 +29,7 @@ public class NpcTextureDataPreset {
     List<String> eyeMaterials;
     List<String> hairMaterials;
     List<String> clothingMaterials;
-    
+
     private boolean haveEmissiveEyes;
 
     public NpcTextureDataPreset(){
@@ -85,6 +85,12 @@ public class NpcTextureDataPreset {
         fetchElements(compound, NpcTextureType.EYEBROW);
         fetchElements(compound, NpcTextureType.BEARD);
         fetchElements(compound, NpcTextureType.CLOTHING);
+
+        loadHeadPool(compound);
+    }
+
+    private void loadHeadPool(NbtCompound compound) {
+
     }
 
     public NbtCompound getNbt(){
