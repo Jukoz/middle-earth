@@ -1,0 +1,14 @@
+{
+  "type": "middle-earth:inscription_table",
+  "enchant": "minecraft:projectile_protection",
+  "level": 4,
+  "ingredients": [
+    "#minecraft:enchantable/armor",
+    "middle-earth:sapphire",
+    "minecraft:leather",
+    "middle-earth:silver_ingot",
+    "middle-earth:sapphire",
+    "middle-earth:silver_ingot",
+    "minecraft:leather"
+  ]
+}

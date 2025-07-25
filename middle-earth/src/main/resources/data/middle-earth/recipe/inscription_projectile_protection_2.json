@@ -1,0 +1,12 @@
+{
+  "type": "middle-earth:inscription_table",
+  "enchant": "minecraft:projectile_protection",
+  "level": 2,
+  "ingredients": [
+    "#minecraft:enchantable/armor",
+    "minecraft:lapis_lazuli",
+    "minecraft:leather",
+    "middle-earth:raw_silver",
+    "minecraft:leather"
+  ]
+}

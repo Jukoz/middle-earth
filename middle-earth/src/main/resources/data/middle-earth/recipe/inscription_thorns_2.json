@@ -1,0 +1,12 @@
+{
+  "type": "middle-earth:inscription_table",
+  "enchant": "minecraft:thorns",
+  "level": 2,
+  "ingredients": [
+    "#minecraft:enchantable/armor",
+    "minecraft:lapis_lazuli",
+    "#middle-earth:thorn_items",
+    "minecraft:raw_iron",
+    "minecraft:amethyst_shard"
+  ]
+}
