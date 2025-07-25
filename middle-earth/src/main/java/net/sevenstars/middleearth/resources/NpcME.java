@@ -86,7 +86,7 @@ public class NpcME {
                         .withMaterials(NpcTextureType.SKIN, List.of(
                                 NpcTextureMaterialsME.Skin.PALE,
                                 NpcTextureMaterialsME.Skin.OLIVE,
-                                NpcTextureMaterialsME.Skin.DEFAULT,
+                                NpcTextureMaterialsME.Skin.BEIGE,
                                 NpcTextureMaterialsME.Skin.GREENISH,
                                 NpcTextureMaterialsME.Skin.BROWN,
                                 NpcTextureMaterialsME.Skin.TAN,
@@ -254,7 +254,7 @@ public class NpcME {
                         .withMaterials(NpcTextureType.SKIN, List.of(
                                 NpcTextureMaterialsME.Skin.PALE,
                                 NpcTextureMaterialsME.Skin.OLIVE,
-                                NpcTextureMaterialsME.Skin.DEFAULT,
+                                NpcTextureMaterialsME.Skin.BEIGE,
                                 NpcTextureMaterialsME.Skin.GREENISH,
                                 NpcTextureMaterialsME.Skin.BROWN,
                                 NpcTextureMaterialsME.Skin.TAN,

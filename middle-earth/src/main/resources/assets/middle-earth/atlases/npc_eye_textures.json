@@ -20,7 +20,10 @@
                 "dark_green": "middle-earth:npc_eye_textures/color_palettes/dark_green",
                 "deep_blue": "middle-earth:npc_eye_textures/color_palettes/deep_blue",
                 "green": "middle-earth:npc_eye_textures/color_palettes/green",
+                "ice": "middle-earth:npc_eye_textures/color_palettes/ice",
                 "navy": "middle-earth:npc_eye_textures/color_palettes/navy",
+                "pale": "middle-earth:npc_eye_textures/color_palettes/pale",
+                "red": "middle-earth:npc_eye_textures/color_palettes/red",
                 "yellow": "middle-earth:npc_eye_textures/color_palettes/yellow"
             }
         }

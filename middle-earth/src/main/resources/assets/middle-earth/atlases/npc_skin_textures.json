@@ -38,13 +38,23 @@
             ],
             "palette_key": "middle-earth:npc_skin_textures/color_palettes/base_palette",
             "permutations": {
+                "beige": "middle-earth:npc_skin_textures/color_palettes/beige",
                 "brown": "middle-earth:npc_skin_textures/color_palettes/brown",
-                "default": "middle-earth:npc_skin_textures/color_palettes/default",
+                "dark_pink": "middle-earth:npc_skin_textures/color_palettes/dark_pink",
                 "greenish": "middle-earth:npc_skin_textures/color_palettes/greenish",
+                "grey": "middle-earth:npc_skin_textures/color_palettes/grey",
+                "light_grey": "middle-earth:npc_skin_textures/color_palettes/light_grey",
                 "olive": "middle-earth:npc_skin_textures/color_palettes/olive",
                 "pale": "middle-earth:npc_skin_textures/color_palettes/pale",
+                "pale_green": "middle-earth:npc_skin_textures/color_palettes/pale_green",
+                "pale_white": "middle-earth:npc_skin_textures/color_palettes/pale_white",
+                "pink": "middle-earth:npc_skin_textures/color_palettes/pink",
+                "red": "middle-earth:npc_skin_textures/color_palettes/red",
+                "rust": "middle-earth:npc_skin_textures/color_palettes/rust",
+                "slight_brown": "middle-earth:npc_skin_textures/color_palettes/slight_brown",
                 "tan": "middle-earth:npc_skin_textures/color_palettes/tan",
-                "tan_desaturated": "middle-earth:npc_skin_textures/color_palettes/tan_desaturated"
+                "tan_desaturated": "middle-earth:npc_skin_textures/color_palettes/tan_desaturated",
+                "wine": "middle-earth:npc_skin_textures/color_palettes/wine"
             }
         }
     ]

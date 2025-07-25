@@ -26,7 +26,7 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                             NpcTextureMaterialsME.Skin.TAN,
                             NpcTextureMaterialsME.Skin.TAN_DESATURATED,
                             NpcTextureMaterialsME.Skin.PALE,
-                            NpcTextureMaterialsME.Skin.DEFAULT
+                            NpcTextureMaterialsME.Skin.BEIGE
                     ))
                     .withPatterns(NpcTextureType.BODY, List.of(
                             NpcTexturePatternsME.Skins.Body.MUSCULAR,
@@ -95,7 +95,7 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                             NpcTextureMaterialsME.Skin.TAN,
                             NpcTextureMaterialsME.Skin.TAN_DESATURATED,
                             NpcTextureMaterialsME.Skin.PALE,
-                            NpcTextureMaterialsME.Skin.DEFAULT
+                            NpcTextureMaterialsME.Skin.BEIGE
                     ))
                     .withPatterns(NpcTextureType.BODY, List.of(
                             NpcTexturePatternsME.Skins.Body.FEMALE,
@@ -205,7 +205,7 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         NpcTextureMaterialsME.Skin.TAN,
                         NpcTextureMaterialsME.Skin.TAN_DESATURATED,
                         NpcTextureMaterialsME.Skin.PALE,
-                        NpcTextureMaterialsME.Skin.DEFAULT
+                        NpcTextureMaterialsME.Skin.BEIGE
                 ))
                 .withPatterns(NpcTextureType.BODY, List.of(
                         NpcTexturePatternsME.Skins.Body.MUSCULAR
@@ -259,7 +259,7 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         NpcTextureMaterialsME.Skin.TAN,
                         NpcTextureMaterialsME.Skin.TAN_DESATURATED,
                         NpcTextureMaterialsME.Skin.PALE,
-                        NpcTextureMaterialsME.Skin.DEFAULT
+                        NpcTextureMaterialsME.Skin.BEIGE
                 ))
                 .withPatterns(NpcTextureType.BODY, List.of(
                         NpcTexturePatternsME.Skins.Body.MUSCULAR

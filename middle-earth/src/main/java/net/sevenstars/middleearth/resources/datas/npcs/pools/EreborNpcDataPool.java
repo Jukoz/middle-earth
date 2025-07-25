@@ -62,7 +62,7 @@ public class EreborNpcDataPool {
                 .clearMaterials(NpcTextureType.SKIN)
                 .withMaterials(NpcTextureType.SKIN, List.of(
                         NpcTextureMaterialsME.Skin.PALE,
-                        NpcTextureMaterialsME.Skin.DEFAULT
+                        NpcTextureMaterialsME.Skin.BEIGE
                 ))
                 .clearMaterials(NpcTextureType.HAIR)
                 .withMaterials(NpcTextureType.HAIR, List.of(

@@ -25,13 +25,23 @@ public class NpcTextureMaterialsME {
     }
 
     public record Skin(){
+        public final static RegistryKey<NpcTextureMaterial> BEIGE = of("beige", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> BROWN = of("brown", NpcTextureType.SKIN);
-        public final static RegistryKey<NpcTextureMaterial> DEFAULT = of("default", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> DARK_PINK = of("dark_pink", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> GREENISH = of("greenish", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> GREY = of("grey", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> LIGHT_GREY = of("light_grey", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> OLIVE = of("olive", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> PALE = of("pale", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> PALE_GREEN = of("pale_green", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> PALE_WHITE = of("pale_white", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> PINK = of("pink", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> RED = of("red", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> RUST = of("rust", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> SLIGHT_BROWN = of("slight_brown", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> TAN = of("tan", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> TAN_DESATURATED = of("tan_desaturated", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> WINE = of("wine", NpcTextureType.SKIN);
     }
 
     public record Eye() {
@@ -41,7 +51,10 @@ public class NpcTextureMaterialsME {
         public final static RegistryKey<NpcTextureMaterial> DARK_GREEN = of("dark_green", NpcTextureType.EYE);
         public final static RegistryKey<NpcTextureMaterial> DEEP_BLUE = of("deep_blue", NpcTextureType.EYE);
         public final static RegistryKey<NpcTextureMaterial> GREEN = of("green", NpcTextureType.EYE);
+        public final static RegistryKey<NpcTextureMaterial> ICE = of("ice", NpcTextureType.EYE);
         public final static RegistryKey<NpcTextureMaterial> NAVY = of("navy", NpcTextureType.EYE);
+        public final static RegistryKey<NpcTextureMaterial> PALE = of("pale", NpcTextureType.EYE);
+        public final static RegistryKey<NpcTextureMaterial> RED = of("red", NpcTextureType.EYE);
         public final static RegistryKey<NpcTextureMaterial> YELLOW = of("yellow", NpcTextureType.EYE);
     }
     public record Hair() {
@@ -70,6 +83,21 @@ public class NpcTextureMaterialsME {
         public final static RegistryKey<NpcTextureMaterial> BLONDE_COPPER = of("blonde_and_copper", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTextureMaterial> BLONDE_GOLD = of("blonde_and_gold", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTextureMaterial> BLONDE_SILVER = of("blonde_and_silver", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> DIRTY_BLONDE_ALMANDINE = of("dirty_blonde_and_almandine", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> DIRTY_BLONDE_BEADS = of("dirty_blonde_and_beads", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> DIRTY_BLONDE_COPPER = of("dirty_blonde_and_copper", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> DIRTY_BLONDE_GOLD = of("dirty_blonde_and_gold", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> DIRTY_BLONDE_SILVER = of("dirty_blonde_and_silver", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> DIRTY_BROWN_ALMANDINE = of("dirty_brown_and_almandine", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> DIRTY_BROWN_BEADS = of("dirty_brown_and_beads", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> DIRTY_BROWN_COPPER = of("dirty_brown_and_copper", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> DIRTY_BROWN_GOLD = of("dirty_brown_and_gold", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> DIRTY_BROWN_SILVER = of("dirty_brown_and_silver", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> GREASY_ALMANDINE = of("greasy_and_almandine", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> GREASY_BEADS = of("greasy_and_beads", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> GREASY_COPPER = of("greasy_and_copper", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> GREASY_GOLD = of("greasy_and_gold", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTextureMaterial> GREASY_SILVER = of("greasy_and_silver", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTextureMaterial> STRAW_ALMANDINE = of("straw_and_almandine", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTextureMaterial> STRAW_BEADS = of("straw_and_beads", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTextureMaterial> STRAW_COPPER = of("straw_and_copper", NpcTextureType.HAIR);
@@ -101,13 +129,23 @@ public class NpcTextureMaterialsME {
     }
 
     public static void bootstrapSkins(Registerable<NpcTextureMaterial> registry) {
+        register(registry, Skin.BEIGE, NpcTextureType.SKIN);
         register(registry, Skin.BROWN, NpcTextureType.SKIN);
-        register(registry, Skin.DEFAULT, NpcTextureType.SKIN);
+        register(registry, Skin.DARK_PINK, NpcTextureType.SKIN);
         register(registry, Skin.GREENISH, NpcTextureType.SKIN);
+        register(registry, Skin.GREY, NpcTextureType.SKIN);
+        register(registry, Skin.LIGHT_GREY, NpcTextureType.SKIN);
         register(registry, Skin.OLIVE, NpcTextureType.SKIN);
         register(registry, Skin.PALE, NpcTextureType.SKIN);
+        register(registry, Skin.PALE_GREEN, NpcTextureType.SKIN);
+        register(registry, Skin.PALE_WHITE, NpcTextureType.SKIN);
+        register(registry, Skin.PINK, NpcTextureType.SKIN);
+        register(registry, Skin.RED, NpcTextureType.SKIN);
+        register(registry, Skin.RUST, NpcTextureType.SKIN);
+        register(registry, Skin.SLIGHT_BROWN, NpcTextureType.SKIN);
         register(registry, Skin.TAN, NpcTextureType.SKIN);
         register(registry, Skin.TAN_DESATURATED, NpcTextureType.SKIN);
+        register(registry, Skin.WINE, NpcTextureType.SKIN);
     }
 
     public static void bootstrapEyes(Registerable<NpcTextureMaterial> registry) {
@@ -117,7 +155,10 @@ public class NpcTextureMaterialsME {
         register(registry, Eye.DARK_GREEN, NpcTextureType.EYE);
         register(registry, Eye.DEEP_BLUE, NpcTextureType.EYE);
         register(registry, Eye.GREEN, NpcTextureType.EYE);
+        register(registry, Eye.ICE, NpcTextureType.EYE);
         register(registry, Eye.NAVY, NpcTextureType.EYE);
+        register(registry, Eye.PALE, NpcTextureType.EYE);
+        register(registry, Eye.RED, NpcTextureType.EYE);
         register(registry, Eye.YELLOW, NpcTextureType.EYE);
     }
     public static void bootstrapHairs(Registerable<NpcTextureMaterial> registry) {
@@ -126,6 +167,9 @@ public class NpcTextureMaterialsME {
         register(registry, Hair.BROWN_GOLD, NpcTextureType.HAIR);
         register(registry, Hair.DARK_BROWN_GOLD, NpcTextureType.HAIR);
         register(registry, Hair.BLONDE_GOLD, NpcTextureType.HAIR);
+        register(registry, Hair.DIRTY_BLONDE_GOLD, NpcTextureType.HAIR);
+        register(registry, Hair.DIRTY_BROWN_GOLD, NpcTextureType.HAIR);
+        register(registry, Hair.GREASY_GOLD, NpcTextureType.HAIR);
         register(registry, Hair.STRAW_GOLD, NpcTextureType.HAIR);
         register(registry, Hair.GINGER_GOLD, NpcTextureType.HAIR);
         register(registry, Hair.WHITE_GOLD, NpcTextureType.HAIR);
@@ -136,6 +180,9 @@ public class NpcTextureMaterialsME {
         register(registry, Hair.BROWN_BEADS, NpcTextureType.HAIR);
         register(registry, Hair.DARK_BROWN_BEADS, NpcTextureType.HAIR);
         register(registry, Hair.BLONDE_BEADS, NpcTextureType.HAIR);
+        register(registry, Hair.DIRTY_BLONDE_BEADS, NpcTextureType.HAIR);
+        register(registry, Hair.DIRTY_BROWN_BEADS, NpcTextureType.HAIR);
+        register(registry, Hair.GREASY_BEADS, NpcTextureType.HAIR);
         register(registry, Hair.STRAW_BEADS, NpcTextureType.HAIR);
         register(registry, Hair.GINGER_BEADS, NpcTextureType.HAIR);
         register(registry, Hair.WHITE_BEADS, NpcTextureType.HAIR);
@@ -146,6 +193,9 @@ public class NpcTextureMaterialsME {
         register(registry, Hair.BROWN_COPPER, NpcTextureType.HAIR);
         register(registry, Hair.DARK_BROWN_COPPER, NpcTextureType.HAIR);
         register(registry, Hair.BLONDE_COPPER, NpcTextureType.HAIR);
+        register(registry, Hair.DIRTY_BLONDE_COPPER, NpcTextureType.HAIR);
+        register(registry, Hair.DIRTY_BROWN_COPPER, NpcTextureType.HAIR);
+        register(registry, Hair.GREASY_COPPER, NpcTextureType.HAIR);
         register(registry, Hair.STRAW_COPPER, NpcTextureType.HAIR);
         register(registry, Hair.GINGER_COPPER, NpcTextureType.HAIR);
         register(registry, Hair.WHITE_COPPER, NpcTextureType.HAIR);
@@ -156,6 +206,9 @@ public class NpcTextureMaterialsME {
         register(registry, Hair.BROWN_ALMANDINE, NpcTextureType.HAIR);
         register(registry, Hair.DARK_BROWN_ALMANDINE, NpcTextureType.HAIR);
         register(registry, Hair.BLONDE_ALMANDINE, NpcTextureType.HAIR);
+        register(registry, Hair.DIRTY_BLONDE_ALMANDINE, NpcTextureType.HAIR);
+        register(registry, Hair.DIRTY_BROWN_ALMANDINE, NpcTextureType.HAIR);
+        register(registry, Hair.GREASY_ALMANDINE, NpcTextureType.HAIR);
         register(registry, Hair.STRAW_ALMANDINE, NpcTextureType.HAIR);
         register(registry, Hair.GINGER_ALMANDINE, NpcTextureType.HAIR);
         register(registry, Hair.WHITE_ALMANDINE, NpcTextureType.HAIR);
@@ -166,6 +219,9 @@ public class NpcTextureMaterialsME {
         register(registry, Hair.BROWN_SILVER, NpcTextureType.HAIR);
         register(registry, Hair.DARK_BROWN_SILVER, NpcTextureType.HAIR);
         register(registry, Hair.BLONDE_SILVER, NpcTextureType.HAIR);
+        register(registry, Hair.DIRTY_BLONDE_SILVER, NpcTextureType.HAIR);
+        register(registry, Hair.DIRTY_BROWN_SILVER, NpcTextureType.HAIR);
+        register(registry, Hair.GREASY_SILVER, NpcTextureType.HAIR);
         register(registry, Hair.STRAW_SILVER, NpcTextureType.HAIR);
         register(registry, Hair.GINGER_SILVER, NpcTextureType.HAIR);
         register(registry, Hair.WHITE_SILVER, NpcTextureType.HAIR);
