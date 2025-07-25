@@ -35,10 +35,6 @@ public record FactionDataComponent(Identifier factionId) implements TooltipAppen
     public static final PacketCodec<RegistryByteBuf, FactionDataComponent> PACKET_CODEC =
             PacketCodec.tuple(Identifier.PACKET_CODEC, FactionDataComponent::factionId, FactionDataComponent::new);
 
-    public FactionDataComponent(Identifier factionId) {
-        this.factionId = factionId;
-    }
-
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         try {

@@ -1,16 +1,15 @@
 package net.sevenstars.middleearth.item.items.armor;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
-import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 
-public class CustomHelmetItem extends ArmorItem implements EquipmentTooltipME {
+public class CustomHelmetItem extends ArmorItem {
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Settings settings) {
         super(material, settings.armor(material.material(), EquipmentType.HELMET).maxCount(1));

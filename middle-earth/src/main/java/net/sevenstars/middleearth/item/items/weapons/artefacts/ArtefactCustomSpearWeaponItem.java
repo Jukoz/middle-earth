@@ -5,47 +5,24 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.ToolComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.item.items.weapons.CustomSpearWeaponItem;
 import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
-import net.sevenstars.middleearth.utils.ModFactions;
-import net.sevenstars.middleearth.utils.ModSubFactions;
-
-import java.util.function.Consumer;
 
 public class ArtefactCustomSpearWeaponItem extends CustomSpearWeaponItem {
 
     public ArtefactCustomSpearWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
         super(toolMaterial, settings);
         this.type = ModWeaponTypes.SPEAR;
-    }
-
-    public ArtefactCustomSpearWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
-        super(toolMaterial, faction, settings);
-    }
-
-    public ArtefactCustomSpearWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
-        super(toolMaterial, subFaction, settings);
-    }
-
-    public static boolean isUsable(ItemStack stack) {
-        return stack.getDamage() < stack.getMaxDamage() - 1;
-    }
-
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        appendBaseArtefactTooltip(textConsumer, stack);
     }
 
     @Override

@@ -3,17 +3,12 @@ package net.sevenstars.middleearth.item.items.armor;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
-import net.sevenstars.middleearth.utils.ModFactions;
-import net.sevenstars.middleearth.utils.ModSubFactions;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
 
-public class CustomAnimalArmorItem extends Item implements EquipmentTooltipME {
-    public ModFactions faction;
-    public ModSubFactions subFaction;
+public class CustomAnimalArmorItem extends Item {
     private final Identifier entityTexture;
     @Nullable
     private final Identifier overlayTexture;

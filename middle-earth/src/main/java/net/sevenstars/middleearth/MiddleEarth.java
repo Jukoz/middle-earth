@@ -48,7 +48,6 @@ public class MiddleEarth implements ModInitializer {
 		LOGGER.logInfoMsg("");
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
-
 		ModServerNetworkHandler.register(new ConnectionToClient());
 		ModEvents.register();
 		ModServerConfigs.registerConfigs();

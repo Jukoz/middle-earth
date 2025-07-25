@@ -1,22 +1,20 @@
 package net.sevenstars.middleearth.item.items.armor;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
-import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 
-public class HelmetAttachmentItem extends Item implements EquipmentTooltipME {
+public class HelmetAttachmentItem extends Item{
 
     public HelmetAttachmentItem(Item.Settings settings, ExtendedArmorMaterial armorMaterial) {
         super(settings.armor(armorMaterial.material(), EquipmentType.HELMET).maxCount(1));
     }
-
 
     public static void toggleHelmetAttachmentState(ServerPlayerEntity player, ItemStack stack){
         HelmetAttachmentDataComponent helmetAttachmentDataComponent = stack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA);

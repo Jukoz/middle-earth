@@ -21,11 +21,6 @@ public class CustomArtefactHelmetItem extends CustomHelmetItem {
         return Text.translatable(this.getTranslationKey()).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
     }
 
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        appendBaseArtefactTooltip(textConsumer, stack);
-    }
-
     //TODO canRepair gone need to find new thing -> component REPAIRABLE
 
     @Override
