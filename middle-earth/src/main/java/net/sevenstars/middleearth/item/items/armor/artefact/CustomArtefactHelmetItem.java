@@ -12,7 +12,7 @@ import net.minecraft.util.Formatting;
 import java.util.function.Consumer;
 
 public class CustomArtefactHelmetItem extends CustomHelmetItem {
-    public CustomArtefactHelmetItem(ExtendedArmorMaterial material, Settings settings, Faction faction) {
+    public CustomArtefactHelmetItem(ExtendedArmorMaterial material, Settings settings) {
         super(material, settings);
     }
 

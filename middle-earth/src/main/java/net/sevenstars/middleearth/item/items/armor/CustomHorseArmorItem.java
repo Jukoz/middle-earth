@@ -9,11 +9,10 @@ import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.util.Hand;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
 
 public class CustomHorseArmorItem extends Item {
 
-    public CustomHorseArmorItem(ArmorMaterial material, Settings settings, Faction faction) {
+    public CustomHorseArmorItem(ArmorMaterial material, Settings settings) {
         super(settings.horseArmor(material));
     }
 
