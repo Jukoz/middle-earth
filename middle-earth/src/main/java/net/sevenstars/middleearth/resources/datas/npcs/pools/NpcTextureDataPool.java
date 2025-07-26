@@ -268,6 +268,13 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         NpcTexturePatternsME.Skins.Head.MALE
                 ))
                 .withMaterials(NpcTextureType.HAIR, DEFAULT_HAIR)
+                .withMaterials(NpcTextureType.EYE, List.of(
+                        NpcTextureMaterialsME.Eye.BLUE,
+                        NpcTextureMaterialsME.Eye.GREEN,
+                        NpcTextureMaterialsME.Eye.DARK_GREEN,
+                        NpcTextureMaterialsME.Eye.NAVY,
+                        NpcTextureMaterialsME.Eye.BROWN
+                ))
                 .withPatterns(NpcTextureType.EYE, List.of(
                         NpcTexturePatternsME.Eyes.Eye.COMMON
                 ))
