@@ -24,6 +24,7 @@ import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.iseng
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorBNHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorSnoutHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorSpikyHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.moria.*;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentModelsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
@@ -135,6 +136,16 @@ public class ArmorModelsME {
         GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET, new HobgoblinCrestHelmetModel(HobgoblinCrestHelmetModel.getTexturedModelData().createModel())),
         GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET, new HobgoblinSmallHornHelmetModel(HobgoblinSmallHornHelmetModel.getTexturedModelData().createModel())),
 
+        MORIA_GOBLIN_SNAGA_NASAL_HELMET(EquipmentItemsME.MORIA_GOBLIN_SNAGA_NASAL_HELMET, new MoriaNasalHelmetModel(MoriaNasalHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_SNAGA_HELMET(EquipmentItemsME.MORIA_GOBLIN_SNAGA_HELMET, new MoriaSnagaHelmetModel(MoriaSnagaHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_CHARGER_HELMET(EquipmentItemsME.MORIA_GOBLIN_CHARGER_HELMET, new MoriaChargerHelmetModel(MoriaChargerHelmetModel.getTexturedModelData().createModel())),
+        MORIA_RUINED_DWARVEN_HELMET(EquipmentItemsME.MORIA_RUINED_DWARVEN_HELMET, new MoriaNasalHelmetModel(MoriaNasalHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_BITER_HELMET(EquipmentItemsME.MORIA_GOBLIN_BITER_HELMET, new MoriaScreecherHelmetModel(MoriaScreecherHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_MANDIBLE_HELMET(EquipmentItemsME.MORIA_GOBLIN_MANDIBLE_HELMET, new MoriaMandibleHelmetModel(MoriaMandibleHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_CAPTAIN_HELMET(EquipmentItemsME.MORIA_GOBLIN_CAPTAIN_HELMET, new MoriaCaptainHelmetModel(MoriaCaptainHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_SCREECHER_HELMET(EquipmentItemsME.MORIA_GOBLIN_SCREECHER_HELMET, new MoriaScreecherHelmetModel(MoriaScreecherHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_CHIEF_HELMET(EquipmentItemsME.MORIA_GOBLIN_CHIEF_HELMET, new MoriaChiefHelmetModel(MoriaChiefHelmetModel.getTexturedModelData().createModel())),
+
         HELMET_OF_HELM_HAMMERHAND(EquipmentItemsME.HELMET_OF_HELM_HAMMERHAND, new HammerhandHelmModel(HammerhandHelmModel.getTexturedModelData().createModel())),
         ;
 
@@ -173,6 +184,15 @@ public class ArmorModelsME {
         URUK_HAI_PLATE_CHESTPLATE(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
 
         GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE, new HobgoblinPlateChestplateModel(HobgoblinPlateChestplateModel.getTexturedModelData().createModel())),
+
+        MORIA_GOBLIN_SNAGA_CUIRASS(EquipmentItemsME.MORIA_GOBLIN_SNAGA_CUIRASS, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_SNAGA_BELLY_PLATE(EquipmentItemsME.MORIA_GOBLIN_SNAGA_BELLY_PLATE, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_HAUBERK(EquipmentItemsME.MORIA_GOBLIN_HAUBERK, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
+        MORIA_RUINED_DWARVEN_HAUBERK(EquipmentItemsME.MORIA_RUINED_DWARVEN_HAUBERK, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_REINFORCED_COAT(EquipmentItemsME.MORIA_GOBLIN_REINFORCED_COAT, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
+
+        MORIA_GOBLIN_SCREECHER_CHESTPLATE(EquipmentItemsME.MORIA_GOBLIN_SCREECHER_CHESTPLATE, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_CHIEF_CHESTPLATE(EquipmentItemsME.MORIA_GOBLIN_CHIEF_CHESTPLATE, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
         ;
 
         private final Item item;

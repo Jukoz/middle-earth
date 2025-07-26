@@ -1118,7 +1118,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.ORTHANC_GUARD_CAPE)));
     //endregion
 
-    //region MISTY MOUNTAIN GOBLINS
+    //region HOBGOB TRIBES
     public static final Item GUNDABAD_BONE_PAULDRON = registerDyeableArmorPiece("gundabad_bone_pauldron",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.LEATHER_T1, settings, ModSubFactions.GUNDABAD), new Item.Settings()
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(3944757)));
@@ -1183,6 +1183,65 @@ public class EquipmentItemsME {
     public static final Item GUNDABAD_HOBGOBLIN_MAIL_COAT = registerArmorPiece("gundabad_hobgoblin_mail_coat",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
     public static final Item GUNDABAD_HOBGOBLIN_PLATED_BOOTS = registerArmorPiece("gundabad_hobgoblin_plated_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    //endregion
+
+    //region MORIA GOBS
+    public static final Item MORIA_GOBLIN_SNAGA_NASAL_HELMET = registerCustomModelArmorPiece("moria_goblin_snaga_nasal_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T2, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    public static final Item MORIA_GOBLIN_SNAGA_HELMET = registerCustomModelArmorPiece("moria_goblin_snaga_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T2, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+
+    public static final Item MORIA_GOBLIN_SNAGA_CUIRASS = registerCustomModelArmorPiece("moria_goblin_snaga_cuirass",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.CRUDE_T2, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    public static final Item MORIA_GOBLIN_SNAGA_BELLY_PLATE = registerCustomModelArmorPiece("moria_goblin_snaga_belly_plate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.CRUDE_T2, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+
+    public static final Item MORIA_GOBLIN_CLOTH_COAT = registerArmorPiece("moria_goblin_cloth_coat",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.CRUDE_T2, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    public static final Item MORIA_GOBLIN_SNAGA_SKIRT = registerArmorPiece("moria_goblin_snaga_skirt",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.CRUDE_T2, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+
+    public static final Item MORIA_GOBLIN_CRUDE_BOOTS = registerArmorPiece("moria_goblin_crude_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.CRUDE_T2, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+
+    public static final Item MORIA_GOBLIN_CHARGER_HELMET = registerCustomModelArmorPiece("moria_goblin_charger_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    public static final Item MORIA_RUINED_DWARVEN_HELMET = registerCustomModelArmorPiece("moria_ruined_dwarven_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+
+    public static final Item MORIA_GOBLIN_HAUBERK = registerCustomModelArmorPiece("moria_goblin_hauberk",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.CRUDE_T3, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    public static final Item MORIA_RUINED_DWARVEN_HAUBERK = registerCustomModelArmorPiece("moria_ruined_dwarven_hauberk",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.CRUDE_T3, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+
+    public static final Item MORIA_GOBLIN_REINFORCED_COAT = registerCustomModelArmorPiece("moria_goblin_reinforced_coat",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+
+    public static final Item MORIA_GOBLIN_BITER_HELMET = registerCustomModelArmorPiece("moria_goblin_biter_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    public static final Item MORIA_GOBLIN_MANDIBLE_HELMET = registerCustomModelArmorPiece("moria_goblin_mandible_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+
+    public static final Item MORIA_GOBLIN_SCREECHER_HELMET = registerCustomModelArmorPiece("moria_goblin_screecher_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    public static final Item MORIA_GOBLIN_SCREECHER_CHESTPLATE = registerCustomModelArmorPiece("moria_goblin_screecher_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    public static final Item MORIA_GOBLIN_SCREECHER_LEGGINGS = registerArmorPiece("moria_goblin_screecher_leggings",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    public static final Item MORIA_GOBLIN_SCREECHER_BOOTS = registerArmorPiece("moria_goblin_screecher_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+
+    public static final Item MORIA_GOBLIN_CAPTAIN_HELMET = registerCustomModelArmorPiece("moria_goblin_captain_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+
+    public static final Item MORIA_GOBLIN_CHIEF_HELMET = registerCustomModelArmorPiece("moria_goblin_chief_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    public static final Item MORIA_GOBLIN_CHIEF_CHESTPLATE = registerCustomModelArmorPiece("moria_goblin_chief_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    public static final Item MORIA_GOBLIN_CHIEF_LEGGINGS = registerArmorPiece("moria_goblin_chief_leggings",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
+    public static final Item MORIA_GOBLIN_CHIEF_BOOTS = registerArmorPiece("moria_goblin_chief_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings, ModSubFactions.GUNDABAD), new Item.Settings());
     //endregion
 
