@@ -381,6 +381,12 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS));
 
+    public static StoneBlockSetBuilder TAN_CLAY = registerStoneSet(new StoneBlockSetBuilder("tan_clay",
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.RAW_IRON_PINK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
+            .addToSet(StoneBlockTypes.BRICK_BLOCKS)
+            .addToSet(StoneBlockTypes.TILE_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS));
+
 
     private static StoneBlockSetBuilder registerStoneSet(StoneBlockSetBuilder set) {
 

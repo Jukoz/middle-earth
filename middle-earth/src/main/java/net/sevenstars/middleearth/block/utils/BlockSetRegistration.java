@@ -52,6 +52,37 @@ public class BlockSetRegistration {
         return new BlockRecordTypes.RegularSet(base, slab, verticalSlab, stairs, wall);
     }
 
+    public static BlockRecordTypes.RegularSet createOxidizableSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean pillar, List<ItemStack> group, Oxidizable.OxidationLevel level) {
+        Block base;
+
+        if(pillar){
+            base = getVanillaOrCreateNew(name, PillarBlock::new,
+                    AbstractBlock.Settings.create()
+                            .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool(), group);
+        }else{
+            base = getVanillaOrCreateNew(name, (settings) -> new OxidizableBlock(level, settings),
+                    AbstractBlock.Settings.create()
+                            .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool(), group);
+        }
+
+        name = name.replaceAll("_bricks", "_brick");
+        name = name.replaceAll("_tiles", "_tile");
+
+        Block slab = getVanillaOrCreateNew(name + "_slab",(settings) -> new OxidizableSlabBlock(level, settings),
+                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+
+        Block verticalSlab = getVanillaOrCreateNew(name + "_vertical_slab",(settings) -> new OxidizableVerticalSlabBlock(level, settings),
+                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+
+        Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) -> new OxidizableStairsBlock(
+                level, base.getDefaultState(), settings), AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+
+        Block wall = getVanillaOrCreateNew(name + "_wall",(settings) -> new OxidizableWallBlock(level, settings),
+                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+
+        return new BlockRecordTypes.RegularSet(base, slab, verticalSlab, stairs, wall);
+    }
+
     public static BlockRecordTypes.WoodSet createWoodSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, List<ItemStack> group) {
 
         Block log = getVanillaOrCreateNew(name + "_log", PillarBlock::new,
