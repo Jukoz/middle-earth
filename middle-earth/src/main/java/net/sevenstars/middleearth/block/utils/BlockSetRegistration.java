@@ -21,64 +21,78 @@ import java.util.function.Function;
 
 public class BlockSetRegistration {
 
-    public static BlockRecordTypes.RegularSet createRegularSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean pillar, List<ItemStack> group) {
+    public static BlockRecordTypes.RegularSet createRegularSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean pillar, List<ItemStack> group, boolean requiresTool) {
         Block base;
+
+        AbstractBlock.Settings baseSettings;
+        if (requiresTool){
+            baseSettings = AbstractBlock.Settings.create()
+                    .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool();
+        } else {
+            baseSettings = AbstractBlock.Settings.create()
+                    .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance);
+        }
 
         if(pillar){
             base = getVanillaOrCreateNew(name, PillarBlock::new,
-                    AbstractBlock.Settings.create()
-                            .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool(), group);
+                    baseSettings, group);
         }else{
             base = getVanillaOrCreateNew(name, Block::new,
-                    AbstractBlock.Settings.create()
-                            .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool(), group);
+                    baseSettings, group);
         }
 
         name = name.replaceAll("_bricks", "_brick");
         name = name.replaceAll("_tiles", "_tile");
 
         Block slab = getVanillaOrCreateNew(name + "_slab", SlabBlock::new,
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+                baseSettings, group);
 
         Block verticalSlab = getVanillaOrCreateNew(name + "_vertical_slab", VerticalSlabBlock::new,
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+                baseSettings, group);
 
         Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) -> new StairsBlock(
-                base.getDefaultState(), settings), AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+                base.getDefaultState(), settings), baseSettings, group);
 
         Block wall = getVanillaOrCreateNew(name + "_wall", WallBlock::new,
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+                baseSettings, group);
 
         return new BlockRecordTypes.RegularSet(base, slab, verticalSlab, stairs, wall);
     }
 
-    public static BlockRecordTypes.RegularSet createOxidizableSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean pillar, List<ItemStack> group, Oxidizable.OxidationLevel level) {
+    public static BlockRecordTypes.RegularSet createOxidizableSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean pillar, List<ItemStack> group, boolean requiresTool, Oxidizable.OxidationLevel level) {
         Block base;
+
+        AbstractBlock.Settings baseSettings;
+        if (requiresTool){
+            baseSettings = AbstractBlock.Settings.create()
+                    .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool();
+        } else {
+            baseSettings = AbstractBlock.Settings.create()
+                    .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance);
+        }
 
         if(pillar){
             base = getVanillaOrCreateNew(name, PillarBlock::new,
-                    AbstractBlock.Settings.create()
-                            .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool(), group);
+                    baseSettings, group);
         }else{
             base = getVanillaOrCreateNew(name, (settings) -> new OxidizableBlock(level, settings),
-                    AbstractBlock.Settings.create()
-                            .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool(), group);
+                    baseSettings, group);
         }
 
         name = name.replaceAll("_bricks", "_brick");
         name = name.replaceAll("_tiles", "_tile");
 
         Block slab = getVanillaOrCreateNew(name + "_slab",(settings) -> new OxidizableSlabBlock(level, settings),
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+                baseSettings, group);
 
         Block verticalSlab = getVanillaOrCreateNew(name + "_vertical_slab",(settings) -> new OxidizableVerticalSlabBlock(level, settings),
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+                baseSettings, group);
 
         Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) -> new OxidizableStairsBlock(
-                level, base.getDefaultState(), settings), AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+                level, base.getDefaultState(), settings), baseSettings, group);
 
         Block wall = getVanillaOrCreateNew(name + "_wall",(settings) -> new OxidizableWallBlock(level, settings),
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+                baseSettings, group);
 
         return new BlockRecordTypes.RegularSet(base, slab, verticalSlab, stairs, wall);
     }

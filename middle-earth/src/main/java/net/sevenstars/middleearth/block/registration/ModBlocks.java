@@ -37,15 +37,15 @@ public class ModBlocks {
     public static final Block POINTED_GALONN = registerStoneBlock("pointed_galonn",
             PointedGalonnBlock::new,AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never), false);
 
-    public static final Block BLACK_WATTLE_TRAPDOOR = registerStoneBlock("black_wattle_trapdoor",
+    public static final Block BLACK_WATTLE_TRAPDOOR = registerWoodBlock("black_wattle_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR), true);
-    public static final Block DARK_WATTLE_TRAPDOOR = registerStoneBlock("dark_wattle_trapdoor",
+    public static final Block DARK_WATTLE_TRAPDOOR = registerWoodBlock("dark_wattle_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR), true);
-    public static final Block GREEN_WATTLE_TRAPDOOR = registerStoneBlock("green_wattle_trapdoor",
+    public static final Block GREEN_WATTLE_TRAPDOOR = registerWoodBlock("green_wattle_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR), true);
-    public static final Block RED_WATTLE_TRAPDOOR = registerStoneBlock("red_wattle_trapdoor",
+    public static final Block RED_WATTLE_TRAPDOOR = registerWoodBlock("red_wattle_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR), true);
-    public static final Block WATTLE_TRAPDOOR = registerStoneBlock("wattle_trapdoor",
+    public static final Block WATTLE_TRAPDOOR = registerWoodBlock("wattle_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR), true);
 
     public static final Block SNOWY_GRASS_BLOCK = registerMiscBlock("snowy_grass_block",

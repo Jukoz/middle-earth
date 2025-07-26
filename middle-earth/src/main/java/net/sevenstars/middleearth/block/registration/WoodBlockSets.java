@@ -372,9 +372,9 @@ public class WoodBlockSets {
                     ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(set.furnitureBlocks.ladder().asItem().getDefaultStack());
                 }
                 case ROOFING_BLOCKS ->
-                        set.roofingBlocks = BlockSetRegistration.createRegularSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                        set.roofingBlocks = BlockSetRegistration.createRegularSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup, false);
                 case SHINGLE_BLOCKS ->
-                        set.shinglesBlocks = BlockSetRegistration.createRegularSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup);
+                        set.shinglesBlocks = BlockSetRegistration.createRegularSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup, false);
                 case LEAVES -> {
                     set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
                             (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);

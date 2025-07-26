@@ -268,17 +268,8 @@ public class GenericBlockSets {
             "waxed_rotten_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
             ModItemGroups.MISC_BLOCKS_CONTENTS));
 
-    /*
-
-    public static RoofBlockSet THATCH = registerThatchSet("thatch", Oxidizable.OxidationLevel.UNAFFECTED);
-    public static RoofBlockSet WEATHERED_THATCH = registerThatchSet("weathered_thatch", Oxidizable.OxidationLevel.EXPOSED);
-    public static RoofBlockSet AGED_THATCH = registerThatchSet("aged_thatch", Oxidizable.OxidationLevel.WEATHERED);
-    public static RoofBlockSet OLD_THATCH = registerThatchSet("old_thatch", Oxidizable.OxidationLevel.OXIDIZED);
-    public static RoofBlockSet ROTTEN_THATCH = registerThatchSet("rotten_thatch", Oxidizable.OxidationLevel.OXIDIZED);
-    */
-
     private static GenericBlockSetBuilder registerBlockSet(GenericBlockSetBuilder set){
-        set.blockSet = BlockSetRegistration.createRegularSet(set.setName , set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, set.group);
+        set.blockSet = BlockSetRegistration.createRegularSet(set.setName , set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, set.group, set.requiresTool);
 
         genericSetsList.add(set);
 
@@ -294,7 +285,7 @@ public class GenericBlockSets {
     }
 
     private static GenericBlockSetBuilder registerPillarBlockSet(GenericBlockSetBuilder set){
-        set.blockSet = BlockSetRegistration.createRegularSet(set.setName , set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true, set.group);
+        set.blockSet = BlockSetRegistration.createRegularSet(set.setName , set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true, set.group, set.requiresTool);
 
         genericSetsList.add(set);
 
@@ -318,7 +309,7 @@ public class GenericBlockSets {
     }
 
     private static OxidizableBlockSetBuilder registerOxidizableBlockSet(OxidizableBlockSetBuilder set){
-        set.blockSet = BlockSetRegistration.createOxidizableSet(set.setName , set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, set.group, set.level);
+        set.blockSet = BlockSetRegistration.createOxidizableSet(set.setName , set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, set.group, set.requiresTool, set.level);
 
         genericSetsList.add(set);
 
