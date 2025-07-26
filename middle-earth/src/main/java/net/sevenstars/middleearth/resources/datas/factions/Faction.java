@@ -2,13 +2,19 @@ package net.sevenstars.middleearth.resources.datas.factions;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.entry.RegistryElementCodec;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
@@ -16,8 +22,9 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
+import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
@@ -50,6 +57,10 @@ public class Faction {
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Faction::getJoinCommands),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Faction::getLeaveCommands)
         ).apply(instance, Faction::new));
+
+    public static final PacketCodec<ByteBuf, Faction> PACKET_CODEC = PacketCodecs.codec(CODEC);
+    public static final Codec<RegistryEntry<Faction>> ENTRY_CODEC = RegistryElementCodec.of(FactionsME.KEY, CODEC);
+    public static final PacketCodec<RegistryByteBuf, RegistryEntry<Faction>> ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(FactionsME.KEY, PACKET_CODEC);
 
     private final Identifier id;
     private final Integer factionSelectionOrderIndex;
@@ -207,8 +218,15 @@ public class Faction {
             return Optional.empty();
         return Optional.of(this.parentFactionId);
     }
-    public Identifier getParentFactionId() {
-        return parentFactionId;
+
+    public Faction getParentFaction(World world){
+        if(world == null || factionType != FactionType.SUBFACTION || parentFactionId == null)
+            return null;
+        try{
+            return FactionLookup.getFactionById(world, parentFactionId);
+        } catch (FactionIdentifierException e){
+            return null;
+        }
     }
 
     private Optional<List<Identifier>> getSubfactionIds() {

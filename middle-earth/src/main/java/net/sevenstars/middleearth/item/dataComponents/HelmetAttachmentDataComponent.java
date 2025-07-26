@@ -3,15 +3,25 @@ package net.sevenstars.middleearth.item.dataComponents;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.component.type.DyedColorComponent;
+import net.minecraft.item.Item;
+import net.minecraft.item.tooltip.TooltipAppender;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.math.ColorHelper;
 
-public record HelmetAttachmentDataComponent(boolean down, HelmetAttachmentsME helmetAttachment, int helmetAttachmentColor) {
+import java.util.function.Consumer;
+
+public record HelmetAttachmentDataComponent(boolean down, HelmetAttachmentsME helmetAttachment, int helmetAttachmentColor) implements TooltipAppender {
 
     private static final Codec<HelmetAttachmentDataComponent> BASE_CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(Codec.BOOL.fieldOf("down").forGetter(HelmetAttachmentDataComponent::down),
@@ -73,5 +83,18 @@ public record HelmetAttachmentDataComponent(boolean down, HelmetAttachmentsME he
 
     public int helmetAttachmentColor() {
         return helmetAttachmentColor;
+    }
+
+    @Override
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
+        if (DyeablePiecesME.dyeableHelmetAttachments.containsKey(this.helmetAttachment())){
+            textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.helmetAttachment().getName())
+                    .append(" (")
+                    .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color")
+                            .append(": " + String.format("#%06X", (0xFFFFFF & this.helmetAttachmentColor)))
+                            .append(")")).formatted(Formatting.GRAY));
+        } else {
+            textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.helmetAttachment().getName()).formatted(Formatting.GRAY));
+        }
     }
 }
