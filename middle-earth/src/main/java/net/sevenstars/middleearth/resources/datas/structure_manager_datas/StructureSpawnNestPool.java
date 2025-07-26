@@ -65,7 +65,7 @@ public class StructureSpawnNestPool {
         return this.npcIdentifier;
     }
     public Identifier getFactionIdentifier() {
-        return FactionsME.GONDOR.getId();
+        return FactionsME.GONDOR.getValue();
     }
     public int getWeight() {
         return this.weight;
