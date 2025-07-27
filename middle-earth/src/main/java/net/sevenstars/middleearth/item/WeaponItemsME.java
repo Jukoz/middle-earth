@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item;
 
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.Registries;
@@ -23,6 +24,7 @@ import net.sevenstars.middleearth.item.items.weapons.artefacts.*;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomBowWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomCrossbowWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
+import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
 import net.sevenstars.middleearth.item.utils.ModShieldTypes;
@@ -760,50 +762,70 @@ public class WeaponItemsME {
 
     //region ARTEFACTS
     public static final Item DAGAMARTH = registerArtefact("dagamarth",
-            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("dagamarth")), true);
     public static final Item HERUGRIM = registerArtefact("herugrim",
-            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("herugrim")), true);
     public static final Item NAZGUL_SWORD = registerArtefact("nazgul_sword",
-            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("nazgul_sword")), true);
 
     public static final Item HAMMER_OF_HELM_HAMMERHAND = registerArtefact("hammer_of_helm_hammerhand",
-            (settings) -> new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("hammer_of_helm_hammerhand")), true);
     public static final Item MACE_OF_SAURON = registerArtefact("mace_of_sauron",
-            (settings) -> new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("mace_of_sauron")), true);
 
     public static final Item ANGUIREL = registerArtefact("anguirel",
-            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("anguirel")), true);
     public static final Item GLAMDRING = registerArtefact("glamdring",
-            (settings) ->  new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) ->  new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("glamdring")), true);
     public static final Item LONG_FORGOTTEN_LONGSWORD = registerArtefact("long_forgotten_longsword",
-            (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("long_forgotten_longsword")), true);
     public static final Item LONGSWORD_OF_ELDER_KINGS = registerArtefact("longsword_of_elder_kings",
-            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("longsword_of_elder_kings")), true);
     public static final Item NARSIL = registerArtefact("narsil",
-            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("narsil")), true);
     public static final Item NOLDORIN_LONGSWORD = registerArtefact("noldorin_longsword",
-            (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("noldorin_longsword")), true);
     public static final Item ORCRIST = registerArtefact("orcrist",
-            (settings) -> new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("orcrist")), true);
 
     public static final Item BARROW_BLADE = registerArtefact("barrow_blade",
-            (settings) -> new ArtefactCustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), false);
+            (settings) -> new ArtefactCustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("barrow_blade")), false);
     public static final Item MORGUL_KNIFE = registerArtefact("morgul_knife",
-            (settings) -> new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE, settings), new Item.Settings().rarity(Rarity.EPIC), false);
+            (settings) -> new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("morgul_knife")), false);
     public static final Item STING = registerArtefact("sting",
-            (settings) -> new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), false);
+            (settings) -> new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("sting")), false);
 
     public static final Item AEGLOS = registerItemWithSpearModel("aeglos",
-            (settings) -> new ArtefactCustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC));
+            (settings) -> new ArtefactCustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("aeglos")));
 
     public static final Item ANORTHANN = registerShield("anorthann",
-            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC));
+            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("anorthann")));
     public static final Item CUTHANN = registerShield("cuthann",
-            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC));
+            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("cuthann")));
     public static final Item SHIELD_OF_DURINS_GUARD = registerShield("shield_of_durins_guard",
-            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC));
+            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("shield_of_durins_guard")));
     public static final Item SHIELD_OF_THE_KING_UNDER_THE_MOUNTAIN = registerShield("shield_of_the_king_under_the_mountain",
-            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC));
+            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("shield_of_the_king_under_the_mountain")));
     //endregion
 
     public static final Item HELD_BANNER = registerItemNoModel("held_banner",
