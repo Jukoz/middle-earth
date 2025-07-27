@@ -11,7 +11,6 @@ import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
 
 public class CustomAxeWeaponItem extends AxeItem {
 
-
     public CustomAxeWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
         super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, settings.axe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed));
     }
