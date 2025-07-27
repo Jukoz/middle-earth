@@ -5,6 +5,7 @@ import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Rarity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
@@ -341,8 +342,6 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.GONDORIAN_FOUNTAIN_GUARD_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
 
-
-    // TODO: Horse armor faction
     public static final Item GONDORIAN_HORSE_ARMOR = registerGeneratedItem("gondorian_horse_armor",
             (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.GONDORIAN_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
@@ -451,9 +450,9 @@ public class EquipmentItemsME {
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.HORSE_LORD_CAPE)).component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
 
-    // TODO: Horse armor faction
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.ROHIRRIC_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1).component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+            (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.ROHIRRIC_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1)
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
     //endregion
 
     //region DALE
@@ -554,7 +553,6 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.BARDING_SERGEANT_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
 
-    // TODO: Horse armor faction
     public static final Item DALISH_HORSE_ARMOR = registerGeneratedItem("dalish_horse_armor",
             (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.DALISH_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
@@ -791,8 +789,18 @@ public class EquipmentItemsME {
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.RAVENHILL_SENTINEL_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
-    //endregion
 
+    public static final Item BROADHOOF_GOAT_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_padded_armor",
+            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.LEATHER, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(15256475))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+    public static final Item BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_ornamented_padded_armor",
+            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.LEATHER, "_ornamented", CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(15256475))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+    public static final Item BROADHOOF_GOAT_PLATE_ARMOR = registerGeneratedItem("broadhoof_goat_plate_armor",
+            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.PLATE, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, false, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));//endregion
     //endregion
 
     //endregion
@@ -921,7 +929,6 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.GALADHRIM_LORD_SURCOAT))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
-    // TODO Horse Armor Faction
     public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
             (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.LORIEN_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
@@ -1051,6 +1058,14 @@ public class EquipmentItemsME {
     public static final Item ORCISH_WHITE_FUR_SURCOAT_WITH_BONE = registerBackAttachment("orcish_white_fur_surcoat_with_bone",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FUR_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.ORCISH_WHITE_FUR_SURCOAT_WITH_BONE)));
+
+    public static final Item WARG_LEATHER_ARMOR = registerDyeableArmorPiece("warg_leather_armor",
+            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.LEATHER, null, CustomAnimalArmorItem.Type.WARG, false, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(4865076)));
+
+    public static final Item WARG_REINFORCED_LEATHER_ARMOR = registerDyeableArmorPiece("warg_reinforced_leather_armor",
+            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.LEATHER, "_reinforced", CustomAnimalArmorItem.Type.WARG, true, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(4865076)));
     //endregion
 
     //region MORDOR
@@ -1232,6 +1247,15 @@ public class EquipmentItemsME {
     public static final Item RINGWRAITH_BOOTS = registerArmorPiece("ringwraith_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item WARG_MORDOR_MAIL_ARMOR = registerDyeableArmorPiece("warg_mordor_mail_armor",
+            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.MAIL, "_mordor", CustomAnimalArmorItem.Type.WARG, true, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(4865076))
+
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item WARG_MORDOR_PLATE_ARMOR = registerGeneratedItem("warg_mordor_plate_armor",
+            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.PLATE, "_mordor", CustomAnimalArmorItem.Type.WARG, false, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
     //endregion
 
     //region ISENGARD
@@ -1343,6 +1367,10 @@ public class EquipmentItemsME {
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.ORTHANC_GUARD_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
+
+    public static final Item WARG_ISENGARD_PLATE_ARMOR = registerGeneratedItem("warg_isengard_plate_armor",
+            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.PLATE, "_isengard", CustomAnimalArmorItem.Type.WARG, false, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
     //endregion
 
     //region MISTY MOUNTAIN GOBLINS
@@ -1432,48 +1460,16 @@ public class EquipmentItemsME {
     public static final Item GUNDABAD_HOBGOBLIN_PLATED_BOOTS = registerArmorPiece("gundabad_hobgoblin_plated_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
-    //endregion
 
-    //endregion
-
-    // GENERIC
-    // Warg
-    public static final Item WARG_MORDOR_PLATE_ARMOR = registerGeneratedItem("warg_mordor_plate_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.PLATE, "_mordor", CustomAnimalArmorItem.Type.WARG, false, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
     public static final Item WARG_GUNDABAD_PLATE_ARMOR = registerGeneratedItem("warg_gundabad_plate_armor",
             (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.PLATE, "_gundabad", CustomAnimalArmorItem.Type.WARG, false, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
-    public static final Item WARG_ISENGARD_PLATE_ARMOR = registerGeneratedItem("warg_isengard_plate_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.PLATE, "_isengard", CustomAnimalArmorItem.Type.WARG, false, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
-    public static final Item WARG_MORDOR_MAIL_ARMOR = registerDyeableArmorPiece("warg_mordor_mail_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.MAIL, "_mordor", CustomAnimalArmorItem.Type.WARG, true, settings), new Item.Settings()
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(4865076))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
-    public static final Item WARG_LEATHER_ARMOR = registerDyeableArmorPiece("warg_leather_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.LEATHER, null, CustomAnimalArmorItem.Type.WARG, false, settings), new Item.Settings()
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(4865076)));
-    public static final Item WARG_REINFORCED_LEATHER_ARMOR = registerDyeableArmorPiece("warg_reinforced_leather_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.LEATHER, "_reinforced", CustomAnimalArmorItem.Type.WARG, true, settings), new Item.Settings()
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(4865076)));
+    //endregion
 
-    // Broadhoof Goat
-    public static final Item BROADHOOF_GOAT_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_padded_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.LEATHER, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, settings), new Item.Settings()
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(15256475))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
-    public static final Item BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_ornamented_padded_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.LEATHER, "_ornamented", CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, settings), new Item.Settings()
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(15256475))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
-    public static final Item BROADHOOF_GOAT_PLATE_ARMOR = registerGeneratedItem("broadhoof_goat_plate_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.PLATE, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, false, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+    //endregion
 
-    // TODO Custom Artefact Faction
     public static final Item HELMET_OF_HELM_HAMMERHAND = registerCustomModelArmorPiece("helmet_of_helm_hammerhand",
-            (settings) -> new CustomArtefactHelmetItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+            (settings) -> new CustomArtefactHelmetItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
 
     private static Item registerHelmetAttachment(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {

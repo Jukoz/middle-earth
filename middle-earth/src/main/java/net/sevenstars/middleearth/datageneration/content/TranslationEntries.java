@@ -302,27 +302,25 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.helmet_attachment", "Helmet Attachment");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.back_attachment", "Back Attachment");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.pipe", "Pipe");
-
-            put("tooltip."+ MiddleEarth.MOD_ID +".shift", "Hold §3SHIFT§f to see information.");
-            put("tooltip."+ MiddleEarth.MOD_ID +".alt", "Hold §3ALT§f to see custom parts information.");
-            put("tooltip."+ MiddleEarth.MOD_ID +".weapon_type", "§eType: §f");
-            put("tooltip."+ MiddleEarth.MOD_ID +".faction", "§6Faction: §f");
-            put("tooltip."+ MiddleEarth.MOD_ID +".sub_faction", "§7Sub Faction: §f");
-            put("tooltip."+ MiddleEarth.MOD_ID +".customizations", "§6Custom Parts: §f");
+            
+            put("tooltip."+ MiddleEarth.MOD_ID +".weapon_type", "Type: ");
+            put("tooltip."+ MiddleEarth.MOD_ID +".faction", "Faction: ");
+            put("tooltip."+ MiddleEarth.MOD_ID +".sub_faction", "Sub Faction: ");
+            put("tooltip."+ MiddleEarth.MOD_ID +".customizations", "Custom Parts: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".reach", "Reach: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".dyed", "Dyed: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".artisan", "Artisan: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".blocks_range", " Blocks");
-            put("tooltip."+ MiddleEarth.MOD_ID +".backstab", "§7+50% damage when backstabbing");
+            put("tooltip."+ MiddleEarth.MOD_ID +".backstab", "+50% damage when backstabbing");
             put("tooltip."+ MiddleEarth.MOD_ID +".door_size", "Door size: ");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_clothing", "§fClothing");
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_basic", "§fBasic Armor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_light", "§aLight Armor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_medium", "§9Medium Armor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_sturdy", "§5Sturdy Armor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_heavy", "§cHeavy Armor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_mithril", "§bMithril");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_clothing", "Clothing");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_basic", "Basic Armor");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_light", "Light Armor");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_medium", "Medium Armor");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_sturdy", "Sturdy Armor");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_heavy", "Heavy Armor");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_mithril", "Mithril");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".artefact", "Artefact");
             put("tooltip."+ MiddleEarth.MOD_ID +".broken", "Broken");
@@ -337,9 +335,9 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".longbow", "Longbow");
             put("tooltip."+ MiddleEarth.MOD_ID +".crossbow", "Crossbow");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".light_shield", "§fLight Shield");
-            put("tooltip."+ MiddleEarth.MOD_ID +".medium_shield", "§9Medium Shield");
-            put("tooltip."+ MiddleEarth.MOD_ID +".heavy_shield", "§cHeavy Shield");
+            put("tooltip."+ MiddleEarth.MOD_ID +".light_shield", "Light Shield");
+            put("tooltip."+ MiddleEarth.MOD_ID +".medium_shield", "Medium Shield");
+            put("tooltip."+ MiddleEarth.MOD_ID +".heavy_shield", "Heavy Shield");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".generic", "Generic");
 

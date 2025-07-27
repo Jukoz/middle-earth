@@ -23,12 +23,6 @@ public class ArtefactCustomAxeWeaponItem extends CustomAxeWeaponItem {
         super(toolMaterial, settings);
     }
 
-
-    @Override
-    public Text getName(ItemStack stack) {
-        return Text.translatable(this.getTranslationKey()).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
-    }
-
     @Override
     public boolean isItemBarVisible(ItemStack stack) {
         if (stack.getDamage() == stack.getMaxDamage() - 1) {

@@ -4,6 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Rarity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
@@ -759,50 +760,50 @@ public class WeaponItemsME {
 
     //region ARTEFACTS
     public static final Item DAGAMARTH = registerArtefact("dagamarth",
-            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item HERUGRIM = registerArtefact("herugrim",
-            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item NAZGUL_SWORD = registerArtefact("nazgul_sword",
-            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
 
     public static final Item HAMMER_OF_HELM_HAMMERHAND = registerArtefact("hammer_of_helm_hammerhand",
-            (settings) -> new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item MACE_OF_SAURON = registerArtefact("mace_of_sauron",
-            (settings) -> new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
 
     public static final Item ANGUIREL = registerArtefact("anguirel",
-            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item GLAMDRING = registerArtefact("glamdring",
-            (settings) ->  new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) ->  new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item LONG_FORGOTTEN_LONGSWORD = registerArtefact("long_forgotten_longsword",
-            (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item LONGSWORD_OF_ELDER_KINGS = registerArtefact("longsword_of_elder_kings",
-            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item NARSIL = registerArtefact("narsil",
-            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item NOLDORIN_LONGSWORD = registerArtefact("noldorin_longsword",
-            (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item ORCRIST = registerArtefact("orcrist",
-            (settings) -> new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
 
     public static final Item BARROW_BLADE = registerArtefact("barrow_blade",
-            (settings) -> new ArtefactCustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), false);
+            (settings) -> new ArtefactCustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), false);
     public static final Item MORGUL_KNIFE = registerArtefact("morgul_knife",
-            (settings) -> new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE, settings), new Item.Settings(), false);
+            (settings) -> new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE, settings), new Item.Settings().rarity(Rarity.EPIC), false);
     public static final Item STING = registerArtefact("sting",
-            (settings) -> new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), false);
+            (settings) -> new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), false);
 
     public static final Item AEGLOS = registerItemWithSpearModel("aeglos",
-            (settings) -> new ArtefactCustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings());
+            (settings) -> new ArtefactCustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC));
 
     public static final Item ANORTHANN = registerShield("anorthann",
-            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings());
+            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC));
     public static final Item CUTHANN = registerShield("cuthann",
-            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings());
+            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC));
     public static final Item SHIELD_OF_DURINS_GUARD = registerShield("shield_of_durins_guard",
-            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings());
+            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC));
     public static final Item SHIELD_OF_THE_KING_UNDER_THE_MOUNTAIN = registerShield("shield_of_the_king_under_the_mountain",
-            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings());
+            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC));
     //endregion
 
     public static final Item HELD_BANNER = registerItemNoModel("held_banner",
