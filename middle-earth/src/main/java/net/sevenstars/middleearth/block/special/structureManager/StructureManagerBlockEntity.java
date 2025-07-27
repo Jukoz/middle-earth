@@ -131,6 +131,14 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(!isRuntimeEnabled() || managerId.compareTo(this.runtimeStructureManagerData) != 0)
             return false;
 
+        if(managerData == null){
+            if(this.runtimeStructureManagerData == null)
+                return false;
+            this.managerData = StructureManagerService.GetStructureManagerData(world, this.runtimeStructureManagerData);
+            if(this.managerData == null)
+                return false;
+            this.structureNestList = new StructureNestList();
+        }
         SpawnNestNodeData data = managerData.getNpcSpawnNest(nestId);
         SpawnNestManager manager = new SpawnNestManager(data, nestPos, spawnRadius);
         this.structureNestList.addNest(manager);
