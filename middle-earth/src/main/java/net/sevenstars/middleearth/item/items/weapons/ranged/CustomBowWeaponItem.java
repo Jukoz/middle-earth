@@ -6,7 +6,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.dataComponents.WeaponTypeDataComponent;
 import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
+import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
 
 import java.util.function.Predicate;
 
@@ -14,7 +17,8 @@ public class CustomBowWeaponItem extends BowItem {
     public ModRangedWeaponTypes type;
 
     public CustomBowWeaponItem(ModRangedWeaponTypes type, Item.Settings settings) {
-        super(settings.maxDamage(type.durability));
+        super(settings.maxDamage(type.durability)
+                .component(DataComponentTypesME.WEAPON_TYPE_DATA, new WeaponTypeDataComponent(type.name)));
         this.type = type;
     }
 

@@ -4,14 +4,18 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.dataComponents.WeaponTypeDataComponent;
 import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
 
 public class CustomSwordWeaponItem extends Item {
 
     public CustomSwordWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
-        super(settings.sword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed));
+        super(settings.sword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)
+                .component(DataComponentTypesME.WEAPON_TYPE_DATA, new WeaponTypeDataComponent(ModWeaponTypes.SWORD.name)));
     }
 
     @Override

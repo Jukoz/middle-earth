@@ -303,7 +303,7 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.back_attachment", "Back Attachment");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.pipe", "Pipe");
             
-            put("tooltip."+ MiddleEarth.MOD_ID +".weapon_type", "Type: ");
+            put("tooltip."+ MiddleEarth.MOD_ID +".type", "Type: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".faction", "Faction: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".sub_faction", "Sub Faction: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".customizations", "Custom Parts: ");
@@ -330,6 +330,7 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".dagger", "Dagger");
             put("tooltip."+ MiddleEarth.MOD_ID +".spear", "Spear");
             put("tooltip."+ MiddleEarth.MOD_ID +".longsword", "Longsword");
+            put("tooltip."+ MiddleEarth.MOD_ID +".troll_weapon", "Troll Weapon");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".bow", "Bow");
             put("tooltip."+ MiddleEarth.MOD_ID +".longbow", "Longbow");

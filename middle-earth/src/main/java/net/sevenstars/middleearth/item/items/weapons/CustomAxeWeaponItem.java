@@ -7,12 +7,15 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.dataComponents.WeaponTypeDataComponent;
 import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
 
 public class CustomAxeWeaponItem extends AxeItem {
 
     public CustomAxeWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
-        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, settings.axe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed));
+        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, settings.axe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)
+                .component(DataComponentTypesME.WEAPON_TYPE_DATA, new WeaponTypeDataComponent(ModWeaponTypes.AXE.name)));
     }
 
     @Override

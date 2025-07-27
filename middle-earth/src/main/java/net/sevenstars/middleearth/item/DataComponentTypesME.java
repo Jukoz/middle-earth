@@ -27,6 +27,9 @@ public class DataComponentTypesME {
     public static final ComponentType<ArmorTierDataComponent> ARMOR_TIER_DATA = register("armor_tier", (builder) -> {
         return builder.codec(ArmorTierDataComponent.CODEC).packetCodec(ArmorTierDataComponent.PACKET_CODEC);
     });
+    public static final ComponentType<WeaponTypeDataComponent> WEAPON_TYPE_DATA = register("weapon_type", (builder) -> {
+        return builder.codec(WeaponTypeDataComponent.CODEC).packetCodec(WeaponTypeDataComponent.PACKET_CODEC);
+    });
     public static final ComponentType<BackAttachmentDataComponent> BACK_ATTACHMENT_DATA = register("back_attachment", (builder) -> {
         return builder.codec(BackAttachmentDataComponent.CODEC).packetCodec(BackAttachmentDataComponent.PACKET_CODEC);
     });
