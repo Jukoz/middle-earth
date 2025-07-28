@@ -328,7 +328,7 @@ public class HelpingGenerator {
         }
     }
 
-    public static void addBlocksToLists(Block block, Block base, Block slab){
+    public static void addBlocksToLists(Block block, Block base, Block origin){
         MineablePickaxe.blocks.add(block);
         BlockDrops.blocks.add(block);
 
@@ -349,24 +349,24 @@ public class HelpingGenerator {
                 }
                 case SlabBlock slabBlock -> {
                     if (blockName.contains("stripped")){
-                        SimpleSlabModel.strippedSlabs.add(new SimpleSlabModel.Slab(base, slab));
+                        SimpleSlabModel.strippedSlabs.add(new SimpleSlabModel.Slab(base, origin));
                     } else if (blockName.contains("wood") || blockName.contains("hyphae")){
-                        SimpleSlabModel.woodSlabs.add(new SimpleSlabModel.Slab(base, slab));
+                        SimpleSlabModel.woodSlabs.add(new SimpleSlabModel.Slab(base, origin));
                     } else{
                         SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(base, slabBlock));
                     }
                 }
                 case VerticalSlabBlock verticalSlabBlock -> {
                     if (isPillar) {
-                        SimpleVerticalSlabModel.columnVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
+                        SimpleVerticalSlabModel.columnVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
                     }else if (blockName.contains("stripped")){
-                        SimpleVerticalSlabModel.strippedVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
+                        SimpleVerticalSlabModel.strippedVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
                     } else if (blockName.contains("wood") || blockName.contains("hyphae")){
-                        SimpleVerticalSlabModel.woodVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
+                        SimpleVerticalSlabModel.woodVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
                     } else if (baseName.contains("planks")){
-                        SimpleVerticalSlabModel.plansVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
+                        SimpleVerticalSlabModel.plansVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
                     } else{
-                        SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, slab, verticalSlabBlock));
+                        SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
                     }
                 }
                 case StairsBlock stairsBlock -> {
@@ -432,7 +432,7 @@ public class HelpingGenerator {
                 case RocksBlock rocksBlock -> SimpleRocksModel.rocks.add(new SimpleRocksModel.Rocks(base, rocksBlock));
                 case Block block1 -> {
                     if (blockName.contains("carved_window")){
-                        SimplePillarModel.carvedWindows.add(new SimplePillarModel.StonePillar(block1, base));
+                        SimplePillarModel.carvedWindows.add(new SimplePillarModel.StonePillar(block1, origin));
                     } else {
                         SimpleBlockModel.blocks.add(block1);
                     }
@@ -446,11 +446,11 @@ public class HelpingGenerator {
     }
 
     public static void pillarBlocks(BlockRecordTypes.PillarSet set, Block origin) {
-        BlockRecordTypes.PillarSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, origin, set.verticalSlab()));
+        BlockRecordTypes.PillarSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.verticalSlab()));
     }
 
     public static void carvedWindowBlocks(BlockRecordTypes.CarvedWindow set, Block origin) {
-        BlockRecordTypes.CarvedWindow.getAllBlocks(set).forEach(block -> addBlocksToLists(block, origin, null));
+        BlockRecordTypes.CarvedWindow.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.block(), origin));
     }
 
     public static void mainStoneBlocks(BlockRecordTypes.BaseStoneSet set){

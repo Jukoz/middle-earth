@@ -62,14 +62,6 @@ public class BlockModelProvider extends FabricModelProvider {
             blockStateModelGenerator.registerSimpleCubeAll(block);
         }
 
-        for (Block block : SimpleBlockModel.cobbleableStoneBlocks) {
-            TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block);
-            ModelVariant identifier = createModelVariant(Models.CUBE_MIRRORED_ALL.upload(block, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            ModelVariant identifier2 = createModelVariant(Models.CUBE_ALL.upload(block, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-
-            blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block, BlockStateModelGenerator.modelWithMirroring(identifier, identifier2)));
-        }
-
         for (SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledMainBlockTopBottom) {
             blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
         }
@@ -100,7 +92,6 @@ public class BlockModelProvider extends FabricModelProvider {
         for (SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledPolishedBlocks) {
             blockStateModelGenerator.registerSimpleCubeAll(block.base());
         }
-
 
         for (SimplePillarModel.Pillar block : SimplePillarModel.blocks) {
             blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
