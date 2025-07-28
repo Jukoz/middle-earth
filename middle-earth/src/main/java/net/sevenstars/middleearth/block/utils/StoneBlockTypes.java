@@ -13,6 +13,7 @@ public enum StoneBlockTypes {
     BRICKWORK_BLOCKS("", "_brickwork"),
     PILLAR_BLOCKS("", "_pillar"),
     CHISELED_BLOCKS("chiseled_", ""),
+    CHISELED_BLOCKS_NO_RESTRICTION("chiseled_", ""),
     OLD_BLOCKS("old_", ""),
     OLD_BLOCKS_PILLAR("old_", ""),
     CARVED_WINDOW("", "_carved_window"),

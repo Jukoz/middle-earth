@@ -65,6 +65,13 @@ public class HelpingGenerator {
                         if (set.existingList.contains(StoneBlockTypes.TILE_BLOCKS)) pillarBlocks(set.chiseledTilesBlocks, set.tileBlocks.base());
                         if (set.existingList.contains(StoneBlockTypes.SMOOTH_BLOCKS)) pillarBlocks(set.chiseledSmoothBlocks, set.smoothBlocks.base());
                     }
+                    case CHISELED_BLOCKS_NO_RESTRICTION -> {
+                        pillarBlocks(set.chiseledBlocks, set.baseBlocks.base());
+                        pillarBlocks(set.chiseledBricksBlocks, set.baseBlocks.base());
+                        pillarBlocks(set.chiseledPolishedBlocks, set.baseBlocks.base());
+                        pillarBlocks(set.chiseledTilesBlocks, set.baseBlocks.base());
+                        pillarBlocks(set.chiseledSmoothBlocks, set.baseBlocks.base());
+                    }
                     case CARVED_WINDOW -> {
                         carvedWindowBlocks(set.carvedWindows, set.baseBlocks.base());
                     }

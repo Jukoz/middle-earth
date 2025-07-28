@@ -357,12 +357,13 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
-            .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
+            .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
+            .addToSet(StoneBlockTypes.OLD_BLOCKS));
 
     public static StoneBlockSetBuilder GILDED_GREEN_TUFF_SET = registerStoneSet(new StoneBlockSetBuilder("gilded_green_tuff",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
+            .addToSet(StoneBlockTypes.CHISELED_BLOCKS_NO_RESTRICTION));
 
     public static StoneBlockSetBuilder JADEITE_SET = registerStoneSet(new StoneBlockSetBuilder("jadeite",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.EMERALD_GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
@@ -442,6 +443,13 @@ public class StoneBlockSets {
                     if (set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS)) set.chiseledPolishedBlocks = BlockSetRegistration.createStoneChiseledSet("polished_" + set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
                     if (set.existingList.contains(StoneBlockTypes.TILE_BLOCKS)) set.chiseledTilesBlocks = BlockSetRegistration.createStoneChiseledSet(set.setName + "_tiles", set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
                     if (set.existingList.contains(StoneBlockTypes.SMOOTH_BLOCKS)) set.chiseledSmoothBlocks = BlockSetRegistration.createStoneChiseledSet("smooth_" + set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                }
+                case CHISELED_BLOCKS_NO_RESTRICTION -> {
+                    set.chiseledBlocks = BlockSetRegistration.createStoneChiseledSet(set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                    set.chiseledBricksBlocks = BlockSetRegistration.createStoneChiseledSet(set.setName + "_bricks", set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                    set.chiseledPolishedBlocks = BlockSetRegistration.createStoneChiseledSet("polished_" + set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                    set.chiseledTilesBlocks = BlockSetRegistration.createStoneChiseledSet(set.setName + "_tiles", set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                    set.chiseledSmoothBlocks = BlockSetRegistration.createStoneChiseledSet("smooth_" + set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
                 }
                 case CARVED_WINDOW -> set.carvedWindows = BlockSetRegistration.createCarvedWindowSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
             }
