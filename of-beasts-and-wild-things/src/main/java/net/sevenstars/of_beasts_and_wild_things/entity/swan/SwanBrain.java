@@ -145,7 +145,6 @@ public class SwanBrain {
                 MemoryModuleType.LAST_WOKEN,
                 MemoryModuleType.VISIBLE_MOBS,
                 MemoryModuleType.ATTACK_TARGET,
-                MemoryModuleType.LOOK_TARGET,
                 MemoryModuleType.ATTACK_COOLING_DOWN,
                 MemoryModuleType.LOOK_TARGET,
                 MemoryModuleType.NEAREST_ATTACKABLE,

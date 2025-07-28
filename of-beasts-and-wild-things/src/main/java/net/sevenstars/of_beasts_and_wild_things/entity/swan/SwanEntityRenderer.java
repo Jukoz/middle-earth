@@ -49,11 +49,6 @@ public class SwanEntityRenderer  extends MobEntityRenderer<SwanEntity, SwanEntit
         swanEntityRenderState.sleepingAnimationState = swan.sleepingAnimationState;
         swanEntityRenderState.swimmingAnimationState = swan.swimmingAnimationState;
         swanEntityRenderState.intimidateAnimationState = swan.intimidateAnimationState;
-    }
-
-    private static boolean isDefending(SwanEntity swan) {
-        Optional<Boolean> optional = swan.getBrain().getOptionalMemory(ModMemoryModules.DEFENDING_HOME);
-
-        return optional != null && optional.isPresent();
+        swanEntityRenderState.eatAnimationState = swan.eatAnimationState;
     }
 }

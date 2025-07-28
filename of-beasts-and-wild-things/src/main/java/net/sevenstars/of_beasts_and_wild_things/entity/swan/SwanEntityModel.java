@@ -9,6 +9,7 @@ public class SwanEntityModel extends EntityModel<SwanEntityRenderState> {
     private final Animation swimmingAnimation;
     private final Animation sleepingAnimation;
     private final Animation intimidateAnimation;
+    private final Animation eatAnimation;
 
     protected SwanEntityModel(ModelPart root) {
         super(root);
@@ -17,6 +18,7 @@ public class SwanEntityModel extends EntityModel<SwanEntityRenderState> {
         this.swimmingAnimation = SwanEntityAnimations.SWIM.createAnimation(root);
         this.sleepingAnimation = SwanEntityAnimations.SLEEP.createAnimation(root);
         this.intimidateAnimation = SwanEntityAnimations.INTIMIDATE.createAnimation(root);
+        this.eatAnimation = SwanEntityAnimations.EATING.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -65,9 +67,10 @@ public class SwanEntityModel extends EntityModel<SwanEntityRenderState> {
     public void setAngles(SwanEntityRenderState state) {
         super.setAngles(state);
 
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 6.0F, 1.0F);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 6.0f, 1.0f);
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
         this.swimmingAnimation.apply(state.swimmingAnimationState, state.age);
         this.intimidateAnimation.apply(state.intimidateAnimationState, state.age);
+        this.eatAnimation.apply(state.eatAnimationState, state.age, 2.2f);
     }
 }

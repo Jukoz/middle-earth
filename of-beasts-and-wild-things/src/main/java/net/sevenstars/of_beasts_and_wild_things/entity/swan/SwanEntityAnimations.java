@@ -160,7 +160,7 @@ public class SwanEntityAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final AnimationDefinition EATING = AnimationDefinition.Builder.create(3.5f).looping()
+    public static final AnimationDefinition EATING = AnimationDefinition.Builder.create(3.5f)
             .addBoneAnimation("root",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),

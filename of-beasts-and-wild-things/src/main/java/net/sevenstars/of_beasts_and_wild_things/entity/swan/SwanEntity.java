@@ -1,8 +1,9 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.swan;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -26,9 +27,12 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
@@ -44,6 +48,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
+// TODO Tadpole pacifying
+// TODO Eat animation when attacking animals
+// TODO Dive animation randomly when in water
+// TODO Babies
+
 public class SwanEntity extends AnimalEntity {
     private static final int EGG_COOLDOWN = 12000; // = 10 minutes
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -53,6 +62,7 @@ public class SwanEntity extends AnimalEntity {
     public final AnimationState swimmingAnimationState = new AnimationState();
     public final AnimationState sleepingAnimationState = new AnimationState();
     public final AnimationState intimidateAnimationState = new AnimationState();
+    public final AnimationState eatAnimationState = new AnimationState();
     public SwanEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -180,6 +190,22 @@ public class SwanEntity extends AnimalEntity {
             this.intimidateAnimationState.stop();
         }
 
+    }
+
+    @Override
+    public void handleStatus(byte status) {
+        if (status == EntityStatuses.PLAY_ATTACK_SOUND && !this.isIntimidating()) {
+            this.eatAnimationState.start(this.age);
+        }
+        else {
+            super.handleStatus(status);
+        }
+    }
+
+    @Override
+    public boolean tryAttack(ServerWorld world, Entity target) {
+        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        return super.tryAttack(world, target);
     }
 
     public Optional<LivingEntity> getHurtBy() {
