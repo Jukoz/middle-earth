@@ -87,6 +87,6 @@ public record HelmetAttachmentDataComponent(boolean down, HelmetAttachmentsME he
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.helmetAttachment().getName()).formatted(Formatting.GRAY));
+        textConsumer.accept(Text.translatable("tooltip.%s.%s".formatted(MiddleEarth.MOD_ID, this.helmetAttachment().getName())).formatted(Formatting.GRAY));
     }
 }

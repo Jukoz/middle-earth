@@ -26,7 +26,7 @@ public interface ArmorMaterialsME {
 
     ExtendedArmorMaterial STRAW_T1 = registerArmor("straw_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_STRAW_ARMOR);
 
-    ExtendedArmorMaterial WOOL_T1 = registerArmor("wool_t1", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_WOOL_ARMOR);
+    ExtendedArmorMaterial WOOL_T1 = registerArmor("wool_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_WOOL_ARMOR);
 
     ExtendedArmorMaterial FUR_T0 = registerArmor("fur_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_FUR_ARMOR);
 

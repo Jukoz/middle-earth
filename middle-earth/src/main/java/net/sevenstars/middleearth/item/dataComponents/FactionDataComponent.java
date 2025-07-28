@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.item.dataComponents;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.ComponentsAccess;
 import net.minecraft.item.Item;
@@ -10,15 +9,11 @@ import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.utils.ModColors;
@@ -42,18 +37,25 @@ public record FactionDataComponent(Identifier factionId) implements TooltipAppen
             Faction faction = FactionLookup.getFactionById(MinecraftClient.getInstance().world, this.factionId);
             Faction parent = faction.getParentFaction(MinecraftClient.getInstance().world);
             if (parent != null){
-                textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").formatted(Formatting.GOLD)
-                        .append(Text.translatable("faction." + MiddleEarth.MOD_ID + "." + parent.getName()).formatted(Formatting.WHITE)));
-                textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").formatted(Formatting.GRAY)
-                        .append(Text.translatable("faction." + MiddleEarth.MOD_ID + "." + faction.getName()).formatted(Formatting.WHITE)));
+                appendFaction(textConsumer, parent);
+                appendSubfaction(textConsumer, faction);
             } else {
-                textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").formatted(Formatting.GOLD)
-                        .append(Text.translatable("faction." + MiddleEarth.MOD_ID + "." + faction.getName()).formatted(Formatting.WHITE)));
+                appendFaction(textConsumer, faction);
             }
         } catch (FactionIdentifierException e) {
-            textConsumer.accept(Text.translatable("exception." + MiddleEarth.MOD_ID + ".faction_identifier", this.factionId)
+            textConsumer.accept(Text.translatable(FactionIdentifierException.KEY, this.factionId)
                     .withColor(ModColors.ALERT.color));
         }
+    }
+
+    private void appendFaction(Consumer<Text> textConsumer, Faction faction){
+        textConsumer.accept(Text.translatable("tooltip.%s.faction".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GOLD)
+                .append(Text.translatable(faction.getId().toTranslationKey("faction")).formatted(Formatting.WHITE)));
+    }
+
+    private void appendSubfaction(Consumer<Text> textConsumer, Faction faction){
+        textConsumer.accept(Text.translatable("tooltip.%s.sub_faction".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GRAY)
+                .append(Text.translatable(faction.getId().toTranslationKey("faction")).formatted(Formatting.WHITE)));
     }
 
     @Override

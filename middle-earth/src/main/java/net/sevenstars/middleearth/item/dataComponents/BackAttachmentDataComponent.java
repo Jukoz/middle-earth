@@ -77,6 +77,6 @@ public record BackAttachmentDataComponent(BackAttachmentsME backAttachment, int 
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.backAttachment().getName()));
+        textConsumer.accept(Text.translatable("tooltip.%s.%s".formatted(MiddleEarth.MOD_ID, this.backAttachment().getName())).formatted(Formatting.GRAY));
     }
 }

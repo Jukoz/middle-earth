@@ -1,14 +1,15 @@
 package net.sevenstars.middleearth.item;
 
+import net.minecraft.component.DataComponentTypes;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.item.items.ArkenstoneItem;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.sevenstars.middleearth.item.items.DoorBlockItem;
+import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.ModVerticallyAttachableBlockItem;
 import net.minecraft.item.BlockItem;
@@ -135,7 +136,8 @@ public class DecorativeItemsME {
             (settings) -> new CustomSpawnEggItem(ModEntities.PETRIFIED_TROLL, settings), new Item.Settings().maxCount(1));
 
     public static final Item ARKENSTONE = registerItem("arkenstone",
-            (settings) -> new ArkenstoneItem(ModDecorativeBlocks.ARKENSTONE, ModDecorativeBlocks.WALL_ARKENSTONE, Direction.DOWN, settings), new Item.Settings().fireproof());
+            (settings) -> new VerticallyAttachableBlockItem(ModDecorativeBlocks.ARKENSTONE, ModDecorativeBlocks.WALL_ARKENSTONE, Direction.DOWN, settings), new Item.Settings().rarity(Rarity.EPIC).fireproof()
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("arkenstone")));
 
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {

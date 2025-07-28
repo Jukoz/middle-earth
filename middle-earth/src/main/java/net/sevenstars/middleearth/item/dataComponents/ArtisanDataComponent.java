@@ -41,7 +41,7 @@ public record ArtisanDataComponent(UUID uuid) implements TooltipAppender {
         try {
             if (profile.get().isPresent()){
                 try {
-                    textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artisan").append(
+                    textConsumer.accept(Text.translatable("tooltip.%s.artisan".formatted(MiddleEarth.MOD_ID)).append(
                             profile.get().get().getName()).formatted(Formatting.GRAY));
                 } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);

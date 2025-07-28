@@ -346,23 +346,6 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".elven", "Elven");
             put("tooltip."+ MiddleEarth.MOD_ID +".orc", "Orc");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".shire", "Shire");
-            put("tooltip."+ MiddleEarth.MOD_ID +".gondor", "Gondor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".rohan", "Rohan");
-            put("tooltip."+ MiddleEarth.MOD_ID +".longbeards", "Longbeards");
-            put("tooltip."+ MiddleEarth.MOD_ID +".erebor", "Erebor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".lothlorien", "Lothlórien");
-            put("tooltip."+ MiddleEarth.MOD_ID +".mordor", "Mordor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".mordor_black_numenoreans", "Mordor Black Númenóreans");
-            put("tooltip."+ MiddleEarth.MOD_ID +".misty_mountains_goblins", "Misty Mountains Goblins");
-            put("tooltip."+ MiddleEarth.MOD_ID +".gundabad", "Gundabad");
-            put("tooltip."+ MiddleEarth.MOD_ID +".moria_goblins", "Moria Goblins");
-            put("tooltip."+ MiddleEarth.MOD_ID +".isengard", "Isengard");
-            put("tooltip."+ MiddleEarth.MOD_ID +".anduin", "Anduin Vale");
-            put("tooltip."+ MiddleEarth.MOD_ID +".umbar", "Umbar");
-            put("tooltip."+ MiddleEarth.MOD_ID +".dunland", "Dunland");
-            put("tooltip."+ MiddleEarth.MOD_ID +".dale", "Dale");
-
             put("tooltip."+ MiddleEarth.MOD_ID +".color", "Color");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_top", "Top Armor Addon, Enabled");
@@ -461,7 +444,7 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".sting_lore_0", "An elvish knife, made in Gondolin long ago,");
             put("tooltip."+ MiddleEarth.MOD_ID +".sting_lore_1", "carried by Bilbo Baggins of the Shire.");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".aeglos_lore_0", "Called \"Snow-Point\"); this legendary spear was carried into battle by");
+            put("tooltip."+ MiddleEarth.MOD_ID +".aeglos_lore_0", "Called \"Snow-Point\" this legendary spear was carried into battle by");
             put("tooltip."+ MiddleEarth.MOD_ID +".aeglos_lore_1", "King Gil-galad through many ages.");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".cuthann_lore_0", "The Shield of the Moon, mate to Anorthann,");

@@ -17,8 +17,8 @@ public class ArtefactUtils {
 
     public static LoreComponent getArtefactLore(String item){
         return new LoreComponent(List.of(
-                Text.translatable("tooltip." + MiddleEarth.MOD_ID + "."  + item + "_lore_0").formatted(Formatting.GRAY),
-                Text.translatable("tooltip." + MiddleEarth.MOD_ID + "."  + item + "_lore_1").formatted(Formatting.GRAY)
+                Text.translatable("tooltip.%s.%s_lore_0".formatted(MiddleEarth.MOD_ID, item)).formatted(Formatting.GRAY),
+                Text.translatable("tooltip.%s.%s_lore_1".formatted(MiddleEarth.MOD_ID, item)).formatted(Formatting.GRAY)
         ));
     }
 }
