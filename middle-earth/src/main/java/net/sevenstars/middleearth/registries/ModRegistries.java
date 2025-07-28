@@ -252,6 +252,53 @@ public class ModRegistries {
         OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.ROTTEN_THATCH.blockSet.verticalSlab(), GenericBlockSets.WAXED_ROTTEN_THATCH.blockSet.verticalSlab());
         OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.ROTTEN_THATCH.blockSet.stairs(), GenericBlockSets.WAXED_ROTTEN_THATCH.blockSet.stairs());
         OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.ROTTEN_THATCH.blockSet.wall(), GenericBlockSets.WAXED_ROTTEN_THATCH.blockSet.wall());
+
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.REED_THATCH.blockSet.base(), GenericBlockSets.WEATHERED_REED_THATCH.blockSet.base());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.REED_THATCH.blockSet.slab(), GenericBlockSets.WEATHERED_REED_THATCH.blockSet.slab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.REED_THATCH.blockSet.verticalSlab(), GenericBlockSets.WEATHERED_REED_THATCH.blockSet.verticalSlab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.REED_THATCH.blockSet.stairs(), GenericBlockSets.WEATHERED_REED_THATCH.blockSet.stairs());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.REED_THATCH.blockSet.wall(), GenericBlockSets.WEATHERED_REED_THATCH.blockSet.wall());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.WEATHERED_REED_THATCH.blockSet.base(), GenericBlockSets.AGED_REED_THATCH.blockSet.base());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.WEATHERED_REED_THATCH.blockSet.slab(), GenericBlockSets.AGED_REED_THATCH.blockSet.slab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.WEATHERED_REED_THATCH.blockSet.verticalSlab(), GenericBlockSets.AGED_REED_THATCH.blockSet.verticalSlab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.WEATHERED_REED_THATCH.blockSet.stairs(), GenericBlockSets.AGED_REED_THATCH.blockSet.stairs());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.WEATHERED_REED_THATCH.blockSet.wall(), GenericBlockSets.AGED_REED_THATCH.blockSet.wall());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.AGED_REED_THATCH.blockSet.base(), GenericBlockSets.OLD_REED_THATCH.blockSet.base());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.AGED_REED_THATCH.blockSet.slab(), GenericBlockSets.OLD_REED_THATCH.blockSet.slab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.AGED_REED_THATCH.blockSet.verticalSlab(), GenericBlockSets.OLD_REED_THATCH.blockSet.verticalSlab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.AGED_REED_THATCH.blockSet.stairs(), GenericBlockSets.OLD_REED_THATCH.blockSet.stairs());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.AGED_REED_THATCH.blockSet.wall(), GenericBlockSets.OLD_REED_THATCH.blockSet.wall());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.OLD_REED_THATCH.blockSet.base(), GenericBlockSets.ROTTEN_REED_THATCH.blockSet.base());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.OLD_REED_THATCH.blockSet.slab(), GenericBlockSets.ROTTEN_REED_THATCH.blockSet.slab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.OLD_REED_THATCH.blockSet.verticalSlab(), GenericBlockSets.ROTTEN_REED_THATCH.blockSet.verticalSlab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.OLD_REED_THATCH.blockSet.stairs(), GenericBlockSets.ROTTEN_REED_THATCH.blockSet.stairs());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(GenericBlockSets.OLD_REED_THATCH.blockSet.wall(), GenericBlockSets.ROTTEN_REED_THATCH.blockSet.wall());
+
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.REED_THATCH.blockSet.base(), GenericBlockSets.WAXED_REED_THATCH.blockSet.base());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.REED_THATCH.blockSet.slab(), GenericBlockSets.WAXED_REED_THATCH.blockSet.slab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.REED_THATCH.blockSet.verticalSlab(), GenericBlockSets.WAXED_REED_THATCH.blockSet.verticalSlab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.REED_THATCH.blockSet.stairs(), GenericBlockSets.WAXED_REED_THATCH.blockSet.stairs());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.REED_THATCH.blockSet.wall(), GenericBlockSets.WAXED_REED_THATCH.blockSet.wall());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.WEATHERED_REED_THATCH.blockSet.base(), GenericBlockSets.WAXED_WEATHERED_REED_THATCH.blockSet.base());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.WEATHERED_REED_THATCH.blockSet.slab(), GenericBlockSets.WAXED_WEATHERED_REED_THATCH.blockSet.slab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.WEATHERED_REED_THATCH.blockSet.verticalSlab(), GenericBlockSets.WAXED_WEATHERED_REED_THATCH.blockSet.verticalSlab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.WEATHERED_REED_THATCH.blockSet.stairs(), GenericBlockSets.WAXED_WEATHERED_REED_THATCH.blockSet.stairs());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.WEATHERED_REED_THATCH.blockSet.wall(), GenericBlockSets.WAXED_WEATHERED_REED_THATCH.blockSet.wall());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.AGED_REED_THATCH.blockSet.base(), GenericBlockSets.WAXED_AGED_REED_THATCH.blockSet.base());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.AGED_REED_THATCH.blockSet.slab(), GenericBlockSets.WAXED_AGED_REED_THATCH.blockSet.slab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.AGED_REED_THATCH.blockSet.verticalSlab(), GenericBlockSets.WAXED_AGED_REED_THATCH.blockSet.verticalSlab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.AGED_REED_THATCH.blockSet.stairs(), GenericBlockSets.WAXED_AGED_REED_THATCH.blockSet.stairs());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.AGED_REED_THATCH.blockSet.wall(), GenericBlockSets.WAXED_AGED_REED_THATCH.blockSet.wall());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.OLD_REED_THATCH.blockSet.base(), GenericBlockSets.WAXED_OLD_REED_THATCH.blockSet.base());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.OLD_REED_THATCH.blockSet.slab(), GenericBlockSets.WAXED_OLD_REED_THATCH.blockSet.slab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.OLD_REED_THATCH.blockSet.verticalSlab(), GenericBlockSets.WAXED_OLD_REED_THATCH.blockSet.verticalSlab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.OLD_REED_THATCH.blockSet.stairs(), GenericBlockSets.WAXED_OLD_REED_THATCH.blockSet.stairs());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.OLD_REED_THATCH.blockSet.wall(), GenericBlockSets.WAXED_OLD_REED_THATCH.blockSet.wall());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.ROTTEN_REED_THATCH.blockSet.base(), GenericBlockSets.WAXED_ROTTEN_REED_THATCH.blockSet.base());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.ROTTEN_REED_THATCH.blockSet.slab(), GenericBlockSets.WAXED_ROTTEN_REED_THATCH.blockSet.slab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.ROTTEN_REED_THATCH.blockSet.verticalSlab(), GenericBlockSets.WAXED_ROTTEN_REED_THATCH.blockSet.verticalSlab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.ROTTEN_REED_THATCH.blockSet.stairs(), GenericBlockSets.WAXED_ROTTEN_REED_THATCH.blockSet.stairs());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(GenericBlockSets.ROTTEN_REED_THATCH.blockSet.wall(), GenericBlockSets.WAXED_ROTTEN_REED_THATCH.blockSet.wall());
     }
 
     public static void registerFuels() {

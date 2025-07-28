@@ -268,6 +268,38 @@ public class GenericBlockSets {
             "waxed_rotten_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
             ModItemGroups.MISC_BLOCKS_CONTENTS));
 
+    public static OxidizableBlockSetBuilder REED_THATCH = registerOxidizableBlockSet(new OxidizableBlockSetBuilder(
+            "reed_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
+            ModItemGroups.MISC_BLOCKS_CONTENTS, Oxidizable.OxidationLevel.UNAFFECTED));
+    public static OxidizableBlockSetBuilder WEATHERED_REED_THATCH = registerOxidizableBlockSet(new OxidizableBlockSetBuilder(
+            "weathered_reed_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
+            ModItemGroups.MISC_BLOCKS_CONTENTS, Oxidizable.OxidationLevel.EXPOSED));
+    public static OxidizableBlockSetBuilder AGED_REED_THATCH = registerOxidizableBlockSet(new OxidizableBlockSetBuilder(
+            "aged_reed_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
+            ModItemGroups.MISC_BLOCKS_CONTENTS, Oxidizable.OxidationLevel.WEATHERED));
+    public static OxidizableBlockSetBuilder OLD_REED_THATCH = registerOxidizableBlockSet(new OxidizableBlockSetBuilder(
+            "old_reed_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
+            ModItemGroups.MISC_BLOCKS_CONTENTS, Oxidizable.OxidationLevel.OXIDIZED));
+    public static OxidizableBlockSetBuilder ROTTEN_REED_THATCH = registerOxidizableBlockSet(new OxidizableBlockSetBuilder(
+            "rotten_reed_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
+            ModItemGroups.MISC_BLOCKS_CONTENTS, Oxidizable.OxidationLevel.OXIDIZED));
+
+    public static GenericBlockSetBuilder WAXED_REED_THATCH = registerBlockSet(new GenericBlockSetBuilder(
+            "waxed_reed_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
+            ModItemGroups.MISC_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder WAXED_WEATHERED_REED_THATCH = registerBlockSet(new GenericBlockSetBuilder(
+            "waxed_weathered_reed_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
+            ModItemGroups.MISC_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder WAXED_AGED_REED_THATCH = registerBlockSet(new GenericBlockSetBuilder(
+            "waxed_aged_reed_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
+            ModItemGroups.MISC_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder WAXED_OLD_REED_THATCH = registerBlockSet(new GenericBlockSetBuilder(
+            "waxed_old_reed_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
+            ModItemGroups.MISC_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder WAXED_ROTTEN_REED_THATCH = registerBlockSet(new GenericBlockSetBuilder(
+            "waxed_rotten_reed_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
+            ModItemGroups.MISC_BLOCKS_CONTENTS));
+
     private static GenericBlockSetBuilder registerBlockSet(GenericBlockSetBuilder set){
         set.blockSet = BlockSetRegistration.createRegularSet(set.setName , set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, set.group, set.requiresTool);
 
