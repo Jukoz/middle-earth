@@ -51,6 +51,16 @@ public class ModDecorativeBlocks {
     public static final Block WALL_SILVER_LANTERN = registerBlock("silver_lantern_wall",
             WallSilverLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
 
+    public static final Block LEAD_LANTERN = registerBlock("lead_lantern",
+            LeadLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+    public static final Block WALL_LEAD_LANTERN = registerBlock("lead_lantern_wall",
+            WallLeadLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+
+    public static final Block CRUDE_LANTERN = registerBlock("crude_lantern",
+            CrudeLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque());
+    public static final Block WALL_CRUDE_LANTERN = registerBlock("crude_lantern_wall",
+            WallCrudeLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+
     public static final Block ELVEN_LANTERN = registerBlock("elven_lantern",
             ElvenLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
     public static final Block WALL_ELVEN_LANTERN = registerBlock("elven_lantern_wall",
@@ -70,11 +80,6 @@ public class ModDecorativeBlocks {
             ShireLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque());
     public static final Block WALL_SHIRE_LANTERN = registerBlock("shire_lantern_wall",
             WallShireLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
-
-    public static final Block CRUDE_LANTERN = registerBlock("crude_lantern",
-            CrudeLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque());
-    public static final Block WALL_CRUDE_LANTERN = registerBlock("crude_lantern_wall",
-            WallCrudeLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
 
     public static final Block FORGE = registerBlock("forge",
             ForgeBlock::new, AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool());
