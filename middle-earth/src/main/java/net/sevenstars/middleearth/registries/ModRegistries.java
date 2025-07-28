@@ -11,6 +11,7 @@ import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -47,6 +48,7 @@ public class ModRegistries {
 
         //_planks
         //_bricks
+        //_tiles
         //ashen_stone
         //gilded_green_tuff
 
@@ -71,7 +73,7 @@ public class ModRegistries {
                     for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                         name = name.replaceAll(map.getKey(), map.getValue());
                     }
-                    //alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
+                    alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
                     myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, name) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.name()) + "\r\n");
                 }
                 myWriter.close();
@@ -86,11 +88,11 @@ public class ModRegistries {
                 for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                     name = name.replaceAll(map.getKey(), map.getValue());
                 }
-                //alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
+                alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
             }
         }
 
-        //Registries.ITEM.addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, "strawberry"), Identifier.of(MiddleEarth.MOD_ID, "strawberries"));
+        Registries.ITEM.addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, "strawberry"), Identifier.of(MiddleEarth.MOD_ID, "strawberries"));
     }
 
     public static void registerToolTipAppenders() {
