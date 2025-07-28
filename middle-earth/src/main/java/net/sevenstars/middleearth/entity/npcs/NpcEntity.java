@@ -63,7 +63,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
-        this.createRandom();
+        this.createRandom(world);
     }
 
     public static NpcEntity create(World world, BlockPos pos){
@@ -114,29 +114,28 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         // set gear
         NpcUtil.equipAll(this, data.getGear());
     }
-    public static NpcEntity createRandom(World world) {
-        var npcEntity = new NpcEntity(ModEntities.NPC, world);
-        return npcEntity;
-    }
 
-    private NpcEntity createRandom(){
+    private NpcEntity createRandom(World world){
         var random = getWorld().getRandom();
 
         EntityCategory category = random.nextBoolean() ? EntityCategory.MALE : EntityCategory.FEMALE;
         try {
-            Faction faction = FactionLookup.getFactionById(getWorld(), FactionsME.GONDOR.getId());
+            Faction faction = FactionLookup.getFactionById(getWorld(), FactionsME.GONDOR.getValue());
             var npcDataIds = faction.getAllNpcDatas().get(NpcRank.SOLDIER);
             Identifier npcDataId = (npcDataIds == null)
-                    ? FactionsME.GONDOR.getAllNpcDatas().get(NpcRank.SOLDIER).getFirst()
+                    ? null
                     : npcDataIds.get(random.nextInt(npcDataIds.size()));
-            this.withCategory(category)
-                    .withFaction(faction.getId())
-                    .withNpcData(npcDataId);
+            if(npcDataId != null)
+                this.withCategory(category)
+                        .withFaction(faction.getId())
+                        .withNpcData(npcDataId);
         }
         catch (FactionIdentifierException e){
+/*
             this.withCategory(category)
                     .withFaction(FactionsME.GONDOR.getId())
                     .withNpcData(FactionsME.GONDOR.getAllNpcDatas().get(NpcRank.SOLDIER).getFirst());
+ */
         }
         return this;
     }
