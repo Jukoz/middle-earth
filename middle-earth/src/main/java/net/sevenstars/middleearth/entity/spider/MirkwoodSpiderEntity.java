@@ -166,7 +166,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         profiler.push("shelobiteScuttlerBrain");
         this.getBrain().tick(world, this);
         profiler.pop();
-        ShelobiteScuttlerBrain.tick(this);
+        ShelobiteScuttlerBrain.updateActivities(this);
         ShelobiteScuttlerBrain.playSoundRandomly(this);
     }
 

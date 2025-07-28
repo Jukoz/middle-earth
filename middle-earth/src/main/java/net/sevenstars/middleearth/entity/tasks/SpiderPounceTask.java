@@ -49,11 +49,11 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 		super(
 				ImmutableMap.of(
 						MemoryModuleType.LOOK_TARGET,
-						MemoryModuleState.REGISTERED
-						//MemoryModuleType.LONG_JUMP_COOLING_DOWN,
-						//MemoryModuleState.VALUE_ABSENT,
-						//MemoryModuleType.LONG_JUMP_MID_JUMP,
-						//MemoryModuleState.VALUE_ABSENT
+						MemoryModuleState.REGISTERED,
+						MemoryModuleType.LONG_JUMP_COOLING_DOWN,
+						MemoryModuleState.VALUE_ABSENT,
+						MemoryModuleType.LONG_JUMP_MID_JUMP,
+						MemoryModuleState.VALUE_ABSENT
 				),
 				200
 		);
@@ -72,7 +72,7 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 				&& !mobEntity.isInLava()
 				&& !serverWorld.getBlockState(mobEntity.getBlockPos()).isOf(Blocks.HONEY_BLOCK);
 		if (!validTerrain) {
-			mobEntity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, 80);
+			mobEntity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, 40);
 		}
 
 		return validTerrain;
@@ -94,7 +94,7 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 
 	@Override
 	protected void run(ServerWorld serverWorld, E mobEntity, long l) {
-		//this.currentTarget = null;
+		this.currentTarget = null;
 		Optional<LivingEntity> targetEntity = mobEntity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET);
 		if(targetEntity.isPresent()) {
 			LivingEntity value = targetEntity.get();
@@ -102,18 +102,9 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 		}
 		this.targetSearchTime = 20;
 		this.startPos = Optional.of(mobEntity.getPos());
-		BlockPos blockPos = mobEntity.getBlockPos();
-		int i = blockPos.getX();
-		int j = blockPos.getY();
-		int k = blockPos.getZ();
-		//this.potentialTargets = (List<Target>)BlockPos.stream(
-		//				i - this.horizontalRange, j - this.verticalRange, k - this.horizontalRange, i + this.horizontalRange, j + this.verticalRange, k + this.horizontalRange
-		//		)
-		//		.filter(pos -> !pos.equals(blockPos))
-		//		.map(pos -> new Target(pos.toImmutable(), MathHelper.ceil(blockPos.getSquaredDistance(pos))))
-		//		.collect(Collectors.toCollection(Lists::newArrayList));
 	}
 
+	@Override
 	protected void keepRunning(ServerWorld serverWorld, E mobEntity, long l) {
 		if (this.currentTarget != null) {
 			if (l - this.targetPickedTime >= 40L) {
@@ -131,6 +122,14 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 		}
 	}
 
+	@Override
+	protected void finishRunning(ServerWorld world, E entity, long time) {
+		super.finishRunning(world, entity, time);
+		entity.getBrain().forget(MemoryModuleType.LONG_JUMP_MID_JUMP);
+		entity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, this.cooldownRange.get(world.getRandom()));
+		System.out.println("FINISH POUNCE");
+	}
+
 	protected void pickTarget(ServerWorld world, E entity, long time) {
 		while (!this.potentialTargets.isEmpty()) {
 			Optional<Target> optional = this.removeRandomTarget(world);
@@ -141,7 +140,6 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 					Vec3d vec3d = Vec3d.ofCenter(pos);
 					Vec3d vec3d2 = this.getJumpingVelocity(entity, vec3d);
 					if (vec3d2 != null) {
-						System.out.println("Diff jump: " + vec3d2.x + ", " + vec3d2.y + ", " + vec3d2.z);
 						entity.getBrain().remember(MemoryModuleType.LOOK_TARGET, new BlockPosLookTarget(pos));
 						EntityNavigation entityNavigation = entity.getNavigation();
 						Path path = entityNavigation.findPathTo(pos, 0, 8);
