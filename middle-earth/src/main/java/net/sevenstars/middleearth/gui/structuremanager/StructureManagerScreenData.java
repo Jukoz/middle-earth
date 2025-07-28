@@ -10,59 +10,53 @@ import java.util.Optional;
 
 public class StructureManagerScreenData{
     private BlockPos pos;
-    private Identifier selectedId;
-    private Identifier runtimeId;
+    private Identifier structureManagerIdentifier;
     private boolean isActive;
+    private boolean toInitialize;
 
     public static final PacketCodec<? super RegistryByteBuf, StructureManagerScreenData> PACKET_CODEC;
 
     public BlockPos getPos() {
         return this.pos;
     }
-    public Identifier getSelectedId() {
-        return this.selectedId;
+    public Identifier getStructureManagerIdentifier() {
+        return this.structureManagerIdentifier;
     }
-    public Identifier getRuntimeId() {
-        return this.runtimeId;
-    }
-    private Optional<Identifier> getSelectedIdOptional() {
-        return Optional.ofNullable(this.selectedId);
-    }
-    private Optional<Identifier> getRuntimeIdOptional() {
-        return Optional.ofNullable(this.runtimeId);
+    private Optional<Identifier> getStructureManagerIdentifierOptional() {
+        return Optional.ofNullable(this.structureManagerIdentifier);
     }
 
     public boolean getIsActive() {
         return this.isActive;
     }
-
-    public void setSelectedId(Identifier selectedId) {
-        this.selectedId = selectedId;
+    public boolean getToInitialize() {
+        return this.toInitialize;
     }
-    public void setRuntimeId(Identifier runtimeId) {
-        this.runtimeId = runtimeId;
+
+    public void setStructureManagerIdentifier(Identifier structureManagerIdentifier) {
+        this.structureManagerIdentifier = structureManagerIdentifier;
     }
 
     public void setActive(boolean isActive) {
         this.isActive = isActive;
     }
-
-    public StructureManagerScreenData(){
-
+    public void setToInitialize(boolean toInitialize) {
+        this.toInitialize = toInitialize;
     }
-    public StructureManagerScreenData(BlockPos pos, boolean isActive, Optional<Identifier> selectedId, Optional<Identifier> runtimeId){
+
+    public StructureManagerScreenData(BlockPos pos, boolean isActive, boolean toInitialize, Optional<Identifier> structureManagerId){
         this.pos = pos;
         setActive(isActive);
-        selectedId.ifPresentOrElse(x -> setSelectedId(x), () -> setSelectedId(null));
-        runtimeId.ifPresentOrElse(x -> setRuntimeId(x), () -> setRuntimeId(null));
+        setToInitialize(toInitialize);
+        structureManagerId.ifPresentOrElse(x -> setStructureManagerIdentifier(x), () -> setStructureManagerIdentifier(null));
     }
 
     static {
         PACKET_CODEC = PacketCodec.tuple(
                 BlockPos.PACKET_CODEC, StructureManagerScreenData::getPos,
                 PacketCodecs.BOOLEAN, StructureManagerScreenData::getIsActive,
-                PacketCodecs.optional(Identifier.PACKET_CODEC), StructureManagerScreenData::getSelectedIdOptional,
-                PacketCodecs.optional(Identifier.PACKET_CODEC), StructureManagerScreenData::getRuntimeIdOptional,
+                PacketCodecs.BOOLEAN, StructureManagerScreenData::getToInitialize,
+                PacketCodecs.optional(Identifier.PACKET_CODEC), StructureManagerScreenData::getStructureManagerIdentifierOptional,
                 StructureManagerScreenData::new
         );
     }

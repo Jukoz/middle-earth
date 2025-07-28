@@ -34,30 +34,31 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     private enum SyncedData {
         ENABLED("%s.Enabled".formatted(ID)),
+        TO_INITIALIZE("%s.ToInitialize".formatted(ID)),
         SPAWN_NEST_LIST("%s.Nests".formatted(ID)),
-        SELECTED_ID("%s.SelectedId".formatted(ID)),
-        RUNTIME_ID("%s.RuntimeId".formatted(ID));
+        IDENTIFIER("%s.Identifier".formatted(ID));
 
         public final String name;
         SyncedData(String name){
             this.name = name;
         }
     }
-
-    @Nullable
-    protected Identifier selectedStructureManagerData;
-    @Nullable
-    protected Identifier runtimeStructureManagerData;
-
+    // Synced Data
     private boolean enabled;
-    private StructureManagerData managerData;
+    private boolean toInitialize;
+    @Nullable
+    protected Identifier structureManagerIdentifier;
     private StructureNestList structureNestList;
+
+    // Runtime
+    private StructureManagerData managerData;
 
     public StructureManagerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STRUCTURE_MANAGER, pos, state);
-        this.enabled = true;
-        this.runtimeStructureManagerData = null;
-        this.selectedStructureManagerData = null;
+        // Default values
+        this.enabled = false;
+        this.toInitialize = false;
+        this.structureManagerIdentifier = null;
         this.structureNestList = null;
     }
 
@@ -70,10 +71,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     @Override
     public Object getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
-        return new StructureManagerScreenData(this.pos, this.enabled,
-                Optional.ofNullable(this.selectedStructureManagerData),
-                Optional.ofNullable(this.runtimeStructureManagerData)
-        );
+        return new StructureManagerScreenData(this.pos, this.enabled, this.toInitialize, Optional.ofNullable(this.structureManagerIdentifier));
     }
     @Override
     public BlockEntityUpdateS2CPacket toUpdatePacket() {
@@ -84,9 +82,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return new StructureManagerScreenHandler(syncId, playerInventory,
-                new StructureManagerScreenData(this.pos, this.enabled,
-                    Optional.ofNullable(this.selectedStructureManagerData),
-                    Optional.ofNullable(this.runtimeStructureManagerData))
+                new StructureManagerScreenData(this.pos, this.enabled, this.toInitialize, Optional.ofNullable(this.structureManagerIdentifier))
         );
     }
 
@@ -98,10 +94,9 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     protected void writeData(WriteView view) {
         super.writeData(view);
         view.putBoolean(SyncedData.ENABLED.name, this.enabled);
-        if(runtimeStructureManagerData != null)
-            view.put(SyncedData.RUNTIME_ID.name, Identifier.CODEC, this.runtimeStructureManagerData);
-        else if(selectedStructureManagerData != null)
-            view.put(SyncedData.SELECTED_ID.name, Identifier.CODEC, this.selectedStructureManagerData);
+        view.putBoolean(SyncedData.TO_INITIALIZE.name, this.toInitialize);
+        if(structureManagerIdentifier != null)
+            view.put(SyncedData.IDENTIFIER.name, Identifier.CODEC, this.structureManagerIdentifier);
         if(structureNestList != null)
             view.put(SyncedData.SPAWN_NEST_LIST.name, StructureNestList.CODEC, this.structureNestList);
     }
@@ -110,35 +105,25 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     protected void readData(ReadView view) {
         super.readData(view);
         this.enabled = view.getBoolean(SyncedData.ENABLED.name, false);
-        Optional<Identifier> runtime = view.read(SyncedData.RUNTIME_ID.name, Identifier.CODEC);
-        runtime.ifPresent(x -> runtimeStructureManagerData = x);
-        if(runtimeStructureManagerData == null){
-            Optional<Identifier> selected = view.read(SyncedData.SELECTED_ID.name, Identifier.CODEC);
-            selected.ifPresent(x -> selectedStructureManagerData = x);
-        }
-
-        Optional<StructureNestList> nests = view.read(SyncedData.SPAWN_NEST_LIST.name, StructureNestList.CODEC);
-        nests.ifPresent(x -> structureNestList = x);
-
-        if(enabled && selectedStructureManagerData != null){
-            runtimeStructureManagerData = selectedStructureManagerData;
-            selectedStructureManagerData = null;
-        }
+        this.toInitialize = view.getBoolean(SyncedData.TO_INITIALIZE.name, false);
+        view.read(SyncedData.IDENTIFIER.name, Identifier.CODEC)
+                .ifPresent(x -> structureManagerIdentifier = x);
+        view.read(SyncedData.SPAWN_NEST_LIST.name, StructureNestList.CODEC)
+                .ifPresent(x -> structureNestList = x);
     }
     // endregion
 
+
+    @Override
+    public void setWorld(World world) {
+        super.setWorld(world);
+        tryToInitializeManager(world);
+    }
+
     public boolean subscribeNest(BlockPos nestPos, Identifier managerId, Identifier nestId, int spawnRadius) {
-        if(!isRuntimeEnabled() || managerId.compareTo(this.runtimeStructureManagerData) != 0)
+        if(!isRuntimeEnabled() || managerId.compareTo(this.structureManagerIdentifier) != 0)
             return false;
 
-        if(managerData == null){
-            if(this.runtimeStructureManagerData == null)
-                return false;
-            this.managerData = StructureManagerService.GetStructureManagerData(world, this.runtimeStructureManagerData);
-            if(this.managerData == null)
-                return false;
-            this.structureNestList = new StructureNestList();
-        }
         SpawnNestNodeData data = managerData.getNpcSpawnNest(nestId);
         SpawnNestManager manager = new SpawnNestManager(data, nestPos, spawnRadius);
         this.structureNestList.addNest(manager);
@@ -161,6 +146,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(structureNestList == null || !enabled)
             return;
         long tick = world.getTickOrder();
+
         for(SpawnNestManager data : structureNestList.getManagers()){
             if(managerData == null)
                 managerData = StructureManagerService.GetStructureManagerData(world, StructureManagerDatasME.NPC_TESTING_AREA_GONDOR.getId());
@@ -169,23 +155,31 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     private void tryToInitializeManager(World world){
-        if(runtimeStructureManagerData != null && managerData == null && enabled) {
-            this.managerData = StructureManagerService.GetStructureManagerData(world, runtimeStructureManagerData);
-            this.structureNestList = new StructureNestList();
+        if(world.isClient || !toInitialize || enabled || structureManagerIdentifier == null)
+            return;
+
+        if(toInitialize && !enabled){
+
+            this.managerData = StructureManagerService.GetStructureManagerData(world, structureManagerIdentifier);
+            if(structureNestList == null)
+                this.structureNestList = new StructureNestList();
             if(managerData == null) {
                 this.logger.logDebugMsg("%s::[%s] Couldn't find managerData under <%s>".formatted(ID, pos, managerData));
                 return;
             };
+
+            this.toInitialize = false;
+            this.enabled = true;
+            //updateListeners();
         }
     }
+
     public void toggle(boolean activate) {
         this.enabled = activate;
         updateListeners();
     }
-    public void setDataId(Identifier identifier) {
-        this.selectedStructureManagerData = identifier;
-        this.runtimeStructureManagerData = null;
-        this.enabled = false;
+    public void setStructureManagerId(Identifier identifier) {
+        this.structureManagerIdentifier = identifier;
         updateListeners();
     }
 
@@ -195,6 +189,9 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     public boolean isRuntimeEnabled() {
-        return enabled && runtimeStructureManagerData != null;
+        return
+            this.enabled &&
+            this.structureManagerIdentifier != null &&
+            this.structureNestList != null;
     }
 }

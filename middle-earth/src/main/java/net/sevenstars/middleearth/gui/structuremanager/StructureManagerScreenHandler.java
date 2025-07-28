@@ -37,12 +37,12 @@ public class StructureManagerScreenHandler extends ScreenHandler {
     }
 
     public void selectIdentifier(PlayerEntity player, Identifier identifier) {
-        this.data.setSelectedId(identifier);
-        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(data.getPos(), data.getSelectedId(), data.getIsActive()));
+        this.data.setStructureManagerIdentifier(identifier);
+        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(data.getPos(), data.getStructureManagerIdentifier(), data.getIsActive()));
     }
 
     public void updateClientData(Identifier structureManagerDataId, boolean isActive) {
-        this.data.setSelectedId(structureManagerDataId);
+        this.data.setStructureManagerIdentifier(structureManagerDataId);
         this.data.setActive(isActive);
     }
 
@@ -51,10 +51,10 @@ public class StructureManagerScreenHandler extends ScreenHandler {
     }
 
     public Identifier getSelectedKey() {
-        return this.data.getSelectedId();
+        return this.data.getStructureManagerIdentifier();
     }
     public Identifier getRuntimeKey() {
-        return this.data.getRuntimeId();
+        return this.data.getStructureManagerIdentifier();
     }
 
     public boolean getIsActive() {
@@ -63,7 +63,7 @@ public class StructureManagerScreenHandler extends ScreenHandler {
 
     public void toggleActive() {
         this.data.setActive(!this.data.getIsActive());
-        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(data.getPos(), data.getSelectedId(), data.getIsActive()));
+        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(data.getPos(), data.getStructureManagerIdentifier(), data.getIsActive()));
     }
 }
 

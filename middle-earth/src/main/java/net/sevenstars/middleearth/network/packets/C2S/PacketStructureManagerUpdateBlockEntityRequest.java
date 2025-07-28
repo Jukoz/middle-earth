@@ -47,7 +47,7 @@ public class PacketStructureManagerUpdateBlockEntityRequest extends ClientToServ
             MinecraftServer server = context.player().getServer();
             server.execute(() -> {
                 if(context.player().getWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity){
-                    blockEntity.setDataId(structureManagerId);
+                    blockEntity.setStructureManagerId(structureManagerId);
                     blockEntity.toggle(isActive);
                 }
             });
