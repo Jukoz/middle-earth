@@ -45,10 +45,10 @@ public class ModRegistries {
         specialAliases.put("khagalaban", "gonluin");
         specialAliases.put("chiseled_blackstone_bricks", "chiseled_polished_blackstone_bricks");
         specialAliases.put("carved_window_vertical_slab", "carved_window_pane");
+        specialAliases.put("brick_", "bricks_");
+        specialAliases.put("tile_", "tiles_");
 
         //_planks
-        //_bricks
-        //_tiles
         //ashen_stone
         //gilded_green_tuff
 
