@@ -2,7 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"3": "middle-earth:item/erebor_buckler_shield"
+		"3": "middle-earth:item/erebor_buckler_shield",
+		"particle": "block/dark_oak_planks"
 	},
 	"elements": [
 		{
