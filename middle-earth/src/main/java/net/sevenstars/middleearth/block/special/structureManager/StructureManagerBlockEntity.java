@@ -21,7 +21,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlockEntities;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
-import net.sevenstars.middleearth.resources.StructureManagerDatasME;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import org.jetbrains.annotations.Nullable;
@@ -149,7 +148,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
         for(SpawnNestManager data : structureNestList.getManagers()){
             if(managerData == null)
-                managerData = StructureManagerService.GetStructureManagerData(world, StructureManagerDatasME.NPC_TESTING_AREA_GONDOR.getId());
+                managerData = StructureManagerService.GetStructureManagerData(world, structureManagerIdentifier);
             data.tick(managerData, tick, world, blockPos);
         }
     }
@@ -170,7 +169,6 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
             this.toInitialize = false;
             this.enabled = true;
-            //updateListeners();
         }
     }
 

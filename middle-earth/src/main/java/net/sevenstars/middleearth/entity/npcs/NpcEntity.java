@@ -15,7 +15,14 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
@@ -35,6 +42,7 @@ import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
+import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
@@ -45,6 +53,7 @@ import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -152,6 +161,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         builder.add(TEXTURE_DATA, new NpcEntityTextureData());
         builder.add(STRUCTURE_MANAGER_HOST_POS, getBlockPos());
     }
+
     @Override
     public void writeData(WriteView view) {
         super.writeData(view);
@@ -364,6 +374,39 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     public void onDeath(DamageSource damageSource) {
         super.onDeath(damageSource);
         StructureManagerBlockEntity.triggerDeathSignal(this.dataTracker.get(STRUCTURE_MANAGER_HOST_POS), this);
+    }
+
+    @Override
+    protected void dropLoot(ServerWorld world, DamageSource damageSource, boolean causedByPlayer) {
+        boolean canDropLoot = false;
+        if(causedByPlayer){
+            if(damageSource.getAttacker() instanceof PlayerEntity player){
+                PlayerData data = StateSaverAndLoader.getPlayerState(player);
+                if(data == null)
+                    canDropLoot = true;
+                else if(data.getFaction() == null)
+                    canDropLoot = true;
+                else
+                    canDropLoot = data.getFaction().compareTo(getFactionId()) != 0;
+            }
+        }
+
+        if(!canDropLoot)
+            return;
+
+        RegistryKey<LootTable> lootTableRegistryKey = RegistryKey.of(RegistryKeys.LOOT_TABLE, getNpcDataId().withPrefixedPath("entities/"));
+        LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(lootTableRegistryKey);
+
+        if (lootTable != null) {
+            LootWorldContext.Builder builder = (new LootWorldContext.Builder(world)).add(LootContextParameters.THIS_ENTITY, this).add(LootContextParameters.ORIGIN, this.getPos()).add(LootContextParameters.DAMAGE_SOURCE, damageSource).addOptional(LootContextParameters.ATTACKING_ENTITY, damageSource.getAttacker()).addOptional(LootContextParameters.DIRECT_ATTACKING_ENTITY, damageSource.getSource());
+            PlayerEntity playerEntity = this.getAttackingPlayer();
+            if (causedByPlayer && playerEntity != null) {
+                builder = builder.add(LootContextParameters.LAST_DAMAGE_PLAYER, playerEntity).luck(playerEntity.getLuck());
+            }
+
+            LootWorldContext lootWorldContext = builder.build(LootContextTypes.ENTITY);
+            lootTable.generateLoot(lootWorldContext, this.getLootTableSeed(), (stack) -> this.dropStack(world, stack));
+        }
     }
 
     @Override

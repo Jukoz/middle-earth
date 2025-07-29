@@ -48,7 +48,6 @@ public class MiddleEarth implements ModInitializer {
 		LOGGER.logInfoMsg("");
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
-
 		ModServerNetworkHandler.register(new ConnectionToClient());
 		ModEvents.register();
 		ModServerConfigs.registerConfigs();
@@ -118,8 +117,6 @@ public class MiddleEarth implements ModInitializer {
 
 		ModWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();
-
-		//MiddleEarthNpcTextures.register();
 
 		// Dynamic Data
 		RacesME.register();
