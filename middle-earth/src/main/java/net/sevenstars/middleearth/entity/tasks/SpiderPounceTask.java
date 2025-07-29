@@ -49,11 +49,11 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 		super(
 				ImmutableMap.of(
 						MemoryModuleType.LOOK_TARGET,
-						MemoryModuleState.REGISTERED,
-						MemoryModuleType.LONG_JUMP_COOLING_DOWN,
-						MemoryModuleState.VALUE_ABSENT,
-						MemoryModuleType.LONG_JUMP_MID_JUMP,
-						MemoryModuleState.VALUE_ABSENT
+						MemoryModuleState.REGISTERED
+						//MemoryModuleType.LONG_JUMP_COOLING_DOWN,
+						//MemoryModuleState.VALUE_ABSENT,
+						//MemoryModuleType.LONG_JUMP_MID_JUMP,
+						//MemoryModuleState.VALUE_ABSENT
 				),
 				200
 		);
@@ -67,12 +67,13 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 
 	@Override
 	protected boolean shouldRun(ServerWorld serverWorld, MobEntity mobEntity) {
-		boolean validTerrain = mobEntity.isOnGround()
-				&& !mobEntity.isTouchingWater()
-				&& !mobEntity.isInLava()
-				&& !serverWorld.getBlockState(mobEntity.getBlockPos()).isOf(Blocks.HONEY_BLOCK);
+		boolean validTerrain = mobEntity.isOnGround();
+				//&& !mobEntity.isTouchingWater()
+				//&& !mobEntity.isInLava()
+				//&& !serverWorld.getBlockState(mobEntity.getBlockPos()).isOf(Blocks.HONEY_BLOCK);
 		if (!validTerrain) {
 			mobEntity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, 40);
+			System.out.println("Can't shouldRun, bad terrain, 40");
 		}
 
 		return validTerrain;
@@ -80,16 +81,18 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 
 	@Override
 	protected boolean shouldKeepRunning(ServerWorld serverWorld, MobEntity mobEntity, long l) {
-		boolean bl = this.startPos.isPresent()
-				&& ((Vec3d)this.startPos.get()).equals(mobEntity.getPos())
-				&& this.targetSearchTime > 0
-				&& !mobEntity.isTouchingWater()
-				&& (this.currentTarget != null || !this.potentialTargets.isEmpty());
-		if (!bl && mobEntity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.LONG_JUMP_MID_JUMP).isEmpty()) {
-			mobEntity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, 70);
+		boolean canJump = this.startPos.isPresent();
+		//canJump = canJump && ((Vec3d)this.startPos.get()).equals(mobEntity.getPos());
+		canJump = canJump && this.targetSearchTime > 0;
+		canJump = canJump && !mobEntity.isTouchingWater();
+		canJump = canJump && (this.currentTarget != null || !this.potentialTargets.isEmpty());
+
+		if (!canJump) { //&& mobEntity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.LONG_JUMP_MID_JUMP).isEmpty()) {
+			System.out.println("Should not keep running... 50. TargetST:" + targetSearchTime + ". Current Trgt: " + currentTarget + ". Potential Trgt: " + potentialTargets.size());
+			mobEntity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, 50);
 		}
 
-		return bl;
+		return canJump;
 	}
 
 	@Override
@@ -99,6 +102,7 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 		if(targetEntity.isPresent()) {
 			LivingEntity value = targetEntity.get();
 			this.potentialTargets.add(new Target(value.getPos(), 1));
+			System.out.println("add potential target pos");
 		}
 		this.targetSearchTime = 20;
 		this.startPos = Optional.of(mobEntity.getPos());
@@ -108,16 +112,18 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 	protected void keepRunning(ServerWorld serverWorld, E mobEntity, long l) {
 		if (this.currentTarget != null) {
 			if (l - this.targetPickedTime >= 40L) {
+				System.out.println("JUMP RUNNING!");
 				mobEntity.setYaw(mobEntity.bodyYaw);
 				mobEntity.setNoDrag(true);
 				double d = this.currentTarget.length();
 				double e = d + mobEntity.getJumpBoostVelocityModifier();
 				mobEntity.setVelocity(this.currentTarget.multiply(e / d));
-				mobEntity.getBrain().remember(MemoryModuleType.LONG_JUMP_MID_JUMP, true);
+				//mobEntity.getBrain().remember(MemoryModuleType.LONG_JUMP_MID_JUMP, true);
 				serverWorld.playSoundFromEntity(null, mobEntity, (SoundEvent)this.entityToSound.apply(mobEntity), SoundCategory.NEUTRAL, 1.0F, 1.0F);
 			}
 		} else {
 			this.targetSearchTime--;
+			System.out.println("Searching target vec");
 			this.pickTarget(serverWorld, mobEntity, l);
 		}
 	}
@@ -125,7 +131,7 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 	@Override
 	protected void finishRunning(ServerWorld world, E entity, long time) {
 		super.finishRunning(world, entity, time);
-		entity.getBrain().forget(MemoryModuleType.LONG_JUMP_MID_JUMP);
+		//entity.getBrain().forget(MemoryModuleType.LONG_JUMP_MID_JUMP);
 		entity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, this.cooldownRange.get(world.getRandom()));
 		System.out.println("FINISH POUNCE");
 	}
