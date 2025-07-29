@@ -46,6 +46,7 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
                             0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                     .build());
             stack.remove(DataComponentTypes.WEAPON);
+            stack.remove(DataComponentTypes.BLOCKS_ATTACKS);
         }
     }
 
@@ -67,6 +68,7 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
                             .build());
                 }
                 stack.remove(DataComponentTypes.WEAPON);
+                stack.remove(DataComponentTypes.BLOCKS_ATTACKS);
             }
             return true;
         }
