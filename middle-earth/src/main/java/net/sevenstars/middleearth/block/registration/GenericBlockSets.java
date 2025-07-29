@@ -28,6 +28,10 @@ public class GenericBlockSets {
             "yellow_daub", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_YELLOW, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ModItemGroups.STONE_BLOCKS_CONTENTS));
 
+    public static GenericBlockSetBuilder PLASTER = registerBlockSet(new GenericBlockSetBuilder(
+            "plaster", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            ModItemGroups.STONE_BLOCKS_CONTENTS));
+
     public static GenericBlockSetBuilder STUCCO = registerBlockSet(new GenericBlockSetBuilder(
             "stucco", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ModItemGroups.STONE_BLOCKS_CONTENTS));
