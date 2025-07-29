@@ -72,6 +72,7 @@ public class ModBlocks {
     public static final Block MIRE_STAIRS = registerMiscBlock("mire_stairs",
             (settings) -> new StairsBlock(MIRE.getDefaultState(), settings), AbstractBlock.Settings.copy(MIRE),true);
 
+    //To convert
     public static final Block TURF = registerMiscBlock("turf",
             Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
     public static final Block TURF_SLAB = registerMiscBlock("turf_slab",
@@ -133,6 +134,7 @@ public class ModBlocks {
     public static final Block ASHEN_GRAVEL_LAYER = registerMiscBlock("ashen_gravel_layer",
             (settings) -> new LayersBlock(settings, ASHEN_GRAVEL), AbstractBlock.Settings.copy(Blocks.GRAVEL), false);
 
+    //To convert
     public static final Block REED_BLOCK = registerMiscBlock("reed_block",
             HayBlock::new, AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
     public static final Block REED_STAIRS = registerMiscBlock("reed_stairs",
@@ -144,6 +146,7 @@ public class ModBlocks {
     public static final Block REED_WALL = registerMiscBlock("reed_wall",
             WallBlock::new,AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
 
+    //To convert
     public static final Block STRAW_BLOCK = registerMiscBlock("straw_block",
             HayBlock::new, AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
     public static final Block STRAW_STAIRS = registerMiscBlock("straw_stairs",
