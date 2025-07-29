@@ -45,67 +45,80 @@ public class WeaponItemsME {
     public static List<Item> shields = new ArrayList<>();
 
     //region GENERIC
-    public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.BRONZE, settings), new Item.Settings(), true);
-    public static final Item CRUDE_FALCHION = registerItemWithModel("crude_falchion",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings(), true);
-    
-    public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
-    public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL, settings), new Item.Settings(), true);
-    public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("edhel_steel_sword",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL, settings), new Item.Settings(), true);
-    public static final Item KHAZAD_STEEL_SWORD = registerItemWithModel("khazad_steel_sword",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL, settings), new Item.Settings(), true);
-
     public static final Item WOODEN_DAGGER = registerItemWithModel("wooden_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterial.WOOD, settings), new Item.Settings(), false);
-    public static final Item STONE_DAGGER = registerItemWithModel("stone_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.STONE, settings), new Item.Settings(), false);
-    public static final Item BRONZE_DAGGER = registerItemWithModel("bronze_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.BRONZE, settings), new Item.Settings(), false);
-    public static final Item CRUDE_DAGGER = registerItemWithModel("crude_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings(), false);
-    public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.IRON, settings), new Item.Settings(), false);
-
-    public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.GOLD, settings), new Item.Settings(), false);
-    public static final Item DIAMOND_DAGGER = registerItemWithModel("diamond_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.DIAMOND, settings), new Item.Settings(), false);
-    public static final Item NETHERITE_DAGGER = registerItemWithModel("netherite_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.NETHERITE, settings), new Item.Settings(), false);
-
-    public static final Item CRUDE_LONGBLADE = registerItemWithModel("crude_longblade",
-            (settings) -> new CustomLongswordWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings(), true);
-
     public static final Item WOODEN_SPEAR = registerItemWithSpearModel("wooden_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.WOOD, settings), new Item.Settings());
+
+    public static final Item STONE_DAGGER = registerItemWithModel("stone_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.STONE, settings), new Item.Settings(), false);
     public static final Item STONE_SPEAR = registerItemWithSpearModel("stone_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.STONE, settings), new Item.Settings());
 
+    public static final Item BONE_CLEAVER = registerItemWithModel("bone_cleaver",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
+    public static final Item BONE_SCIMITAR = registerItemWithModel("bone_scimitar",
+            (settings) -> new CustomLongswordWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
+    public static final Item BONE_SHANK = registerItemWithModel("bone_shank",
+            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), false);
+    public static final Item BONE_AXE = registerItemWithModel("bone_axe",
+            (settings) -> new CustomAxeWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
+    public static final Item BONE_SPEAR = registerItemWithSpearModel("bone_spear",
+            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings());
+
+    public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.BRONZE, settings), new Item.Settings(), true);
+    public static final Item BRONZE_DAGGER = registerItemWithModel("bronze_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.BRONZE, settings), new Item.Settings(), false);
     public static final Item BRONZE_SPEAR = registerItemWithSpearModel("bronze_spear",
             (settings) -> new CustomSpearWeaponItem(ModToolMaterials.BRONZE, settings), new Item.Settings());
+
+    public static final Item CRUDE_FALCHION = registerItemWithModel("crude_falchion",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings(), true);
+    public static final Item CRUDE_LONGBLADE = registerItemWithModel("crude_longblade",
+            (settings) -> new CustomLongswordWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings(), true);
+    public static final Item CRUDE_DAGGER = registerItemWithModel("crude_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings(), false);
     public static final Item CRUDE_SPEAR = registerItemWithSpearModel("crude_spear",
             (settings) -> new CustomSpearWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings());
 
+    public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.IRON, settings), new Item.Settings(), false);
     public static final Item IRON_SPEAR = registerItemWithSpearModel("iron_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.IRON, settings), new Item.Settings());
 
-    public static final Item STEEL_SPEAR = registerItemWithSpearModel("steel_spear",
-            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings());
-    public static final Item BURZUM_STEEL_SPEAR = registerItemWithSpearModel("burzum_steel_spear",
-            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL, settings), new Item.Settings());
-    public static final Item EDHEL_STEEL_SPEAR = registerItemWithSpearModel("edhel_steel_spear",
-            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.EDHEL_STEEL, settings), new Item.Settings());
-    public static final Item KHAZAD_STEEL_SPEAR = registerItemWithSpearModel("khazad_steel_spear",
-            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.KHAZAD_STEEL, settings), new Item.Settings());
-    
+    public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.GOLD, settings), new Item.Settings(), false);
     public static final Item GOLDEN_SPEAR = registerItemWithSpearModel("golden_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.GOLD, settings), new Item.Settings());
+
+    public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
+    public static final Item STEEL_SPEAR = registerItemWithSpearModel("steel_spear",
+            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings());
+
+    public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL, settings), new Item.Settings(), true);
+    public static final Item BURZUM_STEEL_SPEAR = registerItemWithSpearModel("burzum_steel_spear",
+            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL, settings), new Item.Settings());
+
+    public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("edhel_steel_sword",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL, settings), new Item.Settings(), true);
+    public static final Item EDHEL_STEEL_SPEAR = registerItemWithSpearModel("edhel_steel_spear",
+            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.EDHEL_STEEL, settings), new Item.Settings());
+
+    public static final Item KHAZAD_STEEL_SWORD = registerItemWithModel("khazad_steel_sword",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL, settings), new Item.Settings(), true);
+    public static final Item KHAZAD_STEEL_SPEAR = registerItemWithSpearModel("khazad_steel_spear",
+            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.KHAZAD_STEEL, settings), new Item.Settings());
+
+    public static final Item DIAMOND_DAGGER = registerItemWithModel("diamond_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.DIAMOND, settings), new Item.Settings(), false);
     public static final Item DIAMOND_SPEAR = registerItemWithSpearModel("diamond_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.DIAMOND, settings), new Item.Settings());
+
+    public static final Item NETHERITE_DAGGER = registerItemWithModel("netherite_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.NETHERITE, settings), new Item.Settings(), false);
     public static final Item NETHERITE_SPEAR = registerItemWithSpearModel("netherite_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.NETHERITE, settings), new Item.Settings());
 
