@@ -5,9 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.WardenAngerManager;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
@@ -15,21 +13,16 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
-import net.minecraft.entity.mob.AbstractPiglinEntity;
-import net.minecraft.entity.passive.AxolotlBrain;
-import net.minecraft.entity.passive.AxolotlEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.GlobalPos;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.poi.PointOfInterestTypes;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModActivity;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSensors;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.*;
 
-import java.util.List;
 import java.util.Optional;
 
 public class SwanBrain {
@@ -43,6 +36,8 @@ public class SwanBrain {
         addCoreActivities(brain);
         addIdleActivities(brain);
         addRestActivities(brain);
+        addBabyIdleActivities(brain);
+        addBabyRestActivities(brain);
         addFightActivities(swanEntity, brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.FIGHT);
@@ -103,9 +98,39 @@ public class SwanBrain {
                 ));
     }
 
+    private static void addBabyIdleActivities(Brain<SwanEntity> brain) {
+        brain.setTaskList(ModActivity.BABY_IDLE, ImmutableList.of(
+                Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
+                        Pair.of(SearchForHomeTask.create(ModBlocks.BIRD_NEST), 2),
+                        Pair.of(StrollTask.create(1.0F), 1)
+                ))),
+                Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
+                        Pair.of(StrollTask.create(1.0F), 1),
+                        Pair.of(new WaitTask(20, 100), 1)
+                ))),
+                Pair.of(2, WalkTowardsEntityTask.createNearestVisibleAdult(UniformIntProvider.create(5, 16), 1f)),
+                Pair.of(99, ScheduleActivityTask.create())
+        ));
+    }
+
+    private static void addBabyRestActivities(Brain<SwanEntity> brain) {
+        brain.setTaskList(ModActivity.BABY_REST, ImmutableList.of(
+                Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
+                        Pair.of(SearchForHomeTask.create(ModBlocks.BIRD_NEST), 2),
+                        Pair.of(StrollTask.create(1.0F), 1)
+                ))),
+                Pair.of(1, MoveTowardsPosMemoryTask.create(MemoryModuleType.HOME, 1.0f, 2, 20, 300)),
+                Pair.of(2, new SleepOnGroundTask()),
+                Pair.of(99, ScheduleActivityTask.create())
+        ));
+    }
+
     public static void updateActivities(SwanEntity swan) {
         Optional<LivingEntity> optional = swan.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
-        if(optional != null && optional.isPresent()) {
+        if(swan.isBaby()) {
+            swan.getBrain().resetPossibleActivities(ImmutableList.of());
+        }
+        else if(optional != null && optional.isPresent()) {
             swan.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT));
         }
         else {
@@ -135,6 +160,7 @@ public class SwanBrain {
                 SensorType.NEAREST_PLAYERS,
                 SensorType.NEAREST_LIVING_ENTITIES,
                 SensorType.IS_IN_WATER,
+                SensorType.NEAREST_ADULT,
                 ModSensors.SWAN_ATTACKABLES
         );
         MEMORY_MODULES = ImmutableList.of(
@@ -151,6 +177,7 @@ public class SwanBrain {
                 MemoryModuleType.HURT_BY,
                 MemoryModuleType.HURT_BY_ENTITY,
                 MemoryModuleType.IS_IN_WATER,
+                MemoryModuleType.NEAREST_VISIBLE_ADULT,
                 ModMemoryModules.DEFENDING_HOME,
                 ModMemoryModules.EGG_COOLDOWN
         );

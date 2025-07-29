@@ -664,7 +664,7 @@ public class SwanEntityAnimations {
     public static final AnimationDefinition BABY_SWIM = AnimationDefinition.Builder.create(1f).looping()
             .addBoneAnimation("root",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
-                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -1f, 0f),
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 5f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("left_leg",
                     new Transformation(Transformation.Targets.ROTATE,
@@ -681,5 +681,14 @@ public class SwanEntityAnimations {
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(30f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-30f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR))).build();
+    public static final AnimationDefinition BABY_SLEEP = AnimationDefinition.Builder.create(0f).looping()
+            .addBoneAnimation("body",
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -1f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("head",
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -2f, -1f),
                                     Transformation.Interpolations.LINEAR))).build();
 }

@@ -10,6 +10,7 @@ import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModActivity;
 import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 
 import java.util.Optional;
@@ -41,7 +42,7 @@ public class SleepOnGroundTask extends MultiTickTask<LivingEntity> {
             return false;
         } else {
             BlockPos blockPos = ((GlobalPos)optional.get()).pos();
-            return entity.getBrain().hasActivity(Activity.REST) && blockPos.isWithinDistance(entity.getPos(), 4.0) && !entity.isTouchingWater();
+            return (entity.getBrain().hasActivity(Activity.REST) || entity.getBrain().hasActivity(ModActivity.BABY_REST)) && blockPos.isWithinDistance(entity.getPos(), 4.0) && !entity.isTouchingWater();
         }
     }
 

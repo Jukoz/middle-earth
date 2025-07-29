@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModActivity;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSensors;
@@ -20,6 +21,7 @@ public class OfBeastsAndWildThings implements ModInitializer {
 	public void onInitialize() {
 		ModEntities.registerModEntities();
 		ModSchedule.registerModSchedules();
+		ModActivity.registerModActivities();
 		ModSensors.registerModSensors();
 		ModMemoryModules.registerModMemoryModules();
 		ModItemGroups.register();

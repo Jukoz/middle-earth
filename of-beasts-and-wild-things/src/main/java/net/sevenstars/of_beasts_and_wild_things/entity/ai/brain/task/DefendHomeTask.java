@@ -32,6 +32,10 @@ public class DefendHomeTask {
 
 
     private static LivingEntity threatClose(ServerWorld world, LivingEntity entity, double radius) {
+        if(entity.isBaby()) {
+            return null;
+        }
+
         Optional<GlobalPos> optionalHome = entity.getBrain().getOptionalMemory(MemoryModuleType.HOME);
         Optional<List<PlayerEntity>> optionalPlayers = entity.getBrain().getOptionalMemory(MemoryModuleType.NEAREST_PLAYERS);
 

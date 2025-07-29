@@ -17,6 +17,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
@@ -31,6 +32,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
@@ -42,16 +44,17 @@ import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
 import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModActivity;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 // TODO Tadpole pacifying
-// TODO Eat animation when attacking animals
 // TODO Dive animation randomly when in water
-// TODO Babies
+// TODO Flap
 
 public class SwanEntity extends AnimalEntity {
     private static final int EGG_COOLDOWN = 12000; // = 10 minutes
@@ -125,9 +128,9 @@ public class SwanEntity extends AnimalEntity {
                     BlockState homeBlock = this.getWorld().getBlockState(optional.get().pos());
                     if(homeBlock.isOf(ModBlocks.BIRD_NEST) && homeBlock.get(BirdNest.NEST_LEVEL) < 2) {
                         this.getWorld().setBlockState(pos, homeBlock.with(BirdNest.NEST_LEVEL, homeBlock.get(BirdNest.NEST_LEVEL) + 1));
-                        this.getBrain().remember(ModMemoryModules.EGG_COOLDOWN, EGG_COOLDOWN);
                     }
                 }
+                this.getBrain().remember(ModMemoryModules.EGG_COOLDOWN, EGG_COOLDOWN);
             }
         }
 
@@ -146,9 +149,13 @@ public class SwanEntity extends AnimalEntity {
     @Override
     public void tickMovement() {
         if(!this.getWorld().isClient) {
+
             this.setAttacking(this.getTarget() != null);
 
-            if(this.isAttacking() && !this.isFighting()) {
+            if(this.isBaby()) {
+                this.getBrain().setSchedule(ModSchedule.BABY);
+            }
+            else if(this.isAttacking() && !this.isFighting()) {
                 this.getBrain().setSchedule(Schedule.EMPTY);
                 this.setIntimidating(getTarget() instanceof PlayerEntity);
                 this.setFighting(true);
@@ -216,6 +223,16 @@ public class SwanEntity extends AnimalEntity {
                 .map(livingAttacker -> (LivingEntity)livingAttacker);
     }
 
+    @Override
+    public boolean canBreatheInWater() {
+        return super.canBreatheInWater();
+    }
+
+    @Override
+    public boolean canTarget(LivingEntity target) {
+        return !this.isBaby() && super.canTarget(target);
+    }
+
     @Nullable
     @Override
     public LivingEntity getTarget() {
@@ -280,10 +297,18 @@ public class SwanEntity extends AnimalEntity {
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         SwanEntity child = ModEntities.SWAN.create(world, SpawnReason.BREEDING);
-        int i = this.random.nextInt(2);
 
-        SwanEntityVariant variant = i == 0 ? this.getVariant() : ((SwanEntity)entity).getVariant();
         if(child != null) {
+            int i = this.random.nextInt(2);
+
+            SwanEntityVariant variant = i == 0 ? this.getVariant() : ((SwanEntity)entity).getVariant();
+
+            Optional<GlobalPos> optional = this.getBrain().getOptionalMemory(MemoryModuleType.HOME);
+
+            if(optional != null && optional.isPresent()) {
+                child.getBrain().remember(MemoryModuleType.HOME, optional.get());
+            }
+
             child.setVariant(variant);
             return child;
         }
@@ -300,7 +325,7 @@ public class SwanEntity extends AnimalEntity {
         if (this.isTouchingWater()) {
             ShapeContext shapeContext = ShapeContext.of(this);
             if (!shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) || this.getWorld().getFluidState(this.getBlockPos().up()).isIn(FluidTags.WATER)) {
-                this.setVelocity(this.getVelocity().multiply(0.5).add(0.0, 0.05, 0.0));
+                this.swimUpward(FluidTags.WATER);
             } else {
                 this.setOnGround(true);
             }
