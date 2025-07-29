@@ -84,18 +84,20 @@ public class ShelobiteScuttlerBrain {
 		brain.setTaskList(
 				Activity.LONG_JUMP,
 				ImmutableList.of(
+						Pair.of(0, ForgetAttackTargetTask.create(
+								(world, target) -> !isTarget(world, shelobiteScuttler, target))
+						),
 						//new LeapingChargeTask(POUNCE_COOLDOWN_RANGE, SoundEvents.ENTITY_SPIDER_STEP),
-						Pair.of(0, new SpiderPounceTask<>(
+						Pair.of(1, new SpiderPounceTask<>(
 								POUNCE_COOLDOWN_RANGE, POUNCE_VERTICAL_RANGE, POUNCE_HORIZONTAL_RANGE,
 								3.5714288F, spider -> SoundEvents.ENTITY_SPIDER_STEP
 						))
 				),
 				ImmutableSet.of(
 						Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT),
-						Pair.of(MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_ABSENT),
-						Pair.of(MemoryModuleType.LONG_JUMP_MID_JUMP, MemoryModuleState.VALUE_ABSENT)
+						Pair.of(MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_ABSENT)
 				),
-				ImmutableSet.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleType.LONG_JUMP_MID_JUMP)
+				ImmutableSet.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleType.LONG_JUMP_COOLING_DOWN)
 				//MemoryModuleType.LONG_JUMP_COOLING_DOWN
 				//Activity.LONG_JUMP,
 				//10,
@@ -151,10 +153,29 @@ public class ShelobiteScuttlerBrain {
 
 	protected static void updateActivities(MirkwoodSpiderEntity shelobiteScuttler) {
 		Brain<MirkwoodSpiderEntity> brain = shelobiteScuttler.getBrain();
+		Optional<LivingEntity> isAttacking = brain.getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
+		if(isAttacking != null && isAttacking.isPresent()) {
+			Optional<Integer> canJump = brain.getOptionalMemory(MemoryModuleType.LONG_JUMP_COOLING_DOWN);
+			if(canJump != null && canJump.isPresent()) {
+				int cooldown =  canJump.get();
+				if(cooldown == 0) {
+					System.out.println("JUMP!!");
+					brain.forget(MemoryModuleType.LONG_JUMP_COOLING_DOWN);
+				} else {
+					brain.resetPossibleActivities(ImmutableList.of(Activity.FIGHT));
+				}
+			} else {
+				brain.resetPossibleActivities(ImmutableList.of(Activity.LONG_JUMP));
+				brain.remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, POUNCE_COOLDOWN_RANGE.get(shelobiteScuttler.getRandom()));
+			}
+		}
+		else {
+			shelobiteScuttler.getBrain().resetPossibleActivities(ImmutableList.of());
+		}
+		shelobiteScuttler.getBrain().refreshActivities(shelobiteScuttler.getWorld().getTimeOfDay(), shelobiteScuttler.getWorld().getTime());
+
 		Activity activity = brain.getFirstPossibleNonCoreActivity().orElse(null);
-		brain.resetPossibleActivities(ImmutableList.of(Activity.LONG_JUMP, Activity.FIGHT, Activity.IDLE));
 		System.out.println(activity);
-		shelobiteScuttler.setAttacking(brain.hasMemoryModule(MemoryModuleType.ATTACK_TARGET));
 	}
 
 	public static void updateActivities(AxolotlEntity axolotl) {
