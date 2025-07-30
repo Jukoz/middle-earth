@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 public class MirkwoodSpiderEntity extends HostileEntity {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final int ADULT_AGE = 20 * 60 * 2; // 2 min of baby time
-    public static final float MOVEMENT_SPEED = 1.2f;
+    public static final float MOVEMENT_SPEED = 1.15f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
     private static final TrackedData<Integer> POUNCE_FLAG;
 
@@ -105,7 +105,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(3, new SpiderPonceAtTargetGoal(this, 0.3F, 0.4f));
+        this.goalSelector.add(3, new SpiderPonceAtTargetGoal(this, 0.35F, 0.35f));
         this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));

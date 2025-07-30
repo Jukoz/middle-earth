@@ -56,8 +56,9 @@ public class SpiderPonceAtTargetGoal extends Goal {
         super.tick();
         this.path = this.spider.getNavigation().findPathTo(target, 0);
         if(this.path != null) {
-            this.spider.getNavigation().startMovingTo(target, 0.8f)
+            this.spider.getNavigation().startMovingTo(target, 0.8f);
         }
+        this.spider.getLookControl().lookAt(this.target.getX(), this.target.getEyeY(), this.target.getZ());
 
         if(startPrePounce) {
             preparationPounceTimer = Math.max(preparationPounceTimer - 1, 0);
