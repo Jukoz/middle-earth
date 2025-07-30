@@ -25,7 +25,7 @@ import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
 import net.sevenstars.middleearth.entity.goals.CustomBowAttackGoal;
 import net.sevenstars.middleearth.entity.goals.NpcTargetPlayerGoal;
-import net.sevenstars.middleearth.entity.spider.ShelobiteScuttlerEntity;
+import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;

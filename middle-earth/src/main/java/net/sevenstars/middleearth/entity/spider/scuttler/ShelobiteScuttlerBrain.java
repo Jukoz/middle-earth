@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.spider;
+package net.sevenstars.middleearth.entity.spider.scuttler;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -119,7 +119,7 @@ public class ShelobiteScuttlerBrain {
 		return new RandomTask<>(
 				ImmutableList.of(
 						Pair.of(LookAtMobTask.create(EntityType.PLAYER, 8.0F), 1),
-						Pair.of(LookAtMobTask.create(ModEntities.MIRKWOOD_SPIDER, 8.0F), 1),
+						Pair.of(LookAtMobTask.create(ModEntities.SHELOBITE_SCUTTLER, 8.0F), 1),
 						Pair.of(LookAtMobTask.create(8.0F), 1),
 						Pair.of(new WaitTask(30, 60), 1)
 				)
@@ -130,7 +130,7 @@ public class ShelobiteScuttlerBrain {
 		return new RandomTask<>(
 				ImmutableList.of(
 						Pair.of(StrollTask.create(0.6F), 2),
-						Pair.of(FindEntityTask.create(ModEntities.MIRKWOOD_SPIDER, 8, MemoryModuleType.INTERACTION_TARGET, 0.6F, 2), 2),
+						Pair.of(FindEntityTask.create(ModEntities.SHELOBITE_SCUTTLER, 8, MemoryModuleType.INTERACTION_TARGET, 0.6F, 2), 2),
 						Pair.of(GoToPosTask.create(MemoryModuleType.HOME, 0.6F, 2, 100), 2),
 						Pair.of(GoAroundTask.create(MemoryModuleType.HOME, 0.6F, 5), 2),
 						Pair.of(new WaitTask(30, 60), 1)

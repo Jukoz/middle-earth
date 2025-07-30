@@ -27,7 +27,7 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
-import net.sevenstars.middleearth.entity.spider.ShelobiteScuttlerEntity;
+import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 
 public class BarrowWightEntity extends HostileEntity {

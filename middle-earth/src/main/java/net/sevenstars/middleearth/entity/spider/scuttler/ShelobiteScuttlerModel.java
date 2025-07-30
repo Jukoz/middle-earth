@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.spider;
+package net.sevenstars.middleearth.entity.spider.scuttler;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;

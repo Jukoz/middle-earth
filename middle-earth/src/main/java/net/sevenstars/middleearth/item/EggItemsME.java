@@ -36,8 +36,8 @@ public class EggItemsME {
     public static final Item SNOW_TROLL_SPAWN_EGG = registerItem("snow_troll_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.SNOW_TROLL, settings), new Item.Settings());
 
-    public static final Item MIRKWOOD_SPIDER_SPAWN_EGG = registerItem("mirkwood_spider_spawn_egg",
-            (settings) -> new SpawnEggItem(ModEntities.MIRKWOOD_SPIDER, settings), new Item.Settings());
+    public static final Item MIRKWOOD_SPIDER_SPAWN_EGG = registerItem("shelobite_scuttler_spawn_egg",
+            (settings) -> new SpawnEggItem(ModEntities.SHELOBITE_SCUTTLER, settings), new Item.Settings());
 
     // Animals
     public static final Item DEER_SPAWN_EGG = registerItem("deer_spawn_egg",

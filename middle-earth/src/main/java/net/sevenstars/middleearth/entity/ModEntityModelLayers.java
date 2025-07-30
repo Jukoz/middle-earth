@@ -24,7 +24,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarModel;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseModel;
-import net.sevenstars.middleearth.entity.spider.ShelobiteScuttlerModel;
+import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerModel;
 import net.sevenstars.middleearth.entity.swan.SwanModel;
 
 @Environment(value= EnvType.CLIENT)

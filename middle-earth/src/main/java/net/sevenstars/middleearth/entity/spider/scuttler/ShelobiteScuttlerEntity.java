@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.spider;
+package net.sevenstars.middleearth.entity.spider.scuttler;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
@@ -32,6 +32,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
+import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import org.jetbrains.annotations.Nullable;
 
 public class ShelobiteScuttlerEntity extends HostileEntity {

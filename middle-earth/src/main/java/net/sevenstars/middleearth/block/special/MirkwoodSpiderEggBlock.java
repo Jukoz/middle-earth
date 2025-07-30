@@ -22,7 +22,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.spider.ShelobiteScuttlerEntity;
+import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
@@ -57,7 +57,7 @@ public class MirkwoodSpiderEggBlock extends Block {
 
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        if(!entity.collidedSoftly && entity.getType() != ModEntities.MIRKWOOD_SPIDER){
+        if(!entity.collidedSoftly && entity.getType() != ModEntities.SHELOBITE_SCUTTLER){
             this.breakEgg(world, pos, state);
             super.onSteppedOn(world, pos, state, entity);
         }
@@ -82,7 +82,7 @@ public class MirkwoodSpiderEggBlock extends Block {
     }
 
     private void SpawnSpider(BlockPos pos, World world){
-        ShelobiteScuttlerEntity entity = new ShelobiteScuttlerEntity(ModEntities.MIRKWOOD_SPIDER, world);
+        ShelobiteScuttlerEntity entity = new ShelobiteScuttlerEntity(ModEntities.SHELOBITE_SCUTTLER, world);
         entity.age = 0;
         entity.setPos(pos.getX(), pos.getY() + 1, pos.getZ());
         world.spawnEntity(entity);
