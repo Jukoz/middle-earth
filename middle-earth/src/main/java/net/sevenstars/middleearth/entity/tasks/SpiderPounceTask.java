@@ -82,14 +82,19 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 	@Override
 	protected boolean shouldKeepRunning(ServerWorld serverWorld, MobEntity mobEntity, long l) {
 		boolean canJump = this.startPos.isPresent();
-		//canJump = canJump && ((Vec3d)this.startPos.get()).equals(mobEntity.getPos());
 		canJump = canJump && this.targetSearchTime > 0;
 		canJump = canJump && !mobEntity.isTouchingWater();
 		canJump = canJump && (this.currentTarget != null || !this.potentialTargets.isEmpty());
 
+		//Optional<Integer> optionalMemory = mobEntity.getBrain().getOptionalMemory(MemoryModuleType.LONG_JUMP_COOLING_DOWN);
+		//if(optionalMemory != null && optionalMemory.isPresent()) {
+		//	canJump = false;
+		//}
+
 		if (!canJump) { //&& mobEntity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.LONG_JUMP_MID_JUMP).isEmpty()) {
-			System.out.println("Should not keep running... 50. TargetST:" + targetSearchTime + ". Current Trgt: " + currentTarget + ". Potential Trgt: " + potentialTargets.size());
-			mobEntity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, 50);
+			System.out.println("Should not keep running... 50. StartPos present: " + startPos.isPresent() + " TargetST:"
+					+ targetSearchTime + ". Current Trgt: " + currentTarget + ". Potential Trgt: " + potentialTargets.size());
+			mobEntity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, cooldownRange.get(mobEntity.getRandom()));
 		}
 
 		return canJump;
@@ -118,8 +123,10 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 				double d = this.currentTarget.length();
 				double e = d + mobEntity.getJumpBoostVelocityModifier();
 				mobEntity.setVelocity(this.currentTarget.multiply(e / d));
-				//mobEntity.getBrain().remember(MemoryModuleType.LONG_JUMP_MID_JUMP, true);
+				mobEntity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, cooldownRange.get(mobEntity.getRandom()));
 				serverWorld.playSoundFromEntity(null, mobEntity, (SoundEvent)this.entityToSound.apply(mobEntity), SoundCategory.NEUTRAL, 1.0F, 1.0F);
+				potentialTargets.clear();
+				targetSearchTime = 0;
 			}
 		} else {
 			this.targetSearchTime--;
@@ -131,7 +138,7 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 	@Override
 	protected void finishRunning(ServerWorld world, E entity, long time) {
 		super.finishRunning(world, entity, time);
-		//entity.getBrain().forget(MemoryModuleType.LONG_JUMP_MID_JUMP);
+		entity.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
 		entity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, this.cooldownRange.get(world.getRandom()));
 		System.out.println("FINISH POUNCE");
 	}
