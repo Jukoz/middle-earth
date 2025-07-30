@@ -790,6 +790,8 @@ public class BlockModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.WHITE_FLOWER_GROWTH);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
 
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.WEBBING);
+
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.MOSS);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.FOREST_MOSS);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.CORRUPTED_MOSS);

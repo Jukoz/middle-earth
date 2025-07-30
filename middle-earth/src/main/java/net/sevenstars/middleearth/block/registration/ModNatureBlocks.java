@@ -464,6 +464,9 @@ public class ModNatureBlocks {
     public static final Block MIRKWOOD_VINES_PLANT = registerBlock("mirkwood_vines_plant",
             MirkwoodVinesBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES), false);
 
+    public static final Block WEBBING = registerBlock("webbing",
+            WebbingBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.COBWEB).burnable().ticksRandomly(), true);
+
     public static final Block SHELOBITE_LARVA_EGG = registerBlock("shelobite_larva_egg",
             ShelobiteLarvaEggBlock::new, AbstractBlock.Settings.copy(Blocks.TURTLE_EGG), true);
     public static final Block HANGING_SHELOBITE_LARVA_EGG = registerBlock("hanging_shelobite_larva_egg",
