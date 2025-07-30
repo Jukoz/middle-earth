@@ -4,6 +4,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.PounceAtTargetGoal;
 import net.minecraft.util.math.Vec3d;
+import net.sevenstars.api.utils.ModLogger;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
 
 import java.util.EnumSet;
@@ -15,6 +17,7 @@ public class SpiderPonceAtTargetGoal extends Goal {
     private final float horizontalVelocity;
     private boolean startPrePounce;
     private int preparationPounceTimer;
+    private long startTime;
 
     public SpiderPonceAtTargetGoal(MirkwoodSpiderEntity mob, float verticalVelocity, float horizontalVelocity) {
         this.spider = mob;
@@ -22,7 +25,7 @@ public class SpiderPonceAtTargetGoal extends Goal {
         this.horizontalVelocity = horizontalVelocity;
         this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
         startPrePounce = false;
-        preparationPounceTimer = 1;
+        preparationPounceTimer = 30;
     }
 
     @Override
@@ -56,25 +59,33 @@ public class SpiderPonceAtTargetGoal extends Goal {
                     vec3d2 = vec3d2.multiply(horizontalVelocity).add(vec3d.multiply(0.2));;
                 }
                 this.spider.setVelocity(vec3d2.x, this.verticalVelocity, vec3d2.z);
+                MiddleEarth.LOGGER.logInfoMsg("POUNCE");
                 startPrePounce = false;
+                stop();
             } else {
-                System.out.println(preparationPounceTimer);
             }
         }
     }
 
     @Override
     public boolean shouldContinue() {
-        return !this.spider.isOnGround();
+        return startPrePounce;
     }
 
     @Override
     public void start() {
-        if(this.spider.getWorld().isClient())
-        {
-            System.out.println("Client jump!");
-        }
+        startTime = System.currentTimeMillis();
+        preparationPounceTimer = 30;
+        MiddleEarth.LOGGER.logInfoMsg("START");
         startPrePounce = true;
-        this.spider.startPrePounce();
+        this.spider.startPounceAnimation();
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+        System.out.println("Timer: " + (System.currentTimeMillis() - startTime));
+        MiddleEarth.LOGGER.logInfoMsg("STOP");
+        this.spider.stopPounceAnimation();
     }
 }

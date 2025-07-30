@@ -2,21 +2,15 @@ package net.sevenstars.middleearth.entity.spider;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
-import net.minecraft.entity.mob.PiglinBruteBrain;
-import net.minecraft.entity.mob.PiglinBruteEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
-import net.sevenstars.middleearth.entity.goals.FastPonceAtTargetGoal;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.goal.*;
@@ -36,7 +30,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import org.jetbrains.annotations.Nullable;
@@ -46,7 +39,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     public static final int ADULT_AGE = 20 * 60 * 2; // 2 min of baby time
     public static final float MOVEMENT_SPEED = 1.2f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
-    private static final TrackedData<Boolean> POUNCE_FLAG;
+    private static final TrackedData<Integer> POUNCE_FLAG;
 
     // region Brain
     protected static final ImmutableList<SensorType<? extends Sensor<? super MirkwoodSpiderEntity>>> SENSOR_TYPES = ImmutableList.of(
@@ -132,7 +125,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(SPIDER_FLAGS, (byte)0);
-        builder.add(POUNCE_FLAG, false);
+        builder.add(POUNCE_FLAG, 0);
     }
 
     //@Override
@@ -148,14 +141,20 @@ public class MirkwoodSpiderEntity extends HostileEntity {
             this.idleAnimationCooldown--;
         }
 
-        if(this.dataTracker.get(POUNCE_FLAG)) {
-            this.dataTracker.set(POUNCE_FLAG, false);
+        int pounceAnimState = this.dataTracker.get(POUNCE_FLAG);
+        if(pounceAnimState == 1) {
             this.pounceAnimation.start(this.age);
+        } else if (pounceAnimState == -1) {
+            this.pounceAnimation.stop();
         }
+        this.dataTracker.set(POUNCE_FLAG, 0);
     }
 
-    public void startPrePounce() {
-        this.dataTracker.set(POUNCE_FLAG, true);
+    public void startPounceAnimation() {
+        this.dataTracker.set(POUNCE_FLAG, 1);
+    }
+    public void stopPounceAnimation() {
+        this.dataTracker.set(POUNCE_FLAG, -1);
     }
 
     @Override
@@ -255,6 +254,6 @@ public class MirkwoodSpiderEntity extends HostileEntity {
 
     static {
         SPIDER_FLAGS = DataTracker.registerData(MirkwoodSpiderEntity.class, TrackedDataHandlerRegistry.BYTE);
-        POUNCE_FLAG = DataTracker.registerData(MirkwoodSpiderEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        POUNCE_FLAG = DataTracker.registerData(MirkwoodSpiderEntity.class, TrackedDataHandlerRegistry.INTEGER);
     }
 }
