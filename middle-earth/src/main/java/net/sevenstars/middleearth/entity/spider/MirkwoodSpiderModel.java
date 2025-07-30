@@ -18,6 +18,7 @@ public class MirkwoodSpiderModel extends EntityModel<ShelobiteScuttlerRenderStat
     private final Animation idleAnimation;
     private final Animation walkingAnimation;
     private final Animation biteAnimation;
+    private final Animation pounceAnimation;
 
     public MirkwoodSpiderModel(ModelPart root) {
         super(root);
@@ -29,6 +30,7 @@ public class MirkwoodSpiderModel extends EntityModel<ShelobiteScuttlerRenderStat
         this.idleAnimation = ShelobiteScuttlerAnimations.SHELOBITE_SCUTTLER_IDLE.createAnimation(root);
         this.walkingAnimation = ShelobiteScuttlerAnimations.SHELOBITE_SCUTTLER_WALK.createAnimation(root);
         this.biteAnimation = ShelobiteScuttlerAnimations.SHELOBITE_SCUTTLER_BITE.createAnimation(root);
+        this.pounceAnimation = ShelobiteScuttlerAnimations.SHELOBITE_SCUTTLER_POUNCE.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {

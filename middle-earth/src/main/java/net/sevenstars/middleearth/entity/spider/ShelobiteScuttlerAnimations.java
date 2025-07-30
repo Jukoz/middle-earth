@@ -7,6 +7,7 @@ import net.minecraft.client.render.entity.animation.Transformation;
 
 public class ShelobiteScuttlerAnimations {
 
+    // region IDLE
     public static final AnimationDefinition SHELOBITE_SCUTTLER_IDLE = AnimationDefinition.Builder.create(4f).looping()
             .addBoneAnimation("abdomen",
                     new Transformation(Transformation.Targets.ROTATE,
@@ -758,6 +759,9 @@ public class ShelobiteScuttlerAnimations {
                             new Keyframe(3.3433335f, AnimationHelper.createRotationalVector(0f, 0f, 2.64f), Transformation.Interpolations.LINEAR),
                             new Keyframe(3.676667f, AnimationHelper.createRotationalVector(0f, 0f, 3f), Transformation.Interpolations.LINEAR),
                             new Keyframe(4f, AnimationHelper.createRotationalVector(0f, 0f, 2.56f), Transformation.Interpolations.LINEAR))).build();
+    // endregion
+    
+    // region WALK
     public static final AnimationDefinition SHELOBITE_SCUTTLER_WALK = AnimationDefinition.Builder.create(2f).looping()
             .addBoneAnimation("abdomen",
                     new Transformation(Transformation.Targets.ROTATE,
@@ -1509,6 +1513,9 @@ public class ShelobiteScuttlerAnimations {
                             new Keyframe(1.6766667f, AnimationHelper.createRotationalVector(0f, 0f, 0f), Transformation.Interpolations.LINEAR),
                             new Keyframe(1.8343335f, AnimationHelper.createRotationalVector(0f, 0f, 0f), Transformation.Interpolations.LINEAR),
                             new Keyframe(2f, AnimationHelper.createRotationalVector(0f, 0f, 0f), Transformation.Interpolations.LINEAR))).build();
+    // endregion
+    
+    // region BITE
     public static final AnimationDefinition SHELOBITE_SCUTTLER_BITE = AnimationDefinition.Builder.create(4f).looping()
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
@@ -1569,4 +1576,111 @@ public class ShelobiteScuttlerAnimations {
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, 1.43f), Transformation.Interpolations.LINEAR),
                             new Keyframe(0.875f, AnimationHelper.createTranslationalVector(0f, 0f, 1.43f), Transformation.Interpolations.LINEAR),
                             new Keyframe(0.95833f, AnimationHelper.createTranslationalVector(0f, 0f, -2f), Transformation.Interpolations.LINEAR))).build();
+    // endregion
+    
+    // region POUNCE
+    public static final AnimationDefinition SHELOBITE_SCUTTLER_POUNCE = AnimationDefinition.Builder.create(1f).looping()
+            .addBoneAnimation("rleg",
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 1f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("rleg",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, -10f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createRotationalVector(0f, -15f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("rleg2",
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createTranslationalVector(-1f, 1f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("rleg2",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, 0f, 55f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 55f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("rleg3",
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createTranslationalVector(-1f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("rleg3",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, 0f, 60f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 60f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("rleg7",
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 1f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("rleg7",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, 10f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 15f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("rleg14",
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createTranslationalVector(1f, 1f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("rleg14",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, 0f, -55f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, -55f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("rleg15",
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createTranslationalVector(1f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("rleg15",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, 0f, -60f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, -60f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("abdomen",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.875f, AnimationHelper.createRotationalVector(30f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("stinger",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(135f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("prosoma",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.75f, AnimationHelper.createRotationalVector(20f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR))).build();
+    // endregion
 }
