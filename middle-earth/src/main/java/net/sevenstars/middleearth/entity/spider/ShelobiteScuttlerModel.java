@@ -137,7 +137,7 @@ public class ShelobiteScuttlerModel extends EntityModel<ShelobiteScuttlerRenderS
         super.setAngles(state);
 
         this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.5F, 2.5F);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
         this.biteAnimation.apply(state.walkAnimationState, state.age, 1.25f);
         this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.1f);
     }

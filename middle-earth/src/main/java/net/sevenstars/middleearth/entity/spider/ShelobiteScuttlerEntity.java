@@ -82,7 +82,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity {
     public static DefaultAttributeContainer.Builder setAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 16.0)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.35)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.34)
                 .add(EntityAttributes.FOLLOW_RANGE, 36.0);
     }
 
