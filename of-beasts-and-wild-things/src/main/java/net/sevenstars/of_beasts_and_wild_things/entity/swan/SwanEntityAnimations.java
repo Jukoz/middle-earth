@@ -479,7 +479,7 @@ public class SwanEntityAnimations {
                         new Keyframe(0.75f, AnimationHelper.createRotationalVector(-26.09f, 0f, 0f),
                 Transformation.Interpolations.CUBIC))).build();
 
-    public static final AnimationDefinition EATING_IN_WATER = AnimationDefinition.Builder.create(2f).looping()
+    public static final AnimationDefinition EATING_IN_WATER = AnimationDefinition.Builder.create(2f)
             .addBoneAnimation("leg_right",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(47.5f, 0f, 0f),
@@ -554,7 +554,7 @@ public class SwanEntityAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(2f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final AnimationDefinition EATING_IN_WATER_2 = AnimationDefinition.Builder.create(2f).looping()
+    public static final AnimationDefinition EATING_IN_WATER_2 = AnimationDefinition.Builder.create(2f)
             .addBoneAnimation("leg_right",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(47.5f, 0f, 0f),
@@ -633,6 +633,32 @@ public class SwanEntityAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(2f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
+    public static final AnimationDefinition FLAP = AnimationDefinition.Builder.create(1.5f).looping()
+            .addBoneAnimation("wing_left_inner",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.33333f, AnimationHelper.createRotationalVector(-27.5f, 0f, -110f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.75f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(1.08333f, AnimationHelper.createRotationalVector(-27.5f, 0f, -110f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(1.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC)))
+            .addBoneAnimation("wing_right_inner",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.33333f, AnimationHelper.createRotationalVector(-27.5f, 0f, 110f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.75f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(1.08333f, AnimationHelper.createRotationalVector(-27.5f, 0f, 110f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(1.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC))).build();
+
 
     // BABY
 
@@ -691,4 +717,29 @@ public class SwanEntityAnimations {
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -2f, -1f),
                                     Transformation.Interpolations.LINEAR))).build();
+    public static final AnimationDefinition BABY_FLAP = AnimationDefinition.Builder.create(1.5f).looping()
+            .addBoneAnimation("left_wing",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.33333f, AnimationHelper.createRotationalVector(0f, 0f, -110f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.75f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(1.08333f, AnimationHelper.createRotationalVector(0f, 0f, -110f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(1.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC)))
+            .addBoneAnimation("right_wing",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.33333f, AnimationHelper.createRotationalVector(0f, 0f, 110f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.75f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(1.08333f, AnimationHelper.createRotationalVector(0f, 0f, 110f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(1.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC))).build();
 }

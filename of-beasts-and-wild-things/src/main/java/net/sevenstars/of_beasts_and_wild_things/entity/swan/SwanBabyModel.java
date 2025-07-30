@@ -7,12 +7,14 @@ public class SwanBabyModel extends SwanEntityModel{
     private final Animation walkingAnimation;
     private final Animation swimmingAnimation;
     private final Animation sleepingAnimation;
+    private final Animation flapAnimation;
     protected SwanBabyModel(ModelPart root) {
         super(root);
 
         this.walkingAnimation = SwanEntityAnimations.BABY_WALK.createAnimation(root);
         this.swimmingAnimation = SwanEntityAnimations.BABY_SWIM.createAnimation(root);
         this.sleepingAnimation = SwanEntityAnimations.BABY_SLEEP.createAnimation(root);
+        this.flapAnimation = SwanEntityAnimations.BABY_FLAP.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -51,5 +53,6 @@ public class SwanBabyModel extends SwanEntityModel{
         this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.0f, 1.0f);
         this.swimmingAnimation.apply(state.swimmingAnimationState, state.age);
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
+        this.flapAnimation.apply(state.flapAnimationState, state.age, 3f);
     }
 }

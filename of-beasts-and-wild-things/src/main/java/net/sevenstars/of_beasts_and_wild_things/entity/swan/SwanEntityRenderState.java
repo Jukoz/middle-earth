@@ -12,6 +12,8 @@ public class SwanEntityRenderState extends LivingEntityRenderState {
     public AnimationState sleepingAnimationState;
     public AnimationState intimidateAnimationState;
     public AnimationState eatAnimationState;
+    public AnimationState swimIdleAnimationState;
+    public AnimationState flapAnimationState;
 
     public SwanEntityRenderState() {
         variant = SwanEntityVariant.WHITE;

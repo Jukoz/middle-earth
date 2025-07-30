@@ -63,5 +63,7 @@ public class SwanEntityRenderer  extends MobEntityRenderer<SwanEntity, SwanEntit
         swanEntityRenderState.swimmingAnimationState = swan.swimmingAnimationState;
         swanEntityRenderState.intimidateAnimationState = swan.intimidateAnimationState;
         swanEntityRenderState.eatAnimationState = swan.eatAnimationState;
+        swanEntityRenderState.swimIdleAnimationState = swan.swimIdleAnimationState;
+        swanEntityRenderState.flapAnimationState = swan.flapAnimationState;
     }
 }

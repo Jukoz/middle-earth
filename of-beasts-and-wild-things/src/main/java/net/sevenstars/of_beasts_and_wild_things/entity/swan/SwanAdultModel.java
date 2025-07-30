@@ -9,6 +9,8 @@ public class SwanAdultModel extends SwanEntityModel {
     private final Animation sleepingAnimation;
     private final Animation intimidateAnimation;
     private final Animation eatAnimation;
+    private final Animation swimIdleAnimation;
+    private final Animation flapAnimation;
 
     protected SwanAdultModel(ModelPart root) {
         super(root);
@@ -18,6 +20,8 @@ public class SwanAdultModel extends SwanEntityModel {
         this.sleepingAnimation = SwanEntityAnimations.SLEEP.createAnimation(root);
         this.intimidateAnimation = SwanEntityAnimations.INTIMIDATE.createAnimation(root);
         this.eatAnimation = SwanEntityAnimations.EATING.createAnimation(root);
+        this.swimIdleAnimation = SwanEntityAnimations.EATING_IN_WATER.createAnimation(root);
+        this.flapAnimation = SwanEntityAnimations.FLAP.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -66,10 +70,12 @@ public class SwanAdultModel extends SwanEntityModel {
     public void setAngles(SwanEntityRenderState state) {
         super.setAngles(state);
 
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 6.0f, 1.0f);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8.0f, 1.0f);
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
         this.swimmingAnimation.apply(state.swimmingAnimationState, state.age);
         this.intimidateAnimation.apply(state.intimidateAnimationState, state.age);
         this.eatAnimation.apply(state.eatAnimationState, state.age, 2.2f);
+        this.swimIdleAnimation.apply(state.swimIdleAnimationState, state.age);
+        this.flapAnimation.apply(state.flapAnimationState, state.age, 3f);
     }
 }

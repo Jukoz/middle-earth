@@ -53,11 +53,10 @@ import java.util.List;
 import java.util.Optional;
 
 // TODO Tadpole pacifying
-// TODO Dive animation randomly when in water
-// TODO Flap
 
 public class SwanEntity extends AnimalEntity {
     private static final int EGG_COOLDOWN = 12000; // = 10 minutes
+    public int idleAnimationTimeout = this.random.nextInt(400) + 800; // 40 - 60 Seconds
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> INTIMIDATING = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -66,6 +65,8 @@ public class SwanEntity extends AnimalEntity {
     public final AnimationState sleepingAnimationState = new AnimationState();
     public final AnimationState intimidateAnimationState = new AnimationState();
     public final AnimationState eatAnimationState = new AnimationState();
+    public final AnimationState swimIdleAnimationState = new AnimationState();
+    public final AnimationState flapAnimationState = new AnimationState();
     public SwanEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -149,6 +150,7 @@ public class SwanEntity extends AnimalEntity {
     @Override
     public void tickMovement() {
         if(!this.getWorld().isClient) {
+            this.wingFlap();
 
             this.setAttacking(this.getTarget() != null);
 
@@ -186,9 +188,19 @@ public class SwanEntity extends AnimalEntity {
         }
         if(this.isTouchingWater()) {
             this.swimmingAnimationState.startIfNotRunning(this.age);
+
+            if(idleAnimationTimeout > 0) {
+                idleAnimationTimeout--;
+            }
+
+            if(this.idleAnimationTimeout <= 0) {
+                this.swimIdleAnimationState.start(this.age);
+                this.idleAnimationTimeout = this.random.nextInt(400) + 800;
+            }
         }
         else {
             this.swimmingAnimationState.stop();
+            swimIdleAnimationState.stop();
         }
         if(isIntimidating()) {
             this.intimidateAnimationState.startIfNotRunning(this.age);
@@ -196,7 +208,19 @@ public class SwanEntity extends AnimalEntity {
         else {
             this.intimidateAnimationState.stop();
         }
+        if(!this.isOnGround()) {
+            this.flapAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.flapAnimationState.stop();
+        }
+    }
 
+    private void wingFlap() {
+        Vec3d velocity = this.getVelocity();
+        if (!this.isOnGround() && velocity.y < 0.0) {
+            this.setVelocity(velocity.multiply(1.0, 0.6, 1.0));
+        }
     }
 
     @Override
