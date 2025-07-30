@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.goals;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.PounceAtTargetGoal;
+import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -17,7 +18,7 @@ public class SpiderPonceAtTargetGoal extends Goal {
     private final float horizontalVelocity;
     private boolean startPrePounce;
     private int preparationPounceTimer;
-    private long startTime;
+    private Path path;
 
     public SpiderPonceAtTargetGoal(MirkwoodSpiderEntity mob, float verticalVelocity, float horizontalVelocity) {
         this.spider = mob;
@@ -25,7 +26,7 @@ public class SpiderPonceAtTargetGoal extends Goal {
         this.horizontalVelocity = horizontalVelocity;
         this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
         startPrePounce = false;
-        preparationPounceTimer = 30;
+        preparationPounceTimer = 18;
     }
 
     @Override
@@ -44,25 +45,32 @@ public class SpiderPonceAtTargetGoal extends Goal {
         if (!this.spider.isOnGround()) {
             return false;
         }
+        this.path = this.spider.getNavigation().findPathTo(target, 0);
+        if(path == null) return false;
+
         return this.spider.getRandom().nextInt(PounceAtTargetGoal.toGoalTicks(5)) == 0;
     }
 
     @Override
     public void tick() {
         super.tick();
+        this.path = this.spider.getNavigation().findPathTo(target, 0);
+        if(this.path != null) {
+            this.spider.getNavigation().startMovingTo(target, 0.8f)
+        }
+
         if(startPrePounce) {
             preparationPounceTimer = Math.max(preparationPounceTimer - 1, 0);
             if(preparationPounceTimer == 0) {
+                this.spider.getNavigation().stop();
                 Vec3d vec3d = this.spider.getVelocity();
                 Vec3d vec3d2 = new Vec3d(this.target.getX() - this.spider.getX(), 0.0, this.target.getZ() - this.spider.getZ());
                 if (vec3d2.lengthSquared() > 1.0E-7) {
                     vec3d2 = vec3d2.multiply(horizontalVelocity).add(vec3d.multiply(0.2));;
                 }
                 this.spider.setVelocity(vec3d2.x, this.verticalVelocity, vec3d2.z);
-                MiddleEarth.LOGGER.logInfoMsg("POUNCE");
                 startPrePounce = false;
                 stop();
-            } else {
             }
         }
     }
@@ -74,18 +82,15 @@ public class SpiderPonceAtTargetGoal extends Goal {
 
     @Override
     public void start() {
-        startTime = System.currentTimeMillis();
-        preparationPounceTimer = 30;
-        MiddleEarth.LOGGER.logInfoMsg("START");
+        preparationPounceTimer = 18;
         startPrePounce = true;
+        this.spider.getNavigation().startMovingAlong(this.path, 0.8f);
         this.spider.startPounceAnimation();
     }
 
     @Override
     public void stop() {
         super.stop();
-        System.out.println("Timer: " + (System.currentTimeMillis() - startTime));
-        MiddleEarth.LOGGER.logInfoMsg("STOP");
         this.spider.stopPounceAnimation();
     }
 }
