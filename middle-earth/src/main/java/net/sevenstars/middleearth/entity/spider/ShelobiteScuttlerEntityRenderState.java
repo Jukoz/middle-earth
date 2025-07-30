@@ -5,10 +5,10 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 
 @Environment(EnvType.CLIENT)
-public class MirkwoodSpiderEntityRenderState extends LivingEntityRenderState {
+public class ShelobiteScuttlerEntityRenderState extends LivingEntityRenderState {
     public MirkwoodSpiderVariants variant;
 
-    public MirkwoodSpiderEntityRenderState() {
+    public ShelobiteScuttlerEntityRenderState() {
         variant = MirkwoodSpiderVariants.BLACK;
         ;
     }

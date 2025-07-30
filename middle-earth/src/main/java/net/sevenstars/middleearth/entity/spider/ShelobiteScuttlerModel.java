@@ -1,16 +1,10 @@
 package net.sevenstars.middleearth.entity.spider;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.minecraft.client.util.math.MatrixStack;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MirkwoodSpiderModel extends EntityModel<ShelobiteScuttlerRenderState> {
+public class ShelobiteScuttlerModel extends EntityModel<ShelobiteScuttlerRenderState> {
     private final ModelPart root;
     private final ModelPart legscore;
     private final ModelPart body;
@@ -20,7 +14,7 @@ public class MirkwoodSpiderModel extends EntityModel<ShelobiteScuttlerRenderStat
     private final Animation biteAnimation;
     private final Animation pounceAnimation;
 
-    public MirkwoodSpiderModel(ModelPart root) {
+    public ShelobiteScuttlerModel(ModelPart root) {
         super(root);
 
         this.root = root.getChild("root");

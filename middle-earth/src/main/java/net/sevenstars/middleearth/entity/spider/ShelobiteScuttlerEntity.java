@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import org.jetbrains.annotations.Nullable;
 
-public class MirkwoodSpiderEntity extends HostileEntity {
+public class ShelobiteScuttlerEntity extends HostileEntity {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final int ADULT_AGE = 20 * 60 * 2; // 2 min of baby time
     public static final float MOVEMENT_SPEED = 1.15f;
@@ -42,7 +42,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     private static final TrackedData<Integer> POUNCE_FLAG;
 
     // region Brain
-    protected static final ImmutableList<SensorType<? extends Sensor<? super MirkwoodSpiderEntity>>> SENSOR_TYPES = ImmutableList.of(
+    protected static final ImmutableList<SensorType<? extends Sensor<? super ShelobiteScuttlerEntity>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.NEAREST_ITEMS, SensorType.HURT_BY
     );
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULE_TYPES = ImmutableList.of(
@@ -75,7 +75,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     private int idleAnimationCooldown = 0;
     private int climbingTicks = 0;
 
-    public MirkwoodSpiderEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public ShelobiteScuttlerEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -94,7 +94,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     }
 
     @Override
-    protected Brain.Profile<MirkwoodSpiderEntity> createBrainProfile() {
+    protected Brain.Profile<ShelobiteScuttlerEntity> createBrainProfile() {
         return Brain.createProfile(MEMORY_MODULE_TYPES, SENSOR_TYPES);
     }
 
@@ -253,7 +253,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     }
 
     static {
-        SPIDER_FLAGS = DataTracker.registerData(MirkwoodSpiderEntity.class, TrackedDataHandlerRegistry.BYTE);
-        POUNCE_FLAG = DataTracker.registerData(MirkwoodSpiderEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        SPIDER_FLAGS = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.BYTE);
+        POUNCE_FLAG = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.INTEGER);
     }
 }

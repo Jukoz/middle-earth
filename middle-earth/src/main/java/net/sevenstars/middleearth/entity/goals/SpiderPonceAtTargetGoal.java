@@ -5,14 +5,12 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.PounceAtTargetGoal;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.util.math.Vec3d;
-import net.sevenstars.api.utils.ModLogger;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
+import net.sevenstars.middleearth.entity.spider.ShelobiteScuttlerEntity;
 
 import java.util.EnumSet;
 
 public class SpiderPonceAtTargetGoal extends Goal {
-    private final MirkwoodSpiderEntity spider;
+    private final ShelobiteScuttlerEntity spider;
     private LivingEntity target;
     private final float verticalVelocity;
     private final float horizontalVelocity;
@@ -20,7 +18,7 @@ public class SpiderPonceAtTargetGoal extends Goal {
     private int preparationPounceTimer;
     private Path path;
 
-    public SpiderPonceAtTargetGoal(MirkwoodSpiderEntity mob, float verticalVelocity, float horizontalVelocity) {
+    public SpiderPonceAtTargetGoal(ShelobiteScuttlerEntity mob, float verticalVelocity, float horizontalVelocity) {
         this.spider = mob;
         this.verticalVelocity = verticalVelocity;
         this.horizontalVelocity = horizontalVelocity;

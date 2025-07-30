@@ -26,7 +26,7 @@ import net.sevenstars.middleearth.entity.projectile.pinecone.LitPineconeEntity;
 import net.sevenstars.middleearth.entity.projectile.pinecone.PineconeEntity;
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntity;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
-import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
+import net.sevenstars.middleearth.entity.spider.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.swan.SwanEntity;
 import net.sevenstars.middleearth.registries.RegistryAliases;
 
@@ -42,7 +42,7 @@ public class ModEntities {
     public static final EntityType<BroadhoofGoatEntity> BROADHOOF_GOAT = register("broadhoof_goat", EntityType.Builder.create(BroadhoofGoatEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 1.4f));
 
     // Spiders
-    public static final EntityType<MirkwoodSpiderEntity> MIRKWOOD_SPIDER = register("mirkwood_spider", EntityType.Builder.create(MirkwoodSpiderEntity::new, SpawnGroup.CREATURE).dimensions(1.15f, 0.9f));
+    public static final EntityType<ShelobiteScuttlerEntity> MIRKWOOD_SPIDER = register("mirkwood_spider", EntityType.Builder.create(ShelobiteScuttlerEntity::new, SpawnGroup.CREATURE).dimensions(1.15f, 0.9f));
 
     // Trolls
     public static final EntityType<SnowTrollEntity> SNOW_TROLL = register("snow_troll", EntityType.Builder.create(SnowTrollEntity::new, SpawnGroup.CREATURE).dimensions(2.2f, 2.5f));
@@ -100,7 +100,7 @@ public class ModEntities {
 
         FabricDefaultAttributeRegistry.register(WARG, WargEntity.setAttributes());
 
-        FabricDefaultAttributeRegistry.register(MIRKWOOD_SPIDER, MirkwoodSpiderEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(MIRKWOOD_SPIDER, ShelobiteScuttlerEntity.setAttributes());
 
         FabricDefaultAttributeRegistry.register(STONE_TROLL, StoneTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(PETRIFIED_TROLL, PetrifiedTrollEntity.setAttributes());

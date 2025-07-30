@@ -24,7 +24,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarModel;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseModel;
-import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderModel;
+import net.sevenstars.middleearth.entity.spider.ShelobiteScuttlerModel;
 import net.sevenstars.middleearth.entity.swan.SwanModel;
 
 @Environment(value= EnvType.CLIENT)
@@ -50,7 +50,7 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer STONE_TROLL = ModEntityModelLayers.registerEntityModelLayer("stone_troll", StoneTrollModel.getTexturedModelData());
     public static final EntityModelLayer PETRIFIED_TROLL = ModEntityModelLayers.registerEntityModelLayer("petrified_troll", PetrifiedTrollModel.getTexturedModelData());
     public static final EntityModelLayer BARROW_WIGHT = ModEntityModelLayers.registerEntityModelLayer("barrow_wight", BarrowWightModel.getTexturedModelData());
-    public static final EntityModelLayer SPIDER = ModEntityModelLayers.registerEntityModelLayer("spider", MirkwoodSpiderModel.getTexturedModelData());
+    public static final EntityModelLayer SPIDER = ModEntityModelLayers.registerEntityModelLayer("spider", ShelobiteScuttlerModel.getTexturedModelData());
 
     // Animals
     public static final EntityModelLayer SWAN = ModEntityModelLayers.registerEntityModelLayer("swan", SwanModel.getTexturedModelData());

@@ -9,25 +9,21 @@ import net.minecraft.entity.ai.brain.*;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.AxolotlEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
-import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.tasks.SpiderPounceTask;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public class ShelobiteScuttlerBrain {
 	private static final UniformIntProvider POUNCE_COOLDOWN_RANGE = UniformIntProvider.create(50, 80);
 	public static final int POUNCE_VERTICAL_RANGE = 1;
 	public static final int POUNCE_HORIZONTAL_RANGE = 3;
 
-	protected static Brain<?> create(MirkwoodSpiderEntity shelobiteScuttlerEntity, Brain<MirkwoodSpiderEntity> brain) {
+	protected static Brain<?> create(ShelobiteScuttlerEntity shelobiteScuttlerEntity, Brain<ShelobiteScuttlerEntity> brain) {
 		addCoreActivities(shelobiteScuttlerEntity, brain);
 		addIdleActivities(shelobiteScuttlerEntity, brain);
 		addFightActivities(shelobiteScuttlerEntity, brain);
@@ -38,12 +34,12 @@ public class ShelobiteScuttlerBrain {
 		return brain;
 	}
 
-	protected static void setCurrentPosAsHome(MirkwoodSpiderEntity shelobiteScuttler) {
+	protected static void setCurrentPosAsHome(ShelobiteScuttlerEntity shelobiteScuttler) {
 		GlobalPos globalPos = GlobalPos.create(shelobiteScuttler.getWorld().getRegistryKey(), shelobiteScuttler.getBlockPos());
 		shelobiteScuttler.getBrain().remember(MemoryModuleType.HOME, globalPos);
 	}
 
-	private static void addCoreActivities(MirkwoodSpiderEntity shelobiteScuttler, Brain<MirkwoodSpiderEntity> brain) {
+	private static void addCoreActivities(ShelobiteScuttlerEntity shelobiteScuttler, Brain<ShelobiteScuttlerEntity> brain) {
 		brain.setTaskList(
 				Activity.CORE, 0, ImmutableList.of(
 						new UpdateLookControlTask(45, 90),
@@ -54,12 +50,12 @@ public class ShelobiteScuttlerBrain {
 		);
 	}
 
-	private static void addIdleActivities(MirkwoodSpiderEntity shelobiteScuttler, Brain<MirkwoodSpiderEntity> brain) {
+	private static void addIdleActivities(ShelobiteScuttlerEntity shelobiteScuttler, Brain<ShelobiteScuttlerEntity> brain) {
 		brain.setTaskList(
 				Activity.IDLE,
 				10,
 				ImmutableList.of(
-						UpdateAttackTargetTask.<MirkwoodSpiderEntity>create(ShelobiteScuttlerBrain::getTarget),
+						UpdateAttackTargetTask.<ShelobiteScuttlerEntity>create(ShelobiteScuttlerBrain::getTarget),
 						getFollowTasks(),
 						getIdleTasks(),
 						FindInteractionTargetTask.create(EntityType.PLAYER, 4)
@@ -67,7 +63,7 @@ public class ShelobiteScuttlerBrain {
 		);
 	}
 
-	private static void addFightActivities(MirkwoodSpiderEntity shelobiteScuttler, Brain<MirkwoodSpiderEntity> brain) {
+	private static void addFightActivities(ShelobiteScuttlerEntity shelobiteScuttler, Brain<ShelobiteScuttlerEntity> brain) {
 		brain.setTaskList(
 				Activity.FIGHT,
 				10,
@@ -80,7 +76,7 @@ public class ShelobiteScuttlerBrain {
 		);
 	}
 
-	private static void addPounceActivities(MirkwoodSpiderEntity shelobiteScuttler, Brain<MirkwoodSpiderEntity> brain) {
+	private static void addPounceActivities(ShelobiteScuttlerEntity shelobiteScuttler, Brain<ShelobiteScuttlerEntity> brain) {
 		brain.setTaskList(
 				Activity.LONG_JUMP,
 				ImmutableList.of(
@@ -119,7 +115,7 @@ public class ShelobiteScuttlerBrain {
 		);
 	}
 
-	private static RandomTask<MirkwoodSpiderEntity> getFollowTasks() {
+	private static RandomTask<ShelobiteScuttlerEntity> getFollowTasks() {
 		return new RandomTask<>(
 				ImmutableList.of(
 						Pair.of(LookAtMobTask.create(EntityType.PLAYER, 8.0F), 1),
@@ -130,7 +126,7 @@ public class ShelobiteScuttlerBrain {
 		);
 	}
 
-	private static RandomTask<MirkwoodSpiderEntity> getIdleTasks() {
+	private static RandomTask<ShelobiteScuttlerEntity> getIdleTasks() {
 		return new RandomTask<>(
 				ImmutableList.of(
 						Pair.of(StrollTask.create(0.6F), 2),
@@ -220,11 +216,11 @@ public class ShelobiteScuttlerBrain {
 		}
 	}*/
 
-	private static boolean isTarget(ServerWorld world, MirkwoodSpiderEntity shelobiteScuttler, LivingEntity target) {
+	private static boolean isTarget(ServerWorld world, ShelobiteScuttlerEntity shelobiteScuttler, LivingEntity target) {
 		return getTarget(world, shelobiteScuttler).filter(targetx -> targetx == target).isPresent();
 	}
 
-	private static Optional<? extends LivingEntity> getTarget(ServerWorld world, MirkwoodSpiderEntity shelobiteScuttler) {
+	private static Optional<? extends LivingEntity> getTarget(ServerWorld world, ShelobiteScuttlerEntity shelobiteScuttler) {
 		Optional<LivingEntity> optional = TargetUtil.getEntity(shelobiteScuttler, MemoryModuleType.ANGRY_AT);
 		if (optional.isPresent() && Sensor.testAttackableTargetPredicateIgnoreVisibility(world, shelobiteScuttler, (LivingEntity)optional.get())) {
 			return optional;
@@ -234,25 +230,25 @@ public class ShelobiteScuttlerBrain {
 		}
 	}
 
-	protected static void tryRevenge(ServerWorld world, MirkwoodSpiderEntity shelobiteScuttler, LivingEntity target) {
+	protected static void tryRevenge(ServerWorld world, ShelobiteScuttlerEntity shelobiteScuttler, LivingEntity target) {
 		if (!(target instanceof AbstractPiglinEntity)) {
 			tryRevenge(world, shelobiteScuttler, target);
 		}
 	}
 
-	protected static void setTarget(MirkwoodSpiderEntity shelobiteScuttler, LivingEntity target) {
+	protected static void setTarget(ShelobiteScuttlerEntity shelobiteScuttler, LivingEntity target) {
 		shelobiteScuttler.getBrain().forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 		shelobiteScuttler.getBrain().remember(MemoryModuleType.ANGRY_AT, target.getUuid(), 600L);
 	}
 
-	protected static void playSoundRandomly(MirkwoodSpiderEntity mirkwoodSpiderEntity) {
-		if (mirkwoodSpiderEntity.getWorld().random.nextFloat() < 0.0125) {
-			playSoundIfAngry(mirkwoodSpiderEntity);
+	protected static void playSoundRandomly(ShelobiteScuttlerEntity shelobiteScuttlerEntity) {
+		if (shelobiteScuttlerEntity.getWorld().random.nextFloat() < 0.0125) {
+			playSoundIfAngry(shelobiteScuttlerEntity);
 		}
 	}
 
-	private static void playSoundIfAngry(MirkwoodSpiderEntity mirkwoodSpiderEntity) {
-		mirkwoodSpiderEntity.getBrain().getFirstPossibleNonCoreActivity().ifPresent(activity -> {
+	private static void playSoundIfAngry(ShelobiteScuttlerEntity shelobiteScuttlerEntity) {
+		shelobiteScuttlerEntity.getBrain().getFirstPossibleNonCoreActivity().ifPresent(activity -> {
 			if (activity == Activity.FIGHT) {
 				//mirkwoodSpiderEntity.playAngrySound();
 			}
