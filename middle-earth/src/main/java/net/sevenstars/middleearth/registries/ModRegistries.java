@@ -2,6 +2,8 @@ package net.sevenstars.middleearth.registries;
 
 import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
 import net.fabricmc.fabric.api.registry.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockSetType;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -20,6 +22,9 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.block.registration.*;
+import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
+import net.sevenstars.middleearth.block.utils.WoodBlockTypes;
+import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
@@ -36,6 +41,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ModRegistries {
 
@@ -47,6 +53,16 @@ public class ModRegistries {
         specialAliases.put("carved_window_vertical_slab", "carved_window_pane");
         specialAliases.put("brick_", "bricks_");
         specialAliases.put("tile_", "tiles_");
+
+        WoodBlockSets.woodSetsList.forEach(woodBlockSetBuilder -> {
+            if (woodBlockSetBuilder.existingList.contains(WoodBlockTypes.PLANK_BLOCKS)){
+                addPlanksAliases(woodBlockSetBuilder.planksBlocks.slab(), woodBlockSetBuilder);
+                addPlanksAliases(woodBlockSetBuilder.planksBlocks.stairs(), woodBlockSetBuilder);
+                addPlanksAliases(woodBlockSetBuilder.planksBlocks.verticalSlab(), woodBlockSetBuilder);
+                addPlanksAliases(woodBlockSetBuilder.planksBlocks.fence(), woodBlockSetBuilder);
+                addPlanksAliases(woodBlockSetBuilder.planksBlocks.gate(), woodBlockSetBuilder);
+            }
+        });
 
         //_planks
         //ashen_stone
@@ -91,8 +107,11 @@ public class ModRegistries {
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
             }
         }
+    }
 
-        Registries.ITEM.addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, "strawberry"), Identifier.of(MiddleEarth.MOD_ID, "strawberries"));
+    private static void addPlanksAliases(Block block, WoodBlockSetBuilder woodBlockSetBuilder){
+        specialAliases.put(Registries.BLOCK.getId(block).getPath(),
+                Registries.BLOCK.getId(block).getPath().replaceAll(woodBlockSetBuilder.setName + "_", woodBlockSetBuilder.setName + "_planks_"));
     }
 
     public static void registerToolTipAppenders() {

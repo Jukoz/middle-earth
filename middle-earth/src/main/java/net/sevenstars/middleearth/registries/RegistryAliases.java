@@ -9,6 +9,8 @@ public class RegistryAliases {
     public record Alias(Registry registry, String name) {}
 
     public static List<Alias> aliases = new ArrayList<>(){
+        {
 
+        }
     };
 }
