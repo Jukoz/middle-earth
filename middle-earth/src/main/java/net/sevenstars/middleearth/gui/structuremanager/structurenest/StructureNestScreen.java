@@ -60,7 +60,7 @@ public class StructureNestScreen extends HandledScreen<StructureNestScreenHandle
             results.add(new SearchBarResult(Text.translatable(data.getId().toTranslationKey("structure_manager_data")), data.getId(), SearchBarResultType.NORMAL, button -> selectManager(data)));
         }
 
-        this.managerSearchBarWidget = new SearchBarWidget(9, results, x -> updateScreenInformation());
+        this.managerSearchBarWidget = new SearchBarWidget(9, results, x -> updateScreenInformation(), 250);
         addDrawableChild(this.managerSearchBarWidget.getSearchBarToggleButton());
         this.managerSearchBarWidget.getAllButtons().forEach(this::addDrawableChild);
         addDrawableChild(this.managerSearchBarWidget.getScreenClickButton());

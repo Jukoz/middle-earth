@@ -38,32 +38,40 @@ public class StructureManagerScreenHandler extends ScreenHandler {
 
     public void selectIdentifier(PlayerEntity player, Identifier identifier) {
         this.data.setStructureManagerIdentifier(identifier);
-        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(data.getPos(), data.getStructureManagerIdentifier(), data.getIsActive()));
-    }
-
-    public void updateClientData(Identifier structureManagerDataId, boolean isActive) {
-        this.data.setStructureManagerIdentifier(structureManagerDataId);
-        this.data.setActive(isActive);
+        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(
+                data.getPos(),
+                data.getStructureManagerIdentifier(),
+                data.getToInitialize(),
+                data.getIsActive()));
     }
 
     public BlockPos getPos() {
         return this.data.getPos();
     }
 
-    public Identifier getSelectedKey() {
-        return this.data.getStructureManagerIdentifier();
-    }
-    public Identifier getRuntimeKey() {
+    public Identifier getDataIdentifier() {
         return this.data.getStructureManagerIdentifier();
     }
 
-    public boolean getIsActive() {
+    public boolean getToInitialize() {
+        return this.data.getToInitialize();
+    }
+    public boolean getIsEnabled() {
         return this.data.getIsActive();
     }
 
-    public void toggleActive() {
+    public void toggleToInitialize() {
+        this.data.setToInitialize(!this.data.getToInitialize());
+        updateServer();
+    }
+
+    private void updateServer() {
+        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(this.data.getPos(), this.data.getStructureManagerIdentifier(), this.data.getIsActive(), this.data.getToInitialize()));
+    }
+
+    public void toggleToActivate() {
         this.data.setActive(!this.data.getIsActive());
-        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(data.getPos(), data.getStructureManagerIdentifier(), data.getIsActive()));
+        updateServer();
     }
 }
 

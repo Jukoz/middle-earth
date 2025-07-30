@@ -18,16 +18,19 @@ public class PacketStructureManagerUpdateBlockEntityRequest extends ClientToServ
     public static final PacketCodec<RegistryByteBuf, PacketStructureManagerUpdateBlockEntityRequest> CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, p -> p.pos,
             Identifier.PACKET_CODEC, p -> p.structureManagerId,
+            PacketCodecs.BOOLEAN, p -> p.toInitialize,
             PacketCodecs.BOOLEAN, p -> p.isActive,
             PacketStructureManagerUpdateBlockEntityRequest::new
     );
     private final BlockPos pos;
     private final Identifier structureManagerId;
+    private final boolean toInitialize;
     private final boolean isActive;
 
-    public PacketStructureManagerUpdateBlockEntityRequest(BlockPos pos, Identifier structureManagerId, boolean isActive) {
+    public PacketStructureManagerUpdateBlockEntityRequest(BlockPos pos, Identifier structureManagerId, boolean toInitialize, boolean isActive) {
         this.pos = pos;
         this.structureManagerId = structureManagerId;
+        this.toInitialize = toInitialize;
         this.isActive = isActive;
     }
 
@@ -48,7 +51,8 @@ public class PacketStructureManagerUpdateBlockEntityRequest extends ClientToServ
             server.execute(() -> {
                 if(context.player().getWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity){
                     blockEntity.setStructureManagerId(structureManagerId);
-                    blockEntity.toggle(isActive);
+                    blockEntity.setActiveState(isActive);
+                    blockEntity.setInitializationState(toInitialize);
                 }
             });
         } catch (Exception e){

@@ -123,7 +123,7 @@ public class OnboardingFactionScreen extends Screen {
 
         elements.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.STANDING_BANNER_FLAG).getChild("flag");
 
-        elements.searchBarWidget = new SearchBarWidget(9, controller.getAllSearchBarResults(), x -> controller.updateScreenInformation());
+        elements.searchBarWidget = new SearchBarWidget(9, controller.getAllSearchBarResults(), x -> controller.updateScreenInformation(), CycledSelectionWidget.TOTAL_WIDTH);
         addDrawableChild(elements.searchBarWidget.getSearchBarToggleButton());
         elements.searchBarWidget.getAllButtons().forEach(this::addDrawableChild);
         addDrawableChild(elements.searchBarWidget.getScreenClickButton());

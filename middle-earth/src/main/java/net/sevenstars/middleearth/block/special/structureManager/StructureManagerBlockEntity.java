@@ -172,10 +172,18 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         }
     }
 
-    public void toggle(boolean activate) {
+
+
+    public void setInitializationState(boolean toInitialize) {
+        this.toInitialize = toInitialize;
+        updateListeners();
+    }
+
+    public void setActiveState(boolean activate) {
         this.enabled = activate;
         updateListeners();
     }
+
     public void setStructureManagerId(Identifier identifier) {
         this.structureManagerIdentifier = identifier;
         updateListeners();
