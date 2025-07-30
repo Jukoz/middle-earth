@@ -105,16 +105,16 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         return ShelobiteScuttlerBrain.create(this, this.createBrainProfile().deserialize(dynamic));
     }
 
-    //protected void initGoals() {
-    //    this.goalSelector.add(1, new SwimGoal(this));
-    //    this.goalSelector.add(3, new FastPonceAtTargetGoal(this, 0.3F, 0.4f));
-    //    this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
-    //    this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
-    //    this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-    //    this.goalSelector.add(6, new LookAroundGoal(this));
-    //    this.targetSelector.add(1, new RevengeGoal(this));
-    //    this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-    //}
+    protected void initGoals() {
+        this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(3, new FastPonceAtTargetGoal(this, 0.3F, 0.4f));
+        this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
+        this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.add(6, new LookAroundGoal(this));
+        this.targetSelector.add(1, new RevengeGoal(this));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+    }
 
     public double getMountedHeightOffset() {
         return (double)(this.getHeight() * 0.5F);
@@ -129,10 +129,10 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         builder.add(SPIDER_FLAGS, (byte)0);
     }
 
-    @Override
-    public Brain<MirkwoodSpiderEntity> getBrain() {
-        return (Brain<MirkwoodSpiderEntity>) super.getBrain();
-    }
+    //@Override
+    //public Brain<MirkwoodSpiderEntity> getBrain() {
+    //    return (Brain<MirkwoodSpiderEntity>) super.getBrain();
+    //}
 
     protected void setupAnimationStates() {
         if (!this.idleAnimation.isRunning()) {
@@ -162,12 +162,12 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     @Override
     protected void mobTick(ServerWorld world) {
         super.mobTick(world);
-        Profiler profiler = Profilers.get();
-        profiler.push("shelobiteScuttlerBrain");
-        this.getBrain().tick(world, this);
-        profiler.pop();
-        ShelobiteScuttlerBrain.updateActivities(this);
-        ShelobiteScuttlerBrain.playSoundRandomly(this);
+        //Profiler profiler = Profilers.get();
+        //profiler.push("shelobiteScuttlerBrain");
+        //this.getBrain().tick(world, this);
+        //profiler.pop();
+        //ShelobiteScuttlerBrain.updateActivities(this);
+        //ShelobiteScuttlerBrain.playSoundRandomly(this);
     }
 
     @Override

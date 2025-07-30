@@ -141,7 +141,7 @@ public class ShelobiteScuttlerBrain {
 				)
 		);
 	}
-
+/*
 	protected static void tick(MirkwoodSpiderEntity shelobiteScuttler) {
 		Random random = shelobiteScuttler.getWorld().getRandom();
 		Brain<MirkwoodSpiderEntity> brain = shelobiteScuttler.getBrain();
@@ -152,7 +152,7 @@ public class ShelobiteScuttlerBrain {
 	}
 
 	protected static void updateActivities(MirkwoodSpiderEntity shelobiteScuttler) {
-		Brain<MirkwoodSpiderEntity> brain = shelobiteScuttler.getBrain();
+		//Brain<MirkwoodSpiderEntity> brain = shelobiteScuttler.getBrain();
 		brain.resetPossibleActivities(ImmutableList.of(Activity.IDLE, Activity.FIGHT, Activity.LONG_JUMP));
 
 		Optional<LivingEntity> isAttacking = brain.getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
@@ -180,7 +180,7 @@ public class ShelobiteScuttlerBrain {
 		System.out.println(activity);
 	}
 
-	/*protected static void updateActivities(MirkwoodSpiderEntity shelobiteScuttler) {
+	protected static void updateActivities(MirkwoodSpiderEntity shelobiteScuttler) {
 		Brain<MirkwoodSpiderEntity> brain = shelobiteScuttler.getBrain();
 		Optional<LivingEntity> isAttacking = brain.getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
 		if(isAttacking != null && isAttacking.isPresent()) {
