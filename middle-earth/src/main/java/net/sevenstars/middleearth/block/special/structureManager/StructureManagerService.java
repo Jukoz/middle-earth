@@ -2,15 +2,15 @@ package net.sevenstars.middleearth.block.special.structureManager;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerDataLookup;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 
 public class StructureManagerService {
     public static StructureManagerData GetStructureManagerData(World world, Identifier structureManagerDataId){
@@ -20,7 +20,7 @@ public class StructureManagerService {
         return data.orElse(null);
     }
 
-    public static NpcEntity SpawnEntity(World world, Identifier npcIdentifier, Identifier factionIdentifier, BlockPos pos, int spawnRadius){
+    public static LivingEntity SpawnEntity(World world, StructureSpawnNestPool pool, BlockPos pos, int spawnRadius){
         var random = world.getRandom();
         int chances = 5;
         BlockPos chosenBlockPos = null;
@@ -34,17 +34,23 @@ public class StructureManagerService {
         if(chosenBlockPos == null)
             chosenBlockPos = pos;
 
-        var entity = world.getRegistryManager().getOptional(RegistryKeys.ENTITY_TYPE).get().get(Identifier.of(MiddleEarth.MOD_ID, "npc")).create(world, SpawnReason.STRUCTURE);
 
-        if(entity instanceof LivingEntity livEntity){
+        LivingEntity entity;
+        if(pool.getEntityType() == ModEntities.NPC){
+            entity = NpcEntity.create(world, chosenBlockPos)
+                    .withCategory(EntityCategory.MALE)
+                    // .withArchetype()
+                    .withNpcData(pool.getNpcIdentifier().get())
+                    .withFaction(pool.getFaction().get().getValue());
+        } else {
+            entity = (LivingEntity) pool.getEntityType().create(world, SpawnReason.STRUCTURE);
+            entity.setPosition(chosenBlockPos.toCenterPos());
         }
 
-        var npcEntityToSpawn = NpcEntity.create(world, chosenBlockPos)
-                .withCategory(EntityCategory.MALE)
-                // .withArchetype()
-                .withNpcData(npcIdentifier)
-                .withFaction(factionIdentifier);
-        world.spawnEntity(npcEntityToSpawn);
-        return npcEntityToSpawn;
+        if(entity instanceof LivingEntity livEntity){
+            world.spawnEntity(entity);
+            return livEntity;
+        }
+        return null;
     }
 }

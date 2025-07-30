@@ -8,7 +8,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
@@ -98,6 +97,15 @@ public class SpawnNestManager {
         }
         return true;
     }
+    public boolean removeEntity(World world, UUID uuid){
+        if(world.isClient || !this.entities.contains(uuid))
+            return false;
+        this.entities.remove(uuid);
+        if(this.entities.isEmpty()){
+            beginRespawnSequence(world);
+        }
+        return true;
+    }
 
     private void beginRespawnSequence(World world) {
         // Trigger smthing
@@ -112,6 +120,16 @@ public class SpawnNestManager {
         if(entities.isEmpty() && currentTick % 1 == 0){
             triggerRespawnAlert(structureManagerData, world, sourcePos);
         }
+        if(entities != null && !entities.isEmpty()){
+            List<UUID> toRemove = new ArrayList<>();
+            for (UUID uuid : entities){ // Wellness check
+                var entity = world.getEntity(uuid);
+                if(entity == null || !entity.isAlive())
+                    toRemove.add(uuid);
+            }
+            for (UUID uuid : toRemove)
+                removeEntity(world, uuid);
+        }
     }
 
     private void triggerRespawnAlert(StructureManagerData structureManagerData, World world, BlockPos sourcePos) {
@@ -121,8 +139,8 @@ public class SpawnNestManager {
             StructureSpawnNestPool pool = data.getRandomPool();
             int entityAmountToSpawn = pool.getEntityAmount();
             for(int i = 0; i < entityAmountToSpawn; i ++){
-                NpcEntity entityToAdd = StructureManagerService.SpawnEntity(world, pool.getNpcIdentifier(), pool.getFactionIdentifier(), originPos, spawnRadius);
-                entityToAdd.setStructureManagerHost(sourcePos);
+                LivingEntity entityToAdd = StructureManagerService.SpawnEntity(world, pool, originPos, spawnRadius);
+                //entityToAdd.setStructureManagerHost(sourcePos);
                 addEntity(entityToAdd);
                 world.markDirty(sourcePos);
             }
