@@ -1579,7 +1579,7 @@ public class ShelobiteScuttlerAnimations {
     // endregion
     
     // region POUNCE
-    public static final AnimationDefinition SHELOBITE_SCUTTLER_POUNCE = AnimationDefinition.Builder.create(1f).looping()
+    public static final AnimationDefinition SHELOBITE_SCUTTLER_POUNCE = AnimationDefinition.Builder.create(1f)
             .addBoneAnimation("rleg",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),

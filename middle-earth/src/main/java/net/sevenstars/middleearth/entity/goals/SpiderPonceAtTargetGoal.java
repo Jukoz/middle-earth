@@ -57,6 +57,8 @@ public class SpiderPonceAtTargetGoal extends Goal {
                 }
                 this.spider.setVelocity(vec3d2.x, this.verticalVelocity, vec3d2.z);
                 startPrePounce = false;
+            } else {
+                System.out.println(preparationPounceTimer);
             }
         }
     }
@@ -68,6 +70,10 @@ public class SpiderPonceAtTargetGoal extends Goal {
 
     @Override
     public void start() {
+        if(this.spider.getWorld().isClient())
+        {
+            System.out.println("Client jump!");
+        }
         startPrePounce = true;
         this.spider.startPrePounce();
     }

@@ -38,6 +38,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import org.jetbrains.annotations.Nullable;
 
 public class MirkwoodSpiderEntity extends HostileEntity {
@@ -45,7 +46,9 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     public static final int ADULT_AGE = 20 * 60 * 2; // 2 min of baby time
     public static final float MOVEMENT_SPEED = 1.2f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
+    private static final TrackedData<Boolean> POUNCE_FLAG;
 
+    // region Brain
     protected static final ImmutableList<SensorType<? extends Sensor<? super MirkwoodSpiderEntity>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.NEAREST_ITEMS, SensorType.HURT_BY
     );
@@ -69,6 +72,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
             MemoryModuleType.LONG_JUMP_COOLING_DOWN,
             MemoryModuleType.LONG_JUMP_MID_JUMP
     );
+    // endregion
 
     public final AnimationState idleAnimation = new AnimationState();
     public final AnimationState walkingAnimation = new AnimationState();
@@ -108,7 +112,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(3, new FastPonceAtTargetGoal(this, 0.3F, 0.4f));
+        this.goalSelector.add(3, new SpiderPonceAtTargetGoal(this, 0.3F, 0.4f));
         this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
@@ -128,6 +132,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(SPIDER_FLAGS, (byte)0);
+        builder.add(POUNCE_FLAG, false);
     }
 
     //@Override
@@ -142,6 +147,15 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         } else {
             this.idleAnimationCooldown--;
         }
+
+        if(this.dataTracker.get(POUNCE_FLAG)) {
+            this.dataTracker.set(POUNCE_FLAG, false);
+            this.pounceAnimation.start(this.age);
+        }
+    }
+
+    public void startPrePounce() {
+        this.dataTracker.set(POUNCE_FLAG, true);
     }
 
     @Override
@@ -241,5 +255,6 @@ public class MirkwoodSpiderEntity extends HostileEntity {
 
     static {
         SPIDER_FLAGS = DataTracker.registerData(MirkwoodSpiderEntity.class, TrackedDataHandlerRegistry.BYTE);
+        POUNCE_FLAG = DataTracker.registerData(MirkwoodSpiderEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     }
 }
