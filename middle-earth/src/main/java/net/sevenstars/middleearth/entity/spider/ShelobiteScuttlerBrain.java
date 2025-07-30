@@ -153,6 +153,8 @@ public class ShelobiteScuttlerBrain {
 
 	protected static void updateActivities(MirkwoodSpiderEntity shelobiteScuttler) {
 		Brain<MirkwoodSpiderEntity> brain = shelobiteScuttler.getBrain();
+		brain.resetPossibleActivities(ImmutableList.of(Activity.IDLE, Activity.FIGHT, Activity.LONG_JUMP));
+
 		Optional<LivingEntity> isAttacking = brain.getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
 		if(isAttacking != null && isAttacking.isPresent()) {
 			Optional<Integer> canJump = brain.getOptionalMemory(MemoryModuleType.LONG_JUMP_COOLING_DOWN);
@@ -161,8 +163,36 @@ public class ShelobiteScuttlerBrain {
 				if(cooldown == 0) {
 					System.out.println("JUMP!!");
 					brain.forget(MemoryModuleType.LONG_JUMP_COOLING_DOWN);
+					brain.doExclusively(Activity.LONG_JUMP);
 				} else {
-					brain.resetPossibleActivities(ImmutableList.of(Activity.FIGHT));
+					brain.doExclusively(Activity.FIGHT);
+				}
+			} else {
+				brain.resetPossibleActivities(ImmutableList.of(Activity.LONG_JUMP));
+				brain.doExclusively(Activity.FIGHT);
+				brain.remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, POUNCE_COOLDOWN_RANGE.get(shelobiteScuttler.getRandom()));
+			}
+		}
+		else {
+			brain.doExclusively(Activity.IDLE);
+		}
+		Activity activity = brain.getFirstPossibleNonCoreActivity().orElse(null);
+		System.out.println(activity);
+	}
+
+	/*protected static void updateActivities(MirkwoodSpiderEntity shelobiteScuttler) {
+		Brain<MirkwoodSpiderEntity> brain = shelobiteScuttler.getBrain();
+		Optional<LivingEntity> isAttacking = brain.getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
+		if(isAttacking != null && isAttacking.isPresent()) {
+			Optional<Integer> canJump = brain.getOptionalMemory(MemoryModuleType.LONG_JUMP_COOLING_DOWN);
+			if(canJump != null && canJump.isPresent()) {
+				int cooldown =  canJump.get();
+				if(cooldown == 0) {
+					System.out.println("JUMP!!");
+					brain.forget(MemoryModuleType.LONG_JUMP_COOLING_DOWN);
+				}
+				else {
+					brain.resetPossibleActivities(ImmutableList.of(Activity.IDLE, Activity.FIGHT));
 				}
 			} else {
 				brain.resetPossibleActivities(ImmutableList.of(Activity.LONG_JUMP));
@@ -170,8 +200,9 @@ public class ShelobiteScuttlerBrain {
 			}
 		}
 		else {
-			shelobiteScuttler.getBrain().resetPossibleActivities(ImmutableList.of());
+			brain.resetPossibleActivities(ImmutableList.of(Activity.IDLE, Activity.FIGHT, Activity.LONG_JUMP));
 		}
+		brain.resetPossibleActivities(ImmutableList.of(Activity.IDLE, Activity.FIGHT, Activity.LONG_JUMP));
 		shelobiteScuttler.getBrain().refreshActivities(shelobiteScuttler.getWorld().getTimeOfDay(), shelobiteScuttler.getWorld().getTime());
 
 		Activity activity = brain.getFirstPossibleNonCoreActivity().orElse(null);
@@ -187,7 +218,7 @@ public class ShelobiteScuttlerBrain {
 				brain.remember(MemoryModuleType.HAS_HUNTING_COOLDOWN, true, 2400L);
 			}
 		}
-	}
+	}*/
 
 	private static boolean isTarget(ServerWorld world, MirkwoodSpiderEntity shelobiteScuttler, LivingEntity target) {
 		return getTarget(world, shelobiteScuttler).filter(targetx -> targetx == target).isPresent();
