@@ -13,6 +13,7 @@ public class ModSounds {
     public static SoundEvent PIPE_EXHALE = registerSoundEvent("pipe_exhale");
     public static SoundEvent PIPE_REFILL = registerSoundEvent("pipe_refill");
     public static SoundEvent PIPE_IGNITE = registerSoundEvent( "pipe_ignite");
+    public static SoundEvent PIPE_COUGH = registerSoundEvent("pipe_cough");
 
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);
