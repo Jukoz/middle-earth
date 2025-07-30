@@ -52,6 +52,7 @@ import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntityRendere
 import net.sevenstars.middleearth.entity.projectile.smoke.SmokeRingProjectileRenderer;
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntityRenderer;
 import net.sevenstars.middleearth.entity.seat.SeatRenderer;
+import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaRenderer;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderer;
 import net.sevenstars.middleearth.entity.swan.SwanRenderer;
 import net.sevenstars.middleearth.event.KeyInputHandler;
@@ -107,6 +108,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.BROADHOOF_GOAT, BroadhoofGoatRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.WARG, WargRenderer::new);
+        EntityRendererRegistry.register(ModEntities.SHELOBITE_LARVA, ShelobiteLarvaRenderer::new);
         EntityRendererRegistry.register(ModEntities.SHELOBITE_SCUTTLER, ShelobiteScuttlerRenderer::new);
         //EntityRendererRegistry.register(ModEntities.BALROG, BalrogRenderer::new);
 
