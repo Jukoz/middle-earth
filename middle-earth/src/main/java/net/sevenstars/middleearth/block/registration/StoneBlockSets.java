@@ -217,14 +217,18 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS));
 
     public static StoneBlockSetBuilder ZIGILABAN_SET = registerStoneSet(new StoneBlockSetBuilder("zigilaban",
-            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, true)
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
+            .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
-            .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
+            .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
+            .addToSet(StoneBlockTypes.OLD_BLOCKS)
+            .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
     public static StoneBlockSetBuilder GALONN_SET = registerStoneSet(new StoneBlockSetBuilder("galonn",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.PALE_YELLOW, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
@@ -329,7 +333,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS));
 
     public static StoneBlockSetBuilder IRONSTONE_SET = registerStoneSet(new StoneBlockSetBuilder("ironstone",
-            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.DARK_RED, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.DARK_RED, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -337,7 +341,10 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
-            .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
+            .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
+            .addToSet(StoneBlockTypes.OLD_BLOCKS)
+            .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
     public static StoneBlockSetBuilder HEMATITE_SET = registerStoneSet(new StoneBlockSetBuilder("hematite",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.RED, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
