@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "middle-earth:item/mirkwood_spider_egg"
+    "layer0": "middle-earth:item/shelobite_larva_egg"
   }
 }

@@ -1,4 +1,5 @@
-package net.sevenstars.middleearth.block.special;
+
+package net.sevenstars.middleearth.block.special.shelobiteeggs;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -27,10 +28,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class MirkwoodSpiderEggBlock extends Block {
+public class ShelobiteLarvaEggBlock extends AbstractShelobiteLarvaEgg {
     private static final EnumProperty<Direction> FACING;
 
-    public MirkwoodSpiderEggBlock(Settings settings) {
+    public ShelobiteLarvaEggBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(FACING, Direction.EAST));
     }
@@ -58,7 +59,7 @@ public class MirkwoodSpiderEggBlock extends Block {
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
         if(!entity.collidedSoftly && entity.getType() != ModEntities.MIRKWOOD_SPIDER){
-            this.breakEgg(world, pos, state);
+            breakEgg(world, pos, state);
             super.onSteppedOn(world, pos, state, entity);
         }
     }
@@ -68,24 +69,6 @@ public class MirkwoodSpiderEggBlock extends Block {
         super.onLandedUpon(world, state, pos, entity, fallDistance);
         breakEgg(world, pos, state);
 
-    }
-
-    private void breakEgg(World world, BlockPos pos, BlockState state) {
-        world.playSound((PlayerEntity)null, pos, SoundEvents.ENTITY_TURTLE_EGG_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.random.nextFloat() * 0.2F);
-        world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(state));
-        world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
-        Random random = new Random();
-        int amountOfSpider = random.nextInt(1, 4);
-        for(int i = 0; i < amountOfSpider; i++)
-            SpawnSpider(pos, world);
-        world.removeBlock(pos, false);
-    }
-
-    private void SpawnSpider(BlockPos pos, World world){
-        MirkwoodSpiderEntity entity = new MirkwoodSpiderEntity(ModEntities.MIRKWOOD_SPIDER, world);
-        entity.age = 0;
-        entity.setPos(pos.getX(), pos.getY() + 1, pos.getZ());
-        world.spawnEntity(entity);
     }
 
     @Override
@@ -98,4 +81,3 @@ public class MirkwoodSpiderEggBlock extends Block {
         FACING = Properties.HORIZONTAL_FACING;
     }
 }
-

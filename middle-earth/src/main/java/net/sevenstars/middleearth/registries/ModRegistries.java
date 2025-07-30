@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.registries;
 import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
 import net.fabricmc.fabric.api.registry.*;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSetType;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -22,7 +21,6 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.block.registration.*;
-import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.block.utils.WoodBlockTypes;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
@@ -41,7 +39,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class ModRegistries {
 
@@ -609,7 +606,8 @@ public class ModRegistries {
 
         registry.add(ModNatureBlocks.MIRKWOOD_HANGING_ROOTS, 0.3F);
         registry.add(ModNatureBlocks.MIRKWOOD_ROOTS, 0.3F);
-        registry.add(ModNatureBlocks.MIRKWOOD_SPIDER_EGG, 0.8F);
+        registry.add(ModNatureBlocks.SHELOBITE_LARVA_EGG, 0.8F);
+        registry.add(ModNatureBlocks.HANGING_SHELOBITE_LARVA_EGG, 0.8F);
 
         registry.add(FoodItemsME.LEMBAS, 1.0F);
         registry.add(FoodItemsME.MAGGOTY_BREAD, 0.8F);

@@ -4,6 +4,8 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.crop.*;
 import net.sevenstars.middleearth.block.special.saplings.VariantSaplingBlock;
+import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggBlock;
+import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggHangingBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
@@ -462,8 +464,10 @@ public class ModNatureBlocks {
     public static final Block MIRKWOOD_VINES_PLANT = registerBlock("mirkwood_vines_plant",
             MirkwoodVinesBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES), false);
 
-    public static final Block MIRKWOOD_SPIDER_EGG = registerBlock("mirkwood_spider_egg",
-            MirkwoodSpiderEggBlock::new, AbstractBlock.Settings.copy(Blocks.TURTLE_EGG), true);
+    public static final Block SHELOBITE_LARVA_EGG = registerBlock("shelobite_larva_egg",
+            ShelobiteLarvaEggBlock::new, AbstractBlock.Settings.copy(Blocks.TURTLE_EGG), true);
+    public static final Block HANGING_SHELOBITE_LARVA_EGG = registerBlock("hanging_shelobite_larva_egg",
+            ShelobiteLarvaEggHangingBlock::new, AbstractBlock.Settings.copy(Blocks.TURTLE_EGG), true);
 
     public static final Block GLOWWORM_WEBBING = registerBlock("glowworm_webbing",
             GlowWormBottomBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES_PLANT).luminance(state -> 6), true);
