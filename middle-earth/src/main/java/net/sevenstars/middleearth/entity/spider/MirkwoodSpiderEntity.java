@@ -73,6 +73,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     public final AnimationState idleAnimation = new AnimationState();
     public final AnimationState walkingAnimation = new AnimationState();
     public final AnimationState biteAnimation = new AnimationState();
+    public final AnimationState pounceAnimation = new AnimationState();
 
     private int idleAnimationCooldown = 0;
     private int climbingTicks = 0;
