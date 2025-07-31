@@ -12,7 +12,7 @@ public class ShelobiteScuttlerRenderer extends MobEntityRenderer<ShelobiteScuttl
     private static final String PATH = "textures/entities/spiders/";
 
     public ShelobiteScuttlerRenderer(EntityRendererFactory.Context context) {
-        this(context, 0.45F, ModEntityModelLayers.SPIDER);
+        this(context, 0.45F, ModEntityModelLayers.SHELOBITE_SCUTTLER);
     }
 
     @Override
