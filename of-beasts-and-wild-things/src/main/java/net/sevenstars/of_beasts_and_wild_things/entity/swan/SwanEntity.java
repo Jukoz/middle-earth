@@ -53,6 +53,8 @@ import java.util.List;
 import java.util.Optional;
 
 // TODO Tadpole pacifying
+// TODO Replace Temptation with tag
+// TODO Add sounds
 
 public class SwanEntity extends AnimalEntity {
     private static final int EGG_COOLDOWN = 12000; // = 10 minutes
