@@ -7,8 +7,9 @@ import net.minecraft.entity.AnimationState;
 
 @Environment(EnvType.CLIENT)
 public class TrollEntityRenderState extends LivingEntityRenderState {
-    public final AnimationState attackAnimationState = new AnimationState();
-    public final AnimationState chargeAnimationState = new AnimationState();
-    public final AnimationState throwingAnimationState = new AnimationState();
+    public AnimationState attackAnimationState = new AnimationState();
+    public AnimationState chargeAnimationState = new AnimationState();
+    public AnimationState throwingAnimationState = new AnimationState();
+    public AnimationState sleepingAnimationState = new AnimationState();
 
 }
