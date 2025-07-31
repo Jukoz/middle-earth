@@ -25,6 +25,7 @@ import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
 import net.sevenstars.middleearth.item.utils.ModShieldTypes;
 import net.sevenstars.middleearth.item.utils.ModToolMaterials;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
 
@@ -701,6 +702,7 @@ public class WeaponItemsME {
         } else if (item instanceof CustomSpearWeaponItem){
             WeaponEnchants.sharpWeapons.add(item);
         }
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
     }
 

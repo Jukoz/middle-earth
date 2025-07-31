@@ -13,6 +13,7 @@ import net.sevenstars.middleearth.item.items.SmithingHammerItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomAxeWeaponItem;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.ModToolMaterials;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 
 import java.util.function.Function;
 
@@ -153,6 +154,7 @@ public class ToolItemsME {
 
     private static Item registerItem(Item item, String name){
         TranslationEntries.itemEntries.add(item);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
     }
 

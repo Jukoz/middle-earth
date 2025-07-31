@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 
 import java.util.function.Function;
 
@@ -54,6 +55,7 @@ public class EggItemsME {
         ModItemGroups.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         TranslationEntries.itemEntries.add(item);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

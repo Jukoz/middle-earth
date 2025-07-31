@@ -63,13 +63,15 @@ public class ModRegistries {
         specialAliases.put("cobbled_ashenstone", "ashen_cobblestone");
         specialAliases.put("ashenstone", "ashen_stone");*/
 
-        WoodBlockSets.woodSetsList.forEach(woodBlockSetBuilder -> {
+        //CHECK IF PLANKS THING EVEN NEEDED
+
+        /*WoodBlockSets.woodSetsList.forEach(woodBlockSetBuilder -> {
             if (woodBlockSetBuilder.existingList.contains(WoodBlockTypes.PLANK_BLOCKS)){
                 addPlanksAliases(woodBlockSetBuilder.planksBlocks.slab(), woodBlockSetBuilder);
                 addPlanksAliases(woodBlockSetBuilder.planksBlocks.stairs(), woodBlockSetBuilder);
                 addPlanksAliases(woodBlockSetBuilder.planksBlocks.verticalSlab(), woodBlockSetBuilder);
             }
-        });
+        });*/
 
         //ashen_stone
 
