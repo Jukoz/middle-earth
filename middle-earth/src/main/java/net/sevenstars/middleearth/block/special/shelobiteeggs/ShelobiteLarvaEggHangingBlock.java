@@ -80,7 +80,7 @@ public class ShelobiteLarvaEggHangingBlock extends AbstractShelobiteLarvaEgg {
     @Override
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
         super.onEntityCollision(state, world, pos, entity, handler);
-        if (entity.getType() != ModEntities.MIRKWOOD_SPIDER){
+        if (entity.getType() != ModEntities.MIRKWOOD_SPIDER && state.get(BLOCK_HALF) == BlockHalf.BOTTOM){
             breakEgg(world, pos, state);
         }
     }
