@@ -8,19 +8,26 @@ import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRender
 
 public class ShelobiteLarvaModel extends EntityModel<ShelobiteScuttlerRenderState> {
     private final ModelPart root;
-    
+
+    private final Animation idleAnimation;
+    private final Animation walkingAnimation;
+    private final Animation biteAnimation;
+
     public ShelobiteLarvaModel(ModelPart root) {
         super(root);
         this.root = root.getChild("root");
+
+        this.idleAnimation = ShelobiteLarvaAnimations.SHELOBITE_LARVA_IDLE.createAnimation(root);
+        this.walkingAnimation = ShelobiteLarvaAnimations.SHELOBITE_LARVA_WALK.createAnimation(root);
+        this.biteAnimation = ShelobiteLarvaAnimations.SHELOBITE_LARVA_BITE.createAnimation(root);
     }
+
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 23.5F, 5.0F));
 
-        ModelPartData e1 = root.addChild("e1", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 12.0F, -4.0F));
-
-        ModelPartData abdomen = e1.addChild("abdomen", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -13.1007F, -0.5251F));
+        ModelPartData abdomen = root.addChild("abdomen", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -1.1007F, -4.5251F));
 
         ModelPartData thorns_left_r1 = abdomen.addChild("thorns_left_r1", ModelPartBuilder.create().uv(16, 4).cuboid(0.0F, -2.0F, -1.0F, 0.0F, 3.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(-1.5F, -0.8993F, 1.5251F, 0.0456F, 0.1685F, -1.3051F));
 
@@ -28,8 +35,8 @@ public class ShelobiteLarvaModel extends EntityModel<ShelobiteScuttlerRenderStat
 
         ModelPartData cube_r1 = abdomen.addChild("cube_r1", ModelPartBuilder.create().uv(1, 1).cuboid(-1.5F, -1.0F, -1.5F, 3.0F, 2.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -0.5993F, 1.0251F, 0.1745F, 0.0F, 0.0F));
 
-        ModelPartData head = e1.addChild("head", ModelPartBuilder.create().uv(2, 6).cuboid(-1.0F, -0.95F, -1.2F, 2.0F, 2.0F, 3.0F, new Dilation(0.0F))
-                .uv(13, 0).cuboid(-2.0F, -2.05F, -2.3F, 4.0F, 4.0F, 4.0F, new Dilation(-0.95F)), ModelTransform.origin(0.0F, -13.05F, -1.8F));
+        ModelPartData head = root.addChild("head", ModelPartBuilder.create().uv(2, 6).cuboid(-1.0F, -0.95F, -1.2F, 2.0F, 2.0F, 3.0F, new Dilation(0.0F))
+                .uv(13, 0).cuboid(-2.0F, -2.05F, -2.3F, 4.0F, 4.0F, 4.0F, new Dilation(-0.95F)), ModelTransform.origin(0.0F, -1.05F, -5.8F));
 
         ModelPartData leg_left = head.addChild("leg_left", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 13.05F, 2.4F));
 
@@ -73,8 +80,8 @@ public class ShelobiteLarvaModel extends EntityModel<ShelobiteScuttlerRenderStat
     public void setAngles(ShelobiteScuttlerRenderState state) {
         super.setAngles(state);
 
-        //this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
-        //this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2F, 2.5F);
-        //this.biteAnimation.apply(state.walkAnimationState, state.age, 1.25f);
+        this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2F, 2.5F);
+        this.biteAnimation.apply(state.walkAnimationState, state.age, 1.25f);
     }
 }
