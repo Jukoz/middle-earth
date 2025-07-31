@@ -51,27 +51,19 @@ public class ModRegistries {
 
         specialAliases.put("carved_window_vertical_slab", "carved_window_pane");
 
-        specialAliases.put("brick_", "bricks_");
-        specialAliases.put("tile_", "tiles_");
-
         specialAliases.put("chiseled_gilded", "gilded_chiseled");
         specialAliases.put("chiseled_polished_gilded", "gilded_chiseled_polished");
         specialAliases.put("chiseled_smooth_gilded", "gilded_chiseled_smooth");
 
-        /*specialAliases.put("polished_ashenstone", "polished_ashen_stone");
-        specialAliases.put("chiseled_ashenstone", "chiseled_ashen_stone");
+        specialAliases.put("ashenstone_", "ashen_");
         specialAliases.put("cobbled_ashenstone", "ashen_cobblestone");
-        specialAliases.put("ashenstone", "ashen_stone");*/
 
-        //CHECK IF PLANKS THING EVEN NEEDED
+        /*specialAliases.put("polished_ashenstone", "polished_ashen_stone");
+        specialAliases.put("chiseled_ashenstone", "chiseled_ashen_stone");*/
 
-        /*WoodBlockSets.woodSetsList.forEach(woodBlockSetBuilder -> {
-            if (woodBlockSetBuilder.existingList.contains(WoodBlockTypes.PLANK_BLOCKS)){
-                addPlanksAliases(woodBlockSetBuilder.planksBlocks.slab(), woodBlockSetBuilder);
-                addPlanksAliases(woodBlockSetBuilder.planksBlocks.stairs(), woodBlockSetBuilder);
-                addPlanksAliases(woodBlockSetBuilder.planksBlocks.verticalSlab(), woodBlockSetBuilder);
-            }
-        });*/
+
+        specialAliases.put("brick_", "bricks_");
+        specialAliases.put("tile_", "tiles_");
 
         //ashen_stone
 
@@ -99,6 +91,12 @@ public class ModRegistries {
                     alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
                     myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, name) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.name()) + "\r\n");
                 }
+
+                for (RegistryAliases.ManualAlias alias: RegistryAliases.manualAliases) {
+                    alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
+                    myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.newName()) + "\r\n");
+                }
+
                 myWriter.close();
                 System.out.println("Successfully wrote to the file.");
             } catch (IOException e) {
@@ -113,12 +111,11 @@ public class ModRegistries {
                 }
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
             }
-        }
-    }
 
-    private static void addPlanksAliases(Block block, WoodBlockSetBuilder woodBlockSetBuilder){
-        specialAliases.put(Registries.BLOCK.getId(block).getPath(),
-                Registries.BLOCK.getId(block).getPath().replaceAll(woodBlockSetBuilder.setName + "_", woodBlockSetBuilder.setName + "_planks_"));
+            for (RegistryAliases.ManualAlias alias: RegistryAliases.manualAliases) {
+                alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
+            }
+        }
     }
 
     public static void registerToolTipAppenders() {

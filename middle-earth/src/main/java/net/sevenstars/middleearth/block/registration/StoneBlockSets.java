@@ -191,7 +191,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
 
     public static StoneBlockSetBuilder MEDGON_SET = registerStoneSet(new StoneBlockSetBuilder("medgon",
-            MEDGON_HARDNESS, MEDGON_BLAST_RESISTANCE, MapColor.TERRACOTTA_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, true)
+            MEDGON_HARDNESS, MEDGON_BLAST_RESISTANCE, MapColor.TERRACOTTA_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
