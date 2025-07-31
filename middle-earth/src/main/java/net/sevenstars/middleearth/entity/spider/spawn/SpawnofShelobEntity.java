@@ -1,14 +1,8 @@
 package net.sevenstars.middleearth.entity.spider.spawn;
 
-import com.google.common.collect.ImmutableList;
-import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.sensor.Sensor;
-import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.SpiderNavigation;
@@ -27,16 +21,11 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
-import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
-import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerBrain;
-import org.jetbrains.annotations.Nullable;
 
-public class ShelobiteSpawnEntity extends HostileEntity {
+public class SpawnofShelobEntity extends HostileEntity {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final float MOVEMENT_SPEED = 1.15f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
@@ -49,7 +38,7 @@ public class ShelobiteSpawnEntity extends HostileEntity {
 
     private int climbingTicks = 0;
 
-    public ShelobiteSpawnEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public SpawnofShelobEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -204,7 +193,7 @@ public class ShelobiteSpawnEntity extends HostileEntity {
     }
 
     static {
-        SPIDER_FLAGS = DataTracker.registerData(ShelobiteSpawnEntity.class, TrackedDataHandlerRegistry.BYTE);
-        POUNCE_FLAG = DataTracker.registerData(ShelobiteSpawnEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        SPIDER_FLAGS = DataTracker.registerData(SpawnofShelobEntity.class, TrackedDataHandlerRegistry.BYTE);
+        POUNCE_FLAG = DataTracker.registerData(SpawnofShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
     }
 }

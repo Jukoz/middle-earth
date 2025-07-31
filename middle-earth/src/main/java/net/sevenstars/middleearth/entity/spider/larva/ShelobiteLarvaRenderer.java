@@ -42,9 +42,6 @@ public class ShelobiteLarvaRenderer extends MobEntityRenderer<ShelobiteLarvaEnti
 
     @Override
     public void render(ShelobiteScuttlerRenderState livingEntityRenderState, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        //matrixStack.push();
-        //matrixStack.scale(0.4f, 0.4f, 0.4f);
-        //matrixStack.pop();
         super.render(livingEntityRenderState, matrixStack, vertexConsumerProvider, i);
     }
 }

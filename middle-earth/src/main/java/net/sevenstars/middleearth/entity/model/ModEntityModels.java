@@ -16,7 +16,7 @@ import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerModel;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.sevenstars.middleearth.entity.spider.spawn.ShelobiteSpawnModel;
+import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobModel;
 
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public class ModEntityModels {
         builder.put(ModEntityModelLayers.SNOW_TROLL, SnowTrollModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.SHELOBITE_LARVA, ShelobiteLarvaModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.SHELOBITE_SCUTTLER, ShelobiteScuttlerModel.getTexturedModelData());
-        builder.put(ModEntityModelLayers.SHELOBITE_SPAWN, ShelobiteSpawnModel.getTexturedModelData());
+        builder.put(ModEntityModelLayers.SPAWN_OF_SHELOB, SpawnOfShelobModel.getTexturedModelData());
 
         builder.put(ModEntityModelLayers.REINFORCED_CHEST, ReinforcedChestEntityRenderer.getTexturedModelData());
         builder.put(ModEntityModelLayers.BELLOWS, BellowsBlockEntityRenderer.getTexturedModelData());

@@ -1,12 +1,10 @@
 package net.sevenstars.middleearth.entity.spider.spawn;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaAnimations;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 
-public class ShelobiteSpawnModel extends EntityModel<ShelobiteScuttlerRenderState> {
+public class SpawnOfShelobModel extends EntityModel<ShelobiteScuttlerRenderState> {
     private final ModelPart root;
     //private final ModelPart body;
     //private final ModelPart abdomen;
@@ -15,7 +13,7 @@ public class ShelobiteSpawnModel extends EntityModel<ShelobiteScuttlerRenderStat
     //private final ModelPart prosoma;
     //private final ModelPart chelicerae;
 
-    public ShelobiteSpawnModel(ModelPart root) {
+    public SpawnOfShelobModel(ModelPart root) {
         super(root);
         this.root = root.getChild("root");
         //this.body = this.root.getChild("body");
