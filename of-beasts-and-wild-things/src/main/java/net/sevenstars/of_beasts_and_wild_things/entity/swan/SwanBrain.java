@@ -13,9 +13,16 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModActivity;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
@@ -24,6 +31,7 @@ import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSensors;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.*;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class SwanBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super SwanEntity>>> SENSORS;
@@ -71,6 +79,7 @@ public class SwanBrain {
                         Pair.of(new WaitTask(20, 100), 3)
                 ))),
                 Pair.of(3, UpdateAttackTargetTask.create(SwanBrain::getAttackTarget)),
+                Pair.of(4, new TemptTask(swan -> 1.0f)),
                 Pair.of(99, ScheduleActivityTask.create())
         ));
     }
@@ -155,6 +164,10 @@ public class SwanBrain {
         return swan.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE);
     }
 
+    public static Predicate<ItemStack> getTemptItemPredicate() {
+        return stack -> stack.isOf(Items.TADPOLE_BUCKET);
+    }
+
     static {
         SENSORS = ImmutableList.of(
                 SensorType.HURT_BY,
@@ -162,7 +175,8 @@ public class SwanBrain {
                 SensorType.NEAREST_LIVING_ENTITIES,
                 SensorType.IS_IN_WATER,
                 SensorType.NEAREST_ADULT,
-                ModSensors.SWAN_ATTACKABLES
+                ModSensors.SWAN_ATTACKABLES,
+                ModSensors.SWAN_TEMPTATIONS
         );
         MEMORY_MODULES = ImmutableList.of(
                 MemoryModuleType.WALK_TARGET,
@@ -179,6 +193,11 @@ public class SwanBrain {
                 MemoryModuleType.HURT_BY_ENTITY,
                 MemoryModuleType.IS_IN_WATER,
                 MemoryModuleType.NEAREST_VISIBLE_ADULT,
+                MemoryModuleType.IS_TEMPTED,
+                MemoryModuleType.TEMPTING_PLAYER,
+                MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
+                MemoryModuleType.BREED_TARGET,
+                MemoryModuleType.IS_PANICKING,
                 ModMemoryModules.DEFENDING_HOME,
                 ModMemoryModules.EGG_COOLDOWN
         );
