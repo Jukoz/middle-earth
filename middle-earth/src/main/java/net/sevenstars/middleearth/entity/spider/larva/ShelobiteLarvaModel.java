@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.entity.spider.larva;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerAnimations;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 
 public class ShelobiteLarvaModel extends EntityModel<ShelobiteScuttlerRenderState> {

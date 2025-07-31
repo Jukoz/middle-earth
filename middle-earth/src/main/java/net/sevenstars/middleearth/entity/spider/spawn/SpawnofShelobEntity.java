@@ -77,7 +77,7 @@ public class SpawnofShelobEntity extends HostileEntity {
     }
 
     protected void setupAnimationStates() {
-        if (!this.idleAnimation.isRunning()) {
+        if(!this.idleAnimation.isRunning()) {
             this.idleAnimation.start(this.age);
         }
 
@@ -111,17 +111,6 @@ public class SpawnofShelobEntity extends HostileEntity {
             setupAnimationStates();
         }
 
-    }
-
-    @Override
-    protected void mobTick(ServerWorld world) {
-        super.mobTick(world);
-        //Profiler profiler = Profilers.get();
-        //profiler.push("shelobiteScuttlerBrain");
-        //this.getBrain().tick(world, this);
-        //profiler.pop();
-        //ShelobiteScuttlerBrain.updateActivities(this);
-        //ShelobiteScuttlerBrain.playSoundRandomly(this);
     }
 
     @Override

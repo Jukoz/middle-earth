@@ -33,9 +33,9 @@ public class SpawnOfShelobRenderer extends MobEntityRenderer<SpawnofShelobEntity
 
     public void updateRenderState(SpawnofShelobEntity spawnofShelobEntity, ShelobiteScuttlerRenderState shelobiteScuttlerEntityRenderState, float f) {
         super.updateRenderState(spawnofShelobEntity, shelobiteScuttlerEntityRenderState, f);
-        //shelobiteScuttlerEntityRenderState.idleAnimationState.copyFrom(shelobiteSpawnEntity.idleAnimation);
-        //shelobiteScuttlerEntityRenderState.walkAnimationState.copyFrom(shelobiteSpawnEntity.walkingAnimation);
-        //shelobiteScuttlerEntityRenderState.biteAnimationState.copyFrom(shelobiteSpawnEntity.biteAnimation);
+        shelobiteScuttlerEntityRenderState.idleAnimationState.copyFrom(spawnofShelobEntity.idleAnimation);
+        shelobiteScuttlerEntityRenderState.walkAnimationState.copyFrom(spawnofShelobEntity.walkingAnimation);
+        shelobiteScuttlerEntityRenderState.biteAnimationState.copyFrom(spawnofShelobEntity.biteAnimation);
         //shelobiteScuttlerEntityRenderState.pounceAnimationState.copyFrom(shelobiteSpawnEntity.pounceAnimation);
     }
 }
