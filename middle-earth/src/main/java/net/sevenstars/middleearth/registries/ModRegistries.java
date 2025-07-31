@@ -46,24 +46,32 @@ public class ModRegistries {
 
     public static void registerRegistryAliases() {
         specialAliases.put("khagalaban", "gonluin");
+
         specialAliases.put("chiseled_blackstone_bricks", "chiseled_polished_blackstone_bricks");
+
         specialAliases.put("carved_window_vertical_slab", "carved_window_pane");
+
         specialAliases.put("brick_", "bricks_");
         specialAliases.put("tile_", "tiles_");
+
+        specialAliases.put("chiseled_gilded", "gilded_chiseled");
+        specialAliases.put("chiseled_polished_gilded", "gilded_chiseled_polished");
+        specialAliases.put("chiseled_smooth_gilded", "gilded_chiseled_smooth");
+
+        /*specialAliases.put("polished_ashenstone", "polished_ashen_stone");
+        specialAliases.put("chiseled_ashenstone", "chiseled_ashen_stone");
+        specialAliases.put("cobbled_ashenstone", "ashen_cobblestone");
+        specialAliases.put("ashenstone", "ashen_stone");*/
 
         WoodBlockSets.woodSetsList.forEach(woodBlockSetBuilder -> {
             if (woodBlockSetBuilder.existingList.contains(WoodBlockTypes.PLANK_BLOCKS)){
                 addPlanksAliases(woodBlockSetBuilder.planksBlocks.slab(), woodBlockSetBuilder);
                 addPlanksAliases(woodBlockSetBuilder.planksBlocks.stairs(), woodBlockSetBuilder);
                 addPlanksAliases(woodBlockSetBuilder.planksBlocks.verticalSlab(), woodBlockSetBuilder);
-                addPlanksAliases(woodBlockSetBuilder.planksBlocks.fence(), woodBlockSetBuilder);
-                addPlanksAliases(woodBlockSetBuilder.planksBlocks.gate(), woodBlockSetBuilder);
             }
         });
 
-        //_planks
         //ashen_stone
-        //gilded_green_tuff
 
         if (MiddleEarth.IS_DEBUG){
             try {

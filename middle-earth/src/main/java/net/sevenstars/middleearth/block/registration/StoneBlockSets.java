@@ -293,7 +293,9 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
-            .addToSet(StoneBlockTypes.TILE_BLOCKS));
+            .addToSet(StoneBlockTypes.TILE_BLOCKS)
+            .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
+            .addToSet(StoneBlockTypes.CHISELED_BLOCKS));
 
     public static StoneBlockSetBuilder PUMICE_SET = registerStoneSet(new StoneBlockSetBuilder("pumice",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)

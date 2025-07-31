@@ -1333,7 +1333,7 @@ public class BlockModelProvider extends FabricModelProvider {
             WeightedVariant var2;
             if (integer < 8) {
                 int var10001 = integer;
-                var2 = createWeightedVariant(ModelIds.getBlockSubModelId(origin, "_layer_height" + var10001 * 2));
+                var2 = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath() +  "_layer_height" + var10001 * 2));
             } else {
                 var2 = weightedVariant;
             }
