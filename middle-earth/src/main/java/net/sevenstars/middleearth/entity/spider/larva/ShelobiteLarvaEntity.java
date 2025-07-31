@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -31,9 +32,12 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.goals.FollowDifferentMobGoal;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerBrain;
+import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import org.jetbrains.annotations.Nullable;
 
 public class ShelobiteLarvaEntity extends HostileEntity {
@@ -60,8 +64,10 @@ public class ShelobiteLarvaEntity extends HostileEntity {
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
+        this.goalSelector.add(3, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
+        this.goalSelector.add(4, new WanderAroundFarGoal(this, 0.8));
+        this.goalSelector.add(5, new FollowDifferentMobGoal<ShelobiteScuttlerEntity>(this,
+                ShelobiteScuttlerEntity.class, 1.0, 7, 16));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
@@ -72,6 +78,7 @@ public class ShelobiteLarvaEntity extends HostileEntity {
         return (double)(this.getHeight() * 0.5F);
     }
 
+    @Override
     protected EntityNavigation createNavigation(World world) {
         return new SpiderNavigation(this, world);
     }

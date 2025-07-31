@@ -120,6 +120,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity {
         return (double)(this.getHeight() * 0.5F);
     }
 
+    @Override
     protected EntityNavigation createNavigation(World world) {
         return new SpiderNavigation(this, world);
     }
