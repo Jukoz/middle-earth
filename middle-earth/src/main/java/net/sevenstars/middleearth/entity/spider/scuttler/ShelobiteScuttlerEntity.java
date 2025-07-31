@@ -33,9 +33,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
+import net.sevenstars.middleearth.entity.spider.Pouncer;
 import org.jetbrains.annotations.Nullable;
 
-public class ShelobiteScuttlerEntity extends HostileEntity {
+public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final int ADULT_AGE = 20 * 60 * 2; // 2 min of baby time
     public static final float MOVEMENT_SPEED = 1.15f;
@@ -107,7 +108,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity {
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(3, new SpiderPonceAtTargetGoal(this, 0.35F, 0.35f));
+        this.goalSelector.add(3, new SpiderPonceAtTargetGoal(this, this, 0.45F, 0.35f));
         this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));

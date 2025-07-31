@@ -4,25 +4,29 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.PounceAtTargetGoal;
 import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.util.math.Vec3d;
+import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 
 import java.util.EnumSet;
 
 public class SpiderPonceAtTargetGoal extends Goal {
-    private final ShelobiteScuttlerEntity spider;
+    private final HostileEntity spider;
     private LivingEntity target;
     private final float verticalVelocity;
     private final float horizontalVelocity;
     private boolean startPrePounce;
     private int preparationPounceTimer;
     private Path path;
+    private Pouncer pouncer;
 
-    public SpiderPonceAtTargetGoal(ShelobiteScuttlerEntity mob, float verticalVelocity, float horizontalVelocity) {
+    public SpiderPonceAtTargetGoal(HostileEntity mob, Pouncer pouncer, float verticalVelocity, float horizontalVelocity) {
         this.spider = mob;
         this.verticalVelocity = verticalVelocity;
         this.horizontalVelocity = horizontalVelocity;
         this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
+        this.pouncer = pouncer;
         startPrePounce = false;
         preparationPounceTimer = 18;
     }
@@ -84,12 +88,12 @@ public class SpiderPonceAtTargetGoal extends Goal {
         preparationPounceTimer = 18;
         startPrePounce = true;
         this.spider.getNavigation().startMovingAlong(this.path, 0.8f);
-        this.spider.startPounceAnimation();
+        this.pouncer.startPounceAnimation();
     }
 
     @Override
     public void stop() {
         super.stop();
-        this.spider.stopPounceAnimation();
+        this.pouncer.stopPounceAnimation();
     }
 }

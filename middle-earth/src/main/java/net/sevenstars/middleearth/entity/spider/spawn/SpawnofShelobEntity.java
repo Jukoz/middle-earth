@@ -23,9 +23,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
+import net.sevenstars.middleearth.entity.spider.Pouncer;
 
-public class SpawnofShelobEntity extends HostileEntity {
+public class SpawnofShelobEntity extends HostileEntity implements Pouncer {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final float MOVEMENT_SPEED = 1.15f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
@@ -52,7 +54,7 @@ public class SpawnofShelobEntity extends HostileEntity {
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(3, new PounceAtTargetGoal(this, 0.35F));
+        this.goalSelector.add(3, new SpiderPonceAtTargetGoal(this, this, 0.5F, 0.4f));
         this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
