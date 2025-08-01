@@ -123,6 +123,11 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.LEAVES));
 
+    public static WoodBlockSetBuilder BAMBOO = registerWoodSet(new WoodBlockSetBuilder("bamboo",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASS, BlockSoundGroup.BAMBOO_WOOD, Blocks.BAMBOO_SAPLING)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS));
+
     public static WoodBlockSetBuilder CRIMSON_SET = registerWoodSet(new WoodBlockSetBuilder("crimson",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DULL_PINK, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.CRIMSON_FUNGUS)
             .addToSet(WoodBlockTypes.STEM_BLOCKS)
