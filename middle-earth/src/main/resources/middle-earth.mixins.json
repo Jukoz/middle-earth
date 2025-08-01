@@ -38,6 +38,7 @@
     "client.LivingEntityRendererMixin",
     "client.LivingEntityRenderStateMixin",
     "client.MouseMixin",
+    "client.PlayerEntityModelMixin",
     "client.PlayerEntityRendererMixin"
   ],
   "server": [

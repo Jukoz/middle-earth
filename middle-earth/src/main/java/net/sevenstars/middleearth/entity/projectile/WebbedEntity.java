@@ -13,6 +13,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 
 public class WebbedEntity extends AbstractProjectileEntity {
     private float damage;
@@ -39,6 +40,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
             if(entity instanceof LivingEntity livingEntity) {
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAVING, 200));
+                livingEntity.addStatusEffect(new StatusEffectInstance(ModStatusEffects.RESTRAINED, 200));
             }
         }
     }

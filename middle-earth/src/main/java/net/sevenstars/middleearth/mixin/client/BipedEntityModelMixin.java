@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.item.ItemStack;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.client.renderer.ArmedEntityRenderStateAccess;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
@@ -30,18 +31,31 @@ public class BipedEntityModelMixin {
     private <T extends BipedEntityRenderState> void positionRightArm(T state, BipedEntityModel.ArmPose armPose, CallbackInfo ci) {
         ArmedEntityRenderStateAccess renderStateAccess = ((ArmedEntityRenderStateAccess)state);
         ItemStack handItem = renderStateAccess.getMainHandStack();
-        if(handItem != null) {
+
+        if(renderStateAccess.isRestrained()) {
+            restrainedAnimation();
+        } else if(handItem != null) {
             tryItemAnimation(handItem, true);
         }
+
     }
 
     @Inject(at = @At("TAIL"), method = "positionLeftArm")
     private <T extends BipedEntityRenderState> void positionLeftArm(T state, BipedEntityModel.ArmPose armPose, CallbackInfo ci) {
         ArmedEntityRenderStateAccess renderStateAccess = ((ArmedEntityRenderStateAccess)state);
         ItemStack handItem = renderStateAccess.getOffHandStack();
-        if(handItem != null) {
+        if(renderStateAccess.isRestrained()) {
+            restrainedAnimation();
+        } else if(handItem != null) {
             tryItemAnimation(handItem, true);
         }
+    }
+
+    private void restrainedAnimation() {
+        this.rightArm.pitch = 0.0F;
+        this.rightArm.yaw = 0.0F;
+        this.leftArm.pitch = 0.0F;
+        this.leftArm.yaw = 0.0F;
     }
 
     private void tryItemAnimation(ItemStack itemStack, boolean rightHand) {

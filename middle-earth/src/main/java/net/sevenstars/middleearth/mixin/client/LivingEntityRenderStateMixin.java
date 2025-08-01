@@ -11,9 +11,10 @@ import org.spongepowered.asm.mixin.Unique;
 public class LivingEntityRenderStateMixin extends EntityRenderState implements ArmedEntityRenderStateAccess {
     @Unique
     private ItemStack mainHandStack;
-
     @Unique
     private ItemStack offHandStack;
+    @Unique
+    private boolean restrained;
 
     @Override
     public ItemStack getMainHandStack() {
@@ -24,11 +25,20 @@ public class LivingEntityRenderStateMixin extends EntityRenderState implements A
         return offHandStack.copy();
     }
     @Override
+    public boolean isRestrained() {
+        return restrained;
+    }
+
+    @Override
     public void setMainHandStack(ItemStack mainHandStack) {
         this.mainHandStack = mainHandStack;
     }
     @Override
     public void setOffHandStack(ItemStack offHandStack) {
         this.offHandStack = offHandStack;
+    }
+    @Override
+    public void setRestrained(boolean restrained) {
+        this.restrained = restrained;
     }
 }
