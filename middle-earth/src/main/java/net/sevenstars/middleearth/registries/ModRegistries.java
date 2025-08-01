@@ -415,59 +415,14 @@ public class ModRegistries {
             builder.add(WeaponItemsME.GUNDABAD_CROSSBOW, 400);
 
             builder.add(WeaponItemsME.WOODEN_DAGGER, 150);
-
-            /*builder.add(ModDecorativeBlocks.OAK_STOOL, 300);
-            builder.add(ModDecorativeBlocks.OAK_BENCH, 300);
-            builder.add(ModDecorativeBlocks.OAK_CHAIR, 300);
-            builder.add(ModDecorativeBlocks.OAK_TABLE, 300);
-
-            builder.add(ModDecorativeBlocks.BIRCH_STOOL, 300);
-            builder.add(ModDecorativeBlocks.BIRCH_BENCH, 300);
-            builder.add(ModDecorativeBlocks.BIRCH_CHAIR, 300);
-            builder.add(ModDecorativeBlocks.BIRCH_TABLE, 300);
-
-            builder.add(ModDecorativeBlocks.SPRUCE_STOOL, 300);
-            builder.add(ModDecorativeBlocks.SPRUCE_BENCH, 300);
-            builder.add(ModDecorativeBlocks.SPRUCE_CHAIR, 300);
-            builder.add(ModDecorativeBlocks.SPRUCE_TABLE, 300);
-
-            builder.add(ModDecorativeBlocks.DARK_OAK_STOOL, 300);
-            builder.add(ModDecorativeBlocks.DARK_OAK_BENCH, 300);
-            builder.add(ModDecorativeBlocks.DARK_OAK_CHAIR, 300);
-            builder.add(ModDecorativeBlocks.DARK_OAK_TABLE, 300);
-
-            builder.add(ModDecorativeBlocks.ACACIA_STOOL, 300);
-            builder.add(ModDecorativeBlocks.ACACIA_BENCH, 300);
-            builder.add(ModDecorativeBlocks.ACACIA_CHAIR, 300);
-            builder.add(ModDecorativeBlocks.ACACIA_TABLE, 300);
-
-            builder.add(ModDecorativeBlocks.JUNGLE_STOOL, 300);
-            builder.add(ModDecorativeBlocks.JUNGLE_BENCH, 300);
-            builder.add(ModDecorativeBlocks.JUNGLE_CHAIR, 300);
-            builder.add(ModDecorativeBlocks.JUNGLE_TABLE, 300);
-
-            builder.add(ModDecorativeBlocks.MANGROVE_STOOL, 300);
-            builder.add(ModDecorativeBlocks.MANGROVE_BENCH, 300);
-            builder.add(ModDecorativeBlocks.MANGROVE_CHAIR, 300);
-            builder.add(ModDecorativeBlocks.MANGROVE_TABLE, 300);
-
-            builder.add(ModDecorativeBlocks.CHERRY_STOOL, 300);
-            builder.add(ModDecorativeBlocks.CHERRY_BENCH, 300);
-            builder.add(ModDecorativeBlocks.CHERRY_CHAIR, 300);
-            builder.add(ModDecorativeBlocks.CHERRY_TABLE, 300);
-
-            builder.add(ModDecorativeBlocks.BAMBOO_STOOL, 300);
-            builder.add(ModDecorativeBlocks.BAMBOO_BENCH, 300);
-            builder.add(ModDecorativeBlocks.BAMBOO_CHAIR, 300);
-            builder.add(ModDecorativeBlocks.BAMBOO_TABLE, 300);*/
-                }));
+        }));
     }
 
     public static void registerComposterBlocks() {
         CompostingChanceRegistry registry = CompostingChanceRegistry.INSTANCE;
 
-        registry.add(MushroomBlockSets.GRAY_MUSHROOM.stem(), 0.50f);
-        registry.add(MushroomBlockSets.DARK_MUSHROOM.stem(), 0.50f);
+        //registry.add(MushroomBlockSets.GRAY_MUSHROOM.stem(), 0.50f);
+        //registry.add(MushroomBlockSets.DARK_MUSHROOM.stem(), 0.50f);
 
         registry.add(ModNatureBlocks.TAN_SHRUB, 0.50f);
         registry.add(ModNatureBlocks.GREEN_SHRUB, 0.50f);

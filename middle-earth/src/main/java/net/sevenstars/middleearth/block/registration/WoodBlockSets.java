@@ -132,7 +132,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder CRIMSON_SET = registerWoodSet(new WoodBlockSetBuilder("crimson",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DULL_PINK, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.CRIMSON_FUNGUS)
-            .addToSet(WoodBlockTypes.STEM_BLOCKS)
+            .addToSet(WoodBlockTypes.NETHER_STEM_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_STEM_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
@@ -142,7 +142,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder WARPED_SET = registerWoodSet(new WoodBlockSetBuilder("warped",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DARK_AQUA, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.WARPED_FUNGUS)
-            .addToSet(WoodBlockTypes.STEM_BLOCKS)
+            .addToSet(WoodBlockTypes.NETHER_STEM_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_STEM_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
@@ -342,6 +342,30 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
 
+    public static WoodBlockSetBuilder MUSHROOM_SET = registerWoodSet(new WoodBlockSetBuilder("mushroom",
+            2f, 0f, MapColor.WHITE_GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, null)
+            .addToSet(WoodBlockTypes.MUSHROOM_STEM_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
+
+    public static WoodBlockSetBuilder DARK_MUSHROOM_SET = registerWoodSet(new WoodBlockSetBuilder("dark_mushroom",
+            2f, 0f, MapColor.TERRACOTTA_BLACK, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, null)
+            .addToSet(WoodBlockTypes.MUSHROOM_STEM_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
+
+    public static WoodBlockSetBuilder GRAY_MUSHROOM_SET = registerWoodSet(new WoodBlockSetBuilder("gray_mushroom",
+            2f, 0f, MapColor.GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, null)
+            .addToSet(WoodBlockTypes.MUSHROOM_STEM_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
+            .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
+
     private static WoodBlockSetBuilder registerWoodSet(WoodBlockSetBuilder set) {
 
         List<ItemStack> itemGroup = ModItemGroups.WOOD_BLOCKS_CONTENTS;
@@ -352,7 +376,11 @@ public class WoodBlockSets {
                     set.logBlocks = BlockSetRegistration.createWoodSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
                     ModItemGroups.NATURE_BLOCKS_CONTENTS.add(set.logBlocks.log().asItem().getDefaultStack());
                 }
-                case STEM_BLOCKS -> {
+                case MUSHROOM_STEM_BLOCKS -> {
+                    set.mushroomStemBlocks = BlockSetRegistration.createMushroomStemSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                    ModItemGroups.NATURE_BLOCKS_CONTENTS.add(set.mushroomStemBlocks.stem().asItem().getDefaultStack());
+                }
+                case NETHER_STEM_BLOCKS -> {
                     set.logBlocks = BlockSetRegistration.createStemSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
                     ModItemGroups.NATURE_BLOCKS_CONTENTS.add(set.logBlocks.log().asItem().getDefaultStack());
                 }

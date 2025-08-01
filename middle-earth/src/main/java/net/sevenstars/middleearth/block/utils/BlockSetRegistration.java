@@ -169,6 +169,30 @@ public class BlockSetRegistration {
         return new BlockRecordTypes.WoodSet(log, wood, slab, verticalSlab, stairs, wall, fence);
     }
 
+    public static BlockRecordTypes.MushroomStemSet createMushroomStemSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, List<ItemStack> group) {
+
+        Block stem = getVanillaOrCreateNew(name + "_stem", MushroomBlock::new,
+                AbstractBlock.Settings.create()
+                        .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance), group);
+
+        Block slab = getVanillaOrCreateNew(name + "_stem_slab", SlabBlock::new,
+                AbstractBlock.Settings.copy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
+
+        Block verticalSlab = getVanillaOrCreateNew(name + "_stem_vertical_slab", VerticalSlabBlock::new,
+                AbstractBlock.Settings.copy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
+
+        Block stairs = getVanillaOrCreateNew(name + "_stem_stairs", (settings) -> new StairsBlock(
+                stem.getDefaultState(), settings), AbstractBlock.Settings.copy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
+
+        Block wall = getVanillaOrCreateNew(name + "_stem_wall", WallBlock::new,
+                AbstractBlock.Settings.copy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
+
+        Block fence = getVanillaOrCreateNew(name + "_stem_fence", FenceBlock::new,
+                AbstractBlock.Settings.copy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
+
+        return new BlockRecordTypes.MushroomStemSet(stem, slab, verticalSlab, stairs, wall, fence);
+    }
+
     public static BlockRecordTypes.PlanksSet createPlanksSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, List<ItemStack> group) {
 
         Block base = getVanillaOrCreateNew(name, Block::new,

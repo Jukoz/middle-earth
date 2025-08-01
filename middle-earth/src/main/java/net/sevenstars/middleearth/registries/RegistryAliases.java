@@ -17,9 +17,6 @@ public class RegistryAliases {
 
     public static List<ManualAlias> manualAliases = new ArrayList<>(){
         {
-            //gray_mushroom_shingles_vertical_slab
-            //mud_brick_round_window_pane
-
             add(new ManualAlias(Registries.ITEM, "strawberry", "strawberries"));
 
             add(new ManualAlias(Registries.BLOCK, "mossy_gneiss_tiles", "gneiss_tiles"));
@@ -109,20 +106,8 @@ public class RegistryAliases {
             add(new ManualAlias(Registries.BLOCK, "polished_ashen_stone_wall", "polished_ashenstone_wall"));
             add(new ManualAlias(Registries.ITEM, "polished_ashen_stone_wall", "polished_ashenstone_wall"));
 
-            add(new ManualAlias(Registries.BLOCK, "polished_ashen_stone_button", "polished_ashenstone_button"));
-            add(new ManualAlias(Registries.ITEM, "polished_ashen_stone_button", "polished_ashenstone_button"));
-
-            add(new ManualAlias(Registries.BLOCK, "polished_ashen_stone_rocks", "polished_ashenstone_rocks"));
-            add(new ManualAlias(Registries.ITEM, "polished_ashen_stone_rocks", "polished_ashenstone_rocks"));
-
             add(new ManualAlias(Registries.BLOCK, "wattle_and_brick_cross", "wattle_and_brick_cross"));
             add(new ManualAlias(Registries.ITEM, "wattle_and_brick_cross", "wattle_and_brick_cross"));
-
-            add(new ManualAlias(Registries.BLOCK, "wattle_and_brick_round_window", "wattle_and_brick_round_window"));
-            add(new ManualAlias(Registries.ITEM, "wattle_and_brick_round_window", "wattle_and_brick_round_window"));
-
-            add(new ManualAlias(Registries.BLOCK, "wattle_and_brick_round_window_pane", "wattle_and_brick_round_window_pane"));
-            add(new ManualAlias(Registries.ITEM, "wattle_and_brick_round_window_pane", "wattle_and_brick_round_window_pane"));
 
             add(new ManualAlias(Registries.BLOCK, "wattle_and_brick_window", "wattle_and_brick_window"));
             add(new ManualAlias(Registries.ITEM, "wattle_and_brick_window", "wattle_and_brick_window"));

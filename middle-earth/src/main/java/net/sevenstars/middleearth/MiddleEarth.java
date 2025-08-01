@@ -70,7 +70,6 @@ public class MiddleEarth implements ModInitializer {
 		ModEntityAttributes.register();
 
 		WoodBlockSets.registerModBlockSets();
-		MushroomBlockSets.registerModBlockSets();
 		StoneBlockSets.registerModBlockSets();
 		DecorativeItemsME.registerModItems();
 		NatureBlockItemsME.registerModItems();

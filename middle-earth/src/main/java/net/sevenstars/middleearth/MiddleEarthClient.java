@@ -352,29 +352,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         for(Block block : TintableCrossModel.tintedBlocks) {
             BlockRenderLayerMap.putBlock(block, BlockRenderLayer.CUTOUT);
         }
-        
-        /*BlockRenderLayerMap.putBlock(WoodBlockSets.BEECH.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.LARCH.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.BLACK_LEBETHRON.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.WHITE_LEBETHRON.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.CHESTNUT.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.FIR.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.HOLLY.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.MALLORN.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.MAPLE.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.SILVER_MAPLE.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.MIRKWOOD.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.PALM.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.WHITE_PALM.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.PINE.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.BLACK_PINE.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.WILLOW.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.ROTTEN.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.SCORCHED.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(MushroomBlockSets.MUSHROOM.ladder(), BlockRenderLayer.CUTOUT);*/
-        BlockRenderLayerMap.putBlock(MushroomBlockSets.DARK_MUSHROOM.ladder(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(MushroomBlockSets.GRAY_MUSHROOM.ladder(), BlockRenderLayer.CUTOUT);
-
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.TREATED_WOOD_LADDER, BlockRenderLayer.CUTOUT);
 
@@ -383,57 +360,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         for(SimpleLadderModel.Ladder block : SimpleLadderModel.vanillaLadders) {
             BlockRenderLayerMap.putBlock(block.ladder(), BlockRenderLayer.CUTOUT);
         }
-        
-        BlockRenderLayerMap.putBlock(MushroomBlockSets.DARK_MUSHROOM.trapdoor(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(MushroomBlockSets.GRAY_MUSHROOM.trapdoor(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(MushroomBlockSets.MUSHROOM.trapdoor(), BlockRenderLayer.CUTOUT);
-        /*BlockRenderLayerMap.putBlock(WoodBlockSets.ROTTEN.trapdoor(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.SCORCHED.trapdoor(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.WILLOW.trapdoor(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.PALM.trapdoor(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.WHITE_PALM.trapdoor(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.MIRKWOOD.trapdoor(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.MALLORN.trapdoor(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.WHITE_LEBETHRON.trapdoor(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.BLACK_LEBETHRON.trapdoor(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.BEECH.trapdoor(), BlockRenderLayer.CUTOUT);
-
-        BlockRenderLayerMap.putBlock(WoodBlockSets.BEECH.door(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.BLACK_LEBETHRON.door(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.WHITE_LEBETHRON.door(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.CHESTNUT.door(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.LARCH.door(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.MALLORN.door(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.PALM.door(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.WHITE_PALM.door(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.WILLOW.door(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.ROTTEN.door(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.SCORCHED.door(), BlockRenderLayer.CUTOUT);*/
-        BlockRenderLayerMap.putBlock(MushroomBlockSets.GRAY_MUSHROOM.door(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(MushroomBlockSets.DARK_MUSHROOM.door(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(MushroomBlockSets.MUSHROOM.door(), BlockRenderLayer.CUTOUT);
-
-        /*BlockRenderLayerMap.putBlock(WoodBlockSets.BEECH.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.LARCH.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.BLACK_LEBETHRON.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.WHITE_LEBETHRON.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.CHESTNUT.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.FIR.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.HOLLY.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.MALLORN.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.MAPLE.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.SILVER_MAPLE.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.MIRKWOOD.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.PALM.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.WHITE_PALM.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.PINE.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.BLACK_PINE.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.WILLOW.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.ROTTEN.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(WoodBlockSets.SCORCHED.chair(), BlockRenderLayer.CUTOUT);*/
-        BlockRenderLayerMap.putBlock(MushroomBlockSets.GRAY_MUSHROOM.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(MushroomBlockSets.DARK_MUSHROOM.chair(), BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(MushroomBlockSets.MUSHROOM.chair(), BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.TREATED_WOOD_CHAIR, BlockRenderLayer.CUTOUT);
 

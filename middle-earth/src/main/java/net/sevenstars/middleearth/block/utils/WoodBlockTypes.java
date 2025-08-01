@@ -2,7 +2,8 @@ package net.sevenstars.middleearth.block.utils;
 
 public enum WoodBlockTypes {
     LOG_BLOCKS("", ""),
-    STEM_BLOCKS("", ""),
+    MUSHROOM_STEM_BLOCKS("", ""),
+    NETHER_STEM_BLOCKS("", ""),
     STRIPPED_LOG_BLOCKS("stripped_", ""),
     STRIPPED_STEM_BLOCKS("stripped_", ""),
     PLANK_BLOCKS("", "_planks"),

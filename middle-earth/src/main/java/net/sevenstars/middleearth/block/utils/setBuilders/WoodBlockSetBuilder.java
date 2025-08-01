@@ -17,6 +17,8 @@ public class WoodBlockSetBuilder {
     public BlockRecordTypes.WoodSet logBlocks;
     public BlockRecordTypes.WoodSet strippedLogBlocks;
 
+    public BlockRecordTypes.MushroomStemSet mushroomStemBlocks;
+
     public BlockRecordTypes.PlanksSet planksBlocks;
 
     public BlockRecordTypes.WoodRedstoneBlocks redstoneBlocks;

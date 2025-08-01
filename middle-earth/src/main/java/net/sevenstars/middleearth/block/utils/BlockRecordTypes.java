@@ -68,6 +68,19 @@ public class BlockRecordTypes {
         }
     }
 
+    public record MushroomStemSet(Block stem, Block slab, Block verticalSlab, Block stairs, Block wall, Block fence) {
+        public static List<Block> getAllBlocks(MushroomStemSet set){
+            List<Block> list = new ArrayList<>();
+            list.add(set.stem);
+            list.add(set.slab);
+            list.add(set.verticalSlab);
+            list.add(set.stairs);
+            list.add(set.wall);
+            list.add(set.fence);
+            return list;
+        }
+    }
+
     public record PillarSet(Block base, Block verticalSlab, Block wall) {
         public static List<Block> getAllBlocks(PillarSet set){
             List<Block> list = new ArrayList<>();

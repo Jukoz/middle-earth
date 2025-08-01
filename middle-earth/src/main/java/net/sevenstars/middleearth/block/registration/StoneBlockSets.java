@@ -380,7 +380,7 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS_NO_RESTRICTION));
 
     public static StoneBlockSetBuilder JADEITE_SET = registerStoneSet(new StoneBlockSetBuilder("jadeite",
-            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.EMERALD_GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.EMERALD_GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)

@@ -229,7 +229,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //endregion
 
                 //region MUSHROOM RECIPES
-                for (MushroomBlockSets.MushroomBlockSet record : MushroomBlockSets.sets) {
+                /*for (MushroomBlockSets.MushroomBlockSet record : MushroomBlockSets.sets) {
 
                     if (record.stem() != null) {
                         offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, record.stemWall(), record.stem());
@@ -270,7 +270,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 
                     createButtonRecipe(exporter, record.planks(), record.button());
                     createPressurePlateRecipe(exporter, record.planks(), record.pressurePlate());
-                }
+                }*/
                 //endregion
 
                 //region ROOF RECIPES

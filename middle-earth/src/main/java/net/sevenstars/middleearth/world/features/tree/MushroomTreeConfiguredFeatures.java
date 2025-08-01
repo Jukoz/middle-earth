@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.world.features.tree;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.sevenstars.middleearth.block.registration.MushroomBlockSets;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
@@ -21,6 +20,7 @@ import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliage.PineFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
+import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 
 public class MushroomTreeConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> BROWN_BOLETTE_TREE_KEY = registerKey("brown_bolette_tree");
@@ -42,7 +42,7 @@ public class MushroomTreeConfiguredFeatures {
             .dirtProvider(BlockStateProvider.of(ModBlocks.STONE_MYCELIUM)).build());
 
         register(context, CAVE_AMANITA_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
-            BlockStateProvider.of(MushroomBlockSets.GRAY_MUSHROOM.stem()),
+            BlockStateProvider.of(WoodBlockSets.GRAY_MUSHROOM_SET.mushroomStemBlocks.stem()),
             new StraightTrunkPlacer(3, 2 , 0),
             BlockStateProvider.of(ModNatureBlocks.CAVE_AMANITA_BLOCK),
             new PineFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), ConstantIntProvider.create(2)),
@@ -50,7 +50,7 @@ public class MushroomTreeConfiguredFeatures {
             .dirtProvider(BlockStateProvider.of(ModBlocks.STONE_MYCELIUM)).build());
 
         register(context, DEEP_FIRECAP_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
-            BlockStateProvider.of(MushroomBlockSets.GRAY_MUSHROOM.stem()),
+            BlockStateProvider.of(WoodBlockSets.GRAY_MUSHROOM_SET.mushroomStemBlocks.stem()),
             new StraightTrunkPlacer(5, 2 , 0),
             BlockStateProvider.of(ModNatureBlocks.DEEP_FIRECAP_BLOCK),
             new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 2),
@@ -58,7 +58,7 @@ public class MushroomTreeConfiguredFeatures {
             .dirtProvider(BlockStateProvider.of(ModBlocks.STONE_MYCELIUM)).build());
 
         register(context, SKY_FIRECAP_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
-            BlockStateProvider.of(MushroomBlockSets.DARK_MUSHROOM.stem()),
+            BlockStateProvider.of(WoodBlockSets.DARK_MUSHROOM_SET.mushroomStemBlocks.stem()),
             new StraightTrunkPlacer(5, 2 , 0),
             BlockStateProvider.of(ModNatureBlocks.SKY_FIRECAP_BLOCK),
             new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 2),
