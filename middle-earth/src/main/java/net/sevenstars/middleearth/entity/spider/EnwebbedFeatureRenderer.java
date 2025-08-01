@@ -24,6 +24,7 @@ import net.minecraft.item.equipment.EquipmentAsset;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.client.renderer.ArmedEntityRenderStateAccess;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,10 +40,12 @@ public class EnwebbedFeatureRenderer <S extends BipedEntityRenderState, M extend
     }
 
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, S bipedEntityRenderState, float f, float g) {
-        EnwebbedModel entityModel = this.model;
-        entityModel.setAngles(bipedEntityRenderState);
-        VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(TEXTURE));
-        entityModel.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
-
+        ArmedEntityRenderStateAccess renderStateAccess = ((ArmedEntityRenderStateAccess)bipedEntityRenderState);
+        if(renderStateAccess.isRestrained()) {
+            EnwebbedModel entityModel = this.model;
+            entityModel.setAngles(bipedEntityRenderState);
+            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(TEXTURE));
+            entityModel.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
+        }
     }
 }
