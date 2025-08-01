@@ -32,7 +32,8 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     private enum SyncedData {
         MANAGER_ID("%s.ManagerId".formatted(ID)),
         NEST_ID("%s.NestId".formatted(ID)),
-        SPAWN_RADIUS("%s.SpawnRadius".formatted(ID));
+        SPAWN_RADIUS("%s.SpawnRadius".formatted(ID)),
+        IS_ENABLED("%s.IsEnabled".formatted(ID));
 
         public final String name;
         SyncedData(String name){
@@ -44,6 +45,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     @Nullable
     protected Identifier nestId;
     protected int spawnRadius;
+    protected boolean isEnabled;
 
     boolean initialized = false;
 
@@ -56,8 +58,9 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
         return new StructureNestScreenData(this.pos,
                 Optional.ofNullable(this.managerId),
                 Optional.ofNullable(this.nestId),
-                spawnRadius
-        );
+                spawnRadius,
+                isEnabled
+            );
     }
 
     public Text getDisplayName() {
@@ -69,7 +72,9 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return new StructureNestScreenHandler(syncId, playerInventory, new StructureNestScreenData(this.pos,
                 Optional.ofNullable(this.managerId),
-                Optional.ofNullable(this.nestId), this.spawnRadius));
+                Optional.ofNullable(this.nestId),
+                this.spawnRadius,
+                this.isEnabled));
     }
 
     @Override
@@ -80,6 +85,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
         Optional<Identifier> nestId = view.read(SyncedData.NEST_ID.name, Identifier.CODEC);
         nestId.ifPresent(identifier -> this.nestId = identifier);
         spawnRadius = view.getInt(SyncedData.SPAWN_RADIUS.name, 0);
+        isEnabled = view.getBoolean(SyncedData.IS_ENABLED.name, false);
     }
 
     @Override
@@ -90,6 +96,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
         if(managerId != null)
             view.put(SyncedData.MANAGER_ID.name, Identifier.CODEC, this.managerId);
         view.put(SyncedData.SPAWN_RADIUS.name, Codec.INT, this.spawnRadius);
+        view.put(SyncedData.IS_ENABLED.name, Codec.BOOL, this.isEnabled);
     }
 
     @Override
@@ -112,6 +119,11 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
         updateListeners();
     }
 
+    public void setIsEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+        updateListeners();
+    }
+
     private void updateListeners() {
         this.markDirty();
         this.world.updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
@@ -122,7 +134,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     private void tickEvent(World world) {
-        if(world.isClient || initialized)
+        if(world.isClient || initialized || !isEnabled)
             return;
 
         if(managerId == null || nestId == null || world.getTickOrder() % 100 != 0) // every 5 seconds

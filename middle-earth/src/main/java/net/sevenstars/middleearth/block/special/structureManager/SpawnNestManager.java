@@ -8,6 +8,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
@@ -108,18 +110,22 @@ public class SpawnNestManager {
     }
 
     private void beginRespawnSequence(World world) {
-        // Trigger smthing
-        this.respawnEventTriggerTick = world.getTickOrder();
+        this.respawnEventTriggerTick = world.getTime();
+        MiddleEarth.LOGGER.logDebugMsg("Respawn Sequence begun::%s".formatted(this.respawnEventTriggerTick));
     }
 
-    public boolean canRespawn(World world){
-        return (entities.isEmpty() && world.getTickOrder() > respawnEventTriggerTick + respawnTickDelay);
+    public boolean canRespawn(long time){
+        return (entities.isEmpty() && time > respawnEventTriggerTick + respawnTickDelay);
     }
 
     public void tick(StructureManagerData structureManagerData, long currentTick, World world, BlockPos sourcePos) {
-        if(entities.isEmpty() && currentTick % 1 == 0){
-            triggerRespawnAlert(structureManagerData, world, sourcePos);
+        if(canRespawn(currentTick)){
+            MiddleEarth.LOGGER.logDebugMsg("Respawn All begun::[World]%s [RespawnDelay]%s [Trigger]%s [TimeOfDay]%s".formatted(currentTick, this.respawnTickDelay, this.respawnEventTriggerTick, world.getTimeOfDay() % 24000));
+            respawnAll(structureManagerData, world, sourcePos);
         }
+    }
+
+    public void doWellnessCheck(StructureManagerData structureManagerData, World world, BlockPos sourcePos) {
         if(entities != null && !entities.isEmpty()){
             List<UUID> toRemove = new ArrayList<>();
             for (UUID uuid : entities){ // Wellness check
@@ -132,7 +138,11 @@ public class SpawnNestManager {
         }
     }
 
-    private void triggerRespawnAlert(StructureManagerData structureManagerData, World world, BlockPos sourcePos) {
+
+    private void respawnAll(StructureManagerData structureManagerData, World world, BlockPos sourcePos) {
+        if(structureManagerData == null)
+            return;
+
         SpawnNestNodeData data = structureManagerData.getNpcSpawnNest(id);
 
         if(data != null){
@@ -140,11 +150,13 @@ public class SpawnNestManager {
             int entityAmountToSpawn = pool.getEntityAmount();
             for(int i = 0; i < entityAmountToSpawn; i ++){
                 LivingEntity entityToAdd = StructureManagerService.SpawnEntity(world, pool, originPos, spawnRadius);
-                //entityToAdd.setStructureManagerHost(sourcePos);
+                if(entityToAdd instanceof NpcEntity npcEntity)
+                    npcEntity.setStructureManagerHost(sourcePos);
                 addEntity(entityToAdd);
                 world.markDirty(sourcePos);
             }
         }
+        this.respawnEventTriggerTick = -1;
     }
 
     public boolean computeDeath(LivingEntity entity) {

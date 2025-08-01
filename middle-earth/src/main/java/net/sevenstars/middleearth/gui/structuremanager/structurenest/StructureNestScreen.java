@@ -1,7 +1,9 @@
 package net.sevenstars.middleearth.gui.structuremanager.structurenest;
 
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
@@ -30,6 +32,7 @@ public class StructureNestScreen extends HandledScreen<StructureNestScreenHandle
 
     public SearchBarWidget managerSearchBarWidget;
     public CycledSelectionWidget nestCycledSelection;
+    public ButtonWidget isEnabledToggleButton;
 
     public StructureManagerData manager;
     public SpawnNestNodeData nest;
@@ -60,7 +63,7 @@ public class StructureNestScreen extends HandledScreen<StructureNestScreenHandle
             results.add(new SearchBarResult(Text.translatable(data.getId().toTranslationKey("structure_manager_data")), data.getId(), SearchBarResultType.NORMAL, button -> selectManager(data)));
         }
 
-        this.managerSearchBarWidget = new SearchBarWidget(9, results, x -> updateScreenInformation(), 250);
+        this.managerSearchBarWidget = new SearchBarWidget(9, results, x -> updateScreenInformation(), 170);
         addDrawableChild(this.managerSearchBarWidget.getSearchBarToggleButton());
         this.managerSearchBarWidget.getAllButtons().forEach(this::addDrawableChild);
         addDrawableChild(this.managerSearchBarWidget.getScreenClickButton());
@@ -72,9 +75,15 @@ public class StructureNestScreen extends HandledScreen<StructureNestScreenHandle
                 CycledSelectionButtonType.GOLD);
         nestCycledSelection.getButtons().forEach(this::addDrawableChild);
         updateNestList(0);
+
+        isEnabledToggleButton = ButtonWidget.builder(Text.of("isEnabledToggleButton"),x -> toggleEnable()).build();
+        isEnabledToggleButton.setDimensions(15, 15);
+        addDrawableChild(isEnabledToggleButton);
     }
 
-
+    private void toggleEnable() {
+        this.handler.toggleToActivate();
+    }
 
     private void updateNestList(int difference) {
         if(this.manager == null || this.manager.getNpcSpawnNest().isEmpty()){
@@ -120,9 +129,8 @@ public class StructureNestScreen extends HandledScreen<StructureNestScreenHandle
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         ModWidget.updateMouse(mouseX, mouseY);
 
-        // 600 is total "screen size"
-        int centerX = (int) (client.currentScreen.width * 0.35f);
-        int startY = 100;
+        int centerX = (int) (client.currentScreen.width / 2f);
+        int startY = 70;
 
         int managerSearchBarWidgetStartY = startY;
         managerSearchBarWidgetStartY += this.managerSearchBarWidget.drawSearchBar(context, centerX - 5 - this.managerSearchBarWidget.searchBarToggleButton.getWidth(), managerSearchBarWidgetStartY, textRenderer);
@@ -139,14 +147,32 @@ public class StructureNestScreen extends HandledScreen<StructureNestScreenHandle
         context.drawText(this.textRenderer, Text.translatable("ui.middle-earth.structure_manager.label_selected_id", managerIdText).formatted(Formatting.BOLD).formatted(Formatting.WHITE), centerX + 5, startY + 5, TEXT_COLOR, false);
 
         if(manager != null && this.managerSearchBarWidget != null){
-            startY += 50;
+            startY += 25;
 
             Text nestIdText = (nest == null)
                     ? Text.translatable("N/A")
                     : Text.translatable(nest.getId().toTranslationKey("structure_nest"));
 
-            this.nestCycledSelection.drawAnchored(context, centerX, startY, false, nestIdText.copy(), textRenderer);
+            this.nestCycledSelection.drawAnchored(context, centerX, startY, true, nestIdText.copy(), textRenderer);
+
+            isEnabledToggleButton.active = true;
+            isEnabledToggleButton.setPosition(centerX + CycledSelectionWidget.TOTAL_WIDTH + 5, startY);
+            //isEnabledToggleButton.render(context, mouseX, mouseY, deltaTicks);
+            boolean isEnabledToggleButtonFocused = isEnabledToggleButton.isMouseOver(mouseX, mouseY) || isEnabledToggleButton.isFocused();
+            int isEnabledToggleButtonUvY = 1;
+            if(handler.getIsEnabled())
+                isEnabledToggleButtonUvY = isEnabledToggleButtonFocused ? 52 : 35;
+            else if(isEnabledToggleButtonFocused)
+                isEnabledToggleButtonUvY = 18;
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
+                    isEnabledToggleButton.getX(), isEnabledToggleButton.getY(),
+                    18, isEnabledToggleButtonUvY,
+                    isEnabledToggleButton.getWidth(), isEnabledToggleButton.getHeight(), 256, 256);
+            if(isEnabledToggleButton.isMouseOver(mouseX, mouseY))
+                context.drawTooltip(Text.of("[SET TO TRUE] To ready up the structure manager subscription."), isEnabledToggleButton.getX(), isEnabledToggleButton.getY());
         }
+        else
+            this.isEnabledToggleButton.active = false;
     }
 
 

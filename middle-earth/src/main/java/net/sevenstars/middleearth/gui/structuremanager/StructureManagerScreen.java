@@ -79,16 +79,16 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         ModWidget.updateMouse(mouseX, mouseY);
 
-        // 600 is total "screen size"
         int centerX = (int) (client.currentScreen.width / 2f);
         int startY = 70;
 
-        int searchBarWidgetStartY = startY;
-        searchBarWidgetStartY += this.searchBarWidget.drawSearchBarAnchored(context, centerX, searchBarWidgetStartY, false, textRenderer);
+
+        int managerSearchBarWidgetStartY = startY;
+        managerSearchBarWidgetStartY += this.searchBarWidget.drawSearchBar(context, centerX - 5 - this.searchBarWidget.searchBarToggleButton.getWidth(), managerSearchBarWidgetStartY, textRenderer);
         this.searchBarWidget.setEndY(startY + 500);
 
         if(this.searchBarWidget.searchIsToggled()) {
-            this.searchBarWidget.drawSearchResultsAnchored(context, centerX, searchBarWidgetStartY - 20, false);
+            this.searchBarWidget.drawSearchResults(context, centerX - 5 - this.searchBarWidget.searchBarToggleButton.getWidth(), managerSearchBarWidgetStartY - 20);
         }
 
         Text selectedIdText = (dataIdentifier == null)

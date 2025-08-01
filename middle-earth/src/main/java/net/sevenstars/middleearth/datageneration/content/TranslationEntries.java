@@ -720,13 +720,19 @@ public class TranslationEntries {
             put("painting."+ MiddleEarth.MOD_ID +".tool_board.title", "Tool Board");
 
 
-            put("structure_manager_data."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor", "Gondor Testing Area");
-            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor.captain_room", "Captain Room");
-            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor.barracks_room", "Barracks Room");
+            put("structure_manager_data.%s.gondor_generic_nests".formatted(MiddleEarth.MOD_ID), "Gondor Generic Nests");
+            put("structure_nest.%s.gondor_generic_nests.captain_nest".formatted(MiddleEarth.MOD_ID), "Captain Room");
+            put("structure_nest.%s.gondor_generic_nests.barrack_nest".formatted(MiddleEarth.MOD_ID), "Barracks Room");
+            put("structure_nest.%s.gondor_generic_nests.worker_nest".formatted(MiddleEarth.MOD_ID), "Worker Room");
+            put("structure_nest.%s.gondor_generic_nests.prisoner_nest".formatted(MiddleEarth.MOD_ID), "Prisoner Cell");
+            put("structure_nest.%s.gondor_generic_nests.stable_nest".formatted(MiddleEarth.MOD_ID), "Stable Room");
 
-            put("structure_manager_data."+ MiddleEarth.MOD_ID +".npc_testing_area_erebor", "Erebor Testing Area");
-            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_erebor.captain_room", "Captain Room");
-            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_erebor.barracks_room", "Barracks Room");
+            put("structure_manager_data.%s.erebor_generic_nests".formatted(MiddleEarth.MOD_ID), "Erebor Generic Nests");
+            put("structure_nest.%s.erebor_generic_nests.captain_nest".formatted(MiddleEarth.MOD_ID), "Captain Room");
+            put("structure_nest.%s.erebor_generic_nests.barrack_nest".formatted(MiddleEarth.MOD_ID), "Barracks Room");
+            put("structure_nest.%s.erebor_generic_nests.worker_nest".formatted(MiddleEarth.MOD_ID), "Worker Room");
+            put("structure_nest.%s.erebor_generic_nests.prisoner_nest".formatted(MiddleEarth.MOD_ID), "Prisoner Cell");
+            put("structure_nest.%s.erebor_generic_nests.stable_nest".formatted(MiddleEarth.MOD_ID), "Stable Room");
         }
     };
 }

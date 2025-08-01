@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
@@ -48,7 +49,9 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     @Nullable
     protected Identifier structureManagerIdentifier;
     private StructureNestList structureNestList;
+    private boolean wellnessChecked;
 
+    boolean firstTick = true;
     // Runtime
     private StructureManagerData managerData;
 
@@ -59,6 +62,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         this.toInitialize = false;
         this.structureManagerIdentifier = null;
         this.structureNestList = null;
+        this.firstTick = true;
+        this.wellnessChecked = false;
     }
 
     // region [Basic Overrides]
@@ -116,11 +121,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     @Override
     public void setWorld(World world) {
         super.setWorld(world);
-        tryToInitializeManager(world);
     }
 
     public boolean subscribeNest(BlockPos nestPos, Identifier managerId, Identifier nestId, int spawnRadius) {
-        if(!isRuntimeEnabled() || managerId.compareTo(this.structureManagerIdentifier) != 0)
+        if(!enabled || managerId.compareTo(this.structureManagerIdentifier) != 0)
             return false;
 
         SpawnNestNodeData data = managerData.getNpcSpawnNest(nestId);
@@ -141,24 +145,42 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     private void tickEvent(World world, BlockPos blockPos, BlockState blockState) {
-        tryToInitializeManager(world);
+        if(!world.isClient && firstTick){
+            tryToInitializeManager(world);
+            this.firstTick = false;
+        }
+
+        ServerWorld serverWorld = (ServerWorld) world;
         if(structureNestList == null || !enabled)
             return;
-        long tick = world.getTickOrder();
 
+        long timeOfDay = serverWorld.getTime() % 24000;
+        long gameTick = serverWorld.getTime();
+        if((timeOfDay > 0 && timeOfDay < 11000) || (timeOfDay > 12000 && timeOfDay < 23000) && wellnessChecked)
+            wellnessChecked = false;
+
+        boolean haveToDoWellnessCheck = (timeOfDay > 11000 && timeOfDay < 12000) || (timeOfDay >= 23000) && !wellnessChecked;
         for(SpawnNestManager data : structureNestList.getManagers()){
             if(managerData == null)
-                managerData = StructureManagerService.GetStructureManagerData(world, structureManagerIdentifier);
-            data.tick(managerData, tick, world, blockPos);
+                managerData = StructureManagerService.GetStructureManagerData(serverWorld, structureManagerIdentifier);
+            if(haveToDoWellnessCheck){
+                data.doWellnessCheck(managerData, serverWorld, blockPos);
+            }
+            data.tick(managerData, gameTick, serverWorld, blockPos);
         }
+        if(haveToDoWellnessCheck && !wellnessChecked)
+            wellnessChecked = true;
     }
 
     private void tryToInitializeManager(World world){
-        if(world.isClient || !toInitialize || enabled || structureManagerIdentifier == null)
+        if(world.isClient)
+            return;
+        if(!toInitialize || enabled)
+            return;
+        if(structureManagerIdentifier == null)
             return;
 
         if(toInitialize && !enabled){
-
             this.managerData = StructureManagerService.GetStructureManagerData(world, structureManagerIdentifier);
             if(structureNestList == null)
                 this.structureNestList = new StructureNestList();
@@ -171,8 +193,6 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             this.enabled = true;
         }
     }
-
-
 
     public void setInitializationState(boolean toInitialize) {
         this.toInitialize = toInitialize;
@@ -192,12 +212,5 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     private void updateListeners() {
         this.markDirty();
         this.world.updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
-    }
-
-    public boolean isRuntimeEnabled() {
-        return
-            this.enabled &&
-            this.structureManagerIdentifier != null &&
-            this.structureNestList != null;
     }
 }

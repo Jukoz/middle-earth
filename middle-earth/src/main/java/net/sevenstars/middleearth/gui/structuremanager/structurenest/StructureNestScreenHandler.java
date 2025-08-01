@@ -55,7 +55,16 @@ public class StructureNestScreenHandler  extends ScreenHandler {
         updateBlockEntity();
     }
 
+    public void toggleToActivate() {
+        this.data.toggleActiveState();
+        updateBlockEntity();
+    }
+
     private void updateBlockEntity() {
-        ClientPlayNetworking.send(new PacketStructureNestUpdateBlockEntityRequest(data.getPos(), Optional.ofNullable(getManagerKey()), Optional.ofNullable(getNestKey()), data.getSpawnRadius()));
+        ClientPlayNetworking.send(new PacketStructureNestUpdateBlockEntityRequest(data.getPos(), Optional.ofNullable(getManagerKey()), Optional.ofNullable(getNestKey()), data.getSpawnRadius(), data.getIsEnabled()));
+    }
+
+    public boolean getIsEnabled() {
+        return data.getIsEnabled();
     }
 }

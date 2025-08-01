@@ -13,6 +13,7 @@ public class StructureNestScreenData {
     private Identifier structureManagerId;
     private Identifier structureNestId;
     private int spawnRadius;
+    private boolean isEnabled;
 
     public static final PacketCodec<? super RegistryByteBuf, StructureNestScreenData> PACKET_CODEC;
 
@@ -21,6 +22,9 @@ public class StructureNestScreenData {
     }
     public int getSpawnRadius() {
         return this.spawnRadius;
+    }
+    public boolean getIsEnabled() {
+        return this.isEnabled;
     }
     public Identifier getStructureManagerId() {
         return this.structureManagerId;
@@ -43,11 +47,12 @@ public class StructureNestScreenData {
     }
 
 
-    public StructureNestScreenData(BlockPos pos, Optional<Identifier> structureManagerId, Optional<Identifier> structureNestId, int spawnRadius){
+    public StructureNestScreenData(BlockPos pos, Optional<Identifier> structureManagerId, Optional<Identifier> structureNestId, int spawnRadius, boolean isEnabled){
         this.pos = pos;
         structureManagerId.ifPresentOrElse(x -> setStructureManagerId(x), () -> setStructureManagerId(null));
         structureNestId.ifPresentOrElse(x -> setStructureNestId(x), () -> setStructureNestId(null));
         this.spawnRadius = spawnRadius;
+        this.isEnabled = isEnabled;
     }
 
     static {
@@ -56,7 +61,12 @@ public class StructureNestScreenData {
                 PacketCodecs.optional(Identifier.PACKET_CODEC), StructureNestScreenData::getStructureManagerIdOptional,
                 PacketCodecs.optional(Identifier.PACKET_CODEC), StructureNestScreenData::getStructureNestIdOptional,
                 PacketCodecs.INTEGER, StructureNestScreenData::getSpawnRadius,
+                PacketCodecs.BOOLEAN, StructureNestScreenData::getIsEnabled,
                 StructureNestScreenData::new
         );
+    }
+
+    public void toggleActiveState() {
+        this.isEnabled = !this.isEnabled;
     }
 }

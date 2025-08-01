@@ -22,6 +22,7 @@ public class PacketStructureNestUpdateBlockEntityRequest extends ClientToServerP
             PacketCodecs.optional(Identifier.PACKET_CODEC), p -> p.getStructureManagerId(),
             PacketCodecs.optional(Identifier.PACKET_CODEC), p -> p.getStructureNestId(),
             PacketCodecs.INTEGER, p -> p.spawnRadius,
+            PacketCodecs.BOOLEAN, p -> p.isEnabled,
             PacketStructureNestUpdateBlockEntityRequest::new
     );
 
@@ -37,10 +38,12 @@ public class PacketStructureNestUpdateBlockEntityRequest extends ClientToServerP
     private final Identifier structureManagerId;
     private final Identifier structureNestId;
     private final int spawnRadius;
+    private final boolean isEnabled;
 
-    public PacketStructureNestUpdateBlockEntityRequest(BlockPos pos, Optional<Identifier> structureManagerId, Optional<Identifier> structureNestId, int spawnRadius) {
+    public PacketStructureNestUpdateBlockEntityRequest(BlockPos pos, Optional<Identifier> structureManagerId, Optional<Identifier> structureNestId, int spawnRadius, boolean isEnabled) {
         this.pos = pos;
         this.spawnRadius = spawnRadius;
+        this.isEnabled = isEnabled;
 
         if(structureManagerId.isPresent())
             this.structureManagerId = structureManagerId.get();
@@ -72,6 +75,7 @@ public class PacketStructureNestUpdateBlockEntityRequest extends ClientToServerP
                     blockEntity.setStructureManagerId(structureManagerId);
                     blockEntity.setStructureNestId(structureNestId);
                     blockEntity.setSpawnRadius(spawnRadius);
+                    blockEntity.setIsEnabled(isEnabled);
                 }
             });
         } catch (Exception e){
