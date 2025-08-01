@@ -24,6 +24,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarModel;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseModel;
+import net.sevenstars.middleearth.entity.spider.EnwebbedModel;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaModel;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerModel;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobModel;
@@ -55,6 +56,8 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer SHELOBITE_LARVA = ModEntityModelLayers.registerEntityModelLayer("shelobite_larva", ShelobiteLarvaModel.getTexturedModelData());
     public static final EntityModelLayer SHELOBITE_SCUTTLER = ModEntityModelLayers.registerEntityModelLayer("shelobite_scuttler", ShelobiteScuttlerModel.getTexturedModelData());
     public static final EntityModelLayer SPAWN_OF_SHELOB = ModEntityModelLayers.registerEntityModelLayer("spawn_of_shelob", SpawnOfShelobModel.getTexturedModelData());
+
+    public static final EntityModelLayer ENWEBBED = ModEntityModelLayers.registerEntityModelLayer("enwebbed", EnwebbedModel.getTexturedModelData());
 
     // Animals
     public static final EntityModelLayer SWAN = ModEntityModelLayers.registerEntityModelLayer("swan", SwanModel.getTexturedModelData());

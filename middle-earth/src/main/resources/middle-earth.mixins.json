@@ -37,7 +37,8 @@
     "client.InGameHudMixin",
     "client.LivingEntityRendererMixin",
     "client.LivingEntityRenderStateMixin",
-    "client.MouseMixin"
+    "client.MouseMixin",
+    "client.PlayerEntityRendererMixin"
   ],
   "server": [
   ],

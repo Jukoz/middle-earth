@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarModel;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseModel;
+import net.sevenstars.middleearth.entity.spider.EnwebbedModel;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaModel;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerModel;
 import net.minecraft.client.model.Dilation;
@@ -34,6 +35,8 @@ public class ModEntityModels {
         builder.put(ModEntityModelLayers.SHELOBITE_LARVA, ShelobiteLarvaModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.SHELOBITE_SCUTTLER, ShelobiteScuttlerModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.SPAWN_OF_SHELOB, SpawnOfShelobModel.getTexturedModelData());
+
+        builder.put(ModEntityModelLayers.ENWEBBED, EnwebbedModel.getTexturedModelData());
 
         builder.put(ModEntityModelLayers.REINFORCED_CHEST, ReinforcedChestEntityRenderer.getTexturedModelData());
         builder.put(ModEntityModelLayers.BELLOWS, BellowsBlockEntityRenderer.getTexturedModelData());
