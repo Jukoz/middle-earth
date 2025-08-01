@@ -61,7 +61,6 @@ public class ModRegistries {
         specialAliases.put("polished_ashenstone", "polished_ashen_stone");
         specialAliases.put("chiseled_polished_ashenstone", "chiseled_polished_ashen_stone");
 
-
         specialAliases.put("brick_", "bricks_");
         specialAliases.put("tile_", "tiles_");
 

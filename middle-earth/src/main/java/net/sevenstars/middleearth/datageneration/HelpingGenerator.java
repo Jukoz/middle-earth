@@ -61,7 +61,8 @@ public class HelpingGenerator {
                     case CHISELED_BLOCKS -> {
                         if (set.existingList.contains(StoneBlockTypes.BASE_BLOCKS)) pillarBlocks(set.chiseledBlocks, set.baseBlocks.base());
                         if (set.existingList.contains(StoneBlockTypes.BRICK_BLOCKS)) pillarBlocks(set.chiseledBricksBlocks, set.brickBlocks.base());
-                        if (set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS)) pillarBlocks(set.chiseledPolishedBlocks, set.polishedBlocks.base());
+                        if (set.existingList.contains(StoneBlockTypes.POLISHED_BRICK_BLOCKS)) pillarBlocks(set.chiseledBricksBlocks, set.brickBlocks.base());
+                        if (set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS) || set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS_PILLAR)) pillarBlocks(set.chiseledPolishedBlocks, set.polishedBlocks.base());
                         if (set.existingList.contains(StoneBlockTypes.TILE_BLOCKS)) pillarBlocks(set.chiseledTilesBlocks, set.tileBlocks.base());
                         if (set.existingList.contains(StoneBlockTypes.SMOOTH_BLOCKS)) pillarBlocks(set.chiseledSmoothBlocks, set.smoothBlocks.base());
                     }
