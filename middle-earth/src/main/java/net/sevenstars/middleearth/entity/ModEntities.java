@@ -20,6 +20,7 @@ import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
 import net.sevenstars.middleearth.entity.deer.DeerEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
 import net.sevenstars.middleearth.entity.projectile.pebble.PebbleEntity;
 import net.sevenstars.middleearth.entity.projectile.pinecone.LitPineconeEntity;
@@ -60,6 +61,7 @@ public class ModEntities {
     public static final EntityType<PineconeEntity> PINECONE = registerEntity("pinecone", PineconeEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
     public static final EntityType<LitPineconeEntity> LIT_PINECONE = registerEntity("lit_pinecone", LitPineconeEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
     public static final EntityType<BoulderEntity> BOULDER = registerEntity("boulder", BoulderEntity::new, SpawnGroup.MISC, 1f, 1f);
+    public static final EntityType<WebbedEntity> WEB = registerEntity("web", WebbedEntity::new, SpawnGroup.MISC, 0.5F, 0.5F);
 
     /// * Projectiles *///
     public static final EntityType<SmokeRingProjectileEntity> SMOKE_RING_PROJECTILE = registerEntity("smoke_ring_projectile", SmokeRingProjectileEntity::new, SpawnGroup.MISC, 0.5F, 0.5F);

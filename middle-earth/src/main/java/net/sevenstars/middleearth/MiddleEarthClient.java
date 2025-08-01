@@ -121,6 +121,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SPEAR, SpearEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.SMOKE_RING_PROJECTILE, SmokeRingProjectileRenderer::new);
+        EntityRendererRegistry.register(ModEntities.WEB, FlyingItemEntityRenderer::new);
 
         // Animals
         EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
