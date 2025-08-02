@@ -4,6 +4,7 @@ import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 import org.spongepowered.asm.mixin.Final;
@@ -33,6 +34,11 @@ public class BakedModelManagerMixin{
         map.put(ModTexturedRenderLayers.NPC_EYE_TEXTURES_ATLAS_TEXTURE, IdentifierUtil.create("npc_eye_textures"));
         map.put(ModTexturedRenderLayers.NPC_HAIR_TEXTURES_ATLAS_TEXTURE, IdentifierUtil.create("npc_hair_textures"));
         map.put(ModTexturedRenderLayers.NPC_CLOTHING_TEXTURES_ATLAS_TEXTURE, IdentifierUtil.create("npc_clothing_textures"));
+
+        /*
+         * Load custom sprites' atlas. Used for direct render animations.
+         */
+        map.put(Identifier.of(MiddleEarth.MOD_ID, "sprites"), Identifier.of(MiddleEarth.MOD_ID, "sprites"));
 
         LAYERS_TO_LOADERS = map;
     }

@@ -1,9 +1,11 @@
 package net.sevenstars.middleearth.item;
 
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Rarity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.ModBlocks;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
@@ -22,6 +24,7 @@ import net.sevenstars.middleearth.item.items.weapons.artefacts.*;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomBowWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomCrossbowWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
+import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
 import net.sevenstars.middleearth.item.utils.ModShieldTypes;
@@ -42,67 +45,80 @@ public class WeaponItemsME {
     public static List<Item> shields = new ArrayList<>();
 
     //region GENERIC
-    public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.BRONZE, settings), new Item.Settings(), true);
-    public static final Item CRUDE_FALCHION = registerItemWithModel("crude_falchion",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings(), true);
-    
-    public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
-    public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL, settings), new Item.Settings(), true);
-    public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("edhel_steel_sword",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL, settings), new Item.Settings(), true);
-    public static final Item KHAZAD_STEEL_SWORD = registerItemWithModel("khazad_steel_sword",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL, settings), new Item.Settings(), true);
-
     public static final Item WOODEN_DAGGER = registerItemWithModel("wooden_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterial.WOOD, settings), new Item.Settings(), false);
-    public static final Item STONE_DAGGER = registerItemWithModel("stone_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.STONE, settings), new Item.Settings(), false);
-    public static final Item BRONZE_DAGGER = registerItemWithModel("bronze_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.BRONZE, settings), new Item.Settings(), false);
-    public static final Item CRUDE_DAGGER = registerItemWithModel("crude_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings(), false);
-    public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.IRON, settings), new Item.Settings(), false);
-
-    public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.GOLD, settings), new Item.Settings(), false);
-    public static final Item DIAMOND_DAGGER = registerItemWithModel("diamond_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.DIAMOND, settings), new Item.Settings(), false);
-    public static final Item NETHERITE_DAGGER = registerItemWithModel("netherite_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.NETHERITE, settings), new Item.Settings(), false);
-
-    public static final Item CRUDE_LONGBLADE = registerItemWithModel("crude_longblade",
-            (settings) -> new CustomLongswordWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings(), true);
-
     public static final Item WOODEN_SPEAR = registerItemWithSpearModel("wooden_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.WOOD, settings), new Item.Settings());
+
+    public static final Item STONE_DAGGER = registerItemWithModel("stone_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.STONE, settings), new Item.Settings(), false);
     public static final Item STONE_SPEAR = registerItemWithSpearModel("stone_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.STONE, settings), new Item.Settings());
 
+    public static final Item BONE_CLEAVER = registerItemWithModel("bone_cleaver",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
+    public static final Item BONE_SCIMITAR = registerItemWithModel("bone_scimitar",
+            (settings) -> new CustomLongswordWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
+    public static final Item BONE_SHANK = registerItemWithModel("bone_shank",
+            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), false);
+    public static final Item BONE_AXE = registerItemWithModel("bone_axe",
+            (settings) -> new CustomAxeWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
+    public static final Item BONE_SPEAR = registerItemWithSpearModel("bone_spear",
+            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings());
+
+    public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.BRONZE, settings), new Item.Settings(), true);
+    public static final Item BRONZE_DAGGER = registerItemWithModel("bronze_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.BRONZE, settings), new Item.Settings(), false);
     public static final Item BRONZE_SPEAR = registerItemWithSpearModel("bronze_spear",
             (settings) -> new CustomSpearWeaponItem(ModToolMaterials.BRONZE, settings), new Item.Settings());
+
+    public static final Item CRUDE_FALCHION = registerItemWithModel("crude_falchion",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings(), true);
+    public static final Item CRUDE_LONGBLADE = registerItemWithModel("crude_longblade",
+            (settings) -> new CustomLongswordWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings(), true);
+    public static final Item CRUDE_DAGGER = registerItemWithModel("crude_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings(), false);
     public static final Item CRUDE_SPEAR = registerItemWithSpearModel("crude_spear",
             (settings) -> new CustomSpearWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings());
 
+    public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.IRON, settings), new Item.Settings(), false);
     public static final Item IRON_SPEAR = registerItemWithSpearModel("iron_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.IRON, settings), new Item.Settings());
 
-    public static final Item STEEL_SPEAR = registerItemWithSpearModel("steel_spear",
-            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings());
-    public static final Item BURZUM_STEEL_SPEAR = registerItemWithSpearModel("burzum_steel_spear",
-            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL, settings), new Item.Settings());
-    public static final Item EDHEL_STEEL_SPEAR = registerItemWithSpearModel("edhel_steel_spear",
-            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.EDHEL_STEEL, settings), new Item.Settings());
-    public static final Item KHAZAD_STEEL_SPEAR = registerItemWithSpearModel("khazad_steel_spear",
-            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.KHAZAD_STEEL, settings), new Item.Settings());
-    
+    public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.GOLD, settings), new Item.Settings(), false);
     public static final Item GOLDEN_SPEAR = registerItemWithSpearModel("golden_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.GOLD, settings), new Item.Settings());
+
+    public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
+    public static final Item STEEL_SPEAR = registerItemWithSpearModel("steel_spear",
+            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings());
+
+    public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL, settings), new Item.Settings(), true);
+    public static final Item BURZUM_STEEL_SPEAR = registerItemWithSpearModel("burzum_steel_spear",
+            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL, settings), new Item.Settings());
+
+    public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("edhel_steel_sword",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL, settings), new Item.Settings(), true);
+    public static final Item EDHEL_STEEL_SPEAR = registerItemWithSpearModel("edhel_steel_spear",
+            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.EDHEL_STEEL, settings), new Item.Settings());
+
+    public static final Item KHAZAD_STEEL_SWORD = registerItemWithModel("khazad_steel_sword",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL, settings), new Item.Settings(), true);
+    public static final Item KHAZAD_STEEL_SPEAR = registerItemWithSpearModel("khazad_steel_spear",
+            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.KHAZAD_STEEL, settings), new Item.Settings());
+
+    public static final Item DIAMOND_DAGGER = registerItemWithModel("diamond_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.DIAMOND, settings), new Item.Settings(), false);
     public static final Item DIAMOND_SPEAR = registerItemWithSpearModel("diamond_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.DIAMOND, settings), new Item.Settings());
+
+    public static final Item NETHERITE_DAGGER = registerItemWithModel("netherite_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterial.NETHERITE, settings), new Item.Settings(), false);
     public static final Item NETHERITE_SPEAR = registerItemWithSpearModel("netherite_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.NETHERITE, settings), new Item.Settings());
 
@@ -759,50 +775,70 @@ public class WeaponItemsME {
 
     //region ARTEFACTS
     public static final Item DAGAMARTH = registerArtefact("dagamarth",
-            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("dagamarth")), true);
     public static final Item HERUGRIM = registerArtefact("herugrim",
-            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("herugrim")), true);
     public static final Item NAZGUL_SWORD = registerArtefact("nazgul_sword",
-            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("nazgul_sword")), true);
 
     public static final Item HAMMER_OF_HELM_HAMMERHAND = registerArtefact("hammer_of_helm_hammerhand",
-            (settings) -> new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("hammer_of_helm_hammerhand")), true);
     public static final Item MACE_OF_SAURON = registerArtefact("mace_of_sauron",
-            (settings) -> new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("mace_of_sauron")), true);
 
     public static final Item ANGUIREL = registerArtefact("anguirel",
-            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("anguirel")), true);
     public static final Item GLAMDRING = registerArtefact("glamdring",
-            (settings) ->  new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) ->  new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("glamdring")), true);
     public static final Item LONG_FORGOTTEN_LONGSWORD = registerArtefact("long_forgotten_longsword",
-            (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("long_forgotten_longsword")), true);
     public static final Item LONGSWORD_OF_ELDER_KINGS = registerArtefact("longsword_of_elder_kings",
-            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("longsword_of_elder_kings")), true);
     public static final Item NARSIL = registerArtefact("narsil",
-            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("narsil")), true);
     public static final Item NOLDORIN_LONGSWORD = registerArtefact("noldorin_longsword",
-            (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) ->  new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("noldorin_longsword")), true);
     public static final Item ORCRIST = registerArtefact("orcrist",
-            (settings) -> new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), true);
+            (settings) -> new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("orcrist")), true);
 
     public static final Item BARROW_BLADE = registerArtefact("barrow_blade",
-            (settings) -> new ArtefactCustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), false);
+            (settings) -> new ArtefactCustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("barrow_blade")), false);
     public static final Item MORGUL_KNIFE = registerArtefact("morgul_knife",
-            (settings) -> new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE, settings), new Item.Settings(), false);
+            (settings) -> new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("morgul_knife")), false);
     public static final Item STING = registerArtefact("sting",
-            (settings) -> new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings(), false);
+            (settings) -> new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("sting")), false);
 
     public static final Item AEGLOS = registerItemWithSpearModel("aeglos",
-            (settings) -> new ArtefactCustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings());
+            (settings) -> new ArtefactCustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("aeglos")));
 
     public static final Item ANORTHANN = registerShield("anorthann",
-            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings());
+            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("anorthann")));
     public static final Item CUTHANN = registerShield("cuthann",
-            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings());
+            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("cuthann")));
     public static final Item SHIELD_OF_DURINS_GUARD = registerShield("shield_of_durins_guard",
-            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings());
+            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("shield_of_durins_guard")));
     public static final Item SHIELD_OF_THE_KING_UNDER_THE_MOUNTAIN = registerShield("shield_of_the_king_under_the_mountain",
-            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings());
+            (settings) -> new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("shield_of_the_king_under_the_mountain")));
     //endregion
 
     public static final Item HELD_BANNER = registerItemNoModel("held_banner",

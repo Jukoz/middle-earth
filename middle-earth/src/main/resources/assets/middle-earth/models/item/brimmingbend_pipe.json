@@ -1,7 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "middle-earth:item/brimmingbend_pipe"
+		"0": "middle-earth:item/brimmingbend_pipe",
+		"particle": "block/dark_oak_planks"
 	},
 	"gui_light": "front",
 
@@ -41,11 +42,11 @@
 			"translation": [0, 3.25, 0]
 		},
 		"firstperson_righthand": {
-			"translation": [0, 5.25, 0],
+			"translation": [0, 3.25, 0],
 			"scale": [1.3, 1, 1]
 		},
 		"firstperson_lefthand": {
-			"translation": [0, 5.25, 0],
+			"translation": [0, 3.25, 0],
 			"scale": [1.3, 1, 1]
 		},
 		"ground": {

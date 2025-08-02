@@ -24,11 +24,6 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
     }
 
     @Override
-    public Text getName(ItemStack stack) {
-        return Text.translatable(this.getTranslationKey()).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
-    }
-
-    @Override
     public boolean isItemBarVisible(ItemStack stack) {
         if(stack.getDamage() == stack.getMaxDamage() - 1) {
             return false;
@@ -51,6 +46,7 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
                             0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                     .build());
             stack.remove(DataComponentTypes.WEAPON);
+            stack.remove(DataComponentTypes.BLOCKS_ATTACKS);
         }
     }
 
@@ -72,6 +68,7 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
                             .build());
                 }
                 stack.remove(DataComponentTypes.WEAPON);
+                stack.remove(DataComponentTypes.BLOCKS_ATTACKS);
             }
             return true;
         }

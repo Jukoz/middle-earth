@@ -7,6 +7,7 @@ import net.minecraft.client.render.item.model.ItemModel;
 import net.minecraft.client.render.item.model.RangeDispatchItemModel;
 import net.minecraft.client.render.item.model.SelectItemModel;
 import net.minecraft.client.render.item.property.bool.BrokenProperty;
+import net.minecraft.client.render.item.property.bool.UsingItemProperty;
 import net.minecraft.client.render.item.property.numeric.CrossbowPullProperty;
 import net.minecraft.client.render.item.property.numeric.UseDurationProperty;
 import net.minecraft.client.render.item.property.select.ChargeTypeProperty;
@@ -27,6 +28,7 @@ import net.sevenstars.middleearth.datageneration.content.CustomItemModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
+import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
 
 import java.util.ArrayList;
@@ -167,7 +169,17 @@ public class ItemModelProvider extends FabricModelProvider {
     public final void registerWeaponBigItemModels(ItemModelGenerator itemModelGenerator, Item item) {
         ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON));
         ItemModel.Unbaked unbakedInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_inventory", Models.GENERATED));
-        itemModelGenerator.output.accept(item, createModelWithInHandVariant(unbakedInventory, unbakedHand));
+
+        if (item instanceof CustomLongswordWeaponItem longswordWeaponItem){
+            ItemModel.Unbaked unbakedHandBlocking = ItemModels.basic(CustomItemModels.BIG_WEAPON_BLOCKING.upload(ModelIds.getItemSubModelId(item, "_blocking"), TextureMap.layer0(TextureMap.getId(item)), itemModelGenerator.modelCollector));
+            itemModelGenerator.output.accept(longswordWeaponItem, ItemModels.condition(new UsingItemProperty(),
+                    ItemModels.select(new DisplayContextProperty(), unbakedHandBlocking,
+                            ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), unbakedInventory)),
+                    ItemModels.select(new DisplayContextProperty(), unbakedHand,
+                            ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), unbakedInventory))));
+        } else {
+            itemModelGenerator.output.accept(item, createModelWithInHandVariant(unbakedInventory, unbakedHand));
+        }
     }
 
     public final void registerGenericBigModels(ItemModelGenerator itemModelGenerator, Item item) {
@@ -177,6 +189,7 @@ public class ItemModelProvider extends FabricModelProvider {
         itemModelGenerator.output.accept(item, createModelWithInHandVariant(unbakedInventory, unbakedHand));
     }
 
+    //TODO longsword artefact blocking datagen
     public final void registerArtefact(ItemModelGenerator itemModelGenerator, Item item, Boolean dualModel) {
         if (dualModel) {
             ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON));

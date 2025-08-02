@@ -77,14 +77,6 @@ public record BackAttachmentDataComponent(BackAttachmentsME backAttachment, int 
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        if (DyeablePiecesME.dyeableBackAttachments.containsKey(this.backAttachment())){
-            textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.backAttachment().getName())
-                    .append(" (")
-                    .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color")
-                            .append(": " + String.format("#%06X", (0xFFFFFF & this.backAttachmentColor)))
-                            .append(")")).formatted(Formatting.GRAY));
-        } else {
-            textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.backAttachment().getName()).formatted(Formatting.GRAY));
-        }
+        textConsumer.accept(Text.translatable("tooltip.%s.%s".formatted(MiddleEarth.MOD_ID, this.backAttachment().getName())).formatted(Formatting.GRAY));
     }
 }

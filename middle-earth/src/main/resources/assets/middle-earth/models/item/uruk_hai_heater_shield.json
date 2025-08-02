@@ -3,7 +3,8 @@
 	"texture_size": [64, 64],
 	"gui_light": "front",
 	"textures": {
-		"0": "middle-earth:item/uruk_hai_heater_shield"
+		"0": "middle-earth:item/uruk_hai_heater_shield",
+		"particle": "block/dark_oak_planks"
 	},
 	"elements": [
 		{
