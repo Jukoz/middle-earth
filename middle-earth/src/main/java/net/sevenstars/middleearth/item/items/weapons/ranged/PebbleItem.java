@@ -11,6 +11,7 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
 import net.sevenstars.middleearth.entity.projectile.pebble.PebbleEntity;
 
 public class PebbleItem extends Item{
@@ -52,7 +53,7 @@ public class PebbleItem extends Item{
         float percentage = (float) i / STRENGTH_CHARGE_TIME;
 
         if (!world.isClient) {
-            PebbleEntity pebbleEntity = new PebbleEntity(world, user, DAMAGE * percentage);
+            WebbedEntity pebbleEntity = new WebbedEntity(world, user, DAMAGE * percentage);
             pebbleEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0f, BASE_STRENGTH + (CHARGE_STRENGTH * percentage), 1.0f);
 
             world.spawnEntity(pebbleEntity);

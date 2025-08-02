@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.spider.spawn;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.SpiderNavigation;
@@ -16,6 +17,10 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.entity.projectile.thrown.SnowballEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -24,12 +29,14 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
+import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 
-public class SpawnofShelobEntity extends HostileEntity implements Pouncer {
+public class SpawnofShelobEntity extends HostileEntity implements Pouncer, RangedAttackMob {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final float MOVEMENT_SPEED = 1.15f;
+    public static final float WEB_PROJECTILE_DAMAGE = 2f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
     private static final TrackedData<Integer> POUNCE_FLAG;
 
@@ -54,6 +61,7 @@ public class SpawnofShelobEntity extends HostileEntity implements Pouncer {
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(1, new ProjectileAttackGoal(this, 0.7f, 25, 32));
         this.goalSelector.add(3, new SpiderPonceAtTargetGoal(this, this, 0.5F, 0.4f));
         this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
@@ -123,6 +131,23 @@ public class SpawnofShelobEntity extends HostileEntity implements Pouncer {
         } else {
             this.climbingTicks = Math.max(0, this.climbingTicks - 1);
         }
+    }
+
+    @Override
+    public void shootAt(LivingEntity target, float pullProgress) {
+        double d = target.getX() - this.getX();
+        double e = target.getEyeY() - 1.1F;
+        double f = target.getZ() - this.getZ();
+        double g = Math.sqrt(d * d + f * f) * 0.2F;
+        if (this.getWorld() instanceof ServerWorld serverWorld) {
+            ItemStack itemStack = new ItemStack(Items.COBWEB);
+            ProjectileEntity.spawn(
+                    new WebbedEntity(serverWorld, this, WEB_PROJECTILE_DAMAGE * pullProgress), serverWorld, itemStack,
+                    entity -> entity.setVelocity(d, e + g - entity.getY(), f, 1.6F, 8 - this.getWorld().getDifficulty().getId() * 4)
+            );
+        }
+
+        this.playSound(SoundEvents.ENTITY_BREEZE_SHOOT, 1.0F, 0.7F + (this.getRandom().nextFloat() * 0.6F));
     }
 
     protected SoundEvent getAmbientSound() {
