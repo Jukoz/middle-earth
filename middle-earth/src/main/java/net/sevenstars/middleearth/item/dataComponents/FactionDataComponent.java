@@ -9,15 +9,17 @@ import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
+import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.utils.ModColors;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public record FactionDataComponent(Identifier factionId) implements TooltipAppender {
@@ -32,17 +34,16 @@ public record FactionDataComponent(Identifier factionId) implements TooltipAppen
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        try {
-            assert MinecraftClient.getInstance().world != null;
-            Faction faction = FactionLookup.getFactionById(MinecraftClient.getInstance().world, this.factionId);
-            Faction parent = faction.getParentFaction(MinecraftClient.getInstance().world);
+        try{
+            Faction faction = context.getRegistryLookup().getOrThrow(FactionsME.KEY).getOrThrow(RegistryKey.of(FactionsME.KEY, this.factionId)).value();
+            Faction parent = faction.getParentFaction(context.getRegistryLookup());
             if (parent != null){
                 appendFaction(textConsumer, parent);
                 appendSubfaction(textConsumer, faction);
             } else {
                 appendFaction(textConsumer, faction);
             }
-        } catch (FactionIdentifierException e) {
+        } catch (Exception e){
             textConsumer.accept(Text.translatable(FactionIdentifierException.KEY, this.factionId)
                     .withColor(ModColors.ALERT.color));
         }

@@ -13,6 +13,8 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryElementCodec;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
@@ -225,6 +227,17 @@ public class Faction {
         try{
             return FactionLookup.getFactionById(world, parentFactionId);
         } catch (FactionIdentifierException e){
+            return null;
+        }
+    }
+
+    public Faction getParentFaction(RegistryWrapper.WrapperLookup lookup){
+        if(factionType != FactionType.SUBFACTION || parentFactionId == null)
+            return null;
+        try{
+            Faction test = lookup.getOrThrow(FactionsME.KEY).getOrThrow(RegistryKey.of(FactionsME.KEY, this.parentFactionId)).value();
+            return test;
+        } catch (Exception e){
             return null;
         }
     }
