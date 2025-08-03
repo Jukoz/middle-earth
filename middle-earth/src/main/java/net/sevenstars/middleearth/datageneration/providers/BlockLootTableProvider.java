@@ -26,7 +26,7 @@ import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.sevenstars.middleearth.block.*;
+import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.block.special.RocksBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
@@ -56,37 +56,37 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
         for (Block block : BlockDrops.blocks) {
             if (Registries.BLOCK.getId(block).getPath().equals("nurgon")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_NURGON.base());
+                cobbleDrops(block, StoneBlockSets.NURGON_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("medgon")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_MEDGON.base());
+                cobbleDrops(block, StoneBlockSets.MEDGON_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("gonluin")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_GONLUIN.base());
+                cobbleDrops(block, StoneBlockSets.KHAGALABAN_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("limestone")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_LIMESTONE.base());
+                cobbleDrops(block, StoneBlockSets.LIMESTONE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("dolomite")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_DOLOMITE.base());
+                cobbleDrops(block, StoneBlockSets.DOLOMITE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("quartzite")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_QUARTZITE.base());
+                cobbleDrops(block, StoneBlockSets.QUARTZITE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("jadeite")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_JADEITE.base());
+                cobbleDrops(block, StoneBlockSets.JADEITE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("ashen_stone")) {
-                cobbleDrops(block, StoneBlockSets.ASHEN_COBBLESTONE.base());
+                cobbleDrops(block, StoneBlockSets.ASHENSTONE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("ironstone")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_IRONSTONE.base());
+                cobbleDrops(block, StoneBlockSets.IRONSTONE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("hematite")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_HEMATITE.base());
+                cobbleDrops(block, StoneBlockSets.HEMATITE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("gneiss")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_GNEISS.base());
+                cobbleDrops(block, StoneBlockSets.GNEISS_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("izheraban")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_IZHERABAN.base());
+                cobbleDrops(block, StoneBlockSets.IZHERABAN_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("schist")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_SCHIST.base());
+                cobbleDrops(block, StoneBlockSets.SCHIST_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("galonn")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_GALONN.base());
+                cobbleDrops(block, StoneBlockSets.GALONN_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("slate")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_SLATE.base());
+                cobbleDrops(block, StoneBlockSets.SLATE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("blue_tuff")) {
-                cobbleDrops(block, StoneBlockSets.COBBLED_BLUE_TUFF.base());
+                cobbleDrops(block, StoneBlockSets.BLUE_TUFF_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().contains("_door")) {
                 addDrop(block, doorDrops(block));
             } else if (Registries.BLOCK.getId(block).getPath().contains("vertical_slab")) {
@@ -181,6 +181,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         largeDoorDrop(ModDecorativeBlocks.RICKETY_SIMPLE_LARCH_DOOR);
         largeDoorDrop(ModDecorativeBlocks.SPRUCE_STABLE_DOOR);
         largeDoorDrop(ModDecorativeBlocks.LARGE_STURDY_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.LARGE_BEECH_FENCE_GATE);
         largeDoorDrop(ModDecorativeBlocks.GREAT_GONDORIAN_GATE);
         largeDoorDrop(ModDecorativeBlocks.GREAT_DWARVEN_GATE);
         largeDoorDrop(ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR);

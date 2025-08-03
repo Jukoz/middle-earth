@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.block.special.shapingAnvil.elvenTreatedAnvil;
 
 import com.mojang.serialization.MapCodec;
-import net.sevenstars.middleearth.block.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.shapingAnvil.AbstractTreatedAnvilBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.TreatedAnvilBlockEntity;
 import net.minecraft.block.Block;

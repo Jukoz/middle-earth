@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 
@@ -22,6 +22,8 @@ public class SimpleStairModel {
             add(new Stair(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_STAIRS));
             add(new Stair(ModBlocks.CUT_LEAD, ModBlocks.CUT_LEAD_STAIRS));
             add(new Stair(ModBlocks.CUT_SILVER, ModBlocks.CUT_SILVER_STAIRS));
+            add(new Stair(ModBlocks.CUT_BRONZE, ModBlocks.CUT_BRONZE_STAIRS));
+            add(new Stair(ModBlocks.CUT_CRUDE_PLATES, ModBlocks.CUT_CRUDE_PLATES_STAIRS));
         }
     };
 
@@ -44,8 +46,6 @@ public class SimpleStairModel {
             add(new Stair(Blocks.MUD, ModBlocks.MUD_STAIRS));
 
             add(new Stair(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_STAIRS));
-            add(new Stair(Blocks.CALCITE, ModBlocks.CALCITE_STAIRS));
-            add(new Stair(Blocks.SMOOTH_BASALT, ModBlocks.SMOOTH_BASALT_STAIRS));
 
             add(new Stair(Blocks.BLACK_WOOL, ModBlocks.BLACK_WOOL_STAIRS));
             add(new Stair(Blocks.BLUE_WOOL, ModBlocks.BLUE_WOOL_STAIRS));
@@ -68,27 +68,11 @@ public class SimpleStairModel {
 
     public static List<Stair> vanillaWoodStairs = new ArrayList<>() {
         {
-            add(new Stair(Blocks.OAK_WOOD, ModBlocks.OAK_WOOD_STAIRS));
-            add(new Stair(Blocks.SPRUCE_WOOD, ModBlocks.SPRUCE_WOOD_STAIRS));
-            add(new Stair(Blocks.BIRCH_WOOD, ModBlocks.BIRCH_WOOD_STAIRS));
-            add(new Stair(Blocks.JUNGLE_WOOD, ModBlocks.JUNGLE_WOOD_STAIRS));
-            add(new Stair(Blocks.ACACIA_WOOD, ModBlocks.ACACIA_WOOD_STAIRS));
-            add(new Stair(Blocks.DARK_OAK_WOOD, ModBlocks.DARK_OAK_WOOD_STAIRS));
-            add(new Stair(Blocks.MANGROVE_WOOD, ModBlocks.MANGROVE_WOOD_STAIRS));
-            add(new Stair(Blocks.CHERRY_WOOD, ModBlocks.CHERRY_WOOD_STAIRS));
         }
     };
 
     public static List<Stair> vanillaStrippedStairs = new ArrayList<>() {
         {
-            add(new Stair(Blocks.STRIPPED_OAK_WOOD, ModBlocks.STRIPPED_OAK_WOOD_STAIRS));
-            add(new Stair(Blocks.STRIPPED_SPRUCE_WOOD, ModBlocks.STRIPPED_SPRUCE_WOOD_STAIRS));
-            add(new Stair(Blocks.STRIPPED_BIRCH_WOOD, ModBlocks.STRIPPED_BIRCH_WOOD_STAIRS));
-            add(new Stair(Blocks.STRIPPED_JUNGLE_WOOD, ModBlocks.STRIPPED_JUNGLE_WOOD_STAIRS));
-            add(new Stair(Blocks.STRIPPED_ACACIA_WOOD, ModBlocks.STRIPPED_ACACIA_WOOD_STAIRS));
-            add(new Stair(Blocks.STRIPPED_DARK_OAK_WOOD, ModBlocks.STRIPPED_DARK_OAK_WOOD_STAIRS));
-            add(new Stair(Blocks.STRIPPED_MANGROVE_WOOD, ModBlocks.STRIPPED_MANGROVE_WOOD_STAIRS));
-            add(new Stair(Blocks.STRIPPED_CHERRY_WOOD, ModBlocks.STRIPPED_CHERRY_WOOD_STAIRS));
         }
     };
 }

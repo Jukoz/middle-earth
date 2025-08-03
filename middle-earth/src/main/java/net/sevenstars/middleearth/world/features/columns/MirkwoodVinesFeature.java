@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.world.features.columns;
 
 import com.mojang.serialization.Codec;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
-import net.sevenstars.middleearth.block.WoodBlockSets;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.minecraft.block.AbstractPlantStemBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
@@ -30,7 +30,7 @@ public class MirkwoodVinesFeature  extends Feature<DefaultFeatureConfig> {
             return false;
         } else {
             BlockState blockState = structureWorldAccess.getBlockState(blockPos.up());
-            if (!blockState.isOf(WoodBlockSets.MIRKWOOD.leaves()) && !blockState.isSolidBlock(context.getWorld(), blockPos.up())) {
+            if (!blockState.isOf(WoodBlockSets.MIRKWOOD_SET.leaves) && !blockState.isSolidBlock(context.getWorld(), blockPos.up())) {
                 return false;
             } else {
                 this.generateVinesInArea(structureWorldAccess, random, blockPos);
@@ -71,8 +71,8 @@ public class MirkwoodVinesFeature  extends Feature<DefaultFeatureConfig> {
                 if(blockStateAbove.isAir())
                     break;
 
-                if(blockStateAbove.isOf(WoodBlockSets.MIRKWOOD.leaves())){
-                    world.setBlockState(pos.up(), WoodBlockSets.MIRKWOOD.leaves().getDefaultState().with(LeavesBlock.PERSISTENT, true), 2);
+                if(blockStateAbove.isOf(WoodBlockSets.MIRKWOOD_SET.leaves)){
+                    world.setBlockState(pos.up(), WoodBlockSets.MIRKWOOD_SET.leaves.getDefaultState().with(LeavesBlock.PERSISTENT, true), 2);
                 }
 
                 if (i == length || !world.getBlockState(pos.down()).isAir()) {
@@ -89,7 +89,7 @@ public class MirkwoodVinesFeature  extends Feature<DefaultFeatureConfig> {
 
     private static boolean validateRoot(WorldAccess world, BlockPos.Mutable mutable) {
         BlockState blockState = world.getBlockState(mutable.up());
-        return (blockState.isOf(WoodBlockSets.MIRKWOOD.log()));
+        return (blockState.isOf(WoodBlockSets.MIRKWOOD_SET.logBlocks.log()));
         // WoodBlockSets.MIRKWOOD.leaves()) ||
     }
 }
