@@ -4,6 +4,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.MiddleEarth;
 import org.jetbrains.annotations.Nullable;
@@ -45,17 +46,25 @@ public class SmartProjectileAttackGoal extends Goal {
 		LivingEntity livingEntity = this.mob.getTarget();
 		if (livingEntity != null && livingEntity.isAlive()) {
 			this.target = livingEntity;
-			float distance = target.distanceTo(this.mob);
-			boolean inbound = (distance >= this.minShootRange && distance <= this.maxShootRange);
-			return inbound && (owner.getRangeAttackCooldown() == 0);
+			return isInbound() && (owner.getRangeAttackCooldown() == 0);
 		} else {
 			return false;
 		}
 	}
 
+	public boolean isInbound() {
+		float distance = target.distanceTo(this.mob);
+		return (distance >= this.minShootRange && distance <= this.maxShootRange);
+	}
+
 	@Override
 	public boolean shouldContinue() {
-		return this.target.isAlive();
+		boolean shouldContinue = this.target.isAlive();
+		shouldContinue &= isInbound();
+		if(this.target instanceof PlayerEntity playerEntity) {
+			shouldContinue &= !(playerEntity.isSpectator() || playerEntity.isCreative());
+		}
+		return shouldContinue;
 	}
 
 	@Override

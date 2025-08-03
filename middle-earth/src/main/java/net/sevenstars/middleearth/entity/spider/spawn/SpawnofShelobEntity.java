@@ -139,15 +139,15 @@ public class SpawnofShelobEntity extends HostileEntity implements Pouncer, Coold
 
     @Override
     public void shootAt(LivingEntity target, float pullProgress) {
-        double d = target.getX() - this.getX();
+        double dX = target.getX() - this.getX();
         double e = target.getEyeY() - 1.1F;
-        double f = target.getZ() - this.getZ();
-        double g = Math.sqrt(d * d + f * f) * 0.2F;
+        double dZ = target.getZ() - this.getZ();
+        double g = Math.sqrt(dX * dX + dZ * dZ) * 0.2F;
         if (this.getWorld() instanceof ServerWorld serverWorld) {
             ItemStack itemStack = new ItemStack(Items.COBWEB);
             ProjectileEntity.spawn(
                     new WebbedEntity(serverWorld, this, WEB_PROJECTILE_DAMAGE * pullProgress), serverWorld, itemStack,
-                    entity -> entity.setVelocity(d, e + g - entity.getY(), f, 1.6F, 8 - this.getWorld().getDifficulty().getId() * 4)
+                    entity -> entity.setVelocity(dX, e + g - entity.getY(), dZ, 1.6F, 8 - this.getWorld().getDifficulty().getId() * 4)
             );
         }
 
