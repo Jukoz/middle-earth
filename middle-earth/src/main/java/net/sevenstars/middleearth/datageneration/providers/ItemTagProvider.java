@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.datageneration.providers;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.OreRockSets;
+import net.sevenstars.middleearth.block.registration.OreRockSets;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.*;

@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.item;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
@@ -14,6 +14,7 @@ import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.armor.ArmorMaterialsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 import net.sevenstars.middleearth.utils.ModFactions;
 import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.item.Item;
@@ -1313,6 +1314,7 @@ public class EquipmentItemsME {
 
     private static Item registerItem(Item item, String name){
         TranslationEntries.itemEntries.add(item);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
     }
 
