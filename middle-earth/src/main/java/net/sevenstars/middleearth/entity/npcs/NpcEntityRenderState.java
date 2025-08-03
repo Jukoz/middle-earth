@@ -19,6 +19,7 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
     public Identifier clothingId;
 
     public boolean haveEmissiveEyes;
+    public boolean blinking;
 
     public NpcEntityRenderState() {
         this.skinId = null;
@@ -36,5 +37,6 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
         this.clothingId = null;
 
         this.haveEmissiveEyes = false;
+        this.blinking = false;
     }
 }

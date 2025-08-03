@@ -81,7 +81,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.eyesId = npcTextureData.getEyeTexture();
         npcEntityRenderState.eyesEmissiveId = npcTextureData.getEyeEmissiveTexture();
         npcEntityRenderState.haveEmissiveEyes = npcTextureData.isEyeEmissive() &&
-             npcEntity.getWorld().getLightLevel(npcEntity.getBlockPos(), npcEntity.getWorld().getAmbientDarkness()) < 6 && (npcEntity.getInitializationTick() + npcEntity.age) % 80 > 2;
+             npcEntity.getWorld().getLightLevel(npcEntity.getBlockPos(), npcEntity.getWorld().getAmbientDarkness()) < 6;
         npcEntityRenderState.eyebrowId = npcTextureData.getEyebrowTexture();
         npcEntityRenderState.scarId = npcTextureData.getScarTexture();
         npcEntityRenderState.beardId = npcTextureData.getBeardTexture();
@@ -89,6 +89,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.hairId = npcTextureData.getHairTexture();
         npcEntityRenderState.hairAddonId = npcTextureData.getHairAddonTexture();
         npcEntityRenderState.clothingId = npcTextureData.getClothingTexture();
+        npcEntityRenderState.blinking = (npcEntity.getInitializationTick() + npcEntity.age) % 80 <= 2;
     }
     // endregion
 
@@ -175,6 +176,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     }
 
     private void renderEyes(MatrixStack matrices, NpcEntityRenderState state, VertexConsumerProvider vertexConsumers, int light, int overlay, int color)  {
+        if(state.blinking)
+            return;
         Identifier id = Identifier.of(state.eyesId.getNamespace(), "npc_eye_textures/" + state.eyesId.getPath());
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcEyeTexturesRenderLayer(false));
         Sprite sprite = eyeAtlasTexture.getSprite(id);

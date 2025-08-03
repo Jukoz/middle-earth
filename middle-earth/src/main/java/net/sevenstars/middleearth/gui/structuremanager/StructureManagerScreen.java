@@ -30,6 +30,7 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
     public Identifier dataIdentifier;
     public ButtonWidget toInitializeToggleButton;
     public ButtonWidget isEnabledToggleButton;
+    public ButtonWidget showAllButton;
 
     public ArrayList<Identifier> identifiers;
 
@@ -69,6 +70,10 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
         isEnabledToggleButton = ButtonWidget.builder(Text.of("isEnabledToggleButton"),x -> toggleEnable()).build();
         isEnabledToggleButton.setDimensions(15, 15);
         addDrawableChild(isEnabledToggleButton);
+
+        showAllButton = ButtonWidget.builder(Text.of("showAll"),x -> toggleEnable()).build();
+        showAllButton.setDimensions(100, 15);
+        addDrawableChild(showAllButton);
     }
 
     @Override
@@ -117,7 +122,6 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
             context.drawTooltip(Text.of("[SET TO TRUE] Before saving a structure."), toInitializeToggleButton.getX(), toInitializeToggleButton.getY());
 
         isEnabledToggleButton.setPosition(centerX + 25, startY);
-        //isEnabledToggleButton.render(context, mouseX, mouseY, deltaTicks);
         boolean isEnabledToggleButtonFocused = isEnabledToggleButton.isMouseOver(mouseX, mouseY) || isEnabledToggleButton.isFocused();
         int isEnabledToggleButtonUvY = 1;
         if(handler.getIsEnabled())
@@ -131,6 +135,12 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
         if(isEnabledToggleButton.isMouseOver(mouseX, mouseY))
             context.drawTooltip(Text.of("[SET TO FALSE] Before saving a structure."), isEnabledToggleButton.getX(), isEnabledToggleButton.getY());
 
+        /*
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
+                showAllButton.getX(), showAllButton.getY(),
+                18, showAllButton.active,
+                showAllButton.getWidth(), showAllButton.getHeight(), 256, 256);
+         */
     }
 
     @Override
