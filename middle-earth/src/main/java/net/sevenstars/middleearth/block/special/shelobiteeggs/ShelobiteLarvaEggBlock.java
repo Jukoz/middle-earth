@@ -74,7 +74,7 @@ public class ShelobiteLarvaEggBlock extends AbstractShelobiteLarvaEgg {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return VoxelShapes.union(
-                Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 7.0, 11.0));
+                Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 8.0, 16.0));
     }
 
     static {

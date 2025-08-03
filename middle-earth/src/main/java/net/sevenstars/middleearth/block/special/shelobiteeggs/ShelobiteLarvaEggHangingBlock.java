@@ -27,6 +27,8 @@ import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.entity.ModEntities;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class ShelobiteLarvaEggHangingBlock extends AbstractShelobiteLarvaEgg {
     public static final EnumProperty<BlockHalf> BLOCK_HALF = Properties.BLOCK_HALF;
 
@@ -45,6 +47,9 @@ public class ShelobiteLarvaEggHangingBlock extends AbstractShelobiteLarvaEgg {
     }
 
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        if (Objects.requireNonNull(state.get(BLOCK_HALF)) == BlockHalf.BOTTOM) {
+            return !world.isWater(pos) && world.getBlockState(pos.down()).isAir();
+        }
         return Block.sideCoversSmallSquare(world, pos.up(), Direction.DOWN) && !world.isWater(pos) && world.getBlockState(pos.down()).isAir();
     }
 
@@ -75,6 +80,20 @@ public class ShelobiteLarvaEggHangingBlock extends AbstractShelobiteLarvaEgg {
             }
         }
         return super.onBreak(world, pos, state, player);
+    }
+
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return switch (state.get(BLOCK_HALF)) {
+            case BOTTOM -> Block.createCuboidShape(4, 4, 4, 12, 16, 12);
+            case TOP -> {
+                if (world.getBlockState(pos.down()).isOf(this)){
+                    yield VoxelShapes.combineAndSimplify(Block.createCuboidShape(0, 14, 0, 16, 16, 16), Block.createCuboidShape(5, 0, 5, 11, 14, 11), BooleanBiFunction.OR);
+                } else {
+                    yield Block.createCuboidShape(0, 0, 0, 0, 0, 0);
+                }
+            }
+        };
     }
 
     @Override

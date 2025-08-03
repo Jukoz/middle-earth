@@ -76,9 +76,9 @@ public class SimplexNoise {  // Simplex noise in 2D, 3D and 4D
         int i = fastfloor(xin+s);
         int j = fastfloor(yin+s);
         double t = (i+j)*G2;
-        double X0 = i-t; // Unskew the cell stool back to (x,y) space
+        double X0 = i-t; // Unskew the cell origin back to (x,y) space
         double Y0 = j-t;
-        double x0 = xin-X0; // The x,y distances from the cell stool
+        double x0 = xin-X0; // The x,y distances from the cell origin
         double y0 = yin-Y0;
         // For the 2D case, the simplex shape is an equilateral triangle.
         // Determine which simplex we are in.
@@ -132,10 +132,10 @@ public class SimplexNoise {  // Simplex noise in 2D, 3D and 4D
         int j = fastfloor(yin+s);
         int k = fastfloor(zin+s);
         double t = (i+j+k)*G3;
-        double X0 = i-t; // Unskew the cell stool back to (x,y,z) space
+        double X0 = i-t; // Unskew the cell origin back to (x,y,z) space
         double Y0 = j-t;
         double Z0 = k-t;
-        double x0 = xin-X0; // The x,y,z distances from the cell stool
+        double x0 = xin-X0; // The x,y,z distances from the cell origin
         double y0 = yin-Y0;
         double z0 = zin-Z0;
         // For the 3D case, the simplex shape is a slightly irregular tetrahedron.
@@ -214,11 +214,11 @@ public class SimplexNoise {  // Simplex noise in 2D, 3D and 4D
         int k = fastfloor(z + s);
         int l = fastfloor(w + s);
         double t = (i + j + k + l) * G4; // Factor for 4D unskewing
-        double X0 = i - t; // Unskew the cell stool back to (x,y,z,w) space
+        double X0 = i - t; // Unskew the cell origin back to (x,y,z,w) space
         double Y0 = j - t;
         double Z0 = k - t;
         double W0 = l - t;
-        double x0 = x - X0;  // The x,y,z,w distances from the cell stool
+        double x0 = x - X0;  // The x,y,z,w distances from the cell origin
         double y0 = y - Y0;
         double z0 = z - Z0;
         double w0 = w - W0;
