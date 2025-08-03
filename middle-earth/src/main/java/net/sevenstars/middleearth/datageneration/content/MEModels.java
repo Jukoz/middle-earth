@@ -15,6 +15,11 @@ public class MEModels {
     public static final Model VERTICAL_COLUMN_SLAB_INNER;
     public static final Model VERTICAL_COLUMN_SLAB_OUTER;
 
+    public static final Model COLUMN_WALL_POST;
+    public static final Model COLUMN_WALL_SIDE;
+    public static final Model COLUMN_WALL_SIDE_TALL;
+    public static final Model COLUMN_WALL_INVENTORY;
+
     public static final Model WOOD_STOOL;
     public static final Model WOOD_BENCH;
     public static final Model WOOD_TABLE;
@@ -56,6 +61,11 @@ public class MEModels {
         VERTICAL_COLUMN_SLAB = block("vertical_column_slab", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.PARTICLE);
         VERTICAL_COLUMN_SLAB_INNER = block("vertical_column_slab_inner", "_inner", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.PARTICLE);
         VERTICAL_COLUMN_SLAB_OUTER = block("vertical_column_slab_outer", "_outer", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.PARTICLE);
+
+        COLUMN_WALL_POST = block("template_column_wall_post", "_post", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.WALL, TextureKey.PARTICLE);
+        COLUMN_WALL_SIDE = block("template_column_wall_side", "_side", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.WALL, TextureKey.PARTICLE);
+        COLUMN_WALL_SIDE_TALL = block("template_column_wall_side_tall", "_side_tall", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.WALL, TextureKey.PARTICLE);
+        COLUMN_WALL_INVENTORY = block("template_column_wall_inventory", "_inventory", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.WALL, TextureKey.PARTICLE);
 
         WOOD_STOOL = block("wood_stool_template", TextureKey.ALL, TextureKey.PARTICLE);
         WOOD_BENCH = block("wood_bench_template", TextureKey.ALL, TextureKey.PARTICLE);

@@ -6,6 +6,7 @@ import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 
 import java.util.function.UnaryOperator;
 
@@ -18,6 +19,11 @@ public class DataComponentTypesME {
     public static final ComponentType<TemperatureDataComponent> TEMPERATURE_DATA = register("temperature", (builder) -> {
         return builder.codec(TemperatureDataComponent.CODEC).packetCodec(TemperatureDataComponent.PACKET_CODEC);
     });
+
+    public static final ComponentType<BlockAuthorDataComponent> BLOCK_AUTHOR_DATA = register("block_author", (builder) -> {
+        return builder.codec(BlockAuthorDataComponent.CODEC).packetCodec(BlockAuthorDataComponent.PACKET_CODEC);
+    });
+
     public static final ComponentType<BackAttachmentDataComponent> BACK_ATTACHMENT_DATA = register("back_attachment", (builder) -> {
         return builder.codec(BackAttachmentDataComponent.CODEC).packetCodec(BackAttachmentDataComponent.PACKET_CODEC);
     });
@@ -35,6 +41,7 @@ public class DataComponentTypesME {
     });
 
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.DATA_COMPONENT_TYPE, id));
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), ((ComponentType.Builder)builderOperator.apply(ComponentType.builder())).build());
     }
 

@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.world.features.misc;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.world.features.columns.ColumnsFeatureConfig;
 import net.sevenstars.middleearth.world.gen.ModFeatures;
 import net.minecraft.block.Blocks;
@@ -27,9 +27,9 @@ public class ModMiscConfiguredFeatures {
                 new LakeFeature.Config(BlockStateProvider.of(Blocks.LAVA.getDefaultState()), BlockStateProvider.of(Blocks.MAGMA_BLOCK.getDefaultState())));
 
         ConfiguredFeatures.register(featureRegisterable, SMALL_PUMICE_COLUMNS, ModFeatures.COLUMNS,
-                new ColumnsFeatureConfig(ConstantIntProvider.create(1), UniformIntProvider.create(1, 4), StoneBlockSets.PUMICE.base().getDefaultState()));
+                new ColumnsFeatureConfig(ConstantIntProvider.create(1), UniformIntProvider.create(1, 4), StoneBlockSets.PUMICE_SET.baseBlocks.base().getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, LARGE_PUMICE_COLUMNS, ModFeatures.COLUMNS,
-                new ColumnsFeatureConfig(UniformIntProvider.create(2, 3), UniformIntProvider.create(4, 7), StoneBlockSets.PUMICE.base().getDefaultState()));
+                new ColumnsFeatureConfig(UniformIntProvider.create(2, 3), UniformIntProvider.create(4, 7), StoneBlockSets.PUMICE_SET.baseBlocks.base().getDefaultState()));
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {

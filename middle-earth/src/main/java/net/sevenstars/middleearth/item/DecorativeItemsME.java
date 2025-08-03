@@ -1,11 +1,13 @@
 package net.sevenstars.middleearth.item;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
+import net.sevenstars.middleearth.block.utils.BlockAuthor;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.item.dataComponents.BlockAuthorDataComponent;
 import net.sevenstars.middleearth.item.items.ArkenstoneItem;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.sevenstars.middleearth.item.items.DoorBlockItem;
@@ -19,6 +21,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 
 import java.util.function.Function;
 
@@ -36,6 +39,12 @@ public class DecorativeItemsME {
             (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.SILVER_LANTERN, ModDecorativeBlocks.WALL_SILVER_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
     public static final Item ELVEN_LANTERN = registerItem("elven_lantern",
             (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.ELVEN_LANTERN, ModDecorativeBlocks.WALL_ELVEN_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
+    public static final Item SHIRE_LANTERN = registerItem("shire_lantern",
+            (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.SHIRE_LANTERN, ModDecorativeBlocks.WALL_SHIRE_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
+    public static final Item CRUDE_LANTERN = registerItem("crude_lantern",
+            (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.CRUDE_LANTERN, ModDecorativeBlocks.WALL_CRUDE_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
+    public static final Item LEAD_LANTERN = registerItem("lead_lantern",
+            (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.LEAD_LANTERN, ModDecorativeBlocks.WALL_LEAD_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
 
     public static final Item SCONCE = registerItem("sconce",
             (settings) -> new VerticallyAttachableBlockItem(ModDecorativeBlocks.SCONCE, ModDecorativeBlocks.WALL_SCONCE, Direction.DOWN, settings), new Item.Settings());
@@ -74,6 +83,28 @@ public class DecorativeItemsME {
     public static final Item WOOD_PILE = registerItem("wood_pile",
             (settings) -> new BlockItem(ModDecorativeBlocks.WOOD_PILE, settings), new Item.Settings());
 
+    public static final Item BASALT_STATUE = registerItem("basalt_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.BASALT_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.SCOSHER)));
+    public static final Item CALCITE_STATUE = registerItem("calcite_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.CALCITE_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+    public static final Item GALONN_STATUE = registerItem("galonn_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.GALONN_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.SCOSHER)));
+    public static final Item KHAGALABAN_STATUE = registerItem("khagalaban_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.KHAGALABAN_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+    public static final Item MEDGON_SPIKE = registerItem("medgon_spike",
+            (settings) -> new BlockItem(ModDecorativeBlocks.MEDGON_SPIKE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+    public static final Item PUMICE_STATUE = registerItem("pumice_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.PUMICE_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.SCOSHER)));
+    public static final Item TUFF_STATUE = registerItem("tuff_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.TUFF_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+
     public static final Item TALL_BLACK_PINE_DOOR = registerItem("tall_black_pine_door",
             (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.TALL_BLACK_PINE_DOOR, settings), new Item.Settings().maxCount(16));
 
@@ -92,6 +123,9 @@ public class DecorativeItemsME {
 
     public static final Item LARGE_STURDY_DOOR = registerItem("large_sturdy_door",
             (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.LARGE_STURDY_DOOR, settings), new Item.Settings().maxCount(16));
+
+    public static final Item LARGE_BEECH_FENCE_GATE = registerItem("large_beech_fence_gate",
+            (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.LARGE_BEECH_FENCE_GATE, settings), new Item.Settings().maxCount(16));
 
     public static final Item LARCH_HOBBIT_DOOR = registerItem("larch_hobbit_door",
             (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.LARCH_HOBBIT_DOOR, settings), new Item.Settings().maxCount(16));
@@ -142,6 +176,7 @@ public class DecorativeItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

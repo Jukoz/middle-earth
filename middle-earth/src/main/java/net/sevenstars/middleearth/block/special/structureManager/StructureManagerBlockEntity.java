@@ -23,7 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
 import net.sevenstars.middleearth.resources.StructureManagerDatasME;
