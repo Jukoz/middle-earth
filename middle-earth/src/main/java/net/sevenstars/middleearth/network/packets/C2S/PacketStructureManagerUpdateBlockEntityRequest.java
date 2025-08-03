@@ -58,6 +58,5 @@ public class PacketStructureManagerUpdateBlockEntityRequest extends ClientToServ
         } catch (Exception e){
             MiddleEarth.LOGGER.logError("PacketStructureManagerUpdateBlockEntityRequest::Tried to update the block entity.", e);
         }
-
     }
 }

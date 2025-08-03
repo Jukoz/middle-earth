@@ -5,6 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
@@ -121,6 +123,18 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     @Override
     public void setWorld(World world) {
         super.setWorld(world);
+    }
+
+    public void showAllEntities() {
+        if(structureNestList == null)
+            return;
+        for(var nest : structureNestList.getManagers()){
+            for(var uuid : nest.getEntityUuids()){
+                if(world.getEntity(uuid) instanceof LivingEntity livingEntity){
+                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 10*20));
+                }
+            }
+        }
     }
 
     public boolean subscribeNest(BlockPos nestPos, Identifier managerId, Identifier nestId, int spawnRadius) {

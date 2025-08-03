@@ -23,7 +23,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.block.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import org.jetbrains.annotations.Nullable;
 
 public class StructureNestBlock extends BlockWithEntity implements BlockEntityProvider, Waterloggable {

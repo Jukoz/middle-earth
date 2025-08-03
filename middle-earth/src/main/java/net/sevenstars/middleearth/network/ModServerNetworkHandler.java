@@ -21,6 +21,7 @@ public class ModServerNetworkHandler {
         PayloadTypeRegistry.playS2C().register(PacketForceOnboardingScreen.ID, PacketForceOnboardingScreen.CODEC);
 
         // REGISTRY : Client to server
+        PayloadTypeRegistry.playC2S().register(PacketStructureManagerShowAllEntities.ID, PacketStructureManagerShowAllEntities.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketStructureNestUpdateBlockEntityRequest.ID, PacketStructureNestUpdateBlockEntityRequest.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketStructureManagerUpdateBlockEntityRequest.ID, PacketStructureManagerUpdateBlockEntityRequest.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketSetAffiliation.ID, PacketSetAffiliation.CODEC);
@@ -38,6 +39,7 @@ public class ModServerNetworkHandler {
         PayloadTypeRegistry.playC2S().register(HoodStateTogglePacket.ID, PacketCodecs.codec(Codec.unit(new HoodStateTogglePacket())));
 
         // Application [SERVER SIDE]
+        ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerShowAllEntities.ID, wrapServerHandler(connection, PacketStructureManagerShowAllEntities::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketStructureNestUpdateBlockEntityRequest.ID, wrapServerHandler(connection, PacketStructureNestUpdateBlockEntityRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerUpdateBlockEntityRequest.ID, wrapServerHandler(connection, PacketStructureManagerUpdateBlockEntityRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketSetAffiliation.ID, wrapServerHandler(connection, PacketSetAffiliation::process));

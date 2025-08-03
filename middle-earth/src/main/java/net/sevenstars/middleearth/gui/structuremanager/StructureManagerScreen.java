@@ -71,8 +71,8 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
         isEnabledToggleButton.setDimensions(15, 15);
         addDrawableChild(isEnabledToggleButton);
 
-        showAllButton = ButtonWidget.builder(Text.of("showAll"),x -> toggleEnable()).build();
-        showAllButton.setDimensions(100, 15);
+        showAllButton = ButtonWidget.builder(Text.of("showAll"),x -> handler.triggerGlowOnAllEntities()).build();
+        showAllButton.setDimensions(104, 20);
         addDrawableChild(showAllButton);
     }
 
@@ -135,12 +135,15 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
         if(isEnabledToggleButton.isMouseOver(mouseX, mouseY))
             context.drawTooltip(Text.of("[SET TO FALSE] Before saving a structure."), isEnabledToggleButton.getX(), isEnabledToggleButton.getY());
 
-        /*
+        startY += 15;
+        showAllButton.setPosition(centerX + 5, startY);
         context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
                 showAllButton.getX(), showAllButton.getY(),
-                18, showAllButton.active,
+                35, showAllButton.isMouseOver(mouseX, mouseY) ? 23 : 1,
                 showAllButton.getWidth(), showAllButton.getHeight(), 256, 256);
-         */
+        Text text = Text.translatable("Show all");
+        int showAllStartX = showAllButton.getX() + (showAllButton.getWidth() / 2) - (textRenderer.getWidth(text) / 2);
+        context.drawText(textRenderer, text,showAllStartX,showAllButton.getY() + 6, Color.BLACK.getRGB(), false);
     }
 
     @Override
