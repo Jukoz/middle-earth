@@ -71,7 +71,7 @@ public class ShelobiteLarvaEggBlock extends AbstractShelobiteLarvaEgg {
 
     }
 
-    private void breakEgg(World world, BlockPos pos, BlockState state) {
+    public static void breakEgg(World world, BlockPos pos, BlockState state) {
         world.playSound((PlayerEntity)null, pos, SoundEvents.ENTITY_TURTLE_EGG_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.random.nextFloat() * 0.2F);
         world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(state));
         world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
@@ -82,7 +82,7 @@ public class ShelobiteLarvaEggBlock extends AbstractShelobiteLarvaEgg {
         world.removeBlock(pos, false);
     }
 
-    private void SpawnSpider(BlockPos pos, World world){
+    public static void SpawnSpider(BlockPos pos, World world){
         ShelobiteScuttlerEntity entity = new ShelobiteScuttlerEntity(ModEntities.SHELOBITE_SCUTTLER, world);
         entity.age = 0;
         entity.setPos(pos.getX(), pos.getY() + 1, pos.getZ());
