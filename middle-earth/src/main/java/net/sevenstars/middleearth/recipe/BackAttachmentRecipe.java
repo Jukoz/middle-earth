@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.recipe;
 
+import net.minecraft.component.DataComponentTypes;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
 import net.sevenstars.middleearth.item.items.armor.BackAttachmentItem;
@@ -67,8 +68,8 @@ public class BackAttachmentRecipe extends SpecialCraftingRecipe {
 
         if (!itemStack.isEmpty()) {
             int color;
-            if (backAttachment.get(DataComponentTypesME.DYE_DATA) != null){
-                color = backAttachment.get(DataComponentTypesME.DYE_DATA).customRgb();
+            if (backAttachment.get(DataComponentTypes.DYED_COLOR) != null){
+                color = backAttachment.get(DataComponentTypes.DYED_COLOR).rgb();
             } else {
                 color = 0;
             }

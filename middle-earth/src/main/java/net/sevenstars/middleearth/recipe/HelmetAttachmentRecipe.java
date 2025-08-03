@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.recipe;
 
+import net.minecraft.component.DataComponentTypes;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomHelmetItem;
@@ -68,8 +69,8 @@ public class HelmetAttachmentRecipe extends SpecialCraftingRecipe {
 
         if (!itemStack.isEmpty()) {
             int color;
-            if (hood.get(DataComponentTypesME.DYE_DATA) != null){
-                color = hood.get(DataComponentTypesME.DYE_DATA).customRgb();
+            if (hood.get(DataComponentTypes.DYED_COLOR) != null){
+                color = hood.get(DataComponentTypes.DYED_COLOR).rgb();
             } else {
                 color = 0;
             }

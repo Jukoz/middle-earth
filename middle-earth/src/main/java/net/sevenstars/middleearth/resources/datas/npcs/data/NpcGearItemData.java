@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.resources.datas.npcs.data;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsStatesME;
@@ -147,14 +146,14 @@ public class NpcGearItemData {
             List<TagKey<Item>> tags = itemStack.streamTags().toList();
             if(tags.contains(ItemTags.DYEABLE))
                 itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color));
-            else if(itemStack.isIn(ModTags.DYEABLE))
-                itemStack.set(DataComponentTypesME.DYE_DATA, new CustomDyeableDataComponent(this.color));
+            else if(itemStack.isIn(ItemTags.DYEABLE))
+                itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color));
         } else if(this.colors != null){
             List<TagKey<Item>> tags = itemStack.streamTags().toList();
             if(tags.contains(ItemTags.DYEABLE))
                 itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(getRandomColor(colors)));
-            else if(itemStack.isIn(ModTags.DYEABLE))
-                itemStack.set(DataComponentTypesME.DYE_DATA, new CustomDyeableDataComponent(getRandomColor(colors)));
+            else if(itemStack.isIn(ItemTags.DYEABLE))
+                itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(getRandomColor(colors)));
         }
         if(this.noCape != null && this.noCape && itemStack.getComponents().contains(DataComponentTypesME.BACK_ATTACHMENT_DATA)){
             itemStack.remove(DataComponentTypesME.BACK_ATTACHMENT_DATA);
@@ -179,7 +178,7 @@ public class NpcGearItemData {
             } else {
                 hoodState = this.isDown;
             }
-            int newHoodColor = CustomDyeableDataComponent.DEFAULT_COLOR;
+            int newHoodColor = DyedColorComponent.DEFAULT_COLOR;
             if(hoodColor != null)
                 newHoodColor = hoodColor;
             if(hoodColors != null)
