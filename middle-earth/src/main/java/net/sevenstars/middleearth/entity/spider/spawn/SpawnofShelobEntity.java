@@ -28,12 +28,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.entity.goals.CooldownRangedAttackMob;
+import net.sevenstars.middleearth.entity.goals.SmartProjectileAttackGoal;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 
-public class SpawnofShelobEntity extends HostileEntity implements Pouncer, RangedAttackMob {
+public class SpawnofShelobEntity extends HostileEntity implements Pouncer, CooldownRangedAttackMob {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final float MOVEMENT_SPEED = 1.15f;
     public static final float WEB_PROJECTILE_DAMAGE = 2f;
@@ -46,6 +48,7 @@ public class SpawnofShelobEntity extends HostileEntity implements Pouncer, Range
     public final AnimationState pounceAnimation = new AnimationState();
 
     private int climbingTicks = 0;
+    private int shootCooldown = 0;
 
     public SpawnofShelobEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -61,7 +64,7 @@ public class SpawnofShelobEntity extends HostileEntity implements Pouncer, Range
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(1, new ProjectileAttackGoal(this, 0.7f, 25, 32));
+        this.goalSelector.add(1, new SmartProjectileAttackGoal(this, 0.7f, 20, 40, 18, 40));
         this.goalSelector.add(3, new SpiderPonceAtTargetGoal(this, this, 0.5F, 0.4f));
         this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
@@ -117,6 +120,7 @@ public class SpawnofShelobEntity extends HostileEntity implements Pouncer, Range
         super.tick();
         if (!this.getWorld().isClient) {
             this.setClimbingWall(this.horizontalCollision);
+            this.shootCooldown = Math.max(0, this.shootCooldown - 1);
         } else {
             setupAnimationStates();
         }
@@ -148,6 +152,16 @@ public class SpawnofShelobEntity extends HostileEntity implements Pouncer, Range
         }
 
         this.playSound(SoundEvents.ENTITY_BREEZE_SHOOT, 1.0F, 0.7F + (this.getRandom().nextFloat() * 0.6F));
+    }
+
+    @Override
+    public int getRangeAttackCooldown() {
+        return this.shootCooldown;
+    }
+
+    @Override
+    public void setRangeAttackCooldown(int cooldown) {
+        this.shootCooldown = cooldown;
     }
 
     protected SoundEvent getAmbientSound() {
