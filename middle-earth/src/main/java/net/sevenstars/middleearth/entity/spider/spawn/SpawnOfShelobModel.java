@@ -157,7 +157,7 @@ public class SpawnOfShelobModel extends EntityModel<ShelobiteScuttlerRenderState
     public void setAngles(ShelobiteScuttlerRenderState state) {
         super.setAngles(state);
 
-        if(state.limbSwingAmplitude <= 0.35) {
+        if(state.limbSwingAmplitude <= 0.4) {
             this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
         }
         this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);

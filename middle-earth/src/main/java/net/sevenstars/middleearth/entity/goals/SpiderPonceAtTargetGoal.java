@@ -6,6 +6,7 @@ import net.minecraft.entity.ai.goal.PounceAtTargetGoal;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.util.math.Vec3d;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 
@@ -40,8 +41,8 @@ public class SpiderPonceAtTargetGoal extends Goal {
         if (this.target == null) {
             return false;
         }
-        double d = this.spider.squaredDistanceTo(this.target);
-        if (d < 4.0 || d > 16.0) {
+        double d = this.spider.distanceTo(this.target);
+        if (d < 3.0 || d > 12.0) {
             return false;
         }
         if (!this.spider.isOnGround()) {
@@ -50,7 +51,8 @@ public class SpiderPonceAtTargetGoal extends Goal {
         this.path = this.spider.getNavigation().findPathTo(target, 0);
         if(path == null) return false;
 
-        return this.spider.getRandom().nextInt(PounceAtTargetGoal.toGoalTicks(5)) == 0;
+        int randomInt = this.spider.getRandom().nextInt(PounceAtTargetGoal.toGoalTicks(5));
+        return randomInt == 0;
     }
 
     @Override

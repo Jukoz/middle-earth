@@ -9,7 +9,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 
-public class SpawnOfShelobRenderer extends MobEntityRenderer<SpawnofShelobEntity, ShelobiteScuttlerRenderState, SpawnOfShelobModel> {
+public class SpawnOfShelobRenderer extends MobEntityRenderer<SpawnOfShelobEntity, ShelobiteScuttlerRenderState, SpawnOfShelobModel> {
     private static final String PATH = "textures/entities/spiders/";
 
     public SpawnOfShelobRenderer(EntityRendererFactory.Context context) {
@@ -31,7 +31,7 @@ public class SpawnOfShelobRenderer extends MobEntityRenderer<SpawnofShelobEntity
         return Identifier.of(MiddleEarth.MOD_ID, PATH + "mirkwood_shelobite_spawn.png");
     }
 
-    public void updateRenderState(SpawnofShelobEntity spawnofShelobEntity, ShelobiteScuttlerRenderState shelobiteScuttlerEntityRenderState, float f) {
+    public void updateRenderState(SpawnOfShelobEntity spawnofShelobEntity, ShelobiteScuttlerRenderState shelobiteScuttlerEntityRenderState, float f) {
         super.updateRenderState(spawnofShelobEntity, shelobiteScuttlerEntityRenderState, f);
         shelobiteScuttlerEntityRenderState.idleAnimationState.copyFrom(spawnofShelobEntity.idleAnimation);
         shelobiteScuttlerEntityRenderState.walkAnimationState.copyFrom(spawnofShelobEntity.walkingAnimation);

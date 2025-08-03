@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.entity.spider.spawn;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.SpiderNavigation;
@@ -34,7 +33,7 @@ import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 
-public class SpawnofShelobEntity extends HostileEntity implements Pouncer, CooldownRangedAttackMob {
+public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, CooldownRangedAttackMob {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final float MOVEMENT_SPEED = 1.15f;
     public static final float WEB_PROJECTILE_DAMAGE = 2f;
@@ -49,7 +48,7 @@ public class SpawnofShelobEntity extends HostileEntity implements Pouncer, Coold
     private int climbingTicks = 0;
     private int shootCooldown = 0;
 
-    public SpawnofShelobEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public SpawnOfShelobEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -58,14 +57,15 @@ public class SpawnofShelobEntity extends HostileEntity implements Pouncer, Coold
                 .add(EntityAttributes.MAX_HEALTH, 36.0)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.3)
                 .add(EntityAttributes.ATTACK_DAMAGE, 7)
+                .add(EntityAttributes.ARMOR, 3)
                 .add(EntityAttributes.FOLLOW_RANGE, 48.0);
     }
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(1, new SmartProjectileAttackGoal(this, 0.7f, 20, 40, 18, 40));
-        this.goalSelector.add(3, new SpiderPonceAtTargetGoal(this, this, 0.5F, 0.4f));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
+        this.goalSelector.add(1, new SmartProjectileAttackGoal(this, 0.7f, 40, 90, 17, 40));
+        this.goalSelector.add(3, new SpiderPonceAtTargetGoal(this, this, 0.55F, 0.35f));
+        this.goalSelector.add(3, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
@@ -222,7 +222,7 @@ public class SpawnofShelobEntity extends HostileEntity implements Pouncer, Coold
     }
 
     static {
-        SPIDER_FLAGS = DataTracker.registerData(SpawnofShelobEntity.class, TrackedDataHandlerRegistry.BYTE);
-        POUNCE_FLAG = DataTracker.registerData(SpawnofShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        SPIDER_FLAGS = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.BYTE);
+        POUNCE_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
     }
 }
