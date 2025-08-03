@@ -66,6 +66,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     private static final TrackedData<String> CATEGORY;
     private static final TrackedData<String> FACTION_ID;
     private static final TrackedData<String> NPC_DATA_ID;
+    private static final TrackedData<Long> INITIALIZATION_TICK;
     private static final TrackedData<NpcEntityTextureData> TEXTURE_DATA;
     private static final TrackedData<BlockPos> STRUCTURE_MANAGER_HOST_POS;
 
@@ -108,6 +109,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         World world = getWorld();
         if(world.isClient)
             return;
+
+        this.dataTracker.set(INITIALIZATION_TICK, world.getTickOrder());
+
         DynamicRegistryManager dynamicRegistryManager = world.getRegistryManager();
 
         // set attributes
@@ -155,11 +159,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
 
+        builder.add(INITIALIZATION_TICK, 0l);
         builder.add(CATEGORY, "");
         builder.add(FACTION_ID, "");
         builder.add(NPC_DATA_ID, "");
         builder.add(TEXTURE_DATA, new NpcEntityTextureData());
         builder.add(STRUCTURE_MANAGER_HOST_POS, getBlockPos());
+
     }
 
     @Override
@@ -191,6 +197,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
        view.put("FactionId", Codec.STRING, dataTracker.get(FACTION_ID));
        view.put("EntityCategory", Codec.STRING, dataTracker.get(CATEGORY));
        view.put("NpcTextureData", NpcEntityTextureData.CODEC, dataTracker.get(TEXTURE_DATA));
+       view.put("InitializationTick", Codec.LONG, dataTracker.get(INITIALIZATION_TICK));
    }
 
     private void readEntityData(ReadView view) {
@@ -199,12 +206,12 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         AtomicBoolean haveNpcCategory = new AtomicBoolean(false);
         AtomicBoolean haveTextureData = new AtomicBoolean(false);
 
-
         view.read("StructureManagerHostPos", BlockPos.CODEC).ifPresentOrElse(x -> setStructureManagerHost(x), () -> setStructureManagerHost(null));
         view.read("NpcDataId", Identifier.CODEC).ifPresentOrElse(x -> {setNpcDataId(x); haveNpcData.set(true); }, () -> setNpcDataId(null));
         view.read("FactionId", Identifier.CODEC).ifPresentOrElse(x -> {setFactionId(x); haveFactionId.set(true); }, () -> setFactionId(null));
         view.read("EntityCategory", Codec.STRING).ifPresentOrElse(x -> {setNpcCategory(EntityCategory.valueOf(x)); haveNpcCategory.set(true); }, () -> setNpcCategory(null));
         view.read("NpcTextureData", NpcEntityTextureData.CODEC).ifPresentOrElse(x -> {setNpcTextureData(x); haveTextureData.set(true); }, () -> setNpcTextureData(null));
+        view.read("InitializationTick", Codec.LONG).ifPresent(x -> dataTracker.set(INITIALIZATION_TICK, x));
 
         initializeEntityData(haveNpcData.get(), haveFactionId.get(), haveNpcCategory.get(), haveTextureData.get());
     }
@@ -330,7 +337,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         Identifier materialId = NpcTextureData.getRawMaterial(textureIdentity, NpcTextureType.EYE);
         Identifier patternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.EYE);
 
-        npcEntityTextureData = npcEntityTextureData.withEyeTexture(NpcTextureData.buildId(patternId, materialId), haveEmissiveEyes);
+        npcEntityTextureData = npcEntityTextureData.withEyeTexture(NpcTextureData.buildId(patternId, materialId), NpcTextureData.buildId(Identifier.of(patternId.getPath() + "_emissive"), materialId), haveEmissiveEyes);
 
         return npcEntityTextureData;
     }
@@ -453,6 +460,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             return;
         this.dataTracker.set(STRUCTURE_MANAGER_HOST_POS, blockPos);
     }
+    public Long getInitializationTick() {
+        return this.dataTracker.get(INITIALIZATION_TICK);
+    }
     public Identifier getNpcDataId() {
         return Identifier.of(this.dataTracker.get(NPC_DATA_ID));
     }
@@ -470,6 +480,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     static {
+        INITIALIZATION_TICK = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.INITIALIZATION_TICK);
         FACTION_ID = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.FACTION_ID);
         NPC_DATA_ID = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_DATA_ID);
         CATEGORY = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.CATEGORY);

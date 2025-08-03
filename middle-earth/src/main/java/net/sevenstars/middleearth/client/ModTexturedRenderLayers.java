@@ -37,7 +37,7 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
 
     static {
         NPC_SKIN_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
-        NPC_EYE_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCullZOffset(NPC_EYE_TEXTURES_ATLAS_TEXTURE);
+        NPC_EYE_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(NPC_EYE_TEXTURES_ATLAS_TEXTURE);
         NPC_EYE_TEXTURES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(NPC_EYE_TEXTURES_ATLAS_TEXTURE);
         NPC_HAIR_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCullZOffset(NPC_HAIR_TEXTURES_ATLAS_TEXTURE);
         NPC_CLOTHING_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCullZOffset(NPC_CLOTHING_TEXTURES_ATLAS_TEXTURE);

@@ -124,7 +124,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     public boolean subscribeNest(BlockPos nestPos, Identifier managerId, Identifier nestId, int spawnRadius) {
-        if(!enabled || managerId.compareTo(this.structureManagerIdentifier) != 0)
+        if(!enabled || managerId == null || structureManagerIdentifier == null || managerData == null || managerId.compareTo(this.structureManagerIdentifier) != 0)
             return false;
 
         SpawnNestNodeData data = managerData.getNpcSpawnNest(nestId);

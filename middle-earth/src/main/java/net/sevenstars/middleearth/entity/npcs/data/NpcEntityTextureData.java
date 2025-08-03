@@ -14,6 +14,7 @@ public class NpcEntityTextureData {
     private Identifier earTexture;
     private Identifier noseTexture;
     private Identifier eyeTexture;
+    private Identifier eyeEmissiveTexture;
     private Identifier eyebrowTexture;
     private Identifier scarTexture;
     private Identifier beardTexture;
@@ -42,7 +43,9 @@ public class NpcEntityTextureData {
             this.scarTexture = Identifier.of(compound.getString("scar").get());
 
         this.eyeTexture = Identifier.of(compound.getString("eye").get());
-        this.eyeEmissive = compound.getBoolean("eye_emissive").get();
+        this.eyeEmissiveTexture = Identifier.of(compound.getString("eye_emissive").get());
+
+        this.eyeEmissive = compound.getBoolean("eye_is_emissive").get();
 
         if(compound.contains("hair")){
             this.hairTexture = Identifier.of(compound.getString("hair").get());
@@ -89,8 +92,10 @@ public class NpcEntityTextureData {
         this.noseTexture = texture;
         return this;
     }
-    public NpcEntityTextureData withEyeTexture(Identifier texture, Boolean isEmissive){
-        this.eyeTexture = texture;
+
+    public NpcEntityTextureData withEyeTexture(Identifier eyeTexture, Identifier eyeEmissiveTexture, Boolean isEmissive){
+        this.eyeTexture = eyeTexture;
+        this.eyeEmissiveTexture = eyeEmissiveTexture;
         this.eyeEmissive = isEmissive;
         return this;
     }
@@ -138,7 +143,8 @@ public class NpcEntityTextureData {
             nbt.putString("nose", noseTexture.toString());
 
         nbt.putString("eye", eyeTexture.toString());
-        nbt.putBoolean("eye_emissive", eyeEmissive);
+        nbt.putString("eye_emissive", eyeEmissiveTexture.toString());
+        nbt.putBoolean("eye_is_emissive", eyeEmissive);
 
         if(hairTexture != null){
             nbt.putString("hair", hairTexture.toString());
@@ -177,6 +183,9 @@ public class NpcEntityTextureData {
     }
     public Identifier getEyeTexture() {
         return this.eyeTexture;
+    }
+    public Identifier getEyeEmissiveTexture() {
+        return this.eyeEmissiveTexture;
     }
     public Boolean isEyeEmissive() {
         return this.eyeEmissive;

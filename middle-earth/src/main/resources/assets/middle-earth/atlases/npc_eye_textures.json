@@ -9,8 +9,18 @@
                 "middle-earth:npc_eye_textures/eye_small",
                 "middle-earth:npc_eye_textures/eye_small_high_wide",
                 "middle-earth:npc_eye_textures/eye_small_wide",
-                "middle-earth:npc_eye_textures/eye_small_low_wide"
+                "middle-earth:npc_eye_textures/eye_small_low_wide",
 
+                "middle-earth:npc_eye_textures/eye_common_emissive",
+                "middle-earth:npc_eye_textures/eye_common_emissive_overlay",
+                "middle-earth:npc_eye_textures/eye_blind_left_emissive",
+                "middle-earth:npc_eye_textures/eye_blind_left_emissive_overlay",
+                "middle-earth:npc_eye_textures/eye_blind_right_emissive",
+                "middle-earth:npc_eye_textures/eye_blind_right_emissive_overlay",
+                "middle-earth:npc_eye_textures/eye_small_emissive",
+                "middle-earth:npc_eye_textures/eye_small_high_wide_emissive",
+                "middle-earth:npc_eye_textures/eye_small_wide_emissive",
+                "middle-earth:npc_eye_textures/eye_small_low_wide_emissive"
             ],
             "palette_key": "middle-earth:npc_eye_textures/color_palettes/base_palette",
             "permutations": {
