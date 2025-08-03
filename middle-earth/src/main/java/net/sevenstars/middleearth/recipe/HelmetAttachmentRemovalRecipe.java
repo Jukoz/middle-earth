@@ -1,8 +1,9 @@
 package net.sevenstars.middleearth.recipe;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.DyedColorComponent;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomHelmetItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -37,7 +38,7 @@ public class HelmetAttachmentRemovalRecipe extends SpecialCraftingRecipe {
             }else if (itemStack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA) != null){
                 ItemStack helmetAttachment = new ItemStack(Registries.ITEM.get(Identifier.of(MiddleEarth.MOD_ID, itemStack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA).helmetAttachment().getName())));
                 helmetAttachment.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, itemStack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA));
-                helmetAttachment.set(DataComponentTypesME.DYE_DATA, new CustomDyeableDataComponent(itemStack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA).helmetAttachmentColor()));
+                helmetAttachment.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(itemStack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA).helmetAttachmentColor()));
                 defaultedList.set(i, helmetAttachment);
             }
         }

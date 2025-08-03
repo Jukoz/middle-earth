@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 
@@ -12,7 +12,9 @@ public class SimpleDoorModel {
 
     public static List<Door> doors = new ArrayList<>() {
         {
-            add(new Door(Blocks.IRON_BLOCK, ModBlocks.TREATED_STEEL_DOOR));
+            add(new Door(ModBlocks.BRONZE_BLOCK, ModBlocks.BRONZE_DOOR));
+            add(new Door(ModBlocks.CRUDE_BLOCK, ModBlocks.CRUDE_DOOR));
+            add(new Door(ModBlocks.STEEL_BLOCK, ModBlocks.TREATED_STEEL_DOOR));
         }
     };
 }

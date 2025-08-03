@@ -3,13 +3,13 @@ package net.sevenstars.middleearth.commands.custom;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import net.minecraft.component.type.DyedColorComponent;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.commands.suggestions.AllBackAttachmentsSuggestionProvider;
 import net.sevenstars.middleearth.commands.suggestions.AllHelmetAttachmentsSuggestionProvider;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
 import net.sevenstars.middleearth.item.items.armor.BackAttachmentItem;
 import net.sevenstars.middleearth.item.items.armor.CustomChestplateItem;
@@ -93,9 +93,9 @@ public class CommandCustomEquipment {
 
         if ((handStack.getItem() instanceof CustomHelmetItem || handStack.getItem() instanceof HelmetAttachmentItem)){
             if (helmetAttachment.getConstantState() == HelmetAttachmentsStatesME.DOWN){
-                handStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(true, helmetAttachment, CustomDyeableDataComponent.DEFAULT_COLOR));
+                handStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(true, helmetAttachment, DyedColorComponent.DEFAULT_COLOR));
             } else if (helmetAttachment.getConstantState() == HelmetAttachmentsStatesME.UP || helmetAttachment.getConstantState() == null){
-                handStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(false, helmetAttachment, CustomDyeableDataComponent.DEFAULT_COLOR));
+                handStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(false, helmetAttachment, DyedColorComponent.DEFAULT_COLOR));
             }
             MutableText sourceText = Text.translatable("command.%s.helmet_attachment.success".formatted(MiddleEarth.MOD_ID)).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + helmetAttachment.getName()));
             context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));

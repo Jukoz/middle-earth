@@ -2,10 +2,10 @@ package net.sevenstars.middleearth.client.renderer.armor;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
+import net.minecraft.component.type.DyedColorComponent;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
@@ -33,7 +33,7 @@ public class HelmetAttachmentRenderer implements ArmorRenderer {
         if (helmet){
             color =  ColorHelper.fullAlpha(stack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA).helmetAttachmentColor());
         } else {
-            color = CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR);
+            color = DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR);
         }
         model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
     }
