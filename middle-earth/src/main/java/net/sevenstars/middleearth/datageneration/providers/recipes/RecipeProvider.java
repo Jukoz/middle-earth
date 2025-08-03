@@ -815,7 +815,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //endregion
 
 
-                ComplexRecipeJsonBuilder.create(CustomArmorDyeRecipe::new).offerTo(exporter, "custom_armor_dye");
                 ComplexRecipeJsonBuilder.create(HelmetAttachmentRecipe::new).offerTo(exporter, "custom_armor_hood");
                 ComplexRecipeJsonBuilder.create(HelmetAttachmentRemovalRecipe::new).offerTo(exporter, "custom_armor_hood_removal");
                 ComplexRecipeJsonBuilder.create(BackAttachmentRecipe::new).offerTo(exporter, "custom_armor_cape");

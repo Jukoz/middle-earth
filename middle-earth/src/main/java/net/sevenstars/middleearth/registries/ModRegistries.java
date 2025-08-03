@@ -31,7 +31,6 @@ import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.recipe.ModTags;
 
 import java.io.File;
@@ -118,7 +117,13 @@ public class ModRegistries {
     }
 
     public static void registerToolTipAppenders() {
+        ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.ARTISAN_DATA);
         ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.TEMPERATURE_DATA);
+        ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.ARMOR_TIER_DATA);
+        ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.WEAPON_TYPE_DATA);
+        ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.FACTION_DATA);
+        ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.HELMET_ATTACHMENT_DATA);
+        ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.BACK_ATTACHMENT_DATA);
         ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.BLOCK_AUTHOR_DATA);
     }
 
@@ -626,22 +631,6 @@ public class ModRegistries {
         return ActionResult.SUCCESS;
     };
 
-    public static final CauldronBehavior CLEAN_CUSTOM_DYEABLE_ITEM = (state, world, pos, player, hand, stack) -> {
-        if (!stack.isIn(ModTags.DYEABLE)) {
-            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
-        }
-        if (!stack.contains(DataComponentTypesME.DYE_DATA)) {
-            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
-        }
-        if (!world.isClient) {
-            stack.set(DataComponentTypesME.DYE_DATA,
-                     new CustomDyeableDataComponent(CustomDyeableDataComponent.DEFAULT_COLOR));
-            player.incrementStat(Stats.CLEAN_ARMOR);
-            LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
-        }
-        return ActionResult.SUCCESS;
-    };
-
     public static final CauldronBehavior COOL_DOWN_METAL = (state, world, pos, player, hand, stack) -> {
         Random random = world.getRandom();
         int smokeAmount = random.nextInt(9) + 4;
@@ -684,9 +673,6 @@ public class ModRegistries {
     };
 
     public static void registerCauldronBehaviour() {
-        SimpleDyeableItemModel.items.forEach(item -> {
-            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, CLEAN_CUSTOM_DYEABLE_ITEM);
-        });
 
         HotMetalsModel.items.forEach(item -> {
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);

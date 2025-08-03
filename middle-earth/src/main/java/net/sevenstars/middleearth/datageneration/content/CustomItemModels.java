@@ -10,6 +10,8 @@ import java.util.Optional;
 public class CustomItemModels {
     public static final Model BIG_WEAPON = new Model(Optional.of(
             Identifier.of(MiddleEarth.MOD_ID, "item/big_weapon")), Optional.empty(), TextureKey.LAYER0);
+    public static final Model BIG_WEAPON_BLOCKING = new Model(Optional.of(
+            Identifier.of(MiddleEarth.MOD_ID, "item/big_weapon_blocking")), Optional.of("_blocking"), TextureKey.LAYER0);
     public static final Model BOW = new Model(Optional.of(
             Identifier.of(MiddleEarth.MOD_ID, "item/bow")), Optional.empty(), TextureKey.LAYER0);
     public static final Model LONGBOW = new Model(Optional.of(

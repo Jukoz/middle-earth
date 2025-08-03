@@ -60,7 +60,7 @@ public class ToolItemsME {
     public static final Item BRONZE_PICKAXE = registerItemHandheld("bronze_pickaxe",
             Item::new, new Item.Settings().pickaxe(ModToolMaterials.BRONZE, 0.5f, -2.8f));
     public static final Item BRONZE_AXE = registerItemHandheld("bronze_axe",
-            (settings) -> new CustomAxeWeaponItem(settings, ModToolMaterials.BRONZE), new Item.Settings());
+            (settings) -> new CustomAxeWeaponItem(ModToolMaterials.BRONZE, settings), new Item.Settings());
     public static final Item BRONZE_SHOVEL = registerItemHandheld("bronze_shovel",
             (settings) -> new ShovelItem(ModToolMaterials.BRONZE, 1.5f, -3.0f, settings), new Item.Settings());
     public static final Item BRONZE_HOE = registerItemHandheld("bronze_hoe",
@@ -78,7 +78,7 @@ public class ToolItemsME {
     public static final Item STEEL_PICKAXE = registerItemHandheld("steel_pickaxe",
             Item::new, new Item.Settings().pickaxe(ModToolMaterials.STEEL, 1.0f, -2.8f));
     public static final Item STEEL_AXE = registerItemDualModel("steel_axe",
-            (settings) -> new CustomAxeWeaponItem(settings,ModToolMaterials.STEEL), new Item.Settings());
+            (settings) -> new CustomAxeWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings());
     public static final Item STEEL_SHOVEL = registerItemHandheld("steel_shovel",
             (settings) -> new ShovelItem(ModToolMaterials.STEEL, 1.5f, -3.0f, settings), new Item.Settings());
     public static final Item STEEL_HOE = registerItemHandheld("steel_hoe",
@@ -87,7 +87,7 @@ public class ToolItemsME {
     public static final Item BURZUM_STEEL_PICKAXE = registerItemHandheld("burzum_steel_pickaxe",
             Item::new, new Item.Settings().pickaxe(ModToolMaterials.BURZUM_STEEL, 1.0f, -2.8f));
     public static final Item BURZUM_STEEL_AXE = registerItemDualModel("burzum_steel_axe",
-            (settings) -> new CustomAxeWeaponItem(settings, ModToolMaterials.BURZUM_STEEL), new Item.Settings());
+            (settings) -> new CustomAxeWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings());
     public static final Item BURZUM_STEEL_SHOVEL = registerItemHandheld("burzum_steel_shovel",
             (settings) -> new ShovelItem(ModToolMaterials.BURZUM_STEEL, 1.5f, -3.0f, settings), new Item.Settings());
     public static final Item BURZUM_STEEL_HOE = registerItemHandheld("burzum_steel_hoe",
@@ -114,7 +114,7 @@ public class ToolItemsME {
     public static final Item MITHRIL_PICKAXE = registerItemHandheld("mithril_pickaxe",
             Item::new, new Item.Settings().fireproof().pickaxe(ModToolMaterials.MITHRIL, 1.0f, -2.7f));
     public static final Item MITHRIL_AXE = registerItemHandheld("mithril_axe",
-            (settings) -> new CustomAxeWeaponItem(settings, ModToolMaterials.MITHRIL), new Item.Settings().fireproof());
+            (settings) -> new CustomAxeWeaponItem(ModToolMaterials.MITHRIL, settings), new Item.Settings().fireproof());
     public static final Item MITHRIL_SHOVEL = registerItemHandheld("mithril_shovel",
             (settings) -> new ShovelItem(ModToolMaterials.MITHRIL, 1.5f, -3.0f, settings), new Item.Settings().fireproof());
     public static final Item MITHRIL_HOE = registerItemHandheld("mithril_hoe",

@@ -11,7 +11,6 @@ import net.minecraft.util.Identifier;
 
 public class ModRecipeSerializer<T extends Recipe<?>> {
 
-    public static final SpecialCraftingRecipe.SpecialRecipeSerializer<CustomArmorDyeRecipe> CUSTOM_ARMOR_DYE = register("custom_armor_dye", new SpecialCraftingRecipe.SpecialRecipeSerializer<>(CustomArmorDyeRecipe::new));;
     public static final SpecialCraftingRecipe.SpecialRecipeSerializer<BackAttachmentRecipe> CUSTOM_ARMOR_BACK_ATTACHMENT = register("custom_armor_back_attachment", new SpecialCraftingRecipe.SpecialRecipeSerializer<>(BackAttachmentRecipe::new));
     public static final SpecialCraftingRecipe.SpecialRecipeSerializer<BackAttachmentRemovalRecipe> CUSTOM_ARMOR_BACK_ATTACHMENT_REMOVAL = register("custom_armor_back_attachment_removal", new SpecialCraftingRecipe.SpecialRecipeSerializer<>(BackAttachmentRemovalRecipe::new));
     public static final SpecialCraftingRecipe.SpecialRecipeSerializer<HelmetAttachmentRecipe> CUSTOM_ARMOR_HELMET_ATTACHMENT = register("custom_armor_helmet_attachment", new SpecialCraftingRecipe.SpecialRecipeSerializer<>(HelmetAttachmentRecipe::new));

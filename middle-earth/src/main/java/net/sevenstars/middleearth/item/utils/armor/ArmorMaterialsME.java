@@ -1,23 +1,32 @@
 package net.sevenstars.middleearth.item.utils.armor;
 
+import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.item.Item;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.EquipmentAssetKeys;
 import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.function.ValueLists;
+import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.recipe.ModTags;
+import net.sevenstars.middleearth.utils.ModColors;
 
 import java.util.EnumMap;
+import java.util.function.IntFunction;
 
 public interface ArmorMaterialsME {
 
     ExtendedArmorMaterial STRAW_T1 = registerArmor("straw_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_STRAW_ARMOR);
 
-    ExtendedArmorMaterial WOOL_T1 = registerArmor("wool_t1", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_WOOL_ARMOR);
+    ExtendedArmorMaterial WOOL_T1 = registerArmor("wool_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_WOOL_ARMOR);
 
     ExtendedArmorMaterial FUR_T0 = registerArmor("fur_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_FUR_ARMOR);
 
@@ -159,13 +168,44 @@ public interface ArmorMaterialsME {
         return new ExtendedArmorMaterial(material, durabilityMultiplier, tier);
     }
 
-    enum Tiers {
-        CLOTHING,
-        BASIC,
-        LIGHT,
-        MEDIUM,
-        STURDY,
-        HEAVY,
+    enum Tiers implements StringIdentifiable {
+        CLOTHING(0, "tier_clothing",11184810),
+        BASIC(1, "tier_basic", 16777215),
+        LIGHT(2, "tier_light", 5635925),
+        MEDIUM(3, "tier_medium", 5592575),
+        STURDY(4, "tier_sturdy",11141290),
+        HEAVY(5, "tier_heavy",11141120),
         ;
+
+        private static final IntFunction<Tiers> BY_ID = ValueLists.createIndexToValueFunction(Tiers::getId, Tiers.values(), ValueLists.OutOfBoundsHandling.ZERO);;
+        private final String name;
+        private final int id;
+        private final int color;
+
+        public static final Codec<Tiers> CODEC = StringIdentifiable.createBasicCodec(Tiers::values);
+        public static final PacketCodec<ByteBuf, Tiers> PACKET_CODEC = PacketCodecs.indexed(BY_ID, Tiers::getId);
+
+        Tiers(int id, String name, int color){
+            this.name = name;
+            this.id = id;
+            this.color = color;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public int getColor() {
+            return color;
+        }
+
+        @Override
+        public String asString() {
+            return this.name;
+        }
     }
 }

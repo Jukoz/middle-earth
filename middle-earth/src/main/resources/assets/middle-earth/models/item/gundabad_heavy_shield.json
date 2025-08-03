@@ -2,7 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"1": "middle-earth:item/gundabad_heavy_shield"
+		"1": "middle-earth:item/gundabad_heavy_shield",
+		"particle": "block/dark_oak_planks"
 	},
 	"elements": [
 		{

@@ -1,53 +1,20 @@
 package net.sevenstars.middleearth.item.items.weapons;
 
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.item.Item;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
-import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
-import net.sevenstars.middleearth.utils.ModFactions;
-import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
-public class CustomDaggerWeaponItem extends ReachWeaponItem implements EquipmentTooltipME {
+public class CustomDaggerWeaponItem extends ReachWeaponItem {
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
     public CustomDaggerWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
         super(toolMaterial, ModWeaponTypes.DAGGER, settings);
-    }
-
-    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
-        super(toolMaterial, faction, ModWeaponTypes.DAGGER, settings);
-    }
-
-    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
-        super(toolMaterial, subFaction, ModWeaponTypes.DAGGER, settings);
-    }
-
-    @Override
-    public List<Text> getAdditionalShiftLines(ItemStack stack) {
-        List<Text> list = new ArrayList<>(List.of());
-
-        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
-        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".backstab"));
-
-        return list;
-    }
-
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
+        this.type = ModWeaponTypes.DAGGER;
     }
 
     public static boolean canBackStab(Entity target, Entity attacker) {

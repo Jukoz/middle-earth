@@ -3,7 +3,8 @@
 	"texture_size": [64, 64],
 	"gui_light": "front",
 	"textures": {
-		"2": "middle-earth:item/mordor_heavy_shield"
+		"2": "middle-earth:item/mordor_heavy_shield",
+		"particle": "block/dark_oak_planks"
 	},
 	"elements": [
 		{
