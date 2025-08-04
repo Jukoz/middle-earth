@@ -126,7 +126,6 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         warg_food.add(Items.BEEF);
         warg_food.add(Items.MUTTON);
         warg_food.add(FoodItemsME.RAW_HORSE);
-        warg_food.add(FoodItemsME.RAW_SWAN);
         warg_food.add(FoodItemsME.RAW_VENISON);
 
         warg_armor.add(EquipmentItemsME.WARG_MORDOR_PLATE_ARMOR);

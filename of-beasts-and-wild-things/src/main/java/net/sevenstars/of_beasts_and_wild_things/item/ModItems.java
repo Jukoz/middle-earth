@@ -1,6 +1,8 @@
 package net.sevenstars.of_beasts_and_wild_things.item;
 
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ConsumableComponents;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.passive.ChickenVariants;
 import net.minecraft.item.EggItem;
 import net.minecraft.item.Item;
@@ -17,7 +19,12 @@ import net.sevenstars.of_beasts_and_wild_things.datageneration.models.SimpleItem
 import java.util.function.Function;
 
 public class ModItems {
-
+    public static final Item RAW_SWAN = registerItem("raw_swan",
+            Item::new,new Item.Settings()
+                    .food(new FoodComponent.Builder().nutrition(3).saturationModifier(0.4F).build(), ConsumableComponents.RAW_CHICKEN));
+    public static final Item COOKED_SWAN = registerItem("cooked_swan",
+            Item::new,new Item.Settings()
+                    .food(new FoodComponent.Builder().nutrition(8).saturationModifier(0.8F).build()));
     public static final Item SWAN_FEATHER = registerItem("swan_feather",
             Item::new, new Item.Settings());
 
