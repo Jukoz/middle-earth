@@ -30,9 +30,9 @@ public class ShelobiteScuttlerModel extends EntityModel<ShelobiteScuttlerRenderS
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 36.0F, 0.0F));
+        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 18.0F, 0.0F));
 
-        ModelPartData legscore = root.addChild("legscore", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -18.0F, -5.0F));
+        ModelPartData legscore = root.addChild("legscore", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, -5.0F));
 
         ModelPartData rights = legscore.addChild("rights", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
@@ -110,7 +110,7 @@ public class ShelobiteScuttlerModel extends EntityModel<ShelobiteScuttlerRenderS
         ModelPartData rleg24 = rleg23.addChild("rleg24", ModelPartBuilder.create().uv(158, 96).mirrored().cuboid(0.0F, -2.0F, -0.5F, 2.0F, 6.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(88, 83).mirrored().cuboid(-4.0F, -6.0F, 0.0F, 15.0F, 13.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(3.0F, 1.0F, 0.0F));
 
-        ModelPartData body = root.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -18.0F, -4.0F));
+        ModelPartData body = root.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, -4.0F));
 
         ModelPartData abdomen = body.addChild("abdomen", ModelPartBuilder.create().uv(19, 72).cuboid(-4.0F, -2.0F, 0.0F, 8.0F, 5.0F, 10.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -3.0F, 2.0F));
 
@@ -136,8 +136,15 @@ public class ShelobiteScuttlerModel extends EntityModel<ShelobiteScuttlerRenderS
     public void setAngles(ShelobiteScuttlerRenderState state) {
         super.setAngles(state);
 
+        int croppedClimbingTicks = Math.min(ShelobiteScuttlerEntity.CLIMBING_TIME_TRANSITION, state.climbingTicks);
+        float percentage = (float) croppedClimbingTicks / ShelobiteScuttlerEntity.CLIMBING_TIME_TRANSITION;
+        this.root.pitch = -1.5f * percentage;
+
         this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
         this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
+        if(state.climbingTicks > 0) {
+            this.walkingAnimation.applyWalking((float)state.climbingTicks / 3.1f, 0.75f, 2.2F, 2.5F);
+        }
         this.biteAnimation.apply(state.walkAnimationState, state.age, 1.25f);
         this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.1f);
     }

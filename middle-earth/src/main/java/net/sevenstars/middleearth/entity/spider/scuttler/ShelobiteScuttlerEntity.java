@@ -192,7 +192,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     public void tickMovement() {
         super.tickMovement();
         if(isClimbingWall()) {
-            this.climbingTicks = Math.min(CLIMBING_TIME_TRANSITION, this.climbingTicks + 1);
+            this.climbingTicks = this.climbingTicks + 1;
         } else {
             this.climbingTicks = Math.max(0, this.climbingTicks - 1);
         }
