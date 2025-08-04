@@ -38,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     public static final int CLIMBING_TIME_TRANSITION = 12;
-    public static final int ADULT_AGE = 20 * 60 * 2; // 2 min of baby time
+    public static final int LEAPING_TIME_TRANSITION = 8;
     public static final float MOVEMENT_SPEED = 1.15f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
     private static final TrackedData<Integer> POUNCE_FLAG;
@@ -74,8 +74,8 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     public final AnimationState biteAnimation = new AnimationState();
     public final AnimationState pounceAnimation = new AnimationState();
 
-    private int idleAnimationCooldown = 0;
     private int climbingTicks = 0;
+    private int leapingTicks = 0;
 
     public ShelobiteScuttlerEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -142,8 +142,6 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         if (!this.idleAnimation.isRunning()) {
             //this.idleAnimationCooldown = this.random.nextInt(40) + 80;
             this.idleAnimation.start(this.age);
-        } else {
-            this.idleAnimationCooldown--;
         }
 
         int pounceAnimState = this.dataTracker.get(POUNCE_FLAG);
@@ -196,6 +194,12 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
             this.climbingTicks = this.climbingTicks + 1;
         } else {
             this.climbingTicks = Math.max(0, this.climbingTicks - 1);
+        }
+
+        if(isOnGround()) {
+            leapingTicks = 0;
+        } else {
+            leapingTicks++;
         }
     }
 
@@ -251,6 +255,10 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     public int getClimbingTicks() {
         return this.climbingTicks;
+    }
+
+    public int getLeapingTicks() {
+        return this.leapingTicks;
     }
 
     public MirkwoodSpiderVariants getVariant() {

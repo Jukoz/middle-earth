@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.spider.scuttler;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.sevenstars.middleearth.MiddleEarth;
 
 public class ShelobiteScuttlerModel extends EntityModel<ShelobiteScuttlerRenderState> {
     private final ModelPart root;
@@ -135,16 +136,22 @@ public class ShelobiteScuttlerModel extends EntityModel<ShelobiteScuttlerRenderS
     @Override
     public void setAngles(ShelobiteScuttlerRenderState state) {
         super.setAngles(state);
-
         int croppedClimbingTicks = Math.min(ShelobiteScuttlerEntity.CLIMBING_TIME_TRANSITION, state.climbingTicks);
-        float percentage = (float) croppedClimbingTicks / ShelobiteScuttlerEntity.CLIMBING_TIME_TRANSITION;
-        this.root.pitch = -1.5f * percentage;
+        float climbingPercentage = (float) croppedClimbingTicks / ShelobiteScuttlerEntity.CLIMBING_TIME_TRANSITION;
+ 
+        int croppedLeapingTicks = Math.min(ShelobiteScuttlerEntity.LEAPING_TIME_TRANSITION, state.leapingTicks);
+        float leapingPercentage = (float) croppedLeapingTicks / ShelobiteScuttlerEntity.LEAPING_TIME_TRANSITION;
+
+        if(state.climbingTicks > 0 && climbingPercentage > leapingPercentage) {
+            this.root.pitch = -1.5f * climbingPercentage;
+            this.walkingAnimation.applyWalking((float)state.climbingTicks / 3.1f, 0.85f, 2.2F, 2.5F);
+        } else if(state.leapingTicks > 0 && leapingPercentage > climbingPercentage) {
+            this.root.pitch = -0.7f * leapingPercentage;
+            this.walkingAnimation.applyWalking((float)state.leapingTicks / 3.7f, 0.7f, 2.2F, 2.5F);
+        }
 
         this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
         this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
-        if(state.climbingTicks > 0) {
-            this.walkingAnimation.applyWalking((float)state.climbingTicks / 3.1f, 0.75f, 2.2F, 2.5F);
-        }
         this.biteAnimation.apply(state.walkAnimationState, state.age, 1.25f);
         this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.1f);
     }

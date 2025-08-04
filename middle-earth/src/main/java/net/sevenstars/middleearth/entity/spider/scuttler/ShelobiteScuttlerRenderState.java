@@ -13,6 +13,7 @@ public class ShelobiteScuttlerRenderState extends LivingEntityRenderState {
     public final AnimationState biteAnimationState = new AnimationState();
     public final AnimationState pounceAnimationState = new AnimationState();
     public int climbingTicks;
+    public int leapingTicks;
 
     public ShelobiteScuttlerRenderState() {
 

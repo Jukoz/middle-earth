@@ -37,5 +37,6 @@ public class ShelobiteScuttlerRenderer extends MobEntityRenderer<ShelobiteScuttl
         shelobiteScuttlerEntityRenderState.biteAnimationState.copyFrom(shelobiteScuttlerEntity.biteAnimation);
         shelobiteScuttlerEntityRenderState.pounceAnimationState.copyFrom(shelobiteScuttlerEntity.pounceAnimation);
         shelobiteScuttlerEntityRenderState.climbingTicks = shelobiteScuttlerEntity.getClimbingTicks();
+        shelobiteScuttlerEntityRenderState.leapingTicks = shelobiteScuttlerEntity.getLeapingTicks();
     }
 }
