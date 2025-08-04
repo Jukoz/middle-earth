@@ -70,10 +70,12 @@ public class NpcTexturePatternsME {
         public final static RegistryKey<NpcTexturePattern> SMALL_WIDE = of("eye_small_wide", NpcTextureType.EYE);
     }
 
-    public record Hair() {
+    public class Hair {
         public final static RegistryKey<NpcTexturePattern> BALD_DREADLOCKS_ORNAMENTED = of("hair_bald_dreadlocks_ornamented", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTexturePattern> BALD_SIDES = of("hair_bald_sides", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTexturePattern> BALD_SMALL_DREADLOCKS = of("hair_bald_small_dreadlocks", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTexturePattern> SIDE_BALDING = of("hair_side_balding", NpcTextureType.HAIR);
+        public final static RegistryKey<NpcTexturePattern> TOP_BALDING = of("hair_top_balding", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTexturePattern> BOWL = of("hair_bowl", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTexturePattern> DIRTY_MOP = of("hair_dirty_mop", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTexturePattern> FLAT_LONG = of("hair_flat_long", NpcTextureType.HAIR);
@@ -81,8 +83,7 @@ public class NpcTexturePatternsME {
         public final static RegistryKey<NpcTexturePattern> PONYTAIL_SHORT_ORNAMENTED = of("hair_ponytail_short_ornamented", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTexturePattern> SHARP = of("hair_sharp", NpcTextureType.HAIR);
         public final static RegistryKey<NpcTexturePattern> SHORT = of("hair_short", NpcTextureType.HAIR);
-        public final static RegistryKey<NpcTexturePattern> SIDE_BALDING = of("hair_side_balding", NpcTextureType.HAIR);
-        public final static RegistryKey<NpcTexturePattern> TOP_BALDING = of("hair_top_balding", NpcTextureType.HAIR);
+
         public final static RegistryKey<NpcTexturePattern> UNCUT = of("hair_uncut", NpcTextureType.HAIR);
     }
 

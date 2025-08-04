@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -59,6 +59,8 @@ public class TintableCrossModel {
     public static List<Block> grassLikeBlocks = new ArrayList<>()
     {
         {
+            add(ModNatureBlocks.ATHELAS);
+
             add(ModNatureBlocks.BROWN_GRASS);
             add(ModNatureBlocks.GREEN_SHRUB);
             add(ModNatureBlocks.SMALL_DRY_SHRUB);

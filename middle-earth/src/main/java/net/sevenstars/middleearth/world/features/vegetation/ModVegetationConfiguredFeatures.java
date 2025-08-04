@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.world.features.vegetation;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
-import net.sevenstars.middleearth.block.StoneBlockSets;
-import net.sevenstars.middleearth.block.WoodBlockSets;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.world.features.columns.CaveColumnFeatureConfig;
 import net.sevenstars.middleearth.world.features.underground.CavesConfiguredFeatures;
@@ -77,15 +77,15 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryEntryList.Direct<Block> BLOCKS_GROWTH = RegistryEntryList.of(Block::getRegistryEntry,
             Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.MOSSY_COBBLESTONE,
             Blocks.MOSS_BLOCK, Blocks.CLAY, Blocks.COBBLESTONE, Blocks.DEEPSLATE, Blocks.OAK_LOG, Blocks.BIRCH_LOG, Blocks.DARK_OAK_LOG, Blocks.SPRUCE_LOG,
-            WoodBlockSets.BEECH.log(), WoodBlockSets.MAPLE.log(), WoodBlockSets.SILVER_MAPLE.log(), WoodBlockSets.HOLLY.log());
+            WoodBlockSets.BEECH_SET.logBlocks.log(), WoodBlockSets.MAPLE_SET.logBlocks.log(), WoodBlockSets.SILVER_MAPLE_SET.logBlocks.log(), WoodBlockSets.HOLLY_SET.logBlocks.log());
     // endregion
 
     // region FOLIAGE
     public static final  RegistryEntryList<Block> BLOCKS_MOSS = RegistryEntryList.of(Block::getRegistryEntry,
             Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.MOSSY_COBBLESTONE, Blocks.COBBLESTONE,
             Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.MOSS_BLOCK, Blocks.SPRUCE_LOG, Blocks.OAK_LOG, Blocks.BIRCH_LOG, Blocks.DARK_OAK_LOG,
-            WoodBlockSets.PINE.log(), WoodBlockSets.LARCH.log(), WoodBlockSets.BEECH.log(), WoodBlockSets.MAPLE.log(),
-            WoodBlockSets.SILVER_MAPLE.log(), WoodBlockSets.BLACK_LEBETHRON.log(), WoodBlockSets.WHITE_LEBETHRON.log());
+            WoodBlockSets.PINE_SET.logBlocks.log(), WoodBlockSets.LARCH_SET.logBlocks.log(), WoodBlockSets.BEECH_SET.logBlocks.log(), WoodBlockSets.MAPLE_SET.logBlocks.log(),
+            WoodBlockSets.SILVER_MAPLE_SET.logBlocks.log(), WoodBlockSets.BLACK_LEBETHRON_SET.logBlocks.log(), WoodBlockSets.WHITE_LEBETHRON_SET.logBlocks.log());
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_BASALT = registerKey("patch_basalt");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_BLACKSTONE = registerKey("patch_blackstone");
@@ -316,19 +316,19 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_BLACKSTONE, Feature.BLOCK_PILE,
                 new BlockPileFeatureConfig(BlockStateProvider.of(Blocks.BLACKSTONE)));
         ConfiguredFeatures.register(featureRegisterable, PATCH_PUMICE, Feature.BLOCK_PILE,
-                new BlockPileFeatureConfig(BlockStateProvider.of(StoneBlockSets.PUMICE.base())));
+                new BlockPileFeatureConfig(BlockStateProvider.of(StoneBlockSets.PUMICE_SET.baseBlocks.base())));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_COBWEB, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(Blocks.COBWEB))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_SPIDER_EGGS, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.MIRKWOOD_SPIDER_EGG))));
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SHELOBITE_LARVA_EGG))));
 
         ConfiguredFeatures.register(featureRegisterable, PUMICE_COLUMN, ModFeatures.CAVE_COLUMN,
-                new CaveColumnFeatureConfig(ConstantIntProvider.create(1), UniformIntProvider.create(1, 4), StoneBlockSets.PUMICE.base().getDefaultState()));
+                new CaveColumnFeatureConfig(ConstantIntProvider.create(1), UniformIntProvider.create(1, 4), StoneBlockSets.PUMICE_SET.baseBlocks.base().getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, PUMICE_COLUMN_LARGE, ModFeatures.CAVE_COLUMN,
-                new CaveColumnFeatureConfig(UniformIntProvider.create(2, 3), UniformIntProvider.create(5, 10), StoneBlockSets.PUMICE.base().getDefaultState()));
+                new CaveColumnFeatureConfig(UniformIntProvider.create(2, 3), UniformIntProvider.create(5, 10), StoneBlockSets.PUMICE_SET.baseBlocks.base().getDefaultState()));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_BRACKEN, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
@@ -362,7 +362,7 @@ public class ModVegetationConfiguredFeatures {
                         RegistryEntryList.of(Block::getRegistryEntry,
                                 Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.MOSSY_COBBLESTONE, Blocks.COBBLESTONE,
                                 Blocks.GRASS_BLOCK, Blocks.DIRT,  Blocks.SPRUCE_LOG, Blocks.OAK_LOG, Blocks.BIRCH_LOG, Blocks.DARK_OAK_LOG,
-                                WoodBlockSets.MIRKWOOD.log(), ModNatureBlocks.OLD_PODZOL)));
+                                WoodBlockSets.MIRKWOOD_SET.logBlocks.log(), ModNatureBlocks.OLD_PODZOL)));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_CORRUPTED_MOSS_CARPET, Feature.BLOCK_PILE,
                 new BlockPileFeatureConfig(BlockStateProvider.of(ModNatureBlocks.CORRUPTED_MOSS_CARPET)));

@@ -3,10 +3,10 @@ package net.sevenstars.middleearth.gui.utils.widgets;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -124,13 +124,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
     public void setEntity(NpcEntity npcEntity) {
         this.entity = npcEntity;
     }
-    public void updateToDefaultEntity(World world) {
-        //BanditHumanEntity entity = new BanditHumanEntity(ModEntities.BANDIT_MILITIA, world);
-        //entity.setAiDisabled(true);
 
-        //this.entity = new NpcEntity(ModEntities.NPC, world);
-        this.entity = NpcEntity.create(world);
-    }
 
     private void updateEquipment(NpcGearData data){
         if(data == null) {
@@ -156,8 +150,6 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         int x = centerX;
         int y = endY;
 
-        //DiffuseLighting.disableGuiDepthLighting();
-        //DiffuseLighting.disableForLevel();
         if(this.entity == null) return;
 
         if(currentButtonClicked != null){
@@ -170,10 +162,13 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             }
         }
 
-        // TODO : Find a way to display the entity behind the buttons.
-        //TODO also fix
-        InventoryScreen.drawEntity(context, x, y, x, y - 9, size, VECTOR, ENTITY_ROTATION, (Quaternionf)null, this.entity);
+        EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
+        EntityRenderer<? super LivingEntity, ?> entityRenderer = entityRenderDispatcher.getRenderer(entity);
+        EntityRenderState entityRenderState = entityRenderer.getAndUpdateRenderState(entity, 1.0F);
+        entityRenderState.hitbox = null;
 
+        int entityY = y + 50;
+        context.addEntity(entityRenderState, 35f, VECTOR, ENTITY_ROTATION, new Quaternionf(), x - 20, entityY - 120, x + 20, entityY);
 
         int horizontalMargin = MINIMAL_MARGIN + 1;
 

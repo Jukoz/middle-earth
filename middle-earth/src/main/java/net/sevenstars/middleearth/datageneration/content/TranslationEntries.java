@@ -122,8 +122,21 @@ public class TranslationEntries {
             put("advancements.smithing.elven_lantern.description", "Light your way like the Quendi");
 
             put("effect."+ MiddleEarth.MOD_ID +".hallucination", "Hallucination");
+            put("effect."+ MiddleEarth.MOD_ID +".enshrouded", "Enshrouded");
 
+            put("enchantment."+ MiddleEarth.MOD_ID +".ailment_protection", "Ailment Protection");
+            put("enchantment."+ MiddleEarth.MOD_ID +".bane_of_giants", "Bane of Giants");
+            put("enchantment."+ MiddleEarth.MOD_ID +".beheading", "Beheading");
+            put("enchantment."+ MiddleEarth.MOD_ID +".celerity", "Celerity");
+            put("enchantment."+ MiddleEarth.MOD_ID +".first_strike", "First Strike");
+            put("enchantment."+ MiddleEarth.MOD_ID +".grounded", "Grounded");
             put("enchantment."+ MiddleEarth.MOD_ID +".hewing", "Hewing");
+            put("enchantment."+ MiddleEarth.MOD_ID +".high_step", "High Step");
+            put("enchantment."+ MiddleEarth.MOD_ID +".miner_reach", "Miner Reach");
+            put("enchantment."+ MiddleEarth.MOD_ID +".stealthy_trail", "Stealthy Trail");
+            put("enchantment."+ MiddleEarth.MOD_ID +".stride", "Stride");
+            put("enchantment."+ MiddleEarth.MOD_ID +".tree_feller", "Tree Feller");
+            put("enchantment."+ MiddleEarth.MOD_ID +".vantage", "Vantage");
 
             put("block."+ MiddleEarth.MOD_ID +".potted_beech_sapling", "Potted Beech Sapling");
             put("block."+ MiddleEarth.MOD_ID +".potted_chestnut_sapling", "Potted Chestnut Sapling");
@@ -213,6 +226,8 @@ public class TranslationEntries {
 
             put("block."+ MiddleEarth.MOD_ID +".large_sturdy_door", "Large Sturdy Door");
 
+            put("block."+ MiddleEarth.MOD_ID +".large_beech_fence_gate", "Large Beech Fence Gate");
+
             put("block."+ MiddleEarth.MOD_ID +".larch_hobbit_door", "Larch Hobbit Door");
             put("block."+ MiddleEarth.MOD_ID +".spruce_hobbit_door", "Spruce Hobbit Door");
 
@@ -286,30 +301,29 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.heavy_shield", "Heavy Shield");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.misc", "Misc");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.hat", "Hat");
-            put("screen."+ MiddleEarth.MOD_ID +".artisan_table.hood", "Hood");
-            put("screen."+ MiddleEarth.MOD_ID +".artisan_table.cape", "Cape");
+            put("screen."+ MiddleEarth.MOD_ID +".artisan_table.helmet_attachment", "Helmet Attachment");
+            put("screen."+ MiddleEarth.MOD_ID +".artisan_table.back_attachment", "Back Attachment");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.pipe", "Pipe");
-
-            put("tooltip."+ MiddleEarth.MOD_ID +".shift", "Hold §3SHIFT§f to see information.");
-            put("tooltip."+ MiddleEarth.MOD_ID +".alt", "Hold §3ALT§f to see custom parts information.");
-            put("tooltip."+ MiddleEarth.MOD_ID +".weapon_type", "§eType: §f");
-            put("tooltip."+ MiddleEarth.MOD_ID +".faction", "§6Faction: §f");
-            put("tooltip."+ MiddleEarth.MOD_ID +".sub_faction", "§7Sub Faction: §f");
-            put("tooltip."+ MiddleEarth.MOD_ID +".customizations", "§6Custom Parts: §f");
+            
+            put("tooltip."+ MiddleEarth.MOD_ID +".type", "Type: ");
+            put("tooltip."+ MiddleEarth.MOD_ID +".faction", "Faction: ");
+            put("tooltip."+ MiddleEarth.MOD_ID +".sub_faction", "Sub Faction: ");
+            put("tooltip."+ MiddleEarth.MOD_ID +".customizations", "Custom Parts: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".reach", "Reach: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".dyed", "Dyed: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".artisan", "Artisan: ");
+            put("tooltip."+ MiddleEarth.MOD_ID +".author", "Author: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".blocks_range", " Blocks");
-            put("tooltip."+ MiddleEarth.MOD_ID +".backstab", "§7+50% damage when backstabbing");
+            put("tooltip."+ MiddleEarth.MOD_ID +".backstab", "+50% damage when backstabbing");
             put("tooltip."+ MiddleEarth.MOD_ID +".door_size", "Door size: ");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_clothing", "§fClothing");
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_basic", "§fBasic Armor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_light", "§aLight Armor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_medium", "§9Medium Armor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_sturdy", "§5Sturdy Armor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_heavy", "§cHeavy Armor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".tier_mithril", "§bMithril");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_clothing", "Clothing");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_basic", "Basic Armor");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_light", "Light Armor");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_medium", "Medium Armor");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_sturdy", "Sturdy Armor");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_heavy", "Heavy Armor");
+            put("tooltip."+ MiddleEarth.MOD_ID +".tier_mithril", "Mithril");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".artefact", "Artefact");
             put("tooltip."+ MiddleEarth.MOD_ID +".broken", "Broken");
@@ -319,14 +333,15 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".dagger", "Dagger");
             put("tooltip."+ MiddleEarth.MOD_ID +".spear", "Spear");
             put("tooltip."+ MiddleEarth.MOD_ID +".longsword", "Longsword");
+            put("tooltip."+ MiddleEarth.MOD_ID +".troll_weapon", "Troll Weapon");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".bow", "Bow");
             put("tooltip."+ MiddleEarth.MOD_ID +".longbow", "Longbow");
             put("tooltip."+ MiddleEarth.MOD_ID +".crossbow", "Crossbow");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".light_shield", "§fLight Shield");
-            put("tooltip."+ MiddleEarth.MOD_ID +".medium_shield", "§9Medium Shield");
-            put("tooltip."+ MiddleEarth.MOD_ID +".heavy_shield", "§cHeavy Shield");
+            put("tooltip."+ MiddleEarth.MOD_ID +".light_shield", "Light Shield");
+            put("tooltip."+ MiddleEarth.MOD_ID +".medium_shield", "Medium Shield");
+            put("tooltip."+ MiddleEarth.MOD_ID +".heavy_shield", "Heavy Shield");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".generic", "Generic");
 
@@ -334,28 +349,7 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".elven", "Elven");
             put("tooltip."+ MiddleEarth.MOD_ID +".orc", "Orc");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".shire", "Shire");
-            put("tooltip."+ MiddleEarth.MOD_ID +".gondor", "Gondor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".rohan", "Rohan");
-            put("tooltip."+ MiddleEarth.MOD_ID +".longbeards", "Longbeards");
-            put("tooltip."+ MiddleEarth.MOD_ID +".erebor", "Erebor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".lothlorien", "Lothlórien");
-            put("tooltip."+ MiddleEarth.MOD_ID +".mordor", "Mordor");
-            put("tooltip."+ MiddleEarth.MOD_ID +".mordor_black_numenoreans", "Mordor Black Númenóreans");
-            put("tooltip."+ MiddleEarth.MOD_ID +".misty_mountains_goblins", "Misty Mountains Goblins");
-            put("tooltip."+ MiddleEarth.MOD_ID +".gundabad", "Gundabad");
-            put("tooltip."+ MiddleEarth.MOD_ID +".moria_goblins", "Moria Goblins");
-            put("tooltip."+ MiddleEarth.MOD_ID +".isengard", "Isengard");
-            put("tooltip."+ MiddleEarth.MOD_ID +".anduin", "Anduin Vale");
-            put("tooltip."+ MiddleEarth.MOD_ID +".umbar", "Umbar");
-            put("tooltip."+ MiddleEarth.MOD_ID +".dunland", "Dunland");
-            put("tooltip."+ MiddleEarth.MOD_ID +".dale", "Dale");
-
             put("tooltip."+ MiddleEarth.MOD_ID +".color", "Color");
-            put("tooltip."+ MiddleEarth.MOD_ID +".impaled_skulls", "Impaled Skulls");
-            put("tooltip."+ MiddleEarth.MOD_ID +".skull", "Skull");
-            put("tooltip."+ MiddleEarth.MOD_ID +".pouch", "Pouch");
-            put("tooltip."+ MiddleEarth.MOD_ID +".feather", "Feather");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_top", "Top Armor Addon, Enabled");
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_side", "Side Armor Addon, Enabled");
@@ -453,7 +447,7 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".sting_lore_0", "An elvish knife, made in Gondolin long ago,");
             put("tooltip."+ MiddleEarth.MOD_ID +".sting_lore_1", "carried by Bilbo Baggins of the Shire.");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".aeglos_lore_0", "Called \"Snow-Point\"); this legendary spear was carried into battle by");
+            put("tooltip."+ MiddleEarth.MOD_ID +".aeglos_lore_0", "Called \"Snow-Point\" this legendary spear was carried into battle by");
             put("tooltip."+ MiddleEarth.MOD_ID +".aeglos_lore_1", "King Gil-galad through many ages.");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".cuthann_lore_0", "The Shield of the Moon, mate to Anorthann,");
@@ -557,17 +551,17 @@ public class TranslationEntries {
             put("command."+ MiddleEarth.MOD_ID +".race.reset.target.success", "%s race is reset");
             put("command."+ MiddleEarth.MOD_ID +".race.reset.target.fail", "Failed to reset race for %s");
 
-            put("command."+ MiddleEarth.MOD_ID +".cape.success", "Cape successfully applied, ");
-            put("command."+ MiddleEarth.MOD_ID +".cape.fail", "Failed to apply cape.");
+            put("command."+ MiddleEarth.MOD_ID +".back_attachment.success", "Back Attachment successfully applied, ");
+            put("command."+ MiddleEarth.MOD_ID +".back_attachment.fail", "Failed to apply Back Attachment.");
 
-            put("command."+ MiddleEarth.MOD_ID +".hood.success", "Hood successfully applied, ");
-            put("command."+ MiddleEarth.MOD_ID +".hood.fail", "Failed to apply hood.");
+            put("command."+ MiddleEarth.MOD_ID +".helmet_attachment.success", "Helmet Attachment successfully applied, ");
+            put("command."+ MiddleEarth.MOD_ID +".helmet_attachment.fail", "Failed to apply Helmet Attachment.");
 
-            put("command."+ MiddleEarth.MOD_ID +".cape.hand_empty", "Hand Empty. Take a Middle-earth Mod chestplate in your main hand to apply a cape.");
-            put("command."+ MiddleEarth.MOD_ID +".hood.hand_empty", "Hand Empty. Take a Middle-earth Mod helmet in your main hand to apply a hood.");
+            put("command."+ MiddleEarth.MOD_ID +".back_attachment.hand_empty", "Hand Empty. Take a Middle-earth Mod chestplate in your main hand to apply a Back Attachment.");
+            put("command."+ MiddleEarth.MOD_ID +".helmet_attachment.hand_empty", "Hand Empty. Take a Middle-earth Mod helmet in your main hand to apply a Helmet Attachment.");
 
-            put("command."+ MiddleEarth.MOD_ID +".cape.wrong_item", "Wrong Item type. Take a Middle-earth Mod chestplate in your main hand to apply a cape.");
-            put("command."+ MiddleEarth.MOD_ID +".hood.wrong_item", "Wrong Item type. Take a Middle-earth Mod helmet in your main hand to apply a hood.");
+            put("command."+ MiddleEarth.MOD_ID +".back_attachment.wrong_item", "Wrong Item type. Take a Middle-earth Mod chestplate in your main hand to apply a Back Attachment.");
+            put("command."+ MiddleEarth.MOD_ID +".helmet_attachment.wrong_item", "Wrong Item type. Take a Middle-earth Mod helmet in your main hand to apply a Helmet Attachment.");
 
             put("alert."+ MiddleEarth.MOD_ID +".large_door.blocked", "Something seems to prevent the door from moving.");
 
@@ -608,6 +602,12 @@ public class TranslationEntries {
             put("ui."+ MiddleEarth.MOD_ID +".map_screen.tooltip.teleport_keybind", "[%s] to teleport");
             put("ui."+ MiddleEarth.MOD_ID +".map_screen.map_title_text", "Middle-earth Map");
 
+            put("ui."+ MiddleEarth.MOD_ID +".structure_manager.label_selected_id", "Selected : %s");
+            put("ui."+ MiddleEarth.MOD_ID +".structure_manager.label_runtime_id", "Runtime : %s");
+            put("ui."+ MiddleEarth.MOD_ID +".structure_manager.label_enable_status", "Enabled : %s");
+            put("ui."+ MiddleEarth.MOD_ID +".structure_manager.button_kill_all", "Kill All");
+            put("ui."+ MiddleEarth.MOD_ID +".structure_manager.button_spawn_all", "Spawn All");
+
             put("screen."+ MiddleEarth.MOD_ID +".faction_selection_screen", "Faction Selection");
             put("screen."+ MiddleEarth.MOD_ID +".button.faction_randomizer", "Randomize Faction");
             put("screen."+ MiddleEarth.MOD_ID +".button.full_randomizer", "Fully Randomize");
@@ -619,6 +619,7 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".information.races", "Race");
             put("screen."+ MiddleEarth.MOD_ID +".information.races.many", "Races");
             put("screen."+ MiddleEarth.MOD_ID +".information.description", "Description");
+
 
             put("widget."+ MiddleEarth.MOD_ID +".spawn_tooltip_title", "Spawns");
             put("widget."+ MiddleEarth.MOD_ID +".marker.selected_title_container.before", "[");
@@ -667,41 +668,31 @@ public class TranslationEntries {
             put("tag.item."+ MiddleEarth.MOD_ID +".warg_food", "Warg Food");
             put("tag.item."+ MiddleEarth.MOD_ID +".worm", "Worm");
 
-            put("painting."+ MiddleEarth.MOD_ID +".dwarf_portrait.author", "Boenndal");
+            put("painting."+ MiddleEarth.MOD_ID +".author.boenndal", "Boenndal");
+            put("painting."+ MiddleEarth.MOD_ID +".author.scosher", "Scosher");
+
             put("painting."+ MiddleEarth.MOD_ID +".dwarf_portrait.title", "Dwarf Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".elf_portrait.author", "Scosher");
             put("painting."+ MiddleEarth.MOD_ID +".elf_portrait.title", "Elf Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".hobbit_portrait.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".hobbit_portrait.title", "Hobbit Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".human_portrait.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".human_portrait.title", "Human Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".orc_portrait.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".orc_portrait.title", "Orc Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".note_board.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".note_board.title", "Note Board");
-
-            put("painting."+ MiddleEarth.MOD_ID +".pan_board.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".pan_board.title", "Pan Board");
-
-            put("painting."+ MiddleEarth.MOD_ID +".rohirric_tapestry.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".rohirric_tapestry.title", "Rohirric Tapestry");
-
-            put("painting."+ MiddleEarth.MOD_ID +".small_mirror.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".small_mirror.title", "Small Mirror");
-
-            put("painting."+ MiddleEarth.MOD_ID +".tall_mirror.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".tall_mirror.title", "Tall Mirror");
-
-            put("painting."+ MiddleEarth.MOD_ID +".prancing_pony.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".prancing_pony.title", "Prancing Pony");
-
-            put("painting."+ MiddleEarth.MOD_ID +".tool_board.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".tool_board.title", "Tool Board");
+            put("painting."+ MiddleEarth.MOD_ID +".gondorian_tapestry.title", "Gondorian Tapestry");
+            put("painting."+ MiddleEarth.MOD_ID +".dwarven_plaque.title", "Dwarven Plaque");
+
+            put("structure_manager_data."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor", "Gondor Testing Area");
+            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor.captain_room", "Captain Room");
+            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor.barracks_room", "Barracks Room");
+
+            put("structure_manager_data."+ MiddleEarth.MOD_ID +".npc_testing_area_erebor", "Erebor Testing Area");
+            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_erebor.captain_room", "Captain Room");
+            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_erebor.barracks_room", "Barracks Room");
         }
     };
 }

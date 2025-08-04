@@ -10,6 +10,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.ModEntityAttributes;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
@@ -72,6 +73,8 @@ public class RacesME {
     static {
         DWARF = new Race(Identifier.of(MiddleEarth.MOD_ID, "dwarf"), RaceType.DWARF,
                 new AttributePool()
+                        .addElement(AttributePoolElement.create(ModEntityAttributes.CLIMBING_STRENGTH, 80.0f))
+                        .addElement(AttributePoolElement.create(ModEntityAttributes.POWDERED_SNOW_IMMUNITY, 1.0f))
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.81).withBuffReversed())
                         .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))
                         .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))

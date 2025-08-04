@@ -17,18 +17,27 @@ public class CustomLeggingsModel extends BipedEntityModel<BipedEntityRenderState
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(),
+                ModelTransform.origin(0.0F, 0.0F, 0.0F));
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        ModelPartData body = modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        body.addChild("waist", ModelPartBuilder.create().uv(16, 16).cuboid(-3.9F, -0.0F, -2.1F, 8.0F, 12.0F, 4.0F, new Dilation(0.3F)),
+        ModelPartData body = modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(),
+                ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        body.addChild("waist", ModelPartBuilder.create()
+                        .uv(16, 16).cuboid(-4.0F, -0.0F, -2.1F, 8.0F, 12.0F, 4.0F, new Dilation(0.3F)),
                 ModelTransform.origin(0.0F, -0.0F, 0.0F));
 
-        modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(),
+                ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(),
+                ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create().uv(0, 16).cuboid(-2.1F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.3F)), ModelTransform.origin(-1.9F, -11.0F, 0.0F));
-        modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create().uv(0, 32).mirrored().cuboid(-1.968F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.3F)).mirrored(false), ModelTransform.origin(1.9F, -11.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create()
+                .uv(0, 16).cuboid(-2.1F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.3F)),
+                ModelTransform.origin(-1.9F, -11.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create()
+                .uv(0, 32).mirrored().cuboid(-1.968F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.3F)).mirrored(false),
+                ModelTransform.origin(1.9F, -11.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 64, 64);
     }

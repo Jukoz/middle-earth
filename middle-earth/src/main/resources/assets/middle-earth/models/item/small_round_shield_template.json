@@ -3,7 +3,8 @@
 	"texture_size": [64, 64],
 	"gui_light": "front",
 	"textures": {
-		"8": "middle-earth:item/rohirric_ornamented_shield"
+		"8": "middle-earth:item/rohirric_ornamented_shield",
+		"particle": "block/dark_oak_planks"
 	},
 	"elements": [
 		{

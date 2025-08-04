@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.statusEffects;
 
 import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.utils.HallucinationData;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;

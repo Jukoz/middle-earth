@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.10-SNAPSHOT' apply false
+	id 'fabric-loom' version "${loom_version}" apply false
 	id 'maven-publish'
 	id 'java'
 	id 'base'

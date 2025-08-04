@@ -1,30 +1,14 @@
 package net.sevenstars.middleearth.item.items.armor;
 
-import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
-import net.sevenstars.middleearth.item.dataComponents.MountArmorAddonComponent;
-import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
-import net.sevenstars.middleearth.utils.ModFactions;
-import net.sevenstars.middleearth.utils.ModSubFactions;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class CustomAnimalArmorItem extends Item implements EquipmentTooltipME {
-    public ModFactions faction;
-    public ModSubFactions subFaction;
+public class CustomAnimalArmorItem extends Item {
     private final Identifier entityTexture;
     @Nullable
     private final Identifier overlayTexture;
@@ -32,7 +16,7 @@ public class CustomAnimalArmorItem extends Item implements EquipmentTooltipME {
 
     private ExtendedArmorMaterial material;
 
-    public CustomAnimalArmorItem(ExtendedArmorMaterial material, String suffix, Type type, boolean hasOverlay, Settings settings, ModFactions faction) {
+    public CustomAnimalArmorItem(ExtendedArmorMaterial material, String suffix, Type type, boolean hasOverlay, Settings settings) {
         super(settings.horseArmor(material.material()));
         this.material = material;
         this.type = type;
@@ -40,40 +24,16 @@ public class CustomAnimalArmorItem extends Item implements EquipmentTooltipME {
         identifier = suffix != null ? identifier.withSuffixedPath(suffix) : identifier;
         this.entityTexture = identifier.withSuffixedPath(".png");
         this.overlayTexture = hasOverlay ? identifier.withSuffixedPath("_overlay.png") : null;
-
-        this.faction = faction;
-        this.subFaction = null;
     }
 
-    public CustomAnimalArmorItem(ExtendedArmorMaterial material, String suffix, Type type, boolean hasOverlay, Settings settings, ModSubFactions subFaction) {
-        super(settings.horseArmor(material.material()));
-        this.material = material;
-        this.type = type;
-        Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, type.textureIdFunction.apply(material.material().assetId().getRegistry()).getPath());
-        identifier = suffix != null ? identifier.withSuffixedPath(suffix) : identifier;
-        this.entityTexture = identifier.withSuffixedPath(".png");
-        this.overlayTexture = hasOverlay ? identifier.withSuffixedPath("_overlay.png") : null;
-
-        this.subFaction = subFaction;
-        this.faction = subFaction.getParent();
-    }
-
-    @Override
-    public List<Text> getAdditionalShiftLines(ItemStack stack) {
-        List<Text> list = new ArrayList<>(List.of());
-        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier_" + this.material.tier().toString().toLowerCase()));
-
-        return list;
-    }
-
-    @Override
+    /*@Override
     public List<Text> getAdditionalAltLines(ItemStack stack) {
         List<Text> list = new ArrayList<>(List.of());
         MountArmorAddonComponent mountArmorAddonComponent = stack.get(DataComponentTypesME.MOUNT_ARMOR_DATA);
-        CustomDyeableDataComponent dyeDataComponent = stack.get(DataComponentTypesME.DYE_DATA);
+        DyedColorComponent dyeDataComponent = stack.get(DataComponentTypes.DYED_COLOR);
 
         if(dyeDataComponent != null){
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color").append(": " + String.format("#%06X", (0xFFFFFF & DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
         }
         if(mountArmorAddonComponent != null && mountArmorAddonComponent.topArmorAddon()) {
             list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mount_armor_addon_top"));
@@ -83,13 +43,7 @@ public class CustomAnimalArmorItem extends Item implements EquipmentTooltipME {
         }
 
         return list;
-    }
-
-    @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-    }
+    }*/
 
     public Identifier getEntityTexture() {
         return this.entityTexture;

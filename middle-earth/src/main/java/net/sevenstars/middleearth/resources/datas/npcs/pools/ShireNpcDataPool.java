@@ -4,7 +4,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
+import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
@@ -48,9 +48,9 @@ public class ShireNpcDataPool {
                                 .add(NpcGearItemData.create(EquipmentItemsME.GAMBESON).withColor(DARK))
                                 .add(NpcGearItemData.create(EquipmentItemsME.GAMBESON).withColor(DARK_BEIGE))
                                 .add(NpcGearItemData.create(EquipmentItemsME.GAMBESON).withColor(BROWN))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withColor(DARK).withCape(ModCapes.CLOAK, DARK))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withColor(DARK_BEIGE).withCape(ModCapes.CLOAK, DARK))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withColor(BROWN).withCape(ModCapes.CLOAK, DARK))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withColor(DARK).withCape(BackAttachmentsME.CLOAK, DARK))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withColor(DARK_BEIGE).withCape(BackAttachmentsME.CLOAK, DARK))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withColor(BROWN).withCape(BackAttachmentsME.CLOAK, DARK))
                         )
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.STURDY_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()

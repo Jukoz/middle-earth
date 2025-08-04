@@ -2,9 +2,9 @@ package net.sevenstars.middleearth.client.renderer.armor;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
+import net.minecraft.component.type.DyedColorComponent;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
-import net.sevenstars.middleearth.item.utils.armor.ModDyeablePieces;
+import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -25,7 +25,7 @@ public class ModArmorRenderer implements ArmorRenderer {
     static void renderArmor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean dyeable){
         if(dyeable){
             renderDyeable(matrices, vertexConsumers, light, stack, model, texture);
-            if(ModDyeablePieces.dyeablePieces.get(stack.getItem())) {
+            if(DyeablePiecesME.dyeablePieces.get(stack.getItem())) {
                 ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, Identifier.of(MiddleEarth.MOD_ID, texture.getPath().replaceAll(".png", "_overlay.png")));
             }
         } else {
@@ -35,7 +35,7 @@ public class ModArmorRenderer implements ArmorRenderer {
 
     static void renderDyeable(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture) {
         VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), stack.hasGlint());
-        int color = CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR);
+        int color = DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR);
         model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
     }
 

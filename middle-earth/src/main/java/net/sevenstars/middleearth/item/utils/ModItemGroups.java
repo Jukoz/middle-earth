@@ -2,10 +2,10 @@ package net.sevenstars.middleearth.item.utils;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
-import net.sevenstars.middleearth.block.StoneBlockSets;
-import net.sevenstars.middleearth.block.WoodBlockSets;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -22,7 +22,7 @@ public class ModItemGroups {
     public static final List<ItemStack> STONE_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup STONE_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".stone_blocks"))
-            .icon(() -> new ItemStack(StoneBlockSets.CALCITE_BRICKS.base().asItem()))
+            .icon(() -> new ItemStack(StoneBlockSets.CALCITE_SET.brickBlocks.base().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : STONE_BLOCKS_CONTENTS) {
                     entries.add(item);
@@ -33,7 +33,7 @@ public class ModItemGroups {
     public static final List<ItemStack> WOOD_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup WOOD_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".wood_blocks"))
-            .icon(() -> new ItemStack(WoodBlockSets.WILLOW.log().asItem()))
+            .icon(() -> new ItemStack(WoodBlockSets.WILLOW_SET.logBlocks.log().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : WOOD_BLOCKS_CONTENTS) {
                     entries.add(item);

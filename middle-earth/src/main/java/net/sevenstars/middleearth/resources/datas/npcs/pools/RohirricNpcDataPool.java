@@ -4,7 +4,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
+import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
@@ -58,12 +58,12 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_ORNAMENTED_LEATHER_HELMET))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(LIGHT_GREEN).withWeight(4))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(DARK_GREEN).withWeight(4))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(LIGHT_BROWN).withWeight(4))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(DARK_BROWN).withWeight(4))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(LIGHT_BEIGE).withWeight(2))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(DARK_BEIGE).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(BackAttachmentsME.ROHIRRIC_CAPE).withColor(LIGHT_GREEN).withWeight(4))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(BackAttachmentsME.ROHIRRIC_CAPE).withColor(DARK_GREEN).withWeight(4))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(BackAttachmentsME.ROHIRRIC_CAPE).withColor(LIGHT_BROWN).withWeight(4))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(BackAttachmentsME.ROHIRRIC_CAPE).withColor(DARK_BROWN).withWeight(4))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(BackAttachmentsME.ROHIRRIC_CAPE).withColor(LIGHT_BEIGE).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(BackAttachmentsME.ROHIRRIC_CAPE).withColor(DARK_BEIGE).withWeight(2))
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_REINFORCED_COAT).withColor(LIGHT_GREEN))
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_REINFORCED_COAT).withColor(DARK_GREEN))
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_REINFORCED_COAT).withColor(LIGHT_BEIGE))
