@@ -12,6 +12,7 @@ public class ModTags {
     public static TagKey<Item> REPAIRS_FUR_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_fur_armor"));
     public static TagKey<Item> REPAIRS_FABRIC_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_fabric_armor"));
     public static TagKey<Item> REPAIRS_BRONZE_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_bronze_armor"));
+    public static TagKey<Item> REPAIRS_BONE_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_bone_armor"));
     public static TagKey<Item> REPAIRS_CRUDE_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_crude_armor"));
     public static TagKey<Item> REPAIRS_STEEL_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_steel_armor"));
     public static TagKey<Item> REPAIRS_KHAZAD_STEEL_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_khazad_steel_armor"));

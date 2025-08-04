@@ -789,6 +789,29 @@ public class WeaponItemsME {
             (settings) -> new CustomBowWeaponItem(ModRangedWeaponTypes.BOW, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
     //endregion
+
+    //region GOBLIN TOWN
+    public static final Item GOBLIN_TOWN_FALCHION = registerItemWithModel("goblin_town_falchion",
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+    public static final Item GOBLIN_TOWN_SCIMITAR = registerItemWithModel("goblin_town_scimitar",
+            (settings) -> new CustomLongswordWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+    public static final Item GOBLIN_TOWN_SHANK = registerItemWithModel("goblin_town_shank",
+            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), false);
+    public static final Item GOBLIN_TOWN_AXE = registerItemWithModel("goblin_town_axe",
+            (settings) -> new CustomAxeWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+    public static final Item GOBLIN_TOWN_SPEAR = registerItemWithSpearModel("goblin_town_spear",
+            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_BOW = registerBigBowItem("goblin_town_bow",
+            (settings) -> new CustomBowWeaponItem(ModRangedWeaponTypes.BOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    //endregion
+
     //region TROLL WEAPONS
     public static final Item TROLL_MACE = registerItemNoModel("troll_mace",
             (settings) -> new TrollWeaponItem(ModToolMaterials.BURZUM_STEEL, settings));

@@ -42,6 +42,7 @@ public class ArmorModelsME {
         KETTLE_HAT(EquipmentItemsME.KETTLE_HAT, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
         KETTLE_HAT_WITH_COIF(EquipmentItemsME.KETTLE_HAT_WITH_COIF, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
         KETTLE_HAT_WITH_CLOSED_COIF(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
+        COOKING_POT_HELMET(EquipmentItemsME.COOKING_POT_HELMET, new CookingPotHelmetModel(CookingPotHelmetModel.getTexturedModelData().createModel())),
         SALLET(EquipmentItemsME.SALLET, new SalletHelmetModel(SalletHelmetModel.getTexturedModelData().createModel())),
 
         SHIRRIF_HAT(EquipmentItemsME.SHIRRIFF_HAT, new ShirriffHatModel(ShirriffHatModel.getTexturedModelData().createModel())),
@@ -185,14 +186,19 @@ public class ArmorModelsME {
 
         GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE, new HobgoblinPlateChestplateModel(HobgoblinPlateChestplateModel.getTexturedModelData().createModel())),
 
-        MORIA_GOBLIN_SNAGA_CUIRASS(EquipmentItemsME.MORIA_GOBLIN_SNAGA_CUIRASS, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
-        MORIA_GOBLIN_SNAGA_BELLY_PLATE(EquipmentItemsME.MORIA_GOBLIN_SNAGA_BELLY_PLATE, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
-        MORIA_GOBLIN_HAUBERK(EquipmentItemsME.MORIA_GOBLIN_HAUBERK, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
-        MORIA_RUINED_DWARVEN_HAUBERK(EquipmentItemsME.MORIA_RUINED_DWARVEN_HAUBERK, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
-        MORIA_GOBLIN_REINFORCED_COAT(EquipmentItemsME.MORIA_GOBLIN_REINFORCED_COAT, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_SNAGA_CUIRASS(EquipmentItemsME.MORIA_GOBLIN_SNAGA_CUIRASS, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_SNAGA_BELLY_PLATE(EquipmentItemsME.MORIA_GOBLIN_SNAGA_BELLY_PLATE, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_HAUBERK(EquipmentItemsME.MORIA_GOBLIN_HAUBERK, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        MORIA_RUINED_DWARVEN_HAUBERK(EquipmentItemsME.MORIA_RUINED_DWARVEN_HAUBERK, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_REINFORCED_COAT(EquipmentItemsME.MORIA_GOBLIN_REINFORCED_COAT, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
 
-        MORIA_GOBLIN_SCREECHER_CHESTPLATE(EquipmentItemsME.MORIA_GOBLIN_SCREECHER_CHESTPLATE, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
-        MORIA_GOBLIN_CHIEF_CHESTPLATE(EquipmentItemsME.MORIA_GOBLIN_CHIEF_CHESTPLATE, new MoriaChestplateModel(MoriaChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_SCREECHER_CHESTPLATE(EquipmentItemsME.MORIA_GOBLIN_SCREECHER_CHESTPLATE, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_CHIEF_CHESTPLATE(EquipmentItemsME.MORIA_GOBLIN_CHIEF_CHESTPLATE, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+
+        GOBLIN_TOWN_BONE_SCALE_COAT(EquipmentItemsME.GOBLIN_TOWN_BONE_SCALE_COAT, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_CARAPACE_HARNESS(EquipmentItemsME.GOBLIN_TOWN_CARAPACE_HARNESS, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_CRUDE_SCALE_CHESTPLATE(EquipmentItemsME.GOBLIN_TOWN_CRUDE_SCALE_CHESTPLATE, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_REINFORCED_CARAPACE(EquipmentItemsME.GOBLIN_TOWN_REINFORCED_CARAPACE, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
         ;
 
         private final Item item;

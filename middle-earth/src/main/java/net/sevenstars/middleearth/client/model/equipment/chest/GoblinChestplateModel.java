@@ -3,9 +3,9 @@ package net.sevenstars.middleearth.client.model.equipment.chest;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 
-public class MoriaChestplateModel extends ChestplateAddonModel {
+public class GoblinChestplateModel extends ChestplateAddonModel {
 
-    public MoriaChestplateModel(ModelPart root) {
+    public GoblinChestplateModel(ModelPart root) {
         super(root);
     }
 

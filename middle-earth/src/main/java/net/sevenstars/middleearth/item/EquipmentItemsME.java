@@ -192,6 +192,8 @@ public class EquipmentItemsME {
     public static final Item HIGH_CUT_BOOTS = registerArmorPiece("high_cut_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings());
 
+    public static final Item COOKING_POT_HELMET = registerCustomModelArmorPiece("cooking_pot_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.IRON_T3, settings), new Item.Settings());
     public static final Item MAIL_COIF = registerArmorPiece("mail_coif",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.IRON_T3, settings), new Item.Settings());
     public static final Item CLOSED_MAIL_COIF = registerArmorPiece("closed_mail_coif",
@@ -1469,7 +1471,7 @@ public class EquipmentItemsME {
     public static final Item WARG_GUNDABAD_PLATE_ARMOR = registerGeneratedItem("warg_gundabad_plate_armor",
             (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.PLATE, "_gundabad", CustomAnimalArmorItem.Type.WARG, false, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
-
+    //endregion
 
     //region MORIA GOBS
     public static final Item MORIA_GOBLIN_SNAGA_NASAL_HELMET = registerCustomModelArmorPiece("moria_goblin_snaga_nasal_helmet",
@@ -1553,6 +1555,42 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
     //endregion
 
+    //region GOBLIN TOWN
+    public static final Item GOBLIN_TOWN_BONE_STRAP = registerArmorPiece("goblin_town_bone_strap",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.BONE_T1, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_TOWN_RIBCAGE = registerArmorPiece("goblin_town_ribcage",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.BONE_T1, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_LOINCLOTH = registerArmorPiece("goblin_town_loincloth",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.FABRIC_T1, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_SANDALS = registerArmorPiece("goblin_town_sandals",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.FABRIC_T1, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_BONE_SCALE_COAT = registerCustomModelArmorPiece("goblin_town_bone_scale_coat",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_TOWN_CARAPACE_HARNESS = registerCustomModelArmorPiece("goblin_town_carapace_harness",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_TOWN_CRUDE_SCALE_CHESTPLATE = registerCustomModelArmorPiece("goblin_town_crude_scale_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_LEATHER_SKIRT = registerArmorPiece("goblin_town_leather_skirt",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_BELLY_PLATE = registerArmorPiece("goblin_town_belly_plate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_TOWN_REINFORCED_CARAPACE = registerCustomModelArmorPiece("goblin_town_reinforced_carapace",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
     //endregion
 
     //endregion
