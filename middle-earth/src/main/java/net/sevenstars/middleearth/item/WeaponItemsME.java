@@ -810,6 +810,24 @@ public class WeaponItemsME {
     public static final Item GOBLIN_TOWN_BOW = registerBigBowItem("goblin_town_bow",
             (settings) -> new CustomBowWeaponItem(ModRangedWeaponTypes.BOW, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_BONE_SHIELD = registerShield("goblin_town_bone_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.LIGHT_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_WOODEN_SHIELD = registerShield("goblin_town_wooden_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_BONE_TOWN_WOODEN_SHIELD = registerShield("goblin_town_bone_wooden_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_LEATHER_TOWN_WOODEN_SHIELD = registerShield("goblin_town_leather_wooden_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_LEATHER_HEAVY_SHIELD = registerShield("goblin_town_heavy_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
     //endregion
 
     //region TROLL WEAPONS
