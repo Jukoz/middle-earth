@@ -24,8 +24,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        TagKey<Item> crab_boiling_ingredients = TagKey.of(RegistryKeys.ITEM, Identifier.of(OfBeastsAndWildThings.MOD_ID, "crab_boiling_ingredients"));
+        TagKey<Item> swan_food = TagKey.of(RegistryKeys.ITEM, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_food"));
 
-        valueLookupBuilder(crab_boiling_ingredients).add(Items.CARROT, Items.GOLD_NUGGET, ModItems.SWAN_EGG);
+        valueLookupBuilder(swan_food).add(Items.TADPOLE_BUCKET);
     }
 }

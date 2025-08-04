@@ -4,6 +4,8 @@ import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.UseRemainderComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -19,9 +21,13 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
+import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -52,8 +58,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-// TODO Tadpole pacifying
-// TODO Replace Temptation with tag
 // TODO Add sounds
 
 public class SwanEntity extends AnimalEntity {
@@ -316,7 +320,16 @@ public class SwanEntity extends AnimalEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return false;
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_food")));
+    }
+
+    @Override
+    protected void eat(PlayerEntity player, Hand hand, ItemStack stack) {
+        if (stack.getItem() instanceof BucketItem) {
+            player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.WATER_BUCKET)));
+        } else {
+            super.eat(player, hand, stack);
+        }
     }
 
     @Nullable

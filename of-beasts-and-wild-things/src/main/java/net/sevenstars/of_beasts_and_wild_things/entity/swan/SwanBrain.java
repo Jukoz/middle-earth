@@ -24,6 +24,7 @@ import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
+import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModActivity;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
@@ -69,6 +70,7 @@ public class SwanBrain {
 
     private static void addIdleActivities(Brain<SwanEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
+                Pair.of(0, new BreedTask(ModEntities.SWAN)),
                 Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
                         Pair.of(SearchForHomeTask.create(ModBlocks.BIRD_NEST), 2),
                         Pair.of(StrollTask.create(1.0F), 1)
@@ -165,7 +167,7 @@ public class SwanBrain {
     }
 
     public static Predicate<ItemStack> getTemptItemPredicate() {
-        return stack -> stack.isOf(Items.TADPOLE_BUCKET);
+        return stack -> stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_food")));
     }
 
     static {
