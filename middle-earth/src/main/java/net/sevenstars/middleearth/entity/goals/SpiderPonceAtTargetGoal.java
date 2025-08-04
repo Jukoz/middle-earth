@@ -21,13 +21,24 @@ public class SpiderPonceAtTargetGoal extends Goal {
     private int preparationPounceTimer;
     private Path path;
     private Pouncer pouncer;
+    private final int minDistance;
+    private final int maxDistance;
+    private final int moduloTicks;
 
     public SpiderPonceAtTargetGoal(HostileEntity mob, Pouncer pouncer, float verticalVelocity, float horizontalVelocity) {
+        this(mob, pouncer, verticalVelocity, horizontalVelocity, 3, 12, 5);
+    }
+
+    public SpiderPonceAtTargetGoal(HostileEntity mob, Pouncer pouncer, float verticalVelocity, float horizontalVelocity,
+                                   int minDistance, int maxDistance, int moduloTicks) {
         this.spider = mob;
+        this.pouncer = pouncer;
         this.verticalVelocity = verticalVelocity;
         this.horizontalVelocity = horizontalVelocity;
+        this.minDistance = minDistance;
+        this.maxDistance = maxDistance;
+        this.moduloTicks = moduloTicks;
         this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
-        this.pouncer = pouncer;
         startPrePounce = false;
         preparationPounceTimer = 18;
     }
@@ -42,7 +53,7 @@ public class SpiderPonceAtTargetGoal extends Goal {
             return false;
         }
         double d = this.spider.distanceTo(this.target);
-        if (d < 3.0 || d > 12.0) {
+        if (d < this.minDistance || d > this.maxDistance) {
             return false;
         }
         if (!this.spider.isOnGround()) {
@@ -51,8 +62,8 @@ public class SpiderPonceAtTargetGoal extends Goal {
         this.path = this.spider.getNavigation().findPathTo(target, 0);
         if(path == null) return false;
 
-        int randomInt = this.spider.getRandom().nextInt(PounceAtTargetGoal.toGoalTicks(5));
-        return randomInt == 0;
+        int randomInt = this.spider.getRandom().nextInt(PounceAtTargetGoal.toGoalTicks(this.moduloTicks));
+        return  this.spider.getRandom().nextInt(2) == 0 && randomInt == 0;
     }
 
     @Override
@@ -73,7 +84,11 @@ public class SpiderPonceAtTargetGoal extends Goal {
                 if (vec3d2.lengthSquared() > 1.0E-7) {
                     vec3d2 = vec3d2.multiply(horizontalVelocity).add(vec3d.multiply(0.2));;
                 }
-                this.spider.setVelocity(vec3d2.x, this.verticalVelocity, vec3d2.z);
+                float verticalVel = this.verticalVelocity;
+                if(target.getY() > this.spider.getY()) {
+                    verticalVel += 0.1f;
+                }
+                this.spider.setVelocity(vec3d2.x, verticalVel, vec3d2.z);
                 startPrePounce = false;
                 stop();
             }

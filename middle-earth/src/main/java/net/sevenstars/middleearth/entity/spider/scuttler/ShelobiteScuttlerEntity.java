@@ -108,7 +108,8 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(3, new SpiderPonceAtTargetGoal(this, this, 0.45F, 0.35f));
+        this.goalSelector.add(3, new SpiderPonceAtTargetGoal(this, this,
+                0.45F, 0.25f, 4, 14, 17));
         this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
