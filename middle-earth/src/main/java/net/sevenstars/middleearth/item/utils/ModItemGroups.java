@@ -1,23 +1,54 @@
 package net.sevenstars.middleearth.item.utils;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryOps;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.item.*;
+import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
+import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npcs.pools.EreborNpcDataPool;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class ModItemGroups {
+
+    private static final Comparator<RegistryEntry<NpcData>> NPC_DATA_COMPARATOR = Comparator.comparing(RegistryEntry::value, Comparator.comparing(NpcData::getId));
+
+    private static void addNpcEggs(ItemGroup.Entries entries, RegistryWrapper.WrapperLookup registries, RegistryWrapper.Impl<NpcData> registryWrapper, Predicate<RegistryEntry<NpcData>> filter, ItemGroup.StackVisibility stackVisibility) {
+        RegistryOps<NbtElement> registryOps = registries.getOps(NbtOps.INSTANCE);
+        registryWrapper.streamEntries().filter(filter).sorted(NPC_DATA_COMPARATOR).forEach(reference -> {
+            ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
+            NbtCompound compound = new NbtCompound();
+            compound.putString("NpcDataId", reference.value().getId().toString());
+            itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compound));
+            itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue()));
+            itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(reference.value().getName()));
+            entries.add(itemStack, stackVisibility);
+        });
+    }
+
 
     public static final List<ItemStack> STONE_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup STONE_BLOCKS = FabricItemGroup.builder()
@@ -59,7 +90,7 @@ public class ModItemGroups {
             .entries((displayContext, entries) -> {
                 for (ItemStack item : DECORATIVES_BLOCKS_CONTENT) {
                     entries.add(item);
-                }
+                };
             })
             .build();
 
@@ -130,14 +161,33 @@ public class ModItemGroups {
             .build();
 
     public static final List<ItemStack> SPAWN_EGGS_CONTENTS = new LinkedList<>();
-
     public static final ItemGroup SPAWN_EGGS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".spawn_egg_items"))
             .icon(() -> new ItemStack(EggItemsME.DEER_SPAWN_EGG))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : SPAWN_EGGS_CONTENTS) {
                     entries.add(item);
-                }
+                };
+                ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
+
+                NbtCompound compound = new NbtCompound();
+                //itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compound));
+                compound.putString("id", "middle-earth:npc");
+                compound.putBoolean("Glowing", true);
+                compound.put("NpcDataId", Identifier.CODEC, EreborNpcDataPool.EREBOR_GATEWARDEN.getId());
+                itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compound));
+
+                itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue()));
+                itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(FactionsME.LONGBEARDS_EREBOR.getValue().toTranslationKey("faction")));
+                entries.add(itemStack);
+
+                displayContext.lookup().getOptional(NpcME.KEY)
+                        .ifPresent(registryWrapper -> addNpcEggs(
+                                entries,
+                                displayContext.lookup(),
+                                registryWrapper,
+                                registryEntry -> true,
+                                ItemGroup.StackVisibility.PARENT_AND_SEARCH_TABS));
             })
             .build();
 

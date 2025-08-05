@@ -58,6 +58,13 @@ public class EggItemsME {
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
+    private static Item registerItemWithoutStack(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
+        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        SimpleItemModel.items.add(item);
+        TranslationEntries.itemEntries.add(item);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
 
     public static void registerModItems() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Mod Egg Items for " + MiddleEarth.MOD_ID);

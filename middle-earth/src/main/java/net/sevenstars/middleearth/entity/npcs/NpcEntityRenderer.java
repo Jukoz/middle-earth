@@ -44,7 +44,6 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         this.features.removeIf(x -> x.getClass() == ElytraFeatureRenderer.class);
         this.features.removeIf(x -> x.getClass() == HeadFeatureRenderer.class);
 
-
         this.addFeature(new ArmorFeatureRenderer(this, new ArmorEntityModel(context.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new ArmorEntityModel(context.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), context.getEquipmentRenderer()));
 
         this.addFeature(new HairFeatureRenderer(this, context.getEntityModels()));
