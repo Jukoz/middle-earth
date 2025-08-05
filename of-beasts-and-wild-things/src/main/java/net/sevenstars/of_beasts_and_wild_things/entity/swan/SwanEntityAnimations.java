@@ -498,11 +498,11 @@ public class SwanEntityAnimations {
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("root",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
-                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -4f, 0f),
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
-                            new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -4f, 0f),
+                            new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
-                            new Keyframe(2f, AnimationHelper.createTranslationalVector(0f, -4f, 0f),
+                            new Keyframe(2f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("wing_left",
                     new Transformation(Transformation.Targets.ROTATE,
