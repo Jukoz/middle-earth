@@ -14,9 +14,7 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -24,7 +22,7 @@ import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
-import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
+import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModActivity;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
@@ -70,7 +68,7 @@ public class SwanBrain {
 
     private static void addIdleActivities(Brain<SwanEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, new BreedTask(ModEntities.SWAN)),
+                Pair.of(0, new BreedTask(EntitiesWT.SWAN)),
                 Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
                         Pair.of(SearchForHomeTask.create(ModBlocks.BIRD_NEST), 2),
                         Pair.of(StrollTask.create(1.0F), 1)

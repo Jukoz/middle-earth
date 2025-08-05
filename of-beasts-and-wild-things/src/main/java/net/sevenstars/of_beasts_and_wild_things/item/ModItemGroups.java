@@ -32,7 +32,7 @@ public class ModItemGroups {
 
     public static final ItemGroup ITEMS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + OfBeastsAndWildThings.MOD_ID + ".items"))
-            .icon(() -> new ItemStack(ModEggItems.DEER_SPAWN_EGG))
+            .icon(() -> new ItemStack(ModItems.SWAN_FEATHER))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : ITEMS_CONTENTS) {
                     entries.add(item);

@@ -12,11 +12,9 @@ import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
@@ -26,10 +24,7 @@ import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
-import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantBrain;
-import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntity;
-import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntityVariant;
+import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import org.jetbrains.annotations.Nullable;
 
 public class DeerEntity extends AnimalEntity {
@@ -77,7 +72,7 @@ public class DeerEntity extends AnimalEntity {
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.DEER.create(world, SpawnReason.BREEDING);
+        return EntitiesWT.DEER.create(world, SpawnReason.BREEDING);
     }
 
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,

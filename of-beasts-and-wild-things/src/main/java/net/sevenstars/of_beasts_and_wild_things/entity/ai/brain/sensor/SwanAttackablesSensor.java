@@ -4,7 +4,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.NearestVisibleLivingEntitySensor;
 import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
 import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 
 public class SwanAttackablesSensor extends NearestVisibleLivingEntitySensor {

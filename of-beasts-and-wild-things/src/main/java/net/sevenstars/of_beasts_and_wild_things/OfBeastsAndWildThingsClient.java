@@ -8,7 +8,7 @@ import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.world.biome.DryFoliageColors;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
-import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
+import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityRenderer;
 import net.sevenstars.of_beasts_and_wild_things.entity.model.ModEntityModels;
 import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntityRenderer;
@@ -21,10 +21,10 @@ public class OfBeastsAndWildThingsClient implements ClientModInitializer {
 
         ModEntityModels.getModels();
 
-        EntityRendererRegistry.register(ModEntities.SNAIL, SnailEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.PHEASANT, PheasantEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SWAN, SwanEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.DEER, DeerEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesWT.SNAIL, SnailEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesWT.PHEASANT, PheasantEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesWT.SWAN, SwanEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesWT.DEER, DeerEntityRenderer::new);
 
         BlockRenderLayerMap.putBlock(ModBlocks.BIRD_NEST, BlockRenderLayer.CUTOUT);
 

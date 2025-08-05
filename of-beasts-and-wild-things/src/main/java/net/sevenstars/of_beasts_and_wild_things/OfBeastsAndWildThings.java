@@ -3,7 +3,7 @@ package net.sevenstars.of_beasts_and_wild_things;
 import net.fabricmc.api.ModInitializer;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
-import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
+import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModActivity;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
@@ -19,7 +19,7 @@ public class OfBeastsAndWildThings implements ModInitializer {
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
 	@Override
 	public void onInitialize() {
-		ModEntities.registerModEntities();
+		EntitiesWT.registerModEntities();
 		ModSchedule.registerModSchedules();
 		ModActivity.registerModActivities();
 		ModSensors.registerModSensors();

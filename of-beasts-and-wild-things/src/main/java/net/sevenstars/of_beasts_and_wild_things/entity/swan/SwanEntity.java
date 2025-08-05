@@ -4,8 +4,6 @@ import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.UseRemainderComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -19,7 +17,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
@@ -27,7 +24,6 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -38,7 +34,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
@@ -49,13 +44,11 @@ import net.minecraft.world.World;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
-import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModActivity;
+import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Optional;
 
 // TODO Add sounds
@@ -260,6 +253,9 @@ public class SwanEntity extends AnimalEntity {
 
     @Override
     public boolean canTarget(LivingEntity target) {
+        if(this.isTouchingWater() && target.getBlockPos().getY() < this.getBlockPos().getY()) {
+            return false;
+        }
         return !this.isBaby() && super.canTarget(target);
     }
 
@@ -335,7 +331,7 @@ public class SwanEntity extends AnimalEntity {
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        SwanEntity child = ModEntities.SWAN.create(world, SpawnReason.BREEDING);
+        SwanEntity child = EntitiesWT.SWAN.create(world, SpawnReason.BREEDING);
 
         if(child != null) {
             int i = this.random.nextInt(2);
