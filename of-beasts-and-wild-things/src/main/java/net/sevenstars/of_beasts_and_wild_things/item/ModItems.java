@@ -15,6 +15,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.datageneration.content.TranslationEntries;
 import net.sevenstars.of_beasts_and_wild_things.datageneration.models.SimpleItemModels;
+import net.sevenstars.of_beasts_and_wild_things.item.items.SwanEggItem;
 
 import java.util.function.Function;
 
@@ -29,7 +30,7 @@ public class ModItems {
             Item::new, new Item.Settings());
 
     public static final Item SWAN_EGG = registerItem("swan_egg",
-            EggItem::new, new Item.Settings().maxCount(16).component(DataComponentTypes.CHICKEN_VARIANT, new LazyRegistryEntryReference<>(ChickenVariants.COLD)));
+            SwanEggItem::new, new Item.Settings().maxCount(16));
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = factory.apply(settings.registryKey(keyOfItem(name)));

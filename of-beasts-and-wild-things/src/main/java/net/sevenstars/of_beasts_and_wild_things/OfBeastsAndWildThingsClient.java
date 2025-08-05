@@ -6,6 +6,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.BlockRenderLayer;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.world.biome.DryFoliageColors;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
@@ -25,6 +27,8 @@ public class OfBeastsAndWildThingsClient implements ClientModInitializer {
         EntityRendererRegistry.register(EntitiesWT.PHEASANT, PheasantEntityRenderer::new);
         EntityRendererRegistry.register(EntitiesWT.SWAN, SwanEntityRenderer::new);
         EntityRendererRegistry.register(EntitiesWT.DEER, DeerEntityRenderer::new);
+
+        EntityRendererRegistry.register(EntitiesWT.SWAN_EGG, FlyingItemEntityRenderer::new);
 
         BlockRenderLayerMap.putBlock(ModBlocks.BIRD_NEST, BlockRenderLayer.CUTOUT);
 
