@@ -31,6 +31,7 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
     public ButtonWidget toInitializeToggleButton;
     public ButtonWidget isEnabledToggleButton;
     public ButtonWidget showAllButton;
+    public ButtonWidget respawnAllButton;
 
     public ArrayList<Identifier> identifiers;
 
@@ -74,6 +75,10 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
         showAllButton = ButtonWidget.builder(Text.of("showAll"),x -> handler.triggerGlowOnAllEntities()).build();
         showAllButton.setDimensions(104, 20);
         addDrawableChild(showAllButton);
+
+        respawnAllButton = ButtonWidget.builder(Text.of("showAll"),x -> handler.triggerRespawnAllEntities()).build();
+        respawnAllButton.setDimensions(104, 20);
+        addDrawableChild(respawnAllButton);
     }
 
     @Override
@@ -105,7 +110,6 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
 
         startY += 20;
         toInitializeToggleButton.setPosition(centerX + 5, startY);
-        //toInitializeToggleButton.render(context, mouseX, mouseY, deltaTicks);
 
         boolean toInitializeToggleButtonFocused = toInitializeToggleButton.isMouseOver(mouseX, mouseY) || toInitializeToggleButton.isFocused();
         int toInitializeToggleButtonUvY = 1;
@@ -113,6 +117,19 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
             toInitializeToggleButtonUvY = toInitializeToggleButtonFocused ? 52 : 35;
         else if(toInitializeToggleButtonFocused)
             toInitializeToggleButtonUvY = 18;
+
+        if(handler.getDataIdentifier() == null){
+            toInitializeToggleButton.active = false;
+            isEnabledToggleButton.active = false;
+            showAllButton.active = false;
+            respawnAllButton.active = false;
+            return;
+        } else {
+            toInitializeToggleButton.active = true;
+            isEnabledToggleButton.active = true;
+            showAllButton.active = true;
+            respawnAllButton.active = true;
+        }
 
         context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
                 toInitializeToggleButton.getX(), toInitializeToggleButton.getY(),
@@ -141,9 +158,19 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
                 showAllButton.getX(), showAllButton.getY(),
                 35, showAllButton.isMouseOver(mouseX, mouseY) ? 23 : 1,
                 showAllButton.getWidth(), showAllButton.getHeight(), 256, 256);
-        Text text = Text.translatable("Show all");
-        int showAllStartX = showAllButton.getX() + (showAllButton.getWidth() / 2) - (textRenderer.getWidth(text) / 2);
-        context.drawText(textRenderer, text,showAllStartX,showAllButton.getY() + 6, Color.BLACK.getRGB(), false);
+        Text showAllText = Text.translatable("Show all");
+        int showAllStartX = showAllButton.getX() + (showAllButton.getWidth() / 2) - (textRenderer.getWidth(showAllText) / 2);
+        context.drawText(textRenderer, showAllText,showAllStartX,showAllButton.getY() + 6, Color.BLACK.getRGB(), false);
+
+        startY += showAllButton.getHeight() + 4;
+        respawnAllButton.setPosition(centerX + 5, startY);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
+                respawnAllButton.getX(), respawnAllButton.getY(),
+                35, respawnAllButton.isMouseOver(mouseX, mouseY) ? 23 : 1,
+                respawnAllButton.getWidth(), respawnAllButton.getHeight(), 256, 256);
+        Text respawnAllText = Text.translatable("Respawn all");
+        int respawnAllStartX = respawnAllButton.getX() + (respawnAllButton.getWidth() / 2) - (textRenderer.getWidth(respawnAllText) / 2);
+        context.drawText(textRenderer, respawnAllText, respawnAllStartX,respawnAllButton.getY() + 6, Color.BLACK.getRGB(), false);
     }
 
     @Override

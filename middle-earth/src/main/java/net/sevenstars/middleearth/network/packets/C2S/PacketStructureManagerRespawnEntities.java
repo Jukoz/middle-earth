@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.network.packets.C2S;
 
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -11,27 +10,27 @@ import net.sevenstars.middleearth.block.special.structureManager.StructureManage
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 
-public class PacketStructureManagerShowAllEntities extends ClientToServerPacket<PacketStructureManagerShowAllEntities> {
-    public static final CustomPayload.Id<PacketStructureManagerShowAllEntities> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "structure_manager_show_all_entities"));
+public class PacketStructureManagerRespawnEntities extends ClientToServerPacket<PacketStructureManagerRespawnEntities> {
+    public static final Id<PacketStructureManagerRespawnEntities> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "structure_manager_respawn_entities"));
 
-    public static final PacketCodec<RegistryByteBuf, PacketStructureManagerShowAllEntities> CODEC = PacketCodec.tuple(
+    public static final PacketCodec<RegistryByteBuf, PacketStructureManagerRespawnEntities> CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, p -> p.pos,
-            PacketStructureManagerShowAllEntities::new
+            PacketStructureManagerRespawnEntities::new
     );
 
     private final BlockPos pos;
 
-    public PacketStructureManagerShowAllEntities(BlockPos pos) {
+    public PacketStructureManagerRespawnEntities(BlockPos pos) {
         this.pos = pos;
     }
 
     @Override
-    public Id<PacketStructureManagerShowAllEntities> getId() {
+    public Id<PacketStructureManagerRespawnEntities> getId() {
         return ID;
     }
 
     @Override
-    public PacketCodec<RegistryByteBuf, PacketStructureManagerShowAllEntities> streamCodec() {
+    public PacketCodec<RegistryByteBuf, PacketStructureManagerRespawnEntities> streamCodec() {
         return CODEC;
     }
 
@@ -40,14 +39,12 @@ public class PacketStructureManagerShowAllEntities extends ClientToServerPacket<
         try{
             MinecraftServer server = context.player().getServer();
             server.execute(() -> {
-                if(!context.player().hasPermissionLevel(2))
-                    return;
                 if(context.player().getWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity){
-                    blockEntity.showAllEntities();
+                    blockEntity.respawnAllEntities();
                 }
             });
         } catch (Exception e){
-            MiddleEarth.LOGGER.logError("PacketStructureManagerShowAllEntities::Tried to show all entities.", e);
+            MiddleEarth.LOGGER.logError("PacketStructureManagerRespawnEntities::Tried to reset all entities.", e);
         }
     }
 }

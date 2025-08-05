@@ -10,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerRespawnEntities;
 import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerShowAllEntities;
 import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerUpdateBlockEntityRequest;
 
@@ -67,7 +68,7 @@ public class StructureManagerScreenHandler extends ScreenHandler {
     }
 
     private void updateServer() {
-        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(this.data.getPos(), this.data.getStructureManagerIdentifier(), this.data.getIsActive(), this.data.getToInitialize()));
+        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(this.data.getPos(), this.data.getStructureManagerIdentifier(), this.data.getToInitialize(), this.data.getIsActive()));
     }
 
     public void toggleToActivate() {
@@ -76,6 +77,10 @@ public class StructureManagerScreenHandler extends ScreenHandler {
     }
     public void triggerGlowOnAllEntities() {
         ClientPlayNetworking.send(new PacketStructureManagerShowAllEntities(this.data.getPos()));
+    }
+
+    public void triggerRespawnAllEntities() {
+        ClientPlayNetworking.send(new PacketStructureManagerRespawnEntities(this.data.getPos()));
     }
 }
 

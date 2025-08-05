@@ -69,6 +69,12 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     // region [Basic Overrides]
+    public void updateData(Identifier structureManagerId, boolean isActive, boolean toInitialize) {
+        this.structureManagerIdentifier = structureManagerId;
+        this.enabled = isActive;
+        this.toInitialize = toInitialize;
+        updateListeners();
+    }
 
     @Override
     public Text getDisplayName() {
@@ -123,6 +129,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     @Override
     public void setWorld(World world) {
         super.setWorld(world);
+        tryToInitializeManager(world);
     }
 
     public void showAllEntities() {
@@ -134,6 +141,14 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
                     livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 10*20));
                 }
             }
+        }
+    }
+
+    public void respawnAllEntities() {
+        if(structureNestList == null)
+            return;
+        for(var nest : structureNestList.getManagers()){
+            nest.forceRespawn(managerData, world, pos);
         }
     }
 
@@ -160,12 +175,14 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     private void tickEvent(World world, BlockPos blockPos, BlockState blockState) {
         if(!world.isClient && firstTick){
-            tryToInitializeManager(world);
+            //tryToInitializeManager(world);
             this.firstTick = false;
         }
+        if(!enabled)
+            return;
 
         ServerWorld serverWorld = (ServerWorld) world;
-        if(structureNestList == null || !enabled)
+        if(structureNestList == null)
             return;
 
         long timeOfDay = serverWorld.getTime() % 24000;
@@ -194,6 +211,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(structureManagerIdentifier == null)
             return;
 
+        MiddleEarth.LOGGER.logDebugMsg("Trying to initialize structure manager block entity");
         if(toInitialize && !enabled){
             this.managerData = StructureManagerService.GetStructureManagerData(world, structureManagerIdentifier);
             if(structureNestList == null)

@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.block.special.structureManager;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Uuids;
@@ -152,9 +153,10 @@ public class SpawnNestManager {
                 LivingEntity entityToAdd = StructureManagerService.SpawnEntity(world, pool, originPos, spawnRadius);
                 if(entityToAdd instanceof NpcEntity npcEntity)
                     npcEntity.setStructureManagerHost(sourcePos);
-                addEntity(entityToAdd);
-                world.markDirty(sourcePos);
+                if(entityToAdd != null)
+                    addEntity(entityToAdd);
             }
+            world.markDirty(sourcePos);
         }
         this.respawnEventTriggerTick = -1;
     }
@@ -164,6 +166,17 @@ public class SpawnNestManager {
             return true;
         }
         return false;
+    }
+
+    public void forceRespawn(StructureManagerData structureManagerData, World world, BlockPos pos) {
+        for(var uuid : getEntityUuids()){
+            if(world.getEntity(uuid) instanceof LivingEntity livingEntity){
+                livingEntity.setRemoved(Entity.RemovalReason.DISCARDED);
+                MiddleEarth.LOGGER.logDebugMsg("Removed %s".formatted(uuid));
+            }
+        }
+        entities = new ArrayList<UUID>();
+        respawnAll(structureManagerData, world, pos);
     }
 }
 

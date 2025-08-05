@@ -48,7 +48,7 @@ public class StructureManagerScreenData{
         this.pos = pos;
         setActive(isActive);
         setToInitialize(toInitialize);
-        structureManagerId.ifPresentOrElse(x -> setStructureManagerIdentifier(x), () -> setStructureManagerIdentifier(null));
+        structureManagerId.ifPresentOrElse(this::setStructureManagerIdentifier, () -> setStructureManagerIdentifier(null));
     }
 
     static {
