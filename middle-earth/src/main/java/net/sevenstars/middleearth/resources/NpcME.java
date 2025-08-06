@@ -427,7 +427,7 @@ public class NpcME {
     }
 
     public static RegistryKey<NpcData> register(Registerable<NpcData> context, RegistryEntryLookup<NpcData> npcRegistryEntryLookup, NpcData npcData) {
-        RegistryKey<NpcData> npcRegistryKey = of(npcData.getName());
+        RegistryKey<NpcData> npcRegistryKey = of(npcData.getId().getPath());
         String name = npcRegistryKey.getValue().getPath();
         RegistryKey<NpcData> npcKey = RegistryKey.of(KEY, Identifier.of(MiddleEarth.MOD_ID,name));
 
