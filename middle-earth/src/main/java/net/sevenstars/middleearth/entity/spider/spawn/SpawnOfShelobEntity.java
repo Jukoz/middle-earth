@@ -26,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.entity.goals.ShieldAgainstProjctileGoal;
 import net.sevenstars.middleearth.entity.goals.CooldownRangedAttackMob;
 import net.sevenstars.middleearth.entity.goals.PounceRetreatGoal;
 import net.sevenstars.middleearth.entity.goals.SmartProjectileAttackGoal;
@@ -65,12 +66,13 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Coold
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new PounceRetreatGoal(this, 0.8f, 1.15f, 0.3f));
-        this.goalSelector.add(3, new SmartProjectileAttackGoal(this, 0.7f, 40, 90, 17, 40));
-        this.goalSelector.add(4, new SpiderPonceAtTargetGoal(this, this, 0.55F, 0.35f));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(6, new LookAroundGoal(this));
+        this.goalSelector.add(3, new ShieldAgainstProjctileGoal(this, 13, 32));
+        this.goalSelector.add(4, new SmartProjectileAttackGoal(this, 0.7f, 40, 90, 17, 40));
+        this.goalSelector.add(5, new SpiderPonceAtTargetGoal(this, this, 0.55F, 0.35f));
+        this.goalSelector.add(5, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
+        this.goalSelector.add(6, new WanderAroundFarGoal(this, 0.8));
+        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.add(8, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
     }
