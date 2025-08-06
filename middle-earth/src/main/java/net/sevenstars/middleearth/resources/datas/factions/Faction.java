@@ -392,7 +392,7 @@ public class Faction {
             List<NpcData> datas = NpcDataLookup.getAllNpcDatas(world, this.npcDatasByRank.get(rank));
             for(NpcData data : datas){
                 if(data != null)
-                    allRaceIds.add(data.getRaceId());
+                    allRaceIds.add(data.getRace());
             }
         }
         races = RaceLookup.getAllRaces(world, allRaceIds);

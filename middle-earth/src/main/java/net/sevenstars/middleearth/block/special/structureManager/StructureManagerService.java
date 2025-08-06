@@ -6,8 +6,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.entity.npcs.NpcEntityBuilder;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerDataLookup;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
@@ -37,11 +36,10 @@ public class StructureManagerService {
 
         LivingEntity entity;
         if(pool.getEntityType() == ModEntities.NPC){
-            entity = NpcEntity.create(world, chosenBlockPos)
-                    .withCategory(EntityCategory.MALE)
-                    // .withArchetype()
+
+            entity = new NpcEntityBuilder(world, chosenBlockPos)
                     .withNpcData(pool.getNpcIdentifier().get())
-                    .withFaction(pool.getFaction().get().getValue());
+                    .build();
         } else {
             entity = (LivingEntity) pool.getEntityType().create(world, SpawnReason.STRUCTURE);
             entity.setPosition(chosenBlockPos.toCenterPos());

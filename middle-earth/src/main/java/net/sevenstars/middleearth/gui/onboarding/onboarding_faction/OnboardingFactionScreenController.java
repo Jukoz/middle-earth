@@ -15,6 +15,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.NpcEntityBuilder;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
@@ -27,7 +28,6 @@ import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
@@ -343,11 +343,10 @@ public class OnboardingFactionScreenController {
         }
 
         selectedRace = currentFaction.getRaces(world).get(index);
-        currentNpcEntity = NpcEntity
-                .create(world, MinecraftClient.getInstance().player.getBlockPos())
-                .withCategory(EntityCategory.MALE)
-                .withFaction(currentFaction.getId())
-                .withNpcData(currentFaction.getAllNpcDatas().get(NpcRank.VETERAN).getFirst());
+        currentNpcEntity =
+                new NpcEntityBuilder(world, MinecraftClient.getInstance().player.getBlockPos())
+                        .withNpcData(currentFaction.getAllNpcDatas().get(NpcRank.VETERAN).getFirst())
+                        .build();
     }
 
     public void updateSpawnPoint(int indexDifference){

@@ -1,13 +1,16 @@
 package net.sevenstars.middleearth.resources.datas.npcs.pools;
 
+import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
+import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.RacesME;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
@@ -20,7 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class BanditNpcDataPool {
-    private final static String FACTION_BASE = "bandit.";
+    private final static RegistryKey<Faction> FACTION = FactionsME.BANDIT;
+    private final static String FACTION_BASE = FACTION.getValue().getPath() + ".%s";
+
     private final static int DEFAULT = 0x43403a;
     private final static int DARKEST_RED = 0x321111;
     private final static int DARK_BROWN = 0x2b1c17;
@@ -58,7 +63,7 @@ public class BanditNpcDataPool {
 
     private static final List<Integer> allColors = List.of(DEFAULT, DARK_BROWN, LIGHT_BROWN, DARK_GREEN, DARK_BLUE, DARKEST_RED, GREEN, BLUE, DARK_ORANGE);
     static {
-        BANDIT_THUG = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "thug"), RacesME.HUMAN, List.of(
+        BANDIT_THUG = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("thug")), RacesME.HUMAN, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(6))
@@ -127,7 +132,7 @@ public class BanditNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        BANDIT_THIEF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "thief"), RacesME.HUMAN, List.of(
+        BANDIT_THIEF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("thief")), RacesME.HUMAN, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.BYCOCKET).withHood(HelmetAttachmentsME.HOOD, allColors))
@@ -165,7 +170,7 @@ public class BanditNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        BANDIT_MERCENARY = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "mercenary"), RacesME.HUMAN, List.of(
+        BANDIT_MERCENARY = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("mercenary")), RacesME.HUMAN, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF))
@@ -217,7 +222,7 @@ public class BanditNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        BANDIT_CHIEFTAIN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "chieftain"), RacesME.HUMAN, List.of(
+        BANDIT_CHIEFTAIN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("chieftain")), RacesME.HUMAN, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_LEATHER_HELMET).withColor(DEFAULT).withWeight(3))
@@ -285,7 +290,7 @@ public class BanditNpcDataPool {
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
 
-        WILD_GOBLIN_GATHERER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "wild_goblin_gatherer"), RacesME.ORC, List.of(
+        WILD_GOBLIN_GATHERER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("wild_goblin_gatherer")), RacesME.ORC, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -319,7 +324,7 @@ public class BanditNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        WILD_GOBLIN_WARRIOR= new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "wild_goblin_warrior"), RacesME.ORC, List.of(
+        WILD_GOBLIN_WARRIOR= new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("wild_goblin_warrior")), RacesME.ORC, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -364,7 +369,7 @@ public class BanditNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        WILD_GOBLIN_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "wild_goblin_scout"), RacesME.ORC, List.of(
+        WILD_GOBLIN_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("wild_goblin_scout")), RacesME.ORC, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))

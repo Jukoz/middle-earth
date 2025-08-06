@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.item.utils;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.LoreComponent;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -14,6 +15,7 @@ import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
@@ -22,10 +24,9 @@ import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
-import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.pools.EreborNpcDataPool;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -41,10 +42,14 @@ public class ModItemGroups {
         registryWrapper.streamEntries().filter(filter).sorted(NPC_DATA_COMPARATOR).forEach(reference -> {
             ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
             NbtCompound compound = new NbtCompound();
+            compound.putString("id", IdentifierUtil.create("npc").toString());
             compound.putString("NpcDataId", reference.value().getId().toString());
             itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compound));
-            itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue()));
+            itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(reference.value().getFaction()));
             itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(reference.value().getName()));
+            itemStack.set(DataComponentTypes.LORE, new LoreComponent(List.of(
+                    Text.translatable(reference.value().getRace().toTranslationKey("race")).formatted(Formatting.DARK_RED)
+            )));
             entries.add(itemStack, stackVisibility);
         });
     }
@@ -168,19 +173,6 @@ public class ModItemGroups {
                 for (ItemStack item : SPAWN_EGGS_CONTENTS) {
                     entries.add(item);
                 };
-                ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
-
-                NbtCompound compound = new NbtCompound();
-                //itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compound));
-                compound.putString("id", "middle-earth:npc");
-                compound.putBoolean("Glowing", true);
-                compound.put("NpcDataId", Identifier.CODEC, EreborNpcDataPool.EREBOR_GATEWARDEN.getId());
-                itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compound));
-
-                itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue()));
-                itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(FactionsME.LONGBEARDS_EREBOR.getValue().toTranslationKey("faction")));
-                entries.add(itemStack);
-
                 displayContext.lookup().getOptional(NpcME.KEY)
                         .ifPresent(registryWrapper -> addNpcEggs(
                                 entries,
