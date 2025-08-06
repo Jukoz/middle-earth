@@ -5,12 +5,13 @@ import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 
-public class SpawnOfShelobModel extends EntityModel<ShelobiteScuttlerRenderState> {
+public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
     private final ModelPart root;
 
     private final Animation idleAnimation;
     private final Animation walkingAnimation;
     private final Animation biteAnimation;
+    private final Animation walkingBlockAnimation;
 
     public SpawnOfShelobModel(ModelPart root) {
         super(root);
@@ -19,6 +20,7 @@ public class SpawnOfShelobModel extends EntityModel<ShelobiteScuttlerRenderState
         this.idleAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_IDLE.createAnimation(root);
         this.walkingAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_WALK.createAnimation(root);
         this.biteAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_BITE.createAnimation(root);
+        this.walkingBlockAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_BLOCK.createAnimation(root);
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -154,13 +156,17 @@ public class SpawnOfShelobModel extends EntityModel<ShelobiteScuttlerRenderState
     }
 
     @Override
-    public void setAngles(ShelobiteScuttlerRenderState state) {
+    public void setAngles(SpawnOfShelobRenderState state) {
         super.setAngles(state);
 
         if(state.limbSwingAmplitude <= 0.4) {
             this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
         }
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
+        if(state.blockAnimationState.isRunning()) {
+            this.walkingBlockAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.2F, 2.25F);
+        } else {
+            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
+        }
         this.biteAnimation.apply(state.walkAnimationState, state.age, 1.25f);
     }
 }

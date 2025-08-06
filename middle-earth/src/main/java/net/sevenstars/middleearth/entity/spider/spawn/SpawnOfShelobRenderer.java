@@ -9,7 +9,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 
-public class SpawnOfShelobRenderer extends MobEntityRenderer<SpawnOfShelobEntity, ShelobiteScuttlerRenderState, SpawnOfShelobModel> {
+public class SpawnOfShelobRenderer extends MobEntityRenderer<SpawnOfShelobEntity, SpawnOfShelobRenderState, SpawnOfShelobModel> {
     private static final String PATH = "textures/entities/spiders/";
 
     public SpawnOfShelobRenderer(EntityRendererFactory.Context context) {
@@ -17,8 +17,8 @@ public class SpawnOfShelobRenderer extends MobEntityRenderer<SpawnOfShelobEntity
     }
 
     @Override
-    public ShelobiteScuttlerRenderState createRenderState() {
-        return new ShelobiteScuttlerRenderState();
+    public SpawnOfShelobRenderState createRenderState() {
+        return new SpawnOfShelobRenderState();
     }
 
     protected SpawnOfShelobRenderer(EntityRendererFactory.Context ctx, float shadowRadius, EntityModelLayer layer) {
@@ -27,15 +27,15 @@ public class SpawnOfShelobRenderer extends MobEntityRenderer<SpawnOfShelobEntity
 
 
     @Override
-    public Identifier getTexture(ShelobiteScuttlerRenderState state) {
+    public Identifier getTexture(SpawnOfShelobRenderState state) {
         return Identifier.of(MiddleEarth.MOD_ID, PATH + "mirkwood_shelobite_spawn.png");
     }
 
-    public void updateRenderState(SpawnOfShelobEntity spawnofShelobEntity, ShelobiteScuttlerRenderState shelobiteScuttlerEntityRenderState, float f) {
+    public void updateRenderState(SpawnOfShelobEntity spawnofShelobEntity, SpawnOfShelobRenderState shelobiteScuttlerEntityRenderState, float f) {
         super.updateRenderState(spawnofShelobEntity, shelobiteScuttlerEntityRenderState, f);
         shelobiteScuttlerEntityRenderState.idleAnimationState.copyFrom(spawnofShelobEntity.idleAnimation);
         shelobiteScuttlerEntityRenderState.walkAnimationState.copyFrom(spawnofShelobEntity.walkingAnimation);
         shelobiteScuttlerEntityRenderState.biteAnimationState.copyFrom(spawnofShelobEntity.biteAnimation);
-        //shelobiteScuttlerEntityRenderState.pounceAnimationState.copyFrom(shelobiteSpawnEntity.pounceAnimation);
+        shelobiteScuttlerEntityRenderState.blockAnimationState.copyFrom(spawnofShelobEntity.blockAnimation);
     }
 }
