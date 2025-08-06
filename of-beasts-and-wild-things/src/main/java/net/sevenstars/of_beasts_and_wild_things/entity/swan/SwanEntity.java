@@ -7,7 +7,8 @@ import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.entity.ai.brain.WalkTarget;
-import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.entity.ai.control.LookControl;
+import net.minecraft.entity.ai.pathing.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -16,7 +17,9 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.StriderEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
@@ -41,6 +44,7 @@ import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
@@ -52,6 +56,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 // TODO Add sounds
+// TODO Make new task for strolling in water
 
 public class SwanEntity extends AnimalEntity {
     private static final int EGG_COOLDOWN = 12000; // = 10 minutes
@@ -68,6 +73,7 @@ public class SwanEntity extends AnimalEntity {
     public final AnimationState flapAnimationState = new AnimationState();
     public SwanEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
+        this.setPathfindingPenalty(PathNodeType.WATER, 0F);
     }
 
     public static DefaultAttributeContainer.Builder createSwanAttributes() {
@@ -101,6 +107,11 @@ public class SwanEntity extends AnimalEntity {
         super.mobTick(world);
     }
 
+    @Override
+    protected float getBaseWaterMovementSpeedMultiplier() {
+        return 1.0F;
+    }
+
     private void updateHome() {
         Optional<GlobalPos> optional = this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HOME);
 
@@ -109,6 +120,11 @@ public class SwanEntity extends AnimalEntity {
                 this.getBrain().forget(MemoryModuleType.HOME);
             }
         }
+    }
+
+    @Override
+    protected EntityNavigation createNavigation(World world) {
+        return new AmphibiousSwimNavigation(this, world);
     }
 
     public void startSleeping() {
@@ -367,6 +383,8 @@ public class SwanEntity extends AnimalEntity {
         }
     }
 
+
+
     public static boolean isValidSwanFood(LivingEntity entity) {
         return entity.getType().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_food")));
     }
@@ -407,5 +425,10 @@ public class SwanEntity extends AnimalEntity {
 
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 2.0F);
+    }
+
+    @Override
+    public boolean isSubmergedInWater() {
+        return super.isSubmergedInWater();
     }
 }

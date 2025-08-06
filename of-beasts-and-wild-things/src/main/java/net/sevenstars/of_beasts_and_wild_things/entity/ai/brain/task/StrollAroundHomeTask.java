@@ -1,5 +1,6 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.FuzzyTargeting;
 import net.minecraft.entity.ai.NoPenaltySolidTargeting;
@@ -29,7 +30,7 @@ public class StrollAroundHomeTask {
                         return false;
                     } else {
                         Optional<Vec3d> optional = Optional.ofNullable((Vec3d)targetGetter.apply(entity));
-                        walkTarget.remember(optional.map(pos -> new WalkTarget(pos, speed, 2)));
+                        walkTarget.remember(optional.map(pos -> new WalkTarget(pos, speed, 0)));
                         return true;
                     }
                 })

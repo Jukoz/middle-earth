@@ -75,7 +75,7 @@ public class SwanBrain {
                 ))),
                 Pair.of(2, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_PRESENT), ImmutableList.of(
                         Pair.of(StrollAroundHomeTask.create(0.7f, 20, true), 1),
-                        Pair.of(SeekWaterTask.create(10, 1.0f), 4),
+                        Pair.of(SeekWaterTask.create(10, 0.7f), 3),
                         Pair.of(new WaitTask(20, 100), 3)
                 ))),
                 Pair.of(3, UpdateAttackTargetTask.create(SwanBrain::getAttackTarget)),
