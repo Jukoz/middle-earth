@@ -18,19 +18,22 @@ import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.goals.interfaces.Shielder;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 
 import java.util.EnumSet;
 
 public class ShieldAgainstProjctileGoal extends Goal {
     private final PathAwareEntity blocker;
+    private final Shielder shielder;
     private LivingEntity target;
     private Path path;
     private int minDistance;
     private int maxDistance;
 
-    public ShieldAgainstProjctileGoal(PathAwareEntity mob, int minDistance, int maxDistance) {
+    public ShieldAgainstProjctileGoal(PathAwareEntity mob, Shielder shielder, int minDistance, int maxDistance) {
         this.blocker = mob;
+        this.shielder = shielder;
         this.minDistance = minDistance;
         this.maxDistance = maxDistance;
         this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
@@ -85,6 +88,14 @@ public class ShieldAgainstProjctileGoal extends Goal {
 
     @Override
     public void start() {
+        super.start();
         this.blocker.getNavigation().startMovingAlong(this.path, 0.7f);
+        shielder.blockShield();
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+        shielder.unblockShield();
     }
 }

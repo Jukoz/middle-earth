@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.goals;
+package net.sevenstars.middleearth.entity.goals.interfaces;
 
 import net.minecraft.entity.ai.RangedAttackMob;
 

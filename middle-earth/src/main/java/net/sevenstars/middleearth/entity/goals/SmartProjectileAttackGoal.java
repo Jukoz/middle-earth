@@ -1,12 +1,11 @@
 package net.sevenstars.middleearth.entity.goals;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
-import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.goals.interfaces.CooldownRangedAttackMob;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;

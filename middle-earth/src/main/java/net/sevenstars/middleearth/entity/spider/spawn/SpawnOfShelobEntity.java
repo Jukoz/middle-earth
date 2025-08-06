@@ -27,15 +27,16 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.entity.goals.ShieldAgainstProjctileGoal;
-import net.sevenstars.middleearth.entity.goals.CooldownRangedAttackMob;
+import net.sevenstars.middleearth.entity.goals.interfaces.CooldownRangedAttackMob;
 import net.sevenstars.middleearth.entity.goals.PounceRetreatGoal;
 import net.sevenstars.middleearth.entity.goals.SmartProjectileAttackGoal;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
+import net.sevenstars.middleearth.entity.goals.interfaces.Shielder;
 import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 
-public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, CooldownRangedAttackMob {
+public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shielder, CooldownRangedAttackMob {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final float MOVEMENT_SPEED = 1.15f;
     public static final float WEB_PROJECTILE_DAMAGE = 2f;
@@ -66,7 +67,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Coold
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new PounceRetreatGoal(this, 0.8f, 1.15f, 0.3f));
-        this.goalSelector.add(3, new ShieldAgainstProjctileGoal(this, 13, 32));
+        this.goalSelector.add(3, new ShieldAgainstProjctileGoal(this, this, 13, 32));
         this.goalSelector.add(4, new SmartProjectileAttackGoal(this, 0.7f, 40, 90, 17, 40));
         this.goalSelector.add(5, new SpiderPonceAtTargetGoal(this, this, 0.55F, 0.35f));
         this.goalSelector.add(5, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
@@ -111,6 +112,16 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Coold
     }
     public void stopPounceAnimation() {
         this.dataTracker.set(POUNCE_FLAG, -1);
+    }
+
+
+    @Override
+    public void blockShield() {
+
+    }
+    @Override
+    public void unblockShield() {
+
     }
 
     @Override
