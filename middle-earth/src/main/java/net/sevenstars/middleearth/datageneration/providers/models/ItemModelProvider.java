@@ -11,6 +11,7 @@ import net.minecraft.client.render.item.property.bool.UsingItemProperty;
 import net.minecraft.client.render.item.property.numeric.CrossbowPullProperty;
 import net.minecraft.client.render.item.property.numeric.UseDurationProperty;
 import net.minecraft.client.render.item.property.select.ChargeTypeProperty;
+import net.minecraft.client.render.item.property.select.CustomModelDataStringProperty;
 import net.minecraft.client.render.item.property.select.DisplayContextProperty;
 import net.minecraft.client.render.item.property.select.TrimMaterialProperty;
 import net.minecraft.client.render.item.tint.DyeTintSource;
@@ -26,14 +27,18 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.CustomItemModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
+import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
+import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import static net.minecraft.client.data.ItemModelGenerator.createModelWithInHandVariant;
 
@@ -164,6 +169,24 @@ public class ItemModelProvider extends FabricModelProvider {
         registerPalettedItem(ResourceItemsME.HELMET_PLATE, itemModelGenerator);
         registerPalettedItem(ResourceItemsME.SHIELD_BORDER, itemModelGenerator);
         registerPalettedItem(ResourceItemsME.SHIELD_PLATE, itemModelGenerator);
+
+        int index = 0;
+
+        List<SelectItemModel.SwitchCase> models = new ArrayList<>(List.of());
+
+        NpcME.allNpcDatas.forEach(npcDataRegistryKey -> {
+            String id = npcDataRegistryKey.getValue().getPath().replaceAll("npc_data.middle-earth.", "").replaceAll("\\.", "_") + "_spawn_egg";
+            models.add(ItemModels.switchCase(id,
+                    ItemModels.basic(Models.GENERATED.upload(Identifier.of(MiddleEarth.MOD_ID, "item/" + id),
+                            TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/" + id)),
+                            itemModelGenerator.modelCollector
+                    ))));
+        });
+
+        ItemModel.Unbaked fallbackModel = ItemModels.basic(itemModelGenerator.upload(EggItemsME.NPC_SPAWN_EGG, Models.GENERATED));
+
+        itemModelGenerator.output.accept(EggItemsME.NPC_SPAWN_EGG,
+                new SelectItemModel.Unbaked(new SelectItemModel.UnbakedSwitch(new CustomModelDataStringProperty(0), models), Optional.of(fallbackModel)));
     }
 
     public final void registerWeaponBigItemModels(ItemModelGenerator itemModelGenerator, Item item) {

@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.item.utils;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.component.type.LoreComponent;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemGroup;
@@ -51,6 +52,11 @@ public class ModItemGroups {
                     Text.translatable("tooltip.%s.race".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.DARK_RED)
                     .append(Text.translatable(reference.value().getRace().toTranslationKey("race")).formatted(Formatting.WHITE))
             )));
+            itemStack.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(
+                    List.of(),
+                    List.of(),
+                    List.of(reference.value().getId().getPath().replaceAll("\\.", "_") + "_spawn_egg"),
+                    List.of()));
             entries.add(itemStack, stackVisibility);
         });
     }

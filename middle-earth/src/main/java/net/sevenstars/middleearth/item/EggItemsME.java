@@ -47,7 +47,7 @@ public class EggItemsME {
             (settings) -> new SpawnEggItem(ModEntities.SWAN, settings), new Item.Settings());
 
     // Npcs
-    public static final Item NPC_SPAWN_EGG = registerItem("npc_spawn_egg",
+    public static final Item NPC_SPAWN_EGG = registerSpecialEgg("npc_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.NPC, settings), new Item.Settings());
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
@@ -58,9 +58,9 @@ public class EggItemsME {
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
-    private static Item registerItemWithoutStack(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
+    private static Item registerSpecialEgg(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        SimpleItemModel.items.add(item);
+        ModItemGroups.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);

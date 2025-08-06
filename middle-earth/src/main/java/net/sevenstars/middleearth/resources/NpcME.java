@@ -386,6 +386,8 @@ public class NpcME {
     }
 
     public static void bootstrap(Registerable<NpcData> context) {
+        NpcME.allNpcDatas = new ArrayList<>();
+
         RegistryEntryLookup<NpcData> npcRegistryEntryLookup = context.getRegistryLookup(KEY);
         // [RACE / GENERIC]
         register(context, npcRegistryEntryLookup, HUMAN_CIVILIAN);
@@ -418,8 +420,6 @@ public class NpcME {
     }
 
     private static void registerAll(Registerable<NpcData> context, RegistryEntryLookup<NpcData> npcRegistryEntryLookup, List<NpcData> npcDatas) {
-        NpcME.allNpcDatas = new ArrayList<>();
-
         for(NpcData data : npcDatas){
             RegistryKey<NpcData> registered = register(context, npcRegistryEntryLookup, data);
             NpcME.allNpcDatas.add(registered);
