@@ -50,6 +50,8 @@ public class StrollAroundHomeTask {
             return null;
         }
 
+
+
         Vec3d direction = entityPos.relativize(homePos).normalize();
         return NoPenaltySolidTargeting.find(entity, radius, radius, -2, direction.x, direction.z, (float) (Math.PI / 2));
     }}
