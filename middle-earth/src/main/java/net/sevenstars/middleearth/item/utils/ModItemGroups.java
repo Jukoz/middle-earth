@@ -48,7 +48,8 @@ public class ModItemGroups {
             itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(reference.value().getFaction()));
             itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(reference.value().getName()));
             itemStack.set(DataComponentTypes.LORE, new LoreComponent(List.of(
-                    Text.translatable(reference.value().getRace().toTranslationKey("race")).formatted(Formatting.DARK_RED)
+                    Text.translatable("tooltip.%s.race".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.DARK_RED)
+                    .append(Text.translatable(reference.value().getRace().toTranslationKey("race")).formatted(Formatting.WHITE))
             )));
             entries.add(itemStack, stackVisibility);
         });

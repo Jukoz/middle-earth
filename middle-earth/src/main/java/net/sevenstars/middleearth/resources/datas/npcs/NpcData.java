@@ -91,7 +91,7 @@ public class NpcData {
     }
 
     public String getName(){
-        return id.getPath();
+        return id.toTranslationKey("npc_data");
     }
 
     public NpcGearData getGear() {

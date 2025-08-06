@@ -20,6 +20,7 @@ import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +34,7 @@ import java.util.stream.Stream;
 public class NpcME {
     public final static String PATH = "npcs";
     public static final RegistryKey<Registry<NpcData>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
-    public static List<RegistryKey<NpcData>> allNpcDatas;
+    public static ArrayList<RegistryKey<NpcData>> allNpcDatas;
     // [GENERIC]
     public final static NpcData HUMAN_CIVILIAN;
     public final static NpcData DWARF_CIVILIAN;
@@ -417,7 +418,7 @@ public class NpcME {
     }
 
     private static void registerAll(Registerable<NpcData> context, RegistryEntryLookup<NpcData> npcRegistryEntryLookup, List<NpcData> npcDatas) {
-        NpcME.allNpcDatas = List.of();
+        NpcME.allNpcDatas = new ArrayList<>();
 
         for(NpcData data : npcDatas){
             RegistryKey<NpcData> registered = register(context, npcRegistryEntryLookup, data);

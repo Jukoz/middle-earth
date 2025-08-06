@@ -308,6 +308,7 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".type", "Type: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".faction", "Faction: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".sub_faction", "Sub Faction: ");
+            put("tooltip."+ MiddleEarth.MOD_ID +".race", "Race: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".customizations", "Custom Parts: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".reach", "Reach: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".dyed", "Dyed: ");
@@ -685,6 +686,12 @@ public class TranslationEntries {
             put("painting."+ MiddleEarth.MOD_ID +".tool_board.title", "Tool Board");
             put("painting."+ MiddleEarth.MOD_ID +".gondorian_tapestry.title", "Gondorian Tapestry");
             put("painting."+ MiddleEarth.MOD_ID +".dwarven_plaque.title", "Dwarven Plaque");
+
+
+            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_soldier", "Mordor Soldier");
+            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_snaga", "Mordor Snaga");
+            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_scout", "Mordor Scout");
+            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_militia", "Mordor Militia");
 
             put("structure_manager_data.%s.gondor_generic_nests".formatted(MiddleEarth.MOD_ID), "Gondor Generic Nests");
             put("structure_nest.%s.gondor_generic_nests.captain_nest".formatted(MiddleEarth.MOD_ID), "Captain Room");
