@@ -1,0 +1,69 @@
+package net.sevenstars.of_beasts_and_wild_things.entity.swan;
+
+import com.google.common.collect.Maps;
+import net.minecraft.client.model.BabyModelPair;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.model.CowEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
+import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
+import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityModel;
+import net.sevenstars.of_beasts_and_wild_things.entity.model.ModEntityModelLayers;
+
+import java.util.Map;
+import java.util.Optional;
+
+public class SwanEntityRenderer  extends MobEntityRenderer<SwanEntity, SwanEntityRenderState, SwanEntityModel> {
+    private static final String PATH = "textures/entity/swan/";
+    BabyModelPair<SwanEntityModel> babyModelPair;
+
+    public SwanEntityRenderer(EntityRendererFactory.Context context) {
+        super(context, new SwanEntityModel(context.getPart(ModEntityModelLayers.SWAN)), 0.5f);
+        babyModelPair = new BabyModelPair<>(new SwanAdultModel(context.getPart(ModEntityModelLayers.SWAN)), new SwanBabyModel(context.getPart(ModEntityModelLayers.SWAN_BABY)));
+    }
+
+    public static final Map<SwanEntityVariant, String> LOCATION_BY_VARIANT =
+            Util.make(Maps.newEnumMap(SwanEntityVariant.class), (map) -> {
+                map.put(SwanEntityVariant.WHITE,
+                        PATH + "swan_white.png");
+                map.put(SwanEntityVariant.BLACK,
+                        PATH + "swan_black.png");
+                map.put(SwanEntityVariant.TRUMPETER,
+                        PATH + "swan_trumpeter.png");
+                map.put(SwanEntityVariant.WHOOPER,
+                        PATH + "swan_whooper.png");
+            });
+
+    @Override
+    public Identifier getTexture(SwanEntityRenderState state) {
+        return state.baby ? Identifier.of(OfBeastsAndWildThings.MOD_ID, PATH + "swan_baby.png") : Identifier.of(OfBeastsAndWildThings.MOD_ID, LOCATION_BY_VARIANT.get(state.variant));
+    }
+
+    @Override
+    public void render(SwanEntityRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+        this.model = babyModelPair.get(state.baby);
+        super.render(state, matrixStack, vertexConsumerProvider, i);
+    }
+
+    @Override
+    public SwanEntityRenderState createRenderState() {
+        return new SwanEntityRenderState();
+    }
+
+    @Override
+    public void updateRenderState(SwanEntity swan, SwanEntityRenderState swanEntityRenderState, float f) {
+        super.updateRenderState(swan, swanEntityRenderState, f);
+        swanEntityRenderState.variant = swan.getVariant();
+        swanEntityRenderState.sleepingAnimationState = swan.sleepingAnimationState;
+        swanEntityRenderState.swimmingAnimationState = swan.swimmingAnimationState;
+        swanEntityRenderState.intimidateAnimationState = swan.intimidateAnimationState;
+        swanEntityRenderState.eatAnimationState = swan.eatAnimationState;
+        swanEntityRenderState.swimIdleAnimationState = swan.swimIdleAnimationState;
+        swanEntityRenderState.flapAnimationState = swan.flapAnimationState;
+    }
+}

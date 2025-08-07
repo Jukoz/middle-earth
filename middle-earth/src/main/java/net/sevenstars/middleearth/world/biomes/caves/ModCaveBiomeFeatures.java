@@ -7,6 +7,7 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
+import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 
 public class ModCaveBiomeFeatures {
 
@@ -36,7 +37,7 @@ public class ModCaveBiomeFeatures {
         spawnSettings.spawn(SpawnGroup.CREATURE, 4, new SpawnSettings.SpawnEntry(EntityType.FROG, 1, 4));
     }
     public static void addSnails(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(net.sevenstars.of_beasts_and_wild_things.entity.ModEntities.SNAIL, 1, 3));
+        spawnSettings.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(EntitiesWT.SNAIL, 1, 3));
     }
     public static void addWildGoblins(SpawnSettings.Builder spawnSettings) {
         //spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntities.WILD_GOBLIN, 5, 1, 2));
