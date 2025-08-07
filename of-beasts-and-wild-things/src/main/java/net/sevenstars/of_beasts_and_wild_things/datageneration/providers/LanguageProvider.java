@@ -21,6 +21,10 @@ public class LanguageProvider extends FabricLanguageProvider {
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
 
+        TranslationEntries.blockEntries.forEach(block -> {
+            translationBuilder.add(block, generateName(Registries.BLOCK.getId(block).getPath()));
+        });
+
         TranslationEntries.itemEntries.forEach(item -> {
             translationBuilder.add(item, generateName(Registries.ITEM.getId(item).getPath()));
         });

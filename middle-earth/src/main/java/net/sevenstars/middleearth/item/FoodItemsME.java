@@ -36,13 +36,6 @@ public class FoodItemsME {
             Item::new,new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(20).saturationModifier(1).build()));
 
-    public static final Item RAW_SWAN = registerItem("raw_swan",
-            Item::new,new Item.Settings()
-                    .food(new FoodComponent.Builder().nutrition(3).saturationModifier(0.4F).build(), ConsumableComponents.RAW_CHICKEN));
-    public static final Item COOKED_SWAN = registerItem("cooked_swan",
-            Item::new,new Item.Settings()
-                    .food(new FoodComponent.Builder().nutrition(8).saturationModifier(0.8F).build()));
-
     public static final Item RAW_VENISON = registerItem("raw_venison",
             Item::new,new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.4F).build()));

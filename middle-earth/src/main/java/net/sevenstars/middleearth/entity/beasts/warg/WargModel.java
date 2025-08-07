@@ -4,7 +4,6 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.sevenstars.middleearth.entity.swan.SwanAnimations;
 
 public class WargModel extends EntityModel<WargEntityRenderState> {
     private final ModelPart warg;

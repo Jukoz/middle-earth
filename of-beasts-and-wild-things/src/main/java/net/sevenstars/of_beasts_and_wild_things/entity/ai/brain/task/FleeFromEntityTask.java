@@ -1,25 +1,25 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.ai.FuzzyTargeting;
 import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.WalkTarget;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class FleeFromEntityTask<E extends PathAwareEntity> extends MultiTickTask<E> {
     private ImmutableList<Class<? extends Entity>> entities;
@@ -47,11 +47,13 @@ public class FleeFromEntityTask<E extends PathAwareEntity> extends MultiTickTask
     protected void run(ServerWorld serverWorld, E pathAwareEntity, long l) {
         pathAwareEntity.getBrain().remember(MemoryModuleType.IS_PANICKING, true);
         pathAwareEntity.getBrain().forget(MemoryModuleType.WALK_TARGET);
+        pathAwareEntity.setPose(EntityPose.SHOOTING);
     }
 
     protected void finishRunning(ServerWorld serverWorld, E pathAwareEntity, long l) {
         Brain<?> brain = pathAwareEntity.getBrain();
         brain.forget(MemoryModuleType.IS_PANICKING);
+        pathAwareEntity.setPose(EntityPose.STANDING);
     }
 
     @Override
@@ -79,9 +81,12 @@ public class FleeFromEntityTask<E extends PathAwareEntity> extends MultiTickTask
             }
         }
         if(!fleeEntities.isEmpty()) {
-            direction = entity.getPos().subtract(fleeEntities.getFirst().getPos()).multiply(30);
+            direction = entity.getPos().subtract(fleeEntities.getFirst().getPos()).normalize().multiply(5, 0, 5);
+            for(int i = 0; world.getBlockState(new BlockPos((int)direction.x, (int)direction.y - 1, (int)direction.z)).isOf(Blocks.WATER) && i < 8; i++) {
+                direction.rotateY(MathHelper.PI / 8);
+            }
         }
 
-        return FuzzyTargeting.findTo(entity, 5, 4, direction);
+        return FuzzyTargeting.findTo(entity, 7, 4, direction);
     }
 }

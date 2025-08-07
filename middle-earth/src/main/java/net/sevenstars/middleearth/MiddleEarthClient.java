@@ -45,7 +45,6 @@ import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollR
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.warg.WargRenderer;
-import net.sevenstars.middleearth.entity.deer.DeerRenderer;
 import net.sevenstars.middleearth.entity.model.ModEntityModels;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderer;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntityRenderer;
@@ -53,7 +52,6 @@ import net.sevenstars.middleearth.entity.projectile.smoke.SmokeRingProjectileRen
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntityRenderer;
 import net.sevenstars.middleearth.entity.seat.SeatRenderer;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderRenderer;
-import net.sevenstars.middleearth.entity.swan.SwanRenderer;
 import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
@@ -117,10 +115,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SPEAR, SpearEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.SMOKE_RING_PROJECTILE, SmokeRingProjectileRenderer::new);
-
-        // Animals
-        EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
-        EntityRendererRegistry.register(ModEntities.DEER, DeerRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.NPC, NpcEntityRenderer::new);
 
