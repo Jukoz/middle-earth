@@ -45,6 +45,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             this.name = name;
         }
     }
+
     // Synced Data
     private boolean enabled;
     private boolean toInitialize;
@@ -56,6 +57,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     boolean firstTick = true;
     // Runtime
     private StructureManagerData managerData;
+    private boolean worldWasSet = false;
 
     public StructureManagerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STRUCTURE_MANAGER, pos, state);
@@ -129,7 +131,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     @Override
     public void setWorld(World world) {
         super.setWorld(world);
-        tryToInitializeManager(world);
+        worldWasSet = true;
     }
 
     public void showAllEntities() {
@@ -174,10 +176,11 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     private void tickEvent(World world, BlockPos blockPos, BlockState blockState) {
-        if(!world.isClient && firstTick){
-            //tryToInitializeManager(world);
-            this.firstTick = false;
+        if(!world.isClient && worldWasSet){
+            tryToInitializeManager(world);
+            this.worldWasSet = false;
         }
+
         if(!enabled)
             return;
 
