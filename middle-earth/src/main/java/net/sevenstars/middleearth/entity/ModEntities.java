@@ -30,7 +30,6 @@ import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
-import net.sevenstars.middleearth.entity.swan.SwanEntity;
 import net.sevenstars.middleearth.registries.RegistryAliases;
 
 public class ModEntities {

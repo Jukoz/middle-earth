@@ -27,7 +27,6 @@ import net.sevenstars.middleearth.entity.spider.EnwebbedModel;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaModel;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerModel;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobModel;
-import net.sevenstars.middleearth.entity.swan.SwanModel;
 
 @Environment(value= EnvType.CLIENT)
 public final class ModEntityModelLayers {
