@@ -80,7 +80,7 @@ public class MoveTowardsBlockTask {
 
     private static Vec3d findTargetPos(LivingEntity entity, Block block, Block lowPrioBlock) {
         World world = entity.getWorld();
-        int y = entity.getBlockY();;
+        int y = entity.getBlockY();
         BlockPos pos;
         BlockPos lowPrioPos = null;
 

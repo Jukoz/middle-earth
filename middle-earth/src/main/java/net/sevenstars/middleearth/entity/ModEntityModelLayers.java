@@ -19,7 +19,6 @@ import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollModel;
 import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
 import net.sevenstars.middleearth.entity.beasts.warg.features.*;
-import net.sevenstars.middleearth.entity.deer.DeerModel;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarModel;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
@@ -59,10 +58,7 @@ public final class ModEntityModelLayers {
 
     public static final EntityModelLayer ENWEBBED = ModEntityModelLayers.registerEntityModelLayer("enwebbed", EnwebbedModel.getTexturedModelData());
 
-    // Animals
-    public static final EntityModelLayer SWAN = ModEntityModelLayers.registerEntityModelLayer("swan", SwanModel.getTexturedModelData());
-    public static final EntityModelLayer DEER = ModEntityModelLayers.registerEntityModelLayer("deer", DeerModel.getTexturedModelData());
-
+    // Blocks
     public static final EntityModelLayer BELLOWS = ModEntityModelLayers.registerEntityModelLayer("bellows", BellowsBlockEntityRenderer.getTexturedModelData());
     public static final EntityModelLayer REINFORCED_CHEST = ModEntityModelLayers.registerEntityModelLayer("reinforced_chest", ReinforcedChestEntityRenderer.getTexturedModelData());
 

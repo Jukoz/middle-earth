@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "nest_level=0": {
+      "model": "wild-things:block/bird_nest"
+    },
+    "nest_level=1": {
+      "model": "wild-things:block/bird_nest_1"
+    },
+    "nest_level=2": {
+      "model": "wild-things:block/bird_nest_2"
+    }
+  }
+}

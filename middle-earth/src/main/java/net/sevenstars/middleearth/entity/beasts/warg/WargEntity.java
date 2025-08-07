@@ -14,7 +14,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -38,7 +37,6 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.deer.DeerEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
@@ -104,8 +102,6 @@ public class WargEntity extends AbstractBeastEntity {
         this.targetSelector.add(4, new BeastTargetPlayerGoal(this, this.getDisposition()));
         this.targetSelector.add(11, new BeastActiveTargetGoal<>(this, SheepEntity.class, true));
         this.targetSelector.add(12, new BeastActiveTargetGoal<>(this, GoatEntity.class, true));
-        this.targetSelector.add(13, new BeastActiveTargetGoal<>(this, DeerEntity.class, true));
-        // TOOD : this.targetSelector.add(14, new BeastActiveTargetGoal<>(this, PheasantEntity.class, true));
     }
 
     @Override

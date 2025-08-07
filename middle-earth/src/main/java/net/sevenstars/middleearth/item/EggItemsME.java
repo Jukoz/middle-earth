@@ -44,12 +44,6 @@ public class EggItemsME {
     public static final Item SHELOBITE_SPAWN_SPAWN_EGG = registerItem("spawn_of_shelob_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.SPAWN_OF_SHELOB, settings), new Item.Settings());
 
-    // Animals
-    public static final Item DEER_SPAWN_EGG = registerItem("deer_spawn_egg",
-            (settings) -> new SpawnEggItem(ModEntities.DEER, settings), new Item.Settings());
-    public static final Item SWAN_SPAWN_EGG = registerItem("swan_spawn_egg",
-            (settings) -> new SpawnEggItem(ModEntities.SWAN, settings), new Item.Settings());
-
     // Npcs
     public static final Item NPC_SPAWN_EGG = registerItem("npc_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.NPC, settings), new Item.Settings());

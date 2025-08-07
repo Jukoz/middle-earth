@@ -14,6 +14,7 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.registry.tag.BlockTags;
+import net.sevenstars.api.SevenStarsApi;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.DigInDirtTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.EatCropTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsBlockTask;
