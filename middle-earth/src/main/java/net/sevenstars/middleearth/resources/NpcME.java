@@ -415,8 +415,8 @@ public class NpcME {
         registerAll(context, npcRegistryEntryLookup, IsengardNpcDataPool.fetchAll());
         // [SHIRE]
         registerAll(context, npcRegistryEntryLookup, ShireNpcDataPool.fetchAll());
-        // [BANDIT]
-        registerAll(context, npcRegistryEntryLookup, BanditNpcDataPool.fetchAll());
+        // [BRIGAND]
+        registerAll(context, npcRegistryEntryLookup, BrigandNpcDataPool.fetchAll());
     }
 
     private static void registerAll(Registerable<NpcData> context, RegistryEntryLookup<NpcData> npcRegistryEntryLookup, List<NpcData> npcDatas) {

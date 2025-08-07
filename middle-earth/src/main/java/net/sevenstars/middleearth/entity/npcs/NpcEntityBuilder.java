@@ -5,15 +5,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
+import org.jetbrains.annotations.Nullable;
 
 public class NpcEntityBuilder {
     NpcEntity entity;
     World world;
 
-    public NpcEntityBuilder(World world, BlockPos pos){
+    public NpcEntityBuilder(World world, @Nullable BlockPos pos){
         this.world = world;
         this.entity = new NpcEntity(ModEntities.NPC, this.world);
-        this.entity.setPosition(pos.toCenterPos());
+        if(pos != null)
+            this.entity.setPosition(pos.toCenterPos());
     }
 
     public NpcEntityBuilder withNpcData(Identifier identifier){
@@ -23,6 +25,11 @@ public class NpcEntityBuilder {
 
     public NpcEntity build(){
         this.entity.apply();
+        return this.entity;
+    }
+
+    public NpcEntity forceBuild() {
+        this.entity.forceApply();
         return this.entity;
     }
 }

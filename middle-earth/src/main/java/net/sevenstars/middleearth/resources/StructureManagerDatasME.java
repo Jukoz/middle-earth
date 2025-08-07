@@ -73,7 +73,7 @@ public class StructureManagerDatasME {
                     new StructureSpawnNestPool(ModEntities.NPC, 5).SetNpcData(FactionsME.MORDOR, MordorNpcDataPool.MORDOR_ORC_SNAGA.getId()).SetFixAmount(1),
                     new StructureSpawnNestPool(ModEntities.NPC, 3).SetNpcData(FactionsME.LONGBEARDS_EREBOR, NpcME.DWARF_CIVILIAN.getId()).SetFixAmount(1),
                     new StructureSpawnNestPool(ModEntities.NPC, 1).SetNpcData(FactionsME.LOTHLORIEN, NpcME.ELF_CIVILIAN.getId()).SetFixAmount(1),
-                    new StructureSpawnNestPool(ModEntities.NPC, 3).SetNpcData(FactionsME.BANDIT, NpcME.HUMAN_CIVILIAN.getId()).SetFixAmount(1)
+                    new StructureSpawnNestPool(ModEntities.NPC, 3).SetNpcData(FactionsME.BRIGAND, NpcME.HUMAN_CIVILIAN.getId()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("gondor_generic_nests.stable_nest"), 3000, List.of(
                     new StructureSpawnNestPool(EntityType.HORSE, 5).SetFixAmount(1),
@@ -101,7 +101,7 @@ public class StructureManagerDatasME {
                     new StructureSpawnNestPool(ModEntities.NPC, 5).SetNpcData(FactionsME.MORDOR, MordorNpcDataPool.MORDOR_ORC_SNAGA.getId()).SetFixAmount(1),
                     new StructureSpawnNestPool(ModEntities.NPC, 3).SetNpcData(FactionsME.LONGBEARDS_EREBOR, NpcME.DWARF_CIVILIAN.getId()).SetFixAmount(1),
                     new StructureSpawnNestPool(ModEntities.NPC, 1).SetNpcData(FactionsME.LOTHLORIEN, NpcME.ELF_CIVILIAN.getId()).SetFixAmount(1),
-                    new StructureSpawnNestPool(ModEntities.NPC, 3).SetNpcData(FactionsME.BANDIT, NpcME.HUMAN_CIVILIAN.getId()).SetFixAmount(1)
+                    new StructureSpawnNestPool(ModEntities.NPC, 3).SetNpcData(FactionsME.BRIGAND, NpcME.HUMAN_CIVILIAN.getId()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("erebor_generic_nests.stable_nest"), 3000, List.of(
                     new StructureSpawnNestPool(ModEntities.BROADHOOF_GOAT, 5).SetFixAmount(1),

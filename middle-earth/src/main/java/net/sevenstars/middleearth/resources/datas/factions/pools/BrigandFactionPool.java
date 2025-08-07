@@ -8,38 +8,38 @@ import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
-import net.sevenstars.middleearth.resources.datas.npcs.pools.BanditNpcDataPool;
+import net.sevenstars.middleearth.resources.datas.npcs.pools.BrigandNpcDataPool;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class BanditFactionPool {
-    public final static Faction BANDIT;
+public class BrigandFactionPool {
+    public final static Faction BRIGAND;
 
     static {
-        BANDIT = new Faction(FactionsME.getName(FactionsME.BANDIT), false, Disposition.NEUTRAL, FactionType.FACTION, null,null,
+        BRIGAND = new Faction(FactionsME.getName(FactionsME.BRIGAND), false, Disposition.NEUTRAL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            BanditNpcDataPool.BANDIT_THUG
+                            BrigandNpcDataPool.BRIGAND_THUG
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            BanditNpcDataPool.BANDIT_THUG,
-                            BanditNpcDataPool.BANDIT_THIEF
+                            BrigandNpcDataPool.BRIGAND_THUG,
+                            BrigandNpcDataPool.BRIGAND_THIEF
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            BanditNpcDataPool.BANDIT_MERCENARY,
-                            BanditNpcDataPool.WILD_GOBLIN_GATHERER,
-                            BanditNpcDataPool.WILD_GOBLIN_WARRIOR,
-                            BanditNpcDataPool.WILD_GOBLIN_SCOUT
+                            BrigandNpcDataPool.BRIGAND_MERCENARY,
+                            BrigandNpcDataPool.WILD_GOBLIN_GATHERER,
+                            BrigandNpcDataPool.WILD_GOBLIN_WARRIOR,
+                            BrigandNpcDataPool.WILD_GOBLIN_SCOUT
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            BanditNpcDataPool.BANDIT_CHIEFTAIN
+                            BrigandNpcDataPool.BRIGAND_CHIEFTAIN
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            BanditNpcDataPool.BANDIT_CHIEFTAIN
+                            BrigandNpcDataPool.BRIGAND_CHIEFTAIN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            BanditNpcDataPool.BANDIT_CHIEFTAIN
+                            BrigandNpcDataPool.BRIGAND_CHIEFTAIN
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(

@@ -22,8 +22,8 @@ import net.minecraft.util.Identifier;
 import java.util.HashMap;
 import java.util.List;
 
-public class BanditNpcDataPool {
-    private final static RegistryKey<Faction> FACTION = FactionsME.BANDIT;
+public class BrigandNpcDataPool {
+    private final static RegistryKey<Faction> FACTION = FactionsME.BRIGAND;
     private final static String FACTION_BASE = FACTION.getValue().getPath() + ".%s";
 
     private final static int DEFAULT = 0x43403a;
@@ -40,10 +40,10 @@ public class BanditNpcDataPool {
 
     private static final int DARK_BROWN_GOBLIN = 0x4a3c34;
 
-    public final static NpcData BANDIT_THUG;
-    public final static NpcData BANDIT_THIEF;
-    public final static NpcData BANDIT_MERCENARY;
-    public final static NpcData BANDIT_CHIEFTAIN;
+    public final static NpcData BRIGAND_THUG;
+    public final static NpcData BRIGAND_THIEF;
+    public final static NpcData BRIGAND_MERCENARY;
+    public final static NpcData BRIGAND_CHIEFTAIN;
 
     public final static NpcData WILD_GOBLIN_GATHERER;
     public final static NpcData WILD_GOBLIN_WARRIOR;
@@ -51,10 +51,10 @@ public class BanditNpcDataPool {
 
     public static List<NpcData> fetchAll() {
         return List.of(
-                BANDIT_THUG,
-                BANDIT_THIEF,
-                BANDIT_MERCENARY,
-                BANDIT_CHIEFTAIN,
+                BRIGAND_THUG,
+                BRIGAND_THIEF,
+                BRIGAND_MERCENARY,
+                BRIGAND_CHIEFTAIN,
                 WILD_GOBLIN_GATHERER,
                 WILD_GOBLIN_WARRIOR,
                 WILD_GOBLIN_SCOUT
@@ -63,7 +63,7 @@ public class BanditNpcDataPool {
 
     private static final List<Integer> allColors = List.of(DEFAULT, DARK_BROWN, LIGHT_BROWN, DARK_GREEN, DARK_BLUE, DARKEST_RED, GREEN, BLUE, DARK_ORANGE);
     static {
-        BANDIT_THUG = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("thug")), RacesME.HUMAN, FACTION, List.of(
+        BRIGAND_THUG = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("thug")), RacesME.HUMAN, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(6))
@@ -132,7 +132,7 @@ public class BanditNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        BANDIT_THIEF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("thief")), RacesME.HUMAN, FACTION, List.of(
+        BRIGAND_THIEF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("thief")), RacesME.HUMAN, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.BYCOCKET).withHood(HelmetAttachmentsME.HOOD, allColors))
@@ -170,7 +170,7 @@ public class BanditNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        BANDIT_MERCENARY = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("mercenary")), RacesME.HUMAN, FACTION, List.of(
+        BRIGAND_MERCENARY = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("mercenary")), RacesME.HUMAN, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF))
@@ -222,7 +222,7 @@ public class BanditNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        BANDIT_CHIEFTAIN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("chieftain")), RacesME.HUMAN, FACTION, List.of(
+        BRIGAND_CHIEFTAIN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("chieftain")), RacesME.HUMAN, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_LEATHER_HELMET).withColor(DEFAULT).withWeight(3))

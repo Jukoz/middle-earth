@@ -187,6 +187,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         World world = getWorld();
         if(world.isClient)
             return;
+        forceApply();
+    }
+
+    public void forceApply() {
+        World world = getWorld();
         DynamicRegistryManager dynamicRegistryManager = world.getRegistryManager();
 
         if(this.npcDataCache == null ){
