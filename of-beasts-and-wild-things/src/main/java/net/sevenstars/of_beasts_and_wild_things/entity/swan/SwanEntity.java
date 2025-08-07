@@ -376,7 +376,7 @@ public class SwanEntity extends AnimalEntity {
         if (this.isTouchingWater()) {
             ShapeContext shapeContext = ShapeContext.of(this);
             if (!shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) || this.getWorld().getFluidState(this.getBlockPos().up()).isIn(FluidTags.WATER)) {
-                this.swimUpward(FluidTags.WATER);
+                this.setVelocity(this.getVelocity().getX(),0.1F,this.getVelocity().getZ());
             } else {
                 this.setOnGround(true);
             }
