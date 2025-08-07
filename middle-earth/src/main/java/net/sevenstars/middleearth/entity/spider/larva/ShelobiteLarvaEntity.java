@@ -3,6 +3,10 @@ package net.sevenstars.middleearth.entity.spider.larva;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
@@ -129,7 +133,7 @@ public class ShelobiteLarvaEntity extends HostileEntity {
     }
 
     public void slowMovement(BlockState state, Vec3d multiplier) {
-        if (!state.isOf(Blocks.COBWEB) && !state.isOf(ModNatureBlocks.CORNER_COBWEB) && !state.isOf(ModNatureBlocks.HANGING_COBWEB)) {
+        if (!state.isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs")))) {
             super.slowMovement(state, multiplier);
         }
     }

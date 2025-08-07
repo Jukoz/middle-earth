@@ -163,6 +163,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         cobwebs.add(Blocks.COBWEB);
         cobwebs.add(ModNatureBlocks.HANGING_COBWEB);
+        cobwebs.add(ModNatureBlocks.WEBBING);
         cobwebs.add(ModNatureBlocks.CORNER_COBWEB);
 
         SimpleStoneStoolModel.stools.forEach(block -> {
