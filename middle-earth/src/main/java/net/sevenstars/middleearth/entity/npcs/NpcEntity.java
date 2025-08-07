@@ -295,7 +295,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     @Override
     public boolean isPersistent() {
-        return getWorld().getBlockEntity(getStructureManagerHostPos()) != null || hasCustomName();
+        return getWorld().getBlockEntity(getStructureManagerHostPos()) != null || super.isPersistent();
     }
 
     @Override
