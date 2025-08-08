@@ -1,8 +1,9 @@
-package net.sevenstars.middleearth.entity.beasts.trolls.cave;
+package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollAnimations;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
 public class CaveTrollEntityModel extends EntityModel<TrollEntityRenderState> {

@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.beasts.trolls.cave;
+package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
@@ -6,9 +6,10 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 
-public class CaveTrollEntity extends TrollEntity {
+public class CaveTrollEntity extends AbstractBeastEntity {
     public final AnimationState sleepingAnimationState = new AnimationState();
 
     public CaveTrollEntity(EntityType<? extends TrollEntity> entityType, World world) {

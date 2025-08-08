@@ -1,10 +1,12 @@
-package net.sevenstars.middleearth.entity.beasts.trolls.cave;
+package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
 public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, TrollEntityRenderState, CaveTrollEntityModel> {

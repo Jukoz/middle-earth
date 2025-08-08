@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.beasts.trolls.cave;
+package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
 import net.minecraft.client.render.entity.animation.AnimationDefinition;
 import net.minecraft.client.render.entity.animation.AnimationHelper;

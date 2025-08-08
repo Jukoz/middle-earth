@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEnt
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.cave.CaveTrollEntity;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;

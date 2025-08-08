@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatSaddleModel;
-import net.sevenstars.middleearth.entity.beasts.trolls.cave.CaveTrollEntityModel;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollModel;
