@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 public class CaveTrollEntity extends AbstractBeastEntity {
     public final AnimationState sleepingAnimationState = new AnimationState();
 
-    public CaveTrollEntity(EntityType<? extends TrollEntity> entityType, World world) {
+    public CaveTrollEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -25,6 +25,11 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                 .add(EntityAttributes.FOLLOW_RANGE, 28.0)
                 .add(EntityAttributes.ATTACK_DAMAGE, 14.0)
                 .add(EntityAttributes.JUMP_STRENGTH, 0.0);
+    }
+
+    @Override
+    protected void setupAnimationStates() {
+
     }
 
     @Override

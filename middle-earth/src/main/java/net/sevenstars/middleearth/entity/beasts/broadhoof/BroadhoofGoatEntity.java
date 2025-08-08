@@ -362,16 +362,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         }
     }
 
-    /*@Override
-    public boolean isHorseArmor(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
-    }*/
-
-    @Override
-    public boolean canUseSlot(EquipmentSlot slot) {
-        return true;
-    }
-
     @Override
     public int maxChargeCooldown() {
         return 120;
