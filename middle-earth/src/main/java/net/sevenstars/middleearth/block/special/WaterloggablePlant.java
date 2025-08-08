@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -15,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
 public class WaterloggablePlant extends CustomPlantBlock implements Fertilizable, Waterloggable {

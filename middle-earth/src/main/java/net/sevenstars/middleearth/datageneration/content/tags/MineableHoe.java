@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -18,7 +18,6 @@ public class MineableHoe {
 
         add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES);
 
-        add(ModNatureBlocks.MAPLE_LEAVES);
         add(ModNatureBlocks.ORANGE_MAPLE_LEAVES);
         add(ModNatureBlocks.RED_MAPLE_LEAVES);
         add(ModNatureBlocks.YELLOW_MAPLE_LEAVES);

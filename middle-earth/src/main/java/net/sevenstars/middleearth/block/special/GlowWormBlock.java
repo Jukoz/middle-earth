@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.block.AbstractPlantBlock;
 import net.minecraft.block.AbstractPlantStemBlock;

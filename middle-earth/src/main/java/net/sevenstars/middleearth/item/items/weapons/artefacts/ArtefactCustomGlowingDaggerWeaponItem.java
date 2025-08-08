@@ -5,7 +5,6 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.ToolComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -14,18 +13,13 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
-import net.sevenstars.middleearth.utils.ModFactions;
-import net.sevenstars.middleearth.utils.ModSubFactions;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Consumer;
 
 public class ArtefactCustomGlowingDaggerWeaponItem extends CustomDaggerWeaponItem {
 
@@ -34,14 +28,6 @@ public class ArtefactCustomGlowingDaggerWeaponItem extends CustomDaggerWeaponIte
 
     public ArtefactCustomGlowingDaggerWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
         super(toolMaterial, settings);
-    }
-
-    public ArtefactCustomGlowingDaggerWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
-        super(toolMaterial, faction, settings);
-    }
-
-    public ArtefactCustomGlowingDaggerWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
-        super(toolMaterial, subFaction, settings);
     }
 
     @Override
@@ -57,16 +43,6 @@ public class ArtefactCustomGlowingDaggerWeaponItem extends CustomDaggerWeaponIte
                     || ArtefactUtils.isInBound(world, entity, UrukNpcEntity.class, range);*/ //TODO to update
         }
         return false;
-    }
-
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        appendBaseArtefactTooltip(textConsumer, stack);
-    }
-
-    @Override
-    public Text getName(ItemStack stack) {
-        return Text.translatable(this.getTranslationKey()).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
     }
 
     //TODO can repair gone

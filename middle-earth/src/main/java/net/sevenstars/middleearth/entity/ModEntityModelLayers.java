@@ -20,13 +20,11 @@ import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollModel;
 import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
 import net.sevenstars.middleearth.entity.beasts.warg.features.*;
-import net.sevenstars.middleearth.entity.deer.DeerModel;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarModel;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseModel;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderModel;
-import net.sevenstars.middleearth.entity.swan.SwanModel;
 
 @Environment(value= EnvType.CLIENT)
 public final class ModEntityModelLayers {
@@ -54,10 +52,7 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer BARROW_WIGHT = ModEntityModelLayers.registerEntityModelLayer("barrow_wight", BarrowWightModel.getTexturedModelData());
     public static final EntityModelLayer SPIDER = ModEntityModelLayers.registerEntityModelLayer("spider", MirkwoodSpiderModel.getTexturedModelData());
 
-    // Animals
-    public static final EntityModelLayer SWAN = ModEntityModelLayers.registerEntityModelLayer("swan", SwanModel.getTexturedModelData());
-    public static final EntityModelLayer DEER = ModEntityModelLayers.registerEntityModelLayer("deer", DeerModel.getTexturedModelData());
-
+    // Blocks
     public static final EntityModelLayer BELLOWS = ModEntityModelLayers.registerEntityModelLayer("bellows", BellowsBlockEntityRenderer.getTexturedModelData());
     public static final EntityModelLayer REINFORCED_CHEST = ModEntityModelLayers.registerEntityModelLayer("reinforced_chest", ReinforcedChestEntityRenderer.getTexturedModelData());
 

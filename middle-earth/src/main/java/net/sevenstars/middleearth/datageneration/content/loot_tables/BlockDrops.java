@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -16,6 +16,12 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WALL_ELVEN_LANTERN);
             add(ModDecorativeBlocks.DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WALL_DWARVEN_LANTERN);
+            add(ModDecorativeBlocks.SHIRE_LANTERN);
+            add(ModDecorativeBlocks.WALL_SHIRE_LANTERN);
+            add(ModDecorativeBlocks.CRUDE_LANTERN);
+            add(ModDecorativeBlocks.WALL_CRUDE_LANTERN);
+            add(ModDecorativeBlocks.LEAD_LANTERN);
+            add(ModDecorativeBlocks.WALL_LEAD_LANTERN);
             add(ModDecorativeBlocks.CRYSTAL_LAMP);
             add(ModDecorativeBlocks.WALL_CRYSTAL_LAMP);
             add(ModDecorativeBlocks.WOOD_PILE);
@@ -58,6 +64,8 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.BRONZE_CHAIN);
             add(ModDecorativeBlocks.BRONZE_BROAD_CHAIN);
+            add(ModDecorativeBlocks.CRUDE_CHAIN);
+            add(ModDecorativeBlocks.CRUDE_BROAD_CHAIN);
             add(ModDecorativeBlocks.SPIKY_CHAIN);
 
             add(ModDecorativeBlocks.BLUE_CUSHION);
@@ -102,6 +110,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WATERING_CAN);
             add(ModDecorativeBlocks.WOODEN_BUCKET);
 
+            add(ModDecorativeBlocks.CRUDE_ROD);
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 
             add(ModDecorativeBlocks.TREATED_ANVIL);
@@ -145,7 +154,7 @@ public class BlockDrops {
 
             add(ModNatureBlocks.FLOATING_ICE);
 
-            add(ModDecorativeBlocks.OAK_LADDER);
+            /*add(ModDecorativeBlocks.OAK_LADDER);
             add(ModDecorativeBlocks.SPRUCE_LADDER);
             add(ModDecorativeBlocks.BIRCH_LADDER);
             add(ModDecorativeBlocks.JUNGLE_LADDER);
@@ -155,7 +164,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.CHERRY_LADDER);
             add(ModDecorativeBlocks.BAMBOO_LADDER);
             add(ModDecorativeBlocks.CRIMSON_LADDER);
-            add(ModDecorativeBlocks.WARPED_LADDER);
+            add(ModDecorativeBlocks.WARPED_LADDER);*/
 
             add(ModDecorativeBlocks.ROPE_LADDER);
 

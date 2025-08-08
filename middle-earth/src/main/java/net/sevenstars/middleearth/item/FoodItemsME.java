@@ -8,8 +8,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.consume.RemoveEffectsConsumeEffect;
 import net.minecraft.sound.SoundEvents;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.items.OrcishFoodItem;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
@@ -19,6 +19,7 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 
 import java.util.function.Function;
 
@@ -26,8 +27,6 @@ import java.util.function.Function;
  * Middle-earth mod Food Items registry
  */
 public class FoodItemsME {
-
-
     public static final ConsumableComponent BIRCH_BOTTLE = ConsumableComponents.drink().consumeSeconds(2.0F)
             .consumeEffect(new RemoveEffectsConsumeEffect(StatusEffects.POISON)).build();;
     public static final ConsumableComponent MAPLE_BOTTLE = ConsumableComponents.drink().consumeSeconds(2.0F)
@@ -36,13 +35,6 @@ public class FoodItemsME {
     public static final Item LEMBAS = registerItem("lembas",
             Item::new,new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(20).saturationModifier(1).build()));
-
-    public static final Item RAW_SWAN = registerItem("raw_swan",
-            Item::new,new Item.Settings()
-                    .food(new FoodComponent.Builder().nutrition(3).saturationModifier(0.4F).build(), ConsumableComponents.RAW_CHICKEN));
-    public static final Item COOKED_SWAN = registerItem("cooked_swan",
-            Item::new,new Item.Settings()
-                    .food(new FoodComponent.Builder().nutrition(8).saturationModifier(0.8F).build()));
 
     public static final Item RAW_VENISON = registerItem("raw_venison",
             Item::new,new Item.Settings()
@@ -63,7 +55,7 @@ public class FoodItemsME {
                     .food(new FoodComponent.Builder().nutrition(5).saturationModifier(1.2f).build()));
     public static final Item TOUGH_BERRIES = registerItem("tough_berries",
             (settings) -> new BlockItem(ModNatureBlocks.TOUGH_BERRY_BUSH, settings), new Item.Settings());
-    public static final Item STRAWBERRY = registerItem("strawberry",
+    public static final Item STRAWBERRIES = registerItem("strawberries",
             (settings) -> new BlockItem(ModNatureBlocks.STRAWBERRY_BUSH, settings), new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.1f).build()));
 
@@ -141,6 +133,7 @@ public class FoodItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.FOOD_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

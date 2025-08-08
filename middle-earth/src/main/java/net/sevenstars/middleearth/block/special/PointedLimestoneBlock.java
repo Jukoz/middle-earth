@@ -2,8 +2,8 @@ package net.sevenstars.middleearth.block.special;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.MapCodec;
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.block.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Thickness;
 import net.minecraft.entity.Entity;
@@ -530,7 +530,7 @@ public class PointedLimestoneBlock extends Block implements Falling, Waterloggab
     }
 
     private static boolean canGrow(BlockState dripstoneBlockState, BlockState waterState) {
-        return dripstoneBlockState.isOf(StoneBlockSets.LIMESTONE.base()) && waterState.isOf(Blocks.WATER) && waterState.getFluidState().isStill();
+        return dripstoneBlockState.isOf(StoneBlockSets.LIMESTONE_SET.baseBlocks.base()) && waterState.isOf(Blocks.WATER) && waterState.getFluidState().isStill();
     }
 
     private static Fluid getDripFluid(World world, Fluid fluid) {

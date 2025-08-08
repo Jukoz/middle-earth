@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.world.features.boulder;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import net.sevenstars.middleearth.block.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -78,9 +78,9 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
     }
 
     static {
-        CANNOT_PLACE_ON_BLOCKS = ImmutableList.of(Blocks.LAVA, Blocks.BEDROCK, Blocks.WATER, StoneBlockSets.COBBLED_NURGON.base(),
-                StoneBlockSets.SMOOTH_MEDGON.base(), Blocks.CHEST, Blocks.SPAWNER);
-        CANNOT_REPLACE_BLOCKS = ImmutableList.of(Blocks.BEDROCK, StoneBlockSets.COBBLED_NURGON.base(),
-                StoneBlockSets.SMOOTH_MEDGON.base(), Blocks.CHEST, Blocks.SPAWNER);
+        CANNOT_PLACE_ON_BLOCKS = ImmutableList.of(Blocks.LAVA, Blocks.BEDROCK, Blocks.WATER, StoneBlockSets.NURGON_SET.cobblestoneBlocks.base(),
+                StoneBlockSets.MEDGON_SET.smoothBlocks.base(), Blocks.CHEST, Blocks.SPAWNER);
+        CANNOT_REPLACE_BLOCKS = ImmutableList.of(Blocks.BEDROCK, StoneBlockSets.NURGON_SET.cobblestoneBlocks.base(),
+                StoneBlockSets.MEDGON_SET.smoothBlocks.base(), Blocks.CHEST, Blocks.SPAWNER);
     }
 }

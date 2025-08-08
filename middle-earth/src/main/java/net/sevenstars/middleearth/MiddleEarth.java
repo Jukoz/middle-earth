@@ -2,7 +2,7 @@ package net.sevenstars.middleearth;
 
 import net.fabricmc.api.ModInitializer;
 import net.sevenstars.api.utils.ModLogger;
-import net.sevenstars.middleearth.block.*;
+import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.config.ModServerConfigs;
@@ -48,7 +48,6 @@ public class MiddleEarth implements ModInitializer {
 		LOGGER.logInfoMsg("");
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
-
 		ModServerNetworkHandler.register(new ConnectionToClient());
 		ModEvents.register();
 		ModServerConfigs.registerConfigs();
@@ -71,14 +70,13 @@ public class MiddleEarth implements ModInitializer {
 		ModEntityAttributes.register();
 
 		WoodBlockSets.registerModBlockSets();
-		MushroomBlockSets.registerModBlockSets();
 		StoneBlockSets.registerModBlockSets();
 		DecorativeItemsME.registerModItems();
 		NatureBlockItemsME.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
-		OtherBlockSets.registerModBlockSets();
+		GenericBlockSets.registerModBlockSets();
 
 		EnchantmentEffectsME.registerModEnchantmentEffects();
 
