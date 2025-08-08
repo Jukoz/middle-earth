@@ -7,7 +7,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Rarity;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Bows;
@@ -30,6 +30,7 @@ import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
 import net.sevenstars.middleearth.item.utils.ModShieldTypes;
 import net.sevenstars.middleearth.item.utils.ModToolMaterials;
 import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -986,6 +987,7 @@ public class WeaponItemsME {
         } else if (item instanceof CustomSpearWeaponItem){
             WeaponEnchants.sharpWeapons.add(item);
         }
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
     }
 

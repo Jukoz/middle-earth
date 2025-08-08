@@ -25,7 +25,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class WallSilverLanternBlock extends SilverLanternBlock {
     private static final EnumProperty<Direction> FACING;
-    private static final VoxelShape WALL_SHAPE;
 
     public WallSilverLanternBlock(Settings settings) {
         super(settings);
@@ -60,7 +59,12 @@ public class WallSilverLanternBlock extends SilverLanternBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return WALL_SHAPE;
+        return switch (state.get(FACING)) {
+            case SOUTH -> Block.createCuboidShape(6, -2, 10, 10, 11, 14);
+            case EAST -> Block.createCuboidShape(10, -2, 6, 14, 11, 10);
+            case WEST -> Block.createCuboidShape(2, -2, 6, 6, 11, 10);
+            default -> Block.createCuboidShape(6, -2, 2, 10, 11, 6);
+        };
     }
 
     @Override
@@ -105,9 +109,5 @@ public class WallSilverLanternBlock extends SilverLanternBlock {
 
     static {
         FACING = Properties.FACING;
-
-        WALL_SHAPE  = VoxelShapes.union(
-                Block.createCuboidShape(5.0, 1.0, 5.0, 11.0, 8.0, 11.0),
-                Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
     }
 }

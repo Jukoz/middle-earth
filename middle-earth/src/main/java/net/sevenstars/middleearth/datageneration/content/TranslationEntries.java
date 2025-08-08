@@ -226,6 +226,8 @@ public class TranslationEntries {
 
             put("block."+ MiddleEarth.MOD_ID +".large_sturdy_door", "Large Sturdy Door");
 
+            put("block."+ MiddleEarth.MOD_ID +".large_beech_fence_gate", "Large Beech Fence Gate");
+
             put("block."+ MiddleEarth.MOD_ID +".larch_hobbit_door", "Larch Hobbit Door");
             put("block."+ MiddleEarth.MOD_ID +".spruce_hobbit_door", "Spruce Hobbit Door");
 
@@ -310,6 +312,7 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".reach", "Reach: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".dyed", "Dyed: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".artisan", "Artisan: ");
+            put("tooltip."+ MiddleEarth.MOD_ID +".author", "Author: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".blocks_range", " Blocks");
             put("tooltip."+ MiddleEarth.MOD_ID +".backstab", "+50% damage when backstabbing");
             put("tooltip."+ MiddleEarth.MOD_ID +".door_size", "Door size: ");
@@ -665,42 +668,23 @@ public class TranslationEntries {
             put("tag.item."+ MiddleEarth.MOD_ID +".warg_food", "Warg Food");
             put("tag.item."+ MiddleEarth.MOD_ID +".worm", "Worm");
 
-            put("painting."+ MiddleEarth.MOD_ID +".dwarf_portrait.author", "Boenndal");
+            put("painting."+ MiddleEarth.MOD_ID +".author.boenndal", "Boenndal");
+            put("painting."+ MiddleEarth.MOD_ID +".author.scosher", "Scosher");
+
             put("painting."+ MiddleEarth.MOD_ID +".dwarf_portrait.title", "Dwarf Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".elf_portrait.author", "Scosher");
             put("painting."+ MiddleEarth.MOD_ID +".elf_portrait.title", "Elf Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".hobbit_portrait.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".hobbit_portrait.title", "Hobbit Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".human_portrait.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".human_portrait.title", "Human Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".orc_portrait.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".orc_portrait.title", "Orc Portrait");
-
-            put("painting."+ MiddleEarth.MOD_ID +".note_board.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".note_board.title", "Note Board");
-
-            put("painting."+ MiddleEarth.MOD_ID +".pan_board.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".pan_board.title", "Pan Board");
-
-            put("painting."+ MiddleEarth.MOD_ID +".rohirric_tapestry.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".rohirric_tapestry.title", "Rohirric Tapestry");
-
-            put("painting."+ MiddleEarth.MOD_ID +".small_mirror.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".small_mirror.title", "Small Mirror");
-
-            put("painting."+ MiddleEarth.MOD_ID +".tall_mirror.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".tall_mirror.title", "Tall Mirror");
-
-            put("painting."+ MiddleEarth.MOD_ID +".prancing_pony.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".prancing_pony.title", "Prancing Pony");
-
-            put("painting."+ MiddleEarth.MOD_ID +".tool_board.author", "Boenndal");
             put("painting."+ MiddleEarth.MOD_ID +".tool_board.title", "Tool Board");
-
+            put("painting."+ MiddleEarth.MOD_ID +".gondorian_tapestry.title", "Gondorian Tapestry");
+            put("painting."+ MiddleEarth.MOD_ID +".dwarven_plaque.title", "Dwarven Plaque");
 
             put("structure_manager_data."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor", "Gondor Testing Area");
             put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor.captain_room", "Captain Room");
