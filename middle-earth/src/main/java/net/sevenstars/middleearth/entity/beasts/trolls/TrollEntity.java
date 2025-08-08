@@ -31,6 +31,7 @@ import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
 import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 import java.util.Iterator;
@@ -166,6 +167,11 @@ public class TrollEntity extends AbstractBeastEntity {
     @Override
     protected Disposition getDisposition() {
         return Disposition.EVIL;
+    }
+
+    @Override
+    protected List<RaceType> getRaceType() {
+        return null;
     }
 
     @Override

@@ -5,9 +5,14 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
+import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.RaceType;
+
+import java.util.List;
 
 public class CaveTrollEntity extends AbstractBeastEntity {
     public final AnimationState sleepingAnimationState = new AnimationState();
@@ -30,6 +35,26 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected void setupAnimationStates() {
 
+    }
+
+    @Override
+    protected Disposition getDisposition() {
+        return null;
+    }
+
+    @Override
+    protected List<RaceType> getRaceType() {
+        return null;
+    }
+
+    @Override
+    public boolean isCommandItem(ItemStack stack) {
+        return false;
+    }
+
+    @Override
+    public boolean isBondingItem(ItemStack itemStack) {
+        return false;
     }
 
     @Override

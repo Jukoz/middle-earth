@@ -89,26 +89,6 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         super.onTrackedDataSet(data);
     }
 
-    private StackReference createInventoryStackReference(final int slot, final Predicate<ItemStack> predicate) {
-        return new StackReference(){
-
-            @Override
-            public ItemStack get() {
-                return AbstractBeastEntity.this.items.getStack(slot);
-            }
-
-            @Override
-            public boolean set(ItemStack stack) {
-                if (!predicate.test(stack)) {
-                    return false;
-                }
-                AbstractBeastEntity.this.items.setStack(slot, stack);
-                // TODO : AbstractBeastEntity.this.updateSaddledFlag();
-                return true;
-            }
-        };
-    }
-
     @Override
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
@@ -141,33 +121,26 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         }
     }
 
-    // Getters and Setters =============================================================================================
+    // Conditions ======================================================================================================
+    protected abstract Disposition getDisposition();
+
+    protected abstract List<RaceType> getRaceType();
+
+    public abstract boolean isCommandItem(ItemStack stack);
+    public abstract boolean isBondingItem(ItemStack itemStack);
+
     protected boolean isMountable() {
         return true;
     }
+
     protected boolean isTamable() {
         return true;
     }
 
-    protected Disposition getDisposition(){
-        return null;
-    }
-
-    protected List<RaceType> getRaceType() {
-        return null;
-    }
-
-    public boolean hasChest() {
-        return this.dataTracker.get(CHEST);
-    }
-
-    public void setHasChest(boolean hasChest) {
-        this.dataTracker.set(CHEST, hasChest);
-    }
-
     public boolean canCarryChest() {
-        return true;
+        return false;
     }
+
     public final boolean cannotFollowOwner() {
         return this.isSitting() || this.hasVehicle() || this.mightBeLeashed() || this.getOwner() != null && this.getOwner().isSpectator();
     }
@@ -180,12 +153,61 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         return !this.isSitting() && !this.hasPassengers();
     }
 
+    @Override
+    public boolean isPersistent() {
+        return isTame();
+    }
+
+    // DataTracker =====================================================================================================
+
+    public boolean hasChest() {
+        return this.dataTracker.get(CHEST);
+    }
+
+    public void setHasChest(boolean hasChest) {
+        this.dataTracker.set(CHEST, hasChest);
+    }
+
     public boolean isRunning() {
         return this.dataTracker.get(RUNNING);
     }
 
     public void setRunning(boolean running) {
         this.dataTracker.set(RUNNING, running);
+    }
+
+    public boolean isCharging() {
+        return this.dataTracker.get(CHARGING);
+    }
+
+    public void setCharging(boolean charging) {
+        this.dataTracker.set(CHARGING, charging);
+    }
+
+    public boolean isSitting() {
+        return this.dataTracker.get(SITTING);
+    }
+
+    public void setSitting(boolean sitting) {
+        this.dataTracker.set(SITTING, sitting);
+    }
+
+
+    // Non-tracked Getters and Setters =================================================================================
+    public boolean hasCharged() {
+        return hasCharged;
+    }
+
+    public void setHasCharged(boolean hasCharged) {
+        this.hasCharged = hasCharged;
+    }
+
+    public int getChargeTimeout() {
+        return this.chargeTimeout;
+    }
+
+    public void setChargeTimeout(int chargeTimeout) {
+        this.chargeTimeout = chargeTimeout;
     }
 
     @Override
@@ -203,46 +225,6 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         if(super.getOwner() instanceof PlayerEntity playerEntity)
             return playerEntity;
         return null;
-    }
-
-    public boolean hasCharged() {
-        return hasCharged;
-    }
-
-    public void setHasCharged(boolean hasCharged) {
-        this.hasCharged = hasCharged;
-    }
-
-    @Override
-    public boolean isPersistent() {
-        return isTame();
-    }
-
-    public boolean isSitting() {
-        return this.dataTracker.get(SITTING);
-    }
-
-    public void setSitting(boolean sitting) {
-        this.dataTracker.set(SITTING, sitting);
-    }
-
-    public boolean isCommandItem(ItemStack stack) {
-        return false;
-    }
-
-    public void setCharging(boolean charging) {
-        this.dataTracker.set(CHARGING, charging);
-    }
-
-    public boolean isCharging() {
-        return this.dataTracker.get(CHARGING);
-    }
-
-    public int getChargeTimeout() {
-        return this.chargeTimeout;
-    }
-    public void setChargeTimeout(int chargeTimeout) {
-        this.chargeTimeout = chargeTimeout;
     }
 
     public int maxChargeCooldown() {
@@ -403,10 +385,6 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     @Override
     public ActionResult interactHorse(PlayerEntity player, ItemStack stack) {
         return super.interactHorse(player, stack);
-    }
-
-    public boolean isBondingItem(ItemStack itemStack) {
-        return false;
     }
 
     public boolean damage(DamageSource source, float amount) {
