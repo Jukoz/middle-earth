@@ -449,8 +449,8 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         StoneBlockSets.stoneSetsList.forEach(setBuilder -> {
             if (setBuilder.carvedWindows != null){
-                BlockRenderLayerMap.putBlock(setBuilder.carvedWindows.block(), BlockRenderLayer.TRANSLUCENT);
-                BlockRenderLayerMap.putBlock(setBuilder.carvedWindows.verticalSlab(), BlockRenderLayer.TRANSLUCENT);
+                BlockRenderLayerMap.putBlock(setBuilder.carvedWindows.block(), BlockRenderLayer.CUTOUT);
+                BlockRenderLayerMap.putBlock(setBuilder.carvedWindows.verticalSlab(), BlockRenderLayer.CUTOUT);
             }
         });
 
