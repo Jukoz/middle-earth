@@ -442,8 +442,10 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.FOREST_MOSS_CARPET, 0.30f);
         registry.add(ModNatureBlocks.FOREST_MOSS_BLOCK, 0.65f);
 
-        registry.add(ModNatureBlocks.MALLOS, 0.65f);
         registry.add(ModNatureBlocks.ELANOR, 0.65f);
+        registry.add(ModNatureBlocks.MALLOS, 0.65f);
+        registry.add(ModNatureBlocks.NIPHREDIL, 0.65f);
+        registry.add(ModNatureBlocks.SIMBELMYNE, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_FLOWER, 0.65f);
         registry.add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER, 0.65f);
 
@@ -479,6 +481,7 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.BRACKEN, 0.30f);
         registry.add(ModNatureBlocks.DEAD_RUSHES, 0.30f);
         registry.add(ModNatureBlocks.FALSE_OATGRASS, 0.30f);
+        registry.add(ModNatureBlocks.SHORT_REEDS, 0.30f);
         registry.add(ModNatureBlocks.SHORT_CATTAILS, 0.30f);
         registry.add(ModNatureBlocks.SHORT_BULRUSH, 0.30f);
         registry.add(ModNatureBlocks.HEATHER, 0.50f);

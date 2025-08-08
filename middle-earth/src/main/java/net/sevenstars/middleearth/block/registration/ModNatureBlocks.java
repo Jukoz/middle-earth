@@ -156,12 +156,19 @@ public class ModNatureBlocks {
             CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ)
                     .mapColor(DyeColor.GREEN), true);
 
-    public static final Block MALLOS = registerBlock("mallos",
-            (settings) -> new FlowerBlock(StatusEffects.GLOWING, 3, settings), AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly()
-                    .sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).mapColor(DyeColor.GREEN), true);
     public static final Block ELANOR = registerBlock("elanor",
             (settings) -> new FlowerBlock(StatusEffects.GLOWING, 3, settings), AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly()
                     .sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).mapColor(DyeColor.GREEN), true);
+    public static final Block MALLOS = registerBlock("mallos",
+            (settings) -> new FlowerBlock(StatusEffects.GLOWING, 3, settings), AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly()
+                    .sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).mapColor(DyeColor.GREEN), true);
+    public static final Block NIPHREDIL = registerBlock("niphredil",
+            (settings) -> new FlowerBlock(StatusEffects.GLOWING, 3, settings), AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly()
+                    .sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).mapColor(DyeColor.GREEN), true);
+    public static final Block SIMBELMYNE = registerBlock("simbelmyne",
+            (settings) -> new FlowerBlock(StatusEffects.GLOWING, 3, settings), AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly()
+                    .sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).mapColor(DyeColor.GREEN), true);
+
     public static final Block TAN_SHRUB = registerBlock("tan_shrub",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN), true);
@@ -226,6 +233,10 @@ public class ModNatureBlocks {
     public static final Block YELLOW_FLOWER_GROWTH = registerBlock("yellow_flower_growth",
             GlowLichenBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).burnable(), true);
+
+    public static final Block SHORT_REEDS = registerBlock("short_reeds",
+            WaterloggablePlant::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.GREEN), true);
 
     public static final Block SHORT_CATTAILS = registerBlock("short_cattails",
             WaterloggablePlant::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)

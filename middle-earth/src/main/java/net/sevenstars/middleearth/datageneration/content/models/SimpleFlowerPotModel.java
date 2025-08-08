@@ -31,7 +31,10 @@ public class SimpleFlowerPotModel {
             add(new FlowerPot(ModDecorativeBlocks.POTTED_WILLOW_SAPLING, ModNatureBlocks.WILLOW_SAPLING));
             
             add(new FlowerPot(ModDecorativeBlocks.POTTED_GREEN_SHRUB, ModNatureBlocks.GREEN_SHRUB));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_ELANOR, ModNatureBlocks.ELANOR));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_MALLOS, ModNatureBlocks.MALLOS));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_NIPHREDIL, ModNatureBlocks.NIPHREDIL));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_SIMBELMYNE, ModNatureBlocks.SIMBELMYNE));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_YELLOW_FLOWER, ModNatureBlocks.YELLOW_FLOWER));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_YELLOW_TROLLIUS, ModNatureBlocks.YELLOW_TROLLIUS));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_TAN_SHRUB, ModNatureBlocks.TAN_SHRUB));

@@ -129,8 +129,10 @@ public class BlockDrops {
             add(ModDecorativeBlocks.GROUND_BOOK);
             add(ModDecorativeBlocks.DWARVEN_GROUND_BOOK);
 
-            add(ModNatureBlocks.MALLOS);
             add(ModNatureBlocks.ELANOR);
+            add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.NIPHREDIL);
+            add(ModNatureBlocks.SIMBELMYNE);
             add(ModNatureBlocks.YELLOW_FLOWER);
             add(ModNatureBlocks.HOROKAKA);
             add(ModNatureBlocks.GIANT_HOROKAKA);

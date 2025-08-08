@@ -31,8 +31,10 @@ public class TintableCrossModel {
             add(ModNatureBlocks.YELLOW_AMANITA);
 
             add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
-            add(ModNatureBlocks.MALLOS);
             add(ModNatureBlocks.ELANOR);
+            add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.NIPHREDIL);
+            add(ModNatureBlocks.SIMBELMYNE);
             add(ModNatureBlocks.YELLOW_FLOWER);
 
             add(ModNatureBlocks.LIGHT_BLUE_FLOWERS);
@@ -83,6 +85,7 @@ public class TintableCrossModel {
             add(ModNatureBlocks.COASTAL_PANIC_GRASS);
             add(ModNatureBlocks.SEDUM);
             add(ModNatureBlocks.YELLOW_SEDUM);
+            add(ModNatureBlocks.SHORT_REEDS);
             add(ModNatureBlocks.SHORT_CATTAILS);
             add(ModNatureBlocks.SHORT_BULRUSH);
 
