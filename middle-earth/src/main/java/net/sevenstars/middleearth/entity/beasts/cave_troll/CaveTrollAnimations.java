@@ -250,7 +250,7 @@ public class CaveTrollAnimations {
     Transformation.Interpolations.CUBIC),
             new Keyframe(1.75f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
     Transformation.Interpolations.CUBIC))).build();
-    public static final AnimationDefinition PASSIVE_WALK2 = AnimationDefinition.Builder.create(1.75f).looping()
+    public static final AnimationDefinition PASSIVE_WALK = AnimationDefinition.Builder.create(1.75f).looping()
             .addBoneAnimation("root",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),

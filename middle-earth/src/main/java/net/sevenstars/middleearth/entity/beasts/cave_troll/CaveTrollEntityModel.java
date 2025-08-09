@@ -7,11 +7,13 @@ import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollAnimations;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
 public class CaveTrollEntityModel extends EntityModel<TrollEntityRenderState> {
+    private final Animation walkingAnimation;
     private final Animation sleepingAnimation;
 
     protected CaveTrollEntityModel(ModelPart root) {
         super(root);
 
+        walkingAnimation = CaveTrollAnimations.PASSIVE_WALK.createAnimation(root);
         sleepingAnimation = CaveTrollAnimations.SLEEP_LAYING_DOWN.createAnimation(root);
     }
 
@@ -58,14 +60,7 @@ public class CaveTrollEntityModel extends EntityModel<TrollEntityRenderState> {
         ModelPartData HandRight_Thumb = HandRight.addChild("HandRight_Thumb", ModelPartBuilder.create().uv(95, 163).cuboid(-1.75F, -1.5F, -1.5F, 3.0F, 3.0F, 3.0F, new Dilation(0.0F))
                 .uv(97, 157).cuboid(-0.75F, 1.5F, -1.0F, 2.0F, 1.0F, 2.0F, new Dilation(-0.02F)), ModelTransform.origin(7.15F, -1.0F, 0.6F));
 
-        ModelPartData Mace = ArmRight.addChild("Mace", ModelPartBuilder.create().uv(224, 36).cuboid(-4.0F, -31.5F, -3.95F, 8.0F, 8.0F, 8.0F, new Dilation(0.0F))
-                .uv(239, 56).cuboid(-2.0F, -23.5F, -1.95F, 4.0F, 32.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(-4.7575F, 39.2425F, 0.5F, 1.5708F, 0.0F, -0.7854F));
-
-        ModelPartData spike2_r1 = Mace.addChild("spike2_r1", ModelPartBuilder.create().uv(195, 37).cuboid(0.0F, -44.0F, -10.0F, 0.0F, 50.0F, 20.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 8.5F, -0.05F, 0.0F, 2.3562F, 0.0F));
-
-        ModelPartData spike1_r1 = Mace.addChild("spike1_r1", ModelPartBuilder.create().uv(195, 37).cuboid(0.0F, -44.0F, -10.0F, 0.0F, 50.0F, 20.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 8.5F, -0.05F, 0.0F, 0.7941F, 0.0F));
-
-        ModelPartData ArmLeft = body_no_legs.addChild("ArmLeft", ModelPartBuilder.create().uv(105, 171).cuboid(0.0F, -3.5F, -5.0F, 10.0F, 41.0F, 10.0F, new Dilation(0.0F)), ModelTransform.origin(16.5F, -34.1667F, 0.5F));
+       ModelPartData ArmLeft = body_no_legs.addChild("ArmLeft", ModelPartBuilder.create().uv(105, 171).cuboid(0.0F, -3.5F, -5.0F, 10.0F, 41.0F, 10.0F, new Dilation(0.0F)), ModelTransform.origin(16.5F, -34.1667F, 0.5F));
 
         ModelPartData HandLeft = ArmLeft.addChild("HandLeft", ModelPartBuilder.create(), ModelTransform.origin(-42.0F, 39.5F, -4.0F));
 
@@ -96,6 +91,7 @@ public class CaveTrollEntityModel extends EntityModel<TrollEntityRenderState> {
     public void setAngles(TrollEntityRenderState state) {
         super.setAngles(state);
 
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 10f, 10.0f);
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
     }
 }

@@ -79,6 +79,10 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         builder.add(RUNNING, false);
     }
 
+    @Override
+    protected void initGoals() {
+    }
+
     protected abstract void setupAnimationStates();
 
     @Override
@@ -156,6 +160,10 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     @Override
     public boolean isPersistent() {
         return isTame();
+    }
+
+    protected boolean isClient() {
+        return this.getWorld().isClient();
     }
 
     // DataTracker =====================================================================================================
