@@ -18,7 +18,9 @@ import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.hob
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.HammerhandHelmModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.RohanHairHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.RohanHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.MandibleHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.OrcSpikeHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.goblintown.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.hobgoblins.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.isengard.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorBNHelmetModel;
@@ -142,10 +144,21 @@ public class ArmorModelsME {
         MORIA_GOBLIN_CHARGER_HELMET(EquipmentItemsME.MORIA_GOBLIN_CHARGER_HELMET, new MoriaChargerHelmetModel(MoriaChargerHelmetModel.getTexturedModelData().createModel())),
         MORIA_RUINED_DWARVEN_HELMET(EquipmentItemsME.MORIA_RUINED_DWARVEN_HELMET, new MoriaNasalHelmetModel(MoriaNasalHelmetModel.getTexturedModelData().createModel())),
         MORIA_GOBLIN_BITER_HELMET(EquipmentItemsME.MORIA_GOBLIN_BITER_HELMET, new MoriaScreecherHelmetModel(MoriaScreecherHelmetModel.getTexturedModelData().createModel())),
-        MORIA_GOBLIN_MANDIBLE_HELMET(EquipmentItemsME.MORIA_GOBLIN_MANDIBLE_HELMET, new MoriaMandibleHelmetModel(MoriaMandibleHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_MANDIBLE_HELMET(EquipmentItemsME.MORIA_GOBLIN_MANDIBLE_HELMET, new MandibleHelmetModel(MandibleHelmetModel.getTexturedModelData().createModel())),
         MORIA_GOBLIN_CAPTAIN_HELMET(EquipmentItemsME.MORIA_GOBLIN_CAPTAIN_HELMET, new MoriaCaptainHelmetModel(MoriaCaptainHelmetModel.getTexturedModelData().createModel())),
         MORIA_GOBLIN_SCREECHER_HELMET(EquipmentItemsME.MORIA_GOBLIN_SCREECHER_HELMET, new MoriaScreecherHelmetModel(MoriaScreecherHelmetModel.getTexturedModelData().createModel())),
         MORIA_GOBLIN_CHIEF_HELMET(EquipmentItemsME.MORIA_GOBLIN_CHIEF_HELMET, new MoriaChiefHelmetModel(MoriaChiefHelmetModel.getTexturedModelData().createModel())),
+
+        GOBLIN_KING_CROWN(EquipmentItemsME.GOBLIN_KING_CROWN, new GoblinKingCrownModel(GoblinKingCrownModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_CAP(EquipmentItemsME.GOBLIN_TOWN_CAP, new FlapHelmetModel(FlapHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_BONE_MANDIBLE_CAP(EquipmentItemsME.GOBLIN_TOWN_BONE_MANDIBLE_CAP, new GoblinTownBoneMandibleModel(GoblinTownBoneMandibleModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_CROSSBONES_HELMET(EquipmentItemsME.GOBLIN_TOWN_CROSSBONES_HELMET, new GoblinTownCrossbonesHelmetModel(GoblinTownCrossbonesHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_NASAL_HELMET(EquipmentItemsME.GOBLIN_TOWN_NASAL_HELMET, new MoriaSnagaHelmetModel(MoriaSnagaHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_SKULL_CAP(EquipmentItemsME.GOBLIN_TOWN_SKULL_CAP, new GoblinTownSkullHelmetModel(GoblinTownSkullHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_TUNNELER_HELMET(EquipmentItemsME.GOBLIN_TOWN_TUNNELER_HELMET, new GoblinTownTunnelerHelmetModel(GoblinTownTunnelerHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_SKULKER_GUARD_HELMET(EquipmentItemsME.GOBLIN_TOWN_SKULKER_GUARD_HELMET, new SkulkerGuardHelmetModel(SkulkerGuardHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_HEAVY_NASAL_HELMET(EquipmentItemsME.GOBLIN_TOWN_HEAVY_NASAL_HELMET, new GoblinTownNasalHelmetModel(GoblinTownNasalHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_MANDIBLE_HELMET(EquipmentItemsME.GOBLIN_TOWN_MANDIBLE_HELMET, new MandibleHelmetModel(MandibleHelmetModel.getTexturedModelData().createModel())),
 
         HELMET_OF_HELM_HAMMERHAND(EquipmentItemsME.HELMET_OF_HELM_HAMMERHAND, new HammerhandHelmModel(HammerhandHelmModel.getTexturedModelData().createModel())),
         ;

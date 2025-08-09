@@ -2,12 +2,9 @@ package net.sevenstars.middleearth.item;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
-import net.minecraft.component.type.LoreComponent;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Rarity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
@@ -25,11 +22,8 @@ import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.armor.ArmorMaterialsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
-import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.registries.RegistryAliases;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.sevenstars.middleearth.resources.FactionsME;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1560,6 +1554,20 @@ public class EquipmentItemsME {
     //endregion
 
     //region GOBLIN TOWN
+    public static final Item GOBLIN_KING_CROWN = registerCustomModelArmorPiece("goblin_king_crown",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BONE_T0, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_CAP = registerCustomModelArmorPiece("goblin_town_cap",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_TOWN_BONE_MANDIBLE_CAP = registerCustomModelArmorPiece("goblin_town_bone_mandible_cap",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_TOWN_CROSSBONES_HELMET = registerCustomModelArmorPiece("goblin_town_crossbones_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    
     public static final Item GOBLIN_TOWN_BONE_STRAP = registerArmorPiece("goblin_town_bone_strap",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.BONE_T1, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
@@ -1575,6 +1583,16 @@ public class EquipmentItemsME {
             (settings) -> new CustomBootsItem(ArmorMaterialsME.FABRIC_T1, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
 
+    public static final Item GOBLIN_TOWN_NASAL_HELMET = registerCustomModelArmorPiece("goblin_town_nasal_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_TOWN_SKULL_CAP = registerCustomModelArmorPiece("goblin_town_skull_cap",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_TOWN_TUNNELER_HELMET = registerCustomModelArmorPiece("goblin_town_tunneler_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
     public static final Item GOBLIN_TOWN_BONE_SCALE_COAT = registerCustomModelArmorPiece("goblin_town_bone_scale_coat",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
@@ -1587,6 +1605,16 @@ public class EquipmentItemsME {
 
     public static final Item GOBLIN_TOWN_LEATHER_SKIRT = registerArmorPiece("goblin_town_leather_skirt",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_HEAVY_NASAL_HELMET = registerCustomModelArmorPiece("goblin_town_heavy_nasal_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_TOWN_MANDIBLE_HELMET = registerCustomModelArmorPiece("goblin_town_mandible_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_TOWN_SKULKER_GUARD_HELMET = registerCustomModelArmorPiece("goblin_town_skulker_guard_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
 
     public static final Item GOBLIN_TOWN_BELLY_PLATE = registerArmorPiece("goblin_town_belly_plate",

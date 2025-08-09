@@ -1,12 +1,12 @@
-package net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.moria;
+package net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 
-public class MoriaMandibleHelmetModel extends HelmetAddonModel {
+public class MandibleHelmetModel extends HelmetAddonModel {
 
-    public MoriaMandibleHelmetModel(ModelPart root) {
+    public MandibleHelmetModel(ModelPart root) {
         super(root);
     }
 
