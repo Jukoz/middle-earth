@@ -254,6 +254,7 @@ public class TranslationEntries {
             put("item."+ MiddleEarth.MOD_ID +".mordor_banner_pattern.desc", "The Great Eye of Sauron");
             put("item."+ MiddleEarth.MOD_ID +".misty_mountains_orcs_banner_pattern.desc", "The symbols of the Orcs of the Misty Mountains");
             put("item."+ MiddleEarth.MOD_ID +".isengard_banner_pattern.desc", "The White Hand of Saruman");
+            put("item."+ MiddleEarth.MOD_ID +".goblin_skull_banner_pattern.desc", "The Skull of a Goblin");
             put("item."+ MiddleEarth.MOD_ID +".anvil_banner_pattern.desc", "Anvil Icons");
             put("item."+ MiddleEarth.MOD_ID +".bell_banner_pattern.desc", "Bell Icons");
             put("item."+ MiddleEarth.MOD_ID +".bow_banner_pattern.desc", "Bow Icons");

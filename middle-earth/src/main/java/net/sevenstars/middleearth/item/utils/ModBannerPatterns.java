@@ -21,6 +21,7 @@ public class ModBannerPatterns {
     public static final RegistryKey<BannerPattern> EVIL_EYE = key("evil_eye");
     public static final RegistryKey<BannerPattern> EVIL_PEAKS = key("evil_peaks");
     public static final RegistryKey<BannerPattern> HAND = key("hand");
+    public static final RegistryKey<BannerPattern> GOBLIN_SKULL = key("goblin_skull");
 
     public static final RegistryKey<BannerPattern> DRAGON = key("dragon");
     public static final RegistryKey<BannerPattern> SNAIL = key("snail");
@@ -74,6 +75,7 @@ public class ModBannerPatterns {
         register(registry, EVIL_EYE);
         register(registry, EVIL_PEAKS);
         register(registry, HAND);
+        register(registry, GOBLIN_SKULL);
 
         register(registry, DRAGON);
         register(registry, SNAIL);
