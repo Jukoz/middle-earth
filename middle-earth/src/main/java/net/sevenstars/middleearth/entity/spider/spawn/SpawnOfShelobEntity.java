@@ -42,6 +42,7 @@ import net.sevenstars.middleearth.entity.spider.Pouncer;
 
 public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shielder, CooldownRangedAttackMob {
     public static final int CLIMBING_TIME_TRANSITION = 12;
+    public static final int LEAPING_TIME_TRANSITION = 9;
     public static final float MOVEMENT_SPEED = 1.15f;
     public static final float WEB_PROJECTILE_DAMAGE = 2f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
@@ -55,6 +56,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     public final AnimationState blockAnimation = new AnimationState();
 
     private int climbingTicks = 0;
+    private int leapingTicks = 0;
     private int shootCooldown = 0;
 
     public SpawnOfShelobEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -157,9 +159,15 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     public void tickMovement() {
         super.tickMovement();
         if(isClimbingWall()) {
-            this.climbingTicks = Math.min(CLIMBING_TIME_TRANSITION, this.climbingTicks + 1);
+            this.climbingTicks = this.climbingTicks + 1;
         } else {
             this.climbingTicks = Math.max(0, this.climbingTicks - 1);
+        }
+
+        if(isOnGround()) {
+            leapingTicks = 0;
+        } else {
+            leapingTicks++;
         }
     }
 
@@ -242,6 +250,10 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
 
     public int getClimbingTicks() {
         return this.climbingTicks;
+    }
+
+    public int getLeapingTicks() {
+        return this.leapingTicks;
     }
 
     public MirkwoodSpiderVariants getVariant() {

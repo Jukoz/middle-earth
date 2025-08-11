@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.spider.spawn;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 
 public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
@@ -24,12 +25,13 @@ public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
         this.walkingBlockAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_BLOCK.createAnimation(root);
         this.pounceAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_POUNCE.createAnimation(root);
     }
+
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 36.0F, 0.0F));
+        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 0.0F));
 
-        ModelPartData legscore = root.addChild("legscore", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -18.0F, -5.0F));
+        ModelPartData legscore = root.addChild("legscore", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -6.0F, -5.0F));
 
         ModelPartData rights = legscore.addChild("rights", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
@@ -119,7 +121,7 @@ public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
         ModelPartData lleg14 = lleg13.addChild("lleg14", ModelPartBuilder.create().uv(147, 96).mirrored().cuboid(-1.0F, -2.0F, -1.0F, 8.0F, 3.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(84, 83).mirrored().cuboid(-12.0F, -12.0F, -0.5F, 27.0F, 25.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(9.0F, 1.0F, 0.0F));
 
-        ModelPartData body = root.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -18.0F, -1.0F));
+        ModelPartData body = root.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -6.0F, -1.0F));
 
         ModelPartData abdomen = body.addChild("abdomen", ModelPartBuilder.create().uv(6, 63).cuboid(-8.0F, -6.0F, 0.0F, 16.0F, 9.0F, 19.0F, new Dilation(0.0F))
                 .uv(5, 96).cuboid(-3.0F, -8.0F, -2.0F, 6.0F, 7.0F, 11.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -4.0F, 1.0F));
@@ -161,14 +163,28 @@ public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
     public void setAngles(SpawnOfShelobRenderState state) {
         super.setAngles(state);
 
+        int croppedClimbingTicks = Math.min(ShelobiteScuttlerEntity.CLIMBING_TIME_TRANSITION, state.climbingTicks);
+        float climbingPercentage = (float) croppedClimbingTicks / SpawnOfShelobEntity.CLIMBING_TIME_TRANSITION;
+
+        int croppedLeapingTicks = Math.min(ShelobiteScuttlerEntity.LEAPING_TIME_TRANSITION, state.leapingTicks);
+        float leapingPercentage = (float) croppedLeapingTicks / SpawnOfShelobEntity.LEAPING_TIME_TRANSITION;
+
+        if(state.climbingTicks > 0 && climbingPercentage > leapingPercentage) {
+            this.root.pitch = -1.5f * climbingPercentage;
+            this.walkingAnimation.applyWalking((float)state.climbingTicks / 3.1f, 0.85f, 2.2F, 2.5F);
+        } else if(state.leapingTicks > 0 && leapingPercentage > climbingPercentage) {
+            this.root.pitch = -0.7f * leapingPercentage;
+            this.walkingAnimation.applyWalking((float)state.leapingTicks / 3.7f, 0.7f, 2.2F, 2.5F);
+        }
+
         if(state.limbSwingAmplitude <= 0.4) {
             this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
-        }
-        if(state.blockAnimationState.isRunning()) {
+        } else if(state.blockAnimationState.isRunning()) {
             this.walkingBlockAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.2F, 2.25F);
         } else {
             this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
         }
+
         this.biteAnimation.apply(state.walkAnimationState, state.age, 1.25f);
         this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.0f);
     }
