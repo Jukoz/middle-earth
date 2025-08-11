@@ -45,6 +45,10 @@ public class PounceRetreatGoal extends Goal {
             return false;
         }
 
+        if(this.spider.hasStatusEffect(StatusEffects.REGENERATION)) {
+            return false;
+        }
+
         float percentageHealthLeft = this.spider.getHealth() / this.spider.getMaxHealth();
         if(percentageHealthLeft > this.healthPercentage) {
             return false;

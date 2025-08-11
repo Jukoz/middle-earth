@@ -173,7 +173,7 @@ public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
             this.root.pitch = -1.5f * climbingPercentage;
             this.walkingAnimation.applyWalking((float)state.climbingTicks / 3.1f, 0.85f, 2.2F, 2.5F);
         } else if(state.leapingTicks > 0 && leapingPercentage > climbingPercentage) {
-            this.root.pitch = -0.7f * leapingPercentage;
+            this.root.pitch = -0.8f * leapingPercentage;
             this.walkingAnimation.applyWalking((float)state.leapingTicks / 3.7f, 0.7f, 2.2F, 2.5F);
         }
 

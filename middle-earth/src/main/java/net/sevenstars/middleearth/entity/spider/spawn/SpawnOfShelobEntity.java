@@ -77,7 +77,8 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         this.goalSelector.add(2, new PounceRetreatGoal(this, 0.8f, 1.15f, 0.3f));
         this.goalSelector.add(3, new ShieldAgainstProjctileGoal(this, this, 13, 32));
         this.goalSelector.add(4, new SmartProjectileAttackGoal(this, 0.7f, 40, 90, 17, 40));
-        this.goalSelector.add(5, new SpiderPonceAtTargetGoal(this, this, 0.55F, 0.35f));
+        this.goalSelector.add(5, new SpiderPonceAtTargetGoal(this, this,
+                0.5F, 0.25f, 4, 17, 4));
         this.goalSelector.add(5, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
