@@ -46,6 +46,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     public static final float MOVEMENT_SPEED = 1.15f;
     public static final float WEB_PROJECTILE_DAMAGE = 2f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
+    private static final TrackedData<Boolean> ATTACK_FLAG;
     private static final TrackedData<Integer> POUNCE_FLAG;
     private static final TrackedData<Integer> BLOCK_FLAG;
 
@@ -99,6 +100,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(SPIDER_FLAGS, (byte)0);
+        builder.add(ATTACK_FLAG, false);
         builder.add(POUNCE_FLAG, 0);
         builder.add(BLOCK_FLAG, 0);
     }
@@ -107,9 +109,15 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         if(!this.idleAnimation.isRunning()) {
             this.idleAnimation.start(this.age);
         }
-
         setTrackerState(POUNCE_FLAG, pounceAnimation);
         setTrackerState(BLOCK_FLAG, blockAnimation);
+
+        boolean attackState = this.dataTracker.get(ATTACK_FLAG);
+        if(attackState) {
+            this.biteAnimation.stop();
+            this.biteAnimation.start(this.age);
+            this.dataTracker.set(ATTACK_FLAG, false);
+        }
     }
 
     protected void setTrackerState(TrackedData<Integer> trackedData, AnimationState animationState) {
@@ -141,8 +149,9 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        biteAnimation.start(this.age);
-        return super.tryAttack(world, target);
+        boolean result = super.tryAttack(world, target);
+        this.dataTracker.set(ATTACK_FLAG, result);
+        return result;
     }
 
     public void tick() {
@@ -263,6 +272,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
 
     static {
         SPIDER_FLAGS = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.BYTE);
+        ATTACK_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
         POUNCE_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
         BLOCK_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
     }

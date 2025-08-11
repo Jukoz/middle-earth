@@ -1446,7 +1446,7 @@ public class SpawnOfShelobAnimations {
     // endregion 
     
     // region BITE
-    public static final AnimationDefinition SPAWN_OF_SHELOB_BITE = AnimationDefinition.Builder.create(2f).looping()
+    public static final AnimationDefinition SPAWN_OF_SHELOB_BITE = AnimationDefinition.Builder.create(2f)
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f), Transformation.Interpolations.LINEAR),

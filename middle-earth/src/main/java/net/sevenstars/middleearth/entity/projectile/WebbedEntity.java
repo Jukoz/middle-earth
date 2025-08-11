@@ -9,7 +9,8 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.Registry;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
@@ -18,9 +19,8 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.VegetationConfiguredFeatures;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 import net.sevenstars.middleearth.world.features.vegetation.ModVegetationConfiguredFeatures;
 
@@ -48,7 +48,15 @@ public class WebbedEntity extends AbstractProjectileEntity {
     }
 
     protected Item getDefaultItem() {
-        return ResourceItemsME.PEBBLE;
+        return ModNatureBlocks.WEBBING.asItem();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.getWorld().isClient) {
+            this.spawnParticles(2);
+        }
     }
 
     @Override
@@ -81,6 +89,18 @@ public class WebbedEntity extends AbstractProjectileEntity {
     protected void onBlockCollision(BlockState state) {
         super.onBlockCollision(state);
         spawnWebbing();
+    }
+
+    private void spawnParticles(int amount) {
+        if (amount > 0) {
+            for (int j = 0; j < amount; j++) {
+                this.getWorld()
+                        .addParticleClient(
+                                new BlockStateParticleEffect(ParticleTypes.BLOCK, ModNatureBlocks.WEBBING.getDefaultState()),
+                                this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), 0.0, 0.0, 0.0
+                        );
+            }
+        }
     }
 
     private void spawnWebbing() {

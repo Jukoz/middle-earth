@@ -53,7 +53,7 @@ public class PebbleItem extends Item{
         float percentage = (float) i / STRENGTH_CHARGE_TIME;
 
         if (!world.isClient) {
-            WebbedEntity pebbleEntity = new WebbedEntity(world, user, DAMAGE * percentage);
+            PebbleEntity pebbleEntity = new PebbleEntity(world, user, DAMAGE * percentage);
             pebbleEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0f, BASE_STRENGTH + (CHARGE_STRENGTH * percentage), 1.0f);
 
             world.spawnEntity(pebbleEntity);
