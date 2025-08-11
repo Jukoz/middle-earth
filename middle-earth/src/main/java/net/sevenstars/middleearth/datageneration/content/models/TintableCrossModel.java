@@ -69,7 +69,7 @@ public class TintableCrossModel {
             add(ModNatureBlocks.FROZEN_SHRUB);
             add(ModNatureBlocks.TAN_SHRUB);
 
-            add(ModNatureBlocks.DRY_GRASS);
+            add(ModNatureBlocks.BLUE_FESCUE);
             add(ModNatureBlocks.DYING_GRASS);
             add(ModNatureBlocks.FROZEN_GRASS);
             add(ModNatureBlocks.GRIM_GRASS);
@@ -85,6 +85,8 @@ public class TintableCrossModel {
             add(ModNatureBlocks.COASTAL_PANIC_GRASS);
             add(ModNatureBlocks.SEDUM);
             add(ModNatureBlocks.YELLOW_SEDUM);
+            add(ModNatureBlocks.BRAMBLES_OF_MORDOR);
+            add(ModNatureBlocks.SHORT_DEAD_RUSHES);
             add(ModNatureBlocks.SHORT_REEDS);
             add(ModNatureBlocks.SHORT_CATTAILS);
             add(ModNatureBlocks.SHORT_BULRUSH);
