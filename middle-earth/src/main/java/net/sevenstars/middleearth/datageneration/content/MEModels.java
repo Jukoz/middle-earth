@@ -46,6 +46,9 @@ public class MEModels {
 
     public static final Model THICK_LADDER;
 
+    public static final Model LARGE_PLANT;
+    public static final Model TINTED_LARGE_PLANT;
+
     private static Model block(String parent, TextureKey... requiredTextureKeys) {
         return new Model(Optional.of(Identifier.of(MiddleEarth.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
     }
@@ -92,5 +95,8 @@ public class MEModels {
         LARGE_THICK_DOOR_RIGHT_OPEN = block("thick_large_door_right_open", TextureKey.ALL, TextureKey.PARTICLE);
 
         THICK_LADDER = block("thick_ladder", TextureKey.TEXTURE, TextureKey.PARTICLE);
+
+        LARGE_PLANT = block("large_plant_template", TextureKey.ALL, TextureKey.PARTICLE);
+        TINTED_LARGE_PLANT = block("large_tinted_plant_template", TextureKey.ALL, TextureKey.PARTICLE);
     }
 }

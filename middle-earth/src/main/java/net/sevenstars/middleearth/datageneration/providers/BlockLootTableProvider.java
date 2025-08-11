@@ -121,8 +121,15 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             addPottedPlantDrops(pot);
         }
 
+        addDrop(ModNatureBlocks.CAMPION, shortPlantDrops(ModNatureBlocks.CAMPION));
+        addDrop(ModNatureBlocks.DEAD_HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.DEAD_HEATHER_BUSH));
+        addDrop(ModNatureBlocks.DRY_HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.DRY_HEATHER_BUSH));
         addDrop(ModNatureBlocks.DEAD_RUSHES, shortPlantDrops(ModNatureBlocks.DEAD_RUSHES));
         addDrop(ModNatureBlocks.FALSE_OATGRASS, shortPlantDrops(ModNatureBlocks.FALSE_OATGRASS));
+        addDrop(ModNatureBlocks.HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.HEATHER_BUSH));
+        addDrop(ModNatureBlocks.LARGE_BUSH, shortPlantDrops(ModNatureBlocks.LARGE_BUSH));
+        addDrop(ModNatureBlocks.RED_HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.RED_HEATHER_BUSH));
+
         addDrop(ModNatureBlocks.BRACKEN, shortPlantDrops(ModNatureBlocks.BRACKEN));
 
         for (Block block : TintableCrossModel.grassLikeBlocks) {

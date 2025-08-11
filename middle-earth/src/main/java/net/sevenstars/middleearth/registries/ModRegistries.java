@@ -479,8 +479,14 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.SEDUM, 0.30f);
         registry.add(ModNatureBlocks.YELLOW_SEDUM, 0.30f);
         registry.add(ModNatureBlocks.BRACKEN, 0.30f);
+        registry.add(ModNatureBlocks.CAMPION, 0.30f);
+        registry.add(ModNatureBlocks.DEAD_HEATHER_BUSH, 0.30f);
+        registry.add(ModNatureBlocks.DRY_HEATHER_BUSH, 0.30f);
         registry.add(ModNatureBlocks.DEAD_RUSHES, 0.30f);
         registry.add(ModNatureBlocks.FALSE_OATGRASS, 0.30f);
+        registry.add(ModNatureBlocks.HEATHER_BUSH, 0.30f);
+        registry.add(ModNatureBlocks.LARGE_BUSH, 0.30f);
+        registry.add(ModNatureBlocks.RED_HEATHER_BUSH, 0.30f);
         registry.add(ModNatureBlocks.SHORT_REEDS, 0.30f);
         registry.add(ModNatureBlocks.SHORT_CATTAILS, 0.30f);
         registry.add(ModNatureBlocks.SHORT_BULRUSH, 0.30f);

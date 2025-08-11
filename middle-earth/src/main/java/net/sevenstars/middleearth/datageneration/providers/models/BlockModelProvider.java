@@ -8,6 +8,7 @@ import net.minecraft.block.enums.BlockFace;
 import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.block.enums.Thickness;
 import net.minecraft.client.data.*;
+import net.minecraft.client.render.item.tint.GrassTintSource;
 import net.minecraft.client.render.model.json.ModelVariant;
 import net.minecraft.client.render.model.json.ModelVariantOperator;
 import net.minecraft.client.render.model.json.WeightedVariant;
@@ -503,12 +504,19 @@ public class BlockModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerItemModel(ModNatureBlocks.MIRKWOOD_VINES);
 
         for (Block block : TintableCrossModel.tintedBlocks) {
-            blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.CrossType.TINTED);
+            blockStateModelGenerator.registerTintableCrossBlockState(block, BlockStateModelGenerator.CrossType.TINTED);
+            blockStateModelGenerator.registerTintedItemModel(block, blockStateModelGenerator.uploadBlockItemModel(block.asItem(), block), new GrassTintSource());
         }
 
         for (Block block : TintableCrossModel.grassLikeBlocks) {
             blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.CrossType.NOT_TINTED);
         }
+
+        for (Block block : TintableCrossModel.largePlants) {
+            registerLargePlant(blockStateModelGenerator, block);
+        }
+
+        registerTintableLargePlant(blockStateModelGenerator, ModNatureBlocks.LARGE_BUSH);
 
         for (Block block : SimpleFlowerBedModel.flowerBeds) {
             blockStateModelGenerator.registerFlowerbed(block);
@@ -816,6 +824,20 @@ public class BlockModelProvider extends FabricModelProvider {
         WeightedVariant weightedVariant = createWeightedVariant(identifier);
         blockStateCollector.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(coralFanBlock, weightedVariant));
         blockStateCollector.registerItemModel(coralFanBlock);
+    }
+
+    public final void registerTintableLargePlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock) {
+        Identifier identifier = MEModels.TINTED_LARGE_PLANT.upload(plantBlock, TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(plantBlock).getNamespace(), "block/" + Registries.BLOCK.getId(plantBlock).getPath())), blockStateModelGenerator.modelCollector);
+        WeightedVariant weightedVariant = createWeightedVariant(identifier);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(plantBlock, weightedVariant));
+        blockStateModelGenerator.registerTintedItemModel(plantBlock, blockStateModelGenerator.uploadBlockItemModel(plantBlock.asItem(), plantBlock), new GrassTintSource());
+    }
+
+    public final void registerLargePlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock) {
+        Identifier identifier = MEModels.LARGE_PLANT.upload(plantBlock, TextureMap.of(TextureKey.ALL,Identifier.of(Registries.BLOCK.getId(plantBlock).getNamespace(), "block/" + Registries.BLOCK.getId(plantBlock).getPath())), blockStateModelGenerator.modelCollector);
+        WeightedVariant weightedVariant = createWeightedVariant(identifier);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(plantBlock, weightedVariant));
+        blockStateModelGenerator.registerItemModel(plantBlock.asItem());
     }
 
     public final void registerFlowerPotPlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, BlockStateModelGenerator.CrossType tintType) {

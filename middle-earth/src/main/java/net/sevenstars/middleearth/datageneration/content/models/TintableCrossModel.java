@@ -96,4 +96,17 @@ public class TintableCrossModel {
             add(ModNatureBlocks.SCORCHED_SHRUB);
         }
     };
+
+    public static List<Block> largePlants = new ArrayList<>()
+    {
+        {
+            add(ModNatureBlocks.CAMPION);
+            add(ModNatureBlocks.DEAD_HEATHER_BUSH);
+            add(ModNatureBlocks.DRY_HEATHER_BUSH);
+            add(ModNatureBlocks.DEAD_RUSHES);
+            add(ModNatureBlocks.FALSE_OATGRASS);
+            add(ModNatureBlocks.HEATHER_BUSH);
+            add(ModNatureBlocks.RED_HEATHER_BUSH);
+        }
+    };
 }
