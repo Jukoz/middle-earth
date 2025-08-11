@@ -19,18 +19,6 @@ public class RegistryAliases {
         {
             add(new ManualAlias(Registries.ITEM, "strawberry", "strawberries"));
 
-            add(new ManualAlias(Registries.BLOCK, "mossy_gneiss_tiles", "gneiss_tiles"));
-            add(new ManualAlias(Registries.BLOCK, "mossy_gneiss_tiles_slab", "gneiss_tile_slab"));
-            add(new ManualAlias(Registries.BLOCK, "mossy_gneiss_tiles_stairs", "gneiss_tile_stairs"));
-            add(new ManualAlias(Registries.BLOCK, "mossy_gneiss_tiles_vertical_slab", "gneiss_tile_vertical_slab"));
-            add(new ManualAlias(Registries.BLOCK, "mossy_gneiss_tiles_wall", "gneiss_tile_wall"));
-
-            add(new ManualAlias(Registries.ITEM, "mossy_gneiss_tiles", "gneiss_tiles"));
-            add(new ManualAlias(Registries.ITEM, "mossy_gneiss_tiles_slab", "gneiss_tile_slab"));
-            add(new ManualAlias(Registries.ITEM, "mossy_gneiss_tiles_stairs", "gneiss_tile_stairs"));
-            add(new ManualAlias(Registries.ITEM, "mossy_gneiss_tiles_vertical_slab", "gneiss_tile_vertical_slab"));
-            add(new ManualAlias(Registries.ITEM, "mossy_gneiss_tiles_wall", "gneiss_tile_wall"));
-
             add(new ManualAlias(Registries.BLOCK, "mossy_stone_brick_vertical_slab", "mossy_stone_brick_vertical_slab"));
             add(new ManualAlias(Registries.ITEM, "mossy_stone_brick_vertical_slab", "mossy_stone_brick_vertical_slab"));
 
