@@ -126,12 +126,22 @@ public class ModBlocks {
     public static final Block ASHEN_SAND = registerMiscBlock("ashen_sand",
             (settings) -> new ColoredFallingBlock(new ColorCode(14406560), settings), AbstractBlock.Settings.copy(Blocks.SAND).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
     public static final Block ASHEN_SAND_LAYER = registerMiscBlock("ashen_sand_layer",
-            (settings) -> new LayersBlock(settings, ASHEN_SAND),AbstractBlock.Settings.copy(Blocks.SAND), false);
+            (settings) -> new LayersBlock(settings, ASHEN_SAND),AbstractBlock.Settings.copy(ASHEN_SAND), false);
 
     public static final Block ASHEN_GRAVEL = registerMiscBlock("ashen_gravel",
             (settings) -> new ColoredFallingBlock(new ColorCode(14406560), settings), AbstractBlock.Settings.copy(Blocks.GRAVEL).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
     public static final Block ASHEN_GRAVEL_LAYER = registerMiscBlock("ashen_gravel_layer",
-            (settings) -> new LayersBlock(settings, ASHEN_GRAVEL), AbstractBlock.Settings.copy(Blocks.GRAVEL), false);
+            (settings) -> new LayersBlock(settings, ASHEN_GRAVEL), AbstractBlock.Settings.copy(ASHEN_GRAVEL), false);
+
+    public static final Block SKELETAL_PILE = registerMiscBlock("skeletal_pile",
+            (settings) -> new ColoredFallingBlock(new ColorCode(14406560), settings), AbstractBlock.Settings.copy(Blocks.BONE_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.BONE),true);
+    public static final Block SKELETAL_PILE_LAYER = registerMiscBlock("skeletal_pile_layer",
+            (settings) -> new LayersBlock(settings, SKELETAL_PILE),AbstractBlock.Settings.copy(SKELETAL_PILE), false);
+
+    public static final Block WASTE_PILE = registerMiscBlock("waste_pile",
+            (settings) -> new ColoredFallingBlock(new ColorCode(14406560), settings), AbstractBlock.Settings.copy(Blocks.MUD).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.MUD),true);
+    public static final Block WASTE_PILE_LAYER = registerMiscBlock("waste_pile_layer",
+            (settings) -> new LayersBlock(settings, WASTE_PILE),AbstractBlock.Settings.copy(WASTE_PILE), false);
 
     public static final Block WATTLE_AND_BRICK = registerMiscBlock("wattle_and_brick",
             Block::new,AbstractBlock.Settings.copy(Blocks.PACKED_MUD),true);

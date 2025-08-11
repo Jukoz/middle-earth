@@ -456,6 +456,8 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createLayerRecipe(exporter, ModBlocks.WHITE_SAND.asItem(), ModBlocks.WHITE_SAND_LAYER);
                 createLayerRecipe(exporter, ModBlocks.ASHEN_SAND.asItem(), ModBlocks.ASHEN_SAND_LAYER);
                 createLayerRecipe(exporter, ModBlocks.ASHEN_GRAVEL.asItem(), ModBlocks.ASHEN_GRAVEL_LAYER);
+                createLayerRecipe(exporter, ModBlocks.SKELETAL_PILE.asItem(), ModBlocks.SKELETAL_PILE_LAYER);
+                createLayerRecipe(exporter, ModBlocks.WASTE_PILE.asItem(), ModBlocks.WASTE_PILE_LAYER);
 
                 createStairsRecipe(exporter, ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT);
