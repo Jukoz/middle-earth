@@ -372,7 +372,8 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
-            .addToSet(StoneBlockTypes.OLD_BLOCKS));
+            .addToSet(StoneBlockTypes.OLD_BLOCKS)
+            .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
     public static StoneBlockSetBuilder GILDED_GREEN_TUFF_SET = registerStoneSet(new StoneBlockSetBuilder("gilded_green_tuff",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
