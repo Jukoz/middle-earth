@@ -2031,6 +2031,12 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(ModNatureBlocks.DEAD_RUSHES))
                         .offerTo(exporter);
 
+                ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.SHORT_RUSHES, 2)
+                        .input(ModNatureBlocks.RUSHES)
+                        .criterion(hasItem(ModNatureBlocks.RUSHES),
+                                conditionsFromItem(ModNatureBlocks.RUSHES))
+                        .offerTo(exporter);
+
                 ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.SHORT_CATTAILS, 2)
                         .input(ModNatureBlocks.TALL_CATTAILS)
                         .criterion(hasItem(ModNatureBlocks.TALL_CATTAILS),

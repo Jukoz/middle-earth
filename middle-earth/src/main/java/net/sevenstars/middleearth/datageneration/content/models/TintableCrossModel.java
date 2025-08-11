@@ -87,6 +87,7 @@ public class TintableCrossModel {
             add(ModNatureBlocks.YELLOW_SEDUM);
             add(ModNatureBlocks.BRAMBLES_OF_MORDOR);
             add(ModNatureBlocks.SHORT_DEAD_RUSHES);
+            add(ModNatureBlocks.SHORT_RUSHES);
             add(ModNatureBlocks.SHORT_REEDS);
             add(ModNatureBlocks.SHORT_CATTAILS);
             add(ModNatureBlocks.SHORT_BULRUSH);
@@ -109,6 +110,7 @@ public class TintableCrossModel {
             add(ModNatureBlocks.FALSE_OATGRASS);
             add(ModNatureBlocks.HEATHER_BUSH);
             add(ModNatureBlocks.RED_HEATHER_BUSH);
+            add(ModNatureBlocks.RUSHES);
         }
     };
 }

@@ -170,6 +170,9 @@ public class ModNatureBlocks {
     public static final Block RED_HEATHER_BUSH = registerBlock("red_heather_bush",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.BROWN), true);
+    public static final Block RUSHES = registerBlock("rushes",
+            DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.BROWN), true);
 
     public static final Block BRACKEN = registerBlock("bracken",
             CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ)
@@ -257,6 +260,9 @@ public class ModNatureBlocks {
                     .mapColor(DyeColor.GREEN).burnable(), true);
 
     public static final Block SHORT_DEAD_RUSHES = registerBlock("short_dead_rushes",
+            DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.GREEN), true);
+    public static final Block SHORT_RUSHES = registerBlock("short_rushes",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN), true);
     public static final Block SHORT_REEDS = registerBlock("short_reeds",

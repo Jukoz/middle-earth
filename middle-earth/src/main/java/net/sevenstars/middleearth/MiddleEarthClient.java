@@ -258,8 +258,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModNatureBlocks.HEATHER_BUSH, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.LARGE_BUSH, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.RED_HEATHER_BUSH, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModNatureBlocks.RUSHES, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.BRAMBLES_OF_MORDOR, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.SHORT_DEAD_RUSHES, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModNatureBlocks.SHORT_RUSHES, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.SHORT_REEDS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.SHORT_CATTAILS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.SHORT_BULRUSH, BlockRenderLayer.CUTOUT);

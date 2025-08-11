@@ -129,6 +129,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModNatureBlocks.HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.HEATHER_BUSH));
         addDrop(ModNatureBlocks.LARGE_BUSH, shortPlantDrops(ModNatureBlocks.LARGE_BUSH));
         addDrop(ModNatureBlocks.RED_HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.RED_HEATHER_BUSH));
+        addDrop(ModNatureBlocks.RUSHES, shortPlantDrops(ModNatureBlocks.RUSHES));
 
         addDrop(ModNatureBlocks.BRACKEN, shortPlantDrops(ModNatureBlocks.BRACKEN));
 
