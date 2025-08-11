@@ -9,28 +9,29 @@ import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
-public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, TrollEntityRenderState, CaveTrollEntityModel> {
+public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTrollEntityRenderState, CaveTrollEntityModel> {
     private static final String PATH = "textures/entities/trolls/cave/cave_troll_green.png";
     public CaveTrollRenderer(EntityRendererFactory.Context context) {
         super(context, new CaveTrollEntityModel(context.getPart(ModEntityModelLayers.CAVE_TROLL)), 1.1f);
     }
 
     @Override
-    public Identifier getTexture(TrollEntityRenderState state) {
+    public Identifier getTexture(CaveTrollEntityRenderState state) {
         return Identifier.of(MiddleEarth.MOD_ID, PATH);
     }
 
     @Override
-    public TrollEntityRenderState createRenderState() {
-        return new TrollEntityRenderState();
+    public CaveTrollEntityRenderState createRenderState() {
+        return new CaveTrollEntityRenderState();
     }
 
     @Override
-    public void updateRenderState(CaveTrollEntity troll, TrollEntityRenderState state, float f) {
+    public void updateRenderState(CaveTrollEntity troll, CaveTrollEntityRenderState state, float f) {
         super.updateRenderState(troll, state, f);
 
         state.sleepingAnimationState = troll.sleepingAnimationState;
         state.chaseAnimationState = troll.chaseAnimationState;
+        state.scavengingAnimationState = troll.scavengingAnimationState;
         state.isSprinting = troll.isSprinting();
     }
 }

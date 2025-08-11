@@ -6,10 +6,11 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollAnimations;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
-public class CaveTrollEntityModel extends EntityModel<TrollEntityRenderState> {
+public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState> {
     private final Animation walkingAnimation;
     private final Animation sleepingAnimation;
     private final Animation chaseAnimation;
+    private final Animation scavengingAnimation;
 
     protected CaveTrollEntityModel(ModelPart root) {
         super(root);
@@ -17,6 +18,7 @@ public class CaveTrollEntityModel extends EntityModel<TrollEntityRenderState> {
         walkingAnimation = CaveTrollAnimations.PASSIVE_WALK.createAnimation(root);
         sleepingAnimation = CaveTrollAnimations.SLEEP_LAYING_DOWN.createAnimation(root);
         chaseAnimation = CaveTrollAnimations.RUN.createAnimation(root);
+        scavengingAnimation = CaveTrollAnimations.SITTING_SLEEP.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -90,7 +92,7 @@ public class CaveTrollEntityModel extends EntityModel<TrollEntityRenderState> {
     }
 
     @Override
-    public void setAngles(TrollEntityRenderState state) {
+    public void setAngles(CaveTrollEntityRenderState state) {
         super.setAngles(state);
 
         if(!state.isSprinting) {
@@ -101,5 +103,6 @@ public class CaveTrollEntityModel extends EntityModel<TrollEntityRenderState> {
         }
 
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
+        this.scavengingAnimation.apply(state.scavengingAnimationState, state.age);
     }
 }

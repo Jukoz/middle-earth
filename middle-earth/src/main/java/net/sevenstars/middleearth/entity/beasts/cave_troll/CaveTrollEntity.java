@@ -2,42 +2,65 @@ package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.loot.context.LootWorldContext;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.World;
-import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
-import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanBrain;
-import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CaveTrollEntity extends AbstractBeastEntity {
+    public LootTable scavengeLootTable;
+    public LootWorldContext lootWorldContext;
+    public static final TrackedData<Boolean> SCAVENGING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState sleepingAnimationState = new AnimationState();
     public final AnimationState chaseAnimationState = new AnimationState();
+    public final AnimationState scavengingAnimationState = new AnimationState();
 
     public CaveTrollEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
+
+        if(scavengeLootTable == null && !world.isClient()) {
+            if(world instanceof ServerWorld serverWorld) {
+                Optional<LootTable> lootTable = serverWorld.getRegistryManager().getOrThrow(RegistryKeys.LOOT_TABLE).getOptionalValue(Identifier.of(MiddleEarth.MOD_ID, "gameplay/cave_troll_scavenging.json"));
+
+                if(lootTable.isPresent()) {
+                    scavengeLootTable = lootTable.get();
+
+                    lootWorldContext = new LootWorldContext.Builder(serverWorld)
+                            .add(LootContextParameters.THIS_ENTITY, this)
+                            .add(LootContextParameters.ORIGIN, this.getPos())
+                            .build(LootContextTypes.CHEST);
+                }
+            }
+        }
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
@@ -50,6 +73,12 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                 .add(EntityAttributes.ATTACK_DAMAGE, 10.0)
                 .add(EntityAttributes.STEP_HEIGHT, 1.25)
                 .add(EntityAttributes.FOLLOW_RANGE, 15.0);
+    }
+
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(SCAVENGING, false);
     }
 
     @Override
@@ -81,6 +110,14 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         super.tickMovement();
     }
 
+    public boolean isScavenging() {
+        return this.dataTracker.get(SCAVENGING);
+    }
+
+    public void setScavenging(boolean isDigging) {
+        this.dataTracker.set(SCAVENGING, isDigging);
+    }
+
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
         return CaveTrollBrain.create(this, dynamic);
     }
@@ -91,6 +128,12 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     protected void setupAnimationStates() {
+        if(this.isScavenging()) {
+            this.scavengingAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.scavengingAnimationState.stop();
+        }
     }
 
     @Override
@@ -114,6 +157,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     public static boolean shouldTarget(LivingEntity target) {
-        return target instanceof NpcEntity || target instanceof PlayerEntity || target instanceof PigEntity;
+        return target instanceof NpcEntity || target instanceof PlayerEntity;
     }
 }
