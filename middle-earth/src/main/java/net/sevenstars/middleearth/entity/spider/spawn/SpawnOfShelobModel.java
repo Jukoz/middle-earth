@@ -12,6 +12,7 @@ public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
     private final Animation walkingAnimation;
     private final Animation biteAnimation;
     private final Animation walkingBlockAnimation;
+    private final Animation pounceAnimation;
 
     public SpawnOfShelobModel(ModelPart root) {
         super(root);
@@ -21,6 +22,7 @@ public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
         this.walkingAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_WALK.createAnimation(root);
         this.biteAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_BITE.createAnimation(root);
         this.walkingBlockAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_BLOCK.createAnimation(root);
+        this.pounceAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_POUNCE.createAnimation(root);
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -168,5 +170,6 @@ public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
             this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
         }
         this.biteAnimation.apply(state.walkAnimationState, state.age, 1.25f);
+        this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.0f);
     }
 }
