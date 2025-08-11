@@ -317,7 +317,7 @@ public class MiddleEarthClient implements ClientModInitializer {
             return BiomeColors.getGrassColor(view, pos);
         }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.LARGE_BUSH, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModNatureBlocks.BRACKEN,
                 ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT_STAIRS,
-                ModBlocks.LOAM_GRASS_BLOCK, ModBlocks.SILT_GRASS_BLOCK,
+                ModBlocks.LOAM_GRASS_BLOCK, ModBlocks.SILT_GRASS_BLOCK, ModNatureBlocks.DUCKWEED,
                 ModBlocks.GRASSY_LOAM, ModBlocks.GRASSY_LOAM_SLAB, ModBlocks.GRASSY_LOAM_STAIRS,
                 ModBlocks.GRASSY_SILT, ModBlocks.GRASSY_SILT_SLAB, ModBlocks.GRASSY_SILT_STAIRS,
                 ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_SLAB, ModBlocks.PEBBLED_GRASS_STAIRS,
@@ -331,7 +331,7 @@ public class MiddleEarthClient implements ClientModInitializer {
                 }, ModNatureBlocks.FALLEN_LEAVES);
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) ->  view != null && pos != null ? -14647248 : -9321636,
-                ModNatureBlocks.DUCKWEED, ModNatureBlocks.SMALL_LILY_PADS, ModNatureBlocks.LILY_PADS);
+                ModNatureBlocks.SMALL_LILY_PADS, ModNatureBlocks.LILY_PADS);
 
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.putBlock(block, BlockRenderLayer.CUTOUT);
