@@ -26,8 +26,14 @@ public class ShovelItemMixin {
         Map<Block, BlockState> pathStates = PATH_STATES;
 
         pathStates.put(ModBlocks.DRY_DIRT, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(ModBlocks.LOAM, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(ModBlocks.SILT, Blocks.DIRT_PATH.getDefaultState());
         pathStates.put(ModBlocks.DIRTY_ROOTS, Blocks.DIRT_PATH.getDefaultState());
         pathStates.put(ModBlocks.GRASSY_DIRT, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(ModBlocks.LOAM_GRASS_BLOCK, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(ModBlocks.SILT_GRASS_BLOCK, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(ModBlocks.GRASSY_LOAM, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(ModBlocks.GRASSY_SILT, Blocks.DIRT_PATH.getDefaultState());
         pathStates.put(ModBlocks.TURF, Blocks.DIRT_PATH.getDefaultState());
 
         PATH_STATES = pathStates;

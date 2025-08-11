@@ -18,6 +18,7 @@ public class SimpleBlockModel {
         {
             add(ModBlocks.COBBLY_DIRT);
 
+
             add(ModBlocks.SNOWY_DIRT);
 
             add(ModBlocks.MIRE);
@@ -25,6 +26,12 @@ public class SimpleBlockModel {
             add(ModBlocks.DIRTY_ROOTS);
 
             add(ModBlocks.DRY_DIRT);
+
+            add(ModBlocks.LOAM);
+
+            add(ModBlocks.SILT);
+
+            add(ModBlocks.FOUL_DIRT);
 
             add(ModBlocks.ASHEN_DIRT);
 

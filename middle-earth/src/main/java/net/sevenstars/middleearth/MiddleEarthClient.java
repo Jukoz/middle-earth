@@ -286,6 +286,17 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_DIRT_SLAB, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_DIRT_STAIRS, BlockRenderLayer.CUTOUT);
 
+        BlockRenderLayerMap.putBlock(ModBlocks.LOAM_GRASS_BLOCK, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.SILT_GRASS_BLOCK, BlockRenderLayer.CUTOUT);
+
+        BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_LOAM, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_LOAM_SLAB, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_LOAM_STAIRS, BlockRenderLayer.CUTOUT);
+
+        BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_SILT, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_SILT_SLAB, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_SILT_STAIRS, BlockRenderLayer.CUTOUT);
+
         BlockRenderLayerMap.putBlock(ModBlocks.PEBBLED_GRASS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.PEBBLED_GRASS_SLAB, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.PEBBLED_GRASS_STAIRS, BlockRenderLayer.CUTOUT);
@@ -306,6 +317,9 @@ public class MiddleEarthClient implements ClientModInitializer {
             return BiomeColors.getGrassColor(view, pos);
         }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.LARGE_BUSH, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModNatureBlocks.BRACKEN,
                 ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT_STAIRS,
+                ModBlocks.LOAM_GRASS_BLOCK, ModBlocks.SILT_GRASS_BLOCK,
+                ModBlocks.GRASSY_LOAM, ModBlocks.GRASSY_LOAM_SLAB, ModBlocks.GRASSY_LOAM_STAIRS,
+                ModBlocks.GRASSY_SILT, ModBlocks.GRASSY_SILT_SLAB, ModBlocks.GRASSY_SILT_STAIRS,
                 ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_SLAB, ModBlocks.PEBBLED_GRASS_STAIRS,
                 ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS, ModBlocks.TURF_VERTICAL_SLAB);
 

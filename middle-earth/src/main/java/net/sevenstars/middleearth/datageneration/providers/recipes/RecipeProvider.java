@@ -462,6 +462,12 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStairsRecipe(exporter, ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT);
 
+                createStairsRecipe(exporter, ModBlocks.GRASSY_LOAM, ModBlocks.GRASSY_LOAM_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRASSY_LOAM_SLAB, ModBlocks.GRASSY_LOAM);
+
+                createStairsRecipe(exporter, ModBlocks.GRASSY_SILT, ModBlocks.GRASSY_SILT_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRASSY_SILT_SLAB, ModBlocks.GRASSY_SILT);
+
                 createStairsRecipe(exporter, ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.PEBBLED_GRASS_SLAB, ModBlocks.PEBBLED_GRASS);
 
@@ -472,8 +478,17 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStairsRecipe(exporter, ModBlocks.MIRE, ModBlocks.MIRE_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MIRE_SLAB, ModBlocks.MIRE);
 
+                createStairsRecipe(exporter, ModBlocks.LOAM, ModBlocks.LOAM_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.LOAM_SLAB, ModBlocks.LOAM);
+
+                createStairsRecipe(exporter, ModBlocks.SILT, ModBlocks.SILT_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SILT_SLAB, ModBlocks.SILT);
+
                 createStairsRecipe(exporter, ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRY_DIRT_SLAB, ModBlocks.DRY_DIRT);
+
+                createStairsRecipe(exporter, ModBlocks.FOUL_DIRT, ModBlocks.FOUL_DIRT_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.FOUL_DIRT_SLAB, ModBlocks.FOUL_DIRT);
 
                 createStairsRecipe(exporter, ModBlocks.DIRTY_ROOTS, ModBlocks.DIRTY_ROOTS_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DIRTY_ROOTS_SLAB, ModBlocks.DIRTY_ROOTS);
@@ -1472,6 +1487,24 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("MD")
                         .input('M', Items.MOSS_BLOCK)
                         .input('D', Items.DIRT)
+                        .criterion(hasItem(Items.MOSS_BLOCK),
+                                conditionsFromItem(Items.MOSS_BLOCK))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRASSY_LOAM, 4)
+                        .pattern("DM")
+                        .pattern("MD")
+                        .input('M', Items.MOSS_BLOCK)
+                        .input('D', ModBlocks.LOAM)
+                        .criterion(hasItem(Items.MOSS_BLOCK),
+                                conditionsFromItem(Items.MOSS_BLOCK))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRASSY_SILT, 4)
+                        .pattern("DM")
+                        .pattern("MD")
+                        .input('M', Items.MOSS_BLOCK)
+                        .input('D', ModBlocks.SILT)
                         .criterion(hasItem(Items.MOSS_BLOCK),
                                 conditionsFromItem(Items.MOSS_BLOCK))
                         .offerTo(exporter);

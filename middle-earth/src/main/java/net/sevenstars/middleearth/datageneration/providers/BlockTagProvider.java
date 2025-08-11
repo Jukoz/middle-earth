@@ -344,9 +344,20 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModDecorativeBlocks.SILVER_COIN_PILE);
         mineablePickaxe.add(ModDecorativeBlocks.GOLD_COIN_PILE);
 
+        mineableShovel.add(ModBlocks.LOAM_GRASS_BLOCK);
+        mineableShovel.add(ModBlocks.SILT_GRASS_BLOCK);
+
         mineableShovel.add(ModBlocks.GRASSY_DIRT);
         mineableShovel.add(ModBlocks.GRASSY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.GRASSY_DIRT_STAIRS);
+
+        mineableShovel.add(ModBlocks.GRASSY_LOAM);
+        mineableShovel.add(ModBlocks.GRASSY_LOAM_SLAB);
+        mineableShovel.add(ModBlocks.GRASSY_LOAM_STAIRS);
+
+        mineableShovel.add(ModBlocks.GRASSY_SILT);
+        mineableShovel.add(ModBlocks.GRASSY_SILT_SLAB);
+        mineableShovel.add(ModBlocks.GRASSY_SILT_STAIRS);
 
         mineablePickaxe.add(ModBlocks.PEBBLED_GRASS);
         mineablePickaxe.add(ModBlocks.PEBBLED_GRASS_SLAB);
@@ -373,9 +384,21 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.WASTE_PILE);
         mineableShovel.add(ModBlocks.WASTE_PILE_LAYER);
 
+        mineableShovel.add(ModBlocks.LOAM);
+        mineableShovel.add(ModBlocks.LOAM_SLAB);
+        mineableShovel.add(ModBlocks.LOAM_STAIRS);
+
+        mineableShovel.add(ModBlocks.SILT);
+        mineableShovel.add(ModBlocks.SILT_SLAB);
+        mineableShovel.add(ModBlocks.SILT_STAIRS);
+
         mineableShovel.add(ModBlocks.DRY_DIRT);
         mineableShovel.add(ModBlocks.DRY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.DRY_DIRT_STAIRS);
+
+        mineableShovel.add(ModBlocks.FOUL_DIRT);
+        mineableShovel.add(ModBlocks.FOUL_DIRT_SLAB);
+        mineableShovel.add(ModBlocks.FOUL_DIRT_STAIRS);
 
         mineableShovel.add(ModBlocks.DIRTY_ROOTS);
         mineableShovel.add(ModBlocks.DIRTY_ROOTS_SLAB);
