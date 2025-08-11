@@ -330,6 +330,9 @@ public class MiddleEarthClient implements ClientModInitializer {
                     return BiomeColors.getFoliageColor(view, pos);
                 }, ModNatureBlocks.FALLEN_LEAVES);
 
+        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) ->  view != null && pos != null ? -14647248 : -9321636,
+                ModNatureBlocks.DUCKWEED, ModNatureBlocks.SMALL_LILY_PADS, ModNatureBlocks.LILY_PADS);
+
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.putBlock(block, BlockRenderLayer.CUTOUT);
         }
