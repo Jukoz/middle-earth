@@ -1,4 +1,4 @@
-package net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task;
+package net.sevenstars.api.entity.ai.brain.task;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Blocks;

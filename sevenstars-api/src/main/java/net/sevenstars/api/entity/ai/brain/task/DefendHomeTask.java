@@ -1,4 +1,4 @@
-package net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task;
+package net.sevenstars.api.entity.ai.brain.task;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -8,7 +8,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.GlobalPos;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
+import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +23,7 @@ public class DefendHomeTask {
                     if(optional.isEmpty()) {
                         return true;
                     }
-                    entity.getBrain().remember(ModMemoryModules.DEFENDING_HOME, true);
+                    entity.getBrain().remember(MemoryModulesAPI.DEFENDING_HOME, true);
                     attackTarget.remember(optional);
                     return true;
                 };

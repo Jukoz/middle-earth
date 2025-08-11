@@ -1,4 +1,4 @@
-package net.sevenstars.of_beasts_and_wild_things.entity.ai.brain;
+package net.sevenstars.api.entity.ai.brain;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
@@ -7,18 +7,17 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
+import net.sevenstars.api.SevenStarsApi;
 
 import java.util.Optional;
 
-public class ModMemoryModules<U> {
-
+public class MemoryModulesAPI<U> {
     public static final MemoryModuleType<Boolean> DEFENDING_HOME = register("defending_home", Codec.BOOL);
-    public static final MemoryModuleType<Integer> EGG_COOLDOWN = register("egg_cooldown", Codec.INT);
+
     private final Optional<Codec<Memory<U>>> codec;
 
     @VisibleForTesting
-    public ModMemoryModules(Optional<Codec<U>> codec) {
+    public MemoryModulesAPI(Optional<Codec<U>> codec) {
         this.codec = codec.map(Memory::createCodec);
     }
 
@@ -27,14 +26,14 @@ public class ModMemoryModules<U> {
     }
 
     private static <U> MemoryModuleType<U> register(String id, Codec<U> codec) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, Identifier.of(OfBeastsAndWildThings.MOD_ID, id), new MemoryModuleType<>(Optional.of(codec)));
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, Identifier.of(SevenStarsApi.MOD_ID, id), new MemoryModuleType<>(Optional.of(codec)));
     }
 
     private static <U> MemoryModuleType<U> register(String id) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, Identifier.of(OfBeastsAndWildThings.MOD_ID, id), new MemoryModuleType<>(Optional.empty()));
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, Identifier.of(SevenStarsApi.MOD_ID, id), new MemoryModuleType<>(Optional.empty()));
     }
 
     public static void registerModMemoryModules() {
-        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering Mod Sensors for " + OfBeastsAndWildThings.MOD_ID);
+        SevenStarsApi.LOGGER.logDebugMsg("Registering Mod Sensors for " + SevenStarsApi.MOD_ID);
     }
 }

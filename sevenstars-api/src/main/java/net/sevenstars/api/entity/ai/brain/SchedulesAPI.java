@@ -1,21 +1,21 @@
-package net.sevenstars.of_beasts_and_wild_things.entity.ai.brain;
+package net.sevenstars.api.entity.ai.brain;
 
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.entity.ai.brain.ScheduleBuilder;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
+import net.sevenstars.api.SevenStarsApi;
 
-public class ModSchedule {
-    public static final Schedule SWAN_DEFAULT = register("swan_default")
+public class SchedulesAPI {
+    public static final Schedule DEFAULT_SLEEP = register("default_sleep")
             .withActivity(10, Activity.IDLE)
             .withActivity(12000, Activity.REST)
             .build();
 
-    public static final Schedule BABY = register("baby")
-            .withActivity(10, ModActivity.BABY_IDLE)
-            .withActivity(12000, ModActivity.BABY_REST)
+    public static final Schedule DEFAULT_BABY = register("default_baby")
+            .withActivity(10, ActivitiesAPI.BABY_IDLE)
+            .withActivity(12000, ActivitiesAPI.BABY_REST)
             .build();
 
     protected static ScheduleBuilder register(String id) {
@@ -24,6 +24,6 @@ public class ModSchedule {
     }
 
     public static void registerModSchedules() {
-        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering Mod Schedules for " + OfBeastsAndWildThings.MOD_ID);
+        SevenStarsApi.LOGGER.logDebugMsg("Registering Mod Schedules for " + SevenStarsApi.MOD_ID);
     }
 }

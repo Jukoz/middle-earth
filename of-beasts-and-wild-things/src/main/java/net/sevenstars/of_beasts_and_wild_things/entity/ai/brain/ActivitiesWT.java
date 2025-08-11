@@ -5,9 +5,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 
-public class ModActivity {
-    public static final Activity BABY_IDLE = register("baby_idle");
-    public static final Activity BABY_REST = register("baby_rest");
+public class ActivitiesWT {
+
 
     private static Activity register(String id) {
         return Registry.register(Registries.ACTIVITY, id, new Activity(id));

@@ -44,12 +44,13 @@ import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
+import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -130,7 +131,7 @@ public class SwanEntity extends AnimalEntity {
             this.stopRiding();
         }
 
-        Optional<Integer> cooldown = this.getBrain().getOptionalRegisteredMemory(ModMemoryModules.EGG_COOLDOWN);
+        Optional<Integer> cooldown = this.getBrain().getOptionalRegisteredMemory(MemoryModulesWT.EGG_COOLDOWN);
         if(cooldown.isEmpty()) {
             Optional<GlobalPos> optional = this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HOME);
 
@@ -144,7 +145,7 @@ public class SwanEntity extends AnimalEntity {
                         this.getWorld().setBlockState(pos, homeBlock.with(BirdNest.NEST_LEVEL, homeBlock.get(BirdNest.NEST_LEVEL) + 1));
                     }
                 }
-                this.getBrain().remember(ModMemoryModules.EGG_COOLDOWN, EGG_COOLDOWN);
+                this.getBrain().remember(MemoryModulesWT.EGG_COOLDOWN, EGG_COOLDOWN);
             }
         }
 
@@ -168,7 +169,7 @@ public class SwanEntity extends AnimalEntity {
             this.setAttacking(this.getTarget() != null);
 
             if(this.isBaby()) {
-                this.getBrain().setSchedule(ModSchedule.BABY);
+                this.getBrain().setSchedule(SchedulesAPI.DEFAULT_BABY);
             }
             else if(this.isAttacking() && !this.isFighting()) {
                 this.getBrain().setSchedule(Schedule.EMPTY);
@@ -176,10 +177,10 @@ public class SwanEntity extends AnimalEntity {
                 this.setFighting(true);
             }
             else if (!this.isAttacking() && this.isFighting()) {
-                this.getBrain().setSchedule(ModSchedule.SWAN_DEFAULT);
+                this.getBrain().setSchedule(SchedulesAPI.DEFAULT_SLEEP);
                 this.getBrain().forget(MemoryModuleType.LOOK_TARGET);
                 this.getBrain().forget(MemoryModuleType.WALK_TARGET);
-                this.getBrain().forget(ModMemoryModules.DEFENDING_HOME);
+                this.getBrain().forget(MemoryModulesAPI.DEFENDING_HOME);
                 this.setIntimidating(false);
                 this.setFighting(false);
             }
