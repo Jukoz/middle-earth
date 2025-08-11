@@ -12,6 +12,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
@@ -27,6 +28,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
@@ -41,6 +43,7 @@ import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 
 public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shielder, CooldownRangedAttackMob {
+    public static final int PASSIVE_HEALING_COOLDOWN = 80;
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final int LEAPING_TIME_TRANSITION = 9;
     public static final float MOVEMENT_SPEED = 1.15f;
@@ -56,6 +59,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     public final AnimationState pounceAnimation = new AnimationState();
     public final AnimationState blockAnimation = new AnimationState();
 
+    private int passiveHealingCooldown = 0;
     private int climbingTicks = 0;
     private int leapingTicks = 0;
     private int shootCooldown = 0;
@@ -151,6 +155,18 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     public boolean tryAttack(ServerWorld world, Entity target) {
         boolean result = super.tryAttack(world, target);
         this.dataTracker.set(ATTACK_FLAG, result);
+        if (target instanceof LivingEntity) {
+            int i = 0;
+            if (this.getWorld().getDifficulty() == Difficulty.NORMAL) {
+                i = 7;
+            } else if (this.getWorld().getDifficulty() == Difficulty.HARD) {
+                i = 15;
+            }
+
+            if (i > 0) {
+                ((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, i * 20, 0), this);
+            }
+        }
         return result;
     }
 
@@ -159,6 +175,13 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         if (!this.getWorld().isClient) {
             this.setClimbingWall(this.horizontalCollision);
             this.shootCooldown = Math.max(0, this.shootCooldown - 1);
+            if(!this.hasStatusEffect(StatusEffects.REGENERATION)) {
+                passiveHealingCooldown = Math.max(0, passiveHealingCooldown - 1);
+                if(passiveHealingCooldown == 0 && this.getHealth() < this.getMaxHealth()) {
+                    this.heal(1);
+                    passiveHealingCooldown = PASSIVE_HEALING_COOLDOWN;
+                }
+            }
         } else {
             setupAnimationStates();
         }

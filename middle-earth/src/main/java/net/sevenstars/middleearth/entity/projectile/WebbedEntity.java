@@ -27,7 +27,7 @@ import net.sevenstars.middleearth.world.features.vegetation.ModVegetationConfigu
 import java.util.Optional;
 
 public class WebbedEntity extends AbstractProjectileEntity {
-    private ConfiguredFeature feature;
+    private static ConfiguredFeature feature;
     private float damage;
 
     public WebbedEntity(EntityType<? extends WebbedEntity> entityType, World world) {
@@ -37,12 +37,14 @@ public class WebbedEntity extends AbstractProjectileEntity {
     public WebbedEntity(World world, LivingEntity owner, float dmg) {
         super(ModEntities.WEB, owner, world, new ItemStack(Items.COBWEB));
         this.damage = dmg;
-        if(!this.getWorld().isClient) {
-            if(this.getWorld() instanceof ServerWorld serverWorld) {
-                Optional<? extends RegistryEntry<ConfiguredFeature<?, ?>>> optional = serverWorld.getRegistryManager()
-                        .getOrThrow(RegistryKeys.CONFIGURED_FEATURE)
-                        .getOptional(ModVegetationConfiguredFeatures.PATCH_WEBBING);
-                optional.ifPresent(configuredFeatureRegistryEntry -> feature = configuredFeatureRegistryEntry.value());
+        if(feature == null) {
+            if(!this.getWorld().isClient) {
+                if(this.getWorld() instanceof ServerWorld serverWorld) {
+                    Optional<? extends RegistryEntry<ConfiguredFeature<?, ?>>> optional = serverWorld.getRegistryManager()
+                            .getOrThrow(RegistryKeys.CONFIGURED_FEATURE)
+                            .getOptional(ModVegetationConfiguredFeatures.PATCH_WEBBING);
+                    optional.ifPresent(configuredFeatureRegistryEntry -> feature = configuredFeatureRegistryEntry.value());
+                }
             }
         }
     }
