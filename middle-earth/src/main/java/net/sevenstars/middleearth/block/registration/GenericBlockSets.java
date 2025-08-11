@@ -304,6 +304,26 @@ public class GenericBlockSets {
             "waxed_rotten_reed_thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
             ModItemGroups.MISC_BLOCKS_CONTENTS));
 
+    public static GenericBlockSetBuilder REED = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "reed_block", 0.6f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
+            ModItemGroups.MISC_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder STRAW = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "straw_block", 0.6f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
+            ModItemGroups.MISC_BLOCKS_CONTENTS));
+
+    public static GenericBlockSetBuilder CUT_BRONZE = registerBlockSet(new GenericBlockSetBuilder(
+            "cut_bronze", 3.0F, 6.0F, MapColor.ORANGE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.COPPER, true,
+            ModItemGroups.MISC_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder CUT_CRUDE_PLATES = registerBlockSet(new GenericBlockSetBuilder(
+            "cut_crude_plates", 3.0F, 6.0F, MapColor.DIRT_BROWN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.COPPER, true,
+            ModItemGroups.MISC_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder CUT_LEAD = registerBlockSet(new GenericBlockSetBuilder(
+            "cut_lead", 3.0F, 6.0F, MapColor.GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.COPPER, true,
+            ModItemGroups.MISC_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder CUT_SILVER = registerBlockSet(new GenericBlockSetBuilder(
+            "cut_silver", 3.0F, 6.0F, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.COPPER, true,
+            ModItemGroups.MISC_BLOCKS_CONTENTS));
+    
     private static GenericBlockSetBuilder registerBlockSet(GenericBlockSetBuilder set){
         set.blockSet = BlockSetRegistration.createRegularSet(set.setName , set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, set.group, set.requiresTool);
 

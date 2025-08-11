@@ -72,7 +72,6 @@ public class ModBlocks {
     public static final Block MIRE_STAIRS = registerMiscBlock("mire_stairs",
             (settings) -> new StairsBlock(MIRE.getDefaultState(), settings), AbstractBlock.Settings.copy(MIRE),true);
 
-    //To convert
     public static final Block TURF = registerMiscBlock("turf",
             Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
     public static final Block TURF_SLAB = registerMiscBlock("turf_slab",
@@ -133,30 +132,6 @@ public class ModBlocks {
             (settings) -> new ColoredFallingBlock(new ColorCode(14406560), settings), AbstractBlock.Settings.copy(Blocks.GRAVEL).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
     public static final Block ASHEN_GRAVEL_LAYER = registerMiscBlock("ashen_gravel_layer",
             (settings) -> new LayersBlock(settings, ASHEN_GRAVEL), AbstractBlock.Settings.copy(Blocks.GRAVEL), false);
-
-    //To convert
-    public static final Block REED_BLOCK = registerMiscBlock("reed_block",
-            HayBlock::new, AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
-    public static final Block REED_STAIRS = registerMiscBlock("reed_stairs",
-            (settings) -> new StairsBlock(REED_BLOCK.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
-    public static final Block REED_SLAB = registerMiscBlock("reed_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
-    public static final Block REED_VERTICAL_SLAB = registerMiscBlock("reed_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(ModBlocks.REED_SLAB),true);
-    public static final Block REED_WALL = registerMiscBlock("reed_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
-
-    //To convert
-    public static final Block STRAW_BLOCK = registerMiscBlock("straw_block",
-            HayBlock::new, AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
-    public static final Block STRAW_STAIRS = registerMiscBlock("straw_stairs",
-            (settings) -> new StairsBlock(STRAW_BLOCK.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
-    public static final Block STRAW_SLAB = registerMiscBlock("straw_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
-    public static final Block STRAW_VERTICAL_SLAB = registerMiscBlock("straw_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(ModBlocks.STRAW_SLAB),true);
-    public static final Block STRAW_WALL = registerMiscBlock("straw_wall",
-            WallBlock::new,AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS),true);
 
     public static final Block WATTLE_AND_BRICK = registerMiscBlock("wattle_and_brick",
             Block::new,AbstractBlock.Settings.copy(Blocks.PACKED_MUD),true);
@@ -279,43 +254,6 @@ public class ModBlocks {
             Block::new,AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(6f).requiresTool(),true);
     public static final Block BURZUM_STEEL_BLOCK = registerMiscBlock("burzum_steel_block",
             Block::new,AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(6f).requiresTool(),true);
-
-    //TODO convert all cut blocks to new standalone block sets
-    public static final Block CUT_LEAD = registerMiscBlock("cut_lead",
-            Block::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
-    public static final Block CUT_LEAD_STAIRS = registerMiscBlock("cut_lead_stairs",
-            (settings) -> new StairsBlock(REED_BLOCK.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
-    public static final Block CUT_LEAD_SLAB = registerMiscBlock("cut_lead_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
-    public static final Block CUT_LEAD_VERTICAL_SLAB = registerMiscBlock("cut_lead_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(ModBlocks.CUT_LEAD_SLAB),true);
-
-    public static final Block CUT_BRONZE = registerMiscBlock("cut_bronze",
-            Block::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
-    public static final Block CUT_BRONZE_STAIRS = registerMiscBlock("cut_bronze_stairs",
-            (settings) -> new StairsBlock(CUT_BRONZE.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
-    public static final Block CUT_BRONZE_SLAB = registerMiscBlock("cut_bronze_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
-    public static final Block CUT_BRONZE_VERTICAL_SLAB = registerMiscBlock("cut_bronze_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(ModBlocks.CUT_BRONZE_SLAB),true);
-
-    public static final Block CUT_CRUDE_PLATES = registerMiscBlock("cut_crude_plates",
-            Block::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
-    public static final Block CUT_CRUDE_PLATES_STAIRS = registerMiscBlock("cut_crude_plates_stairs",
-            (settings) -> new StairsBlock(CUT_CRUDE_PLATES.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
-    public static final Block CUT_CRUDE_PLATES_SLAB = registerMiscBlock("cut_crude_plates_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
-    public static final Block CUT_CRUDE_PLATES_VERTICAL_SLAB = registerMiscBlock("cut_crude_plates_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(ModBlocks.CUT_CRUDE_PLATES_SLAB),true);
-
-    public static final Block CUT_SILVER = registerMiscBlock("cut_silver",
-            Block::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
-    public static final Block CUT_SILVER_STAIRS = registerMiscBlock("cut_silver_stairs",
-            (settings) -> new StairsBlock(CUT_SILVER.getDefaultState(), settings), AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
-    public static final Block CUT_SILVER_SLAB = registerMiscBlock("cut_silver_slab",
-            SlabBlock::new,AbstractBlock.Settings.copy(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER),true);
-    public static final Block CUT_SILVER_VERTICAL_SLAB = registerMiscBlock("cut_silver_vertical_slab",
-            VerticalSlabBlock::new, AbstractBlock.Settings.copy(ModBlocks.CUT_SILVER_SLAB),true);
 
     public static final Block QUARTZ_BLOCK = registerMiscBlock("quartz_block",
             AmethystBlock::new,AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK), true);

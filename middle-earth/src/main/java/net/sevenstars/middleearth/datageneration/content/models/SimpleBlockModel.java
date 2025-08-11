@@ -39,10 +39,6 @@ public class SimpleBlockModel {
             add(ModBlocks.LEAD_BLOCK);
             add(ModBlocks.RAW_SILVER_BLOCK);
             add(ModBlocks.SILVER_BLOCK);
-            add(ModBlocks.CUT_LEAD);
-            add(ModBlocks.CUT_SILVER);
-            add(ModBlocks.CUT_BRONZE);
-            add(ModBlocks.CUT_CRUDE_PLATES);
 
             add(ModBlocks.BRONZE_BLOCK);
             add(ModBlocks.CRUDE_BLOCK);

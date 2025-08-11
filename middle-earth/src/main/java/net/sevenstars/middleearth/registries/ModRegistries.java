@@ -419,9 +419,6 @@ public class ModRegistries {
     public static void registerComposterBlocks() {
         CompostingChanceRegistry registry = CompostingChanceRegistry.INSTANCE;
 
-        //registry.add(MushroomBlockSets.GRAY_MUSHROOM.stem(), 0.50f);
-        //registry.add(MushroomBlockSets.DARK_MUSHROOM.stem(), 0.50f);
-
         registry.add(ModNatureBlocks.TAN_SHRUB, 0.50f);
         registry.add(ModNatureBlocks.GREEN_SHRUB, 0.50f);
         registry.add(ModNatureBlocks.SMALL_DRY_SHRUB, 0.30f);
@@ -554,7 +551,6 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.DRY_PINE_LEAVES, 0.2F);
         registry.add(ModNatureBlocks.PINE_BRANCHES, 0.2F);
 
-        //registry.add(ModNatureBlocks.MAPLE_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.ORANGE_MAPLE_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.RED_MAPLE_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.YELLOW_MAPLE_LEAVES, 0.3F);
@@ -598,19 +594,7 @@ public class ModRegistries {
 
         registry.add(ResourceItemsME.STRAW, 0.3F);
 
-        registry.add(ModBlocks.STRAW_BLOCK, 0.5F);
-        registry.add(ModBlocks.STRAW_STAIRS, 0.5F);
-        registry.add(ModBlocks.STRAW_SLAB, 0.5F);
-        registry.add(ModBlocks.STRAW_VERTICAL_SLAB, 0.5F);
-        registry.add(ModBlocks.STRAW_WALL, 0.5F);
-
         registry.add(ResourceItemsME.REEDS, 0.3F);
-
-        registry.add(ModBlocks.REED_BLOCK, 0.5F);
-        registry.add(ModBlocks.REED_STAIRS, 0.5F);
-        registry.add(ModBlocks.REED_SLAB, 0.5F);
-        registry.add(ModBlocks.REED_VERTICAL_SLAB, 0.5F);
-        registry.add(ModBlocks.REED_WALL, 0.5F);
 
         registry.add(ResourceItemsME.FLAX, 0.3F);
         registry.add(ResourceItemsME.PIPEWEED, 0.3F);
