@@ -309,8 +309,8 @@ public class SwanEntity extends AnimalEntity {
         return dataTracker.get(FIGHTING);
     }
 
-    public void setFighting(boolean isSleeping) {
-        dataTracker.set(FIGHTING, isSleeping);
+    public void setFighting(boolean isFighting) {
+        dataTracker.set(FIGHTING, isFighting);
     }
 
     public boolean isSleeping() {
@@ -381,8 +381,6 @@ public class SwanEntity extends AnimalEntity {
             }
         }
     }
-
-
 
     public static boolean isValidSwanFood(LivingEntity entity) {
         return entity.getType().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_food")));

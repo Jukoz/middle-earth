@@ -9,12 +9,14 @@ import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 public class CaveTrollEntityModel extends EntityModel<TrollEntityRenderState> {
     private final Animation walkingAnimation;
     private final Animation sleepingAnimation;
+    private final Animation chaseAnimation;
 
     protected CaveTrollEntityModel(ModelPart root) {
         super(root);
 
         walkingAnimation = CaveTrollAnimations.PASSIVE_WALK.createAnimation(root);
         sleepingAnimation = CaveTrollAnimations.SLEEP_LAYING_DOWN.createAnimation(root);
+        chaseAnimation = CaveTrollAnimations.RUN.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -91,7 +93,13 @@ public class CaveTrollEntityModel extends EntityModel<TrollEntityRenderState> {
     public void setAngles(TrollEntityRenderState state) {
         super.setAngles(state);
 
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 10f, 10.0f);
+        if(!state.isSprinting) {
+            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8.0f, 12.5f);
+        }
+        else {
+            this.chaseAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.0f, 2.0f);
+        }
+
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
     }
 }

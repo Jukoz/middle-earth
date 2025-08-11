@@ -11,9 +11,10 @@ import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
-import net.minecraft.entity.ai.brain.task.MoveToTargetTask;
-import net.minecraft.entity.ai.brain.task.StrollTask;
-import net.minecraft.entity.ai.brain.task.UpdateLookControlTask;
+import net.minecraft.entity.ai.brain.task.*;
+import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
+import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
+import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
 
 import java.util.Optional;
 
@@ -27,10 +28,10 @@ public class CaveTrollBrain {
 
         addCoreActivities(brain);
         addIdleActivities(brain);
-        addRestActivities(brain);
         addFightActivities(troll, brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
-        brain.setDefaultActivity(Activity.IDLE);
+        brain.setDefaultActivity(Activity.FIGHT);
+
         brain.refreshActivities(troll.getWorld().getTimeOfDay(), troll.getWorld().getTime());
         return brain;
     }
@@ -40,24 +41,28 @@ public class CaveTrollBrain {
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
                 new MoveToTargetTask(),
                 new UpdateLookControlTask(45, 90)
+
         ));
     }
 
     private static void addIdleActivities(Brain<CaveTrollEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, StrollTask.create(1.0F))
+                Pair.of(0, UpdateAttackTargetTask.create((world, troll) -> troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
+                Pair.of(1, StrollTask.create(1.0F))
         ));
     }
 
-    private static void addRestActivities(Brain<CaveTrollEntity> brain) {
-        brain.setTaskList(Activity.REST, ImmutableList.of(
+    private static void addScavengeActivities(Brain<CaveTrollEntity> brain) {
+        brain.setTaskList(ActivitiesME.LOOK_FOR_FOOD, ImmutableList.of(
 
         ));
     }
 
     private static void addFightActivities(CaveTrollEntity troll, Brain<CaveTrollEntity> brain) {
         brain.setTaskList(Activity.FIGHT, ImmutableList.of(
-
+                        Pair.of(0, ForgetAttackTargetTask.create()),
+                        Pair.of(1, RangedApproachTask.create(2.5F)),
+                        Pair.of(2, MeleeAttackTask.create(30))
                 ),
                 ImmutableSet.of(
                         Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT)
@@ -65,13 +70,7 @@ public class CaveTrollBrain {
     }
 
     public static void updateActivities(CaveTrollEntity troll) {
-        Optional<LivingEntity> optional = troll.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
-        if(optional != null && optional.isPresent()) {
-            troll.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT));
-        }
-        else {
-            troll.getBrain().resetPossibleActivities(ImmutableList.of());
-        }
+        troll.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
         troll.getBrain().refreshActivities(troll.getWorld().getTimeOfDay(), troll.getWorld().getTime());
     }
 
@@ -80,7 +79,8 @@ public class CaveTrollBrain {
                 SensorType.HURT_BY,
                 SensorType.NEAREST_PLAYERS,
                 SensorType.NEAREST_LIVING_ENTITIES,
-                SensorType.IS_IN_WATER
+                SensorType.IS_IN_WATER,
+                SensorsME.CAVE_TROLL_ATTACKABLES
         );
         MEMORY_MODULES = ImmutableList.of(
                 MemoryModuleType.WALK_TARGET,
@@ -92,7 +92,8 @@ public class CaveTrollBrain {
                 MemoryModuleType.ATTACK_TARGET,
                 MemoryModuleType.ATTACK_COOLING_DOWN,
                 MemoryModuleType.LOOK_TARGET,
-                MemoryModuleType.NEAREST_ATTACKABLE
+                MemoryModuleType.NEAREST_ATTACKABLE,
+                MemoryModuleType.NEAREST_PLAYERS
         );
     }
 }

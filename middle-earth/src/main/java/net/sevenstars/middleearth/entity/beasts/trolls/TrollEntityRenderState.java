@@ -11,5 +11,7 @@ public class TrollEntityRenderState extends LivingEntityRenderState {
     public AnimationState chargeAnimationState = new AnimationState();
     public AnimationState throwingAnimationState = new AnimationState();
     public AnimationState sleepingAnimationState = new AnimationState();
+    public AnimationState chaseAnimationState = new AnimationState();
+    public boolean isSprinting = false;
 
 }

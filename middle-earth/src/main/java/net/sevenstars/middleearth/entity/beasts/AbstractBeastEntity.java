@@ -35,6 +35,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 
 import java.util.Iterator;
 import java.util.List;
@@ -47,6 +48,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public static final TrackedData<Boolean> SITTING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> CHEST = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> RUNNING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> FIGHTING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
@@ -77,6 +79,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         builder.add(SITTING, false);
         builder.add(CHEST, false);
         builder.add(RUNNING, false);
+        builder.add(FIGHTING, false);
     }
 
     @Override
@@ -198,6 +201,14 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
 
     public void setSitting(boolean sitting) {
         this.dataTracker.set(SITTING, sitting);
+    }
+
+    public boolean isFighting() {
+        return dataTracker.get(FIGHTING);
+    }
+
+    public void setFighting(boolean isFighting) {
+        dataTracker.set(FIGHTING, isFighting);
     }
 
 

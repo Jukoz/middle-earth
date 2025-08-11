@@ -10,6 +10,8 @@ import net.sevenstars.middleearth.entity.ModEntityAttributes;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
 import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
+import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
 import net.sevenstars.middleearth.event.ModEvents;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.item.*;
@@ -104,6 +106,10 @@ public class MiddleEarth implements ModInitializer {
 
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();
+
+		// Entity AI
+		SensorsME.registerModSensors();
+		ActivitiesME.registerModActivities();
 
 		ModSounds.registerModSounds();
 		ModParticleTypes.registerParticleTypes();
