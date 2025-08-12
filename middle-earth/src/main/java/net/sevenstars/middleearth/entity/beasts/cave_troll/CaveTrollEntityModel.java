@@ -3,6 +3,8 @@ package net.sevenstars.middleearth.entity.beasts.cave_troll;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Arm;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollAnimations;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
@@ -12,8 +14,17 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
     private final Animation chaseAnimation;
     private final Animation scavengingAnimation;
 
+    private final ModelPart rightArm;
+    private final ModelPart upperBody;
+    private final ModelPart rootChild;
+
     protected CaveTrollEntityModel(ModelPart root) {
         super(root);
+
+        rightArm = root.getChild("root").getChild("body_no_legs").getChild("ArmRight");
+        upperBody = root.getChild("root").getChild("body_no_legs");
+        rootChild = root.getChild("root");
+
 
         walkingAnimation = CaveTrollAnimations.PASSIVE_WALK.createAnimation(root);
         sleepingAnimation = CaveTrollAnimations.SLEEP_LAYING_DOWN.createAnimation(root);
@@ -104,5 +115,12 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
 
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
         this.scavengingAnimation.apply(state.scavengingAnimationState, state.age);
+    }
+
+    public void setArmAngle(MatrixStack matrices) {
+        this.getRootPart().applyTransform(matrices);
+        this.rootChild.applyTransform(matrices);
+        this.upperBody.applyTransform(matrices);
+        this.rightArm.applyTransform(matrices);
     }
 }

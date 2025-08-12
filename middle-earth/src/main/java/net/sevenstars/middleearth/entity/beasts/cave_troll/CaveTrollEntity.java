@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.beasts.cave_troll;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -13,16 +14,22 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Arm;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
@@ -49,16 +56,18 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
         if(scavengeLootTable == null && !world.isClient()) {
             if(world instanceof ServerWorld serverWorld) {
-                Optional<LootTable> lootTable = serverWorld.getRegistryManager().getOrThrow(RegistryKeys.LOOT_TABLE).getOptionalValue(Identifier.of(MiddleEarth.MOD_ID, "gameplay/cave_troll_scavenging.json"));
 
-                if(lootTable.isPresent()) {
-                    scavengeLootTable = lootTable.get();
+                LootTable lootTable = serverWorld.getServer().getReloadableRegistries().getLootTable(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(MiddleEarth.MOD_ID, "gameplay/cave_troll_scavenging.json")));
+
+                if(lootTable != null) {
+                    scavengeLootTable = lootTable;
 
                     lootWorldContext = new LootWorldContext.Builder(serverWorld)
                             .add(LootContextParameters.THIS_ENTITY, this)
                             .add(LootContextParameters.ORIGIN, this.getPos())
                             .build(LootContextTypes.CHEST);
                 }
+
             }
         }
     }
@@ -91,6 +100,12 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         profiler.pop();
 
         super.mobTick(world);
+    }
+
+    @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        this.openInventory(player);
+        return super.interactMob(player, hand);
     }
 
     @Override
