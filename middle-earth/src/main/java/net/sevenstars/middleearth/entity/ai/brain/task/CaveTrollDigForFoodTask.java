@@ -20,6 +20,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.collection.Pool;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
+import net.sevenstars.middleearth.item.WeaponItemsME;
 
 import java.util.List;
 
@@ -49,9 +50,6 @@ public class CaveTrollDigForFoodTask extends MultiTickTask<CaveTrollEntity> {
         entity.setScavenging(false);
         entity.getBrain().remember(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN, 2400 + entity.getRandom().nextInt(1200));
 
-        entity.equipStack(EquipmentSlot.MAINHAND, Items.ROTTEN_FLESH.getDefaultStack());
-
-        /*
         List<ItemStack> items = entity.scavengeLootTable.generateLoot(entity.lootWorldContext);
 
         if(!items.isEmpty()) {
@@ -59,7 +57,6 @@ public class CaveTrollDigForFoodTask extends MultiTickTask<CaveTrollEntity> {
             entity.equipStack(EquipmentSlot.MAINHAND, itemStack);
         }
 
-         */
     }
 
     @Override
