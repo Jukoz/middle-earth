@@ -535,6 +535,20 @@ public class WeaponItemsME {
     public static final Item ORCISH_BOW = registerBigBowItem("orcish_bow",
             (settings) -> new CustomBowWeaponItem(ModRangedWeaponTypes.BOW, settings), new Item.Settings());
 
+    public static final Item RUINED_DWARVEN_SHIELD = registerShield("ruined_dwarven_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, settings), new Item.Settings());
+    public static final Item RUINED_DWARVEN_CROSS_SHIELD = registerShield("ruined_dwarven_cross_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, settings), new Item.Settings());
+    public static final Item RUINED_DWARVEN_ORNAMENTED_SHIELD = registerShield("ruined_dwarven_ornamented_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, settings), new Item.Settings());
+    public static final Item RUINED_DWARVEN_REINFORCED_SHIELD = registerShield("ruined_dwarven_reinforced_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, settings), new Item.Settings());
+
+    public static final Item RUINED_DWARVEN_ORNAMENTED_TOWER_SHIELD = registerShield("ruined_dwarven_ornamented_tower_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, settings), new Item.Settings());
+    public static final Item RUINED_DWARVEN_REINFORCED_TOWER_SHIELD = registerShield("ruined_dwarven_reinforced_tower_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, settings), new Item.Settings());
+
     //region MORDOR
     public static final Item MORDOR_FALCHION = registerItemWithModel("mordor_falchion",
             (settings) -> new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL, settings), new Item.Settings()
@@ -788,6 +802,14 @@ public class WeaponItemsME {
 
     public static final Item MORIA_GOBLIN_BOW = registerBigBowItem("moria_goblin_bow",
             (settings) -> new CustomBowWeaponItem(ModRangedWeaponTypes.BOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item MORIA_GOBLINS_BUCKLER_SHIELD = registerShield("moria_goblins_buckler_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item MORIA_GOBLINS_HEAVY_SHIELD = registerShield("moria_goblins_heavy_shield",
+            (settings) -> new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
     //endregion
 
