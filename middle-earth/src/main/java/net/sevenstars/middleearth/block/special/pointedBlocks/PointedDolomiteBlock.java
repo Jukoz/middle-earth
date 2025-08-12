@@ -1,7 +1,8 @@
-package net.sevenstars.middleearth.block.special;
+package net.sevenstars.middleearth.block.special.pointedBlocks;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.MapCodec;
+import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.minecraft.block.*;
@@ -41,9 +42,8 @@ import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-public class PointedIzherabanBlock extends Block implements Falling, Waterloggable {
-
-    public static final MapCodec<PointedIzherabanBlock> CODEC = createCodec(PointedIzherabanBlock::new);
+public class PointedDolomiteBlock extends Block implements Falling, Waterloggable {
+    public static final MapCodec<PointedDolomiteBlock> CODEC = createCodec(PointedDolomiteBlock::new);
     public static final EnumProperty<Direction> VERTICAL_DIRECTION;
     public static final EnumProperty<Thickness> THICKNESS;
     public static final BooleanProperty WATERLOGGED;
@@ -53,48 +53,50 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     private static final VoxelShape BASE_SHAPE;
     private static final VoxelShape FRUSTUM_SHAPE;
     private static final VoxelShape MIDDLE_SHAPE;
+    private static final double DOWN_TIP_Y;
+    private static final float MAX_HORIZONTAL_MODEL_OFFSET;
     private static final VoxelShape DRIP_COLLISION_SHAPE;
 
-    public MapCodec<PointedIzherabanBlock> getCodec() {
+    public MapCodec<PointedDolomiteBlock> getCodec() {
         return CODEC;
     }
 
-    public PointedIzherabanBlock(Settings settings) {
+    public PointedDolomiteBlock(AbstractBlock.Settings settings) {
         super(settings);
-        this.setDefaultState((((this.stateManager.getDefaultState()).with(VERTICAL_DIRECTION, Direction.UP)).with(THICKNESS, Thickness.TIP)).with(WATERLOGGED, false));
+        this.setDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(VERTICAL_DIRECTION, Direction.UP)).with(THICKNESS, Thickness.TIP)).with(WATERLOGGED, false));
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(VERTICAL_DIRECTION, THICKNESS, WATERLOGGED);
+        builder.add(new Property[]{VERTICAL_DIRECTION, THICKNESS, WATERLOGGED});
     }
 
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return canPlaceAtWithDirection(world, pos, state.get(VERTICAL_DIRECTION));
+        return canPlaceAtWithDirection(world, pos, (Direction)state.get(VERTICAL_DIRECTION));
     }
 
-    protected BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if ((Boolean) state.get(WATERLOGGED)) {
-            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+        if ((Boolean)state.get(WATERLOGGED)) {
+            tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
 
         if (direction != Direction.UP && direction != Direction.DOWN) {
             return state;
         } else {
-            Direction direction2 = (Direction) state.get(VERTICAL_DIRECTION);
-            if (direction2 == Direction.DOWN && world.getBlockTickScheduler().isQueued(pos, this)) {
+            Direction direction2 = (Direction)state.get(VERTICAL_DIRECTION);
+            if (direction2 == Direction.DOWN && tickView.getBlockTickScheduler().isQueued(pos, this)) {
                 return state;
             } else if (direction == direction2.getOpposite() && !this.canPlaceAt(state, world, pos)) {
                 if (direction2 == Direction.DOWN) {
-                    world.scheduleBlockTick(pos, this, 2);
+                    tickView.scheduleBlockTick(pos, this, 2);
                 } else {
-                    world.scheduleBlockTick(pos, this, 1);
+                    tickView.scheduleBlockTick(pos, this, 1);
                 }
 
                 return state;
             } else {
                 boolean bl = state.get(THICKNESS) == Thickness.TIP_MERGE;
                 Thickness thickness = getThickness(world, pos, direction2, bl);
-                return (BlockState) state.with(THICKNESS, thickness);
+                return (BlockState)state.with(THICKNESS, thickness);
             }
         }
     }
@@ -112,9 +114,9 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
         }
     }
 
-    public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+    public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
         if (state.get(VERTICAL_DIRECTION) == Direction.UP && state.get(THICKNESS) == Thickness.TIP) {
-            entity.handleFallDamage(fallDistance + 2.0F, 2.0F, world.getDamageSources().stalagmite());
+            entity.handleFallDamage(fallDistance + 2.5, 2.0F, world.getDamageSources().stalagmite());
         } else {
             super.onLandedUpon(world, state, pos, entity, fallDistance);
         }
@@ -155,9 +157,9 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     public static void dripTick(BlockState state, ServerWorld world, BlockPos pos, float dripChance) {
         if (!(dripChance > 0.17578125F) || !(dripChance > 0.05859375F)) {
             if (isHeldByPointedDripstone(state, world, pos)) {
-                Optional<DrippingFluid> optional = getFluid(world, pos, state);
+                Optional<PointedDolomiteBlock.DrippingFluid> optional = getFluid(world, pos, state);
                 if (!optional.isEmpty()) {
-                    Fluid fluid = ((DrippingFluid) optional.get()).fluid;
+                    Fluid fluid = ((PointedDolomiteBlock.DrippingFluid)optional.get()).fluid;
                     float f;
                     if (fluid == Fluids.WATER) {
                         f = 0.17578125F;
@@ -172,11 +174,11 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
                     if (!(dripChance >= f)) {
                         BlockPos blockPos = getTipPos(state, world, pos, 11, false);
                         if (blockPos != null) {
-                            if (((DrippingFluid) optional.get()).blockState.isOf(Blocks.MUD) && fluid == Fluids.WATER) {
+                            if (((PointedDolomiteBlock.DrippingFluid)optional.get()).sourceState.isOf(Blocks.MUD) && fluid == Fluids.WATER) {
                                 BlockState blockState = Blocks.CLAY.getDefaultState();
-                                world.setBlockState(((DrippingFluid) optional.get()).blockPos, blockState);
-                                Block.pushEntitiesUpBeforeBlockChange(((DrippingFluid) optional.get()).blockState, blockState, world, ((DrippingFluid) optional.get()).blockPos);
-                                world.emitGameEvent(GameEvent.BLOCK_CHANGE, ((DrippingFluid) optional.get()).blockPos, GameEvent.Emitter.of(blockState));
+                                world.setBlockState(((PointedDolomiteBlock.DrippingFluid)optional.get()).pos, blockState);
+                                Block.pushEntitiesUpBeforeBlockChange(((PointedDolomiteBlock.DrippingFluid)optional.get()).sourceState, blockState, world, ((PointedDolomiteBlock.DrippingFluid)optional.get()).pos);
+                                world.emitGameEvent(GameEvent.BLOCK_CHANGE, ((PointedDolomiteBlock.DrippingFluid)optional.get()).pos, GameEvent.Emitter.of(blockState));
                                 world.syncWorldEvent(1504, blockPos, 0);
                             } else {
                                 BlockPos blockPos2 = getCauldronPos(world, blockPos, fluid);
@@ -206,39 +208,31 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
         } else {
             boolean bl = !ctx.shouldCancelInteraction();
             Thickness thickness = getThickness(worldAccess, blockPos, direction2, bl);
-            return thickness == null ? null : (BlockState) ((BlockState) ((BlockState) this.getDefaultState().with(VERTICAL_DIRECTION, direction2)).with(THICKNESS, thickness)).with(WATERLOGGED, worldAccess.getFluidState(blockPos).getFluid() == Fluids.WATER);
+            return thickness == null ? null : (BlockState)((BlockState)((BlockState)this.getDefaultState().with(VERTICAL_DIRECTION, direction2)).with(THICKNESS, thickness)).with(WATERLOGGED, worldAccess.getFluidState(blockPos).getFluid() == Fluids.WATER);
         }
     }
 
     protected FluidState getFluidState(BlockState state) {
-        return (Boolean) state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return (Boolean)state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
-    protected VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
+    protected VoxelShape getCullingShape(BlockState state) {
         return VoxelShapes.empty();
     }
 
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Thickness thickness = (Thickness)state.get(THICKNESS);
-        VoxelShape voxelShape;
-        if (thickness == Thickness.TIP_MERGE) {
-            voxelShape = TIP_MERGE_SHAPE;
-        } else if (thickness == Thickness.TIP) {
-            if (state.get(VERTICAL_DIRECTION) == Direction.DOWN) {
-                voxelShape = DOWN_TIP_SHAPE;
-            } else {
-                voxelShape = UP_TIP_SHAPE;
-            }
-        } else if (thickness == Thickness.FRUSTUM) {
-            voxelShape = BASE_SHAPE;
-        } else if (thickness == Thickness.MIDDLE) {
-            voxelShape = FRUSTUM_SHAPE;
-        } else {
-            voxelShape = MIDDLE_SHAPE;
+        VoxelShape var10000;
+        switch ((Thickness)state.get(THICKNESS)) {
+            case TIP_MERGE -> var10000 = TIP_MERGE_SHAPE;
+            case TIP -> var10000 = state.get(VERTICAL_DIRECTION) == Direction.DOWN ? DOWN_TIP_SHAPE : UP_TIP_SHAPE;
+            case FRUSTUM -> var10000 = BASE_SHAPE;
+            case MIDDLE -> var10000 = FRUSTUM_SHAPE;
+            case BASE -> var10000 = MIDDLE_SHAPE;
+            default -> throw new MatchException((String)null, (Throwable)null);
         }
 
-        Vec3d vec3d = state.getModelOffset(pos);
-        return voxelShape.offset(vec3d.x, 0.0, vec3d.z);
+        VoxelShape voxelShape = var10000;
+        return voxelShape.offset(state.getModelOffset(pos));
     }
 
     protected boolean isShapeFullCube(BlockState state, BlockView world, BlockPos pos) {
@@ -246,7 +240,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     protected float getMaxHorizontalModelOffset() {
-        return 0.125F;
+        return MAX_HORIZONTAL_MODEL_OFFSET;
     }
 
     public void onDestroyedOnLanding(World world, BlockPos pos, FallingBlockEntity fallingBlockEntity) {
@@ -263,11 +257,11 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     private static void spawnFallingBlock(BlockState state, ServerWorld world, BlockPos pos) {
         BlockPos.Mutable mutable = pos.mutableCopy();
 
-        for (BlockState blockState = state; isPointingDown(blockState); blockState = world.getBlockState(mutable)) {
+        for(BlockState blockState = state; isPointingDown(blockState); blockState = world.getBlockState(mutable)) {
             FallingBlockEntity fallingBlockEntity = FallingBlockEntity.spawnFromBlock(world, mutable, blockState);
             if (isTip(blockState, true)) {
                 int i = Math.max(1 + pos.getY() - mutable.getY(), 6);
-                float f = 1.0F * (float) i;
+                float f = 1.0F * (float)i;
                 fallingBlockEntity.setHurtEntities(f, 40);
                 break;
             }
@@ -300,7 +294,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     private static void tryGrowStalagmite(ServerWorld world, BlockPos pos) {
         BlockPos.Mutable mutable = pos.mutableCopy();
 
-        for (int i = 0; i < 10; ++i) {
+        for(int i = 0; i < 10; ++i) {
             mutable.move(Direction.DOWN);
             BlockState blockState = world.getBlockState(mutable);
             if (!blockState.getFluidState().isEmpty()) {
@@ -336,7 +330,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     private static void place(WorldAccess world, BlockPos pos, Direction direction, Thickness thickness) {
-        BlockState blockState = (BlockState) ((BlockState) ((BlockState) ModBlocks.POINTED_IZHERABAN.getDefaultState().with(VERTICAL_DIRECTION, direction)).with(THICKNESS, thickness)).with(WATERLOGGED, world.getFluidState(pos).getFluid() == Fluids.WATER);
+        BlockState blockState = (BlockState)((BlockState)((BlockState)ModBlocks.POINTED_DOLOMITE.getDefaultState().with(VERTICAL_DIRECTION, direction)).with(THICKNESS, thickness)).with(WATERLOGGED, world.getFluidState(pos).getFluid() == Fluids.WATER);
         world.setBlockState(pos, blockState, 3);
     }
 
@@ -364,9 +358,9 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     private static void createParticle(World world, BlockPos pos, BlockState state, Fluid fluid) {
         Vec3d vec3d = state.getModelOffset(pos);
         double d = 0.0625;
-        double e = (double) pos.getX() + 0.5 + vec3d.x;
-        double f = (double) ((float) (pos.getY() + 1) - 0.6875F) - 0.0625;
-        double g = (double) pos.getZ() + 0.5 + vec3d.z;
+        double e = (double)pos.getX() + 0.5 + vec3d.x;
+        double f = (double)pos.getY() + DOWN_TIP_Y - 0.0625;
+        double g = (double)pos.getZ() + 0.5 + vec3d.z;
         Fluid fluid2 = getDripFluid(world, fluid);
         ParticleEffect particleEffect = fluid2.isIn(FluidTags.LAVA) ? ParticleTypes.DRIPPING_DRIPSTONE_LAVA : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
         world.addParticleClient(particleEffect, e, f, g, 0.0, 0.0, 0.0);
@@ -377,13 +371,13 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
         if (isTip(state, allowMerged)) {
             return pos;
         } else {
-            Direction direction = (Direction) state.get(VERTICAL_DIRECTION);
+            Direction direction = (Direction)state.get(VERTICAL_DIRECTION);
             BiPredicate<BlockPos, BlockState> biPredicate = (posx, statex) -> {
-                return statex.isOf(ModBlocks.POINTED_IZHERABAN) && statex.get(VERTICAL_DIRECTION) == direction;
+                return statex.isOf(ModBlocks.POINTED_DOLOMITE) && statex.get(VERTICAL_DIRECTION) == direction;
             };
-            return (BlockPos) searchInDirection(world, pos, direction.getDirection(), biPredicate, (statex) -> {
+            return (BlockPos)searchInDirection(world, pos, direction.getDirection(), biPredicate, (statex) -> {
                 return isTip(statex, allowMerged);
-            }, range).orElse((BlockPos) null);
+            }, range).orElse(null);
         }
     }
 
@@ -411,7 +405,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
         } else if (!isPointedDripstoneFacingDirection(blockState, direction)) {
             return Thickness.TIP;
         } else {
-            Thickness thickness = (Thickness) blockState.get(THICKNESS);
+            Thickness thickness = (Thickness)blockState.get(THICKNESS);
             if (thickness != Thickness.TIP && thickness != Thickness.TIP_MERGE) {
                 BlockState blockState2 = world.getBlockState(pos.offset(direction2));
                 return !isPointedDripstoneFacingDirection(blockState2, direction) ? Thickness.BASE : Thickness.MIDDLE;
@@ -422,11 +416,11 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     public static boolean canDrip(BlockState state) {
-        return isPointingDown(state) && state.get(THICKNESS) == Thickness.TIP && !(Boolean) state.get(WATERLOGGED);
+        return isPointingDown(state) && state.get(THICKNESS) == Thickness.TIP && !(Boolean)state.get(WATERLOGGED);
     }
 
     private static boolean canGrow(BlockState state, ServerWorld world, BlockPos pos) {
-        Direction direction = (Direction) state.get(VERTICAL_DIRECTION);
+        Direction direction = (Direction)state.get(VERTICAL_DIRECTION);
         BlockPos blockPos = pos.offset(direction);
         BlockState blockState = world.getBlockState(blockPos);
         if (!blockState.getFluidState().isEmpty()) {
@@ -437,12 +431,12 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     private static Optional<BlockPos> getSupportingPos(World world, BlockPos pos, BlockState state, int range) {
-        Direction direction = (Direction) state.get(VERTICAL_DIRECTION);
+        Direction direction = (Direction)state.get(VERTICAL_DIRECTION);
         BiPredicate<BlockPos, BlockState> biPredicate = (posx, statex) -> {
-            return statex.isOf(ModBlocks.POINTED_IZHERABAN) && statex.get(VERTICAL_DIRECTION) == direction;
+            return statex.isOf(ModBlocks.POINTED_DOLOMITE) && statex.get(VERTICAL_DIRECTION) == direction;
         };
         return searchInDirection(world, pos, direction.getOpposite().getDirection(), biPredicate, (statex) -> {
-            return !statex.isOf(ModBlocks.POINTED_IZHERABAN);
+            return !statex.isOf(ModBlocks.POINTED_DOLOMITE);
         }, range);
     }
 
@@ -453,10 +447,10 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     private static boolean isTip(BlockState state, boolean allowMerged) {
-        if (!state.isOf(ModBlocks.POINTED_IZHERABAN)) {
+        if (!state.isOf(ModBlocks.POINTED_DOLOMITE)) {
             return false;
         } else {
-            Thickness thickness = (Thickness) state.get(THICKNESS);
+            Thickness thickness = (Thickness)state.get(THICKNESS);
             return thickness == Thickness.TIP || allowMerged && thickness == Thickness.TIP_MERGE;
         }
     }
@@ -474,7 +468,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     private static boolean isHeldByPointedDripstone(BlockState state, WorldView world, BlockPos pos) {
-        return isPointingDown(state) && !world.getBlockState(pos.up()).isOf(ModBlocks.POINTED_IZHERABAN);
+        return isPointingDown(state) && !world.getBlockState(pos.up()).isOf(ModBlocks.POINTED_DOLOMITE);
     }
 
     protected boolean canPathfindThrough(BlockState state, NavigationType type) {
@@ -482,18 +476,18 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     private static boolean isPointedDripstoneFacingDirection(BlockState state, Direction direction) {
-        return state.isOf(ModBlocks.POINTED_IZHERABAN) && state.get(VERTICAL_DIRECTION) == direction;
+        return state.isOf(ModBlocks.POINTED_DOLOMITE) && state.get(VERTICAL_DIRECTION) == direction;
     }
 
     @Nullable
     private static BlockPos getCauldronPos(World world, BlockPos pos, Fluid fluid) {
         Predicate<BlockState> predicate = (state) -> {
-            return state.getBlock() instanceof AbstractCauldronBlock && ((AbstractCauldronBlock) state.getBlock()).canBeFilledByDripstone(fluid);
+            return state.getBlock() instanceof AbstractCauldronBlock && ((AbstractCauldronBlock)state.getBlock()).canBeFilledByDripstone(fluid);
         };
         BiPredicate<BlockPos, BlockState> biPredicate = (posx, state) -> {
             return canDripThrough(world, posx, state);
         };
-        return (BlockPos) searchInDirection(world, pos, Direction.DOWN.getDirection(), biPredicate, predicate, 11).orElse((BlockPos) null);
+        return (BlockPos)searchInDirection(world, pos, Direction.DOWN.getDirection(), biPredicate, predicate, 11).orElse(null);
     }
 
     @Nullable
@@ -501,16 +495,16 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
         BiPredicate<BlockPos, BlockState> biPredicate = (posx, state) -> {
             return canDripThrough(world, posx, state);
         };
-        return (BlockPos) searchInDirection(world, pos, Direction.UP.getDirection(), biPredicate, PointedIzherabanBlock::canDrip, 11).orElse((BlockPos) null);
+        return (BlockPos)searchInDirection(world, pos, Direction.UP.getDirection(), biPredicate, PointedDolomiteBlock::canDrip, 11).orElse(null);
     }
 
     public static Fluid getDripFluid(ServerWorld world, BlockPos pos) {
-        return (Fluid) getFluid(world, pos, world.getBlockState(pos)).map((fluid) -> {
+        return (Fluid)getFluid(world, pos, world.getBlockState(pos)).map((fluid) -> {
             return fluid.fluid;
-        }).filter(PointedIzherabanBlock::isFluidLiquid).orElse(Fluids.EMPTY);
+        }).filter(PointedDolomiteBlock::isFluidLiquid).orElse(Fluids.EMPTY);
     }
 
-    private static Optional<DrippingFluid> getFluid(World world, BlockPos pos, BlockState state) {
+    private static Optional<PointedDolomiteBlock.DrippingFluid> getFluid(World world, BlockPos pos, BlockState state) {
         return !isPointingDown(state) ? Optional.empty() : getSupportingPos(world, pos, state, 11).map((posx) -> {
             BlockPos blockPos = posx.up();
             BlockState blockState = world.getBlockState(blockPos);
@@ -521,7 +515,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
                 fluid = world.getFluidState(blockPos).getFluid();
             }
 
-            return new DrippingFluid(blockPos, (Fluid) fluid, blockState);
+            return new PointedDolomiteBlock.DrippingFluid(blockPos, (Fluid)fluid, blockState);
         });
     }
 
@@ -530,7 +524,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     private static boolean canGrow(BlockState dripstoneBlockState, BlockState waterState) {
-        return dripstoneBlockState.isOf(StoneBlockSets.IZHERABAN_SET.baseBlocks.base()) && waterState.isOf(Blocks.WATER) && waterState.getFluidState().isStill();
+        return dripstoneBlockState.isOf(StoneBlockSets.DOLOMITE_SET.baseBlocks.base()) && waterState.isOf(Blocks.WATER) && waterState.getFluidState().isStill();
     }
 
     private static Fluid getDripFluid(World world, Fluid fluid) {
@@ -545,7 +539,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
         Direction direction2 = Direction.get(direction, Direction.Axis.Y);
         BlockPos.Mutable mutable = pos.mutableCopy();
 
-        for (int i = 1; i < range; ++i) {
+        for(int i = 1; i < range; ++i) {
             mutable.move(direction2);
             BlockState blockState = world.getBlockState(mutable);
             if (stopPredicate.test(blockState)) {
@@ -577,25 +571,27 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
         VERTICAL_DIRECTION = Properties.VERTICAL_DIRECTION;
         THICKNESS = Properties.THICKNESS;
         WATERLOGGED = Properties.WATERLOGGED;
-        TIP_MERGE_SHAPE = Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 16.0, 11.0);
-        UP_TIP_SHAPE = Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 11.0, 11.0);
-        DOWN_TIP_SHAPE = Block.createCuboidShape(5.0, 5.0, 5.0, 11.0, 16.0, 11.0);
-        BASE_SHAPE = Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 16.0, 12.0);
-        FRUSTUM_SHAPE = Block.createCuboidShape(3.0, 0.0, 3.0, 13.0, 16.0, 13.0);
-        MIDDLE_SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
-        DRIP_COLLISION_SHAPE = Block.createCuboidShape(6.0, 0.0, 6.0, 10.0, 16.0, 10.0);
+        TIP_MERGE_SHAPE = Block.createColumnShape(6.0, 0.0, 16.0);
+        UP_TIP_SHAPE = Block.createColumnShape(6.0, 0.0, 11.0);
+        DOWN_TIP_SHAPE = Block.createColumnShape(6.0, 5.0, 16.0);
+        BASE_SHAPE = Block.createColumnShape(8.0, 0.0, 16.0);
+        FRUSTUM_SHAPE = Block.createColumnShape(10.0, 0.0, 16.0);
+        MIDDLE_SHAPE = Block.createColumnShape(12.0, 0.0, 16.0);
+        DOWN_TIP_Y = DOWN_TIP_SHAPE.getMin(Direction.Axis.Y);
+        MAX_HORIZONTAL_MODEL_OFFSET = (float)MIDDLE_SHAPE.getMin(Direction.Axis.X);
+        DRIP_COLLISION_SHAPE = Block.createColumnShape(4.0, 0.0, 16.0);
     }
 
-    static record DrippingFluid(BlockPos blockPos, Fluid fluid, BlockState blockState) {
+    static record DrippingFluid(BlockPos pos, Fluid fluid, BlockState sourceState) {
 
-        DrippingFluid(BlockPos blockPos, Fluid fluid, BlockState blockState) {
-            this.blockPos = blockPos;
+        DrippingFluid(BlockPos pos, Fluid fluid, BlockState sourceState) {
+            this.pos = pos;
             this.fluid = fluid;
-            this.blockState = blockState;
+            this.sourceState = sourceState;
         }
 
         public BlockPos pos() {
-            return this.blockPos;
+            return this.pos;
         }
 
         public Fluid fluid() {
@@ -603,7 +599,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
         }
 
         public BlockState sourceState() {
-            return this.blockState;
+            return this.sourceState;
         }
     }
 }
