@@ -195,6 +195,9 @@ public class ModBlocks {
     public static final Block ASHEN_GRAVEL_LAYER = registerMiscBlock("ashen_gravel_layer",
             (settings) -> new LayersBlock(settings, ASHEN_GRAVEL), AbstractBlock.Settings.copy(ASHEN_GRAVEL), false);
 
+    public static final Block EMBERS = registerMiscBlock("embers",
+            Block::new, AbstractBlock.Settings.copy(Blocks.NETHERRACK),true);
+
     public static final Block SKELETAL_PILE = registerMiscBlock("skeletal_pile",
             (settings) -> new ColoredFallingBlock(new ColorCode(14406560), settings), AbstractBlock.Settings.copy(Blocks.BONE_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.BONE),true);
     public static final Block SKELETAL_PILE_LAYER = registerMiscBlock("skeletal_pile_layer",
