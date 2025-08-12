@@ -225,13 +225,6 @@ public class ModNatureBlocks {
     public static final Block HOBBIT_SUNFLOWERS = registerBlock("hobbit_sunflowers",
             RotatableTallFlowerBlock::new, AbstractBlock.Settings.copy(Blocks.SUNFLOWER), true);
 
-    public static final Block HOROKAKA = registerBlock("horokaka",
-            DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.NONE)
-                    .mapColor(DyeColor.GREEN), true);
-    public static final Block GIANT_HOROKAKA = registerBlock("giant_horokaka",
-            DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.NONE)
-                    .mapColor(DyeColor.GREEN), true);
-
     public static final Block AZALEA_FLOWER_GROWTH = registerBlock("azalea_flower_growth",
             GlowLichenBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).burnable(), true);

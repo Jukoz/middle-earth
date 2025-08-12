@@ -134,8 +134,6 @@ public class BlockDrops {
             add(ModNatureBlocks.NIPHREDIL);
             add(ModNatureBlocks.SIMBELMYNE);
             add(ModNatureBlocks.YELLOW_FLOWER);
-            add(ModNatureBlocks.HOROKAKA);
-            add(ModNatureBlocks.GIANT_HOROKAKA);
 
             add(ModNatureBlocks.LIGHT_BLUE_FLOWERS);
             add(ModNatureBlocks.MAGENTA_FLOWERS);

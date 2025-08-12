@@ -495,8 +495,6 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.DEAD_HEATHER, 0.30f);
         registry.add(ModNatureBlocks.DRY_HEATHER, 0.30f);
         registry.add(ModNatureBlocks.HEATH, 0.30f);
-        registry.add(ModNatureBlocks.GIANT_HOROKAKA, 0.65f);
-        registry.add(ModNatureBlocks.HOROKAKA, 0.50f);
 
         registry.add(ModNatureBlocks.SHRIVELED_SHRUB, 0.30f);
 
