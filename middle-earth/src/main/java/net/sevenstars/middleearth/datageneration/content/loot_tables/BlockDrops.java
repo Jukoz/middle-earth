@@ -16,8 +16,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WALL_ELVEN_LANTERN);
             add(ModDecorativeBlocks.DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WALL_DWARVEN_LANTERN);
-            add(ModDecorativeBlocks.SHIRE_LANTERN);
-            add(ModDecorativeBlocks.WALL_SHIRE_LANTERN);
+            add(ModDecorativeBlocks.TREATED_STEEL_LANTERN);
+            add(ModDecorativeBlocks.WALL_TREATED_STEEL_LANTERN);
             add(ModDecorativeBlocks.CRUDE_LANTERN);
             add(ModDecorativeBlocks.WALL_CRUDE_LANTERN);
             add(ModDecorativeBlocks.LEAD_LANTERN);

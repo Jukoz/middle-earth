@@ -76,9 +76,9 @@ public class ModDecorativeBlocks {
     public static final Block WALL_CRYSTAL_LAMP = registerBlock("crystal_lamp_wall",
             WallCrystalLampBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
 
-    public static final Block SHIRE_LANTERN = registerBlock("shire_lantern",
+    public static final Block TREATED_STEEL_LANTERN = registerBlock("treated_steel_lantern",
             ShireLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque());
-    public static final Block WALL_SHIRE_LANTERN = registerBlock("shire_lantern_wall",
+    public static final Block WALL_TREATED_STEEL_LANTERN = registerBlock("treated_steel_lantern_wall",
             WallShireLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
 
     public static final Block FORGE = registerBlock("forge",
