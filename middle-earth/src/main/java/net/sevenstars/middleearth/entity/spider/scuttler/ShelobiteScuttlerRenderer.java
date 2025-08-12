@@ -27,7 +27,7 @@ public class ShelobiteScuttlerRenderer extends MobEntityRenderer<ShelobiteScuttl
 
     @Override
     public Identifier getTexture(ShelobiteScuttlerRenderState state) {
-        return Identifier.of(MiddleEarth.MOD_ID, PATH + "mirkwood_shelobite_scuttler.png");
+        return state.spiderVariant.assetInfo().texturePath();
     }
 
     public void updateRenderState(ShelobiteScuttlerEntity shelobiteScuttlerEntity, ShelobiteScuttlerRenderState shelobiteScuttlerEntityRenderState, float f) {
@@ -38,5 +38,6 @@ public class ShelobiteScuttlerRenderer extends MobEntityRenderer<ShelobiteScuttl
         shelobiteScuttlerEntityRenderState.pounceAnimationState.copyFrom(shelobiteScuttlerEntity.pounceAnimation);
         shelobiteScuttlerEntityRenderState.climbingTicks = shelobiteScuttlerEntity.getClimbingTicks();
         shelobiteScuttlerEntityRenderState.leapingTicks = shelobiteScuttlerEntity.getLeapingTicks();
+        shelobiteScuttlerEntityRenderState.spiderVariant = shelobiteScuttlerEntity.getVariant();
     }
 }

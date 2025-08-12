@@ -7,14 +7,18 @@ import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
+import net.minecraft.entity.data.TrackedDataHandler;
+import net.minecraft.entity.passive.WolfVariant;
+import net.minecraft.entity.spawn.SpawnContext;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.SpiderNavigation;
@@ -34,11 +38,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
-import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
+import net.sevenstars.middleearth.entity.spider.SpiderVariant;
+import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     public static final int CLIMBING_TIME_TRANSITION = 12;
@@ -46,6 +55,9 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     public static final float MOVEMENT_SPEED = 1.15f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
     private static final TrackedData<Integer> POUNCE_FLAG;
+    private static final TrackedData<RegistryEntry<SpiderVariant>> VARIANT;
+
+            //DataTracker.registerData(ShelobiteScuttlerEntity.class, SpiderVariant.SPIDER_DATA_VARIANT);
 
     // region Brain
     protected static final ImmutableList<SensorType<? extends Sensor<? super ShelobiteScuttlerEntity>>> SENSOR_TYPES = ImmutableList.of(
@@ -96,7 +108,15 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        //ShelobiteScuttlerBrain.setCurrentPosAsHome(this);
+        if (entityData instanceof SpiderData wolfData) {
+            this.setVariant(wolfData.variant);
+        } else {
+            Optional<? extends RegistryEntry<SpiderVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), SpiderVariants.KEY);
+            if (optional.isPresent()) {
+                this.setVariant(optional.get());
+                entityData = new SpiderData(optional.get());
+            }
+        }
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
@@ -133,6 +153,9 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
+        DynamicRegistryManager dynamicRegistryManager = this.getRegistryManager();
+        RegistryEntry<SpiderVariant> spiderVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), SpiderVariants.DEFAULT);
+        builder.add(VARIANT, spiderVariantRegistryEntry);
         builder.add(SPIDER_FLAGS, (byte)0);
         builder.add(POUNCE_FLAG, 0);
     }
@@ -157,17 +180,17 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         this.dataTracker.set(POUNCE_FLAG, 0);
     }
 
+    @Override
+    public boolean tryAttack(ServerWorld world, Entity target) {
+        biteAnimation.start(this.age);
+        return super.tryAttack(world, target);
+    }
+
     public void startPounceAnimation() {
         this.dataTracker.set(POUNCE_FLAG, 1);
     }
     public void stopPounceAnimation() {
         this.dataTracker.set(POUNCE_FLAG, -1);
-    }
-
-    @Override
-    public boolean tryAttack(ServerWorld world, Entity target) {
-        biteAnimation.start(this.age);
-        return super.tryAttack(world, target);
     }
 
     public void tick() {
@@ -205,6 +228,18 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         } else {
             leapingTicks++;
         }
+    }
+
+    public SpiderVariant getVariant() {
+        return getRegistryVariant().value();
+    }
+
+    private RegistryEntry<SpiderVariant> getRegistryVariant() {
+        return this.dataTracker.get(VARIANT);
+    }
+
+    private void setVariant(RegistryEntry<SpiderVariant> variant) {
+        this.dataTracker.set(VARIANT, variant);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -265,12 +300,17 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         return this.leapingTicks;
     }
 
-    public MirkwoodSpiderVariants getVariant() {
-        return MirkwoodSpiderVariants.byId(this.getId());
-    }
-
     static {
+        VARIANT = DataTracker.registerData(ShelobiteScuttlerEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);
         SPIDER_FLAGS = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.BYTE);
         POUNCE_FLAG = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    }
+
+    public static class SpiderData implements EntityData {
+        public final RegistryEntry<SpiderVariant> variant;
+
+        public SpiderData(RegistryEntry<SpiderVariant> variant) {
+            this.variant = variant;
+        }
     }
 }

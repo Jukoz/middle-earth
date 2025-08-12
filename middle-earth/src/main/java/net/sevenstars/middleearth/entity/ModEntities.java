@@ -4,10 +4,13 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.data.TrackedDataHandler;
+import net.minecraft.entity.passive.WolfVariant;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntity;
@@ -27,6 +30,7 @@ import net.sevenstars.middleearth.entity.projectile.pinecone.PineconeEntity;
 import net.sevenstars.middleearth.entity.projectile.smoke.SmokeRingProjectileEntity;
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntity;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
+import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
@@ -83,6 +87,10 @@ public class ModEntities {
         TranslationEntries.entityEntries.add(entityType);
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ENTITY_TYPE, entityType.getUntranslatedName()));
         return entityType;
+    }
+
+    private static <T> RegistryKey<Registry<T>> registerRegistry(String id) {
+        return RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, id));
     }
 
     private static RegistryKey<EntityType<?>> keyOf(String id) {

@@ -3,10 +3,12 @@ package net.sevenstars.middleearth.entity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricTrackedDataRegistry;
 import net.minecraft.entity.data.TrackedDataHandler;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
+import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 
 public class ModTrackedDataHandlerRegistry {
     public static final TrackedDataHandler<String> FACTION_ID;
@@ -14,6 +16,7 @@ public class ModTrackedDataHandlerRegistry {
     public static final TrackedDataHandler<String> CATEGORY;
     public static final TrackedDataHandler<NpcEntityTextureData> NPC_ENTITY_TEXTURE_DATA;
     public static final TrackedDataHandler<BlockPos> STRUCTURE_MANAGER_HOST_POS;
+    public static final TrackedDataHandler<RegistryEntry<SpiderVariant>> SPIDER_VARIANT;
 
     public static void register() {
         of("faction_id", FACTION_ID);
@@ -21,6 +24,7 @@ public class ModTrackedDataHandlerRegistry {
         of("category", CATEGORY);
         of("npc_entity_texture_data", NPC_ENTITY_TEXTURE_DATA);
         of("structure_manager_host_pos", STRUCTURE_MANAGER_HOST_POS);
+        of("spider_variant", SPIDER_VARIANT);
     }
 
     private static void of(String name, TrackedDataHandler<?> dataHandler) {
@@ -33,5 +37,6 @@ public class ModTrackedDataHandlerRegistry {
         CATEGORY = TrackedDataHandler.create(PacketCodecs.STRING);
         NPC_ENTITY_TEXTURE_DATA = TrackedDataHandler.create(NpcEntityTextureData.PACKET_CODEC);
         STRUCTURE_MANAGER_HOST_POS = TrackedDataHandler.create(BlockPos.PACKET_CODEC);
+        SPIDER_VARIANT = TrackedDataHandler.create(SpiderVariant.PACKET_CODEC);
     }
 }
