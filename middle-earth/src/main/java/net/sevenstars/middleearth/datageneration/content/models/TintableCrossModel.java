@@ -53,7 +53,6 @@ public class TintableCrossModel {
     public static List<Block> tintedBlocks = new ArrayList<>() {
         {
             add(ModNatureBlocks.GRASS_TUFT);
-            add(ModNatureBlocks.WILD_GRASS);
             add(ModNatureBlocks.WHEATGRASS);
         }
     };

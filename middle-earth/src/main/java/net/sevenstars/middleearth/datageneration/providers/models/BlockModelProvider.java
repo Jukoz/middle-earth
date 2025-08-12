@@ -515,6 +515,7 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         registerTintableLargePlant(blockStateModelGenerator, ModNatureBlocks.LARGE_BUSH);
+        registerTintableLargePlant(blockStateModelGenerator, ModNatureBlocks.WILD_GRASS);
 
         for (Block block : SimpleFlowerBedModel.flowerBeds) {
             blockStateModelGenerator.registerFlowerbed(block);
@@ -831,7 +832,7 @@ public class BlockModelProvider extends FabricModelProvider {
         Identifier identifier = MEModels.TINTED_LARGE_PLANT.upload(plantBlock, TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(plantBlock).getNamespace(), "block/" + Registries.BLOCK.getId(plantBlock).getPath())), blockStateModelGenerator.modelCollector);
         WeightedVariant weightedVariant = createWeightedVariant(identifier);
         blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(plantBlock, weightedVariant));
-        blockStateModelGenerator.registerTintedItemModel(plantBlock, blockStateModelGenerator.uploadBlockItemModel(plantBlock.asItem(), plantBlock), new GrassTintSource());
+        blockStateModelGenerator.registerTintedItemModel(plantBlock, Models.GENERATED.upload(ModelIds.getItemModelId(plantBlock.asItem()), TextureMap.layer0(plantBlock.asItem()), blockStateModelGenerator.modelCollector), new GrassTintSource());
     }
 
     public final void registerLargePlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock) {

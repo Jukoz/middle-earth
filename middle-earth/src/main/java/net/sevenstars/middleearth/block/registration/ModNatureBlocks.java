@@ -111,9 +111,6 @@ public class ModNatureBlocks {
     public static final Block WHEATGRASS = registerBlock("wheatgrass",
             CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN), true);
-    public static final Block WILD_GRASS = registerBlock("wild_grass",
-            CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
-                    .mapColor(DyeColor.GREEN), true);
     public static final Block WILDERGRASS = registerBlock("wildergrass",
             CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN), true);
@@ -170,6 +167,9 @@ public class ModNatureBlocks {
     public static final Block RUSHES = registerBlock("rushes",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.BROWN), true);
+    public static final Block WILD_GRASS = registerBlock("wild_grass",
+            CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.GREEN), true);
 
     public static final Block BRACKEN = registerBlock("bracken",
             CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ)
@@ -497,7 +497,7 @@ public class ModNatureBlocks {
             HangingRootsBlock::new, AbstractBlock.Settings.copy(Blocks.HANGING_ROOTS), true);
 
     public static final Block MIRKWOOD_VINES = registerBlock("mirkwood_vines",
-            CustomHangingBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES_PLANT), true);
+            CustomHangingBlock::new, AbstractBlock.Settings.copy(Blocks.PALE_HANGING_MOSS), true);
 
     public static final Block HANGING_WEBS = registerBlock("hanging_webs",
             HangingCobwebBlock::new, AbstractBlock.Settings.copy(Blocks.COBWEB), true);
