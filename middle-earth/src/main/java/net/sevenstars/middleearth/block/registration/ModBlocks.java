@@ -107,6 +107,23 @@ public class ModBlocks {
     public static final Block GRASSY_LOAM_STAIRS = registerMiscBlock("grassy_loam_stairs",
             (settings) -> new StairsBlock(GRASSY_LOAM.getDefaultState(), settings), AbstractBlock.Settings.copy(GRASSY_LOAM),true);
 
+    public static final Block PEAT = registerMiscBlock("peat",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
+    public static final Block PEAT_SLAB = registerMiscBlock("peat_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(PEAT),true);
+    public static final Block PEAT_STAIRS = registerMiscBlock("peat_stairs",
+            (settings) -> new StairsBlock(PEAT.getDefaultState(), settings), AbstractBlock.Settings.copy(PEAT),true);
+
+    public static final Block PEAT_GRASS_BLOCK = registerMiscBlock("peat_grass_block",
+            (settings) -> new CustomGrassBlock(settings, PEAT), AbstractBlock.Settings.copy(Blocks.GRASS_BLOCK),false);
+
+    public static final Block GRASSY_PEAT = registerMiscBlock("grassy_peat",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
+    public static final Block GRASSY_PEAT_SLAB = registerMiscBlock("grassy_peat_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(GRASSY_PEAT),true);
+    public static final Block GRASSY_PEAT_STAIRS = registerMiscBlock("grassy_peat_stairs",
+            (settings) -> new StairsBlock(GRASSY_PEAT.getDefaultState(), settings), AbstractBlock.Settings.copy(GRASSY_PEAT),true);
+
     public static final Block SILT = registerMiscBlock("silt",
             Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
     public static final Block SILT_SLAB = registerMiscBlock("silt_slab",

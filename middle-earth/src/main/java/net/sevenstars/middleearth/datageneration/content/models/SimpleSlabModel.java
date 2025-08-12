@@ -14,6 +14,7 @@ public class SimpleSlabModel {
             add(new Slab(ModBlocks.MIRE, ModBlocks.MIRE_SLAB));
             add(new Slab(ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_SLAB));
             add(new Slab(ModBlocks.LOAM, ModBlocks.LOAM_SLAB));
+            add(new Slab(ModBlocks.PEAT, ModBlocks.PEAT_SLAB));
             add(new Slab(ModBlocks.SILT, ModBlocks.SILT_SLAB));
             add(new Slab(ModBlocks.FOUL_DIRT, ModBlocks.FOUL_DIRT_SLAB));
             add(new Slab(ModBlocks.DIRTY_ROOTS, ModBlocks.DIRTY_ROOTS_SLAB));

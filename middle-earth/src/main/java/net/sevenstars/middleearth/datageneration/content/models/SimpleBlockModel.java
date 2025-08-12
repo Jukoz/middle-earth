@@ -29,6 +29,8 @@ public class SimpleBlockModel {
 
             add(ModBlocks.LOAM);
 
+            add(ModBlocks.PEAT);
+
             add(ModBlocks.SILT);
 
             add(ModBlocks.FOUL_DIRT);
