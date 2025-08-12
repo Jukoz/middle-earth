@@ -162,7 +162,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         }*/
 
         cobwebs.add(Blocks.COBWEB);
-        cobwebs.add(ModNatureBlocks.HANGING_COBWEB);
+        cobwebs.add(ModNatureBlocks.HANGING_WEBS);
         cobwebs.add(ModNatureBlocks.CORNER_COBWEB);
 
         SimpleStoneStoolModel.stools.forEach(block -> {
@@ -216,7 +216,6 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         climbable.add(ModDecorativeBlocks.ROPE_LADDER);
         climbable.add(ModBlocks.NET);
         climbable.add(ModNatureBlocks.MIRKWOOD_VINES);
-        climbable.add(ModNatureBlocks.MIRKWOOD_VINES_PLANT);
 
         needsStoneTools.add(OreRockSets.KHAGALABAN.copper_ore());
         needsStoneTools.add(OreRockSets.KHAGALABAN.coal_ore());

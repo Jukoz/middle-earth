@@ -499,9 +499,7 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         blockStateModelGenerator.registerPlantPart(ModNatureBlocks.GLOWWORM_WEBBING, ModNatureBlocks.GLOWWORM_MAIN, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        blockStateModelGenerator.registerPlantPart(ModNatureBlocks.MIRKWOOD_VINES, ModNatureBlocks.MIRKWOOD_VINES_PLANT, BlockStateModelGenerator.CrossType.NOT_TINTED);
         blockStateModelGenerator.registerItemModel(ModNatureBlocks.GLOWWORM_WEBBING);
-        blockStateModelGenerator.registerItemModel(ModNatureBlocks.MIRKWOOD_VINES);
 
         for (Block block : TintableCrossModel.tintedBlocks) {
             blockStateModelGenerator.registerTintableCrossBlockState(block, BlockStateModelGenerator.CrossType.TINTED);
@@ -813,6 +811,9 @@ public class BlockModelProvider extends FabricModelProvider {
         registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_GALONN);
         registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_LIMESTONE);
         registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_IZHERABAN);
+
+        blockStateModelGenerator.registerHangingMoss(ModNatureBlocks.MIRKWOOD_VINES);
+        blockStateModelGenerator.registerHangingMoss(ModNatureBlocks.HANGING_WEBS);
     }
 
     @Override

@@ -3,6 +3,8 @@ package net.sevenstars.middleearth.block.registration;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.crop.*;
+import net.sevenstars.middleearth.block.special.hangingstuff.CustomHangingBlock;
+import net.sevenstars.middleearth.block.special.hangingstuff.HangingCobwebBlock;
 import net.sevenstars.middleearth.block.special.saplings.VariantSaplingBlock;
 import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggBlock;
 import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggHangingBlock;
@@ -37,11 +39,6 @@ public class ModNatureBlocks {
     public static final Block MORGUL_IVY = registerBlock("morgul_ivy",
             GlowLichenBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).luminance(GlowLichenBlock.getLuminanceSupplier(5)).burnable(), true);
-    public static final Block HANGING_COBWEB = registerBlock("hanging_cobweb",
-            HangingCobwebBlock::new, AbstractBlock.Settings.copy(Blocks.COBWEB), true);
-
-    public static final Block CORNER_COBWEB = registerBlock("corner_cobweb",
-            CornerCobwebBlock::new, AbstractBlock.Settings.copy(Blocks.COBWEB), true);
 
     public static final Block CORRUPTED_MOSS_CARPET = registerBlock("corrupted_moss_carpet",
             CarpetBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET), true);
@@ -500,9 +497,13 @@ public class ModNatureBlocks {
             HangingRootsBlock::new, AbstractBlock.Settings.copy(Blocks.HANGING_ROOTS), true);
 
     public static final Block MIRKWOOD_VINES = registerBlock("mirkwood_vines",
-            MirkwoodVinesBottomBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES_PLANT), true);
-    public static final Block MIRKWOOD_VINES_PLANT = registerBlock("mirkwood_vines_plant",
-            MirkwoodVinesBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES), false);
+            CustomHangingBlock::new, AbstractBlock.Settings.copy(Blocks.WEEPING_VINES_PLANT), true);
+
+    public static final Block HANGING_WEBS = registerBlock("hanging_webs",
+            HangingCobwebBlock::new, AbstractBlock.Settings.copy(Blocks.COBWEB), true);
+
+    public static final Block CORNER_COBWEB = registerBlock("corner_cobweb",
+            CornerCobwebBlock::new, AbstractBlock.Settings.copy(Blocks.COBWEB), true);
 
     public static final Block WEBBING = registerBlock("webbing",
             WebbingBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.COBWEB).burnable().ticksRandomly(), true);

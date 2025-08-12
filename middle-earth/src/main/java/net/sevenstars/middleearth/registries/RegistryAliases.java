@@ -19,6 +19,11 @@ public class RegistryAliases {
         {
             add(new ManualAlias(Registries.ITEM, "strawberry", "strawberries"));
 
+            add(new ManualAlias(Registries.ITEM, "hanging_cobweb", "hanging_webs"));
+            add(new ManualAlias(Registries.BLOCK, "hanging_cobweb", "hanging_webs"));
+
+            add(new ManualAlias(Registries.BLOCK, "mirkwood_vines_plant", "mirkwood_vines"));
+
             add(new ManualAlias(Registries.BLOCK, "mossy_stone_brick_vertical_slab", "mossy_stone_brick_vertical_slab"));
             add(new ManualAlias(Registries.ITEM, "mossy_stone_brick_vertical_slab", "mossy_stone_brick_vertical_slab"));
 

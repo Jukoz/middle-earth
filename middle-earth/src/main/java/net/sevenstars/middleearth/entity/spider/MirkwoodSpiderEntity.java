@@ -105,7 +105,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     }
 
     public void slowMovement(BlockState state, Vec3d multiplier) {
-        if (!state.isOf(Blocks.COBWEB) && !state.isOf(ModNatureBlocks.CORNER_COBWEB) && !state.isOf(ModNatureBlocks.HANGING_COBWEB)) {
+        if (!state.isOf(Blocks.COBWEB) && !state.isOf(ModNatureBlocks.CORNER_COBWEB) && !state.isOf(ModNatureBlocks.HANGING_WEBS)) {
             super.slowMovement(state, multiplier);
         }
     }
