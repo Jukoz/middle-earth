@@ -119,6 +119,12 @@ public class ModNatureBlocks {
     public static final Block SEDUM = registerBlock("sedum",
             CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN), true);
+    public static final Block ORANGE_SEDUM = registerBlock("orange_sedum",
+            CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.GREEN), true);
+    public static final Block RED_SEDUM = registerBlock("red_sedum",
+            CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.GREEN), true);
     public static final Block YELLOW_SEDUM = registerBlock("yellow_sedum",
             CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN), true);
@@ -252,6 +258,9 @@ public class ModNatureBlocks {
     public static final Block YELLOW_FLOWER_GROWTH = registerBlock("yellow_flower_growth",
             GlowLichenBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).burnable(), true);
+
+    public static final Block CLOVERS = registerBlock("clovers",
+            FlowerbedBlock::new, AbstractBlock.Settings.copy(Blocks.PINK_PETALS), true);
 
     public static final Block SHORT_DEAD_RUSHES = registerBlock("short_dead_rushes",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)

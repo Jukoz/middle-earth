@@ -476,6 +476,8 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.BEACH_GRASS, 0.30f);
         registry.add(ModNatureBlocks.COASTAL_PANIC_GRASS, 0.30f);
         registry.add(ModNatureBlocks.SEDUM, 0.30f);
+        registry.add(ModNatureBlocks.ORANGE_SEDUM, 0.30f);
+        registry.add(ModNatureBlocks.RED_SEDUM, 0.30f);
         registry.add(ModNatureBlocks.YELLOW_SEDUM, 0.30f);
         registry.add(ModNatureBlocks.BRACKEN, 0.30f);
         registry.add(ModNatureBlocks.CAMPION, 0.30f);
@@ -488,6 +490,7 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.RED_HEATHER_BUSH, 0.30f);
         registry.add(ModNatureBlocks.RUSHES, 0.30f);
         registry.add(ModNatureBlocks.BRAMBLES_OF_MORDOR, 0.10f);
+        registry.add(ModNatureBlocks.CLOVERS, 0.30f);
         registry.add(ModNatureBlocks.SHORT_DEAD_RUSHES, 0.30f);
         registry.add(ModNatureBlocks.SHORT_RUSHES, 0.30f);
         registry.add(ModNatureBlocks.SHORT_REEDS, 0.30f);
