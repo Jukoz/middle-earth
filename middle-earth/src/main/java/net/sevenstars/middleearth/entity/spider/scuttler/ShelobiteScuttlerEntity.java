@@ -110,8 +110,8 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        if (entityData instanceof SpiderData wolfData) {
-            this.setVariant(wolfData.variant);
+        if (entityData instanceof SpiderData spiderData) {
+            this.setVariant(spiderData.variant);
         } else {
             Optional<? extends RegistryEntry<SpiderVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), SpiderVariants.KEY);
             if (optional.isPresent()) {
@@ -155,7 +155,6 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
-        DynamicRegistryManager dynamicRegistryManager = this.getRegistryManager();
         RegistryEntry<SpiderVariant> spiderVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), SpiderVariants.DEFAULT);
         builder.add(VARIANT, spiderVariantRegistryEntry);
         builder.add(SPIDER_FLAGS, (byte)0);
@@ -315,9 +314,9 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     }
 
     static {
-        VARIANT = DataTracker.registerData(ShelobiteScuttlerEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);
         SPIDER_FLAGS = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.BYTE);
         POUNCE_FLAG = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        VARIANT = DataTracker.registerData(ShelobiteScuttlerEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);
     }
 
     public static class SpiderData implements EntityData {
