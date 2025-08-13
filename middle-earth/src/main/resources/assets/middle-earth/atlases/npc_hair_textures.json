@@ -32,6 +32,8 @@
                 "middle-earth:npc_hair_textures/beard_very_large_mustache_addon",
                 "middle-earth:npc_hair_textures/beard_very_long",
                 "middle-earth:npc_hair_textures/beard_very_long_addon",
+                "middle-earth:npc_hair_textures/beard_semi_long",
+                "middle-earth:npc_hair_textures/beard_semi_long_addon",
                 "middle-earth:npc_hair_textures/eyebrow_basic",
                 "middle-earth:npc_hair_textures/eyebrow_long",
                 "middle-earth:npc_hair_textures/eyebrow_short",
@@ -57,7 +59,9 @@
                 "middle-earth:npc_hair_textures/hair_top_balding_addon",
                 "middle-earth:npc_hair_textures/hair_uncut",
                 "middle-earth:npc_hair_textures/hair_very_long",
-                "middle-earth:npc_hair_textures/hair_very_long_addon"
+                "middle-earth:npc_hair_textures/hair_very_long_addon",
+                "middle-earth:npc_hair_textures/hair_semi_long",
+                "middle-earth:npc_hair_textures/hair_semi_long_addon"
             ],
             "palette_key": "middle-earth:npc_hair_textures/color_palettes/base_palette",
             "permutations": {

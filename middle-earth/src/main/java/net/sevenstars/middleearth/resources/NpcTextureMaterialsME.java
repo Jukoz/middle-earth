@@ -27,7 +27,10 @@ public class NpcTextureMaterialsME {
     public record Skin(){
         public final static RegistryKey<NpcTextureMaterial> BEIGE = of("beige", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> BROWN = of("brown", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> DARK_BEIGE = of("dark_beige", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> DARK_GREEN = of("dark_green", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> DARK_PINK = of("dark_pink", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> GREEN = of("green", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> GREENISH = of("greenish", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> GREY = of("grey", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> LIGHT_GREY = of("light_grey", NpcTextureType.SKIN);
@@ -42,6 +45,7 @@ public class NpcTextureMaterialsME {
         public final static RegistryKey<NpcTextureMaterial> TAN = of("tan", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> TAN_DESATURATED = of("tan_desaturated", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> WINE = of("wine", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> YELLOWISH_GREEN = of("yellowish_green", NpcTextureType.SKIN);
     }
 
     public record Eye() {
@@ -131,7 +135,10 @@ public class NpcTextureMaterialsME {
     public static void bootstrapSkins(Registerable<NpcTextureMaterial> registry) {
         register(registry, Skin.BEIGE, NpcTextureType.SKIN);
         register(registry, Skin.BROWN, NpcTextureType.SKIN);
+        register(registry, Skin.DARK_BEIGE, NpcTextureType.SKIN);
+        register(registry, Skin.DARK_GREEN, NpcTextureType.SKIN);
         register(registry, Skin.DARK_PINK, NpcTextureType.SKIN);
+        register(registry, Skin.GREEN, NpcTextureType.SKIN);
         register(registry, Skin.GREENISH, NpcTextureType.SKIN);
         register(registry, Skin.GREY, NpcTextureType.SKIN);
         register(registry, Skin.LIGHT_GREY, NpcTextureType.SKIN);
@@ -146,6 +153,7 @@ public class NpcTextureMaterialsME {
         register(registry, Skin.TAN, NpcTextureType.SKIN);
         register(registry, Skin.TAN_DESATURATED, NpcTextureType.SKIN);
         register(registry, Skin.WINE, NpcTextureType.SKIN);
+        register(registry, Skin.YELLOWISH_GREEN, NpcTextureType.SKIN);
     }
 
     public static void bootstrapEyes(Registerable<NpcTextureMaterial> registry) {

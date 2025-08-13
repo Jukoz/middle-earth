@@ -40,6 +40,9 @@
             "permutations": {
                 "beige": "middle-earth:npc_skin_textures/color_palettes/beige",
                 "brown": "middle-earth:npc_skin_textures/color_palettes/brown",
+                "dark_beige": "middle-earth:npc_skin_textures/color_palettes/dark_beige",
+                "dark_green": "middle-earth:npc_skin_textures/color_palettes/dark_green",
+                "green": "middle-earth:npc_skin_textures/color_palettes/green",
                 "dark_pink": "middle-earth:npc_skin_textures/color_palettes/dark_pink",
                 "greenish": "middle-earth:npc_skin_textures/color_palettes/greenish",
                 "grey": "middle-earth:npc_skin_textures/color_palettes/grey",
@@ -54,7 +57,8 @@
                 "slight_brown": "middle-earth:npc_skin_textures/color_palettes/slight_brown",
                 "tan": "middle-earth:npc_skin_textures/color_palettes/tan",
                 "tan_desaturated": "middle-earth:npc_skin_textures/color_palettes/tan_desaturated",
-                "wine": "middle-earth:npc_skin_textures/color_palettes/wine"
+                "wine": "middle-earth:npc_skin_textures/color_palettes/wine",
+                "yellowish_green": "middle-earth:npc_skin_textures/color_palettes/yellowish_green"
             }
         }
     ]

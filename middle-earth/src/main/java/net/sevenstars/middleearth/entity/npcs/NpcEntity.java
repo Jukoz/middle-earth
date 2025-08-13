@@ -49,7 +49,6 @@ import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     // Data to use
@@ -64,7 +63,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
-        apply();
     }
 
     @Override
@@ -81,12 +79,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     @Override
     public void writeData(WriteView view) {
         super.writeData(view);
-        writeEntityData(view);
+        this.writeEntityData(view);
     }
+
     @Override
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
-        this.writeEntityData(view);
+        //this.writeEntityData(view);
     }
 
     @Override
@@ -94,10 +93,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         super.readData(view);
         this.readEntityData(view);
     }
+
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
-        this.readEntityData(view);
+        //this.readEntityData(view);
     }
 
     private void writeEntityData(WriteView view){
@@ -109,34 +109,21 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     private void readEntityData(ReadView view) {
-        AtomicBoolean haveNpcData = new AtomicBoolean(false);
-        AtomicBoolean haveFactionId = new AtomicBoolean(false);
-        AtomicBoolean haveNpcCategory = new AtomicBoolean(false);
-        AtomicBoolean haveTextureData = new AtomicBoolean(false);
 
         view.read("StructureManagerHostPos", BlockPos.CODEC)
             .ifPresent(this::setStructureManagerHost);
         view.read("NpcDataId", Identifier.CODEC)
-            .ifPresent(x -> {
-                setNpcData(x);
-                haveNpcData.set(true);
-            });
+            .ifPresent(this::setNpcData);
         view.read("FactionId", Identifier.CODEC)
-            .ifPresent(x -> {
-                setFactionId(x);
-                haveFactionId.set(true);
-            });
+            .ifPresent(this::setFactionId);
         view.read("EntityCategory", Codec.STRING)
             .ifPresent(x -> {
                 if(!x.isEmpty()){
                     setNpcCategory(EntityCategory.valueOf(x));
-                    haveNpcCategory.set(true);
                 }
             });
         view.read("NpcTextureData", NpcEntityTextureData.CODEC)
-            .ifPresent(x -> {
-                setNpcTextureData(x); haveTextureData.set(true);
-            });
+            .ifPresent(this::setNpcTextureData);
         view.read("InitializationTick", Codec.LONG)
                 .ifPresent(x -> dataTracker.set(INITIALIZATION_TICK, x));
 
@@ -196,18 +183,27 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
         if(this.npcDataCache == null ){
             Set<Identifier> identifierSet = dynamicRegistryManager.getOrThrow(NpcME.KEY).getIds();
-            Identifier foundNpcIdentifier = identifierSet.stream().toList().get(random.nextInt(identifierSet.size()));
-            this.setNpcData(foundNpcIdentifier);
+            Identifier currentNpcData = getNpcDataId();
+            npcDataCache = dynamicRegistryManager.getOrThrow(NpcME.KEY).get(currentNpcData);
+            if(npcDataCache == null){
+                currentNpcData = identifierSet.stream().toList().get(random.nextInt(identifierSet.size()));
+                this.setNpcData(currentNpcData);
+            }
         }
-
         this.dataTracker.set(INITIALIZATION_TICK, world.getTickOrder());
+
         // set attributes
-        setNpcCategory(npcDataCache.getRandomCategory());
+        if(this.getNpcCategory() == null)
+            setNpcCategory(npcDataCache.getRandomCategory());
+
         npcDataCache.applyAttributes(this);
-        // set textures
-        createNpcEntityTextureData(npcDataCache.getNpcTextureData());
-        // set gear
-        NpcUtil.equipAll(this, npcDataCache.getGear());
+
+        if(this.getNpcTextureData().getBodyTexture() == null){
+            // set textures
+            createNpcEntityTextureData(npcDataCache.getNpcTextureData());
+            // set gear
+            NpcUtil.equipAll(this, npcDataCache.getGear());
+        }
     }
 
     private void createNpcEntityTextureData(NpcTextureData npcTextureData) {
@@ -222,6 +218,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     @Override
     protected void mobTick(ServerWorld world) {
+        if(npcDataCache == null)
+            apply();
+
         Profiler profiler = Profilers.get();
         profiler.push("npcBrain");
         this.getBrain().tick(world, this);

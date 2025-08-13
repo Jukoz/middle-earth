@@ -102,7 +102,7 @@ public class NpcTexturePatternsME {
             public final static RegistryKey<NpcTexturePattern> SHORT = of("hair_short", NpcTextureType.HAIR);
             public final static RegistryKey<NpcTexturePattern> UNCUT = of("hair_uncut", NpcTextureType.HAIR);
             public final static RegistryKey<NpcTexturePattern> VERY_LONG = of("hair_very_long", NpcTextureType.HAIR);
-
+            public final static RegistryKey<NpcTexturePattern> SEMI_LONG = of("hair_semi_long", NpcTextureType.HAIR);
         }
 
         public record Beard() {
@@ -121,6 +121,7 @@ public class NpcTexturePatternsME {
             public final static RegistryKey<NpcTexturePattern> VERY_BROAD               = of("beard_very_broad", NpcTextureType.BEARD);
             public final static RegistryKey<NpcTexturePattern> VERY_LARGE_MUSTACHE      = of("beard_very_large_mustache", NpcTextureType.BEARD);
             public final static RegistryKey<NpcTexturePattern> VERY_LONG                = of("beard_very_long", NpcTextureType.BEARD);
+            public final static RegistryKey<NpcTexturePattern> SEMI_LONG                = of("beard_semi_long", NpcTextureType.BEARD);
         }
 
         public record Eyebrow() {
@@ -205,6 +206,7 @@ public class NpcTexturePatternsME {
         register(registry, Hairs.Hair.TOP_BALDING, NpcTextureType.HAIR,true);
         register(registry, Hairs.Hair.UNCUT, NpcTextureType.HAIR);
         register(registry, Hairs.Hair.VERY_LONG, NpcTextureType.HAIR, true);
+        register(registry, Hairs.Hair.SEMI_LONG, NpcTextureType.HAIR, true);
 
         register(registry, Hairs.Eyebrow.BASIC, NpcTextureType.EYEBROW);
         register(registry, Hairs.Eyebrow.LONG, NpcTextureType.EYEBROW);
@@ -227,6 +229,7 @@ public class NpcTexturePatternsME {
         register(registry, Hairs.Beard.VERY_BROAD, NpcTextureType.BEARD, true);
         register(registry, Hairs.Beard.VERY_LARGE_MUSTACHE, NpcTextureType.BEARD, true);
         register(registry, Hairs.Beard.VERY_LONG, NpcTextureType.BEARD, true);
+        register(registry, Hairs.Beard.SEMI_LONG, NpcTextureType.BEARD, true);
     }
 
     public static void bootstrapClothings(Registerable<NpcTexturePattern> registry) {
