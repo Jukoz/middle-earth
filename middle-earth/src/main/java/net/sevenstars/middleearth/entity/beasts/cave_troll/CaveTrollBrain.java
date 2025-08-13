@@ -19,6 +19,7 @@ import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
 import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollDigForFoodTask;
+import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollEatFoodTask;
 
 import java.util.Optional;
 
@@ -35,6 +36,8 @@ public class CaveTrollBrain {
         addFightActivities(troll, brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.FIGHT);
+
+        brain.remember(MemoryModulesME.FOOD_EATEN_COUNT, 0);
 
         brain.refreshActivities(troll.getWorld().getTimeOfDay(), troll.getWorld().getTime());
         return brain;
@@ -53,15 +56,16 @@ public class CaveTrollBrain {
     private static void addIdleActivities(Brain<CaveTrollEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, UpdateAttackTargetTask.create((world, troll) -> troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
-                Pair.of(1, new CompositeTask<>(ImmutableMap.of(), ImmutableSet.of(),
-                                CompositeTask.Order.SHUFFLED,
-                                CompositeTask.RunMode.RUN_ONE,
+                Pair.of(1, new RandomTask<>(ImmutableList.of(
+                        Pair.of(StrollTask.create(1.0F), 5),
+                        Pair.of(new CompositeTask<>(ImmutableMap.of(), ImmutableSet.of(),
+                                CompositeTask.Order.ORDERED,
+                                CompositeTask.RunMode.TRY_ALL,
                                 ImmutableList.of(
-                                        Pair.of(StrollTask.create(1.0F), 5),
-                                        Pair.of(new CaveTrollDigForFoodTask(), 1)
-                                )
-                        )
-                )
+                                        Pair.of(new CaveTrollDigForFoodTask(), 1),
+                                        Pair.of(new CaveTrollEatFoodTask(), 1)
+                                )), 1)
+                )))
         ));
     }
 
@@ -102,7 +106,8 @@ public class CaveTrollBrain {
                 MemoryModuleType.LOOK_TARGET,
                 MemoryModuleType.NEAREST_ATTACKABLE,
                 MemoryModuleType.NEAREST_PLAYERS,
-                MemoryModulesME.DIG_FOR_FOOD_COOLDOWN
+                MemoryModulesME.DIG_FOR_FOOD_COOLDOWN,
+                MemoryModulesME.FOOD_EATEN_COUNT
         );
     }
 }

@@ -14,6 +14,7 @@ import java.util.Optional;
 
 public class MemoryModulesME<U> {
     public static final MemoryModuleType<Integer> DIG_FOR_FOOD_COOLDOWN = register("dig_for_food_cooldown", Codec.INT);
+    public static final MemoryModuleType<Integer> FOOD_EATEN_COUNT = register("food_eaten_count", Codec.INT);
     private final Optional<Codec<Memory<U>>> codec;
 
     @VisibleForTesting

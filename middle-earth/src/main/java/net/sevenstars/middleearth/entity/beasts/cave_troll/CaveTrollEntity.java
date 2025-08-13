@@ -1,10 +1,7 @@
 package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
 import com.mojang.serialization.Dynamic;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -27,6 +24,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
@@ -49,6 +47,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public LootTable scavengeLootTable;
     public LootWorldContext lootWorldContext;
     public static final TrackedData<Boolean> SCAVENGING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> EATING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState sleepingAnimationState = new AnimationState();
     public final AnimationState chaseAnimationState = new AnimationState();
     public final AnimationState scavengingAnimationState = new AnimationState();
@@ -90,6 +89,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(SCAVENGING, false);
+        builder.add(EATING, false);
     }
 
     @Override
@@ -133,6 +133,13 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     public void setScavenging(boolean isDigging) {
         this.dataTracker.set(SCAVENGING, isDigging);
+    }
+    public boolean isEating() {
+        return this.dataTracker.get(EATING);
+    }
+
+    public void setEating(boolean isEating) {
+        this.dataTracker.set(EATING, isEating);
     }
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
