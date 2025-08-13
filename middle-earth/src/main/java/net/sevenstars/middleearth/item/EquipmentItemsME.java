@@ -1559,13 +1559,13 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
 
     public static final Item GOBLIN_TOWN_CAP = registerCustomModelArmorPiece("goblin_town_cap",
-            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.FABRIC_T1, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
     public static final Item GOBLIN_TOWN_BONE_MANDIBLE_CAP = registerCustomModelArmorPiece("goblin_town_bone_mandible_cap",
-            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BONE_T1, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
     public static final Item GOBLIN_TOWN_CROSSBONES_HELMET = registerCustomModelArmorPiece("goblin_town_crossbones_helmet",
-            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BONE_T1, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
     
     public static final Item GOBLIN_TOWN_BONE_STRAP = registerArmorPiece("goblin_town_bone_strap",
