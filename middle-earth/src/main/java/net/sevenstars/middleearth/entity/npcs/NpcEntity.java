@@ -2,10 +2,7 @@ package net.sevenstars.middleearth.entity.npcs;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentHolder;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -38,12 +35,18 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
+import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
+import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
@@ -305,6 +308,39 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     public Identifier getFactionId()
     {
         return Identifier.of(this.dataTracker.get(FACTION_ID));
+    }
+
+    public static Faction tryGetFaction(LivingEntity entity){
+        if(entity instanceof NpcEntity npcEntity){
+            return npcEntity.getFaction();
+        }
+        return null;
+    }
+
+    public static RaceType tryGettingRaceType(LivingEntity entity){
+        if(entity instanceof NpcEntity npcEntity){
+            return npcEntity.getRaceType();
+        }
+        return null;
+    }
+
+    protected Faction getFaction(){
+        if(getFactionId() == null)
+            return null;
+        try {
+            return FactionLookup.getFactionById(getWorld(), getFactionId());
+        } catch (FactionIdentifierException e) {
+            return null;
+        }
+    }
+
+    protected RaceType getRaceType(){
+        if(getNpcDataId() == null || npcDataCache == null)
+            return null;
+        Race race = RaceLookup.getRace(getWorld(), npcDataCache.getRace());
+        if(race == null)
+            return null;
+        return race.getRaceType();
     }
 
     public Long getInitializationTick() {

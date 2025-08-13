@@ -31,9 +31,9 @@ public class NpcTextureMaterialsME {
         public final static RegistryKey<NpcTextureMaterial> DARK_GREEN = of("dark_green", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> DARK_PINK = of("dark_pink", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> GREEN = of("green", NpcTextureType.SKIN);
-        public final static RegistryKey<NpcTextureMaterial> GREENISH = of("greenish", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> GREY = of("grey", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> LIGHT_GREY = of("light_grey", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> MURKY_GREEN = of("murky_green", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> OLIVE = of("olive", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> PALE = of("pale", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> PALE_GREEN = of("pale_green", NpcTextureType.SKIN);
@@ -41,7 +41,9 @@ public class NpcTextureMaterialsME {
         public final static RegistryKey<NpcTextureMaterial> PINK = of("pink", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> RED = of("red", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> RUST = of("rust", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> SANDY_GREEN = of("sandy_green", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> SLIGHT_BROWN = of("slight_brown", NpcTextureType.SKIN);
+        public final static RegistryKey<NpcTextureMaterial> SWAMPY_GREEN = of("swampy_green", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> TAN = of("tan", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> TAN_DESATURATED = of("tan_desaturated", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> WINE = of("wine", NpcTextureType.SKIN);
@@ -139,9 +141,9 @@ public class NpcTextureMaterialsME {
         register(registry, Skin.DARK_GREEN, NpcTextureType.SKIN);
         register(registry, Skin.DARK_PINK, NpcTextureType.SKIN);
         register(registry, Skin.GREEN, NpcTextureType.SKIN);
-        register(registry, Skin.GREENISH, NpcTextureType.SKIN);
         register(registry, Skin.GREY, NpcTextureType.SKIN);
         register(registry, Skin.LIGHT_GREY, NpcTextureType.SKIN);
+        register(registry, Skin.MURKY_GREEN, NpcTextureType.SKIN);
         register(registry, Skin.OLIVE, NpcTextureType.SKIN);
         register(registry, Skin.PALE, NpcTextureType.SKIN);
         register(registry, Skin.PALE_GREEN, NpcTextureType.SKIN);
@@ -149,7 +151,9 @@ public class NpcTextureMaterialsME {
         register(registry, Skin.PINK, NpcTextureType.SKIN);
         register(registry, Skin.RED, NpcTextureType.SKIN);
         register(registry, Skin.RUST, NpcTextureType.SKIN);
+        register(registry, Skin.SANDY_GREEN, NpcTextureType.SKIN);
         register(registry, Skin.SLIGHT_BROWN, NpcTextureType.SKIN);
+        register(registry, Skin.SWAMPY_GREEN, NpcTextureType.SKIN);
         register(registry, Skin.TAN, NpcTextureType.SKIN);
         register(registry, Skin.TAN_DESATURATED, NpcTextureType.SKIN);
         register(registry, Skin.WINE, NpcTextureType.SKIN);
