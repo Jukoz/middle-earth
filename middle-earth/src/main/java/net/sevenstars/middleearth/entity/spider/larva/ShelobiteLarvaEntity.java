@@ -3,9 +3,15 @@ package net.sevenstars.middleearth.entity.spider.larva;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
+import net.minecraft.entity.spawn.SpawnContext;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.entity.EntityType;
@@ -28,14 +34,21 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.goals.FollowDifferentMobGoal;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
+import net.sevenstars.middleearth.entity.spider.SpiderVariant;
+import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class ShelobiteLarvaEntity extends HostileEntity {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final float MOVEMENT_SPEED = 1f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
+    private static final TrackedData<RegistryEntry<SpiderVariant>> VARIANT;
 
     public final AnimationState idleAnimation = new AnimationState();
     public final AnimationState walkingAnimation = new AnimationState();
@@ -66,6 +79,21 @@ public class ShelobiteLarvaEntity extends HostileEntity {
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
     }
 
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        if (entityData instanceof ShelobiteScuttlerEntity.SpiderData spiderData) {
+            this.setVariant(spiderData.variant);
+        } else {
+            Optional<? extends RegistryEntry<SpiderVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), SpiderVariants.KEY);
+            if (optional.isPresent()) {
+                this.setVariant(optional.get());
+                entityData = new ShelobiteScuttlerEntity.SpiderData(optional.get());
+            }
+        }
+        return super.initialize(world, difficulty, spawnReason, entityData);
+    }
+
     public double getMountedHeightOffset() {
         return (double)(this.getHeight() * 0.5F);
     }
@@ -77,6 +105,8 @@ public class ShelobiteLarvaEntity extends HostileEntity {
 
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
+        RegistryEntry<SpiderVariant> spiderVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), SpiderVariants.DEFAULT);
+        builder.add(VARIANT, spiderVariantRegistryEntry);
         builder.add(SPIDER_FLAGS, (byte)0);
     }
 
@@ -110,6 +140,18 @@ public class ShelobiteLarvaEntity extends HostileEntity {
         } else {
             this.climbingTicks = Math.max(0, this.climbingTicks - 1);
         }
+    }
+
+    public SpiderVariant getVariant() {
+        return getRegistryVariant().value();
+    }
+
+    private RegistryEntry<SpiderVariant> getRegistryVariant() {
+        return this.dataTracker.get(VARIANT);
+    }
+
+    private void setVariant(RegistryEntry<SpiderVariant> variant) {
+        this.dataTracker.set(VARIANT, variant);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -166,11 +208,20 @@ public class ShelobiteLarvaEntity extends HostileEntity {
         return this.climbingTicks;
     }
 
-    public MirkwoodSpiderVariants getVariant() {
-        return MirkwoodSpiderVariants.byId(this.getId());
+    @Override
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        Variants.writeVariantToNbt(view, this.getRegistryVariant());
+    }
+
+    @Override
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        Variants.readVariantFromNbt(view, SpiderVariants.KEY).ifPresent(this::setVariant);
     }
 
     static {
         SPIDER_FLAGS = DataTracker.registerData(ShelobiteLarvaEntity.class, TrackedDataHandlerRegistry.BYTE);
+        VARIANT = DataTracker.registerData(ShelobiteLarvaEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);
     }
 }

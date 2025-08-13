@@ -26,7 +26,7 @@ public class ShelobiteScuttlerRenderer extends MobEntityRenderer<ShelobiteScuttl
 
     @Override
     public Identifier getTexture(ShelobiteScuttlerRenderState state) {
-        return state.spiderVariant.assetInfo().texturePath();
+        return state.spiderVariant.assetInfo().scuttler().texturePath();
     }
 
     public void updateRenderState(ShelobiteScuttlerEntity shelobiteScuttlerEntity, ShelobiteScuttlerRenderState shelobiteScuttlerEntityRenderState, float f) {

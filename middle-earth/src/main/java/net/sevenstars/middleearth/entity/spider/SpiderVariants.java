@@ -17,6 +17,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 public class SpiderVariants {
 	public final static String KEY_PATH = "spider_variants";
 	private static final String TEXTURE_PATH = "entities/spiders/";
+	private static final String ENTITY_NAME = "_shelobite_";
 	public static final RegistryKey<Registry<SpiderVariant>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, KEY_PATH));
 
 	public static final RegistryKey<SpiderVariant> MIRKWOOD = of("mirkwood");
@@ -33,7 +34,10 @@ public class SpiderVariants {
 	}
 
 	private static void register(Registerable<SpiderVariant> registry, RegistryKey<SpiderVariant> key, String textureName, SpawnConditionSelectors spawnConditions) {
-		registry.register(key, new SpiderVariant(new AssetInfo(Identifier.of(MiddleEarth.MOD_ID, TEXTURE_PATH + textureName)), spawnConditions));
+		registry.register(key, new SpiderVariant(new SpiderVariant.SpiderAssetInfo(
+				new AssetInfo(Identifier.of(MiddleEarth.MOD_ID, TEXTURE_PATH + textureName + ENTITY_NAME + "larva")),
+				new AssetInfo(Identifier.of(MiddleEarth.MOD_ID, TEXTURE_PATH + textureName + ENTITY_NAME + "scuttler"))),
+				spawnConditions));
 	}
 
 	private static SpawnConditionSelectors createSpawnConditions(RegistryEntryList<Biome> requiredBiomes, int priority) {
@@ -41,9 +45,9 @@ public class SpiderVariants {
 	}
 
 	public static void bootstrap(Registerable<SpiderVariant> registry) {
-		register(registry, MIRKWOOD, "mirkwood_shelobite_scuttler", SpawnConditionSelectors.createFallback(0));
-		register(registry, CAVE, "blind_shelobite_scuttler", TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "is_cave")), 1);
-		register(registry, MORDOR, "mordor_shelobite_scuttler", TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "is_mordor")), 2);
+		register(registry, MIRKWOOD, "mirkwood", SpawnConditionSelectors.createFallback(0));
+		register(registry, CAVE, "blind", TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "is_cave")), 1);
+		register(registry, MORDOR, "mordor", TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "is_mordor")), 2);
 	}
 
 	public static void register(){
