@@ -35,7 +35,6 @@ public class ShelobiteLarvaRenderer extends MobEntityRenderer<ShelobiteLarvaEnti
 
     public void updateRenderState(ShelobiteLarvaEntity larvaEntity, ShelobiteScuttlerRenderState shelobiteScuttlerEntityRenderState, float f) {
         super.updateRenderState(larvaEntity, shelobiteScuttlerEntityRenderState, f);
-        shelobiteScuttlerEntityRenderState.idleAnimationState.copyFrom(larvaEntity.idleAnimation);
         shelobiteScuttlerEntityRenderState.walkAnimationState.copyFrom(larvaEntity.walkingAnimation);
         shelobiteScuttlerEntityRenderState.biteAnimationState.copyFrom(larvaEntity.biteAnimation);
         shelobiteScuttlerEntityRenderState.spiderVariant = larvaEntity.getVariant();

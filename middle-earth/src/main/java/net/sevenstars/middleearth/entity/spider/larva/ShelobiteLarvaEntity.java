@@ -40,6 +40,7 @@ import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
+import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -48,6 +49,7 @@ public class ShelobiteLarvaEntity extends HostileEntity {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final float MOVEMENT_SPEED = 1f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
+    private static final TrackedData<Boolean> ATTACK_FLAG;
     private static final TrackedData<RegistryEntry<SpiderVariant>> VARIANT;
 
     public final AnimationState idleAnimation = new AnimationState();
@@ -107,6 +109,7 @@ public class ShelobiteLarvaEntity extends HostileEntity {
         super.initDataTracker(builder);
         RegistryEntry<SpiderVariant> spiderVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), SpiderVariants.DEFAULT);
         builder.add(VARIANT, spiderVariantRegistryEntry);
+        builder.add(ATTACK_FLAG, false);
         builder.add(SPIDER_FLAGS, (byte)0);
     }
 
@@ -114,12 +117,19 @@ public class ShelobiteLarvaEntity extends HostileEntity {
         if (!this.idleAnimation.isRunning()) {
             this.idleAnimation.start(this.age);
         }
+        boolean attackState = this.dataTracker.get(ATTACK_FLAG);
+        if(attackState) {
+            this.biteAnimation.stop();
+            this.biteAnimation.start(this.age);
+            this.dataTracker.set(ATTACK_FLAG, false);
+        }
     }
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        biteAnimation.start(this.age);
-        return super.tryAttack(world, target);
+        boolean result = super.tryAttack(world, target);
+        this.dataTracker.set(ATTACK_FLAG, result);
+        return result;
     }
 
     public void tick() {
@@ -222,6 +232,7 @@ public class ShelobiteLarvaEntity extends HostileEntity {
 
     static {
         SPIDER_FLAGS = DataTracker.registerData(ShelobiteLarvaEntity.class, TrackedDataHandlerRegistry.BYTE);
+        ATTACK_FLAG = DataTracker.registerData(ShelobiteLarvaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
         VARIANT = DataTracker.registerData(ShelobiteLarvaEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);
     }
 }
