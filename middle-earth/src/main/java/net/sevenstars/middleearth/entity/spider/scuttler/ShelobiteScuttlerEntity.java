@@ -15,6 +15,8 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -298,6 +300,18 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     public int getLeapingTicks() {
         return this.leapingTicks;
+    }
+
+    @Override
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        Variants.writeVariantToNbt(view, this.getRegistryVariant());
+    }
+
+    @Override
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        Variants.readVariantFromNbt(view, SpiderVariants.KEY).ifPresent(this::setVariant);
     }
 
     static {

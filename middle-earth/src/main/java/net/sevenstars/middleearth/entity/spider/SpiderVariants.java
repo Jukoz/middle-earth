@@ -29,7 +29,7 @@ public class SpiderVariants {
 	}
 
 	private static void register(Registerable<SpiderVariant> registry, RegistryKey<SpiderVariant> key, String textureName, TagKey<Biome> biomeTag, int priority) {
-		register(registry, key, textureName, createSpawnConditions(registry.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(biomeTag), priotity));
+		register(registry, key, textureName, createSpawnConditions(registry.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(biomeTag), priority));
 	}
 
 	private static void register(Registerable<SpiderVariant> registry, RegistryKey<SpiderVariant> key, String textureName, SpawnConditionSelectors spawnConditions) {
