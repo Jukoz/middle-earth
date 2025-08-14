@@ -2,10 +2,14 @@
   "structures": [
 	{
       "structure": "middle-earth:dale_house",
-      "weight": 2
+      "weight": 4
     },
 	{
       "structure": "middle-earth:dale_watch_tower",
+      "weight": 3
+    },
+    {
+      "structure": "middle-earth:dale_keep",
       "weight": 1
     }
   ],

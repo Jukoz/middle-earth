@@ -2,10 +2,7 @@ package net.sevenstars.middleearth.entity.npcs;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentHolder;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -15,11 +12,18 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
@@ -29,152 +33,197 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
-import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.FactionsME;
-import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
+import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.resources.StateSaverAndLoader;
+import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
-import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
-import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
+import java.util.Set;
 
 public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     // Data to use
     private static final TrackedData<String> CATEGORY;
     private static final TrackedData<String> FACTION_ID;
     private static final TrackedData<String> NPC_DATA_ID;
+    private static final TrackedData<Long> INITIALIZATION_TICK;
     private static final TrackedData<NpcEntityTextureData> TEXTURE_DATA;
     private static final TrackedData<BlockPos> STRUCTURE_MANAGER_HOST_POS;
 
-    public Faction factionCache;
     public NpcData npcDataCache;
 
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
-        this.createRandom(world);
-    }
-
-    public static NpcEntity create(World world, BlockPos pos){
-        var npcEntity = new NpcEntity(ModEntities.NPC, world);
-        npcEntity.setPosition(pos.toCenterPos());
-        return npcEntity;
-    }
-    public NpcEntity withCategory(EntityCategory category){
-        setNpcCategory(category);
-        return this;
-    }
-    public NpcEntity withFaction(Identifier identifier){
-        try{
-            this.factionCache = FactionLookup.getFactionById(getWorld(), identifier);
-            setFactionId(identifier);
-        } catch (FactionIdentifierException ignored) {
-
-        }
-        return this;
-    }
-    public NpcEntity withNpcData(Identifier identifier){
-        this.npcDataCache = NpcDataLookup.getNpcData(getWorld(), identifier);
-        if(this.npcDataCache != null){
-            setNpcDataId(identifier);
-            applyNpcData(this.npcDataCache);
-        }
-        return this;
-    }
-
-    private void applyNpcData(NpcData data){
-        World world = getWorld();
-        if(world.isClient)
-            return;
-        DynamicRegistryManager dynamicRegistryManager = world.getRegistryManager();
-
-        // set attributes
-        data.applyAttributes(this);
-        // set textures
-        NpcTextureData.Identity textureIdentity = NpcTextureData.Identity.create(data.getNpcTextureData(), getNpcCategory());
-        var npcTextureData = data.getNpcTextureData();
-
-        var generatedTextureData = generateSkinTextureData(new NpcEntityTextureData(), textureIdentity);
-        generatedTextureData = generateEyeTextureData(generatedTextureData, textureIdentity, data.getNpcTextureData().haveEmissiveEyes(textureIdentity));
-        generatedTextureData = generateHairTextureData(generatedTextureData, textureIdentity, dynamicRegistryManager);
-        generatedTextureData = generateClothingTextureData(generatedTextureData, textureIdentity);
-        setNpcTextureData(generatedTextureData);
-
-        // set gear
-        NpcUtil.equipAll(this, data.getGear());
-    }
-
-    private NpcEntity createRandom(World world){
-        var random = getWorld().getRandom();
-
-        EntityCategory category = random.nextBoolean() ? EntityCategory.MALE : EntityCategory.FEMALE;
-        try {
-            Faction faction = FactionLookup.getFactionById(getWorld(), FactionsME.GONDOR.getValue());
-            var npcDataIds = faction.getAllNpcDatas().get(NpcRank.SOLDIER);
-            Identifier npcDataId = (npcDataIds == null)
-                    ? null
-                    : npcDataIds.get(random.nextInt(npcDataIds.size()));
-            if(npcDataId != null)
-                this.withCategory(category)
-                        .withFaction(faction.getId())
-                        .withNpcData(npcDataId);
-        }
-        catch (FactionIdentifierException e){
-/*
-            this.withCategory(category)
-                    .withFaction(FactionsME.GONDOR.getId())
-                    .withNpcData(FactionsME.GONDOR.getAllNpcDatas().get(NpcRank.SOLDIER).getFirst());
- */
-        }
-        return this;
     }
 
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
-
+        builder.add(INITIALIZATION_TICK, 0l);
         builder.add(CATEGORY, "");
         builder.add(FACTION_ID, "");
         builder.add(NPC_DATA_ID, "");
         builder.add(TEXTURE_DATA, new NpcEntityTextureData());
         builder.add(STRUCTURE_MANAGER_HOST_POS, getBlockPos());
     }
+
     @Override
     public void writeData(WriteView view) {
         super.writeData(view);
-        view.put("StructureManagerHostPos", BlockPos.CODEC, dataTracker.get(STRUCTURE_MANAGER_HOST_POS));
-        view.put("EntityCategory", Codec.STRING, dataTracker.get(CATEGORY));
-        view.put("FactionId", Codec.STRING, dataTracker.get(FACTION_ID));
-        view.put("NpcDataId", Codec.STRING, dataTracker.get(NPC_DATA_ID));
+        this.writeEntityData(view);
+    }
 
-        //view.put("NpcTextureData", NpcTextureData.CODEC, dataTracker.get(TEXTURE_DATA));
+    @Override
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        //this.writeEntityData(view);
     }
 
     @Override
     public void readData(ReadView view) {
         super.readData(view);
-        if(view.read("StructureManagerHostPos", BlockPos.CODEC).isPresent())
-            this.dataTracker.set(STRUCTURE_MANAGER_HOST_POS, view.read("StructureManagerHostPos", BlockPos.CODEC).get());
-        this.dataTracker.set(CATEGORY, view.read("EntityCategory", Codec.STRING).get());
-        this.dataTracker.set(FACTION_ID, view.read("FactionId", Codec.STRING).get());
-        this.dataTracker.set(NPC_DATA_ID, view.read("NpcDataId", Codec.STRING).get());
+        this.readEntityData(view);
+    }
 
-        //this.dataTracker.set("NpcTextureData", NpcTextureData.CODEC, dataTracker.get(TEXTURE_DATA));
+    @Override
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        //this.readEntityData(view);
+    }
+
+    private void writeEntityData(WriteView view){
+        view.put("StructureManagerHostPos", BlockPos.CODEC, dataTracker.get(STRUCTURE_MANAGER_HOST_POS));
+        view.put("NpcDataId", Codec.STRING, dataTracker.get(NPC_DATA_ID));
+        view.put("EntityCategory", Codec.STRING, dataTracker.get(CATEGORY));
+        view.put("NpcTextureData", NpcEntityTextureData.CODEC, dataTracker.get(TEXTURE_DATA));
+        view.put("InitializationTick", Codec.LONG, dataTracker.get(INITIALIZATION_TICK));
+    }
+
+    private void readEntityData(ReadView view) {
+
+        view.read("StructureManagerHostPos", BlockPos.CODEC)
+            .ifPresent(this::setStructureManagerHost);
+        view.read("NpcDataId", Identifier.CODEC)
+            .ifPresent(this::setNpcData);
+        view.read("FactionId", Identifier.CODEC)
+            .ifPresent(this::setFactionId);
+        view.read("EntityCategory", Codec.STRING)
+            .ifPresent(x -> {
+                if(!x.isEmpty()){
+                    setNpcCategory(EntityCategory.valueOf(x));
+                }
+            });
+        view.read("NpcTextureData", NpcEntityTextureData.CODEC)
+            .ifPresent(this::setNpcTextureData);
+        view.read("InitializationTick", Codec.LONG)
+                .ifPresent(x -> dataTracker.set(INITIALIZATION_TICK, x));
+
+        apply();
+    }
+
+    public void setNpcData(Identifier npcDataId) {
+        if(npcDataId == null)
+            return;
+        this.dataTracker.set(NPC_DATA_ID, npcDataId.toString());
+        this.npcDataCache = NpcDataLookup.getNpcData(getWorld(), npcDataId);
+        if(this.npcDataCache == null)
+            return;
+    }
+
+    public void setNpcData(NpcData npcData) {
+        this.npcDataCache = npcData;
+        if(npcData != null){
+            this.dataTracker.set(NPC_DATA_ID, npcData.getId().toString());
+        }
+    }
+
+    private void setFactionId(Identifier factionId) {
+        if(factionId == null)
+            return;
+        this.dataTracker.set(FACTION_ID, factionId.toString());
+    }
+
+    private void setNpcCategory(EntityCategory entityCategory) {
+        if(entityCategory == null)
+            return;
+        this.dataTracker.set(CATEGORY, entityCategory.name());
+    }
+
+    private void setNpcTextureData(NpcEntityTextureData npcEntityTextureData) {
+        if(npcEntityTextureData == null)
+            return;
+        this.dataTracker.set(TEXTURE_DATA, npcEntityTextureData);
+    }
+
+    public void setStructureManagerHost(BlockPos blockPos) {
+        if(blockPos == null)
+            return;
+        this.dataTracker.set(STRUCTURE_MANAGER_HOST_POS, blockPos);
+    }
+
+    public void apply(){
+        World world = getWorld();
+        if(world.isClient)
+            return;
+        forceApply();
+    }
+
+    public void forceApply() {
+        World world = getWorld();
+        DynamicRegistryManager dynamicRegistryManager = world.getRegistryManager();
+
+        if(this.npcDataCache == null ){
+            Set<Identifier> identifierSet = dynamicRegistryManager.getOrThrow(NpcME.KEY).getIds();
+            Identifier currentNpcData = getNpcDataId();
+            npcDataCache = dynamicRegistryManager.getOrThrow(NpcME.KEY).get(currentNpcData);
+            if(npcDataCache == null){
+                currentNpcData = identifierSet.stream().toList().get(random.nextInt(identifierSet.size()));
+                this.setNpcData(currentNpcData);
+            }
+        }
+        this.dataTracker.set(INITIALIZATION_TICK, world.getTickOrder());
+
+        // set attributes
+        if(this.getNpcCategory() == null)
+            setNpcCategory(npcDataCache.getRandomCategory());
+
+        npcDataCache.applyAttributes(this);
+
+        if(this.getNpcTextureData().getBodyTexture() == null){
+            // set textures
+            createNpcEntityTextureData(npcDataCache.getNpcTextureData());
+            // set gear
+            NpcUtil.equipAll(this, npcDataCache.getGear());
+        }
+    }
+
+    private void createNpcEntityTextureData(NpcTextureData npcTextureData) {
+        NpcTextureData.Identity identity = NpcTextureData.Identity.create(npcTextureData, getNpcCategory());
+        NpcEntityTextureData entityTextureData = new NpcEntityTextureData();
+        entityTextureData = NpcEntityHelper.generateSkinTextureData(entityTextureData, identity);
+        entityTextureData = NpcEntityHelper.generateEyeTextureData(entityTextureData, identity, npcDataCache.getNpcTextureData().haveEmissiveEyes(identity)); // Make it not hardcoded
+        entityTextureData = NpcEntityHelper.generateHairTextureData(entityTextureData, identity, getWorld().getRegistryManager());
+        entityTextureData = NpcEntityHelper.generateClothingTextureData(entityTextureData, identity);
+        setNpcTextureData(entityTextureData);
     }
 
     @Override
     protected void mobTick(ServerWorld world) {
+        if(npcDataCache == null)
+            apply();
+
         Profiler profiler = Profilers.get();
         profiler.push("npcBrain");
         this.getBrain().tick(world, this);
@@ -203,102 +252,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     @Override
     protected void initEquipment(net.minecraft.util.math.random.Random random, LocalDifficulty localDifficulty) {
-        // TODO : add stuff here
+        // Overrides vanilla init equipment (gold sets???)
     }
 
-    @Override
-    protected void writeCustomData(WriteView view) {
-        super.writeCustomData(view);
-        view.putString("faction_id", (this.factionCache == null) ? null : this.factionCache.getId().toString());
-        view.putString("npc_data_id", (this.npcDataCache == null) ? null : this.npcDataCache.getId().toString());
-        view.putString("npc_category", this.getNpcCategory().name());
-    }
-
-    @Override
-    protected void readCustomData(ReadView view) {
-        super.readCustomData(view);
-        this.setFaction(Identifier.of(view.getString("faction_id", null)));
-        this.setNpcDataId(Identifier.of(view.getString("npc_data_id", null)));
-        this.setNpcCategory(EntityCategory.valueOf(view.getString("npc_category", EntityCategory.MALE.name())));
-    }
-
-    public void setFaction(Identifier id){
-        if(id == null)
-            return;
-        try{
-            this.factionCache = FactionLookup.getFactionById(getWorld(), id);
-        } catch (FactionIdentifierException e) {
-            // Default faction?
-        }
-    }
-
-    private NpcEntityTextureData generateSkinTextureData(NpcEntityTextureData npcTextureData, NpcTextureData.Identity textureIdentity) {
-        Identifier materialId = NpcTextureData.getRawMaterial(textureIdentity, NpcTextureType.SKIN);
-        Identifier bodyPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.BODY);
-        Identifier headPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.HEAD);
-        Identifier earPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.EAR);
-        Identifier nosePatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.NOSE);
-        Identifier scarPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.SCAR);
-
-        npcTextureData = npcTextureData.withSkinTexture(NpcTextureData.buildId(bodyPatternId, materialId));
-        npcTextureData = npcTextureData.withHeadTexture(NpcTextureData.buildId(headPatternId, materialId));
-
-        if(scarPatternId != null){
-            npcTextureData = npcTextureData.withScarTexture(NpcTextureData.buildId(scarPatternId, materialId));
-        }
-        if(earPatternId != null){
-            npcTextureData = npcTextureData.withEarTexture(NpcTextureData.buildId(earPatternId, materialId));
-        }
-        if(nosePatternId != null){
-            npcTextureData = npcTextureData.withNoseTexture(NpcTextureData.buildId(nosePatternId, materialId));
-        }
-
-        return npcTextureData;
-    }
-
-    private NpcEntityTextureData generateEyeTextureData(NpcEntityTextureData npcEntityTextureData, NpcTextureData.Identity textureIdentity, boolean haveEmissiveEyes) {
-        Identifier materialId = NpcTextureData.getRawMaterial(textureIdentity, NpcTextureType.EYE);
-        Identifier patternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.EYE);
-
-        npcEntityTextureData = npcEntityTextureData.withEyeTexture(NpcTextureData.buildId(patternId, materialId), haveEmissiveEyes);
-
-        return npcEntityTextureData;
-    }
-
-    private NpcEntityTextureData generateHairTextureData(NpcEntityTextureData npcEntityTextureData, NpcTextureData.Identity textureIdentity, DynamicRegistryManager manager) {
-        Identifier globalHairMaterialId = NpcTextureData.getRawMaterial(textureIdentity, NpcTextureType.HAIR);
-
-        // Hair
-        Identifier hairPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.HAIR);
-        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundHairPattern = NpcTexturePatternsME.get(manager, NpcTextureType.HAIR, hairPatternId);
-        if(foundHairPattern.isPresent() && foundHairPattern.get().value() instanceof NpcTexturePattern pattern){
-            npcEntityTextureData = npcEntityTextureData.withHairTexture(NpcTextureData.buildId(hairPatternId, globalHairMaterialId));
-            if(pattern.hasAddonRawValue()){
-                npcEntityTextureData = npcEntityTextureData.withHairAddonTexture(NpcTextureData.buildAddonId(hairPatternId, globalHairMaterialId));
-            }
-        }
-        // Eyebrow
-        Identifier eyebrowPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.EYEBROW);
-        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundEyebrowPattern = NpcTexturePatternsME.get(manager, NpcTextureType.EYEBROW, eyebrowPatternId);
-        if(foundEyebrowPattern.isPresent()){
-            npcEntityTextureData = npcEntityTextureData.withEyebrowTexture(NpcTextureData.buildId(eyebrowPatternId, globalHairMaterialId));
-        }
-        // Beard
-        Identifier beardPatternId = NpcTextureData.getRawPattern(textureIdentity, NpcTextureType.BEARD);
-        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundBeardPattern = NpcTexturePatternsME.get(manager, NpcTextureType.BEARD, beardPatternId);
-        if(foundBeardPattern.isPresent() && foundBeardPattern.get().value() instanceof NpcTexturePattern pattern){
-            npcEntityTextureData = npcEntityTextureData.withBeardTexture(NpcTextureData.buildId(beardPatternId, globalHairMaterialId));
-            if(pattern.hasAddonRawValue()){
-                npcEntityTextureData = npcEntityTextureData.withBeardAddonTexture(NpcTextureData.buildAddonId(beardPatternId, globalHairMaterialId));
-            }
-        }
-        return npcEntityTextureData;
-    }
-    private NpcEntityTextureData generateClothingTextureData(NpcEntityTextureData npcEntityTextureData, NpcTextureData.Identity textureIdentity) {
-        npcEntityTextureData = npcEntityTextureData.withClothingTexture(NpcTextureData.getTextureWithMaterial(textureIdentity, NpcTextureType.CLOTHING));
-
-        return npcEntityTextureData;
-    }
 
     @Override
     public void onDeath(DamageSource damageSource) {
@@ -307,46 +263,101 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     @Override
-    public boolean isPersistent() {
-        return getWorld().getBlockEntity(getStructureManagerHostPos()) != null;
-    }
+    protected void dropLoot(ServerWorld world, DamageSource damageSource, boolean causedByPlayer) {
+        boolean canDropLoot = false;
+        if(causedByPlayer){
+            if(damageSource.getAttacker() instanceof PlayerEntity player){
+                PlayerData data = StateSaverAndLoader.getPlayerState(player);
+                if(data == null)
+                    canDropLoot = true;
+                else if(data.getFaction() == null)
+                    canDropLoot = true;
+                else
+                    canDropLoot = data.getFaction().compareTo(getFactionId()) != 0;
+            }
+        }
 
-    public void setFactionId(Identifier factionId) {
-        try{
-            this.factionCache = FactionLookup.getFactionById(getWorld(), factionId);
-            this.dataTracker.set(FACTION_ID, factionId.toString());
-        } catch (FactionIdentifierException e) {
-            this.factionCache = null;
+        if(!canDropLoot)
+            return;
+
+        RegistryKey<LootTable> lootTableRegistryKey = RegistryKey.of(RegistryKeys.LOOT_TABLE, getNpcDataId().withPrefixedPath("entities/"));
+        LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(lootTableRegistryKey);
+
+        if (lootTable != null) {
+            LootWorldContext.Builder builder = (new LootWorldContext.Builder(world)).add(LootContextParameters.THIS_ENTITY, this).add(LootContextParameters.ORIGIN, this.getPos()).add(LootContextParameters.DAMAGE_SOURCE, damageSource).addOptional(LootContextParameters.ATTACKING_ENTITY, damageSource.getAttacker()).addOptional(LootContextParameters.DIRECT_ATTACKING_ENTITY, damageSource.getSource());
+            PlayerEntity playerEntity = this.getAttackingPlayer();
+            if (causedByPlayer && playerEntity != null) {
+                builder = builder.add(LootContextParameters.LAST_DAMAGE_PLAYER, playerEntity).luck(playerEntity.getLuck());
+            }
+
+            LootWorldContext lootWorldContext = builder.build(LootContextTypes.ENTITY);
+            lootTable.generateLoot(lootWorldContext, this.getLootTableSeed(), (stack) -> this.dropStack(world, stack));
         }
     }
+
+    @Override
+    public boolean isPersistent() {
+        return getWorld().getBlockEntity(getStructureManagerHostPos()) != null || super.isPersistent();
+    }
+
+    @Override
+    public void setCustomName(@Nullable Text name) {
+        super.setCustomName(name);
+    }
+
     public Identifier getFactionId()
     {
         return Identifier.of(this.dataTracker.get(FACTION_ID));
     }
 
-    public void setNpcDataId(Identifier npcDataId) {
-        this.dataTracker.set(NPC_DATA_ID, npcDataId.toString());
-        if(npcDataId != null)
-            this.npcDataCache = NpcDataLookup.getNpcData(getWorld(), npcDataId);
-    }
-    public Identifier getNpcDataId()
-    {
-        return Identifier.of(this.dataTracker.get(NPC_DATA_ID));
-    }
-    public void setNpcCategory(EntityCategory entityCategory) {
-        this.dataTracker.set(CATEGORY, entityCategory.name());
-    }
-    public EntityCategory getNpcCategory()
-    {
-        return EntityCategory.valueOf(this.dataTracker.get(CATEGORY));
+    public static Faction tryGetFaction(LivingEntity entity){
+        if(entity instanceof NpcEntity npcEntity){
+            return npcEntity.getFaction();
+        }
+        return null;
     }
 
-    public void setNpcTextureData(NpcEntityTextureData npcEntityTextureData) {
-        this.dataTracker.set(TEXTURE_DATA, npcEntityTextureData);
+    public static RaceType tryGettingRaceType(LivingEntity entity){
+        if(entity instanceof NpcEntity npcEntity){
+            return npcEntity.getRaceType();
+        }
+        return null;
     }
-    public void setStructureManagerHost(BlockPos blockPos) {
-        this.dataTracker.set(STRUCTURE_MANAGER_HOST_POS, blockPos);
+
+    protected Faction getFaction(){
+        if(getFactionId() == null)
+            return null;
+        try {
+            return FactionLookup.getFactionById(getWorld(), getFactionId());
+        } catch (FactionIdentifierException e) {
+            return null;
+        }
     }
+
+    protected RaceType getRaceType(){
+        if(getNpcDataId() == null || npcDataCache == null)
+            return null;
+        Race race = RaceLookup.getRace(getWorld(), npcDataCache.getRace());
+        if(race == null)
+            return null;
+        return race.getRaceType();
+    }
+
+    public Long getInitializationTick() {
+        return this.dataTracker.get(INITIALIZATION_TICK);
+    }
+
+    public Identifier getNpcDataId() {
+        return Identifier.of(this.dataTracker.get(NPC_DATA_ID));
+    }
+
+    public EntityCategory getNpcCategory() {
+        var category = this.dataTracker.get(CATEGORY);
+        if(category == null || category.isEmpty())
+            return null;
+        return EntityCategory.valueOf(category);
+    }
+
     public BlockPos getStructureManagerHostPos() {
         return this.dataTracker.get(STRUCTURE_MANAGER_HOST_POS);
     }
@@ -356,6 +367,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     static {
+        INITIALIZATION_TICK = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.INITIALIZATION_TICK);
         FACTION_ID = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.FACTION_ID);
         NPC_DATA_ID = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_DATA_ID);
         CATEGORY = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.CATEGORY);
