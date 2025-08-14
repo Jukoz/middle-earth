@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.datageneration.providers;
+package net.sevenstars.middleearth.datageneration.providers.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -11,7 +11,6 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.recipe.ModTags;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;

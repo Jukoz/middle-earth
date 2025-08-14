@@ -10,6 +10,8 @@ import net.sevenstars.middleearth.datageneration.providers.models.ItemModelProvi
 import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableArmorRecipeProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableHandheldRecipeProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.RecipeProvider;
+import net.sevenstars.middleearth.datageneration.providers.tags.BlockTagProvider;
+import net.sevenstars.middleearth.datageneration.providers.tags.ItemTagProvider;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimPatterns;
 import net.sevenstars.middleearth.resources.*;
