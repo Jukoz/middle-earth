@@ -8,7 +8,6 @@ import net.sevenstars.middleearth.block.special.hangingstuff.HangingCobwebBlock;
 import net.sevenstars.middleearth.block.special.saplings.VariantSaplingBlock;
 import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggBlock;
 import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggHangingBlock;
-import net.sevenstars.middleearth.block.special.statues.StatueBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
@@ -71,10 +70,6 @@ public class ModNatureBlocks {
     public static final Block LORIEN_PODZOL = registerBlock("lorien_podzol",
             Block::new, AbstractBlock.Settings.create().mapColor(MapColor.SPRUCE_BROWN).strength(0.5F).sounds(BlockSoundGroup.GRAVEL), true);
 
-    public static final Block ATHELAS = registerBlock("athelas",
-            CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
-                    .mapColor(DyeColor.GREEN), true);
-
     public static final Block BLUE_FESCUE = registerBlock("blue_fescue",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN), true);
@@ -85,6 +80,9 @@ public class ModNatureBlocks {
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN), true);
     public static final Block GRIM_GRASS = registerBlock("grim_grass",
+            DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.GREEN), true);
+    public static final Block MEADOWGRASS = registerBlock("meadowgrass",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN), true);
     public static final Block TEMPERATE_GRASS = registerBlock("temperate_grass",
@@ -165,6 +163,9 @@ public class ModNatureBlocks {
     public static final Block HEATHER_BUSH = registerBlock("heather_bush",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.BROWN), true);
+    public static final Block LARGE_BLUE_FESCUE = registerBlock("large_blue_fescue",
+            DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.BROWN), true);
     public static final Block LARGE_BUSH = registerBlock("large_bush",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.BROWN), true);
@@ -182,6 +183,9 @@ public class ModNatureBlocks {
             CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ)
                     .mapColor(DyeColor.GREEN), true);
 
+    public static final Block ATHELAS = registerBlock("athelas",
+            CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.GREEN), true);
     public static final Block BRAMBLES_OF_MORDOR = registerBlock("brambles_of_mordor",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN), true);
@@ -201,10 +205,13 @@ public class ModNatureBlocks {
     public static final Block TAN_SHRUB = registerBlock("tan_shrub",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN), true);
-    public static final Block YELLOW_FLOWER = registerBlock("yellow_flower",
-            (settings) -> new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 0, settings), AbstractBlock.Settings.copy(Blocks.DANDELION), true);
+
     public static final Block GREEN_JEWEL_CORNFLOWER = registerBlock("green_jewel_cornflower",
             (settings) -> new FlowerBlock(StatusEffects.SATURATION, 0, settings), AbstractBlock.Settings.copy(Blocks.DANDELION), true);
+    public static final Block NOBLEWHITE = registerBlock("noblewhite",
+            (settings) -> new FlowerBlock(StatusEffects.SATURATION, 0, settings), AbstractBlock.Settings.copy(Blocks.DANDELION), true);
+    public static final Block YELLOW_FLOWER = registerBlock("yellow_flower",
+            (settings) -> new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 0, settings), AbstractBlock.Settings.copy(Blocks.DANDELION), true);
 
     public static final Block LIGHT_BLUE_FLOWERS = registerBlock("light_blue_flowers",
             (settings) -> new FlowerBlock(StatusEffects.SATURATION, 0, settings), AbstractBlock.Settings.copy(Blocks.DANDELION), true);

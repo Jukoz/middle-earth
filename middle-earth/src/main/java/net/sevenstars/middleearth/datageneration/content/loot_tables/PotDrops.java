@@ -35,6 +35,7 @@ public class PotDrops {
             add(ModDecorativeBlocks.POTTED_YELLOW_TROLLIUS);
             add(ModDecorativeBlocks.POTTED_TAN_SHRUB);
             add(ModDecorativeBlocks.POTTED_GREEN_JEWEL_CORNFLOWER);
+            add(ModDecorativeBlocks.POTTED_NOBLEWHITE);
             add(ModDecorativeBlocks.POTTED_SCORCHED_SHRUB);
             add(ModDecorativeBlocks.POTTED_FROZEN_SHRUB);
 

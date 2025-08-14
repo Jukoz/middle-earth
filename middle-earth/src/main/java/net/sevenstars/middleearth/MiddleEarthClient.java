@@ -213,6 +213,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModNatureBlocks.TOUGH_BERRY_BUSH, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.YELLOW_FLOWER, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModNatureBlocks.NOBLEWHITE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.MIRKWOOD_ROOTS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.MIRKWOOD_HANGING_ROOTS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.PINE_BRANCHES, BlockRenderLayer.CUTOUT);
@@ -238,6 +239,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModNatureBlocks.FROZEN_GRASS, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModNatureBlocks.GRIM_GRASS, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModNatureBlocks.MEADOWGRASS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.TEMPERATE_GRASS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.GRASS_TUFT, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.FROZEN_TUFT, BlockRenderLayer.CUTOUT);
@@ -262,6 +264,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModNatureBlocks.DEAD_RUSHES, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.FALSE_OATGRASS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.HEATHER_BUSH, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModNatureBlocks.LARGE_BLUE_FESCUE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.LARGE_BUSH, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.RED_HEATHER_BUSH, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.RUSHES, BlockRenderLayer.CUTOUT);
@@ -334,7 +337,7 @@ public class MiddleEarthClient implements ClientModInitializer {
                 ModBlocks.GRASSY_SILT, ModBlocks.GRASSY_SILT_SLAB, ModBlocks.GRASSY_SILT_STAIRS,
                 ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_SLAB, ModBlocks.PEBBLED_GRASS_STAIRS,
                 ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS, ModBlocks.TURF_VERTICAL_SLAB,
-                ModNatureBlocks.CLOVERS);
+                ModNatureBlocks.CLOVERS, ModNatureBlocks.MEADOWGRASS);
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
                     if (view == null || pos == null) {
