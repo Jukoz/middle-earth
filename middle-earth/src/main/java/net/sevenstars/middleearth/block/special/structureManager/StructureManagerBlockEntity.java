@@ -214,19 +214,16 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(structureManagerIdentifier == null)
             return;
 
-        MiddleEarth.LOGGER.logDebugMsg("Trying to initialize structure manager block entity");
-        if(toInitialize && !enabled){
-            this.managerData = StructureManagerService.GetStructureManagerData(world, structureManagerIdentifier);
-            if(structureNestList == null)
-                this.structureNestList = new StructureNestList();
-            if(managerData == null) {
-                this.logger.logDebugMsg("%s::[%s] Couldn't find managerData under <%s>".formatted(ID, pos, managerData));
-                return;
-            };
+        this.managerData = StructureManagerService.GetStructureManagerData(world, structureManagerIdentifier);
+        if(structureNestList == null)
+            this.structureNestList = new StructureNestList();
+        if(managerData == null) {
+            this.logger.logDebugMsg("%s::[%s] Couldn't find managerData under <%s>".formatted(ID, pos, managerData));
+            return;
+        };
 
-            this.toInitialize = false;
-            this.enabled = true;
-        }
+        this.toInitialize = false;
+        this.enabled = true;
     }
 
     public void setInitializationState(boolean toInitialize) {
