@@ -14,6 +14,7 @@ public class NpcEntityTextureData {
     private Identifier earTexture;
     private Identifier noseTexture;
     private Identifier eyeTexture;
+    private Identifier eyeEmissiveTexture;
     private Identifier eyebrowTexture;
     private Identifier scarTexture;
     private Identifier beardTexture;
@@ -23,16 +24,18 @@ public class NpcEntityTextureData {
     private Identifier clothingTexture;
     private Boolean eyeEmissive;
 
-
     public static final Codec<NpcEntityTextureData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
         NbtCompound.CODEC.fieldOf("data").forGetter(NpcEntityTextureData::writeNbt)
     ).apply(instance, NpcEntityTextureData::new));
 
     public static final PacketCodec<RegistryByteBuf, NpcEntityTextureData> PACKET_CODEC;
 
-    public NpcEntityTextureData(NbtCompound compound) {
-        this.bodyTexture = Identifier.of(compound.getString("body").get());
-        this.headTexture = Identifier.of(compound.getString("head").get());
+    public NpcEntityTextureData(NbtCompound compound)
+    {
+        if(compound.contains("body"))
+            this.bodyTexture = Identifier.of(compound.getString("body").get());
+        if(compound.contains("head"))
+            this.headTexture = Identifier.of(compound.getString("head").get());
 
         if(compound.contains("ear"))
             this.earTexture = Identifier.of(compound.getString("ear").get());
@@ -42,8 +45,13 @@ public class NpcEntityTextureData {
         if(compound.contains("scar"))
             this.scarTexture = Identifier.of(compound.getString("scar").get());
 
-        this.eyeTexture = Identifier.of(compound.getString("eye").get());
-        this.eyeEmissive = compound.getBoolean("eye_emissive").get();
+        if(compound.contains("eye"))
+            this.eyeTexture = Identifier.of(compound.getString("eye").get());
+        if(compound.contains("eye_emissive"))
+            this.eyeEmissiveTexture = Identifier.of(compound.getString("eye_emissive").get());
+
+        if(compound.contains("eye_is_emissive"))
+            this.eyeEmissive = compound.getBoolean("eye_is_emissive").get();
 
         if(compound.contains("hair")){
             this.hairTexture = Identifier.of(compound.getString("hair").get());
@@ -63,7 +71,8 @@ public class NpcEntityTextureData {
             }
         }
 
-        this.clothingTexture = Identifier.of(compound.getString("clothing").get());
+        if(compound.contains("clothing"))
+            this.clothingTexture = Identifier.of(compound.getString("clothing").get());
     }
 
     public NpcEntityTextureData() {
@@ -90,8 +99,10 @@ public class NpcEntityTextureData {
         this.noseTexture = texture;
         return this;
     }
-    public NpcEntityTextureData withEyeTexture(Identifier texture, Boolean isEmissive){
-        this.eyeTexture = texture;
+
+    public NpcEntityTextureData withEyeTexture(Identifier eyeTexture, Identifier eyeEmissiveTexture, Boolean isEmissive){
+        this.eyeTexture = eyeTexture;
+        this.eyeEmissiveTexture = eyeEmissiveTexture;
         this.eyeEmissive = isEmissive;
         return this;
     }
@@ -129,8 +140,10 @@ public class NpcEntityTextureData {
 
     private NbtCompound writeNbt() {
         NbtCompound nbt = new NbtCompound();
-        nbt.putString("body", bodyTexture.toString());
-        nbt.putString("head", headTexture.toString());
+        if(bodyTexture != null)
+            nbt.putString("body", bodyTexture.toString());
+        if(headTexture != null)
+            nbt.putString("head", headTexture.toString());
         if(scarTexture != null)
             nbt.putString("scar", scarTexture.toString());
         if(earTexture != null)
@@ -138,8 +151,12 @@ public class NpcEntityTextureData {
         if(noseTexture != null)
             nbt.putString("nose", noseTexture.toString());
 
-        nbt.putString("eye", eyeTexture.toString());
-        nbt.putBoolean("eye_emissive", eyeEmissive);
+        if(eyeTexture != null)
+            nbt.putString("eye", eyeTexture.toString());
+        if(eyeEmissiveTexture != null)
+            nbt.putString("eye_emissive", eyeEmissiveTexture.toString());
+        if(eyeEmissive != null)
+            nbt.putBoolean("eye_is_emissive", eyeEmissive);
 
         if(hairTexture != null){
             nbt.putString("hair", hairTexture.toString());
@@ -156,7 +173,8 @@ public class NpcEntityTextureData {
                 nbt.putString("beard_addon", beardAddonTexture.toString());
         }
 
-        nbt.putString("clothing", clothingTexture.toString());
+        if(clothingTexture != null)
+            nbt.putString("clothing", clothingTexture.toString());
 
         return nbt;
     }
@@ -178,6 +196,9 @@ public class NpcEntityTextureData {
     }
     public Identifier getEyeTexture() {
         return this.eyeTexture;
+    }
+    public Identifier getEyeEmissiveTexture() {
+        return this.eyeEmissiveTexture;
     }
     public Boolean isEyeEmissive() {
         return this.eyeEmissive;

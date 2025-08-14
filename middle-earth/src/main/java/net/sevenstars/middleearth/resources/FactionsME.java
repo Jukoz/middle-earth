@@ -34,7 +34,7 @@ public class FactionsME {
     public final static RegistryKey<Faction> MISTY_MOUNTAINS_GOBLINS = of("misty_mountains_goblins");
     public final static RegistryKey<Faction> ISENGARD = of("isengard");
     public final static RegistryKey<Faction> SHIRE = of("shire");
-    public final static RegistryKey<Faction> BANDIT = of("bandit");
+    public final static RegistryKey<Faction> BRIGAND = of("brigand");
 
     private static RegistryKey<Faction> of(String name) {
         return RegistryKey.of(KEY, Identifier.of(MiddleEarth.MOD_ID, name));
@@ -57,7 +57,7 @@ public class FactionsME {
         register(context, factionRegistryEntryLookup, MISTY_MOUNTAINS_GOBLINS, MistyMountainsGoblinsFactionPool.MISTY_MOUNTAINS_GOBLINS);
         register(context, factionRegistryEntryLookup, ISENGARD, IsengardFactionPool.ISENGARD);
         register(context, factionRegistryEntryLookup, SHIRE, ShireFactionPool.SHIRE);
-        register(context, factionRegistryEntryLookup, BANDIT, BanditFactionPool.BANDIT);
+        register(context, factionRegistryEntryLookup, BRIGAND, BrigandFactionPool.BRIGAND);
     }
 
     private static Faction register(Registerable<Faction> context, RegistryEntryLookup<Faction> factionRegistryEntryLookup, RegistryKey<Faction> key, Faction faction) {

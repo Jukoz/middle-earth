@@ -13,8 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
+import net.sevenstars.middleearth.entity.npcs.NpcEntityBuilder;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -114,35 +113,22 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         }
     }
 
-    public void updateEntity(NpcGearData data, Race race, World world) {
+    public void updateEntity(Identifier npcDataIdentifier, Race race, World world) {
         if(world != null)
             haveBeenInitialized = true;
 
-        updateEntityRace(race, world);
-        updateEquipment(data);
-    }
-    public void setEntity(NpcEntity npcEntity) {
+        NpcEntity npcEntity = new NpcEntityBuilder(world, null)
+                .withNpcData(npcDataIdentifier)
+                .forceBuild();
+
+        npcEntity.setAiDisabled(true);
+
+        npcEntity.setBodyYaw(currentAngle);
+        npcEntity.setPitch(0f);
+        npcEntity.headYaw = npcEntity.getBodyYaw();
+        npcEntity.lastHeadYaw =npcEntity.getBodyYaw();
+
         this.entity = npcEntity;
-    }
-
-
-    private void updateEquipment(NpcGearData data){
-        if(data == null) {
-            this.entity = null;
-            return;
-        }
-        if(this.entity == null) return;
-
-        this.entity.setBodyYaw(currentAngle);
-        this.entity.setPitch(0f);
-        this.entity.headYaw = this.entity.getBodyYaw();
-        this.entity.lastHeadYaw = this.entity.getBodyYaw();
-
-        NpcUtil.equipAll(entity, data);
-    }
-
-    private void updateEntityRace(Race race, World world) {
-        this.entity = race.getModel(world);
     }
 
     public void drawCenteredAnchoredBottom(DrawContext context, int centerX, int endY) {
@@ -165,10 +151,9 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
         EntityRenderer<? super LivingEntity, ?> entityRenderer = entityRenderDispatcher.getRenderer(entity);
         EntityRenderState entityRenderState = entityRenderer.getAndUpdateRenderState(entity, 1.0F);
-        entityRenderState.hitbox = null;
 
-        int entityY = y + 50;
-        context.addEntity(entityRenderState, 35f, VECTOR, ENTITY_ROTATION, new Quaternionf(), x - 20, entityY - 120, x + 20, entityY);
+        int entityY = y + 85;
+        context.addEntity(entityRenderState, 35f, VECTOR, ENTITY_ROTATION, new Quaternionf(), x - 60, entityY - 200, x + 60, entityY);
 
         int horizontalMargin = MINIMAL_MARGIN + 1;
 

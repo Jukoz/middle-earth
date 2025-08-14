@@ -23,9 +23,7 @@ public class SearchBarWidget extends ModWidget {
     private static final Identifier SEARCH_WIDGET = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/widget/search_widget.png");
     private static final List<Integer> KEYS_TO_IGNORE = List.of(260, 262, 264, 263, 265, 266, 267, 268, 269);
     private static final int MINIMAL_MARGIN = 4;
-    static final int SEARCH_BAR_PANEL_X = 102;
-    static final int SEARCH_BAR_PANEL_Y = 18;
-    public static final int TOTAL_WIDTH = SEARCH_BAR_PANEL_X;
+    public int desiredWidth;
     public ButtonWidget searchBarToggleButton;
     private boolean searchResultToggle;
     private boolean searchBarToggle;
@@ -44,11 +42,11 @@ public class SearchBarWidget extends ModWidget {
 
     int endY = 0;
 
-    public SearchBarWidget(int maxAmountOnScreen, List<SearchBarResult> allPossibleResults, ButtonWidget.PressAction additionalScreenClickAction) {
-        this.maximumShownLength = SEARCH_BAR_PANEL_X - 14 - MARGIN;
+    public SearchBarWidget(int maxAmountOnScreen, List<SearchBarResult> allPossibleResults, ButtonWidget.PressAction additionalScreenClickAction, int desiredWidth) {
+        this.maximumShownLength = desiredWidth - 14 - MARGIN;
         searchBarToggle = false;
         searchResultToggle = false;
-
+        this.desiredWidth = desiredWidth;
         this.allPossibleResults = allPossibleResults;
         this.allCurrentResults = new ArrayList<>();
 
@@ -57,6 +55,7 @@ public class SearchBarWidget extends ModWidget {
                 searchBarToggle = true;
         };
         searchBarToggleButton = ButtonWidget.builder(Text.translatable("ui.%s.search.toggle_button".formatted(MiddleEarth.MOD_ID)), searchBarInputToggle).build();
+        searchBarToggleButton.setDimensions(desiredWidth, searchBarToggleButton.getHeight());
 
         // Screen click
         screenClick = ButtonWidget.builder(Text.translatable("ui.%s.search.screen_click_button".formatted(MiddleEarth.MOD_ID)), button -> clickOnScreen(button, additionalScreenClickAction)).build();
@@ -91,14 +90,14 @@ public class SearchBarWidget extends ModWidget {
     }
 
     public int drawSearchBarCentered(DrawContext context, int centerX, int startY, TextRenderer textRenderer) {
-        int startX = centerX - (TOTAL_WIDTH / 2);
+        int startX = centerX - (desiredWidth / 2);
         return drawSearchBar(context, startX, startY, textRenderer);
     }
 
     public int drawSearchBarAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor, TextRenderer textRenderer) {
         int startX = anchorX;
         if (!isLeftAnchor)
-            startX -= TOTAL_WIDTH;
+            startX -= desiredWidth;
         return drawSearchBar(context, startX, startY, textRenderer);
     }
 
@@ -114,15 +113,10 @@ public class SearchBarWidget extends ModWidget {
                 startX, startY, 0, searchBarToggleButton.isFocused() || isMouseOver(panelSizeX, panelSizeY, startX, startY) ? 19 : 0,
                 panelSizeX, panelSizeY, 256, 256);
 
-        searchBarToggleButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
-        if (getFocusEnabled() && searchBarToggleButton.isFocused()) {
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
-                    startX, startY, 0, 147,
-                    panelSizeX, panelSizeY, 256, 256);
-        }
+        searchBarToggleButton.setDimensionsAndPosition(desiredWidth, panelSizeY, startX, startY);
+        drawSearchBarBackground(context, SEARCH_WIDGET, startX, startY);
 
         MutableText text = Text.translatable((!searchBarToggle && searchBarInput.isEmpty()) ? "ui.%s.search.label".formatted(MiddleEarth.MOD_ID) : searchBarInput);
-        text.asTruncatedString(16);
         context.drawText(textRenderer, text,
                 startX + magnifyingGlassSizeX + MINIMAL_MARGIN - 1,
                 startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
@@ -138,14 +132,14 @@ public class SearchBarWidget extends ModWidget {
     }
 
     public int drawSearchResultsCentered(DrawContext context, int centerX, int startY) {
-        int startX = centerX - (TOTAL_WIDTH / 2);
+        int startX = centerX - (desiredWidth / 2);
         return drawSearchResults(context, startX, startY);
     }
 
     public int drawSearchResultsAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor) {
         int startX = anchorX;
         if (!isLeftAnchor)
-            startX -= TOTAL_WIDTH;
+            startX -= desiredWidth;
         return drawSearchResults(context, startX, startY);
     }
 
@@ -175,33 +169,17 @@ public class SearchBarWidget extends ModWidget {
             }
 
             // Top
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
-                    startX, startY, 0, 38,
-                    panelSizeX, panelBorderSizeY, 256, 256);
+            startY = drawTop(context, SEARCH_WIDGET, startX, startY);
 
             // Center
-            startY += panelBorderSizeY;
             currentAmount = Math.min(Math.min((endY - startY - panelBorderSizeY) / panelSizeY, allCurrentResults.size()), resultButtons.size());
 
-            for (int i = 0; i < currentAmount; i++) {
-                context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
-                        startX, startY + panelSizeY * i, 0, 43,
-                        panelSizeX, panelSizeY, 256, 256);
-            }
+            int backgroundStartY = startY;
+            backgroundStartY = drawCenter(context, SEARCH_WIDGET, startX, backgroundStartY, currentAmount);
+            backgroundStartY = drawFooter(context, SEARCH_WIDGET, startX, backgroundStartY);
+            drawBottom(context, SEARCH_WIDGET, startX, backgroundStartY);
 
-            // Footer
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
-                    startX, startY + (currentAmount * panelSizeY), 0, 58,
-                    panelSizeX, footerPanelSizeY, 256, 256);
-
-            // End
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
-                    startX, startY + (currentAmount * panelSizeY) + footerPanelSizeY, 0, 70,
-                    panelSizeX, panelBorderSizeY, 256, 256);
-
-            // Scroll Bar Button
-            startY -= panelBorderSizeY;
-
+            startY -= 4;
 
             currentSearchResultHeight = 0;
             int searchScrollbarButtonOffset = 0;
@@ -212,11 +190,11 @@ public class SearchBarWidget extends ModWidget {
                     searchScrollbarButtonOffset = currentSearchResultHeight;
             }
 
-            searchScrollbarButtonOffset = Math.min(currentSearchResultHeight, searchScrollbarButtonOffset);
+            searchScrollbarButtonOffset = Math.min(currentSearchResultHeight, searchScrollbarButtonOffset - 1);
             searchScrollbarButtonOffset = Math.max(0, searchScrollbarButtonOffset);
 
             context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
-                    startX + panelSizeX - 5, searchScrollbarButtonOffset + (startY + 1), 103, 39,
+                    startX + desiredWidth - 5, searchScrollbarButtonOffset + (startY + 1), 31, 39,
                     4, 9, 256, 256);
 
             int valuePanelSizeX = SearchBarResultType.WIDTH;
@@ -228,64 +206,106 @@ public class SearchBarWidget extends ModWidget {
                 SearchBarResult searchBarResult = allCurrentResults.get(i + currentOffsetIndex);
 
                 int valuePanelStartY = startY + panelBorderSizeY + ((i) * panelSizeY);
-                boolean mouseIsOver = isMouseOver(valuePanelSizeX, valuePanelSizeY, startX, valuePanelStartY);
+                boolean mouseIsOver = isMouseOver(desiredWidth - 10, valuePanelSizeY, startX, valuePanelStartY);
                 int uvX = mouseIsOver ? searchBarResult.getType().getActiveUvX() : searchBarResult.getType().getUvX();
                 int uvY = mouseIsOver ? searchBarResult.getType().getActiveUvY() : searchBarResult.getType().getUvY();
 
-                context.drawTexture(RenderPipelines.GUI_TEXTURED, SEARCH_WIDGET,
-                        valuePanelStartX, valuePanelStartY, 0, uvY,
-                        valuePanelSizeX, valuePanelSizeY, 256, 256);
+                resultButtons.get(i).setPosition(valuePanelStartX, valuePanelStartY + 1);
+                resultButtons.get(i).setDimensions(desiredWidth - 10, valuePanelSizeY - 2);
 
-                resultButtons.get(i).setPosition(valuePanelStartX, valuePanelStartY);
-                resultButtons.get(i).setDimensions(valuePanelSizeX, valuePanelSizeY);
+                valuePanelStartY = drawResultButtonBackground(context, SEARCH_WIDGET, valuePanelStartX, valuePanelStartY, uvX, uvY, desiredWidth - 10);
+
                 if (!resultButtons.get(i).active)
                     resultButtons.get(i).active = true;
 
-
-
                 context.drawText(client.textRenderer, searchBarResult.getText(),
-                        valuePanelStartX + 3, valuePanelStartY + 3,
+                        valuePanelStartX + 3, valuePanelStartY + - 11,
                         Colors.DARK_GRAY, false);
             }
 
+            // Disable all other buttons
             for (int i = currentAmount; i < resultButtons.size(); i++) {
                 if (resultButtons.get(i).active)
                     resultButtons.get(i).active = false;
-
             }
-
-            // WIP - Will be continued to be worked on
-/*
-            for(int i = 0; i < temporaryValues.size(); i++){
-                MutableText text = Text.translatable(temporaryValues.get(i));
-                text.asTruncatedString(15);
-
-                context.drawTexture(FACTION_SELECTION_SEARCH_UI,
-                        startX, newStartY,
-                        0, isMouseOver(startX, 95, newStartY, 14) ? 69 : 55,
-                        95, 14
-                );
-
-                context.drawText(textRenderer, text,
-                        startX + MINIMAL_MARGIN,
-                        newStartY + 3,
-                        0, false);
-                newStartY += 14;
-                /*
-                                newStartY += textRenderer.fontHeight + sideMargins;
-                if(i != temporaryValues.size() - 1){
-                    context.drawTexture(FACTION_SELECTION_SEARCH_UI,
-                            startX, newStartY,
-                            0, 52,
-                            102, 3
-                    );
-                    newStartY += sideMargins;
-                }
-                 */
         }
         return 1;
     }
+    private int drawSearchBarBackground(DrawContext context, Identifier searchWidget, int startX, int startY) {
+        int uvY = (getFocusEnabled() && searchBarToggleButton.isFocused()) ? 19 : 0;
 
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX, startY, 0, uvY,10, 18, 256, 256);
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX + 10, startY, 11, uvY,desiredWidth - 10 - 13, 18, 5, 18, 256, 256);
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX + desiredWidth - 13, startY, 17, uvY,13, 18, 256, 256);
+        return startY + 4;
+    }
+
+    private int drawTop(DrawContext context, Identifier searchWidget, int startX, int startY) {
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX, startY, 0, 38,10, 4, 256, 256);
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX + 10, startY, 11, 38,desiredWidth - 10 - 13, 4, 5, 4, 256, 256);
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX + desiredWidth - 13, startY, 17, 38,13, 4, 256, 256);
+        return startY + 4;
+    }
+
+    private int drawFooter(DrawContext context, Identifier searchWidget, int startX, int startY) {
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX, startY, 0, 58,10, 10, 256, 256);
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX + 10, startY, 11, 58,desiredWidth - 10 - 13, 10, 5, 10, 256, 256);
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX + desiredWidth - 13, startY, 17, 58,13, 10, 256, 256);
+        return startY + 10;
+    }
+
+    private int drawBottom(DrawContext context, Identifier searchWidget, int startX, int startY) {
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX, startY, 0, 69,10, 4, 256, 256);
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX + 10, startY, 11, 69,desiredWidth - 10 - 13, 4, 5, 4, 256, 256);
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX + desiredWidth - 13, startY, 17, 69,13, 4, 256, 256);
+        return startY + 4;
+    }
+
+    private int drawCenter(DrawContext context, Identifier searchWidget, int startX, int startY, int currentAmount) {
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX, startY, 0, 43,10, 14 * currentAmount, 10, 14, 256, 256);
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX + 10, startY, 11, 43,desiredWidth - 10 - 13, 14 * currentAmount, 5, 14, 256, 256);
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX + desiredWidth - 13, startY, 17, 43,13, 14 * currentAmount, 13, 14,256, 256);
+        return startY + (14 * currentAmount);
+    }
+
+    private int drawResultButtonBackground(DrawContext context, Identifier searchWidget, int startX, int startY, int uvX, int uvY, int size) {
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX, startY, uvX, uvY,9, 14, 256, 256);
+        startX += 9;
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX, startY, uvX+10, uvY, size - 18, 14, 5, 14, 256, 256);
+        startX += size - 18;
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, searchWidget,
+                startX, startY, uvX+16, uvY,9, 14, 256, 256);
+        return startY + 14;
+    }
 
     public ButtonWidget getSearchBarToggleButton() {
         return searchBarToggleButton;
@@ -400,7 +420,7 @@ public class SearchBarWidget extends ModWidget {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        if(searchBarToggle && isMouseOver(TOTAL_WIDTH, currentSearchResultHeight, (int) searchResultPanelStarts.x, (int) searchResultPanelStarts.y))
+        if(searchBarToggle && isMouseOver(desiredWidth, currentSearchResultHeight, (int) searchResultPanelStarts.x, (int) searchResultPanelStarts.y))
             currentOffsetIndex = Math.max(0, Math.min(allPossibleResults.size() - currentAmount, currentOffsetIndex - (int) Math.round(verticalAmount)));
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }

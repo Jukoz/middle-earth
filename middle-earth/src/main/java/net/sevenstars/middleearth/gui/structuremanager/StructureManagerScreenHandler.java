@@ -10,6 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerRespawnEntities;
+import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerShowAllEntities;
 import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerUpdateBlockEntityRequest;
 
 public class StructureManagerScreenHandler extends ScreenHandler {
@@ -37,33 +39,48 @@ public class StructureManagerScreenHandler extends ScreenHandler {
     }
 
     public void selectIdentifier(PlayerEntity player, Identifier identifier) {
-        this.data.setSelectedId(identifier);
-        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(data.getPos(), data.getSelectedId(), data.getIsActive()));
-    }
-
-    public void updateClientData(Identifier structureManagerDataId, boolean isActive) {
-        this.data.setSelectedId(structureManagerDataId);
-        this.data.setActive(isActive);
+        this.data.setStructureManagerIdentifier(identifier);
+        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(
+                data.getPos(),
+                data.getStructureManagerIdentifier(),
+                data.getToInitialize(),
+                data.getIsActive()));
     }
 
     public BlockPos getPos() {
         return this.data.getPos();
     }
 
-    public Identifier getSelectedKey() {
-        return this.data.getSelectedId();
-    }
-    public Identifier getRuntimeKey() {
-        return this.data.getRuntimeId();
+    public Identifier getDataIdentifier() {
+        return this.data.getStructureManagerIdentifier();
     }
 
-    public boolean getIsActive() {
+    public boolean getToInitialize() {
+        return this.data.getToInitialize();
+    }
+    public boolean getIsEnabled() {
         return this.data.getIsActive();
     }
 
-    public void toggleActive() {
+    public void toggleToInitialize() {
+        this.data.setToInitialize(!this.data.getToInitialize());
+        updateServer();
+    }
+
+    private void updateServer() {
+        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(this.data.getPos(), this.data.getStructureManagerIdentifier(), this.data.getToInitialize(), this.data.getIsActive()));
+    }
+
+    public void toggleToActivate() {
         this.data.setActive(!this.data.getIsActive());
-        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(data.getPos(), data.getSelectedId(), data.getIsActive()));
+        updateServer();
+    }
+    public void triggerGlowOnAllEntities() {
+        ClientPlayNetworking.send(new PacketStructureManagerShowAllEntities(this.data.getPos()));
+    }
+
+    public void triggerRespawnAllEntities() {
+        ClientPlayNetworking.send(new PacketStructureManagerRespawnEntities(this.data.getPos()));
     }
 }
 

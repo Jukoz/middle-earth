@@ -22,7 +22,7 @@ public class NpcDataLookup {
         List<NpcData> unsortedList = getAllNpcDatas(world, ids);
         List<NpcData> list = new ArrayList<>();
         for(NpcData npcData : unsortedList){
-            if(npcData.getRaceId().equals(race))
+            if(npcData.getRace().equals(race))
                 list.add(npcData);
         }
         return list;

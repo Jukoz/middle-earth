@@ -12,7 +12,9 @@ public enum RaceType {
     DWARF,
     ELF,
     ORC,
-    URUK;
+    URUK,
+    BEAST,
+    OTHER;
 
     @Override
     public String toString() {
