@@ -144,7 +144,9 @@ public class BlockDrops {
             add(ModNatureBlocks.WHITE_FLOWERS);
             add(ModNatureBlocks.YELLOW_FLOWERS);
 
+            add(ModNatureBlocks.BLUE_LAVENDER);
             add(ModNatureBlocks.LAVENDER);
+            add(ModNatureBlocks.WHITE_LAVENDER);
             add(ModNatureBlocks.YELLOW_TROLLIUS);
 
             add(ModNatureBlocks.SMALL_LILY_PADS);
@@ -153,18 +155,6 @@ public class BlockDrops {
             add(ModNatureBlocks.DUCKWEED);
 
             add(ModNatureBlocks.FLOATING_ICE);
-
-            /*add(ModDecorativeBlocks.OAK_LADDER);
-            add(ModDecorativeBlocks.SPRUCE_LADDER);
-            add(ModDecorativeBlocks.BIRCH_LADDER);
-            add(ModDecorativeBlocks.JUNGLE_LADDER);
-            add(ModDecorativeBlocks.ACACIA_LADDER);
-            add(ModDecorativeBlocks.DARK_OAK_LADDER);
-            add(ModDecorativeBlocks.MANGROVE_LADDER);
-            add(ModDecorativeBlocks.CHERRY_LADDER);
-            add(ModDecorativeBlocks.BAMBOO_LADDER);
-            add(ModDecorativeBlocks.CRIMSON_LADDER);
-            add(ModDecorativeBlocks.WARPED_LADDER);*/
 
             add(ModDecorativeBlocks.ROPE_LADDER);
 

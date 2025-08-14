@@ -223,7 +223,11 @@ public class ModNatureBlocks {
     public static final Block YELLOW_FLOWERS = registerBlock("yellow_flowers",
             (settings) -> new FlowerBlock(StatusEffects.SATURATION, 0, settings), AbstractBlock.Settings.copy(Blocks.DANDELION), true);
 
+    public static final Block BLUE_LAVENDER = registerBlock("blue_lavender",
+            (settings) -> new FlowerBlock(StatusEffects.SATURATION, 0, settings), AbstractBlock.Settings.copy(Blocks.DANDELION), true);
     public static final Block LAVENDER = registerBlock("lavender",
+            (settings) -> new FlowerBlock(StatusEffects.SATURATION, 0, settings), AbstractBlock.Settings.copy(Blocks.DANDELION), true);
+    public static final Block WHITE_LAVENDER = registerBlock("white_lavender",
             (settings) -> new FlowerBlock(StatusEffects.SATURATION, 0, settings), AbstractBlock.Settings.copy(Blocks.DANDELION), true);
     public static final Block YELLOW_TROLLIUS = registerBlock("yellow_trollius",
             (settings) -> new FlowerBlock(StatusEffects.SATURATION, 0, settings), AbstractBlock.Settings.copy(Blocks.DANDELION), true);

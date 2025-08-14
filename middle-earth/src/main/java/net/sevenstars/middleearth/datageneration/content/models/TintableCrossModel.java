@@ -46,7 +46,9 @@ public class TintableCrossModel {
             add(ModNatureBlocks.WHITE_FLOWERS);
             add(ModNatureBlocks.YELLOW_FLOWERS);
 
+            add(ModNatureBlocks.BLUE_LAVENDER);
             add(ModNatureBlocks.LAVENDER);
+            add(ModNatureBlocks.WHITE_LAVENDER);
             add(ModNatureBlocks.YELLOW_TROLLIUS);
         }
     };

@@ -457,7 +457,9 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.WHITE_FLOWERS, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_FLOWERS, 0.65f);
 
+        registry.add(ModNatureBlocks.BLUE_LAVENDER, 0.65f);
         registry.add(ModNatureBlocks.LAVENDER, 0.65f);
+        registry.add(ModNatureBlocks.WHITE_LAVENDER, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_TROLLIUS, 0.65f);
 
         registry.add(ModNatureBlocks.ATHELAS, 0.30f);
