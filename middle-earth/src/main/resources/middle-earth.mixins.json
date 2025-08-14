@@ -9,6 +9,7 @@
     "BlockMixin",
     "ChunkGenerationStepMixin",
     "ChunkGeneratorMixin",
+    "CropBlockMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
     "FishingBobberEntityMixin",

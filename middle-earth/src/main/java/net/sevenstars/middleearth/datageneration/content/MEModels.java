@@ -49,6 +49,8 @@ public class MEModels {
     public static final Model LARGE_PLANT;
     public static final Model TINTED_LARGE_PLANT;
 
+    public static final Model PATH_BLOCK;
+
     private static Model block(String parent, TextureKey... requiredTextureKeys) {
         return new Model(Optional.of(Identifier.of(MiddleEarth.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
     }
@@ -98,5 +100,7 @@ public class MEModels {
 
         LARGE_PLANT = block("large_plant_template", TextureKey.ALL, TextureKey.PARTICLE);
         TINTED_LARGE_PLANT = block("large_tinted_plant_template", TextureKey.ALL, TextureKey.PARTICLE);
+
+        PATH_BLOCK = block("path_template", TextureKey.PARTICLE, TextureKey.TOP, TextureKey.SIDE, TextureKey.BOTTOM);
     }
 }

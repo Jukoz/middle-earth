@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special;
+package net.sevenstars.middleearth.block.special.dirts;
 
 import net.minecraft.block.*;
 import net.minecraft.registry.tag.FluidTags;

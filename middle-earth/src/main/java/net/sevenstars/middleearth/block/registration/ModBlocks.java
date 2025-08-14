@@ -5,6 +5,9 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;
+import net.sevenstars.middleearth.block.special.dirts.CustomFarmlandBlock;
+import net.sevenstars.middleearth.block.special.dirts.CustomGrassBlock;
+import net.sevenstars.middleearth.block.special.dirts.CustomPathBlock;
 import net.sevenstars.middleearth.block.special.gemstones.CustomBuddingGemBlock;
 import net.sevenstars.middleearth.block.special.pointedBlocks.PointedDolomiteBlock;
 import net.sevenstars.middleearth.block.special.pointedBlocks.PointedGalonnBlock;
@@ -107,6 +110,11 @@ public class ModBlocks {
     public static final Block GRASSY_LOAM_STAIRS = registerMiscBlock("grassy_loam_stairs",
             (settings) -> new StairsBlock(GRASSY_LOAM.getDefaultState(), settings), AbstractBlock.Settings.copy(GRASSY_LOAM),true);
 
+    public static final Block LOAM_PATH = registerMiscBlock("loam_path",
+            (settings) -> new CustomPathBlock(settings, LOAM), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),true);
+    public static final Block LOAM_FARMLAND = registerMiscBlock("loam_farmland",
+            (settings) -> new CustomFarmlandBlock(settings, LOAM), AbstractBlock.Settings.copy(Blocks.FARMLAND),true);
+
     public static final Block PEAT = registerMiscBlock("peat",
             Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
     public static final Block PEAT_SLAB = registerMiscBlock("peat_slab",
@@ -124,6 +132,11 @@ public class ModBlocks {
     public static final Block GRASSY_PEAT_STAIRS = registerMiscBlock("grassy_peat_stairs",
             (settings) -> new StairsBlock(GRASSY_PEAT.getDefaultState(), settings), AbstractBlock.Settings.copy(GRASSY_PEAT),true);
 
+    public static final Block PEAT_PATH = registerMiscBlock("peat_path",
+            (settings) -> new CustomPathBlock(settings, PEAT), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),true);
+    public static final Block PEAT_FARMLAND = registerMiscBlock("peat_farmland",
+            (settings) -> new CustomFarmlandBlock(settings, PEAT), AbstractBlock.Settings.copy(Blocks.FARMLAND),true);
+
     public static final Block SILT = registerMiscBlock("silt",
             Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
     public static final Block SILT_SLAB = registerMiscBlock("silt_slab",
@@ -140,6 +153,11 @@ public class ModBlocks {
             SlabBlock::new,AbstractBlock.Settings.copy(GRASSY_SILT),true);
     public static final Block GRASSY_SILT_STAIRS = registerMiscBlock("grassy_silt_stairs",
             (settings) -> new StairsBlock(GRASSY_SILT.getDefaultState(), settings), AbstractBlock.Settings.copy(GRASSY_SILT),true);
+
+    public static final Block SILT_PATH = registerMiscBlock("silt_path",
+            (settings) -> new CustomPathBlock(settings, SILT), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),true);
+    public static final Block SILT_FARMLAND = registerMiscBlock("silt_farmland",
+            (settings) -> new CustomFarmlandBlock(settings, SILT), AbstractBlock.Settings.copy(Blocks.FARMLAND),true);
 
     public static final Block MIRE = registerMiscBlock("mire",
             MudBlock::new, AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.MUD),true);
