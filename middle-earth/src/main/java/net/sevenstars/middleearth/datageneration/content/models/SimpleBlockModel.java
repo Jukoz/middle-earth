@@ -18,6 +18,7 @@ public class SimpleBlockModel {
         {
             add(ModBlocks.COBBLY_DIRT);
 
+
             add(ModBlocks.SNOWY_DIRT);
 
             add(ModBlocks.MIRE);
@@ -25,6 +26,14 @@ public class SimpleBlockModel {
             add(ModBlocks.DIRTY_ROOTS);
 
             add(ModBlocks.DRY_DIRT);
+
+            add(ModBlocks.LOAM);
+
+            add(ModBlocks.PEAT);
+
+            add(ModBlocks.SILT);
+
+            add(ModBlocks.FOUL_DIRT);
 
             add(ModBlocks.ASHEN_DIRT);
 
@@ -39,10 +48,6 @@ public class SimpleBlockModel {
             add(ModBlocks.LEAD_BLOCK);
             add(ModBlocks.RAW_SILVER_BLOCK);
             add(ModBlocks.SILVER_BLOCK);
-            add(ModBlocks.CUT_LEAD);
-            add(ModBlocks.CUT_SILVER);
-            add(ModBlocks.CUT_BRONZE);
-            add(ModBlocks.CUT_CRUDE_PLATES);
 
             add(ModBlocks.BRONZE_BLOCK);
             add(ModBlocks.CRUDE_BLOCK);

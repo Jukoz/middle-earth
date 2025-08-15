@@ -23,7 +23,6 @@ public class ModLeavesBlock extends TintedParticleLeavesBlock {
     final protected boolean castShadow;
     private final ParticleEffect particleType;
 
-
     public ModLeavesBlock(float f, Settings settings, boolean castShadow, ParticleEffect particleType) {
         super(f, settings);
         this.castShadow = castShadow;
@@ -73,7 +72,6 @@ public class ModLeavesBlock extends TintedParticleLeavesBlock {
         if(castShadow) return super.getOpacity(state);
         return 0;
     }
-
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {

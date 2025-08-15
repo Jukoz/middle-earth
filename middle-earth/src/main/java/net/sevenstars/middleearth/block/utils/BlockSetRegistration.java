@@ -43,6 +43,7 @@ public class BlockSetRegistration {
 
         name = name.replaceAll("_bricks", "_brick");
         name = name.replaceAll("_tiles", "_tile");
+        name = name.replaceAll("_block", "");
 
         Block slab = getVanillaOrCreateNew(name + "_slab", SlabBlock::new,
                 baseSettings, group);

@@ -19,7 +19,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
@@ -87,7 +87,7 @@ public class ModItemGroups {
     public static final List<ItemStack> MISC_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup MISC_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".misc_blocks"))
-            .icon(() -> new ItemStack(ModBlocks.STRAW_BLOCK.asItem()))
+            .icon(() -> new ItemStack(GenericBlockSets.STRAW.blockSet.base().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : MISC_BLOCKS_CONTENTS) {
                     entries.add(item);
