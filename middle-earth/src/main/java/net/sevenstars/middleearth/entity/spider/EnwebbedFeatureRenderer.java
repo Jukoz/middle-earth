@@ -6,27 +6,16 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
-import net.minecraft.client.render.entity.feature.EnergySwirlOverlayFeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.*;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
-import net.minecraft.client.render.entity.state.CreeperEntityRenderState;
-import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
-import net.minecraft.client.util.SkinTextures;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.EquippableComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.equipment.EquipmentAsset;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.renderer.ArmedEntityRenderStateAccess;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class EnwebbedFeatureRenderer <S extends BipedEntityRenderState, M extends EntityModel<S>> extends FeatureRenderer<S, M> {

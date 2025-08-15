@@ -1,11 +1,8 @@
 package net.sevenstars.middleearth.entity.spider;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
-import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaAnimations;
-import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 
 public class EnwebbedModel extends EntityModel<BipedEntityRenderState> {
     private final ModelPart bigBody;

@@ -7,7 +7,6 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 

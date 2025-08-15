@@ -9,7 +9,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.util.math.Vec3d;
-import net.sevenstars.middleearth.entity.spider.Pouncer;
 
 import java.util.EnumSet;
 

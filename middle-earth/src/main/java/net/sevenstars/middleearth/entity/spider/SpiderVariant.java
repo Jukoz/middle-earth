@@ -3,8 +3,6 @@ package net.sevenstars.middleearth.entity.spider;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.VariantSelectorProvider;
-import net.minecraft.entity.data.TrackedDataHandler;
-import net.minecraft.entity.passive.WolfVariant;
 import net.minecraft.entity.spawn.SpawnCondition;
 import net.minecraft.entity.spawn.SpawnConditionSelectors;
 import net.minecraft.entity.spawn.SpawnContext;

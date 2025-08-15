@@ -4,7 +4,6 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
-import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 
 public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
     private final ModelPart root;

@@ -6,9 +6,7 @@ import net.minecraft.entity.ai.goal.PounceAtTargetGoal;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.util.math.Vec3d;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
-import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 
 import java.util.EnumSet;
 

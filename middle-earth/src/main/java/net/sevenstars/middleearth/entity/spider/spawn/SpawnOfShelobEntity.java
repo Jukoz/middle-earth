@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.entity.spider.spawn;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -12,7 +11,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
@@ -31,8 +29,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.sevenstars.middleearth.entity.goals.ShieldAgainstProjctileGoal;
+import net.sevenstars.middleearth.entity.goals.ShieldAgainstProjectileGoal;
 import net.sevenstars.middleearth.entity.goals.interfaces.CooldownRangedAttackMob;
 import net.sevenstars.middleearth.entity.goals.PounceRetreatGoal;
 import net.sevenstars.middleearth.entity.goals.SmartProjectileAttackGoal;
@@ -80,7 +77,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new PounceRetreatGoal(this, 0.8f, 1.15f, 0.3f));
-        this.goalSelector.add(3, new ShieldAgainstProjctileGoal(this, this, 13, 32));
+        this.goalSelector.add(3, new ShieldAgainstProjectileGoal(this, this, 13, 32));
         this.goalSelector.add(4, new SmartProjectileAttackGoal(this, 0.7f, 40, 90, 17, 40));
         this.goalSelector.add(5, new SpiderPonceAtTargetGoal(this, this,
                 0.5F, 0.25f, 4, 17, 4));
