@@ -405,7 +405,7 @@ public class Faction {
             List<NpcData> datas = NpcDataLookup.getAllNpcDatas(world, this.npcDatasByRank.get(rank));
             for(NpcData data : datas){
                 if(data != null)
-                    allRaceIds.add(data.getRaceId());
+                    allRaceIds.add(data.getRace());
             }
         }
         races = RaceLookup.getAllRaces(world, allRaceIds);
@@ -459,5 +459,16 @@ public class Faction {
         if(bannerData == null)
             return null;
         return bannerData.getBannerPatternComponents(bannerPatternLookup);
+    }
+
+    public Identifier getRandomNpcDataIdentifier() {
+        List<Identifier> allNpcIds = new ArrayList<>();
+        for (List<Identifier> npcIds : this.npcDatasByRank.values())
+            allNpcIds.addAll(npcIds);
+        if(allNpcIds.size() == 0)
+            return null;
+
+        Random random = new Random();
+        return allNpcIds.get(random.nextInt(allNpcIds.size()));
     }
 }

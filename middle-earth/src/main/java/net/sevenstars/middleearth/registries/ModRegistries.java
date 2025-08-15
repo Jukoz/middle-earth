@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.registries;
 
 import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
 import net.fabricmc.fabric.api.registry.*;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -12,26 +11,20 @@ import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.block.registration.*;
-import net.sevenstars.middleearth.block.utils.WoodBlockTypes;
-import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
-import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.recipe.ModTags;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -198,8 +191,17 @@ public class ModRegistries {
 
     public static void registerTillableBlocks() {
         TillableBlockRegistry.register(ModBlocks.DRY_DIRT, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.LOAM, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.LOAM_FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.PEAT, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.PEAT_FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.SILT, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.SILT_FARMLAND.getDefaultState()));
         TillableBlockRegistry.register(ModBlocks.DIRTY_ROOTS, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
         TillableBlockRegistry.register(ModBlocks.GRASSY_DIRT, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.LOAM_GRASS_BLOCK, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.PEAT_GRASS_BLOCK, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.SILT_GRASS_BLOCK, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.GRASSY_LOAM, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.GRASSY_PEAT, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.GRASSY_SILT, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
         TillableBlockRegistry.register(ModBlocks.TURF, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
     }
 
@@ -428,9 +430,6 @@ public class ModRegistries {
     public static void registerComposterBlocks() {
         CompostingChanceRegistry registry = CompostingChanceRegistry.INSTANCE;
 
-        //registry.add(MushroomBlockSets.GRAY_MUSHROOM.stem(), 0.50f);
-        //registry.add(MushroomBlockSets.DARK_MUSHROOM.stem(), 0.50f);
-
         registry.add(ModNatureBlocks.TAN_SHRUB, 0.50f);
         registry.add(ModNatureBlocks.GREEN_SHRUB, 0.50f);
         registry.add(ModNatureBlocks.SMALL_DRY_SHRUB, 0.30f);
@@ -444,10 +443,13 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.FOREST_MOSS_CARPET, 0.30f);
         registry.add(ModNatureBlocks.FOREST_MOSS_BLOCK, 0.65f);
 
-        registry.add(ModNatureBlocks.MALLOS, 0.65f);
         registry.add(ModNatureBlocks.ELANOR, 0.65f);
+        registry.add(ModNatureBlocks.MALLOS, 0.65f);
+        registry.add(ModNatureBlocks.NIPHREDIL, 0.65f);
+        registry.add(ModNatureBlocks.SIMBELMYNE, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_FLOWER, 0.65f);
         registry.add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER, 0.65f);
+        registry.add(ModNatureBlocks.NOBLEWHITE, 0.65f);
 
         registry.add(ModNatureBlocks.LIGHT_BLUE_FLOWERS, 0.65f);
         registry.add(ModNatureBlocks.MAGENTA_FLOWERS, 0.65f);
@@ -458,7 +460,9 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.WHITE_FLOWERS, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_FLOWERS, 0.65f);
 
+        registry.add(ModNatureBlocks.BLUE_LAVENDER, 0.65f);
         registry.add(ModNatureBlocks.LAVENDER, 0.65f);
+        registry.add(ModNatureBlocks.WHITE_LAVENDER, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_TROLLIUS, 0.65f);
 
         registry.add(ModNatureBlocks.ATHELAS, 0.30f);
@@ -467,8 +471,9 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.DYING_GRASS, 0.30f);
         registry.add(ModNatureBlocks.FROZEN_GRASS, 0.10f);
         registry.add(ModNatureBlocks.GRIM_GRASS, 0.30f);
+        registry.add(ModNatureBlocks.MEADOWGRASS, 0.30f);
         registry.add(ModNatureBlocks.TEMPERATE_GRASS, 0.30f);
-        registry.add(ModNatureBlocks.DRY_GRASS, 0.30f);
+        registry.add(ModNatureBlocks.BLUE_FESCUE, 0.30f);
         registry.add(ModNatureBlocks.GRASS_TUFT, 0.30f);
         registry.add(ModNatureBlocks.FROZEN_TUFT, 0.10f);
         registry.add(ModNatureBlocks.WHEATGRASS, 0.30f);
@@ -477,10 +482,25 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.BEACH_GRASS, 0.30f);
         registry.add(ModNatureBlocks.COASTAL_PANIC_GRASS, 0.30f);
         registry.add(ModNatureBlocks.SEDUM, 0.30f);
+        registry.add(ModNatureBlocks.ORANGE_SEDUM, 0.30f);
+        registry.add(ModNatureBlocks.RED_SEDUM, 0.30f);
         registry.add(ModNatureBlocks.YELLOW_SEDUM, 0.30f);
         registry.add(ModNatureBlocks.BRACKEN, 0.30f);
+        registry.add(ModNatureBlocks.CAMPION, 0.30f);
+        registry.add(ModNatureBlocks.DEAD_HEATHER_BUSH, 0.30f);
+        registry.add(ModNatureBlocks.DRY_HEATHER_BUSH, 0.30f);
         registry.add(ModNatureBlocks.DEAD_RUSHES, 0.30f);
         registry.add(ModNatureBlocks.FALSE_OATGRASS, 0.30f);
+        registry.add(ModNatureBlocks.HEATHER_BUSH, 0.30f);
+        registry.add(ModNatureBlocks.LARGE_BLUE_FESCUE, 0.30f);
+        registry.add(ModNatureBlocks.LARGE_BUSH, 0.30f);
+        registry.add(ModNatureBlocks.RED_HEATHER_BUSH, 0.30f);
+        registry.add(ModNatureBlocks.RUSHES, 0.30f);
+        registry.add(ModNatureBlocks.BRAMBLES_OF_MORDOR, 0.10f);
+        registry.add(ModNatureBlocks.CLOVERS, 0.30f);
+        registry.add(ModNatureBlocks.SHORT_DEAD_RUSHES, 0.30f);
+        registry.add(ModNatureBlocks.SHORT_RUSHES, 0.30f);
+        registry.add(ModNatureBlocks.SHORT_REEDS, 0.30f);
         registry.add(ModNatureBlocks.SHORT_CATTAILS, 0.30f);
         registry.add(ModNatureBlocks.SHORT_BULRUSH, 0.30f);
         registry.add(ModNatureBlocks.HEATHER, 0.50f);
@@ -488,8 +508,6 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.DEAD_HEATHER, 0.30f);
         registry.add(ModNatureBlocks.DRY_HEATHER, 0.30f);
         registry.add(ModNatureBlocks.HEATH, 0.30f);
-        registry.add(ModNatureBlocks.GIANT_HOROKAKA, 0.65f);
-        registry.add(ModNatureBlocks.HOROKAKA, 0.50f);
 
         registry.add(ModNatureBlocks.SHRIVELED_SHRUB, 0.30f);
 
@@ -552,7 +570,6 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.DRY_PINE_LEAVES, 0.2F);
         registry.add(ModNatureBlocks.PINE_BRANCHES, 0.2F);
 
-        //registry.add(ModNatureBlocks.MAPLE_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.ORANGE_MAPLE_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.RED_MAPLE_LEAVES, 0.3F);
         registry.add(ModNatureBlocks.YELLOW_MAPLE_LEAVES, 0.3F);
@@ -596,19 +613,7 @@ public class ModRegistries {
 
         registry.add(ResourceItemsME.STRAW, 0.3F);
 
-        registry.add(ModBlocks.STRAW_BLOCK, 0.5F);
-        registry.add(ModBlocks.STRAW_STAIRS, 0.5F);
-        registry.add(ModBlocks.STRAW_SLAB, 0.5F);
-        registry.add(ModBlocks.STRAW_VERTICAL_SLAB, 0.5F);
-        registry.add(ModBlocks.STRAW_WALL, 0.5F);
-
         registry.add(ResourceItemsME.REEDS, 0.3F);
-
-        registry.add(ModBlocks.REED_BLOCK, 0.5F);
-        registry.add(ModBlocks.REED_STAIRS, 0.5F);
-        registry.add(ModBlocks.REED_SLAB, 0.5F);
-        registry.add(ModBlocks.REED_VERTICAL_SLAB, 0.5F);
-        registry.add(ModBlocks.REED_WALL, 0.5F);
 
         registry.add(ResourceItemsME.FLAX, 0.3F);
         registry.add(ResourceItemsME.PIPEWEED, 0.3F);

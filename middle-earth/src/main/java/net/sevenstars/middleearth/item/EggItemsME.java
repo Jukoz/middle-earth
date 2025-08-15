@@ -37,17 +37,28 @@ public class EggItemsME {
     public static final Item SNOW_TROLL_SPAWN_EGG = registerItem("snow_troll_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.SNOW_TROLL, settings), new Item.Settings());
 
-    public static final Item MIRKWOOD_SPIDER_SPAWN_EGG = registerItem("mirkwood_spider_spawn_egg",
-            (settings) -> new SpawnEggItem(ModEntities.MIRKWOOD_SPIDER, settings), new Item.Settings());
+    public static final Item SHELOBITE_LARVA_SPAWN_EGG = registerItem("shelobite_larva_spawn_egg",
+            (settings) -> new SpawnEggItem(ModEntities.SHELOBITE_LARVA, settings), new Item.Settings());
+    public static final Item SHELOBITE_SCUTTLER_SPAWN_EGG = registerItem("shelobite_scuttler_spawn_egg",
+            (settings) -> new SpawnEggItem(ModEntities.SHELOBITE_SCUTTLER, settings), new Item.Settings());
+    public static final Item SHELOBITE_SPAWN_SPAWN_EGG = registerItem("spawn_of_shelob_spawn_egg",
+            (settings) -> new SpawnEggItem(ModEntities.SPAWN_OF_SHELOB, settings), new Item.Settings());
 
     // Npcs
-    public static final Item NPC_SPAWN_EGG = registerItem("npc_spawn_egg",
+    public static final Item NPC_SPAWN_EGG = registerSpecialEgg("npc_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.NPC, settings), new Item.Settings());
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
+        TranslationEntries.itemEntries.add(item);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+    private static Item registerSpecialEgg(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
+        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        ModItemGroups.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);

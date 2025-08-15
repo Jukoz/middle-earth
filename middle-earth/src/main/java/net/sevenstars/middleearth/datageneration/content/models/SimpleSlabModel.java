@@ -11,19 +11,17 @@ public class SimpleSlabModel {
     public record Slab(Block origin, Block slab) {}
     public static List<Slab> slabs = new ArrayList<>() {
         {
-            add(new Slab(ModBlocks.REED_BLOCK, ModBlocks.REED_SLAB));
             add(new Slab(ModBlocks.MIRE, ModBlocks.MIRE_SLAB));
             add(new Slab(ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_SLAB));
+            add(new Slab(ModBlocks.LOAM, ModBlocks.LOAM_SLAB));
+            add(new Slab(ModBlocks.PEAT, ModBlocks.PEAT_SLAB));
+            add(new Slab(ModBlocks.SILT, ModBlocks.SILT_SLAB));
+            add(new Slab(ModBlocks.FOUL_DIRT, ModBlocks.FOUL_DIRT_SLAB));
             add(new Slab(ModBlocks.DIRTY_ROOTS, ModBlocks.DIRTY_ROOTS_SLAB));
             add(new Slab(ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT_SLAB));
             add(new Slab(ModBlocks.COBBLY_ASHEN_DIRT, ModBlocks.COBBLY_ASHEN_DIRT_SLAB));
             add(new Slab(ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_SLAB));
             add(new Slab(ModBlocks.SNOWY_DIRT, ModBlocks.SNOWY_DIRT_SLAB));
-            add(new Slab(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB));
-            add(new Slab(ModBlocks.CUT_LEAD, ModBlocks.CUT_LEAD_SLAB));
-            add(new Slab(ModBlocks.CUT_SILVER, ModBlocks.CUT_SILVER_SLAB));
-            add(new Slab(ModBlocks.CUT_BRONZE, ModBlocks.CUT_BRONZE_SLAB));
-            add(new Slab(ModBlocks.CUT_CRUDE_PLATES, ModBlocks.CUT_CRUDE_PLATES_SLAB));
         }
     };
 

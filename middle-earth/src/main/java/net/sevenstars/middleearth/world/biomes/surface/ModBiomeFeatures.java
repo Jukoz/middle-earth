@@ -644,8 +644,6 @@ public class ModBiomeFeatures {
     }
     public static void addCoastalFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COASTAL_PANIC_GRASS);
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_HOROKAKA);
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_GIANT_HOROKAKA);
     }
     public static void addCobwebs(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COBWEB);
@@ -743,10 +741,6 @@ public class ModBiomeFeatures {
     }
     public static void addDryHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_DRY_HEATHER);
-    }
-    public static void addHorokaka(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_HOROKAKA);
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_GIANT_HOROKAKA);
     }
     public static void addRedHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_RED_HEATHER);

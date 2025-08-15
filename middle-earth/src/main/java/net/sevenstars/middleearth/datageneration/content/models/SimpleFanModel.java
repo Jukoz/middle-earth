@@ -10,8 +10,6 @@ public class SimpleFanModel {
     public static List<Block> grassLikeFans = new ArrayList<>()
     {
         {
-            add(ModNatureBlocks.HOROKAKA);
-            add(ModNatureBlocks.GIANT_HOROKAKA);
         }
     };
 }

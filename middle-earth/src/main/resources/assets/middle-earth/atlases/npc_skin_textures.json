@@ -3,14 +3,21 @@
         {
             "type": "paletted_permutations",
             "textures": [
+                "middle-earth:npc_skin_textures/body_fat",
                 "middle-earth:npc_skin_textures/body_female",
                 "middle-earth:npc_skin_textures/body_muscular",
+                "middle-earth:npc_skin_textures/body_skin_to_bone",
                 "middle-earth:npc_skin_textures/body_slim",
-                "middle-earth:npc_skin_textures/ear_cube",
-                "middle-earth:npc_skin_textures/ear_flat_pointy",
-                "middle-earth:npc_skin_textures/ear_flat_round",
-                "middle-earth:npc_skin_textures/ear_flat_small",
+
+                "middle-earth:npc_skin_textures/ear_large_pointy",
+                "middle-earth:npc_skin_textures/ear_normal",
                 "middle-earth:npc_skin_textures/ear_pointy",
+                "middle-earth:npc_skin_textures/ear_small",
+                "middle-earth:npc_skin_textures/ear_small_pointy",
+                "middle-earth:npc_skin_textures/ear_square",
+                "middle-earth:npc_skin_textures/ear_square_pointy",
+                "middle-earth:npc_skin_textures/ear_wide_pointy",
+
                 "middle-earth:npc_skin_textures/head_female",
                 "middle-earth:npc_skin_textures/head_goblin",
                 "middle-earth:npc_skin_textures/head_goblin_small",
@@ -20,21 +27,40 @@
                 "middle-earth:npc_skin_textures/head_male",
                 "middle-earth:npc_skin_textures/head_uruk_dumb",
                 "middle-earth:npc_skin_textures/head_uruk_tall_dumb",
+
                 "middle-earth:npc_skin_textures/nose_cube",
                 "middle-earth:npc_skin_textures/nose_large_center",
                 "middle-earth:npc_skin_textures/nose_large_high",
                 "middle-earth:npc_skin_textures/nose_villager",
-                "middle-earth:npc_skin_textures/scar_eye_right"
+
+                "middle-earth:npc_skin_textures/scar_eye_right",
+                "middle-earth:npc_skin_textures/scar_eye_left"
             ],
             "palette_key": "middle-earth:npc_skin_textures/color_palettes/base_palette",
             "permutations": {
+                "beige": "middle-earth:npc_skin_textures/color_palettes/beige",
                 "brown": "middle-earth:npc_skin_textures/color_palettes/brown",
-                "default": "middle-earth:npc_skin_textures/color_palettes/default",
-                "greenish": "middle-earth:npc_skin_textures/color_palettes/greenish",
+                "dark_beige": "middle-earth:npc_skin_textures/color_palettes/dark_beige",
+                "dark_green": "middle-earth:npc_skin_textures/color_palettes/dark_green",
+                "green": "middle-earth:npc_skin_textures/color_palettes/green",
+                "dark_pink": "middle-earth:npc_skin_textures/color_palettes/dark_pink",
+                "grey": "middle-earth:npc_skin_textures/color_palettes/grey",
+                "light_grey": "middle-earth:npc_skin_textures/color_palettes/light_grey",
+                "murky_green": "middle-earth:npc_skin_textures/color_palettes/murky_green",
                 "olive": "middle-earth:npc_skin_textures/color_palettes/olive",
                 "pale": "middle-earth:npc_skin_textures/color_palettes/pale",
+                "pale_green": "middle-earth:npc_skin_textures/color_palettes/pale_green",
+                "pale_white": "middle-earth:npc_skin_textures/color_palettes/pale_white",
+                "pink": "middle-earth:npc_skin_textures/color_palettes/pink",
+                "red": "middle-earth:npc_skin_textures/color_palettes/red",
+                "rust": "middle-earth:npc_skin_textures/color_palettes/rust",
+                "sandy_green": "middle-earth:npc_skin_textures/color_palettes/sandy_green",
+                "slight_brown": "middle-earth:npc_skin_textures/color_palettes/slight_brown",
+                "swampy_green": "middle-earth:npc_skin_textures/color_palettes/swampy_green",
                 "tan": "middle-earth:npc_skin_textures/color_palettes/tan",
-                "tan_desaturated": "middle-earth:npc_skin_textures/color_palettes/tan_desaturated"
+                "tan_desaturated": "middle-earth:npc_skin_textures/color_palettes/tan_desaturated",
+                "wine": "middle-earth:npc_skin_textures/color_palettes/wine",
+                "yellowish_green": "middle-earth:npc_skin_textures/color_palettes/yellowish_green"
             }
         }
     ]

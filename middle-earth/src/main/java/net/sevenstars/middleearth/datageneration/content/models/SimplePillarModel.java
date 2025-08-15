@@ -15,8 +15,6 @@ public class SimplePillarModel {
 
     public static List<Pillar> blocks = new ArrayList<>() {
         {
-            add(new Pillar(ModBlocks.REED_BLOCK));
-            add(new Pillar(ModBlocks.STRAW_BLOCK));
         }
     };
 

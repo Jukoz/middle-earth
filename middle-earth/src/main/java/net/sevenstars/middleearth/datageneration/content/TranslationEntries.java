@@ -123,6 +123,7 @@ public class TranslationEntries {
 
             put("effect."+ MiddleEarth.MOD_ID +".hallucination", "Hallucination");
             put("effect."+ MiddleEarth.MOD_ID +".enshrouded", "Enshrouded");
+            put("effect."+ MiddleEarth.MOD_ID +".restrained", "Restrained");
 
             put("enchantment."+ MiddleEarth.MOD_ID +".ailment_protection", "Ailment Protection");
             put("enchantment."+ MiddleEarth.MOD_ID +".bane_of_giants", "Bane of Giants");
@@ -309,6 +310,7 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".type", "Type: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".faction", "Faction: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".sub_faction", "Sub Faction: ");
+            put("tooltip."+ MiddleEarth.MOD_ID +".race", "Race: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".customizations", "Custom Parts: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".reach", "Reach: ");
             put("tooltip."+ MiddleEarth.MOD_ID +".dyed", "Dyed: ");
@@ -687,13 +689,34 @@ public class TranslationEntries {
             put("painting."+ MiddleEarth.MOD_ID +".gondorian_tapestry.title", "Gondorian Tapestry");
             put("painting."+ MiddleEarth.MOD_ID +".dwarven_plaque.title", "Dwarven Plaque");
 
-            put("structure_manager_data."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor", "Gondor Testing Area");
-            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor.captain_room", "Captain Room");
-            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_gondor.barracks_room", "Barracks Room");
 
-            put("structure_manager_data."+ MiddleEarth.MOD_ID +".npc_testing_area_erebor", "Erebor Testing Area");
-            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_erebor.captain_room", "Captain Room");
-            put("structure_nest."+ MiddleEarth.MOD_ID +".npc_testing_area_erebor.barracks_room", "Barracks Room");
+            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_soldier", "Mordor Soldier");
+            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_snaga", "Mordor Snaga");
+            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_scout", "Mordor Scout");
+            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_militia", "Mordor Militia");
+
+            put("structure_manager_data.%s.gondor_generic_nests".formatted(MiddleEarth.MOD_ID), "Gondor Generic Nests");
+            put("structure_nest.%s.gondor_generic_nests.captain_nest".formatted(MiddleEarth.MOD_ID), "Captain Room");
+            put("structure_nest.%s.gondor_generic_nests.barrack_nest".formatted(MiddleEarth.MOD_ID), "Barracks Room");
+            put("structure_nest.%s.gondor_generic_nests.worker_nest".formatted(MiddleEarth.MOD_ID), "Worker Room");
+            put("structure_nest.%s.gondor_generic_nests.prisoner_nest".formatted(MiddleEarth.MOD_ID), "Prisoner Cell");
+            put("structure_nest.%s.gondor_generic_nests.stable_nest".formatted(MiddleEarth.MOD_ID), "Stable Room");
+
+            put("structure_manager_data.%s.erebor_generic_nests".formatted(MiddleEarth.MOD_ID), "Erebor Generic Nests");
+            put("structure_nest.%s.erebor_generic_nests.captain_nest".formatted(MiddleEarth.MOD_ID), "Captain Room");
+            put("structure_nest.%s.erebor_generic_nests.barrack_nest".formatted(MiddleEarth.MOD_ID), "Barracks Room");
+            put("structure_nest.%s.erebor_generic_nests.worker_nest".formatted(MiddleEarth.MOD_ID), "Worker Room");
+            put("structure_nest.%s.erebor_generic_nests.prisoner_nest".formatted(MiddleEarth.MOD_ID), "Prisoner Cell");
+            put("structure_nest.%s.erebor_generic_nests.stable_nest".formatted(MiddleEarth.MOD_ID), "Stable Room");
+
+            put("structure_manager_data.%s.dale_keep_nests".formatted(MiddleEarth.MOD_ID), "Dale Keep Nests");
+            put("structure_nest.%s.dale_keep_nests.captain".formatted(MiddleEarth.MOD_ID), "Captain Room");
+            put("structure_nest.%s.dale_keep_nests.stable_carers".formatted(MiddleEarth.MOD_ID), "Stable Carers Room");
+            put("structure_nest.%s.dale_keep_nests.stable".formatted(MiddleEarth.MOD_ID), "Stable");
+            put("structure_nest.%s.dale_keep_nests.small_prisoner_cell".formatted(MiddleEarth.MOD_ID), "Small Prisoner Cell");
+            put("structure_nest.%s.dale_keep_nests.large_prisoner_cell".formatted(MiddleEarth.MOD_ID), "Large Prisoner Cell");
+            put("structure_nest.%s.dale_keep_nests.soldier".formatted(MiddleEarth.MOD_ID), "Soldier Bed");
+            put("structure_nest.%s.dale_keep_nests.elite".formatted(MiddleEarth.MOD_ID), "Elite Bed");
         }
     };
 }

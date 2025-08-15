@@ -456,47 +456,17 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createLayerRecipe(exporter, ModBlocks.WHITE_SAND.asItem(), ModBlocks.WHITE_SAND_LAYER);
                 createLayerRecipe(exporter, ModBlocks.ASHEN_SAND.asItem(), ModBlocks.ASHEN_SAND_LAYER);
                 createLayerRecipe(exporter, ModBlocks.ASHEN_GRAVEL.asItem(), ModBlocks.ASHEN_GRAVEL_LAYER);
-
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD, ModBlocks.LEAD_BLOCK, 4);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.LEAD_BLOCK, 8);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_VERTICAL_SLAB, ModBlocks.LEAD_BLOCK, 8);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_STAIRS, ModBlocks.LEAD_BLOCK, 4);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.CUT_LEAD, 2);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_STAIRS, ModBlocks.CUT_LEAD);
-
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_BRONZE, ModBlocks.BRONZE_BLOCK, 4);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_BRONZE_SLAB, ModBlocks.BRONZE_BLOCK, 8);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_BRONZE_VERTICAL_SLAB, ModBlocks.BRONZE_BLOCK, 8);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_BRONZE_STAIRS, ModBlocks.BRONZE_BLOCK, 4);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_BRONZE_SLAB, ModBlocks.CUT_BRONZE, 2);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_BRONZE_STAIRS, ModBlocks.CUT_BRONZE);
-
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_CRUDE_PLATES, ModBlocks.CRUDE_BLOCK, 4);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_CRUDE_PLATES_SLAB, ModBlocks.CRUDE_BLOCK, 8);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_CRUDE_PLATES_VERTICAL_SLAB, ModBlocks.CRUDE_BLOCK, 8);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_CRUDE_PLATES_STAIRS, ModBlocks.CRUDE_BLOCK, 4);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_CRUDE_PLATES_SLAB, ModBlocks.CUT_CRUDE_PLATES, 2);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_CRUDE_PLATES_STAIRS, ModBlocks.CUT_CRUDE_PLATES);
-
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_SILVER, ModBlocks.SILVER_BLOCK, 4);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_SILVER_SLAB, ModBlocks.SILVER_BLOCK, 8);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_SILVER_VERTICAL_SLAB, ModBlocks.SILVER_BLOCK, 8);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_SILVER_STAIRS, ModBlocks.SILVER_BLOCK, 4);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_SILVER_SLAB, ModBlocks.CUT_SILVER, 2);
-                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_SILVER_STAIRS, ModBlocks.CUT_SILVER);
-
-                createStairsRecipe(exporter, ModBlocks.REED_BLOCK, ModBlocks.REED_STAIRS);
-                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.REED_SLAB, ModBlocks.REED_BLOCK);
-                createVerticalSlabsRecipe(exporter, ModBlocks.REED_BLOCK, ModBlocks.REED_VERTICAL_SLAB);
-                offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.REED_WALL, ModBlocks.REED_BLOCK);
-
-                createStairsRecipe(exporter, ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_STAIRS);
-                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.STRAW_SLAB, ModBlocks.STRAW_BLOCK);
-                createVerticalSlabsRecipe(exporter, ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_VERTICAL_SLAB);
-                offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.STRAW_WALL, ModBlocks.STRAW_BLOCK);
+                createLayerRecipe(exporter, ModBlocks.SKELETAL_PILE.asItem(), ModBlocks.SKELETAL_PILE_LAYER);
+                createLayerRecipe(exporter, ModBlocks.WASTE_PILE.asItem(), ModBlocks.WASTE_PILE_LAYER);
 
                 createStairsRecipe(exporter, ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT);
+
+                createStairsRecipe(exporter, ModBlocks.GRASSY_LOAM, ModBlocks.GRASSY_LOAM_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRASSY_LOAM_SLAB, ModBlocks.GRASSY_LOAM);
+
+                createStairsRecipe(exporter, ModBlocks.GRASSY_SILT, ModBlocks.GRASSY_SILT_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRASSY_SILT_SLAB, ModBlocks.GRASSY_SILT);
 
                 createStairsRecipe(exporter, ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.PEBBLED_GRASS_SLAB, ModBlocks.PEBBLED_GRASS);
@@ -508,8 +478,20 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStairsRecipe(exporter, ModBlocks.MIRE, ModBlocks.MIRE_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MIRE_SLAB, ModBlocks.MIRE);
 
+                createStairsRecipe(exporter, ModBlocks.LOAM, ModBlocks.LOAM_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.LOAM_SLAB, ModBlocks.LOAM);
+
+                createStairsRecipe(exporter, ModBlocks.PEAT, ModBlocks.PEAT_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.PEAT_SLAB, ModBlocks.PEAT);
+
+                createStairsRecipe(exporter, ModBlocks.SILT, ModBlocks.SILT_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SILT_SLAB, ModBlocks.SILT);
+
                 createStairsRecipe(exporter, ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRY_DIRT_SLAB, ModBlocks.DRY_DIRT);
+
+                createStairsRecipe(exporter, ModBlocks.FOUL_DIRT, ModBlocks.FOUL_DIRT_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.FOUL_DIRT_SLAB, ModBlocks.FOUL_DIRT);
 
                 createStairsRecipe(exporter, ModBlocks.DIRTY_ROOTS, ModBlocks.DIRTY_ROOTS_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DIRTY_ROOTS_SLAB, ModBlocks.DIRTY_ROOTS);
@@ -1221,7 +1203,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createCenterSurroundRecipe(exporter, ResourceItemsME.SILVER_NUGGET, Items.TORCH, DecorativeItemsME.SILVER_LANTERN, 1);
                 createCenterSurroundRecipe(exporter, ResourceItemsME.KHAZAD_STEEL_NUGGET, Items.TORCH, DecorativeItemsME.DWARVEN_LANTERN, 1);
                 createCenterSurroundRecipe(exporter, ResourceItemsME.EDHEL_STEEL_NUGGET, Items.TORCH, DecorativeItemsME.ELVEN_LANTERN, 1);
-                createCenterSurroundRecipe(exporter, ResourceItemsME.STEEL_NUGGET, Items.TORCH, DecorativeItemsME.SHIRE_LANTERN, 1);
+                createCenterSurroundRecipe(exporter, ResourceItemsME.STEEL_NUGGET, Items.TORCH, DecorativeItemsME.TREATED_STEEL_LANTERN, 1);
                 createCenterSurroundRecipe(exporter, ResourceItemsME.CRUDE_NUGGET, Items.TORCH, DecorativeItemsME.CRUDE_LANTERN, 1);
                 createCenterSurroundRecipe(exporter, ResourceItemsME.LEAD_NUGGET, Items.TORCH, DecorativeItemsME.LEAD_LANTERN, 1);
 
@@ -1508,6 +1490,24 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("MD")
                         .input('M', Items.MOSS_BLOCK)
                         .input('D', Items.DIRT)
+                        .criterion(hasItem(Items.MOSS_BLOCK),
+                                conditionsFromItem(Items.MOSS_BLOCK))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRASSY_LOAM, 4)
+                        .pattern("DM")
+                        .pattern("MD")
+                        .input('M', Items.MOSS_BLOCK)
+                        .input('D', ModBlocks.LOAM)
+                        .criterion(hasItem(Items.MOSS_BLOCK),
+                                conditionsFromItem(Items.MOSS_BLOCK))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRASSY_SILT, 4)
+                        .pattern("DM")
+                        .pattern("MD")
+                        .input('M', Items.MOSS_BLOCK)
+                        .input('D', ModBlocks.SILT)
                         .criterion(hasItem(Items.MOSS_BLOCK),
                                 conditionsFromItem(Items.MOSS_BLOCK))
                         .offerTo(exporter);
@@ -2055,6 +2055,24 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(ModNatureBlocks.TALL_BULRUSH)
                         .criterion(hasItem(ModNatureBlocks.TALL_BULRUSH),
                                 conditionsFromItem(ModNatureBlocks.TALL_BULRUSH))
+                        .offerTo(exporter);
+
+                ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.SHORT_REEDS, 2)
+                        .input(ResourceItemsME.REEDS)
+                        .criterion(hasItem(ResourceItemsME.REEDS),
+                                conditionsFromItem(ResourceItemsME.REEDS))
+                        .offerTo(exporter);
+
+                ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.SHORT_DEAD_RUSHES, 2)
+                        .input(ModNatureBlocks.DEAD_RUSHES)
+                        .criterion(hasItem(ModNatureBlocks.DEAD_RUSHES),
+                                conditionsFromItem(ModNatureBlocks.DEAD_RUSHES))
+                        .offerTo(exporter);
+
+                ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.SHORT_RUSHES, 2)
+                        .input(ModNatureBlocks.RUSHES)
+                        .criterion(hasItem(ModNatureBlocks.RUSHES),
+                                conditionsFromItem(ModNatureBlocks.RUSHES))
                         .offerTo(exporter);
 
                 ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.SHORT_CATTAILS, 2)

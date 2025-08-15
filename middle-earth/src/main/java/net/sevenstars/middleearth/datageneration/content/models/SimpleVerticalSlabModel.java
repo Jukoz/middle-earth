@@ -11,12 +11,6 @@ public class SimpleVerticalSlabModel {
     public record VerticalSlab(Block block, Block slab, Block verticalSlab) {}
     public static List<VerticalSlab> verticalSlabs = new ArrayList<>() {
         {
-            add(new VerticalSlab(ModBlocks.REED_BLOCK, ModBlocks.REED_SLAB, ModBlocks.REED_VERTICAL_SLAB));
-            add(new VerticalSlab(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB, ModBlocks.STRAW_VERTICAL_SLAB));
-            add(new VerticalSlab(ModBlocks.CUT_LEAD, ModBlocks.CUT_LEAD_SLAB, ModBlocks.CUT_LEAD_VERTICAL_SLAB));
-            add(new VerticalSlab(ModBlocks.CUT_SILVER, ModBlocks.CUT_SILVER_SLAB, ModBlocks.CUT_SILVER_VERTICAL_SLAB));
-            add(new VerticalSlab(ModBlocks.CUT_BRONZE, ModBlocks.CUT_BRONZE_SLAB, ModBlocks.CUT_BRONZE_VERTICAL_SLAB));
-            add(new VerticalSlab(ModBlocks.CUT_CRUDE_PLATES, ModBlocks.CUT_CRUDE_PLATES_SLAB, ModBlocks.CUT_CRUDE_PLATES_VERTICAL_SLAB));
         }
     };
 

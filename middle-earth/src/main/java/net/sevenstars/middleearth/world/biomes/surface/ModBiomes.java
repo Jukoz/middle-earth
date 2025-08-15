@@ -431,7 +431,6 @@ public class ModBiomes {
         addGondorVegetation(generationSettings);
         ModBiomeFeatures.addBeachGrass(vegetation);
         ModBiomeFeatures.addDioriteBoulder(vegetation);
-        ModBiomeFeatures.addHorokaka(vegetation);
         ModBiomeFeatures.addRareOakBushes(vegetation);
         ModBiomeFeatures.addWhitePalmTree(vegetation);
         ModBiomeFeatures.addWhiteFlowers(vegetation);
@@ -1690,14 +1689,12 @@ public class ModBiomes {
             ModBiomeFeatures.addGreenShrub(vegetation);
             ModBiomeFeatures.addBeachGrass(vegetation);
             ModBiomeFeatures.addDioriteBoulder(vegetation);
-            ModBiomeFeatures.addHorokaka(vegetation);
             ModBiomeFeatures.addRareOakBushes(vegetation);
             ModBiomeFeatures.addWhiteFlowers(vegetation);
             ModBiomeFeatures.addCalciteBoulder(vegetation);
         } else if(step == 2) { // Shores
             ModBiomeFeatures.addBeachGrass(vegetation);
             ModBiomeFeatures.addDioriteBoulder(vegetation);
-            ModBiomeFeatures.addHorokaka(vegetation);
             ModBiomeFeatures.addRareOakBushes(vegetation);
             ModBiomeFeatures.addWhiteFlowers(vegetation);
         } else if(step == 3) { // Forest
