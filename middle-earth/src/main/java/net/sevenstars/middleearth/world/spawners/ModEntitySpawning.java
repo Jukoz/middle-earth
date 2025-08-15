@@ -7,7 +7,6 @@ import net.minecraft.world.biome.Biome;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class ModEntitySpawning {
     private static HashMap<RegistryKey<Biome>, List<EntitySpawningSettings>> spawns = new HashMap<>();
@@ -111,7 +110,7 @@ public class ModEntitySpawning {
                 new EntitySpawningSettings(ModEntities.ISENGARD_URUK_HAI_LEADER, 1, 1, 2)
         );*/
         List<EntitySpawningSettings> mirkwoodSpiders = List.of(
-                new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 2, 5, 100, true)
+                new EntitySpawningSettings(ModEntities.SHELOBITE_SCUTTLER, 2, 5, 100, true)
         );
 /*
         List<EntitySpawningSettings> stoneTroll  = List.of(new EntitySpawningSettings(ModEntities.STONE_TROLL, 0, 1, 20, true));

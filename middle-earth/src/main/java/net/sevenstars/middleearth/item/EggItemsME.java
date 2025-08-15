@@ -37,8 +37,12 @@ public class EggItemsME {
     public static final Item SNOW_TROLL_SPAWN_EGG = registerItem("snow_troll_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.SNOW_TROLL, settings), new Item.Settings());
 
-    public static final Item MIRKWOOD_SPIDER_SPAWN_EGG = registerItem("mirkwood_spider_spawn_egg",
-            (settings) -> new SpawnEggItem(ModEntities.MIRKWOOD_SPIDER, settings), new Item.Settings());
+    public static final Item SHELOBITE_LARVA_SPAWN_EGG = registerItem("shelobite_larva_spawn_egg",
+            (settings) -> new SpawnEggItem(ModEntities.SHELOBITE_LARVA, settings), new Item.Settings());
+    public static final Item SHELOBITE_SCUTTLER_SPAWN_EGG = registerItem("shelobite_scuttler_spawn_egg",
+            (settings) -> new SpawnEggItem(ModEntities.SHELOBITE_SCUTTLER, settings), new Item.Settings());
+    public static final Item SHELOBITE_SPAWN_SPAWN_EGG = registerItem("spawn_of_shelob_spawn_egg",
+            (settings) -> new SpawnEggItem(ModEntities.SPAWN_OF_SHELOB, settings), new Item.Settings());
 
     // Npcs
     public static final Item NPC_SPAWN_EGG = registerSpecialEgg("npc_spawn_egg",
