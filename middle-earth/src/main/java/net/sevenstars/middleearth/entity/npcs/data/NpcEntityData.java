@@ -57,7 +57,7 @@ public class NpcEntityData implements EntityData {
     }
     public Race getRaceValue(World world){
         NpcData npcData = NpcDataLookup.getNpcData(world, this.npcDataId);
-        return RaceLookup.getRace(world, npcData.getRaceId());
+        return RaceLookup.getRace(world, npcData.getRace());
     }
 
     static {

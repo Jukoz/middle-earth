@@ -40,8 +40,8 @@ public class DecorativeItemsME {
             (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.SILVER_LANTERN, ModDecorativeBlocks.WALL_SILVER_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
     public static final Item ELVEN_LANTERN = registerItem("elven_lantern",
             (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.ELVEN_LANTERN, ModDecorativeBlocks.WALL_ELVEN_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
-    public static final Item SHIRE_LANTERN = registerItem("shire_lantern",
-            (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.SHIRE_LANTERN, ModDecorativeBlocks.WALL_SHIRE_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
+    public static final Item TREATED_STEEL_LANTERN = registerItem("treated_steel_lantern",
+            (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.TREATED_STEEL_LANTERN, ModDecorativeBlocks.WALL_TREATED_STEEL_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
     public static final Item CRUDE_LANTERN = registerItem("crude_lantern",
             (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.CRUDE_LANTERN, ModDecorativeBlocks.WALL_CRUDE_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
     public static final Item LEAD_LANTERN = registerItem("lead_lantern",

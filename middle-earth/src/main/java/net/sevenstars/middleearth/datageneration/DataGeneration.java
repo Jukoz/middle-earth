@@ -12,6 +12,8 @@ import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableH
 import net.sevenstars.middleearth.datageneration.providers.recipes.RecipeProvider;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.spider.SpiderVariants;
+import net.sevenstars.middleearth.datageneration.providers.tags.BlockTagProvider;
+import net.sevenstars.middleearth.datageneration.providers.tags.ItemTagProvider;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimPatterns;
 import net.sevenstars.middleearth.resources.*;

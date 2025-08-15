@@ -38,6 +38,8 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
         earModel.setAngles(state);
 
+        if(!state.equippedHeadStack.isEmpty())
+            return;
 
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer());
 

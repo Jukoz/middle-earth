@@ -118,8 +118,6 @@ public class MiddleEarth implements ModInitializer {
 		ModWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();
 
-		//MiddleEarthNpcTextures.register();
-
 		// Dynamic Data
 		SpiderVariants.register();
 		RacesME.register();

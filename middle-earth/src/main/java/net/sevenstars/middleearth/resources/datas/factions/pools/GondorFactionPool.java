@@ -40,9 +40,9 @@ public class GondorFactionPool {
                     ));
                     put(NpcRank.VETERAN, List.of(
                             GondorianNpcDataPool.GONDOR_VETERAN,
-                            GondorianNpcDataPool.GONDOR_KING_GUARDS,
-                            GondorianNpcDataPool.GONDOR_CITADEL_GUARDS,
-                            GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARDS
+                            GondorianNpcDataPool.GONDOR_KING_GUARD,
+                            GondorianNpcDataPool.GONDOR_CITADEL_GUARD,
+                            GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD
                     ));
                     put(NpcRank.LEADER, List.of(
                             GondorianNpcDataPool.GONDOR_LEADER

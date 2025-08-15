@@ -10,10 +10,12 @@ import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.ModLeavesBlock;
 import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
 import net.sevenstars.middleearth.block.utils.WoodBlockTypes;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
+import net.sevenstars.middleearth.particles.ModParticleTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -411,8 +413,17 @@ public class WoodBlockSets {
                 case SHINGLE_BLOCKS ->
                         set.shinglesBlocks = BlockSetRegistration.createRegularSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup, false);
                 case LEAVES -> {
-                    set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
-                            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);
+                    //Temporary solution until particles figured out
+                    if (set.setName.contains("mallorn") ){
+                        set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
+                                (settings) -> new ModLeavesBlock(0.01F, settings, false, ModParticleTypes.MALLORN_LEAVES_PARTICLE), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);
+                    } else if (set.setName.contains("mirkwood")){
+                        set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
+                                (settings) -> new ModLeavesBlock(0.01F, settings, true, ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);
+                    } else {
+                        set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
+                                (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);
+                    }
                     FlammableBlockRegistry.getDefaultInstance().add(set.leaves, 5, 60);
                 }
             }
