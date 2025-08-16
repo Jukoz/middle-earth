@@ -23,6 +23,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import org.jetbrains.annotations.Nullable;
 
@@ -83,7 +84,7 @@ public class ShelobiteLarvaEggBlock extends AbstractShelobiteLarvaEgg {
     }
 
     public static void SpawnSpider(BlockPos pos, World world){
-        ShelobiteScuttlerEntity entity = new ShelobiteScuttlerEntity(ModEntities.SHELOBITE_SCUTTLER, world);
+        ShelobiteLarvaEntity entity = new ShelobiteLarvaEntity(ModEntities.SHELOBITE_LARVA, world);
         entity.age = 0;
         entity.setPos(pos.getX(), pos.getY() + 1, pos.getZ());
         world.spawnEntity(entity);
