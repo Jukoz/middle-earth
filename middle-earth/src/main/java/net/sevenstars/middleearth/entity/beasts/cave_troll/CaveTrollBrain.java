@@ -5,8 +5,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
@@ -14,14 +12,12 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
-import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
 import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollDigForFoodTask;
 import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollEatFoodTask;
-
-import java.util.Optional;
+import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollSleepTask;
 
 public class CaveTrollBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super CaveTrollEntity>>> SENSORS;
@@ -63,7 +59,9 @@ public class CaveTrollBrain {
                                 CompositeTask.RunMode.TRY_ALL,
                                 ImmutableList.of(
                                         Pair.of(new CaveTrollDigForFoodTask(), 1),
-                                        Pair.of(new CaveTrollEatFoodTask(), 1)
+                                        Pair.of(new CaveTrollEatFoodTask(), 1),
+                                        Pair.of(StrollTask.create(1.0f), 2),
+                                        Pair.of(new CaveTrollSleepTask(), 1)
                                 )), 1)
                 )))
         ));

@@ -38,6 +38,8 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
         state.sleepingAnimationState = troll.sleepingAnimationState;
         state.chaseAnimationState = troll.chaseAnimationState;
         state.scavengingAnimationState = troll.scavengingAnimationState;
+        state.startSittingAnimationState = troll.startSittingAnimationState;
+        state.stopSittingAnimationState = troll.stopSittingAnimationState;
         state.isSprinting = troll.isSprinting();
     }
 }

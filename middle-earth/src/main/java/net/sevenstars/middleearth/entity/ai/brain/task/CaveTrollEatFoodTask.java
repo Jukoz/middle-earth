@@ -14,6 +14,7 @@ import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import java.util.Optional;
 
 public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
+    private long startTime;
     public CaveTrollEatFoodTask() {
         super(
                 ImmutableMap.of(
@@ -24,7 +25,7 @@ public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
                         MemoryModulesME.FOOD_EATEN_COUNT,
                         MemoryModuleState.VALUE_PRESENT
                 ),
-                100
+                200
         );
     }
 
@@ -39,10 +40,18 @@ public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
     }
 
     @Override
+    protected void run(ServerWorld world, CaveTrollEntity entity, long time) {
+        entity.setSitting(true);
+        this.startTime = time;
+    }
+
+    @Override
     protected void keepRunning(ServerWorld world, CaveTrollEntity entity, long time) {
-        ItemStackParticleEffect particles = new ItemStackParticleEffect(ParticleTypes.ITEM, entity.getMainHandStack());
-        Vec3d position = new Vec3d(entity.getX() - Math.sin(Math.toRadians(entity.getHeadYaw())), entity.getEyeY(), entity.getZ() + Math.cos(Math.toRadians(entity.getHeadYaw())));
-        world.spawnParticles(particles, position.getX(), position.getY(), position.getZ(),10, 0.0, 0.0, 0.0, 0.1);
+        if((time - startTime) > 60) {
+            ItemStackParticleEffect particles = new ItemStackParticleEffect(ParticleTypes.ITEM, entity.getMainHandStack());
+            Vec3d position = new Vec3d(entity.getX() - Math.sin(Math.toRadians(entity.getBodyYaw())), entity.getEyeY(), entity.getZ() + Math.cos(Math.toRadians(entity.getBodyYaw())));
+            world.spawnParticles(particles, position.getX(), position.getY() - 1.0, position.getZ(),7, 0.0, 0.0, 0.0, 0.1);
+        }
     }
 
     @Override
@@ -51,5 +60,7 @@ public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
 
         Optional<Integer> foodCount = entity.getBrain().getOptionalRegisteredMemory(MemoryModulesME.FOOD_EATEN_COUNT);
         foodCount.ifPresent(count -> entity.getBrain().remember(MemoryModulesME.FOOD_EATEN_COUNT, count + 1));
+
+        entity.setSitting(false);
     }
 }

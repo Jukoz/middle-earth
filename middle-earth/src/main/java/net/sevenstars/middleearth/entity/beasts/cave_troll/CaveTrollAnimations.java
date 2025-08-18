@@ -1075,7 +1075,7 @@ public class CaveTrollAnimations {
     Transformation.Interpolations.CUBIC),
             new Keyframe(3f, AnimationHelper.createRotationalVector(-90f, -35f, 0f),
     Transformation.Interpolations.CUBIC))).build();
-    public static final AnimationDefinition STANDING_FROM_SITTING = AnimationDefinition.Builder.create(3f).looping()
+    public static final AnimationDefinition STANDING_FROM_SITTING = AnimationDefinition.Builder.create(3f)
             .addBoneAnimation("body_no_legs",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(7.5f, 0f, 0f),
@@ -1206,7 +1206,7 @@ public class CaveTrollAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(3f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final AnimationDefinition STANDING_TO_SITTING = AnimationDefinition.Builder.create(2.5f).looping()
+    public static final AnimationDefinition STANDING_TO_SITTING = AnimationDefinition.Builder.create(2.5f)
             .addBoneAnimation("body_no_legs",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),

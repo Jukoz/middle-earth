@@ -127,6 +127,26 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         super.tickMovement();
     }
 
+    @Override
+    protected void setupAnimationStates() {
+        if(this.isScavenging()) {
+            this.scavengingAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.scavengingAnimationState.stop();
+        }
+        if(this.isSitting()) {
+            this.startSittingAnimationState.startIfNotRunning(this.age);
+        }
+        else if(this.startSittingAnimationState.isRunning()) {
+            this.startSittingAnimationState.stop();
+            this.stopSittingAnimationState.startIfNotRunning(this.age);
+        }
+        if(this.stopSittingAnimationState.getTimeInMilliseconds(this.age) > 3000) {
+            this.stopSittingAnimationState.stop();
+        }
+    }
+
     public boolean isScavenging() {
         return this.dataTracker.get(SCAVENGING);
     }
@@ -148,16 +168,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     public Brain<CaveTrollEntity> getBrain() {
         return (Brain<CaveTrollEntity>)super.getBrain();
-    }
-
-    @Override
-    protected void setupAnimationStates() {
-        if(this.isScavenging()) {
-            this.scavengingAnimationState.startIfNotRunning(this.age);
-        }
-        else {
-            this.scavengingAnimationState.stop();
-        }
     }
 
     @Override

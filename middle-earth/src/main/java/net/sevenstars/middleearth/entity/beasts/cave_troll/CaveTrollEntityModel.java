@@ -13,6 +13,8 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
     private final Animation sleepingAnimation;
     private final Animation chaseAnimation;
     private final Animation scavengingAnimation;
+    private final Animation startSittingAnimation;
+    private final Animation stopSittingAnimation;
 
     private final ModelPart rightArm;
     private final ModelPart upperBody;
@@ -30,6 +32,8 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
         sleepingAnimation = CaveTrollAnimations.SLEEP_LAYING_DOWN.createAnimation(root);
         chaseAnimation = CaveTrollAnimations.RUN.createAnimation(root);
         scavengingAnimation = CaveTrollAnimations.SITTING_SLEEP.createAnimation(root);
+        startSittingAnimation = CaveTrollAnimations.STANDING_TO_SITTING.createAnimation(root);
+        stopSittingAnimation = CaveTrollAnimations.STANDING_FROM_SITTING.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -115,6 +119,8 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
 
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
         this.scavengingAnimation.apply(state.scavengingAnimationState, state.age);
+        this.startSittingAnimation.apply(state.startSittingAnimationState, state.age);
+        this.stopSittingAnimation.apply(state.stopSittingAnimationState, state.age);
     }
 
     public void setArmAngle(MatrixStack matrices) {
