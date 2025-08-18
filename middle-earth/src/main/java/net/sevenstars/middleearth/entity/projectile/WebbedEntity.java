@@ -13,7 +13,9 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -21,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.ModEntityTypeTags;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 import net.sevenstars.middleearth.world.features.vegetation.ModVegetationConfiguredFeatures;
 
@@ -77,6 +80,14 @@ public class WebbedEntity extends AbstractProjectileEntity {
 
     @Override
     protected void onCollision(HitResult hitResult) {
+        HitResult.Type type = hitResult.getType();
+        if (type == HitResult.Type.ENTITY) {
+            EntityHitResult entityHitResult = (EntityHitResult) hitResult;
+            Entity entity = entityHitResult.getEntity();
+            if(entity.getType().isIn(ModEntityTypeTags.UNGOLIENI)) {
+                return;
+            }
+        }
         super.onCollision(hitResult);
         spawnWebbing();
     }
