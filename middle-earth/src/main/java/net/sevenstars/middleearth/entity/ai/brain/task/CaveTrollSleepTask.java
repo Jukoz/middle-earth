@@ -20,8 +20,7 @@ public class CaveTrollSleepTask extends MultiTickTask<CaveTrollEntity> {
                         MemoryModuleState.VALUE_ABSENT,
                         MemoryModulesME.FOOD_EATEN_COUNT,
                         MemoryModuleState.VALUE_PRESENT
-                ),
-                200
+                ),1200, 3600
         );
     }
 
@@ -40,5 +39,11 @@ public class CaveTrollSleepTask extends MultiTickTask<CaveTrollEntity> {
     @Override
     protected void run(ServerWorld world, CaveTrollEntity entity, long time) {
         entity.getBrain().remember(MemoryModulesME.FOOD_EATEN_COUNT, 0);
+        entity.startSleeping();
+    }
+
+    @Override
+    protected void finishRunning(ServerWorld world, CaveTrollEntity entity, long time) {
+        entity.stopSleeping();
     }
 }

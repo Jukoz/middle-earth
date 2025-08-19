@@ -60,7 +60,6 @@ public class CaveTrollBrain {
                                 ImmutableList.of(
                                         Pair.of(new CaveTrollDigForFoodTask(), 1),
                                         Pair.of(new CaveTrollEatFoodTask(), 1),
-                                        Pair.of(StrollTask.create(1.0f), 2),
                                         Pair.of(new CaveTrollSleepTask(), 1)
                                 )), 1)
                 )))

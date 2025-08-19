@@ -35,11 +35,13 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
         super.updateRenderState(troll, state, f);
         CaveTrollEntityRenderState.updateRenderState(troll, state, this.itemModelResolver);
 
-        state.sleepingAnimationState = troll.sleepingAnimationState;
         state.chaseAnimationState = troll.chaseAnimationState;
         state.scavengingAnimationState = troll.scavengingAnimationState;
         state.startSittingAnimationState = troll.startSittingAnimationState;
         state.stopSittingAnimationState = troll.stopSittingAnimationState;
+        state.startSleepingANimationState = troll.startSleepingAnimationState;
+        state.sleepingAnimationState = troll.sleepingAnimationState;
+        state.stopSleepingANimationState = troll.stopSleepingAnimationState;
         state.isSprinting = troll.isSprinting();
     }
 }

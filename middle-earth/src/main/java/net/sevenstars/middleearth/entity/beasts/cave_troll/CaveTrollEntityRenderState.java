@@ -16,9 +16,11 @@ import net.sevenstars.middleearth.entity.beasts.BeastEntityRenderState;
 public class CaveTrollEntityRenderState extends BeastEntityRenderState {
     public final ItemRenderState handItemState = new ItemRenderState();
 
-    public AnimationState sleepingAnimationState = new AnimationState();
     public AnimationState chaseAnimationState = new AnimationState();
     public AnimationState scavengingAnimationState = new AnimationState();
+    public AnimationState startSleepingANimationState = new AnimationState();
+    public AnimationState sleepingAnimationState = new AnimationState();
+    public AnimationState stopSleepingANimationState = new AnimationState();
     public boolean isSprinting = false;
 
     public static void updateRenderState(LivingEntity entity, CaveTrollEntityRenderState state, ItemModelManager itemModelManager) {

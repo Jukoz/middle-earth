@@ -1,8 +1,10 @@
 package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
 import com.mojang.serialization.Dynamic;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
@@ -29,6 +31,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.World;
@@ -39,6 +44,9 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
+import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,9 +56,12 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public LootWorldContext lootWorldContext;
     public static final TrackedData<Boolean> SCAVENGING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> EATING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public final AnimationState sleepingAnimationState = new AnimationState();
+    public static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState chaseAnimationState = new AnimationState();
     public final AnimationState scavengingAnimationState = new AnimationState();
+    public final AnimationState startSleepingAnimationState = new AnimationState();
+    public final AnimationState sleepingAnimationState = new AnimationState();
+    public final AnimationState stopSleepingAnimationState = new AnimationState();
 
     public CaveTrollEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
@@ -90,6 +101,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         super.initDataTracker(builder);
         builder.add(SCAVENGING, false);
         builder.add(EATING, false);
+        builder.add(SLEEPING, false);
     }
 
     @Override
@@ -129,13 +141,14 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     protected void setupAnimationStates() {
-        if(this.isScavenging()) {
+        if(this.isScavenging()) { // Looking for food
             this.scavengingAnimationState.startIfNotRunning(this.age);
         }
         else {
             this.scavengingAnimationState.stop();
         }
-        if(this.isSitting()) {
+
+        if(this.isSitting()) { // Sitting
             this.startSittingAnimationState.startIfNotRunning(this.age);
         }
         else if(this.startSittingAnimationState.isRunning()) {
@@ -145,6 +158,49 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         if(this.stopSittingAnimationState.getTimeInMilliseconds(this.age) > 3000) {
             this.stopSittingAnimationState.stop();
         }
+
+        if(this.isSleeping()) { // Sleeping
+            if(!this.startSleepingAnimationState.isRunning() && !this.sleepingAnimationState.isRunning()) {
+                this.startSleepingAnimationState.startIfNotRunning(this.age);
+            }
+            if (this.startSleepingAnimationState.getTimeInMilliseconds(this.age) > 5000) {
+                this.sleepingAnimationState.startIfNotRunning(this.age);
+                this.startSleepingAnimationState.stop();
+            }
+        }
+        else if(this.startSleepingAnimationState.isRunning() || this.sleepingAnimationState.isRunning()) {
+            this.startSleepingAnimationState.stop();
+            this.sleepingAnimationState.stop();
+            this.stopSleepingAnimationState.startIfNotRunning(this.age);
+        }
+        if(this.stopSleepingAnimationState.getTimeInMilliseconds(this.age) > 5000) {
+            this.stopSleepingAnimationState.stop();
+        }
+    }
+
+    public void startSleeping() {
+        if (this.hasVehicle()) {
+            this.stopRiding();
+        }
+
+        this.setSleeping(true);
+        this.setVelocity(Vec3d.ZERO);
+        this.velocityDirty = true;
+
+        this.brain.forget(MemoryModuleType.WALK_TARGET);
+        this.brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    }
+
+    public void stopSleeping() {
+        this.setSleeping(false);
+    }
+
+    public boolean isSleeping() {
+        return this.dataTracker.get(SLEEPING);
+    }
+
+    public void setSleeping(boolean isSleeping) {
+        this.dataTracker.set(SLEEPING, isSleeping);
     }
 
     public boolean isScavenging() {

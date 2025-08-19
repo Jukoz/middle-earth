@@ -1569,7 +1569,7 @@ public class CaveTrollAnimations {
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 20f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final AnimationDefinition SLEEP_LAYING_DOWN_STANDING_UP = AnimationDefinition.Builder.create(4f).looping()
+    public static final AnimationDefinition SLEEP_LAYING_DOWN_STANDING_UP = AnimationDefinition.Builder.create(4f)
 .addBoneAnimation("body_no_legs",
                           new Transformation(Transformation.Targets.ROTATE,
 		new Keyframe(0f, AnimationHelper.createRotationalVector(-90f, 0f, 0f),

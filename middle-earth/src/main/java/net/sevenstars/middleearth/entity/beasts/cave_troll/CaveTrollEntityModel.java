@@ -10,11 +10,13 @@ import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
 public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState> {
     private final Animation walkingAnimation;
-    private final Animation sleepingAnimation;
     private final Animation chaseAnimation;
     private final Animation scavengingAnimation;
     private final Animation startSittingAnimation;
     private final Animation stopSittingAnimation;
+    private final Animation startSleepingAnimation;
+    private final Animation sleepingAnimation;
+    private final Animation stopSleepingAnimation;
 
     private final ModelPart rightArm;
     private final ModelPart upperBody;
@@ -29,11 +31,13 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
 
 
         walkingAnimation = CaveTrollAnimations.PASSIVE_WALK.createAnimation(root);
-        sleepingAnimation = CaveTrollAnimations.SLEEP_LAYING_DOWN.createAnimation(root);
         chaseAnimation = CaveTrollAnimations.RUN.createAnimation(root);
         scavengingAnimation = CaveTrollAnimations.SITTING_SLEEP.createAnimation(root);
         startSittingAnimation = CaveTrollAnimations.STANDING_TO_SITTING.createAnimation(root);
         stopSittingAnimation = CaveTrollAnimations.STANDING_FROM_SITTING.createAnimation(root);
+        startSleepingAnimation = CaveTrollAnimations.SLEEP_LAYING_DOWN.createAnimation(root);
+        sleepingAnimation = CaveTrollAnimations.SLEEP_LAYING_DOWN.createAnimation(root);
+        stopSleepingAnimation = CaveTrollAnimations.SLEEP_LAYING_DOWN_STANDING_UP.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -117,10 +121,12 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
             this.chaseAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.0f, 2.0f);
         }
 
-        this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
         this.scavengingAnimation.apply(state.scavengingAnimationState, state.age);
         this.startSittingAnimation.apply(state.startSittingAnimationState, state.age);
         this.stopSittingAnimation.apply(state.stopSittingAnimationState, state.age);
+        this.startSleepingAnimation.apply(state.startSleepingANimationState, state.age);
+        this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
+        this.stopSleepingAnimation.apply(state.stopSleepingANimationState, state.age);
     }
 
     public void setArmAngle(MatrixStack matrices) {
