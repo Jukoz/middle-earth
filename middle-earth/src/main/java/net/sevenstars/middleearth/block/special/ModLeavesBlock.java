@@ -21,12 +21,10 @@ import net.minecraft.world.tick.ScheduledTickView;
 
 public class ModLeavesBlock extends TintedParticleLeavesBlock {
     final protected boolean castShadow;
-    private final ParticleEffect particleType;
 
-    public ModLeavesBlock(float f, Settings settings, boolean castShadow, ParticleEffect particleType) {
+    public ModLeavesBlock(float f, Settings settings, boolean castShadow) {
         super(f, settings);
         this.castShadow = castShadow;
-        this.particleType = particleType;
     }
 
     @Override
@@ -78,19 +76,5 @@ public class ModLeavesBlock extends TintedParticleLeavesBlock {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
         BlockState blockState = (this.getDefaultState().with(PERSISTENT, true)).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
         return updateDistanceFromLogs(blockState, ctx.getWorld(), ctx.getBlockPos());
-    }
-
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        super.randomDisplayTick(state, world, pos, random);
-        if(this.particleType != null){
-            if (random.nextInt(10) == 0) {
-                BlockPos blockPos = pos.down();
-                BlockState blockState = world.getBlockState(blockPos);
-                if (!isFaceFullSquare(blockState.getCollisionShape(world, blockPos), Direction.UP)) {
-                    ParticleUtil.spawnParticle(world, pos, random, this.particleType);
-                }
-            }
-        }
-
     }
 }
