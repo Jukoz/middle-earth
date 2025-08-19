@@ -2,9 +2,12 @@ package net.sevenstars.middleearth.item.utils;
 
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.ItemTags;
 import net.sevenstars.middleearth.recipe.ModTags;
 
 public class ModToolMaterials {
+
+    public static final ToolMaterial BONE = new ToolMaterial(BlockTags.INCORRECT_FOR_STONE_TOOL, 150, 4.0F, 1.0F, 5, ModTags.BONE_TOOL_MATERIALS);
     public static final ToolMaterial BRONZE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, ModTags.BRONZE_TOOL_MATERIALS);
     public static final ToolMaterial CRUDE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, ModTags.CRUDE_TOOL_MATERIALS);
     public static final ToolMaterial STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, ModTags.STEEL_TOOL_MATERIALS);

@@ -57,15 +57,15 @@ public class WeaponItemsME {
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.STONE, settings), new Item.Settings());
 
     public static final Item BONE_CLEAVER = registerItemWithModel("bone_cleaver",
-            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
+            (settings) -> new CustomSwordWeaponItem(ModToolMaterials.BONE, settings), new Item.Settings(), true);
     public static final Item BONE_SCIMITAR = registerItemWithModel("bone_scimitar",
-            (settings) -> new CustomLongswordWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
+            (settings) -> new CustomLongswordWeaponItem(ModToolMaterials.BONE, settings), new Item.Settings(), true);
     public static final Item BONE_SHANK = registerItemWithModel("bone_shank",
-            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), false);
+            (settings) -> new CustomDaggerWeaponItem(ModToolMaterials.BONE, settings), new Item.Settings(), false);
     public static final Item BONE_AXE = registerItemWithModel("bone_axe",
-            (settings) -> new CustomAxeWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings(), true);
+            (settings) -> new CustomAxeWeaponItem(ModToolMaterials.BONE, settings), new Item.Settings(), true);
     public static final Item BONE_SPEAR = registerItemWithSpearModel("bone_spear",
-            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.STEEL, settings), new Item.Settings());
+            (settings) -> new CustomSpearWeaponItem(ModToolMaterials.BONE, settings), new Item.Settings());
 
     public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
             (settings) -> new CustomSwordWeaponItem(ModToolMaterials.BRONZE, settings), new Item.Settings(), true);
