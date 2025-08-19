@@ -23,7 +23,7 @@ public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
                         MemoryModuleType.ATTACK_TARGET,
                         MemoryModuleState.VALUE_ABSENT,
                         MemoryModulesME.FOOD_EATEN_COUNT,
-                        MemoryModuleState.VALUE_PRESENT
+                        MemoryModuleState.REGISTERED
                 ),
                 200
         );
@@ -59,7 +59,9 @@ public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
         entity.getMainHandStack().decrement(1);
 
         Optional<Integer> foodCount = entity.getBrain().getOptionalRegisteredMemory(MemoryModulesME.FOOD_EATEN_COUNT);
-        foodCount.ifPresent(count -> entity.getBrain().remember(MemoryModulesME.FOOD_EATEN_COUNT, count + 1));
+        foodCount.ifPresentOrElse(
+                count -> entity.getBrain().remember(MemoryModulesME.FOOD_EATEN_COUNT, count + 1), // If present
+                () -> entity.getBrain().remember(MemoryModulesME.FOOD_EATEN_COUNT, 1)); // If absent
 
         entity.setSitting(false);
     }

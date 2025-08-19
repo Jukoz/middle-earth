@@ -7,7 +7,7 @@ import net.sevenstars.api.SevenStarsApi;
 import net.sevenstars.middleearth.MiddleEarth;
 
 public class ActivitiesME {
-    public static final Activity LOOK_FOR_FOOD = register("look_for_food");
+
 
     private static Activity register(String id) {
         return Registry.register(Registries.ACTIVITY, id, new Activity(id));

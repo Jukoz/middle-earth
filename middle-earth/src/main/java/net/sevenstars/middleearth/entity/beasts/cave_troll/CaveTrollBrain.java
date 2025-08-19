@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
@@ -12,12 +13,16 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
 import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollDigForFoodTask;
 import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollEatFoodTask;
 import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollSleepTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
+
+import java.util.Optional;
 
 public class CaveTrollBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super CaveTrollEntity>>> SENSORS;
@@ -33,9 +38,7 @@ public class CaveTrollBrain {
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.FIGHT);
 
-        brain.remember(MemoryModulesME.FOOD_EATEN_COUNT, 0);
-
-        brain.refreshActivities(troll.getWorld().getTimeOfDay(), troll.getWorld().getTime());
+        brain.resetPossibleActivities();
         return brain;
     }
 
@@ -51,7 +54,7 @@ public class CaveTrollBrain {
 
     private static void addIdleActivities(Brain<CaveTrollEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, UpdateAttackTargetTask.create((world, troll) -> troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
+                Pair.of(0, UpdateAttackTargetTask.create(CaveTrollBrain::getAttackTarget)),
                 Pair.of(1, new RandomTask<>(ImmutableList.of(
                         Pair.of(StrollTask.create(1.0F), 5),
                         Pair.of(new CompositeTask<>(ImmutableMap.of(), ImmutableSet.of(),
@@ -77,8 +80,12 @@ public class CaveTrollBrain {
                 ));
     }
 
+    private static Optional<? extends LivingEntity> getAttackTarget(ServerWorld world, CaveTrollEntity troll) {
+        return troll.isSleeping() ? troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HURT_BY_ENTITY) : troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+    }
+
     public static void updateActivities(CaveTrollEntity troll) {
-        troll.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, ActivitiesME.LOOK_FOR_FOOD, Activity.IDLE));
+        troll.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
         troll.getBrain().refreshActivities(troll.getWorld().getTimeOfDay(), troll.getWorld().getTime());
     }
 
@@ -97,6 +104,7 @@ public class CaveTrollBrain {
                 MemoryModuleType.HOME,
                 MemoryModuleType.LAST_WOKEN,
                 MemoryModuleType.HURT_BY,
+                MemoryModuleType.HURT_BY_ENTITY,
                 MemoryModuleType.VISIBLE_MOBS,
                 MemoryModuleType.ATTACK_TARGET,
                 MemoryModuleType.ATTACK_COOLING_DOWN,

@@ -18,6 +18,8 @@ public class CaveTrollSleepTask extends MultiTickTask<CaveTrollEntity> {
                         MemoryModuleState.VALUE_ABSENT,
                         MemoryModuleType.ATTACK_TARGET,
                         MemoryModuleState.VALUE_ABSENT,
+                        MemoryModuleType.HURT_BY_ENTITY,
+                        MemoryModuleState.REGISTERED,
                         MemoryModulesME.FOOD_EATEN_COUNT,
                         MemoryModuleState.VALUE_PRESENT
                 ),1200, 3600
@@ -33,7 +35,7 @@ public class CaveTrollSleepTask extends MultiTickTask<CaveTrollEntity> {
 
     @Override
     protected boolean shouldKeepRunning(ServerWorld world, CaveTrollEntity entity, long time) {
-        return this.hasRequiredMemoryState(entity);
+        return entity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET).isEmpty();
     }
 
     @Override
@@ -45,5 +47,6 @@ public class CaveTrollSleepTask extends MultiTickTask<CaveTrollEntity> {
     @Override
     protected void finishRunning(ServerWorld world, CaveTrollEntity entity, long time) {
         entity.stopSleeping();
+        entity.getBrain().remember(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN, 600);
     }
 }
