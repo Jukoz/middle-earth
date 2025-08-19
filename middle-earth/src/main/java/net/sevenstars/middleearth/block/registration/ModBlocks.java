@@ -16,7 +16,7 @@ import net.sevenstars.middleearth.block.special.pointedBlocks.PointedLimestoneBl
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
+import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
@@ -686,15 +686,15 @@ public class ModBlocks {
     }
 
     public static Block registerStoneBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop) {
-        return registerBlock(name, factory, settings, drop, ModItemGroups.STONE_BLOCKS_CONTENTS);
+        return registerBlock(name, factory, settings, drop, ItemGroupsME.STONE_BLOCKS_CONTENTS);
     }
 
     public static Block registerWoodBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop) {
-        return registerBlock(name, factory, settings, drop, ModItemGroups.WOOD_BLOCKS_CONTENTS);
+        return registerBlock(name, factory, settings, drop, ItemGroupsME.WOOD_BLOCKS_CONTENTS);
     }
 
     public static Block registerMiscBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop) {
-        return registerBlock(name, factory, settings, drop, ModItemGroups.MISC_BLOCKS_CONTENTS);
+        return registerBlock(name, factory, settings, drop, ItemGroupsME.MISC_BLOCKS_CONTENTS);
     }
 
     static void registerBlockItem(String name, Block block) {

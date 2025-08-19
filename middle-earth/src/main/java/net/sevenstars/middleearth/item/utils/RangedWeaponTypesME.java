@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.item.utils;
 
 import net.minecraft.util.StringIdentifiable;
 
-public enum ModRangedWeaponTypes implements StringIdentifiable {
+public enum RangedWeaponTypesME implements StringIdentifiable {
 
     BOW("bow", false, 512),
     NOBLE_BOW("bow", false, 768),
@@ -17,7 +17,7 @@ public enum ModRangedWeaponTypes implements StringIdentifiable {
     public final Boolean twoHanded;
     public final int durability;
 
-    ModRangedWeaponTypes(String name, boolean twoHanded, int durability){
+    RangedWeaponTypesME(String name, boolean twoHanded, int durability){
         this.name = name;
         this.twoHanded = twoHanded;
         this.durability = durability;

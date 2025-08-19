@@ -15,17 +15,16 @@ import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.WeaponTypeDataComponent;
-import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
-import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
+import net.sevenstars.middleearth.item.utils.RangedWeaponTypesME;
 
 import java.util.List;
 
 public class CustomLongbowWeaponItem extends BowItem {
-    public ModRangedWeaponTypes type;
+    public RangedWeaponTypesME type;
 
     public static final int RANGE = 25;
 
-    public CustomLongbowWeaponItem(ModRangedWeaponTypes type, Item.Settings settings) {
+    public CustomLongbowWeaponItem(RangedWeaponTypesME type, Item.Settings settings) {
         super(settings.maxDamage(type.durability)
                 .component(DataComponentTypesME.WEAPON_TYPE_DATA, new WeaponTypeDataComponent(type.name)));
         this.type = type;

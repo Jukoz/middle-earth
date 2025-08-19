@@ -11,7 +11,7 @@ import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggH
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
+import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.registries.RegistryAliases;
 import net.sevenstars.middleearth.world.features.tree.ModTreeConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.tree.MushroomTreeConfiguredFeatures;
@@ -592,7 +592,7 @@ public class ModNatureBlocks {
                new BlockItem(block, new Item.Settings().registryKey(ModBlocks.keyOfItem(name))));
         Item.BLOCK_ITEMS.put(block, item);
 
-        ModItemGroups.NATURE_BLOCKS_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsME.NATURE_BLOCKS_CONTENTS.add(item.getDefaultStack());
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
     }
 

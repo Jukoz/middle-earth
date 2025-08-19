@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.event.ModEvents;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.item.*;
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
+import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.sevenstars.middleearth.network.ModServerNetworkHandler;
 import net.sevenstars.middleearth.network.connections.ConnectionToClient;
@@ -67,7 +67,7 @@ public class MiddleEarth implements ModInitializer {
 		FoodItemsME.registerModItems();
 		ResourceItemsME.registerModItems();
 		EggItemsME.registerModItems();
-		ModItemGroups.register();
+		ItemGroupsME.register();
 		ModEntityAttributes.register();
 
 		WoodBlockSets.registerModBlockSets();

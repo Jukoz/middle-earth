@@ -8,19 +8,18 @@ import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.SoundEvents;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.WeaponTypeDataComponent;
-import net.sevenstars.middleearth.item.utils.ModShieldTypes;
+import net.sevenstars.middleearth.item.utils.ShieldTypesME;
 import net.minecraft.item.ShieldItem;
-import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 public class CustomShieldItem extends ShieldItem {
-    public final ModShieldTypes type;
+    public final ShieldTypesME type;
     public final static HashSet<CustomShieldItem> instances = new HashSet<>();
 
-    public CustomShieldItem(ModShieldTypes type, Item.Settings settings) {
+    public CustomShieldItem(ShieldTypesME type, Item.Settings settings) {
         super(settings.maxCount(1).maxDamage(type.durability).equippableUnswappable(EquipmentSlot.OFFHAND)
                 .component(DataComponentTypes.BLOCKS_ATTACKS,
                         new BlocksAttacksComponent(0.25F, 1.0F, List.of(

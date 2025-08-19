@@ -9,13 +9,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.WeaponTypeDataComponent;
-import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
+import net.sevenstars.middleearth.item.utils.WeaponTypesME;
 
 public class CustomAxeWeaponItem extends AxeItem {
 
     public CustomAxeWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
-        super(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed, settings.axe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)
-                .component(DataComponentTypesME.WEAPON_TYPE_DATA, new WeaponTypeDataComponent(ModWeaponTypes.AXE.name)));
+        super(toolMaterial, WeaponTypesME.AXE.attack, WeaponTypesME.AXE.attackSpeed, settings.axe(toolMaterial, WeaponTypesME.AXE.attack, WeaponTypesME.AXE.attackSpeed)
+                .component(DataComponentTypesME.WEAPON_TYPE_DATA, new WeaponTypeDataComponent(WeaponTypesME.AXE.name)));
     }
 
     @Override

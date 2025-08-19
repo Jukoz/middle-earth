@@ -29,7 +29,7 @@ public interface WeaponSettingsME {
 
     Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
-    static Item.Settings createWeaponSettings(ToolMaterial material, Item.Settings settings, ModWeaponTypes type){
+    static Item.Settings createWeaponSettings(ToolMaterial material, Item.Settings settings, WeaponTypesME type){
         RegistryEntryLookup<Block> registryEntryLookup = Registries.createEntryLookup(Registries.BLOCK);
 
         return settings.maxDamage(material.durability())

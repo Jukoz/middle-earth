@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.recipe;
+package net.sevenstars.middleearth.utils;
 
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.item.Item;
@@ -6,7 +6,8 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-public class ModTags {
+public class ItemTagsME {
+    //TODO actually gen the tags
     public static TagKey<Item> REPAIRS_STRAW_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_straw_armor"));
     public static TagKey<Item> REPAIRS_WOOL_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_wool_armor"));
     public static TagKey<Item> REPAIRS_FUR_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_fur_armor"));

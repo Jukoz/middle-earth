@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.block.registration;
 
 import net.minecraft.block.enums.NoteBlockInstrument;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
@@ -9,7 +8,7 @@ import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.StoneBlockTypes;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
+import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -433,7 +432,7 @@ public class StoneBlockSets {
 
     private static StoneBlockSetBuilder registerStoneSet(StoneBlockSetBuilder set) {
 
-        List<ItemStack> itemGroup = ModItemGroups.STONE_BLOCKS_CONTENTS;
+        List<ItemStack> itemGroup = ItemGroupsME.STONE_BLOCKS_CONTENTS;
 
         set.existingList.forEach((stoneBlockTypes) -> {
             switch (stoneBlockTypes){
