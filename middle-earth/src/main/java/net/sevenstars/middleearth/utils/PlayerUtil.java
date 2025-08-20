@@ -10,6 +10,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.resources.StateSaverAndLoader;
+import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -33,6 +39,30 @@ public class PlayerUtil {
             return world.getBlockState(entity.getBlockPos().offset(entity.getHorizontalFacing())).isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "climbing_attribute_allowed_blocks")));
         }
 
+        return false;
+    }
+
+    public static boolean isOfRace(@NotNull PlayerEntity entity, @NotNull RaceType type){
+        PlayerData data = StateSaverAndLoader.getPlayerState(entity);
+        if(data != null && data.getRace() != null){
+            Race race = RaceLookup.getRace(entity.getWorld(), data.getRace());
+            if(race != null){
+                RaceType raceType = race.getRaceType();
+                return raceType == type;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isOfRace(@NotNull PlayerEntity entity, @NotNull List<RaceType> types){
+        PlayerData data = StateSaverAndLoader.getPlayerState(entity);
+        if(data != null && data.getRace() != null){
+            Race race = RaceLookup.getRace(entity.getWorld(), data.getRace());
+            if(race != null){
+                RaceType raceType = race.getRaceType();
+                return types.contains(raceType);
+            }
+        }
         return false;
     }
 }
