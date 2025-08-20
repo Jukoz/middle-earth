@@ -10,6 +10,8 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,6 +27,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -42,8 +46,11 @@ import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
+import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
@@ -117,9 +124,31 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
+    public void tryBonding(PlayerEntity player) {
+        double rand = this.random.nextDouble();
+        System.out.println("wahoo");
+
+        if(rand < 0.15 || player.isInCreativeMode()) { // Tame success
+            this.tameBeast(player);
+            this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+
+            this.chargeTimeout = 0;
+        }
+        if(rand > 0.7) { // Tame failure (wake up, become enraged)
+            this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 1200));
+            this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+        }
+    }
+
+    @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        this.openInventory(player);
         return super.interactMob(player, hand);
+    }
+
+    @Override
+    protected boolean isTamable() {
+        return this.isSleeping();
     }
 
     @Override
@@ -228,7 +257,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     protected Disposition getDisposition() {
-        return null;
+        return Disposition.EVIL;
     }
 
     @Override
@@ -243,7 +272,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isBondingItem(ItemStack itemStack) {
-        return false;
+        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "chains")));
     }
 
     public static boolean shouldTarget(LivingEntity target) {

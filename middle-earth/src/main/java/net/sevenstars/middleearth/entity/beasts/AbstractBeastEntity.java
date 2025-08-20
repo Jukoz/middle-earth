@@ -370,8 +370,6 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
 
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
-
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && this.isTamable()) {
@@ -403,7 +401,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
 
     @Override
     public ActionResult interactHorse(PlayerEntity player, ItemStack stack) {
-        return super.interactHorse(player, stack);
+        return ActionResult.PASS;
     }
 
     public boolean damage(DamageSource source, float amount) {

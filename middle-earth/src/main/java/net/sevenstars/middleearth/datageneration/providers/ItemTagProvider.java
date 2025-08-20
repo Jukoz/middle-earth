@@ -3,14 +3,12 @@ package net.sevenstars.middleearth.datageneration.providers;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.registration.OreRockSets;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
-import net.sevenstars.middleearth.item.EquipmentItemsME;
-import net.sevenstars.middleearth.item.FoodItemsME;
-import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.sevenstars.middleearth.item.WeaponItemsME;
+import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.recipe.ModTags;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -38,6 +36,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var warg_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor")));
         var broadhoof_goat_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
         var dyeable = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("dyeable")));
+        var chains = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "chains")));
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("iron_ores"));
         TagKey<Item> gold_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("gold_ores"));
@@ -154,6 +153,13 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         dyeable.add(EquipmentItemsME.WARG_LEATHER_ARMOR);
         dyeable.add(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR);
+
+        chains.add(Items.CHAIN);
+        chains.add(ModDecorativeBlocks.BRONZE_CHAIN.asItem());
+        chains.add(ModDecorativeBlocks.BRONZE_BROAD_CHAIN.asItem());
+        chains.add(ModDecorativeBlocks.CRUDE_CHAIN.asItem());
+        chains.add(ModDecorativeBlocks.CRUDE_BROAD_CHAIN.asItem());
+        chains.add(ModDecorativeBlocks.SPIKY_CHAIN.asItem());
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {
