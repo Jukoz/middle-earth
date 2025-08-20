@@ -10,8 +10,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
+import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
@@ -64,5 +68,29 @@ public class PlayerUtil {
             }
         }
         return false;
+    }
+
+    public static Faction fetchFaction(@NotNull PlayerEntity entity){
+        PlayerData data = StateSaverAndLoader.getPlayerState(entity);
+        if(data != null && data.getFaction() != null){
+            try {
+                return FactionLookup.getFactionById(entity.getWorld(), data.getFaction());
+            } catch (FactionIdentifierException e) {
+                return null;
+            }
+        }
+        return null;
+    }
+    public static SpawnData fetchSpawn(@NotNull PlayerEntity entity){
+        PlayerData data = StateSaverAndLoader.getPlayerState(entity);
+        if(data != null && data.getFaction() != null && data.getSpawn() != null){
+            try {
+                Faction faction = FactionLookup.getFactionById(entity.getWorld(), data.getFaction());
+                return faction.getSpawnData().findSpawn(data.getSpawn());
+            } catch (FactionIdentifierException e) {
+                return null;
+            }
+        }
+        return null;
     }
 }
