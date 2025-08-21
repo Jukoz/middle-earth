@@ -362,6 +362,8 @@ public class ModDecorativeBlocks {
             (settings) -> new FlowerPotBlock(ModNatureBlocks.YELLOW_TROLLIUS, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_TAN_SHRUB = registerBlock("potted_tan_shrub",
             (settings) -> new FlowerPotBlock(ModNatureBlocks.TAN_SHRUB, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block POTTED_BLUE_GENTIAN = registerBlock("potted_blue_gentian",
+            (settings) -> new FlowerPotBlock(ModNatureBlocks.BLUE_GENTIAN, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_GREEN_JEWEL_CORNFLOWER = registerBlock("potted_green_jewel_cornflower",
             (settings) -> new FlowerPotBlock(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_NOBLEWHITE = registerBlock("potted_noblewhite",

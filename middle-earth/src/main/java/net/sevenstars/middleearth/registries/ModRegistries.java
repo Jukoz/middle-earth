@@ -449,6 +449,7 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.NIPHREDIL, 0.65f);
         registry.add(ModNatureBlocks.SIMBELMYNE, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_FLOWER, 0.65f);
+        registry.add(ModNatureBlocks.BLUE_GENTIAN, 0.65f);
         registry.add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER, 0.65f);
         registry.add(ModNatureBlocks.NOBLEWHITE, 0.65f);
 

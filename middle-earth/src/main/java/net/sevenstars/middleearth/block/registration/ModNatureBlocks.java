@@ -206,6 +206,8 @@ public class ModNatureBlocks {
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN), true);
 
+    public static final Block BLUE_GENTIAN = registerBlock("blue_gentian",
+            (settings) -> new FlowerBlock(StatusEffects.SATURATION, 0, settings), AbstractBlock.Settings.copy(Blocks.DANDELION), true);
     public static final Block GREEN_JEWEL_CORNFLOWER = registerBlock("green_jewel_cornflower",
             (settings) -> new FlowerBlock(StatusEffects.SATURATION, 0, settings), AbstractBlock.Settings.copy(Blocks.DANDELION), true);
     public static final Block NOBLEWHITE = registerBlock("noblewhite",
