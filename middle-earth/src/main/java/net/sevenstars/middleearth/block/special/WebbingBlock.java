@@ -1,8 +1,7 @@
 package net.sevenstars.middleearth.block.special;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.MultifaceBlock;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.entity.LivingEntity;
@@ -12,16 +11,30 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class WebbingBlock extends MultifaceBlock {
+public class WebbingBlock extends MultifaceGrowthBlock {
     public static final BooleanProperty PERSISTENT = Properties.PERSISTENT;
+    public static final MapCodec<WebbingBlock> CODEC = createCodec(WebbingBlock::new);
+    private final MultifaceGrower grower = new MultifaceGrower(this);
 
     public WebbingBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(PERSISTENT, true));
+    }
+
+    @Override
+    public MapCodec<? extends MultifaceGrowthBlock> getCodec() {
+        return CODEC;
+    }
+
+    @Override
+    public MultifaceGrower getGrower() {
+        return this.grower;
     }
 
     @Override

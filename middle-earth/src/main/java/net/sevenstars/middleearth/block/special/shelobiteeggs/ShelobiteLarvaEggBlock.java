@@ -23,7 +23,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
+import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
@@ -58,8 +58,8 @@ public class ShelobiteLarvaEggBlock extends AbstractShelobiteLarvaEgg {
 
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        if(!entity.collidedSoftly && entity.getType() != ModEntities.MIRKWOOD_SPIDER){
-            breakEgg(world, pos, state);
+        if(!entity.collidedSoftly && entity.getType() != ModEntities.SHELOBITE_SCUTTLER){
+            this.breakEgg(world, pos, state);
             super.onSteppedOn(world, pos, state, entity);
         }
     }
@@ -69,6 +69,24 @@ public class ShelobiteLarvaEggBlock extends AbstractShelobiteLarvaEgg {
         super.onLandedUpon(world, state, pos, entity, fallDistance);
         breakEgg(world, pos, state);
 
+    }
+
+    public static void breakEgg(World world, BlockPos pos, BlockState state) {
+        world.playSound((PlayerEntity)null, pos, SoundEvents.ENTITY_TURTLE_EGG_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.random.nextFloat() * 0.2F);
+        world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(state));
+        world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
+        Random random = new Random();
+        int amountOfSpider = random.nextInt(1, 4);
+        for(int i = 0; i < amountOfSpider; i++)
+            SpawnSpider(pos, world);
+        world.removeBlock(pos, false);
+    }
+
+    public static void SpawnSpider(BlockPos pos, World world){
+        ShelobiteScuttlerEntity entity = new ShelobiteScuttlerEntity(ModEntities.SHELOBITE_SCUTTLER, world);
+        entity.age = 0;
+        entity.setPos(pos.getX(), pos.getY() + 1, pos.getZ());
+        world.spawnEntity(entity);
     }
 
     @Override

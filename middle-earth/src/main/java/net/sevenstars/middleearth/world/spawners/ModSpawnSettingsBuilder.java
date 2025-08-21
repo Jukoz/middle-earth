@@ -39,10 +39,10 @@ public class ModSpawnSettingsBuilder {
         builder.spawn(SpawnGroup.CREATURE,3,  new SpawnSettings.SpawnEntry(ModEntities.STONE_TROLL, 1, 2));
     }
     public static void addMirkwoodSpider(SpawnSettings.Builder builder){
-        builder.spawn(SpawnGroup.CREATURE, 9, new SpawnSettings.SpawnEntry(ModEntities.MIRKWOOD_SPIDER, 2, 4));
+        builder.spawn(SpawnGroup.CREATURE, 9, new SpawnSettings.SpawnEntry(ModEntities.SHELOBITE_SCUTTLER, 2, 4));
     }
     public static void addRareMirkwoodSpider(SpawnSettings.Builder builder){
-        builder.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(ModEntities.MIRKWOOD_SPIDER, 1, 2));
+        builder.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(ModEntities.SHELOBITE_SCUTTLER, 1, 2));
     }
 
     public static void addUncommonBats(SpawnSettings.Builder builder){
