@@ -28,10 +28,13 @@ public class SimpleBlockModel {
             add(ModBlocks.DRY_DIRT);
 
             add(ModBlocks.LOAM);
+            add(ModBlocks.COARSE_LOAM);
 
             add(ModBlocks.PEAT);
+            add(ModBlocks.COARSE_PEAT);
 
             add(ModBlocks.SILT);
+            add(ModBlocks.COARSE_SILT);
 
             add(ModBlocks.FOUL_DIRT);
 
