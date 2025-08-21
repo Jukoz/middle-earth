@@ -28,6 +28,7 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> FLOWER_ALLIUM = registerKey("flower_allium");
     public static final RegistryKey<PlacedFeature> FLOWER_AZURE_BLUET = registerKey("flower_azure_bluet");
     public static final RegistryKey<PlacedFeature> FLOWER_AZURE_BLUET_RARE = registerKey("flower_azure_bluet_rare");
+    public static final RegistryKey<PlacedFeature> FLOWER_BLUE_GENTIAN = registerKey("flower_blue_gentian");
     public static final RegistryKey<PlacedFeature> FLOWER_BLUE_ORCHID = registerKey("flower_blue_orchid");
     public static final RegistryKey<PlacedFeature> FLOWER_CORNFLOWER = registerKey("flower_cornflower");
     public static final RegistryKey<PlacedFeature> FLOWER_CORNFLOWER_COMMON = registerKey("flower_cornflower_common");
@@ -39,6 +40,7 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> FLOWER_LOSSARNACH_COMMON = registerKey("flower_lossarnach_common");
     public static final RegistryKey<PlacedFeature> FLOWER_MEADOW = registerKey("flower_meadow");
     public static final RegistryKey<PlacedFeature> FLOWER_MALLOS = registerKey("flower_mallos");
+    public static final RegistryKey<PlacedFeature> FLOWER_NOBLEWHITE = registerKey("flower_noblewhite");
     public static final RegistryKey<PlacedFeature> FLOWER_POPPY = registerKey("flower_poppy");
     public static final RegistryKey<PlacedFeature> FLOWER_ELANOR = registerKey("flower_elanor");
     public static final RegistryKey<PlacedFeature> FLOWER_ROSE_BUSH = registerKey("flower_rose_bush");
@@ -221,6 +223,7 @@ public class ModVegetationPlacedFeatures {
 
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerAllium = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_ALLIUM);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerAzureBluet = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_AZURE_BLUET);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerBlueGentian = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_BLUE_GENTIAN);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerBlueOrchid = registryEntryLookup.getOrThrow(VegetationConfiguredFeatures.FLOWER_SWAMP);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerMeadow = registryEntryLookup.getOrThrow(VegetationConfiguredFeatures.FLOWER_MEADOW);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerCornflower = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_CORNFLOWER);
@@ -230,6 +233,7 @@ public class ModVegetationPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerLebennin = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_LEBENNIN);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerLossarnach = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_LOSSARNACH);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerMallos = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_MALLOS);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerNobleWhite = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_NOBLEWHITE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerPoppy = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_POPPY);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerElanor = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_ELANOR);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerRoseBush = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_ROSE_BUSH);
@@ -361,6 +365,7 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, FLOWER_ALLIUM, flowerAllium, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_AZURE_BLUET, flowerAzureBluet, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_AZURE_BLUET_RARE, flowerAzureBluet, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWER_BLUE_GENTIAN, flowerBlueGentian, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_BLUE_ORCHID, flowerBlueOrchid, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_MEADOW, flowerMeadow, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_DORWINION, flowerDorwinion, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
@@ -372,6 +377,7 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, FLOWER_LOSSARNACH, flowerLossarnach, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_LOSSARNACH_COMMON, flowerLossarnach, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_MALLOS, flowerMallos, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWER_NOBLEWHITE, flowerNobleWhite, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_POPPY, flowerPoppy, uncommon, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_ELANOR, flowerElanor, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_ROSE_BUSH, flowerRoseBush, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

@@ -15,7 +15,7 @@ public class MEBiomeDataConfigs {
 
     public static SlopeMap blueMountainsBase = new SlopeMap()
             .addSlopeData(30, ModBlocks.PEAT_GRASS_BLOCK)
-            .addSlopeData(33, Blocks.COARSE_DIRT)
+            .addSlopeData(33, ModBlocks.COARSE_PEAT)
             .addSlopeData(34, Blocks.GRAVEL)
             .addSlopeData(37, Blocks.ANDESITE)
             .addSlopeData(40, StoneBlockSets.DOLOMITE_SET.baseBlocks.base())
@@ -25,7 +25,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(MAX_ANGLE, StoneBlockSets.SLATE_SET.baseBlocks.base());
     public static SlopeMap blueMountains = new SlopeMap()
             .addSlopeData(30, ModBlocks.PEAT_GRASS_BLOCK)
-            .addSlopeData(33, Blocks.COARSE_DIRT)
+            .addSlopeData(33, ModBlocks.COARSE_PEAT)
             .addSlopeData(34, Blocks.GRAVEL)
             .addSlopeData(37, Blocks.ANDESITE)
             .addSlopeData(40, StoneBlockSets.DOLOMITE_SET.baseBlocks.base())
@@ -35,7 +35,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(MAX_ANGLE, StoneBlockSets.SLATE_SET.baseBlocks.base());
     public static SlopeMap blueMountainHighLands = new SlopeMap()
             .addSlopeData(23, ModBlocks.PEAT_GRASS_BLOCK)
-            .addSlopeData(28, Blocks.COARSE_DIRT)
+            .addSlopeData(28, ModBlocks.COARSE_PEAT)
             .addSlopeData(31, Blocks.GRAVEL)
             .addSlopeData(35, Blocks.ANDESITE)
             .addSlopeData(37, StoneBlockSets.DOLOMITE_SET.baseBlocks.base())

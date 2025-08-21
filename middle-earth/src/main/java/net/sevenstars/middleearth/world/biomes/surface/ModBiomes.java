@@ -496,6 +496,8 @@ public class ModBiomes {
         ModBiomeFeatures.addLargeBlueFescue(vegetation);
 
         if(step != 4) {
+            ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
+
             vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
             vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
             vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
@@ -504,6 +506,7 @@ public class ModBiomes {
             ModBiomeFeatures.addClovers(vegetation);
             ModBiomeFeatures.addVeryRareDryGrass(vegetation);
             ModBiomeFeatures.addSparseWheatGrass(vegetation);
+            ModBiomeFeatures.addBlueGentianFlower(vegetation);
             ModBiomeFeatures.addBrownBolete(vegetation);
             ModBiomeFeatures.addMorsel(vegetation);
             ModBiomeFeatures.addWhiteMushroom(vegetation);
@@ -518,18 +521,20 @@ public class ModBiomes {
             ModBiomeFeatures.addBlueTuff(vegetation);
             ModBiomeFeatures.addRareSpruceTrees(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
+            ModBiomeFeatures.addBlueTuffBoulder(vegetation);
             if(step == 0){
                 ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
-                ModBiomeFeatures.addBlueTuffBoulder(vegetation);
             }
         } else if(step == 2) { // Base
             ModBiomeFeatures.addSparsePineTrees(vegetation);
+            ModBiomeFeatures.addBlueTuffBoulder(vegetation);
         } else if(step == 3) { // High Lands
-
+            ModBiomeFeatures.addNoblewhite(vegetation);
         } else if(step == 4){ // Peaks
             temperature = -0.1f;
         } else if(step == 5) { // Woods
-            ModBiomeFeatures.addBlueTuffBoulder(vegetation);
+            ModSpawnSettingsBuilder.addDeer(spawnSettings);
+            
             ModBiomeFeatures.addFalseOatgrass(vegetation);
             ModBiomeFeatures.addCornflower(vegetation);
             ModBiomeFeatures.addBlueTuff(vegetation);
@@ -541,6 +546,7 @@ public class ModBiomes {
             ModBiomeFeatures.addCommonFirTrees(vegetation);
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addForestBlockMoss(vegetation);
+            ModBiomeFeatures.addBlueTuffBoulder(vegetation);
         }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, temperature, true);

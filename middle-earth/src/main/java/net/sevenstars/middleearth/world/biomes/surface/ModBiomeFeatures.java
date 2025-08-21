@@ -521,6 +521,9 @@ public class ModBiomeFeatures {
     public static void addRareAzureBluetFlower(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_AZURE_BLUET_RARE);
     }
+    public static void addBlueGentianFlower(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_BLUE_GENTIAN);
+    }
     public static void addBlueOrchidFlower(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_BLUE_ORCHID);
     }
@@ -553,6 +556,9 @@ public class ModBiomeFeatures {
     }
     public static void addMallos(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_MALLOS);
+    }
+    public static void addNoblewhite(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_NOBLEWHITE);
     }
     public static void addPoppyFlower(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_POPPY);
