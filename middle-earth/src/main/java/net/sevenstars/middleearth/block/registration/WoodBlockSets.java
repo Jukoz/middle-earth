@@ -413,13 +413,9 @@ public class WoodBlockSets {
                 case SHINGLE_BLOCKS ->
                         set.shinglesBlocks = BlockSetRegistration.createRegularSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup, false);
                 case LEAVES -> {
-                    //Temporary solution until particles figured out
-                    if (set.setName.contains("mallorn") ){
+                    if(set.setName.equals("mallorn")){
                         set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
-                                (settings) -> new ModLeavesBlock(0.01F, settings, false, ModParticleTypes.MALLORN_LEAVES_PARTICLE), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);
-                    } else if (set.setName.contains("mirkwood")){
-                        set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
-                                (settings) -> new ModLeavesBlock(0.01F, settings, true, ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);
+                                (settings) -> new ModLeavesBlock(0.01F, settings, false), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);
                     } else {
                         set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
                                 (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);

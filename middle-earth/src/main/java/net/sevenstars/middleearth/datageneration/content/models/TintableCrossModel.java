@@ -30,6 +30,7 @@ public class TintableCrossModel {
             add(ModNatureBlocks.WHITE_MUSHROOM);
             add(ModNatureBlocks.YELLOW_AMANITA);
 
+            add(ModNatureBlocks.BLUE_GENTIAN);
             add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
             add(ModNatureBlocks.NOBLEWHITE);
 
