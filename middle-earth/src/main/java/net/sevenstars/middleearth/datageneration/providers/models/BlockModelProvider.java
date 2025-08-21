@@ -957,7 +957,7 @@ public class BlockModelProvider extends FabricModelProvider {
                                                            String modId, String topTexturePath, String bottomTexturePath, String sideTexturePath) {
         Identifier fullBlockId = ModelIds.getBlockModelId(origin);
         String modIdTopBottom = modId;
-        if (sideTexturePath.contains("deepslate_carved_window")){
+        if (sideTexturePath.contains("deepslate_carved_window") || sideTexturePath.contains("calcite_carved_window")){
             modIdTopBottom = "minecraft";
         }
 
