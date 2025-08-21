@@ -437,10 +437,25 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState()) {
                     surfaceBlock = Blocks.DIRT.getDefaultState();
                     underSurfaceBlock = surfaceBlock;
+                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.LOAM_GRASS_BLOCK.getDefaultState()) {
+                    surfaceBlock = ModBlocks.LOAM.getDefaultState();
+                    underSurfaceBlock = surfaceBlock;
+                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.PEAT_GRASS_BLOCK.getDefaultState()) {
+                    surfaceBlock = ModBlocks.PEAT.getDefaultState();
+                    underSurfaceBlock = surfaceBlock;
+                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.SILT_GRASS_BLOCK.getDefaultState()) {
+                    surfaceBlock = ModBlocks.SILT.getDefaultState();
+                    underSurfaceBlock = surfaceBlock;
                 } else {
                     surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().getBlockAtAngle(slopeAngle).getDefaultState();
                     if(surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState() || surfaceBlock == ModBlocks.SNOWY_GRASS_BLOCK.getDefaultState()) {
                         underSurfaceBlock = Blocks.DIRT.getDefaultState();
+                    } else if(surfaceBlock == ModBlocks.LOAM_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = ModBlocks.LOAM.getDefaultState();
+                    } else if(surfaceBlock == ModBlocks.PEAT_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = ModBlocks.PEAT.getDefaultState();
+                    } else if(surfaceBlock == ModBlocks.SILT_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = ModBlocks.SILT.getDefaultState();
                     }
                     else underSurfaceBlock = surfaceBlock;
                 }

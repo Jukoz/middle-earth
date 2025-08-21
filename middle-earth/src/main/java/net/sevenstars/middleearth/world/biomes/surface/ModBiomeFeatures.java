@@ -610,6 +610,12 @@ public class ModBiomeFeatures {
     public static void addBracken(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_BRACKEN);
     }
+    public static void addBlueFescue(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_BLUE_FESCUE);
+    }
+    public static void addLargeBlueFescue(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_LARGE_BLUE_FESCUE);
+    }
     public static void addPumicePileRare(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_PUMICE);
     }
@@ -630,6 +636,12 @@ public class ModBiomeFeatures {
     }
     public static void addBeachGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_BEACH_GRASS);
+    }
+    public static void addBushes(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_BUSHES);
+    }
+    public static void addClovers(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_CLOVERS);
     }
     public static void addHaradFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_BROWN_GRASS);
@@ -658,6 +670,9 @@ public class ModBiomeFeatures {
     }
     public static void addDryGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_DRY_GRASS);
+    }
+    public static void addVeryRareDryGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_VERY_RARE_DRY_GRASS);
     }
     public static void addSmallDryShrub(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SMALL_DRY_SHRUB);
@@ -712,6 +727,9 @@ public class ModBiomeFeatures {
     public static void addCommonHeath(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_HEATH);
     }
+    public static void addSparseHeath(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SPARSE_HEATH);
+    }
     public static void addHeath(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_HEATH);
     }
@@ -720,6 +738,9 @@ public class ModBiomeFeatures {
     }
     public static void addCommonHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_HEATHER);
+    }
+    public static void addDeadNormalHeather(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_DEAD_NORMAL_HEATHER);
     }
     public static void addUncommonLavender(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_LAVENDER);
@@ -835,6 +856,9 @@ public class ModBiomeFeatures {
 
     public static void addWildGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_WILD_GRASS);
+    }
+    public static void addOccasionalWildGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_OCCASIONAL_WILD_GRASS);
     }
     public static void addWilderGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_WILDER_GRASS);
@@ -967,6 +991,9 @@ public class ModBiomeFeatures {
     }
     public static void addGrassyDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.GRASSY_DIRT_ORE);
+    }
+    public static void addGrassyPeatOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.GRASSY_PEAT_ORE);
     }
     public static void addDirtToGrassOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.DIRT_TO_GRASS_ORE);

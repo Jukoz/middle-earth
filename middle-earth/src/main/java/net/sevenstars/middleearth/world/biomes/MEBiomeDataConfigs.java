@@ -14,7 +14,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base());
 
     public static SlopeMap blueMountainsBase = new SlopeMap()
-            .addSlopeData(30, Blocks.GRASS_BLOCK)
+            .addSlopeData(30, ModBlocks.PEAT_GRASS_BLOCK)
             .addSlopeData(33, Blocks.COARSE_DIRT)
             .addSlopeData(34, Blocks.GRAVEL)
             .addSlopeData(37, Blocks.ANDESITE)
@@ -22,9 +22,9 @@ public class MEBiomeDataConfigs {
             .addSlopeData(45, Blocks.TUFF)
             .addSlopeData(47, StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base())
             .addSlopeData(51, StoneBlockSets.KHAGALABAN_SET.baseBlocks.base())
-            .addSlopeData(MAX_ANGLE, Blocks.COBBLED_DEEPSLATE);
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.SLATE_SET.baseBlocks.base());
     public static SlopeMap blueMountains = new SlopeMap()
-            .addSlopeData(30, Blocks.GRASS_BLOCK)
+            .addSlopeData(30, ModBlocks.PEAT_GRASS_BLOCK)
             .addSlopeData(33, Blocks.COARSE_DIRT)
             .addSlopeData(34, Blocks.GRAVEL)
             .addSlopeData(37, Blocks.ANDESITE)
@@ -32,9 +32,9 @@ public class MEBiomeDataConfigs {
             .addSlopeData(45, Blocks.TUFF)
             .addSlopeData(55, StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base())
             .addSlopeData(67, StoneBlockSets.KHAGALABAN_SET.baseBlocks.base())
-            .addSlopeData(MAX_ANGLE, Blocks.COBBLED_DEEPSLATE);
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.SLATE_SET.baseBlocks.base());
     public static SlopeMap blueMountainHighLands = new SlopeMap()
-            .addSlopeData(23, Blocks.GRASS_BLOCK)
+            .addSlopeData(23, ModBlocks.PEAT_GRASS_BLOCK)
             .addSlopeData(28, Blocks.COARSE_DIRT)
             .addSlopeData(31, Blocks.GRAVEL)
             .addSlopeData(35, Blocks.ANDESITE)
@@ -42,7 +42,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(42, Blocks.TUFF)
             .addSlopeData(49, StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base())
             .addSlopeData(61, StoneBlockSets.KHAGALABAN_SET.baseBlocks.base())
-            .addSlopeData(MAX_ANGLE, Blocks.COBBLED_DEEPSLATE);
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.SLATE_SET.baseBlocks.base());
     public static SlopeMap blueMountainsPeaks = new SlopeMap()
             .addSlopeData(25, Blocks.SNOW_BLOCK)
             .addSlopeData(33, StoneBlockSets.SCHIST_SET.baseBlocks.base())

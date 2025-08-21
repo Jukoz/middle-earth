@@ -485,18 +485,25 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
         float temperature = 0.5f;
 
+        ModBiomeFeatures.addGrassyPeatOre(vegetation);
         ModBiomeFeatures.addGrass(vegetation);
         ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
         ModBiomeFeatures.addBracken(vegetation);
-        ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addOccasionalWildGrass(vegetation);
+        ModBiomeFeatures.addBlueFescue(vegetation);
+        ModBiomeFeatures.addLargeBlueFescue(vegetation);
 
         if(step != 4) {
             vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
             vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
             vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
             vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
+            ModBiomeFeatures.addBushes(vegetation);
+            ModBiomeFeatures.addClovers(vegetation);
+            ModBiomeFeatures.addVeryRareDryGrass(vegetation);
+            ModBiomeFeatures.addSparseWheatGrass(vegetation);
             ModBiomeFeatures.addBrownBolete(vegetation);
             ModBiomeFeatures.addMorsel(vegetation);
             ModBiomeFeatures.addWhiteMushroom(vegetation);
@@ -505,6 +512,8 @@ public class ModBiomes {
         }
 
         if(step == 0 || step == 1){
+            ModBiomeFeatures.addCommonTurfOre(vegetation);
+            ModBiomeFeatures.addDeadNormalHeather(vegetation);
             ModBiomeFeatures.addCornflower(vegetation);
             ModBiomeFeatures.addBlueTuff(vegetation);
             ModBiomeFeatures.addRareSpruceTrees(vegetation);
@@ -530,7 +539,6 @@ public class ModBiomes {
             ModBiomeFeatures.addSpruceBushes(vegetation);
             ModBiomeFeatures.addCommonBlackPineTrees(vegetation);
             ModBiomeFeatures.addCommonFirTrees(vegetation);
-            ModBiomeFeatures.addCommonOakTrees(vegetation);
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addForestBlockMoss(vegetation);
         }
