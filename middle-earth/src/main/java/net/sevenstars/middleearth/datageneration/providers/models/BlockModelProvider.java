@@ -800,7 +800,7 @@ public class BlockModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.WEBBING);
 
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.MOSS);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.FOREST_MOSS);
+        registerMultifaceBlock(blockStateModelGenerator, ModNatureBlocks.FOREST_MOSS);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.CORRUPTED_MOSS);
 
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.MORGUL_IVY);
@@ -1502,5 +1502,10 @@ public class BlockModelProvider extends FabricModelProvider {
                 .put(TextureKey.BOTTOM, TextureMap.getId(dirtBlock));
         WeightedVariant weightedVariant = createWeightedVariant(MEModels.PATH_BLOCK.upload(pathBlock, textureMap, blockStateModelGenerator.modelCollector));
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(pathBlock, weightedVariant));
+    }
+
+    public final void registerMultifaceBlock(BlockStateModelGenerator blockStateModelGenerator, Block block) {
+        blockStateModelGenerator.registerTintedItemModel(block, blockStateModelGenerator.uploadBlockItemModel(block.asItem(), block), new GrassTintSource());
+        blockStateModelGenerator.registerMultifaceBlockModel(block);
     }
 }
