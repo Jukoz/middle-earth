@@ -8,6 +8,7 @@ import net.minecraft.client.render.item.ItemRenderState;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemDisplayContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.entity.beasts.BeastEntityRenderState;
@@ -18,11 +19,10 @@ public class CaveTrollEntityRenderState extends BeastEntityRenderState {
 
     public AnimationState chaseAnimationState = new AnimationState();
     public AnimationState scavengingAnimationState = new AnimationState();
-    public AnimationState startSleepingANimationState = new AnimationState();
+    public AnimationState startSleepingAnimationState = new AnimationState();
     public AnimationState sleepingAnimationState = new AnimationState();
     public AnimationState stopSleepingANimationState = new AnimationState();
     public boolean isSprinting = false;
-
     public boolean isControlled = false;
 
     public static void updateRenderState(LivingEntity entity, CaveTrollEntityRenderState state, ItemModelManager itemModelManager) {

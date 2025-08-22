@@ -42,6 +42,9 @@ import net.sevenstars.middleearth.utils.PlayerUtil;
 
 import java.util.List;
 
+// TODO Fix Saddle model inheritance
+// TODO Add multiple passenger riding
+// TODO Add passenger positioning and bouncing
 public class CaveTrollEntity extends AbstractBeastEntity {
     public LootTable scavengeLootTable;
     public LootWorldContext lootWorldContext;

@@ -19,6 +19,7 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
     private final Animation stopSleepingAnimation;
 
     private final ModelPart rightArm;
+    private final ModelPart chest;
     private final ModelPart upperBody;
     private final ModelPart rootChild;
 
@@ -26,6 +27,7 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
         super(root);
 
         rightArm = root.getChild("root").getChild("body_no_legs").getChild("ArmRight");
+        chest = root.getChild("root").getChild("body_no_legs").getChild("body_no_limbs");
         upperBody = root.getChild("root").getChild("body_no_legs");
         rootChild = root.getChild("root");
 
@@ -43,6 +45,7 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
+
         ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 0.0F));
 
         ModelPartData body_no_legs = root.addChild("body_no_legs", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -15.3333F, -0.5F));
@@ -124,7 +127,7 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
         this.scavengingAnimation.apply(state.scavengingAnimationState, state.age);
         this.startSittingAnimation.apply(state.startSittingAnimationState, state.age);
         this.stopSittingAnimation.apply(state.stopSittingAnimationState, state.age);
-        this.startSleepingAnimation.apply(state.startSleepingANimationState, state.age);
+        this.startSleepingAnimation.apply(state.startSleepingAnimationState, state.age);
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
         this.stopSleepingAnimation.apply(state.stopSleepingANimationState, state.age);
     }
