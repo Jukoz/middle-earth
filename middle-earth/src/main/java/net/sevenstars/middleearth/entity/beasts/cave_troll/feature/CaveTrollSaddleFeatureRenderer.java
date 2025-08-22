@@ -32,6 +32,7 @@ public class CaveTrollSaddleFeatureRenderer extends FeatureRenderer<CaveTrollEnt
         if(!itemStack.isEmpty()) {
             VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, "textures/entities/trolls/cave/cave_troll_green.png")), itemStack.hasGlint());
 
+            model.setAngles(state);
             model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
         }
     }

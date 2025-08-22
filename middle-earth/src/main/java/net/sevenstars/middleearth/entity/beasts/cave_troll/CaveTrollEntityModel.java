@@ -19,7 +19,6 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
     private final Animation stopSleepingAnimation;
 
     private final ModelPart rightArm;
-    private final ModelPart chest;
     private final ModelPart upperBody;
     private final ModelPart rootChild;
 
@@ -27,7 +26,6 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
         super(root);
 
         rightArm = root.getChild("root").getChild("body_no_legs").getChild("ArmRight");
-        chest = root.getChild("root").getChild("body_no_legs").getChild("body_no_limbs");
         upperBody = root.getChild("root").getChild("body_no_legs");
         rootChild = root.getChild("root");
 
@@ -43,6 +41,12 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
     }
 
     public static TexturedModelData getTexturedModelData() {
+        ModelData modelData = getModelData();
+
+        return TexturedModelData.of(modelData, 256, 256);
+    }
+
+    public static ModelData getModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
@@ -86,7 +90,7 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
         ModelPartData HandRight_Thumb = HandRight.addChild("HandRight_Thumb", ModelPartBuilder.create().uv(95, 163).cuboid(-1.75F, -1.5F, -1.5F, 3.0F, 3.0F, 3.0F, new Dilation(0.0F))
                 .uv(97, 157).cuboid(-0.75F, 1.5F, -1.0F, 2.0F, 1.0F, 2.0F, new Dilation(-0.02F)), ModelTransform.origin(7.15F, -1.0F, 0.6F));
 
-       ModelPartData ArmLeft = body_no_legs.addChild("ArmLeft", ModelPartBuilder.create().uv(105, 171).cuboid(0.0F, -3.5F, -5.0F, 10.0F, 41.0F, 10.0F, new Dilation(0.0F)), ModelTransform.origin(16.5F, -34.1667F, 0.5F));
+        ModelPartData ArmLeft = body_no_legs.addChild("ArmLeft", ModelPartBuilder.create().uv(105, 171).cuboid(0.0F, -3.5F, -5.0F, 10.0F, 41.0F, 10.0F, new Dilation(0.0F)), ModelTransform.origin(16.5F, -34.1667F, 0.5F));
 
         ModelPartData HandLeft = ArmLeft.addChild("HandLeft", ModelPartBuilder.create(), ModelTransform.origin(-42.0F, 39.5F, -4.0F));
 
@@ -110,7 +114,8 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
         ModelPartData LegRight = root.addChild("LegRight", ModelPartBuilder.create().uv(44, 228).cuboid(-6.5F, -0.5F, -6.5F, 13.0F, 15.0F, 13.0F, new Dilation(0.0F)), ModelTransform.origin(-9.0F, -14.5F, -1.5F));
 
         ModelPartData LegLeft = root.addChild("LegLeft", ModelPartBuilder.create().uv(100, 228).cuboid(-6.5F, -0.5F, -6.5F, 13.0F, 15.0F, 13.0F, new Dilation(0.0F)), ModelTransform.origin(9.0F, -14.5F, -1.5F));
-        return TexturedModelData.of(modelData, 256, 256);
+
+        return modelData;
     }
 
     @Override
