@@ -111,6 +111,9 @@ public class TintableCrossModel {
     {
         {
             add(ModNatureBlocks.CAMPION);
+            add(ModNatureBlocks.BLUE_BIGLEAF_HYDRANGEA);
+            add(ModNatureBlocks.PINK_BIGLEAF_HYDRANGEA);
+            add(ModNatureBlocks.WHITE_BIGLEAF_HYDRANGEA);
             add(ModNatureBlocks.DEAD_HEATHER_BUSH);
             add(ModNatureBlocks.DRY_HEATHER_BUSH);
             add(ModNatureBlocks.DEAD_RUSHES);

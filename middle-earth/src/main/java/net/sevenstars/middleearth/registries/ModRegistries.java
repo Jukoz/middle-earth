@@ -490,6 +490,9 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.BRACKEN, 0.30f);
         registry.add(ModNatureBlocks.GIANT_BUTTERBUR, 0.30f);
         registry.add(ModNatureBlocks.CAMPION, 0.30f);
+        registry.add(ModNatureBlocks.BLUE_BIGLEAF_HYDRANGEA, 0.30f);
+        registry.add(ModNatureBlocks.PINK_BIGLEAF_HYDRANGEA, 0.30f);
+        registry.add(ModNatureBlocks.WHITE_BIGLEAF_HYDRANGEA, 0.30f);
         registry.add(ModNatureBlocks.DEAD_HEATHER_BUSH, 0.30f);
         registry.add(ModNatureBlocks.DRY_HEATHER_BUSH, 0.30f);
         registry.add(ModNatureBlocks.DEAD_RUSHES, 0.30f);

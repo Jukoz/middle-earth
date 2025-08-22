@@ -148,6 +148,15 @@ public class ModNatureBlocks {
     public static final Block CAMPION = registerBlock("campion",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.BROWN), true);
+    public static final Block BLUE_BIGLEAF_HYDRANGEA = registerBlock("blue_bigleaf_hydrangea",
+            DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.BROWN), true);
+    public static final Block PINK_BIGLEAF_HYDRANGEA = registerBlock("pink_bigleaf_hydrangea",
+            DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.BROWN), true);
+    public static final Block WHITE_BIGLEAF_HYDRANGEA = registerBlock("white_bigleaf_hydrangea",
+            DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.BROWN), true);
     public static final Block DEAD_HEATHER_BUSH = registerBlock("dead_heather_bush",
             DesertPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.BROWN), true);
