@@ -182,6 +182,9 @@ public class ModNatureBlocks {
     public static final Block BRACKEN = registerBlock("bracken",
             CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ)
                     .mapColor(DyeColor.GREEN), true);
+    public static final Block GIANT_BUTTERBUR = registerBlock("giant_butterbur",
+            CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ)
+                    .mapColor(DyeColor.GREEN), true);
 
     public static final Block ATHELAS = registerBlock("athelas",
             CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)

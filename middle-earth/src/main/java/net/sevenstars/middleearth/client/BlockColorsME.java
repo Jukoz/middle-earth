@@ -37,7 +37,8 @@ public class BlockColorsME {
                         return GrassColors.getDefaultColor();
                     }
                     return BiomeColors.getGrassColor(view, pos);
-                }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.LARGE_BUSH, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModNatureBlocks.BRACKEN,
+                }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.LARGE_BUSH, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS,
+                ModNatureBlocks.BRACKEN, ModNatureBlocks.GIANT_BUTTERBUR,
                 ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT_STAIRS,
                 ModBlocks.LOAM_GRASS_BLOCK, ModBlocks.PEAT_GRASS_BLOCK, ModBlocks.SILT_GRASS_BLOCK, ModNatureBlocks.DUCKWEED,
                 ModBlocks.GRASSY_LOAM, ModBlocks.GRASSY_LOAM_SLAB, ModBlocks.GRASSY_LOAM_STAIRS,

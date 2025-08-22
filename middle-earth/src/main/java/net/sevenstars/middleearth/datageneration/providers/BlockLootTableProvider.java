@@ -133,6 +133,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModNatureBlocks.RUSHES, shortPlantDrops(ModNatureBlocks.RUSHES));
 
         addDrop(ModNatureBlocks.BRACKEN, shortPlantDrops(ModNatureBlocks.BRACKEN));
+        addDrop(ModNatureBlocks.GIANT_BUTTERBUR, shortPlantDrops(ModNatureBlocks.GIANT_BUTTERBUR));
 
         for (Block block : TintableCrossModel.grassLikeBlocks) {
             addDrop(block, shortPlantDrops(block));
