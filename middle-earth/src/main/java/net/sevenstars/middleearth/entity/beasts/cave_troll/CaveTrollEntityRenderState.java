@@ -23,6 +23,8 @@ public class CaveTrollEntityRenderState extends BeastEntityRenderState {
     public AnimationState stopSleepingANimationState = new AnimationState();
     public boolean isSprinting = false;
 
+    public boolean isControlled = false;
+
     public static void updateRenderState(LivingEntity entity, CaveTrollEntityRenderState state, ItemModelManager itemModelManager) {
         itemModelManager.updateForLivingEntity(state.handItemState, entity.getStackInArm(Arm.RIGHT), ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, entity);
     }

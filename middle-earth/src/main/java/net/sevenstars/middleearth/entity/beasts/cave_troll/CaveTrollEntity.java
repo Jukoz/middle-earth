@@ -1,8 +1,11 @@
 package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
+import net.minecraft.entity.AnimationState;
+import net.minecraft.entity.EntityStatuses;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -13,30 +16,19 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTables;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
@@ -44,19 +36,11 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.item.EquipmentItemsME;
-import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
-import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
-import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
+import net.sevenstars.middleearth.utils.PlayerUtil;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CaveTrollEntity extends AbstractBeastEntity {
     public LootTable scavengeLootTable;
@@ -126,7 +110,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     public void tryBonding(PlayerEntity player) {
         double rand = this.random.nextDouble();
-        System.out.println("wahoo");
 
         if(rand < 0.15 || player.isInCreativeMode()) { // Tame success
             this.tameBeast(player);
@@ -134,7 +117,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
             this.chargeTimeout = 0;
         }
-        if(rand > 0.7) { // Tame failure (wake up, become enraged)
+        else if(rand > 0.7) { // Tame failure (wake up, become enraged)
             this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 1200));
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
@@ -143,7 +126,22 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        return super.interactMob(player, hand);
+        if(!this.isTame()) {
+            tryBonding(player); // TODO: ONLY TEMPORARY - DON'T FORGET TO REMOVE
+        }
+
+        if(!this.getWorld().isClient()) { // Server side
+            for(RaceType race : this.getCompatibleRaces()) { // Check for race
+                if(PlayerUtil.isOfRace(player, race)) {
+                    return super.interactMob(player, hand);
+                }
+            }
+        }
+        else {  // Client side
+            return super.interactMob(player, hand);
+        }
+
+        return ActionResult.PASS; // Player is of incompatible race - don't interact
     }
 
     @Override
@@ -256,13 +254,13 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected Disposition getDisposition() {
+    public Disposition getDisposition() {
         return Disposition.EVIL;
     }
 
     @Override
-    protected List<RaceType> getRaceType() {
-        return null;
+    public List<RaceType> getCompatibleRaces() {
+        return ImmutableList.of(RaceType.ORC, RaceType.URUK);
     }
 
     @Override

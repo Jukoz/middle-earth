@@ -165,12 +165,12 @@ public class TrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected Disposition getDisposition() {
+    public Disposition getDisposition() {
         return Disposition.EVIL;
     }
 
     @Override
-    protected List<RaceType> getRaceType() {
+    public List<RaceType> getCompatibleRaces() {
         return null;
     }
 

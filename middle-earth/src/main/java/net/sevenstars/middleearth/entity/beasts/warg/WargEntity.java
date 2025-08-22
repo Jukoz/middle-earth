@@ -158,7 +158,7 @@ public class WargEntity extends AbstractBeastEntity {
         if(!this.getWorld().isClient() && !player.isCreative()) {
             RaceType playerRace = RaceUtil.getRaceType(player);
 
-            if(playerRace == RaceType.NONE || (this.getRaceType() != null && !this.getRaceType().contains(playerRace))) {
+            if(playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
                 return ActionResult.FAIL;
             }
         }
@@ -205,12 +205,12 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected Disposition getDisposition() {
+    public Disposition getDisposition() {
         return Disposition.EVIL;
     }
 
     @Override
-    protected List<RaceType> getRaceType() {
+    public List<RaceType> getCompatibleRaces() {
         return List.of(RaceType.ORC, RaceType.URUK);
     }
 

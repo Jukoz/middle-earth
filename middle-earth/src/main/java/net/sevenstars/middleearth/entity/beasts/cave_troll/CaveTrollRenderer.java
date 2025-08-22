@@ -43,5 +43,6 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
         state.sleepingAnimationState = troll.sleepingAnimationState;
         state.stopSleepingANimationState = troll.stopSleepingAnimationState;
         state.isSprinting = troll.isSprinting();
+        state.isControlled = troll.isControlledByPlayer();
     }
 }

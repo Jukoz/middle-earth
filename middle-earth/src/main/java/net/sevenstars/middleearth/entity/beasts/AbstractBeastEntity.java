@@ -10,7 +10,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,8 +17,6 @@ import net.minecraft.inventory.StackReference;
 import net.minecraft.inventory.StackWithSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -35,12 +32,9 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 // Beasts are mostly aggressive Entities which work much like wolves, while also allowing the player to mount them.
 public abstract class AbstractBeastEntity extends AbstractHorseEntity {
@@ -129,14 +123,14 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     // Conditions ======================================================================================================
-    protected abstract Disposition getDisposition();
+    public abstract Disposition getDisposition();
 
-    protected abstract List<RaceType> getRaceType();
+    public abstract List<RaceType> getCompatibleRaces();
 
     public abstract boolean isCommandItem(ItemStack stack);
     public abstract boolean isBondingItem(ItemStack itemStack);
 
-    protected boolean isMountable() {
+    public boolean isMountable() {
         return true;
     }
 
@@ -303,12 +297,10 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     private void addChest(PlayerEntity player, ItemStack chest) {
-        if(canCarryChest()) {
-            this.setHasChest(true);
-            this.playAddChestSound();
-            chest.decrementUnlessCreative(1, player);
-            this.onChestedStatusChanged();
-        }
+        this.setHasChest(true);
+        this.playAddChestSound();
+        chest.decrementUnlessCreative(1, player);
+        this.onChestedStatusChanged();
     }
 
     protected void playAddChestSound() {
@@ -334,7 +326,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
 
     @Override
     public boolean canUseSlot(EquipmentSlot slot) {
-        return true;
+        return !slot.isArmorSlot();
     }
 
     @Override
@@ -380,13 +372,13 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
             return ActionResult.SUCCESS;
         }
 
-        if(this.isTame() && this.isTamable()) {
+        if(this.isTame()) {
             if(isCommandItem(itemStack) && player == getOwner()) {
                 this.setSitting(!isSitting());
                 return ActionResult.SUCCESS;
             }
 
-            if (!this.hasChest() && itemStack.isOf(Items.CHEST)) {
+            if (!this.hasChest() && itemStack.isOf(Items.CHEST) && canCarryChest()) {
                 this.addChest(player, itemStack);
                 return ActionResult.SUCCESS;
             }
