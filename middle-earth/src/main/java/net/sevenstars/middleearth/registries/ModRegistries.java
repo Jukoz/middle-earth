@@ -552,6 +552,7 @@ public class ModRegistries {
             registry.add(sapling, 0.3F);
         });
 
+        registry.add(ModNatureBlocks.ASPEN_SAPLING, 0.3F);
         registry.add(ModNatureBlocks.BEECH_SAPLING, 0.3F);
 
         LeavesSets.blocks.forEach(block -> {

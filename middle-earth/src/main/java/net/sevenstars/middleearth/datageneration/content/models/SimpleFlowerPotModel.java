@@ -13,6 +13,7 @@ public class SimpleFlowerPotModel {
 
     public static List<FlowerPot> pots = new ArrayList<>() {
         {
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_ASPEN_SAPLING, ModNatureBlocks.ASPEN_SAPLING));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_BEECH_SAPLING, ModNatureBlocks.BEECH_SAPLING));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_CHESTNUT_SAPLING, ModNatureBlocks.CHESTNUT_SAPLING));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_HOLLY_SAPLING, ModNatureBlocks.HOLLY_SAPLING));
