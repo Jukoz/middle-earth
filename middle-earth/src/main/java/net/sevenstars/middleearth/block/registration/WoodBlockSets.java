@@ -15,7 +15,6 @@ import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
 import net.sevenstars.middleearth.block.utils.WoodBlockTypes;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.particles.ModParticleTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -309,6 +308,15 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
             .addToSet(WoodBlockTypes.REDSTONE_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
+    public static WoodBlockSetBuilder WHITE_SPRUCE_SET = registerWoodSet(new WoodBlockSetBuilder("white_spruce",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.WHITE_SPRUCE_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
             .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
             .addToSet(WoodBlockTypes.LEAVES));

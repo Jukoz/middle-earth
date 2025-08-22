@@ -343,6 +343,8 @@ public class ModDecorativeBlocks {
             (settings) -> new FlowerPotBlock(ModNatureBlocks.PINE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_BLACK_PINE_SAPLING = registerBlock("potted_black_pine_sapling",
             (settings) -> new FlowerPotBlock(ModNatureBlocks.BLACK_PINE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block POTTED_WHITE_SPRUCE_SAPLING = registerBlock("potted_white_spruce_sapling",
+            (settings) -> new FlowerPotBlock(ModNatureBlocks.WHITE_SPRUCE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_WILLOW_SAPLING = registerBlock("potted_willow_sapling",
             (settings) -> new FlowerPotBlock(ModNatureBlocks.WILLOW_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
 
