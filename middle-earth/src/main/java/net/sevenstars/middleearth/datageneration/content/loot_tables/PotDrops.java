@@ -24,6 +24,7 @@ public class PotDrops {
             add(ModDecorativeBlocks.POTTED_WHITE_PALM_SAPLING);
             add(ModDecorativeBlocks.POTTED_PINE_SAPLING);
             add(ModDecorativeBlocks.POTTED_BLACK_PINE_SAPLING);
+            add(ModDecorativeBlocks.POTTED_WHITE_SPRUCE_SAPLING);
             add(ModDecorativeBlocks.POTTED_WILLOW_SAPLING);
 
             add(ModDecorativeBlocks.POTTED_GREEN_SHRUB);

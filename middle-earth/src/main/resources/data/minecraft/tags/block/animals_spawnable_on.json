@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:turf",
+    "middle-earth:loam_grass_block",
+    "middle-earth:peat_grass_block",
+    "middle-earth:silt_grass_block"
+  ]
+}
