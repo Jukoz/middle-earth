@@ -84,6 +84,8 @@ public class ModTreeConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> SCORCHED_TREE_KEY = registerKey("scorched_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SPRUCE_TREE_KEY = registerKey("spruce_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SPRUCE_BUSH_TREE_KEY = registerKey("spruce_bush_tree");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> WHITE_SPRUCE_TREE_KEY = registerKey("white_spruce_tree");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> WHITE_SPRUCE_BUSH_TREE_KEY = registerKey("white_spruce_bush_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> WILLOW_TREE_KEY = registerKey("willow_tree");
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
@@ -411,6 +413,19 @@ public class ModTreeConfiguredFeatures {
             new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
             new BushFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 2),
             new TwoLayersFeatureSize(0, 0, 0)).build());
+
+        register(context, WHITE_SPRUCE_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(WoodBlockSets.WHITE_SPRUCE_SET.logBlocks.log()),
+                new StraightTrunkPlacer(14, 2, 0),
+                BlockStateProvider.of(WoodBlockSets.WHITE_SPRUCE_SET.leaves),
+                new SpruceFoliagePlacer(ConstantIntProvider.create(3), UniformIntProvider.create(0, 1), ConstantIntProvider.create(2)),
+                new TwoLayersFeatureSize(1, 0, 2))
+                .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
+        register(context, WHITE_SPRUCE_BUSH_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(WoodBlockSets.WHITE_SPRUCE_SET.logBlocks.log()),
+                new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.of(WoodBlockSets.WHITE_SPRUCE_SET.leaves),
+                new BushFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 2),
+                new TwoLayersFeatureSize(0, 0, 0)).build());
 
         register(context, WILLOW_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
             BlockStateProvider.of(WoodBlockSets.WILLOW_SET.logBlocks.log()),

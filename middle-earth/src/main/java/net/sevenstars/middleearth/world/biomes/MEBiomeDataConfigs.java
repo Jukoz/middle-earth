@@ -278,10 +278,10 @@ public class MEBiomeDataConfigs {
     public static BlocksLayeringData frozenLayers = new BlocksLayeringData().addLayerData(1.0f, Blocks.STONE);
 
     public static BlocksLayeringData gonluinLayers = new BlocksLayeringData()
-            .addLayerData(0.55f, StoneBlockSets.KHAGALABAN_SET.baseBlocks.base())
-            .addLayerData(0.03f, StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base())
             .addLayerData(0.32f, StoneBlockSets.SLATE_SET.baseBlocks.base())
-            .addLayerData(0.1f, Blocks.STONE);
+            .addLayerData(0.1f, Blocks.STONE)
+            .addLayerData(0.03f, StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base())
+            .addLayerData(0.55f, StoneBlockSets.KHAGALABAN_SET.baseBlocks.base());
 
     public static BlocksLayeringData limeStoneLayers = new BlocksLayeringData()
             .addLayerData(0.63f, StoneBlockSets.LIMESTONE_SET.baseBlocks.base())
