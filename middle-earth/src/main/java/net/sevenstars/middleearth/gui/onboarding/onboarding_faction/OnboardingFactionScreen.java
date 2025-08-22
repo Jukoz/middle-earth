@@ -123,7 +123,7 @@ public class OnboardingFactionScreen extends Screen {
 
         elements.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.STANDING_BANNER_FLAG).getChild("flag");
 
-        elements.searchBarWidget = new SearchBarWidget(9, controller.getAllSearchBarResults(), x -> controller.updateScreenInformation());
+        elements.searchBarWidget = new SearchBarWidget(9, controller.getAllSearchBarResults(), x -> controller.updateScreenInformation(), CycledSelectionWidget.TOTAL_WIDTH);
         addDrawableChild(elements.searchBarWidget.getSearchBarToggleButton());
         elements.searchBarWidget.getAllButtons().forEach(this::addDrawableChild);
         addDrawableChild(elements.searchBarWidget.getScreenClickButton());
@@ -313,7 +313,7 @@ public class OnboardingFactionScreen extends Screen {
         this.elements.mapFocusButton.setPosition(startX, startY);
 
         context.drawTexture(RenderPipelines.GUI_TEXTURED, MAP_UI_IDENTIFIER,
-                startX, startY, 235, (true /*this.elements.mapWidget.isForcingTargetMovement*/) ? 20 : elements.mapFocusButton.isFocused() || elements.mapFocusButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
+                startX, startY, 235, (this.elements.mapWidget.isForcingTargetMovement) ? 20 : elements.mapFocusButton.isFocused() || elements.mapFocusButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
                 elements.mapFocusButton.getWidth(), elements.mapFocusButton.getHeight(), 256, 256);
 
         startX = this.elements.mapPanel.startX + this.elements.mapPanel.width - 16;

@@ -91,6 +91,7 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_BLACKSTONE = registerKey("patch_blackstone");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_PUMICE = registerKey("patch_pumice");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_COBWEB = registerKey("patch_cobweb");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_WEBBING = registerKey("patch_webbing");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SPIDER_EGGS = registerKey("patch_spider_eggs");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PUMICE_COLUMN = registerKey("pumice_column");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PUMICE_COLUMN_LARGE = registerKey("pumice_column_large");
@@ -125,8 +126,6 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_HEATHER = registerKey("patch_heather");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_DEAD_HEATHER = registerKey("patch_dead_heather");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_DRY_HEATHER = registerKey("patch_dry_heather");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_HOROKAKA = registerKey("patch_horokaka");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_GIANT_HOROKAKA = registerKey("patch_giant_horokaka");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_RED_HEATHER = registerKey("patch_red_heather");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_LAVENDER = registerKey("patch_lavender");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_REEDS = registerKey("patch_reeds");
@@ -321,6 +320,9 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_COBWEB, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(Blocks.COBWEB))));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_WEBBING, Feature.MULTIFACE_GROWTH,
+                new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock)ModNatureBlocks.WEBBING,
+                        20, true, true, true, 0.95f, BLOCKS_GROWTH));
         ConfiguredFeatures.register(featureRegisterable, PATCH_SPIDER_EGGS, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SHELOBITE_LARVA_EGG))));
@@ -376,7 +378,7 @@ public class ModVegetationConfiguredFeatures {
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.BEACH_GRASS))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_DRY_GRASS, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.DRY_GRASS))));
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.BLUE_FESCUE))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_SMALL_DRY_SHRUB, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SMALL_DRY_SHRUB))));
@@ -441,13 +443,6 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_DRY_HEATHER, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.DRY_HEATHER))));
-
-        ConfiguredFeatures.register(featureRegisterable, PATCH_HOROKAKA, Feature.FLOWER,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.HOROKAKA))));
-        ConfiguredFeatures.register(featureRegisterable, PATCH_GIANT_HOROKAKA, Feature.FLOWER,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.GIANT_HOROKAKA))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_RED_HEATHER, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,

@@ -1,12 +1,15 @@
 package net.sevenstars.middleearth.resources.datas.npcs.pools;
 
+import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
+import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.RacesME;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
@@ -19,7 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class LorienNpcDataPool {
-    private final static String FACTION_BASE = "lothlorien.";
+    private final static RegistryKey<Faction> FACTION = FactionsME.LOTHLORIEN;
+    private final static String FACTION_BASE = FACTION.getValue().getPath() + ".%s";
+
     private final static int LIGHT_BLUE = 0x3a4250;
     private final static int DARK_BLUE = 0x252b3a;
     public final static NpcData LOTHLORIEN_MILITIA;
@@ -43,7 +48,7 @@ public class LorienNpcDataPool {
                 LOTHLORIEN_LORD);
     }
     static {
-        LOTHLORIEN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), RacesME.ELF, List.of(
+        LOTHLORIEN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RacesME.ELF, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LORIEN_DIADEM))
@@ -59,7 +64,7 @@ public class LorienNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(WeaponItemsME.LORIEN_SHIELD)))
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        LOTHLORIEN_RANGER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "ranger"), RacesME.ELF, List.of(
+        LOTHLORIEN_RANGER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("ranger")), RacesME.ELF, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LORIEN_MARCHWARDEN_HOOD))
@@ -84,7 +89,7 @@ public class LorienNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        LOTHLORIEN_RANGER_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "ranger_archer"), RacesME.ELF, List.of(
+        LOTHLORIEN_RANGER_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("ranger_archer")), RacesME.ELF, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LORIEN_MARCHWARDEN_HOOD))
@@ -107,7 +112,7 @@ public class LorienNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        LOTHLORIEN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "soldier"), RacesME.ELF, List.of(
+        LOTHLORIEN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier")), RacesME.ELF, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LORIEN_LEATHER_HELMET))
@@ -134,7 +139,7 @@ public class LorienNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        LOTHLORIEN_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "knight"), RacesME.ELF, List.of(
+        LOTHLORIEN_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight")), RacesME.ELF, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LORIEN_SOLDIER_HELMET))
@@ -159,7 +164,7 @@ public class LorienNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        LOTHLORIEN_KNIGHT_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "knight_archer"), RacesME.ELF, List.of(
+        LOTHLORIEN_KNIGHT_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight_archer")), RacesME.ELF, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LORIEN_SOLDIER_HELMET))
@@ -182,7 +187,7 @@ public class LorienNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        LOTHLORIEN_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "veteran"), RacesME.ELF, List.of(
+        LOTHLORIEN_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("veteran")), RacesME.ELF, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.GALADHRIM_HELMET).withWeight(3))
@@ -210,7 +215,7 @@ public class LorienNpcDataPool {
                         )
         ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
 
-        LOTHLORIEN_LORD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "lord"), RacesME.ELF, List.of(
+        LOTHLORIEN_LORD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("lord")), RacesME.ELF, FACTION, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.GALADHRIM_LORD_HELMET))

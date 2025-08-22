@@ -108,6 +108,21 @@ public class NpcTextureData {
         return identity.preset.haveEmissiveEyes();
     }
 
+    public EntityCategory getRandomCategory() {
+        Random random = new Random();
+        boolean containsMale = this.presetsByCategory.containsKey(EntityCategory.MALE);
+        boolean containsFemale = this.presetsByCategory.containsKey(EntityCategory.FEMALE);
+        // Shared is not a valid sex
+        if(containsMale && containsFemale)
+            return (random.nextBoolean()) ? EntityCategory.MALE : EntityCategory.FEMALE;
+        else if(containsMale)
+            return EntityCategory.MALE;
+        else if(containsFemale)
+            return EntityCategory.FEMALE;
+
+        return EntityCategory.MALE;
+    }
+
     public record Identity(EntityCategory category, NpcTextureDataPreset preset){
         public static Identity create(NpcTextureData data, EntityCategory entityCategory){
             if(!data.presetsByCategory.containsKey(entityCategory))

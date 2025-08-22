@@ -1,4 +1,5 @@
 {
+	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
 		"particle": "middle-earth:block/andesite_bricks",
@@ -10,11 +11,11 @@
 			"to": [16, 16, 16],
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#all", "tintindex": 0},
-				"east": {"uv": [0, 0, 8, 16], "texture": "#all", "tintindex": 0, "cullface": "east"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#all", "tintindex": 0, "cullface": "south"},
-				"west": {"uv": [8, 0, 16, 16], "texture": "#all", "tintindex": 0, "cullface": "west"},
-				"up": {"uv": [0, 8, 16, 16], "texture": "#all", "tintindex": 0, "cullface": "up"},
-				"down": {"uv": [0, 0, 16, 8], "texture": "#all", "tintindex": 0, "cullface": "down"}
+				"east": {"uv": [0, 0, 8, 16], "texture": "#all", "cullface": "east", "tintindex": 0},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#all", "cullface": "south", "tintindex": 0},
+				"west": {"uv": [8, 0, 16, 16], "texture": "#all", "cullface": "west", "tintindex": 0},
+				"up": {"uv": [0, 8, 16, 16], "texture": "#all", "cullface": "up", "tintindex": 0},
+				"down": {"uv": [0, 0, 16, 8], "texture": "#all", "cullface": "down", "tintindex": 0}
 			}
 		},
 		{
@@ -22,12 +23,11 @@
 			"to": [16, 16, 8],
 			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, -8]},
 			"faces": {
-				"north": {"uv": [0, 0, 8, 16], "texture": "#all", "tintindex": 0, "cullface": "north"},
-				"east": {"uv": [8, 0, 16, 16], "texture": "#all", "tintindex": 0, "cullface": "east"},
-				"south": {"uv": [0, 0, 8, 16], "texture": "#all", "tintindex": 0, "cullface": "south"},
+				"north": {"uv": [0, 0, 8, 16], "texture": "#all", "cullface": "north", "tintindex": 0},
+				"east": {"uv": [8, 0, 16, 16], "texture": "#all", "cullface": "east", "tintindex": 0},
 				"west": {"uv": [0, 0, 8, 16], "texture": "#all", "tintindex": 0},
-				"up": {"uv": [8, 0, 16, 8], "texture": "#all", "tintindex": 0, "cullface": "up"},
-				"down": {"uv": [8, 8, 16, 16], "texture": "#all", "tintindex": 0, "cullface": "down"}
+				"up": {"uv": [8, 0, 16, 8], "texture": "#all", "cullface": "up", "tintindex": 0},
+				"down": {"uv": [8, 8, 16, 16], "texture": "#all", "cullface": "down", "tintindex": 0}
 			}
 		}
 	],
@@ -55,7 +55,7 @@
 			"scale": [0.25, 0.25, 0.25]
 		},
 		"gui": {
-			"rotation": [30, 225, 0],
+			"rotation": [30, -135, 0],
 			"translation": [1.5, -0.75, 0],
 			"scale": [0.625, 0.625, 0.625]
 		},

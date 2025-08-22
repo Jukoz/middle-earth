@@ -19,7 +19,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class LanguageProvider extends FabricLanguageProvider {
 
-    private Map<String, String> specialNames = new HashMap<>();
+    private final Map<String, String> specialNames = new HashMap<>();
 
     public LanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, "en_us", registryLookup);
@@ -28,6 +28,7 @@ public class LanguageProvider extends FabricLanguageProvider {
         specialNames.put("Khagalaban", "Khagal'Aban");
         specialNames.put("Nurgon", "Núrgon");
         specialNames.put("Zigilaban", "Zigil'Aban");
+        specialNames.put("Simbelmyne", "Simbelmynë");
         specialNames.put("Numenorean", "Númenórean");
         specialNames.put("Uruk Hai", "Uruk-Hai");
         specialNames.put("Burzum Steel", "Búrzum-Steel");

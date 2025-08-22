@@ -16,8 +16,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WALL_ELVEN_LANTERN);
             add(ModDecorativeBlocks.DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WALL_DWARVEN_LANTERN);
-            add(ModDecorativeBlocks.SHIRE_LANTERN);
-            add(ModDecorativeBlocks.WALL_SHIRE_LANTERN);
+            add(ModDecorativeBlocks.TREATED_STEEL_LANTERN);
+            add(ModDecorativeBlocks.WALL_TREATED_STEEL_LANTERN);
             add(ModDecorativeBlocks.CRUDE_LANTERN);
             add(ModDecorativeBlocks.WALL_CRUDE_LANTERN);
             add(ModDecorativeBlocks.LEAD_LANTERN);
@@ -129,11 +129,11 @@ public class BlockDrops {
             add(ModDecorativeBlocks.GROUND_BOOK);
             add(ModDecorativeBlocks.DWARVEN_GROUND_BOOK);
 
-            add(ModNatureBlocks.MALLOS);
             add(ModNatureBlocks.ELANOR);
+            add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.NIPHREDIL);
+            add(ModNatureBlocks.SIMBELMYNE);
             add(ModNatureBlocks.YELLOW_FLOWER);
-            add(ModNatureBlocks.HOROKAKA);
-            add(ModNatureBlocks.GIANT_HOROKAKA);
 
             add(ModNatureBlocks.LIGHT_BLUE_FLOWERS);
             add(ModNatureBlocks.MAGENTA_FLOWERS);
@@ -144,7 +144,9 @@ public class BlockDrops {
             add(ModNatureBlocks.WHITE_FLOWERS);
             add(ModNatureBlocks.YELLOW_FLOWERS);
 
+            add(ModNatureBlocks.BLUE_LAVENDER);
             add(ModNatureBlocks.LAVENDER);
+            add(ModNatureBlocks.WHITE_LAVENDER);
             add(ModNatureBlocks.YELLOW_TROLLIUS);
 
             add(ModNatureBlocks.SMALL_LILY_PADS);
@@ -153,18 +155,6 @@ public class BlockDrops {
             add(ModNatureBlocks.DUCKWEED);
 
             add(ModNatureBlocks.FLOATING_ICE);
-
-            /*add(ModDecorativeBlocks.OAK_LADDER);
-            add(ModDecorativeBlocks.SPRUCE_LADDER);
-            add(ModDecorativeBlocks.BIRCH_LADDER);
-            add(ModDecorativeBlocks.JUNGLE_LADDER);
-            add(ModDecorativeBlocks.ACACIA_LADDER);
-            add(ModDecorativeBlocks.DARK_OAK_LADDER);
-            add(ModDecorativeBlocks.MANGROVE_LADDER);
-            add(ModDecorativeBlocks.CHERRY_LADDER);
-            add(ModDecorativeBlocks.BAMBOO_LADDER);
-            add(ModDecorativeBlocks.CRIMSON_LADDER);
-            add(ModDecorativeBlocks.WARPED_LADDER);*/
 
             add(ModDecorativeBlocks.ROPE_LADDER);
 

@@ -27,7 +27,6 @@ import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
@@ -181,7 +180,7 @@ public class OnboardingFactionScreenController {
             this.screen.elements.raceSelectionWidget.enableVisuals(false);
         }
 
-        this.screen.elements.npcPreviewWidget.setEntity(currentNpcEntity);
+        updateNpcPreview();
     }
 
     //region [Helpers]
@@ -343,11 +342,12 @@ public class OnboardingFactionScreenController {
         }
 
         selectedRace = currentFaction.getRaces(world).get(index);
-        currentNpcEntity = NpcEntity
-                .create(world, MinecraftClient.getInstance().player.getBlockPos())
-                .withCategory(EntityCategory.MALE)
-                .withFaction(currentFaction.getId())
-                .withNpcData(currentFaction.getAllNpcDatas().get(NpcRank.VETERAN).getFirst());
+    }
+
+    public void updateNpcPreview(){
+        Faction currentFaction = getCurrentFaction();
+        Identifier id =  currentFaction.getAllNpcDatas().get(NpcRank.SOLDIER).getFirst();
+        this.screen.elements.npcPreviewWidget.updateEntity(id, selectedRace, world);
     }
 
     public void updateSpawnPoint(int indexDifference){
@@ -551,6 +551,8 @@ public class OnboardingFactionScreenController {
     }
 
     public void drawRaceTooltip(AbstractClientPlayerEntity player, DrawContext context, TextRenderer textRenderer, int x, int y) {
+        if(selectedRace == null)
+            return;
         selectedRace.drawTooltip(player, context, textRenderer, x, y);
     }
 

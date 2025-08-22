@@ -17,9 +17,8 @@ import net.sevenstars.middleearth.datageneration.content.tags.*;
 import java.util.Objects;
 
 public class HelpingGenerator {
-    //TODO recipe for stone blocks
-    //TODO tags for stone blocks
-    //TODO top models for pillar stuff
+    //TODO recipe for all
+    //TODO tags for all
 
     public static void generateFiles() {
 
@@ -322,10 +321,13 @@ public class HelpingGenerator {
 
     public static void plankBlocks(BlockRecordTypes.PlanksSet set) {
         BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
+        Planks.planks.add(set.base());
     }
 
     public static void woodBlocks(BlockRecordTypes.WoodSet set) {
         BlockRecordTypes.WoodSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.wood(), set.slab()));
+        Logs.logs.add(set.log());
+        Logs.logs.add(set.wood());
     }
 
     public static void mushroomStemBlocks(BlockRecordTypes.MushroomStemSet set) {

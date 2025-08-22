@@ -5,7 +5,6 @@ import net.sevenstars.middleearth.network.connections.IConnectionToServer;
 import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
 import net.sevenstars.middleearth.network.packets.S2C.PacketForceOnboardingScreen;
 import net.sevenstars.middleearth.network.packets.S2C.PacketOnboardingResult;
-import net.sevenstars.middleearth.network.packets.S2C.PacketStructureManagerUpdateClient;
 import net.sevenstars.middleearth.network.packets.ServerToClientPacket;
 
 import java.util.function.BiConsumer;
@@ -15,7 +14,6 @@ public class ModClientNetworkHandler {
         // Application [CLIENT SIDE]
         ClientPlayNetworking.registerGlobalReceiver(PacketForceOnboardingScreen.ID, wrapClientHandler(connection, PacketForceOnboardingScreen::process));
         ClientPlayNetworking.registerGlobalReceiver(PacketOnboardingResult.ID, wrapClientHandler(connection, PacketOnboardingResult::process));
-        ClientPlayNetworking.registerGlobalReceiver(PacketStructureManagerUpdateClient.ID, wrapClientHandler(connection, PacketStructureManagerUpdateClient::process));
     }
 
     private static <T extends ServerToClientPacket<T>> ClientPlayNetworking.PlayPayloadHandler<T> wrapClientHandler(IConnectionToServer connection, BiConsumer<T, ClientPacketContext> consumer) {
