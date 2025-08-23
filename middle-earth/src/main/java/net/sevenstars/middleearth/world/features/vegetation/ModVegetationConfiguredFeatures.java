@@ -34,6 +34,7 @@ import java.util.List;
 public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> WATER_DELTA = registerKey("water_delta");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_ALLIUM = registerKey("flower_allium");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_ATHELAS = registerKey("flower_athelas");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_AZURE_BLUET = registerKey("flower_azure_bluet");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_BLUE_GENTIAN = registerKey("flower_blue_gentian");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_CORNFLOWER = registerKey("flower_cornflower");
@@ -217,6 +218,9 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, FLOWER_ALLIUM, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(Blocks.ALLIUM))));
+        ConfiguredFeatures.register(featureRegisterable, FLOWER_ATHELAS, Feature.FLOWER,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.ATHELAS))));
         ConfiguredFeatures.register(featureRegisterable, FLOWER_AZURE_BLUET, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(Blocks.AZURE_BLUET))));

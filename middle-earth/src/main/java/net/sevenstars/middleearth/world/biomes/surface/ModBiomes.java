@@ -2752,10 +2752,7 @@ public class ModBiomes {
             ModBiomeFeatures.addCommonHeather(vegetation);
             ModBiomeFeatures.addUncommonLavender(vegetation);
             ModBiomeFeatures.addRareHeather(vegetation);
-            ModBiomeFeatures.addAlliumFlower(vegetation);
-            ModBiomeFeatures.addLilacFlowerGrowth(vegetation);
-            ModBiomeFeatures.addLilacFlower(vegetation);
-
+            ModBiomeFeatures.addSparseFieldDeadNormalHeather(vegetation);
         } else if(step == 1) { // Plains
             ModSpawnSettingsBuilder.addRabbits(spawnSettings);
 
@@ -2766,13 +2763,16 @@ public class ModBiomes {
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             ModBiomeFeatures.addOakBushes(vegetation);
             ModBiomeFeatures.addMixedWildWheatPatch(vegetation);
-            ModBiomeFeatures.addGrassyDirtOre(vegetation);
-            ModBiomeFeatures.addDryDirtOre(vegetation);
+            ModBiomeFeatures.addCoarseSiltOre(vegetation);
         } else if(step == 2) { // Forest
             ModSpawnSettingsBuilder.addDeer(spawnSettings);
+
             vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
             ModBiomeFeatures.addBeesOakTrees(vegetation);
             ModBiomeFeatures.addBracken(vegetation);
+            ModBiomeFeatures.addGiantButterbur(vegetation);
+            ModBiomeFeatures.addAlliumFlower(vegetation);
+            ModBiomeFeatures.addSweetBerriesRare(vegetation);
             ModBiomeFeatures.addGreenShrub(vegetation);
             ModBiomeFeatures.addFalseOatgrass(vegetation);
             ModBiomeFeatures.addMossyBoulder(vegetation);
@@ -3773,20 +3773,26 @@ public class ModBiomes {
     public static void addArthedainVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
         ModBiomeFeatures.addDisks(undergroundOres);
         ModBiomeFeatures.addGrass(vegetation);
+        ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addTurfOre(vegetation);
+        ModBiomeFeatures.addGrassySiltOre(vegetation);
         vegetation.add(VegetationPlacedFeatures.PATCH_TALL_GRASS_2);
         vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
         vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
         vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
+        ModBiomeFeatures.addAthelas(vegetation);
+        ModBiomeFeatures.addVeryRareDryGrass(vegetation);
         ModBiomeFeatures.addHeather(vegetation);
+        ModBiomeFeatures.addBushes(vegetation);
         ModBiomeFeatures.addCommonWheatGrass(vegetation);
         ModBiomeFeatures.addRareWilderGrass(vegetation);
         ModBiomeFeatures.addWildGarlic(vegetation);
         ModBiomeFeatures.addWildLeek(vegetation);
         ModBiomeFeatures.addWildLettuce(vegetation);
         ModBiomeFeatures.addWildPotato(vegetation);
-        ModBiomeFeatures.addStoneBoulder(vegetation);
+        ModBiomeFeatures.addGabbroBoulder(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
     }
 

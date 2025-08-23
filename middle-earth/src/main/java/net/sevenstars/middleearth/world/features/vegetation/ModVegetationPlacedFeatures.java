@@ -26,6 +26,7 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> WATER_DELTA = registerKey("water_delta");
     public static final RegistryKey<PlacedFeature> ABUNDANT_WATER_DELTA = registerKey("abundant_water_delta");
     public static final RegistryKey<PlacedFeature> FLOWER_ALLIUM = registerKey("flower_allium");
+    public static final RegistryKey<PlacedFeature> FLOWER_ATHELAS = registerKey("flower_athelas");
     public static final RegistryKey<PlacedFeature> FLOWER_AZURE_BLUET = registerKey("flower_azure_bluet");
     public static final RegistryKey<PlacedFeature> FLOWER_AZURE_BLUET_RARE = registerKey("flower_azure_bluet_rare");
     public static final RegistryKey<PlacedFeature> FLOWER_BLUE_GENTIAN = registerKey("flower_blue_gentian");
@@ -63,7 +64,7 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> FIELD_LAVENDER = registerKey("field_lavender");
     public static final RegistryKey<PlacedFeature> FIELD_WILD_WHEAT = registerKey("field_wild_wheat");
     public static final RegistryKey<PlacedFeature> FIELD_DEAD_NORMAL_HEATHER = registerKey("field_dead_normal_heather");
-    public static final RegistryKey<PlacedFeature> FIELD_SPARSE_DEAD_NORMAL_HEATHER = registerKey("field_sparsedead_normal_heather");
+    public static final RegistryKey<PlacedFeature> FIELD_SPARSE_DEAD_NORMAL_HEATHER = registerKey("field_sparse_dead_normal_heather");
     public static final RegistryKey<PlacedFeature> FIELD_BLUE_FESCUE = registerKey("field_blue_fescue");
 
     // endregion
@@ -227,6 +228,7 @@ public class ModVegetationPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> waterDelta = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.WATER_DELTA);
 
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerAllium = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_ALLIUM);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerAthelas = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_ATHELAS);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerAzureBluet = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_AZURE_BLUET);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerBlueGentian = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWER_BLUE_GENTIAN);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowerBlueOrchid = registryEntryLookup.getOrThrow(VegetationConfiguredFeatures.FLOWER_SWAMP);
@@ -370,7 +372,8 @@ public class ModVegetationPlacedFeatures {
 
         PlacedFeatures.register(featureRegisterable, WATER_DELTA, waterDelta, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, ABUNDANT_WATER_DELTA, waterDelta, abundant, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, FLOWER_ALLIUM, flowerAllium, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWER_ALLIUM, flowerAllium, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FLOWER_ATHELAS, flowerAthelas, wildBushRarity, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_AZURE_BLUET, flowerAzureBluet, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_AZURE_BLUET_RARE, flowerAzureBluet, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FLOWER_BLUE_GENTIAN, flowerBlueGentian, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

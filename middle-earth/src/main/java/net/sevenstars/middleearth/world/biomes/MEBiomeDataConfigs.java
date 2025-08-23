@@ -208,21 +208,30 @@ public class MEBiomeDataConfigs {
             .addSlopeData(52, Blocks.DIORITE)
             .addSlopeData(MAX_ANGLE, Blocks.CALCITE);
 
-    public static SlopeMap grassPlains = new SlopeMap().addSlopeData(25, Blocks.GRASS_BLOCK)
+    public static SlopeMap grassPlains = new SlopeMap()
+            .addSlopeData(25, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
-    public static SlopeMap snowyPlains = new SlopeMap().addSlopeData(25, ModBlocks.SNOWY_GRASS_BLOCK)
+    public static SlopeMap siltPlains = new SlopeMap()
+            .addSlopeData(25, ModBlocks.SILT_GRASS_BLOCK)
+            .addSlopeData(36, ModBlocks.COARSE_SILT)
+            .addSlopeData(MAX_ANGLE, Blocks.STONE);
+    public static SlopeMap snowyPlains = new SlopeMap()
+            .addSlopeData(25, ModBlocks.SNOWY_GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
-    public static SlopeMap sandShores = new SlopeMap().addSlopeData(27, Blocks.SAND)
+    public static SlopeMap sandShores = new SlopeMap()
+            .addSlopeData(27, Blocks.SAND)
             .addSlopeData(30, Blocks.SANDSTONE)
             .addSlopeData(36, Blocks.COARSE_DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
-    public static SlopeMap whiteSandShores = new SlopeMap().addSlopeData(27, ModBlocks.WHITE_SAND)
+    public static SlopeMap whiteSandShores = new SlopeMap()
+            .addSlopeData(27, ModBlocks.WHITE_SAND)
             .addSlopeData(30, Blocks.SANDSTONE)
             .addSlopeData(36, Blocks.COARSE_DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
-    public static SlopeMap river = new SlopeMap().addSlopeData(30, ModBlocks.RIVER_SAND)
+    public static SlopeMap river = new SlopeMap()
+            .addSlopeData(30, ModBlocks.RIVER_SAND)
             .addSlopeData(36, Blocks.DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
 
@@ -271,7 +280,14 @@ public class MEBiomeDataConfigs {
     // region Blocks Layering
     // excludes the surface blocks since it's handled by Slopes blocks
 
-    public static BlocksLayeringData stoneLayers = new BlocksLayeringData().addLayerData(1.0f, Blocks.STONE);
+    public static BlocksLayeringData stoneLayers = new BlocksLayeringData()
+            .addLayerData(0.33f, StoneBlockSets.SLATE_SET.baseBlocks.base())
+            .addLayerData(0.67f, Blocks.STONE);
+
+    public static BlocksLayeringData stoneGabbroLayers = new BlocksLayeringData()
+            .addLayerData(0.30f, StoneBlockSets.SLATE_SET.baseBlocks.base())
+            .addLayerData(0.1f, StoneBlockSets.GABBRO_SET.baseBlocks.base())
+            .addLayerData(0.60f, Blocks.STONE);
 
     public static BlocksLayeringData ashenStoneLayers = new BlocksLayeringData().addLayerData(1.0f, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base());
 

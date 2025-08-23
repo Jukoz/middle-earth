@@ -462,13 +462,13 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.OLD_ANGMAR_FROZEN_HILL, MEBiomeDataConfigs.snowyPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8954077, 11781343, 4814544, 460593, 7443043, 6982236)));
         // OLD ARTHEDAIN
-        addBiome(new BiomeData(MEBiomeKeys.OLD_ARTHEDAIN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.OLD_ARTHEDAIN, MEBiomeDataConfigs.siltPlains, MEBiomeDataConfigs.stoneGabbroLayers,
                 new BiomeColorsDTO(7907327, defaultFog, defaultWater, defaultWaterFog, 12508275, 11652468)));
-        addBiome(new BiomeData(MEBiomeKeys.OLD_ARTHEDAIN_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.OLD_ARTHEDAIN_FOREST, MEBiomeDataConfigs.siltPlains, MEBiomeDataConfigs.stoneGabbroLayers,
                 new BiomeColorsDTO(7907327, defaultFog, defaultWater, defaultWaterFog, 10862435, 11126380)));
-        addBiome(new BiomeData(MEBiomeKeys.OLD_ARTHEDAIN_MEADOW, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.OLD_ARTHEDAIN_MEADOW, MEBiomeDataConfigs.siltPlains, MEBiomeDataConfigs.stoneGabbroLayers,
                 new BiomeColorsDTO(7907327, defaultFog, defaultWater, defaultWaterFog, 12508275, 11652468)));
-        addBiome(new BiomeData(MEBiomeKeys.OLD_ARTHEDAIN_FOOTHILL, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.OLD_ARTHEDAIN_FOOTHILL, MEBiomeDataConfigs.siltPlains, MEBiomeDataConfigs.stoneGabbroLayers,
                 new BiomeColorsDTO(7907327, defaultFog, defaultWater, defaultWaterFog, 11190641, 11126380)));
         // OLD CARDOLAN
         addBiome(new BiomeData(MEBiomeKeys.OLD_CARDOLAN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,

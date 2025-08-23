@@ -501,6 +501,11 @@ public class ModBiomeFeatures {
         vegetation.add(BoulderPlacedFeatures.MEDIUM_BOULDER_STONE);
         vegetation.add(BoulderPlacedFeatures.BIG_BOULDER_STONE);
     }
+    public static void addGabbroBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(BoulderPlacedFeatures.SMALL_BOULDER_GABBRO);
+        vegetation.add(BoulderPlacedFeatures.MEDIUM_BOULDER_GABBRO);
+        vegetation.add(BoulderPlacedFeatures.BIG_BOULDER_GABBRO);
+    }
 
     // endregion
 
@@ -562,6 +567,9 @@ public class ModBiomeFeatures {
         vegetation.add(ModVegetationPlacedFeatures.ABUNDANT_WATER_DELTA);
     }
 
+    public static void addAthelas(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_ATHELAS);
+    }
     public static void addAlliumFlower(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_ALLIUM);
     }
@@ -1056,6 +1064,9 @@ public class ModBiomeFeatures {
     public static void addCoarseDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.COARSE_DIRT_ORE);
     }
+    public static void addCoarseSiltOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.COARSE_SILT_ORE);
+    }
 
     public static void addDioriteOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.DIORITE_ORE);
@@ -1068,6 +1079,9 @@ public class ModBiomeFeatures {
     }
     public static void addGrassyPeatOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.GRASSY_PEAT_ORE);
+    }
+    public static void addGrassySiltOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.GRASSY_SILT_ORE);
     }
     public static void addDirtToGrassOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.DIRT_TO_GRASS_ORE);

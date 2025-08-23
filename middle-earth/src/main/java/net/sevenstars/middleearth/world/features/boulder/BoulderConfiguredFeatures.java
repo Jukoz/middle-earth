@@ -98,7 +98,11 @@ public class BoulderConfiguredFeatures {
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> SMALL_BOULDER_STONE = registerKey("small_boulder_stone");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_STONE = registerKey("medium_boulder_stone");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_STONE = registerKey("big_boulder_vstone");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_STONE = registerKey("big_boulder_stone");
+
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SMALL_BOULDER_GABBRO = registerKey("small_boulder_gabbro");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_GABBRO = registerKey("medium_boulder_gabbro");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_GABBRO = registerKey("big_boulder_gabbro");
 
     // region Configs
     private static final float smallWidth = 1.5f;
@@ -216,7 +220,10 @@ public class BoulderConfiguredFeatures {
             Blocks.COBBLESTONE.getDefaultState(),
             Blocks.MOSSY_COBBLESTONE.getDefaultState());
 
-
+    private static final List<BlockState> gabbro = Arrays.asList(
+            StoneBlockSets.GABBRO_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSets.GABBRO_SET.mossyCobblestoneBlocks.base().getDefaultState(),
+            StoneBlockSets.GABBRO_SET.mossySmoothBlocks.base().getDefaultState());
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
         ConfiguredFeatures.register(featureRegisterable, ANDESITE_BOULDER, Feature.FOREST_ROCK,
@@ -362,6 +369,13 @@ public class BoulderConfiguredFeatures {
                 new BigBoulderFeatureConfig(mediumWidth, mediumLength, mediumHeight, mediumRandomSize, mediumRandomness, stone));
         ConfiguredFeatures.register(featureRegisterable, BIG_BOULDER_STONE, ModFeatures.BIG_BOULDER,
                 new BigBoulderFeatureConfig(bigWidth, bigLength, bigHeight, bigRandomSize, bigRandomness, stone));
+        
+        ConfiguredFeatures.register(featureRegisterable, SMALL_BOULDER_GABBRO, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(smallWidth, smallLength, smallHeight, smallRandomSize, smallRandomness, gabbro));
+        ConfiguredFeatures.register(featureRegisterable, MEDIUM_BOULDER_GABBRO, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(mediumWidth, mediumLength, mediumHeight, mediumRandomSize, mediumRandomness, gabbro));
+        ConfiguredFeatures.register(featureRegisterable, BIG_BOULDER_GABBRO, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(bigWidth, bigLength, bigHeight, bigRandomSize, bigRandomness, gabbro));
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {

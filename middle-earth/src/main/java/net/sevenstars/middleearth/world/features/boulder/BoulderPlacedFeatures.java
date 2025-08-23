@@ -93,6 +93,10 @@ public class BoulderPlacedFeatures {
     public static final RegistryKey<PlacedFeature> MEDIUM_BOULDER_STONE = registerKey("medium_boulder_stone");
     public static final RegistryKey<PlacedFeature> BIG_BOULDER_STONE    = registerKey("big_boulder_stone");
 
+    public static final RegistryKey<PlacedFeature> SMALL_BOULDER_GABBRO  = registerKey("small_boulder_gabbro");
+    public static final RegistryKey<PlacedFeature> MEDIUM_BOULDER_GABBRO = registerKey("medium_boulder_gabbro");
+    public static final RegistryKey<PlacedFeature> BIG_BOULDER_GABBRO    = registerKey("big_boulder_gabbro");
+
     public static void bootstrap(Registerable<PlacedFeature> featureRegisterable) {
         RegistryEntryLookup<ConfiguredFeature<?, ?>> registryEntryLookup = featureRegisterable.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> andesite = registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.ANDESITE_BOULDER);
@@ -233,6 +237,12 @@ public class BoulderPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, MEDIUM_BOULDER_STONE, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.MEDIUM_BOULDER_STONE),
                 rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, BIG_BOULDER_STONE, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.BIG_BOULDER_STONE),
+                veryRare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, SMALL_BOULDER_GABBRO, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.SMALL_BOULDER_GABBRO),
+                sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, MEDIUM_BOULDER_GABBRO, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.MEDIUM_BOULDER_GABBRO),
+                rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, BIG_BOULDER_GABBRO, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.BIG_BOULDER_GABBRO),
                 veryRare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
     }
 
