@@ -27,6 +27,9 @@ public class SimpleBlockModel {
 
             add(ModBlocks.DRY_DIRT);
 
+            add(ModBlocks.CHALKSOIL);
+            add(ModBlocks.COARSE_CHALKSOIL);
+
             add(ModBlocks.LOAM);
             add(ModBlocks.COARSE_LOAM);
 

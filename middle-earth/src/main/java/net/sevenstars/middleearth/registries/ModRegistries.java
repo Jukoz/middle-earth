@@ -191,6 +191,10 @@ public class ModRegistries {
 
     public static void registerTillableBlocks() {
         TillableBlockRegistry.register(ModBlocks.DRY_DIRT, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.CHALKSOIL_GRASS_BLOCK, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.CHALKSOIL_FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.CHALKSOIL, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.CHALKSOIL_FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.GRASSY_CHALKSOIL, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.CHALKSOIL_FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.COARSE_CHALKSOIL, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.CHALKSOIL_FARMLAND.getDefaultState()));
         TillableBlockRegistry.register(ModBlocks.LOAM_GRASS_BLOCK, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.LOAM_FARMLAND.getDefaultState()));
         TillableBlockRegistry.register(ModBlocks.LOAM, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.LOAM_FARMLAND.getDefaultState()));
         TillableBlockRegistry.register(ModBlocks.GRASSY_LOAM, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.LOAM_FARMLAND.getDefaultState()));

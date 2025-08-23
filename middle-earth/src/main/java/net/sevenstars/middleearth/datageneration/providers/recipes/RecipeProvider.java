@@ -478,6 +478,12 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStairsRecipe(exporter, ModBlocks.MIRE, ModBlocks.MIRE_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MIRE_SLAB, ModBlocks.MIRE);
 
+                createStairsRecipe(exporter, ModBlocks.CHALKSOIL, ModBlocks.CHALKSOIL_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHALKSOIL_SLAB, ModBlocks.CHALKSOIL);
+
+                createStairsRecipe(exporter, ModBlocks.COARSE_CHALKSOIL, ModBlocks.COARSE_CHALKSOIL_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.COARSE_CHALKSOIL_SLAB, ModBlocks.COARSE_CHALKSOIL);
+
                 createStairsRecipe(exporter, ModBlocks.LOAM, ModBlocks.LOAM_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.LOAM_SLAB, ModBlocks.LOAM);
 

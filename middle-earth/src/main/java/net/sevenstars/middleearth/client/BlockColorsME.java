@@ -40,14 +40,15 @@ public class BlockColorsME {
                 }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.LARGE_BUSH, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS,
                 ModNatureBlocks.BRACKEN, ModNatureBlocks.GIANT_BUTTERBUR,
                 ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT_STAIRS,
-                ModBlocks.LOAM_GRASS_BLOCK, ModBlocks.PEAT_GRASS_BLOCK, ModBlocks.SILT_GRASS_BLOCK, ModNatureBlocks.DUCKWEED,
+                ModBlocks.CHALKSOIL_GRASS_BLOCK, ModBlocks.LOAM_GRASS_BLOCK, ModBlocks.PEAT_GRASS_BLOCK, ModBlocks.SILT_GRASS_BLOCK, 
+                ModBlocks.GRASSY_CHALKSOIL, ModBlocks.GRASSY_CHALKSOIL_SLAB, ModBlocks.GRASSY_CHALKSOIL_STAIRS,
                 ModBlocks.GRASSY_LOAM, ModBlocks.GRASSY_LOAM_SLAB, ModBlocks.GRASSY_LOAM_STAIRS,
                 ModBlocks.GRASSY_PEAT, ModBlocks.GRASSY_PEAT_SLAB, ModBlocks.GRASSY_PEAT_STAIRS,
                 ModBlocks.GRASSY_SILT, ModBlocks.GRASSY_SILT_SLAB, ModBlocks.GRASSY_SILT_STAIRS,
                 ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_SLAB, ModBlocks.PEBBLED_GRASS_STAIRS,
                 ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS, ModBlocks.TURF_VERTICAL_SLAB,
                 ModNatureBlocks.FOREST_MOSS, ModNatureBlocks.FOREST_MOSS_BLOCK, ModNatureBlocks.FOREST_MOSS_CARPET,
-                ModNatureBlocks.CLOVERS, ModNatureBlocks.MEADOWGRASS);
+                ModNatureBlocks.DUCKWEED, ModNatureBlocks.CLOVERS, ModNatureBlocks.MEADOWGRASS);
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
             if (view == null || pos == null) {

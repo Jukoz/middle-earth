@@ -13,6 +13,8 @@ public class SimpleStairModel {
         {
             add(new Stair(ModBlocks.MIRE, ModBlocks.MIRE_STAIRS));
             add(new Stair(ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_STAIRS));
+            add(new Stair(ModBlocks.CHALKSOIL, ModBlocks.CHALKSOIL_STAIRS));
+            add(new Stair(ModBlocks.COARSE_CHALKSOIL, ModBlocks.COARSE_CHALKSOIL_STAIRS));
             add(new Stair(ModBlocks.LOAM, ModBlocks.LOAM_STAIRS));
             add(new Stair(ModBlocks.COARSE_LOAM, ModBlocks.COARSE_LOAM_STAIRS));
             add(new Stair(ModBlocks.PEAT, ModBlocks.PEAT_STAIRS));
