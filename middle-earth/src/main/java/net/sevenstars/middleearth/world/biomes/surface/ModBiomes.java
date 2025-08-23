@@ -3327,21 +3327,19 @@ public class ModBiomes {
 
     public static void createTheWhiteDownsBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addNordicVegetation(generationSettings);
-        ModBiomeFeatures.addDioriteOre(vegetation);
+        ModBiomeFeatures.addDryHeatherField(vegetation);
+        ModBiomeFeatures.addBushes(vegetation);
+        ModBiomeFeatures.addRareOakBushes(vegetation);
+        ModBiomeFeatures.addWilderGrass(vegetation);
+        ModBiomeFeatures.addGrassyChalksoilOre(vegetation);
+        ModBiomeFeatures.addTurfOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addDioriteBoulder(vegetation);
         ModBiomeFeatures.addCalciteBoulder(vegetation);
-        ModBiomeFeatures.addStoneGrassAbundantOre(vegetation);
-        ModBiomeFeatures.addTuffOre(vegetation);
-
-        ModBiomeFeatures.addSparseBirchTrees(vegetation);
-        ModBiomeFeatures.addLarchTrees(vegetation);
-        ModBiomeFeatures.addSparsePineTrees(vegetation);
-        ModBiomeFeatures.addHollyTrees(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, 0.4f, true);
     }

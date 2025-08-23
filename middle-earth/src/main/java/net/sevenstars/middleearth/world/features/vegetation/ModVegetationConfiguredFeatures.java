@@ -60,6 +60,7 @@ public class ModVegetationConfiguredFeatures {
 
     // region FIELDS
     public static final RegistryKey<ConfiguredFeature<?, ?>> FIELD_HEATHER = registerKey("field_heather");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FIELD_DRY_HEATHER = registerKey("field_dry_heather");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FIELD_LAVENDER = registerKey("field_lavender");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FIELD_WILD_WHEAT = registerKey("field_wild_wheat");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FIELD_BLUE_FESCUE = registerKey("field_blue_fescue");
@@ -197,8 +198,21 @@ public class ModVegetationConfiguredFeatures {
                 new DeltaFeatureConfig(Blocks.WATER.getDefaultState(), Blocks.GRASS_BLOCK.getDefaultState(), UniformIntProvider.create(3, 7), UniformIntProvider.create(0, 2)));
 
         ConfiguredFeatures.register(featureRegisterable, FIELD_HEATHER, Feature.RANDOM_PATCH,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.HEATHER))));
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
+                        new RandomPatchFeatureConfig(8, 3, 2,
+                                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
+                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                                .add(ModNatureBlocks.HEATHER.getDefaultState(), 1)
+                                                .add(ModNatureBlocks.HEATHER_BUSH.getDefaultState(), 2))
+                                )))));
+        ConfiguredFeatures.register(featureRegisterable, FIELD_DRY_HEATHER, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
+                        new RandomPatchFeatureConfig(8, 3, 2,
+                                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
+                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                                .add(ModNatureBlocks.DRY_HEATHER.getDefaultState(), 1)
+                                                .add(ModNatureBlocks.DRY_HEATHER_BUSH.getDefaultState(), 2))
+                                )))));
 
         ConfiguredFeatures.register(featureRegisterable, FIELD_LAVENDER, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,

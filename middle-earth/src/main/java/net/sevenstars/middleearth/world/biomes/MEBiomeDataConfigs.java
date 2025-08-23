@@ -208,6 +208,11 @@ public class MEBiomeDataConfigs {
             .addSlopeData(52, Blocks.DIORITE)
             .addSlopeData(MAX_ANGLE, Blocks.CALCITE);
 
+    public static SlopeMap chalkPlains = new SlopeMap()
+            .addSlopeData(21, ModBlocks.CHALKSOIL_GRASS_BLOCK)
+            .addSlopeData(24, ModBlocks.COARSE_CHALKSOIL)
+            .addSlopeData(27,StoneBlockSets.CHALK_SET.oldBlocks.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.CHALK_SET.baseBlocks.base());
     public static SlopeMap grassPlains = new SlopeMap()
             .addSlopeData(25, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)

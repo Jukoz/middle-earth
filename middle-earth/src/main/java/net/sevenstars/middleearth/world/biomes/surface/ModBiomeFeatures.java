@@ -513,12 +513,16 @@ public class ModBiomeFeatures {
     public static void addHeatherField(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FIELD_HEATHER);
     }
+    public static void addDryHeatherField(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FIELD_DRY_HEATHER);
+    }
     public static void addLavenderField(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FIELD_LAVENDER);
     }
     public static void addWildWheatField(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FIELD_WILD_WHEAT);
     }
+
 
     // endregion
     public static void addMirkwoodVines(List<RegistryKey<PlacedFeature>> vegetation) {

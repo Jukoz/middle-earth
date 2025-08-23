@@ -550,8 +550,8 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.THE_OLD_FOREST, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(6785744, 10004675, 4421513, 402733, 2311707, 2050588)));
         // THE WHITE DOWNS
-        addBiome(new BiomeData(MEBiomeKeys.THE_WHITE_DOWNS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(9022444, 12898532, defaultWater, defaultWaterFog, 8431738, 7905395)));
+        addBiome(new BiomeData(MEBiomeKeys.THE_WHITE_DOWNS, MEBiomeDataConfigs.chalkPlains, MEBiomeDataConfigs.chalkLayers,
+                new BiomeColorsDTO(9022444, 12898532, defaultWater, defaultWaterFog, 11983713, 7905395)));
         // THE WOLD
         addBiome(new BiomeData(MEBiomeKeys.THE_WOLD, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 12309403, 12242068)));

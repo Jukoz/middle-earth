@@ -61,6 +61,7 @@ public class ModVegetationPlacedFeatures {
 
     // region FIELDS
     public static final RegistryKey<PlacedFeature> FIELD_HEATHER = registerKey("field_heather");
+    public static final RegistryKey<PlacedFeature> FIELD_DRY_HEATHER = registerKey("field_dry_heather");
     public static final RegistryKey<PlacedFeature> FIELD_LAVENDER = registerKey("field_lavender");
     public static final RegistryKey<PlacedFeature> FIELD_WILD_WHEAT = registerKey("field_wild_wheat");
     public static final RegistryKey<PlacedFeature> FIELD_DEAD_NORMAL_HEATHER = registerKey("field_dead_normal_heather");
@@ -255,6 +256,7 @@ public class ModVegetationPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> flowersYellow = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FLOWERS_YELLOW);
 
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> fieldHeather = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FIELD_HEATHER);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> fieldDryHeather = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FIELD_DRY_HEATHER);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> fieldLavender = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FIELD_LAVENDER);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> fieldWildWeather = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.FIELD_WILD_WHEAT);
 
@@ -406,6 +408,7 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, FLOWERS_YELLOW, flowersYellow, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
 
         PlacedFeatures.register(featureRegisterable, FIELD_HEATHER, fieldHeather, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, FIELD_DRY_HEATHER, fieldDryHeather, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FIELD_LAVENDER, fieldLavender, abundant, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FIELD_WILD_WHEAT, fieldWildWeather, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FIELD_DEAD_NORMAL_HEATHER, fieldDeadNormalHeather, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
