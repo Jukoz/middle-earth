@@ -40,6 +40,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ModTreeConfiguredFeatures {
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ASPEN_TREE_KEY = registerKey("aspen_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BEECH_TREE_KEY = registerKey("beech_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BIRCH_TREE_KEY = registerKey("birch_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> CHESTNUT_TREE_KEY = registerKey("chestnut_tree");
@@ -94,6 +95,14 @@ public class ModTreeConfiguredFeatures {
         final ArrayList<BlockState> mallornLeaves = new ArrayList<>(Arrays.asList(WoodBlockSets.MALLORN_SET.leaves.getDefaultState(), WoodBlockSets.MALLORN_SET.leaves.getDefaultState(), ModNatureBlocks.FLOWERING_MALLORN_LEAVES.getDefaultState()));
         final ArrayList<BlockState> hollyLeaves = new ArrayList<>(Arrays.asList(WoodBlockSets.HOLLY_SET.leaves.getDefaultState(), WoodBlockSets.HOLLY_SET.leaves.getDefaultState(), ModNatureBlocks.BERRY_HOLLY_LEAVES.getDefaultState()));
 
+        register(context, ASPEN_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(WoodBlockSets.ASPEN_SET.logBlocks.log()),
+                new CanopyTrunkPlacer(9, 2, 0.9f, 0.87f, 8.6f, 1, 0.4f, -0.15f, 0,1),
+                BlockStateProvider.of(WoodBlockSets.ASPEN_SET.leaves),
+                new OvalFoliagePlacer(3, ConstantIntProvider.create(0), ConstantIntProvider.create(2), emptyList,0.4f),
+                new TwoLayersFeatureSize(1, 0, 2))
+                .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
+        
         register(context, BEECH_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
             BlockStateProvider.of(WoodBlockSets.BEECH_SET.logBlocks.log()),
             new CanopyTrunkPlacer(12, 2, 0.91f, 0.87f, 5.0f, 3, 0.42f, -0.1f, 1,1),

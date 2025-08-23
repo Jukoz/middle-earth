@@ -158,6 +158,7 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_TOUGH_BERRY_BUSH = registerKey("patch_tough_berry_bush");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_TUFT_GRASS = registerKey("patch_tuft_grass");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_WHEAT_GRASS = registerKey("patch_wheat_grass");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MEADOW_GRASS = registerKey("patch_meadow_grass");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MIXED_WILD_WHEAT = registerKey("patch_mixed_wild_wheat");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_WILD_GRASS = registerKey("patch_wild_grass");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_WILDER_GRASS = registerKey("patch_wilder_grass");
@@ -291,7 +292,6 @@ public class ModVegetationConfiguredFeatures {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.YELLOW_FLOWERS))));
 
-
         ConfiguredFeatures.register(featureRegisterable, AZALEA_GROWTH, Feature.MULTIFACE_GROWTH,
                 new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock)ModNatureBlocks.AZALEA_FLOWER_GROWTH,
                         20, true, true, true, 0.5f, BLOCKS_GROWTH));
@@ -322,7 +322,6 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, WHITE_FLOWER_GROWTH, Feature.MULTIFACE_GROWTH,
                 new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock)ModNatureBlocks.WHITE_FLOWER_GROWTH,
                         20, true, true, true, 0.5f, BLOCKS_GROWTH));
-
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_BASALT, Feature.BLOCK_PILE,
                 new BlockPileFeatureConfig(BlockStateProvider.of(Blocks.BASALT)));
@@ -615,6 +614,10 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_WHEAT_GRASS, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.WHEATGRASS))));
+
+        ConfiguredFeatures.register(featureRegisterable, PATCH_MEADOW_GRASS, Feature.FLOWER,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.MEADOWGRASS))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_WILD_GRASS, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,

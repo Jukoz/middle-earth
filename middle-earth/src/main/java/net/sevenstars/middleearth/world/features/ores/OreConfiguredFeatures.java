@@ -41,6 +41,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIORITE_ORE = registerKey("diorite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIRT_TO_GRASS_ORE = registerKey("dirt_to_grass_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRASSY_DIRT_ORE = registerKey("grassy_dirt_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> GRASSY_CHALKSOIL_ORE = registerKey("grassy_chalksoil_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRASSY_PEAT_ORE = registerKey("grassy_peat_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIRTY_ROOTS_ORE = registerKey("dirty_roots");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DOLOMITE_ORE = registerKey("dolomite_ore");
@@ -153,6 +154,8 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, GRASSY_DIRT_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, ModBlocks.GRASSY_DIRT.getDefaultState(), 48, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, GRASSY_CHALKSOIL_ORE, Feature.ORE,
+                new OreFeatureConfig(peatGrassTest, ModBlocks.GRASSY_CHALKSOIL.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, GRASSY_PEAT_ORE, Feature.ORE,
                 new OreFeatureConfig(peatGrassTest, ModBlocks.GRASSY_PEAT.getDefaultState(), 48, 0.4f));
 

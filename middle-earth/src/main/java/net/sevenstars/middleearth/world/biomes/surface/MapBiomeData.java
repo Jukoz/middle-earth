@@ -301,7 +301,7 @@ public class MapBiomeData {
                 new BiomeColorsDTO(8827134, 12771327, defaultWater, defaultWaterFog, 7584106, 6725722), CaveType.ELVEN));
         addBiome(new BiomeData(MEBiomeKeys.LINDON_SHORES, MEBiomeDataConfigs.gulfOfLhunShoresLayers, MEBiomeDataConfigs.limeStoneLayers,
                 new BiomeColorsDTO(8827134, 12771327, defaultShoreWater, defaultWaterFog, 9090684, 8168815), CaveType.ELVEN));
-        addBiome(new BiomeData(MEBiomeKeys.LINDON_SHORES_CLIFFS, MEBiomeDataConfigs.gulfOfLhunShoreCliffsLayers, MEBiomeDataConfigs.limeStoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.LINDON_SHORES_CLIFFS, MEBiomeDataConfigs.gulfOfLhunShoreCliffsLayers, MEBiomeDataConfigs.chalkLayers,
                 new BiomeColorsDTO(8827134, 12771327, defaultShoreWater, defaultWaterFog, 9090684, 8168815), CaveType.ELVEN));
         // LONELY MOUNTAINS
         addBiome(new BiomeData(MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, MEBiomeDataConfigs.lonelyMountainBase, MEBiomeDataConfigs.stoneLayers,

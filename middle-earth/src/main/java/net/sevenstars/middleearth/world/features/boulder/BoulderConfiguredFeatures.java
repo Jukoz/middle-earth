@@ -152,8 +152,8 @@ public class BoulderConfiguredFeatures {
     private static final List<BlockState> diorite = Arrays.asList(
             Blocks.DIORITE.getDefaultState(),
             Blocks.DIORITE.getDefaultState(),
-            StoneBlockSets.DIORITE_SET.cobblestoneBlocks.base().getDefaultState(),
-            StoneBlockSets.DIORITE_SET.mossyCobblestoneBlocks.base().getDefaultState());
+            StoneBlockSets.DIORITE_SET.smoothBlocks.base().getDefaultState(),
+            StoneBlockSets.DIORITE_SET.mossySmoothBlocks.base().getDefaultState());
 
     private static final List<BlockState> dolomite = Arrays.asList(
             StoneBlockSets.DOLOMITE_SET.baseBlocks.base().getDefaultState(),

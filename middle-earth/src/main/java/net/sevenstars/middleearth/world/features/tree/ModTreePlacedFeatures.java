@@ -21,6 +21,7 @@ public class ModTreePlacedFeatures {
     public static final RegistryKey<PlacedFeature> BEECH_PLACED_TREE_KEY = registerKey("beech_tree");
     public static final RegistryKey<PlacedFeature> RARE_BEECH_PLACED_TREE_KEY = registerKey("rare_beech_tree");
     public static final RegistryKey<PlacedFeature> VERY_RARE_BEECH_PLACED_TREE_KEY = registerKey("very_rare_beech_tree");
+
     public static final RegistryKey<PlacedFeature> COMMON_BIRCH_PLACED_TREE_KEY = registerKey("common_birch_tree");
     public static final RegistryKey<PlacedFeature> BIRCH_PLACED_TREE_KEY = registerKey("birch_tree");
     public static final RegistryKey<PlacedFeature> BIRCH_AND_OAK_PLACED_TREE_KEY = registerKey("birch_and_oak_tree");
@@ -29,6 +30,13 @@ public class ModTreePlacedFeatures {
     public static final RegistryKey<PlacedFeature> VERY_RARE_BIRCH_PLACED_TREE_KEY = registerKey("super_rare_birch_tree");
     public static final RegistryKey<PlacedFeature> MEGA_BIRCH_PLACED_COMMON_TREE_KEY = registerKey("mega_birch_common_tree");
     public static final RegistryKey<PlacedFeature> MEGA_BIRCH_PLACED_TREE_KEY = registerKey("mega_birch_tree");
+
+    public static final RegistryKey<PlacedFeature> COMMON_ASPEN_PLACED_TREE_KEY = registerKey("common_aspen_tree");
+    public static final RegistryKey<PlacedFeature> ASPEN_PLACED_TREE_KEY = registerKey("aspen_tree");
+    public static final RegistryKey<PlacedFeature> SPARSE_ASPEN_PLACED_TREE_KEY = registerKey("sparse_aspen_tree");
+    public static final RegistryKey<PlacedFeature> RARE_ASPEN_PLACED_TREE_KEY = registerKey("rare_aspen_tree");
+    public static final RegistryKey<PlacedFeature> VERY_RARE_ASPEN_PLACED_TREE_KEY = registerKey("super_rare_aspen_tree");
+    
     public static final RegistryKey<PlacedFeature> RARE_CHERRY_BLOSSOM_PLACED_TREE_KEY = registerKey("rare_cherry_blossom_tree");
     public static final RegistryKey<PlacedFeature> CHESTNUT_PLACED_TREE_KEY = registerKey("chestnut_tree");
     public static final RegistryKey<PlacedFeature> DARK_OAK_PLACED_TREE_KEY = registerKey("dark_oak_tree");
@@ -186,6 +194,22 @@ public class ModTreePlacedFeatures {
         register(context, COMMON_BIRCH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BIRCH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
                         Blocks.BIRCH_SAPLING));
+
+        register(context, ASPEN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ASPEN_TREE_KEY),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(scarceTree,
+                        ModNatureBlocks.ASPEN_SAPLING));
+        register(context, SPARSE_ASPEN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ASPEN_TREE_KEY),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
+                        ModNatureBlocks.ASPEN_SAPLING));
+        register(context, RARE_ASPEN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ASPEN_TREE_KEY),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(veryRareTree,
+                        ModNatureBlocks.ASPEN_SAPLING));
+        register(context, VERY_RARE_ASPEN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ASPEN_TREE_KEY),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaRareTree,
+                        ModNatureBlocks.ASPEN_SAPLING));
+        register(context, COMMON_ASPEN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ASPEN_TREE_KEY),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
+                        ModNatureBlocks.ASPEN_SAPLING));
 
         register(context, RARE_CHERRY_BLOSSOM_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatures.CHERRY_BEES_005),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,

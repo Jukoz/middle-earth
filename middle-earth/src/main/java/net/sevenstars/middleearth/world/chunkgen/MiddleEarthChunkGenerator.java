@@ -429,7 +429,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                         trySetBlock(chunk, chunk.getPos().getBlockPos(x, currentHeight++, z), layerData.block.getDefaultState());
                     }
                 }
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 2), z), customHeightBiomeHeightData.getBiome().getBlocksLayering().layers.getFirst().block.getDefaultState());
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 2), z), customHeightBiomeHeightData.getBiome().getBlocksLayering().layers.getLast().block.getDefaultState());
                 BlockState surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().slopeDatas.getFirst().block.getDefaultState();
                 BlockState underSurfaceBlock;
 
@@ -437,7 +437,10 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState()) {
                     surfaceBlock = Blocks.DIRT.getDefaultState();
                     underSurfaceBlock = surfaceBlock;
-                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.LOAM_GRASS_BLOCK.getDefaultState()) {
+                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.CHALKSOIL_GRASS_BLOCK.getDefaultState()) {
+                    surfaceBlock = ModBlocks.CHALKSOIL.getDefaultState();
+                    underSurfaceBlock = surfaceBlock;
+                }else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.LOAM_GRASS_BLOCK.getDefaultState()) {
                     surfaceBlock = ModBlocks.LOAM.getDefaultState();
                     underSurfaceBlock = surfaceBlock;
                 } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.PEAT_GRASS_BLOCK.getDefaultState()) {
@@ -450,7 +453,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().getBlockAtAngle(slopeAngle).getDefaultState();
                     if(surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState() || surfaceBlock == ModBlocks.SNOWY_GRASS_BLOCK.getDefaultState()) {
                         underSurfaceBlock = Blocks.DIRT.getDefaultState();
-                    } else if(surfaceBlock == ModBlocks.LOAM_GRASS_BLOCK.getDefaultState()) {
+                    } else if(surfaceBlock == ModBlocks.CHALKSOIL_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = ModBlocks.CHALKSOIL.getDefaultState();
+                    }else if(surfaceBlock == ModBlocks.LOAM_GRASS_BLOCK.getDefaultState()) {
                         underSurfaceBlock = ModBlocks.LOAM.getDefaultState();
                     } else if(surfaceBlock == ModBlocks.PEAT_GRASS_BLOCK.getDefaultState()) {
                         underSurfaceBlock = ModBlocks.PEAT.getDefaultState();

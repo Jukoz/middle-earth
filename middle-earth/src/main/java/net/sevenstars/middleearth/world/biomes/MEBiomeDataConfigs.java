@@ -233,12 +233,12 @@ public class MEBiomeDataConfigs {
             .addSlopeData(MAX_ANGLE, Blocks.CLAY);
 
     public static SlopeMap gulfOfLhunShoreCliffsLayers = new SlopeMap()
-            .addSlopeData(26, Blocks.GRASS_BLOCK)
+            .addSlopeData(26, ModBlocks.CHALKSOIL_GRASS_BLOCK)
             .addSlopeData(28, Blocks.GRAVEL)
-            .addSlopeData(33, Blocks.COARSE_DIRT)
-            .addSlopeData(38, Blocks.COARSE_DIRT)
-            .addSlopeData(47, StoneBlockSets.GALONN_SET.baseBlocks.base())
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.LIMESTONE_SET.baseBlocks.base());
+            .addSlopeData(33, ModBlocks.COARSE_CHALKSOIL)
+            .addSlopeData(38, ModBlocks.COARSE_CHALKSOIL)
+            .addSlopeData(47, StoneBlockSets.CHALK_SET.baseBlocks.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.CHALK_SET.oldBlocks.base());
 
     public static SlopeMap forodwaith = new SlopeMap().addSlopeData(30, Blocks.SNOW_BLOCK)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.SCHIST_SET.baseBlocks.base());
@@ -278,14 +278,22 @@ public class MEBiomeDataConfigs {
     public static BlocksLayeringData frozenLayers = new BlocksLayeringData().addLayerData(1.0f, Blocks.STONE);
 
     public static BlocksLayeringData gonluinLayers = new BlocksLayeringData()
-            .addLayerData(0.32f, StoneBlockSets.SLATE_SET.baseBlocks.base())
+            .addLayerData(0.34f, StoneBlockSets.SLATE_SET.baseBlocks.base())
             .addLayerData(0.1f, Blocks.STONE)
-            .addLayerData(0.03f, StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base())
+            .addLayerData(0.01f, StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base())
             .addLayerData(0.55f, StoneBlockSets.KHAGALABAN_SET.baseBlocks.base());
 
+    public static BlocksLayeringData chalkLayers = new BlocksLayeringData()
+            .addLayerData(0.34f, StoneBlockSets.SLATE_SET.baseBlocks.base())
+            .addLayerData(0.1f, Blocks.STONE)
+            .addLayerData(0.03f, StoneBlockSets.CALCITE_SET.baseBlocks.base())
+            .addLayerData(0.53f, StoneBlockSets.CHALK_SET.baseBlocks.base());
+
     public static BlocksLayeringData limeStoneLayers = new BlocksLayeringData()
-            .addLayerData(0.63f, StoneBlockSets.LIMESTONE_SET.baseBlocks.base())
-            .addLayerData(0.37f, Blocks.STONE);
+            .addLayerData(0.34f, StoneBlockSets.SLATE_SET.baseBlocks.base())
+            .addLayerData(0.1f, Blocks.STONE)
+            .addLayerData(0.03f, StoneBlockSets.GALONN_SET.baseBlocks.base())
+            .addLayerData(0.53f, StoneBlockSets.LIMESTONE_SET.baseBlocks.base());
 
     public static BlocksLayeringData sandstoneLayers = new BlocksLayeringData()
             .addLayerData(0.1f, Blocks.SANDSTONE)
