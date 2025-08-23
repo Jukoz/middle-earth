@@ -93,6 +93,35 @@ public class ModBlocks {
     public static final Block COBBLY_DIRT_STAIRS = registerMiscBlock("cobbly_dirt_stairs",
             (settings) -> new StairsBlock(COBBLY_DIRT.getDefaultState(), settings), AbstractBlock.Settings.copy(COBBLY_DIRT),true);
 
+    public static final Block CHALKSOIL = registerMiscBlock("chalksoil",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
+    public static final Block CHALKSOIL_SLAB = registerMiscBlock("chalksoil_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(CHALKSOIL),true);
+    public static final Block CHALKSOIL_STAIRS = registerMiscBlock("chalksoil_stairs",
+            (settings) -> new StairsBlock(CHALKSOIL.getDefaultState(), settings), AbstractBlock.Settings.copy(CHALKSOIL),true);
+
+    public static final Block CHALKSOIL_GRASS_BLOCK = registerMiscBlock("chalksoil_grass_block",
+            (settings) -> new CustomGrassBlock(settings, CHALKSOIL), AbstractBlock.Settings.copy(Blocks.GRASS_BLOCK),false);
+
+    public static final Block GRASSY_CHALKSOIL = registerMiscBlock("grassy_chalksoil",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
+    public static final Block GRASSY_CHALKSOIL_SLAB = registerMiscBlock("grassy_chalksoil_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(GRASSY_CHALKSOIL),true);
+    public static final Block GRASSY_CHALKSOIL_STAIRS = registerMiscBlock("grassy_chalksoil_stairs",
+            (settings) -> new StairsBlock(GRASSY_CHALKSOIL.getDefaultState(), settings), AbstractBlock.Settings.copy(GRASSY_CHALKSOIL),true);
+
+    public static final Block COARSE_CHALKSOIL = registerMiscBlock("coarse_chalksoil",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
+    public static final Block COARSE_CHALKSOIL_SLAB = registerMiscBlock("coarse_chalksoil_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(DRY_DIRT),true);
+    public static final Block COARSE_CHALKSOIL_STAIRS = registerMiscBlock("coarse_chalksoil_stairs",
+            (settings) -> new StairsBlock(COARSE_CHALKSOIL.getDefaultState(), settings), AbstractBlock.Settings.copy(DRY_DIRT),true);
+
+    public static final Block CHALKSOIL_PATH = registerMiscBlock("chalksoil_path",
+            (settings) -> new CustomPathBlock(settings, CHALKSOIL), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),true);
+    public static final Block CHALKSOIL_FARMLAND = registerMiscBlock("chalksoil_farmland",
+            (settings) -> new CustomFarmlandBlock(settings, CHALKSOIL), AbstractBlock.Settings.copy(Blocks.FARMLAND),true);
+
     public static final Block LOAM = registerMiscBlock("loam",
             Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
     public static final Block LOAM_SLAB = registerMiscBlock("loam_slab",

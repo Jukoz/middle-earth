@@ -349,6 +349,23 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.GRASSY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.GRASSY_DIRT_STAIRS);
 
+        mineableShovel.add(ModBlocks.CHALKSOIL_GRASS_BLOCK);
+
+        mineableShovel.add(ModBlocks.CHALKSOIL);
+        mineableShovel.add(ModBlocks.CHALKSOIL_SLAB);
+        mineableShovel.add(ModBlocks.CHALKSOIL_STAIRS);
+
+        mineableShovel.add(ModBlocks.GRASSY_CHALKSOIL);
+        mineableShovel.add(ModBlocks.GRASSY_CHALKSOIL_SLAB);
+        mineableShovel.add(ModBlocks.GRASSY_CHALKSOIL_STAIRS);
+
+        mineableShovel.add(ModBlocks.COARSE_CHALKSOIL);
+        mineableShovel.add(ModBlocks.COARSE_CHALKSOIL_SLAB);
+        mineableShovel.add(ModBlocks.COARSE_CHALKSOIL_STAIRS);
+
+        mineableShovel.add(ModBlocks.CHALKSOIL_PATH);
+        mineableShovel.add(ModBlocks.CHALKSOIL_FARMLAND);
+
         mineableShovel.add(ModBlocks.LOAM_GRASS_BLOCK);
         
         mineableShovel.add(ModBlocks.LOAM);

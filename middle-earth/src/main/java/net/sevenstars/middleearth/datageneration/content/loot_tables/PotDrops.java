@@ -9,6 +9,7 @@ import java.util.List;
 public class PotDrops {
     public static List<Block> pots = new ArrayList<>() {
         {
+            add(ModDecorativeBlocks.POTTED_ASPEN_SAPLING);
             add(ModDecorativeBlocks.POTTED_BEECH_SAPLING);
             add(ModDecorativeBlocks.POTTED_CHESTNUT_SAPLING);
             add(ModDecorativeBlocks.POTTED_HOLLY_SAPLING);

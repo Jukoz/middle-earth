@@ -191,6 +191,10 @@ public class ModRegistries {
 
     public static void registerTillableBlocks() {
         TillableBlockRegistry.register(ModBlocks.DRY_DIRT, HoeItem::canTillFarmland, HoeItem.createTillAction(Blocks.FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.CHALKSOIL_GRASS_BLOCK, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.CHALKSOIL_FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.CHALKSOIL, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.CHALKSOIL_FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.GRASSY_CHALKSOIL, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.CHALKSOIL_FARMLAND.getDefaultState()));
+        TillableBlockRegistry.register(ModBlocks.COARSE_CHALKSOIL, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.CHALKSOIL_FARMLAND.getDefaultState()));
         TillableBlockRegistry.register(ModBlocks.LOAM_GRASS_BLOCK, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.LOAM_FARMLAND.getDefaultState()));
         TillableBlockRegistry.register(ModBlocks.LOAM, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.LOAM_FARMLAND.getDefaultState()));
         TillableBlockRegistry.register(ModBlocks.GRASSY_LOAM, HoeItem::canTillFarmland, HoeItem.createTillAction(ModBlocks.LOAM_FARMLAND.getDefaultState()));
@@ -490,6 +494,9 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.BRACKEN, 0.30f);
         registry.add(ModNatureBlocks.GIANT_BUTTERBUR, 0.30f);
         registry.add(ModNatureBlocks.CAMPION, 0.30f);
+        registry.add(ModNatureBlocks.BLUE_BIGLEAF_HYDRANGEA, 0.30f);
+        registry.add(ModNatureBlocks.PINK_BIGLEAF_HYDRANGEA, 0.30f);
+        registry.add(ModNatureBlocks.WHITE_BIGLEAF_HYDRANGEA, 0.30f);
         registry.add(ModNatureBlocks.DEAD_HEATHER_BUSH, 0.30f);
         registry.add(ModNatureBlocks.DRY_HEATHER_BUSH, 0.30f);
         registry.add(ModNatureBlocks.DEAD_RUSHES, 0.30f);
@@ -552,6 +559,7 @@ public class ModRegistries {
             registry.add(sapling, 0.3F);
         });
 
+        registry.add(ModNatureBlocks.ASPEN_SAPLING, 0.3F);
         registry.add(ModNatureBlocks.BEECH_SAPLING, 0.3F);
 
         LeavesSets.blocks.forEach(block -> {

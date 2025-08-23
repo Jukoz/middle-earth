@@ -313,6 +313,8 @@ public class ModDecorativeBlocks {
     public static final Block WOODEN_BUCKET = registerBlockWithItem("wooden_bucket",
             WoodenBucketBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
+    public static final Block POTTED_ASPEN_SAPLING = registerBlock("potted_aspen_sapling",
+            (settings) -> new FlowerPotBlock(ModNatureBlocks.ASPEN_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_BEECH_SAPLING = registerBlock("potted_beech_sapling",
             (settings) -> new FlowerPotBlock(ModNatureBlocks.BEECH_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_CHESTNUT_SAPLING = registerBlock("potted_chestnut_sapling",

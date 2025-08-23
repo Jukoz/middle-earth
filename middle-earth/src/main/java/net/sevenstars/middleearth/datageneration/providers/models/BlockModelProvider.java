@@ -816,10 +816,12 @@ public class BlockModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerHangingMoss(ModNatureBlocks.MIRKWOOD_VINES);
         blockStateModelGenerator.registerHangingMoss(ModNatureBlocks.HANGING_WEBS);
 
+        registerFarmland(blockStateModelGenerator, ModBlocks.CHALKSOIL, ModBlocks.CHALKSOIL_FARMLAND);
         registerFarmland(blockStateModelGenerator, ModBlocks.LOAM, ModBlocks.LOAM_FARMLAND);
         registerFarmland(blockStateModelGenerator, ModBlocks.PEAT, ModBlocks.PEAT_FARMLAND);
         registerFarmland(blockStateModelGenerator, ModBlocks.SILT, ModBlocks.SILT_FARMLAND);
 
+        registerDirtPath(blockStateModelGenerator, ModBlocks.CHALKSOIL, ModBlocks.CHALKSOIL_PATH);
         registerDirtPath(blockStateModelGenerator, ModBlocks.LOAM, ModBlocks.LOAM_PATH);
         registerDirtPath(blockStateModelGenerator, ModBlocks.PEAT, ModBlocks.PEAT_PATH);
         registerDirtPath(blockStateModelGenerator, ModBlocks.SILT, ModBlocks.SILT_PATH);
