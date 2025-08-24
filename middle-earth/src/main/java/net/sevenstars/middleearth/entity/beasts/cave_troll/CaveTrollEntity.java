@@ -2,10 +2,7 @@ package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.EntityStatuses;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -29,6 +26,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
@@ -42,9 +40,7 @@ import net.sevenstars.middleearth.utils.PlayerUtil;
 
 import java.util.List;
 
-// TODO Fix Saddle model inheritance
-// TODO Add multiple passenger riding
-// TODO Add passenger positioning and bouncing
+// TODO Add passenger bouncing
 public class CaveTrollEntity extends AbstractBeastEntity {
     public LootTable scavengeLootTable;
     public LootWorldContext lootWorldContext;
@@ -97,6 +93,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         builder.add(EATING, false);
         builder.add(SLEEPING, false);
     }
+
 
     @Override
     protected void mobTick(ServerWorld world) {
@@ -167,6 +164,53 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         }
 
         super.tickMovement();
+    }
+
+    @Override
+    protected boolean canAddPassenger(Entity passenger) {   // Allow 3 people to ride the troll
+        return this.hasSaddleEquipped() ? getPassengerList().size() < 3 : getPassengerList().isEmpty();
+    }
+
+    @Override
+    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
+        if(!this.isSitting()) {
+            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.15f);
+        }
+
+        return super.getSaddledSpeed(controllingPlayer);
+    }
+
+    @Override
+    protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
+        float animationProgress = this.limbAnimator.getAnimationProgress() * (MathHelper.PI / 180) * 18;
+        // frequency is calculated by dividing the speed of the animation by the duration of the animation.
+        float frequency = passenger.isSprinting() ? (2f/1.25f) : (10f/1.75f);
+
+        double y = passenger.isSprinting() ?
+                0 : // height when sprinting
+                MathHelper.sin(2 * frequency * animationProgress) * 0.02; // height when walking
+
+        double side = passenger.isSprinting() ?
+                0 : // side-to-side movement when sprinting
+                MathHelper.sin(frequency * animationProgress) * 0.04; // side-to-side movement when walking
+
+        double front = passenger.isSprinting() ?
+                1 : // front-back movement when sprinting
+                0; // front-back movement when walking
+
+        double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
+        double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
+
+        if(this.isSitting()) {
+            y = -0.5;
+        }
+
+        return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
+    }
+
+    @Override
+    public boolean canSprintAsVehicle() {
+        return true;
     }
 
     @Override

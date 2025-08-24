@@ -46,6 +46,6 @@ public class CaveTrollSaddleModel extends CaveTrollEntityModel {
     public void setAngles(CaveTrollEntityRenderState state) {
         super.setAngles(state);
 
-        reigns.visible = state.isControlled;
+        reigns.visible = state.conrollingPassenger != null;
     }
 }

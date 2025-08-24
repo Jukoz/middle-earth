@@ -122,8 +122,8 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
     public void setAngles(CaveTrollEntityRenderState state) {
         super.setAngles(state);
 
-        if(!state.isSprinting && !state.isControlled) {
-            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8.0f, 12.5f);
+        if(!state.isSprinting && !(state.conrollingPassenger != null && state.conrollingPassenger.isSprinting())) {
+            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 10.0f, 10.0f);
         }
         else {
             this.chaseAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.0f, 2.0f);

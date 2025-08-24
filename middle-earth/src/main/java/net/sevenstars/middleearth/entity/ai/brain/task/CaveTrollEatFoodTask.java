@@ -36,7 +36,7 @@ public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
 
     @Override
     protected boolean shouldKeepRunning(ServerWorld world, CaveTrollEntity entity, long time) {
-        return hasRequiredMemoryState(entity);
+        return hasRequiredMemoryState(entity) && !entity.getMainHandStack().isEmpty();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
 
     @Override
     protected void keepRunning(ServerWorld world, CaveTrollEntity entity, long time) {
-        if((time - startTime) > 60) {
+        if((time - startTime) > 60 && !entity.getMainHandStack().isEmpty()) {
             ItemStackParticleEffect particles = new ItemStackParticleEffect(ParticleTypes.ITEM, entity.getMainHandStack());
             Vec3d position = new Vec3d(entity.getX() - Math.sin(Math.toRadians(entity.getBodyYaw())), entity.getEyeY(), entity.getZ() + Math.cos(Math.toRadians(entity.getBodyYaw())));
             world.spawnParticles(particles, position.getX(), position.getY() - 1.0, position.getZ(),7, 0.0, 0.0, 0.0, 0.1);
@@ -56,13 +56,13 @@ public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
 
     @Override
     protected void finishRunning(ServerWorld world, CaveTrollEntity entity, long time) {
-        entity.getMainHandStack().decrement(1);
-
         Optional<Integer> foodCount = entity.getBrain().getOptionalRegisteredMemory(MemoryModulesME.FOOD_EATEN_COUNT);
         foodCount.ifPresentOrElse(
                 count -> entity.getBrain().remember(MemoryModulesME.FOOD_EATEN_COUNT, count + 1), // If present
                 () -> entity.getBrain().remember(MemoryModulesME.FOOD_EATEN_COUNT, 1)); // If absent
 
         entity.setSitting(false);
+
+        entity.getMainHandStack().decrement(1);
     }
 }
