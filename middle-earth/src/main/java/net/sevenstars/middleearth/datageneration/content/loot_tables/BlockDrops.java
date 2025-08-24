@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
+import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.block.Block;
@@ -27,6 +28,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WOOD_PILE);
             add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
+
+            add(ModBlocks.TREATED_WOOD_ROPE_FENCE);
 
             add(ModDecorativeBlocks.TAPPER);
 

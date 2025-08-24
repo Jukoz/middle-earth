@@ -55,6 +55,9 @@ public class ModBlocks {
     public static final Block WATTLE_TRAPDOOR = registerWoodBlock("wattle_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR), true);
 
+    public static final Block TREATED_WOOD_ROPE_FENCE = registerWoodBlock("treated_wood_rope_fence",
+            FenceBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_FENCE), true);
+
     public static final Block SNOWY_GRASS_BLOCK = registerMiscBlock("snowy_grass_block",
             Block::new,AbstractBlock.Settings.copy(Blocks.GRASS_BLOCK),false);
 
