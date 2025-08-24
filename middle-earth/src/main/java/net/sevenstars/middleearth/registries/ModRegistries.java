@@ -184,7 +184,7 @@ public class ModRegistries {
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.DRY_PINE_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.PINE_BRANCHES, 30, 60);
 
-        LeavesSets.blocks.forEach(block -> {
+        LeavesSets.leaves.forEach(block -> {
             FlammableBlockRegistry.getDefaultInstance().add(block, 30, 60);
         });
     }
@@ -562,7 +562,7 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.ASPEN_SAPLING, 0.3F);
         registry.add(ModNatureBlocks.BEECH_SAPLING, 0.3F);
 
-        LeavesSets.blocks.forEach(block -> {
+        LeavesSets.leaves.forEach(block -> {
             registry.add(block, 0.3F);
         });
 

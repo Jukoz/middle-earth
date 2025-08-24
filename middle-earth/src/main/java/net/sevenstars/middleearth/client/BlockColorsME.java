@@ -55,7 +55,7 @@ public class BlockColorsME {
                 return FoliageColors.DEFAULT;
             }
             return BiomeColors.getFoliageColor(view, pos);
-        }, ModNatureBlocks.FALLEN_LEAVES);
+        }, ModNatureBlocks.FALLEN_LEAVES, WoodBlockSets.BEECH_SET.leaves);
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) ->  view != null && pos != null ? -14647248 : -9321636,
                 ModNatureBlocks.SMALL_LILY_PADS, ModNatureBlocks.LILY_PADS);

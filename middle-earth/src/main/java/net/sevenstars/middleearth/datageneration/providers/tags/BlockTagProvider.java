@@ -55,10 +55,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         wool.add(Wool.blocks.toArray(new Block[0]));
 
-        leaves.add(LeavesSets.blocks.toArray(new Block[0]));
+        leaves.add(LeavesSets.leaves.toArray(new Block[0]));
         mineableHoe.add(MineableHoe.blocks.toArray(new Block[0]));
 
-        swordEfficient.add(LeavesSets.blocks.toArray(new Block[0]));
+        swordEfficient.add(LeavesSets.leaves.toArray(new Block[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "saplings"))).add(Saplings.saplings.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "doors"))).add(Doors.doors.toArray(new Block[0]));

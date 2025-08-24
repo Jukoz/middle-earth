@@ -470,6 +470,9 @@ public class ModNatureBlocks {
     public static final Block FALLEN_MIRKWOOD_LEAVES = registerBlock("fallen_mirkwood_leaves",
             FallenLeavesBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().replaceable().noCollision(), true);
 
+    public static final Block WILLOW_VINES = registerBlock("willow_vines",
+            CustomHangingBlock::new, AbstractBlock.Settings.copy(Blocks.PALE_HANGING_MOSS), true);
+
     public static final Block TOUGH_BERRY_BUSH = registerBlock("tough_berry_bush",
             ToughBerryBushBlock::new, AbstractBlock.Settings.copy(Blocks.SWEET_BERRY_BUSH).ticksRandomly().noCollision().breakInstantly()
                     .sounds(BlockSoundGroup.SWEET_BERRY_BUSH), false);
