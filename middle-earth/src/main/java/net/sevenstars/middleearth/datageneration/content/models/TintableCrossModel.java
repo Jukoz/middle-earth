@@ -71,6 +71,8 @@ public class TintableCrossModel {
         {
             add(ModNatureBlocks.ATHELAS);
 
+            add(ModNatureBlocks.SHORT_HOGWEED);
+
             add(ModNatureBlocks.BROWN_GRASS);
             add(ModNatureBlocks.GREEN_SHRUB);
             add(ModNatureBlocks.SMALL_DRY_SHRUB);

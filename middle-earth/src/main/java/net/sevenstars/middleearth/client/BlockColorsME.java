@@ -49,7 +49,10 @@ public class BlockColorsME {
                 ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS, ModBlocks.TURF_VERTICAL_SLAB,
                 ModNatureBlocks.FOREST_MOSS, ModNatureBlocks.FOREST_MOSS_BLOCK, ModNatureBlocks.FOREST_MOSS_CARPET,
                 ModNatureBlocks.DUCKWEED, ModNatureBlocks.CLOVERS, ModNatureBlocks.MEADOWGRASS,
-                ModNatureBlocks.SPARSE_GRASS, ModNatureBlocks.NETTLES, ModNatureBlocks.THISTLE);
+                ModNatureBlocks.SPARSE_GRASS, ModNatureBlocks.NETTLES, ModNatureBlocks.THISTLE,
+                ModNatureBlocks.SMALL_LILY_PADS, ModNatureBlocks.SMALL_FLOWERING_LILY_PADS,
+                ModNatureBlocks.LILY_PADS, ModNatureBlocks.FLOWERING_LILY_PADS,
+                ModNatureBlocks.LARGE_LILY_PAD, ModNatureBlocks.LARGE_FLOWERING_LILY_PAD);
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
             if (view == null || pos == null) {
@@ -57,8 +60,5 @@ public class BlockColorsME {
             }
             return BiomeColors.getFoliageColor(view, pos);
         }, ModNatureBlocks.FALLEN_LEAVES, WoodBlockSets.BEECH_SET.leaves);
-
-        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) ->  view != null && pos != null ? -14647248 : -9321636,
-                ModNatureBlocks.SMALL_LILY_PADS, ModNatureBlocks.LILY_PADS);
     }
 }

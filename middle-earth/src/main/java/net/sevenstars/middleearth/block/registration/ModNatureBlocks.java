@@ -270,6 +270,11 @@ public class ModNatureBlocks {
     public static final Block HOBBIT_SUNFLOWERS = registerBlock("hobbit_sunflowers",
             RotatableTallFlowerBlock::new, AbstractBlock.Settings.copy(Blocks.SUNFLOWER), true);
 
+    public static final Block HOGWEED = registerBlock("hogweed",
+            TallPlantBlock::new, AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), true);
+    public static final Block SHORT_HOGWEED = registerBlock("short_hogweed",
+            CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS), true);
+
     public static final Block AZALEA_FLOWER_GROWTH = registerBlock("azalea_flower_growth",
             GlowLichenBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).burnable(), true);
@@ -329,6 +334,13 @@ public class ModNatureBlocks {
             LilyPadBlock::new, AbstractBlock.Settings.copy(Blocks.LILY_PAD).noCollision(), false);
     public static final Block LILY_PADS = registerBlock("lily_pads",
             LilyPadBlock::new, AbstractBlock.Settings.copy(Blocks.LILY_PAD).noCollision(), false);
+    public static final Block FLOWERING_LILY_PADS = registerBlock("flowering_lily_pads",
+            LilyPadBlock::new, AbstractBlock.Settings.copy(Blocks.LILY_PAD).noCollision(), false);
+    public static final Block LARGE_LILY_PAD = registerBlock("large_lily_pad",
+            LilyPadBlock::new, AbstractBlock.Settings.copy(Blocks.LILY_PAD), false);
+    public static final Block LARGE_FLOWERING_LILY_PAD = registerBlock("large_flowering_lily_pad",
+            LilyPadBlock::new, AbstractBlock.Settings.copy(Blocks.LILY_PAD), false);
+
     public static final Block DUCKWEED = registerBlock("duckweed",
             LilyPadBlock::new, AbstractBlock.Settings.copy(Blocks.LILY_PAD).noCollision(), false);
 

@@ -25,7 +25,7 @@ public class PricklyPlantBlock extends CustomPlantBlock {
                     double d = Math.abs(vec3d.getX());
                     double e = Math.abs(vec3d.getZ());
                     if (d >= 0.003 || e >= 0.003) {
-                        entity.damage(serverWorld, world.getDamageSources().sweetBerryBush(), 1.0F);
+                        entity.damage(serverWorld, world.getDamageSources().cactus(), 1.0F);
                     }
                 }
 

@@ -155,6 +155,10 @@ public class BlockDrops {
             add(ModNatureBlocks.SMALL_LILY_PADS);
             add(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS);
             add(ModNatureBlocks.LILY_PADS);
+            add(ModNatureBlocks.FLOWERING_LILY_PADS);
+            add(ModNatureBlocks.LARGE_LILY_PAD);
+            add(ModNatureBlocks.LARGE_FLOWERING_LILY_PAD);
+
             add(ModNatureBlocks.DUCKWEED);
 
             add(ModNatureBlocks.FLOATING_ICE);
