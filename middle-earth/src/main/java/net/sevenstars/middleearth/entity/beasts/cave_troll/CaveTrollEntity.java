@@ -41,6 +41,11 @@ import net.sevenstars.middleearth.utils.PlayerUtil;
 import java.util.List;
 
 // TODO Add passenger bouncing
+// TODO Add mounting for multiple passengers
+// TODO Implement sitting
+// TODO Implement charge attack
+// TODO Implement sweep attack
+// TODO Add Fighting Activities
 public class CaveTrollEntity extends AbstractBeastEntity {
     public LootTable scavengeLootTable;
     public LootWorldContext lootWorldContext;
@@ -182,30 +187,85 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
-        float animationProgress = this.limbAnimator.getAnimationProgress() * (MathHelper.PI / 180) * 18;
-        // frequency is calculated by dividing the speed of the animation by the duration of the animation.
-        float frequency = passenger.isSprinting() ? (2f/1.25f) : (10f/1.75f);
-
-        double y = passenger.isSprinting() ?
-                0 : // height when sprinting
-                MathHelper.sin(2 * frequency * animationProgress) * 0.02; // height when walking
-
-        double side = passenger.isSprinting() ?
-                0 : // side-to-side movement when sprinting
-                MathHelper.sin(frequency * animationProgress) * 0.04; // side-to-side movement when walking
-
-        double front = passenger.isSprinting() ?
-                1 : // front-back movement when sprinting
-                0; // front-back movement when walking
-
-        double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
-        double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
-
-        if(this.isSitting()) {
-            y = -0.5;
+        List<Entity> passengerList = this.getPassengerList();
+        boolean sprinting = false;
+        if(this.getControllingPassenger() != null) {
+            sprinting = this.getControllingPassenger().isSprinting();
         }
 
-        return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
+        float animationSpeed = this.limbAnimator.getSpeed();
+        float animationProgress = this.limbAnimator.getAnimationProgress() * (MathHelper.PI / 180) * 18;
+        // frequency is calculated by dividing the speed of the animation by the duration of the animation.
+        float frequency = sprinting ? (2f/1.25f) : (10f/1.75f);
+
+        if(passenger.equals(this.getControllingPassenger())) { // Passenger 1 - Controlling ============================================================================
+            double y = sprinting ?
+                    -MathHelper.cos(2 * frequency * animationProgress) * 0.06 * animationSpeed + 0.1 : // height when sprinting
+                    MathHelper.sin(2 * frequency * animationProgress) * 0.02; // height when walking
+
+            double side = sprinting ?
+                    MathHelper.sin(frequency * animationProgress - (4f/15f)*MathHelper.PI) * 0.225 : // side-to-side movement when sprinting
+                    MathHelper.sin(frequency * animationProgress) * 0.04; // side-to-side movement when walking
+
+            double front = sprinting ?
+                    0.35 : // front-back movement when sprinting
+                    0; // front-back movement when walking
+
+            double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
+            double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
+
+            if(this.isSitting()) {
+                y = -0.5;
+            }
+
+            return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
+        }
+        else if(passenger.equals(passengerList.get(1))) { // Passenger 2 - Right side ========================================================================
+            double y = sprinting ?
+                    -MathHelper.cos(frequency * animationProgress) * 0.07 * animationSpeed + 0.15 : // height when sprinting
+                    MathHelper.sin(frequency * animationProgress) * 0.02; // height when walking
+
+            double side = sprinting ?
+                    MathHelper.sin(frequency * animationProgress - (4f/15f)*MathHelper.PI) * 0.15 : // side-to-side movement when sprinting
+                    MathHelper.sin(frequency * animationProgress) * 0.04; // side-to-side movement when walking
+
+            double front = sprinting ?
+                    0.35 : // front-back movement when sprinting
+                    0; // front-back movement when walking
+
+            double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
+            double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
+
+            if(this.isSitting()) {
+                y = -0.5;
+            }
+
+            return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
+        }
+        else if(passenger.equals(passengerList.get(2))) { // Passenger 3 - Left side =========================================================================
+            double y = sprinting ?
+                    MathHelper.cos(frequency * animationProgress) * 0.07 * animationSpeed + 0.15 : // height when sprinting
+                    -MathHelper.sin(frequency * animationProgress) * 0.02; // height when walking
+
+            double side = sprinting ?
+                    MathHelper.sin(frequency * animationProgress - (4f/15f)*MathHelper.PI) * 0.15 : // side-to-side movement when sprinting
+                    MathHelper.sin(frequency * animationProgress) * 0.04; // side-to-side movement when walking
+
+            double front = sprinting ?
+                    0.35 : // front-back movement when sprinting
+                    0; // front-back movement when walking
+
+            double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
+            double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
+
+            if(this.isSitting()) {
+                y = -0.5;
+            }
+
+            return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
+        }
+
+        return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor);
     }
 
     @Override
