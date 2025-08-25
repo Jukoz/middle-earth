@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special;
+package net.sevenstars.middleearth.block.special.plants;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.world.tick.ScheduledTickView;

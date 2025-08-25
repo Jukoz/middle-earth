@@ -1,8 +1,7 @@
-package net.sevenstars.middleearth.block.special;
+package net.sevenstars.middleearth.block.special.plants;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
@@ -16,7 +15,6 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 public class RotatableTallFlowerBlock extends TallFlowerBlock {
     public static final EnumProperty<Direction> HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;

@@ -242,6 +242,9 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.putBlock(ModNatureBlocks.GRIM_GRASS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.MEADOWGRASS, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModNatureBlocks.SPARSE_GRASS, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModNatureBlocks.NETTLES, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModNatureBlocks.THISTLE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.TEMPERATE_GRASS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.GRASS_TUFT, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.FROZEN_TUFT, BlockRenderLayer.CUTOUT);
@@ -272,6 +275,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModNatureBlocks.HEATHER_BUSH, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.LARGE_BLUE_FESCUE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.LARGE_BUSH, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModNatureBlocks.LARGE_SHRIVELED_SHRUB, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.RED_HEATHER_BUSH, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.RUSHES, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.BRAMBLES_OF_MORDOR, BlockRenderLayer.CUTOUT);

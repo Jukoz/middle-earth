@@ -48,7 +48,8 @@ public class BlockColorsME {
                 ModBlocks.PEBBLED_GRASS, ModBlocks.PEBBLED_GRASS_SLAB, ModBlocks.PEBBLED_GRASS_STAIRS,
                 ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS, ModBlocks.TURF_VERTICAL_SLAB,
                 ModNatureBlocks.FOREST_MOSS, ModNatureBlocks.FOREST_MOSS_BLOCK, ModNatureBlocks.FOREST_MOSS_CARPET,
-                ModNatureBlocks.DUCKWEED, ModNatureBlocks.CLOVERS, ModNatureBlocks.MEADOWGRASS);
+                ModNatureBlocks.DUCKWEED, ModNatureBlocks.CLOVERS, ModNatureBlocks.MEADOWGRASS,
+                ModNatureBlocks.SPARSE_GRASS, ModNatureBlocks.NETTLES, ModNatureBlocks.THISTLE);
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
             if (view == null || pos == null) {

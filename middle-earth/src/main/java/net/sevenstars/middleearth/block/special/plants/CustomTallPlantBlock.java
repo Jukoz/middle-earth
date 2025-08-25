@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special;
+package net.sevenstars.middleearth.block.special.plants;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
