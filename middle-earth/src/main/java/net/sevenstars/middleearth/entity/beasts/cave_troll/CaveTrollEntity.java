@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -22,6 +23,7 @@ import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -32,6 +34,7 @@ import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.Disposition;
@@ -40,12 +43,12 @@ import net.sevenstars.middleearth.utils.PlayerUtil;
 
 import java.util.List;
 
-// TODO Add passenger bouncing
-// TODO Add mounting for multiple passengers
-// TODO Implement sitting
+// TODO Change interactMob to exclude AbstractHorseEntity
+// TODO Fix riding position without saddle
 // TODO Implement charge attack
 // TODO Implement sweep attack
 // TODO Add Fighting Activities
+// TODO Implement Tameness mechanic
 public class CaveTrollEntity extends AbstractBeastEntity {
     public LootTable scavengeLootTable;
     public LootWorldContext lootWorldContext;
@@ -131,6 +134,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        ItemStack itemStack = player.getStackInHand(hand);
         if(!this.isTame()) {
             tryBonding(player); // TODO: ONLY TEMPORARY - DON'T FORGET TO REMOVE
         }
@@ -138,12 +142,21 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         if(!this.getWorld().isClient()) { // Server side
             for(RaceType race : this.getCompatibleRaces()) { // Check for race
                 if(PlayerUtil.isOfRace(player, race)) {
-                    return super.interactMob(player, hand);
+                    if(canAddPassenger(player) && itemStack.isEmpty()) { // Ride if player is compatible and hand is empty
+                        putPlayerOnBack(player);
+                        return ActionResult.SUCCESS;
+                    }
+
+                    if(!itemStack.isEmpty()) {
+                        return super.interactMob(player, hand);
+                    }
                 }
             }
         }
         else {  // Client side
-            return super.interactMob(player, hand);
+            if(!itemStack.isEmpty()) {
+                return super.interactMob(player, hand);
+            }
         }
 
         return ActionResult.PASS; // Player is of incompatible race - don't interact
@@ -152,6 +165,18 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected boolean isTamable() {
         return this.isSleeping();
+    }
+
+    @Override
+    protected void tameBeast(PlayerEntity player) {
+        if (player instanceof ServerPlayerEntity) {
+            this.getBrain().remember(MemoryModulesME.TAME, true);
+            this.getBrain().forget(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN);
+            this.getBrain().forget(MemoryModulesME.FOOD_EATEN_COUNT);
+            this.setOwner(player);
+            this.setTame(true);
+            Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
+        }
     }
 
     @Override
@@ -173,6 +198,9 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     protected boolean canAddPassenger(Entity passenger) {   // Allow 3 people to ride the troll
+        if(this.isSitting()) {
+            return false;
+        }
         return this.hasSaddleEquipped() ? getPassengerList().size() < 3 : getPassengerList().isEmpty();
     }
 
@@ -198,7 +226,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         // frequency is calculated by dividing the speed of the animation by the duration of the animation.
         float frequency = sprinting ? (2f/1.25f) : (10f/1.75f);
 
-        if(passenger.equals(this.getControllingPassenger())) { // Passenger 1 - Controlling ============================================================================
+        if(!passengerList.isEmpty() && passenger.equals(this.getControllingPassenger())) { // Passenger 1 - Controlling ============================================================================
             double y = sprinting ?
                     -MathHelper.cos(2 * frequency * animationProgress) * 0.06 * animationSpeed + 0.1 : // height when sprinting
                     MathHelper.sin(2 * frequency * animationProgress) * 0.02; // height when walking
@@ -214,13 +242,9 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
             double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
 
-            if(this.isSitting()) {
-                y = -0.5;
-            }
-
             return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
         }
-        else if(passenger.equals(passengerList.get(1))) { // Passenger 2 - Right side ========================================================================
+        else if(passengerList.size() >= 2 && passenger.equals(passengerList.get(1))) { // Passenger 2 - Right side ========================================================================
             double y = sprinting ?
                     -MathHelper.cos(frequency * animationProgress) * 0.07 * animationSpeed + 0.15 : // height when sprinting
                     MathHelper.sin(frequency * animationProgress) * 0.02; // height when walking
@@ -236,13 +260,9 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
             double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
 
-            if(this.isSitting()) {
-                y = -0.5;
-            }
-
             return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
         }
-        else if(passenger.equals(passengerList.get(2))) { // Passenger 3 - Left side =========================================================================
+        else if(passengerList.size() >= 3 && passenger.equals(passengerList.get(2))) { // Passenger 3 - Left side =========================================================================
             double y = sprinting ?
                     MathHelper.cos(frequency * animationProgress) * 0.07 * animationSpeed + 0.15 : // height when sprinting
                     -MathHelper.sin(frequency * animationProgress) * 0.02; // height when walking
@@ -258,13 +278,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
             double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
 
-            if(this.isSitting()) {
-                y = -0.5;
-            }
-
             return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
         }
-
         return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor);
     }
 
@@ -337,6 +352,23 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         this.dataTracker.set(SLEEPING, isSleeping);
     }
 
+    @Override
+    public void setSitting(boolean sitting) {
+        if(!this.getWorld().isClient()) {
+            if(sitting) {
+                this.getBrain().remember(MemoryModulesME.SITTING, true);
+                this.getBrain().forget(MemoryModuleType.WALK_TARGET);
+            }
+            else {
+                this.getBrain().forget(MemoryModulesME.SITTING);
+            }
+
+            this.removeAllPassengers();
+        }
+
+        super.setSitting(sitting);
+    }
+
     public boolean isScavenging() {
         return this.dataTracker.get(SCAVENGING);
     }
@@ -372,7 +404,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isCommandItem(ItemStack stack) {
-        return false;
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
     }
 
     @Override

@@ -7,7 +7,7 @@ import net.sevenstars.api.SevenStarsApi;
 import net.sevenstars.middleearth.MiddleEarth;
 
 public class ActivitiesME {
-
+    public static final Activity TAMED = register("tamed");
 
     private static Activity register(String id) {
         return Registry.register(Registries.ACTIVITY, id, new Activity(id));
