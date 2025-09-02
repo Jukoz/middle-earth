@@ -43,8 +43,6 @@ import net.sevenstars.middleearth.utils.PlayerUtil;
 
 import java.util.List;
 
-// TODO Change interactMob to exclude AbstractHorseEntity
-// TODO Fix riding position without saddle
 // TODO Implement charge attack
 // TODO Implement sweep attack
 // TODO Add Fighting Activities
@@ -133,6 +131,14 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
+    protected void putPlayerOnBack(PlayerEntity player) {
+        ItemStack item = player.getStackInHand(Hand.MAIN_HAND);
+        if(this.canAddPassenger(player) && item.isEmpty()) {
+            super.putPlayerOnBack(player);
+        }
+    }
+
+    @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         if(!this.isTame()) {
@@ -216,6 +222,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
         List<Entity> passengerList = this.getPassengerList();
+        boolean saddled = this.hasSaddleEquipped();
         boolean sprinting = false;
         if(this.getControllingPassenger() != null) {
             sprinting = this.getControllingPassenger().isSprinting();
@@ -226,7 +233,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         // frequency is calculated by dividing the speed of the animation by the duration of the animation.
         float frequency = sprinting ? (2f/1.25f) : (10f/1.75f);
 
-        if(!passengerList.isEmpty() && passenger.equals(this.getControllingPassenger())) { // Passenger 1 - Controlling ============================================================================
+        if(passenger.equals(this.getControllingPassenger()) || !saddled) { // Passenger 1 - Controlling ============================================================================
             double y = sprinting ?
                     -MathHelper.cos(2 * frequency * animationProgress) * 0.06 * animationSpeed + 0.1 : // height when sprinting
                     MathHelper.sin(2 * frequency * animationProgress) * 0.02; // height when walking
@@ -238,6 +245,11 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             double front = sprinting ?
                     0.35 : // front-back movement when sprinting
                     0; // front-back movement when walking
+
+            if(!saddled) {
+                y -= 0.32;
+                front += 0.5;
+            }
 
             double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
             double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
