@@ -16,19 +16,26 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.entity.spawn.SpawnContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.goals.ShieldAgainstProjectileGoal;
 import net.sevenstars.middleearth.entity.goals.interfaces.CooldownRangedAttackMob;
 import net.sevenstars.middleearth.entity.goals.PounceRetreatGoal;
@@ -38,6 +45,12 @@ import net.sevenstars.middleearth.entity.goals.interfaces.Shielder;
 import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
 import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
+import net.sevenstars.middleearth.entity.spider.SpiderVariant;
+import net.sevenstars.middleearth.entity.spider.SpiderVariants;
+import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shielder, CooldownRangedAttackMob {
     public static final int CLIMBING_MAX_TICKS = 50;
@@ -46,10 +59,12 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     public static final int LEAPING_TIME_TRANSITION = 9;
     public static final float MOVEMENT_SPEED = 1.15f;
     public static final float WEB_PROJECTILE_DAMAGE = 2f;
+
     private static final TrackedData<Byte> SPIDER_FLAGS;
     private static final TrackedData<Boolean> ATTACK_FLAG;
     private static final TrackedData<Integer> POUNCE_FLAG;
     private static final TrackedData<Integer> BLOCK_FLAG;
+    private static final TrackedData<RegistryEntry<SpiderVariant>> VARIANT;
 
     public final AnimationState idleAnimation = new AnimationState();
     public final AnimationState walkingAnimation = new AnimationState();
@@ -91,6 +106,21 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
     }
 
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        if (entityData instanceof ShelobiteScuttlerEntity.SpiderData spiderData) {
+            this.setVariant(spiderData.variant);
+        } else {
+            Optional<? extends RegistryEntry<SpiderVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), SpiderVariants.KEY);
+            if (optional.isPresent()) {
+                this.setVariant(optional.get());
+                entityData = new ShelobiteScuttlerEntity.SpiderData(optional.get());
+            }
+        }
+        return super.initialize(world, difficulty, spawnReason, entityData);
+    }
+
     public double getMountedHeightOffset() {
         return (double)(this.getHeight() * 0.5F);
     }
@@ -106,6 +136,8 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         builder.add(ATTACK_FLAG, false);
         builder.add(POUNCE_FLAG, 0);
         builder.add(BLOCK_FLAG, 0);
+        RegistryEntry<SpiderVariant> spiderVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), SpiderVariants.DEFAULT);
+        builder.add(VARIANT, spiderVariantRegistryEntry);
     }
 
     protected void setupAnimationStates() {
@@ -205,6 +237,17 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
             leapingTicks++;
         }
     }
+    public SpiderVariant getVariant() {
+        return getRegistryVariant().value();
+    }
+
+    private RegistryEntry<SpiderVariant> getRegistryVariant() {
+        return this.dataTracker.get(VARIANT);
+    }
+
+    private void setVariant(RegistryEntry<SpiderVariant> variant) {
+        this.dataTracker.set(VARIANT, variant);
+    }
 
     @Override
     public void shootAt(LivingEntity target, float pullProgress) {
@@ -295,8 +338,16 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         return this.leapingTicks;
     }
 
-    public MirkwoodSpiderVariants getVariant() {
-        return MirkwoodSpiderVariants.byId(this.getId());
+    @Override
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        Variants.writeVariantToNbt(view, this.getRegistryVariant());
+    }
+
+    @Override
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        Variants.readVariantFromNbt(view, SpiderVariants.KEY).ifPresent(this::setVariant);
     }
 
     static {
@@ -304,5 +355,6 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         ATTACK_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
         POUNCE_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
         BLOCK_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        VARIANT = DataTracker.registerData(SpawnOfShelobEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);
     }
 }

@@ -21,7 +21,6 @@ public class ShelobiteScuttlerRenderer extends MobEntityRenderer<ShelobiteScuttl
         super(ctx, new ShelobiteScuttlerModel(ctx.getPart(layer)), shadowRadius);
     }
 
-
     @Override
     public Identifier getTexture(ShelobiteScuttlerRenderState state) {
         return state.spiderVariant.assetInfo().scuttler().texturePath();
