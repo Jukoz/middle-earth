@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.registry.tag.EntityTypeTags;
@@ -19,6 +20,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
@@ -89,7 +91,10 @@ public class ShelobiteLarvaEggBlock extends AbstractShelobiteLarvaEgg {
     public static void SpawnSpider(BlockPos pos, World world){
         ShelobiteLarvaEntity entity = new ShelobiteLarvaEntity(ModEntities.SHELOBITE_LARVA, world);
         entity.age = 0;
-        entity.setPos(pos.getX() + 0.5f, pos.getY() + 1, pos.getZ() + 0.5f);
+        entity.refreshPositionAndAngles(pos, 0, 0);
+        if(world instanceof ServerWorldAccess serverWorldAccess) {
+            entity.initialize(serverWorldAccess, serverWorldAccess.getLocalDifficulty(pos), SpawnReason.NATURAL, null);
+        }
         world.spawnEntity(entity);
     }
 

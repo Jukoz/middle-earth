@@ -43,7 +43,7 @@ public class ModCaveBiomeFeatures {
         //spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntities.WILD_GOBLIN, 5, 1, 2));
     }
     public static void addSpiders(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.MONSTER,  2,new SpawnSettings.SpawnEntry(ModEntities.SHELOBITE_SCUTTLER, 1, 2));
+        //spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(ModEntities.SHELOBITE_SCUTTLER, 1, 2));
     }
 
     public static void addSnowTrolls(SpawnSettings.Builder spawnSettings) {
