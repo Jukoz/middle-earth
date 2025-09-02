@@ -28,9 +28,9 @@ public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 16.0F, 0.0F));
+        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 12.0F, 0.0F));
 
-        ModelPartData legscore = root.addChild("legscore", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 2.0F, -5.0F));
+        ModelPartData legscore = root.addChild("legscore", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 6.0F, -5.0F));
 
         ModelPartData rights = legscore.addChild("rights", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
@@ -120,7 +120,7 @@ public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
         ModelPartData lleg14 = lleg13.addChild("lleg14", ModelPartBuilder.create().uv(147, 96).mirrored().cuboid(-1.0F, -2.0F, -1.0F, 8.0F, 3.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(84, 83).mirrored().cuboid(-12.0F, -12.0F, -0.5F, 27.0F, 25.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(9.0F, 1.0F, 0.0F));
 
-        ModelPartData body = root.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 2.0F, -1.0F));
+        ModelPartData body = root.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 6.0F, -1.0F));
 
         ModelPartData abdomen = body.addChild("abdomen", ModelPartBuilder.create().uv(6, 63).cuboid(-8.0F, -6.0F, 0.0F, 16.0F, 9.0F, 19.0F, new Dilation(0.0F))
                 .uv(5, 96).cuboid(-3.0F, -8.0F, -2.0F, 6.0F, 7.0F, 11.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -4.0F, 1.0F));

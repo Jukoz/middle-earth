@@ -3,8 +3,10 @@ package net.sevenstars.middleearth.entity.spider.scuttler;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
 
 public class ShelobiteScuttlerModel extends EntityModel<ShelobiteScuttlerRenderState> {
+    private static final int CLIMBING_ROTATION_MAX = 90;
     private final ModelPart root;
     private final ModelPart legscore;
     private final ModelPart body;
@@ -142,8 +144,8 @@ public class ShelobiteScuttlerModel extends EntityModel<ShelobiteScuttlerRenderS
         float leapingPercentage = (float) croppedLeapingTicks / ShelobiteScuttlerEntity.LEAPING_TIME_TRANSITION;
 
         if(state.climbingTicks > 0 && climbingPercentage > leapingPercentage) {
-            this.root.pitch = -1.5f * climbingPercentage;
-            this.walkingAnimation.applyWalking((float)state.climbingTicks / 3.1f, 0.85f, 2.2F, 2.5F);
+            this.root.pitch = -(CLIMBING_ROTATION_MAX / (float)SpawnOfShelobEntity.CLIMBING_MAX_TICKS) * climbingPercentage;
+            this.walkingAnimation.applyWalking((float)state.timelineTicks / 3.1f, 0.85f, 2.2F, 2.5F);
         } else if(state.leapingTicks > 0 && leapingPercentage > climbingPercentage) {
             this.root.pitch = -0.7f * leapingPercentage;
             this.walkingAnimation.applyWalking((float)state.leapingTicks / 3.7f, 0.7f, 2.2F, 2.5F);

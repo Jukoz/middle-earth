@@ -40,6 +40,7 @@ import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 
 public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shielder, CooldownRangedAttackMob {
+    public static final int CLIMBING_MAX_TICKS = 50;
     public static final int PASSIVE_HEALING_COOLDOWN = 80;
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final int LEAPING_TIME_TRANSITION = 9;
@@ -58,6 +59,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
 
     private int passiveHealingCooldown = 0;
     private int climbingTicks = 0;
+    private int timelineTicks = 0;
     private int leapingTicks = 0;
     private int shootCooldown = 0;
 
@@ -78,7 +80,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new PounceRetreatGoal(this, 0.8f, 1.15f, 0.3f));
         this.goalSelector.add(3, new ShieldAgainstProjectileGoal(this, this, 13, 32));
-        this.goalSelector.add(4, new SmartProjectileAttackGoal(this, 0.7f, 40, 90, 17, 40));
+        this.goalSelector.add(4, new SmartProjectileAttackGoal(this, 0.75f, 40, 90, 17, 40));
         this.goalSelector.add(5, new SpiderPonceAtTargetGoal(this, this,
                 0.5F, 0.25f, 4, 17, 4));
         this.goalSelector.add(5, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
@@ -189,9 +191,12 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     public void tickMovement() {
         super.tickMovement();
         if(isClimbingWall()) {
-            this.climbingTicks = this.climbingTicks + 1;
+            timelineTicks++;
+            this.climbingTicks = Math.min( this.climbingTicks + 1, CLIMBING_MAX_TICKS);
         } else {
-            this.climbingTicks = Math.max(0, this.climbingTicks - 1);
+            int amount = 1;
+            if(this.climbingTicks > CLIMBING_MAX_TICKS / 3) amount = 4;
+            this.climbingTicks = Math.max(0, this.climbingTicks - amount);
         }
 
         if(isOnGround()) {
@@ -276,6 +281,10 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         }
 
         this.dataTracker.set(SPIDER_FLAGS, b);
+    }
+
+    public int getTimelineTicks() {
+        return this.timelineTicks;
     }
 
     public int getClimbingTicks() {
