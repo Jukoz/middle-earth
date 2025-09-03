@@ -37,4 +37,5 @@ public class EntityDataSaverMixin implements IEntityDataSaver {
             persistentData = view.getString(KEY).get();
         }
     }*/
+
 }

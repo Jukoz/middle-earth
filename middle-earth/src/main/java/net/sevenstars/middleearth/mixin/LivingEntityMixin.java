@@ -1,19 +1,30 @@
 package net.sevenstars.middleearth.mixin;
 
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
 import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
 import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
+import net.sevenstars.middleearth.network.ModServerNetworkHandler;
+import net.sevenstars.middleearth.network.packets.S2C.PacketLivingEntityData;
+import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,6 +42,10 @@ public abstract class LivingEntityMixin extends Entity {
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
     @Shadow public abstract ItemStack getStackInHand(Hand hand);
+
+    @Shadow public abstract boolean hasStatusEffect(RegistryEntry<StatusEffect> effect);
+
+    @Shadow public abstract @NotNull ItemStack getWeaponStack();
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -103,6 +118,15 @@ public abstract class LivingEntityMixin extends Entity {
             }
         }
         return effect;
+    }
+
+    @Inject(method = "addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;Lnet/minecraft/entity/Entity;)Z", at = @At("TAIL"))
+    public final void addStatusEffect(StatusEffectInstance effect, Entity source, CallbackInfoReturnable<Boolean> cir) {
+        if(!this.getWorld().isClient) {
+            for (ServerPlayerEntity player : ((ServerWorld) this.getWorld()).getPlayers()) {
+                ServerPlayNetworking.send(player, new PacketLivingEntityData(this.getId(), effect));
+            }
+        }
     }
 
     private static int getAilmentProtectionLevel(ItemStack itemStack, World world) {
