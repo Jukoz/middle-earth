@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.spider.spawn;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 
 public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
@@ -170,10 +171,12 @@ public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
 
         if(state.climbingTicks > 0 && climbingPercentage > leapingPercentage) {
             this.root.pitch = -1.5f * climbingPercentage;
-            this.walkingAnimation.applyWalking((float)state.climbingTicks / 3.1f, 0.85f, 2.2F, 2.5F);
+            this.walkingAnimation.applyWalking(state.age, 0.4f, 1.75F, 2F);
+            return;
         } else if(state.leapingTicks > 0 && leapingPercentage > climbingPercentage) {
             this.root.pitch = -0.8f * leapingPercentage;
-            this.walkingAnimation.applyWalking((float)state.leapingTicks / 3.7f, 0.7f, 2.2F, 2.5F);
+            this.walkingAnimation.applyWalking((float)state.leapingTicks / 3.1f, 0.75f, 2.2F, 2.5F);
+            return;
         }
 
         if(state.limbSwingAmplitude <= 0.4) {
@@ -185,9 +188,6 @@ public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
         }
 
         this.biteAnimation.apply(state.biteAnimationState, state.age, 1.3f);
-        if(state.biteAnimationState.isRunning()) {
-            int t = 2;
-        }
         this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.0f);
     }
 }

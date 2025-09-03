@@ -43,7 +43,6 @@ import net.sevenstars.middleearth.entity.goals.SmartProjectileAttackGoal;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import net.sevenstars.middleearth.entity.goals.interfaces.Shielder;
 import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
-import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.entity.spider.SpiderVariants;
@@ -53,7 +52,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shielder, CooldownRangedAttackMob {
-    public static final int CLIMBING_MAX_TICKS = 50;
+    public static final int CLIMBING_MAX_TICKS = 40;
     public static final int PASSIVE_HEALING_COOLDOWN = 80;
     public static final int CLIMBING_TIME_TRANSITION = 12;
     public static final int LEAPING_TIME_TRANSITION = 9;
