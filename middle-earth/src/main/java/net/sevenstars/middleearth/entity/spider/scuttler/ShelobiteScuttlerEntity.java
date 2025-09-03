@@ -51,10 +51,9 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     public static final int LEAPING_TIME_TRANSITION = 8;
     public static final float MOVEMENT_SPEED = 1.15f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
+    private static final TrackedData<Integer> BITE_FLAG;
     private static final TrackedData<Integer> POUNCE_FLAG;
     private static final TrackedData<RegistryEntry<SpiderVariant>> VARIANT;
-
-            //DataTracker.registerData(ShelobiteScuttlerEntity.class, SpiderVariant.SPIDER_DATA_VARIANT);
 
     // region Brain
     protected static final ImmutableList<SensorType<? extends Sensor<? super ShelobiteScuttlerEntity>>> SENSOR_TYPES = ImmutableList.of(
@@ -89,6 +88,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     private int climbingTicks = 0;
     private int leapingTicks = 0;
+    private int biteAnimationCooldown = 0;
 
     public ShelobiteScuttlerEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -153,6 +153,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         RegistryEntry<SpiderVariant> spiderVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), SpiderVariants.DEFAULT);
         builder.add(VARIANT, spiderVariantRegistryEntry);
         builder.add(SPIDER_FLAGS, (byte)0);
+        builder.add(BITE_FLAG, 0);
         builder.add(POUNCE_FLAG, 0);
     }
 
@@ -163,22 +164,30 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     protected void setupAnimationStates() {
         if (!this.idleAnimation.isRunning()) {
-            //this.idleAnimationCooldown = this.random.nextInt(40) + 80;
             this.idleAnimation.start(this.age);
         }
-
-        int pounceAnimState = this.dataTracker.get(POUNCE_FLAG);
-        if(pounceAnimState == 1) {
-            this.pounceAnimation.start(this.age);
-        } else if (pounceAnimState == -1) {
-            this.pounceAnimation.stop();
+        if (!this.walkingAnimation.isRunning()) {
+            this.walkingAnimation.start(this.age);
         }
-        this.dataTracker.set(POUNCE_FLAG, 0);
+
+        setTrackerState(BITE_FLAG, biteAnimation);
+        setTrackerState(POUNCE_FLAG, pounceAnimation);
+    }
+
+    protected void setTrackerState(TrackedData<Integer> trackedData, AnimationState animationState) {
+        int state = this.dataTracker.get(trackedData);
+        if(state == 1) {
+            animationState.start(this.age);
+        } else if (state == -1) {
+            animationState.stop();
+        }
+        this.dataTracker.set(trackedData, 0);
     }
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        biteAnimation.start(this.age);
+        this.dataTracker.set(BITE_FLAG, 1);
+        if(biteAnimationCooldown == 0) biteAnimationCooldown = 40;
         return super.tryAttack(world, target);
     }
 
@@ -192,6 +201,10 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     public void tick() {
         super.tick();
         if (!this.getWorld().isClient) {
+            if(biteAnimationCooldown <= 1) {
+                this.dataTracker.set(BITE_FLAG, -1);
+            }
+            biteAnimationCooldown = Math.max(biteAnimationCooldown - 1, 0);
             this.setClimbingWall(this.horizontalCollision);
         } else {
             setupAnimationStates();
@@ -310,6 +323,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     static {
         SPIDER_FLAGS = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.BYTE);
+        BITE_FLAG = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.INTEGER);
         POUNCE_FLAG = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.INTEGER);
         VARIANT = DataTracker.registerData(ShelobiteScuttlerEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);
     }

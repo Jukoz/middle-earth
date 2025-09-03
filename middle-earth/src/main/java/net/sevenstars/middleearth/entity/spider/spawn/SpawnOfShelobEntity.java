@@ -60,7 +60,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     public static final float WEB_PROJECTILE_DAMAGE = 2f;
 
     private static final TrackedData<Byte> SPIDER_FLAGS;
-    private static final TrackedData<Boolean> ATTACK_FLAG;
+    private static final TrackedData<Integer> BITE_FLAG;
     private static final TrackedData<Integer> POUNCE_FLAG;
     private static final TrackedData<Integer> BLOCK_FLAG;
     private static final TrackedData<RegistryEntry<SpiderVariant>> VARIANT;
@@ -76,6 +76,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     private int timelineTicks = 0;
     private int leapingTicks = 0;
     private int shootCooldown = 0;
+    private int biteAnimationCooldown = 0;
 
     public SpawnOfShelobEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -132,7 +133,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(SPIDER_FLAGS, (byte)0);
-        builder.add(ATTACK_FLAG, false);
+        builder.add(BITE_FLAG, 0);
         builder.add(POUNCE_FLAG, 0);
         builder.add(BLOCK_FLAG, 0);
         RegistryEntry<SpiderVariant> spiderVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), SpiderVariants.DEFAULT);
@@ -145,13 +146,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         }
         setTrackerState(POUNCE_FLAG, pounceAnimation);
         setTrackerState(BLOCK_FLAG, blockAnimation);
-
-        boolean attackState = this.dataTracker.get(ATTACK_FLAG);
-        if(attackState) {
-            this.biteAnimation.stop();
-            this.biteAnimation.start(this.age);
-            this.dataTracker.set(ATTACK_FLAG, false);
-        }
+        setTrackerState(BITE_FLAG, biteAnimation);
     }
 
     protected void setTrackerState(TrackedData<Integer> trackedData, AnimationState animationState) {
@@ -184,7 +179,8 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
         boolean result = super.tryAttack(world, target);
-        this.dataTracker.set(ATTACK_FLAG, result);
+        this.dataTracker.set(BITE_FLAG, 1);
+        if(biteAnimationCooldown == 0) biteAnimationCooldown = 40;
         if (target instanceof LivingEntity) {
             int i = 0;
             if (this.getWorld().getDifficulty() == Difficulty.NORMAL) {
@@ -204,6 +200,12 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         super.tick();
         if (!this.getWorld().isClient) {
             this.setClimbingWall(this.horizontalCollision);
+
+            if(biteAnimationCooldown <= 1) {
+                this.dataTracker.set(BITE_FLAG, -1);
+            }
+            biteAnimationCooldown = Math.max(biteAnimationCooldown - 1, 0);
+
             this.shootCooldown = Math.max(0, this.shootCooldown - 1);
             if(!this.hasStatusEffect(StatusEffects.REGENERATION)) {
                 passiveHealingCooldown = Math.max(0, passiveHealingCooldown - 1);
@@ -351,7 +353,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
 
     static {
         SPIDER_FLAGS = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.BYTE);
-        ATTACK_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        BITE_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
         POUNCE_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
         BLOCK_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
         VARIANT = DataTracker.registerData(SpawnOfShelobEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);

@@ -144,16 +144,26 @@ public class ShelobiteScuttlerModel extends EntityModel<ShelobiteScuttlerRenderS
         float leapingPercentage = (float) croppedLeapingTicks / ShelobiteScuttlerEntity.LEAPING_TIME_TRANSITION;
 
         if(state.climbingTicks > 0 && climbingPercentage > leapingPercentage) {
-            this.root.pitch = -(CLIMBING_ROTATION_MAX / (float)SpawnOfShelobEntity.CLIMBING_MAX_TICKS) * climbingPercentage;
-            this.walkingAnimation.applyWalking((float)state.timelineTicks / 3.1f, 0.85f, 2.2F, 2.5F);
+            this.root.pitch = -1.5f * climbingPercentage;
+            this.walkingAnimation.applyWalking(state.age, 0.4f, 1.75F, 2F);
+            return;
         } else if(state.leapingTicks > 0 && leapingPercentage > climbingPercentage) {
             this.root.pitch = -0.7f * leapingPercentage;
             this.walkingAnimation.applyWalking((float)state.leapingTicks / 3.7f, 0.7f, 2.2F, 2.5F);
+            return;
         }
 
-        this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
-        this.biteAnimation.apply(state.walkAnimationState, state.age, 1.25f);
-        this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.1f);
+        if(state.limbSwingAmplitude <= 0.4) {
+            this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
+        } else {
+            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
+        }
+
+        if(state.biteAnimationState.isRunning()) {
+            this.biteAnimation.apply(state.biteAnimationState, state.age, 1.5f);
+        }
+        if(state.pounceAnimationState.isRunning()) {
+            this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.1f);
+        }
     }
 }

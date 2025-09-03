@@ -187,7 +187,11 @@ public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
             this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
         }
 
-        this.biteAnimation.apply(state.biteAnimationState, state.age, 1.3f);
-        this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.0f);
+        if(state.biteAnimationState.isRunning()) {
+            this.biteAnimation.apply(state.biteAnimationState, state.age, 1.3f);
+        }
+        if(state.pounceAnimationState.isRunning()) {
+            this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.0f);
+        }
     }
 }
