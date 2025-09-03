@@ -8,6 +8,8 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.spawn.SpawnContext;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
@@ -15,6 +17,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.block.BlockState;
@@ -189,6 +192,20 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         this.dataTracker.set(BITE_FLAG, 1);
         if(biteAnimationCooldown == 0) biteAnimationCooldown = 40;
         return super.tryAttack(world, target);
+    }
+
+    @Override
+    public void onLanding() {
+        if (this.getWorld() instanceof ServerWorld serverWorld) {
+            if (this.isOnGround() && this.fallDistance > 1.5) {
+                Vec3d vec3d = getPos().add(0.0, 0.5, 0.0);
+                BlockState blockState = this.getSteppingBlockState();
+                int count = (int) MathHelper.clamp(20.0 * this.fallDistance - 1, 0.0, 120.0);
+                serverWorld.spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), vec3d.x, vec3d.y, vec3d.z,
+                        count, this.random.nextDouble() - 0.5, 0.15, this.random.nextDouble() - 0.5, 0.16f);
+            }
+        }
+        super.onLanding();
     }
 
     public void startPounceAnimation() {

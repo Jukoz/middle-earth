@@ -19,6 +19,8 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.spawn.SpawnContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
@@ -29,6 +31,7 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
@@ -194,6 +197,20 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
             }
         }
         return result;
+    }
+
+    @Override
+    public void onLanding() {
+        if (this.getWorld() instanceof ServerWorld serverWorld) {
+            if (this.isOnGround() && this.fallDistance > 1.5) {
+                Vec3d vec3d = getPos().add(0.0, 0.5, 0.0);
+                BlockState blockState = this.getSteppingBlockState();
+                int count = (int) MathHelper.clamp(25.0 * this.fallDistance - 1, 0.0, 150.0);
+                serverWorld.spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), vec3d.x, vec3d.y, vec3d.z,
+                        count, this.random.nextDouble() - 0.5, 0.15, this.random.nextDouble() - 0.5, 0.2f);
+            }
+        }
+        super.onLanding();
     }
 
     public void tick() {
