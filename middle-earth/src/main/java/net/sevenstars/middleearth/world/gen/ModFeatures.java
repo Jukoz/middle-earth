@@ -5,6 +5,8 @@ import net.sevenstars.middleearth.world.features.boulder.BigBoulderFeature;
 import net.sevenstars.middleearth.world.features.boulder.BigBoulderFeatureConfig;
 import net.sevenstars.middleearth.world.features.columns.*;
 import net.sevenstars.middleearth.world.features.deltas.ModDeltaFeatures;
+import net.sevenstars.middleearth.world.features.growth.MultifaceStateFeature;
+import net.sevenstars.middleearth.world.features.growth.MultifaceStateFeatureConfig;
 import net.sevenstars.middleearth.world.features.ores.ModOreFeature;
 import net.sevenstars.middleearth.world.features.ores.ModOreFeatureConfig;
 import net.sevenstars.middleearth.world.features.ores.SurfaceOreFeature;
@@ -23,6 +25,7 @@ public class ModFeatures {
     public static Feature<SmallPointedStoneFeatureConfig> SMALL_POINTED_STONE = register("small_pointed_stone", new SmallPointedStoneFeature(SmallPointedStoneFeatureConfig.CODEC));
     public static Feature<PillarFeatureConfig> PILLAR = register("pillar", new PillarFeature(PillarFeatureConfig.CODEC));
     public static Feature<CaveColumnFeatureConfig> CAVE_COLUMN = register("cave_columns", new CaveColumnFeature(CaveColumnFeatureConfig.CODEC));
+    public static Feature<MultifaceStateFeatureConfig> MULTIFACE_PERSISTENT = register("multiface_persistent", new MultifaceStateFeature(MultifaceStateFeatureConfig.CODEC));
     public static Feature<ColumnsFeatureConfig> COLUMNS = register("columns", new ColumnsFeature(ColumnsFeatureConfig.CODEC));
     public static Feature<BigBoulderFeatureConfig> BIG_BOULDER = register("big_boulder", new BigBoulderFeature(BigBoulderFeatureConfig.CODEC));
     public static Feature<ModOreFeatureConfig> ORE = register("ore", new ModOreFeature(ModOreFeatureConfig.CODEC));
