@@ -12,12 +12,14 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntity;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntity;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;
@@ -54,6 +56,10 @@ public class ModEntities {
 
     // Trolls
     public static final EntityType<SnowTrollEntity> SNOW_TROLL = register("snow_troll", EntityType.Builder.create(SnowTrollEntity::new, SpawnGroup.CREATURE).dimensions(2.2f, 2.5f));
+    public static final EntityType<CaveTrollEntity> CAVE_TROLL = register("cave_troll",
+            EntityType.Builder.create(CaveTrollEntity::new, SpawnGroup.CREATURE)
+                    .dimensions(2.2f, 3.5f)
+                    .passengerAttachments(new Vec3d(0, 3.825, -0.65), new Vec3d(-0.8, 3.4, -1.2), new Vec3d(0.8, 3.4, -1.2), new Vec3d(1.7, 4.0, 0.0)));
     public static final EntityType<StoneTrollEntity> STONE_TROLL = register("stone_troll", EntityType.Builder.create(StoneTrollEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 3.4f));
     public static final EntityType<PetrifiedTrollEntity> PETRIFIED_TROLL = register("petrified_troll", EntityType.Builder.create(PetrifiedTrollEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 3.4f));
 
@@ -109,6 +115,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(STONE_TROLL, StoneTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(PETRIFIED_TROLL, PetrifiedTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(CAVE_TROLL, CaveTrollEntity.setAttributes());
 
         FabricDefaultAttributeRegistry.register(BROADHOOF_GOAT, BroadhoofGoatEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(GREAT_HORN, GreatHornEntity.setAttributes());

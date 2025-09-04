@@ -51,6 +51,7 @@ import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
+import net.sevenstars.middleearth.utils.PlayerUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -158,12 +159,12 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected Disposition getDisposition() {
+    public Disposition getDisposition() {
         return Disposition.GOOD;
     }
 
     @Override
-    protected List<RaceType> getRaceType() {
+    public List<RaceType> getCompatibleRaces() {
         return List.of(RaceType.DWARF);
     }
 
@@ -172,11 +173,17 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(!this.getWorld().isClient() && !player.isCreative()) {
-            RaceType playerRace = RaceUtil.getRaceType(player);
+            boolean isOfRace = false;
+            for(RaceType race : getCompatibleRaces()) {
+                if(PlayerUtil.isOfRace(player, race)) {
+                    isOfRace = true;
+                }
+            }
 
-            if(playerRace == RaceType.NONE || (this.getRaceType() != null && !this.getRaceType().contains(playerRace))) {
+            if(!isOfRace) {
                 return ActionResult.FAIL;
             }
+
         }
 
         if(this.isTame() && this.isTamable()) {
@@ -258,7 +265,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected boolean isMountable() {
+    public boolean isMountable() {
         return this.dataTracker.get(MOUNTABLE);
     }
 
@@ -360,16 +367,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         else {
             super.startJumping(height);
         }
-    }
-
-    /*@Override
-    public boolean isHorseArmor(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
-    }*/
-
-    @Override
-    public boolean canUseSlot(EquipmentSlot slot) {
-        return true;
     }
 
     @Override
