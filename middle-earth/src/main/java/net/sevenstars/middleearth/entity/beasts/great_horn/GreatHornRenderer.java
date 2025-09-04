@@ -13,7 +13,7 @@ public class GreatHornRenderer extends MobEntityRenderer<GreatHornEntity, Living
     private static final float SIZE = 1f;
 
     public GreatHornRenderer(EntityRendererFactory.Context context) {
-        super(context, new GreatHornModel(context.getPart(ModEntityModelLayers.GREAT_HORN)), 0.8f);
+        super(context, new GreatHornModel(context.getPart(ModEntityModelLayers.GREAT_HORN)), 0.9f);
     }
 
     @Override

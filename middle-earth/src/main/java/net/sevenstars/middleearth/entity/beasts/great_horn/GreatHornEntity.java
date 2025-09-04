@@ -195,7 +195,7 @@ public class GreatHornEntity extends AbstractBeastEntity {
         float h = passenger.isSprinting() ? (1.2f/0.74f) : 4;
         float j = passenger.isSprinting() ? 1 : 0;
 
-        double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * (0.06 + (0.05 * j)) - 0.05;
+        double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * (0.06 + (0.05 * j)) + 0.55;
 
         if(this.isSitting()) {
             y = -0.5;
