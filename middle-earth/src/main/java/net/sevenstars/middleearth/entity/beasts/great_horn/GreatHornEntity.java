@@ -141,13 +141,13 @@ public class GreatHornEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected Disposition getDisposition() {
+    public Disposition getDisposition() {
         return Disposition.GOOD;
     }
 
     @Override
-    protected List<RaceType> getRaceType() {
-        return List.of(RaceType.DWARF);
+    public List<RaceType> getCompatibleRaces() {
+        return List.of(RaceType.ELF);
     }
 
     @Override
@@ -157,7 +157,7 @@ public class GreatHornEntity extends AbstractBeastEntity {
         if(!this.getWorld().isClient() && !player.isCreative()) {
             RaceType playerRace = RaceUtil.getRaceType(player);
 
-            if(playerRace == RaceType.NONE || (this.getRaceType() != null && !this.getRaceType().contains(playerRace))) {
+            if(playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
                 return ActionResult.FAIL;
             }
         }
@@ -191,7 +191,6 @@ public class GreatHornEntity extends AbstractBeastEntity {
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
         float f = this.limbAnimator.getSpeed();
         float g = this.limbAnimator.getSpeed() * (MathHelper.PI / 180) * 18; // TODO : Fix,was using limbAnimator.getPos()
-        // h is the frequency, which is calculated by dividing the speed of the animation by the duration of the animation.
         float h = passenger.isSprinting() ? (1.2f/0.74f) : 4;
         float j = passenger.isSprinting() ? 1 : 0;
 
@@ -225,11 +224,6 @@ public class GreatHornEntity extends AbstractBeastEntity {
     @Override
     public EntityDimensions getBaseDimensions(EntityPose pose) {
         return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
-    }
-
-    @Override
-    protected boolean isMountable() {
-        return this.dataTracker.get(MOUNTABLE);
     }
 
     @Override
@@ -274,7 +268,8 @@ public class GreatHornEntity extends AbstractBeastEntity {
         }
 
         for(Entity entity : entities) {
-            if(entity.getUuid() != this.getOwner().getUuid() && entity != this && !this.getPassengerList().contains(entity) && !this.getWorld().isClient()) {
+            if(this.getOwner() != null && entity.getUuid() != this.getOwner().getUuid() && entity != this
+                    && !this.getPassengerList().contains(entity) && !this.getWorld().isClient()) {
                 entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), getAttackDamage());
 
                 Vec3d velocity = this.getVelocity();
