@@ -43,6 +43,7 @@ import net.sevenstars.middleearth.utils.PlayerUtil;
 
 import java.util.List;
 
+// TODO Add weakness on sun exposure
 // TODO Implement charge attack
 // TODO Implement sweep attack
 // TODO Add Fighting Activities
