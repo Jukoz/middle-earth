@@ -3,18 +3,18 @@ package net.sevenstars.middleearth.entity.beasts.great_horn;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatAnimations;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntityRenderState;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatHorns;
 
-public class GreatHornModel extends EntityModel<LivingEntityRenderState> {
+public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
     private final ModelPart root;
-    
+    private final Animation idleAnimation;
+    private final Animation walkingAnimation;
+
     public GreatHornModel(ModelPart root) {
         super(root);
         this.root = root.getChild("root");
+
+        this.idleAnimation = GreatHornAnimations.IDLE.createAnimation(root);
+        this.walkingAnimation = GreatHornAnimations.WALK.createAnimation(root);
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -80,5 +80,13 @@ public class GreatHornModel extends EntityModel<LivingEntityRenderState> {
         ModelPartData backRightLeg = root.addChild("backRightLeg", ModelPartBuilder.create().uv(24, 72).cuboid(-2.75F, -4.25F, -3.75F, 5.0F, 10.0F, 7.0F, new Dilation(0.0F))
                 .uv(28, 89).cuboid(-1.75F, 5.75F, 0.25F, 4.0F, 15.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(-4.75F, -4.75F, 19.75F));
         return TexturedModelData.of(modelData, 128, 128);
+    }
+
+    @Override
+    public void setAngles(GreatHornEntityRenderState state) {
+        super.setAngles(state);
+
+        this.idleAnimation.apply(state.idleAnimationState, state.age);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.2F, 2.5F);
     }
 }

@@ -350,10 +350,13 @@ public class GreatHornEntity extends AbstractBeastEntity {
     protected void setupAnimationStates() {
         if(this.isSitting()) {
             this.startSittingAnimationState.startIfNotRunning(this.age);
-        }
-        if(!this.isSitting() && this.startSittingAnimationState.isRunning()) {
+        } else if(this.startSittingAnimationState.isRunning()) {
             this.startSittingAnimationState.stop();
             this.stopSittingAnimationState.start(this.age);
+        }
+
+        if(!idleAnimationState.isRunning()) {
+            this.idleAnimationState.start(this.age);
         }
 
         if(!this.isOnGround() && this.hasControllingPassenger()) {

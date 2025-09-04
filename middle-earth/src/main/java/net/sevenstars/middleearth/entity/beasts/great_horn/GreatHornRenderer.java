@@ -8,7 +8,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntityRenderState;
 
-public class GreatHornRenderer extends MobEntityRenderer<GreatHornEntity, LivingEntityRenderState, GreatHornModel> {
+public class GreatHornRenderer extends MobEntityRenderer<GreatHornEntity, GreatHornEntityRenderState, GreatHornModel> {
     private static final String PATH = "textures/entities/great_horn/";
     private static final float SIZE = 1f;
 
@@ -17,13 +17,19 @@ public class GreatHornRenderer extends MobEntityRenderer<GreatHornEntity, Living
     }
 
     @Override
-    public BroadhoofGoatEntityRenderState createRenderState() {
-        return new BroadhoofGoatEntityRenderState();
+    public GreatHornEntityRenderState createRenderState() {
+        return new GreatHornEntityRenderState();
     }
 
+    @Override
+    public Identifier getTexture(GreatHornEntityRenderState state) {
+        return Identifier.of(MiddleEarth.MOD_ID, PATH + "white_great_horn.png");
+    }
 
     @Override
-    public Identifier getTexture(LivingEntityRenderState state) {
-        return Identifier.of(MiddleEarth.MOD_ID, PATH + "white_great_horn.png");
+    public void updateRenderState(GreatHornEntity greatHornEntity, GreatHornEntityRenderState state, float f) {
+        super.updateRenderState(greatHornEntity, state, f);
+
+        state.idleAnimationState.copyFrom(greatHornEntity.idleAnimationState);
     }
 }
