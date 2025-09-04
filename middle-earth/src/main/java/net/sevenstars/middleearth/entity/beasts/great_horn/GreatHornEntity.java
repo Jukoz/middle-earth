@@ -129,15 +129,15 @@ public class GreatHornEntity extends AbstractBeastEntity {
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
-        return 20.0f + (float)randomIntGetter.applyAsInt(8) + (float)randomIntGetter.applyAsInt(9);
+        return 20.0f + (float)randomIntGetter.applyAsInt(8) + (float)randomIntGetter.applyAsInt(8);
     }
 
     protected static double getChildJumpStrengthBonus(DoubleSupplier randomDoubleGetter) {
-        return (double)0.8f + randomDoubleGetter.getAsDouble() * 0.2 + randomDoubleGetter.getAsDouble() * 0.2 + randomDoubleGetter.getAsDouble() * 0.2;
+        return 0;
     }
 
     protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {
-        return ((double)0.4f + randomDoubleGetter.getAsDouble() * 0.2 + randomDoubleGetter.getAsDouble() * 0.2 + randomDoubleGetter.getAsDouble() * 0.2) * 0.29;
+        return ((double)0.4f + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.2) * 0.27;
     }
 
     @Override

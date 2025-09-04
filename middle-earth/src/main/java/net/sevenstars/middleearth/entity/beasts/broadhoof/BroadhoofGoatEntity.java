@@ -147,7 +147,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
-        return 20.0f + (float)randomIntGetter.applyAsInt(8) + (float)randomIntGetter.applyAsInt(9);
+        return 20.0f + (float)randomIntGetter.applyAsInt(8) + (float)randomIntGetter.applyAsInt(8);
     }
 
     protected static double getChildJumpStrengthBonus(DoubleSupplier randomDoubleGetter) {
