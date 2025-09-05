@@ -37,11 +37,12 @@ public record SpiderVariant(SpiderAssetInfo assetInfo, SpawnConditionSelectors s
 		return this.spawnConditions.selectors();
 	}
 
-	public record SpiderAssetInfo(AssetInfo larva, AssetInfo scuttler) {
+	public record SpiderAssetInfo(AssetInfo larva, AssetInfo scuttler, AssetInfo spawnOfShelob) {
 		public static final Codec<SpiderAssetInfo> CODEC = RecordCodecBuilder.create(
 				instance -> instance.group(
 								AssetInfo.CODEC.fieldOf("larva").forGetter(SpiderAssetInfo::larva),
-								AssetInfo.CODEC.fieldOf("scuttler").forGetter(SpiderAssetInfo::scuttler)
+								AssetInfo.CODEC.fieldOf("scuttler").forGetter(SpiderAssetInfo::scuttler),
+								AssetInfo.CODEC.fieldOf("spawn").forGetter(SpiderAssetInfo::spawnOfShelob)
 						)
 						.apply(instance, SpiderAssetInfo::new)
 		);
