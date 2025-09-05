@@ -16,6 +16,7 @@ import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -77,7 +78,8 @@ public class RacesME {
                         .addElement(AttributePoolElement.create(ModEntityAttributes.POWDERED_SNOW_IMMUNITY, 1.0f))
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.81).withBuffReversed())
                         .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))
-                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0)
+                                .withModifier(IdentifierUtil.create("dwarven_damage_modifier"), 10.0))
                         .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75))
                         .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.09))
                         .addElement(AttributePoolElement.create(EntityAttributes.MINING_EFFICIENCY, 0.15)),
