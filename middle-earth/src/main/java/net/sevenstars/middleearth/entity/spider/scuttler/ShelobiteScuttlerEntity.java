@@ -8,6 +8,8 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.spawn.SpawnContext;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
@@ -15,6 +17,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.block.BlockState;
@@ -51,10 +54,9 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     public static final int LEAPING_TIME_TRANSITION = 8;
     public static final float MOVEMENT_SPEED = 1.15f;
     private static final TrackedData<Byte> SPIDER_FLAGS;
+    private static final TrackedData<Integer> BITE_FLAG;
     private static final TrackedData<Integer> POUNCE_FLAG;
     private static final TrackedData<RegistryEntry<SpiderVariant>> VARIANT;
-
-            //DataTracker.registerData(ShelobiteScuttlerEntity.class, SpiderVariant.SPIDER_DATA_VARIANT);
 
     // region Brain
     protected static final ImmutableList<SensorType<? extends Sensor<? super ShelobiteScuttlerEntity>>> SENSOR_TYPES = ImmutableList.of(
@@ -89,6 +91,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     private int climbingTicks = 0;
     private int leapingTicks = 0;
+    private int biteAnimationCooldown = 0;
 
     public ShelobiteScuttlerEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -153,6 +156,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         RegistryEntry<SpiderVariant> spiderVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), SpiderVariants.DEFAULT);
         builder.add(VARIANT, spiderVariantRegistryEntry);
         builder.add(SPIDER_FLAGS, (byte)0);
+        builder.add(BITE_FLAG, 0);
         builder.add(POUNCE_FLAG, 0);
     }
 
@@ -163,23 +167,45 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     protected void setupAnimationStates() {
         if (!this.idleAnimation.isRunning()) {
-            //this.idleAnimationCooldown = this.random.nextInt(40) + 80;
             this.idleAnimation.start(this.age);
         }
-
-        int pounceAnimState = this.dataTracker.get(POUNCE_FLAG);
-        if(pounceAnimState == 1) {
-            this.pounceAnimation.start(this.age);
-        } else if (pounceAnimState == -1) {
-            this.pounceAnimation.stop();
+        if (!this.walkingAnimation.isRunning()) {
+            this.walkingAnimation.start(this.age);
         }
-        this.dataTracker.set(POUNCE_FLAG, 0);
+
+        setTrackerState(BITE_FLAG, biteAnimation);
+        setTrackerState(POUNCE_FLAG, pounceAnimation);
+    }
+
+    protected void setTrackerState(TrackedData<Integer> trackedData, AnimationState animationState) {
+        int state = this.dataTracker.get(trackedData);
+        if(state == 1) {
+            animationState.start(this.age);
+        } else if (state == -1) {
+            animationState.stop();
+        }
+        this.dataTracker.set(trackedData, 0);
     }
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        biteAnimation.start(this.age);
+        this.dataTracker.set(BITE_FLAG, 1);
+        if(biteAnimationCooldown == 0) biteAnimationCooldown = 40;
         return super.tryAttack(world, target);
+    }
+
+    @Override
+    public void onLanding() {
+        if (this.getWorld() instanceof ServerWorld serverWorld) {
+            if (this.isOnGround() && this.fallDistance > 1.5) {
+                Vec3d vec3d = getPos().add(0.0, 0.5, 0.0);
+                BlockState blockState = this.getSteppingBlockState();
+                int count = (int) MathHelper.clamp(20.0 * this.fallDistance - 1, 0.0, 120.0);
+                serverWorld.spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), vec3d.x, vec3d.y, vec3d.z,
+                        count, this.random.nextDouble() - 0.5, 0.15, this.random.nextDouble() - 0.5, 0.16f);
+            }
+        }
+        super.onLanding();
     }
 
     public void startPounceAnimation() {
@@ -192,6 +218,10 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     public void tick() {
         super.tick();
         if (!this.getWorld().isClient) {
+            if(biteAnimationCooldown <= 1) {
+                this.dataTracker.set(BITE_FLAG, -1);
+            }
+            biteAnimationCooldown = Math.max(biteAnimationCooldown - 1, 0);
             this.setClimbingWall(this.horizontalCollision);
         } else {
             setupAnimationStates();
@@ -310,6 +340,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     static {
         SPIDER_FLAGS = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.BYTE);
+        BITE_FLAG = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.INTEGER);
         POUNCE_FLAG = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.INTEGER);
         VARIANT = DataTracker.registerData(ShelobiteScuttlerEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);
     }

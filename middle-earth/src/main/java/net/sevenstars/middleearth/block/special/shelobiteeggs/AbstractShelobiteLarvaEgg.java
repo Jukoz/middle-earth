@@ -2,10 +2,12 @@ package net.sevenstars.middleearth.block.special.shelobiteeggs;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.sevenstars.middleearth.entity.ModEntities;
@@ -32,7 +34,10 @@ public abstract class AbstractShelobiteLarvaEgg extends Block {
     private static void SpawnSpider(BlockPos pos, World world){
         ShelobiteLarvaEntity entity = new ShelobiteLarvaEntity(ModEntities.SHELOBITE_LARVA, world);
         entity.age = 0;
-        entity.setPos(pos.getX(), pos.getY() + 1, pos.getZ());
+        entity.refreshPositionAndAngles(pos, 0, 0);
+        if(world instanceof ServerWorldAccess serverWorldAccess) {
+            entity.initialize(serverWorldAccess, serverWorldAccess.getLocalDifficulty(pos), SpawnReason.NATURAL, null);
+        }
         world.spawnEntity(entity);
     }
 }

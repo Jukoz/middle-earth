@@ -1516,7 +1516,7 @@ public class ShelobiteScuttlerAnimations {
     // endregion
     
     // region BITE
-    public static final AnimationDefinition SHELOBITE_SCUTTLER_BITE = AnimationDefinition.Builder.create(4f).looping()
+    public static final AnimationDefinition SHELOBITE_SCUTTLER_BITE = AnimationDefinition.Builder.create(4f)
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f), Transformation.Interpolations.LINEAR),

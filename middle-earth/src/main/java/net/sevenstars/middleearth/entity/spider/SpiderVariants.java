@@ -36,7 +36,8 @@ public class SpiderVariants {
 	private static void register(Registerable<SpiderVariant> registry, RegistryKey<SpiderVariant> key, String textureName, SpawnConditionSelectors spawnConditions) {
 		registry.register(key, new SpiderVariant(new SpiderVariant.SpiderAssetInfo(
 				new AssetInfo(Identifier.of(MiddleEarth.MOD_ID, TEXTURE_PATH + textureName + ENTITY_NAME + "larva")),
-				new AssetInfo(Identifier.of(MiddleEarth.MOD_ID, TEXTURE_PATH + textureName + ENTITY_NAME + "scuttler"))),
+				new AssetInfo(Identifier.of(MiddleEarth.MOD_ID, TEXTURE_PATH + textureName + ENTITY_NAME + "scuttler")),
+				new AssetInfo(Identifier.of(MiddleEarth.MOD_ID, TEXTURE_PATH + textureName + "_spawn_of_shelob"))),
 				spawnConditions));
 	}
 
