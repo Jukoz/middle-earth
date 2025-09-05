@@ -2,10 +2,33 @@ package net.sevenstars.middleearth.entity.beasts.great_horn;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.model.BabyModelTransformer;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.model.ModelTransformer;
+
+import java.util.Set;
 
 public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
+    public static final ModelTransformer BABY_TRANSFORMER = new BabyModelTransformer(true, 10.0F, 4.0F, Set.of("head"));
     private final ModelPart root;
+    private final ModelPart body;
+    private final ModelPart frontHalf;
+    private final ModelPart saddle;
+    private final ModelPart frontBody;
+    private final ModelPart frontLeftLeg;
+    private final ModelPart frontRightLeg;
+    private final ModelPart headNeck;
+    private final ModelPart neck;
+    private final ModelPart topHead;
+    private final ModelPart rightAntler;
+    private final ModelPart leftAntler;
+    private final ModelPart beard;
+    private final ModelPart saddleRopes;
+    private final ModelPart backBody;
+    private final ModelPart tail;
+    private final ModelPart backLeftLeg;
+    private final ModelPart backRightLeg;
+
     private final Animation idleAnimation;
     private final Animation walkingAnimation;
     private final Animation gallopAnimation;
@@ -13,6 +36,23 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
     public GreatHornModel(ModelPart root) {
         super(root);
         this.root = root.getChild("root");
+        this.body = this.root.getChild("body");
+        this.frontHalf = this.body.getChild("front_half");
+        this.saddle = this.frontHalf.getChild("saddle");
+        this.frontBody = this.frontHalf.getChild("front_body");
+        this.frontLeftLeg = this.frontHalf.getChild("frontLeftLeg");
+        this.frontRightLeg = this.frontHalf.getChild("frontRightLeg");
+        this.headNeck = this.frontHalf.getChild("head_neck");
+        this.neck = this.headNeck.getChild("neck");
+        this.topHead = this.headNeck.getChild("top_head");
+        this.rightAntler = this.topHead.getChild("right_antler");
+        this.leftAntler = this.topHead.getChild("left_antler");
+        this.beard = this.topHead.getChild("beard");
+        this.saddleRopes = this.topHead.getChild("saddle_ropes");
+        this.backBody = this.frontHalf.getChild("back_body");
+        this.tail = this.backBody.getChild("tail");
+        this.backLeftLeg = this.root.getChild("backLeftLeg");
+        this.backRightLeg = this.root.getChild("backRightLeg");
 
         this.idleAnimation = GreatHornAnimations.IDLE.createAnimation(root);
         this.walkingAnimation = GreatHornAnimations.WALK.createAnimation(root);
@@ -38,15 +78,10 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
 
         ModelPartData head_neck = front_half.addChild("head_neck", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -6.0F, -3.0F));
 
-        ModelPartData neck = head_neck.addChild("neck", ModelPartBuilder.create().uv(40, 0).cuboid(-3.5F, -6.0F, -2.0F, 7.0F, 18.0F, 7.0F, new Dilation(0.0F))
-                .uv(53, 53).cuboid(-3.5F, -6.0F, -2.0F, 7.0F, 18.0F, 7.0F, new Dilation(0.2F)), ModelTransform.origin(0.0F, -1.5F, -2.0F));
+        ModelPartData neck = head_neck.addChild("neck", ModelPartBuilder.create().uv(40, 0).cuboid(-3.5F, -6.0F, -2.0F, 7.0F, 18.0F, 7.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -1.5F, -2.0F));
 
         ModelPartData top_head = head_neck.addChild("top_head", ModelPartBuilder.create().uv(96, 0).cuboid(-3.5F, -7.0F, -6.0F, 7.0F, 7.0F, 9.0F, new Dilation(0.0F))
-                .uv(51, 35).cuboid(-3.5F, -7.0F, -6.0F, 7.0F, 7.0F, 9.0F, new Dilation(0.2F))
-                .uv(69, 0).cuboid(-2.5F, -4.0F, -11.0F, 5.0F, 4.0F, 5.0F, new Dilation(0.0F))
-                .uv(52, 26).cuboid(-2.5F, -4.0F, -11.0F, 5.0F, 4.0F, 5.0F, new Dilation(0.2F))
-                .uv(86, 99).cuboid(3.8F, -2.0F, -7.0F, 0.0F, 7.0F, 21.0F, new Dilation(0.0F))
-                .uv(86, 91).cuboid(-3.8F, -2.0F, -7.0F, 0.0F, 7.0F, 21.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -7.5F, 0.0F));
+                .uv(69, 0).cuboid(-2.5F, -4.0F, -11.0F, 5.0F, 4.0F, 5.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -7.5F, 0.0F));
 
         ModelPartData earLeft = top_head.addChild("earLeft", ModelPartBuilder.create().uv(0, 0).cuboid(0.0F, -4.0F, -1.0F, 1.0F, 5.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(2.5F, -6.0F, 1.0F, -0.7854F, 0.4363F, 0.0F));
 
@@ -69,6 +104,12 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
         ModelPartData cube_r6 = left_antler.addChild("cube_r6", ModelPartBuilder.create().uv(54, 124).cuboid(0.0F, -1.0F, -1.0F, 8.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(7.0F, 1.0F, 0.0F, 0.0F, -1.5708F, 0.0F));
 
         ModelPartData beard = top_head.addChild("beard", ModelPartBuilder.create().uv(69, 3).cuboid(0.0F, -1.0F, -6.0F, 0.0F, 18.0F, 7.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.5F, -5.0F));
+
+        ModelPartData saddle_ropes = top_head.addChild("saddle_ropes", ModelPartBuilder.create().uv(86, 99).cuboid(3.8F, -9.5F, -7.0F, 0.0F, 7.0F, 21.0F, new Dilation(0.0F))
+                .uv(86, 91).cuboid(-3.8F, -9.5F, -7.0F, 0.0F, 7.0F, 21.0F, new Dilation(0.0F))
+                .uv(52, 26).cuboid(-2.5F, -11.5F, -11.0F, 5.0F, 4.0F, 5.0F, new Dilation(0.2F))
+                .uv(51, 35).cuboid(-3.5F, -14.5F, -6.0F, 7.0F, 7.0F, 9.0F, new Dilation(0.2F))
+                .uv(53, 53).cuboid(-3.5F, -7.5F, -4.0F, 7.0F, 18.0F, 7.0F, new Dilation(0.2F)), ModelTransform.origin(0.0F, 7.5F, 0.0F));
 
         ModelPartData back_body = front_half.addChild("back_body", ModelPartBuilder.create().uv(0, 44).cuboid(-5.5F, -4.5F, -4.0F, 11.0F, 13.0F, 14.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 13.0F));
 
@@ -93,6 +134,14 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
             this.gallopAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
         } else {
             this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.2F, 2.5F);
+        }
+
+        if(state.baby) {
+            leftAntler.visible = false;
+            rightAntler.visible = false;
+            beard.hidden = true;
+            saddleRopes.visible = false;
+            saddle.hidden = true;
         }
     }
 }

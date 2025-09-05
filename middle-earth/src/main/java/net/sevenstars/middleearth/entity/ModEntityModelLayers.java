@@ -44,6 +44,7 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer BROADHOOF_GOAT_ARMOR = ModEntityModelLayers.registerEntityModelLayer("broadhoof_goat_armor", BroadhoofGoatArmorModel.getTexturedModelData());
     public static final EntityModelLayer BROADHOOF_GOAT_SADDLE = ModEntityModelLayers.registerEntityModelLayer("broadhoof_goat_saddle", BroadhoofGoatSaddleModel.getTexturedModelData());
     public static final EntityModelLayer GREAT_HORN = ModEntityModelLayers.registerEntityModelLayer("great_horn", GreatHornModel.getTexturedModelData());
+    public static final EntityModelLayer GREAT_HORN_BABY = ModEntityModelLayers.registerEntityModelLayer("great_horn_baby", GreatHornModel.getTexturedModelData().transform(GreatHornModel.BABY_TRANSFORMER));
     public static final EntityModelLayer WARG = ModEntityModelLayers.registerEntityModelLayer("warg", WargModel.getTexturedModelData());
     public static final EntityModelLayer WARG_ARMOR = ModEntityModelLayers.registerEntityModelLayer("warg_armor", WargArmorModel.getTexturedModelData());
     public static final EntityModelLayer WARG_ARMOR_ADDONS_FRONT = ModEntityModelLayers.registerEntityModelLayer("warg_armor_addons_front", WargArmorTopAddonsModel.getTexturedModelDataFront());
