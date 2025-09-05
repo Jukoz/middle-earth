@@ -22,7 +22,7 @@ public class WizardHatModel extends HelmetAddonModel {
                 ModelTransform.of(0.0F, 0.9F, -1.0F, -0.1745F, 0.0F, 0.0F));
 
         ModelPartData bone = wizard.addChild("bone", ModelPartBuilder.create()
-                .uv(0, 0).cuboid(-4.0F, -9.25F, -4.0F, 8.0F, 4.0F, 8.0F, new Dilation(0.6F))
+                .uv(0, 0).cuboid(-4.0F, -9.25F, -4.0F, 8.0F, 4.0F, 8.0F, new Dilation(0.7F))
                 .uv(32, 0).cuboid(-4.0F, -9.25F, -4.0F, 8.0F, 4.0F, 8.0F, new Dilation(1.0F)),
                 ModelTransform.of(0.0F, -0.325F, 0.2F, 0.0436F, 0.0F, 0.0F));
 
