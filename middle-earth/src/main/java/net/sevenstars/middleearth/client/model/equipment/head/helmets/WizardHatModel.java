@@ -18,7 +18,8 @@ public class WizardHatModel extends HelmetAddonModel {
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         ModelPartData wizard = head.addChild("wizard", ModelPartBuilder.create()
-                .uv(0, 47).cuboid(-8.0F, -5.384F, -8.0F, 16.0F, 1.0F, 16.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 1.4F, -1.0F, -0.1745F, 0.0F, 0.0F));
+                .uv(0, 47).cuboid(-8.0F, -5.15F, -8.0F, 16.0F, 1.0F, 16.0F, new Dilation(0.0F)),
+                ModelTransform.of(0.0F, 0.9F, -1.0F, -0.1745F, 0.0F, 0.0F));
 
         ModelPartData bone = wizard.addChild("bone", ModelPartBuilder.create()
                 .uv(0, 0).cuboid(-4.0F, -9.25F, -4.0F, 8.0F, 4.0F, 8.0F, new Dilation(0.6F))
