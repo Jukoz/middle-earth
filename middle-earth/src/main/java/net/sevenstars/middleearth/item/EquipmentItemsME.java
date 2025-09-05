@@ -345,7 +345,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
 
     public static final Item GONDORIAN_HORSE_ARMOR = registerGeneratedItem("gondorian_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.GONDORIAN_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1)
+            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.GONDORIAN_HORSE_ARMOR.material()).maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
     //endregion
 
@@ -453,7 +453,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.HORSE_LORD_CAPE)).component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
 
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.ROHIRRIC_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1)
+            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.ROHIRRIC_HORSE_ARMOR.material()).maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
     //endregion
 
@@ -556,7 +556,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
 
     public static final Item DALISH_HORSE_ARMOR = registerGeneratedItem("dalish_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.DALISH_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1)
+            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.DALISH_HORSE_ARMOR.material()).maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
     //endregion
 
@@ -932,7 +932,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
     public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.LORIEN_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1)
+            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.LORIEN_HORSE_ARMOR.material()).maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     //endregion
     //endregion
