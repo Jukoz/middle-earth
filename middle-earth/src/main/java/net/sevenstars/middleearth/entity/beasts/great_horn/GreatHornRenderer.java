@@ -2,11 +2,9 @@ package net.sevenstars.middleearth.entity.beasts.great_horn;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntityRenderState;
 
 public class GreatHornRenderer extends MobEntityRenderer<GreatHornEntity, GreatHornEntityRenderState, GreatHornModel> {
     private static final String PATH = "textures/entities/great_horn/";
@@ -31,5 +29,6 @@ public class GreatHornRenderer extends MobEntityRenderer<GreatHornEntity, GreatH
         super.updateRenderState(greatHornEntity, state, f);
 
         state.idleAnimationState.copyFrom(greatHornEntity.idleAnimationState);
+        state.gallopAnimationState.copyFrom(greatHornEntity.gallopAnimationState);
     }
 }

@@ -13,7 +13,7 @@ public class GreatHornEntityRenderState extends LivingEntityRenderState {
     public ItemStack saddle;
 
     public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState walkAnimationState = new AnimationState();
+    public final AnimationState gallopAnimationState = new AnimationState();
 
     public GreatHornEntityRenderState() {
         saddle = ItemStack.EMPTY;

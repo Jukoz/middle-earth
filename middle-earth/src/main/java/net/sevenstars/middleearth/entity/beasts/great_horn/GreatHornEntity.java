@@ -6,7 +6,6 @@ import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -16,22 +15,17 @@ import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.GoatHornItem;
-import net.minecraft.item.Instrument;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.InstrumentTags;
 import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -42,6 +36,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
@@ -66,7 +61,7 @@ public class GreatHornEntity extends AbstractBeastEntity {
     private static final float MAX_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> max - 1);
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> MOUNTABLE = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public final AnimationState jumpAnimationState = new AnimationState();
+    public final AnimationState gallopAnimationState = new AnimationState();
     private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.GREAT_HORN.getDimensions().scaled(0.5f);
 
 
@@ -189,12 +184,16 @@ public class GreatHornEntity extends AbstractBeastEntity {
 
     @Override
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
-        float f = this.limbAnimator.getSpeed();
-        float g = this.limbAnimator.getSpeed() * (MathHelper.PI / 180) * 18; // TODO : Fix,was using limbAnimator.getPos()
-        float h = passenger.isSprinting() ? (1.2f/0.74f) : 4;
-        float j = passenger.isSprinting() ? 1 : 0;
+        float f = this.limbAnimator.getAnimationProgress() / 20;
+        float g = this.limbAnimator.getAnimationProgress() * (MathHelper.PI / 180) * 18; // TODO : Fix,was using limbAnimator.getPos()
+        float h = passenger.isSprinting() ? (1.5f) : 1;
 
-        double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * (0.06 + (0.05 * j)) + 0.55;
+        double y = 0.45;
+        if(gallopAnimationState.isRunning()) {
+            y += -0.025 + MathHelper.cos((f/0.75f) * (MathHelper.PI*2)) * 0.15;
+        } else {
+            y += MathHelper.cos(g - MathHelper.PI) * 0.02 - 0.2;
+        }
 
         if(this.isSitting()) {
             y = -0.5;
@@ -359,11 +358,10 @@ public class GreatHornEntity extends AbstractBeastEntity {
             this.idleAnimationState.start(this.age);
         }
 
-        if(!this.isOnGround() && this.hasControllingPassenger()) {
-            this.jumpAnimationState.startIfNotRunning(this.age);
-        }
-        else {
-            this.jumpAnimationState.stop();
+        if((hasControllingPassenger() && getControllingPassenger().isSprinting())) {
+            this.gallopAnimationState.startIfNotRunning(this.age);
+        } else {
+            this.gallopAnimationState.stop();
         }
     }
 
