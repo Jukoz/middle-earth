@@ -21,7 +21,7 @@ import net.sevenstars.middleearth.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.recipe.ModRecipeSerializer;
 import net.sevenstars.middleearth.recipe.ModRecipes;
-import net.sevenstars.middleearth.registries.ModRegistries;
+import net.sevenstars.middleearth.registries.RegistriesME;
 import net.sevenstars.middleearth.resources.*;
 import net.sevenstars.middleearth.sound.ModSounds;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
@@ -81,14 +81,14 @@ public class MiddleEarth implements ModInitializer {
 
 		EnchantmentEffectsME.registerModEnchantmentEffects();
 
-		ModRegistries.registerFuels();
-		ModRegistries.registerToolTipAppenders();
-		ModRegistries.registerFlammableBlocks();
-		ModRegistries.registerTillableBlocks();
-		ModRegistries.registerAgingCopperBlocks();
-		ModRegistries.registerComposterBlocks();
-		ModRegistries.registerCauldronBehaviour();
-		ModRegistries.registerLandPathNodeTypesBlocks();
+		RegistriesME.registerFuels();
+		RegistriesME.registerToolTipAppenders();
+		RegistriesME.registerFlammableBlocks();
+		RegistriesME.registerTillableBlocks();
+		RegistriesME.registerAgingCopperBlocks();
+		RegistriesME.registerComposterBlocks();
+		RegistriesME.registerCauldronBehaviour();
+		RegistriesME.registerLandPathNodeTypesBlocks();
 
 		ModBlockEntities.registerBlockEntities();
 
@@ -124,7 +124,7 @@ public class MiddleEarth implements ModInitializer {
 		NpcME.register();
 		FactionsME.register();
 
-		ModRegistries.registerRegistryAliases();
+		RegistriesME.registerRegistryAliases();
 
 		try {
 			new MiddleEarthMapGeneration();

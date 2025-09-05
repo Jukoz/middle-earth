@@ -2,29 +2,34 @@ package net.sevenstars.middleearth.registries;
 
 import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
 import net.fabricmc.fabric.api.registry.*;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
+import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
-import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.item.FoodItemsME;
-import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.sevenstars.middleearth.item.WeaponItemsME;
+import net.sevenstars.middleearth.item.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -32,7 +37,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModRegistries {
+public class RegistriesME {
 
     public static final HashMap<String, String> specialAliases = new HashMap<>();
 
@@ -625,6 +630,43 @@ public class ModRegistries {
         registry.add(ResourceItemsME.PIPEWEED_SEEDS, 0.3F);
     }
 
+    public static void registerLandPathNodeTypesBlocks() {
+        LandPathNodeTypesRegistry.register(ModNatureBlocks.TOUGH_BERRY_BUSH, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.SMALL_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.BIG_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.GILDED_SMALL_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.GILDED_BIG_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.BONFIRE, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.FIRE_BOWL, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+    }
+
+    public static void registerCauldronBehaviour() {
+
+        HotMetalsModel.items.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
+        });
+
+        HotMetalsModel.ingots.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
+        });
+
+        HotMetalsModel.nuggets.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
+        });
+
+        SimpleDyeableItemModel.items.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, CLEAN_EQUIPMENT);
+        });
+
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR, CLEAN_EQUIPMENT);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR, CLEAN_EQUIPMENT);
+
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.WARG_LEATHER_ARMOR, CLEAN_EQUIPMENT);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR, CLEAN_EQUIPMENT);
+
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ResourceItemsME.DIRTY_BONE, CLEAN_ITEM);
+    }
+
     //This not good but will do for now until more cases appear
     public static final CauldronBehavior CLEAN_ITEM = (state, world, pos, player, hand, stack) -> {
         if (!world.isClient) {
@@ -677,30 +719,19 @@ public class ModRegistries {
         return ActionResult.SUCCESS;
     };
 
-    public static void registerCauldronBehaviour() {
+    public static final CauldronBehavior CLEAN_EQUIPMENT = (state, world, pos, player, hand, stack) -> {
+        if (!stack.isIn(ItemTags.DYEABLE)) {
+            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
+        } else if (!stack.contains(DataComponentTypes.DYED_COLOR)) {
+            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
+        } else {
+            if (!world.isClient) {
+                stack.remove(DataComponentTypes.DYED_COLOR);
+                player.incrementStat(Stats.CLEAN_ARMOR);
+                LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+            }
 
-        HotMetalsModel.items.forEach(item -> {
-            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
-        });
-
-        HotMetalsModel.ingots.forEach(item -> {
-            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
-        });
-
-        HotMetalsModel.nuggets.forEach(item -> {
-            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
-        });
-
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ResourceItemsME.DIRTY_BONE, CLEAN_ITEM);
-    }
-
-    public static void registerLandPathNodeTypesBlocks() {
-        LandPathNodeTypesRegistry.register(ModNatureBlocks.TOUGH_BERRY_BUSH, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
-        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.SMALL_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
-        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.BIG_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
-        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.GILDED_SMALL_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
-        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.GILDED_BIG_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
-        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.BONFIRE, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
-        LandPathNodeTypesRegistry.register(ModDecorativeBlocks.FIRE_BOWL, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
-    }
+            return ActionResult.SUCCESS;
+        }
+    };
 }
