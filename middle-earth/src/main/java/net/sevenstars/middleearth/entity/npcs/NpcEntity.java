@@ -232,6 +232,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         NpcBrain.updateActivities(this);
         profiler.pop();
         super.mobTick(world);
+
+        if(hasVehicle()){
+            rotate(getVehicle().getYaw(), getVehicle().getPitch());
+        }
     }
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
@@ -246,15 +250,18 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         entityData = super.initialize(world, difficulty, spawnReason, entityData);
-
         return entityData;
+    }
+
+    @Override
+    protected boolean couldAcceptPassenger() {
+        return false;
     }
 
     @Override
     protected void initEquipment(net.minecraft.util.math.random.Random random, LocalDifficulty localDifficulty) {
         // Overrides vanilla init equipment (gold sets???)
     }
-
 
     @Override
     public void onDeath(DamageSource damageSource) {

@@ -14,7 +14,9 @@ import net.minecraft.client.render.entity.feature.ElytraFeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.render.entity.model.ArmorEntityModel;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
@@ -70,7 +72,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         if(!npcEntity.getWorld().isClient)
             return;
         super.updateRenderState(npcEntity, npcEntityRenderState, f);
-
+        npcEntityRenderState.pose = npcEntity.getPose();
         var npcTextureData = npcEntity.getNpcTextureData();
 
         npcEntityRenderState.skinId = npcTextureData.getBodyTexture();
@@ -112,7 +114,6 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         if(state.skinId == null){
             return;
         }
-
         matrices.push();
         if (state.isInPose(EntityPose.SLEEPING)) {
             Direction direction = state.sleepingDirection;
@@ -121,13 +122,18 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
                 matrices.translate((float)(-direction.getOffsetX()) * f, 0.0F, (float)(-direction.getOffsetZ()) * f);
             }
         }
+        else if (state.hasVehicle) {
+            float f = state.standingEyeHeight - 0.1F;
+            matrices.translate(0, -0.5F, 0);
+        }
 
-        float g = state.baseScale;
+        float g = ((NpcEntityRenderState)state).baseScale;
         matrices.scale(g, g, g);
-        this.setupTransforms(state, matrices, state.bodyYaw, g);
-        matrices.scale(-1.0F, -1.0F, 1.0F);
+        this.setupTransforms(state, matrices, ((NpcEntityRenderState)state).bodyYaw, g);
+        matrices.scale(-1.0f, -1.0f, 1.0f);
         this.scale(state, matrices);
-        matrices.translate(0.0F, -1.501F, 0.0F);
+        matrices.translate(0.0f, -1.501f, 0.0f);
+        ((EntityModel)this.model).setAngles(state);
 
         this.model.setAngles(state);
         boolean bl = this.isVisible(state);
@@ -159,10 +165,12 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
                 feature.render(matrices, vertexConsumers, light, state, state.relativeHeadYaw, state.pitch);
             }
         }
-
         matrices.pop();
-    }
 
+        if (((EntityRenderState)state).displayName != null) {
+            this.renderLabelIfPresent(state, ((EntityRenderState)state).displayName, matrices, vertexConsumers, light);
+        }
+    }
 
     private void renderSkin(MatrixStack matrices, NpcEntityRenderState state, VertexConsumerProvider vertexConsumers, int light, int overlay, int color) {
         Identifier id = Identifier.of(state.skinId.getNamespace(), "npc_skin_textures/" + state.skinId.getPath());
@@ -253,7 +261,6 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         // Made custom in the render method
         return null;
     }
-
 
     @Environment(EnvType.CLIENT)
     static record NpcTextureKeys(NpcTexture npcTexture, NpcTextureType type) {
