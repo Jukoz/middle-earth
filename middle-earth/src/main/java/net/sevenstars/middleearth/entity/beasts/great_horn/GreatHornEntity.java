@@ -1,8 +1,6 @@
 package net.sevenstars.middleearth.entity.beasts.great_horn;
 
-import net.minecraft.block.BlockKeys;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
@@ -13,14 +11,11 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
@@ -28,7 +23,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -39,14 +33,12 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatHorns;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatVariant;
 import net.sevenstars.middleearth.entity.goals.BeastRevengeGoal;
-import net.sevenstars.middleearth.entity.goals.BeastSitGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
@@ -95,7 +87,6 @@ public class GreatHornEntity extends AbstractBeastEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new BeastSitGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 2.5, false));
         this.goalSelector.add(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
@@ -155,7 +146,7 @@ public class GreatHornEntity extends AbstractBeastEntity {
         if(!this.getWorld().isClient() && !player.isCreative()) {
             RaceType playerRace = RaceUtil.getRaceType(player);
 
-            if(playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
+            if(playerRace == null || playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
                 return ActionResult.FAIL;
             }
         }
@@ -189,7 +180,6 @@ public class GreatHornEntity extends AbstractBeastEntity {
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
         float f = this.limbAnimator.getAnimationProgress() / 20;
         float g = this.limbAnimator.getAnimationProgress() * (MathHelper.PI / 180) * 18; // TODO : Fix,was using limbAnimator.getPos()
-        float h = passenger.isSprinting() ? (1.5f) : 1;
 
         double y = 0.45;
         if(gallopAnimationState.isRunning()) {
@@ -198,20 +188,14 @@ public class GreatHornEntity extends AbstractBeastEntity {
             y += MathHelper.cos(g - MathHelper.PI) * 0.02 - 0.2;
         }
 
-        if(this.isSitting()) {
-            y = -0.5;
-        }
-
         return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
     }
 
     @Override
     @Nullable
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        GreatHornEntity greatHornEntity = (GreatHornEntity)entity;
         GreatHornEntity greatHornEntity2 = ModEntities.GREAT_HORN.create(world, SpawnReason.BREEDING);
         if (greatHornEntity2 != null) {
-            // TODO MIX
             this.setChildAttributes(entity, greatHornEntity2);
         }
         return greatHornEntity2;
@@ -242,15 +226,6 @@ public class GreatHornEntity extends AbstractBeastEntity {
     public boolean isBreedingItem(ItemStack stack) {
         return stack.isIn(ItemTags.GOAT_FOOD);
     }
-
-    /*@Override
-    public boolean tryAttack(Entity target) {
-        if(!this.getWorld().isClient && super.tryAttack((ServerWorld)this.getWorld(), target)) {
-            this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-            return true;
-        }
-        return false;
-    }*/
 
     @Override
     public void chargeAttack() {
@@ -312,13 +287,8 @@ public class GreatHornEntity extends AbstractBeastEntity {
     @Override
     public void startJumping(int height) {
         if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
-            if(!this.isSitting()) {
-                this.jumping = true;
-                this.playJumpSound();
-            }
-            else {
-                this.setSitting(false);
-            }
+            this.jumping = true;
+            this.playJumpSound();
         }
         else {
             super.startJumping(height);
@@ -340,15 +310,6 @@ public class GreatHornEntity extends AbstractBeastEntity {
         return 16;
     }
 
-    @Override
-    public void tickMovement() {
-        super.tickMovement();
-
-        if(this.isSitting()) {
-            this.getNavigation().stop();
-        }
-    }
-
     public void slowMovement(BlockState state, Vec3d multiplier) {
         float pow = 0.1f;
         Vec3d lessPenalty = new Vec3d(Math.pow(multiplier.x, pow), Math.pow(multiplier.y, pow), Math.pow(multiplier.z, pow));
@@ -356,13 +317,6 @@ public class GreatHornEntity extends AbstractBeastEntity {
     }
 
     protected void setupAnimationStates() {
-        if(this.isSitting()) {
-            this.startSittingAnimationState.startIfNotRunning(this.age);
-        } else if(this.startSittingAnimationState.isRunning()) {
-            this.startSittingAnimationState.stop();
-            this.stopSittingAnimationState.start(this.age);
-        }
-
         if(!idleAnimationState.isRunning()) {
             this.idleAnimationState.start(this.age);
         }
@@ -381,11 +335,7 @@ public class GreatHornEntity extends AbstractBeastEntity {
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        if(!this.isSitting()) {
-            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.5f);
-        }
-
-        return super.getSaddledSpeed(controllingPlayer);
+        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.5f);
     }
 
     @Override
