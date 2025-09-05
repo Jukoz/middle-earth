@@ -47,7 +47,7 @@ public class ModEntities {
     // Mounts
     public static final EntityType<WargEntity> WARG = register("warg", EntityType.Builder.create(WargEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 1.4f));
     public static final EntityType<BroadhoofGoatEntity> BROADHOOF_GOAT = register("broadhoof_goat", EntityType.Builder.create(BroadhoofGoatEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 1.4f));
-    public static final EntityType<GreatHornEntity> GREAT_HORN = register("great_horn", EntityType.Builder.create(GreatHornEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 1.75f));
+    public static final EntityType<GreatHornEntity> GREAT_HORN = register("great_horn", EntityType.Builder.create(GreatHornEntity::new, SpawnGroup.CREATURE).dimensions(1.3f, 1.8f));
 
     // Spiders
     public static final EntityType<ShelobiteLarvaEntity> SHELOBITE_LARVA = register("shelobite_larva", EntityType.Builder.create(ShelobiteLarvaEntity::new, SpawnGroup.CREATURE).dimensions(0.4f, 0.3f));

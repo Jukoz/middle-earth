@@ -1,6 +1,8 @@
 package net.sevenstars.middleearth.entity.beasts.great_horn;
 
+import net.minecraft.block.BlockKeys;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
@@ -18,6 +20,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
@@ -73,12 +76,12 @@ public class GreatHornEntity extends AbstractBeastEntity {
         return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.3)
                 .add(EntityAttributes.MAX_HEALTH, 50.0d)
-                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.4d)
+                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.3d)
                 .add(EntityAttributes.ATTACK_SPEED, 1.0d)
                 .add(EntityAttributes.FOLLOW_RANGE, 38.0d)
                 .add(EntityAttributes.ATTACK_DAMAGE, 4.0d)
                 .add(EntityAttributes.STEP_HEIGHT, 1.15d)
-                .add(EntityAttributes.SAFE_FALL_DISTANCE, 10.0d);
+                .add(EntityAttributes.SAFE_FALL_DISTANCE, 7.0d);
     }
 
     @Override
@@ -344,6 +347,12 @@ public class GreatHornEntity extends AbstractBeastEntity {
         if(this.isSitting()) {
             this.getNavigation().stop();
         }
+    }
+
+    public void slowMovement(BlockState state, Vec3d multiplier) {
+        float pow = 0.1f;
+        Vec3d lessPenalty = new Vec3d(Math.pow(multiplier.x, pow), Math.pow(multiplier.y, pow), Math.pow(multiplier.z, pow));
+        super.slowMovement(state, lessPenalty);
     }
 
     protected void setupAnimationStates() {
