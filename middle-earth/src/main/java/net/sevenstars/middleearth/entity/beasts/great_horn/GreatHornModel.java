@@ -147,6 +147,12 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
         headStall.hidden = showSaddle;
         reins.hidden = showSaddle;
 
+        if(!state.hasRider) {
+            reins.pitch = -12.5f * 0.017453292F;
+        } else {
+            reins.pitch = 0f;
+        }
+
         if(state.baby) {
             leftAntler.visible = false;
             rightAntler.visible = false;
