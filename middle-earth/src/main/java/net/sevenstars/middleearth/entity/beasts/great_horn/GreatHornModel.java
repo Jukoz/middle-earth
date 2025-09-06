@@ -23,13 +23,15 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
     private final ModelPart rightAntler;
     private final ModelPart leftAntler;
     private final ModelPart beard;
-    private final ModelPart saddleRopes;
+    private final ModelPart headStall;
+    private final ModelPart reins;
     private final ModelPart backBody;
     private final ModelPart tail;
     private final ModelPart backLeftLeg;
     private final ModelPart backRightLeg;
 
     private final Animation idleAnimation;
+    private final Animation earWiggleAnimation;
     private final Animation walkingAnimation;
     private final Animation gallopAnimation;
 
@@ -48,13 +50,15 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
         this.rightAntler = this.topHead.getChild("right_antler");
         this.leftAntler = this.topHead.getChild("left_antler");
         this.beard = this.topHead.getChild("beard");
-        this.saddleRopes = this.topHead.getChild("saddle_ropes");
+        this.headStall = this.topHead.getChild("head_stall");
+        this.reins = this.topHead.getChild("reins");
         this.backBody = this.frontHalf.getChild("back_body");
         this.tail = this.backBody.getChild("tail");
         this.backLeftLeg = this.root.getChild("backLeftLeg");
         this.backRightLeg = this.root.getChild("backRightLeg");
 
         this.idleAnimation = GreatHornAnimations.IDLE.createAnimation(root);
+        this.earWiggleAnimation = GreatHornAnimations.EAR_WIGGLE.createAnimation(root);
         this.walkingAnimation = GreatHornAnimations.WALK.createAnimation(root);
         this.gallopAnimation = GreatHornAnimations.GALLOP.createAnimation(root);
     }
@@ -105,11 +109,12 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
 
         ModelPartData beard = top_head.addChild("beard", ModelPartBuilder.create().uv(69, 3).cuboid(0.0F, -1.0F, -6.0F, 0.0F, 18.0F, 7.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.5F, -5.0F));
 
-        ModelPartData saddle_ropes = top_head.addChild("saddle_ropes", ModelPartBuilder.create().uv(86, 99).cuboid(3.8F, -9.5F, -7.0F, 0.0F, 7.0F, 21.0F, new Dilation(0.0F))
-                .uv(86, 91).cuboid(-3.8F, -9.5F, -7.0F, 0.0F, 7.0F, 21.0F, new Dilation(0.0F))
-                .uv(52, 26).cuboid(-2.5F, -11.5F, -11.0F, 5.0F, 4.0F, 5.0F, new Dilation(0.2F))
+        ModelPartData head_stall = top_head.addChild("head_stall", ModelPartBuilder.create().uv(52, 26).cuboid(-2.5F, -11.5F, -11.0F, 5.0F, 4.0F, 5.0F, new Dilation(0.2F))
                 .uv(51, 35).cuboid(-3.5F, -14.5F, -6.0F, 7.0F, 7.0F, 9.0F, new Dilation(0.2F))
                 .uv(53, 53).cuboid(-3.5F, -7.5F, -4.0F, 7.0F, 18.0F, 7.0F, new Dilation(0.2F)), ModelTransform.origin(0.0F, 7.5F, 0.0F));
+
+        ModelPartData reins = top_head.addChild("reins", ModelPartBuilder.create().uv(86, 99).cuboid(3.8F, -1.0F, -1.0F, 0.0F, 7.0F, 21.0F, new Dilation(0.0F))
+                .uv(86, 91).cuboid(-3.8F, -1.0F, -1.0F, 0.0F, 7.0F, 21.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -1.0F, -6.0F));
 
         ModelPartData back_body = front_half.addChild("back_body", ModelPartBuilder.create().uv(0, 44).cuboid(-5.5F, -4.5F, -4.0F, 11.0F, 13.0F, 14.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 13.0F));
 
@@ -130,18 +135,22 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
         super.setAngles(state);
 
         this.idleAnimation.apply(state.idleAnimationState, state.age);
+        this.earWiggleAnimation.apply(state.earWiggleAnimationState, state.age);
         if(state.gallopAnimationState.isRunning()) {
             this.gallopAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
         } else {
             this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.2F, 2.5F);
         }
 
+        boolean showSaddle = !state.saddle;
+        saddle.hidden = showSaddle;
+        headStall.hidden = showSaddle;
+        reins.hidden = showSaddle;
+
         if(state.baby) {
             leftAntler.visible = false;
             rightAntler.visible = false;
             beard.hidden = true;
-            saddleRopes.visible = false;
-            saddle.hidden = true;
         }
     }
 }

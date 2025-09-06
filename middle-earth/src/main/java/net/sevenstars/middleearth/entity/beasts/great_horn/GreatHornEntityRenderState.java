@@ -10,13 +10,14 @@ import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatVariant;
 
 @Environment(EnvType.CLIENT)
 public class GreatHornEntityRenderState extends LivingEntityRenderState {
-    public ItemStack saddle;
+    public boolean saddle;
 
     public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState earWiggleAnimationState = new AnimationState();
     public final AnimationState gallopAnimationState = new AnimationState();
 
     public GreatHornEntityRenderState() {
-        saddle = ItemStack.EMPTY;
+        saddle = false;
     }
 
 

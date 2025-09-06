@@ -58,11 +58,13 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> MOUNTABLE = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> EVADING = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public final AnimationState earWigglingAnimationState = new AnimationState();
     public final AnimationState gallopAnimationState = new AnimationState();
     private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.GREAT_HORN.getDimensions().scaled(0.5f);
 
     public GreatHornEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
+        idleAnimationTimeout = 200;
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
@@ -330,6 +332,13 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     protected void setupAnimationStates() {
         if(!idleAnimationState.isRunning()) {
             this.idleAnimationState.start(this.age);
+        }
+
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+            this.earWigglingAnimationState.start(this.age);
+        } else {
+            --this.idleAnimationTimeout;
         }
 
         if(hasControllingPassenger()) {
