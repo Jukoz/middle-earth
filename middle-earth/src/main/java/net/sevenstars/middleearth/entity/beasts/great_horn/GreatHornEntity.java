@@ -38,8 +38,9 @@ import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatHorns;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatVariant;
-import net.sevenstars.middleearth.entity.goals.BeastRevengeGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
+import net.sevenstars.middleearth.entity.goals.SmartFleeEntityGoal;
+import net.sevenstars.middleearth.entity.goals.interfaces.Evader;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
@@ -49,16 +50,16 @@ import java.util.List;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 
-public class GreatHornEntity extends AbstractBeastEntity {
+public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     private static final float MIN_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.getChildMovementSpeedBonus(() -> 0.0);
     private static final float MAX_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.getChildMovementSpeedBonus(() -> 1.0);
     private static final float MIN_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> 0);
     private static final float MAX_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> max - 1);
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> MOUNTABLE = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> EVADING = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState gallopAnimationState = new AnimationState();
     private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.GREAT_HORN.getDimensions().scaled(0.5f);
-
 
     public GreatHornEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
@@ -87,7 +88,11 @@ public class GreatHornEntity extends AbstractBeastEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25f));
+        //this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25f));
+        //this.goalSelector.add(2, new FleeEntityGoal<>(this, PlayerEntity.class, 24, 1.0f, 1.25f));
+        this.goalSelector.add(2, new SmartFleeEntityGoal<>(this, (Evader) this, PlayerEntity.class, 16.0F, 1.5, 1.7, (entity) -> {
+            return !this.canTrust((PlayerEntity)entity);
+        }));
         this.goalSelector.add(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 1.0, (stack) -> stack.isIn(ItemTags.GOAT_FOOD), false));
@@ -102,6 +107,7 @@ public class GreatHornEntity extends AbstractBeastEntity {
         super.initDataTracker(builder);
         builder.add(VARIANT, 0);
         builder.add(MOUNTABLE, true);
+        builder.add(EVADING, false);
     }
 
     @Override
@@ -310,6 +316,11 @@ public class GreatHornEntity extends AbstractBeastEntity {
         return 16;
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+    }
+
     public void slowMovement(BlockState state, Vec3d multiplier) {
         float pow = 0.1f;
         Vec3d lessPenalty = new Vec3d(Math.pow(multiplier.x, pow), Math.pow(multiplier.y, pow), Math.pow(multiplier.z, pow));
@@ -321,11 +332,27 @@ public class GreatHornEntity extends AbstractBeastEntity {
             this.idleAnimationState.start(this.age);
         }
 
-        if((hasControllingPassenger() && getControllingPassenger().isSprinting())) {
+        if(hasControllingPassenger()) {
+            if((getControllingPassenger().isSprinting())) {
+                this.gallopAnimationState.startIfNotRunning(this.age);
+            } else {
+                this.gallopAnimationState.stop();
+            }
+        } else if(this.dataTracker.get(EVADING)) {
             this.gallopAnimationState.startIfNotRunning(this.age);
         } else {
             this.gallopAnimationState.stop();
         }
+    }
+
+    @Override
+    public void startFlee() {
+        this.dataTracker.set(EVADING, true);
+    }
+
+    @Override
+    public void stopFlee() {
+        this.dataTracker.set(EVADING, false);
     }
 
     @Override
@@ -341,6 +368,11 @@ public class GreatHornEntity extends AbstractBeastEntity {
     @Override
     public boolean canSprintAsVehicle() {
         return true;
+    }
+
+    public boolean canTrust(PlayerEntity playerEntity) {
+        RaceType playerRace = RaceUtil.getRaceType(playerEntity);
+        return (playerRace != null && playerRace != RaceType.NONE) && (this.getCompatibleRaces() != null && this.getCompatibleRaces().contains(playerRace));
     }
 
     @Override
