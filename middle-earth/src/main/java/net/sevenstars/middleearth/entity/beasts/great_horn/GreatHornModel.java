@@ -34,6 +34,7 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
     private final Animation earWiggleAnimation;
     private final Animation walkingAnimation;
     private final Animation gallopAnimation;
+    private final Animation bowAnimation;
 
     public GreatHornModel(ModelPart root) {
         super(root);
@@ -61,6 +62,7 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
         this.earWiggleAnimation = GreatHornAnimations.EAR_WIGGLE.createAnimation(root);
         this.walkingAnimation = GreatHornAnimations.WALK.createAnimation(root);
         this.gallopAnimation = GreatHornAnimations.GALLOP.createAnimation(root);
+        this.bowAnimation = GreatHornAnimations.BOW.createAnimation(root);
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -136,10 +138,15 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
 
         this.idleAnimation.apply(state.idleAnimationState, state.age);
         this.earWiggleAnimation.apply(state.earWiggleAnimationState, state.age);
-        if(state.gallopAnimationState.isRunning()) {
-            this.gallopAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
+
+        if(state.bowAnimationState.isRunning()) {
+            this.bowAnimation.apply(state.bowAnimationState, state.age);
         } else {
-            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.2F, 2.5F);
+            if(state.gallopAnimationState.isRunning()) {
+                this.gallopAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
+            } else {
+                this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.2F, 2.5F);
+            }
         }
 
         boolean showSaddle = !state.saddle;

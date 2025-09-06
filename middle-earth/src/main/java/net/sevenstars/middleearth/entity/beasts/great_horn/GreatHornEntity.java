@@ -56,11 +56,14 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     private static final float MIN_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> 0);
     private static final float MAX_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> max - 1);
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> BOW = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> MOUNTABLE = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> EVADING = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState earWigglingAnimationState = new AnimationState();
     public final AnimationState gallopAnimationState = new AnimationState();
+    public final AnimationState bowAnimationState = new AnimationState();
     private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.GREAT_HORN.getDimensions().scaled(0.5f);
+    protected int bowAnimationTimeout = 0;
 
     public GreatHornEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
@@ -108,6 +111,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(VARIANT, 0);
+        builder.add(BOW, 0);
         builder.add(MOUNTABLE, true);
         builder.add(EVADING, false);
     }
@@ -321,6 +325,12 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     public void tick() {
         super.tick();
+        if(bowAnimationTimeout > 0) {
+            bowAnimationTimeout = Math.max(bowAnimationTimeout - 1, 0);
+            if(bowAnimationTimeout == 0) {
+                dataTracker.set(BOW, -1);
+            }
+        }
     }
 
     public void slowMovement(BlockState state, Vec3d multiplier) {
@@ -330,15 +340,22 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     }
 
     protected void setupAnimationStates() {
-        if(!idleAnimationState.isRunning()) {
-            this.idleAnimationState.start(this.age);
-        }
+        this.idleAnimationState.startIfNotRunning(this.age);
 
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(40) + 80;
             this.earWigglingAnimationState.start(this.age);
         } else {
             --this.idleAnimationTimeout;
+        }
+
+        int bowState = dataTracker.get(BOW);
+        if(bowState == 1) {
+            this.bowAnimationState.startIfNotRunning(this.age);
+            dataTracker.set(BOW, 0);
+        } else if(bowState == -1) {
+            this.bowAnimationState.stop();
+            dataTracker.set(BOW, 0);
         }
 
         if(hasControllingPassenger()) {
@@ -387,6 +404,13 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     public boolean isBondingItem(ItemStack itemStack) {
         return itemStack.isIn(ItemTags.GOAT_FOOD);
+    }
+
+    @Override
+    public void setTame(boolean tame) {
+        super.setTame(tame);
+        this.dataTracker.set(BOW, 1);
+        bowAnimationTimeout = 80;
     }
 
     /* VARIANTS */

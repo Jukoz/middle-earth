@@ -16,6 +16,7 @@ public class GreatHornEntityRenderState extends LivingEntityRenderState {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState earWiggleAnimationState = new AnimationState();
     public final AnimationState gallopAnimationState = new AnimationState();
+    public final AnimationState bowAnimationState = new AnimationState();
 
     public GreatHornEntityRenderState() {
         saddle = false;

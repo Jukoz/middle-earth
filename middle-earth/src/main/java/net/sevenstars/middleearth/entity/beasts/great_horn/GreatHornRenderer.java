@@ -36,6 +36,7 @@ public class GreatHornRenderer extends AgeableMobEntityRenderer<GreatHornEntity,
         state.idleAnimationState.copyFrom(greatHornEntity.idleAnimationState);
         state.earWiggleAnimationState.copyFrom(greatHornEntity.earWigglingAnimationState);
         state.gallopAnimationState.copyFrom(greatHornEntity.gallopAnimationState);
+        state.bowAnimationState.copyFrom(greatHornEntity.bowAnimationState);
         state.saddle = greatHornEntity.hasSaddleEquipped();
         state.hasRider = greatHornEntity.hasPlayerRider();
     }
