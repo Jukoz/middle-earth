@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
@@ -42,6 +43,7 @@ import net.sevenstars.middleearth.entity.goals.BowAtEntityGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.entity.goals.SmartFleeEntityGoal;
 import net.sevenstars.middleearth.entity.goals.interfaces.Evader;
+import net.sevenstars.middleearth.recipe.ModTags;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
@@ -95,15 +97,15 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BowAtEntityGoal(this, PlayerEntity.class, 16, (livingEntity -> {
-            return this.isOwner((PlayerEntity) livingEntity);
+            return this.shouldBow((PlayerEntity) livingEntity);
         }) ));
         this.goalSelector.add(3, new SmartFleeEntityGoal<>(this, (Evader) this,
-                PlayerEntity.class, 16.0F, 1.5, 1.7, (entity) -> {
+                PlayerEntity.class, 20.0F, 1.6, 1.9, (entity) -> {
             return !this.canTrust((PlayerEntity)entity);
         }));
         this.goalSelector.add(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
-        this.goalSelector.add(6, new TemptGoal(this, 1.0, (stack) -> stack.isIn(ItemTags.GOAT_FOOD), false));
+        this.goalSelector.add(6, new TemptGoal(this, 1.0, (stack) -> stack.isIn(ModTags.ELK_FOOD), false));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
@@ -238,7 +240,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(ItemTags.GOAT_FOOD);
+        return stack.isIn(ModTags.ELK_FOOD);
     }
 
     @Override
@@ -390,7 +392,15 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.5f);
+        float speed = ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED));
+        if(this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_FOREST)) {
+            speed *= 1.1f;
+        }
+        if (controllingPlayer.isSprinting()) {
+            return speed;
+        } else {
+            return speed * 0.5f;
+        }
     }
 
     @Override
@@ -414,7 +424,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
 
     @Override
     public boolean isBondingItem(ItemStack itemStack) {
-        return itemStack.isIn(ItemTags.GOAT_FOOD);
+        return itemStack.isIn(ModTags.ELK_FOOD);
     }
 
     @Override

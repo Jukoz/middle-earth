@@ -7,6 +7,8 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public class ModTags {
+    public static TagKey<Item> ELK_FOOD = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "elk_food"));
+
     public static TagKey<Item> REPAIRS_STRAW_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_straw_armor"));
     public static TagKey<Item> REPAIRS_WOOL_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_wool_armor"));
     public static TagKey<Item> REPAIRS_FUR_ARMOR = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "repairs_fur_armor"));
@@ -26,4 +28,5 @@ public class ModTags {
     public static TagKey<Item> EDHEL_STEEL_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "edhel_steel_tool_materials"));
     public static TagKey<Item> BURZUM_STEEL_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "burzum_steel_tool_materials"));
     public static TagKey<Item> MITHRIL_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mithril_tool_materials"));
+
 }

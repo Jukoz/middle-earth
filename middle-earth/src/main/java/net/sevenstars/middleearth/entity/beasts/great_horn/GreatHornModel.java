@@ -145,7 +145,7 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
             if(state.gallopAnimationState.isRunning()) {
                 this.gallopAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
             } else {
-                this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.2F, 2.5F);
+                this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.75F, 2.5F);
             }
         }
 
