@@ -40,6 +40,7 @@ import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
@@ -280,15 +281,21 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     private void generateNpcDataBasedOnBiome(World world, NpcEntityData entityData, boolean forceApply){
-        NpcData foundNpcData = foundNpcData = BiomeEventDataLookup.findNpcDataForBiome(world, world.getBiome(getBlockPos()));
-        setNpcData(foundNpcData);
+        BiomeEventData.FoundNpcReturn foundSpawnData = BiomeEventDataLookup.findNpcDataForBiome(world, world.getBiome(getBlockPos()), this);
+        setNpcData(foundSpawnData.npcData());
         if(entityData == null){
-            entityData = new NpcEntityData(foundNpcData.getFaction(), foundNpcData.getId(), foundNpcData.getRandomCategory());
+            entityData = new NpcEntityData(foundSpawnData.npcData().getFaction(), foundSpawnData.npcData().getId(), foundSpawnData.npcData().getRandomCategory());
             setNpcData(((NpcEntityData)entityData).npcDataId);
             setFactionId(((NpcEntityData)entityData).factionId);
             setNpcCategory(((NpcEntityData)entityData).category);
             if(forceApply)
                 forceApply(true);
+        }
+        if(foundSpawnData.mountEntity() != null){
+            var mount = foundSpawnData.mountEntity().create(world, SpawnReason.CHUNK_GENERATION);
+            mount.setPos(getBlockX(), getBlockY(), getBlockZ());
+            world.spawnEntity(mount);
+            this.startRiding(mount);
         }
     }
 

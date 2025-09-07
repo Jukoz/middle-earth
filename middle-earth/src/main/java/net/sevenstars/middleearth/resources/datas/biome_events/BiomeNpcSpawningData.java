@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.resources.datas.biome_events;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 
@@ -10,13 +11,14 @@ import java.util.Optional;
 public class BiomeNpcSpawningData {
     public static final Codec<BiomeNpcSpawningData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("npc_data_id").forGetter(BiomeNpcSpawningData::getNpcDataIdentifier),
-            Codec.INT.optionalFieldOf("weight").forGetter(BiomeNpcSpawningData::getWeight),
+            Codec.INT.optionalFieldOf("weight").forGetter(BiomeNpcSpawningData::getOptionalWeight),
             Codec.INT.optionalFieldOf("light_level_max").forGetter(BiomeNpcSpawningData::getLightLevelMax),
             Codec.INT.optionalFieldOf("light_level_min").forGetter(BiomeNpcSpawningData::getLightLevelMin),
             Codec.INT.optionalFieldOf("world_height_max").forGetter(BiomeNpcSpawningData::getWorldHeightMax),
             Codec.INT.optionalFieldOf("world_height_min").forGetter(BiomeNpcSpawningData::getWorldHeightMin),
             Codec.BOOL.optionalFieldOf("require_sky_access").forGetter(BiomeNpcSpawningData::getRequireSkyAccess),
-            Codec.BOOL.optionalFieldOf("require_underground").forGetter(BiomeNpcSpawningData::getRequireUndeground)
+            Codec.BOOL.optionalFieldOf("require_underground").forGetter(BiomeNpcSpawningData::getRequireUndeground),
+            Identifier.CODEC.optionalFieldOf("mount_id").forGetter(BiomeNpcSpawningData::getMount)
     ).apply(instance, BiomeNpcSpawningData::new));
 
     private Identifier npcDataIdentifier;
@@ -27,11 +29,13 @@ public class BiomeNpcSpawningData {
     private Optional<Integer> worldHeightMin;
     private Optional<Boolean> requireSkyAccess;
     private Optional<Boolean> requireUndeground;
+    private Optional<Identifier> mount;
 
     private BiomeNpcSpawningData(Identifier npcDataIdentifier, Optional<Integer> weight,
                                  Optional<Integer> lightLevelMax, Optional<Integer> lightLevelMin,
                                  Optional<Integer> worldHeightMax, Optional<Integer> worldHeightMin,
-                                 Optional<Boolean> requireSkyAccess, Optional<Boolean> requireUndeground){
+                                 Optional<Boolean> requireSkyAccess, Optional<Boolean> requireUndeground,
+                                 Optional<Identifier> mount){
         this.npcDataIdentifier = npcDataIdentifier;
         this.weight = weight;
         this.lightLevelMax = lightLevelMax;
@@ -40,6 +44,7 @@ public class BiomeNpcSpawningData {
         this.worldHeightMin = worldHeightMin;
         this.requireSkyAccess = requireSkyAccess;
         this.requireUndeground = requireUndeground;
+        this.mount = mount;
     }
 
     public BiomeNpcSpawningData(NpcData npcData){
@@ -51,6 +56,7 @@ public class BiomeNpcSpawningData {
         this.worldHeightMin = Optional.empty();
         this.requireSkyAccess = Optional.empty();
         this.requireUndeground = Optional.empty();
+        this.mount = Optional.empty();
     }
 
     public BiomeNpcSpawningData withWeight(int weight){
@@ -88,8 +94,17 @@ public class BiomeNpcSpawningData {
         return this;
     }
 
-    private Optional<Integer> getWeight(){
+    public BiomeNpcSpawningData withMount(EntityType mount){
+        this.mount = Optional.of(EntityType.getId(mount));
+        return this;
+    }
+
+    private Optional<Integer> getOptionalWeight(){
         return weight;
+    }
+
+    public int getWeight(){
+        return weight.isPresent() ? weight.get() : 1;
     }
 
     private Optional<Integer> getLightLevelMax(){
@@ -119,4 +134,8 @@ public class BiomeNpcSpawningData {
     private Optional<Boolean> getRequireUndeground(){
         return requireUndeground;
     }
+    public Optional<Identifier> getMount(){
+        return mount;
+    }
+
 }

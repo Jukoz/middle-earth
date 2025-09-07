@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.resources;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
+import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -43,11 +44,11 @@ public class BiomeEventsME {
     public static void bootstrap(Registerable<BiomeEventData> context) {
         RegistryEntryLookup<BiomeEventData> registryEntryLookup = context.getRegistryLookup(KEY);
         register(context, registryEntryLookup, DEFAULT, new BiomeEventData(List.of(
-                new BiomeNpcSpawningData(BrigandNpcDataPool.WILD_GOBLIN_GATHERER)
+                new BiomeNpcSpawningData(BrigandNpcDataPool.WILD_GOBLIN_WARRIOR)
                         .withLightLevelMax(3)
                         .withWorldHeightMax(63)
                         .withUndegroundRequired(),
-                new BiomeNpcSpawningData(BrigandNpcDataPool.BRIGAND_THIEF)
+                new BiomeNpcSpawningData(BrigandNpcDataPool.BRIGAND_CHIEFTAIN)
                         .withWeight(3)
                         .withSkylightRequired(),
                 new BiomeNpcSpawningData(BrigandNpcDataPool.BRIGAND_MERCENARY)
@@ -55,10 +56,15 @@ public class BiomeEventsME {
         )));
         register(context, registryEntryLookup, ANORIEN, new BiomeEventData(List.of(
                 new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_SOLDIER).withWeight(2),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_MILITIA),
                 new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_MILITIA)
         )));
         register(context, registryEntryLookup, PELENNOR_FIELDS, new BiomeEventData(List.of(
                 new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD).withMount(EntityType.HORSE),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_CITADEL_GUARD).withMount(EntityType.PIG),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_CITADEL_GUARD).withMount(EntityType.DONKEY),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD).withMount(EntityType.CHICKEN),
                 new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_KNIGHT).withWeight(3),
                 new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_SOLDIER).withWeight(8)
         )));
