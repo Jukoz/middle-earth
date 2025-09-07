@@ -190,12 +190,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             npcDataCache = dynamicRegistryManager.getOrThrow(NpcME.KEY).get(npcDataId);
 
             if(npcDataCache == null){
-                Identifier npcId = getNpcDataId();
-
-                NpcData foundNpcData = BiomeEventDataLookup.findNpcDataForBiome(world, world.getBiome(getBlockPos()));
-                setNpcData(foundNpcData);
-                setFactionId(foundNpcData.getFaction());
-                setNpcCategory(foundNpcData.getRandomCategory());
+                generateNpcDataBasedOnBiome(world, new NpcEntityData(), false);
             }
         }
 
@@ -267,36 +262,14 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     @Override
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        NpcData foundNpcData = null;
+        if(entityData == null)
+            entityData = new NpcEntityData();
         switch (spawnReason){
-            case SpawnReason.CHUNK_GENERATION:
-                // Fetch data from NpcWildSpawning (wild)
-                foundNpcData = BiomeEventDataLookup.findNpcDataForBiome((World)world.toServerWorld(), world.getBiome(getBlockPos()));
-                setNpcData(foundNpcData);
-                if(entityData == null){
-                    entityData = new NpcEntityData(foundNpcData.getFaction(), foundNpcData.getId(), foundNpcData.getRandomCategory());
-                    setNpcData(((NpcEntityData)entityData).npcDataId);
-                    setFactionId(((NpcEntityData)entityData).factionId);
-                    setNpcCategory(((NpcEntityData)entityData).category);
-                }
-                break;
-            case SpawnReason.COMMAND:
-                // Fetch data from NpcWildSpawning (wild)
-                foundNpcData = BiomeEventDataLookup.findNpcDataForBiome((World)world.toServerWorld(), world.getBiome(getBlockPos()));
-                setNpcData(foundNpcData);
-                if(entityData == null){
-                    entityData = new NpcEntityData(foundNpcData.getFaction(), foundNpcData.getId(), foundNpcData.getRandomCategory());
-                    setNpcData(((NpcEntityData)entityData).npcDataId);
-                    setFactionId(((NpcEntityData)entityData).factionId);
-                    setNpcCategory(((NpcEntityData)entityData).category);
-                    forceApply(true);
-                }
+            case SpawnReason.CHUNK_GENERATION, SpawnReason.COMMAND:
+                generateNpcDataBasedOnBiome((World)world.toServerWorld(), (NpcEntityData) entityData, true);
                 break;
             case SpawnReason.PATROL:
                 // Fetch data from NpcWildSpawning (patrol)
-                break;
-            case SpawnReason.STRUCTURE:
-                // Continue with entity data
                 break;
             default:
                 break;
@@ -304,6 +277,19 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
         entityData = super.initialize(world, difficulty, spawnReason, entityData);
         return entityData;
+    }
+
+    private void generateNpcDataBasedOnBiome(World world, NpcEntityData entityData, boolean forceApply){
+        NpcData foundNpcData = foundNpcData = BiomeEventDataLookup.findNpcDataForBiome(world, world.getBiome(getBlockPos()));
+        setNpcData(foundNpcData);
+        if(entityData == null){
+            entityData = new NpcEntityData(foundNpcData.getFaction(), foundNpcData.getId(), foundNpcData.getRandomCategory());
+            setNpcData(((NpcEntityData)entityData).npcDataId);
+            setFactionId(((NpcEntityData)entityData).factionId);
+            setNpcCategory(((NpcEntityData)entityData).category);
+            if(forceApply)
+                forceApply(true);
+        }
     }
 
     @Override

@@ -8,26 +8,28 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
+import net.sevenstars.middleearth.resources.datas.biome_events.BiomeNpcSpawningData;
+import net.sevenstars.middleearth.resources.datas.npcs.pools.BrigandNpcDataPool;
 import net.sevenstars.middleearth.resources.datas.npcs.pools.GondorianNpcDataPool;
-import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * Middle-earth mod npc wild spawn condition registry<br>
- * To fetch a race during runtime, use : {@link BiomeEventDataLookup#findNpcDataForBiome(World, Biome)}<br>
+ * To fetch a race during runtime, use : {@link BiomeEventDataLookup#findNpcDataForBiome(World, RegistryEntry)}<br>
  * <b><u>Datadriven content, do not use during runtime!</u></b>
  * <hr>
  */
 public class BiomeEventsME {
     public static final RegistryKey<Registry<BiomeEventData>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, "biome_events"));
 
-    public final static RegistryKey<BiomeEventData> ANORIEN = of("anorien_events");
-    public final static RegistryKey<BiomeEventData> PELENNOR_FIELDS = of("pelennor_fields_events");
+    public final static RegistryKey<BiomeEventData> DEFAULT = of("default");
+    public final static RegistryKey<BiomeEventData> ANORIEN = of("anorien");
+    public final static RegistryKey<BiomeEventData> PELENNOR_FIELDS = of("pelennor_fields");
 
     private static RegistryKey<BiomeEventData> of(String name) {
         return RegistryKey.of(KEY, Identifier.of(MiddleEarth.MOD_ID, name));
@@ -40,8 +42,26 @@ public class BiomeEventsME {
 
     public static void bootstrap(Registerable<BiomeEventData> context) {
         RegistryEntryLookup<BiomeEventData> registryEntryLookup = context.getRegistryLookup(KEY);
-        register(context, registryEntryLookup, ANORIEN, new BiomeEventData(MEBiomeKeys.ANORIEN, GondorianNpcDataPool.GONDOR_SOLDIER));
-        register(context, registryEntryLookup, PELENNOR_FIELDS, new BiomeEventData(MEBiomeKeys.PELENNOR_FIELDS, GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD));
+        register(context, registryEntryLookup, DEFAULT, new BiomeEventData(List.of(
+                new BiomeNpcSpawningData(BrigandNpcDataPool.WILD_GOBLIN_GATHERER)
+                        .withLightLevelMax(3)
+                        .withWorldHeightMax(63)
+                        .withUndegroundRequired(),
+                new BiomeNpcSpawningData(BrigandNpcDataPool.BRIGAND_THIEF)
+                        .withWeight(3)
+                        .withSkylightRequired(),
+                new BiomeNpcSpawningData(BrigandNpcDataPool.BRIGAND_MERCENARY)
+                        .withSkylightRequired()
+        )));
+        register(context, registryEntryLookup, ANORIEN, new BiomeEventData(List.of(
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_SOLDIER).withWeight(2),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_MILITIA)
+        )));
+        register(context, registryEntryLookup, PELENNOR_FIELDS, new BiomeEventData(List.of(
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_KNIGHT).withWeight(3),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_SOLDIER).withWeight(8)
+        )));
     }
 
     private static BiomeEventData register(Registerable<BiomeEventData> context, RegistryEntryLookup<BiomeEventData> registryEntryLookup, RegistryKey<BiomeEventData> key, BiomeEventData biomeEventData) {
