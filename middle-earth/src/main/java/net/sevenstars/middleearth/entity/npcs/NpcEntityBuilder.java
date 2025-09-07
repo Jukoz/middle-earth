@@ -29,7 +29,7 @@ public class NpcEntityBuilder {
     }
 
     public NpcEntity forceBuild() {
-        this.entity.forceApply();
+        this.entity.forceApply(false);
         return this.entity;
     }
 }

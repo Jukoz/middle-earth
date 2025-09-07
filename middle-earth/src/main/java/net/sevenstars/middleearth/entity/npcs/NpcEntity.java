@@ -34,6 +34,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.npcs.data.NpcEntityData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.NpcME;
@@ -41,6 +42,7 @@ import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
+import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
@@ -112,7 +114,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     private void readEntityData(ReadView view) {
-
         view.read("StructureManagerHostPos", BlockPos.CODEC)
             .ifPresent(this::setStructureManagerHost);
         view.read("NpcDataId", Identifier.CODEC)
@@ -177,14 +178,28 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         World world = getWorld();
         if(world.isClient)
             return;
-        forceApply();
+        forceApply(false);
     }
 
-    public void forceApply() {
+    public void forceApply(boolean forceTextureAndGearSwap) {
         World world = getWorld();
         DynamicRegistryManager dynamicRegistryManager = world.getRegistryManager();
 
-        if(this.npcDataCache == null ){
+        if(getNpcDataId() != null){
+            Identifier npcDataId = getNpcDataId();
+            npcDataCache = dynamicRegistryManager.getOrThrow(NpcME.KEY).get(npcDataId);
+
+            if(npcDataCache == null){
+                Identifier npcId = getNpcDataId();
+
+                NpcData foundNpcData = BiomeEventDataLookup.findNpcDataForBiome(world, world.getBiome(getBlockPos()));
+                setNpcData(foundNpcData);
+                setFactionId(foundNpcData.getFaction());
+                setNpcCategory(foundNpcData.getRandomCategory());
+            }
+        }
+
+        if(this.npcDataCache == null){
             Set<Identifier> identifierSet = dynamicRegistryManager.getOrThrow(NpcME.KEY).getIds();
             Identifier currentNpcData = getNpcDataId();
             npcDataCache = dynamicRegistryManager.getOrThrow(NpcME.KEY).get(currentNpcData);
@@ -201,7 +216,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
         npcDataCache.applyAttributes(this);
 
-        if(this.getNpcTextureData().getBodyTexture() == null){
+        if(this.getNpcTextureData().getBodyTexture() == null || forceTextureAndGearSwap){
             // set textures
             createNpcEntityTextureData(npcDataCache.getNpcTextureData());
             // set gear
@@ -211,6 +226,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     private void createNpcEntityTextureData(NpcTextureData npcTextureData) {
         NpcTextureData.Identity identity = NpcTextureData.Identity.create(npcTextureData, getNpcCategory());
+        if(identity == null)
+            identity = NpcTextureData.Identity.create(npcTextureData);
+
         NpcEntityTextureData entityTextureData = new NpcEntityTextureData();
         entityTextureData = NpcEntityHelper.generateSkinTextureData(entityTextureData, identity);
         entityTextureData = NpcEntityHelper.generateEyeTextureData(entityTextureData, identity, npcDataCache.getNpcTextureData().haveEmissiveEyes(identity)); // Make it not hardcoded
@@ -249,6 +267,41 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     @Override
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        NpcData foundNpcData = null;
+        switch (spawnReason){
+            case SpawnReason.CHUNK_GENERATION:
+                // Fetch data from NpcWildSpawning (wild)
+                foundNpcData = BiomeEventDataLookup.findNpcDataForBiome((World)world.toServerWorld(), world.getBiome(getBlockPos()));
+                setNpcData(foundNpcData);
+                if(entityData == null){
+                    entityData = new NpcEntityData(foundNpcData.getFaction(), foundNpcData.getId(), foundNpcData.getRandomCategory());
+                    setNpcData(((NpcEntityData)entityData).npcDataId);
+                    setFactionId(((NpcEntityData)entityData).factionId);
+                    setNpcCategory(((NpcEntityData)entityData).category);
+                }
+                break;
+            case SpawnReason.COMMAND:
+                // Fetch data from NpcWildSpawning (wild)
+                foundNpcData = BiomeEventDataLookup.findNpcDataForBiome((World)world.toServerWorld(), world.getBiome(getBlockPos()));
+                setNpcData(foundNpcData);
+                if(entityData == null){
+                    entityData = new NpcEntityData(foundNpcData.getFaction(), foundNpcData.getId(), foundNpcData.getRandomCategory());
+                    setNpcData(((NpcEntityData)entityData).npcDataId);
+                    setFactionId(((NpcEntityData)entityData).factionId);
+                    setNpcCategory(((NpcEntityData)entityData).category);
+                    forceApply(true);
+                }
+                break;
+            case SpawnReason.PATROL:
+                // Fetch data from NpcWildSpawning (patrol)
+                break;
+            case SpawnReason.STRUCTURE:
+                // Continue with entity data
+                break;
+            default:
+                break;
+        }
+
         entityData = super.initialize(world, difficulty, spawnReason, entityData);
         return entityData;
     }

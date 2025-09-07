@@ -10,10 +10,9 @@ import net.sevenstars.middleearth.datageneration.providers.models.ItemModelProvi
 import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableArmorRecipeProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableHandheldRecipeProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.RecipeProvider;
-import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.datageneration.providers.tags.BlockTagProvider;
 import net.sevenstars.middleearth.datageneration.providers.tags.ItemTagProvider;
+import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
 import net.sevenstars.middleearth.item.utils.ModSmithingTrimPatterns;
 import net.sevenstars.middleearth.resources.*;
@@ -57,6 +56,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(NpcProvider::new);
         pack.addProvider(FactionProvider::new);
         pack.addProvider(StructureDataProvider::new);
+        pack.addProvider(BiomeEventProvider::new);
         pack.addProvider(DataWorldGenerator::new);
         pack.addProvider(LanguageProvider::new);
         pack.addProvider(EnchantmentProvider::new);
@@ -100,6 +100,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(NpcME.KEY, NpcME::bootstrap);
         registryBuilder.addRegistry(FactionsME.KEY, FactionsME::bootstrap);
         registryBuilder.addRegistry(StructureManagerDatasME.KEY, StructureManagerDatasME::bootstrap);
+        registryBuilder.addRegistry(BiomeEventsME.KEY, BiomeEventsME::bootstrap);
 
         // Vanilla registries
         registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, ModSmithingTrimMaterials::bootstrap);

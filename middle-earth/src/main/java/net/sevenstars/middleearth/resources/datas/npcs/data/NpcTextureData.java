@@ -133,5 +133,16 @@ public class NpcTextureData {
             Random random = new Random();
             return new Identity(entityCategory, presets.get(random.nextInt(presets.size())));
         }
+
+        public static Identity create(NpcTextureData data){
+            EntityCategory entityCategory = data.getRandomCategory();
+            if(!data.presetsByCategory.containsKey(entityCategory))
+                return null;
+
+            // TODO : get the right preset based on weight
+            List<NpcTextureDataPreset> presets = data.presetsByCategory.get(entityCategory);
+            Random random = new Random();
+            return new Identity(entityCategory, presets.get(random.nextInt(presets.size())));
+        }
     }
 }
