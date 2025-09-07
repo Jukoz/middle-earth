@@ -70,7 +70,7 @@ public class SwanAdultModel extends SwanEntityModel {
     public void setAngles(SwanEntityRenderState state) {
         super.setAngles(state);
 
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8.0f, 1.0f);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 6.0f, 1.5f);
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
         this.swimmingAnimation.apply(state.swimmingAnimationState, state.age);
         this.intimidateAnimation.apply(state.intimidateAnimationState, state.age);
