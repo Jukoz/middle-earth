@@ -38,6 +38,7 @@ import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatHorns;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatVariant;
+import net.sevenstars.middleearth.entity.goals.BowAtEntityGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.entity.goals.SmartFleeEntityGoal;
 import net.sevenstars.middleearth.entity.goals.interfaces.Evader;
@@ -93,9 +94,11 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        //this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25f));
-        //this.goalSelector.add(2, new FleeEntityGoal<>(this, PlayerEntity.class, 24, 1.0f, 1.25f));
-        this.goalSelector.add(2, new SmartFleeEntityGoal<>(this, (Evader) this, PlayerEntity.class, 16.0F, 1.5, 1.7, (entity) -> {
+        this.goalSelector.add(2, new BowAtEntityGoal(this, PlayerEntity.class, 16, (livingEntity -> {
+            return this.isOwner((PlayerEntity) livingEntity);
+        }) ));
+        this.goalSelector.add(3, new SmartFleeEntityGoal<>(this, (Evader) this,
+                PlayerEntity.class, 16.0F, 1.5, 1.7, (entity) -> {
             return !this.canTrust((PlayerEntity)entity);
         }));
         this.goalSelector.add(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
@@ -104,7 +107,6 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
-        this.goalSelector.add(10, new EatGrassGoal(this));
     }
 
     @Override
@@ -401,14 +403,23 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         return (playerRace != null && playerRace != RaceType.NONE) && (this.getCompatibleRaces() != null && this.getCompatibleRaces().contains(playerRace));
     }
 
+    public boolean shouldBow(PlayerEntity playerEntity) {
+        return isOwner(playerEntity) && bowAnimationTimeout > 0;
+    }
+
+    public boolean isOwner(PlayerEntity playerEntity) {
+        PlayerEntity owner = this.getOwner();
+        return (owner != null && owner.getUuid().equals(playerEntity.getUuid()));
+    }
+
     @Override
     public boolean isBondingItem(ItemStack itemStack) {
         return itemStack.isIn(ItemTags.GOAT_FOOD);
     }
 
     @Override
-    public void setTame(boolean tame) {
-        super.setTame(tame);
+    public void setOwner(@Nullable LivingEntity entity) {
+        super.setOwner(entity);
         this.dataTracker.set(BOW, 1);
         bowAnimationTimeout = 80;
     }
