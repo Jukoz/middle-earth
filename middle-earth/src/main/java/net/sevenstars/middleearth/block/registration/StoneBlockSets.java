@@ -299,12 +299,6 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS_PILLAR));
 
-    public static StoneBlockSetBuilder ARENITE_SET = registerStoneSet(new StoneBlockSetBuilder("arenite",
-            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
-            .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
-            .addToSet(StoneBlockTypes.BRICK_BLOCKS));
-
     public static StoneBlockSetBuilder GABBRO_SET = registerStoneSet(new StoneBlockSetBuilder("gabbro",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
@@ -382,18 +376,6 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
-            .addToSet(StoneBlockTypes.PILLAR_BLOCKS));
-
-    public static StoneBlockSetBuilder CHERT_SET = registerStoneSet(new StoneBlockSetBuilder("chert",
-            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.DULL_RED, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
-            .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.BRICK_BLOCKS)
-            .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS));
-
-    public static StoneBlockSetBuilder BURZULABAN_SET = registerStoneSet(new StoneBlockSetBuilder("burzulaban",
-            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.DULL_RED, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
-            .addToSet(StoneBlockTypes.BASE_BLOCKS)
-            .addToSet(StoneBlockTypes.BRICK_BLOCKS)
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS));
 
     public static StoneBlockSetBuilder IRONSTONE_SET = registerStoneSet(new StoneBlockSetBuilder("ironstone",
