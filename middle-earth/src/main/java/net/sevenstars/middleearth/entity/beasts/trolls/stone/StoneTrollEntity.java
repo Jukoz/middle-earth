@@ -77,11 +77,6 @@ public class StoneTrollEntity extends TrollEntity {
         positionUpdater.accept(passenger, this.getX() + vec3d.x, this.getY() + this.getMountedHeightOffset(), this.getZ() + vec3d.z);
     }
 
-    @Override
-    protected Disposition getDisposition() {
-        return Disposition.EVIL;
-    }
-
     public void setPetrifying(int petrifying) {
         this.dataTracker.set(PETRIFYING, petrifying);
     }
