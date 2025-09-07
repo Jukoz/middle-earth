@@ -15,9 +15,9 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.registry.tag.BlockTags;
 import net.sevenstars.api.SevenStarsApi;
+import net.sevenstars.api.entity.ai.brain.task.MoveTowardsBlockTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.DigInDirtTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.EatCropTask;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsBlockTask;
 
 public class SnailBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super SnailEntity>>> SENSORS;
