@@ -17,7 +17,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
@@ -37,8 +36,6 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatHorns;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatVariant;
 import net.sevenstars.middleearth.entity.goals.BowAtEntityGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.entity.goals.SmartFleeEntityGoal;
@@ -437,7 +434,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     /* VARIANTS */
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
                                  @Nullable EntityData entityData) {
-        BroadhoofGoatVariant variant = Util.getRandom(BroadhoofGoatVariant.values(), this.random);
+        GreatHornVariant variant = Util.getRandom(GreatHornVariant.values(), this.random);
         this.setVariant(variant);
 
         if(!this.getWorld().isClient()) {
@@ -447,19 +444,19 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
-    private void setBroadhoofVariant(BroadhoofGoatVariant variant, BroadhoofGoatHorns horns) {
+    private void setGreatHornVariant(GreatHornVariant variant) {
         this.setVariant(variant);
     }
 
-    public BroadhoofGoatVariant getVariant() {
-        return BroadhoofGoatVariant.byId(this.getTypeVariant() & 255);
+    public GreatHornVariant getVariant() {
+        return GreatHornVariant.byId(this.getTypeVariant() & 255);
     }
 
     private int getTypeVariant() {
         return this.dataTracker.get(VARIANT);
     }
 
-    private void setVariant(BroadhoofGoatVariant variant) {
+    private void setVariant(GreatHornVariant variant) {
         this.dataTracker.set(VARIANT, variant.getId() & 255);
     }
 
