@@ -225,6 +225,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         List<Entity> passengerList = this.getPassengerList();
         boolean saddled = this.hasSaddleEquipped();
         boolean sprinting = false;
+
         if(this.getControllingPassenger() != null) {
             sprinting = this.getControllingPassenger().isSprinting();
         }
@@ -257,28 +258,16 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
             return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
         }
-        else if(passengerList.size() >= 2 && passenger.equals(passengerList.get(1))) { // Passenger 2 - Right side ========================================================================
+        else { // Passenger 2 or 3 - Side ==============================================================================
             double y = sprinting ?
-                    -MathHelper.cos(frequency * animationProgress) * 0.07 * animationSpeed + 0.15 : // height when sprinting
+                    -MathHelper.cos(frequency * animationProgress) * 0.07 * animationSpeed : // height when sprinting
                     MathHelper.sin(frequency * animationProgress) * 0.02; // height when walking
 
-            double side = sprinting ?
-                    MathHelper.sin(frequency * animationProgress - (4f/15f)*MathHelper.PI) * 0.15 : // side-to-side movement when sprinting
-                    MathHelper.sin(frequency * animationProgress) * 0.04; // side-to-side movement when walking
+            if(passengerList.size() >= 3 && passenger.equals(passengerList.get(2))) {   // The left passenger (2) moves inverted to the right one (1)
+                y = -y;
+            }
 
-            double front = sprinting ?
-                    0.35 : // front-back movement when sprinting
-                    0; // front-back movement when walking
-
-            double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
-            double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
-
-            return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
-        }
-        else if(passengerList.size() >= 3 && passenger.equals(passengerList.get(2))) { // Passenger 3 - Left side =========================================================================
-            double y = sprinting ?
-                    MathHelper.cos(frequency * animationProgress) * 0.07 * animationSpeed + 0.15 : // height when sprinting
-                    -MathHelper.sin(frequency * animationProgress) * 0.02; // height when walking
+            y = sprinting ? y + 0.15 : y; // Add offset if sprinting
 
             double side = sprinting ?
                     MathHelper.sin(frequency * animationProgress - (4f/15f)*MathHelper.PI) * 0.15 : // side-to-side movement when sprinting
@@ -293,7 +282,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
             return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
         }
-        return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor);
     }
 
     @Override

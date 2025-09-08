@@ -59,7 +59,7 @@ public class ModEntities {
     public static final EntityType<CaveTrollEntity> CAVE_TROLL = register("cave_troll",
             EntityType.Builder.create(CaveTrollEntity::new, SpawnGroup.CREATURE)
                     .dimensions(2.2f, 3.5f)
-                    .passengerAttachments(new Vec3d(0, 3.825, -0.65), new Vec3d(-0.8, 3.4, -1.2), new Vec3d(0.8, 3.4, -1.2), new Vec3d(1.7, 4.0, 0.0)));
+                    .passengerAttachments(new Vec3d(0, 3.825, -0.65), new Vec3d(-0.8, 3.4, -1.2), new Vec3d(0.8, 3.4, -1.2)));
     public static final EntityType<StoneTrollEntity> STONE_TROLL = register("stone_troll", EntityType.Builder.create(StoneTrollEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 3.4f));
     public static final EntityType<PetrifiedTrollEntity> PETRIFIED_TROLL = register("petrified_troll", EntityType.Builder.create(PetrifiedTrollEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 3.4f));
 
