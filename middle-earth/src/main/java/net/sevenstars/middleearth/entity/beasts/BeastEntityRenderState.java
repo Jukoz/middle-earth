@@ -8,8 +8,11 @@ import net.minecraft.item.ItemStack;
 public class BeastEntityRenderState extends LivingEntityRenderState {
     public AnimationState startSittingAnimationState = new AnimationState();
     public AnimationState stopSittingAnimationState = new AnimationState();
+    public AnimationState chargeAnimationState = new AnimationState();
 
     public boolean isSprinting = false;
+    public boolean isCharging = false;
+    public boolean isTame = false;
     public LivingEntity conrollingPassenger = null;
 
     public ItemStack armor = ItemStack.EMPTY;

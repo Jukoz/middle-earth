@@ -408,6 +408,13 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public void chargeAttack() {
     }
 
+    public void setChargeVelocity(Vec3d direction) {
+        this.setVelocity(direction
+                .getHorizontal().normalize() // Remove the y-axis and normalize the vector
+                .multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())) // Progressively get faster during charge (linear)
+                .add(0, this.getVelocity().y, 0)); // Add y-Velocity to make beast fall and climb steps
+    }
+
     // Tick Management =================================================================================================
     @Override
     public void tick() {

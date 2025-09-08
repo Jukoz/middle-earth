@@ -4,9 +4,6 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Arm;
-import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollAnimations;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
 public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState> {
     private final Animation walkingAnimation;
@@ -17,27 +14,30 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
     private final Animation startSleepingAnimation;
     private final Animation sleepingAnimation;
     private final Animation stopSleepingAnimation;
+    private final Animation roaringAnimation;
 
     private final ModelPart rightArm;
     private final ModelPart upperBody;
     private final ModelPart rootChild;
+    private final ModelPart chain;
 
     protected CaveTrollEntityModel(ModelPart root) {
         super(root);
 
-        rightArm = root.getChild("root").getChild("body_no_legs").getChild("ArmRight");
-        upperBody = root.getChild("root").getChild("body_no_legs");
         rootChild = root.getChild("root");
-
+        upperBody = rootChild.getChild("body_no_legs");
+        rightArm = upperBody.getChild("ArmRight");
+        chain = upperBody.getChild("body_no_limbs").getChild("Head").getChild("chain");
 
         walkingAnimation = CaveTrollAnimations.PASSIVE_WALK.createAnimation(root);
         chaseAnimation = CaveTrollAnimations.RUN.createAnimation(root);
-        scavengingAnimation = CaveTrollAnimations.SITTING_SLEEP.createAnimation(root);
+        scavengingAnimation = CaveTrollAnimations.INSPECT.createAnimation(root);
         startSittingAnimation = CaveTrollAnimations.STANDING_TO_SITTING.createAnimation(root);
         stopSittingAnimation = CaveTrollAnimations.STANDING_FROM_SITTING.createAnimation(root);
         startSleepingAnimation = CaveTrollAnimations.SLEEP_LAYING_DOWN.createAnimation(root);
         sleepingAnimation = CaveTrollAnimations.SLEEP_LAYING_DOWN.createAnimation(root);
         stopSleepingAnimation = CaveTrollAnimations.SLEEP_LAYING_DOWN_STANDING_UP.createAnimation(root);
+        roaringAnimation = CaveTrollAnimations.SCREAM.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -63,6 +63,11 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
         ModelPartData Loincloth_Back = body_no_limbs.addChild("Loincloth_Back", ModelPartBuilder.create().uv(190, 134).cuboid(-17.0F, 0.0F, 0.0F, 33.0F, 7.0F, 0.0F, new Dilation(0.0F)), ModelTransform.origin(1.0F, 0.0F, 8.0F));
 
         ModelPartData Head = body_no_limbs.addChild("Head", ModelPartBuilder.create().uv(172, 161).cuboid(-8.5F, -8.5F, -8.5F, 17.0F, 17.0F, 17.0F, new Dilation(0.0F)), ModelTransform.origin(0.5F, -34.5F, -8.5F));
+
+        ModelPartData chain = Head.addChild("chain", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        ModelPartData head_chain = chain.addChild("head_chain", ModelPartBuilder.create().uv(0, 21).cuboid(0.0F, -14.0F, -2.0F, 18.0F, 17.0F, 3.0F, new Dilation(0.01F)), ModelTransform.origin(-9.0F, 5.5F, -1.5F));
+
+        ModelPartData chain_hanging = chain.addChild("chain_hanging", ModelPartBuilder.create().uv(45, 30).cuboid(-1.5F, -0.5F, 0.0F, 3.0F, 11.0F, 0.0F, new Dilation(0.01F)), ModelTransform.origin(0.0F, 9.0F, -2.0F));
 
         ModelPartData jaw = Head.addChild("jaw", ModelPartBuilder.create().uv(143, 144).cuboid(-8.5F, -1.5F, -5.5F, 17.0F, 4.0F, 6.0F, new Dilation(0.01F))
                 .uv(201, 150).cuboid(-4.5F, -4.5F, -5.5F, 9.0F, 3.0F, 1.0F, new Dilation(0.01F))
@@ -122,7 +127,9 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
     public void setAngles(CaveTrollEntityRenderState state) {
         super.setAngles(state);
 
-        if(!state.isSprinting && !(state.conrollingPassenger != null && state.conrollingPassenger.isSprinting())) {
+        chain.visible = state.isTame;
+
+        if(!state.isSprinting && !(state.conrollingPassenger != null && state.conrollingPassenger.isSprinting()) && !state.isCharging) {
             this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 10.0f, 10.0f);
         }
         else {
@@ -134,7 +141,8 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
         this.stopSittingAnimation.apply(state.stopSittingAnimationState, state.age);
         this.startSleepingAnimation.apply(state.startSleepingAnimationState, state.age);
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
-        this.stopSleepingAnimation.apply(state.stopSleepingANimationState, state.age);
+        this.stopSleepingAnimation.apply(state.stopSleepingAnimationState, state.age);
+        this.roaringAnimation.apply(state.roaringAnimationState, state.age);
     }
 
     public void setArmAngle(MatrixStack matrices) {

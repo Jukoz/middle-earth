@@ -20,6 +20,7 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -40,6 +41,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.utils.PlayerUtil;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -52,13 +54,14 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public LootTable scavengeLootTable;
     public LootWorldContext lootWorldContext;
     public static final TrackedData<Boolean> SCAVENGING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public static final TrackedData<Boolean> EATING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> ROARING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState chaseAnimationState = new AnimationState();
     public final AnimationState scavengingAnimationState = new AnimationState();
     public final AnimationState startSleepingAnimationState = new AnimationState();
     public final AnimationState sleepingAnimationState = new AnimationState();
     public final AnimationState stopSleepingAnimationState = new AnimationState();
+    public final AnimationState roaringAnimationState = new AnimationState();
 
     public CaveTrollEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
@@ -97,7 +100,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(SCAVENGING, false);
-        builder.add(EATING, false);
+        builder.add(ROARING, false);
         builder.add(SLEEPING, false);
     }
 
@@ -221,13 +224,13 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
+    protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor)  {
         List<Entity> passengerList = this.getPassengerList();
         boolean saddled = this.hasSaddleEquipped();
-        boolean sprinting = false;
+        boolean sprinting = this.isCharging();
 
         if(this.getControllingPassenger() != null) {
-            sprinting = this.getControllingPassenger().isSprinting();
+            sprinting = this.getControllingPassenger().isSprinting() || this.isCharging();
         }
 
         float animationSpeed = this.limbAnimator.getSpeed();
@@ -260,14 +263,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         }
         else { // Passenger 2 or 3 - Side ==============================================================================
             double y = sprinting ?
-                    -MathHelper.cos(frequency * animationProgress) * 0.07 * animationSpeed : // height when sprinting
+                    -MathHelper.cos(frequency * animationProgress) * 0.06 * animationSpeed : // height when sprinting
                     MathHelper.sin(frequency * animationProgress) * 0.02; // height when walking
-
-            if(passengerList.size() >= 3 && passenger.equals(passengerList.get(2))) {   // The left passenger (2) moves inverted to the right one (1)
-                y = -y;
-            }
-
-            y = sprinting ? y + 0.15 : y; // Add offset if sprinting
 
             double side = sprinting ?
                     MathHelper.sin(frequency * animationProgress - (4f/15f)*MathHelper.PI) * 0.15 : // side-to-side movement when sprinting
@@ -277,11 +274,22 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                     0.35 : // front-back movement when sprinting
                     0; // front-back movement when walking
 
+            if(passengerList.size() >= 3 && passenger.equals(passengerList.get(2))) {   // The left passenger (2) moves inverted to the right one (1)
+                y = -y;
+            }
+
+            y = sprinting ? y + 0.15 : y; // Add offset if sprinting
+
             double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
             double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
 
             return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
         }
+    }
+
+    @Override
+    public boolean isAngry() {
+        return false;
     }
 
     @Override
@@ -326,7 +334,60 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         if(this.stopSleepingAnimationState.getTimeInMilliseconds(this.age) > 5000) {
             this.stopSleepingAnimationState.stop();
         }
+
+        if(this.isRoaring()) {
+            this.roaringAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.roaringAnimationState.stop();
+        }
     }
+
+    @Override
+    public int chargeDuration() {
+        return 30;
+    }
+
+    @Override
+    public int maxChargeCooldown() {
+        return 300;
+    }
+
+    @Nullable
+    @Override
+    public LivingEntity getTarget() {
+        return getTargetInBrain();
+    }
+
+    @Override
+    public void chargeAttack() {
+        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
+        Vec3d direction = Vec3d.ZERO;
+        LivingEntity target = this.getTarget();
+
+        if(!this.isTame() && !this.getWorld().isClient) { // Charge Attack for wild Troll
+            if(target != null) { // Has attack target memory
+                direction = this.getPos().relativize(target.getPos()); // Vector from Troll to target entity
+            }
+
+            this.setYaw((float) Math.toDegrees(Math.atan2(-direction.x, direction.z))); // Turning the troll into the right direction
+            this.setChargeVelocity(direction);
+        }
+        else if (this.getWorld().isClient && this.hasControllingPassenger()) { // Charge Attack for tamed Troll
+            this.setChargeVelocity(this.getRotationVector());
+        }
+
+        for(Entity entity : entities) { // Check through all nearby entities
+            if(entity != this.getOwner() && !this.getPassengerList().contains(entity)) { // Exclude passengers and owner
+                if(getWorld() instanceof ServerWorld serverWorld) {
+                    entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), 8.0f + serverWorld.getDifficulty().getId() * 2);
+                }
+
+            }
+        }
+        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+    }
+
 
     public void startSleeping() {
         if (this.hasVehicle()) {
@@ -377,12 +438,12 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public void setScavenging(boolean isDigging) {
         this.dataTracker.set(SCAVENGING, isDigging);
     }
-    public boolean isEating() {
-        return this.dataTracker.get(EATING);
+    public boolean isRoaring() {
+        return this.dataTracker.get(ROARING);
     }
 
-    public void setEating(boolean isEating) {
-        this.dataTracker.set(EATING, isEating);
+    public void setRoaring(boolean isRoaring) {
+        this.dataTracker.set(ROARING, isRoaring);
     }
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {

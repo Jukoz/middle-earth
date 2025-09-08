@@ -2,18 +2,12 @@ package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
-import net.minecraft.client.render.entity.state.ArmedEntityRenderState;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorFeatureRenderer;
-import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
-import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollHeldItemFeatureRenderer;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollSaddleFeatureRenderer;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
 public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTrollEntityRenderState, CaveTrollEntityModel> {
     private static final String PATH = "textures/entities/trolls/cave/cave_troll_green.png";
@@ -44,8 +38,11 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
         state.stopSittingAnimationState = troll.stopSittingAnimationState;
         state.startSleepingAnimationState = troll.startSleepingAnimationState;
         state.sleepingAnimationState = troll.sleepingAnimationState;
-        state.stopSleepingANimationState = troll.stopSleepingAnimationState;
+        state.stopSleepingAnimationState = troll.stopSleepingAnimationState;
+        state.roaringAnimationState = troll.roaringAnimationState;
         state.isSprinting = troll.isSprinting();
+        state.isCharging = troll.isCharging();
+        state.isTame = troll.isTame();
         state.conrollingPassenger = troll.getControllingPassenger();
         state.saddle = troll.getEquippedStack(EquipmentSlot.SADDLE);
     }
