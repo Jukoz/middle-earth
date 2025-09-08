@@ -23,6 +23,7 @@ import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -152,12 +153,20 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         if(!this.getWorld().isClient()) { // Server side
             for(RaceType race : this.getCompatibleRaces()) { // Check for race
                 if(PlayerUtil.isOfRace(player, race)) {
-                    if(canAddPassenger(player) && itemStack.isEmpty()) { // Ride if player is compatible and hand is empty
-                        putPlayerOnBack(player);
-                        return ActionResult.SUCCESS;
+                    if(isTrollWeapon(itemStack) && isOwner(player) && this.getMainHandStack().isEmpty()) { // Give the troll a weapon
+                        this.equipStack(EquipmentSlot.MAINHAND, itemStack.copyAndEmpty());
+                        itemStack.decrementUnlessCreative(1, player);
+                        return ActionResult.SUCCESS_SERVER;
                     }
-
-                    if(!itemStack.isEmpty()) {
+                    else if(player.isSneaking() && itemStack.isEmpty() && isOwner(player) && !this.getMainHandStack().isEmpty()) {  // Take weapon away from troll
+                        player.giveOrDropStack(this.getMainHandStack().copyAndEmpty());
+                        return ActionResult.SUCCESS_SERVER;
+                    }
+                    else if(canAddPassenger(player) && itemStack.isEmpty()) { // Ride if player is compatible and hand is empty
+                        putPlayerOnBack(player);
+                        return ActionResult.SUCCESS_SERVER;
+                    }
+                    else if(!itemStack.isEmpty()) {
                         return super.interactMob(player, hand);
                     }
                 }
@@ -170,6 +179,10 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         }
 
         return ActionResult.PASS; // Player is of incompatible race - don't interact
+    }
+
+    public boolean isTrollWeapon(ItemStack itemStack) {
+        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_weapons")));
     }
 
     @Override

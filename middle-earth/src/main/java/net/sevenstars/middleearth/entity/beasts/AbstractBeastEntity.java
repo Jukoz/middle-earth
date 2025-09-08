@@ -164,6 +164,10 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         return this.getWorld().isClient();
     }
 
+    public boolean isOwner(LivingEntity entity) {
+        return this.getOwner() != null && this.getOwner() == entity;
+    }
+
     // DataTracker =====================================================================================================
 
     public boolean hasChest() {
