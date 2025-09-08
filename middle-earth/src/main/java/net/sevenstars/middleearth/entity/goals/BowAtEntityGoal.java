@@ -89,6 +89,7 @@ public class BowAtEntityGoal extends Goal {
 
 	public void tick() {
 		if (this.target.isAlive()) {
+			this.navigation.stop();
 			double d = this.lookForward ? this.mob.getEyeY() : this.target.getEyeY();
 			this.mob.getLookControl().lookAt(this.target.getX(), d, this.target.getZ());
 			--this.lookTime;

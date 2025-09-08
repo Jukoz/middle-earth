@@ -45,6 +45,7 @@ import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.List;
 import java.util.function.DoubleSupplier;
@@ -78,6 +79,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                 .add(EntityAttributes.ATTACK_SPEED, 1.0d)
                 .add(EntityAttributes.FOLLOW_RANGE, 38.0d)
                 .add(EntityAttributes.ATTACK_DAMAGE, 4.0d)
+                .add(EntityAttributes.WATER_MOVEMENT_EFFICIENCY, 0.5f)
                 .add(EntityAttributes.STEP_HEIGHT, 1.15d)
                 .add(EntityAttributes.SAFE_FALL_DISTANCE, 7.0d);
     }
@@ -330,6 +332,13 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
             bowAnimationTimeout = Math.max(bowAnimationTimeout - 1, 0);
             if(bowAnimationTimeout == 0) {
                 dataTracker.set(BOW, -1);
+            }
+        }
+        if (this.getWorld().isClient && bowAnimationState.isRunning()) {
+            if(random.nextInt(2) == 0) {
+                Vector3f randPos = new Vector3f(this.random.nextFloat()*6 - 3f, this.random.nextFloat()*1.25f, this.random.nextFloat()*6 - 3f);
+                this.getWorld().addParticleClient(ParticleTypes.INSTANT_EFFECT, this.getX() + randPos.x, this.getY() + randPos.y, this.getZ() + randPos.z,
+                        0.0, 0.75f + this.random.nextFloat(), 0.0);
             }
         }
     }
