@@ -134,7 +134,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public void tryBonding(PlayerEntity player) {
         double rand = this.random.nextDouble();
 
-        if(rand < 0.15 || player.isInCreativeMode()) { // Tame success
+        if(rand < 0.15 || (rand < 0.3 && this.getTameness() <= 0) || player.isInCreativeMode()) { // Tame success, chance is twice as high if the troll is feral
             this.tameBeast(player);
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
 
@@ -158,6 +158,9 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
+        if(!this.isTame()) {
+            tryBonding(player); // TODO: ONLY TEMPORARY - DON'T FORGET TO REMOVE
+        }
 
         if(!this.getWorld().isClient()) { // Server side
             for(RaceType race : this.getCompatibleRaces()) { // Check for race
@@ -207,7 +210,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
-            this.setTameness(50);
+            this.setTameness(75);
             this.getBrain().remember(MemoryModulesME.TAME, true);
             this.getBrain().forget(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN);
             this.getBrain().forget(MemoryModulesME.FOOD_EATEN_COUNT);

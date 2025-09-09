@@ -81,7 +81,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         builder.add(CHEST, false);
         builder.add(RUNNING, false);
         builder.add(FIGHTING, false);
-        builder.add(TAMENESS, 50);
+        builder.add(TAMENESS, 75);
     }
 
     @Override
@@ -103,6 +103,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         super.writeCustomData(view);
         view.putBoolean("Sitting", this.isSitting());
         view.putBoolean("ChestedBeast", this.hasChest());
+        view.putInt("Tameness", this.getTameness());
         if (this.hasChest()) {
             WriteView.ListAppender<StackWithSlot> listAppender = view.getListAppender("Items", StackWithSlot.CODEC);
 
@@ -120,6 +121,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         super.readCustomData(view);
         this.setSitting(view.getBoolean("Sitting", false));
         this.setHasChest(view.getBoolean("ChestedBeast", false));
+        this.setTameness(view.getInt("Tameness", 75));
         this.onChestedStatusChanged();
         if (this.hasChest()) {
             for (StackWithSlot stackWithSlot : view.getTypedListView("Items", StackWithSlot.CODEC)) {
@@ -167,7 +169,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
 
     @Override
     public boolean isPersistent() {
-        return isTame();
+        return isTame() || getTameness() <= 0;
     }
 
     protected boolean isClientWorld() {
