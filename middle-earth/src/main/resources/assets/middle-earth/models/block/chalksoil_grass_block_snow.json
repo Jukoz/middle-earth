@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:block/cube_bottom_top",
+	"textures": {
+		"bottom": "middle-earth:block/chalksoil",
+		"particle": "middle-earth:block/chalksoil",
+		"side": "minecraft:block/grass_block_snow",
+		"top": "middle-earth:block/chalksoil_grass_block_top"
+	}
+}

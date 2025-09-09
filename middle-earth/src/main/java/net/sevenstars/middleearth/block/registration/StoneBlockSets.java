@@ -93,7 +93,8 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.PILLAR_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS)
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
-            .addToSet(StoneBlockTypes.OLD_BLOCKS));
+            .addToSet(StoneBlockTypes.OLD_BLOCKS)
+            .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
     public static StoneBlockSetBuilder DRIPSTONE_SET = registerStoneSet(new StoneBlockSetBuilder("dripstone",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.DRIPSTONE_BLOCK, false, false)
@@ -214,6 +215,12 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.OLD_BLOCKS)
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
+    public static StoneBlockSetBuilder CHALK_SET = registerStoneSet(new StoneBlockSetBuilder("chalk",
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
+            .addToSet(StoneBlockTypes.BASE_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICK_BLOCKS)
+            .addToSet(StoneBlockTypes.OLD_BLOCKS));
+
     public static StoneBlockSetBuilder GNEISS_SET = registerStoneSet(new StoneBlockSetBuilder("gneiss",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.WHITE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
@@ -283,6 +290,14 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS)
             .addToSet(StoneBlockTypes.OLD_BLOCKS_PILLAR)
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
+
+    public static StoneBlockSetBuilder TRAVERTINE_SET = registerStoneSet(new StoneBlockSetBuilder("travertine",
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.PALE_YELLOW, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
+            .addToSet(StoneBlockTypes.BASE_BLOCKS)
+            .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
+            .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICK_BLOCKS)
+            .addToSet(StoneBlockTypes.OLD_BLOCKS_PILLAR));
 
     public static StoneBlockSetBuilder GABBRO_SET = registerStoneSet(new StoneBlockSetBuilder("gabbro",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)

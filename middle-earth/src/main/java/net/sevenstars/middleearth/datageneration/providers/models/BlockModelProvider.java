@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.HangingMossBlock;
 import net.minecraft.block.enums.BlockFace;
 import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.block.enums.Thickness;
@@ -31,6 +32,7 @@ import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabShape;
 import net.sevenstars.middleearth.datageneration.content.MEModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
+import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
 
 import java.util.Objects;
 
@@ -61,6 +63,10 @@ public class BlockModelProvider extends FabricModelProvider {
 
         for (Block block : SimpleBlockModel.blocks) {
             blockStateModelGenerator.registerSimpleCubeAll(block);
+        }
+
+        for (Block block : LeavesSets.grayscaleLeaves) {
+            blockStateModelGenerator.registerTintedBlockAndItem(block, TexturedModel.LEAVES, -12012264);
         }
 
         for (SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledMainBlockTopBottom) {
@@ -800,7 +806,7 @@ public class BlockModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.WEBBING);
 
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.MOSS);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.FOREST_MOSS);
+        registerMultifaceBlock(blockStateModelGenerator, ModNatureBlocks.FOREST_MOSS);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.CORRUPTED_MOSS);
 
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.MORGUL_IVY);
@@ -813,13 +819,17 @@ public class BlockModelProvider extends FabricModelProvider {
         registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_LIMESTONE);
         registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_IZHERABAN);
 
+        registerHangingMoss(blockStateModelGenerator, ModNatureBlocks.WILLOW_VINES);
+
         blockStateModelGenerator.registerHangingMoss(ModNatureBlocks.MIRKWOOD_VINES);
         blockStateModelGenerator.registerHangingMoss(ModNatureBlocks.HANGING_WEBS);
 
+        registerFarmland(blockStateModelGenerator, ModBlocks.CHALKSOIL, ModBlocks.CHALKSOIL_FARMLAND);
         registerFarmland(blockStateModelGenerator, ModBlocks.LOAM, ModBlocks.LOAM_FARMLAND);
         registerFarmland(blockStateModelGenerator, ModBlocks.PEAT, ModBlocks.PEAT_FARMLAND);
         registerFarmland(blockStateModelGenerator, ModBlocks.SILT, ModBlocks.SILT_FARMLAND);
 
+        registerDirtPath(blockStateModelGenerator, ModBlocks.CHALKSOIL, ModBlocks.CHALKSOIL_PATH);
         registerDirtPath(blockStateModelGenerator, ModBlocks.LOAM, ModBlocks.LOAM_PATH);
         registerDirtPath(blockStateModelGenerator, ModBlocks.PEAT, ModBlocks.PEAT_PATH);
         registerDirtPath(blockStateModelGenerator, ModBlocks.SILT, ModBlocks.SILT_PATH);
@@ -957,7 +967,7 @@ public class BlockModelProvider extends FabricModelProvider {
                                                            String modId, String topTexturePath, String bottomTexturePath, String sideTexturePath) {
         Identifier fullBlockId = ModelIds.getBlockModelId(origin);
         String modIdTopBottom = modId;
-        if (sideTexturePath.contains("deepslate_carved_window")){
+        if (sideTexturePath.contains("deepslate_carved_window") || sideTexturePath.contains("calcite_carved_window")){
             modIdTopBottom = "minecraft";
         }
 
@@ -1502,5 +1512,19 @@ public class BlockModelProvider extends FabricModelProvider {
                 .put(TextureKey.BOTTOM, TextureMap.getId(dirtBlock));
         WeightedVariant weightedVariant = createWeightedVariant(MEModels.PATH_BLOCK.upload(pathBlock, textureMap, blockStateModelGenerator.modelCollector));
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(pathBlock, weightedVariant));
+    }
+
+    public final void registerMultifaceBlock(BlockStateModelGenerator blockStateModelGenerator, Block block) {
+        blockStateModelGenerator.registerTintedItemModel(block, blockStateModelGenerator.uploadBlockItemModel(block.asItem(), block), new GrassTintSource());
+        blockStateModelGenerator.registerMultifaceBlockModel(block);
+    }
+
+    public final void registerHangingMoss(BlockStateModelGenerator blockStateModelGenerator, Block block) {
+        blockStateModelGenerator.registerItemModel(block);
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block).with(BlockStateVariantMap.models(HangingMossBlock.TIP).generate((tip) -> {
+            String string = tip ? "_tip" : "";
+            TextureMap textureMap = TextureMap.crop(TextureMap.getSubId(block, string));
+            return createWeightedVariant(MEModels.CROP_VINE.upload(block, string, textureMap, blockStateModelGenerator.modelCollector));
+        })));
     }
 }

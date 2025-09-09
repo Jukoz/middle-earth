@@ -122,6 +122,9 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         }
 
         addDrop(ModNatureBlocks.CAMPION, shortPlantDrops(ModNatureBlocks.CAMPION));
+        addDrop(ModNatureBlocks.BLUE_BIGLEAF_HYDRANGEA, shortPlantDrops(ModNatureBlocks.BLUE_BIGLEAF_HYDRANGEA));
+        addDrop(ModNatureBlocks.PINK_BIGLEAF_HYDRANGEA, shortPlantDrops(ModNatureBlocks.PINK_BIGLEAF_HYDRANGEA));
+        addDrop(ModNatureBlocks.WHITE_BIGLEAF_HYDRANGEA, shortPlantDrops(ModNatureBlocks.WHITE_BIGLEAF_HYDRANGEA));
         addDrop(ModNatureBlocks.DEAD_HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.DEAD_HEATHER_BUSH));
         addDrop(ModNatureBlocks.DRY_HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.DRY_HEATHER_BUSH));
         addDrop(ModNatureBlocks.DEAD_RUSHES, shortPlantDrops(ModNatureBlocks.DEAD_RUSHES));
@@ -129,10 +132,12 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModNatureBlocks.HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.HEATHER_BUSH));
         addDrop(ModNatureBlocks.LARGE_BLUE_FESCUE, shortPlantDrops(ModNatureBlocks.LARGE_BLUE_FESCUE));
         addDrop(ModNatureBlocks.LARGE_BUSH, shortPlantDrops(ModNatureBlocks.LARGE_BUSH));
+        addDrop(ModNatureBlocks.LARGE_SHRIVELED_SHRUB, shortPlantDrops(ModNatureBlocks.LARGE_SHRIVELED_SHRUB));
         addDrop(ModNatureBlocks.RED_HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.RED_HEATHER_BUSH));
         addDrop(ModNatureBlocks.RUSHES, shortPlantDrops(ModNatureBlocks.RUSHES));
 
         addDrop(ModNatureBlocks.BRACKEN, shortPlantDrops(ModNatureBlocks.BRACKEN));
+        addDrop(ModNatureBlocks.GIANT_BUTTERBUR, shortPlantDrops(ModNatureBlocks.GIANT_BUTTERBUR));
 
         for (Block block : TintableCrossModel.grassLikeBlocks) {
             addDrop(block, shortPlantDrops(block));

@@ -55,10 +55,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         wool.add(Wool.blocks.toArray(new Block[0]));
 
-        leaves.add(LeavesSets.blocks.toArray(new Block[0]));
+        leaves.add(LeavesSets.leaves.toArray(new Block[0]));
         mineableHoe.add(MineableHoe.blocks.toArray(new Block[0]));
 
-        swordEfficient.add(LeavesSets.blocks.toArray(new Block[0]));
+        swordEfficient.add(LeavesSets.leaves.toArray(new Block[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "saplings"))).add(Saplings.saplings.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "doors"))).add(Doors.doors.toArray(new Block[0]));
@@ -349,6 +349,23 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.GRASSY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.GRASSY_DIRT_STAIRS);
 
+        mineableShovel.add(ModBlocks.CHALKSOIL_GRASS_BLOCK);
+
+        mineableShovel.add(ModBlocks.CHALKSOIL);
+        mineableShovel.add(ModBlocks.CHALKSOIL_SLAB);
+        mineableShovel.add(ModBlocks.CHALKSOIL_STAIRS);
+
+        mineableShovel.add(ModBlocks.GRASSY_CHALKSOIL);
+        mineableShovel.add(ModBlocks.GRASSY_CHALKSOIL_SLAB);
+        mineableShovel.add(ModBlocks.GRASSY_CHALKSOIL_STAIRS);
+
+        mineableShovel.add(ModBlocks.COARSE_CHALKSOIL);
+        mineableShovel.add(ModBlocks.COARSE_CHALKSOIL_SLAB);
+        mineableShovel.add(ModBlocks.COARSE_CHALKSOIL_STAIRS);
+
+        mineableShovel.add(ModBlocks.CHALKSOIL_PATH);
+        mineableShovel.add(ModBlocks.CHALKSOIL_FARMLAND);
+
         mineableShovel.add(ModBlocks.LOAM_GRASS_BLOCK);
         
         mineableShovel.add(ModBlocks.LOAM);
@@ -358,9 +375,30 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.GRASSY_LOAM);
         mineableShovel.add(ModBlocks.GRASSY_LOAM_SLAB);
         mineableShovel.add(ModBlocks.GRASSY_LOAM_STAIRS);
+
+        mineableShovel.add(ModBlocks.COARSE_LOAM);
+        mineableShovel.add(ModBlocks.COARSE_LOAM_SLAB);
+        mineableShovel.add(ModBlocks.COARSE_LOAM_STAIRS);
         
         mineableShovel.add(ModBlocks.LOAM_PATH);
         mineableShovel.add(ModBlocks.LOAM_FARMLAND);
+
+        mineableShovel.add(ModBlocks.PEAT_GRASS_BLOCK);
+
+        mineableShovel.add(ModBlocks.PEAT);
+        mineableShovel.add(ModBlocks.PEAT_SLAB);
+        mineableShovel.add(ModBlocks.PEAT_STAIRS);
+
+        mineableShovel.add(ModBlocks.GRASSY_PEAT);
+        mineableShovel.add(ModBlocks.GRASSY_PEAT_SLAB);
+        mineableShovel.add(ModBlocks.GRASSY_PEAT_STAIRS);
+
+        mineableShovel.add(ModBlocks.COARSE_PEAT);
+        mineableShovel.add(ModBlocks.COARSE_PEAT_SLAB);
+        mineableShovel.add(ModBlocks.COARSE_PEAT_STAIRS);
+
+        mineableShovel.add(ModBlocks.PEAT_PATH);
+        mineableShovel.add(ModBlocks.PEAT_FARMLAND);
 
         mineableShovel.add(ModBlocks.SILT_GRASS_BLOCK);
 
@@ -372,21 +410,12 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.GRASSY_SILT_SLAB);
         mineableShovel.add(ModBlocks.GRASSY_SILT_STAIRS);
 
+        mineableShovel.add(ModBlocks.COARSE_SILT);
+        mineableShovel.add(ModBlocks.COARSE_SILT_SLAB);
+        mineableShovel.add(ModBlocks.COARSE_SILT_STAIRS);
+
         mineableShovel.add(ModBlocks.SILT_PATH);
         mineableShovel.add(ModBlocks.SILT_FARMLAND);
-
-        mineableShovel.add(ModBlocks.PEAT_GRASS_BLOCK);
-        
-        mineableShovel.add(ModBlocks.PEAT);
-        mineableShovel.add(ModBlocks.PEAT_SLAB);
-        mineableShovel.add(ModBlocks.PEAT_STAIRS);
-
-        mineableShovel.add(ModBlocks.GRASSY_PEAT);
-        mineableShovel.add(ModBlocks.GRASSY_PEAT_SLAB);
-        mineableShovel.add(ModBlocks.GRASSY_PEAT_STAIRS);
-        
-        mineableShovel.add(ModBlocks.PEAT_PATH);
-        mineableShovel.add(ModBlocks.PEAT_FARMLAND);
         
         mineablePickaxe.add(ModBlocks.PEBBLED_GRASS);
         mineablePickaxe.add(ModBlocks.PEBBLED_GRASS_SLAB);
