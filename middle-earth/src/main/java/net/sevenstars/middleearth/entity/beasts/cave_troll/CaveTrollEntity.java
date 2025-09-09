@@ -158,9 +158,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
-        if(!this.isTame()) {
-            tryBonding(player); // TODO: ONLY TEMPORARY - DON'T FORGET TO REMOVE
-        }
 
         if(!this.getWorld().isClient()) { // Server side
             for(RaceType race : this.getCompatibleRaces()) { // Check for race

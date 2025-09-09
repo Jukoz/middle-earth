@@ -9,12 +9,14 @@ import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 
 import java.util.List;
 
 public class CaveTrollRoarTask extends MultiTickTask<CaveTrollEntity> {
+    long startTime;
     public CaveTrollRoarTask() {
         super(
                 ImmutableMap.of(
@@ -34,6 +36,7 @@ public class CaveTrollRoarTask extends MultiTickTask<CaveTrollEntity> {
 
     @Override
     protected void run(ServerWorld world, CaveTrollEntity troll, long time) {
+        this.startTime = time;
         troll.setRoaring(true);
         troll.getBrain().forget(MemoryModuleType.WALK_TARGET);
 
@@ -48,6 +51,18 @@ public class CaveTrollRoarTask extends MultiTickTask<CaveTrollEntity> {
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100), troll);
             }
         }
+    }
+
+    @Override
+    protected void keepRunning(ServerWorld world, CaveTrollEntity entity, long time) {
+        if(time - startTime == 10) {
+            entity.playSound(SoundEvents.ENTITY_VILLAGER_AMBIENT);
+        }
+    }
+
+    @Override
+    protected boolean isTimeLimitExceeded(long time) {
+        return super.isTimeLimitExceeded(time);
     }
 
     @Override
