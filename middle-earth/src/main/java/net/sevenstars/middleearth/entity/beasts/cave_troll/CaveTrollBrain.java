@@ -54,6 +54,7 @@ public class CaveTrollBrain {
     private static void addIdleActivities(Brain<CaveTrollEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, UpdateAttackTargetTask.create(CaveTrollBrain::getAttackTarget)),
+                Pair.of(0, UpdateAttackTargetTask.create(CaveTrollBrain::getHurtBy)),
                 Pair.of(1, new RandomTask<>(ImmutableList.of(
                         Pair.of(StrollTask.create(1.0F), 5),
                         Pair.of(new CompositeTask<>(ImmutableMap.of(), ImmutableSet.of(),
@@ -106,6 +107,10 @@ public class CaveTrollBrain {
 
     private static Optional<? extends LivingEntity> getAttackTarget(ServerWorld world, CaveTrollEntity troll) {
         return (troll.isSleeping() || troll.isSitting()) ? troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HURT_BY_ENTITY) : troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+    }
+
+    private static Optional<? extends LivingEntity> getHurtBy (ServerWorld world, CaveTrollEntity troll) {
+        return troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HURT_BY_ENTITY);
     }
 
     public static void updateActivities(CaveTrollEntity troll) {
