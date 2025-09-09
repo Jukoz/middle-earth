@@ -46,8 +46,8 @@ public class CaveTrollBrain {
                 new MoveToTargetTask(),
                 new UpdateLookControlTask(45, 90),
                 new TickCooldownTask(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN),
-                new TickCooldownTask(MemoryModulesME.ROAR_COOLDOWN)
-
+                new TickCooldownTask(MemoryModulesME.ROAR_COOLDOWN),
+                new TickCooldownTask(MemoryModulesME.SMASH_COOLDOWN)
         ));
     }
 
@@ -94,7 +94,8 @@ public class CaveTrollBrain {
                                 Pair.of(MeleeAttackTask.create(30), 4),
                                 Pair.of(RangedApproachTask.create(2.5F), 3),
                                 Pair.of(new BeastChargeTask(troll.chargeDuration(), troll.maxChargeCooldown()), 1),
-                                Pair.of(new CaveTrollRoarTask(), 2)
+                                Pair.of(new CaveTrollRoarTask(), 2),
+                                Pair.of(new CaveTrollSmashTask(), 2)
                         )))
                 ),
                 ImmutableSet.of(
@@ -138,7 +139,8 @@ public class CaveTrollBrain {
                 MemoryModulesME.FOOD_EATEN_COUNT,
                 MemoryModulesME.TAME,
                 MemoryModulesME.SITTING,
-                MemoryModulesME.ROAR_COOLDOWN
+                MemoryModulesME.ROAR_COOLDOWN,
+                MemoryModulesME.SMASH_COOLDOWN
         );
     }
 }

@@ -23,9 +23,11 @@ public class BeastChargeTask extends MultiTickTask<AbstractBeastEntity> {
 
     @Override
     protected boolean shouldRun(ServerWorld world, AbstractBeastEntity entity) {
-        return entity.getChargeTimeout() == 0  &&
+        return entity.getTarget() != null &&
+                entity.getChargeTimeout() == 0  &&
                 entity.canSee(entity.getTarget()) &&
-                entity.canCharge();
+                entity.canCharge() &&
+                entity.squaredDistanceTo(entity.getTarget()) > 20;
     }
 
     @Override

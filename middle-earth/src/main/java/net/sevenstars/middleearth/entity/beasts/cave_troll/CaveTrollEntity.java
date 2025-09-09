@@ -52,7 +52,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 // TODO Add weakness on sun exposure
-// TODO Add Fighting Activities
 // TODO Implement Tameness mechanic
 public class CaveTrollEntity extends AbstractBeastEntity {
     public LootTable scavengeLootTable;
@@ -223,7 +222,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                 this.setSprinting(false);
             }
 
-            if(this.isSmashing()) {
+            if(this.isSmashing() && this.hasControllingPassenger()) {
                 if(this.age - this.smashingTime > 30) {
                     smashAttack(smashingStrength);
                 }
@@ -456,7 +455,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         if(world instanceof ServerWorld serverWorld) {
             for(Entity entity : entities) {
                 if(entity instanceof LivingEntity && entity != this.getOwner() && !this.getPassengerList().contains(entity)) {
-                    entity.addVelocity(0,1,0);
                     entity.damage(serverWorld, this.getDamageSources().mobAttack(this),  (float)weaponDamage + (strength / 12.5f) + (difficulty * 2));
                 }
             }
@@ -472,7 +470,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             if(weaponDamage > 0) {
                 this.playSound(SoundEvents.BLOCK_ANVIL_LAND, 1, 0.1f);
             }
-
         }
     }
 
