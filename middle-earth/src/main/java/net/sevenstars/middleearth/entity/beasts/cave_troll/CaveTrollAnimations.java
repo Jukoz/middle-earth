@@ -959,7 +959,7 @@ public class CaveTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(32.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final AnimationDefinition OVERHAND_SMASH = AnimationDefinition.Builder.create(2f).looping()
+    public static final AnimationDefinition OVERHAND_SMASH = AnimationDefinition.Builder.create(2f)
             .addBoneAnimation("body_no_legs",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
