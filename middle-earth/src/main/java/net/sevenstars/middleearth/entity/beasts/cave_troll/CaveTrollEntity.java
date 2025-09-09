@@ -51,8 +51,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-// TODO Add weakness on sun exposure
 // TODO Implement Tameness mechanic
+// TODO Add sounds
 public class CaveTrollEntity extends AbstractBeastEntity {
     public LootTable scavengeLootTable;
     public LootWorldContext lootWorldContext;
@@ -121,6 +121,10 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         profiler.swap("caveTrollActivityUpdate");
         CaveTrollBrain.updateActivities(this);
         profiler.pop();
+
+        if(!this.isClientWorld() && this.isAffectedByDaylight()) {
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 100));
+        }
 
         super.mobTick(world);
     }
@@ -437,6 +441,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public void smashAttack(float strength) { // Strength goes from 0 to 100
         setSmashing(false);
         Box box = new Box(this.getPos().subtract(5,0,5), this.getPos().add(5,1,5));
+
         double weaponDamage = 0;
         AttributeModifiersComponent component = this.getWeaponStack().get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
         if(component != null) {
