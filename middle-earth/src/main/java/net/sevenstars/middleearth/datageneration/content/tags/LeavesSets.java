@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LeavesSets {
-    public static List<Block> blocks = new ArrayList<>() {
+    public static List<Block> leaves = new ArrayList<>() {
         {
             add(ModNatureBlocks.LEBETHRON_LEAVES);
 
@@ -22,6 +22,12 @@ public class LeavesSets {
             add(ModNatureBlocks.YELLOW_MAPLE_LEAVES);
 
             add(ModNatureBlocks.DRY_PINE_LEAVES);
+        }
+    };
+
+    public static List<Block> grayscaleLeaves = new ArrayList<>() {
+        {
+
         }
     };
 }

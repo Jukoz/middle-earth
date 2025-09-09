@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.HangingMossBlock;
 import net.minecraft.block.enums.BlockFace;
 import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.block.enums.Thickness;
@@ -31,6 +32,7 @@ import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabShape;
 import net.sevenstars.middleearth.datageneration.content.MEModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
+import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
 
 import java.util.Objects;
 
@@ -61,6 +63,10 @@ public class BlockModelProvider extends FabricModelProvider {
 
         for (Block block : SimpleBlockModel.blocks) {
             blockStateModelGenerator.registerSimpleCubeAll(block);
+        }
+
+        for (Block block : LeavesSets.grayscaleLeaves) {
+            blockStateModelGenerator.registerTintedBlockAndItem(block, TexturedModel.LEAVES, -12012264);
         }
 
         for (SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledMainBlockTopBottom) {
@@ -813,6 +819,8 @@ public class BlockModelProvider extends FabricModelProvider {
         registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_LIMESTONE);
         registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_IZHERABAN);
 
+        registerHangingMoss(blockStateModelGenerator, ModNatureBlocks.WILLOW_VINES);
+
         blockStateModelGenerator.registerHangingMoss(ModNatureBlocks.MIRKWOOD_VINES);
         blockStateModelGenerator.registerHangingMoss(ModNatureBlocks.HANGING_WEBS);
 
@@ -1509,5 +1517,14 @@ public class BlockModelProvider extends FabricModelProvider {
     public final void registerMultifaceBlock(BlockStateModelGenerator blockStateModelGenerator, Block block) {
         blockStateModelGenerator.registerTintedItemModel(block, blockStateModelGenerator.uploadBlockItemModel(block.asItem(), block), new GrassTintSource());
         blockStateModelGenerator.registerMultifaceBlockModel(block);
+    }
+
+    public final void registerHangingMoss(BlockStateModelGenerator blockStateModelGenerator, Block block) {
+        blockStateModelGenerator.registerItemModel(block);
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block).with(BlockStateVariantMap.models(HangingMossBlock.TIP).generate((tip) -> {
+            String string = tip ? "_tip" : "";
+            TextureMap textureMap = TextureMap.crop(TextureMap.getSubId(block, string));
+            return createWeightedVariant(MEModels.CROP_VINE.upload(block, string, textureMap, blockStateModelGenerator.modelCollector));
+        })));
     }
 }

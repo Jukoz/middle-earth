@@ -1,14 +1,16 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.swan;
 
 import com.mojang.serialization.Dynamic;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.Schedule;
-import net.minecraft.entity.ai.brain.WalkTarget;
-import net.minecraft.entity.ai.control.LookControl;
-import net.minecraft.entity.ai.pathing.*;
+import net.minecraft.entity.ai.pathing.AmphibiousSwimNavigation;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -17,9 +19,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.StriderEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
@@ -44,19 +44,18 @@ import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
+import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 // TODO Add sounds
-// TODO Make new task for strolling in water
 
 public class SwanEntity extends AnimalEntity {
     private static final int EGG_COOLDOWN = 12000; // = 10 minutes
@@ -132,7 +131,7 @@ public class SwanEntity extends AnimalEntity {
             this.stopRiding();
         }
 
-        Optional<Integer> cooldown = this.getBrain().getOptionalRegisteredMemory(ModMemoryModules.EGG_COOLDOWN);
+        Optional<Integer> cooldown = this.getBrain().getOptionalRegisteredMemory(MemoryModulesWT.EGG_COOLDOWN);
         if(cooldown.isEmpty()) {
             Optional<GlobalPos> optional = this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HOME);
 
@@ -146,7 +145,7 @@ public class SwanEntity extends AnimalEntity {
                         this.getWorld().setBlockState(pos, homeBlock.with(BirdNest.NEST_LEVEL, homeBlock.get(BirdNest.NEST_LEVEL) + 1));
                     }
                 }
-                this.getBrain().remember(ModMemoryModules.EGG_COOLDOWN, EGG_COOLDOWN);
+                this.getBrain().remember(MemoryModulesWT.EGG_COOLDOWN, EGG_COOLDOWN);
             }
         }
 
@@ -170,7 +169,7 @@ public class SwanEntity extends AnimalEntity {
             this.setAttacking(this.getTarget() != null);
 
             if(this.isBaby()) {
-                this.getBrain().setSchedule(ModSchedule.BABY);
+                this.getBrain().setSchedule(SchedulesAPI.DEFAULT_BABY);
             }
             else if(this.isAttacking() && !this.isFighting()) {
                 this.getBrain().setSchedule(Schedule.EMPTY);
@@ -178,10 +177,10 @@ public class SwanEntity extends AnimalEntity {
                 this.setFighting(true);
             }
             else if (!this.isAttacking() && this.isFighting()) {
-                this.getBrain().setSchedule(ModSchedule.SWAN_DEFAULT);
+                this.getBrain().setSchedule(SchedulesAPI.DEFAULT_SLEEP);
                 this.getBrain().forget(MemoryModuleType.LOOK_TARGET);
                 this.getBrain().forget(MemoryModuleType.WALK_TARGET);
-                this.getBrain().forget(ModMemoryModules.DEFENDING_HOME);
+                this.getBrain().forget(MemoryModulesAPI.DEFENDING_HOME);
                 this.setIntimidating(false);
                 this.setFighting(false);
             }
@@ -310,8 +309,8 @@ public class SwanEntity extends AnimalEntity {
         return dataTracker.get(FIGHTING);
     }
 
-    public void setFighting(boolean isSleeping) {
-        dataTracker.set(FIGHTING, isSleeping);
+    public void setFighting(boolean isFighting) {
+        dataTracker.set(FIGHTING, isFighting);
     }
 
     public boolean isSleeping() {
@@ -382,8 +381,6 @@ public class SwanEntity extends AnimalEntity {
             }
         }
     }
-
-
 
     public static boolean isValidSwanFood(LivingEntity entity) {
         return entity.getType().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_food")));

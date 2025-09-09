@@ -184,7 +184,7 @@ public class ModRegistries {
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.DRY_PINE_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.PINE_BRANCHES, 30, 60);
 
-        LeavesSets.blocks.forEach(block -> {
+        LeavesSets.leaves.forEach(block -> {
             FlammableBlockRegistry.getDefaultInstance().add(block, 30, 60);
         });
     }
@@ -477,7 +477,11 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.DYING_GRASS, 0.30f);
         registry.add(ModNatureBlocks.FROZEN_GRASS, 0.10f);
         registry.add(ModNatureBlocks.GRIM_GRASS, 0.30f);
+        registry.add(ModNatureBlocks.HOGWEED, 0.30f);
         registry.add(ModNatureBlocks.MEADOWGRASS, 0.30f);
+        registry.add(ModNatureBlocks.SPARSE_GRASS, 0.30f);
+        registry.add(ModNatureBlocks.NETTLES, 0.30f);
+        registry.add(ModNatureBlocks.THISTLE, 0.30f);
         registry.add(ModNatureBlocks.TEMPERATE_GRASS, 0.30f);
         registry.add(ModNatureBlocks.BLUE_FESCUE, 0.30f);
         registry.add(ModNatureBlocks.GRASS_TUFT, 0.30f);
@@ -504,6 +508,7 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.HEATHER_BUSH, 0.30f);
         registry.add(ModNatureBlocks.LARGE_BLUE_FESCUE, 0.30f);
         registry.add(ModNatureBlocks.LARGE_BUSH, 0.30f);
+        registry.add(ModNatureBlocks.LARGE_SHRIVELED_SHRUB, 0.10f);
         registry.add(ModNatureBlocks.RED_HEATHER_BUSH, 0.30f);
         registry.add(ModNatureBlocks.RUSHES, 0.30f);
         registry.add(ModNatureBlocks.BRAMBLES_OF_MORDOR, 0.10f);
@@ -562,7 +567,7 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.ASPEN_SAPLING, 0.3F);
         registry.add(ModNatureBlocks.BEECH_SAPLING, 0.3F);
 
-        LeavesSets.blocks.forEach(block -> {
+        LeavesSets.leaves.forEach(block -> {
             registry.add(block, 0.3F);
         });
 

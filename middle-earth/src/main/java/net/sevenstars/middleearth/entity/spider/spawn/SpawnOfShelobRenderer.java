@@ -23,10 +23,9 @@ public class SpawnOfShelobRenderer extends MobEntityRenderer<SpawnOfShelobEntity
         super(ctx, new SpawnOfShelobModel(ctx.getPart(layer)), shadowRadius);
     }
 
-
     @Override
     public Identifier getTexture(SpawnOfShelobRenderState state) {
-        return Identifier.of(MiddleEarth.MOD_ID, PATH + "mirkwood_shelobite_spawn.png");
+        return state.spiderVariant.assetInfo().spawnOfShelob().texturePath();
     }
 
     public void updateRenderState(SpawnOfShelobEntity spawnofShelobEntity, SpawnOfShelobRenderState shelobiteScuttlerEntityRenderState, float f) {
@@ -36,7 +35,9 @@ public class SpawnOfShelobRenderer extends MobEntityRenderer<SpawnOfShelobEntity
         shelobiteScuttlerEntityRenderState.biteAnimationState.copyFrom(spawnofShelobEntity.biteAnimation);
         shelobiteScuttlerEntityRenderState.blockAnimationState.copyFrom(spawnofShelobEntity.blockAnimation);
         shelobiteScuttlerEntityRenderState.pounceAnimationState.copyFrom(spawnofShelobEntity.pounceAnimation);
+        shelobiteScuttlerEntityRenderState.timelineTicks = spawnofShelobEntity.getTimelineTicks();
         shelobiteScuttlerEntityRenderState.climbingTicks = spawnofShelobEntity.getClimbingTicks();
         shelobiteScuttlerEntityRenderState.leapingTicks = spawnofShelobEntity.getLeapingTicks();
+        shelobiteScuttlerEntityRenderState.spiderVariant = spawnofShelobEntity.getVariant();
     }
 }

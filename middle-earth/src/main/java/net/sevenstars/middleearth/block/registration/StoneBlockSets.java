@@ -291,6 +291,14 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.OLD_BLOCKS_PILLAR)
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
+    public static StoneBlockSetBuilder TRAVERTINE_SET = registerStoneSet(new StoneBlockSetBuilder("travertine",
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.PALE_YELLOW, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
+            .addToSet(StoneBlockTypes.BASE_BLOCKS)
+            .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
+            .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
+            .addToSet(StoneBlockTypes.BRICK_BLOCKS)
+            .addToSet(StoneBlockTypes.OLD_BLOCKS_PILLAR));
+
     public static StoneBlockSetBuilder GABBRO_SET = registerStoneSet(new StoneBlockSetBuilder("gabbro",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)

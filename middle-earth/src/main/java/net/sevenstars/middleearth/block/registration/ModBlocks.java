@@ -55,6 +55,9 @@ public class ModBlocks {
     public static final Block WATTLE_TRAPDOOR = registerWoodBlock("wattle_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR), true);
 
+    public static final Block TREATED_WOOD_ROPE_FENCE = registerWoodBlock("treated_wood_rope_fence",
+            FenceBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_FENCE), true);
+
     public static final Block SNOWY_GRASS_BLOCK = registerMiscBlock("snowy_grass_block",
             Block::new,AbstractBlock.Settings.copy(Blocks.GRASS_BLOCK),false);
 
@@ -267,12 +270,12 @@ public class ModBlocks {
             Block::new, AbstractBlock.Settings.copy(Blocks.NETHERRACK),true);
 
     public static final Block SKELETAL_PILE = registerMiscBlock("skeletal_pile",
-            (settings) -> new ColoredFallingBlock(new ColorCode(14406560), settings), AbstractBlock.Settings.copy(Blocks.BONE_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.BONE),true);
+            Block::new, AbstractBlock.Settings.copy(Blocks.BONE_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.BONE),true);
     public static final Block SKELETAL_PILE_LAYER = registerMiscBlock("skeletal_pile_layer",
             (settings) -> new LayersBlock(settings, SKELETAL_PILE),AbstractBlock.Settings.copy(SKELETAL_PILE), false);
 
     public static final Block WASTE_PILE = registerMiscBlock("waste_pile",
-            (settings) -> new ColoredFallingBlock(new ColorCode(14406560), settings), AbstractBlock.Settings.copy(Blocks.MUD).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.MUD),true);
+            Block::new, AbstractBlock.Settings.copy(Blocks.MUD).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.MUD),true);
     public static final Block WASTE_PILE_LAYER = registerMiscBlock("waste_pile_layer",
             (settings) -> new LayersBlock(settings, WASTE_PILE),AbstractBlock.Settings.copy(WASTE_PILE), false);
 
