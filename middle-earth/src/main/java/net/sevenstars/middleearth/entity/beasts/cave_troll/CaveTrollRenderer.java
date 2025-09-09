@@ -6,6 +6,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollEyesFeatureRenderer;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollHeldItemFeatureRenderer;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollSaddleFeatureRenderer;
 
@@ -13,6 +14,7 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
     private static final String PATH = "textures/entities/trolls/cave/cave_troll_green.png";
     public CaveTrollRenderer(EntityRendererFactory.Context context) {
         super(context, new CaveTrollEntityModel(context.getPart(ModEntityModelLayers.CAVE_TROLL)), 1.1f);
+        this.addFeature(new CaveTrollEyesFeatureRenderer(this));
         this.addFeature(new CaveTrollSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(new CaveTrollHeldItemFeatureRenderer(this));
     }
@@ -46,5 +48,6 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
         state.isTame = troll.isTame();
         state.conrollingPassenger = troll.getControllingPassenger();
         state.saddle = troll.getEquippedStack(EquipmentSlot.SADDLE);
+        state.tameness = troll.getTameness();
     }
 }

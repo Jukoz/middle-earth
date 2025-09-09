@@ -26,6 +26,7 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -157,9 +158,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
-        if(!this.isTame()) {
-            tryBonding(player); // TODO: ONLY TEMPORARY - DON'T FORGET TO REMOVE
-        }
 
         if(!this.getWorld().isClient()) { // Server side
             for(RaceType race : this.getCompatibleRaces()) { // Check for race
@@ -192,6 +190,11 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         return ActionResult.PASS; // Player is of incompatible race - don't interact
     }
 
+    @Override
+    public boolean usesTameness() {
+        return true;
+    }
+
     public boolean isTrollWeapon(ItemStack itemStack) {
         return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_weapons")));
     }
@@ -204,6 +207,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
+            this.setTameness(50);
             this.getBrain().remember(MemoryModulesME.TAME, true);
             this.getBrain().forget(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN);
             this.getBrain().forget(MemoryModulesME.FOOD_EATEN_COUNT);
@@ -450,7 +454,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                     weaponDamage = modifier.modifier().value();
                 }
             }
-
         }
 
         List<Entity> entities = this.getWorld().getOtherEntities(this, box);
@@ -592,6 +595,11 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     public boolean isCommandItem(ItemStack stack) {
         return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
+    }
+
+    @Override
+    public boolean isFoodItem(ItemStack itemStack) {
+        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_food")));
     }
 
     @Override

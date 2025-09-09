@@ -215,6 +215,11 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     @Override
+    public boolean usesTameness() {
+        return false;
+    }
+
+    @Override
     public EntityDimensions getBaseDimensions(EntityPose pose) {
         return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
     }
@@ -292,6 +297,11 @@ public class WargEntity extends AbstractBeastEntity {
 
     public boolean isCommandItem(ItemStack stack) {
         return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
+    }
+
+    @Override
+    public boolean isFoodItem(ItemStack itemStack) {
+        return false;
     }
 
     @Override

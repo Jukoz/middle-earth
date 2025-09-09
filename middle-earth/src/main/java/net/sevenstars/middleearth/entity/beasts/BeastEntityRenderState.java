@@ -10,6 +10,8 @@ public class BeastEntityRenderState extends LivingEntityRenderState {
     public AnimationState stopSittingAnimationState = new AnimationState();
     public AnimationState chargeAnimationState = new AnimationState();
 
+    public int tameness = 0;
+
     public boolean isSprinting = false;
     public boolean isCharging = false;
     public boolean isTame = false;
