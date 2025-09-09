@@ -12,7 +12,12 @@ public class BiomeEventDataLookup {
         Identifier biomeEventId = Identifier.of(biome.getIdAsString());
         BiomeEventData eventData = world.getRegistryManager().getOrThrow(BiomeEventsME.KEY).get(biomeEventId);
         if(eventData != null){
-            return eventData.findNpcData(world, entity);
+            var foundNpcData = eventData.findNpcData(world, entity);
+            if(foundNpcData == null && eventData.getSpawnDefaultWhenUnmet()){
+                eventData = world.getRegistryManager().getOrThrow(BiomeEventsME.KEY).get(BiomeEventsME.DEFAULT);
+                foundNpcData = eventData.findNpcData(world, entity);
+            }
+            return foundNpcData;
         }
         else {
             eventData = world.getRegistryManager().getOrThrow(BiomeEventsME.KEY).get(BiomeEventsME.DEFAULT);

@@ -43,30 +43,26 @@ public class BiomeEventsME {
 
     public static void bootstrap(Registerable<BiomeEventData> context) {
         RegistryEntryLookup<BiomeEventData> registryEntryLookup = context.getRegistryLookup(KEY);
+
         register(context, registryEntryLookup, DEFAULT, new BiomeEventData(List.of(
-                new BiomeNpcSpawningData(BrigandNpcDataPool.WILD_GOBLIN_WARRIOR)
-                        .withLightLevelMax(3)
-                        .withWorldHeightMax(63)
-                        .withUndegroundRequired(),
-                new BiomeNpcSpawningData(BrigandNpcDataPool.BRIGAND_CHIEFTAIN)
-                        .withWeight(3)
-                        .withSkylightRequired(),
-                new BiomeNpcSpawningData(BrigandNpcDataPool.BRIGAND_MERCENARY)
-                        .withSkylightRequired()
+            new BiomeNpcSpawningData(BrigandNpcDataPool.BRIGAND_CHIEFTAIN).withMount(EntityType.HORSE),
+            new BiomeNpcSpawningData(BrigandNpcDataPool.BRIGAND_CHIEFTAIN).withWeight(2),
+            new BiomeNpcSpawningData(BrigandNpcDataPool.BRIGAND_MERCENARY).withWeight(3),
+            new BiomeNpcSpawningData(BrigandNpcDataPool.BRIGAND_THIEF).withWeight(5),
+            new BiomeNpcSpawningData(BrigandNpcDataPool.BRIGAND_THUG).withWeight(5)
         )));
+
         register(context, registryEntryLookup, ANORIEN, new BiomeEventData(List.of(
                 new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_SOLDIER).withWeight(2),
                 new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_MILITIA),
                 new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_MILITIA)
         )));
+
         register(context, registryEntryLookup, PELENNOR_FIELDS, new BiomeEventData(List.of(
-                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD),
-                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD).withMount(EntityType.HORSE),
-                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_CITADEL_GUARD).withMount(EntityType.PIG),
-                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_CITADEL_GUARD).withMount(EntityType.DONKEY),
-                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD).withMount(EntityType.CHICKEN),
-                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_KNIGHT).withWeight(3),
-                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_SOLDIER).withWeight(8)
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD).withSkylightRequired(),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD).withSkylightRequired().withMount(EntityType.HORSE, Identifier.of("leather_horse_armor")),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_KNIGHT).withSkylightRequired().withWeight(3),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_SOLDIER).withSkylightRequired().withWeight(8)
         )));
     }
 

@@ -11,8 +11,12 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
@@ -20,6 +24,7 @@ import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
@@ -191,7 +196,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             npcDataCache = dynamicRegistryManager.getOrThrow(NpcME.KEY).get(npcDataId);
 
             if(npcDataCache == null){
-                generateNpcDataBasedOnBiome(world, new NpcEntityData(), false);
+                generateNpcDataBasedOnBiome(null, new NpcEntityData(), false);
             }
         }
 
@@ -267,7 +272,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             entityData = new NpcEntityData();
         switch (spawnReason){
             case SpawnReason.CHUNK_GENERATION, SpawnReason.COMMAND:
-                generateNpcDataBasedOnBiome((World)world.toServerWorld(), (NpcEntityData) entityData, true);
+                generateNpcDataBasedOnBiome(world, (NpcEntityData) entityData, true);
                 break;
             case SpawnReason.PATROL:
                 // Fetch data from NpcWildSpawning (patrol)
@@ -280,8 +285,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         return entityData;
     }
 
-    private void generateNpcDataBasedOnBiome(World world, NpcEntityData entityData, boolean forceApply){
+    private void generateNpcDataBasedOnBiome(ServerWorldAccess serverWorldAccess, NpcEntityData entityData, boolean forceApply){
+        ServerWorld world = (serverWorldAccess == null) ? (ServerWorld) getWorld() : serverWorldAccess.toServerWorld();
         BiomeEventData.FoundNpcReturn foundSpawnData = BiomeEventDataLookup.findNpcDataForBiome(world, world.getBiome(getBlockPos()), this);
+        if(foundSpawnData == null){
+            remove(RemovalReason.DISCARDED);
+            return;
+        }
         setNpcData(foundSpawnData.npcData());
         if(entityData == null){
             entityData = new NpcEntityData(foundSpawnData.npcData().getFaction(), foundSpawnData.npcData().getId(), foundSpawnData.npcData().getRandomCategory());
@@ -293,10 +303,30 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         }
         if(foundSpawnData.mountEntity() != null){
             var mount = foundSpawnData.mountEntity().create(world, SpawnReason.CHUNK_GENERATION);
+            if(serverWorldAccess != null && mount instanceof HorseEntity horseEntity){
+                horseEntity.initialize(serverWorldAccess, world.getLocalDifficulty(getBlockPos()), SpawnReason.CHUNK_GENERATION, null);
+            }
+
             mount.setPos(getBlockX(), getBlockY(), getBlockZ());
-            world.spawnEntity(mount);
+
+            if(mount instanceof AbstractHorseEntity abstractHorseEntity){
+                abstractHorseEntity.setOwner(this);
+                abstractHorseEntity.equipStack(EquipmentSlot.SADDLE, new ItemStack(Items.SADDLE));
+
+                if(foundSpawnData.mountArmor() != null)
+                    abstractHorseEntity.equipBodyArmor(foundSpawnData.mountArmor());
+            } else if(foundSpawnData.mountEntity().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("can_equip_saddle"))) && mount instanceof EquipmentHolder equipmentHolder){
+                equipmentHolder.equipStack(EquipmentSlot.SADDLE, new ItemStack(Items.SADDLE));
+            }
+
             this.startRiding(mount);
+            world.spawnEntity(mount);
         }
+    }
+
+    @Override
+    public boolean shouldControlVehicles() {
+        return true;
     }
 
     @Override

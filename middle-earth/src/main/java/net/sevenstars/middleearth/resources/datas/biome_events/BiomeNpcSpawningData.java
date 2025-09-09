@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 
 import java.util.Optional;
@@ -18,8 +20,10 @@ public class BiomeNpcSpawningData {
             Codec.INT.optionalFieldOf("world_height_min").forGetter(BiomeNpcSpawningData::getWorldHeightMin),
             Codec.BOOL.optionalFieldOf("require_sky_access").forGetter(BiomeNpcSpawningData::getRequireSkyAccess),
             Codec.BOOL.optionalFieldOf("require_underground").forGetter(BiomeNpcSpawningData::getRequireUndeground),
-            Identifier.CODEC.optionalFieldOf("mount_id").forGetter(BiomeNpcSpawningData::getMount)
-    ).apply(instance, BiomeNpcSpawningData::new));
+            Identifier.CODEC.optionalFieldOf("mount_id").forGetter(BiomeNpcSpawningData::getMount),
+            Identifier.CODEC.optionalFieldOf("mount_armor_id").forGetter(BiomeNpcSpawningData::getMountArmor),
+            Codec.INT.optionalFieldOf("mount_armor_color").forGetter(BiomeNpcSpawningData::getMountArmorColor)
+            ).apply(instance, BiomeNpcSpawningData::new));
 
     private Identifier npcDataIdentifier;
     private Optional<Integer> weight;
@@ -30,12 +34,14 @@ public class BiomeNpcSpawningData {
     private Optional<Boolean> requireSkyAccess;
     private Optional<Boolean> requireUndeground;
     private Optional<Identifier> mount;
+    private Optional<Identifier> mountArmorId;
+    private Optional<Integer> mountArmorColor;
 
     private BiomeNpcSpawningData(Identifier npcDataIdentifier, Optional<Integer> weight,
                                  Optional<Integer> lightLevelMax, Optional<Integer> lightLevelMin,
                                  Optional<Integer> worldHeightMax, Optional<Integer> worldHeightMin,
                                  Optional<Boolean> requireSkyAccess, Optional<Boolean> requireUndeground,
-                                 Optional<Identifier> mount){
+                                 Optional<Identifier> mount, Optional<Identifier> mountArmorId, Optional<Integer> mountArmorColor){
         this.npcDataIdentifier = npcDataIdentifier;
         this.weight = weight;
         this.lightLevelMax = lightLevelMax;
@@ -45,6 +51,8 @@ public class BiomeNpcSpawningData {
         this.requireSkyAccess = requireSkyAccess;
         this.requireUndeground = requireUndeground;
         this.mount = mount;
+        this.mountArmorId = mountArmorId;
+        this.mountArmorColor = mountArmorColor;
     }
 
     public BiomeNpcSpawningData(NpcData npcData){
@@ -57,6 +65,8 @@ public class BiomeNpcSpawningData {
         this.requireSkyAccess = Optional.empty();
         this.requireUndeground = Optional.empty();
         this.mount = Optional.empty();
+        this.mountArmorId = Optional.empty();
+        this.mountArmorColor = Optional.empty();
     }
 
     public BiomeNpcSpawningData withWeight(int weight){
@@ -99,6 +109,17 @@ public class BiomeNpcSpawningData {
         return this;
     }
 
+    public BiomeNpcSpawningData withMount(EntityType mount, Identifier armorItem){
+        withMount(mount);
+        this.mountArmorId = Optional.of(armorItem);
+        return this;
+    }
+    public BiomeNpcSpawningData withMount(EntityType mount, Identifier armorItem, int color){
+        withMount(mount, armorItem);
+        this.mountArmorColor = Optional.of(color);
+        return this;
+    }
+
     private Optional<Integer> getOptionalWeight(){
         return weight;
     }
@@ -134,8 +155,38 @@ public class BiomeNpcSpawningData {
     private Optional<Boolean> getRequireUndeground(){
         return requireUndeground;
     }
+
+    public boolean conditionsAreMet(World world, BlockPos pos){
+        if(requireSkyAccess.isPresent() && requireSkyAccess.get() && !world.isSkyVisible(pos))
+            return false;
+
+        if(requireUndeground.isPresent() && requireUndeground.get() && world.isSkyVisible(pos))
+            return false;
+
+        int lightLevel = world.getLightLevel(pos);
+
+        if(lightLevelMax.isPresent() && lightLevel > lightLevelMax.get())
+            return false;
+
+        if(lightLevelMin.isPresent() && lightLevel < lightLevelMin.get())
+            return false;
+
+        if(worldHeightMax.isPresent() && pos.getY() > worldHeightMax.get())
+            return false;
+
+        if(worldHeightMin.isPresent() && pos.getY() < worldHeightMin.get())
+            return false;
+
+        return true;
+    }
+
     public Optional<Identifier> getMount(){
         return mount;
     }
-
+    public Optional<Identifier> getMountArmor(){
+        return mountArmorId;
+    }
+    public Optional<Integer> getMountArmorColor(){
+        return mountArmorColor;
+    }
 }
