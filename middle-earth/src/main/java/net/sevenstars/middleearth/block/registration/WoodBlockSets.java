@@ -10,12 +10,11 @@ import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.special.ModLeavesBlock;
+import net.sevenstars.middleearth.block.special.plants.ModLeavesBlock;
 import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
 import net.sevenstars.middleearth.block.utils.WoodBlockTypes;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.particles.ModParticleTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,6 +150,13 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
             .addToSet(WoodBlockTypes.ROOFING_BLOCKS));
+
+    public static WoodBlockSetBuilder ASPEN_SET = registerWoodSet(new WoodBlockSetBuilder("aspen",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.ASPEN_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
 
     public static WoodBlockSetBuilder BEECH_SET = registerWoodSet(new WoodBlockSetBuilder("beech",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.LIGHT_GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.BEECH_SAPLING)
@@ -313,6 +319,15 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
             .addToSet(WoodBlockTypes.LEAVES));
 
+    public static WoodBlockSetBuilder WHITE_SPRUCE_SET = registerWoodSet(new WoodBlockSetBuilder("white_spruce",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.WHITE_SPRUCE_SAPLING)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS)
+            .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
+            .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
+            .addToSet(WoodBlockTypes.LEAVES));
+
     public static WoodBlockSetBuilder WILLOW_SET = registerWoodSet(new WoodBlockSetBuilder("willow",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.PALE_GREEN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.WILLOW_SAPLING)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
@@ -413,13 +428,9 @@ public class WoodBlockSets {
                 case SHINGLE_BLOCKS ->
                         set.shinglesBlocks = BlockSetRegistration.createRegularSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup, false);
                 case LEAVES -> {
-                    //Temporary solution until particles figured out
-                    if (set.setName.contains("mallorn") ){
+                    if(set.setName.equals("mallorn")){
                         set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
-                                (settings) -> new ModLeavesBlock(0.01F, settings, false, ModParticleTypes.MALLORN_LEAVES_PARTICLE), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);
-                    } else if (set.setName.contains("mirkwood")){
-                        set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
-                                (settings) -> new ModLeavesBlock(0.01F, settings, true, ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);
+                                (settings) -> new ModLeavesBlock(0.01F, settings, false), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);
                     } else {
                         set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
                                 (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);

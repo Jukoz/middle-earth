@@ -48,6 +48,8 @@ public class MineableAxe {
             add(ModBlocks.RED_WATTLE_TRAPDOOR);
             add(ModBlocks.WATTLE_TRAPDOOR);
 
+            add(ModBlocks.TREATED_WOOD_ROPE_FENCE);
+
             add(ModDecorativeBlocks.BELLOWS);
 
             add(ModDecorativeBlocks.TREATED_WOOD_LADDER);

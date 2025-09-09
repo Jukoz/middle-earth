@@ -478,14 +478,29 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStairsRecipe(exporter, ModBlocks.MIRE, ModBlocks.MIRE_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MIRE_SLAB, ModBlocks.MIRE);
 
+                createStairsRecipe(exporter, ModBlocks.CHALKSOIL, ModBlocks.CHALKSOIL_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHALKSOIL_SLAB, ModBlocks.CHALKSOIL);
+
+                createStairsRecipe(exporter, ModBlocks.COARSE_CHALKSOIL, ModBlocks.COARSE_CHALKSOIL_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.COARSE_CHALKSOIL_SLAB, ModBlocks.COARSE_CHALKSOIL);
+
                 createStairsRecipe(exporter, ModBlocks.LOAM, ModBlocks.LOAM_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.LOAM_SLAB, ModBlocks.LOAM);
+
+                createStairsRecipe(exporter, ModBlocks.COARSE_LOAM, ModBlocks.COARSE_LOAM_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.COARSE_LOAM_SLAB, ModBlocks.COARSE_LOAM);
 
                 createStairsRecipe(exporter, ModBlocks.PEAT, ModBlocks.PEAT_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.PEAT_SLAB, ModBlocks.PEAT);
 
+                createStairsRecipe(exporter, ModBlocks.COARSE_PEAT, ModBlocks.COARSE_PEAT_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.COARSE_PEAT_SLAB, ModBlocks.COARSE_PEAT);
+
                 createStairsRecipe(exporter, ModBlocks.SILT, ModBlocks.SILT_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SILT_SLAB, ModBlocks.SILT);
+
+                createStairsRecipe(exporter, ModBlocks.COARSE_SILT, ModBlocks.COARSE_SILT_STAIRS);
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.COARSE_SILT_SLAB, ModBlocks.COARSE_SILT);
 
                 createStairsRecipe(exporter, ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_STAIRS);
                 offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRY_DIRT_SLAB, ModBlocks.DRY_DIRT);
