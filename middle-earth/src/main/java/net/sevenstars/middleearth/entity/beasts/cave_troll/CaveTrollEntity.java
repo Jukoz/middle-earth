@@ -344,11 +344,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public boolean isAngry() {
-        return false;
-    }
-
-    @Override
     public boolean canSprintAsVehicle() {
         return true;
     }

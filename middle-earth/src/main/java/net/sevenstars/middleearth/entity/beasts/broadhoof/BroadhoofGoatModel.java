@@ -68,6 +68,13 @@ public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderSta
         this.jumpingAnimation = BroadhoofGoatAnimations.JUMP.createAnimation(root);
     }
     public static TexturedModelData getTexturedModelData() {
+        ModelData modelData = getModelData();
+
+        return TexturedModelData.of(modelData, 128, 128);
+    }
+
+
+    public static ModelData getModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         ModelPartData broadhoof_goat = modelPartData.addChild("broadhoof_goat", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 0.0F));
@@ -168,7 +175,7 @@ public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderSta
         ModelPartData right_front_leg = broadhoof_goat.addChild("right_front_leg", ModelPartBuilder.create().uv(43, 17).mirrored().cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 9.0F, 4.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(-4.0F, -9.0F, -6.0F));
 
         ModelPartData right_hind_leg = broadhoof_goat.addChild("right_hind_leg", ModelPartBuilder.create().uv(61, 17).mirrored().cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 9.0F, 4.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(-3.0F, -9.0F, 7.0F));
-        return TexturedModelData.of(modelData, 128, 128);
+        return modelData;
     }
 
     @Override

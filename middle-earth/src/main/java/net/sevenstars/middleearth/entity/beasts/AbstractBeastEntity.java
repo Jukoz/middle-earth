@@ -356,7 +356,11 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
             this.setCharging(true);
             this.chargeTimeout = maxChargeCooldown();
         }
-        super.jump(strength, movementInput);
+    }
+
+    @Override
+    public boolean isAngry() {
+        return false;
     }
 
     @Override

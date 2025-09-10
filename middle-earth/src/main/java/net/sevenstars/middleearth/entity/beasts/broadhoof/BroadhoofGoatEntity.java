@@ -310,7 +310,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         }
 
         for(Entity entity : entities) {
-            if(entity.getUuid() != this.getOwner().getUuid() && entity != this && !this.getPassengerList().contains(entity) && !this.getWorld().isClient()) {
+            if(entity != this.getOwner() && entity != this && !this.getPassengerList().contains(entity) && !this.getWorld().isClient()) {
                 entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), getAttackDamage());
 
                 Vec3d velocity = this.getVelocity();
@@ -334,21 +334,21 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     protected void jump(float strength, Vec3d movementInput) {
-        if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
+        if(this.hasControllingPassenger() && this.getControllingPassenger().isSprinting()) {
+            super.jump(strength, movementInput);
+        }
+        else {
             this.setChargeTimeout(30);
             double d = this.getJumpVelocity(strength);
             Vec3d vec3d = this.getVelocity().multiply(4);
             this.setVelocity(vec3d.x, d, vec3d.z);
             this.setOnGround(false);
             this.velocityDirty = true;
-            if (movementInput.z > 0.0 || movementInput.x > 0.0) {
+            if (movementInput.z > 0.0) {
                 float f = MathHelper.sin(this.getYaw() * ((float)Math.PI / 180));
                 float g = MathHelper.cos(this.getYaw() * ((float)Math.PI / 180));
                 this.setVelocity(this.getVelocity().add(-0.4f * f * strength, 0.0, 0.4f * g * strength));
             }
-        }
-        else {
-            super.jump(strength, movementInput);
         }
     }
 
