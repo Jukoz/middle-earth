@@ -1,6 +1,21 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "block/block",
   "textures": {
-    "all": "middle-earth:block/forest_moss_block"
-  }
+    "texture": "middle-earth:block/forest_moss_block",
+    "particle": "middle-earth:block/forest_moss_block"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0, "cullface": "north"},
+        "east": {"uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0, "cullface": "east"},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0, "cullface": "south"},
+        "west": {"uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0, "cullface": "west"},
+        "up": {"uv": [16, 16, 0, 0], "texture": "#texture", "tintindex": 0, "cullface": "up"},
+        "down": {"uv": [16, 0, 0, 16], "texture": "#texture", "tintindex": 0, "cullface": "down"}
+      }
+    }
+  ]
 }

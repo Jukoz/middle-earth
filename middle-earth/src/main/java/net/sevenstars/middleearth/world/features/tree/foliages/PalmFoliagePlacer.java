@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.world.features.tree.foliages;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.sevenstars.middleearth.block.special.ModLeavesBlock;
+import net.sevenstars.middleearth.block.special.plants.ModLeavesBlock;
 import net.sevenstars.middleearth.world.gen.ModTreeGeneration;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;

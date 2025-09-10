@@ -92,7 +92,11 @@ public class HelpingGenerator {
                     case REDSTONE_BLOCKS -> woodRedstoneBlocks(set.redstoneBlocks, set.planksBlocks.base());
                     case LEAVES -> {
                         if (!Objects.equals(Registries.BLOCK.getId(set.leaves).getNamespace(), "minecraft")){
-                            LeavesSets.blocks.add(set.leaves);
+                            if (set.setName.contains("beech")){
+                                LeavesSets.grayscaleLeaves.add(set.leaves);
+                            } else {
+                                LeavesSets.leaves.add(set.leaves);
+                            }
                         }
                     }
                 }
@@ -103,7 +107,7 @@ public class HelpingGenerator {
             regularBlocks(set.blockSet);
         }
 
-        SimpleBlockModel.blocks.addAll(LeavesSets.blocks);
+        SimpleBlockModel.blocks.addAll(LeavesSets.leaves);
 
         for (SimpleVerticalSlabModel.VerticalSlab set : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
             BlockDrops.blocks.add(set.verticalSlab());
