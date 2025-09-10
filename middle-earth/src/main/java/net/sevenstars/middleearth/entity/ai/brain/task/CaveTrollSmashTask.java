@@ -38,7 +38,7 @@ public class CaveTrollSmashTask extends MultiTickTask<CaveTrollEntity> {
 
     @Override
     protected void finishRunning(ServerWorld world, CaveTrollEntity entity, long time) {
-        entity.smashAttack(entity.getRandom().nextBetween(50, 100));
+        entity.smashAttack(entity.getRandom().nextBetween(75, 125));
         entity.getBrain().remember(MemoryModulesME.SMASH_COOLDOWN, 200);
     }
 }

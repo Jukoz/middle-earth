@@ -22,7 +22,7 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
 
     @Override
     public Identifier getTexture(CaveTrollEntityRenderState state) {
-        return state.tameness > 25 ? Identifier.of(MiddleEarth.MOD_ID, TEXTURE) : Identifier.of(MiddleEarth.MOD_ID, TEXTURE_ANGRY);
+        return state.tameness > 25 && !state.isEnraged ? Identifier.of(MiddleEarth.MOD_ID, TEXTURE) : Identifier.of(MiddleEarth.MOD_ID, TEXTURE_ANGRY);
     }
 
     @Override
@@ -46,6 +46,7 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
         state.smashingAnimationState = troll.smashingAnimationState;
         state.isSprinting = troll.isSprinting();
         state.isCharging = troll.isCharging();
+        state.isEnraged = troll.isEnraged();
         state.isTame = troll.isTame();
         state.conrollingPassenger = troll.getControllingPassenger();
         state.saddle = troll.getEquippedStack(EquipmentSlot.SADDLE);

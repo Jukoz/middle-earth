@@ -59,10 +59,12 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public LootWorldContext lootWorldContext;
     private float smashingStrength; // Used in server-side only
     private float smashingTime; // Used in server-side only
+    private float enragedTime; // Used in server-side only
     public static final TrackedData<Boolean> SCAVENGING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> ROARING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SMASHING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> ENRAGED = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState chaseAnimationState = new AnimationState();
     public final AnimationState scavengingAnimationState = new AnimationState();
     public final AnimationState startSleepingAnimationState = new AnimationState();
@@ -111,6 +113,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         builder.add(ROARING, false);
         builder.add(SLEEPING, false);
         builder.add(SMASHING, false);
+        builder.add(ENRAGED, false);
     }
 
 
@@ -141,6 +144,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             this.chargeTimeout = 0;
         }
         else if(rand > 0.7) { // Tame failure (wake up, become enraged)
+            this.enragedTime = this.age;
+            this.setEnraged(true);
             this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 1200));
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
@@ -208,6 +213,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     protected void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
             this.setTameness(75);
+            this.stopSleeping();
             this.getBrain().remember(MemoryModulesME.TAME, true);
             this.getBrain().forget(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN);
             this.getBrain().forget(MemoryModulesME.FOOD_EATEN_COUNT);
@@ -234,6 +240,10 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                 if(this.age - this.smashingTime > 30) {
                     smashAttack(smashingStrength);
                 }
+            }
+
+            if(this.isEnraged() && this.age - this.enragedTime > 1200) {
+                this.setEnraged(false);
             }
         }
 
@@ -482,12 +492,17 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
+    public float getWeaponDisableBlockingForSeconds() {
+        return this.isCharging() || this.isSmashing() ? 10.0f : 0f;
+    }
+
+    @Override
     protected void jump(float strength, Vec3d movementInput) {
         if(this.hasControllingPassenger() && this.getControllingPassenger().isSprinting()) {
             super.jump(strength, movementInput);
         }
         else if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
-            setChargeTimeout(200);
+            setChargeTimeout(300);
         }
     }
 
@@ -532,6 +547,14 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     public void setSleeping(boolean isSleeping) {
         this.dataTracker.set(SLEEPING, isSleeping);
+    }
+
+    public boolean isEnraged() {
+        return this.dataTracker.get(ENRAGED);
+    }
+
+    public void setEnraged(boolean isEnraged) {
+        this.dataTracker.set(ENRAGED, isEnraged);
     }
 
     public boolean isSmashing() {
