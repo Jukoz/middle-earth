@@ -16,6 +16,7 @@ public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderSta
     private final ModelPart[] rightHorns = new ModelPart[BroadhoofGoatHorns.values().length];
 
     private final Animation runningAnimation;
+    private final Animation walkingAnimation;
     private final Animation eatingAnimation;
     private final Animation rammingAnimation;
     private final Animation layingAnimation;
@@ -56,6 +57,7 @@ public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderSta
         this.leftHorns[6] = horns.getChild("huge_left_horn");
         this.rightHorns[6] = horns.getChild("huge_right_horn");
 
+        this.walkingAnimation = BroadhoofGoatAnimations.WALK.createAnimation(root);
         this.runningAnimation = BroadhoofGoatAnimations.RUN.createAnimation(root);
         this.eatingAnimation = BroadhoofGoatAnimations.EAT.createAnimation(root);
         this.rammingAnimation = BroadhoofGoatAnimations.RAM_ATTACK.createAnimation(root);
@@ -173,24 +175,21 @@ public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderSta
     public void setAngles(BroadhoofGoatEntityRenderState state) {
         super.setAngles(state);
 
-        /* I will drastically change how the horns are rendered
         for(int i = 0 ; i < BroadhoofGoatHorns.values().length; i++) {
-            this.leftHorns[i].visible = (entity.getHorns().getId() == i) && entity.hasLeftHorn() && !entity.isBaby();
-            this.rightHorns[i].visible = (entity.getHorns().getId() == i) && entity.hasRightHorn() && !entity.isBaby();
-        }*/
+            this.leftHorns[i].visible = (state.horns.getId() == i) && state.hasLeftHorn && !state.baby;
+            this.rightHorns[i].visible = (state.horns.getId() == i) && state.hasRightHorn && !state.baby;
+        }
 
         this.wildBeard.visible = !state.beardBrushed;
         this.brushedBeard.visible = state.beardBrushed;
 
-        /* Will be readded on refactor
-        if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || (entity.isAttacking() && !entity.hasControllingPassenger())) {
-            this.animateMovement(BroadhoofGoatAnimations.RUN, limbAngle, limbDistance, 1.2f, 1.2f);
+        if(!state.isSprinting && !(state.conrollingPassenger != null && state.conrollingPassenger.isSprinting()) && !state.isCharging) {
+            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 4f, 4f);
         }
         else {
-            this.animateMovement(BroadhoofGoatAnimations.WALK, limbAngle, limbDistance, 4f, 4f);
-        }*/
+            this.runningAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.2f, 1.2f);
+        }
 
-        this.runningAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
         this.eatingAnimation.apply(state.idleAnimationState, state.age);
         this.rammingAnimation.apply(state.attackAnimationState, state.age);
         this.layingAnimation.apply(state.startSittingAnimationState, state.age);

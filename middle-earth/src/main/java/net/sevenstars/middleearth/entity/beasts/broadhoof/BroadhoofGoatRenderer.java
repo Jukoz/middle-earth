@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.beasts.broadhoof;
 import com.google.common.collect.Maps;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -53,6 +54,31 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_brown.png"));
 
             });
+
+    @Override
+    public void updateRenderState(BroadhoofGoatEntity goat, BroadhoofGoatEntityRenderState state, float f) {
+        super.updateRenderState(goat, state, f);
+
+        state.variant = goat.getVariant();
+        state.horns = goat.getHorns();
+        state.hasLeftHorn = goat.hasLeftHorn();
+        state.hasRightHorn = goat.hasRightHorn();
+
+        state.isSprinting = goat.isSprinting();
+        state.isCharging = goat.isCharging();
+        state.isTame = goat.isTame();
+        state.conrollingPassenger = goat.getControllingPassenger();
+        state.saddle = goat.getEquippedStack(EquipmentSlot.SADDLE);
+
+        state.chargeAnimationState = goat.chargeAnimationState;
+        state.startSittingAnimationState = goat.startSittingAnimationState;
+        state.stopSittingAnimationState = goat.stopSittingAnimationState;
+        state.sittingAnimationState = goat.sittingAnimationState;
+        state.attackAnimationState = goat.attackAnimationState;
+        state.idleAnimationState = goat.idleAnimationState;
+        state.jumpAnimationState = goat.jumpAnimationState;
+
+    }
 
     @Override
     public Identifier getTexture(BroadhoofGoatEntityRenderState state) {
