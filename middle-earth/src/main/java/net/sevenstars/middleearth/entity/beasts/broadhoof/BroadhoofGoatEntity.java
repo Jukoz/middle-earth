@@ -283,14 +283,14 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         return stack.isIn(ItemTags.GOAT_FOOD);
     }
 
-    /*@Override
-    public boolean tryAttack(Entity target) {
-        if(!this.getWorld().isClient && super.tryAttack((ServerWorld)this.getWorld(), target)) {
+    @Override
+    public boolean tryAttack(ServerWorld world, Entity target) {
+        if(!world.isClient && super.tryAttack(world, target)) {
             this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-            return true;
         }
-        return false;
-    }*/
+
+        return super.tryAttack(world, target);
+    }
 
     @Override
     public void chargeAttack() {
@@ -341,7 +341,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
             this.setVelocity(vec3d.x, d, vec3d.z);
             this.setOnGround(false);
             this.velocityDirty = true;
-            if (movementInput.z > 0.0) {
+            if (movementInput.z > 0.0 || movementInput.x > 0.0) {
                 float f = MathHelper.sin(this.getYaw() * ((float)Math.PI / 180));
                 float g = MathHelper.cos(this.getYaw() * ((float)Math.PI / 180));
                 this.setVelocity(this.getVelocity().add(-0.4f * f * strength, 0.0, 0.4f * g * strength));
