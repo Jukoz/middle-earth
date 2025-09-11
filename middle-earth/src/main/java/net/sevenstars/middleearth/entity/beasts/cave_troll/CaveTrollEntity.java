@@ -3,6 +3,8 @@ package net.sevenstars.middleearth.entity.beasts.cave_troll;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -20,14 +22,20 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
@@ -40,25 +48,30 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.utils.PlayerUtil;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-// TODO Add weakness on sun exposure
-// TODO Implement charge attack
-// TODO Implement sweep attack
-// TODO Add Fighting Activities
 // TODO Implement Tameness mechanic
+// TODO Add sounds
 public class CaveTrollEntity extends AbstractBeastEntity {
     public LootTable scavengeLootTable;
     public LootWorldContext lootWorldContext;
+    private float smashingStrength; // Used in server-side only
+    private float smashingTime; // Used in server-side only
+    private float enragedTime; // Used in server-side only
     public static final TrackedData<Boolean> SCAVENGING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public static final TrackedData<Boolean> EATING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> ROARING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> SMASHING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> ENRAGED = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState chaseAnimationState = new AnimationState();
     public final AnimationState scavengingAnimationState = new AnimationState();
     public final AnimationState startSleepingAnimationState = new AnimationState();
     public final AnimationState sleepingAnimationState = new AnimationState();
     public final AnimationState stopSleepingAnimationState = new AnimationState();
+    public final AnimationState roaringAnimationState = new AnimationState();
+    public final AnimationState smashingAnimationState = new AnimationState();
 
     public CaveTrollEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
@@ -97,8 +110,10 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(SCAVENGING, false);
-        builder.add(EATING, false);
+        builder.add(ROARING, false);
         builder.add(SLEEPING, false);
+        builder.add(SMASHING, false);
+        builder.add(ENRAGED, false);
     }
 
 
@@ -111,6 +126,10 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         CaveTrollBrain.updateActivities(this);
         profiler.pop();
 
+        if(!this.isClientWorld() && this.isAffectedByDaylight()) {
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 100));
+        }
+
         super.mobTick(world);
     }
 
@@ -118,13 +137,15 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public void tryBonding(PlayerEntity player) {
         double rand = this.random.nextDouble();
 
-        if(rand < 0.15 || player.isInCreativeMode()) { // Tame success
+        if(rand < 0.15 || (rand < 0.3 && this.getTameness() <= 0) || player.isInCreativeMode()) { // Tame success, chance is twice as high if the troll is feral
             this.tameBeast(player);
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
 
             this.chargeTimeout = 0;
         }
         else if(rand > 0.7) { // Tame failure (wake up, become enraged)
+            this.enragedTime = this.age;
+            this.setEnraged(true);
             this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 1200));
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
@@ -142,19 +163,24 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
-        if(!this.isTame()) {
-            tryBonding(player); // TODO: ONLY TEMPORARY - DON'T FORGET TO REMOVE
-        }
 
         if(!this.getWorld().isClient()) { // Server side
             for(RaceType race : this.getCompatibleRaces()) { // Check for race
                 if(PlayerUtil.isOfRace(player, race)) {
-                    if(canAddPassenger(player) && itemStack.isEmpty()) { // Ride if player is compatible and hand is empty
-                        putPlayerOnBack(player);
-                        return ActionResult.SUCCESS;
+                    if(isTrollWeapon(itemStack) && isOwner(player) && this.getMainHandStack().isEmpty()) { // Give the troll a weapon
+                        this.equipStack(EquipmentSlot.MAINHAND, itemStack.copyAndEmpty());
+                        itemStack.decrementUnlessCreative(1, player);
+                        return ActionResult.SUCCESS_SERVER;
                     }
-
-                    if(!itemStack.isEmpty()) {
+                    else if(player.isSneaking() && itemStack.isEmpty() && isOwner(player) && !this.getMainHandStack().isEmpty()) {  // Take weapon away from troll
+                        player.giveOrDropStack(this.getMainHandStack().copyAndEmpty());
+                        return ActionResult.SUCCESS_SERVER;
+                    }
+                    else if(canAddPassenger(player) && itemStack.isEmpty()) { // Ride if player is compatible and hand is empty
+                        putPlayerOnBack(player);
+                        return ActionResult.SUCCESS_SERVER;
+                    }
+                    else if(!itemStack.isEmpty()) {
                         return super.interactMob(player, hand);
                     }
                 }
@@ -170,6 +196,15 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
+    public boolean usesTameness() {
+        return true;
+    }
+
+    public boolean isTrollWeapon(ItemStack itemStack) {
+        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_weapons")));
+    }
+
+    @Override
     protected boolean isTamable() {
         return this.isSleeping();
     }
@@ -177,6 +212,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
+            this.setTameness(75);
+            this.stopSleeping();
             this.getBrain().remember(MemoryModulesME.TAME, true);
             this.getBrain().forget(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN);
             this.getBrain().forget(MemoryModulesME.FOOD_EATEN_COUNT);
@@ -197,6 +234,16 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             }
             else if(this.getTargetInBrain() == null && this.isSprinting()) {
                 this.setSprinting(false);
+            }
+
+            if(this.isSmashing() && this.hasControllingPassenger()) {
+                if(this.age - this.smashingTime > 30) {
+                    smashAttack(smashingStrength);
+                }
+            }
+
+            if(this.isEnraged() && this.age - this.enragedTime > 1200) {
+                this.setEnraged(false);
             }
         }
 
@@ -221,13 +268,13 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
+    protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor)  {
         List<Entity> passengerList = this.getPassengerList();
         boolean saddled = this.hasSaddleEquipped();
-        boolean sprinting = false;
+        boolean sprinting = this.isCharging();
 
         if(this.getControllingPassenger() != null) {
-            sprinting = this.getControllingPassenger().isSprinting();
+            sprinting = this.getControllingPassenger().isSprinting() || this.isCharging();
         }
 
         float animationSpeed = this.limbAnimator.getSpeed();
@@ -253,6 +300,18 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                 front += 0.5;
             }
 
+            if(this.getWorld().isClient()) {
+                float time = (this.smashingAnimationState.getTimeInMilliseconds(this.age) / 2000.0F) * 2 * MathHelper.PI; // Goes from 0 to 2Pi over the duration of the animation
+                if(this.smashingAnimationState.getTimeInMilliseconds(this.age) < 1000) {
+                    front -= MathHelper.sin(time) * 0.3;
+                }
+                else {
+                    front -= MathHelper.sin(time) * 1.8f;
+                    y += MathHelper.sin(time) * 0.5f;
+                }
+
+            }
+
             double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
             double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
 
@@ -260,14 +319,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         }
         else { // Passenger 2 or 3 - Side ==============================================================================
             double y = sprinting ?
-                    -MathHelper.cos(frequency * animationProgress) * 0.07 * animationSpeed : // height when sprinting
+                    -MathHelper.cos(frequency * animationProgress) * 0.06 * animationSpeed : // height when sprinting
                     MathHelper.sin(frequency * animationProgress) * 0.02; // height when walking
-
-            if(passengerList.size() >= 3 && passenger.equals(passengerList.get(2))) {   // The left passenger (2) moves inverted to the right one (1)
-                y = -y;
-            }
-
-            y = sprinting ? y + 0.15 : y; // Add offset if sprinting
 
             double side = sprinting ?
                     MathHelper.sin(frequency * animationProgress - (4f/15f)*MathHelper.PI) * 0.15 : // side-to-side movement when sprinting
@@ -277,11 +330,22 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                     0.35 : // front-back movement when sprinting
                     0; // front-back movement when walking
 
+            if(passengerList.size() >= 3 && passenger.equals(passengerList.get(2))) {   // The left passenger (2) moves inverted to the right one (1)
+                y = -y;
+            }
+
+            y = sprinting ? y + 0.15 : y; // Add offset if sprinting
+
             double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
             double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
 
             return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y, z);
         }
+    }
+
+    @Override
+    public boolean isAngry() {
+        return false;
     }
 
     @Override
@@ -326,6 +390,138 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         if(this.stopSleepingAnimationState.getTimeInMilliseconds(this.age) > 5000) {
             this.stopSleepingAnimationState.stop();
         }
+
+        if(this.isRoaring()) {
+            this.roaringAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.roaringAnimationState.stop();
+        }
+
+        if(this.isSmashing()) {
+            this.smashingAnimationState.startIfNotRunning(this.age);
+        }
+        else if(smashingAnimationState.getTimeInMilliseconds(this.age) >= 2000) {
+            smashingAnimationState.stop();
+        }
+    }
+
+    @Override
+    public int chargeDuration() {
+        return 30;
+    }
+
+    @Override
+    public int maxChargeCooldown() {
+        return 300;
+    }
+
+    @Nullable
+    @Override
+    public LivingEntity getTarget() {
+        return getTargetInBrain();
+    }
+
+    @Override
+    public void chargeAttack() {
+        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
+        Vec3d direction = Vec3d.ZERO;
+        LivingEntity target = this.getTarget();
+        int difficulty = this.hasControllingPassenger() ? this.getWorld().getDifficulty().getId() : 0;
+
+        if(!this.isTame() && !this.getWorld().isClient) { // Charge Attack for wild Troll
+            if(target != null) { // Has attack target memory
+                direction = this.getPos().relativize(target.getPos()); // Vector from Troll to target entity
+            }
+
+            this.setYaw((float) Math.toDegrees(Math.atan2(-direction.x, direction.z))); // Turning the troll into the right direction
+            this.setChargeVelocity(direction);
+        }
+        else if (this.getWorld().isClient && this.hasControllingPassenger()) { // Charge Attack for tamed Troll
+            this.setChargeVelocity(this.getRotationVector());
+        }
+
+        for(Entity entity : entities) { // Check through all nearby entities
+            if(entity != this.getOwner() && !this.getPassengerList().contains(entity)) { // Exclude passengers and owner
+                if(getWorld() instanceof ServerWorld serverWorld) {
+                    entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), 10.0f + difficulty * 2);
+                }
+
+            }
+        }
+        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+    }
+
+    public void smashAttack(float strength) { // Strength goes from 0 to 100
+        setSmashing(false);
+        Box box = new Box(this.getPos().subtract(5,0,5), this.getPos().add(5,1,5));
+
+        double weaponDamage = 0;
+        AttributeModifiersComponent component = this.getWeaponStack().get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
+        if(component != null) {
+            for(AttributeModifiersComponent.Entry modifier : component.modifiers()) {
+                if(modifier.matches(EntityAttributes.ATTACK_DAMAGE, Identifier.ofVanilla("base_attack_damage"))) {
+                    weaponDamage = modifier.modifier().value();
+                }
+            }
+        }
+
+        List<Entity> entities = this.getWorld().getOtherEntities(this, box);
+        World world = this.getWorld();
+        int difficulty = this.hasControllingPassenger() ? world.getDifficulty().getId() : 0;
+
+        if(world instanceof ServerWorld serverWorld) {
+            for(Entity entity : entities) {
+                if(entity instanceof LivingEntity && entity != this.getOwner() && !this.getPassengerList().contains(entity)) {
+                    entity.damage(serverWorld, this.getDamageSources().mobAttack(this),  (float)weaponDamage + (strength / 12.5f) + (difficulty * 2));
+                }
+            }
+
+            for(int x = -5; x <= 5; x++) { // Spawn particles on affected blocks
+                for(int z = -5; z <= 5; z++) {
+                    BlockStateParticleEffect particles = new BlockStateParticleEffect(ParticleTypes.BLOCK, world.getBlockState(new BlockPos(this.getBlockX() + x, this.getBlockY() - 1, this.getBlockZ() + z)));
+                    serverWorld.spawnParticles(particles, this.getBlockX() + x, this.getBlockY(), this.getBlockZ() + z, 7, 0.5, 0.3, 0.5, 0.2);
+                }
+            }
+
+            this.playSound(SoundEvents.BLOCK_STONE_BREAK, 1, 0.4f);
+            if(weaponDamage > 0) {
+                this.playSound(SoundEvents.BLOCK_ANVIL_LAND, 1, 0.1f);
+            }
+        }
+    }
+
+    @Override
+    public float getWeaponDisableBlockingForSeconds() {
+        return this.isCharging() || this.isSmashing() ? 10.0f : 0f;
+    }
+
+    @Override
+    protected void jump(float strength, Vec3d movementInput) {
+        if(this.hasControllingPassenger() && this.getControllingPassenger().isSprinting()) {
+            super.jump(strength, movementInput);
+        }
+        else if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
+            setChargeTimeout(300);
+        }
+    }
+
+    @Override
+    public void startJumping(int height) {
+        if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
+            if(!this.isSitting()) {
+                this.playJumpSound();
+                this.setSmashing(true);
+                this.smashingTime = this.age;
+                this.smashingStrength = height;
+            }
+            else {
+                this.setSitting(false);
+            }
+        }
+        else {
+            super.startJumping(height);
+        }
     }
 
     public void startSleeping() {
@@ -353,6 +549,22 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         this.dataTracker.set(SLEEPING, isSleeping);
     }
 
+    public boolean isEnraged() {
+        return this.dataTracker.get(ENRAGED);
+    }
+
+    public void setEnraged(boolean isEnraged) {
+        this.dataTracker.set(ENRAGED, isEnraged);
+    }
+
+    public boolean isSmashing() {
+        return this.dataTracker.get(SMASHING);
+    }
+
+    public void setSmashing(boolean isSmashing) {
+        this.dataTracker.set(SMASHING, isSmashing);
+    }
+
     @Override
     public void setSitting(boolean sitting) {
         if(!this.getWorld().isClient()) {
@@ -377,12 +589,12 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public void setScavenging(boolean isDigging) {
         this.dataTracker.set(SCAVENGING, isDigging);
     }
-    public boolean isEating() {
-        return this.dataTracker.get(EATING);
+    public boolean isRoaring() {
+        return this.dataTracker.get(ROARING);
     }
 
-    public void setEating(boolean isEating) {
-        this.dataTracker.set(EATING, isEating);
+    public void setRoaring(boolean isRoaring) {
+        this.dataTracker.set(ROARING, isRoaring);
     }
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
@@ -406,6 +618,11 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     public boolean isCommandItem(ItemStack stack) {
         return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
+    }
+
+    @Override
+    public boolean isFoodItem(ItemStack itemStack) {
+        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_food")));
     }
 
     @Override

@@ -434,8 +434,18 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
+    public boolean usesTameness() {
+        return false;
+    }
+
+    @Override
     public boolean isCommandItem(ItemStack stack) {
         return stack.isOf(Items.STICK);
+    }
+
+    @Override
+    public boolean isFoodItem(ItemStack itemStack) {
+        return false;
     }
 
     @Override
