@@ -369,6 +369,11 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
+    public boolean canUseSlot(EquipmentSlot slot) {
+        return true;
+    }
+
+    @Override
     public int maxChargeCooldown() {
         return 120;
     }

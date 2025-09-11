@@ -63,12 +63,14 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
         state.horns = goat.getHorns();
         state.hasLeftHorn = goat.hasLeftHorn();
         state.hasRightHorn = goat.hasRightHorn();
+        state.beardBrushed = goat.hasBrushedBeard();
 
         state.isSprinting = goat.isSprinting();
         state.isCharging = goat.isCharging();
         state.isTame = goat.isTame();
         state.conrollingPassenger = goat.getControllingPassenger();
         state.saddle = goat.getEquippedStack(EquipmentSlot.SADDLE);
+        state.armor = goat.getBodyArmor();
 
         state.chargeAnimationState = goat.chargeAnimationState;
         state.startSittingAnimationState = goat.startSittingAnimationState;
