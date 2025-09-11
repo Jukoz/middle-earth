@@ -4,10 +4,10 @@ import net.fabricmc.api.ModInitializer;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModActivity;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSensors;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ActivitiesWT;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.SchedulesWT;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.SensorsWT;
 import net.sevenstars.of_beasts_and_wild_things.item.ModEggItems;
 import net.sevenstars.of_beasts_and_wild_things.item.ModItemGroups;
 import net.sevenstars.of_beasts_and_wild_things.item.ModItems;
@@ -20,10 +20,10 @@ public class OfBeastsAndWildThings implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		EntitiesWT.registerModEntities();
-		ModSchedule.registerModSchedules();
-		ModActivity.registerModActivities();
-		ModSensors.registerModSensors();
-		ModMemoryModules.registerModMemoryModules();
+		SchedulesWT.registerModSchedules();
+		ActivitiesWT.registerModActivities();
+		SensorsWT.registerModSensors();
+		MemoryModulesWT.registerModMemoryModules();
 		ModItemGroups.register();
 		ModBlocks.registerModBlocks();
 		ModItems.registerModItems();

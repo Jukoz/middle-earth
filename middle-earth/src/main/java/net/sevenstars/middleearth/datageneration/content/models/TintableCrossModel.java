@@ -30,6 +30,7 @@ public class TintableCrossModel {
             add(ModNatureBlocks.WHITE_MUSHROOM);
             add(ModNatureBlocks.YELLOW_AMANITA);
 
+            add(ModNatureBlocks.BLUE_GENTIAN);
             add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
             add(ModNatureBlocks.NOBLEWHITE);
 
@@ -58,6 +59,9 @@ public class TintableCrossModel {
         {
             add(ModNatureBlocks.GRASS_TUFT);
             add(ModNatureBlocks.MEADOWGRASS);
+            add(ModNatureBlocks.SPARSE_GRASS);
+            add(ModNatureBlocks.NETTLES);
+            add(ModNatureBlocks.THISTLE);
             add(ModNatureBlocks.WHEATGRASS);
         }
     };
@@ -66,6 +70,8 @@ public class TintableCrossModel {
     {
         {
             add(ModNatureBlocks.ATHELAS);
+
+            add(ModNatureBlocks.SHORT_HOGWEED);
 
             add(ModNatureBlocks.BROWN_GRASS);
             add(ModNatureBlocks.GREEN_SHRUB);
@@ -110,12 +116,16 @@ public class TintableCrossModel {
     {
         {
             add(ModNatureBlocks.CAMPION);
+            add(ModNatureBlocks.BLUE_BIGLEAF_HYDRANGEA);
+            add(ModNatureBlocks.PINK_BIGLEAF_HYDRANGEA);
+            add(ModNatureBlocks.WHITE_BIGLEAF_HYDRANGEA);
             add(ModNatureBlocks.DEAD_HEATHER_BUSH);
             add(ModNatureBlocks.DRY_HEATHER_BUSH);
             add(ModNatureBlocks.DEAD_RUSHES);
             add(ModNatureBlocks.FALSE_OATGRASS);
             add(ModNatureBlocks.HEATHER_BUSH);
             add(ModNatureBlocks.LARGE_BLUE_FESCUE);
+            add(ModNatureBlocks.LARGE_SHRIVELED_SHRUB);
             add(ModNatureBlocks.RED_HEATHER_BUSH);
             add(ModNatureBlocks.RUSHES);
         }

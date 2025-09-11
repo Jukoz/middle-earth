@@ -55,6 +55,9 @@ public class ModBlocks {
     public static final Block WATTLE_TRAPDOOR = registerWoodBlock("wattle_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR), true);
 
+    public static final Block TREATED_WOOD_ROPE_FENCE = registerWoodBlock("treated_wood_rope_fence",
+            FenceBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_FENCE), true);
+
     public static final Block SNOWY_GRASS_BLOCK = registerMiscBlock("snowy_grass_block",
             Block::new,AbstractBlock.Settings.copy(Blocks.GRASS_BLOCK),false);
 
@@ -93,6 +96,35 @@ public class ModBlocks {
     public static final Block COBBLY_DIRT_STAIRS = registerMiscBlock("cobbly_dirt_stairs",
             (settings) -> new StairsBlock(COBBLY_DIRT.getDefaultState(), settings), AbstractBlock.Settings.copy(COBBLY_DIRT),true);
 
+    public static final Block CHALKSOIL = registerMiscBlock("chalksoil",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
+    public static final Block CHALKSOIL_SLAB = registerMiscBlock("chalksoil_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(CHALKSOIL),true);
+    public static final Block CHALKSOIL_STAIRS = registerMiscBlock("chalksoil_stairs",
+            (settings) -> new StairsBlock(CHALKSOIL.getDefaultState(), settings), AbstractBlock.Settings.copy(CHALKSOIL),true);
+
+    public static final Block CHALKSOIL_GRASS_BLOCK = registerMiscBlock("chalksoil_grass_block",
+            (settings) -> new CustomGrassBlock(settings, CHALKSOIL), AbstractBlock.Settings.copy(Blocks.GRASS_BLOCK),false);
+
+    public static final Block GRASSY_CHALKSOIL = registerMiscBlock("grassy_chalksoil",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
+    public static final Block GRASSY_CHALKSOIL_SLAB = registerMiscBlock("grassy_chalksoil_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(GRASSY_CHALKSOIL),true);
+    public static final Block GRASSY_CHALKSOIL_STAIRS = registerMiscBlock("grassy_chalksoil_stairs",
+            (settings) -> new StairsBlock(GRASSY_CHALKSOIL.getDefaultState(), settings), AbstractBlock.Settings.copy(GRASSY_CHALKSOIL),true);
+
+    public static final Block COARSE_CHALKSOIL = registerMiscBlock("coarse_chalksoil",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
+    public static final Block COARSE_CHALKSOIL_SLAB = registerMiscBlock("coarse_chalksoil_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(DRY_DIRT),true);
+    public static final Block COARSE_CHALKSOIL_STAIRS = registerMiscBlock("coarse_chalksoil_stairs",
+            (settings) -> new StairsBlock(COARSE_CHALKSOIL.getDefaultState(), settings), AbstractBlock.Settings.copy(DRY_DIRT),true);
+
+    public static final Block CHALKSOIL_PATH = registerMiscBlock("chalksoil_path",
+            (settings) -> new CustomPathBlock(settings, CHALKSOIL), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),true);
+    public static final Block CHALKSOIL_FARMLAND = registerMiscBlock("chalksoil_farmland",
+            (settings) -> new CustomFarmlandBlock(settings, CHALKSOIL), AbstractBlock.Settings.copy(Blocks.FARMLAND),true);
+
     public static final Block LOAM = registerMiscBlock("loam",
             Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
     public static final Block LOAM_SLAB = registerMiscBlock("loam_slab",
@@ -109,6 +141,13 @@ public class ModBlocks {
             SlabBlock::new,AbstractBlock.Settings.copy(GRASSY_LOAM),true);
     public static final Block GRASSY_LOAM_STAIRS = registerMiscBlock("grassy_loam_stairs",
             (settings) -> new StairsBlock(GRASSY_LOAM.getDefaultState(), settings), AbstractBlock.Settings.copy(GRASSY_LOAM),true);
+
+    public static final Block COARSE_LOAM = registerMiscBlock("coarse_loam",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
+    public static final Block COARSE_LOAM_SLAB = registerMiscBlock("coarse_loam_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(DRY_DIRT),true);
+    public static final Block COARSE_LOAM_STAIRS = registerMiscBlock("coarse_loam_stairs",
+            (settings) -> new StairsBlock(COARSE_LOAM.getDefaultState(), settings), AbstractBlock.Settings.copy(DRY_DIRT),true);
 
     public static final Block LOAM_PATH = registerMiscBlock("loam_path",
             (settings) -> new CustomPathBlock(settings, LOAM), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),true);
@@ -132,6 +171,13 @@ public class ModBlocks {
     public static final Block GRASSY_PEAT_STAIRS = registerMiscBlock("grassy_peat_stairs",
             (settings) -> new StairsBlock(GRASSY_PEAT.getDefaultState(), settings), AbstractBlock.Settings.copy(GRASSY_PEAT),true);
 
+    public static final Block COARSE_PEAT = registerMiscBlock("coarse_peat",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
+    public static final Block COARSE_PEAT_SLAB = registerMiscBlock("coarse_peat_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(DRY_DIRT),true);
+    public static final Block COARSE_PEAT_STAIRS = registerMiscBlock("coarse_peat_stairs",
+            (settings) -> new StairsBlock(COARSE_PEAT.getDefaultState(), settings), AbstractBlock.Settings.copy(DRY_DIRT),true);
+
     public static final Block PEAT_PATH = registerMiscBlock("peat_path",
             (settings) -> new CustomPathBlock(settings, PEAT), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),true);
     public static final Block PEAT_FARMLAND = registerMiscBlock("peat_farmland",
@@ -153,6 +199,13 @@ public class ModBlocks {
             SlabBlock::new,AbstractBlock.Settings.copy(GRASSY_SILT),true);
     public static final Block GRASSY_SILT_STAIRS = registerMiscBlock("grassy_silt_stairs",
             (settings) -> new StairsBlock(GRASSY_SILT.getDefaultState(), settings), AbstractBlock.Settings.copy(GRASSY_SILT),true);
+
+    public static final Block COARSE_SILT = registerMiscBlock("coarse_silt",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
+    public static final Block COARSE_SILT_SLAB = registerMiscBlock("coarse_silt_slab",
+            SlabBlock::new,AbstractBlock.Settings.copy(DRY_DIRT),true);
+    public static final Block COARSE_SILT_STAIRS = registerMiscBlock("coarse_silt_stairs",
+            (settings) -> new StairsBlock(COARSE_SILT.getDefaultState(), settings), AbstractBlock.Settings.copy(DRY_DIRT),true);
 
     public static final Block SILT_PATH = registerMiscBlock("silt_path",
             (settings) -> new CustomPathBlock(settings, SILT), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),true);
@@ -217,12 +270,12 @@ public class ModBlocks {
             Block::new, AbstractBlock.Settings.copy(Blocks.NETHERRACK),true);
 
     public static final Block SKELETAL_PILE = registerMiscBlock("skeletal_pile",
-            (settings) -> new ColoredFallingBlock(new ColorCode(14406560), settings), AbstractBlock.Settings.copy(Blocks.BONE_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.BONE),true);
+            Block::new, AbstractBlock.Settings.copy(Blocks.BONE_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.BONE),true);
     public static final Block SKELETAL_PILE_LAYER = registerMiscBlock("skeletal_pile_layer",
             (settings) -> new LayersBlock(settings, SKELETAL_PILE),AbstractBlock.Settings.copy(SKELETAL_PILE), false);
 
     public static final Block WASTE_PILE = registerMiscBlock("waste_pile",
-            (settings) -> new ColoredFallingBlock(new ColorCode(14406560), settings), AbstractBlock.Settings.copy(Blocks.MUD).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.MUD),true);
+            Block::new, AbstractBlock.Settings.copy(Blocks.MUD).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.MUD),true);
     public static final Block WASTE_PILE_LAYER = registerMiscBlock("waste_pile_layer",
             (settings) -> new LayersBlock(settings, WASTE_PILE),AbstractBlock.Settings.copy(WASTE_PILE), false);
 

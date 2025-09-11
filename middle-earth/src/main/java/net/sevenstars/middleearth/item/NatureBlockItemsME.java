@@ -26,6 +26,13 @@ public class NatureBlockItemsME {
             (settings) ->  new PlaceableOnWaterItem(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS, settings), new Item.Settings());
     public static final Item LILY_PADS = registerItem("lily_pads",
             (settings) ->  new PlaceableOnWaterItem(ModNatureBlocks.LILY_PADS, settings), new Item.Settings());
+    public static final Item FLOWERING_LILY_PADS = registerItem("flowering_lily_pads",
+            (settings) ->  new PlaceableOnWaterItem(ModNatureBlocks.FLOWERING_LILY_PADS, settings), new Item.Settings());
+    public static final Item LARGE_LILY_PAD = registerItem("large_lily_pad",
+            (settings) ->  new PlaceableOnWaterItem(ModNatureBlocks.LARGE_LILY_PAD, settings), new Item.Settings());
+    public static final Item LARGE_FLOWERING_LILY_PAD = registerItem("large_flowering_lily_pad",
+            (settings) ->  new PlaceableOnWaterItem(ModNatureBlocks.LARGE_FLOWERING_LILY_PAD, settings), new Item.Settings());
+
     public static final Item DUCKWEED = registerItem("duckweed",
             (settings) ->  new PlaceableOnWaterItem(ModNatureBlocks.DUCKWEED, settings), new Item.Settings());
 
