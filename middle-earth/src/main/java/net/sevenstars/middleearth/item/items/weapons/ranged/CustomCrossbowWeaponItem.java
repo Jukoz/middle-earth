@@ -6,14 +6,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
+import net.sevenstars.middleearth.item.utils.RangedWeaponTypesME;
 
 import java.util.function.Predicate;
 
 public class CustomCrossbowWeaponItem extends CrossbowItem {
-    public ModRangedWeaponTypes type;
+    public RangedWeaponTypesME type;
 
-    public CustomCrossbowWeaponItem(ModRangedWeaponTypes type, Item.Settings settings) {
+    public CustomCrossbowWeaponItem(RangedWeaponTypesME type, Item.Settings settings) {
         super(settings.maxDamage(type.durability));
         this.type = type;
     }

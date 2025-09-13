@@ -3,6 +3,9 @@ package net.sevenstars.middleearth.entity.beasts;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -18,6 +21,7 @@ import net.minecraft.inventory.StackWithSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -25,6 +29,7 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -37,13 +42,15 @@ import net.sevenstars.middleearth.resources.datas.RaceType;
 import java.util.List;
 import java.util.UUID;
 
-// Beasts are mostly aggressive Entities which work much like wolves, while also allowing the player to mount them.
 public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SITTING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> CHEST = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> RUNNING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> FIGHTING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+    // The tameness value ranges from 0-100, updating every in-game day. If it reaches 0, the beast will break free from its owner.
+    private static final TrackedData<Integer> TAMENESS = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
@@ -55,7 +62,6 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     protected int idleAnimationTimeout = 1000;
     protected int attackTicksLeft = 0;
     protected boolean hasCharged = false;
-    protected boolean startedSitting = false;
 
     protected int chargeTimeout; // ticking cooldown of the charge attack
 
@@ -75,6 +81,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         builder.add(CHEST, false);
         builder.add(RUNNING, false);
         builder.add(FIGHTING, false);
+        builder.add(TAMENESS, 75);
     }
 
     @Override
@@ -96,6 +103,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         super.writeCustomData(view);
         view.putBoolean("Sitting", this.isSitting());
         view.putBoolean("ChestedBeast", this.hasChest());
+        view.putInt("Tameness", this.getTameness());
         if (this.hasChest()) {
             WriteView.ListAppender<StackWithSlot> listAppender = view.getListAppender("Items", StackWithSlot.CODEC);
 
@@ -113,6 +121,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         super.readCustomData(view);
         this.setSitting(view.getBoolean("Sitting", false));
         this.setHasChest(view.getBoolean("ChestedBeast", false));
+        this.setTameness(view.getInt("Tameness", 75));
         this.onChestedStatusChanged();
         if (this.hasChest()) {
             for (StackWithSlot stackWithSlot : view.getTypedListView("Items", StackWithSlot.CODEC)) {
@@ -128,8 +137,11 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
 
     public abstract List<RaceType> getCompatibleRaces();
 
+    public abstract boolean usesTameness();
+
     public abstract boolean isCommandItem(ItemStack stack);
     public abstract boolean isBondingItem(ItemStack itemStack);
+    public abstract boolean isFoodItem(ItemStack itemStack);
 
     public boolean isMountable() {
         return true;
@@ -157,14 +169,25 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
 
     @Override
     public boolean isPersistent() {
-        return isTame();
+        return isTame() || getTameness() <= 0;
     }
 
-    protected boolean isClient() {
+    protected boolean isClientWorld() {
         return this.getWorld().isClient();
     }
 
+    public boolean isOwner(LivingEntity entity) {
+        return this.getOwner() != null && this.getOwner() == entity;
+    }
+
     // DataTracker =====================================================================================================
+
+    public int getTameness() {
+        return this.dataTracker.get(TAMENESS);
+    }
+    public void setTameness(int tameness) {
+        this.dataTracker.set(TAMENESS, tameness);
+    }
 
     public boolean hasChest() {
         return this.dataTracker.get(CHEST);
@@ -314,6 +337,16 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     // Move Set and Behavior ===========================================================================================
+
+    public void breakFree() {
+        this.setTame(false);
+        this.setOwner(null);
+
+        if(this.getBrain() != null) {
+            this.getBrain().forget(MemoryModulesME.TAME);
+        }
+    }
+
     @Override
     protected void jump(float strength, Vec3d movementInput) {
         if(this.isSitting()) {
@@ -323,6 +356,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
             this.setCharging(true);
             this.chargeTimeout = maxChargeCooldown();
         }
+        super.jump(strength, movementInput);
     }
 
     @Override
@@ -374,6 +408,27 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         }
 
         if(this.isTame()) {
+            if(isFoodItem(itemStack) && getOwner() == player) {
+                int tamenessIncrease;
+
+                FoodComponent component = itemStack.get(DataComponentTypes.FOOD);
+                if(component != null) {
+                    tamenessIncrease = component.nutrition();
+                }
+                else {
+                    tamenessIncrease = 4;
+                }
+
+                this.setTameness(this.getTameness() + tamenessIncrease);
+                if(this.getTameness() > 100) {
+                    this.setTameness(100);
+                }
+
+                this.eat(player, hand, itemStack);
+                playSound(SoundEvents.ENTITY_HORSE_EAT);
+                return ActionResult.SUCCESS;
+            }
+
             if(isCommandItem(itemStack) && player == getOwner()) {
                 this.setSitting(!isSitting());
                 return ActionResult.SUCCESS;
@@ -406,6 +461,13 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     public void chargeAttack() {
+    }
+
+    public void setChargeVelocity(Vec3d direction) {
+        this.setVelocity(direction
+                .getHorizontal().normalize() // Remove the y-axis and normalize the vector
+                .multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())) // Progressively get faster during charge (linear)
+                .add(0, this.getVelocity().y, 0)); // Add y-Velocity to make beast fall and climb steps
     }
 
     // Tick Management =================================================================================================
@@ -442,6 +504,23 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
 
         if (this.getWorld().isClient) {
             setupAnimationStates();
+        }
+
+        if (!this.isClientWorld() && isTame()) {
+            if(this.getWorld().getTimeOfDay() == 6500) { // Tameness always decreases shortly after noon
+                List<? extends PlayerEntity> players = this.getWorld().getPlayers();
+                if(this.getOwner() != null && players.contains(this.getOwner())) { // Check if owner is online
+                    // Get amount of other beasts using the Tameness mechanic in a 25 block radius. The tameness decreases exponentially faster for each of them.
+                    int affectingBeasts = this.getWorld().getEntitiesByClass(AbstractBeastEntity.class, this.getBoundingBox().expand(25), (entity) -> usesTameness() && getOwner() == this.getOwner()).size();
+
+                    // The number of entities includes itself, therefore the smallest value to decrease is at 10
+                    this.setTameness(this.getTameness() - (int)(5 * Math.pow(2, affectingBeasts)));
+
+                    if(this.getTameness() <= 0) { // Tameness is 0, break free
+                        this.breakFree();
+                    }
+                }
+            }
         }
     }
 

@@ -2,30 +2,27 @@ package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
-import net.minecraft.client.render.entity.state.ArmedEntityRenderState;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorFeatureRenderer;
-import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
-import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollDroolFeatureRenderer;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollHeldItemFeatureRenderer;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollSaddleFeatureRenderer;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
 public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTrollEntityRenderState, CaveTrollEntityModel> {
-    private static final String PATH = "textures/entities/trolls/cave/cave_troll_green.png";
+    private static final String TEXTURE = "textures/entities/trolls/cave/cave_troll_green.png";
+    private static final String TEXTURE_ANGRY = "textures/entities/trolls/cave/cave_troll_green_red_eyes.png";
     public CaveTrollRenderer(EntityRendererFactory.Context context) {
         super(context, new CaveTrollEntityModel(context.getPart(ModEntityModelLayers.CAVE_TROLL)), 1.1f);
+        this.addFeature(new CaveTrollDroolFeatureRenderer(this));
         this.addFeature(new CaveTrollSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(new CaveTrollHeldItemFeatureRenderer(this));
     }
 
     @Override
     public Identifier getTexture(CaveTrollEntityRenderState state) {
-        return Identifier.of(MiddleEarth.MOD_ID, PATH);
+        return state.tameness > 25 && !state.isEnraged ? Identifier.of(MiddleEarth.MOD_ID, TEXTURE) : Identifier.of(MiddleEarth.MOD_ID, TEXTURE_ANGRY);
     }
 
     @Override
@@ -44,9 +41,15 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
         state.stopSittingAnimationState = troll.stopSittingAnimationState;
         state.startSleepingAnimationState = troll.startSleepingAnimationState;
         state.sleepingAnimationState = troll.sleepingAnimationState;
-        state.stopSleepingANimationState = troll.stopSleepingAnimationState;
+        state.stopSleepingAnimationState = troll.stopSleepingAnimationState;
+        state.roaringAnimationState = troll.roaringAnimationState;
+        state.smashingAnimationState = troll.smashingAnimationState;
         state.isSprinting = troll.isSprinting();
+        state.isCharging = troll.isCharging();
+        state.isEnraged = troll.isEnraged();
+        state.isTame = troll.isTame();
         state.conrollingPassenger = troll.getControllingPassenger();
         state.saddle = troll.getEquippedStack(EquipmentSlot.SADDLE);
+        state.tameness = troll.getTameness();
     }
 }

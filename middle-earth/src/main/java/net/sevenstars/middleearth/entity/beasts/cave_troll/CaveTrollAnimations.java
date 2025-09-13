@@ -1,9 +1,6 @@
 package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
-import net.minecraft.client.render.entity.animation.AnimationDefinition;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 
 public class CaveTrollAnimations {
     public static final AnimationDefinition IDLE = AnimationDefinition.Builder.create(3.5f).looping()
@@ -377,7 +374,66 @@ public class CaveTrollAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1.75f, AnimationHelper.createRotationalVector(-5f, 2.5f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final AnimationDefinition SCREAM_RUN = AnimationDefinition.Builder.create(2f).looping()
+
+	public static final AnimationDefinition INSPECT = AnimationDefinition.Builder.create(5.5f).looping()
+.addBoneAnimation("body_no_legs",
+						  new Transformation(Transformation.Targets.ROTATE,
+		new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(0.5f, AnimationHelper.createRotationalVector(12.5f, 0f, 0f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(4.95833f, AnimationHelper.createRotationalVector(12.5f, 0f, 0f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(5.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+	Transformation.Interpolations.CUBIC)))
+			.addBoneAnimation("Head",
+									  new Transformation(Transformation.Targets.ROTATE,
+		new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(0.5f, AnimationHelper.createRotationalVector(17.5f, 0f, 0f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(1f, AnimationHelper.createRotationalVector(20.58f, -14.29f, -4.61f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(2.5f, AnimationHelper.createRotationalVector(20.18f, 9.19f, 4.05f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(3.95833f, AnimationHelper.createRotationalVector(20.58f, -14.29f, -4.61f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(4.95833f, AnimationHelper.createRotationalVector(17.5f, 0f, 0f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(5.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+	Transformation.Interpolations.CUBIC)))
+			.addBoneAnimation("jaw",
+									  new Transformation(Transformation.Targets.ROTATE,
+		new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(0.5f, AnimationHelper.createRotationalVector(15f, 0f, 0f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(4.95833f, AnimationHelper.createRotationalVector(15f, 0f, 0f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(5.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+	Transformation.Interpolations.CUBIC)))
+			.addBoneAnimation("ArmRight",
+									  new Transformation(Transformation.Targets.ROTATE,
+		new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(0.5f, AnimationHelper.createRotationalVector(26.94f, -5.74f, 11.13f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(4.95833f, AnimationHelper.createRotationalVector(26.94f, -5.74f, 11.13f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(5.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+	Transformation.Interpolations.CUBIC)))
+			.addBoneAnimation("ArmLeft",
+									  new Transformation(Transformation.Targets.ROTATE,
+		new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(0.5f, AnimationHelper.createRotationalVector(26.94f, 5.74f, -11.13f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(4.95833f, AnimationHelper.createRotationalVector(26.94f, 5.74f, -11.13f),
+	Transformation.Interpolations.CUBIC),
+			new Keyframe(5.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+	Transformation.Interpolations.CUBIC))).build();
+
+	public static final AnimationDefinition SCREAM_RUN = AnimationDefinition.Builder.create(2f).looping()
 .addBoneAnimation("Head",
                           new Transformation(Transformation.Targets.MOVE_ORIGIN,
 		new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -903,7 +959,7 @@ public class CaveTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(32.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final AnimationDefinition OVERHAND_SMASH = AnimationDefinition.Builder.create(2f).looping()
+    public static final AnimationDefinition OVERHAND_SMASH = AnimationDefinition.Builder.create(2f)
             .addBoneAnimation("body_no_legs",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),

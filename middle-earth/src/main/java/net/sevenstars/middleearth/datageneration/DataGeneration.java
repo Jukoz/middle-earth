@@ -13,8 +13,8 @@ import net.sevenstars.middleearth.datageneration.providers.recipes.RecipeProvide
 import net.sevenstars.middleearth.datageneration.providers.tags.BlockTagProvider;
 import net.sevenstars.middleearth.datageneration.providers.tags.ItemTagProvider;
 import net.sevenstars.middleearth.entity.spider.SpiderVariants;
-import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
-import net.sevenstars.middleearth.item.utils.ModSmithingTrimPatterns;
+import net.sevenstars.middleearth.item.utils.SmithingTrimMaterialsME;
+import net.sevenstars.middleearth.item.utils.SmithingTrimPatternsME;
 import net.sevenstars.middleearth.resources.*;
 import net.sevenstars.middleearth.world.biomes.caves.ModCaveBiomes;
 import net.sevenstars.middleearth.world.biomes.surface.ModBiomes;
@@ -103,7 +103,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(BiomeEventsME.KEY, BiomeEventsME::bootstrap);
 
         // Vanilla registries
-        registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, ModSmithingTrimMaterials::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.TRIM_PATTERN, ModSmithingTrimPatterns::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, SmithingTrimMaterialsME::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.TRIM_PATTERN, SmithingTrimPatternsME::bootstrap);
     }
 }

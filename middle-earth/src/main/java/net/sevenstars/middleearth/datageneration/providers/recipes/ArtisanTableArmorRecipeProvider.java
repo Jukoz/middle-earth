@@ -24,7 +24,7 @@ import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.sevenstars.middleearth.item.utils.ModSmithingTrimPatterns;
+import net.sevenstars.middleearth.item.utils.SmithingTrimPatternsME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 
 import java.util.concurrent.CompletableFuture;
@@ -67,7 +67,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
     }
 
     public RegistryEntry<ArmorTrimPattern> getPattern(){
-        return getArmorTrimPatternsRegistry().getOrThrow(ModSmithingTrimPatterns.SMITHING_PART);
+        return getArmorTrimPatternsRegistry().getOrThrow(SmithingTrimPatternsME.SMITHING_PART);
     }
 
     public Identifier getMetalIdentifier(MetalTypes metal){

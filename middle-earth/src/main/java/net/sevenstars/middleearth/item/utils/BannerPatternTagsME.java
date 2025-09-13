@@ -6,7 +6,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-public class ModBannerPatternTags {
+public class BannerPatternTagsME {
     public static final TagKey<BannerPattern> GONDOR_PATTERN_ITEM = of("gondor");
     public static final TagKey<BannerPattern> ROHAN_PATTERN_ITEM = of("rohan");
     public static final TagKey<BannerPattern> DALE_PATTERN_ITEM = of("dale");

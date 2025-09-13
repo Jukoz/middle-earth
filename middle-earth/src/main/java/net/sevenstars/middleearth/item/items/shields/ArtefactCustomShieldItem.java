@@ -1,14 +1,12 @@
 package net.sevenstars.middleearth.item.items.shields;
 
 import net.minecraft.item.Item;
-import net.sevenstars.middleearth.item.utils.ModShieldTypes;
+import net.sevenstars.middleearth.item.utils.ShieldTypesME;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
 public class ArtefactCustomShieldItem extends CustomShieldItem {
 
-    public ArtefactCustomShieldItem(ModShieldTypes type, Item.Settings settings) {
+    public ArtefactCustomShieldItem(ShieldTypesME type, Item.Settings settings) {
         super(type, settings);
     }
 

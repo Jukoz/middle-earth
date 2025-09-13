@@ -30,7 +30,7 @@ import net.sevenstars.middleearth.block.special.torches.MEWallTorchBlock;
 import net.sevenstars.middleearth.block.special.torches.OrcSconceBlock;
 import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
+import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.particle.ParticleTypes;
@@ -586,7 +586,7 @@ public class ModDecorativeBlocks {
     public static Block registerBlockWithItem(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
         ModBlocks.registerBlockItem(name, block);
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
+        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         TranslationEntries.blockEntries.add(block);
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);

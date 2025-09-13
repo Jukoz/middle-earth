@@ -34,7 +34,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ModItemGroups {
+public class ItemGroupsME {
 
     private static final Comparator<RegistryEntry<NpcData>> NPC_DATA_COMPARATOR = Comparator.comparing(RegistryEntry::value, Comparator.comparing(NpcData::getId));
 
