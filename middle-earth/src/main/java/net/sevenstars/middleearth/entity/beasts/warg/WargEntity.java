@@ -14,7 +14,9 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -133,6 +135,10 @@ public class WargEntity extends AbstractBeastEntity {
 
     protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {
         return ((double)0.5 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25) * 0.3;
+    }
+
+    private WolfSoundVariant getSoundVariant() {
+        return SoundEvents.WOLF_SOUNDS.get(WolfSoundVariants.Type.ANGRY);
     }
 
     @Override
@@ -428,13 +434,13 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_VILLAGER_DEATH; // TODO : Use wolf sound event
+        return this.getSoundVariant().deathSound().value();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_VILLAGER_HURT; // TODO : Use wolf sound event
+        return this.getSoundVariant().hurtSound().value();
     }
     @Override
     protected void playHurtSound(DamageSource damageSource) {
@@ -444,7 +450,7 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_VILLAGER_AMBIENT; // TODO : Use wolf sound event
+        return this.getSoundVariant().ambientSound().value();
 
     }
 
@@ -456,13 +462,13 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     @Override
     public SoundEvent getAmbientStandSound() {
-        return SoundEvents.ENTITY_DOLPHIN_AMBIENT_WATER; // TODO : Use wolf sound event (ENTITY_WOLF_HOWL)
+        return this.getSoundVariant().pantSound().value();
     }
 
     @Nullable
     @Override
     protected SoundEvent getAngrySound() {
-        return SoundEvents.ENTITY_ENDER_DRAGON_GROWL; // TODO : Use wolf sound event (ENTITY_WOLF_GROWL)
+        return this.getSoundVariant().growlSound().value();
     }
 
     @Override
