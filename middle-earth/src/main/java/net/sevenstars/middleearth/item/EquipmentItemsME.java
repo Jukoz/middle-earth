@@ -2,12 +2,9 @@ package net.sevenstars.middleearth.item;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
-import net.minecraft.component.type.LoreComponent;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Rarity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
@@ -21,15 +18,12 @@ import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataCompon
 import net.sevenstars.middleearth.item.items.armor.*;
 import net.sevenstars.middleearth.item.items.armor.artefact.CustomArtefactHelmetItem;
 import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
+import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.item.utils.armor.ArmorMaterialsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.registries.RegistryAliases;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -351,7 +345,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
 
     public static final Item GONDORIAN_HORSE_ARMOR = registerGeneratedItem("gondorian_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.GONDORIAN_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1)
+            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.GONDORIAN_HORSE_ARMOR.material()).maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
     //endregion
 
@@ -459,7 +453,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.HORSE_LORD_CAPE)).component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
 
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.ROHIRRIC_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1)
+            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.ROHIRRIC_HORSE_ARMOR.material()).maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
     //endregion
 
@@ -562,7 +556,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
 
     public static final Item DALISH_HORSE_ARMOR = registerGeneratedItem("dalish_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.DALISH_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1)
+            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.DALISH_HORSE_ARMOR.material()).maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
     //endregion
 
@@ -938,7 +932,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
     public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
-            (settings) -> new CustomHorseArmorItem(ArmorMaterialsME.LORIEN_HORSE_ARMOR.material(), settings), new Item.Settings().maxCount(1)
+            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.LORIEN_HORSE_ARMOR.material()).maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     //endregion
     //endregion
@@ -1483,7 +1477,7 @@ public class EquipmentItemsME {
 
     private static Item registerHelmetAttachment(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         helmetAtttachments.add(item);
         return registerItem(item, name);
@@ -1491,7 +1485,7 @@ public class EquipmentItemsME {
 
     private static Item registerDyeableHelmetAttachment(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
         helmetAtttachments.add(item);
         return registerItem(item, name);
@@ -1499,7 +1493,7 @@ public class EquipmentItemsME {
 
     private static Item registerBackAttachment(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         backAttachments.add(item);
         return registerItem(item, name);
@@ -1507,7 +1501,7 @@ public class EquipmentItemsME {
 
     private static Item registerDyeableBackAttachment(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
         backAttachments.add(item);
         return registerItem(item, name);
@@ -1515,14 +1509,14 @@ public class EquipmentItemsME {
 
     private static Item registerGeneratedItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         return registerItem(item, name);
     }
 
     private static Item registerDyeableArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
         switch (item){
             case CustomHelmetItem helmetItem -> armorPiecesListHelmets.add(helmetItem);
@@ -1537,7 +1531,7 @@ public class EquipmentItemsME {
 
     private static Item registerArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         switch (item){
             case CustomHelmetItem helmetItem -> armorPiecesListHelmets.add(helmetItem);
@@ -1552,14 +1546,14 @@ public class EquipmentItemsME {
 
     private static Item registerCustomModelArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         return registerItem(item, name);
     }
 
     private static Item registerDyeableCustomModelArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
         return registerItem(item, name);
     }

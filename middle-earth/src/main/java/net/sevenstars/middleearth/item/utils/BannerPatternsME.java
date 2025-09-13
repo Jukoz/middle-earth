@@ -8,7 +8,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 
-public class ModBannerPatterns {
+public class BannerPatternsME {
     public static final RegistryKey<BannerPattern> TREE = key("tree");
     public static final RegistryKey<BannerPattern> HORSE = key("horse");
     public static final RegistryKey<BannerPattern> HORSE_HEAD = key("horse_head");

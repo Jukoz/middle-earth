@@ -13,7 +13,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.Map;
 
-public class ModSmithingTrimMaterials {
+public class SmithingTrimMaterialsME {
     public static final RegistryKey<ArmorTrimMaterial> BRONZE = of("bronze");
     public static final RegistryKey<ArmorTrimMaterial> BURZUM_STEEL = of("burzum_steel");
     public static final RegistryKey<ArmorTrimMaterial> CRUDE = of("crude");

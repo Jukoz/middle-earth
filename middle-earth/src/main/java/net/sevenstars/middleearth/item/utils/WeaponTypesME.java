@@ -1,9 +1,6 @@
 package net.sevenstars.middleearth.item.utils;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ToolMaterial;
-
-public enum ModWeaponTypes {
+public enum WeaponTypesME {
 
     SWORD("sword", 4, -2.4f, 0.0F, false),
     AXE("axe", 6, -3.0f, 0.0F, false),
@@ -19,7 +16,7 @@ public enum ModWeaponTypes {
     public final Float attackRange;
     public final Boolean twoHanded;
 
-    ModWeaponTypes(String name, float attack, Float attackSpeed, Float attackRange, boolean twoHanded ){
+    WeaponTypesME(String name, float attack, Float attackSpeed, Float attackRange, boolean twoHanded ){
         this.name = name;
         this.attack = attack;
         this.attackSpeed = attackSpeed;

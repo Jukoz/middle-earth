@@ -4,7 +4,7 @@ import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.ModBannerPatterns;
+import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
@@ -48,9 +48,9 @@ public class RohanFactionPool {
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.GREEN),
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.GREEN),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.LIME),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.HORSE_HEAD, DyeColor.WHITE)
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.HORSE_HEAD, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "rohan.edoras"), new Vector2d(1525, 1600)),
