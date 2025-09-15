@@ -10,7 +10,6 @@ import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
-import net.sevenstars.middleearth.recipe.ModTags;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
