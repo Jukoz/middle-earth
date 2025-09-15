@@ -5,7 +5,10 @@ import java.util.Comparator;
 
 public enum GreatHornVariant {
     BROWN(0),
-    WHITE(1);
+    COLD(1),
+    TEMPERATE(2),
+    WARM(3),
+    WHITE(4);
 
     private static final GreatHornVariant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(GreatHornVariant::getId)).toArray(GreatHornVariant[]::new);
     private final int id;
