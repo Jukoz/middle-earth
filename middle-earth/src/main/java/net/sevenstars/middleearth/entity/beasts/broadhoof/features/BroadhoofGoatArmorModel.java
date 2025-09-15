@@ -6,7 +6,6 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 
-// This class might be moved over to the main BroadhoofModel class
 public class BroadhoofGoatArmorModel extends BroadhoofGoatModel {
 
     private final ModelPart broadhoofGoat;
