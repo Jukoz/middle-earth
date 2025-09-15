@@ -24,7 +24,6 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
 
     public BroadhoofGoatRenderer(EntityRendererFactory.Context context) {
         super(context, new BroadhoofGoatModel(context.getPart(ModEntityModelLayers.BROADHOOF_GOAT)), 0.8f);
-        //this.addFeature(new BroadhoofGoatArmorFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(
                 new SaddleFeatureRenderer<>(
                         this,
