@@ -28,4 +28,7 @@ public class ItemTagsME {
     public static TagKey<Item> EDHEL_STEEL_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "edhel_steel_tool_materials"));
     public static TagKey<Item> BURZUM_STEEL_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "burzum_steel_tool_materials"));
     public static TagKey<Item> MITHRIL_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mithril_tool_materials"));
+
+    public static TagKey<Item> WARG_ARMORS = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor"));
+
 }

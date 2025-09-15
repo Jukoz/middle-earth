@@ -1,0 +1,12 @@
+{
+  "layers": {
+    "horse_body": [
+      {
+        "dyeable": {
+          "color_when_undyed": 4865076
+        },
+        "texture": "middle-earth:warg_leather_armor"
+      }
+    ]
+  }
+}

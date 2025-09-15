@@ -99,7 +99,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.getAttributeInstance(EntityAttributes.JUMP_STRENGTH).setBaseValue(this.getChildJumpStrengthBonus(random::nextDouble));
     }
 
-
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
