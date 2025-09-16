@@ -52,7 +52,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-// TODO Implement Tameness mechanic
 // TODO Add sounds
 public class CaveTrollEntity extends AbstractBeastEntity {
     public LootTable scavengeLootTable;
@@ -153,20 +152,12 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected void putPlayerOnBack(PlayerEntity player) {
-        ItemStack item = player.getStackInHand(Hand.MAIN_HAND);
-        if(this.canAddPassenger(player) && item.isEmpty()) {
-            super.putPlayerOnBack(player);
-        }
-    }
-
-    @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(!this.getWorld().isClient()) { // Server side
             for(RaceType race : this.getCompatibleRaces()) { // Check for race
-                if(PlayerUtil.isOfRace(player, race)) {
+                if(PlayerUtil.isOfRace(player, race) || player.isCreative()) {
                     if(isTrollWeapon(itemStack) && isOwner(player) && this.getMainHandStack().isEmpty()) { // Give the troll a weapon
                         this.equipStack(EquipmentSlot.MAINHAND, itemStack.copyAndEmpty());
                         itemStack.decrementUnlessCreative(1, player);

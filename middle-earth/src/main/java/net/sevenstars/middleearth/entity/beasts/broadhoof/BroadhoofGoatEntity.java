@@ -58,6 +58,7 @@ import java.util.List;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 
+// TODO Baby model
 public class BroadhoofGoatEntity extends AbstractBeastEntity {
     private static final float MIN_MOVEMENT_SPEED_BONUS = (float)BroadhoofGoatEntity.getChildMovementSpeedBonus(() -> 0.0);
     private static final float MAX_MOVEMENT_SPEED_BONUS = (float)BroadhoofGoatEntity.getChildMovementSpeedBonus(() -> 1.0);
@@ -102,14 +103,13 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new BeastSitGoal(this));
+        this.goalSelector.add(2, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 2.5, false));
         this.goalSelector.add(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 1.0, (stack) -> {return stack.isIn(ItemTags.COW_FOOD);}, false));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(9, new LookAroundGoal(this));
+        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(8, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastRevengeGoal(this, new Class[0]).setGroupRevenge());
     }
 
@@ -171,46 +171,45 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
-        if(!this.getWorld().isClient() && !player.isCreative()) {
-            boolean isOfRace = false;
-            for(RaceType race : getCompatibleRaces()) {
-                if(PlayerUtil.isOfRace(player, race)) {
-                    isOfRace = true;
-                }
-            }
-
-            if(!isOfRace) {
-                return ActionResult.FAIL;
-            }
-
-        }
-
-        if(this.isTame() && this.isTamable()) {
-            if (this.isBreedingItem(itemStack)) {
-                if(this.getHealth() < this.getMaxHealth()) {
-                    itemStack.decrementUnlessCreative(1, player);
-                    FoodComponent foodComponent = itemStack.get(DataComponentTypes.FOOD);
-                    float f = foodComponent != null ? (float)foodComponent.nutrition() : 1.0f;
-                    this.heal(2.0f * f);
-                    return ActionResult.SUCCESS;
-                }
-                else if (!this.getWorld().isClient && this.getBreedingAge() == 0 && this.canEat()) {
-                    this.eat(player, hand, itemStack);
-                    this.lovePlayer(player);
-                    return ActionResult.SUCCESS;
-                }
-            }
-            else if(itemStack.isOf(Items.BRUSH)) {
-                this.setBrushedBeard(true);
-                return ActionResult.SUCCESS;
-            }
-            else if(itemStack.isOf(Items.SHEARS)) {
-                this.setBrushedBeard(false);
-                return ActionResult.SUCCESS;
+        if(this.isClientWorld()) { // Client
+            if(!itemStack.isEmpty()) {
+                return super.interactMob(player, hand);
             }
         }
+        else { // Server
+            for(RaceType race : this.getCompatibleRaces()) { // Check for race
+                if(PlayerUtil.isOfRace(player, race) || player.isCreative()) {
+                    if(this.isTame()) {
+                        if (this.isBreedingItem(itemStack)) { // Feed
+                            if(this.getHealth() < this.getMaxHealth()) { // Food provides health
+                                itemStack.decrementUnlessCreative(1, player);
+                                FoodComponent foodComponent = itemStack.get(DataComponentTypes.FOOD);
+                                float f = foodComponent != null ? (float)foodComponent.nutrition() : 1.0f;
+                                this.heal(2.0f * f);
+                                return ActionResult.SUCCESS_SERVER;
+                            }
+                            else if (this.getBreedingAge() == 0 && this.canEat()) { // Food provides baby
+                                this.eat(player, hand, itemStack);
+                                this.lovePlayer(player);
+                                return ActionResult.SUCCESS_SERVER;
+                            }
+                        }
+                        else if(itemStack.isOf(Items.BRUSH)) { // Brush beard
+                            this.setBrushedBeard(true);
+                            return ActionResult.SUCCESS_SERVER;
+                        }
+                        else if(itemStack.isOf(Items.SHEARS)) { // Un-Brush beard
+                            this.setBrushedBeard(false);
+                            return ActionResult.SUCCESS_SERVER;
+                        }
+                    }
 
-        return super.interactMob(player, hand);
+                    return super.interactMob(player, hand);
+                }
+            }
+        }
+
+        return ActionResult.PASS;
     }
 
     @Override
