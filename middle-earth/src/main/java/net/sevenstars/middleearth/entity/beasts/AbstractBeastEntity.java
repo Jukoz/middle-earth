@@ -376,11 +376,6 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     @Override
-    public boolean canUseSlot(EquipmentSlot slot) {
-        return !slot.isArmorSlot();
-    }
-
-    @Override
     public void startJumping(int height) {
         if(!this.isSitting()) {
             this.playSound(SoundEvents.ENTITY_CAMEL_DASH, 1.0f, 1.0f);

@@ -58,7 +58,6 @@ import java.util.List;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 
-// TODO Baby model
 public class BroadhoofGoatEntity extends AbstractBeastEntity {
     private static final float MIN_MOVEMENT_SPEED_BONUS = (float)BroadhoofGoatEntity.getChildMovementSpeedBonus(() -> 0.0);
     private static final float MAX_MOVEMENT_SPEED_BONUS = (float)BroadhoofGoatEntity.getChildMovementSpeedBonus(() -> 1.0);
@@ -364,11 +363,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         else {
             super.startJumping(height);
         }
-    }
-
-    @Override
-    public boolean canUseSlot(EquipmentSlot slot) {
-        return true;
     }
 
     @Override

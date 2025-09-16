@@ -1,12 +1,14 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof;
 
 import com.google.common.collect.Maps;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.client.render.entity.feature.SaddleFeatureRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.HorseEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -35,6 +37,18 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
                 )
         );
         this.addFeature(new BroadhoofGoatSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+    }
+
+    @Override
+    public void render(BroadhoofGoatEntityRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+        if(state.baby) {
+            matrixStack.scale(SIZE/2, SIZE/2, SIZE/2);
+        }
+        else {
+            matrixStack.scale(SIZE, SIZE, SIZE);
+        }
+
+        super.render(state, matrixStack, vertexConsumerProvider, i);
     }
 
     @Override
