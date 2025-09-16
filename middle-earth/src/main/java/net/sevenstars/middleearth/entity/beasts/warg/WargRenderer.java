@@ -1,7 +1,13 @@
 package net.sevenstars.middleearth.entity.beasts.warg;
 
 import com.google.common.collect.Maps;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.equipment.EquipmentModel;
+import net.minecraft.client.render.entity.feature.SaddleFeatureRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.sevenstars.middleearth.entity.beasts.warg.features.*;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -18,12 +24,32 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
     public WargRenderer(EntityRendererFactory.Context context) {
         super(context, new WargModel(context.getPart(ModEntityModelLayers.WARG)), 0.8f);
         this.addFeature(new WargEyesFeatureRenderer(this));
-        this.addFeature(new WargArmorFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
-        this.addFeature(new WargArmorSpineFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
-        this.addFeature(new WargArmorSideSkullsFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature( // Armor Feature
+                new SaddleFeatureRenderer<>(
+                        this,
+                        context.getEquipmentRenderer(),
+                        new WargModel(context.getPart(ModEntityModelLayers.WARG_ARMOR)),
+                        EquipmentModel.LayerType.HORSE_BODY,
+                        state -> state.armor
+                )
+        );
+        //this.addFeature(new WargArmorSpineFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        //this.addFeature(new WargArmorSideSkullsFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(new WargSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
-        this.addFeature(new WargArmorFrontSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
-        this.addFeature(new WargArmorBackSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        //this.addFeature(new WargArmorFrontSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        //this.addFeature(new WargArmorBackSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+    }
+
+    @Override
+    public void render(WargEntityRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+        if(state.baby) {
+            matrixStack.scale(SIZE/2, SIZE/2, SIZE/2);
+        }
+        else {
+            matrixStack.scale(SIZE, SIZE, SIZE);
+        }
+
+        super.render(state, matrixStack, vertexConsumerProvider, i);
     }
 
     @Override
@@ -54,5 +80,26 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
     @Override
     public Identifier getTexture(WargEntityRenderState state) {
         return LOCATION_BY_VARIANT.get(state.variant);
+    }
+
+    @Override
+    public void updateRenderState(WargEntity warg, WargEntityRenderState state, float f) {
+        super.updateRenderState(warg, state, f);
+
+        state.variant = warg.getVariant();
+
+        state.isSprinting = warg.isSprinting();
+        state.isCharging = warg.isCharging();
+        state.isTame = warg.isTame();
+        state.conrollingPassenger = warg.getControllingPassenger();
+        state.saddle = warg.getEquippedStack(EquipmentSlot.SADDLE);
+        state.armor = warg.getBodyArmor();
+
+        state.chargeAnimationState = warg.chargeAnimationState;
+        state.startSittingAnimationState = warg.startSittingAnimationState;
+        state.stopSittingAnimationState = warg.stopSittingAnimationState;
+        state.sittingAnimationState = warg.sittingAnimationState;
+        state.attackAnimationState = warg.attackAnimationState;
+        state.idleAnimationState = warg.idleAnimationState;
     }
 }

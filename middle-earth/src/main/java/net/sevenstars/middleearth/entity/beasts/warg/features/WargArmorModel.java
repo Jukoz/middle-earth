@@ -4,8 +4,9 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntityRenderState;
+import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
 
-public class WargArmorModel extends EntityModel<WargEntityRenderState> {
+public class WargArmorModel extends WargModel {
         private final ModelPart warg;
         private final ModelPart head;
         public WargArmorModel(ModelPart root) {
@@ -13,15 +14,17 @@ public class WargArmorModel extends EntityModel<WargEntityRenderState> {
 
                 this.warg = root.getChild("root");
                 this.head = warg.getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild(EntityModelPartNames.HEAD);
-                }
+        }
+
         public static TexturedModelData getTexturedModelData() {
-                ModelData modelData = new ModelData();
-                ModelPartData modelPartData = modelData.getRoot();
-                ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.of(-1.0F, 6.0F, -2.0F, 0.0F, 1.5708F, 0.0F));
+                ModelData modelData = getArmorModelData();
+                return TexturedModelData.of(modelData, 128, 128);
+        }
 
-                ModelPartData body = root.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(-2.6142F, 2.1138F, 1.5F));
-
-                ModelPartData upper_body = body.addChild("upper_body", ModelPartBuilder.create(), ModelTransform.origin(-0.3858F, -1.1138F, -1.5F));
+        public static ModelData getArmorModelData() {
+                ModelData modelData = getModelData();
+                ModelPartData upper_body = modelData.getRoot().getChild("root").getChild(EntityModelPartNames.BODY).getChild("upper_body");
+                ModelPartData head = upper_body.getChild(EntityModelPartNames.HEAD);
 
                 ModelPartData body_armor = upper_body.addChild("body_armor", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -1.0F, 2.0F));
 
@@ -42,8 +45,6 @@ public class WargArmorModel extends EntityModel<WargEntityRenderState> {
 
                 ModelPartData backarmor_r1 = back_armor.addChild("backarmor_r1", ModelPartBuilder.create().uv(37, 36).cuboid(-7.8F, -6.5F, -5.0F, 14.0F, 11.0F, 10.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.1F, 0.0F, -3.1416F, 0.0F, 3.1416F));
 
-                ModelPartData head = upper_body.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.of(14.3858F, -1.8862F, 1.5F, 0.0F, 0.0F, 0.2618F));
-
                 ModelPartData head_armor = head.addChild("head_armor", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
                 ModelPartData Lbone_snout_r1 = head_armor.addChild("Lbone_snout_r1", ModelPartBuilder.create().uv(101, 0).cuboid(-7.2076F, -0.8956F, -2.3986F, 11.0F, 6.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(7.4218F, 1.1634F, -4.1014F, -2.7477F, -0.1032F, -3.0907F));
@@ -59,6 +60,8 @@ public class WargArmorModel extends EntityModel<WargEntityRenderState> {
                 ModelPartData snout_r1 = snout2.addChild("snout_r1", ModelPartBuilder.create().uv(36, 23).cuboid(-6.2076F, 0.1044F, 2.1F, 13.0F, 5.0F, 3.0F, new Dilation(0.1F)), ModelTransform.of(0.0F, 0.0F, 0.0F, -3.1416F, 0.0F, 3.1416F));
 
                 ModelPartData snout_r2 = snout2.addChild("snout_r2", ModelPartBuilder.create().uv(98, 35).cuboid(-5.2076F, 3.2829F, 2.1F, 1.0F, 1.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -4.2F, 0.0F, -3.1416F, 0.0F, 3.1416F));
-                return TexturedModelData.of(modelData, 128, 128);
+
+                return modelData;
         }
+
 }
