@@ -47,6 +47,9 @@ import java.util.List;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 
+// TODO Fix sitting anim
+// TODO Bouncing
+// TODO Fix walking anim speed
 public class WargEntity extends AbstractBeastEntity {
 
     private static final float MIN_MOVEMENT_SPEED_BONUS = (float) WargEntity.getChildMovementSpeedBonus(() -> 0.0);

@@ -5,7 +5,7 @@
         "dyeable": {
           "color_when_undyed": 4865076
         },
-        "texture": "middle-earth:warg_leather_armor"
+        "texture": "middle-earth:beast_armor/warg_leather_armor"
       }
     ]
   }

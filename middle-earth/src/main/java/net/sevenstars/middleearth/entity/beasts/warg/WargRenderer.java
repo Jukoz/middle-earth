@@ -34,10 +34,10 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
                 )
         );
         this.addFeature(new WargArmorSpineFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
-        //this.addFeature(new WargArmorSideSkullsFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargArmorSideSkullsFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(new WargSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
-        //this.addFeature(new WargArmorFrontSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
-        //this.addFeature(new WargArmorBackSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargArmorFrontSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargArmorBackSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
     }
 
     @Override
