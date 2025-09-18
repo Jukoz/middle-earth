@@ -63,7 +63,9 @@ public class GondorFactionPool {
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "gondor.lebennin"),  new Vector2d(1715, 1955)), // Linhir
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "gondor.ringlo_vale"),  new Vector2d(1530, 1730)), // Calembel
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "gondor.dol_amroth"),  new Vector2d(1500, 1930))
-                )), List.of(), List.of()
+                )), List.of(), List.of(),
+                List.of(FactionsME.ROHAN), List.of(FactionsME.LOTHLORIEN, FactionsME.LONGBEARDS, FactionsME.DALE,
+                FactionsME.SHIRE), List.of(FactionsME.ISENGARD, FactionsME.MORDOR, FactionsME.MISTY_MOUNTAINS_GOBLINS, FactionsME.BRIGAND)
         );
     }
 }

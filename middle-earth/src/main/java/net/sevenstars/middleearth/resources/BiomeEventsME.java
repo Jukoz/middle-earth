@@ -2,19 +2,18 @@ package net.sevenstars.middleearth.resources;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.minecraft.entity.EntityType;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.*;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeNpcSpawningData;
 import net.sevenstars.middleearth.resources.datas.npcs.pools.BrigandNpcDataPool;
 import net.sevenstars.middleearth.resources.datas.npcs.pools.GondorianNpcDataPool;
+import net.sevenstars.middleearth.utils.ItemUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -60,7 +59,8 @@ public class BiomeEventsME {
 
         register(context, registryEntryLookup, PELENNOR_FIELDS, new BiomeEventData(List.of(
                 new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD).withSkylightRequired(),
-                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD).withSkylightRequired().withMount(EntityType.HORSE, Identifier.of("leather_horse_armor")),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARD).withSkylightRequired().withMount(EntityType.HORSE, ItemUtil.getIdentifier(EquipmentItemsME.GONDORIAN_HORSE_ARMOR)),
+                new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_KNIGHT).withSkylightRequired().withWeight(3).withMount(EntityType.HORSE, ItemUtil.getIdentifier(EquipmentItemsME.GONDORIAN_HORSE_ARMOR)),
                 new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_KNIGHT).withSkylightRequired().withWeight(3),
                 new BiomeNpcSpawningData(GondorianNpcDataPool.GONDOR_SOLDIER).withSkylightRequired().withWeight(8)
         )));

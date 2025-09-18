@@ -57,7 +57,9 @@ public class MistyMountainsGoblinsFactionPool {
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "misty_mountains_goblins.grey_mountains"), new Vector2d(1652, 640)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "misty_mountains_goblins.goblin_town"), new Vector2d(1581.5, 874.5)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "misty_mountains_goblins.moria"), new Vector2d(1521, 1138))
-                )), List.of(), List.of()
+                )), List.of(), List.of(),
+                List.of(FactionsME.ISENGARD), List.of(FactionsME.MORDOR),
+                List.of(FactionsME.LOTHLORIEN, FactionsME.GONDOR, FactionsME.ROHAN, FactionsME.SHIRE, FactionsME.LONGBEARDS, FactionsME.DALE, FactionsME.BRIGAND)
         );
     }
 
