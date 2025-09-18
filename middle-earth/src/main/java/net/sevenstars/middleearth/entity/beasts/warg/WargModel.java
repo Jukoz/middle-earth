@@ -13,8 +13,8 @@ public class WargModel extends EntityModel<WargEntityRenderState> {
     private final Animation runningAnimation;
     private final Animation walkingAnimation;
     private final Animation groomingAnimation;
-    private final Animation bittingAnimation;
-    private final Animation layingAnimation;
+    private final Animation bitingAnimation;
+    private final Animation startSittingAnimation;
     private final Animation standingAnimation;
     private final Animation lyingAnimation;
 
@@ -28,8 +28,8 @@ public class WargModel extends EntityModel<WargEntityRenderState> {
         this.walkingAnimation = WargAnimations.WALK.createAnimation(root);
         this.runningAnimation = WargAnimations.RUN.createAnimation(root);
         this.groomingAnimation = WargAnimations.GROOM.createAnimation(root);
-        this.bittingAnimation = WargAnimations.BITE.createAnimation(root);
-        this.layingAnimation = WargAnimations.LAY_DOWN.createAnimation(root);
+        this.bitingAnimation = WargAnimations.BITE.createAnimation(root);
+        this.startSittingAnimation = WargAnimations.SIT_DOWN.createAnimation(root);
         this.standingAnimation = WargAnimations.STAND_UP.createAnimation(root);
         this.lyingAnimation = WargAnimations.LYING.createAnimation(root);
     }
@@ -108,15 +108,15 @@ public class WargModel extends EntityModel<WargEntityRenderState> {
         super.setAngles(state);
 
         if(!state.isSprinting && !(state.conrollingPassenger != null && state.conrollingPassenger.isSprinting()) && !state.isCharging) {
-            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 4f, 4f);
+            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2f);
         }
         else {
             this.runningAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.2f, 1.2f);
         }
 
         this.groomingAnimation.apply(state.idleAnimationState, state.age);
-        this.bittingAnimation.apply(state.attackAnimationState, state.age);
-        this.layingAnimation.apply(state.startSittingAnimationState, state.age);
+        this.bitingAnimation.apply(state.attackAnimationState, state.age);
+        this.startSittingAnimation.apply(state.startSittingAnimationState, state.age);
         this.standingAnimation.apply(state.stopSittingAnimationState, state.age);
         this.lyingAnimation.apply(state.sittingAnimationState, state.age);
     }

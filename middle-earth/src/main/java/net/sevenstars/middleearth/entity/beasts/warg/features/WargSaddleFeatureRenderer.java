@@ -32,8 +32,14 @@ public class WargSaddleFeatureRenderer extends FeatureRenderer<WargEntityRenderS
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, WargEntityRenderState state, float limbAngle, float limbDistance) {
         ItemStack itemStack = state.saddle;
+        boolean hasArmor = !state.armor.isEmpty();
         if(!itemStack.isEmpty()) {
             VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_saddle.png")), itemStack.hasGlint());
+
+            if(!hasArmor) {
+                matrices.scale(0.9f, 0.9f, 0.9f);
+                matrices.translate(0, 0.05f, 0);
+            }
 
             model.setAngles(state);
             model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);

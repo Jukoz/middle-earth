@@ -47,9 +47,6 @@ import java.util.List;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 
-// TODO Fix sitting anim
-// TODO Bouncing
-// TODO Fix walking anim speed
 public class WargEntity extends AbstractBeastEntity {
 
     private static final float MIN_MOVEMENT_SPEED_BONUS = (float) WargEntity.getChildMovementSpeedBonus(() -> 0.0);
@@ -93,12 +90,11 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new BeastSitGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 2, false));
         this.goalSelector.add(4, new ChargeAttackGoal(this, this.getDisposition(), maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 0.9, (stack) ->  stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food"))), false));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(7, new WanderAroundFarGoal(this, 0.5));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
         this.targetSelector.add(3, new BeastRevengeGoal(this, new Class[0]).setGroupRevenge());
@@ -244,7 +240,7 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
         if(!this.isSitting()) {
-            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.5f);
+            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.25f);
         }
 
         return super.getSaddledSpeed(controllingPlayer);
@@ -257,11 +253,21 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
-        float f = this.limbAnimator.getSpeed();
-        float g = this.limbAnimator.getSpeed() * (MathHelper.PI / 180) * 18; // TODO : Before, was getPos()
-        float h = passenger.isSprinting() ? 1 : 0;
+        float animationSpeed = this.limbAnimator.getSpeed();
+        float animationProgress = this.limbAnimator.getAnimationProgress() * (MathHelper.PI / 180) * 18;
 
-        double y = (MathHelper.cos(g * 2 * 1.2f - (MathHelper.PI * (h - 1))) * (0.06 + (0.035 * h)));
+        boolean sprinting = passenger.isSprinting();
+
+        // frequency is calculated by dividing the speed of the animation by the duration of the animation.
+        float frequency = sprinting ? (1.2f/0.5f) : (2f/1.25f);
+
+        double y = sprinting ?
+                MathHelper.cos(animationProgress * frequency) * 0.095 * animationSpeed :
+                MathHelper.sin(animationProgress * frequency * 2f) * 0.06 * animationSpeed;
+
+        if(this.isSitting()) {
+            y = -0.5;
+        }
 
         return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
     }
