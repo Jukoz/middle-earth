@@ -18,6 +18,7 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.ArrayList;
 import java.util.List;

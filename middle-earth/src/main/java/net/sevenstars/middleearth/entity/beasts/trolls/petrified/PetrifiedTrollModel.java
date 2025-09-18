@@ -61,10 +61,6 @@ public class PetrifiedTrollModel extends EntityModel<LivingEntityRenderState> {
         ModelPartData leftleg = legs.addChild("leftleg", ModelPartBuilder.create().uv(0, 126).cuboid(-5.0F, 0.5F, -5.0F, 10.0F, 19.0F, 10.0F, new Dilation(0.0F))
                 .uv(112, 70).cuboid(-5.0F, 0.5F, -5.0F, 10.0F, 19.0F, 10.0F, new Dilation(0.2F)), ModelTransform.origin(6.0F, -21.5F, 2.0F));
 
-        ModelPartData club = modelPartData.addChild("club", ModelPartBuilder.create(), ModelTransform.of(-15.3115F, 10.3091F, -12.2077F, -0.1309F, 0.0F, 0.0873F));
-
-        ModelPartData cube1 = club.addChild("cube1", ModelPartBuilder.create().uv(16, 158).mirrored().cuboid(-4.5F, -4.5F, -22.0F, 9.0F, 9.0F, 22.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(17, 194).cuboid(-3.5F, -3.5F, 0.0F, 7.0F, 7.0F, 22.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.1993F, 0.0145F, -0.0979F));
         return TexturedModelData.of(modelData, 256, 256);
     }
 

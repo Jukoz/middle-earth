@@ -19,6 +19,7 @@ import net.sevenstars.middleearth.item.items.armor.*;
 import net.sevenstars.middleearth.item.items.armor.artefact.CustomArtefactHelmetItem;
 import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
+import net.sevenstars.middleearth.item.utils.ItemSettingsME;
 import net.sevenstars.middleearth.item.utils.armor.ArmorMaterialsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
@@ -792,17 +793,17 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.RAVENHILL_SENTINEL_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
 
-    public static final Item BROADHOOF_GOAT_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_padded_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.LEATHER, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, settings), new Item.Settings()
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(15256475))
+    public static final Item BROADHOOF_GOAT_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_leather_armor",
+            Item::new, ItemSettingsME.goatArmor(ArmorMaterialsME.BROADHOOF_GOAT_LEATHER_ARMOR.material())
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
-    public static final Item BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_ornamented_padded_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.LEATHER, "_ornamented", CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, settings), new Item.Settings()
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(15256475))
+
+    public static final Item BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_ornamented_leather_armor",
+            Item::new, ItemSettingsME.goatArmor(ArmorMaterialsME.BROADHOOF_GOAT_ORNAMENTED_LEATHER_ARMOR.material())
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
     public static final Item BROADHOOF_GOAT_PLATE_ARMOR = registerGeneratedItem("broadhoof_goat_plate_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.PLATE, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, false, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));//endregion
+            Item::new, ItemSettingsME.goatArmor(ArmorMaterialsME.BROADHOOF_GOAT_PLATE_ARMOR.material())
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+    //endregion
     //endregion
 
     //endregion
@@ -1062,12 +1063,10 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.ORCISH_WHITE_FUR_SURCOAT_WITH_BONE)));
 
     public static final Item WARG_LEATHER_ARMOR = registerDyeableArmorPiece("warg_leather_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.LEATHER, null, CustomAnimalArmorItem.Type.WARG, false, settings), new Item.Settings()
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(4865076)));
+            Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_LEATHER_ARMOR.material()));
 
     public static final Item WARG_REINFORCED_LEATHER_ARMOR = registerDyeableArmorPiece("warg_reinforced_leather_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.LEATHER, "_reinforced", CustomAnimalArmorItem.Type.WARG, true, settings), new Item.Settings()
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(4865076)));
+            Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_REINFORCED_LEATHER_ARMOR.material()));
     //endregion
 
     //region MORDOR
@@ -1251,12 +1250,10 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
 
     public static final Item WARG_MORDOR_MAIL_ARMOR = registerDyeableArmorPiece("warg_mordor_mail_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.MAIL, "_mordor", CustomAnimalArmorItem.Type.WARG, true, settings), new Item.Settings()
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(4865076))
-
+            Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_MORDOR_MAIL_ARMOR.material())
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
     public static final Item WARG_MORDOR_PLATE_ARMOR = registerGeneratedItem("warg_mordor_plate_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.PLATE, "_mordor", CustomAnimalArmorItem.Type.WARG, false, settings), new Item.Settings()
+            Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_MORDOR_PLATE_ARMOR.material())
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
     //endregion
 
@@ -1371,7 +1368,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
 
     public static final Item WARG_ISENGARD_PLATE_ARMOR = registerGeneratedItem("warg_isengard_plate_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.PLATE, "_isengard", CustomAnimalArmorItem.Type.WARG, false, settings), new Item.Settings()
+            Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_MORDOR_MAIL_ARMOR.material())
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
     //endregion
 
@@ -1464,7 +1461,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
 
     public static final Item WARG_GUNDABAD_PLATE_ARMOR = registerGeneratedItem("warg_gundabad_plate_armor",
-            (settings) -> new CustomAnimalArmorItem(ArmorMaterialsME.PLATE, "_gundabad", CustomAnimalArmorItem.Type.WARG, false, settings), new Item.Settings()
+            Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_GUNDABAD_PLATE_ARMOR.material())
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
     //endregion
 
@@ -1523,8 +1520,7 @@ public class EquipmentItemsME {
             case CustomChestplateItem chestplateItem -> armorPiecesListChestplates.add(chestplateItem);
             case CustomLeggingsItem leggingsItem -> armorPiecesListLeggings.add(leggingsItem);
             case CustomBootsItem bootsItem -> armorPiecesListBoots.add(bootsItem);
-            case CustomAnimalArmorItem ignored -> {}
-            default -> throw new IllegalStateException("Unexpected value: " + item);
+            default -> {}
         }
         return registerItem(item, name);
     }
@@ -1538,7 +1534,6 @@ public class EquipmentItemsME {
             case CustomChestplateItem chestplateItem -> armorPiecesListChestplates.add(chestplateItem);
             case CustomLeggingsItem leggingsItem -> armorPiecesListLeggings.add(leggingsItem);
             case CustomBootsItem bootsItem -> armorPiecesListBoots.add(bootsItem);
-            case CustomAnimalArmorItem ignored -> {}
             default -> throw new IllegalStateException("Unexpected value: " + item);
         }
         return registerItem(item, name);

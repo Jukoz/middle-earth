@@ -5,8 +5,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -38,6 +41,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.List;
 import java.util.UUID;
@@ -69,7 +73,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public static final float RESISTANCE = 0.15f;
     protected Vec3d targetDir = Vec3d.ZERO;
 
-    // Initializing ====================================================================================================
+    // region Initializing
     protected AbstractBeastEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -132,7 +136,9 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         }
     }
 
-    // Conditions ======================================================================================================
+    // endregion
+
+    // region Conditions
     public abstract Disposition getDisposition();
 
     public abstract List<RaceType> getCompatibleRaces();
@@ -179,8 +185,9 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public boolean isOwner(LivingEntity entity) {
         return this.getOwner() != null && this.getOwner() == entity;
     }
+    // endregion
 
-    // DataTracker =====================================================================================================
+    // region DataTracker
 
     public int getTameness() {
         return this.dataTracker.get(TAMENESS);
@@ -229,8 +236,9 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         dataTracker.set(FIGHTING, isFighting);
     }
 
+    // endregion
 
-    // Non-tracked Getters and Setters =================================================================================
+    // region Non-tracked Getters and Setters
     public boolean hasCharged() {
         return hasCharged;
     }
@@ -275,7 +283,9 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         return (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE);
     }
 
-    // Equipment =======================================================================================================
+    // endregion
+
+    // region Equipment
 
     protected void dropInventory(ServerWorld world) {
         super.dropInventory(world);
@@ -336,7 +346,9 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         return this.isSitting() ? 0 : super.getSaddledSpeed(controllingPlayer);
     }
 
-    // Move Set and Behavior ===========================================================================================
+    // endregion
+
+    // region Move Set and Behavior
 
     public void breakFree() {
         this.setTame(false);
@@ -356,12 +368,11 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
             this.setCharging(true);
             this.chargeTimeout = maxChargeCooldown();
         }
-        super.jump(strength, movementInput);
     }
 
     @Override
-    public boolean canUseSlot(EquipmentSlot slot) {
-        return !slot.isArmorSlot();
+    public boolean isAngry() {
+        return false;
     }
 
     @Override
@@ -452,6 +463,14 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         return ActionResult.PASS;
     }
 
+    @Override
+    protected void putPlayerOnBack(PlayerEntity player) {
+        ItemStack item = player.getStackInHand(Hand.MAIN_HAND);
+        if(this.canAddPassenger(player) && item.isEmpty()) {
+            super.putPlayerOnBack(player);
+        }
+    }
+
     public boolean damage(DamageSource source, float amount) {
         if(!source.equals(getDamageSources().drown()) && !source.equals(getDamageSources().lava())
                 && !source.equals(getDamageSources().cramming()) && !source.equals(getDamageSources().magic())) {
@@ -470,7 +489,14 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
                 .add(0, this.getVelocity().y, 0)); // Add y-Velocity to make beast fall and climb steps
     }
 
-    // Tick Management =================================================================================================
+    @Override
+    protected EntityNavigation createNavigation(World world) {
+        return new BeastEntityNavigation(this, world);
+    }
+
+    // endregion
+
+    // region Tick Management
     @Override
     public void tick() {
         super.tick();
@@ -532,7 +558,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         }
     }
 
-    // =================================================================================================================
+    // endregion
 
     protected void setChildAttribute(PassiveEntity other, AbstractHorseEntity child, RegistryEntry<EntityAttribute> attribute, double min, double max) {
         double d = this.calculateAttributeBaseValue(this.getAttributeBaseValue(attribute), other.getAttributeBaseValue(attribute), min, max, this.random);
@@ -576,23 +602,9 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         }
     }
 
-    public PlayerEntity getPlayerByUuid(UUID uuid) {
-        for (int i = 0; i < this.getWorld().getPlayers().size(); ++i) {
-            PlayerEntity playerEntity = this.getWorld().getPlayers().get(i);
-            if (!uuid.equals(playerEntity.getUuid())) continue;
-            return playerEntity;
-        }
-        return null;
-    }
-
     @Override
     protected void updateLimbs(float posDelta) {
         float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
         this.limbAnimator.updateLimbs(f, 0.2f, 1.0f);
-    }
-
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_WARDEN_STEP, 0.15F, 2.0F);
     }
 }

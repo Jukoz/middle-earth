@@ -1,13 +1,21 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof;
 
 import com.google.common.collect.Maps;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.equipment.EquipmentModel;
+import net.minecraft.client.render.entity.feature.SaddleFeatureRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.model.HorseEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorFeatureRenderer;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatSaddleFeatureRenderer;
 
 import java.util.Map;
@@ -18,8 +26,29 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
 
     public BroadhoofGoatRenderer(EntityRendererFactory.Context context) {
         super(context, new BroadhoofGoatModel(context.getPart(ModEntityModelLayers.BROADHOOF_GOAT)), 0.8f);
-        this.addFeature(new BroadhoofGoatArmorFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(
+                new SaddleFeatureRenderer<>(
+                        this,
+                        context.getEquipmentRenderer(),
+                        new BroadhoofGoatModel(context.getPart(ModEntityModelLayers.BROADHOOF_GOAT_ARMOR)),
+                        EquipmentModel.LayerType.HORSE_BODY,
+                        broadhoofGoatEntityRenderState -> broadhoofGoatEntityRenderState.armor
+
+                )
+        );
         this.addFeature(new BroadhoofGoatSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+    }
+
+    @Override
+    public void render(BroadhoofGoatEntityRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+        if(state.baby) {
+            matrixStack.scale(SIZE/2, SIZE/2, SIZE/2);
+        }
+        else {
+            matrixStack.scale(SIZE, SIZE, SIZE);
+        }
+
+        super.render(state, matrixStack, vertexConsumerProvider, i);
     }
 
     @Override
@@ -53,6 +82,33 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_brown.png"));
 
             });
+
+    @Override
+    public void updateRenderState(BroadhoofGoatEntity goat, BroadhoofGoatEntityRenderState state, float f) {
+        super.updateRenderState(goat, state, f);
+
+        state.variant = goat.getVariant();
+        state.horns = goat.getHorns();
+        state.hasLeftHorn = goat.hasLeftHorn();
+        state.hasRightHorn = goat.hasRightHorn();
+        state.beardBrushed = goat.hasBrushedBeard();
+
+        state.isSprinting = goat.isSprinting();
+        state.isCharging = goat.isCharging();
+        state.isTame = goat.isTame();
+        state.conrollingPassenger = goat.getControllingPassenger();
+        state.saddle = goat.getEquippedStack(EquipmentSlot.SADDLE);
+        state.armor = goat.getBodyArmor();
+
+        state.chargeAnimationState = goat.chargeAnimationState;
+        state.startSittingAnimationState = goat.startSittingAnimationState;
+        state.stopSittingAnimationState = goat.stopSittingAnimationState;
+        state.sittingAnimationState = goat.sittingAnimationState;
+        state.attackAnimationState = goat.attackAnimationState;
+        state.idleAnimationState = goat.idleAnimationState;
+        state.jumpAnimationState = goat.jumpAnimationState;
+
+    }
 
     @Override
     public Identifier getTexture(BroadhoofGoatEntityRenderState state) {

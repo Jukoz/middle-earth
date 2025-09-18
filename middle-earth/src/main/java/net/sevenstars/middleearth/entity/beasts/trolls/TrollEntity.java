@@ -47,13 +47,6 @@ public class TrollEntity extends AbstractBeastEntity {
 
     public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-
-    /* Temporary disabled until next update
-    @Override
-    public boolean hasArmorSlot() {
-        return false;
-    }*/
-
     public TrollEntity(EntityType<? extends TrollEntity> entityType, World world) {
         super(entityType, world);
     }
