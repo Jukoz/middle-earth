@@ -11,6 +11,7 @@ import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.SensorsWT;
 import net.sevenstars.of_beasts_and_wild_things.item.ModEggItems;
 import net.sevenstars.of_beasts_and_wild_things.item.ModItemGroups;
 import net.sevenstars.of_beasts_and_wild_things.item.ModItems;
+import net.sevenstars.of_beasts_and_wild_things.world.gen.WorldGenerationWT;
 
 public class OfBeastsAndWildThings implements ModInitializer {
 	public static final String MOD_ID = "wild-things";
@@ -28,5 +29,6 @@ public class OfBeastsAndWildThings implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModItems.registerModItems();
 		ModEggItems.registerModItems();
+		WorldGenerationWT.generateModWorldGen();
 	}
 }
