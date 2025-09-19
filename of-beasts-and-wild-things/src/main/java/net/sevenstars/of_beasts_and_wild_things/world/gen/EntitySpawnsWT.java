@@ -19,5 +19,13 @@ public class EntitySpawnsWT {
                 40, 2, 5);
         SpawnRestriction.register(EntitiesWT.SNAIL, SpawnLocationTypes.ON_GROUND,
                 Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
+
+        // Pheasant
+        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTagsWT.PHEASANT_SPAWNS),
+                SpawnGroup.CREATURE,
+                EntitiesWT.PHEASANT,
+                50, 1, 3);
+        SpawnRestriction.register(EntitiesWT.PHEASANT, SpawnLocationTypes.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
     }
 }

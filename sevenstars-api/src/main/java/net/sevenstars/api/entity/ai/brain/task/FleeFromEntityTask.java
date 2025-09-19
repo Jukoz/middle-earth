@@ -23,10 +23,10 @@ import java.util.Map;
 
 public class FleeFromEntityTask<E extends PathAwareEntity> extends MultiTickTask<E> {
     private ImmutableList<Class<? extends Entity>> entities;
-    private float distance;
+    private int distance;
     private float speed;
 
-    public FleeFromEntityTask(ImmutableList<Class<? extends Entity>> entities, float distance, float speed) {
+    public FleeFromEntityTask(ImmutableList<Class<? extends Entity>> entities, int distance, float speed) {
         super(Map.of(), 100, 120);
 
         this.entities = entities;
@@ -81,10 +81,7 @@ public class FleeFromEntityTask<E extends PathAwareEntity> extends MultiTickTask
             }
         }
         if(!fleeEntities.isEmpty()) {
-            direction = entity.getPos().subtract(fleeEntities.getFirst().getPos()).normalize().multiply(5, 0, 5);
-            for(int i = 0; world.getBlockState(new BlockPos((int)direction.x, (int)direction.y - 1, (int)direction.z)).isOf(Blocks.WATER) && i < 8; i++) {
-                direction.rotateY(MathHelper.PI / 8);
-            }
+            return FuzzyTargeting.findFrom(entity, distance, 4, fleeEntities.getFirst().getPos());
         }
 
         return FuzzyTargeting.findTo(entity, 7, 4, direction);

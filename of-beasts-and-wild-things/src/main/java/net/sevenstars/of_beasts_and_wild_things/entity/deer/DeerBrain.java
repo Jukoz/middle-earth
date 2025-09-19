@@ -48,7 +48,7 @@ public class DeerBrain {
 
     private static void addIdleActivities(Brain<DeerEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, new FleeFromEntityTask<DeerEntity>(ImmutableList.of(PlayerEntity.class), 5.0F, 1.5F)),
+                Pair.of(0, new FleeFromEntityTask<DeerEntity>(ImmutableList.of(PlayerEntity.class), 5, 1.5F)),
                 Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
                         Pair.of(MoveTowardsBlockTask.create(1.0F, Blocks.SWEET_BERRY_BUSH), 5),
                         Pair.of(new EatBerriesTask(), 5),
