@@ -4,7 +4,7 @@ import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.ModBannerPatterns;
+import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
@@ -48,9 +48,9 @@ public class LothlorienFactionPool {
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.YELLOW),
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.YELLOW),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.YELLOW),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.STAR_AND_LEAF, DyeColor.WHITE)
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.STAR_AND_LEAF, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "lothlorien.cerin_amroth"), new Vector2d(1614, 1215))

@@ -17,9 +17,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
-import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollDigForFoodTask;
-import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollEatFoodTask;
-import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollSleepTask;
+import net.sevenstars.middleearth.entity.ai.brain.task.*;
 
 import java.util.Optional;
 
@@ -34,7 +32,7 @@ public class CaveTrollBrain {
         addCoreActivities(brain);
         addIdleActivities(brain);
         addTamedActivities(brain);
-        addFightActivities(brain);
+        addFightActivities(brain, troll);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.FIGHT);
 
@@ -47,14 +45,16 @@ public class CaveTrollBrain {
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
                 new MoveToTargetTask(),
                 new UpdateLookControlTask(45, 90),
-                new TickCooldownTask(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN)
-
+                new TickCooldownTask(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN),
+                new TickCooldownTask(MemoryModulesME.ROAR_COOLDOWN),
+                new TickCooldownTask(MemoryModulesME.SMASH_COOLDOWN)
         ));
     }
 
     private static void addIdleActivities(Brain<CaveTrollEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, UpdateAttackTargetTask.create(CaveTrollBrain::getAttackTarget)),
+                Pair.of(0, UpdateAttackTargetTask.create(CaveTrollBrain::getHurtBy)),
                 Pair.of(1, new RandomTask<>(ImmutableList.of(
                         Pair.of(StrollTask.create(1.0F), 5),
                         Pair.of(new CompositeTask<>(ImmutableMap.of(), ImmutableSet.of(),
@@ -88,11 +88,16 @@ public class CaveTrollBrain {
         );
     }
 
-    private static void addFightActivities(Brain<CaveTrollEntity> brain) {
+    private static void addFightActivities(Brain<CaveTrollEntity> brain, CaveTrollEntity troll) {
         brain.setTaskList(Activity.FIGHT, ImmutableList.of(
                         Pair.of(0, ForgetAttackTargetTask.create()),
-                        Pair.of(1, RangedApproachTask.create(2.5F)),
-                        Pair.of(2, MeleeAttackTask.create(30))
+                        Pair.of(2, new RandomTask<>(ImmutableList.of(
+                                Pair.of(MeleeAttackTask.create(30), 4),
+                                Pair.of(RangedApproachTask.create(2.5F), 3),
+                                Pair.of(new BeastChargeTask(troll.chargeDuration(), troll.maxChargeCooldown()), 1),
+                                Pair.of(new CaveTrollRoarTask(), 2),
+                                Pair.of(new CaveTrollSmashTask(), 2)
+                        )))
                 ),
                 ImmutableSet.of(
                         Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT)
@@ -102,6 +107,10 @@ public class CaveTrollBrain {
 
     private static Optional<? extends LivingEntity> getAttackTarget(ServerWorld world, CaveTrollEntity troll) {
         return (troll.isSleeping() || troll.isSitting()) ? troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HURT_BY_ENTITY) : troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+    }
+
+    private static Optional<? extends LivingEntity> getHurtBy (ServerWorld world, CaveTrollEntity troll) {
+        return troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HURT_BY_ENTITY);
     }
 
     public static void updateActivities(CaveTrollEntity troll) {
@@ -134,7 +143,9 @@ public class CaveTrollBrain {
                 MemoryModulesME.DIG_FOR_FOOD_COOLDOWN,
                 MemoryModulesME.FOOD_EATEN_COUNT,
                 MemoryModulesME.TAME,
-                MemoryModulesME.SITTING
+                MemoryModulesME.SITTING,
+                MemoryModulesME.ROAR_COOLDOWN,
+                MemoryModulesME.SMASH_COOLDOWN
         );
     }
 }

@@ -13,6 +13,7 @@ public class SimpleFlowerPotModel {
 
     public static List<FlowerPot> pots = new ArrayList<>() {
         {
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_ASPEN_SAPLING, ModNatureBlocks.ASPEN_SAPLING));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_BEECH_SAPLING, ModNatureBlocks.BEECH_SAPLING));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_CHESTNUT_SAPLING, ModNatureBlocks.CHESTNUT_SAPLING));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_HOLLY_SAPLING, ModNatureBlocks.HOLLY_SAPLING));
@@ -28,8 +29,9 @@ public class SimpleFlowerPotModel {
             add(new FlowerPot(ModDecorativeBlocks.POTTED_WHITE_PALM_SAPLING, ModNatureBlocks.WHITE_PALM_SAPLING));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_PINE_SAPLING, ModNatureBlocks.PINE_SAPLING));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_BLACK_PINE_SAPLING, ModNatureBlocks.BLACK_PINE_SAPLING));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_WHITE_SPRUCE_SAPLING, ModNatureBlocks.WHITE_SPRUCE_SAPLING));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_WILLOW_SAPLING, ModNatureBlocks.WILLOW_SAPLING));
-            
+
             add(new FlowerPot(ModDecorativeBlocks.POTTED_GREEN_SHRUB, ModNatureBlocks.GREEN_SHRUB));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_ELANOR, ModNatureBlocks.ELANOR));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_MALLOS, ModNatureBlocks.MALLOS));
@@ -38,6 +40,7 @@ public class SimpleFlowerPotModel {
             add(new FlowerPot(ModDecorativeBlocks.POTTED_YELLOW_FLOWER, ModNatureBlocks.YELLOW_FLOWER));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_YELLOW_TROLLIUS, ModNatureBlocks.YELLOW_TROLLIUS));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_TAN_SHRUB, ModNatureBlocks.TAN_SHRUB));
+            add(new FlowerPot(ModDecorativeBlocks.POTTED_BLUE_GENTIAN, ModNatureBlocks.BLUE_GENTIAN));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_GREEN_JEWEL_CORNFLOWER, ModNatureBlocks.GREEN_JEWEL_CORNFLOWER));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_NOBLEWHITE, ModNatureBlocks.NOBLEWHITE));
             add(new FlowerPot(ModDecorativeBlocks.POTTED_SCORCHED_SHRUB, ModNatureBlocks.SCORCHED_SHRUB));

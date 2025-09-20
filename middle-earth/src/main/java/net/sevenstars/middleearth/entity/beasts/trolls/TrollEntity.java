@@ -47,13 +47,6 @@ public class TrollEntity extends AbstractBeastEntity {
 
     public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-
-    /* Temporary disabled until next update
-    @Override
-    public boolean hasArmorSlot() {
-        return false;
-    }*/
-
     public TrollEntity(EntityType<? extends TrollEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -175,12 +168,22 @@ public class TrollEntity extends AbstractBeastEntity {
     }
 
     @Override
+    public boolean usesTameness() {
+        return false;
+    }
+
+    @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
         return (float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.5f;
     }
 
     public boolean isCommandItem(ItemStack stack) {
         return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
+    }
+
+    @Override
+    public boolean isFoodItem(ItemStack itemStack) {
+        return false;
     }
 
     @Override

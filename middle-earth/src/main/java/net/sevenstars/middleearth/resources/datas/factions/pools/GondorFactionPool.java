@@ -4,7 +4,7 @@ import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.ModBannerPatterns;
+import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
@@ -49,9 +49,9 @@ public class GondorFactionPool {
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.GRAY),
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.GRAY),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.BLACK),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.TREE, DyeColor.WHITE)
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.TREE, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "gondor.minas_tirith"),  new Vector2d(1945, 1785)),

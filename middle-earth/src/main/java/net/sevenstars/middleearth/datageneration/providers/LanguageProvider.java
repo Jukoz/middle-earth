@@ -26,6 +26,7 @@ public class LanguageProvider extends FabricLanguageProvider {
 
         specialNames.put("Izheraban", "Izhêr'Aban");
         specialNames.put("Khagalaban", "Khagal'Aban");
+        specialNames.put("Burzulaban", "Burzul'Aban");
         specialNames.put("Nurgon", "Núrgon");
         specialNames.put("Zigilaban", "Zigil'Aban");
         specialNames.put("Simbelmyne", "Simbelmynë");

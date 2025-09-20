@@ -95,7 +95,7 @@ public class StoneTrollModel extends EntityModel<TrollEntityRenderState> {
 
     private void setHeadAngles(float headYaw, float headPitch) {
         headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
-        headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F) + -60.0F;
+        headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F);
 
         this.head.yaw = headYaw * 0.017453292F;
         this.head.pitch = headPitch * 0.017453292F;

@@ -49,6 +49,8 @@ public class MEModels {
     public static final Model LARGE_PLANT;
     public static final Model TINTED_LARGE_PLANT;
 
+    public static final Model CROP_VINE;
+
     public static final Model PATH_BLOCK;
 
     private static Model block(String parent, TextureKey... requiredTextureKeys) {
@@ -100,6 +102,8 @@ public class MEModels {
 
         LARGE_PLANT = block("large_plant_template", TextureKey.ALL, TextureKey.PARTICLE);
         TINTED_LARGE_PLANT = block("large_tinted_plant_template", TextureKey.ALL, TextureKey.PARTICLE);
+
+        CROP_VINE = block("crop_no_shade_template", TextureKey.CROP);
 
         PATH_BLOCK = block("path_template", TextureKey.PARTICLE, TextureKey.TOP, TextureKey.SIDE, TextureKey.BOTTOM);
     }

@@ -4,7 +4,7 @@
     "strawberry": {
       "conditions": {
         "item": {
-          "items": "middle-earth:strawberry"
+          "items": "middle-earth:strawberries"
         }
       },
       "trigger": "minecraft:consume_item"
@@ -19,7 +19,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "middle-earth:strawberry"
+      "id":  "middle-earth:strawberries"
     },
     "show_toast": true,
     "title": {

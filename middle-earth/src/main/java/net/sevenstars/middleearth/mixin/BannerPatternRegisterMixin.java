@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.mixin;
 
-import net.sevenstars.middleearth.item.utils.ModBannerPatterns;
+import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.registry.Registerable;
@@ -21,6 +21,6 @@ public class BannerPatternRegisterMixin {
     )
 
     private static void registerModBannerPatterns(Registerable<BannerPattern> registry, CallbackInfo ci) {
-        ModBannerPatterns.register(registry); // TODO fixme
+        BannerPatternsME.register(registry); // TODO fixme
     }
 }
