@@ -34,8 +34,6 @@ public class GreatHornRenderer extends AgeableMobEntityRenderer<GreatHornEntity,
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "brown_great_horn.png"));
                 map.put(GreatHornVariant.TEMPERATE,
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "temperate_great_horn.png"));
-                map.put(GreatHornVariant.WARM,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warm_great_horn.png"));
                 map.put(GreatHornVariant.COLD,
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "cold_great_horn.png"));
                 map.put(GreatHornVariant.WHITE,
