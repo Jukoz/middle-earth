@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.resources;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -10,6 +11,8 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
@@ -31,6 +34,11 @@ import java.util.Optional;
 public class NpcME {
     public final static String PATH = "npcs";
     public static final RegistryKey<Registry<NpcData>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
+    public static final HashMap<EntityCategory, AttributePool> COMMON_NPC_ATTRIBUTES = new HashMap<>(){{
+        put(EntityCategory.SHARED, new AttributePool().addElement(
+                AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.35, 0.45)
+        ));
+    }};
     public static ArrayList<RegistryKey<NpcData>> allNpcDatas;
     // [GENERIC]
     public final static NpcData HUMAN_CIVILIAN;

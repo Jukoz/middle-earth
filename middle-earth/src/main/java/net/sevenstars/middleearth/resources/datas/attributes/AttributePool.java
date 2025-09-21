@@ -46,21 +46,26 @@ public class AttributePool {
     }
 
     public boolean apply(LivingEntity entity){
+        boolean couldResolveOneAttribute = false;
         for(var element : pool){
-            var attributeInstance = entity.getAttributeInstance(Registries.ATTRIBUTE.getEntry(element.getIdentifier()).get());
-            if(attributeInstance != null){
-                attributeInstance.setBaseValue(element.getValue());
-                if(element.hasModifier() && !attributeInstance.hasModifier(element.getModifierIdentifier())){
-                    attributeInstance.addPersistentModifier(new EntityAttributeModifier(
-                            element.getModifierIdentifier(),
-                            element.getModifierValue(),
-                            EntityAttributeModifier.Operation.valueOf(element.getModifierType())));
+            var optAttributeEntry = Registries.ATTRIBUTE.getEntry(element.getIdentifier());
+            if(optAttributeEntry.isPresent()){
+                var attributeEntry = optAttributeEntry.get();
+
+                var attributeInstance = entity.getAttributeInstance(attributeEntry);
+                if(attributeInstance != null){
+                    attributeInstance.setBaseValue(element.getValue());
+                    if(element.hasModifier() && !attributeInstance.hasModifier(element.getModifierIdentifier())){
+                        attributeInstance.addPersistentModifier(new EntityAttributeModifier(
+                                element.getModifierIdentifier(),
+                                element.getModifierValue(),
+                                EntityAttributeModifier.Operation.valueOf(element.getModifierType())));
+                    }
+                    couldResolveOneAttribute = true;
                 }
-            } else {
-                return false;
             }
         }
-        return true;
+        return couldResolveOneAttribute;
     }
 
     public static boolean reverse(LivingEntity entity){

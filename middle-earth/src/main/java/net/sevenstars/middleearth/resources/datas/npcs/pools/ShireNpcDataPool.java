@@ -1,6 +1,9 @@
 package net.sevenstars.middleearth.resources.datas.npcs.pools;
 
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
@@ -14,11 +17,7 @@ import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class ShireNpcDataPool {
@@ -67,7 +66,7 @@ public class ShireNpcDataPool {
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
     SHIRE_SHIRRIFF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("shirriff")), RacesME.HOBBIT, FACTION, List.of(
                 NpcGearData.create()
@@ -87,6 +86,6 @@ public class ShireNpcDataPool {
                                 .add(NpcGearItemData.create(ToolItemsME.BRIMMINGBEND_PIPE))
                                 .add(NpcGearItemData.create(Items.BOOK))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
     }
 }

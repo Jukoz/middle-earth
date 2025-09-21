@@ -78,18 +78,21 @@ public class NpcBrain {
     }
 
     private static void addFightActivities(NpcEntity npc, Brain<NpcEntity> brain) {
+        float movementSpeed = npc.getFightingMovementSpeed();
+        int attackSpeed = npc.getTickAttackSpeedCooldown();
+
         brain.setTaskList(Activity.FIGHT, ImmutableList.of(
                         Pair.of(0, UpdateAttackTargetTask.create(NpcBrain::getAttackTarget)),
                         Pair.of(1, ForgetAttackTargetTask.create(((world, target) -> shouldForgetTarget(world, target, npc)))),
-                        Pair.of(2, RangedApproachTask.create(npc.getMovementSpeed())),
-                        Pair.of(3, MeleeAttackTask.create((int)(npc.getAttackSpeed() * 5)))
+                        //Pair.of(2, RangedApproachTask.create(npc.getMovementSpeed())),
+                        //Pair.of(3, MeleeAttackTask.create((int)(npc.getAttackSpeed() * 5)))
+                        Pair.of(2, RangedApproachTask.create(movementSpeed)),
+                        Pair.of(3, MeleeAttackTask.create(30))
                 ),
                 ImmutableSet.of(
                         Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT)
                 ));
     }
-
-
 
     private static Optional<? extends LivingEntity> getAttackTarget(ServerWorld serverWorld, NpcEntity npc) {
         return npc.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE);
@@ -118,6 +121,7 @@ public class NpcBrain {
                 MemoryModuleType.WALK_TARGET,
                 MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
                 MemoryModuleType.ATTACK_TARGET,
+                MemoryModuleType.ATTACK_COOLING_DOWN,
                 MemoryModuleType.PATH,
                 MemoryModuleType.HOME,
                 MemoryModuleType.LAST_WOKEN,
@@ -125,8 +129,7 @@ public class NpcBrain {
                 MemoryModuleType.LOOK_TARGET,
                 MemoryModuleType.NEAREST_BED,
                 MemoryModuleType.HURT_BY,
-                MemoryModuleType.HURT_BY_ENTITY,
-                MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE
+                MemoryModuleType.HURT_BY_ENTITY
         );
     }
 }

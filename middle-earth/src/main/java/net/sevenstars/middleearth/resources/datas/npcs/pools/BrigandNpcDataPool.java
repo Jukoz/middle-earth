@@ -19,7 +19,6 @@ import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class BrigandNpcDataPool {
@@ -130,7 +129,7 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.BRONZE_DAGGER))
                                 .add(NpcGearItemData.create(WeaponItemsME.IRON_DAGGER))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
         BRIGAND_THIEF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("thief")), RacesME.HUMAN, FACTION, List.of(
                 NpcGearData.create()
@@ -168,7 +167,7 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.IRON_DAGGER))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(2))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
         BRIGAND_MERCENARY = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("mercenary")), RacesME.HUMAN, FACTION, List.of(
                 NpcGearData.create()
@@ -220,7 +219,7 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BRACED_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
         BRIGAND_CHIEFTAIN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("chieftain")), RacesME.HUMAN, FACTION, List.of(
                 NpcGearData.create()
@@ -287,7 +286,7 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BRACED_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
 
         WILD_GOBLIN_GATHERER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("wild_goblin_gatherer")), RacesME.ORC, FACTION, List.of(
@@ -322,7 +321,7 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(ToolItemsME.CRUDE_HOE))
                                 .add(NpcGearItemData.create(ToolItemsME.CRUDE_SHOVEL))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
         WILD_GOBLIN_WARRIOR= new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("wild_goblin_warrior")), RacesME.ORC, FACTION, List.of(
                 NpcGearData.create()
@@ -367,7 +366,7 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ORC_KNIFE))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
         WILD_GOBLIN_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("wild_goblin_scout")), RacesME.ORC, FACTION, List.of(
                 NpcGearData.create()
@@ -400,6 +399,6 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ORCISH_BOW).withWeight(4))
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_BOW))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
     }
 }

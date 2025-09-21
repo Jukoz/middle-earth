@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.entity.npcs;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -28,12 +29,15 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
@@ -49,6 +53,7 @@ import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
+import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
@@ -332,6 +337,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         }
     }
 
+    public float getFightingMovementSpeed(){
+        var currentSpeed = this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
+        return (float) (currentSpeed * 1.50f);
+    }
+
     public boolean isFighting() {
         return dataTracker.get(FIGHTING);
     }
@@ -481,7 +491,40 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
         this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-        return super.tryAttack(world, target);
+        boolean bl;
+        float damage = 1.0f;
+        try{
+            Optional<Double> damageOpt = Optional.of(this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE));
+            damage = damageOpt.get().floatValue();
+        } catch (Exception ignored){}
+        ItemStack itemStack = this.getWeaponStack();
+
+        DamageSource damageSource = Optional.ofNullable(itemStack.getItem().getDamageSource(this)).orElse(this.getDamageSources().mobAttack(this));
+
+        var enchantmentDamage = EnchantmentHelper.getDamage(world, itemStack, target, damageSource, damage);
+        var bonusDamage =  itemStack.getItem().getBonusAttackDamage(target, enchantmentDamage, damageSource);
+        var finalDamage = damage + bonusDamage;
+
+        bl = target.damage(world, damageSource, finalDamage);
+        if (bl) {
+            LivingEntity livingEntity;
+            float g = this.getAttackKnockbackAgainst(target, damageSource);
+            if (g > 0.0f && target instanceof LivingEntity) {
+                livingEntity = (LivingEntity)target;
+                livingEntity.takeKnockback(g * 0.5f, MathHelper.sin(this.getYaw() * ((float)Math.PI / 180)), -MathHelper.cos(this.getYaw() * ((float)Math.PI / 180)));
+                this.setVelocity(this.getVelocity().multiply(0.6, 1.0, 0.6));
+            }
+            if (target instanceof LivingEntity) {
+                livingEntity = (LivingEntity)target;
+                itemStack.postHit(livingEntity, this);
+            }
+            EnchantmentHelper.onTargetDamaged(world, target, damageSource);
+            this.onAttacking(target);
+            this.playAttackSound();
+            this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_CRIT);
+            this.swingHand(Hand.MAIN_HAND);
+        }
+        return bl;
     }
 
     public Optional<LivingEntity> getHurtBy() {
@@ -500,7 +543,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     public static boolean shouldTarget(NpcEntity npcEntity, LivingEntity target){
         Faction faction = npcEntity.getFaction();
         if(faction != null){
-            if(target instanceof PlayerEntity player){
+            if(target instanceof PlayerEntity player && player.canTakeDamage()){
                 var playerFaction = StateSaverAndLoader.getPlayerState(player).getFaction();
                 if(playerFaction == null)
                     return true;
@@ -509,8 +552,12 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             }
 
             if(target instanceof NpcEntity targetNpcEntity){
-                if(faction.getDiplomaticEnemies().contains(npcEntity.getFactionId()))
+                if(faction.getDiplomaticEnemies().contains(targetNpcEntity.getFactionId()))
                     return true;
+                else if(targetNpcEntity.getFaction().getFactionType() == FactionType.SUBFACTION){
+                    if(faction.getDiplomaticEnemies().contains(targetNpcEntity.getFaction().getParentFaction(npcEntity.getWorld()).getId()))
+                        return true;
+                }
             }
 
             if(target instanceof AbstractBeastEntity beast){
@@ -522,10 +569,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         return false;
     }
 
-    public float getAttackSpeed(){
+    public int getTickAttackSpeedCooldown(){
         if(!this.getAttributes().hasAttribute(EntityAttributes.ATTACK_SPEED))
-            return 2f;
-        return (float) this.getAttributes().getValue(EntityAttributes.ATTACK_SPEED);
+            return 1;
+        return (int)this.getAttributes().getValue(EntityAttributes.ATTACK_SPEED);
     }
 
     @Override
@@ -564,10 +611,30 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
-        return MobEntity.createLivingAttributes()
-                .add(EntityAttributes.MAX_HEALTH, 8.0)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.3)
-                .add(EntityAttributes.FOLLOW_RANGE, 35.0);
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.ATTACK_DAMAGE, 2.0);
+        /*
+                .add(EntityAttributes.ARMOR, 0.0)
+                .add(EntityAttributes.ARMOR_TOUGHNESS, 0.0)
+                .add(EntityAttributes.ATTACK_DAMAGE, 2.0)
+                .add(EntityAttributes.ATTACK_KNOCKBACK, 0.0)
+                .add(EntityAttributes.ATTACK_SPEED, 4.0)
+                .add(EntityAttributes.BLOCK_BREAK_SPEED, 1.0)
+                .add(EntityAttributes.BLOCK_INTERACTION_RANGE, 4.5)
+                .add(EntityAttributes.BURNING_TIME, 1.0)
+                .add(EntityAttributes.EXPLOSION_KNOCKBACK_RESISTANCE, 0.0)
+                .add(EntityAttributes.ENTITY_INTERACTION_RANGE, 0.0)
+                .add(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.0)
+                .add(EntityAttributes.FOLLOW_RANGE, 32)
+                .add(EntityAttributes.GRAVITY, 0.08)
+                .add(EntityAttributes.JUMP_STRENGTH, 0.42)
+                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.0)
+                .add(EntityAttributes.MAX_ABSORPTION, 0.0)
+                .add(EntityAttributes.MAX_HEALTH, 20.0)
+                .add(EntityAttributes.MOVEMENT_EFFICIENCY, 0.0)
+                .add(EntityAttributes.MOVEMENT_EFFICIENCY, 0.0)
+
+         */
     }
 
     @Nullable

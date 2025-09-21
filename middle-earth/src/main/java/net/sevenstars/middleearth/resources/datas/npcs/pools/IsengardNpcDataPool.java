@@ -19,7 +19,6 @@ import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class IsengardNpcDataPool {
@@ -70,7 +69,7 @@ public class IsengardNpcDataPool {
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_SPEAR))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
         ISENGARD_ORC_SNAGA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_snaga")), RacesME.ORC, FACTION, List.of(
                 NpcGearData.create()
@@ -114,7 +113,7 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_WOODEN_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
 
         ISENGARD_ORC_WARRIOR = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_warrior")), RacesME.ORC, FACTION, List.of(
@@ -162,7 +161,7 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
         ISENGARD_URUK_HAI_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_soldier")), RacesME.URUK, FACTION, List.of(
                 NpcGearData.create()
@@ -204,7 +203,7 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_WHITE_PALMPRINT_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
         ISENGARD_URUK_HAI_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_scout")), RacesME.URUK, FACTION, List.of(
                 NpcGearData.create()
@@ -230,7 +229,7 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_FALCHION))
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_SPEAR).withWeight(2))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
         ISENGARD_URUK_HAI_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_veteran")), RacesME.URUK, FACTION, List.of(
                 NpcGearData.create()
@@ -258,7 +257,7 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_WHITE_HAND_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_WHITE_PALMPRINT_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
 
         ISENGARD_URUK_HAI_BERSERKER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_berserker")), RacesME.URUK, FACTION, List.of(
@@ -281,7 +280,7 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(DecorativeItemsME.TORCH_OF_ORTHANC).withWeight(4))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
 
         ISENGARD_URUK_HAI_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_leader")), RacesME.URUK, FACTION, List.of(
                 NpcGearData.create()
@@ -303,6 +302,6 @@ public class IsengardNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_HEATER_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
     }
 }

@@ -120,7 +120,7 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(ToolItemsME.PIPE))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET.copy()
                     .withPatterns(NpcTextureType.CLOTHING, List.of(
                             NpcTexturePatternsME.Clothing.ROBE
@@ -145,7 +145,7 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(ToolItemsME.PIPE))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET.copy()
                     .withPatterns(NpcTextureType.CLOTHING, List.of(
                             NpcTexturePatternsME.Clothing.ROBE
@@ -176,7 +176,7 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(NpcGearItemData.create(Items.SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
             put(EntityCategory.FEMALE, List.of(BASE_FEMALE_DALE_TEXTURE_PRESET));
         }}));
@@ -210,7 +210,7 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BLUE_OVAL_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BLUE_BRACED_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
             put(EntityCategory.FEMALE, List.of(BASE_FEMALE_DALE_TEXTURE_PRESET));
         }}));
@@ -238,7 +238,7 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_LONGBOW))
                                 .add(NpcGearItemData.create(Items.BOW))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
             put(EntityCategory.FEMALE, List.of(BASE_FEMALE_DALE_TEXTURE_PRESET));
         }}));
@@ -275,7 +275,7 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BARDING_OVAL_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BARDING_BRACED_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
             put(EntityCategory.FEMALE, List.of(BASE_FEMALE_DALE_TEXTURE_PRESET));
         }}));
@@ -301,7 +301,7 @@ public class DalishNpcDataPool {
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_NOBLE_LONGBOW))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
         }}));
         DALE_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("veteran")), RacesME.HUMAN, FACTION, List.of(
@@ -335,7 +335,7 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BARDING_OVAL_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BARDING_HEAVY_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
         }}));
 
@@ -366,7 +366,7 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_ROYAL_ROUND_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BARDING_HEAVY_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
         }}));
     }

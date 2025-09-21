@@ -10,10 +10,7 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
-import net.sevenstars.middleearth.resources.FactionsME;
-import net.sevenstars.middleearth.resources.NpcTextureMaterialsME;
-import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
-import net.sevenstars.middleearth.resources.RacesME;
+import net.sevenstars.middleearth.resources.*;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
@@ -165,7 +162,7 @@ public class EreborNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_EREBOR_DWARVES_TEXTURE_PRESET));
             put(EntityCategory.FEMALE, List.of(BASE_FEMALE_EREBOR_DWARVES_TEXTURE_PRESET));
         }}));
@@ -198,7 +195,7 @@ public class EreborNpcDataPool {
                 .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                         .add(NpcGearItemData.create(Items.AIR))
                 )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_EREBOR_DWARVES_TEXTURE_PRESET));
             put(EntityCategory.FEMALE, List.of(BASE_FEMALE_EREBOR_DWARVES_TEXTURE_PRESET));
         }}));
@@ -230,7 +227,7 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.HEATER_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_EREBOR_DWARVES_TEXTURE_PRESET));
             put(EntityCategory.FEMALE, List.of(BASE_FEMALE_EREBOR_DWARVES_TEXTURE_PRESET));
         }}));
@@ -274,7 +271,7 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.HEATER_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BASE_MALE_EREBOR_DWARVES_TEXTURE_PRESET));
             put(EntityCategory.FEMALE, List.of(BASE_FEMALE_EREBOR_DWARVES_TEXTURE_PRESET));
         }}));
@@ -311,7 +308,7 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_BOW).withWeight(3))
                                 .add(NpcGearItemData.create(Items.BOW))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     EREBOR_MALE_MIGHTY_TEXTURE_PRESET.withWeight(12),
                     EREBOR_MALE_MIGHTY_TEXTURE_PRESET.copy()
@@ -382,7 +379,7 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_CROSS_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(5))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     EREBOR_MALE_MIGHTY_TEXTURE_PRESET.withWeight(12),
                     EREBOR_MALE_MIGHTY_TEXTURE_PRESET.copy()
@@ -444,7 +441,7 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_REINFORCED_TOWER_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_REINFORCED_SHIELD).withWeight(5))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     EREBOR_MALE_MIGHTY_TEXTURE_PRESET.withWeight(12),
                     EREBOR_MALE_MIGHTY_TEXTURE_PRESET.copy()
@@ -504,7 +501,7 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_REINFORCED_TOWER_SHIELD).withWeight(3))
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_BUCKLER_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     EREBOR_MALE_MIGHTY_TEXTURE_PRESET.withWeight(12),
                     EREBOR_MALE_MIGHTY_TEXTURE_PRESET.copy()
@@ -565,7 +562,7 @@ public class EreborNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_ORNAMENTED_TOWER_SHIELD).withWeight(3))
                                 .add(NpcGearItemData.create(WeaponItemsME.EREBOR_BUCKLER_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     EREBOR_MALE_MIGHTY_TEXTURE_PRESET.withWeight(12),
                     EREBOR_MALE_MIGHTY_TEXTURE_PRESET.copy()

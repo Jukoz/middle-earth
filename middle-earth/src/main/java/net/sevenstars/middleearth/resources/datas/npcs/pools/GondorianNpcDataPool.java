@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
@@ -149,7 +150,7 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(5))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
                 put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE));
                 put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE));
             }})
@@ -181,7 +182,7 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create())
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE));
             put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE));
         }}));
@@ -218,7 +219,7 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_TOWER_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE));
             put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE));
         }}));
@@ -239,7 +240,7 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_HERO_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(2))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE));
             put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE));
         }}));
@@ -261,7 +262,7 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_HERO_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE));
             put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE));
         }}));
@@ -278,7 +279,7 @@ public class GondorianNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_KNIGHT_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE.copy().clearPatterns(NpcTextureType.BEARD)));
             put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE.copy().clearPatterns(NpcTextureType.BEARD)));
         }}));
@@ -289,7 +290,7 @@ public class GondorianNpcDataPool {
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS)))
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(WeaponItemsME.GONDORIAN_FOUNTAIN_GUARD_SPEAR)))
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE.copy().clearPatterns(NpcTextureType.BEARD)));
             put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE.copy().clearPatterns(NpcTextureType.BEARD)));
         }}));
@@ -307,7 +308,7 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_KINGS_GUARD_TOWER_SHIELD).withWeight(8))
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_TOWER_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE.copy().clearPatterns(NpcTextureType.BEARD)));
             put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE.copy().clearPatterns(NpcTextureType.BEARD)));
         }}));

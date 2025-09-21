@@ -10,10 +10,7 @@ import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
-import net.sevenstars.middleearth.resources.FactionsME;
-import net.sevenstars.middleearth.resources.NpcTextureMaterialsME;
-import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
-import net.sevenstars.middleearth.resources.RacesME;
+import net.sevenstars.middleearth.resources.*;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
@@ -167,7 +164,7 @@ public class MordorNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.BLACK_NUMENOREAN_TOWER_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     new NpcTextureDataPreset()
                             .withMaterials(NpcTextureType.SKIN, List.of(
@@ -320,7 +317,7 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_WOODEN_SHIELD).withWeight(2))
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_PAINTED_WOODEN_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     BASE_MALE_MORDOR_ORC_TEXTURE_PRESET
             ));
@@ -384,7 +381,7 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD).withWeight(2))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     BASE_MALE_MORDOR_ORC_TEXTURE_PRESET
             ));
@@ -441,7 +438,7 @@ public class MordorNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     BASE_MALE_MORDOR_ORC_TEXTURE_PRESET
             ));
@@ -530,7 +527,7 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_CONVERTED_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     BASE_MALE_MORDOR_ORC_TEXTURE_PRESET
             ));
@@ -604,7 +601,7 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_CONVERTED_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_A,
                     BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_B
@@ -629,7 +626,7 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_A,
                     BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_B
@@ -648,7 +645,7 @@ public class MordorNpcDataPool {
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_ELITE_LONGBOW))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_A,
                     BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_B
@@ -673,7 +670,7 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
+        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(
                     BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_A,
                     BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_B

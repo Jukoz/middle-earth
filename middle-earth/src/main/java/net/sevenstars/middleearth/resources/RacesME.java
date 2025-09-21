@@ -148,7 +148,8 @@ public class RacesME {
                 HUMAN = new Race(Identifier.of(MiddleEarth.MOD_ID, "human"), RaceType.HUMAN,
                         new AttributePool(),
                         new HashMap<>(){{
-                            put(EntityCategory.SHARED, new AttributePool());
+                            put(EntityCategory.SHARED, new AttributePool()
+                                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0)));
                             put(EntityCategory.FEMALE, new AttributePool()
                                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.95, 1.0)));
                             put(EntityCategory.MALE, new AttributePool()
