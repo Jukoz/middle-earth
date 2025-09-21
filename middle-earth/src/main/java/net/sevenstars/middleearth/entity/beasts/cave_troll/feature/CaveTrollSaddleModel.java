@@ -6,12 +6,12 @@ import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityRenderState;
 
 public class CaveTrollSaddleModel extends CaveTrollEntityModel {
-    private final ModelPart reigns;
+    private final ModelPart reins;
 
     protected CaveTrollSaddleModel(ModelPart root) {
         super(root);
 
-        reigns = root.getChild("root").getChild("body_no_legs").getChild("body_no_limbs").getChild("Head").getChild("Saddle_Reigns");
+        reins = root.getChild("root").getChild("body_no_legs").getChild("body_no_limbs").getChild("Head").getChild("Saddle_Reigns");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -46,6 +46,6 @@ public class CaveTrollSaddleModel extends CaveTrollEntityModel {
     public void setAngles(CaveTrollEntityRenderState state) {
         super.setAngles(state);
 
-        reigns.visible = state.conrollingPassenger != null;
+        reins.visible = state.conrollingPassenger != null;
     }
 }

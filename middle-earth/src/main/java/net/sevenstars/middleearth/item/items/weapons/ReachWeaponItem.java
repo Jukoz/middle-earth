@@ -15,7 +15,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.WeaponTypeDataComponent;
 import net.sevenstars.middleearth.item.utils.WeaponTypesME;
-import net.sevenstars.middleearth.item.utils.WeaponSettingsME;
+import net.sevenstars.middleearth.item.utils.ItemSettingsME;
 
 public class ReachWeaponItem extends Item {
 
@@ -24,7 +24,7 @@ public class ReachWeaponItem extends Item {
     public WeaponTypesME type;
 
     public ReachWeaponItem(ToolMaterial toolMaterial, WeaponTypesME type, Item.Settings settings) {
-        super(WeaponSettingsME.createWeaponSettings(toolMaterial, settings, type)
+        super(ItemSettingsME.createWeaponSettings(toolMaterial, settings, type)
                 .component(DataComponentTypesME.WEAPON_TYPE_DATA, new WeaponTypeDataComponent(type.name)));
         this.type = type;
     }

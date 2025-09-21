@@ -4,9 +4,9 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntityRenderState;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 
-// This class might be moved over to the main BroadhoofModel class
-public class BroadhoofGoatArmorModel extends EntityModel<BroadhoofGoatEntityRenderState> {
+public class BroadhoofGoatArmorModel extends BroadhoofGoatModel {
 
     private final ModelPart broadhoofGoat;
     private final ModelPart head;
@@ -19,13 +19,9 @@ public class BroadhoofGoatArmorModel extends EntityModel<BroadhoofGoatEntityRend
     }
 
     public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData broadhoof_goat = modelPartData.addChild("broadhoof_goat", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 0.0F));
-
-        ModelPartData body = broadhoof_goat.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, -11.0F, 2.0F));
-
-        ModelPartData head = body.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.of(0.0F, -6.0F, -9.0F, -0.2182F, 0.0F, 0.0F));
+        ModelData modelData = getModelData();
+        ModelPartData root = modelData.getRoot().getChild("broadhoof_goat").getChild(EntityModelPartNames.BODY);
+        ModelPartData head = root.getChild(EntityModelPartNames.HEAD);
 
         ModelPartData head_armor = head.addChild("head_armor", ModelPartBuilder.create().uv(0, 1).cuboid(0.9F, -11.0F, 2.0F, 3.0F, 2.0F, 1.0F, new Dilation(0.1F))
                 .uv(0, 1).mirrored().cuboid(-7.9F, -11.0F, 2.0F, 3.0F, 2.0F, 1.0F, new Dilation(0.1F)).mirrored(false), ModelTransform.origin(2.0F, 0.0F, -8.0F));
@@ -35,7 +31,7 @@ public class BroadhoofGoatArmorModel extends EntityModel<BroadhoofGoatEntityRend
 
         ModelPartData side_hanging_plate_r1 = head_armor.addChild("side_hanging_plate_r1", ModelPartBuilder.create().uv(77, 53).cuboid(-5.0F, -4.0F, -1.0F, 6.0F, 5.0F, 11.0F, new Dilation(0.1F)), ModelTransform.of(0.0F, 2.0F, 2.0F, 0.7854F, 0.0F, 0.0F));
 
-        ModelPartData body_armor = body.addChild("body_armor", ModelPartBuilder.create().uv(0, 0).cuboid(-6.0F, -3.0F, -20.0F, 12.0F, 11.0F, 20.0F, new Dilation(0.2F))
+        ModelPartData body_armor = root.addChild("body_armor", ModelPartBuilder.create().uv(0, 0).cuboid(-6.0F, -3.0F, -20.0F, 12.0F, 11.0F, 20.0F, new Dilation(0.2F))
                 .uv(0, 89).cuboid(-6.0F, 2.0F, -20.0F, 12.0F, 6.0F, 20.0F, new Dilation(0.1F))
                 .uv(0, 31).cuboid(-7.0F, -5.0F, -21.0F, 14.0F, 16.0F, 13.0F, new Dilation(0.2F))
                 .uv(0, 60).cuboid(-7.0F, -5.0F, -21.0F, 14.0F, 16.0F, 13.0F, new Dilation(0.1F))
