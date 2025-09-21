@@ -40,10 +40,10 @@ import net.sevenstars.middleearth.entity.goals.BowAtEntityGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.entity.goals.SmartFleeEntityGoal;
 import net.sevenstars.middleearth.entity.goals.interfaces.Evader;
-import net.sevenstars.middleearth.recipe.ModTags;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -104,7 +104,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         }));
         this.goalSelector.add(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
-        this.goalSelector.add(6, new TemptGoal(this, 1.0, (stack) -> stack.isIn(ModTags.ELK_FOOD), false));
+        this.goalSelector.add(6, new TemptGoal(this, 1.0, (stack) -> stack.isIn(ItemTagsME.ELK_FOOD), false));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
@@ -152,6 +152,11 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     public List<RaceType> getCompatibleRaces() {
         return List.of(RaceType.ELF);
+    }
+
+    @Override
+    public boolean usesTameness() {
+        return false;
     }
 
     @Override
@@ -239,12 +244,28 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(ModTags.ELK_FOOD);
+        return stack.isIn(ItemTagsME.ELK_FOOD);
     }
 
     @Override
     public void chargeAttack() {
         List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2,0,0.2));
+
+        for(Entity entity : entities) {
+            if(this.getOwner() != null && entity.getUuid() != this.getOwner().getUuid() && entity != this
+                    && !this.getPassengerList().contains(entity) && !this.getWorld().isClient()) {
+                entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), getAttackDamage());
+
+                double dx = entity.getX() - this.getX();
+                double dz = entity.getZ() - this.getZ();
+
+                Vec3d velocity = new Vec3d(dx, 2.25 + getRandom().nextFloat() * 0.75f, dz).normalize();
+                velocity = velocity.multiply(1.5, 1, 1.5);
+                entity.addVelocity(velocity);
+
+                this.setCharging(false);
+            }
+        }
 
         if(!this.isTame() && !this.getWorld().isClient) {
             if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
@@ -259,22 +280,6 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
             this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
 
-        for(Entity entity : entities) {
-            if(this.getOwner() != null && entity.getUuid() != this.getOwner().getUuid() && entity != this
-                    && !this.getPassengerList().contains(entity) && !this.getWorld().isClient()) {
-                entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), getAttackDamage());
-
-                Vec3d velocity = this.getVelocity();
-                velocity = velocity.multiply(1.0, 0.0, 1.0);
-                velocity = velocity.normalize();
-                Vec3d vec3d = velocity.multiply(2);
-                if (vec3d.lengthSquared() > 0.0) {
-                    entity.addVelocity(vec3d.x, 0.15, vec3d.z);
-                }
-
-                this.setCharging(false);
-            }
-        }
         this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
         this.chargeAnimationState.startIfNotRunning(this.age);
     }
@@ -430,7 +435,12 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
 
     @Override
     public boolean isBondingItem(ItemStack itemStack) {
-        return itemStack.isIn(ModTags.ELK_FOOD);
+        return itemStack.isIn(ItemTagsME.ELK_FOOD);
+    }
+
+    @Override
+    public boolean isFoodItem(ItemStack itemStack) {
+        return false;
     }
 
     @Override
