@@ -27,5 +27,13 @@ public class EntitySpawnsWT {
                 50, 1, 3);
         SpawnRestriction.register(EntitiesWT.PHEASANT, SpawnLocationTypes.ON_GROUND,
                 Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
+
+        // DEER
+        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTagsWT.DEER_SPAWNS),
+                SpawnGroup.CREATURE,
+                EntitiesWT.DEER,
+                50, 2, 6);
+        SpawnRestriction.register(EntitiesWT.DEER, SpawnLocationTypes.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
     }
 }

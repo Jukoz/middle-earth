@@ -38,6 +38,7 @@ public class PheasantEntity extends AnimalEntity {
 
     public PheasantEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
+        this.getNavigation().setCanSwim(true);
     }
 
     public static DefaultAttributeContainer.Builder createPheasantAttributes() {
@@ -172,7 +173,7 @@ public class PheasantEntity extends AnimalEntity {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.75f, 0.9f);
+        this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 1.0f, 0.9f);
     }
 
     public PheasantEntityVariant getVariant() {

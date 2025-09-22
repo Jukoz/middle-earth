@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
 import net.sevenstars.of_beasts_and_wild_things.datageneration.content.TranslationEntries;
-import net.sevenstars.of_beasts_and_wild_things.item.ModItemGroups;
+import net.sevenstars.of_beasts_and_wild_things.item.ItemGroupsWT;
 
 import java.util.List;
 import java.util.function.Function;
@@ -22,7 +22,7 @@ import java.util.function.Function;
 public class ModBlocks {
 
     public static final Block BIRD_NEST = registerBlock("bird_nest",
-            BirdNest::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque().noCollision(), ModItemGroups.BLOCKS_CONTENTS);
+            BirdNest::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque().noCollision(), ItemGroupsWT.BLOCKS_CONTENTS);
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, List<ItemStack> group){
         Block block = (Block)factory.apply(settings.registryKey(keyOfBlock(name)));

@@ -6,7 +6,7 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
-import net.sevenstars.of_beasts_and_wild_things.entity.model.ModEntityModelLayers;
+import net.sevenstars.of_beasts_and_wild_things.entity.model.EntityModelLayersWT;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ public class PheasantEntityRenderer extends MobEntityRenderer<PheasantEntity, Ph
     private static final String PATH = "textures/entity/pheasant/";
 
     public PheasantEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new PheasantEntityModel(context.getPart(ModEntityModelLayers.PHEASANT)), 0.2f);
+        super(context, new PheasantEntityModel(context.getPart(EntityModelLayersWT.PHEASANT)), 0.2f);
     }
 
     public static final Map<PheasantEntityVariant, String> LOCATION_BY_VARIANT =

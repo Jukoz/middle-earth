@@ -43,7 +43,7 @@ public class DeerBrain {
 
     private static void addCoreActivities(Brain<DeerEntity> brain) {
         brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-        brain.setTaskList(Activity.CORE, 0, ImmutableList.of(new MoveToTargetTask()));
+        brain.setTaskList(Activity.CORE, 0, ImmutableList.of(new StayAboveWaterTask<>(0.8F), new MoveToTargetTask()));
     }
 
     private static void addIdleActivities(Brain<DeerEntity> brain) {

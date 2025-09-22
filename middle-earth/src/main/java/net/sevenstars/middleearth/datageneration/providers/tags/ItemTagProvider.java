@@ -19,6 +19,7 @@ import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
+import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,7 +131,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         warg_food.add(Items.BEEF);
         warg_food.add(Items.MUTTON);
         warg_food.add(FoodItemsME.RAW_HORSE);
-        warg_food.add(FoodItemsME.RAW_VENISON);
+        warg_food.add(ItemsWT.RAW_VENISON);
 
         warg_armor.add(EquipmentItemsME.WARG_MORDOR_PLATE_ARMOR);
         warg_armor.add(EquipmentItemsME.WARG_GUNDABAD_PLATE_ARMOR);
@@ -170,9 +171,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         troll_weapons.add(WeaponItemsME.MACE_OF_SAURON);
 
         troll_food.add(FoodItemsME.RAW_HORSE);
-        troll_food.add(FoodItemsME.RAW_VENISON);
         troll_food.add(FoodItemsME.COOKED_HORSE);
-        troll_food.add(FoodItemsME.COOKED_VENISON);
+        troll_food.add(ItemsWT.RAW_VENISON);
+        troll_food.add(ItemsWT.COOKED_VENISON);
         troll_food.add(FoodItemsME.COOKED_MEAT_SKEWER);
         troll_food.add(Items.PORKCHOP);
         troll_food.add(Items.COOKED_PORKCHOP);

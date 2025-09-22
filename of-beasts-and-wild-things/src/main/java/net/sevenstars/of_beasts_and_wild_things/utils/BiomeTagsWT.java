@@ -10,5 +10,6 @@ import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 public class BiomeTagsWT {
     public static TagKey<Biome> SNAIL_SPAWNS = TagKey.of(RegistryKeys.BIOME, Identifier.of(OfBeastsAndWildThings.MOD_ID, "snail_spawns"));
     public static TagKey<Biome> PHEASANT_SPAWNS = TagKey.of(RegistryKeys.BIOME, Identifier.of(OfBeastsAndWildThings.MOD_ID, "pheasant_spawns"));
+    public static TagKey<Biome> DEER_SPAWNS = TagKey.of(RegistryKeys.BIOME, Identifier.of(OfBeastsAndWildThings.MOD_ID, "deer_spawns"));
 
 }
