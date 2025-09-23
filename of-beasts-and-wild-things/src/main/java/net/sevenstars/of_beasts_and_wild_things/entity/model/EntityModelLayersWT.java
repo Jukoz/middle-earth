@@ -12,15 +12,14 @@ import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntityMo
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityModel;
 import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanAdultModel;
 import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanBabyModel;
-import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntityModel;
 
 @Environment(value= EnvType.CLIENT)
-public class ModEntityModelLayers {
-    public static final EntityModelLayer SNAIL = ModEntityModelLayers.registerEntityModelLayer("snail", SnailEntityModel.getTexturedModelData());
-    public static final EntityModelLayer PHEASANT = ModEntityModelLayers.registerEntityModelLayer("pheasant", PheasantEntityModel.getTexturedModelData());
-    public static final EntityModelLayer SWAN = ModEntityModelLayers.registerEntityModelLayer("swan", SwanAdultModel.getTexturedModelData());
-    public static final EntityModelLayer SWAN_BABY = ModEntityModelLayers.registerEntityModelLayer("swan_baby", SwanBabyModel.getTexturedModelData());
-    public static final EntityModelLayer DEER = ModEntityModelLayers.registerEntityModelLayer("deer", DeerEntityModel.getTexturedModelData());
+public class EntityModelLayersWT {
+    public static final EntityModelLayer SNAIL = EntityModelLayersWT.registerEntityModelLayer("snail", SnailEntityModel.getTexturedModelData());
+    public static final EntityModelLayer PHEASANT = EntityModelLayersWT.registerEntityModelLayer("pheasant", PheasantEntityModel.getTexturedModelData());
+    public static final EntityModelLayer SWAN = EntityModelLayersWT.registerEntityModelLayer("swan", SwanAdultModel.getTexturedModelData());
+    public static final EntityModelLayer SWAN_BABY = EntityModelLayersWT.registerEntityModelLayer("swan_baby", SwanBabyModel.getTexturedModelData());
+    public static final EntityModelLayer DEER = EntityModelLayersWT.registerEntityModelLayer("deer", DeerEntityModel.getTexturedModelData());
 
     private static EntityModelLayer registerEntityModelLayer(String registryName, TexturedModelData modelData) {
         EntityModelLayer entityModelLayer = new EntityModelLayer(Identifier.of(OfBeastsAndWildThings.MOD_ID, registryName), "main");

@@ -7,13 +7,8 @@ import net.minecraft.entity.AnimationState;
 
 @Environment(EnvType.CLIENT)
 public class PheasantEntityRenderState extends LivingEntityRenderState {
-    public PheasantEntityVariant variant;
-    public AnimationState idleAnimationState;
-    public AnimationState diggingAnimationState;
-
-    public PheasantEntityRenderState() {
-        variant = PheasantEntityVariant.MALE;
-        idleAnimationState = new AnimationState();
-        diggingAnimationState = new AnimationState();
-    }
+    public PheasantEntityVariant variant = PheasantEntityVariant.MALE;
+    public AnimationState idleAnimationState = new AnimationState();
+    public AnimationState diggingAnimationState = new AnimationState();
+    public AnimationState flapAnimationState = new AnimationState();
 }

@@ -23,7 +23,7 @@ public class MoveTowardsBlockTask {
     private static final int DEFAULT_VERTICAL_RADIUS = 7;
     private boolean shouldRun;
 
-    // create methods for Blocks or BlockTags
+
     public static SingleTickTask<LivingEntity> create(float speed, TagKey<Block> blockTag) {
         return create(speed, blockTag, null);
     }
