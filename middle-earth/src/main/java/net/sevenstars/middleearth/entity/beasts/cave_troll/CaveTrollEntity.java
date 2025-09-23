@@ -259,6 +259,15 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
+    protected float getNpcSaddledSpeed(NpcEntity controllingNpc) {
+        if(!this.isSitting()) {
+            return controllingNpc.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.15f);
+        }
+
+        return super.getNpcSaddledSpeed(controllingNpc);
+    }
+
+    @Override
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor)  {
         List<Entity> passengerList = this.getPassengerList();
         boolean saddled = this.hasSaddleEquipped();
