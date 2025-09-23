@@ -2,24 +2,23 @@ package net.sevenstars.middleearth.datageneration.providers.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.registration.OreRockSets;
-import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
-import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
-import net.sevenstars.middleearth.datageneration.content.tags.*;
-import net.sevenstars.middleearth.item.*;
-import net.sevenstars.middleearth.recipe.ModTags;
-import net.sevenstars.middleearth.item.EquipmentItemsME;
-import net.sevenstars.middleearth.item.FoodItemsME;
-import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.OreRockSets;
+import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
+import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
+import net.sevenstars.middleearth.datageneration.content.tags.*;
+import net.sevenstars.middleearth.item.EquipmentItemsME;
+import net.sevenstars.middleearth.item.FoodItemsME;
+import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.item.WeaponItemsME;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +40,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var broadhoof_goat_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
         var dyeable = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("dyeable")));
         var chains = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "chains")));
+        var troll_weapons = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_weapons")));
+        var troll_food = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_food")));
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("iron_ores"));
         TagKey<Item> gold_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("gold_ores"));
@@ -164,6 +165,27 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         chains.add(ModDecorativeBlocks.CRUDE_CHAIN.asItem());
         chains.add(ModDecorativeBlocks.CRUDE_BROAD_CHAIN.asItem());
         chains.add(ModDecorativeBlocks.SPIKY_CHAIN.asItem());
+
+        troll_weapons.add(WeaponItemsME.TROLL_MACE);
+        troll_weapons.add(WeaponItemsME.MACE_OF_SAURON);
+
+        troll_food.add(FoodItemsME.RAW_HORSE);
+        troll_food.add(FoodItemsME.RAW_VENISON);
+        troll_food.add(FoodItemsME.COOKED_HORSE);
+        troll_food.add(FoodItemsME.COOKED_VENISON);
+        troll_food.add(FoodItemsME.COOKED_MEAT_SKEWER);
+        troll_food.add(Items.PORKCHOP);
+        troll_food.add(Items.COOKED_PORKCHOP);
+        troll_food.add(Items.MUTTON);
+        troll_food.add(Items.COOKED_MUTTON);
+        troll_food.add(Items.BEEF);
+        troll_food.add(Items.COOKED_BEEF);
+        troll_food.add(Items.CHICKEN);
+        troll_food.add(Items.COOKED_CHICKEN);
+        troll_food.add(Items.ROTTEN_FLESH);
+        troll_food.add(Items.MUSHROOM_STEW);
+        troll_food.add(Items.BROWN_MUSHROOM);
+        troll_food.add(Items.RED_MUSHROOM);
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {

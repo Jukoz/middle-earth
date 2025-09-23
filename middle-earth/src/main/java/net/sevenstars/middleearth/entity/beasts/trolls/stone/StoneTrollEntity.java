@@ -5,6 +5,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.goal.AvoidSunlightGoal;
 import net.minecraft.entity.ai.goal.EscapeSunlightGoal;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.conversion.EntityConversionContext;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -25,7 +28,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
+import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
 import net.sevenstars.middleearth.entity.goals.BeastTargetPlayerGoal;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 
@@ -147,8 +152,11 @@ public class StoneTrollEntity extends TrollEntity {
 
     public void turnToStone() {
         this.setAiDisabled(true);
-        // TODO : Fix this :)
-        //this.convertTo(ModEntities.PETRIFIED_TROLL, EntityConversionContext.create(new PetrifiedTrollEntity(ModEntities.PETRIFIED_TROLL, getWorld()), false, false), SpawnReason.CONVERSION, );
+        this.convertTo(
+                ModEntities.PETRIFIED_TROLL,
+                EntityConversionContext.create(this, true, false),
+                troll -> {}
+        );
     }
 
     @Override

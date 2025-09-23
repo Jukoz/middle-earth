@@ -7,7 +7,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
-public class ModSmithingTrimPatterns {
+public class SmithingTrimPatternsME {
     public static final RegistryKey<ArmorTrimPattern> SMITHING_PART = of("smithing_part");
 
     public static void bootstrap(Registerable<ArmorTrimPattern> registry) {

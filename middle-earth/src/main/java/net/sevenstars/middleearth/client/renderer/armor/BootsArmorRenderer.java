@@ -5,7 +5,6 @@ import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.registry.tag.ItemTags;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.model.equipment.CustomBootsModel;
-import net.sevenstars.middleearth.recipe.ModTags;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;

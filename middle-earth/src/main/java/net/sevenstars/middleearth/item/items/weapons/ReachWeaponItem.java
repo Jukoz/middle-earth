@@ -14,17 +14,17 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.WeaponTypeDataComponent;
-import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
-import net.sevenstars.middleearth.item.utils.WeaponSettingsME;
+import net.sevenstars.middleearth.item.utils.WeaponTypesME;
+import net.sevenstars.middleearth.item.utils.ItemSettingsME;
 
 public class ReachWeaponItem extends Item {
 
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
-    public ModWeaponTypes type;
+    public WeaponTypesME type;
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, ModWeaponTypes type, Item.Settings settings) {
-        super(WeaponSettingsME.createWeaponSettings(toolMaterial, settings, type)
+    public ReachWeaponItem(ToolMaterial toolMaterial, WeaponTypesME type, Item.Settings settings) {
+        super(ItemSettingsME.createWeaponSettings(toolMaterial, settings, type)
                 .component(DataComponentTypesME.WEAPON_TYPE_DATA, new WeaponTypeDataComponent(type.name)));
         this.type = type;
     }

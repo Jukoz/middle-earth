@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
+import net.sevenstars.middleearth.item.utils.WeaponTypesME;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -13,8 +13,8 @@ public class CustomDaggerWeaponItem extends ReachWeaponItem {
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
     public CustomDaggerWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
-        super(toolMaterial, ModWeaponTypes.DAGGER, settings);
-        this.type = ModWeaponTypes.DAGGER;
+        super(toolMaterial, WeaponTypesME.DAGGER, settings);
+        this.type = WeaponTypesME.DAGGER;
     }
 
     public static boolean canBackStab(Entity target, Entity attacker) {

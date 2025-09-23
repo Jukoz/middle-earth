@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.item.utils;
 
 import net.minecraft.util.StringIdentifiable;
 
-public enum ModShieldTypes implements StringIdentifiable {
+public enum ShieldTypesME implements StringIdentifiable {
 
     LIGHT_SHIELD("light_shield", 250),
     MEDIUM_SHIELD("medium_shield", 336),
@@ -12,7 +12,7 @@ public enum ModShieldTypes implements StringIdentifiable {
     public final String name;
     public final int durability;
 
-    ModShieldTypes(String name, int durability){
+    ShieldTypesME(String name, int durability){
         this.name = name;
         this.durability = durability;
     }

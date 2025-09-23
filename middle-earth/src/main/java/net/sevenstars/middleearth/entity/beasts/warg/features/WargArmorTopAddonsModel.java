@@ -2,9 +2,10 @@ package net.sevenstars.middleearth.entity.beasts.warg.features;
 
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntityRenderState;
 
-public class WargArmorTopAddonsModel extends EntityModel<WargEntityRenderState> {
+public class WargArmorTopAddonsModel extends WargArmorModel {
 
     private final ModelPart warg;
     public WargArmorTopAddonsModel(ModelPart root) {
@@ -13,37 +14,24 @@ public class WargArmorTopAddonsModel extends EntityModel<WargEntityRenderState> 
     }
 
     public static TexturedModelData getTexturedModelDataFront() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.of(-1.0F, 6.0F, -2.0F, 0.0F, 1.5708F, 0.0F));
-
-        ModelPartData body = root.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(-2.6142F, 2.1138F, 1.5F));
-
-        ModelPartData upper_body = body.addChild("upper_body", ModelPartBuilder.create(), ModelTransform.origin(-0.3858F, -1.1138F, -1.5F));
-
-        ModelPartData body_armor = upper_body.addChild("body_armor", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -1.0F, 2.0F));
+        ModelData modelData = getArmorModelData();
+        ModelPartData body_armor = modelData.getRoot().getChild("root").getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild("body_armor");
 
         ModelPartData armor_addons = body_armor.addChild("armor_addons", ModelPartBuilder.create(), ModelTransform.origin(-5.0F, -5.0F, -4.0F));
-
         ModelPartData front_addons = armor_addons.addChild("front_addons", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-
         ModelPartData skull2 = front_addons.addChild("skull2", ModelPartBuilder.create().uv(6, 43).cuboid(-3.0F, -4.0F, -3.0F, 6.0F, 10.0F, 6.0F, new Dilation(0.1F))
                 .uv(79, 48).cuboid(-3.0F, -4.0F, -3.0F, 6.0F, 10.0F, 6.0F, new Dilation(0.2F))
                 .uv(6, 30).cuboid(-3.0F, -4.0F, -3.0F, 6.0F, 7.0F, 6.0F, new Dilation(0.0F))
                 .uv(6, 60).cuboid(-1.0F, -6.0F, -1.0F, 2.0F, 11.0F, 2.0F, new Dilation(-0.1F)), ModelTransform.of(13.0F, -4.0F, 3.0F, 0.0F, -1.5708F, 0.0F));
+
         return TexturedModelData.of(modelData, 128, 128);
     }
 
+
+
     public static TexturedModelData getTexturedModelDataBack() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.of(-1.0F, 6.0F, -2.0F, 0.0F, 1.5708F, 0.0F));
-
-        ModelPartData body = root.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(-2.6142F, 2.1138F, 1.5F));
-
-        ModelPartData upper_body = body.addChild("upper_body", ModelPartBuilder.create(), ModelTransform.origin(-0.3858F, -1.1138F, -1.5F));
-
-        ModelPartData body_armor = upper_body.addChild("body_armor", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -1.0F, 2.0F));
+        ModelData modelData = getArmorModelData();
+        ModelPartData body_armor = modelData.getRoot().getChild("root").getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild("body_armor");
 
         ModelPartData armor_addons = body_armor.addChild("armor_addons", ModelPartBuilder.create(), ModelTransform.origin(-5.0F, -5.0F, -4.0F));
 

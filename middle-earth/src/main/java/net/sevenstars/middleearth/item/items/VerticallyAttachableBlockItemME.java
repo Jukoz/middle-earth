@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.item.utils;
+package net.sevenstars.middleearth.item.items;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -13,11 +13,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class ModVerticallyAttachableBlockItem extends BlockItem {
+public class VerticallyAttachableBlockItemME extends BlockItem {
     protected final Block wallBlock;
     private final Direction[] verticalAttachmentDirections;
 
-    public ModVerticallyAttachableBlockItem(Block standingBlock, Block wallBlock, Settings settings, Direction[] verticalAttachmentDirections) {
+    public VerticallyAttachableBlockItemME(Block standingBlock, Block wallBlock, Settings settings, Direction[] verticalAttachmentDirections) {
         super(standingBlock, settings);
         this.wallBlock = wallBlock;
         this.verticalAttachmentDirections = verticalAttachmentDirections;

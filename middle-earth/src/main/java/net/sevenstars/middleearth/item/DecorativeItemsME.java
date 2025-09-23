@@ -12,8 +12,8 @@ import net.sevenstars.middleearth.item.dataComponents.BlockAuthorDataComponent;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.sevenstars.middleearth.item.items.DoorBlockItem;
 import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
-import net.sevenstars.middleearth.item.utils.ModVerticallyAttachableBlockItem;
+import net.sevenstars.middleearth.item.utils.ItemGroupsME;
+import net.sevenstars.middleearth.item.items.VerticallyAttachableBlockItemME;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.VerticallyAttachableBlockItem;
@@ -33,19 +33,19 @@ public class DecorativeItemsME {
      */
 
     public static final Item DWARVEN_LANTERN = registerItem("dwarven_lantern",
-            (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.DWARVEN_LANTERN, ModDecorativeBlocks.WALL_DWARVEN_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
+            (settings) -> new VerticallyAttachableBlockItemME(ModDecorativeBlocks.DWARVEN_LANTERN, ModDecorativeBlocks.WALL_DWARVEN_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
     public static final Item CRYSTAL_LAMP = registerItem("crystal_lamp",
-            (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.CRYSTAL_LAMP, ModDecorativeBlocks.WALL_CRYSTAL_LAMP, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
+            (settings) -> new VerticallyAttachableBlockItemME(ModDecorativeBlocks.CRYSTAL_LAMP, ModDecorativeBlocks.WALL_CRYSTAL_LAMP, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
     public static final Item SILVER_LANTERN = registerItem("silver_lantern",
-            (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.SILVER_LANTERN, ModDecorativeBlocks.WALL_SILVER_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
+            (settings) -> new VerticallyAttachableBlockItemME(ModDecorativeBlocks.SILVER_LANTERN, ModDecorativeBlocks.WALL_SILVER_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
     public static final Item ELVEN_LANTERN = registerItem("elven_lantern",
-            (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.ELVEN_LANTERN, ModDecorativeBlocks.WALL_ELVEN_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
+            (settings) -> new VerticallyAttachableBlockItemME(ModDecorativeBlocks.ELVEN_LANTERN, ModDecorativeBlocks.WALL_ELVEN_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
     public static final Item TREATED_STEEL_LANTERN = registerItem("treated_steel_lantern",
-            (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.TREATED_STEEL_LANTERN, ModDecorativeBlocks.WALL_TREATED_STEEL_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
+            (settings) -> new VerticallyAttachableBlockItemME(ModDecorativeBlocks.TREATED_STEEL_LANTERN, ModDecorativeBlocks.WALL_TREATED_STEEL_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
     public static final Item CRUDE_LANTERN = registerItem("crude_lantern",
-            (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.CRUDE_LANTERN, ModDecorativeBlocks.WALL_CRUDE_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
+            (settings) -> new VerticallyAttachableBlockItemME(ModDecorativeBlocks.CRUDE_LANTERN, ModDecorativeBlocks.WALL_CRUDE_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
     public static final Item LEAD_LANTERN = registerItem("lead_lantern",
-            (settings) -> new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.LEAD_LANTERN, ModDecorativeBlocks.WALL_LEAD_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
+            (settings) -> new VerticallyAttachableBlockItemME(ModDecorativeBlocks.LEAD_LANTERN, ModDecorativeBlocks.WALL_LEAD_LANTERN, settings, new Direction[]{Direction.DOWN, Direction.UP}), new Item.Settings());
 
     public static final Item SCONCE = registerItem("sconce",
             (settings) -> new VerticallyAttachableBlockItem(ModDecorativeBlocks.SCONCE, ModDecorativeBlocks.WALL_SCONCE, Direction.DOWN, settings), new Item.Settings());
@@ -176,7 +176,7 @@ public class DecorativeItemsME {
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());
+        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);

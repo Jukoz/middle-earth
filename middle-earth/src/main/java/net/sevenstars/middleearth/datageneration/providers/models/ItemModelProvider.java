@@ -31,9 +31,8 @@ import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
-import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
+import net.sevenstars.middleearth.item.utils.SmithingTrimMaterialsME;
 import net.sevenstars.middleearth.resources.NpcME;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -69,17 +68,17 @@ public class ItemModelProvider extends FabricModelProvider {
             new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.LAPIS, ArmorTrimMaterials.LAPIS),
             new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.AMETHYST, ArmorTrimMaterials.AMETHYST),
             new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.RESIN, ArmorTrimMaterials.RESIN),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("jade"), ModSmithingTrimMaterials.JADE),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("lead"), ModSmithingTrimMaterials.LEAD),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("tin"), ModSmithingTrimMaterials.TIN),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("bronze"), ModSmithingTrimMaterials.BRONZE),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("crude"), ModSmithingTrimMaterials.CRUDE),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("silver"), ModSmithingTrimMaterials.SILVER),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("steel"), ModSmithingTrimMaterials.STEEL),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("khazad_steel"), ModSmithingTrimMaterials.KHAZAD_STEEL),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("edhel_steel"), ModSmithingTrimMaterials.EDHEL_STEEL),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("burzum_steel"), ModSmithingTrimMaterials.BURZUM_STEEL),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("mithril"), ModSmithingTrimMaterials.MITHRIL)
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("jade"), SmithingTrimMaterialsME.JADE),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("lead"), SmithingTrimMaterialsME.LEAD),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("tin"), SmithingTrimMaterialsME.TIN),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("bronze"), SmithingTrimMaterialsME.BRONZE),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("crude"), SmithingTrimMaterialsME.CRUDE),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("silver"), SmithingTrimMaterialsME.SILVER),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("steel"), SmithingTrimMaterialsME.STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("khazad_steel"), SmithingTrimMaterialsME.KHAZAD_STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("edhel_steel"), SmithingTrimMaterialsME.EDHEL_STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("burzum_steel"), SmithingTrimMaterialsME.BURZUM_STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("mithril"), SmithingTrimMaterialsME.MITHRIL)
     );
 
 
