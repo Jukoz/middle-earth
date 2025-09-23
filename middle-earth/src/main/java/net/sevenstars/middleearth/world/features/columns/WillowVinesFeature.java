@@ -1,12 +1,9 @@
 package net.sevenstars.middleearth.world.features.columns;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.state.property.Properties;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.sevenstars.middleearth.block.registration.WoodBlockSets;
-import net.minecraft.block.AbstractPlantStemBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -16,9 +13,11 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 
-public class MirkwoodVinesFeature  extends Feature<DefaultFeatureConfig> {
-    public MirkwoodVinesFeature(Codec<DefaultFeatureConfig> configCodec) {
+public class WillowVinesFeature extends Feature<DefaultFeatureConfig> {
+    public WillowVinesFeature(Codec<DefaultFeatureConfig> configCodec) {
         super(configCodec);
     }
 
@@ -31,7 +30,7 @@ public class MirkwoodVinesFeature  extends Feature<DefaultFeatureConfig> {
             return false;
         } else {
             BlockState blockState = structureWorldAccess.getBlockState(blockPos.up());
-            if (!blockState.isOf(WoodBlockSets.MIRKWOOD_SET.leaves) && !blockState.isSolidBlock(context.getWorld(), blockPos.up())) {
+            if (!blockState.isOf(WoodBlockSets.WILLOW_SET.leaves) && !blockState.isSolidBlock(context.getWorld(), blockPos.up())) {
                 return false;
             } else {
                 this.generateVinesInArea(structureWorldAccess, random, blockPos);
@@ -70,16 +69,16 @@ public class MirkwoodVinesFeature  extends Feature<DefaultFeatureConfig> {
                 if(blockStateAbove.isAir())
                     break;
 
-                if(blockStateAbove.isOf(WoodBlockSets.MIRKWOOD_SET.leaves)){
-                    world.setBlockState(pos.up(), WoodBlockSets.MIRKWOOD_SET.leaves.getDefaultState().with(LeavesBlock.PERSISTENT, false), 2);
+                if(blockStateAbove.isOf(WoodBlockSets.WILLOW_SET.leaves)){
+                    world.setBlockState(pos.up(), WoodBlockSets.WILLOW_SET.leaves.getDefaultState().with(LeavesBlock.PERSISTENT, false), 2);
                 }
 
                 if (i == length || !world.getBlockState(pos.down()).isAir()) {
-                    world.setBlockState(pos, ModNatureBlocks.MIRKWOOD_VINES.getDefaultState().with(Properties.TIP, true), 2);
+                    world.setBlockState(pos, ModNatureBlocks.WILLOW_VINES.getDefaultState().with(Properties.TIP, true), 2);
                     break;
                 }
 
-                world.setBlockState(pos, ModNatureBlocks.MIRKWOOD_VINES.getDefaultState().with(Properties.TIP, false), 2);
+                world.setBlockState(pos, ModNatureBlocks.WILLOW_VINES.getDefaultState().with(Properties.TIP, false), 2);
             }
 
             pos.move(Direction.DOWN);
@@ -88,6 +87,6 @@ public class MirkwoodVinesFeature  extends Feature<DefaultFeatureConfig> {
 
     private static boolean validateRoot(WorldAccess world, BlockPos.Mutable mutable) {
         BlockState blockState = world.getBlockState(mutable.up());
-        return (blockState.isOf(WoodBlockSets.MIRKWOOD_SET.logBlocks.log()) || blockState.isOf(WoodBlockSets.MIRKWOOD_SET.leaves));
+        return (blockState.isOf(WoodBlockSets.WILLOW_SET.logBlocks.log()) || blockState.isOf(WoodBlockSets.WILLOW_SET.leaves));
     }
 }

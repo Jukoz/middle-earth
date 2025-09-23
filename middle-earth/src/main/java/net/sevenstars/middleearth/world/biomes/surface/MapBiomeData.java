@@ -600,7 +600,7 @@ public class MapBiomeData {
 
    private static void loadGenericPonds(){
        addBiome(new BiomeData(MEBiomeKeys.POND,MEBiomeDataConfigs.pond, MEBiomeDataConfigs.stoneLayers,
-               new BiomeColorsDTO(waterSky, defaultFog, 5141154, 331315, 7583083, 6592339)));
+               new BiomeColorsDTO(waterSky, defaultFog, 6388580, 2302743, 5011004, 6975545)));
        addBiome(new BiomeData(MEBiomeKeys.FROZEN_POND, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers,
                new BiomeColorsDTO(8628223, 10599910, 3750089, 263470, 3494723, 4478280), CaveType.FOROD));
        addBiome(new BiomeData(MEBiomeKeys.OASIS, MEBiomeDataConfigs.beach, MEBiomeDataConfigs.sandstoneLayers,

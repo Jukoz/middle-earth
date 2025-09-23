@@ -528,6 +528,9 @@ public class ModBiomeFeatures {
     public static void addMirkwoodVines(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.MIRKWOOD_VINES);
     }
+    public static void addWillowVines(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.WILLOW_VINES);
+    }
 
     // region GROWTH
     public static void addAzaleaGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
@@ -865,6 +868,11 @@ public class ModBiomeFeatures {
     }
     public static void addShriveledShrubs(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SHRIVELED_SHRUB);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_LARGE_SHRIVELED_SHRUB);
+    }
+    public static void addRushes(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_RUSHES);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SHORT_RUSHES);
     }
     public static void addStrawberries(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_STRAWBERRY_BUSH);
@@ -896,8 +904,17 @@ public class ModBiomeFeatures {
     public static void addTuftGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TUFT_GRASS);
     }
+    public static void addLargeLilyPad(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_LARGE_LILY_PAD);
+    }
+    public static void addLargeFloweringLilyPad(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_LARGE_FLOWERING_LILY_PAD);
+    }
     public static void addLilyPads(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_LILY_PADS);
+    }
+    public static void addFloweringLilyPads(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FLOWERING_LILY_PADS);
     }
     public static void addSmallLilyPads(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SMALL_LILY_PADS);
@@ -913,6 +930,11 @@ public class ModBiomeFeatures {
     }
     public static void addReedsFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_REEDS);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SHORT_REEDS);
+    }
+    public static void addFireflyBushes(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FIREFLY_BUSH_SWAMP);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FIREFLY_BUSH_SWAMP_NEAR_WATER);
     }
     public static void addStickySnow(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_STICKY_SNOW);

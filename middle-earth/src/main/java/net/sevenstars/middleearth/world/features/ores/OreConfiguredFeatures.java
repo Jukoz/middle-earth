@@ -80,6 +80,7 @@ public class OreConfiguredFeatures {
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
         TagMatchRuleTest dirtTest = new TagMatchRuleTest(BlockTags.DIRT);
         BlockMatchRuleTest grassTest = new BlockMatchRuleTest(Blocks.GRASS_BLOCK);
+        BlockMatchRuleTest chalkGrassTest = new BlockMatchRuleTest(ModBlocks.PEAT_GRASS_BLOCK);
         BlockMatchRuleTest peatGrassTest = new BlockMatchRuleTest(ModBlocks.PEAT_GRASS_BLOCK);
         BlockMatchRuleTest siltGrassTest = new BlockMatchRuleTest(ModBlocks.SILT_GRASS_BLOCK);
         BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHENSTONE_SET.baseBlocks.base());
@@ -160,7 +161,7 @@ public class OreConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, GRASSY_DIRT_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, ModBlocks.GRASSY_DIRT.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, GRASSY_CHALKSOIL_ORE, Feature.ORE,
-                new OreFeatureConfig(peatGrassTest, ModBlocks.GRASSY_CHALKSOIL.getDefaultState(), 48, 0.4f));
+                new OreFeatureConfig(chalkGrassTest, ModBlocks.GRASSY_CHALKSOIL.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, GRASSY_PEAT_ORE, Feature.ORE,
                 new OreFeatureConfig(peatGrassTest, ModBlocks.GRASSY_PEAT.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, GRASSY_SILT_ORE, Feature.ORE,

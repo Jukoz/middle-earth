@@ -442,7 +442,6 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.of(WoodBlockSets.WILLOW_SET.leaves),
             new OvalFoliagePlacer(2, ConstantIntProvider.create(-1), ConstantIntProvider.create(3), emptyList, 0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
-            .decorators(ImmutableList.of(new LeavesVineTreeDecorator(0.35F)))
             .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
     }
 

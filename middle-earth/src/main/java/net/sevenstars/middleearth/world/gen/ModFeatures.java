@@ -30,6 +30,7 @@ public class ModFeatures {
     public static Feature<BigBoulderFeatureConfig> BIG_BOULDER = register("big_boulder", new BigBoulderFeature(BigBoulderFeatureConfig.CODEC));
     public static Feature<ModOreFeatureConfig> ORE = register("ore", new ModOreFeature(ModOreFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> MIRKWOOD_VINE = register("mirkwood_vine", new MirkwoodVinesFeature(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> WILLOW_VINE = register("willow_vine", new WillowVinesFeature(DefaultFeatureConfig.CODEC));
 
     public static void init() {
         MiddleEarth.LOGGER.logInfoMsg("Registering new features");

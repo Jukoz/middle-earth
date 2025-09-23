@@ -68,6 +68,7 @@ public class ModVegetationConfiguredFeatures {
 
     // endregion
     public static final RegistryKey<ConfiguredFeature<?, ?>> MIRKWOOD_VINES = registerKey("mirkwood_vines");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> WILLOW_VINES = registerKey("willow_vines");
 
     // region GROWTH
     public static final RegistryKey<ConfiguredFeature<?, ?>> AZALEA_GROWTH = registerKey("azalea_growth");
@@ -140,10 +141,18 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> FIELD_DEAD_NORMAL_HEATHER = registerKey("patch_dead_normal_heather");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_LAVENDER = registerKey("patch_lavender");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_REEDS = registerKey("patch_reeds");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SHORT_REEDS = registerKey("patch_short_reeds");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_STICKY_SNOW = registerKey("patch_sticky_snow");
+
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_LARGE_LILY_PAD = registerKey("patch_large_lily_pad");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_LARGE_FLOWERING_LILY_PAD = registerKey("patch_large_flowering_lily_pad");
+
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_LILY_PADS = registerKey("patch_lily_pads");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FLOWERING_LILY_PADS = registerKey("patch_flowering_lily_pads");
+
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SMALL_LILY_PADS = registerKey("patch_small_lily_pads");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SMALL_FLOWERING_LILY_PADS = registerKey("patch_small_flowering_lily_pads");
+
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MIRKWOOD = registerKey("patch_mirkwood");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MIRKWOOD_ROOTS = registerKey("patch_mirkwood_roots");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MOSS = registerKey("patch_moss");
@@ -154,6 +163,9 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SEDUM = registerKey("patch_sedum");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SEDUM_YELLOW = registerKey("patch_sedum_yellow");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SHRIVELED_SHRUB = registerKey("patch_shriveled_shrub");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_LARGE_SHRIVELED_SHRUB = registerKey("patch_large_shriveled_shrub");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_RUSHES = registerKey("patch_rushes");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SHORT_RUSHES = registerKey("patch_short_rushes");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_STRAWBERRY_BUSH = registerKey("patch_strawberry_bush");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_TAN_SHRUB = registerKey("patch_tan_shrub");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_YELLOW_TROLLIUS = registerKey("patch_yellow_trollius");
@@ -230,6 +242,7 @@ public class ModVegetationConfiguredFeatures {
                                 )))));
 
         ConfiguredFeatures.register(featureRegisterable, MIRKWOOD_VINES, ModFeatures.MIRKWOOD_VINE, new DefaultFeatureConfig());
+        ConfiguredFeatures.register(featureRegisterable, WILLOW_VINES, ModFeatures.WILLOW_VINE, new DefaultFeatureConfig());
 
         ConfiguredFeatures.register(featureRegisterable, FLOWER_ALLIUM, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
@@ -444,7 +457,7 @@ public class ModVegetationConfiguredFeatures {
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SMALL_DRY_SHRUB))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_DUCKWEED, Feature.RANDOM_PATCH,
-                new RandomPatchFeatureConfig(16, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
+                new RandomPatchFeatureConfig(48, 1, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.DUCKWEED)))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_DYING_GRASS, Feature.FLOWER,
@@ -537,6 +550,10 @@ public class ModVegetationConfiguredFeatures {
                                     BlockPredicate.matchingFluids(new BlockPos(-1, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
                                     BlockPredicate.matchingFluids(new BlockPos(1, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER)))))));
 
+        ConfiguredFeatures.register(featureRegisterable, PATCH_SHORT_REEDS, Feature.FLOWER,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SHORT_REEDS))));
+
         ConfiguredFeatures.register(featureRegisterable, PATCH_SCORCHED_GRASS, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SCORCHED_GRASS))));
@@ -557,6 +574,16 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_SHRIVELED_SHRUB, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SHRIVELED_SHRUB))));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_LARGE_SHRIVELED_SHRUB, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.LARGE_SHRIVELED_SHRUB))));
+
+        ConfiguredFeatures.register(featureRegisterable, PATCH_RUSHES, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.RUSHES))));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_SHORT_RUSHES, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SHORT_RUSHES))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_STRAWBERRY_BUSH, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
@@ -593,9 +620,20 @@ public class ModVegetationConfiguredFeatures {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.GRASS_TUFT))));
 
+        ConfiguredFeatures.register(featureRegisterable, PATCH_LARGE_LILY_PAD, Feature.RANDOM_PATCH,
+                new RandomPatchFeatureConfig(12, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.LARGE_LILY_PAD)))));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_LARGE_FLOWERING_LILY_PAD, Feature.RANDOM_PATCH,
+                new RandomPatchFeatureConfig(12, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.LARGE_FLOWERING_LILY_PAD)))));
+
         ConfiguredFeatures.register(featureRegisterable, PATCH_LILY_PADS, Feature.RANDOM_PATCH,
                 new RandomPatchFeatureConfig(12, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.LILY_PADS)))));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_FLOWERING_LILY_PADS, Feature.RANDOM_PATCH,
+                new RandomPatchFeatureConfig(12, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.FLOWERING_LILY_PADS)))));
+
         ConfiguredFeatures.register(featureRegisterable, PATCH_SMALL_LILY_PADS, Feature.RANDOM_PATCH,
                 new RandomPatchFeatureConfig(10, 7, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SMALL_LILY_PADS)))));

@@ -3335,6 +3335,7 @@ public class ModBiomes {
         ModBiomeFeatures.addBushes(vegetation);
         ModBiomeFeatures.addRareOakBushes(vegetation);
         ModBiomeFeatures.addWilderGrass(vegetation);
+        ModBiomeFeatures.addWheatGrass(vegetation);
         ModBiomeFeatures.addGrassyChalksoilOre(vegetation);
         ModBiomeFeatures.addTurfOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
@@ -3664,7 +3665,6 @@ public class ModBiomes {
 
     public static void createPondBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addRiverAnimals(spawnSettings);
         ModSpawnSettingsBuilder.addSwan(spawnSettings);
         ModSpawnSettingsBuilder.addSwampMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
@@ -3674,10 +3674,12 @@ public class ModBiomes {
         ModBiomeFeatures.addRiverSand(undergroundOres);
         ModBiomeFeatures.addAbundantMudOre(undergroundOres);
         ModBiomeFeatures.addBlueOrchidFlower(undergroundOres);
-        ModBiomeFeatures.addCommonTallGrass(undergroundOres);
         ModBiomeFeatures.addBulrushAndCattail(undergroundOres);
         ModBiomeFeatures.addDuckweed(undergroundOres);
+        ModBiomeFeatures.addLargeLilyPad(undergroundOres);
+        ModBiomeFeatures.addLargeFloweringLilyPad(undergroundOres);
         ModBiomeFeatures.addLilyPads(undergroundOres);
+        ModBiomeFeatures.addFloweringLilyPads(undergroundOres);
         ModBiomeFeatures.addSmallLilyPads(undergroundOres);
         ModBiomeFeatures.addSmallFloweringLilyPads(undergroundOres);
         ModBiomeFeatures.addWheatGrass(undergroundOres);
@@ -3967,11 +3969,14 @@ public class ModBiomes {
 
     public static void addPondVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
         ModBiomeFeatures.addDisks(undergroundOres);
-        ModBiomeFeatures.addGrass(vegetation);
+        ModBiomeFeatures.addRushes(vegetation);
+        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ModVegetationPlacedFeatures.WILLOW_VINES);
+        ModBiomeFeatures.addWillowVines(vegetation);
         vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
         vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
         vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
         ModBiomeFeatures.addReedsFoliage(vegetation);
+        ModBiomeFeatures.addFireflyBushes(vegetation);
     }
 
     public static void addRivendellVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
