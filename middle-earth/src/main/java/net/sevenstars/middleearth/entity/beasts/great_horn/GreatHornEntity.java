@@ -43,6 +43,7 @@ import net.sevenstars.middleearth.entity.goals.interfaces.Evader;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
+import net.sevenstars.middleearth.sound.ModSounds;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -482,45 +483,24 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_GOAT_DEATH;
+        return ModSounds.GREAT_HORN_DEATH;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_GOAT_HURT;
-    }
-    @Override
-    protected void playHurtSound(DamageSource damageSource) {
-        this.playSound(this.getHurtSound(damageSource), 1.0f, 0.7f);
+        return ModSounds.GREAT_HORN_HURT;
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_GOAT_AMBIENT;
+        return ModSounds.GREAT_HORN_IDLE;
     }
 
     @Override
     public void playAmbientSound() {
         this.playSound(this.getAmbientSound(), 1.0f, 0.7f);
-    }
-
-    @Nullable
-    @Override
-    public SoundEvent getAmbientStandSound() {
-        return SoundEvents.ENTITY_GOAT_SCREAMING_AMBIENT;
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getAngrySound() {
-        return SoundEvents.ENTITY_GOAT_PREPARE_RAM;
-    }
-
-    @Override
-    public void playAngrySound() {
-        this.playSound(this.getAngrySound(), 1.0f, 0.7f);
     }
 
     @Override

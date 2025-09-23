@@ -15,6 +15,10 @@ public class ModSounds {
     public static SoundEvent PIPE_IGNITE = registerSoundEvent( "pipe_ignite");
     public static SoundEvent PIPE_COUGH = registerSoundEvent("pipe_cough");
 
+    public static SoundEvent GREAT_HORN_IDLE = registerSoundEvent("great_horn_idle");
+    public static SoundEvent GREAT_HORN_HURT = registerSoundEvent("great_horn_hurt");
+    public static SoundEvent GREAT_HORN_DEATH = registerSoundEvent("great_horn_death");
+
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
