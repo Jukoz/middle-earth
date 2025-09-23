@@ -35,14 +35,6 @@ public class FoodItemsME {
     public static final Item LEMBAS = registerItem("lembas",
             Item::new,new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(20).saturationModifier(1).build()));
-
-    public static final Item RAW_VENISON = registerItem("raw_venison",
-            Item::new,new Item.Settings()
-                    .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.4F).build()));
-    public static final Item COOKED_VENISON = registerItem("cooked_venison",
-            Item::new,new Item.Settings()
-                    .food(new FoodComponent.Builder().nutrition(6).saturationModifier(0.8F).build()));
-
     public static final Item RAW_HORSE = registerItem("raw_horse",
             Item::new,new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(3).saturationModifier(0.4F).build()));

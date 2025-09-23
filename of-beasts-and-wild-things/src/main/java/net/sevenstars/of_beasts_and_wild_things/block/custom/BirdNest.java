@@ -21,7 +21,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
-import net.sevenstars.of_beasts_and_wild_things.item.ModItems;
+import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 
 import java.util.List;
 import java.util.Random;
@@ -42,12 +42,12 @@ public class BirdNest extends Block {
             int level = state.get(NEST_LEVEL);
             if (level > 0){
                 if (level == 1){
-                    player.giveItemStack(new ItemStack(ModItems.SWAN_EGG));
-                    player.giveItemStack(new ItemStack(ModItems.SWAN_FEATHER, random.nextInt(3)));
+                    player.giveItemStack(new ItemStack(ItemsWT.SWAN_EGG));
+                    player.giveItemStack(new ItemStack(ItemsWT.SWAN_FEATHER, random.nextInt(3)));
                     world.setBlockState(pos, state.with(NEST_LEVEL, 0));
                 } else if (level == 2){
-                    player.giveItemStack(new ItemStack(ModItems.SWAN_EGG, 2));
-                    player.giveItemStack(new ItemStack(ModItems.SWAN_FEATHER, random.nextInt((3 - 1) + 1) + 1));
+                    player.giveItemStack(new ItemStack(ItemsWT.SWAN_EGG, 2));
+                    player.giveItemStack(new ItemStack(ItemsWT.SWAN_FEATHER, random.nextInt((3 - 1) + 1) + 1));
                     world.setBlockState(pos, state.with(NEST_LEVEL, 0));
                 }
 
