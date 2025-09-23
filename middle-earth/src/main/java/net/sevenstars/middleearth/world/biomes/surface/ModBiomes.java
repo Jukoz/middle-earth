@@ -910,6 +910,7 @@ public class ModBiomes {
             addNordicVegetation(generationSettings);
         } else if (step == 3) {
             addNordicVegetation(generationSettings);
+            ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
             ModBiomeFeatures.addCoarseDirtOre(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
             ModBiomeFeatures.addDolomiteBoulder(vegetation);
@@ -1319,6 +1320,7 @@ public class ModBiomes {
         ModBiomeFeatures.addCoarseDirtOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         if(step == 0) {
+            ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
             ModBiomeFeatures.addRareForestMoss(vegetation);
         } else if(step == 1) {
             ModBiomeFeatures.addCommonScorchedGrass(vegetation);
@@ -2708,6 +2710,7 @@ public class ModBiomes {
             ModBiomeFeatures.addScorchedGrass(vegetation);
             ModBiomeFeatures.addScorchedShrub(vegetation);
         } else if(step == 1) { // Plains
+            ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
             ModBiomeFeatures.addShriveledShrubs(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
             ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
