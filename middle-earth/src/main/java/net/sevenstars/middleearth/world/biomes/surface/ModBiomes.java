@@ -108,11 +108,11 @@ public class ModBiomes {
         createGorgorothBiome(context, MEBiomeKeys.GORGOROTH, 0);
         createGorgorothBiome(context, MEBiomeKeys.GORGOROTH_ASHEN_WOODS, 1);
         createGorgorothBiome(context, MEBiomeKeys.GORGOROTH_DELTA, 2);
-        createGreyMountainsBiome(context, MEBiomeKeys.GREY_MOUNTAINS_BASE, 0);
-        createGreyMountainsBiome(context, MEBiomeKeys.GREY_MOUNTAINS, 1);
-        createGreyMountainsBiome(context, MEBiomeKeys.GREY_MOUNTAINS_PEAKS, 2);
-        createGreyPlainsBiome(context, MEBiomeKeys.GREY_PLAINS, 0);
-        createGreyPlainsBiome(context, MEBiomeKeys.GREY_ASHEN_WOODS, 1);
+        createGreyMountainsBiome(context, MEBiomeKeys.GRAY_MOUNTAINS_BASE, 0);
+        createGreyMountainsBiome(context, MEBiomeKeys.GRAY_MOUNTAINS, 1);
+        createGreyMountainsBiome(context, MEBiomeKeys.GRAY_MOUNTAINS_PEAKS, 2);
+        createGreyPlainsBiome(context, MEBiomeKeys.GRAY_PLAINS, 0);
+        createGreyPlainsBiome(context, MEBiomeKeys.GRAY_ASHEN_WOODS, 1);
         createGreyPlainsTaiga(context, MEBiomeKeys.GUNDABAD_PLAINS);
         createHaradBiome(context, MEBiomeKeys.HARAD, 0);
         createHaradBiome(context, MEBiomeKeys.HARAD_WOODS, 1);
@@ -196,7 +196,7 @@ public class ModBiomes {
         createNenHithoelBiome(context, MEBiomeKeys.NEN_HITHOEL_SHORES, 1);
         createNindalf(context, MEBiomeKeys.NINDALF);
         createNorthDownsBiome(context, MEBiomeKeys.NORTH_DOWNS);
-        createDunlandBiome(context, MEBiomeKeys.NORTHERN_DUNLAND, 0);
+        createDunlandBiome(context, MEBiomeKeys.DUNLAND, 0);
         createDunlandBiome(context, MEBiomeKeys.NORTHERN_DUNLAND_GLADE, 1);
         createMirkwoodSwampBiome(context, MEBiomeKeys.NORTHERN_MIRKWOOD_SWAMP, 1);
         createMirkwoodSwampBiome(context, MEBiomeKeys.NORTHERN_MIRKWOOD_MARSHES, 0);
@@ -250,7 +250,7 @@ public class ModBiomes {
         createShireBiome(context, MEBiomeKeys.SHIRE_HILLS, 2);
         createShireBiome(context, MEBiomeKeys.SHIRE_WOODS, 3);
         createShireBiome(context, MEBiomeKeys.SHIRE_FOREST, 4);
-        createDunlandBiome(context, MEBiomeKeys.SOUTHERN_DUNLAND, 2);
+        createDunlandBiome(context, MEBiomeKeys.DRUWAITH_IAUR, 2);
         createSoutheastRhovanionBiome(context, MEBiomeKeys.SOUTHEAST_RHOVANION, 0);
         createSoutheastRhovanionBiome(context, MEBiomeKeys.SOUTHEAST_RHOVANION_FIELD, 1);
         createSouthernForochelBiome(context, MEBiomeKeys.SOUTHERN_FOROCHEL);
