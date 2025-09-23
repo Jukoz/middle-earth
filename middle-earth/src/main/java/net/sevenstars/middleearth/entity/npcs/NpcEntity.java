@@ -29,7 +29,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
@@ -298,8 +297,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     private void generateNpcDataBasedOnBiome(ServerWorldAccess serverWorldAccess, NpcEntityData entityData, boolean forceApply){
         ServerWorld world = (serverWorldAccess == null) ? (ServerWorld) getWorld() : serverWorldAccess.toServerWorld();
         BiomeEventData.FoundNpcReturn foundSpawnData = BiomeEventDataLookup.findNpcDataForBiome(world, world.getBiome(getBlockPos()), this);
-        if(foundSpawnData == null){
-            remove(RemovalReason.DISCARDED);
+        if(foundSpawnData == null || foundSpawnData.npcData() == null){
+            kill(world);
             return;
         }
         setNpcData(foundSpawnData.npcData());
@@ -314,8 +313,12 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         }
         if(foundSpawnData.mountEntity() != null){
             var mount = foundSpawnData.mountEntity().create(world, SpawnReason.JOCKEY);
-            if(serverWorldAccess != null && mount instanceof HorseEntity horseEntity){
-                horseEntity.initialize(serverWorldAccess, world.getLocalDifficulty(getBlockPos()), SpawnReason.JOCKEY, null);
+            if(serverWorldAccess != null){
+                if(mount instanceof HorseEntity horseEntity)
+                    horseEntity.initialize(serverWorldAccess, world.getLocalDifficulty(getBlockPos()), SpawnReason.JOCKEY, null);
+                else if(mount instanceof AbstractBeastEntity beastEntity){
+                    beastEntity.initialize(serverWorldAccess, world.getLocalDifficulty(getBlockPos()), SpawnReason.JOCKEY, null);
+                }
             }
 
             mount.setPos(getBlockX(), getBlockY(), getBlockZ());
@@ -325,7 +328,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
                 abstractHorseEntity.equipStack(EquipmentSlot.SADDLE, new ItemStack(Items.SADDLE));
                 abstractHorseEntity.setOwner(this);
                 abstractHorseEntity.setTame(true);
-
                 if(foundSpawnData.mountArmor() != null)
                     abstractHorseEntity.equipBodyArmor(foundSpawnData.mountArmor());
             } else if(foundSpawnData.mountEntity().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("can_equip_saddle"))) && mount instanceof EquipmentHolder equipmentHolder){
@@ -339,11 +341,16 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     public float getFightingMovementSpeed(){
         var currentSpeed = this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
-        return (float) (currentSpeed * 1.50f);
+        return (float) (currentSpeed);
     }
 
     public boolean isFighting() {
-        return dataTracker.get(FIGHTING);
+        boolean isFighting = dataTracker.get(FIGHTING);
+        this.setSprinting(isFighting);
+        if(this.hasVehicle() && getVehicle() instanceof AbstractHorseEntity abstractHorseEntity){
+            abstractHorseEntity.setSprinting(isFighting);
+        }
+        return isFighting;
     }
 
     @Override
@@ -521,7 +528,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             EnchantmentHelper.onTargetDamaged(world, target, damageSource);
             this.onAttacking(target);
             this.playAttackSound();
-            this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_CRIT);
             this.swingHand(Hand.MAIN_HAND);
         }
         return bl;
@@ -552,6 +558,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             }
 
             if(target instanceof NpcEntity targetNpcEntity){
+                if(targetNpcEntity.hasVehicle() && targetNpcEntity.getVehicle() instanceof AbstractHorseEntity)
+                    return false;
+
                 if(faction.getDiplomaticEnemies().contains(targetNpcEntity.getFactionId()))
                     return true;
                 else if(targetNpcEntity.getFaction().getFactionType() == FactionType.SUBFACTION){
@@ -560,8 +569,25 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
                 }
             }
 
-            if(target instanceof AbstractBeastEntity beast){
-                //beast.getDisposition()
+            if(target instanceof AbstractHorseEntity abstractHorseEntity){
+                if(abstractHorseEntity.hasPassengers()){
+                    var entityList = abstractHorseEntity.getPassengersDeep();
+                    for(Entity entity : entityList){
+                        if(entity instanceof NpcEntity targetNpcEntity){
+                            if(faction.getDiplomaticEnemies().contains(targetNpcEntity.getFactionId()))
+                                return true;
+                            else if(targetNpcEntity.getFaction().getFactionType() == FactionType.SUBFACTION){
+                                if(faction.getDiplomaticEnemies().contains(targetNpcEntity.getFaction().getParentFaction(npcEntity.getWorld()).getId()))
+                                    return true;
+                            }
+                        }
+                    }
+                    if(abstractHorseEntity instanceof AbstractBeastEntity abstractBeastEntity){
+                        if(abstractBeastEntity.getDisposition() != faction.getDisposition()){
+                            return true;
+                        }
+                    }
+                }
             }
 
             // Beasts/mobs (spiders, trolls, etc, other data set.)
