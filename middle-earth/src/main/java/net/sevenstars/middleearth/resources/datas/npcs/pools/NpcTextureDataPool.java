@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 public class NpcTextureDataPool {
 public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
 
+    public final static NpcTextureDataPreset HUMAN_COMMON;
     public final static NpcTextureDataPreset HUMAN_MALE;
     public final static NpcTextureDataPreset HUMAN_FEMALE;
 
@@ -200,30 +201,45 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
         // endregion
 
         // region HUMAN
+        HUMAN_COMMON = new NpcTextureDataPreset()
+                .withMaterials(NpcTextureType.SKIN, List.of(
+                        NpcTextureMaterialsME.Skin.TAN,
+                        NpcTextureMaterialsME.Skin.TAN_DESATURATED,
+                        NpcTextureMaterialsME.Skin.PALE,
+                        NpcTextureMaterialsME.Skin.BEIGE
+                ))
+                .withMaterials(NpcTextureType.EYE, List.of(
+                        NpcTextureMaterialsME.Eye.BLUE,
+                        NpcTextureMaterialsME.Eye.GREEN,
+                        NpcTextureMaterialsME.Eye.DARK_GREEN,
+                        NpcTextureMaterialsME.Eye.NAVY,
+                        NpcTextureMaterialsME.Eye.BROWN
+                ))
+                .withPatterns(NpcTextureType.EYE, List.of(
+                        NpcTexturePatternsME.Eyes.Eye.COMMON
+                ))
+                .withMaterials(NpcTextureType.HAIR, DEFAULT_HAIR)
+                .withPatterns(NpcTextureType.EYEBROW, List.of(
+                        NpcTexturePatternsME.Hairs.Eyebrow.UNI,
+                        NpcTexturePatternsME.Hairs.Eyebrow.BASIC,
+                        NpcTexturePatternsME.Hairs.Eyebrow.SHORT
+                ))
+                .withMaterials(NpcTextureType.CLOTHING, List.of(
+                        NpcTextureMaterialsME.Clothing.WHITE,
+                        NpcTextureMaterialsME.Clothing.BROWN
+                ))
+                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                        NpcTexturePatternsME.Clothing.TOGA,
+                        NpcTexturePatternsME.Clothing.FULL_TOGA,
+                        NpcTexturePatternsME.Clothing.SKIRT
+                ));
         HUMAN_MALE = new NpcTextureDataPreset()
-                .withMaterials(NpcTextureType.SKIN, List.of(
-                        NpcTextureMaterialsME.Skin.TAN,
-                        NpcTextureMaterialsME.Skin.TAN_DESATURATED,
-                        NpcTextureMaterialsME.Skin.PALE,
-                        NpcTextureMaterialsME.Skin.BEIGE
-                ))
                 .withPatterns(NpcTextureType.BODY, List.of(
                         NpcTexturePatternsME.Skins.Body.MUSCULAR
                 ))
                 .withPatterns(NpcTextureType.HEAD, List.of(
                         NpcTexturePatternsME.Skins.Head.MALE
                 ))
-                .withMaterials(NpcTextureType.EYE, List.of(
-                        NpcTextureMaterialsME.Eye.BLUE,
-                        NpcTextureMaterialsME.Eye.GREEN,
-                        NpcTextureMaterialsME.Eye.DARK_GREEN,
-                        NpcTextureMaterialsME.Eye.NAVY,
-                        NpcTextureMaterialsME.Eye.BROWN
-                ))
-                .withPatterns(NpcTextureType.EYE, List.of(
-                        NpcTexturePatternsME.Eyes.Eye.COMMON
-                ))
-                .withMaterials(NpcTextureType.HAIR, DEFAULT_HAIR)
                 .withPatterns(NpcTextureType.EYEBROW, List.of(
                         NpcTexturePatternsME.Hairs.Eyebrow.UNI,
                         NpcTexturePatternsME.Hairs.Eyebrow.BASIC,
@@ -243,48 +259,13 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         NpcTexturePatternsME.Hairs.Beard.SHORT,
                         NpcTexturePatternsME.Hairs.Beard.SINGLE,
                         NpcTexturePatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
-                        null).toList())
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        NpcTextureMaterialsME.Clothing.WHITE,
-                        NpcTextureMaterialsME.Clothing.BROWN
-                ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        NpcTexturePatternsME.Clothing.TOGA,
-                        NpcTexturePatternsME.Clothing.FULL_TOGA,
-                        NpcTexturePatternsME.Clothing.ROBE,
-                        NpcTexturePatternsME.Clothing.SKIRT
-                ));
+                        null).toList());
         HUMAN_FEMALE = new NpcTextureDataPreset()
-                .withMaterials(NpcTextureType.SKIN, List.of(
-                        NpcTextureMaterialsME.Skin.TAN,
-                        NpcTextureMaterialsME.Skin.TAN_DESATURATED,
-                        NpcTextureMaterialsME.Skin.PALE,
-                        NpcTextureMaterialsME.Skin.BEIGE
-                ))
                 .withPatterns(NpcTextureType.BODY, List.of(
-                        NpcTexturePatternsME.Skins.Body.MUSCULAR
+                        NpcTexturePatternsME.Skins.Body.FEMALE
                 ))
                 .withPatterns(NpcTextureType.HEAD, List.of(
-                        NpcTexturePatternsME.Skins.Head.MALE
-                ))
-                .withMaterials(NpcTextureType.HAIR, DEFAULT_HAIR)
-                .withMaterials(NpcTextureType.EYE, List.of(
-                        NpcTextureMaterialsME.Eye.BLUE,
-                        NpcTextureMaterialsME.Eye.GREEN,
-                        NpcTextureMaterialsME.Eye.DARK_GREEN,
-                        NpcTextureMaterialsME.Eye.NAVY,
-                        NpcTextureMaterialsME.Eye.BROWN
-                ))
-                .withPatterns(NpcTextureType.EYE, List.of(
-                        NpcTexturePatternsME.Eyes.Eye.COMMON
-                ))
-                .withMaterials(NpcTextureType.HAIR, List.of(
-                        NpcTextureMaterialsME.Hair.BROWN_GOLD,
-                        NpcTextureMaterialsME.Hair.DARK_BROWN_GOLD,
-                        NpcTextureMaterialsME.Hair.GINGER_GOLD,
-                        NpcTextureMaterialsME.Hair.GRAY_GOLD,
-                        NpcTextureMaterialsME.Hair.STRAW_GOLD,
-                        NpcTextureMaterialsME.Hair.BLACK_GOLD
+                        NpcTexturePatternsME.Skins.Head.FEMALE
                 ))
                 .withPatterns(NpcTextureType.EYEBROW, List.of(
                         NpcTexturePatternsME.Hairs.Eyebrow.UNI,
@@ -292,30 +273,13 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         NpcTexturePatternsME.Hairs.Eyebrow.SHORT
                 ))
                 .withPatterns(NpcTextureType.HAIR, Stream.of(
-                        NpcTexturePatternsME.Hairs.Hair.BOWL,
-                        NpcTexturePatternsME.Hairs.Hair.BALD_SIDES,
                         NpcTexturePatternsME.Hairs.Hair.DIRTY_MOP,
-                        NpcTexturePatternsME.Hairs.Hair.SHORT,
-                        NpcTexturePatternsME.Hairs.Hair.TOP_BALDING,
-                        NpcTexturePatternsME.Hairs.Hair.SIDE_BALDING,
+                        NpcTexturePatternsME.Hairs.Hair.LONG,
+                        NpcTexturePatternsME.Hairs.Hair.SEMI_LONG,
+                        NpcTexturePatternsME.Hairs.Hair.VERY_LONG,
                         null).toList()
                 )
-                .withPatterns(NpcTextureType.BEARD, Stream.of(
-                        NpcTexturePatternsME.Hairs.Beard.CLEAN,
-                        NpcTexturePatternsME.Hairs.Beard.SHORT,
-                        NpcTexturePatternsME.Hairs.Beard.SINGLE,
-                        NpcTexturePatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
-                        null).toList())
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        NpcTextureMaterialsME.Clothing.WHITE,
-                        NpcTextureMaterialsME.Clothing.BROWN
-                ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        NpcTexturePatternsME.Clothing.TOGA,
-                        NpcTexturePatternsME.Clothing.FULL_TOGA,
-                        NpcTexturePatternsME.Clothing.ROBE,
-                        NpcTexturePatternsME.Clothing.SKIRT
-                ));
+                .withPatterns(NpcTextureType.CLOTHING, List.of(NpcTexturePatternsME.Clothing.ROBE));
         // endregion
     }
 }

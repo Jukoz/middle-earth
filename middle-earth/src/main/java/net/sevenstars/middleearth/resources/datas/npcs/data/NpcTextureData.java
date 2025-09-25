@@ -48,7 +48,6 @@ public class NpcTextureData {
         return IdentifierUtil.create(pattern.getPath() + "_addon_" + material.getPath());
     }
 
-
     public NbtCompound getNbt() {
         NbtCompound newNbt = new NbtCompound();
         for(EntityCategory category : presetsByCategory.keySet()){
@@ -130,6 +129,8 @@ public class NpcTextureData {
 
             // TODO : get the right preset based on weight
             List<NpcTextureDataPreset> presets = data.presetsByCategory.get(entityCategory);
+            presets = feedSharedToPresets(data, presets);
+
             Random random = new Random();
             return new Identity(entityCategory, presets.get(random.nextInt(presets.size())));
         }
@@ -141,8 +142,38 @@ public class NpcTextureData {
 
             // TODO : get the right preset based on weight
             List<NpcTextureDataPreset> presets = data.presetsByCategory.get(entityCategory);
+            presets = feedSharedToPresets(data, presets);
+
             Random random = new Random();
             return new Identity(entityCategory, presets.get(random.nextInt(presets.size())));
+        }
+
+        private static List<NpcTextureDataPreset> feedSharedToPresets(NpcTextureData data, List<NpcTextureDataPreset> presets) {
+            if(data.presetsByCategory.containsKey(EntityCategory.SHARED)){
+                var shared = data.presetsByCategory.get(EntityCategory.SHARED).getFirst();
+                if(shared != null){
+                    for(NpcTextureDataPreset preset : presets){
+                        preset.withMaterialValues(NpcTextureType.SKIN, shared.getMaterials(NpcTextureType.SKIN));
+                        preset.withPatternValues(NpcTextureType.BODY, shared.getPatterns(NpcTextureType.BODY));
+                        preset.withPatternValues(NpcTextureType.HEAD, shared.getPatterns(NpcTextureType.HEAD));
+                        preset.withPatternValues(NpcTextureType.EAR, shared.getPatterns(NpcTextureType.EAR));
+                        preset.withPatternValues(NpcTextureType.NOSE, shared.getPatterns(NpcTextureType.NOSE));
+                        preset.withPatternValues(NpcTextureType.SCAR, shared.getPatterns(NpcTextureType.SCAR));
+
+                        preset.withMaterialValues(NpcTextureType.HAIR, shared.getMaterials(NpcTextureType.HAIR));
+                        preset.withPatternValues(NpcTextureType.HAIR, shared.getPatterns(NpcTextureType.HAIR));
+                        preset.withPatternValues(NpcTextureType.BEARD, shared.getPatterns(NpcTextureType.BEARD));
+                        preset.withPatternValues(NpcTextureType.EYEBROW, shared.getPatterns(NpcTextureType.EYEBROW));
+
+                        preset.withMaterialValues(NpcTextureType.EYE, shared.getMaterials(NpcTextureType.EYE));
+                        preset.withPatternValues(NpcTextureType.EYE, shared.getPatterns(NpcTextureType.EYE));
+
+                        preset.withMaterialValues(NpcTextureType.CLOTHING, shared.getMaterials(NpcTextureType.CLOTHING));
+                        preset.withPatternValues(NpcTextureType.CLOTHING, shared.getPatterns(NpcTextureType.CLOTHING));
+                    }
+                }
+            }
+            return presets;
         }
     }
 }

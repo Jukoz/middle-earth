@@ -2,6 +2,8 @@ package net.sevenstars.middleearth.entity.npcs;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlocksAttacksComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
@@ -14,6 +16,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -79,6 +82,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     private static final TrackedData<NpcEntityTextureData> TEXTURE_DATA;
     private static final TrackedData<BlockPos> STRUCTURE_MANAGER_HOST_POS;
     private static final TrackedData<Boolean> FIGHTING;
+    private static final TrackedData<Boolean> BLOCKING;
 
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
@@ -93,6 +97,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         builder.add(TEXTURE_DATA, new NpcEntityTextureData());
         builder.add(STRUCTURE_MANAGER_HOST_POS, getBlockPos());
         builder.add(FIGHTING, false);
+        builder.add(BLOCKING, false);
     }
 
     @Override
@@ -497,6 +502,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
+        if(hasVehicle() && getVehicle() instanceof AbstractBeastEntity mountEntity){
+            return mountEntity.tryAttack((ServerWorld) target.getWorld(), target);
+        }
+
         this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
         boolean bl;
         float damage = 1.0f;
@@ -505,7 +514,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             damage = damageOpt.get().floatValue();
         } catch (Exception ignored){}
         ItemStack itemStack = this.getWeaponStack();
-
         DamageSource damageSource = Optional.ofNullable(itemStack.getItem().getDamageSource(this)).orElse(this.getDamageSources().mobAttack(this));
 
         var enchantmentDamage = EnchantmentHelper.getDamage(world, itemStack, target, damageSource, damage);
@@ -529,8 +537,53 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             this.onAttacking(target);
             this.playAttackSound();
             this.swingHand(Hand.MAIN_HAND);
+            this.swingHand(Hand.OFF_HAND);
         }
         return bl;
+    }
+
+    @Override
+    public void tickRiding() {
+        super.tickRiding();
+        Entity entity = this.getControllingVehicle();
+        if (entity instanceof PathAwareEntity) {
+            PathAwareEntity pathAwareEntity = (PathAwareEntity)entity;
+            this.bodyYaw = pathAwareEntity.bodyYaw;
+        }
+    }
+
+    @Override
+    protected void takeShieldHit(ServerWorld world, LivingEntity attacker) {
+        super.takeShieldHit(world, attacker);
+        ItemStack itemStack = this.getBlockingItem();
+        BlocksAttacksComponent blocksAttacksComponent = itemStack != null ? itemStack.get(DataComponentTypes.BLOCKS_ATTACKS) : null;
+        float f = attacker.getWeaponDisableBlockingForSeconds();
+        if (f > 0.0f && blocksAttacksComponent != null) {
+            blocksAttacksComponent.applyShieldCooldown(world, this, f, itemStack);
+        }
+    }
+
+    public void setBlocking(boolean blockingState){
+        var blockingItem = this.getBlockingItem();
+        if(blockingItem == null){
+            return;
+        }
+        this.dataTracker.set(BLOCKING, blockingState);
+        this.getOffHandStack().getUseAction();
+    }
+
+    @Override
+    public boolean isBlocking() {
+        return true;
+    }
+
+    @Override
+    public boolean isUsingItem() {
+        return true;
+    }
+
+    private boolean getBlockingData(){
+        return dataTracker.get(BLOCKING);
     }
 
     public Optional<LivingEntity> getHurtBy() {
@@ -561,10 +614,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
                 if(targetNpcEntity.hasVehicle() && targetNpcEntity.getVehicle() instanceof AbstractHorseEntity)
                     return false;
 
-                if(faction.getDiplomaticEnemies().contains(targetNpcEntity.getFactionId()))
+                Faction targetFaction = targetNpcEntity.getFaction();
+                if(targetFaction == null || faction.getDiplomaticEnemies().contains(targetFaction.getId()))
                     return true;
-                else if(targetNpcEntity.getFaction().getFactionType() == FactionType.SUBFACTION){
-                    if(faction.getDiplomaticEnemies().contains(targetNpcEntity.getFaction().getParentFaction(npcEntity.getWorld()).getId()))
+                else if(targetFaction.getFactionType() == FactionType.SUBFACTION){
+                    if(faction.getDiplomaticEnemies().contains(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
                         return true;
                 }
             }
@@ -574,10 +628,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
                     var entityList = abstractHorseEntity.getPassengersDeep();
                     for(Entity entity : entityList){
                         if(entity instanceof NpcEntity targetNpcEntity){
-                            if(faction.getDiplomaticEnemies().contains(targetNpcEntity.getFactionId()))
+                            Faction targetFaction = targetNpcEntity.getFaction();
+                            if(targetFaction == null || faction.getDiplomaticEnemies().contains(targetFaction.getId()))
                                 return true;
-                            else if(targetNpcEntity.getFaction().getFactionType() == FactionType.SUBFACTION){
-                                if(faction.getDiplomaticEnemies().contains(targetNpcEntity.getFaction().getParentFaction(npcEntity.getWorld()).getId()))
+                            else if(targetFaction.getFactionType() == FactionType.SUBFACTION){
+                                if(faction.getDiplomaticEnemies().contains(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
                                     return true;
                             }
                         }
@@ -634,33 +689,12 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_ENTITY_TEXTURE_DATA);
         STRUCTURE_MANAGER_HOST_POS = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.STRUCTURE_MANAGER_HOST_POS);
         FIGHTING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        BLOCKING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.ATTACK_DAMAGE, 2.0);
-        /*
-                .add(EntityAttributes.ARMOR, 0.0)
-                .add(EntityAttributes.ARMOR_TOUGHNESS, 0.0)
-                .add(EntityAttributes.ATTACK_DAMAGE, 2.0)
-                .add(EntityAttributes.ATTACK_KNOCKBACK, 0.0)
-                .add(EntityAttributes.ATTACK_SPEED, 4.0)
-                .add(EntityAttributes.BLOCK_BREAK_SPEED, 1.0)
-                .add(EntityAttributes.BLOCK_INTERACTION_RANGE, 4.5)
-                .add(EntityAttributes.BURNING_TIME, 1.0)
-                .add(EntityAttributes.EXPLOSION_KNOCKBACK_RESISTANCE, 0.0)
-                .add(EntityAttributes.ENTITY_INTERACTION_RANGE, 0.0)
-                .add(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.0)
-                .add(EntityAttributes.FOLLOW_RANGE, 32)
-                .add(EntityAttributes.GRAVITY, 0.08)
-                .add(EntityAttributes.JUMP_STRENGTH, 0.42)
-                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.0)
-                .add(EntityAttributes.MAX_ABSORPTION, 0.0)
-                .add(EntityAttributes.MAX_HEALTH, 20.0)
-                .add(EntityAttributes.MOVEMENT_EFFICIENCY, 0.0)
-                .add(EntityAttributes.MOVEMENT_EFFICIENCY, 0.0)
-
-         */
     }
 
     @Nullable

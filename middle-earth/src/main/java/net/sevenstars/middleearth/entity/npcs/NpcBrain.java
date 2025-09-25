@@ -17,6 +17,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.GlobalPos;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
+import net.sevenstars.middleearth.entity.ai.brain.task.NpcMountedApproachTask;
+import net.sevenstars.middleearth.entity.ai.brain.task.NpcOnGroundApproachTask;
 
 import java.util.Optional;
 
@@ -84,10 +86,10 @@ public class NpcBrain {
         brain.setTaskList(Activity.FIGHT, ImmutableList.of(
                         Pair.of(0, UpdateAttackTargetTask.create(NpcBrain::getAttackTarget)),
                         Pair.of(1, ForgetAttackTargetTask.create(((world, target) -> shouldForgetTarget(world, target, npc)))),
-                        //Pair.of(2, RangedApproachTask.create(npc.getMovementSpeed())),
-                        //Pair.of(3, MeleeAttackTask.create((int)(npc.getAttackSpeed() * 5)))
-                        Pair.of(2, RangedApproachTask.create(movementSpeed)),
-                        Pair.of(3, MeleeAttackTask.create(30))
+                        Pair.of(2, new NpcMountedApproachTask()),
+                        Pair.of(3, new NpcOnGroundApproachTask()),
+                        Pair.of(4, RangedApproachTask.create(movementSpeed)),
+                        Pair.of(5, MeleeAttackTask.create(30))
                 ),
                 ImmutableSet.of(
                         Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT)

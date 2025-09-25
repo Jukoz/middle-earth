@@ -49,6 +49,7 @@ public class NpcME {
     public final static NpcData URUK_CIVILIAN;
 
     public static NpcTextureData COMMON_TEXTURE_TEST = new NpcTextureData(new HashMap<>(){{
+        put(EntityCategory.SHARED, List.of(NpcTextureDataPool.HUMAN_COMMON));
         put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE));
         put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE));
     }});

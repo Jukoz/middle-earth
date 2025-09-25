@@ -14,6 +14,7 @@ import net.minecraft.client.render.entity.feature.ElytraFeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.render.entity.model.ArmorEntityModel;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.state.EntityRenderState;
@@ -21,6 +22,11 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityPose;
+import net.minecraft.item.CrossbowItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.consume.UseAction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.Direction;
@@ -74,6 +80,9 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         super.updateRenderState(npcEntity, npcEntityRenderState, f);
         npcEntityRenderState.pose = npcEntity.getPose();
         var npcTextureData = npcEntity.getNpcTextureData();
+
+        npcEntityRenderState.leftArmPose = getArmPose(npcEntity, npcEntity.getStackInHand(Hand.OFF_HAND), Hand.OFF_HAND);
+        npcEntityRenderState.rightArmPose = getArmPose(npcEntity, npcEntity.getStackInHand(Hand.MAIN_HAND), Hand.MAIN_HAND);
 
         npcEntityRenderState.skinId = npcTextureData.getBodyTexture();
         npcEntityRenderState.headId = npcTextureData.getHeadTexture();
@@ -142,14 +151,52 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         int color = ColorHelper.mix(k, this.getMixColor(state));
         int overlay = state.hurt ? getOverlay(state, this.getAnimationCounter(state)) : OverlayTexture.DEFAULT_UV;
 
-        renderSkin(matrices, state, vertexConsumers, light, overlay, color);
-        renderHead(matrices, state, vertexConsumers, light, overlay, color);
-        renderEyes(matrices, state, vertexConsumers, light, overlay, color);
-        renderEyebrows(matrices, state, vertexConsumers, light, overlay, color);
-        renderScars(matrices, state, vertexConsumers, light, overlay, color);
-        renderBeard(matrices, state, vertexConsumers, light, overlay, color);
-        renderHair(matrices, state, vertexConsumers, light, overlay, color);
-        renderClothing(matrices, state, vertexConsumers, light, overlay, color);
+        // Will always be shown
+        renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer(),
+                Identifier.of(state.skinId.getNamespace(), "npc_skin_textures/" + state.skinId.getPath()),
+                light, overlay, color);
+        renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer(),
+                Identifier.of(state.headId.getNamespace(), "npc_skin_textures/" + state.headId.getPath()),
+                light, overlay, color);
+
+        if(!state.blinking){
+            renderPart(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getNpcEyeTexturesRenderLayer(false),
+                    Identifier.of(state.eyesId.getNamespace(), "npc_eye_textures/" + state.eyesId.getPath()),
+                    light, overlay, color);
+
+            if(state.haveEmissiveEyes){
+                renderPart(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getNpcEyeTexturesRenderLayer(true),
+                        Identifier.of(state.eyesEmissiveId.getNamespace(), "npc_eye_textures/" + state.eyesEmissiveId.getPath()),
+                        light, overlay, color);
+            }
+        }
+        // Optionally shown, only if the value is present
+        if(state.eyebrowId != null){
+            renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getNpcHairTexturesRenderLayer(),
+                    Identifier.of(state.eyebrowId.getNamespace(), "npc_hair_textures/" + state.eyebrowId.getPath()),
+                    light, overlay, color);
+        }
+
+        if(state.scarId != null){
+            renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer(),
+                    Identifier.of(state.scarId.getNamespace(), "npc_skin_textures/" + state.scarId.getPath()),
+                    light, overlay, color);
+        }
+        if(state.beardId != null){
+            renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getNpcHairTexturesRenderLayer(),
+                    Identifier.of(state.beardId.getNamespace(), "npc_hair_textures/" + state.beardId.getPath()),
+                    light, overlay, color);
+        }
+        if(state.hairId != null){
+            renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getNpcHairTexturesRenderLayer(),
+                    Identifier.of(state.hairId.getNamespace(), "npc_hair_textures/" + state.hairId.getPath()),
+                    light, overlay, color);
+        }
+        if(state.clothingId != null){
+            renderPart(matrices, vertexConsumers, clothingAtlasTexture, ModTexturedRenderLayers.getNpcClothingTexturesRenderLayer(),
+                    Identifier.of(state.clothingId.getNamespace(), "npc_clothing_textures/" + state.clothingId.getPath()),
+                    light, overlay, color);
+        }
 
         if (this.shouldRenderFeatures(state)) {
             for (FeatureRenderer<NpcEntityRenderState, NpcEntityModel> feature : this.features) {
@@ -172,73 +219,9 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         }
     }
 
-    private void renderSkin(MatrixStack matrices, NpcEntityRenderState state, VertexConsumerProvider vertexConsumers, int light, int overlay, int color) {
-        Identifier id = Identifier.of(state.skinId.getNamespace(), "npc_skin_textures/" + state.skinId.getPath());
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer());
-        Sprite sprite = skinAtlasTexture.getSprite(id);
-        renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
-    }
-
-    private void renderHead(MatrixStack matrices, NpcEntityRenderState state, VertexConsumerProvider vertexConsumers, int light, int overlay, int color) {
-        Identifier id = Identifier.of(state.headId.getNamespace(), "npc_skin_textures/" + state.headId.getPath());
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer());
-        Sprite sprite = skinAtlasTexture.getSprite(id);
-        renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
-    }
-
-    private void renderEyes(MatrixStack matrices, NpcEntityRenderState state, VertexConsumerProvider vertexConsumers, int light, int overlay, int color)  {
-        if(state.blinking)
-            return;
-        Identifier id = Identifier.of(state.eyesId.getNamespace(), "npc_eye_textures/" + state.eyesId.getPath());
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcEyeTexturesRenderLayer(false));
-        Sprite sprite = eyeAtlasTexture.getSprite(id);
-
-        renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
-        if(state.haveEmissiveEyes){
-             id = Identifier.of(state.eyesEmissiveId.getNamespace(), "npc_eye_textures/" + state.eyesEmissiveId.getPath());
-             vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcEyeTexturesRenderLayer(true));
-             sprite = eyeAtlasTexture.getSprite(id);
-            renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
-        }
-    }
-    private void renderEyebrows(MatrixStack matrices, NpcEntityRenderState state, VertexConsumerProvider vertexConsumers, int light, int overlay, int color)  {
-        if(state.eyebrowId == null)
-            return;
-        Identifier id = Identifier.of(state.eyebrowId.getNamespace(), "npc_hair_textures/" + state.eyebrowId.getPath());
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
-        Sprite sprite = hairAtlasTexture.getSprite(id);
-        renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
-    }
-    private void renderScars(MatrixStack matrices, NpcEntityRenderState state, VertexConsumerProvider vertexConsumers, int light, int overlay, int color) {
-        if(state.scarId == null)
-            return;
-        Identifier id = Identifier.of(state.scarId.getNamespace(), "npc_skin_textures/" + state.scarId.getPath());
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer());
-        Sprite sprite = skinAtlasTexture.getSprite(id);
-        renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
-    }
-    private void renderBeard(MatrixStack matrices, NpcEntityRenderState state, VertexConsumerProvider vertexConsumers, int light, int overlay, int color)  {
-        if(state.beardId == null)
-            return;
-        Identifier id = Identifier.of(state.beardId.getNamespace(), "npc_hair_textures/" + state.beardId.getPath());
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
-        Sprite sprite = hairAtlasTexture.getSprite(id);
-        renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
-    }
-    private void renderHair(MatrixStack matrices, NpcEntityRenderState state, VertexConsumerProvider vertexConsumers, int light, int overlay, int color) {
-        if(state.hairId == null)
-            return;
-        Identifier id = Identifier.of(state.hairId.getNamespace(), "npc_hair_textures/" + state.hairId.getPath());
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
-        Sprite sprite = hairAtlasTexture.getSprite(id);
-        renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
-    }
-    private void renderClothing(MatrixStack matrices, NpcEntityRenderState state, VertexConsumerProvider vertexConsumers, int light, int overlay, int color) {
-        if(state.clothingId == null)
-            return;
-        Identifier id = Identifier.of(state.clothingId.getNamespace(), "npc_clothing_textures/" + state.clothingId.getPath());
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcClothingTexturesRenderLayer());
-        Sprite sprite = clothingAtlasTexture.getSprite(id);
+    private void renderPart(MatrixStack matrices, VertexConsumerProvider vertexConsumers, SpriteAtlasTexture atlasTexture, RenderLayer renderLayer, Identifier textureId, int light, int overlay, int color){
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
+        Sprite sprite = atlasTexture.getSprite(textureId);
         renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
     }
 
@@ -286,4 +269,45 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             return this.type;
         }
     }
+
+
+    private BipedEntityModel.ArmPose getArmPose(NpcEntity npc, ItemStack stack, Hand hand) {
+        if (stack.isEmpty()) {
+            return BipedEntityModel.ArmPose.EMPTY;
+        }
+        if (!npc.handSwinging && stack.isOf(Items.CROSSBOW) && CrossbowItem.isCharged(stack)) {
+            return BipedEntityModel.ArmPose.CROSSBOW_HOLD;
+        }
+/*
+        if ( stack.getUseAction() == UseAction.BLOCK || npc.isBlocking() && hand == Hand.OFF_HAND) {
+            return BipedEntityModel.ArmPose.BLOCK;
+        }
+ */
+        if (npc.getActiveHand() == hand && npc.getItemUseTimeLeft() > 0) {
+            UseAction useAction = stack.getUseAction();
+            if (useAction == UseAction.BLOCK || npc.isBlocking()) {
+                return BipedEntityModel.ArmPose.BLOCK;
+            }
+            if (useAction == UseAction.BOW) {
+                return BipedEntityModel.ArmPose.BOW_AND_ARROW;
+            }
+            if (useAction == UseAction.SPEAR) {
+                return BipedEntityModel.ArmPose.THROW_SPEAR;
+            }
+            if (useAction == UseAction.CROSSBOW) {
+                return BipedEntityModel.ArmPose.CROSSBOW_CHARGE;
+            }
+            if (useAction == UseAction.SPYGLASS) {
+                return BipedEntityModel.ArmPose.SPYGLASS;
+            }
+            if (useAction == UseAction.TOOT_HORN) {
+                return BipedEntityModel.ArmPose.TOOT_HORN;
+            }
+            if (useAction == UseAction.BRUSH) {
+                return BipedEntityModel.ArmPose.BRUSH;
+            }
+        }
+        return BipedEntityModel.ArmPose.ITEM;
+    }
+
 }
