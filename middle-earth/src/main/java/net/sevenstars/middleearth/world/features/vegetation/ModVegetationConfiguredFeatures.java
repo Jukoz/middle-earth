@@ -48,6 +48,7 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_NOBLEWHITE = registerKey("flower_noblewhite");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_POPPY = registerKey("flower_poppy");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_ELANOR = registerKey("flower_elanor");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_SIMBELMYNE = registerKey("flower_simbelmyne");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_ROSE_BUSH = registerKey("flower_rose_bush");
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWERS_LIGHT_BLUE = registerKey("flowers_light_blue");
@@ -179,6 +180,10 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_WILD_GRASS = registerKey("patch_wild_grass");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_WILDER_GRASS = registerKey("patch_wilder_grass");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_YELLOW_FLOWER = registerKey("patch_yellow_flower");
+
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_NETTLES = registerKey("patch_nettles");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_THISTLE = registerKey("patch_thistle");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MORDOR_BRAMBLES = registerKey("patch_mordor_brambles");
     // endregion
 
     // region MUSHROOMS
@@ -296,6 +301,9 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, FLOWER_ELANOR, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.ELANOR))));
+        ConfiguredFeatures.register(featureRegisterable, FLOWER_SIMBELMYNE, Feature.FLOWER,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SIMBELMYNE))));
         ConfiguredFeatures.register(featureRegisterable, FLOWER_ROSE_BUSH, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(Blocks.ROSE_BUSH))));
@@ -692,6 +700,18 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_YELLOW_FLOWER, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.YELLOW_FLOWER))));
+
+        ConfiguredFeatures.register(featureRegisterable, PATCH_NETTLES, Feature.FLOWER,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.NETTLES))));
+
+        ConfiguredFeatures.register(featureRegisterable, PATCH_THISTLE, Feature.FLOWER,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.THISTLE))));
+
+        ConfiguredFeatures.register(featureRegisterable, PATCH_MORDOR_BRAMBLES, Feature.FLOWER,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.BRAMBLES_OF_MORDOR))));
 
         // region MUSHROOMS
         ConfiguredFeatures.register(featureRegisterable, PATCH_BROWN_BOLETE, Feature.RANDOM_PATCH,

@@ -631,6 +631,9 @@ public class ModBiomeFeatures {
     public static void addElanor(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_ELANOR);
     }
+    public static void addSimbelmyne(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_SIMBELMYNE);
+    }
     public static void addRoseBush(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_ROSE_BUSH);
     }
@@ -970,6 +973,16 @@ public class ModBiomeFeatures {
     }
     public static void addRareWilderGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_RARE_WILDER_GRASS);
+    }
+
+    public static void addNettles(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_NETTLES);
+    }
+    public static void addThistle(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_THISTLE);
+    }
+    public static void addMordorBrambles(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_MORDOR_BRAMBLES);
     }
     // endregion
 
