@@ -369,7 +369,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     public boolean isFighting() {
-        boolean isFighting = dataTracker.get(FIGHTING);
+        var memory = this.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
+        boolean isFighting = memory.isPresent() ? memory.get() != null :  dataTracker.get(FIGHTING);
+
         this.setSprinting(isFighting);
         if(this.hasVehicle() && getVehicle() instanceof AbstractHorseEntity abstractHorseEntity){
             abstractHorseEntity.setSprinting(isFighting);
@@ -419,6 +421,16 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     @Override
     public void onDeath(DamageSource damageSource) {
+        if(getVehicle() != null && getVehicle() instanceof LivingEntity vehicleEntity){
+            vehicleEntity.equipStack(EquipmentSlot.SADDLE, Items.AIR.getDefaultStack());
+            vehicleEntity.equipStack(EquipmentSlot.BODY, Items.AIR.getDefaultStack());
+            if(vehicleEntity instanceof AbstractHorseEntity abstractHorseEntity){
+                abstractHorseEntity.setTame(false);
+            }
+            if(vehicleEntity instanceof AbstractBeastEntity abstractBeastEntity){
+                abstractBeastEntity.setTameness(0);
+            }
+        }
         super.onDeath(damageSource);
         if(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent()){
             StructureManagerBlockEntity.triggerDeathSignal(getStructureManagerHostPos(), this);

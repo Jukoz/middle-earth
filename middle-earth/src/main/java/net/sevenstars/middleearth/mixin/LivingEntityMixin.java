@@ -8,6 +8,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -44,6 +45,9 @@ public abstract class LivingEntityMixin extends Entity {
     @Shadow public abstract boolean hasStatusEffect(RegistryEntry<StatusEffect> effect);
 
     @Shadow public abstract @NotNull ItemStack getWeaponStack();
+
+    @Shadow
+    protected abstract float getMovementSpeed(float slipperiness);
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -144,11 +148,21 @@ public abstract class LivingEntityMixin extends Entity {
             this.equipment.clear();
         }
     }
-    
+
     @Inject(method = "getMovementSpeed()F", at = @At("RETURN"), cancellable = true)
     private void getMovementSpeed(CallbackInfoReturnable<Float> cir) {
-        if(getControllingPassenger() != null && getControllingPassenger() instanceof NpcEntity npcEntity && npcEntity.isFighting()){
-            cir.setReturnValue(Math.max(cir.getReturnValue(), 0.5f));
+        if(getControllingPassenger() != null && getControllingPassenger() instanceof NpcEntity npcEntity){
+            float currentValue = cir.getReturnValue();
+            float modifier = 1f;
+            float fightingModifier = 1f;
+            if(getControllingPassenger().getVehicle() instanceof HorseEntity){
+                currentValue = 0.5f;
+                fightingModifier = 2f;
+            }
+            if(npcEntity.isFighting()){
+                cir.setReturnValue(Math.max(currentValue * fightingModifier, 0.5f));
+            }
+            cir.setReturnValue(Math.max(currentValue * modifier, 0.25f));
         }
     }
 }
