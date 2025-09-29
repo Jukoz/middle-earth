@@ -1,29 +1,26 @@
 package net.sevenstars.middleearth.mixin;
 
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
 import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
-import net.sevenstars.middleearth.network.ModServerNetworkHandler;
 import net.sevenstars.middleearth.network.packets.S2C.PacketLivingEntityData;
-import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,6 +28,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
@@ -138,5 +136,19 @@ public abstract class LivingEntityMixin extends Entity {
             level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, itemStack);
         }
         return level;
+    }
+
+    @Inject(at = @At("HEAD"), method = "drop")
+    protected void drop(ServerWorld world, DamageSource damageSource, CallbackInfo callbackInfo) {
+        if(getControllingPassenger() != null && getControllingPassenger() instanceof NpcEntity){
+            this.equipment.clear();
+        }
+    }
+    
+    @Inject(method = "getMovementSpeed()F", at = @At("RETURN"), cancellable = true)
+    private void getMovementSpeed(CallbackInfoReturnable<Float> cir) {
+        if(getControllingPassenger() != null && getControllingPassenger() instanceof NpcEntity npcEntity && npcEntity.isFighting()){
+            cir.setReturnValue(Math.max(cir.getReturnValue(), 0.5f));
+        }
     }
 }

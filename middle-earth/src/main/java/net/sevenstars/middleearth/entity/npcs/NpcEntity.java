@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.entity.npcs;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlocksAttacksComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -49,6 +50,7 @@ import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
@@ -80,7 +82,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     private static final TrackedData<String> NPC_DATA_ID;
     private static final TrackedData<Long> INITIALIZATION_TICK;
     private static final TrackedData<NpcEntityTextureData> TEXTURE_DATA;
-    private static final TrackedData<BlockPos> STRUCTURE_MANAGER_HOST_POS;
     private static final TrackedData<Boolean> FIGHTING;
     private static final TrackedData<Boolean> BLOCKING;
 
@@ -95,9 +96,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         builder.add(FACTION_ID, "");
         builder.add(NPC_DATA_ID, "");
         builder.add(TEXTURE_DATA, new NpcEntityTextureData());
-        builder.add(STRUCTURE_MANAGER_HOST_POS, getBlockPos());
         builder.add(FIGHTING, false);
         builder.add(BLOCKING, false);
+        assignStructureManager(null);
+        assignBed(null);
     }
 
     @Override
@@ -125,7 +127,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     private void writeEntityData(WriteView view){
-        view.put("StructureManagerHostPos", BlockPos.CODEC, dataTracker.get(STRUCTURE_MANAGER_HOST_POS));
         view.put("NpcDataId", Codec.STRING, dataTracker.get(NPC_DATA_ID));
         view.put("EntityCategory", Codec.STRING, dataTracker.get(CATEGORY));
         view.put("NpcTextureData", NpcEntityTextureData.CODEC, dataTracker.get(TEXTURE_DATA));
@@ -133,8 +134,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     private void readEntityData(ReadView view) {
-        view.read("StructureManagerHostPos", BlockPos.CODEC)
-            .ifPresent(this::setStructureManagerHost);
         view.read("NpcDataId", Identifier.CODEC)
             .ifPresent(this::setNpcData);
         view.read("FactionId", Identifier.CODEC)
@@ -183,10 +182,25 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         this.dataTracker.set(TEXTURE_DATA, npcEntityTextureData);
     }
 
-    public void setStructureManagerHost(BlockPos blockPos) {
-        if(blockPos == null)
+    public void assignStructureManager(StructureManagerBlockEntity blockEntity){
+        if(getBrain() == null)
             return;
-        this.dataTracker.set(STRUCTURE_MANAGER_HOST_POS, blockPos);
+        boolean hasStructure = blockEntity != null;
+        if(!hasStructure){
+            this.getBrain().forget(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS);
+            return;
+        }
+        this.getBrain().remember(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS, blockEntity.getPos());
+    }
+
+    public void assignBed(BedBlockEntity bedBlockEntity){
+        if(getBrain() == null)
+            return;
+        if(bedBlockEntity == null){
+            this.getBrain().forget(MemoryModulesME.ASSIGNED_BED_POS);
+            return;
+        }
+        this.getBrain().remember(MemoryModulesME.ASSIGNED_BED_POS, bedBlockEntity.getPos());
     }
 
     public void setFighting(boolean state){
@@ -335,6 +349,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
                 abstractHorseEntity.setTame(true);
                 if(foundSpawnData.mountArmor() != null)
                     abstractHorseEntity.equipBodyArmor(foundSpawnData.mountArmor());
+
+                if(abstractHorseEntity instanceof AbstractBeastEntity beastEntity){
+                    beastEntity.setTameness(100);
+                    beastEntity.setMovementSpeed(20);
+                }
             } else if(foundSpawnData.mountEntity().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("can_equip_saddle"))) && mount instanceof EquipmentHolder equipmentHolder){
                 equipmentHolder.equipStack(EquipmentSlot.SADDLE, new ItemStack(Items.SADDLE));
             }
@@ -401,7 +420,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     @Override
     public void onDeath(DamageSource damageSource) {
         super.onDeath(damageSource);
-        StructureManagerBlockEntity.triggerDeathSignal(this.dataTracker.get(STRUCTURE_MANAGER_HOST_POS), this);
+        if(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent()){
+            StructureManagerBlockEntity.triggerDeathSignal(getStructureManagerHostPos(), this);
+        }
     }
 
     @Override
@@ -439,7 +460,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     @Override
     public boolean isPersistent() {
-        return getWorld().getBlockEntity(getStructureManagerHostPos()) != null || super.isPersistent();
+        if(getBrain() == null) return super.isPersistent();
+
+        if(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent())
+            return getWorld().getBlockEntity(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).get()) != null;
+        return super.isPersistent();
     }
 
     @Override
@@ -674,7 +699,17 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     public BlockPos getStructureManagerHostPos() {
-        return this.dataTracker.get(STRUCTURE_MANAGER_HOST_POS);
+        if(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent()){
+            return getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).get();
+        }
+        return null;
+    }
+
+    public BlockPos getAssignedBedPos() {
+        if(getBrain().getOptionalMemory(MemoryModulesME.ASSIGNED_BED_POS).isPresent()){
+            return getBrain().getOptionalMemory(MemoryModulesME.ASSIGNED_BED_POS).get();
+        }
+        return null;
     }
 
     public NpcEntityTextureData getNpcTextureData() {
@@ -687,7 +722,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         NPC_DATA_ID = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_DATA_ID);
         CATEGORY = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.CATEGORY);
         TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_ENTITY_TEXTURE_DATA);
-        STRUCTURE_MANAGER_HOST_POS = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.STRUCTURE_MANAGER_HOST_POS);
         FIGHTING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
         BLOCKING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     }

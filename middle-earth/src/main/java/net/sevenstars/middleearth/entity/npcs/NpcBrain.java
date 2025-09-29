@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.GlobalPos;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
+import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
 import net.sevenstars.middleearth.entity.ai.brain.task.NpcMountedApproachTask;
 import net.sevenstars.middleearth.entity.ai.brain.task.NpcOnGroundApproachTask;
@@ -120,16 +121,18 @@ public class NpcBrain {
                 SensorsME.NPC_ATTACKABLES
         );
         MEMORY_MODULES = ImmutableList.of(
+                // Generic
+                MemoryModuleType.LOOK_TARGET,
+                MemoryModuleType.PATH,
                 MemoryModuleType.WALK_TARGET,
                 MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+                // NPC specific
+                MemoryModulesME.STRUCTURE_MANAGER_HOST_POS,
+                MemoryModulesME.ASSIGNED_BED_POS,
+                // Fight specific
                 MemoryModuleType.ATTACK_TARGET,
                 MemoryModuleType.ATTACK_COOLING_DOWN,
-                MemoryModuleType.PATH,
-                MemoryModuleType.HOME,
-                MemoryModuleType.LAST_WOKEN,
                 MemoryModuleType.VISIBLE_MOBS,
-                MemoryModuleType.LOOK_TARGET,
-                MemoryModuleType.NEAREST_BED,
                 MemoryModuleType.HURT_BY,
                 MemoryModuleType.HURT_BY_ENTITY
         );
