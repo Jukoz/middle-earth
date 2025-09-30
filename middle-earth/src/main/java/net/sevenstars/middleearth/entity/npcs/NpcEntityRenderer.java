@@ -22,6 +22,7 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -35,8 +36,10 @@ import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseFeatureRenderer;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexture;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 import org.jetbrains.annotations.Nullable;
 
 public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityRenderState, NpcEntityModel> {
@@ -100,6 +103,20 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.hairAddonId = npcTextureData.getHairAddonTexture();
         npcEntityRenderState.clothingId = npcTextureData.getClothingTexture();
         npcEntityRenderState.blinking = (npcEntity.getInitializationTick() + npcEntity.age) % 80 <= 2;
+
+        ItemStack helmet = npcEntity.getEquippedStack(EquipmentSlot.HEAD);
+        if(helmet == null || helmet.isOf(Items.AIR)){
+            npcEntityRenderState.canShowBeard = true;
+            npcEntityRenderState.canShowHair = true;
+            npcEntityRenderState.canShowEars = true;
+        } else {
+            var hasAttachment = helmet.getComponents().getOrDefault(DataComponentTypesME.HELMET_ATTACHMENT_DATA, null);
+            boolean hasHoodDown = hasAttachment == null || hasAttachment.down();
+
+            npcEntityRenderState.canShowEars = helmet.isIn(ItemTagsME.CHARACTER_HELMET_SHOW_EARS) && hasHoodDown;
+            npcEntityRenderState.canShowBeard = !helmet.isIn(ItemTagsME.CHARACTER_HELMET_HIDE_BEARD);
+            npcEntityRenderState.canShowHair = !helmet.isIn(ItemTagsME.CHARACTER_HELMET_HIDE_HAIR) && hasHoodDown;
+        }
     }
     // endregion
 

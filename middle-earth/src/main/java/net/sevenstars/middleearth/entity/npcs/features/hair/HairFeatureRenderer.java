@@ -62,9 +62,9 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
         int k = bl2 ? 654311423 : -1;
         int color = ColorHelper.mix(k, (state.hurt) ? NpcEntityRenderer.HURT_COLOR : -1);
 
-        if(hairAddonTextureId != null)
+        if(hairAddonTextureId != null && state.canShowHair)
             render(entityModel, vertexConsumer, matrices, light, hairAddonTextureId, color);
-        if(beardAddonTextureId != null)
+        if(beardAddonTextureId != null && state.canShowBeard)
             render(entityModel, vertexConsumer, matrices, light, beardAddonTextureId, color);
     }
 
