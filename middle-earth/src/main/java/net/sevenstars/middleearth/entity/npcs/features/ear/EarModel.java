@@ -5,11 +5,10 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
 
-public class EarModel  extends EntityModel<NpcEntityRenderState> {
+public class EarModel extends EntityModel<NpcEntityRenderState> {
     public final ModelPart ears;
     public final ModelPart planeFlatLeft;
     public final ModelPart planeFlatRight;
-
 
     public EarModel(ModelPart modelPart) {
         super(modelPart);
@@ -49,24 +48,18 @@ public class EarModel  extends EntityModel<NpcEntityRenderState> {
         float f = state.leaningPitch;
         boolean bl = state.isGliding;
 
+        this.ears.pitch = state.pitch * ((float)Math.PI / 180);
+        this.ears.yaw = state.relativeHeadYaw * ((float)Math.PI / 180);
+        if (bl) {
+            this.ears.pitch = -0.7853982f;
+        } else if (f > 0.0f) {
+            this.ears.pitch = MathHelper.lerpAngleRadians(f, this.ears.pitch, -0.7853982f);
+        }
+
         this.ears.yaw = state.relativeHeadYaw * 0.017453292F;
         this.ears.pitch = state.pitch * 0.017453292F;
 
-
         this.planeFlatLeft.yaw = (float)Math.toRadians(-20);
         this.planeFlatRight.yaw = (float)Math.toRadians(-160);
-
-        /*
-        this.planeRight.yaw = -1.5708f;
-        this.planeRight.pitch = 0.349066f;
-        this.planeRight.roll = -0.785398f;
-         */
-
-
-        if (bl) {
-            this.ears.pitch = -0.7853982F;
-        } else if (f > 0.0F) {
-            this.ears.pitch = MathHelper.lerpAngleRadians(f, this.ears.pitch, -0.7853982F);
-        }
     }
 }

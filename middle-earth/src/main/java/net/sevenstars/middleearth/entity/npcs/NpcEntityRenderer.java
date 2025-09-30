@@ -170,49 +170,41 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
         // Will always be shown
         renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer(),
-                Identifier.of(state.skinId.getNamespace(), "npc_skin_textures/" + state.skinId.getPath()),
-                light, overlay, color);
+            state.skinId.withPrefixedPath("npc_skin_textures/"), light, overlay, color);
+
         renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer(),
-                Identifier.of(state.headId.getNamespace(), "npc_skin_textures/" + state.headId.getPath()),
-                light, overlay, color);
+                state.headId.withPrefixedPath("npc_skin_textures/"), light, overlay, color);
 
         if(!state.blinking){
             renderPart(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getNpcEyeTexturesRenderLayer(false),
-                    Identifier.of(state.eyesId.getNamespace(), "npc_eye_textures/" + state.eyesId.getPath()),
-                    light, overlay, color);
+                    state.eyesId.withPrefixedPath("npc_eye_textures/"), light, overlay, color);
 
             if(state.haveEmissiveEyes){
                 renderPart(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getNpcEyeTexturesRenderLayer(true),
-                        Identifier.of(state.eyesEmissiveId.getNamespace(), "npc_eye_textures/" + state.eyesEmissiveId.getPath()),
-                        light, overlay, color);
+                        state.eyesEmissiveId.withPrefixedPath("npc_eye_textures/"), light, overlay, color);
             }
         }
         // Optionally shown, only if the value is present
         if(state.eyebrowId != null){
             renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getNpcHairTexturesRenderLayer(),
-                    Identifier.of(state.eyebrowId.getNamespace(), "npc_hair_textures/" + state.eyebrowId.getPath()),
-                    light, overlay, color);
+                    state.eyebrowId.withPrefixedPath("npc_hair_textures/"), light, overlay, color);
         }
 
         if(state.scarId != null){
             renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer(),
-                    Identifier.of(state.scarId.getNamespace(), "npc_skin_textures/" + state.scarId.getPath()),
-                    light, overlay, color);
+                    state.scarId.withPrefixedPath("npc_skin_textures/"), light, overlay, color);
         }
         if(state.beardId != null){
             renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getNpcHairTexturesRenderLayer(),
-                    Identifier.of(state.beardId.getNamespace(), "npc_hair_textures/" + state.beardId.getPath()),
-                    light, overlay, color);
+                    state.beardId.withPrefixedPath("npc_hair_textures/"), light, overlay, color);
         }
         if(state.hairId != null){
             renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getNpcHairTexturesRenderLayer(),
-                    Identifier.of(state.hairId.getNamespace(), "npc_hair_textures/" + state.hairId.getPath()),
-                    light, overlay, color);
+                    state.hairId.withPrefixedPath("npc_hair_textures/"), light, overlay, color);
         }
         if(state.clothingId != null){
             renderPart(matrices, vertexConsumers, clothingAtlasTexture, ModTexturedRenderLayers.getNpcClothingTexturesRenderLayer(),
-                    Identifier.of(state.clothingId.getNamespace(), "npc_clothing_textures/" + state.clothingId.getPath()),
-                    light, overlay, color);
+                    state.clothingId.withPrefixedPath("npc_clothing_textures/"), light, overlay, color);
         }
 
         if (this.shouldRenderFeatures(state)) {
