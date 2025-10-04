@@ -5,6 +5,7 @@ import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.BabyModelTransformer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.ModelTransformer;
+import net.minecraft.item.ItemStack;
 
 import java.util.Set;
 
@@ -149,7 +150,7 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
             }
         }
 
-        boolean showSaddle = !state.saddle;
+        boolean showSaddle = state.saddle != ItemStack.EMPTY;
         saddle.hidden = showSaddle;
         headStall.hidden = showSaddle;
         reins.hidden = showSaddle;

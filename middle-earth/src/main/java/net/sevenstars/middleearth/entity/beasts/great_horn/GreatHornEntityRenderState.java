@@ -4,11 +4,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.entity.AnimationState;
+import net.minecraft.item.ItemStack;
 
 @Environment(EnvType.CLIENT)
 public class GreatHornEntityRenderState extends LivingEntityRenderState {
     public GreatHornVariant variant;
-    public boolean saddle;
+    public ItemStack saddle;
     public boolean hasRider;
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -17,7 +18,7 @@ public class GreatHornEntityRenderState extends LivingEntityRenderState {
     public final AnimationState bowAnimationState = new AnimationState();
 
     public GreatHornEntityRenderState() {
-        saddle = false;
+        saddle = ItemStack.EMPTY;
         hasRider = false;
     }
 
