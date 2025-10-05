@@ -172,6 +172,7 @@ public class NpcTextureData {
                         preset.withPatternValues(NpcTextureType.HAIR, shared.getPatterns(NpcTextureType.HAIR));
                         preset.withPatternValues(NpcTextureType.BEARD, shared.getPatterns(NpcTextureType.BEARD));
                         preset.withPatternValues(NpcTextureType.EYEBROW, shared.getPatterns(NpcTextureType.EYEBROW));
+                        preset.withEmissiveEyes(shared.haveEmissiveEyes());
 
                         preset.withMaterialValues(NpcTextureType.EYE, shared.getMaterials(NpcTextureType.EYE));
                         preset.withPatternValues(NpcTextureType.EYE, shared.getPatterns(NpcTextureType.EYE));
