@@ -13,12 +13,33 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(BipedEntityRenderState.class)
 public class BipedEntityRenderStateMixin extends ArmedEntityRenderState implements BipedEntityRenderStateAccess {
-    @Unique
-    private Vec3d velocity;
+    @Unique private float tickProgress;
+    @Unique private Vec3d previousVelocity;
+    @Unique private Vec3d velocity;
+
+    @Override
+    public float getTickProgress() {
+        return tickProgress;
+    }
+
+    @Override
+    public Vec3d getPreviousVelocity() {
+        return previousVelocity;
+    }
 
     @Override
     public Vec3d getVelocity() {
         return velocity;
+    }
+
+    @Override
+    public void setTickProgress(float tickProgress) {
+        this.tickProgress = tickProgress;
+    }
+
+    @Override
+    public void setPreviousVelocity(Vec3d previousVelocity) {
+        this.previousVelocity = previousVelocity;
     }
 
     @Override

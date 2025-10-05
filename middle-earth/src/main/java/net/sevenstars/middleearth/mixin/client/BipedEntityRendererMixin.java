@@ -54,7 +54,10 @@ public abstract class BipedEntityRendererMixin<T extends MobEntity, S extends Bi
     private static <T extends LivingEntity, S extends LivingEntityRenderState>
     void updateRenderState(LivingEntity entity, BipedEntityRenderState state, float tickProgress, ItemModelManager itemModelResolver, CallbackInfo ci) {
         Vec3d velocity = entity.getVelocity();
-        ((BipedEntityRenderStateAccess)state).setVelocity(velocity);
+        BipedEntityRenderStateAccess stateAccess = ((BipedEntityRenderStateAccess)state);
+        stateAccess.setTickProgress(tickProgress);
+        stateAccess.setPreviousVelocity(stateAccess.getVelocity());
+        stateAccess.setVelocity(velocity);
     }
 
     @Override

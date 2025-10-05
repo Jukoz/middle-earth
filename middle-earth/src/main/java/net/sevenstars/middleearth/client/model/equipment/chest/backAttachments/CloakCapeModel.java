@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.client.model.equipment.chest.backAttachments;
 
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.client.model.equipment.chest.ChestplateAddonModel;
 import net.minecraft.client.model.ModelPart;
@@ -28,31 +29,29 @@ public class CloakCapeModel extends ChestplateAddonModel {
 
     @Override
     public void setAngles(BipedEntityRenderState bipedEntityRenderState) {
-        super.setAngles(bipedEntityRenderState);
-
         BipedEntityRenderStateAccess renderStateAccess = ((BipedEntityRenderStateAccess)bipedEntityRenderState);
         if(renderStateAccess != null) {
             this.cape.traverse().forEach(ModelPart::resetTransform);
-            Vec3d velAccess = renderStateAccess.getVelocity();
-            if(velAccess == null) velAccess = new Vec3d(0, 0, 0);
-            Vec3d velocity = velAccess;
-            double sqrVel = velocity.lengthSquared();
-            double speed = (sqrVel * 0.35f) + Math.sqrt(Math.abs(bipedEntityRenderState.limbSwingAmplitude)) * 0.4f;
+            Vec3d currentVelocity = renderStateAccess.getVelocity();
+            if(currentVelocity == null) currentVelocity = new Vec3d(0, 0, 0);
+
+            double sqrVel = currentVelocity.length();
+            double speed = (sqrVel * 0.65f) + Math.sqrt(Math.abs(bipedEntityRenderState.limbSwingAmplitude)) * 0.35f;
             double degree;
 
             if (bipedEntityRenderState.isInSneakingPose) {
-                this.cape.originZ = 0.0f;
-                this.cape.originZ = 0.0f;
+                //this.cape.originY = 0.0f;
+                //this.cape.originZ = 0.0f;
                 degree = 5f + (speed * (MAX_ANGLE_CLOAK / 2));
             } else {
-                this.cape.originZ = 0;
-                this.cape.originZ = 0.0f;
+                //this.cape.originY = 0;
+                //this.cape.originZ = 0.0f;
                 degree = (MAX_ANGLE_CLOAK * speed);
             }
             degree = Math.max(0.0F, degree);
             degree = Math.min(MAX_ANGLE_CLOAK, degree);
 
-            double result = velAccess.dotProduct(velocity);
+            double result = renderStateAccess.getVelocity().dotProduct(currentVelocity);
 
             if(result > 0) {
                 this.cape.pitch = ToRad.ex(degree);

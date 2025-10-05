@@ -52,7 +52,7 @@ public class BackAttachmentRenderer implements ArmorRenderer {
                 backAttachmentModel.leftArm.visible = true;
                 backAttachmentModel.rightLeg.visible = true;
                 backAttachmentModel.leftLeg.visible = true;
-                //this.capeModel.setAngles(bipedEntityRenderState);
+                backAttachmentModel.setAngles(bipedEntityRenderState);
 
                 if (DyeablePiecesME.dyeableBackAttachments.containsKey(backAttachmentDataComponent.getBackAttachment())) {
                     renderDyeableBackAttachment(matrices, vertexConsumers, light, stack, backAttachmentModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + backAttachmentDataComponent.backAttachment().getName() + ".png"), false);
