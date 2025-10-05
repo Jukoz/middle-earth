@@ -941,7 +941,7 @@ public class EquipmentItemsME {
     public static final Item WARDEN_OF_THE_GLADE_HELMET = registerDyeableCustomModelArmorPiece("warden_of_the_glade_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue()))
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x4a5110)));
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x5c5445)));
     public static final Item WARDEN_OF_THE_GLADE_CHESTPLATE = registerArmorPiece("warden_of_the_glade_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WARDEN_OF_THE_GLADE_CAPE))

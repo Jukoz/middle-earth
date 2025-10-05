@@ -435,6 +435,31 @@ public class WeaponItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     //endregion
 
+    //region WOODLAND_REALM
+    public static final Item WOODLAND_REALM_SWORD = registerItemWithModel("woodland_realm_sword",
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    public static final Item WOODLAND_REALM_LONGSWORD = registerItemWithModel("woodland_realm_longsword",
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    public static final Item WOODLAND_REALM_AXE = registerItemWithModel("woodland_realm_axe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+
+    public static final Item WOODLAND_REALM_NOBLE_SWORD = registerItemWithModel("woodland_realm_noble_sword",
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    public static final Item WOODLAND_REALM_NOBLE_LONGSWORD = registerItemWithModel("woodland_realm_noble_longsword",
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    public static final Item WOODLAND_REALM_NOBLE_DAGGER = registerItemWithModel("woodland_realm_noble_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), false);
+    public static final Item WOODLAND_REALM_NOBLE_AXE = registerItemWithModel("woodland_realm_noble_axe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    //endregion
+
     //region EREBOR
     public static final Item EREBOR_SWORD = registerItemWithModel("erebor_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
