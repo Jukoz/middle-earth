@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
@@ -52,7 +53,7 @@ public class RohirricNpcDataPool {
     }
 
     static {
-        ROHAN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RacesME.HUMAN, FACTION, List.of(
+        ROHAN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_LEATHER_HELMET).withWeight(6))
@@ -93,8 +94,9 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(5))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
-        ROHAN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        ROHAN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_MILITIA_HELMET).withWeight(6))
@@ -142,8 +144,9 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_TWIN_HORSES_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(10))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
-        ROHAN_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        ROHAN_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_SOLDIER_HELMET).withWeight(6))
@@ -183,8 +186,9 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_PLAINSMAN_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_TWIN_HORSES_SHIELD))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
-        ROHAN_ROYAL_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("royal_guard")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        ROHAN_ROYAL_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("royal_guard")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_ROYAL_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
@@ -198,8 +202,9 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_NOBLE_SWORD))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_ROYAL_GUARD_SHIELD)))
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
-        ROHAN_EORLING_MARSHAL = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("eorling_marshal")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        ROHAN_EORLING_MARSHAL = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("eorling_marshal")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.EORLING_MARSHAL_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.EORLING_MARSHAL_CHESTPLATE)))
@@ -213,8 +218,9 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_EORLING_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
-        ROHAN_HORSE_LORD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("horse_lord")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        ROHAN_HORSE_LORD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("horse_lord")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.HORSE_LORD_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.HORSE_LORD_CHESTPLATE)))
@@ -227,7 +233,7 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_ORNAMENTED_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
     }
 }

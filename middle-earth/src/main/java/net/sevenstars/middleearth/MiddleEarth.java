@@ -128,7 +128,8 @@ public class MiddleEarth implements ModInitializer {
 
 		// Dynamic Data
 		SpiderVariants.register();
-		RacesME.register();
+        NpcTextureDatasME.register();
+        RacesME.register();
 		NpcME.register();
 		FactionsME.register();
 

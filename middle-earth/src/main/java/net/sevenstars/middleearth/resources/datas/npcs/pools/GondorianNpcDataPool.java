@@ -11,17 +11,14 @@ import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
-import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class GondorianNpcDataPool {
@@ -63,7 +60,7 @@ public class GondorianNpcDataPool {
 
     static {
 
-        GONDOR_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RacesME.HUMAN, FACTION, List.of(
+        GONDOR_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LEATHER_SKULLCAP))
@@ -150,12 +147,9 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(5))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
-                put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE));
-                put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE));
-            }})
-        );
-        GONDOR_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        GONDOR_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CABASSET_HELMET))
@@ -182,11 +176,9 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create())
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_SHIELD))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE));
-            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE));
-        }}));
-        GONDOR_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        GONDOR_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_PLATE_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
@@ -219,11 +211,9 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_TOWER_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE));
-            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE));
-        }}));
-        GONDOR_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("veteran")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        GONDOR_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("veteran")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_PLATE_HELMET).withWeight(10))
@@ -240,11 +230,9 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_HERO_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(2))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE));
-            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE));
-        }}));
-        GONDOR_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("leader")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        GONDOR_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("leader")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
@@ -262,11 +250,9 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_HERO_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE));
-            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE));
-        }}));
-        GONDOR_CITADEL_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("citadel_guard")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        GONDOR_CITADEL_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("citadel_guard")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_CHESTPLATE)))
@@ -279,22 +265,18 @@ public class GondorianNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_KNIGHT_SHIELD))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE.copy().clearPatterns(NpcTextureType.BEARD)));
-            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE.copy().clearPatterns(NpcTextureType.BEARD)));
-        }}));
-        GONDOR_FOUNTAIN_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("fountain_guard")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        GONDOR_FOUNTAIN_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("fountain_guard")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE)))
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS)))
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(WeaponItemsME.GONDORIAN_FOUNTAIN_GUARD_SPEAR)))
-        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE.copy().clearPatterns(NpcTextureType.BEARD)));
-            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE.copy().clearPatterns(NpcTextureType.BEARD)));
-        }}));
-        GONDOR_KING_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("king_guard")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        GONDOR_KING_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("king_guard")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_CHESTKPLATE)))
@@ -308,9 +290,6 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_KINGS_GUARD_TOWER_SHIELD).withWeight(8))
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_TOWER_SHIELD))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE.copy().clearPatterns(NpcTextureType.BEARD)));
-            put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE.copy().clearPatterns(NpcTextureType.BEARD)));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
     }
 }

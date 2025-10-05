@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.resources.datas.npcs.data;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
@@ -15,6 +17,12 @@ import java.util.List;
 import java.util.Random;
 
 public class NpcTextureData {
+    public static final Codec<NpcTextureData> CODEC = RecordCodecBuilder.create(instance -> {
+        return instance.group(
+            NbtCompound.CODEC.fieldOf("compound").forGetter(NpcTextureData::getNbt)
+        ).apply(instance, NpcTextureData::new);
+    });
+
     HashMap<EntityCategory, List<NpcTextureDataPreset>> presetsByCategory;
 
     public NpcTextureData(NbtCompound compound) {
@@ -152,7 +160,7 @@ public class NpcTextureData {
             if(data.presetsByCategory.containsKey(EntityCategory.SHARED)){
                 var shared = data.presetsByCategory.get(EntityCategory.SHARED).getFirst();
                 if(shared != null){
-                    for(NpcTextureDataPreset preset : presets){
+                    for (NpcTextureDataPreset preset : presets) {
                         preset.withMaterialValues(NpcTextureType.SKIN, shared.getMaterials(NpcTextureType.SKIN));
                         preset.withPatternValues(NpcTextureType.BODY, shared.getPatterns(NpcTextureType.BODY));
                         preset.withPatternValues(NpcTextureType.HEAD, shared.getPatterns(NpcTextureType.HEAD));

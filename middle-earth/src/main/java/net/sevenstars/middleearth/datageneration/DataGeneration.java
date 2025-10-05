@@ -53,6 +53,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(ArtisanTableArmorRecipeProvider::new);
         pack.addProvider(SpiderVariantsProvider::new);
         pack.addProvider(RaceProvider::new);
+        pack.addProvider(NpcTextureDataProvider::new);
         pack.addProvider(NpcProvider::new);
         pack.addProvider(FactionProvider::new);
         pack.addProvider(StructureDataProvider::new);
@@ -97,6 +98,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(SpiderVariants.KEY, SpiderVariants::bootstrap);
 
         registryBuilder.addRegistry(RacesME.KEY, RacesME::bootstrap);
+        registryBuilder.addRegistry(NpcTextureDatasME.KEY, NpcTextureDatasME::bootstrap);
         registryBuilder.addRegistry(NpcME.KEY, NpcME::bootstrap);
         registryBuilder.addRegistry(FactionsME.KEY, FactionsME::bootstrap);
         registryBuilder.addRegistry(StructureManagerDatasME.KEY, StructureManagerDatasME::bootstrap);

@@ -137,7 +137,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
     @Override
     public void render(NpcEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        if(state.skinId == null){
+        if(state.skinId == null || state.headId == null || state.eyesId == null){
             return;
         }
         matrices.push();

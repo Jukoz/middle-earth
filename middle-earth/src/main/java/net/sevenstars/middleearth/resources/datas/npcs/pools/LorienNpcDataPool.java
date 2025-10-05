@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmen
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
@@ -47,7 +48,7 @@ public class LorienNpcDataPool {
                 LOTHLORIEN_LORD);
     }
     static {
-        LOTHLORIEN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RacesME.ELF, FACTION, List.of(
+        LOTHLORIEN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RacesME.ELF, FACTION, NpcTextureDatasME.LORIEN_ELF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LORIEN_DIADEM))
@@ -61,9 +62,9 @@ public class LorienNpcDataPool {
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.SHOES)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(WeaponItemsME.LORIEN_SWORD)))
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(WeaponItemsME.LORIEN_SHIELD)))
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        LOTHLORIEN_RANGER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("ranger")), RacesME.ELF, FACTION, List.of(
+        LOTHLORIEN_RANGER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("ranger")), RacesME.ELF, FACTION, NpcTextureDatasME.LORIEN_ELF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LORIEN_MARCHWARDEN_HOOD))
@@ -86,9 +87,9 @@ public class LorienNpcDataPool {
                                 .add(NpcGearItemData.create(Items.AIR))
                                 .add(NpcGearItemData.create(WeaponItemsME.LORIEN_SHIELD))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        LOTHLORIEN_RANGER_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("ranger_archer")), RacesME.ELF, FACTION, List.of(
+        LOTHLORIEN_RANGER_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("ranger_archer")), RacesME.ELF, FACTION, NpcTextureDatasME.LORIEN_ELF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LORIEN_MARCHWARDEN_HOOD))
@@ -109,9 +110,9 @@ public class LorienNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        LOTHLORIEN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier")), RacesME.ELF, FACTION, List.of(
+        LOTHLORIEN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier")), RacesME.ELF, FACTION, NpcTextureDatasME.LORIEN_ELF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LORIEN_LEATHER_HELMET))
@@ -136,9 +137,9 @@ public class LorienNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        LOTHLORIEN_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight")), RacesME.ELF, FACTION, List.of(
+        LOTHLORIEN_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight")), RacesME.ELF, FACTION, NpcTextureDatasME.LORIEN_ELF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LORIEN_SOLDIER_HELMET))
@@ -161,9 +162,9 @@ public class LorienNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        LOTHLORIEN_KNIGHT_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight_archer")), RacesME.ELF, FACTION, List.of(
+        LOTHLORIEN_KNIGHT_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight_archer")), RacesME.ELF, FACTION, NpcTextureDatasME.LORIEN_ELF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LORIEN_SOLDIER_HELMET))
@@ -184,9 +185,9 @@ public class LorienNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        LOTHLORIEN_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("veteran")), RacesME.ELF, FACTION, List.of(
+        LOTHLORIEN_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("veteran")), RacesME.ELF, FACTION, NpcTextureDatasME.LORIEN_ELF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.GALADHRIM_HELMET).withWeight(3))
@@ -212,9 +213,9 @@ public class LorienNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        LOTHLORIEN_LORD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("lord")), RacesME.ELF, FACTION, List.of(
+        LOTHLORIEN_LORD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("lord")), RacesME.ELF, FACTION, NpcTextureDatasME.LORIEN_ELF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.GALADHRIM_LORD_HELMET))
@@ -235,6 +236,6 @@ public class LorienNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GALADHRIM_LORD_SHIELD).withWeight(3))
                                 .add(NpcGearItemData.create(WeaponItemsME.GALADHRIM_SHIELD))
                         )
-        ), NpcME.COMMON_NPC_ATTRIBUTES, NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
     }
 }

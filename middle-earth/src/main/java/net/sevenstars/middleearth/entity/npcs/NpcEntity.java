@@ -241,13 +241,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
         // set attributes
         if(this.getNpcCategory() == null)
-            setNpcCategory(npcData.getRandomCategory());
+            setNpcCategory(npcData.getNpcTextureData(world).getRandomCategory());
 
         npcData.applyAttributes(this);
 
         if(this.getNpcTextureData().getBodyTexture() == null || forceTextureAndGearSwap){
             // set textures
-            createNpcEntityTextureData(npcData.getNpcTextureData());
+            createNpcEntityTextureData(npcData.getNpcTextureData(world));
             // set gear
             NpcUtil.equipAll(this, npcData.getGear());
         }
@@ -260,7 +260,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
         NpcEntityTextureData entityTextureData = new NpcEntityTextureData();
         entityTextureData = NpcEntityHelper.generateSkinTextureData(entityTextureData, identity);
-        entityTextureData = NpcEntityHelper.generateEyeTextureData(entityTextureData, identity, getNpcData().getNpcTextureData().haveEmissiveEyes(identity)); // Make it not hardcoded
+        entityTextureData = NpcEntityHelper.generateEyeTextureData(entityTextureData, identity, getNpcData().getNpcTextureData(getWorld()).haveEmissiveEyes(identity)); // Make it not hardcoded
         entityTextureData = NpcEntityHelper.generateHairTextureData(entityTextureData, identity, getWorld().getRegistryManager());
         entityTextureData = NpcEntityHelper.generateClothingTextureData(entityTextureData, identity);
         setNpcTextureData(entityTextureData);
@@ -324,7 +324,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         setFactionId(foundSpawnData.npcData().getFaction());
 
         if(entityData == null){
-            entityData = new NpcEntityData(foundSpawnData.npcData().getFaction(), foundSpawnData.npcData().getId(), foundSpawnData.npcData().getRandomCategory());
+            entityData = new NpcEntityData(foundSpawnData.npcData().getFaction(), foundSpawnData.npcData().getId(), foundSpawnData.npcData().getNpcTextureData(world).getRandomCategory());
             setNpcData(((NpcEntityData)entityData).npcDataId);
             setNpcCategory(((NpcEntityData)entityData).category);
             if(forceApply)
