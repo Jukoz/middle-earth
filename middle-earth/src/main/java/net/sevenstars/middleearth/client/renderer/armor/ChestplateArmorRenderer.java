@@ -34,7 +34,6 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        CustomChestplateItem item = (CustomChestplateItem)stack.getItem();
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.CHEST) {
