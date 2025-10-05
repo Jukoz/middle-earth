@@ -22,13 +22,13 @@ public class CapeSlimModel extends CloakCapeModel {
                 ModelTransform.origin(0.0F, 23.0F, 0.016F));
 
         ModelPartData cape = body.addChild("backAttachment", ModelPartBuilder.create()
-                .uv(92, 32).mirrored().cuboid(-5.5F, -1.0F, -1F, 11.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
-                .uv(92, 94).mirrored().cuboid(-5.5F, -1.0F, -1F, 11.0F, 13.0F, 5.0F, new Dilation(0.19F)).mirrored(false),
-                ModelTransform.origin(0.0F, 0.0F, 0.0F));
+                .uv(92, 32).mirrored().cuboid(-5.5F, -3.0F, -1F, 11.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
+                .uv(92, 94).mirrored().cuboid(-5.5F, -3.0F, -1F, 11.0F, 13.0F, 5.0F, new Dilation(0.19F)).mirrored(false),
+                ModelTransform.origin(0.0F, 3.0F, 0.0F));
 
         cape.addChild("cape_low", ModelPartBuilder.create()
-                .uv(92, 50).mirrored().cuboid(-5.5F, -0.8F, -1F, 11.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
-                .uv(92, 112).mirrored().cuboid(-5.5F, -0.8F, -1F, 11.0F, 13.0F, 5.0F, new Dilation(0.19F)).mirrored(false), ModelTransform.origin(0.0F, 13.1558F, 0.0F));
+                .uv(92, 50).mirrored().cuboid(-5.5F, -2.8F, -1F, 11.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
+                .uv(92, 112).mirrored().cuboid(-5.5F, -2.8F, -1F, 11.0F, 13.0F, 5.0F, new Dilation(0.19F)).mirrored(false), ModelTransform.origin(0.0F, 13.1558F, 0.0F));
 
         ModelPartData right_arm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(),
                 ModelTransform.origin(0.0F, 0.0F, 0.0F));

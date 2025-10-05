@@ -5,7 +5,6 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 
 public class CapeMediumModel  extends CloakCapeModel {
-
     public CapeMediumModel(ModelPart root) {
         super(root);
     }
@@ -23,7 +22,7 @@ public class CapeMediumModel  extends CloakCapeModel {
 
         ModelPartData cape = body.addChild("backAttachment", ModelPartBuilder.create()
                 .uv(53, 32).mirrored().cuboid(-6.5F, -1.0F, -1F, 13.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
-                .uv(53, 94).mirrored().cuboid(-6.5F, -1.0F, -1F, 13.0F, 13.0F, 5.0F, new Dilation(0.19F)).mirrored(false), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+                .uv(53, 94).mirrored().cuboid(-6.5F, -1.0F, -1F, 13.0F, 13.0F, 5.0F, new Dilation(0.19F)).mirrored(false), ModelTransform.origin(0.0F, 1.0F, 0.0F));
 
         cape.addChild("cape_low", ModelPartBuilder.create()
                 .uv(53, 50).mirrored().cuboid(-6.5F, -0.8F, -1F, 13.0F, 10.0F, 5.0F, new Dilation(0.2F)).mirrored(false)

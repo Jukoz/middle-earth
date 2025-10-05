@@ -25,12 +25,12 @@ public class FurCapeModel extends CloakCapeModel {
                 .uv(24, 66).cuboid(-9.5F, -2.0F, -3.75F, 19.0F, 7.0F, 7.0F, new Dilation(0.3F)), ModelTransform.origin(0.0F, 0.0f, 0.0f));
 
         ModelPartData cape = body.addChild("backAttachment", ModelPartBuilder.create()
-                .uv(0, 32).mirrored().cuboid(-9F, -1.0F, -3F, 18.0F, 13.0F, 6.0F, new Dilation(0.4F)).mirrored(false)
-                .uv(0, 94).mirrored().cuboid(-9F, -1.0F, -3F, 18.0F, 13.0F, 6.0F, new Dilation(0.39F)).mirrored(false), ModelTransform.origin(0.0F, 0.0f, 0.0f));
+                .uv(0, 32).mirrored().cuboid(-9F, 0.2F, -3F, 18.0F, 13.0F, 6.0F, new Dilation(0.4F)).mirrored(false)
+                .uv(0, 94).mirrored().cuboid(-9F, 0.2F, -3F, 18.0F, 13.0F, 6.0F, new Dilation(0.39F)).mirrored(false), ModelTransform.origin(0.0F, 1.0f, 0.0f));
 
         cape.addChild("cape_low", ModelPartBuilder.create()
-                .uv(0, 51).mirrored().cuboid(-9F, -0.8F, -3F, 18.0F, 9.0F, 6.0F, new Dilation(0.4F)).mirrored(false)
-                .uv(0, 113).mirrored().cuboid(-9F, -0.8F, -3F, 18.0F, 9.0F, 6.0F, new Dilation(0.39F)).mirrored(false), ModelTransform.origin(0.0f, 13.3158f, 0.0f));
+                .uv(0, 51).mirrored().cuboid(-9F, 0.2F, -3F, 18.0F, 9.0F, 6.0F, new Dilation(0.4F)).mirrored(false)
+                .uv(0, 113).mirrored().cuboid(-9F, 0.2F, -3F, 18.0F, 9.0F, 6.0F, new Dilation(0.39F)).mirrored(false), ModelTransform.origin(0.0f, 13.3158f, 0.0f));
 
         ModelPartData right_arm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(),
                 ModelTransform.origin(0.0F, 0.0F, 0.0F));

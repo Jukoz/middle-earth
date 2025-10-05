@@ -24,16 +24,16 @@ public class NazgulRobesModel extends CloakCapeModel {
         body.addChild("fur", ModelPartBuilder.create().uv(24, 66).cuboid(-9.5F, -2.0F, -3.75F, 19.0F, 7.0F, 7.0F, new Dilation(0.3F)), ModelTransform.origin(0.0F, 0.0f, 0.0f));
 
         ModelPartData cape = body.addChild("backAttachment", ModelPartBuilder.create()
-                .uv(53, 32).mirrored().cuboid(-6.5F, -1.0F, -2F, 13.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
-                .uv(53, 94).mirrored().cuboid(-6.5F, -1.0F, -2F, 13.0F, 13.0F, 5.0F, new Dilation(0.19F)).mirrored(false)
-                .uv(0, 32).mirrored().cuboid(-9F, -1.0F, -3F, 18.0F, 13.0F, 6.0F, new Dilation(0.4F)).mirrored(false)
-                .uv(0, 94).mirrored().cuboid(-9F, -1.0F, -3F, 18.0F, 13.0F, 6.0F, new Dilation(0.39F)).mirrored(false), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+                .uv(53, 32).mirrored().cuboid(-6.5F, 0.0F, -2F, 13.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
+                .uv(53, 94).mirrored().cuboid(-6.5F, 0.0F, -2F, 13.0F, 13.0F, 5.0F, new Dilation(0.19F)).mirrored(false)
+                .uv(0, 32).mirrored().cuboid(-9F, 0.0F, -3F, 18.0F, 13.0F, 6.0F, new Dilation(0.4F)).mirrored(false)
+                .uv(0, 94).mirrored().cuboid(-9F, 0.0F, -3F, 18.0F, 13.0F, 6.0F, new Dilation(0.39F)).mirrored(false), ModelTransform.origin(0.0F, 1.0F, 0.0F));
 
         cape.addChild("cape_low", ModelPartBuilder.create()
-                .uv(53, 50).mirrored().cuboid(-6.5F, -0.8F, -2F, 13.0F, 9.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
-                .uv(53, 112).mirrored().cuboid(-6.5F, -0.8F, -2F, 13.0F, 9.0F, 5.0F, new Dilation(0.19F)).mirrored(false)
-                .uv(0, 51).mirrored().cuboid(-9F, -0.8F, -3F, 18.0F, 9.0F, 6.0F, new Dilation(0.4F)).mirrored(false)
-                .uv(0, 113).mirrored().cuboid(-9F, -0.8F, -3F, 18.0F, 9.0F, 6.0F, new Dilation(0.39F)).mirrored(false), ModelTransform.origin(-0.0F, 13.1558F, 0.0F));
+                .uv(53, 50).mirrored().cuboid(-6.5F, 0.2F, -2F, 13.0F, 9.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
+                .uv(53, 112).mirrored().cuboid(-6.5F, 0.2F, -2F, 13.0F, 9.0F, 5.0F, new Dilation(0.19F)).mirrored(false)
+                .uv(0, 51).mirrored().cuboid(-9F, 0.2F, -3F, 18.0F, 9.0F, 6.0F, new Dilation(0.4F)).mirrored(false)
+                .uv(0, 113).mirrored().cuboid(-9F, 0.2F, -3F, 18.0F, 9.0F, 6.0F, new Dilation(0.39F)).mirrored(false), ModelTransform.origin(-0.0F, 13.1558F, 0.0F));
 
         ModelPartData right_arm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(),
                 ModelTransform.origin(0.0F, 0.0F, 0.0F));
