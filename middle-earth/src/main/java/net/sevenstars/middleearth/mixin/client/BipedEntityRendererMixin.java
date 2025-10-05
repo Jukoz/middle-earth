@@ -1,16 +1,23 @@
 package net.sevenstars.middleearth.mixin.client;
 
+import net.minecraft.client.item.ItemModelManager;
 import net.minecraft.client.render.entity.AgeableMobEntityRenderer;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.renderer.ArmedEntityRenderStateAccess;
+import net.sevenstars.middleearth.client.renderer.BipedEntityRenderStateAccess;
 import net.sevenstars.middleearth.entity.spider.EnwebbedFeatureRenderer;
+import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -41,6 +48,16 @@ public abstract class BipedEntityRendererMixin<T extends MobEntity, S extends Bi
         ItemStack offHandStack = mobEntity.getOffHandStack();
         ((ArmedEntityRenderStateAccess)bipedEntityRenderState).setMainHandStack(mainHandStack);
         ((ArmedEntityRenderStateAccess)bipedEntityRenderState).setOffHandStack(offHandStack);
+    }
+
+    @Inject(at = @At("TAIL"), method = "updateBipedRenderState")
+    private static <T extends LivingEntity, S extends LivingEntityRenderState>
+    void updateRenderState(LivingEntity entity, BipedEntityRenderState state, float tickProgress, ItemModelManager itemModelResolver, CallbackInfo ci) {
+        Vec3d velocity = entity.getVelocity();
+        BipedEntityRenderStateAccess stateAccess = ((BipedEntityRenderStateAccess)state);
+        stateAccess.setTickProgress(tickProgress);
+        stateAccess.setPreviousVelocity(stateAccess.getVelocity());
+        stateAccess.setVelocity(velocity);
     }
 
     @Override

@@ -33,6 +33,7 @@
     "client.BakedModelManagerMixin",
     "client.BipedEntityModelMixin",
     "client.BipedEntityRendererMixin",
+    "client.BipedEntityRenderStateMixin",
     "client.GuiRendererMixin",
     "client.HeldItemRendererMixin",
     "client.InGameHudMixin",
