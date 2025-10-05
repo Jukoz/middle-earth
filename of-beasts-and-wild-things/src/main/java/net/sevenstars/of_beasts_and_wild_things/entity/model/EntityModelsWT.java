@@ -3,7 +3,6 @@ package net.sevenstars.of_beasts_and_wild_things.entity.model;
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityModel;
@@ -13,14 +12,14 @@ import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityModel;
 import java.util.Map;
 
 @Environment(value= EnvType.CLIENT)
-public class ModEntityModels {
+public class EntityModelsWT {
     public static Map<EntityModelLayer, TexturedModelData> getModels() {
         ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder = ImmutableMap.builder();
 
         // Animals
-        builder.put(ModEntityModelLayers.SNAIL, SnailEntityModel.getTexturedModelData());
-        builder.put(ModEntityModelLayers.PHEASANT, PheasantEntityModel.getTexturedModelData());
-        builder.put(ModEntityModelLayers.DEER, DeerEntityModel.getTexturedModelData());
+        builder.put(EntityModelLayersWT.SNAIL, SnailEntityModel.getTexturedModelData());
+        builder.put(EntityModelLayersWT.PHEASANT, PheasantEntityModel.getTexturedModelData());
+        builder.put(EntityModelLayersWT.DEER, DeerEntityModel.getTexturedModelData());
 
         ImmutableMap<EntityModelLayer, TexturedModelData> immutableMap = builder.build();
         return immutableMap;

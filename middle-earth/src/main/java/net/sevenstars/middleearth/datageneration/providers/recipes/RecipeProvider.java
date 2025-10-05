@@ -803,7 +803,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //endregion
 
                 //region FOOD
-                createCookedFoodRecipes(exporter, FoodItemsME.RAW_VENISON, FoodItemsME.COOKED_VENISON);
                 createCookedFoodRecipes(exporter, FoodItemsME.RAW_HORSE, FoodItemsME.COOKED_HORSE);
                 createCookedFoodRecipes(exporter, FoodItemsME.MEAT_SKEWER, FoodItemsME.COOKED_MEAT_SKEWER);
                 createCookedFoodRecipes(exporter, FoodItemsME.VEGETABLE_SKEWER, FoodItemsME.COOKED_VEGETABLE_SKEWER);

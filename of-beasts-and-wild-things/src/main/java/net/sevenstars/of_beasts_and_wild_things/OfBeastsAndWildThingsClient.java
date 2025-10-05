@@ -7,12 +7,11 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.world.biome.DryFoliageColors;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityRenderer;
-import net.sevenstars.of_beasts_and_wild_things.entity.model.ModEntityModels;
+import net.sevenstars.of_beasts_and_wild_things.entity.model.EntityModelsWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntityRenderer;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityRenderer;
 import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntityRenderer;
@@ -21,7 +20,7 @@ public class OfBeastsAndWildThingsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
-        ModEntityModels.getModels();
+        EntityModelsWT.getModels();
 
         EntityRendererRegistry.register(EntitiesWT.SNAIL, SnailEntityRenderer::new);
         EntityRendererRegistry.register(EntitiesWT.PHEASANT, PheasantEntityRenderer::new);

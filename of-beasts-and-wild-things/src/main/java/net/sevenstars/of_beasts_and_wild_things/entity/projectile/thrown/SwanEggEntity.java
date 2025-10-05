@@ -4,7 +4,6 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.EntityHitResult;
@@ -12,7 +11,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
-import net.sevenstars.of_beasts_and_wild_things.item.ModItems;
+import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 
 public class SwanEggEntity extends ThrownItemEntity {
     private static final EntityDimensions EMPTY_DIMENSIONS = EntityDimensions.fixed(0.0F, 0.0F);
@@ -87,6 +86,6 @@ public class SwanEggEntity extends ThrownItemEntity {
 
     @Override
     protected Item getDefaultItem() {
-        return ModItems.SWAN_EGG;
+        return ItemsWT.SWAN_EGG;
     }
 }
