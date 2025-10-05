@@ -36,6 +36,8 @@ public class EggItemsME {
 
     public static final Item SNOW_TROLL_SPAWN_EGG = registerItem("snow_troll_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.SNOW_TROLL, settings), new Item.Settings());
+    public static final Item CAVE_TROLL_SPAWN_EGG = registerItem("cave_troll_spawn_egg",
+            (settings) -> new SpawnEggItem(ModEntities.CAVE_TROLL, settings), new Item.Settings());
 
     public static final Item SHELOBITE_LARVA_SPAWN_EGG = registerItem("shelobite_larva_spawn_egg",
             (settings) -> new SpawnEggItem(ModEntities.SHELOBITE_LARVA, settings), new Item.Settings());

@@ -18,6 +18,8 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
+import net.sevenstars.middleearth.utils.ItemTagsME;
+import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var broadhoof_goat_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
         var dyeable = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("dyeable")));
         var chains = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "chains")));
+        var troll_weapons = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_weapons")));
+        var troll_food = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_food")));
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("iron_ores"));
         TagKey<Item> gold_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("gold_ores"));
@@ -127,7 +131,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         warg_food.add(Items.BEEF);
         warg_food.add(Items.MUTTON);
         warg_food.add(FoodItemsME.RAW_HORSE);
-        warg_food.add(FoodItemsME.RAW_VENISON);
+        warg_food.add(ItemsWT.RAW_VENISON);
 
         warg_armor.add(EquipmentItemsME.WARG_MORDOR_PLATE_ARMOR);
         warg_armor.add(EquipmentItemsME.WARG_GUNDABAD_PLATE_ARMOR);
@@ -162,6 +166,27 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         chains.add(ModDecorativeBlocks.CRUDE_CHAIN.asItem());
         chains.add(ModDecorativeBlocks.CRUDE_BROAD_CHAIN.asItem());
         chains.add(ModDecorativeBlocks.SPIKY_CHAIN.asItem());
+
+        troll_weapons.add(WeaponItemsME.TROLL_MACE);
+        troll_weapons.add(WeaponItemsME.MACE_OF_SAURON);
+
+        troll_food.add(FoodItemsME.RAW_HORSE);
+        troll_food.add(FoodItemsME.COOKED_HORSE);
+        troll_food.add(ItemsWT.RAW_VENISON);
+        troll_food.add(ItemsWT.COOKED_VENISON);
+        troll_food.add(FoodItemsME.COOKED_MEAT_SKEWER);
+        troll_food.add(Items.PORKCHOP);
+        troll_food.add(Items.COOKED_PORKCHOP);
+        troll_food.add(Items.MUTTON);
+        troll_food.add(Items.COOKED_MUTTON);
+        troll_food.add(Items.BEEF);
+        troll_food.add(Items.COOKED_BEEF);
+        troll_food.add(Items.CHICKEN);
+        troll_food.add(Items.COOKED_CHICKEN);
+        troll_food.add(Items.ROTTEN_FLESH);
+        troll_food.add(Items.MUSHROOM_STEW);
+        troll_food.add(Items.BROWN_MUSHROOM);
+        troll_food.add(Items.RED_MUSHROOM);
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {

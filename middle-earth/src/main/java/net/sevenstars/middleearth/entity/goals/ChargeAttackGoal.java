@@ -47,7 +47,6 @@ public class ChargeAttackGoal extends Goal {
         if(this.checkCanNavigateCooldown > 0) {
             --this.checkCanNavigateCooldown;
         }
-
     }
 
     private boolean canNavigateToEntity(LivingEntity entity) {

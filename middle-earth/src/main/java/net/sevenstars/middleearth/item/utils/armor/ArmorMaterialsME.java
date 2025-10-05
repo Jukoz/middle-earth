@@ -62,9 +62,16 @@ public interface ArmorMaterialsME {
     ExtendedArmorMaterial BURZUM_STEEL_T4 = registerArmor("burzum_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_BURZUM_STEEL_ARMOR);
     ExtendedArmorMaterial BURZUM_STEEL_T5 = registerArmor("burzum_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ItemTagsME.REPAIRS_BURZUM_STEEL_ARMOR);
 
-    ExtendedArmorMaterial LEATHER = registerArmor("leather", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTags.REPAIRS_LEATHER_ARMOR);
-    ExtendedArmorMaterial MAIL = registerArmor("mail", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTags.REPAIRS_IRON_ARMOR);
-    ExtendedArmorMaterial PLATE = registerArmor("plate", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_STEEL_ARMOR);
+    ExtendedArmorMaterial BROADHOOF_GOAT_LEATHER_ARMOR = registerArmor("broadhoof_goat_leather_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
+    ExtendedArmorMaterial BROADHOOF_GOAT_ORNAMENTED_LEATHER_ARMOR = registerArmor("broadhoof_goat_ornamented_leather_armor", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
+    ExtendedArmorMaterial BROADHOOF_GOAT_PLATE_ARMOR = registerArmor("broadhoof_goat_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_KHAZAD_STEEL_ARMOR);
+
+    ExtendedArmorMaterial WARG_LEATHER_ARMOR = registerArmor("warg_leather_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
+    ExtendedArmorMaterial WARG_REINFORCED_LEATHER_ARMOR = registerArmor("warg_reinforced_leather_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
+    ExtendedArmorMaterial WARG_MORDOR_MAIL_ARMOR = registerArmor("warg_mordor_mail_armor", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTags.REPAIRS_IRON_ARMOR);
+    ExtendedArmorMaterial WARG_MORDOR_PLATE_ARMOR = registerArmor("warg_mordor_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_BURZUM_STEEL_ARMOR);
+    ExtendedArmorMaterial WARG_ISENGARD_PLATE_ARMOR = registerArmor("warg_isengard_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_BURZUM_STEEL_ARMOR);
+    ExtendedArmorMaterial WARG_GUNDABAD_PLATE_ARMOR = registerArmor("warg_gundabad_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_BURZUM_STEEL_ARMOR);
 
     ExtendedArmorMaterial GONDORIAN_HORSE_ARMOR = registerArmor("gondorian_horse_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_STEEL_ARMOR);
     ExtendedArmorMaterial ROHIRRIC_HORSE_ARMOR = registerArmor("rohirric_horse_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_STEEL_ARMOR);

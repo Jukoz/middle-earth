@@ -15,7 +15,7 @@ import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import java.util.function.Function;
 
 
-public class ModEggItems {
+public class EggItemsWT {
 
     // Animals
     public static final Item DEER_SPAWN_EGG = registerItem("deer_spawn_egg",
@@ -32,7 +32,7 @@ public class ModEggItems {
     }
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = factory.apply(settings.registryKey(keyOfItem(name)));
-        ModItemGroups.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsWT.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
         SimpleItemModels.items.add(item);
         TranslationEntries.itemEntries.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(OfBeastsAndWildThings.MOD_ID, name), item);

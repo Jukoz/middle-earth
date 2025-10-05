@@ -1,6 +1,7 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.deer;
 
 import com.mojang.serialization.Dynamic;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -16,9 +17,12 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
@@ -32,6 +36,7 @@ public class DeerEntity extends AnimalEntity {
 
     public DeerEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
+        this.getNavigation().setCanSwim(true);
     }
 
     public static DefaultAttributeContainer.Builder createDeerAttributes() {
@@ -80,6 +85,38 @@ public class DeerEntity extends AnimalEntity {
         DeerEntityVariant variant = Util.getRandom(DeerEntityVariant.values(), this.random);
         setVariant(variant);
         return super.initialize(world, difficulty, spawnReason, entityData);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_CAMEL_DEATH;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return SoundEvents.ENTITY_CAMEL_HURT;
+    }
+    @Override
+    protected void playHurtSound(DamageSource damageSource) {
+        this.playSound(this.getHurtSound(damageSource), 1.0f, 1.4f);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.ENTITY_CAMEL_AMBIENT;
+    }
+
+    @Override
+    public void playAmbientSound() {
+        this.playSound(this.getAmbientSound(), 1.0f, 1.8f);
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundEvents.ENTITY_CAMEL_STEP, 0.7f, 1.8f);
     }
 
     @Override
