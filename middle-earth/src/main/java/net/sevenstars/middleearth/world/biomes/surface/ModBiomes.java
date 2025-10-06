@@ -3216,18 +3216,19 @@ public class ModBiomes {
             ModSpawnSettingsBuilder.addRareSnails(spawnSettings);
             ModBiomeFeatures.addAzureBluetFlower(vegetation);
             ModBiomeFeatures.addFlowerGreenJewel(vegetation);
-            ModBiomeFeatures.addRareBeechTrees(vegetation);
-            ModBiomeFeatures.addRareBirchTrees(vegetation);
             ModBiomeFeatures.addCommonTurfOre(vegetation);
+            ModBiomeFeatures.addRareOakTrees(vegetation);
+            ModBiomeFeatures.addClovers(vegetation);
+            ModBiomeFeatures.addWildFlowers(vegetation);
+            ModBiomeFeatures.addSparseGrass(vegetation);
+            ModBiomeFeatures.addWildGrass(vegetation);
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             if(step == 1) {
-                ModBiomeFeatures.addOakTrees(vegetation);
                 ModSpawnSettingsBuilder.addCats(spawnSettings);
                 ModBiomeFeatures.addYellowTrolliusPatch(vegetation);
             } else if(step == 0) {
                 ModSpawnSettingsBuilder.addCats(spawnSettings);
                 ModBiomeFeatures.addThistle(vegetation);
-                ModBiomeFeatures.addSparseGrass(vegetation);
                 ModBiomeFeatures.addHobbitSunflowers(vegetation);
                 ModBiomeFeatures.addBigleafHydrangeas(vegetation);
                 ModBiomeFeatures.addHogweeds(vegetation);
@@ -3240,9 +3241,6 @@ public class ModBiomes {
                 ModBiomeFeatures.addTurfOre(vegetation);
                 ModBiomeFeatures.addPackedMudOre(vegetation);
                 ModBiomeFeatures.addGraniteBoulder(vegetation);
-                ModBiomeFeatures.addSparsePineTrees(vegetation);
-                ModBiomeFeatures.addLarchTrees(vegetation);
-                ModBiomeFeatures.addOakTrees(vegetation);
                 ModBiomeFeatures.addCommonOakBush(vegetation);
                 ModBiomeFeatures.addWildFlax(vegetation);
             }
