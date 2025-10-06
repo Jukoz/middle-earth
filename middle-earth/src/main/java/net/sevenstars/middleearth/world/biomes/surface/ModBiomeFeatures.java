@@ -408,6 +408,10 @@ public class ModBiomeFeatures {
     public static void addCommonWillowTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.COMMON_WILLOW_PLACED_TREE_KEY);
     }
+
+    public static void addPaleOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.PALE_OAK_PLACED_TREE_KEY);
+    }
     
     // endregion TREES
 

@@ -1818,6 +1818,7 @@ public class ModBiomes {
 
         addLothlorienVegetation(generationSettings);
         ModBiomeFeatures.addMallornTrees(vegetation);
+        ModBiomeFeatures.addPaleOakTrees(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
@@ -1834,6 +1835,7 @@ public class ModBiomes {
         if(step == 0) { // Forest
             ModBiomeFeatures.addSmallMallornTress(vegetation);
             ModBiomeFeatures.addOakTrees(vegetation);
+            ModBiomeFeatures.addPaleOakTrees(vegetation);
             ModBiomeFeatures.addSparseBirchTrees(vegetation);
             ModBiomeFeatures.addMegaMallornTrees(vegetation);
             ModBiomeFeatures.addFallenMallornLeaves(vegetation);

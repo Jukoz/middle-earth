@@ -145,6 +145,9 @@ public class ModTreePlacedFeatures {
     public static final RegistryKey<PlacedFeature> WILLOW_PLACED_TREE_KEY = registerKey("willow_tree");
     public static final RegistryKey<PlacedFeature> COMMON_WILLOW_PLACED_TREE_KEY = registerKey("common_willow_tree");
 
+    public static final RegistryKey<PlacedFeature> PALE_OAK_PLACED_TREE_KEY = registerKey("pale_oak_tree");
+
+
     static PlacementModifier foothillsTree = PlacedFeatures.createCountExtraModifier(5, 0.5f, 1);
     static PlacementModifier abundantTree = PlacedFeatures.createCountExtraModifier(3, 0.5f, 1);
     static PlacementModifier frequentTree = PlacedFeatures.createCountExtraModifier(1, 0.5f, 1);
@@ -552,6 +555,10 @@ public class ModTreePlacedFeatures {
         register(context, COMMON_WILLOW_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WILLOW_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree,
                         ModNatureBlocks.WILLOW_SAPLING));
+
+        register(context, PALE_OAK_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatures.PALE_OAK),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
+                        Blocks.PALE_OAK_SAPLING));
     }
 
     public static RegistryKey<PlacedFeature> registerKey(String name) {
