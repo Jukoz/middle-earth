@@ -3506,10 +3506,12 @@ public class ModBiomes {
         addHaradVegetation(generationSettings);
         ModBiomeFeatures.addGraniteBoulder(vegetation);
         ModBiomeFeatures.addRareOakBushes(vegetation);
-
+        ModBiomeFeatures.addDryGrass(vegetation);
+        
         if(step == 0) {
             ModBiomeFeatures.addTallGrass(vegetation);
             ModBiomeFeatures.addSmallDryShrub(vegetation);
+            vegetation.add(VegetationPlacedFeatures.PATCH_MELON_SPARSE);
         } else if(step == 1) {
             ModBiomeFeatures.addWildFlax(vegetation);
             ModBiomeFeatures.addOakBushes(vegetation);
