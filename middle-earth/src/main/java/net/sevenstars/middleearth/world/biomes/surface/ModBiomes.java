@@ -1475,13 +1475,23 @@ public class ModBiomes {
         ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
-        //ModBiomeFeatures.addGrassStoneOre(vegetation);
-        ModBiomeFeatures.addAbundantTuffOre(vegetation);
         addArthedainVegetation(generationSettings);
+
+        ModBiomeFeatures.addAbundantTuffOre(vegetation);
+        ModBiomeFeatures.addGrassyDirtOre(vegetation);
+        ModBiomeFeatures.addRootedDirtOre(vegetation);
+        ModBiomeFeatures.addCoarseDirtOre(vegetation);
 
         ModBiomeFeatures.addCommonLarchTrees(vegetation);
         ModBiomeFeatures.addPineTrees(vegetation);
         ModBiomeFeatures.addSpruceTrees(vegetation);
+
+        ModBiomeFeatures.addGiantButterbur(vegetation);
+        ModBiomeFeatures.addBracken(vegetation);
+        ModBiomeFeatures.addFalseOatgrass(vegetation);
+        ModBiomeFeatures.addDryGrass(vegetation);
+        ModBiomeFeatures.addNettles(vegetation);
+        ModBiomeFeatures.addSweetBerriesRare(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
@@ -2807,6 +2817,7 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addArthedainVegetation(generationSettings);
+        ModBiomeFeatures.addHeather(vegetation);
 
         if(step == 0) { // Meadow
             ModBiomeFeatures.addBeesOakTrees(vegetation);
@@ -3877,7 +3888,6 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
         ModBiomeFeatures.addAthelas(vegetation);
         ModBiomeFeatures.addVeryRareDryGrass(vegetation);
-        ModBiomeFeatures.addHeather(vegetation);
         ModBiomeFeatures.addBushes(vegetation);
         ModBiomeFeatures.addCommonWheatGrass(vegetation);
         ModBiomeFeatures.addRareWilderGrass(vegetation);
