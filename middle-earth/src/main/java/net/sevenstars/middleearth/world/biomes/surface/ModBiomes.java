@@ -1866,10 +1866,7 @@ public class ModBiomes {
             ModBiomeFeatures.addSparseBirchTrees(vegetation);
             ModBiomeFeatures.addMegaMallornTrees(vegetation);
             ModBiomeFeatures.addFallenMallornLeaves(vegetation);
-            ModBiomeFeatures.addLorienPodzolOre(vegetation);
-            ModBiomeFeatures.addAbundantPodzolOre(vegetation);
             ModBiomeFeatures.addShriveledShrubs(vegetation);
-            ModBiomeFeatures.addDirtyRootsOre(vegetation);
         } else if(step == 1) { // Glade
             ModBiomeFeatures.addBeesOakTrees(vegetation);
             ModBiomeFeatures.addYellowFlowers(vegetation);
@@ -3969,7 +3966,11 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
         ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addRootedDirtOre(vegetation);
         ModBiomeFeatures.addDryDirtOre(vegetation);
+        ModBiomeFeatures.addLorienPodzolOre(vegetation);
+        ModBiomeFeatures.addAbundantPodzolOre(vegetation);
+        ModBiomeFeatures.addDirtyRootsOre(vegetation);
         ModBiomeFeatures.addGalonnBoulder(vegetation);
         ModBiomeFeatures.addTuftGrass(vegetation);
         ModBiomeFeatures.addBigleafHydrangeas(vegetation);
@@ -3977,6 +3978,7 @@ public class ModBiomes {
         ModBiomeFeatures.addRareWilderGrass(vegetation);
         ModBiomeFeatures.addMallornBushes(vegetation);
         ModBiomeFeatures.addOakBushes(vegetation);
+        ModBiomeFeatures.addBushes(vegetation);
         ModBiomeFeatures.addElanor(vegetation);
         ModBiomeFeatures.addNiphredil(vegetation);
         ModBiomeFeatures.addYellowFlower(vegetation);
