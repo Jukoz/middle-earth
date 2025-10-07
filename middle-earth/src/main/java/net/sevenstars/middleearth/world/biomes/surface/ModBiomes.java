@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.world.biomes.surface;
 
+import net.minecraft.world.biome.*;
+import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.world.biomes.BiomeColorsDTO;
 import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
 import net.sevenstars.middleearth.world.features.boulder.BoulderPlacedFeatures;
@@ -9,10 +11,6 @@ import net.sevenstars.middleearth.world.spawners.ModSpawnSettingsBuilder;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeEffects;
-import net.minecraft.world.biome.GenerationSettings;
-import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
 
@@ -358,10 +356,31 @@ public class ModBiomes {
 
         ModBiomeFeatures.addDisks(undergroundOres);
         ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addGrassyDirtOre(vegetation);
+        ModBiomeFeatures.addTurfOre(vegetation);
+
+        ModBiomeFeatures.addPaleOakTrees(vegetation);
 
         ModBiomeFeatures.addGrass(vegetation);
+        ModBiomeFeatures.addMeadowGrass(vegetation);
+        ModBiomeFeatures.addTallGrass(vegetation);
+        ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addSparseGrass(vegetation);
+        ModBiomeFeatures.addShriveledShrubs(vegetation);
+        ModBiomeFeatures.addBushes(vegetation);
+        ModBiomeFeatures.addTuftGrass(vegetation);
+        ModBiomeFeatures.addNettles(vegetation);
+        ModBiomeFeatures.addThistle(vegetation);
+        ModBiomeFeatures.addDyingGrass(vegetation);
+        ModBiomeFeatures.addGreenShrub(vegetation);
+        ModBiomeFeatures.addSmallDryShrub(vegetation);
+        ModBiomeFeatures.addFireflyBushes(vegetation);
+        ModBiomeFeatures.addBracken(vegetation);
+        vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
+        ModBiomeFeatures.addVeryRareDryGrass(vegetation);
+        vegetation.add(VegetationPlacedFeatures.PALE_MOSS_PATCH);
 
-        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, new BiomeParticleConfig(ModParticleTypes.BIOME_FOG_PARTICLE, 0.003f), 0.5f, true);
     }
 
     public static void createBeleriandIslandBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
@@ -1818,7 +1837,6 @@ public class ModBiomes {
 
         addLothlorienVegetation(generationSettings);
         ModBiomeFeatures.addMallornTrees(vegetation);
-        ModBiomeFeatures.addPaleOakTrees(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
@@ -1835,7 +1853,6 @@ public class ModBiomes {
         if(step == 0) { // Forest
             ModBiomeFeatures.addSmallMallornTress(vegetation);
             ModBiomeFeatures.addOakTrees(vegetation);
-            ModBiomeFeatures.addPaleOakTrees(vegetation);
             ModBiomeFeatures.addSparseBirchTrees(vegetation);
             ModBiomeFeatures.addMegaMallornTrees(vegetation);
             ModBiomeFeatures.addFallenMallornLeaves(vegetation);
@@ -3507,7 +3524,7 @@ public class ModBiomes {
         ModBiomeFeatures.addGraniteBoulder(vegetation);
         ModBiomeFeatures.addRareOakBushes(vegetation);
         ModBiomeFeatures.addDryGrass(vegetation);
-        
+
         if(step == 0) {
             ModBiomeFeatures.addTallGrass(vegetation);
             ModBiomeFeatures.addSmallDryShrub(vegetation);
@@ -3520,6 +3537,7 @@ public class ModBiomes {
             ModBiomeFeatures.addRareBirchTrees(vegetation);
             ModBiomeFeatures.addOakTrees(vegetation);
             ModBiomeFeatures.addCommonOakTrees(vegetation);
+            vegetation.add(VegetationPlacedFeatures.TREES_SPARSE_JUNGLE);
             ModBiomeFeatures.addBamboo(vegetation);
         }
 
@@ -4171,6 +4189,66 @@ public class ModBiomes {
                         .waterFogColor(biomeColorsDTO.waterFogColor)
                         .grassColor(biomeColorsDTO.grassColor)
                         .foliageColor(biomeColorsDTO.foliageColor)
+                        .build())
+                .spawnSettings(spawnSettings.build())
+                .generationSettings(generationSettings.build())
+                .build();
+        context.register(biomeRegistryKey, biome);
+
+        surfaceStructures = new ArrayList<>();
+        vegetation = new ArrayList<>();
+        undergroundOres = new ArrayList<>();
+    }
+
+    public static void registerBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, SpawnSettings.Builder spawnSettings, GenerationSettings.LookupBackedBuilder generationSettings, BiomeParticleConfig particleConfig, float temperature, boolean precipitation, boolean... removeDefaultOres) {
+        if(removeDefaultOres.length == 0) {
+            undergroundOres.add(OrePlacedFeatures.ORE_DIRT);
+            undergroundOres.add(OrePlacedFeatures.ORE_GRAVEL);
+            undergroundOres.add(OrePlacedFeatures.ORE_GRANITE_UPPER);
+            undergroundOres.add(OrePlacedFeatures.ORE_GRANITE_LOWER);
+            undergroundOres.add(OrePlacedFeatures.ORE_DIORITE_UPPER);
+            undergroundOres.add(OrePlacedFeatures.ORE_DIORITE_LOWER);
+            undergroundOres.add(OrePlacedFeatures.ORE_ANDESITE_UPPER);
+            undergroundOres.add(OrePlacedFeatures.ORE_ANDESITE_LOWER);
+            undergroundOres.add(OrePlacedFeatures.ORE_TUFF);
+        }
+
+        undergroundOres.add(OrePlacedFeatures.ORE_COAL_UPPER);
+        vegetation.add(UndergroundPlacedFeatures.GLOW_LICHEN);
+
+        DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
+
+        surfaceStructures = surfaceStructures.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();
+        vegetation = vegetation.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();
+        for(int i = 0; i < vegetation.size() - 1; i++) {
+            if(vegetation.get(i).getValue().toString().equals(vegetation.get(i + 1).getValue().toString())) {
+                throw new IllegalStateException("Duplicate value in list for: " + vegetation.get(i).getValue().toString());
+            }
+        }
+        for (RegistryKey<PlacedFeature> feature: surfaceStructures) {
+            generationSettings.feature(GenerationStep.Feature.SURFACE_STRUCTURES, feature);
+        }
+        for (RegistryKey<PlacedFeature> feature: vegetation) {
+            generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, feature);
+        }
+        for (RegistryKey<PlacedFeature> feature: undergroundOres.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList()) {
+            generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, feature);
+        }
+
+        BiomeColorsDTO biomeColorsDTO = MapBiomeData.getBiome(biomeRegistryKey).getBiomeColors();
+
+        Biome biome = (new Biome.Builder())
+                .precipitation(precipitation)
+                .temperature(temperature)
+                .downfall(0.5F)
+                .effects((new BiomeEffects.Builder())
+                        .skyColor(biomeColorsDTO.skyColor)
+                        .fogColor(biomeColorsDTO.fogColor)
+                        .waterColor(biomeColorsDTO.waterColor)
+                        .waterFogColor(biomeColorsDTO.waterFogColor)
+                        .grassColor(biomeColorsDTO.grassColor)
+                        .foliageColor(biomeColorsDTO.foliageColor)
+                        .particleConfig(particleConfig)
                         .build())
                 .spawnSettings(spawnSettings.build())
                 .generationSettings(generationSettings.build())

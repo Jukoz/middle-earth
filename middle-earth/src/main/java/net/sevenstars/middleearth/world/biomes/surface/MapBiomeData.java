@@ -58,7 +58,7 @@ public class MapBiomeData {
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
         // BARROW_DOWNS
         addBiome(new BiomeData(MEBiomeKeys.BARROW_DOWNS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(5993621, 7635851, 4812936, 3034721, 6721389, 6525545)));
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8628873, 7772283)));
         // BELERIAND
         addBiome(new BiomeData(MEBiomeKeys.BELERIAND_ISLAND, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, 12637429, defaultOceanWater, defaultOceanWaterFog, 6466659, 5740626)));

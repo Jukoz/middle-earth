@@ -557,7 +557,7 @@ public class ModTreePlacedFeatures {
                         ModNatureBlocks.WILLOW_SAPLING));
 
         register(context, PALE_OAK_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatures.PALE_OAK),
-                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaRareTree,
                         Blocks.PALE_OAK_SAPLING));
     }
 
