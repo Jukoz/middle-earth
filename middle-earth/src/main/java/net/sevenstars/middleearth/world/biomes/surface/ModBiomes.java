@@ -1794,6 +1794,7 @@ public class ModBiomes {
             vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             ModBiomeFeatures.addCoarseDirtOre(vegetation);
+            ModBiomeFeatures.addRootedDirtOre(vegetation);
             ModBiomeFeatures.addNettles(vegetation);
             ModBiomeFeatures.addWildPotato(vegetation);
             ModBiomeFeatures.addWildOnion(vegetation);
@@ -1814,6 +1815,7 @@ public class ModBiomes {
             ModBiomeFeatures.addCommonOakTrees(vegetation);
             ModBiomeFeatures.addMegaBirchTrees(vegetation);
             ModBiomeFeatures.addRareMegaOakTrees(vegetation);
+            vegetation.add(VegetationPlacedFeatures.PATCH_LEAF_LITTER);
         } else if(step == 4) { // Hidden Blossom
             ModBiomeFeatures.addWildFlowers(vegetation);
             ModBiomeFeatures.addWildGrass(vegetation);
@@ -1823,6 +1825,8 @@ public class ModBiomes {
             ModBiomeFeatures.addCherryBlossomTrees(vegetation);
             ModBiomeFeatures.addPinkFlowers(vegetation);
             ModBiomeFeatures.addWhiteFlowers(vegetation);
+            vegetation.add(VegetationPlacedFeatures.PATCH_LEAF_LITTER);
+            vegetation.add(TreePlacedFeatures.FALLEN_BIRCH_TREE);
             vegetation.add(VegetationPlacedFeatures.FLOWER_CHERRY);
             vegetation.add(VegetationPlacedFeatures.TREES_CHERRY);
         } else if(step == 5) { // Meadow
