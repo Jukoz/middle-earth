@@ -798,12 +798,24 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addNordicVegetation(generationSettings);
-        ModBiomeFeatures.addCoarseDirtOre(vegetation);
-        ModBiomeFeatures.addDolomiteOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
-        ModBiomeFeatures.addPodzolOre(vegetation);
+        ModBiomeFeatures.addCoarseLoamOre(vegetation);
+        ModBiomeFeatures.addGrassyLoamOre(vegetation);
+
+        ModBiomeFeatures.addGabbroBoulder(vegetation);
+        ModBiomeFeatures.addDolomiteBoulder(vegetation);
+
+        ModBiomeFeatures.addBushes(vegetation);
+        ModBiomeFeatures.addSmallDryShrub(vegetation);
+        ModBiomeFeatures.addGreenShrub(vegetation);
+        ModBiomeFeatures.addShriveledShrubs(vegetation);
+        vegetation.add(VegetationPlacedFeatures.PATCH_DEAD_BUSH);
+
+        ModBiomeFeatures.addOakBushes(vegetation);
+        ModBiomeFeatures.addSpruceBushes(vegetation);
         ModBiomeFeatures.addGrassToStoneOre(vegetation);
         ModBiomeFeatures.addTuffOre(vegetation);
+
         ModBiomeFeatures.addLarchTrees(vegetation);
         ModBiomeFeatures.addPineTrees(vegetation);
         ModBiomeFeatures.addFirTrees(vegetation);
@@ -811,7 +823,9 @@ public class ModBiomes {
         ModBiomeFeatures.addBlackPineTrees(vegetation);
         ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
         ModBiomeFeatures.addSpruceTrees(vegetation);
+        ModBiomeFeatures.addWhiteSpruceTrees(vegetation);
         ModBiomeFeatures.addCommonSpruceBushes(vegetation);
+        ModBiomeFeatures.addCommonWhiteSpruceBushes(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
@@ -2546,17 +2560,29 @@ public class ModBiomes {
 
         addNordicVegetation(generationSettings);
         ModBiomeFeatures.addGravelOre(vegetation);
-        ModBiomeFeatures.addAndesiteBoulder(vegetation);
+        ModBiomeFeatures.addCoarseLoamOre(vegetation);
+        ModBiomeFeatures.addGrassyLoamOre(vegetation);
+        ModBiomeFeatures.addTurfOre(vegetation);
+
+        ModBiomeFeatures.addGabbroBoulder(vegetation);
         ModBiomeFeatures.addDolomiteBoulder(vegetation);
-        ModBiomeFeatures.addCoarseDirtOre(vegetation);
+
+        ModBiomeFeatures.addBushes(vegetation);
+        ModBiomeFeatures.addSmallDryShrub(vegetation);
+        ModBiomeFeatures.addGreenShrub(vegetation);
+        ModBiomeFeatures.addShriveledShrubs(vegetation);
+        vegetation.add(VegetationPlacedFeatures.PATCH_DEAD_BUSH);
+
         ModBiomeFeatures.addOakBushes(vegetation);
         ModBiomeFeatures.addSpruceBushes(vegetation);
 
-        if(step == 0) {
+        if(step == 0) { //Forest
             ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
             ModSpawnSettingsBuilder.addDeer(spawnSettings);
             ModBiomeFeatures.addNettles(vegetation);
+            ModBiomeFeatures.addRootedDirtOre(vegetation);
             ModBiomeFeatures.addFalseOatgrass(vegetation);
+            ModBiomeFeatures.addGiantButterbur(vegetation);
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addCommonBeechTrees(vegetation);
             ModBiomeFeatures.addLarchTrees(vegetation);
@@ -2567,7 +2593,7 @@ public class ModBiomes {
             ModBiomeFeatures.addBlackPineTrees(vegetation);
             ModBiomeFeatures.addSpruceTrees(vegetation);
             ModBiomeFeatures.addRareSpruceTrees(vegetation);
-        } else if (step == 1) {
+        } else if (step == 1) { // Glade
             ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
             ModSpawnSettingsBuilder.addDeer(spawnSettings);
             ModBiomeFeatures.addFalseOatgrass(vegetation);
@@ -2580,7 +2606,7 @@ public class ModBiomes {
             ModBiomeFeatures.addFlowerGreenJewel(vegetation);
             ModBiomeFeatures.addSparsePineTrees(vegetation);
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
-        } else if (step == 2){
+        } else if (step == 2){ //Druwaith Iaur :gnuh:
             ModBiomeFeatures.addLarchTrees(vegetation);
             ModBiomeFeatures.addSparsePineTrees(vegetation);
             ModBiomeFeatures.addRareSpruceTrees(vegetation);

@@ -208,6 +208,11 @@ public class MEBiomeDataConfigs {
             .addSlopeData(52, Blocks.DIORITE)
             .addSlopeData(MAX_ANGLE, Blocks.CALCITE);
 
+    public static SlopeMap dunland = new SlopeMap()
+            .addSlopeData(25, ModBlocks.LOAM_GRASS_BLOCK)
+            .addSlopeData(36, ModBlocks.COARSE_LOAM)
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.GABBRO_SET.baseBlocks.base());
+
     public static SlopeMap chalkPlains = new SlopeMap()
             .addSlopeData(21, ModBlocks.CHALKSOIL_GRASS_BLOCK)
             .addSlopeData(24, ModBlocks.COARSE_CHALKSOIL)
