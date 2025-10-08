@@ -109,21 +109,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     @Override
-    protected void writeCustomData(WriteView view) {
-        super.writeCustomData(view);
-        //this.writeEntityData(view);
-    }
-
-    @Override
     public void readData(ReadView view) {
         super.readData(view);
         this.readEntityData(view);
-    }
-
-    @Override
-    protected void readCustomData(ReadView view) {
-        super.readCustomData(view);
-        //this.readEntityData(view);
     }
 
     private void writeEntityData(WriteView view){

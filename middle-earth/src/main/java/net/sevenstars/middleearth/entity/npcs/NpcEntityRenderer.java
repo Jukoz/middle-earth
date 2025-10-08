@@ -1,7 +1,5 @@
 package net.sevenstars.middleearth.entity.npcs;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -37,8 +35,7 @@ import net.sevenstars.middleearth.entity.npcs.features.ear.EarFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseFeatureRenderer;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexture;
-import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
+import net.sevenstars.middleearth.resources.AtlasesME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import org.jetbrains.annotations.Nullable;
 
@@ -62,10 +59,10 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         this.addFeature(new NoseFeatureRenderer(this, context.getEntityModels()));
 
         MinecraftClient client = MinecraftClient.getInstance();
-        skinAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
-        eyeAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_EYE_TEXTURES_ATLAS_TEXTURE);
-        hairAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_HAIR_TEXTURES_ATLAS_TEXTURE);
-        clothingAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_CLOTHING_TEXTURES_ATLAS_TEXTURE);
+        skinAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE);
+        eyeAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.CHARACTER_EYES_ATLAS_TEXTURE);
+        hairAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.CHARACTER_HAIRS_ATLAS_TEXTURE);
+        clothingAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.CHARACTER_CLOTHINGS_ATLAS_TEXTURE);
 
         this.shadowRadius = 0.5f;
     }
@@ -169,42 +166,42 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         int overlay = state.hurt ? getOverlay(state, this.getAnimationCounter(state)) : OverlayTexture.DEFAULT_UV;
 
         // Will always be shown
-        renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer(),
-            state.skinId.withPrefixedPath("npc_skin_textures/"), light, overlay, color);
+        renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getCharacterSkinsRenderLayer(),
+            AtlasesME.prefixAtlas(state.skinId, AtlasesME.CHARACTER_SKINS), light, overlay, color);
 
-        renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer(),
-                state.headId.withPrefixedPath("npc_skin_textures/"), light, overlay, color);
+        renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getCharacterSkinsRenderLayer(),
+            AtlasesME.prefixAtlas(state.headId, AtlasesME.CHARACTER_SKINS), light, overlay, color);
 
         if(!state.blinking){
-            renderPart(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getNpcEyeTexturesRenderLayer(false),
-                    state.eyesId.withPrefixedPath("npc_eye_textures/"), light, overlay, color);
+            renderPart(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getCharacterEyesTexturesRenderLayer(false),
+                AtlasesME.prefixAtlas(state.eyesId, AtlasesME.CHARACTER_EYES), light, overlay, color);
 
             if(state.haveEmissiveEyes){
-                renderPart(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getNpcEyeTexturesRenderLayer(true),
-                        state.eyesEmissiveId.withPrefixedPath("npc_eye_textures/"), light, overlay, color);
+                renderPart(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getCharacterEyesTexturesRenderLayer(true),
+                    AtlasesME.prefixAtlas(state.eyesEmissiveId, AtlasesME.CHARACTER_EYES), light, overlay, color);
             }
         }
         // Optionally shown, only if the value is present
         if(state.eyebrowId != null){
-            renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getNpcHairTexturesRenderLayer(),
-                    state.eyebrowId.withPrefixedPath("npc_hair_textures/"), light, overlay, color);
+            renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getCharacterHairsRenderLayer(),
+                AtlasesME.prefixAtlas(state.eyebrowId, AtlasesME.CHARACTER_HAIRS), light, overlay, color);
         }
 
         if(state.scarId != null){
-            renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer(),
-                    state.scarId.withPrefixedPath("npc_skin_textures/"), light, overlay, color);
+            renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getCharacterSkinsRenderLayer(),
+                    AtlasesME.prefixAtlas(state.scarId, AtlasesME.CHARACTER_SKINS), light, overlay, color);
         }
         if(state.beardId != null){
-            renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getNpcHairTexturesRenderLayer(),
-                    state.beardId.withPrefixedPath("npc_hair_textures/"), light, overlay, color);
+            renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getCharacterHairsRenderLayer(),
+                AtlasesME.prefixAtlas(state.beardId, AtlasesME.CHARACTER_HAIRS), light, overlay, color);
         }
         if(state.hairId != null){
-            renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getNpcHairTexturesRenderLayer(),
-                    state.hairId.withPrefixedPath("npc_hair_textures/"), light, overlay, color);
+            renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getCharacterHairsRenderLayer(),
+                AtlasesME.prefixAtlas(state.hairId, AtlasesME.CHARACTER_HAIRS), light, overlay, color);
         }
         if(state.clothingId != null){
-            renderPart(matrices, vertexConsumers, clothingAtlasTexture, ModTexturedRenderLayers.getNpcClothingTexturesRenderLayer(),
-                    state.clothingId.withPrefixedPath("npc_clothing_textures/"), light, overlay, color);
+            renderPart(matrices, vertexConsumers, clothingAtlasTexture, ModTexturedRenderLayers.getCharacterClothingsRenderLayer(),
+                AtlasesME.prefixAtlas(state.clothingId, AtlasesME.CHARACTER_CLOTHINGS), light, overlay, color);
         }
 
         if (this.shouldRenderFeatures(state)) {
@@ -254,32 +251,6 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         return null;
     }
 
-    @Environment(EnvType.CLIENT)
-    static record NpcTextureKeys(NpcTexture npcTexture, NpcTextureType type) {
-        NpcTextureKeys(NpcTexture npcTexture, NpcTextureType type) {
-            this.npcTexture = npcTexture;
-            this.type = type;
-        }
-
-        public Identifier getTexture() {
-            Identifier patternIdentifier = (this.npcTexture.pattern().value()).getIdentifier();
-            String assetName = ((this.npcTexture.material().value())).getIdentifier().getPath();
-            return patternIdentifier.withPath((path) -> {
-                //return "npc_skin_textures/entity/" + this.type.asString() + "/" + path + "_" + string;
-                return "npc_skin_textures/" + path + "_" + assetName;
-            });
-        }
-
-        public NpcTexture npcTexture() {
-            return this.npcTexture;
-        }
-
-        public NpcTextureType type() {
-            return this.type;
-        }
-    }
-
-
     private BipedEntityModel.ArmPose getArmPose(NpcEntity npc, ItemStack stack, Hand hand) {
         if (stack.isEmpty()) {
             return BipedEntityModel.ArmPose.EMPTY;
@@ -287,11 +258,11 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         if (!npc.handSwinging && stack.isOf(Items.CROSSBOW) && CrossbowItem.isCharged(stack)) {
             return BipedEntityModel.ArmPose.CROSSBOW_HOLD;
         }
-/*
+        /*
         if ( stack.getUseAction() == UseAction.BLOCK || npc.isBlocking() && hand == Hand.OFF_HAND) {
             return BipedEntityModel.ArmPose.BLOCK;
         }
- */
+         */
         if (npc.getActiveHand() == hand && npc.getItemUseTimeLeft() > 0) {
             UseAction useAction = stack.getUseAction();
             if (useAction == UseAction.BLOCK || npc.isBlocking()) {

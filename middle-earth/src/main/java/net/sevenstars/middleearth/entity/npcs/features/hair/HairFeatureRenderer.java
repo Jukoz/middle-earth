@@ -21,6 +21,7 @@ import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderer;
+import net.sevenstars.middleearth.resources.AtlasesME;
 
 
 @Environment(EnvType.CLIENT)
@@ -32,7 +33,7 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
         super(context);
         this.hairModel = new HairModel(loader.getModelPart(ModEntityModelLayers.NPC_ENTITY_HAIR));
         MinecraftClient client = MinecraftClient.getInstance();
-        hairAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_HAIR_TEXTURES_ATLAS_TEXTURE);
+        hairAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.CHARACTER_HAIRS_ATLAS_TEXTURE);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
         entityModel.setAngles(state);
 
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterHairsRenderLayer());
 
         boolean bl = state.invisible;
         boolean bl2 = !bl && !state.invisibleToPlayer;
@@ -65,11 +66,11 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
         if(hairAddonTextureId != null && state.canShowHair){
-            Sprite sprite = hairAtlasTexture.getSprite(state.hairAddonId.withPrefixedPath("npc_hair_textures/"));
+            Sprite sprite = hairAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.hairAddonId, AtlasesME.CHARACTER_HAIRS));
             renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
         }
         if(beardAddonTextureId != null && state.canShowBeard){
-            Sprite sprite = hairAtlasTexture.getSprite(state.beardAddonId.withPrefixedPath("npc_hair_textures/"));
+            Sprite sprite = hairAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.beardAddonId, AtlasesME.CHARACTER_HAIRS));
             renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
         }
     }

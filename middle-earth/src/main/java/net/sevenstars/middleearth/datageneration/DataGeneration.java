@@ -82,17 +82,17 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, CavesPlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModMiscPlacedFeatures::bootstrap);
 
-        registryBuilder.addRegistry(NpcTextureMaterialsME.Keys.SKIN_KEY, NpcTextureMaterialsME::bootstrapSkins);
-        registryBuilder.addRegistry(NpcTexturePatternsME.Keys.SKIN_KEY, NpcTexturePatternsME::bootstrapSkins);
+        registryBuilder.addRegistry(CharacterMaterialsME.Keys.SKIN_KEY, CharacterMaterialsME::bootstrapSkins);
+        registryBuilder.addRegistry(CharacterPatternsME.Keys.SKIN_KEY, CharacterPatternsME::bootstrapSkins);
 
-        registryBuilder.addRegistry(NpcTextureMaterialsME.Keys.HAIR_KEY, NpcTextureMaterialsME::bootstrapHairs);
-        registryBuilder.addRegistry(NpcTexturePatternsME.Keys.HAIR_KEY, NpcTexturePatternsME::bootstrapHairs);
+        registryBuilder.addRegistry(CharacterMaterialsME.Keys.HAIR_KEY, CharacterMaterialsME::bootstrapHairs);
+        registryBuilder.addRegistry(CharacterPatternsME.Keys.HAIR_KEY, CharacterPatternsME::bootstrapHairs);
 
-        registryBuilder.addRegistry(NpcTextureMaterialsME.Keys.CLOTHING_KEY, NpcTextureMaterialsME::bootstrapClothings);
-        registryBuilder.addRegistry(NpcTexturePatternsME.Keys.CLOTHING_KEY, NpcTexturePatternsME::bootstrapClothings);
+        registryBuilder.addRegistry(CharacterMaterialsME.Keys.CLOTHING_KEY, CharacterMaterialsME::bootstrapClothings);
+        registryBuilder.addRegistry(CharacterPatternsME.Keys.CLOTHING_KEY, CharacterPatternsME::bootstrapClothings);
 
-        registryBuilder.addRegistry(NpcTextureMaterialsME.Keys.EYE_KEY, NpcTextureMaterialsME::bootstrapEyes);
-        registryBuilder.addRegistry(NpcTexturePatternsME.Keys.EYE_KEY, NpcTexturePatternsME::bootstrapEyes);
+        registryBuilder.addRegistry(CharacterMaterialsME.Keys.EYE_KEY, CharacterMaterialsME::bootstrapEyes);
+        registryBuilder.addRegistry(CharacterPatternsME.Keys.EYE_KEY, CharacterPatternsME::bootstrapEyes);
 
         // Mod Dynamic
         registryBuilder.addRegistry(SpiderVariants.KEY, SpiderVariants::bootstrap);

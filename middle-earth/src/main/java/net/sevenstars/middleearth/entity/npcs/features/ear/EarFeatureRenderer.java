@@ -20,6 +20,7 @@ import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderer;
+import net.sevenstars.middleearth.resources.AtlasesME;
 
 @Environment(EnvType.CLIENT)
 public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
@@ -31,7 +32,7 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
         this.earModel = new EarModel(loader.getModelPart(ModEntityModelLayers.NPC_ENTITY_EAR));
         MinecraftClient client = MinecraftClient.getInstance();
 
-        skinAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
+        skinAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
         if(!state.canShowEars)
             return;
 
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcSkinTexturesRenderLayer());
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterSkinsRenderLayer());
 
         boolean bl = state.invisible;
         boolean bl2 = !bl && !state.invisibleToPlayer;
@@ -49,7 +50,7 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
         int color = ColorHelper.mix(k, this.getMixColor(state));
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
-        Sprite sprite = skinAtlasTexture.getSprite(state.earId.withPrefixedPath("npc_skin_textures/"));
+        Sprite sprite = skinAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.earId, AtlasesME.CHARACTER_SKINS));
         renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
     }
     protected int getMixColor(NpcEntityRenderState state) {

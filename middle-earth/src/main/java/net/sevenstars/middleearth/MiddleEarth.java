@@ -101,8 +101,8 @@ public class MiddleEarth implements ModInitializer {
 
 		ModTrackedDataHandlerRegistry.register();
 
-		NpcTextureMaterialsME.register();
-		NpcTexturePatternsME.register();
+		CharacterMaterialsME.register();
+		CharacterPatternsME.register();
 		StructureManagerDatasME.register();
 		BiomeEventsME.register();
 

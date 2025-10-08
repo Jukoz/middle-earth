@@ -54,52 +54,52 @@ public class DalishNpcDataPool {
         NpcTextureDataPreset BASE_MALE_DALE_TEXTURE_PRESET = NpcTextureDataPool.HUMAN_MALE.copy()
                 .clearMaterials(NpcTextureType.SKIN)
                 .withMaterials(NpcTextureType.SKIN, List.of(
-                        NpcTextureMaterialsME.Skin.PALE,
-                        NpcTextureMaterialsME.Skin.BEIGE
+                        CharacterMaterialsME.Skin.PALE,
+                        CharacterMaterialsME.Skin.BEIGE
                 ))
                 .clearMaterials(NpcTextureType.HAIR)
                 .withMaterials(NpcTextureType.HAIR, List.of(
-                        NpcTextureMaterialsME.Hair.COLD_BLACK_COPPER,
-                        NpcTextureMaterialsME.Hair.BLACK_COPPER,
-                        NpcTextureMaterialsME.Hair.DARK_BROWN_COPPER,
-                        NpcTextureMaterialsME.Hair.DARK_BROWN_BEADS,
-                        NpcTextureMaterialsME.Hair.GREASY_BEADS,
-                        NpcTextureMaterialsME.Hair.GREASY_COPPER,
-                        NpcTextureMaterialsME.Hair.BROWN_COPPER,
-                        NpcTextureMaterialsME.Hair.BROWN_BEADS,
-                        NpcTextureMaterialsME.Hair.GRAY_BEADS,
-                        NpcTextureMaterialsME.Hair.GRAY_COPPER,
-                        NpcTextureMaterialsME.Hair.WHITE_COPPER,
-                        NpcTextureMaterialsME.Hair.WHITE_BEADS
+                        CharacterMaterialsME.Hair.COLD_BLACK_COPPER,
+                        CharacterMaterialsME.Hair.BLACK_COPPER,
+                        CharacterMaterialsME.Hair.DARK_BROWN_COPPER,
+                        CharacterMaterialsME.Hair.DARK_BROWN_BEADS,
+                        CharacterMaterialsME.Hair.GREASY_BEADS,
+                        CharacterMaterialsME.Hair.GREASY_COPPER,
+                        CharacterMaterialsME.Hair.BROWN_COPPER,
+                        CharacterMaterialsME.Hair.BROWN_BEADS,
+                        CharacterMaterialsME.Hair.GRAY_BEADS,
+                        CharacterMaterialsME.Hair.GRAY_COPPER,
+                        CharacterMaterialsME.Hair.WHITE_COPPER,
+                        CharacterMaterialsME.Hair.WHITE_BEADS
                 ))
                 .clearPatterns(NpcTextureType.HAIR)
                 .withPatterns(NpcTextureType.HAIR, List.of(
-                        NpcTexturePatternsME.Hairs.Hair.BOWL,
-                        NpcTexturePatternsME.Hairs.Hair.SHORT,
-                        NpcTexturePatternsME.Hairs.Hair.SHARP,
-                        NpcTexturePatternsME.Hairs.Hair.BALD_SIDES,
-                        NpcTexturePatternsME.Hairs.Hair.UNCUT,
-                        NpcTexturePatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED
+                        CharacterPatternsME.Hairs.Hair.BOWL,
+                        CharacterPatternsME.Hairs.Hair.SHORT,
+                        CharacterPatternsME.Hairs.Hair.SHARP,
+                        CharacterPatternsME.Hairs.Hair.BALD_SIDES,
+                        CharacterPatternsME.Hairs.Hair.UNCUT,
+                        CharacterPatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED
                 ))
                 .clearPatterns(NpcTextureType.BEARD)
                 .withPatterns(NpcTextureType.BEARD, Stream.of(
                         null,
-                        NpcTexturePatternsME.Hairs.Beard.SHORT,
-                        NpcTexturePatternsME.Hairs.Beard.SINGLE,
-                        NpcTexturePatternsME.Hairs.Beard.SEMI_LONG
+                        CharacterPatternsME.Hairs.Beard.SHORT,
+                        CharacterPatternsME.Hairs.Beard.SINGLE,
+                        CharacterPatternsME.Hairs.Beard.SEMI_LONG
                 ).toList())
                 .clearPatterns(NpcTextureType.CLOTHING)
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        NpcTexturePatternsME.Clothing.PANTS
+                        CharacterPatternsME.Clothing.PANTS
                 ));
 
         NpcTextureDataPreset BASE_FEMALE_DALE_TEXTURE_PRESET = BASE_MALE_DALE_TEXTURE_PRESET.copy()
                 .clearPatterns(NpcTextureType.HAIR)
                 .clearPatterns(NpcTextureType.BEARD)
                 .withPatterns(NpcTextureType.HAIR, List.of(
-                        NpcTexturePatternsME.Hairs.Hair.LONG,
-                        NpcTexturePatternsME.Hairs.Hair.FLAT_LONG,
-                        NpcTexturePatternsME.Hairs.Hair.SEMI_LONG
+                        CharacterPatternsME.Hairs.Hair.LONG,
+                        CharacterPatternsME.Hairs.Hair.FLAT_LONG,
+                        CharacterPatternsME.Hairs.Hair.SEMI_LONG
                 ));
 
         DALE_CITIZEN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("citizen")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
