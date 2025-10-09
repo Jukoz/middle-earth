@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.entity.npcs.features.ear;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -30,9 +29,7 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
     public EarFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
         this.earModel = new EarModel(loader.getModelPart(ModEntityModelLayers.NPC_ENTITY_EAR));
-        MinecraftClient client = MinecraftClient.getInstance();
-
-        skinAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE);
+        skinAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE);
     }
 
     @Override

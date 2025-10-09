@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.entity.npcs;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -58,11 +57,10 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         this.addFeature(new EarFeatureRenderer(this, context.getEntityModels()));
         this.addFeature(new NoseFeatureRenderer(this, context.getEntityModels()));
 
-        MinecraftClient client = MinecraftClient.getInstance();
-        skinAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE);
-        eyeAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.CHARACTER_EYES_ATLAS_TEXTURE);
-        hairAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.CHARACTER_HAIRS_ATLAS_TEXTURE);
-        clothingAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.CHARACTER_CLOTHINGS_ATLAS_TEXTURE);
+        skinAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE);
+        eyeAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_EYES_ATLAS_TEXTURE);
+        hairAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_HAIRS_ATLAS_TEXTURE);
+        clothingAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_CLOTHINGS_ATLAS_TEXTURE);
 
         this.shadowRadius = 0.5f;
     }

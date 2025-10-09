@@ -1,5 +1,9 @@
 package net.sevenstars.middleearth.resources;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
@@ -19,5 +23,11 @@ public class AtlasesME {
 
     public static Identifier getAtlasPath(Identifier atlasIdentifier) {
         return Identifier.of(MiddleEarth.MOD_ID, String.format("textures/atlas/%s.png", atlasIdentifier.getPath()));
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static SpriteAtlasTexture getAtlasFromPath(Identifier atlasPath){
+        MinecraftClient client = MinecraftClient.getInstance();
+        return client.getBakedModelManager().getAtlas(atlasPath);
     }
 }
