@@ -897,6 +897,12 @@ public class ModBiomeFeatures {
     public static void addSedum(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SEDUM);
     }
+    public static void addSedumOrange(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SEDUM_ORANGE);
+    }
+    public static void addSedumRed(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SEDUM_RED);
+    }
     public static void addSedumYellow(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SEDUM_YELLOW);
     }
@@ -1156,6 +1162,9 @@ public class ModBiomeFeatures {
     }
     public static void addCoarseLoamOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.COARSE_LOAM_ORE);
+    }
+    public static void addCoarsePeatOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.COARSE_PEAT_ORE);
     }
     public static void addCoarseSiltOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.COARSE_SILT_ORE);

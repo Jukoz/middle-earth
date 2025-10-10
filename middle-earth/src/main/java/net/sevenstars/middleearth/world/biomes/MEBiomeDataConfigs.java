@@ -213,6 +213,11 @@ public class MEBiomeDataConfigs {
             .addSlopeData(36, ModBlocks.COARSE_LOAM)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.GABBRO_SET.baseBlocks.base());
 
+    public static SlopeMap trollshaws = new SlopeMap()
+            .addSlopeData(25, ModBlocks.PEAT_GRASS_BLOCK)
+            .addSlopeData(36, ModBlocks.COARSE_PEAT)
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.LIMESTONE_SET.baseBlocks.base());
+
     public static SlopeMap chalkPlains = new SlopeMap()
             .addSlopeData(21, ModBlocks.CHALKSOIL_GRASS_BLOCK)
             .addSlopeData(24, ModBlocks.COARSE_CHALKSOIL)
@@ -221,6 +226,10 @@ public class MEBiomeDataConfigs {
     public static SlopeMap grassPlains = new SlopeMap()
             .addSlopeData(25, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
+            .addSlopeData(MAX_ANGLE, Blocks.STONE);
+    public static SlopeMap peatPlains = new SlopeMap()
+            .addSlopeData(25, ModBlocks.PEAT_GRASS_BLOCK)
+            .addSlopeData(36, ModBlocks.COARSE_PEAT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
     public static SlopeMap siltPlains = new SlopeMap()
             .addSlopeData(25, ModBlocks.SILT_GRASS_BLOCK)

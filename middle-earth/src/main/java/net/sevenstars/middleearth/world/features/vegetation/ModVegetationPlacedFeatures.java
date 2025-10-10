@@ -160,6 +160,8 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> PATCH_COMMON_SCORCHED_SHRUB = registerKey("patch_common_scorched_shrub");
     public static final RegistryKey<PlacedFeature> PATCH_COMMON_SCORCHED_TUFT = registerKey("patch_common_scorched_tuft");
     public static final RegistryKey<PlacedFeature> PATCH_SEDUM = registerKey("patch_sedum");
+    public static final RegistryKey<PlacedFeature> PATCH_SEDUM_ORANGE = registerKey("patch_sedum_orange");
+    public static final RegistryKey<PlacedFeature> PATCH_SEDUM_RED = registerKey("patch_sedum_red");
     public static final RegistryKey<PlacedFeature> PATCH_SEDUM_YELLOW = registerKey("patch_sedum_yellow");
     public static final RegistryKey<PlacedFeature> PATCH_SEDUMS = registerKey("patch_sedums");
     public static final RegistryKey<PlacedFeature> PATCH_SHRIVELED_SHRUB = registerKey("patch_shriveled_shrub");
@@ -382,6 +384,8 @@ public class ModVegetationPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> scorchedShrub = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_SCORCHED_SHRUB);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> scorchedTuft = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_SCORCHED_TUFT);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> sedum = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_SEDUM);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> sedumOrange = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_SEDUM_ORANGE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> sedumRed = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_SEDUM_RED);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> sedumYellow = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_SEDUM_YELLOW);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> sedums = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_SEDUMS);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> shriveledShrubs = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_SHRIVELED_SHRUB);
@@ -581,6 +585,8 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, PATCH_COMMON_SCORCHED_SHRUB, scorchedShrub, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_COMMON_SCORCHED_TUFT, scorchedTuft, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_SEDUM, sedum, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_SEDUM_ORANGE, sedumOrange, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_SEDUM_RED, sedumRed, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_SEDUM_YELLOW, sedumYellow, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_SEDUMS, sedums, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_SHRIVELED_SHRUB, shriveledShrubs, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

@@ -3518,7 +3518,6 @@ public class ModBiomes {
 
     public static void createTrollshawsBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         ModSpawnSettingsBuilder.addDeer(spawnSettings);
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
         ModSpawnSettingsBuilder.addRareStoneTroll(spawnSettings);
@@ -3526,26 +3525,38 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addEriadorVegetation(generationSettings);
+
+        ModBiomeFeatures.addGrassyPeatOre(vegetation);
+        ModBiomeFeatures.addCoarsePeatOre(vegetation);
+        ModBiomeFeatures.addRootedDirtOre(vegetation);
+        ModBiomeFeatures.addPodzolOre(vegetation);
+        ModBiomeFeatures.addGravelOre(vegetation);
+
+        ModBiomeFeatures.addLimestoneBoulder(vegetation);
+
         vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
         ModBiomeFeatures.addBracken(vegetation);
+        ModBiomeFeatures.addNettles(vegetation);
+        ModBiomeFeatures.addGiantButterbur(vegetation);
+        ModBiomeFeatures.addHogweeds(vegetation);
+        ModBiomeFeatures.addYellowFlowers(vegetation);
+        ModBiomeFeatures.addBushes(vegetation);
         ModBiomeFeatures.addDeadRushes(vegetation);
+        ModBiomeFeatures.addSedumOrange(vegetation);
+        ModBiomeFeatures.addSedumRed(vegetation);
         ModBiomeFeatures.addFalseOatgrass(vegetation);
         ModBiomeFeatures.addDyingGrass(vegetation);
-        ModBiomeFeatures.addNettles(vegetation);
         ModBiomeFeatures.addForestMoss(vegetation);
-        ModBiomeFeatures.addDryDirtOre(vegetation);
-        ModBiomeFeatures.addCoarseDirtOre(vegetation);
-        ModBiomeFeatures.addGravelOre(vegetation);
-        ModBiomeFeatures.addPodzolOre(vegetation);
         ModBiomeFeatures.addRareMorsel(vegetation);
 
         ModBiomeFeatures.addCommonOakBush(vegetation);
         ModBiomeFeatures.addCommonBeechTrees(vegetation);
         ModBiomeFeatures.addCommonOakTrees(vegetation);
         ModBiomeFeatures.addRareMegaOakTrees(vegetation);
-        ModBiomeFeatures.addPineTrees(vegetation);
+        ModBiomeFeatures.addCommonPineTrees(vegetation);
         ModBiomeFeatures.addSpruceTrees(vegetation);
+        ModBiomeFeatures.addMapleTrees(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }

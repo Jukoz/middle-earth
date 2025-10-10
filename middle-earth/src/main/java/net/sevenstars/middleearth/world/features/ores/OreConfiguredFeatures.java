@@ -38,6 +38,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> CALCITE_ORE = registerKey("calcite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_DIRT_ORE = registerKey("coarse_dirt_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_LOAM_ORE = registerKey("coarse_loam_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_PEAT_ORE = registerKey("coarse_peat_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_SILT_ORE = registerKey("coarse_silt_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> CORRUPTED_MOSS_DISK = registerKey("corrupted_moss_disk");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIORITE_ORE = registerKey("diorite_ore");
@@ -148,6 +149,8 @@ public class OreConfiguredFeatures {
                 new OreFeatureConfig(dirtTest, Blocks.COARSE_DIRT.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, COARSE_LOAM_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, ModBlocks.COARSE_LOAM.getDefaultState(), 48, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, COARSE_PEAT_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, ModBlocks.COARSE_PEAT.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, COARSE_SILT_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, ModBlocks.COARSE_SILT.getDefaultState(), 48, 0.4f));
 
