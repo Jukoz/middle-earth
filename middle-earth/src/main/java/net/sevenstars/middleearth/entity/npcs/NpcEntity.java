@@ -19,7 +19,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -28,10 +27,8 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
-import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
@@ -44,7 +41,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
@@ -52,28 +48,23 @@ import net.sevenstars.middleearth.block.special.structureManager.StructureManage
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.npcs.data.NpcEntityData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
-import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     // Data to use
@@ -88,6 +79,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
     }
+
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
@@ -122,7 +114,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     private void readEntityData(ReadView view) {
-        view.read("NpcDataId", Identifier.CODEC)
+        view.read("NpcDataId", Codec.STRING)
             .ifPresent(this::setNpcData);
         view.read("FactionId", Identifier.CODEC)
             .ifPresent(this::setFactionId);
@@ -137,7 +129,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         view.read("InitializationTick", Codec.LONG)
                 .ifPresent(x -> dataTracker.set(INITIALIZATION_TICK, x));
 
-        apply();
+        tryToInitializeData();
+    }
+
+    public void setNpcData(String value) {
+        if(value == null || value.isEmpty())
+            return;
+        this.dataTracker.set(NPC_DATA_ID, value);
     }
 
     public void setNpcData(Identifier npcDataId) {
@@ -152,19 +150,19 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         }
     }
 
-    private void setFactionId(Identifier factionId) {
+    public void setFactionId(Identifier factionId) {
         if(factionId == null)
             return;
         this.dataTracker.set(FACTION_ID, factionId.toString());
     }
 
-    private void setNpcCategory(EntityCategory entityCategory) {
+    public void setNpcCategory(EntityCategory entityCategory) {
         if(entityCategory == null)
             return;
         this.dataTracker.set(CATEGORY, entityCategory.name());
     }
 
-    private void setNpcTextureData(NpcEntityTextureData npcEntityTextureData) {
+    public void setNpcTextureData(NpcEntityTextureData npcEntityTextureData) {
         if(npcEntityTextureData == null)
             return;
         this.dataTracker.set(TEXTURE_DATA, npcEntityTextureData);
@@ -195,70 +193,21 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         this.dataTracker.set(FIGHTING, state);
     }
 
-    public void apply(){
-        World world = getWorld();
-        if(world.isClient)
+    public void tryToInitializeData(){
+        if(Objects.equals(getBlockPos(), new BlockPos(0, 0, 0))) // 0,0,0 is what's used for commands, needs to be delayed
             return;
-        forceApply(false);
-    }
 
-
-    public void forceApply(boolean forceTextureAndGearSwap) {
         World world = getWorld();
-        DynamicRegistryManager dynamicRegistryManager = world.getRegistryManager();
-
-        NpcData npcData = getNpcData();
-        if(getNpcDataId() != null){
-            npcData = getNpcData();
-            if(npcData == null){
-                var access = (ServerWorldAccess)world;
-                generateNpcDataBasedOnBiome(access, new NpcEntityData(), false);
-                npcData = getNpcData();
+        if(world instanceof ServerWorld serverWorld){
+            if(NpcEntityInitializer.shouldInitialize(serverWorld, this)){
+                NpcEntityInitializer.initializeNpcEntity(serverWorld, this);
             }
         }
-
-        if(npcData == null){
-            Set<Identifier> identifierSet = dynamicRegistryManager.getOrThrow(NpcME.KEY).getIds();
-            Identifier currentNpcDataId = getNpcDataId();
-            currentNpcDataId = identifierSet.stream().toList().get(random.nextInt(identifierSet.size()));
-            this.setNpcData(currentNpcDataId);
-            npcData = getNpcData();
-        }
-        setFactionId(npcData.getFaction());
-        this.dataTracker.set(INITIALIZATION_TICK, world.getTickOrder());
-
-        // set attributes
-        if(this.getNpcCategory() == null)
-            setNpcCategory(npcData.getNpcTextureData(world).getRandomCategory());
-
-        npcData.applyAttributes(this);
-
-        if(this.getNpcTextureData().getBodyTexture() == null || forceTextureAndGearSwap){
-            // set textures
-            createNpcEntityTextureData(npcData.getNpcTextureData(world));
-            // set gear
-            NpcUtil.equipAll(this, npcData.getGear());
-        }
-    }
-
-    private void createNpcEntityTextureData(NpcTextureData npcTextureData) {
-        NpcTextureData.Identity identity = NpcTextureData.Identity.create(npcTextureData, getNpcCategory());
-        if(identity == null)
-            identity = NpcTextureData.Identity.create(npcTextureData);
-
-        NpcEntityTextureData entityTextureData = new NpcEntityTextureData();
-        entityTextureData = NpcEntityHelper.generateSkinTextureData(entityTextureData, identity);
-        entityTextureData = NpcEntityHelper.generateEyeTextureData(entityTextureData, identity, getNpcData().getNpcTextureData(getWorld()).haveEmissiveEyes(identity)); // Make it not hardcoded
-        entityTextureData = NpcEntityHelper.generateHairTextureData(entityTextureData, identity, getWorld().getRegistryManager());
-        entityTextureData = NpcEntityHelper.generateClothingTextureData(entityTextureData, identity);
-        setNpcTextureData(entityTextureData);
     }
 
     @Override
     protected void mobTick(ServerWorld world) {
-        if(getNpcData() == null)
-            apply();
-
+        tryToInitializeData();
         Profiler profiler = Profilers.get();
         profiler.push("npcBrain");
         this.getBrain().tick(world, this);
@@ -281,76 +230,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         return (Brain<NpcEntity>)super.getBrain();
     }
 
-    @Override
-    @Nullable
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        if(entityData == null)
-            entityData = new NpcEntityData();
-        switch (spawnReason){
-            case SpawnReason.CHUNK_GENERATION, SpawnReason.COMMAND:
-                generateNpcDataBasedOnBiome(world, (NpcEntityData) entityData, true);
-                break;
-            case SpawnReason.PATROL:
-                // Fetch data from NpcWildSpawning (patrol)
-                break;
-            default:
-                break;
-        }
-
-        entityData = super.initialize(world, difficulty, spawnReason, entityData);
-        return entityData;
-    }
-
-    private void generateNpcDataBasedOnBiome(ServerWorldAccess serverWorldAccess, NpcEntityData entityData, boolean forceApply){
-        ServerWorld world = (serverWorldAccess == null) ? (ServerWorld) getWorld() : serverWorldAccess.toServerWorld();
-        BiomeEventData.FoundNpcReturn foundSpawnData = BiomeEventDataLookup.findNpcDataForBiome(world, world.getBiome(getBlockPos()), this);
-        if(foundSpawnData == null || foundSpawnData.npcData() == null){
-            kill(world);
-            return;
-        }
-        setNpcData(foundSpawnData.npcData());
-        setFactionId(foundSpawnData.npcData().getFaction());
-
-        if(entityData == null){
-            entityData = new NpcEntityData(foundSpawnData.npcData().getFaction(), foundSpawnData.npcData().getId(), foundSpawnData.npcData().getNpcTextureData(world).getRandomCategory());
-            setNpcData(((NpcEntityData)entityData).npcDataId);
-            setNpcCategory(((NpcEntityData)entityData).category);
-            if(forceApply)
-                forceApply(true);
-        }
-        if(foundSpawnData.mountEntity() != null){
-            var mount = foundSpawnData.mountEntity().create(world, SpawnReason.JOCKEY);
-            if(serverWorldAccess != null){
-                if(mount instanceof HorseEntity horseEntity)
-                    horseEntity.initialize(serverWorldAccess, world.getLocalDifficulty(getBlockPos()), SpawnReason.JOCKEY, null);
-                else if(mount instanceof AbstractBeastEntity beastEntity){
-                    beastEntity.initialize(serverWorldAccess, world.getLocalDifficulty(getBlockPos()), SpawnReason.JOCKEY, null);
-                }
-            }
-
-            mount.setPos(getBlockX(), getBlockY(), getBlockZ());
-
-            if(mount instanceof AbstractHorseEntity abstractHorseEntity){
-                abstractHorseEntity.setOwner(this);
-                abstractHorseEntity.equipStack(EquipmentSlot.SADDLE, new ItemStack(Items.SADDLE));
-                abstractHorseEntity.setOwner(this);
-                abstractHorseEntity.setTame(true);
-                if(foundSpawnData.mountArmor() != null)
-                    abstractHorseEntity.equipBodyArmor(foundSpawnData.mountArmor());
-
-                if(abstractHorseEntity instanceof AbstractBeastEntity beastEntity){
-                    beastEntity.setTameness(100);
-                    beastEntity.setMovementSpeed(20);
-                }
-            } else if(foundSpawnData.mountEntity().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("can_equip_saddle"))) && mount instanceof EquipmentHolder equipmentHolder){
-                equipmentHolder.equipStack(EquipmentSlot.SADDLE, new ItemStack(Items.SADDLE));
-            }
-
-            this.startRiding(mount);
-            world.spawnEntity(mount);
-        }
-    }
-
     public float getFightingMovementSpeed(){
         var currentSpeed = this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
         return (float) (currentSpeed);
@@ -358,7 +237,12 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     public boolean isFighting() {
         var memory = this.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
-        boolean isFighting = memory.isPresent() ? memory.get() != null :  dataTracker.get(FIGHTING);
+        boolean isFighting;
+        if (memory != null && memory.isPresent()) {
+            isFighting = true;
+        } else {
+            isFighting = dataTracker.get(FIGHTING);
+        }
 
         this.setSprinting(isFighting);
         if(this.hasVehicle() && getVehicle() instanceof AbstractHorseEntity abstractHorseEntity){
@@ -714,6 +598,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     public NpcEntityTextureData getNpcTextureData() {
         return this.dataTracker.get(TEXTURE_DATA);
+    }
+    public boolean hasTextureData(){
+        NpcEntityTextureData textureData = getNpcTextureData();
+        return textureData.getBodyTexture() != null;
     }
 
     static {

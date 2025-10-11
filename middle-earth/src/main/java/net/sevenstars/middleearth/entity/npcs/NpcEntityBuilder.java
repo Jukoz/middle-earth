@@ -24,12 +24,12 @@ public class NpcEntityBuilder {
     }
 
     public NpcEntity build(){
-        this.entity.apply();
+        this.entity.tryToInitializeData();
         return this.entity;
     }
 
     public NpcEntity forceBuild() {
-        this.entity.forceApply(false);
+        this.entity.tryToInitializeData();
         return this.entity;
     }
 }
