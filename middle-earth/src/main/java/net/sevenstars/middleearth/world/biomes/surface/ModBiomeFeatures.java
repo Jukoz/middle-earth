@@ -131,6 +131,9 @@ public class ModBiomeFeatures {
     public static void addHollyTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.HOLLY_PLACED_TREE_KEY);
     }
+    public static void addCommonHollyTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.COMMON_HOLLY_PLACED_TREE_KEY);
+    }
     public static void addCommonLarchTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.COMMON_LARCH_PLACED_TREE_KEY);
     }

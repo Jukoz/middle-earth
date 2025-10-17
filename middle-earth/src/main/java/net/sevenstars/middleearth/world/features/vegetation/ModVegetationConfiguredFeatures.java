@@ -532,19 +532,38 @@ public class ModVegetationConfiguredFeatures {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.HEATH))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_HEATHER, Feature.FLOWER,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.HEATHER))));
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
+                        new RandomPatchFeatureConfig(8, 3, 2,
+                                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
+                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                                .add(ModNatureBlocks.HEATHER.getDefaultState(), 1)
+                                                .add(ModNatureBlocks.HEATHER_BUSH.getDefaultState(), 1))
+                                )))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_DEAD_HEATHER, Feature.FLOWER,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.DEAD_HEATHER))));
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
+                        new RandomPatchFeatureConfig(8, 3, 2,
+                                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
+                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                                .add(ModNatureBlocks.DEAD_HEATHER.getDefaultState(), 1)
+                                                .add(ModNatureBlocks.DEAD_HEATHER_BUSH.getDefaultState(), 1))
+                                )))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_DRY_HEATHER, Feature.FLOWER,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.DRY_HEATHER))));
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
+                        new RandomPatchFeatureConfig(8, 3, 2,
+                                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
+                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                                .add(ModNatureBlocks.DRY_HEATHER.getDefaultState(), 1)
+                                                .add(ModNatureBlocks.DRY_HEATHER_BUSH.getDefaultState(), 1))
+                                )))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_RED_HEATHER, Feature.FLOWER,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.RED_HEATHER))));
-
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
+                        new RandomPatchFeatureConfig(8, 3, 2,
+                                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
+                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                                .add(ModNatureBlocks.RED_HEATHER.getDefaultState(), 1)
+                                                .add(ModNatureBlocks.RED_HEATHER_BUSH.getDefaultState(), 1))
+                                )))));
         ConfiguredFeatures.register(featureRegisterable, FIELD_DEAD_NORMAL_HEATHER, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
