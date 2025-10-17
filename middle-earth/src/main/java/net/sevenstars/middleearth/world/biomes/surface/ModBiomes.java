@@ -3104,19 +3104,39 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addRivendellVegetation(generationSettings);
-        ModBiomeFeatures.addSparseBirchTrees(vegetation);
-        ModBiomeFeatures.addOakBushes(vegetation);
+
+        ModBiomeFeatures.addTurfOre(vegetation);
+
+        ModBiomeFeatures.addSparseGrass(vegetation);
+        ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addWhiteFlowers(vegetation);
+        ModBiomeFeatures.addWildFlowers(vegetation);
 
         if(step == 0) {
-            ModBiomeFeatures.addRareLightBlueFlowers(vegetation);
-            ModBiomeFeatures.addRareHeather(vegetation);
-            ModBiomeFeatures.addRareLavender(vegetation);
-        } else if (step == 1) {
+            ModBiomeFeatures.addCoarseChalksoilOre(vegetation);
+            ModBiomeFeatures.addPodzolOre(vegetation);
+
             ModBiomeFeatures.addFalseOatgrass(vegetation);
-            ModBiomeFeatures.addRareFirTrees(vegetation);
-            ModBiomeFeatures.addMegaBirchTrees(vegetation);
-            ModBiomeFeatures.addRareBeechTrees(vegetation);
-            ModBiomeFeatures.addVeryRareMegaOakTrees(vegetation);
+            ModBiomeFeatures.addBracken(vegetation);
+            ModBiomeFeatures.addGiantButterbur(vegetation);
+            ModBiomeFeatures.addNettles(vegetation);
+            ModBiomeFeatures.addForestMoss(vegetation);
+
+            ModBiomeFeatures.addLarchTrees(vegetation);
+            ModBiomeFeatures.addFirTrees(vegetation);
+            ModBiomeFeatures.addMapleTrees(vegetation);
+            ModBiomeFeatures.addCommonPineTrees(vegetation);
+            ModBiomeFeatures.addCommonSpruceTrees(vegetation);
+        } else if (step == 1) {
+            ModBiomeFeatures.addGrassyChalksoilOre(vegetation);
+
+            ModBiomeFeatures.addOakBushes(vegetation);
+
+            ModBiomeFeatures.addRareLightBlueFlowers(vegetation);
+            ModBiomeFeatures.addHeatherField(vegetation);
+            ModBiomeFeatures.addShriveledShrubs(vegetation);
+            ModBiomeFeatures.addRareLavender(vegetation);
+            ModBiomeFeatures.addCornflower(vegetation);
         }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
@@ -3127,22 +3147,20 @@ public class ModBiomes {
         ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
-        addNordicVegetation(generationSettings);
+        ModBiomeFeatures.addTurfOre(vegetation);
+        ModBiomeFeatures.addGrassyChalksoilOre(vegetation);
+
         ModBiomeFeatures.addDolomiteOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addLimestoneOre(vegetation);
-        ModBiomeFeatures.addGrassToStoneOre(vegetation);
         ModBiomeFeatures.addTuffOre(vegetation);
-        ModBiomeFeatures.addCoarseDirtOre(vegetation);
-        ModBiomeFeatures.addSpruceBushes(vegetation);
         ModBiomeFeatures.addCornflower(vegetation);
 
-        ModBiomeFeatures.addSparseBirchTrees(vegetation);
-        ModBiomeFeatures.addLarchTrees(vegetation);
-        ModBiomeFeatures.addFirTrees(vegetation);
-        ModBiomeFeatures.addMapleTrees(vegetation);
-        ModBiomeFeatures.addCommonPineTrees(vegetation);
-        ModBiomeFeatures.addCommonSpruceTrees(vegetation);
+        ModBiomeFeatures.addRareLightBlueFlowers(vegetation);
+        ModBiomeFeatures.addHeatherField(vegetation);
+        ModBiomeFeatures.addShriveledShrubs(vegetation);
+        ModBiomeFeatures.addRareLavender(vegetation);
+        ModBiomeFeatures.addOakBushes(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, 0.4f, true);
     }

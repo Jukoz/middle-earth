@@ -37,6 +37,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> BLUE_TUFF_ORE = registerKey("blue_tuff_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> CALCITE_ORE = registerKey("calcite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_DIRT_ORE = registerKey("coarse_dirt_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_CHALKSOIL_ORE = registerKey("coarse_chalksoil_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_LOAM_ORE = registerKey("coarse_loam_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_PEAT_ORE = registerKey("coarse_peat_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_SILT_ORE = registerKey("coarse_silt_ore");
@@ -84,7 +85,7 @@ public class OreConfiguredFeatures {
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
         TagMatchRuleTest dirtTest = new TagMatchRuleTest(BlockTags.DIRT);
         BlockMatchRuleTest grassTest = new BlockMatchRuleTest(Blocks.GRASS_BLOCK);
-        BlockMatchRuleTest chalkGrassTest = new BlockMatchRuleTest(ModBlocks.PEAT_GRASS_BLOCK);
+        BlockMatchRuleTest chalkGrassTest = new BlockMatchRuleTest(ModBlocks.CHALKSOIL_GRASS_BLOCK);
         BlockMatchRuleTest loamGrassTest = new BlockMatchRuleTest(ModBlocks.LOAM_GRASS_BLOCK);
         BlockMatchRuleTest peatGrassTest = new BlockMatchRuleTest(ModBlocks.PEAT_GRASS_BLOCK);
         BlockMatchRuleTest siltGrassTest = new BlockMatchRuleTest(ModBlocks.SILT_GRASS_BLOCK);
@@ -147,12 +148,14 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, COARSE_DIRT_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.COARSE_DIRT.getDefaultState(), 48, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, COARSE_CHALKSOIL_ORE, Feature.ORE,
+                new OreFeatureConfig(chalkGrassTest, ModBlocks.COARSE_CHALKSOIL.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, COARSE_LOAM_ORE, Feature.ORE,
-                new OreFeatureConfig(dirtTest, ModBlocks.COARSE_LOAM.getDefaultState(), 48, 0.4f));
+                new OreFeatureConfig(loamGrassTest, ModBlocks.COARSE_LOAM.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, COARSE_PEAT_ORE, Feature.ORE,
-                new OreFeatureConfig(dirtTest, ModBlocks.COARSE_PEAT.getDefaultState(), 48, 0.4f));
+                new OreFeatureConfig(peatGrassTest, ModBlocks.COARSE_PEAT.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, COARSE_SILT_ORE, Feature.ORE,
-                new OreFeatureConfig(dirtTest, ModBlocks.COARSE_SILT.getDefaultState(), 48, 0.4f));
+                new OreFeatureConfig(siltGrassTest, ModBlocks.COARSE_SILT.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, CORRUPTED_MOSS_DISK, Feature.DISK,
                 new DiskFeatureConfig(PredicatedStateProvider.of(ModNatureBlocks.CORRUPTED_MOSS_BLOCK),
