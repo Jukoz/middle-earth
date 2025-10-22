@@ -250,6 +250,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     }
 
     private BipedEntityModel.ArmPose getArmPose(NpcEntity npc, ItemStack stack, Hand hand) {
+        // TODO : Fix animation
+
         if (stack.isEmpty()) {
             return BipedEntityModel.ArmPose.EMPTY;
         }

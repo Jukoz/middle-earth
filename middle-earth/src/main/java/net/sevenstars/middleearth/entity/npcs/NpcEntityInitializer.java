@@ -78,7 +78,7 @@ public class NpcEntityInitializer {
 
             NpcEntityTextureData entityTextureData = new NpcEntityTextureData();
             entityTextureData = NpcEntityHelper.generateSkinTextureData(entityTextureData, identity);
-            entityTextureData = NpcEntityHelper.generateEyeTextureData(entityTextureData, identity, npcData.getNpcTextureData(serverWorld).haveEmissiveEyes(identity)); // Make it not hardcoded
+            entityTextureData = NpcEntityHelper.generateEyeTextureData(entityTextureData, identity, npcData.getNpcTextureData(serverWorld).haveEmissiveEyes(identity));
             entityTextureData = NpcEntityHelper.generateHairTextureData(entityTextureData, identity, serverWorld.getRegistryManager());
             entityTextureData = NpcEntityHelper.generateClothingTextureData(entityTextureData, identity);
             npcEntity.setNpcTextureData(entityTextureData);

@@ -28,6 +28,7 @@ import java.util.Optional;
  * <b><u>Datadriven content, do not use during runtime!</u></b>
  * <hr>
  */
+// TODO : Add more content
 public class BiomeEventsME {
     public static final RegistryKey<Registry<BiomeEventData>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, "biome_events"));
 
