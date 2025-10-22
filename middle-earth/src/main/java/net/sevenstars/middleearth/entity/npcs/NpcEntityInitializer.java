@@ -37,6 +37,7 @@ public class NpcEntityInitializer {
                 currentNpcDataId =  foundNpcReturn.npcData().getId();
             } else {
                 npcEntity.discard();
+                return;
             }
 
             // Assign mount if needed
