@@ -12,6 +12,7 @@ import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmen
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
@@ -19,7 +20,6 @@ import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class BrigandNpcDataPool {
@@ -63,7 +63,7 @@ public class BrigandNpcDataPool {
 
     private static final List<Integer> allColors = List.of(DEFAULT, DARK_BROWN, LIGHT_BROWN, DARK_GREEN, DARK_BLUE, DARKEST_RED, GREEN, BLUE, DARK_ORANGE);
     static {
-        BRIGAND_THUG = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("thug")), RacesME.HUMAN, FACTION, List.of(
+        BRIGAND_THUG = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("thug")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(6))
@@ -130,9 +130,9 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.BRONZE_DAGGER))
                                 .add(NpcGearItemData.create(WeaponItemsME.IRON_DAGGER))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        BRIGAND_THIEF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("thief")), RacesME.HUMAN, FACTION, List.of(
+        BRIGAND_THIEF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("thief")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.BYCOCKET).withHood(HelmetAttachmentsME.HOOD, allColors))
@@ -168,9 +168,9 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.IRON_DAGGER))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(2))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        BRIGAND_MERCENARY = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("mercenary")), RacesME.HUMAN, FACTION, List.of(
+        BRIGAND_MERCENARY = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("mercenary")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF))
@@ -220,9 +220,9 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BRACED_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        BRIGAND_CHIEFTAIN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("chieftain")), RacesME.HUMAN, FACTION, List.of(
+        BRIGAND_CHIEFTAIN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("chieftain")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_LEATHER_HELMET).withColor(DEFAULT).withWeight(3))
@@ -287,10 +287,10 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BRACED_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
 
-        WILD_GOBLIN_GATHERER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("wild_goblin_gatherer")), RacesME.ORC, FACTION, List.of(
+        WILD_GOBLIN_GATHERER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("wild_goblin_gatherer")), RacesME.ORC, FACTION, NpcTextureDatasME.WILD_GOBLIN_GOBLIN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -322,9 +322,9 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(ToolItemsME.CRUDE_HOE))
                                 .add(NpcGearItemData.create(ToolItemsME.CRUDE_SHOVEL))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        WILD_GOBLIN_WARRIOR= new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("wild_goblin_warrior")), RacesME.ORC, FACTION, List.of(
+        WILD_GOBLIN_WARRIOR= new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("wild_goblin_warrior")), RacesME.ORC, FACTION, NpcTextureDatasME.WILD_GOBLIN_GOBLIN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -367,9 +367,9 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ORC_KNIFE))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        WILD_GOBLIN_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("wild_goblin_scout")), RacesME.ORC, FACTION, List.of(
+        WILD_GOBLIN_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("wild_goblin_scout")), RacesME.ORC, FACTION, NpcTextureDatasME.WILD_GOBLIN_GOBLIN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -400,6 +400,6 @@ public class BrigandNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ORCISH_BOW).withWeight(4))
                                 .add(NpcGearItemData.create(WeaponItemsME.GUNDABAD_BOW))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
     }
 }

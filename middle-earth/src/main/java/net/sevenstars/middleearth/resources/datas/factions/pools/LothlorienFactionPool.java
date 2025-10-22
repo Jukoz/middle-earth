@@ -54,7 +54,9 @@ public class LothlorienFactionPool {
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "lothlorien.cerin_amroth"), new Vector2d(1614, 1215))
-                )), List.of(), List.of()
+                )), List.of(), List.of(),
+                List.of(), List.of(FactionsME.GONDOR, FactionsME.ROHAN, FactionsME.SHIRE, FactionsME.DALE, FactionsME.LONGBEARDS),
+                List.of(FactionsME.ISENGARD, FactionsME.MORDOR, FactionsME.MISTY_MOUNTAINS_GOBLINS, FactionsME.BRIGAND)
         );
     }
 

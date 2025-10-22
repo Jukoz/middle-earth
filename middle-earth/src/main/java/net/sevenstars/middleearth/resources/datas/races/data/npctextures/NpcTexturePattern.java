@@ -8,7 +8,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.entry.RegistryElementCodec;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
+import net.sevenstars.middleearth.resources.CharacterPatternsME;
 
 import java.util.Optional;
 
@@ -83,7 +83,7 @@ public class NpcTexturePattern {
                 PacketCodecs.BOOLEAN,
                 NpcTexturePattern::hasAddonRawValue,
                 NpcTexturePattern::new);
-        ENTRY_CODEC = RegistryElementCodec.of(NpcTexturePatternsME.Keys.SKIN_KEY, CODEC);
-        ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(NpcTexturePatternsME.Keys.SKIN_KEY, PACKET_CODEC);
+        ENTRY_CODEC = RegistryElementCodec.of(CharacterPatternsME.Keys.SKIN_KEY, CODEC);
+        ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(CharacterPatternsME.Keys.SKIN_KEY, PACKET_CODEC);
     }
 }
