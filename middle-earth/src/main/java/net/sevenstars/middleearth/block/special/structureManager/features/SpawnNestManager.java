@@ -1,8 +1,10 @@
-package net.sevenstars.middleearth.block.special.structureManager;
+package net.sevenstars.middleearth.block.special.structureManager.features;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.block.BedBlock;
+import net.minecraft.block.DoubleBlockProperties;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
@@ -10,6 +12,7 @@ import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
@@ -18,6 +21,7 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class SpawnNestManager {
     public static final Codec<SpawnNestManager> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -27,7 +31,6 @@ public class SpawnNestManager {
             Codec.INT.fieldOf("respawn_tick_delay").forGetter(SpawnNestManager::getRespawnTickDelay),
             BlockPos.CODEC.fieldOf("origin_pos").forGetter(SpawnNestManager::getOriginPos),
             Codec.INT.fieldOf("spawn_radius").forGetter(SpawnNestManager::getSpawnRadius)
-
     ).apply(instance, SpawnNestManager::new));
 
     private static final String ID = "spawn_nest_data";
@@ -38,6 +41,8 @@ public class SpawnNestManager {
     private int respawnTickDelay;
     private BlockPos originPos;
     private int spawnRadius;
+
+    private List<BedBlock> beds = new ArrayList<>();
 
     public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius) {
         this.id = dataId;
@@ -100,14 +105,13 @@ public class SpawnNestManager {
         }
         return true;
     }
-    public boolean removeEntity(World world, UUID uuid){
+    public void removeEntity(World world, UUID uuid){
         if(world.isClient || !this.entities.contains(uuid))
-            return false;
+            return;
         this.entities.remove(uuid);
         if(this.entities.isEmpty()){
             beginRespawnSequence(world);
         }
-        return true;
     }
 
     private void beginRespawnSequence(World world) {
@@ -140,10 +144,9 @@ public class SpawnNestManager {
     }
 
 
-    private void respawnAll(StructureManagerData structureManagerData, World world, BlockPos sourcePos) {
+    private void respawnAll(StructureManagerData structureManagerData, World world, BlockPos structureManagerPos) {
         if(structureManagerData == null)
             return;
-
         SpawnNestNodeData data = structureManagerData.getNpcSpawnNest(id);
 
         if(data != null){
@@ -151,12 +154,13 @@ public class SpawnNestManager {
             int entityAmountToSpawn = pool.getEntityAmount();
             for(int i = 0; i < entityAmountToSpawn; i ++){
                 LivingEntity entityToAdd = StructureManagerService.SpawnEntity(world, pool, originPos, spawnRadius);
-                if(entityToAdd instanceof NpcEntity npcEntity)
-                    npcEntity.assignStructureManager((StructureManagerBlockEntity) world.getBlockEntity(sourcePos));
+                if(entityToAdd instanceof NpcEntity npcEntity){
+                    npcEntity.assignStructureManager((StructureManagerBlockEntity) world.getBlockEntity(structureManagerPos));
+                }
                 if(entityToAdd != null)
                     addEntity(entityToAdd);
             }
-            world.markDirty(sourcePos);
+            world.markDirty(structureManagerPos);
         }
         this.respawnEventTriggerTick = -1;
     }
@@ -168,7 +172,7 @@ public class SpawnNestManager {
         return false;
     }
 
-    public void forceRespawn(StructureManagerData structureManagerData, World world, BlockPos pos) {
+    public void forceRespawn(StructureManagerData structureManagerData, World world, BlockPos structureManagerPos) {
         for(var uuid : getEntityUuids()){
             if(world.getEntity(uuid) instanceof LivingEntity livingEntity){
                 livingEntity.setRemoved(Entity.RemovalReason.DISCARDED);
@@ -176,7 +180,30 @@ public class SpawnNestManager {
             }
         }
         entities = new ArrayList<UUID>();
-        respawnAll(structureManagerData, world, pos);
+
+        refreshBeds(structureManagerData, world);
+        respawnAll(structureManagerData, world, structureManagerPos);
+    }
+
+    public void refreshBeds(StructureManagerData structureManagerData, World world){
+        // TODO : Connect with the @StructureManagerBlockEntity.fetchBeds() / Redistribute
+
+        BlockPos origin = getOriginPos();
+        int bedRadius = 10;
+        List<BlockPos> bedBlockPositions = new ArrayList<>();
+        BlockPos.findClosest(origin, bedRadius, 5, new Predicate<BlockPos>() {
+            @Override
+            public boolean test(BlockPos blockPos) {
+                var blockState = world.getBlockState(blockPos);
+                if(blockState.getBlock() instanceof BedBlock bedBlock){
+                    if(BedBlock.getBedPart(blockState) == DoubleBlockProperties.Type.FIRST){
+                        bedBlockPositions.add(blockPos);
+                    }
+                }
+                return false;
+            }
+        });
+        //MiddleEarth.LOGGER.logDebugMsg(String.format("[%s] - Found %s beds", origin.toString(), bedBlockPositions.size()));
     }
 }
 

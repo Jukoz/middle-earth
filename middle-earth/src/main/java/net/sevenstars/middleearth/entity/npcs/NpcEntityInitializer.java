@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.npcs;
 
+import net.minecraft.block.BedBlock;
 import net.minecraft.entity.EquipmentHolder;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
@@ -97,5 +98,9 @@ public class NpcEntityInitializer {
         if(!npcEntity.hasTextureData())
             return true;
         return optionalEntry.isEmpty();
+    }
+
+    public static boolean assignBedToNpc(NpcEntity npcEntity, BedBlock bedBlock){
+        return true;
     }
 }

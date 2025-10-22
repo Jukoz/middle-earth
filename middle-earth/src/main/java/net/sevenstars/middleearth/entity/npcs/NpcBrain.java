@@ -16,10 +16,13 @@ import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.GlobalPos;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
+import net.sevenstars.api.entity.ai.brain.task.MoveTowardsBlockTask;
+import net.sevenstars.api.entity.ai.brain.task.MoveTowardsPosMemoryTask;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
 import net.sevenstars.middleearth.entity.ai.brain.task.NpcMountedApproachTask;
 import net.sevenstars.middleearth.entity.ai.brain.task.NpcOnGroundApproachTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.SleepOnGroundTask;
 
 import java.util.Optional;
 

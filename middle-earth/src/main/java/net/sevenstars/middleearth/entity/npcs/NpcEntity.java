@@ -186,7 +186,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             this.getBrain().forget(MemoryModulesME.ASSIGNED_BED_POS);
             return;
         }
-        this.getBrain().remember(MemoryModulesME.ASSIGNED_BED_POS, bedBlockEntity.getPos());
+        //this.getBrain().remember(MemoryModulesME.ASSIGNED_BED_POS, new GlobalPos(getWorld(), bedBlockEntity.getPos()));
     }
 
     public void setFighting(boolean state){
