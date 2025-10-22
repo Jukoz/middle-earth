@@ -100,12 +100,12 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.blinking = (npcEntity.getInitializationTick() + npcEntity.age) % 80 <= 2;
 
         ItemStack helmet = npcEntity.getEquippedStack(EquipmentSlot.HEAD);
-        if(helmet == null || helmet.isOf(Items.AIR)){
+        if(helmet == null || helmet.isEmpty()){
             npcEntityRenderState.canShowBeard = true;
             npcEntityRenderState.canShowHair = true;
             npcEntityRenderState.canShowEars = true;
         } else {
-            var hasAttachment = helmet.getComponents().getOrDefault(DataComponentTypesME.HELMET_ATTACHMENT_DATA, null);
+            var hasAttachment = helmet.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA);
             boolean hasHoodDown = hasAttachment == null || hasAttachment.down();
 
             npcEntityRenderState.canShowEars = helmet.isIn(ItemTagsME.CHARACTER_HELMET_SHOW_EARS) && hasHoodDown;

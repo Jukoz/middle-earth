@@ -65,7 +65,7 @@ public class BiomeEventData {
 
         EntityType entityType = null;
         ItemStack mountArmorItemStack = null;
-        if(spawningData.getMount().isPresent()){
+        if( spawningData.getMount().isPresent()){
             entityType = manager.getOrThrow(RegistryKeys.ENTITY_TYPE).get(spawningData.getMount().get());
             if(spawningData.getMountArmor().isPresent()){
                 mountArmorItemStack = new ItemStack(manager.getOrThrow(RegistryKeys.ITEM).get(spawningData.getMountArmor().get()));

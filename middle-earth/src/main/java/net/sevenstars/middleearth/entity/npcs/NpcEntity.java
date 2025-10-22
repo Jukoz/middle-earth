@@ -455,10 +455,14 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     public void tickRiding() {
         super.tickRiding();
         Entity entity = this.getControllingVehicle();
-        if (entity instanceof PathAwareEntity) {
-            PathAwareEntity pathAwareEntity = (PathAwareEntity)entity;
+        if (entity instanceof PathAwareEntity pathAwareEntity) {
             this.bodyYaw = pathAwareEntity.bodyYaw;
         }
+    }
+
+    @Override
+    protected Text getDefaultName() {
+        return Text.translatable(this.getNpcDataId().toTranslationKey("npc_data"));
     }
 
     @Override
