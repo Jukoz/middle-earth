@@ -28,6 +28,10 @@ public class DataComponentTypesME {
         return builder.codec(FactionDataComponent.CODEC).packetCodec(FactionDataComponent.PACKET_CODEC);
     });
 
+    public static final ComponentType<RaceDataComponent> RACE_DATA = register("race", (builder) -> {
+        return builder.codec(RaceDataComponent.CODEC).packetCodec(RaceDataComponent.PACKET_CODEC);
+    });
+
     public static final ComponentType<ArmorTierDataComponent> ARMOR_TIER_DATA = register("armor_tier", (builder) -> {
         return builder.codec(ArmorTierDataComponent.CODEC).packetCodec(ArmorTierDataComponent.PACKET_CODEC);
     });

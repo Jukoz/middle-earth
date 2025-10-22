@@ -35,10 +35,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.utils.ItemTagsME;
@@ -341,11 +343,6 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         this.playSound(SoundEvents.ENTITY_DONKEY_CHEST, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
     }
 
-    @Override
-    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        return this.isSitting() ? 0 : super.getSaddledSpeed(controllingPlayer);
-    }
-
     // endregion
 
     // region Move Set and Behavior
@@ -494,6 +491,15 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         return new BeastEntityNavigation(this, world);
     }
 
+    @Override
+    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
+        return this.isSitting() ? 0 : super.getSaddledSpeed(controllingPlayer);
+    }
+
+    protected float getNpcSaddledSpeed(NpcEntity controllingNpc) {
+        return this.isSitting() ? 0 : (float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
+    }
+
     // endregion
 
     // region Tick Management
@@ -555,6 +561,16 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         super.tickMovement();
         if (this.attackTicksLeft > 0) {
             --this.attackTicksLeft;
+        }
+
+        if (this.getControllingPassenger() instanceof NpcEntity npc && this.isAlive()) {
+            Vec3d movementInput = new Vec3d(this.sidewaysSpeed, this.upwardSpeed, this.forwardSpeed);
+            if (this.canMoveVoluntarily()) {
+                this.setMovementSpeed(this.getNpcSaddledSpeed(npc));
+                this.travel(movementInput);
+            } else {
+                this.setVelocity(Vec3d.ZERO);
+            }
         }
     }
 

@@ -20,13 +20,13 @@ import java.util.Optional;
  * <b><u>Datadriven content, do not use during runtime!</u></b>
  * <hr>
  */
-public class NpcTexturePatternsME {
+public class CharacterPatternsME {
 
     public record Keys(){
-        public static final RegistryKey<Registry<NpcTexturePattern>> SKIN_KEY = ofRegistry("npc_skin_pattern");
-        public static final RegistryKey<Registry<NpcTexturePattern>> EYE_KEY = ofRegistry("npc_eye_pattern");
-        public static final RegistryKey<Registry<NpcTexturePattern>> HAIR_KEY = ofRegistry("npc_hair_pattern");
-        public static final RegistryKey<Registry<NpcTexturePattern>> CLOTHING_KEY = ofRegistry("npc_clothing_pattern");
+        public static final RegistryKey<Registry<NpcTexturePattern>> SKIN_KEY = ofRegistry("character_skin_pattern");
+        public static final RegistryKey<Registry<NpcTexturePattern>> EYE_KEY = ofRegistry("character_eye_pattern");
+        public static final RegistryKey<Registry<NpcTexturePattern>> HAIR_KEY = ofRegistry("character_hair_pattern");
+        public static final RegistryKey<Registry<NpcTexturePattern>> CLOTHING_KEY = ofRegistry("character_clothing_pattern");
     }
 
     public record Skins() {

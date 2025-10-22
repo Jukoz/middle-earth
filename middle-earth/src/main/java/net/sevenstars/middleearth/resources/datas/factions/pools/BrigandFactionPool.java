@@ -47,7 +47,11 @@ public class BrigandFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatterns.CROSS, DyeColor.RED),
                         new BannerData.BannerPatternWithColor(BannerPatterns.SKULL, DyeColor.WHITE)
                 )),
-                null , List.of(), List.of()
+                null , List.of(), List.of(),
+                List.of(),
+                List.of(),
+                List.of(FactionsME.LOTHLORIEN, FactionsME.GONDOR, FactionsME.ROHAN, FactionsME.SHIRE, FactionsME.LONGBEARDS,
+                        FactionsME.DALE, FactionsME.MISTY_MOUNTAINS_GOBLINS, FactionsME.MORDOR, FactionsME.ISENGARD)
         );
     }
 }

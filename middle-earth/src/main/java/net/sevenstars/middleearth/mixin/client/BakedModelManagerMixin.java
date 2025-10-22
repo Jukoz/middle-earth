@@ -6,7 +6,7 @@ import net.minecraft.client.texture.TextureManager;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
+import net.sevenstars.middleearth.resources.AtlasesME;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -30,10 +30,10 @@ public class BakedModelManagerMixin{
     private static void addNewAtlas(TextureManager textureManager, BlockColors colorMap, int mipmap, CallbackInfo ci)
     {
         HashMap<Identifier, Identifier> map = new HashMap<>(LAYERS_TO_LOADERS);
-        map.put(ModTexturedRenderLayers.NPC_SKIN_TEXTURES_ATLAS_TEXTURE, IdentifierUtil.create("npc_skin_textures"));
-        map.put(ModTexturedRenderLayers.NPC_EYE_TEXTURES_ATLAS_TEXTURE, IdentifierUtil.create("npc_eye_textures"));
-        map.put(ModTexturedRenderLayers.NPC_HAIR_TEXTURES_ATLAS_TEXTURE, IdentifierUtil.create("npc_hair_textures"));
-        map.put(ModTexturedRenderLayers.NPC_CLOTHING_TEXTURES_ATLAS_TEXTURE, IdentifierUtil.create("npc_clothing_textures"));
+        map.put(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE, AtlasesME.CHARACTER_SKINS);
+        map.put(ModTexturedRenderLayers.CHARACTER_EYES_ATLAS_TEXTURE, AtlasesME.CHARACTER_EYES);
+        map.put(ModTexturedRenderLayers.CHARACTER_HAIRS_ATLAS_TEXTURE, AtlasesME.CHARACTER_HAIRS);
+        map.put(ModTexturedRenderLayers.CHARACTER_CLOTHINGS_ATLAS_TEXTURE, AtlasesME.CHARACTER_CLOTHINGS);
 
         /*
          * Load custom sprites' atlas. Used for direct render animations.

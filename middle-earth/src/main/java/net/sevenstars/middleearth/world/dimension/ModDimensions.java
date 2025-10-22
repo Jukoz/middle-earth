@@ -17,10 +17,10 @@ import net.minecraft.world.dimension.DimensionOptions;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
-import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import net.sevenstars.middleearth.world.chunkgen.MiddleEarthChunkGenerator;
 import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
@@ -111,7 +111,7 @@ public class ModDimensions {
                 }));
                 
                 if(!ModServerConfigs.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){
-                    AttributeData.reset(player);
+                    AttributePool.reverse(player);
                 }
                 return true;
             }

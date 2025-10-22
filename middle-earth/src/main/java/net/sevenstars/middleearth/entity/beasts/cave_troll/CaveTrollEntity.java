@@ -26,7 +26,6 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -256,6 +255,15 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         }
 
         return super.getSaddledSpeed(controllingPlayer);
+    }
+
+    @Override
+    protected float getNpcSaddledSpeed(NpcEntity controllingNpc) {
+        if(!this.isSitting()) {
+            return controllingNpc.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.15f);
+        }
+
+        return super.getNpcSaddledSpeed(controllingNpc);
     }
 
     @Override

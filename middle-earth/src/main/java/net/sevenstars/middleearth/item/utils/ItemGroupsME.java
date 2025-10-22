@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.item.utils;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.CustomModelDataComponent;
-import net.minecraft.component.type.LoreComponent;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -16,15 +15,15 @@ import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.*;
+import net.sevenstars.middleearth.block.registration.GenericBlockSets;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
+import net.sevenstars.middleearth.item.dataComponents.RaceDataComponent;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
@@ -43,19 +42,17 @@ public class ItemGroupsME {
         registryWrapper.streamEntries().filter(filter).sorted(NPC_DATA_COMPARATOR).forEach(reference -> {
             ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
             NbtCompound compound = new NbtCompound();
+            NpcData npcData = reference.value();
             compound.putString("id", IdentifierUtil.create("npc").toString());
-            compound.putString("NpcDataId", reference.value().getId().toString());
+            compound.putString("NpcDataId", npcData.getId().toString());
             itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compound));
-            itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(reference.value().getFaction()));
-            itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(reference.value().getName()));
-            itemStack.set(DataComponentTypes.LORE, new LoreComponent(List.of(), List.of(
-                    Text.translatable("tooltip.%s.race".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.DARK_RED)
-                    .append(Text.translatable(reference.value().getRace().toTranslationKey("race")).formatted(Formatting.WHITE))
-            )));
+            itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(npcData.getFaction()));
+            itemStack.set(DataComponentTypesME.RACE_DATA, new RaceDataComponent(npcData.getRace()));
+            itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(npcData.getName()));
             itemStack.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(
                     List.of(),
                     List.of(),
-                    List.of(reference.value().getId().getPath().replaceAll("\\.", "_") + "_spawn_egg"),
+                    List.of(npcData.getId().getPath().replaceAll("\\.", "_") + "_spawn_egg"),
                     List.of()));
             entries.add(itemStack, stackVisibility);
         });
