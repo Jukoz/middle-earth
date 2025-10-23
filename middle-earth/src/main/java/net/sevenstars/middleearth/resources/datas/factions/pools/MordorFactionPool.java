@@ -61,7 +61,9 @@ public class MordorFactionPool {
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "mordor.minas_morgul"), new Vector2d(2029, 1770)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "mordor.nurn"), new Vector2d(2345, 1915)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "mordor.dol_guldur"), new Vector2d(1793, 1210))
-                )), List.of(), List.of()
+                )), List.of(), List.of(),
+                List.of(FactionsME.ISENGARD), List.of(FactionsME.MISTY_MOUNTAINS_GOBLINS),
+                List.of(FactionsME.LOTHLORIEN, FactionsME.GONDOR, FactionsME.ROHAN, FactionsME.SHIRE, FactionsME.LONGBEARDS, FactionsME.DALE, FactionsME.BRIGAND)
         );
     }
 }

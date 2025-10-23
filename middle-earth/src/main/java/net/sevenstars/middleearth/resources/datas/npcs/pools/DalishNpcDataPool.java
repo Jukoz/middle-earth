@@ -15,12 +15,9 @@ import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -57,55 +54,55 @@ public class DalishNpcDataPool {
         NpcTextureDataPreset BASE_MALE_DALE_TEXTURE_PRESET = NpcTextureDataPool.HUMAN_MALE.copy()
                 .clearMaterials(NpcTextureType.SKIN)
                 .withMaterials(NpcTextureType.SKIN, List.of(
-                        NpcTextureMaterialsME.Skin.PALE,
-                        NpcTextureMaterialsME.Skin.BEIGE
+                        CharacterMaterialsME.Skin.PALE,
+                        CharacterMaterialsME.Skin.BEIGE
                 ))
                 .clearMaterials(NpcTextureType.HAIR)
                 .withMaterials(NpcTextureType.HAIR, List.of(
-                        NpcTextureMaterialsME.Hair.COLD_BLACK_COPPER,
-                        NpcTextureMaterialsME.Hair.BLACK_COPPER,
-                        NpcTextureMaterialsME.Hair.DARK_BROWN_COPPER,
-                        NpcTextureMaterialsME.Hair.DARK_BROWN_BEADS,
-                        NpcTextureMaterialsME.Hair.GREASY_BEADS,
-                        NpcTextureMaterialsME.Hair.GREASY_COPPER,
-                        NpcTextureMaterialsME.Hair.BROWN_COPPER,
-                        NpcTextureMaterialsME.Hair.BROWN_BEADS,
-                        NpcTextureMaterialsME.Hair.GRAY_BEADS,
-                        NpcTextureMaterialsME.Hair.GRAY_COPPER,
-                        NpcTextureMaterialsME.Hair.WHITE_COPPER,
-                        NpcTextureMaterialsME.Hair.WHITE_BEADS
+                        CharacterMaterialsME.Hair.COLD_BLACK_COPPER,
+                        CharacterMaterialsME.Hair.BLACK_COPPER,
+                        CharacterMaterialsME.Hair.DARK_BROWN_COPPER,
+                        CharacterMaterialsME.Hair.DARK_BROWN_BEADS,
+                        CharacterMaterialsME.Hair.GREASY_BEADS,
+                        CharacterMaterialsME.Hair.GREASY_COPPER,
+                        CharacterMaterialsME.Hair.BROWN_COPPER,
+                        CharacterMaterialsME.Hair.BROWN_BEADS,
+                        CharacterMaterialsME.Hair.GRAY_BEADS,
+                        CharacterMaterialsME.Hair.GRAY_COPPER,
+                        CharacterMaterialsME.Hair.WHITE_COPPER,
+                        CharacterMaterialsME.Hair.WHITE_BEADS
                 ))
                 .clearPatterns(NpcTextureType.HAIR)
                 .withPatterns(NpcTextureType.HAIR, List.of(
-                        NpcTexturePatternsME.Hairs.Hair.BOWL,
-                        NpcTexturePatternsME.Hairs.Hair.SHORT,
-                        NpcTexturePatternsME.Hairs.Hair.SHARP,
-                        NpcTexturePatternsME.Hairs.Hair.BALD_SIDES,
-                        NpcTexturePatternsME.Hairs.Hair.UNCUT,
-                        NpcTexturePatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED
+                        CharacterPatternsME.Hairs.Hair.BOWL,
+                        CharacterPatternsME.Hairs.Hair.SHORT,
+                        CharacterPatternsME.Hairs.Hair.SHARP,
+                        CharacterPatternsME.Hairs.Hair.BALD_SIDES,
+                        CharacterPatternsME.Hairs.Hair.UNCUT,
+                        CharacterPatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED
                 ))
                 .clearPatterns(NpcTextureType.BEARD)
                 .withPatterns(NpcTextureType.BEARD, Stream.of(
                         null,
-                        NpcTexturePatternsME.Hairs.Beard.SHORT,
-                        NpcTexturePatternsME.Hairs.Beard.SINGLE,
-                        NpcTexturePatternsME.Hairs.Beard.SEMI_LONG
+                        CharacterPatternsME.Hairs.Beard.SHORT,
+                        CharacterPatternsME.Hairs.Beard.SINGLE,
+                        CharacterPatternsME.Hairs.Beard.SEMI_LONG
                 ).toList())
                 .clearPatterns(NpcTextureType.CLOTHING)
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        NpcTexturePatternsME.Clothing.PANTS
+                        CharacterPatternsME.Clothing.PANTS
                 ));
 
         NpcTextureDataPreset BASE_FEMALE_DALE_TEXTURE_PRESET = BASE_MALE_DALE_TEXTURE_PRESET.copy()
                 .clearPatterns(NpcTextureType.HAIR)
                 .clearPatterns(NpcTextureType.BEARD)
                 .withPatterns(NpcTextureType.HAIR, List.of(
-                        NpcTexturePatternsME.Hairs.Hair.LONG,
-                        NpcTexturePatternsME.Hairs.Hair.FLAT_LONG,
-                        NpcTexturePatternsME.Hairs.Hair.SEMI_LONG
+                        CharacterPatternsME.Hairs.Hair.LONG,
+                        CharacterPatternsME.Hairs.Hair.FLAT_LONG,
+                        CharacterPatternsME.Hairs.Hair.SEMI_LONG
                 ));
 
-        DALE_CITIZEN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("citizen")), RacesME.HUMAN, FACTION, List.of(
+        DALE_CITIZEN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("citizen")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.STRAW_HAT))
@@ -120,16 +117,9 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(ToolItemsME.PIPE))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET.copy()
-                    .withPatterns(NpcTextureType.CLOTHING, List.of(
-                            NpcTexturePatternsME.Clothing.ROBE
-                    ))
-            ));
-            put(EntityCategory.FEMALE, List.of(BASE_FEMALE_DALE_TEXTURE_PRESET));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        DALE_WORKER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("worker")), RacesME.HUMAN, FACTION, List.of(
+        DALE_WORKER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("worker")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.STRAW_HAT))
@@ -145,16 +135,9 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(ToolItemsME.PIPE))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET.copy()
-                    .withPatterns(NpcTextureType.CLOTHING, List.of(
-                            NpcTexturePatternsME.Clothing.ROBE
-                    ))
-            ));
-            put(EntityCategory.FEMALE, List.of(BASE_FEMALE_DALE_TEXTURE_PRESET));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        DALE_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RacesME.HUMAN, FACTION, List.of(
+        DALE_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.DALISH_HELMET))
@@ -176,12 +159,9 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(NpcGearItemData.create(Items.SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
-            put(EntityCategory.FEMALE, List.of(BASE_FEMALE_DALE_TEXTURE_PRESET));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        DALE_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier")), RacesME.HUMAN, FACTION, List.of(
+        DALE_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.KETTLE_HAT))
@@ -210,12 +190,9 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BLUE_OVAL_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BLUE_BRACED_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
-            put(EntityCategory.FEMALE, List.of(BASE_FEMALE_DALE_TEXTURE_PRESET));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        DALE_SOLDIER_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier_archer")), RacesME.HUMAN, FACTION, List.of(
+        DALE_SOLDIER_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier_archer")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.DALISH_HELMET))
@@ -238,12 +215,9 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_LONGBOW))
                                 .add(NpcGearItemData.create(Items.BOW))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
-            put(EntityCategory.FEMALE, List.of(BASE_FEMALE_DALE_TEXTURE_PRESET));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        DALE_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight")), RacesME.HUMAN, FACTION, List.of(
+        DALE_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF))
@@ -275,12 +249,9 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BARDING_OVAL_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BARDING_BRACED_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
-            put(EntityCategory.FEMALE, List.of(BASE_FEMALE_DALE_TEXTURE_PRESET));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        DALE_KNIGHT_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight_archer")), RacesME.HUMAN, FACTION, List.of(
+        DALE_KNIGHT_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight_archer")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.DALISH_HELMET_BROWN_FUR))
@@ -301,10 +272,8 @@ public class DalishNpcDataPool {
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_NOBLE_LONGBOW))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
-        }}));
-        DALE_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("veteran")), RacesME.HUMAN, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+        DALE_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("veteran")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SOLDIER_HELMET))
@@ -335,11 +304,9 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BARDING_OVAL_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BARDING_HEAVY_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        DALE_SERGEANT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("sergeant")), RacesME.HUMAN, FACTION, List.of(
+        DALE_SERGEANT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("sergeant")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SOLDIER_HELMET))
@@ -366,8 +333,6 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_ROYAL_ROUND_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_BARDING_HEAVY_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(BASE_MALE_DALE_TEXTURE_PRESET));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
     }
 }

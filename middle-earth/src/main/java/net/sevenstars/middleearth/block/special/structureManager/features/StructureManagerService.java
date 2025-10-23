@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special.structureManager;
+package net.sevenstars.middleearth.block.special.structureManager.features;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;

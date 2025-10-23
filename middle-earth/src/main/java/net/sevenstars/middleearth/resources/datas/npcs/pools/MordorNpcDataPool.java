@@ -11,22 +11,16 @@ import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.resources.FactionsME;
-import net.sevenstars.middleearth.resources.NpcTextureMaterialsME;
-import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
+import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.RacesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
-import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
-import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class MordorNpcDataPool {
     private final static RegistryKey<Faction> FACTION = FactionsME.MORDOR;
@@ -48,7 +42,6 @@ public class MordorNpcDataPool {
     public final static NpcData MORDOR_BLACK_URUK_LEADER;
     public final static NpcData MORDOR_BLACK_URUK_VETERAN_ARCHER;
 
-
     public static List<NpcData> fetchAll() {
         return List.of(
                 MORDOR_BLACK_NUMENOREAN,
@@ -65,90 +58,7 @@ public class MordorNpcDataPool {
     static {
         allColors = List.of(DARK_RED, DARK_BROWN, DARK);
 
-        NpcTextureDataPreset BASE_MALE_MORDOR_ORC_TEXTURE_PRESET = new NpcTextureDataPreset()
-                .withMaterials(NpcTextureType.SKIN, List.of(
-                        NpcTextureMaterialsME.Skin.GREY,
-                        NpcTextureMaterialsME.Skin.LIGHT_GREY,
-                        NpcTextureMaterialsME.Skin.RED,
-                        NpcTextureMaterialsME.Skin.RUST,
-                        NpcTextureMaterialsME.Skin.WINE
-                ))
-                .withPatterns(NpcTextureType.BODY, List.of(
-                        NpcTexturePatternsME.Skins.Body.SKIN_TO_BONE,
-                        NpcTexturePatternsME.Skins.Body.MUSCULAR,
-                        NpcTexturePatternsME.Skins.Body.SLIM
-                ))
-                .withPatterns(NpcTextureType.HEAD, List.of(
-                        NpcTexturePatternsME.Skins.Head.GOBLIN,
-                        NpcTexturePatternsME.Skins.Head.GOBLIN_SMALL,
-                        NpcTexturePatternsME.Skins.Head.GOBLIN_SMALL_THICK_BROW,
-                        NpcTexturePatternsME.Skins.Head.GOBLIN_SMALL_VERY_WIDE,
-                        NpcTexturePatternsME.Skins.Head.GOBLIN_SMALL_WISE
-                ))
-                .withPatterns(NpcTextureType.EAR, List.of(
-                        NpcTexturePatternsME.Skins.Ear.WIDE_POINTY,
-                        NpcTexturePatternsME.Skins.Ear.SQUARE_POINTY,
-                        NpcTexturePatternsME.Skins.Ear.LARGE_POINTY,
-                        NpcTexturePatternsME.Skins.Ear.SMALL_POINTY
-                ))
-                .withMaterials(NpcTextureType.EYE, List.of(
-                        NpcTextureMaterialsME.Eye.RED,
-                        NpcTextureMaterialsME.Eye.PALE,
-                        NpcTextureMaterialsME.Eye.YELLOW
-                ))
-                .withEmissiveEyes(true)
-                .withPatterns(NpcTextureType.EYE, List.of(
-                        NpcTexturePatternsME.Eyes.Eye.COMMON,
-                        NpcTexturePatternsME.Eyes.Eye.SMALL_LOW_WIDE,
-                        NpcTexturePatternsME.Eyes.Eye.SMALL
-                ))
-                .withMaterials(NpcTextureType.HAIR, List.of(
-                        NpcTextureMaterialsME.Hair.GREASY_ALMANDINE,
-                        NpcTextureMaterialsME.Hair.GREASY_BEADS,
-                        NpcTextureMaterialsME.Hair.DIRTY_BROWN_ALMANDINE,
-                        NpcTextureMaterialsME.Hair.DIRTY_BROWN_BEADS
-                ))
-                .withPatterns(NpcTextureType.HAIR, List.of(
-                        NpcTexturePatternsME.Hairs.Hair.DIRTY_MOP,
-                        NpcTexturePatternsME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED,
-                        NpcTexturePatternsME.Hairs.Hair.BALD_SMALL_DREADLOCKS,
-                        NpcTexturePatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED,
-                        NpcTexturePatternsME.Hairs.Hair.TOP_BALDING,
-                        NpcTexturePatternsME.Hairs.Hair.UNCUT,
-                        NpcTexturePatternsME.Hairs.Hair.SHORT,
-                        NpcTexturePatternsME.Hairs.Hair.BALD_SIDES
-                ))
-                .clearPatterns(NpcTextureType.CLOTHING)
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        NpcTexturePatternsME.Clothing.THONG,
-                        NpcTexturePatternsME.Clothing.PANTS
-                ))
-                .clearMaterials(NpcTextureType.CLOTHING)
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        NpcTextureMaterialsME.Clothing.BROWN,
-                        NpcTextureMaterialsME.Clothing.ROT_GREEN,
-                        NpcTextureMaterialsME.Clothing.GRAY
-                ));
-        NpcTextureDataPreset BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_A = BASE_MALE_MORDOR_ORC_TEXTURE_PRESET.copy()
-                .clearPatterns(NpcTextureType.HEAD)
-                .withPatterns(NpcTextureType.HEAD, List.of(
-                        NpcTexturePatternsME.Skins.Head.URUK_DUMB
-                ))
-                .clearPatterns(NpcTextureType.EYE)
-                .withPatterns(NpcTextureType.EYE, List.of(
-                        NpcTexturePatternsME.Eyes.Eye.SMALL_WIDE
-                ));
-        NpcTextureDataPreset BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_B = BASE_MALE_MORDOR_ORC_TEXTURE_PRESET.copy()
-                .clearPatterns(NpcTextureType.HEAD)
-                .withPatterns(NpcTextureType.HEAD, List.of(
-                        NpcTexturePatternsME.Skins.Head.URUK_TALL_DUMB
-                ))
-                .clearPatterns(NpcTextureType.EYE)
-                .withPatterns(NpcTextureType.EYE, List.of(
-                        NpcTexturePatternsME.Eyes.Eye.SMALL_HIGH_WIDE
-                ));
-
-        MORDOR_BLACK_NUMENOREAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_numenorean")), RacesME.HUMAN, FACTION, List.of(
+        MORDOR_BLACK_NUMENOREAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_numenorean")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET).withWeight(4))
@@ -167,119 +77,9 @@ public class MordorNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.BLACK_NUMENOREAN_TOWER_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(
-                    new NpcTextureDataPreset()
-                            .withMaterials(NpcTextureType.SKIN, List.of(
-                                    NpcTextureMaterialsME.Skin.OLIVE
-                            ))
-                            .withPatterns(NpcTextureType.BODY, List.of(
-                                    NpcTexturePatternsME.Skins.Body.MUSCULAR
-                            ))
-                            .withPatterns(NpcTextureType.HEAD, List.of(
-                                    NpcTexturePatternsME.Skins.Head.MALE
-                            ))
-                            .withPatterns(NpcTextureType.SCAR, List.of(
-                                    NpcTexturePatternsME.Skins.Scar.EYE_RIGHT
-                            ))
-                            .withPatterns(NpcTextureType.EAR, List.of(
-                                    NpcTexturePatternsME.Skins.Ear.WIDE_POINTY
-                            ))
-                            .withMaterials(NpcTextureType.EYE, List.of(
-                                    NpcTextureMaterialsME.Eye.BROWN
-                            ))
-                            .withPatterns(NpcTextureType.EYE, List.of(
-                                    NpcTexturePatternsME.Eyes.Eye.COMMON
-                            ))
-                            .withMaterials(NpcTextureType.HAIR, List.of(
-                                    NpcTextureMaterialsME.Hair.BROWN_ALMANDINE,
-                                    NpcTextureMaterialsME.Hair.DARK_BROWN_ALMANDINE,
-                                    NpcTextureMaterialsME.Hair.GINGER_ALMANDINE,
-                                    NpcTextureMaterialsME.Hair.GRAY_ALMANDINE,
-                                    NpcTextureMaterialsME.Hair.STRAW_ALMANDINE,
-                                    NpcTextureMaterialsME.Hair.BLACK_ALMANDINE
-                            ))
-                            .withPatterns(NpcTextureType.EYEBROW, List.of(
-                                    NpcTexturePatternsME.Hairs.Eyebrow.UNI,
-                                    NpcTexturePatternsME.Hairs.Eyebrow.BASIC,
-                                    NpcTexturePatternsME.Hairs.Eyebrow.SHORT
-                            ))
-                            .withPatterns(NpcTextureType.HAIR, Stream.of(
-                                    NpcTexturePatternsME.Hairs.Hair.BOWL,
-                                    NpcTexturePatternsME.Hairs.Hair.BALD_SIDES,
-                                    NpcTexturePatternsME.Hairs.Hair.DIRTY_MOP,
-                                    NpcTexturePatternsME.Hairs.Hair.SHORT,
-                                    NpcTexturePatternsME.Hairs.Hair.TOP_BALDING,
-                                    NpcTexturePatternsME.Hairs.Hair.SIDE_BALDING,
-                                    null).toList()
-                            )
-                            .withPatterns(NpcTextureType.BEARD, Stream.of(
-                                    NpcTexturePatternsME.Hairs.Beard.CLEAN,
-                                    NpcTexturePatternsME.Hairs.Beard.SHORT,
-                                    NpcTexturePatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
-                                    null).toList()
-                            )
-                            .withMaterials(NpcTextureType.CLOTHING, List.of(
-                                    NpcTextureMaterialsME.Clothing.GRAY
-                            ))
-                            .withPatterns(NpcTextureType.CLOTHING, List.of(
-                                    NpcTexturePatternsME.Clothing.TOGA,
-                                    NpcTexturePatternsME.Clothing.FULL_TOGA,
-                                    NpcTexturePatternsME.Clothing.ROBE,
-                                    NpcTexturePatternsME.Clothing.SKIRT
-                            ))
-            ));
-            put(EntityCategory.FEMALE, List.of(
-                    new NpcTextureDataPreset()
-                            .withMaterials(NpcTextureType.SKIN, List.of(
-                                    NpcTextureMaterialsME.Skin.OLIVE
-                            ))
-                            .withPatterns(NpcTextureType.BODY, List.of(
-                                    NpcTexturePatternsME.Skins.Body.SLIM,
-                                    NpcTexturePatternsME.Skins.Body.FEMALE
-                            ))
-                            .withPatterns(NpcTextureType.HEAD, List.of(
-                                    NpcTexturePatternsME.Skins.Head.FEMALE
-                            ))
-                            .withPatterns(NpcTextureType.EAR, List.of(
-                                    NpcTexturePatternsME.Skins.Ear.LARGE_POINTY
-                            ))
-                            .withMaterials(NpcTextureType.EYE, List.of(
-                                    NpcTextureMaterialsME.Eye.BLUE,
-                                    NpcTextureMaterialsME.Eye.GREEN,
-                                    NpcTextureMaterialsME.Eye.DARK_GREEN,
-                                    NpcTextureMaterialsME.Eye.NAVY,
-                                    NpcTextureMaterialsME.Eye.BROWN
-                            ))
-                            .withPatterns(NpcTextureType.EYE, List.of(
-                                    NpcTexturePatternsME.Eyes.Eye.COMMON
-                            ))
-                            .withMaterials(NpcTextureType.HAIR, List.of(
-                                    NpcTextureMaterialsME.Hair.BROWN_ALMANDINE,
-                                    NpcTextureMaterialsME.Hair.DARK_BROWN_ALMANDINE,
-                                    NpcTextureMaterialsME.Hair.BLACK_ALMANDINE
-                            ))
-                            .withPatterns(NpcTextureType.EYEBROW, List.of(
-                                    NpcTexturePatternsME.Hairs.Eyebrow.BASIC,
-                                    NpcTexturePatternsME.Hairs.Eyebrow.SHORT
-                            ))
-                            .withPatterns(NpcTextureType.HAIR, List.of(
-                                    NpcTexturePatternsME.Hairs.Hair.LONG,
-                                    NpcTexturePatternsME.Hairs.Hair.FLAT_LONG,
-                                    NpcTexturePatternsME.Hairs.Hair.DIRTY_MOP
-                            ))
-                            .withMaterials(NpcTextureType.CLOTHING, List.of(
-                                    NpcTextureMaterialsME.Clothing.WHITE,
-                                    NpcTextureMaterialsME.Clothing.BROWN
-                            ))
-                            .withPatterns(NpcTextureType.CLOTHING, List.of(
-                                    NpcTexturePatternsME.Clothing.FULL_TOGA,
-                                    NpcTexturePatternsME.Clothing.SKIRT_WITH_STROPHIUM
-                            ))
-            ));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_ORC_SNAGA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_snaga")), RacesME.ORC, FACTION, List.of(
+        MORDOR_ORC_SNAGA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_snaga")), RacesME.ORC, FACTION, NpcTextureDatasME.MORDOR_ORC, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -320,12 +120,9 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_WOODEN_SHIELD).withWeight(2))
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_PAINTED_WOODEN_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(
-                    BASE_MALE_MORDOR_ORC_TEXTURE_PRESET
-            ));
-        }}));
-        MORDOR_ORC_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_militia")), RacesME.ORC, FACTION, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        MORDOR_ORC_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_militia")), RacesME.ORC, FACTION, NpcTextureDatasME.MORDOR_ORC, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -384,13 +181,9 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD).withWeight(2))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(
-                    BASE_MALE_MORDOR_ORC_TEXTURE_PRESET
-            ));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_ORC_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_scout")), RacesME.ORC, FACTION, List.of(
+        MORDOR_ORC_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_scout")), RacesME.ORC, FACTION, NpcTextureDatasME.MORDOR_ORC,  List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -441,13 +234,9 @@ public class MordorNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(
-                    BASE_MALE_MORDOR_ORC_TEXTURE_PRESET
-            ));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_ORC_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_soldier")), RacesME.ORC, FACTION, List.of(
+        MORDOR_ORC_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_soldier")), RacesME.ORC, FACTION, NpcTextureDatasME.MORDOR_ORC,  List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -530,13 +319,9 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_CONVERTED_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(
-                    BASE_MALE_MORDOR_ORC_TEXTURE_PRESET
-            ));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_BLACK_URUK_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_uruk_soldier")), RacesME.URUK, FACTION, List.of(
+        MORDOR_BLACK_URUK_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_uruk_soldier")), RacesME.URUK, FACTION, NpcTextureDatasME.MORDOR_BLACK_URUK, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -604,14 +389,9 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_CONVERTED_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(
-                    BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_A,
-                    BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_B
-            ));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_BLACK_URUK_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_uruk_veteran")), RacesME.URUK, FACTION, List.of(
+        MORDOR_BLACK_URUK_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_uruk_veteran")), RacesME.URUK, FACTION, NpcTextureDatasME.MORDOR_BLACK_URUK, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.BLACK_URUK_PLATE_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.BLACK_URUK_PLATE_CHESTPLATE)))
@@ -629,14 +409,9 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(
-                    BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_A,
-                    BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_B
-            ));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_BLACK_URUK_VETERAN_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_uruk_veteran_archer")), RacesME.URUK, FACTION, List.of(
+        MORDOR_BLACK_URUK_VETERAN_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_uruk_veteran_archer")), RacesME.URUK, FACTION, NpcTextureDatasME.MORDOR_BLACK_URUK, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.BLACK_URUK_PLATE_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.BLACK_URUK_PLATE_CHESTPLATE)))
@@ -648,14 +423,9 @@ public class MordorNpcDataPool {
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_ELITE_LONGBOW))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(
-                    BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_A,
-                    BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_B
-            ));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_BLACK_URUK_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_uruk_leader")), RacesME.URUK, FACTION, List.of(
+        MORDOR_BLACK_URUK_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_uruk_leader")), RacesME.URUK, FACTION, NpcTextureDatasME.MORDOR_BLACK_URUK, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.BLACK_URUK_COMMANDER_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
@@ -673,11 +443,6 @@ public class MordorNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
                         )
-        ), new HashMap<>(), new NpcTextureData(new HashMap<>(){{
-            put(EntityCategory.MALE, List.of(
-                    BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_A,
-                    BASE_MALE_MORDOR_URUK_TEXTURE_PRESET_B
-            ));
-        }}));
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
     }
 }

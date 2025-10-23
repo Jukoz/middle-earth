@@ -54,7 +54,10 @@ public class ShireFactionPool {
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "shire.hobbiton"), new Vector2d(933, 900)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "shire.willowbottom"), new Vector2d(981, 970))
-                )), List.of(), List.of()
+                )), List.of(), List.of(),
+                List.of(),
+                List.of(FactionsME.LOTHLORIEN, FactionsME.GONDOR, FactionsME.ROHAN, FactionsME.LONGBEARDS, FactionsME.DALE),
+                List.of(FactionsME.MISTY_MOUNTAINS_GOBLINS, FactionsME.MORDOR, FactionsME.ISENGARD, FactionsME.BRIGAND)
         );
     }
 

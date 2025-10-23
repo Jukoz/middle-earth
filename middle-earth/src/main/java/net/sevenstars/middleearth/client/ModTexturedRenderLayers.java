@@ -6,7 +6,7 @@ import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.resources.AtlasesME;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,27 +20,25 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
     private static final Map<Identifier, SpriteIdentifier> KITE_SHIELD_PATTERN_TEXTURES;
     private static final Map<Identifier, SpriteIdentifier> ROUND_SHIELD_PATTERN_TEXTURES;
 
+    public static final Identifier CHARACTER_SKIN_ATLAS_TEXTURE = AtlasesME.getAtlasPath(AtlasesME.CHARACTER_SKINS);
+    private static final RenderLayer CHARACTER_SKINS_RENDER_LAYER;
 
+    public static final Identifier CHARACTER_EYES_ATLAS_TEXTURE = AtlasesME.getAtlasPath(AtlasesME.CHARACTER_EYES);
+    private static final RenderLayer CHARACTER_EYES_RENDER_LAYER;
+    private static final RenderLayer CHARACTER_EYES_EMISSIVE_RENDER_LAYER;
 
-    public static final Identifier NPC_SKIN_TEXTURES_ATLAS_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/atlas/npc_skin_textures.png");
-    private static final RenderLayer NPC_SKIN_TEXTURES_RENDER_LAYER;
+    public static final Identifier CHARACTER_HAIRS_ATLAS_TEXTURE = AtlasesME.getAtlasPath(AtlasesME.CHARACTER_HAIRS);
+    private static final RenderLayer CHARACTER_HAIRS_RENDER_LAYER;
 
-    public static final Identifier NPC_EYE_TEXTURES_ATLAS_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/atlas/npc_eye_textures.png");
-    private static final RenderLayer NPC_EYE_TEXTURES_RENDER_LAYER;
-    private static final RenderLayer NPC_EYE_TEXTURES_EMISSIVE_RENDER_LAYER;
-
-    public static final Identifier NPC_HAIR_TEXTURES_ATLAS_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/atlas/npc_hair_textures.png");
-    private static final RenderLayer NPC_HAIR_TEXTURES_RENDER_LAYER;
-
-    public static final Identifier NPC_CLOTHING_TEXTURES_ATLAS_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/atlas/npc_clothing_textures.png");
-    private static final RenderLayer NPC_CLOTHING_TEXTURES_RENDER_LAYER;
+    public static final Identifier CHARACTER_CLOTHINGS_ATLAS_TEXTURE = AtlasesME.getAtlasPath(AtlasesME.CHARACTER_CLOTHINGS);
+    private static final RenderLayer CHARACTER_CLOTHINGS_RENDER_LAYER;
 
     static {
-        NPC_SKIN_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(NPC_SKIN_TEXTURES_ATLAS_TEXTURE);
-        NPC_EYE_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(NPC_EYE_TEXTURES_ATLAS_TEXTURE);
-        NPC_EYE_TEXTURES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(NPC_EYE_TEXTURES_ATLAS_TEXTURE);
-        NPC_HAIR_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCullZOffset(NPC_HAIR_TEXTURES_ATLAS_TEXTURE);
-        NPC_CLOTHING_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCullZOffset(NPC_CLOTHING_TEXTURES_ATLAS_TEXTURE);
+        CHARACTER_SKINS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_SKIN_ATLAS_TEXTURE);
+        CHARACTER_EYES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_EYES_ATLAS_TEXTURE);
+        CHARACTER_EYES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(CHARACTER_EYES_ATLAS_TEXTURE);
+        CHARACTER_HAIRS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCullZOffset(CHARACTER_HAIRS_ATLAS_TEXTURE);
+        CHARACTER_CLOTHINGS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCullZOffset(CHARACTER_CLOTHINGS_ATLAS_TEXTURE);
 
 
         HEATER_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/heater_shield/base"));
@@ -52,19 +50,19 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
         ROUND_SHIELD_PATTERN_TEXTURES = new HashMap<>();
     }
 
-    public static RenderLayer getNpcSkinTexturesRenderLayer() {
-        return NPC_SKIN_TEXTURES_RENDER_LAYER;
+    public static RenderLayer getCharacterSkinsRenderLayer() {
+        return CHARACTER_SKINS_RENDER_LAYER;
     }
-    public static RenderLayer getNpcEyeTexturesRenderLayer(boolean isEmissive) {
+    public static RenderLayer getCharacterEyesTexturesRenderLayer(boolean isEmissive) {
         return (isEmissive)
-                ? NPC_EYE_TEXTURES_EMISSIVE_RENDER_LAYER
-                : NPC_EYE_TEXTURES_RENDER_LAYER;
+                ? CHARACTER_EYES_EMISSIVE_RENDER_LAYER
+                : CHARACTER_EYES_RENDER_LAYER;
     }
-    public static RenderLayer getNpcHairTexturesRenderLayer() {
-        return NPC_HAIR_TEXTURES_RENDER_LAYER;
+    public static RenderLayer getCharacterHairsRenderLayer() {
+        return CHARACTER_HAIRS_RENDER_LAYER;
     }
-    public static RenderLayer getNpcClothingTexturesRenderLayer() {
-        return NPC_CLOTHING_TEXTURES_RENDER_LAYER;
+    public static RenderLayer getCharacterClothingsRenderLayer() {
+        return CHARACTER_CLOTHINGS_RENDER_LAYER;
     }
 
 

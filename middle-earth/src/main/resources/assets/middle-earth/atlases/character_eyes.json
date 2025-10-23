@@ -1,0 +1,41 @@
+{
+    "sources": [
+        {
+            "type": "paletted_permutations",
+            "textures": [
+                "middle-earth:character_eyes/eye_common",
+                "middle-earth:character_eyes/eye_blind_left",
+                "middle-earth:character_eyes/eye_blind_right",
+                "middle-earth:character_eyes/eye_small",
+                "middle-earth:character_eyes/eye_small_high_wide",
+                "middle-earth:character_eyes/eye_small_wide",
+                "middle-earth:character_eyes/eye_small_low_wide",
+
+                "middle-earth:character_eyes/eye_common_emissive",
+                "middle-earth:character_eyes/eye_common_emissive_overlay",
+                "middle-earth:character_eyes/eye_blind_left_emissive",
+                "middle-earth:character_eyes/eye_blind_left_emissive_overlay",
+                "middle-earth:character_eyes/eye_blind_right_emissive",
+                "middle-earth:character_eyes/eye_blind_right_emissive_overlay",
+                "middle-earth:character_eyes/eye_small_emissive",
+                "middle-earth:character_eyes/eye_small_high_wide_emissive",
+                "middle-earth:character_eyes/eye_small_wide_emissive",
+                "middle-earth:character_eyes/eye_small_low_wide_emissive"
+            ],
+            "palette_key": "middle-earth:character_eyes/color_palettes/base_palette",
+            "permutations": {
+                "black": "middle-earth:character_eyes/color_palettes/black",
+                "blue": "middle-earth:character_eyes/color_palettes/blue",
+                "brown": "middle-earth:character_eyes/color_palettes/brown",
+                "dark_green": "middle-earth:character_eyes/color_palettes/dark_green",
+                "deep_blue": "middle-earth:character_eyes/color_palettes/deep_blue",
+                "green": "middle-earth:character_eyes/color_palettes/green",
+                "ice": "middle-earth:character_eyes/color_palettes/ice",
+                "navy": "middle-earth:character_eyes/color_palettes/navy",
+                "pale": "middle-earth:character_eyes/color_palettes/pale",
+                "red": "middle-earth:character_eyes/color_palettes/red",
+                "yellow": "middle-earth:character_eyes/color_palettes/yellow"
+            }
+        }
+    ]
+}

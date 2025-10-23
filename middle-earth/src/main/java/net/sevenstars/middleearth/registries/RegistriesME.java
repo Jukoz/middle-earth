@@ -2,13 +2,11 @@ package net.sevenstars.middleearth.registries;
 
 import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
 import net.fabricmc.fabric.api.registry.*;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -18,13 +16,13 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.util.math.random.Random;
-import net.sevenstars.middleearth.block.registration.*;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.registration.GenericBlockSets;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
@@ -120,6 +118,7 @@ public class RegistriesME {
         ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.ARMOR_TIER_DATA);
         ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.WEAPON_TYPE_DATA);
         ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.FACTION_DATA);
+        ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.RACE_DATA);
         ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.HELMET_ATTACHMENT_DATA);
         ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.BACK_ATTACHMENT_DATA);
         ComponentTooltipAppenderRegistry.addAfter(DataComponentTypes.TRIM, DataComponentTypesME.BLOCK_AUTHOR_DATA);
@@ -650,6 +649,9 @@ public class RegistriesME {
 
     public static void registerLandPathNodeTypesBlocks() {
         LandPathNodeTypesRegistry.register(ModNatureBlocks.TOUGH_BERRY_BUSH, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModNatureBlocks.NETTLES, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModNatureBlocks.THISTLE, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
+        LandPathNodeTypesRegistry.register(ModNatureBlocks.BRAMBLES_OF_MORDOR, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
         LandPathNodeTypesRegistry.register(ModDecorativeBlocks.SMALL_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
         LandPathNodeTypesRegistry.register(ModDecorativeBlocks.BIG_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);
         LandPathNodeTypesRegistry.register(ModDecorativeBlocks.GILDED_SMALL_BRAZIER, PathNodeType.DAMAGE_FIRE, PathNodeType.DAMAGE_FIRE);

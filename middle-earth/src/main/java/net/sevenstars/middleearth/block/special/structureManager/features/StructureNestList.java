@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special.structureManager;
+package net.sevenstars.middleearth.block.special.structureManager.features;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

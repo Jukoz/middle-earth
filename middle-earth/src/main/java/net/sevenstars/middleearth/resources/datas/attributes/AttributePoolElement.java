@@ -11,6 +11,9 @@ public class AttributePoolElement {
     private Identifier identifier;
     private Double value;
     private Double valueMax;
+    private Identifier modifierIdentifier;
+    private Double modifierValue;
+    private String modifierType;
     private Boolean isBuffReversed;
 
     public AttributePoolElement(){
@@ -40,6 +43,13 @@ public class AttributePoolElement {
         if(nbtCompound.contains("buffReversed") && nbtCompound.getBoolean("buffReversed").get())
             newElement.withBuffReversed();
 
+        if(nbtCompound.contains("modifierId")){
+            newElement.withModifier(
+                    Identifier.of(nbtCompound.getString("modifierId").get()),
+                    nbtCompound.getDouble("modifierValue").get(),
+                    nbtCompound.getString("modifierType").get());
+        }
+
         return newElement;
     }
 
@@ -52,6 +62,12 @@ public class AttributePoolElement {
         else{
             nbtCompound.putDouble("min", this.value);
             nbtCompound.putDouble("max", this.valueMax);
+        }
+
+        if(this.modifierIdentifier != null && this.modifierValue != null && this.modifierType != null){
+            nbtCompound.putString("modifierId", this.modifierIdentifier.toString());
+            nbtCompound.putDouble("modifierValue", this.modifierValue);
+            nbtCompound.putString("modifierType", this.modifierType.toString());
         }
 
         if(this.isBuffReversed != null && this.isBuffReversed)
@@ -80,9 +96,22 @@ public class AttributePoolElement {
         return this;
     }
 
+    public AttributePoolElement withModifier(Identifier identifier, double value) {
+        withModifier(identifier, value, "ADD_MULTIPLIED_TOTAL");
+        return this;
+    }
+
+    public AttributePoolElement withModifier(Identifier identifier, double value, String type) {
+        this.modifierIdentifier = identifier;
+        this.modifierValue = value;
+        this.modifierType = type;
+        return this;
+    }
+
     public Identifier getIdentifier(){
         return this.identifier;
     }
+
     public double getValue(){
         if(this.valueMax == null){
             return this.value;
@@ -90,9 +119,24 @@ public class AttributePoolElement {
         Random random = new Random();
         return random.nextDouble(value, valueMax);
     }
+
+    public boolean hasModifier(){
+        return this.modifierIdentifier != null && this.modifierValue != null;
+    }
+
+    public Identifier getModifierIdentifier(){
+        return this.modifierIdentifier;
+    }
+
+    public Double getModifierValue(){
+        return this.modifierValue;
+    }
+
+    public String getModifierType(){
+        return this.modifierType;
+    }
+
     public boolean isBuffReversed(){
         return this.isBuffReversed != null && this.isBuffReversed;
     }
-
-
 }

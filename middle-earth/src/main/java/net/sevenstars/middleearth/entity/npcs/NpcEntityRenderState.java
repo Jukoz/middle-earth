@@ -21,6 +21,10 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
     public boolean haveEmissiveEyes;
     public boolean blinking;
 
+    public boolean canShowEars;
+    public boolean canShowBeard;
+    public boolean canShowHair;
+
     public NpcEntityRenderState() {
         this.skinId = null;
         this.headId = null;
@@ -38,5 +42,9 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
 
         this.haveEmissiveEyes = false;
         this.blinking = false;
+
+        this.canShowEars = false;
+        this.canShowBeard = false;
+        this.canShowHair = false;
     }
 }

@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.resources.datas.races;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.middleearth.resources.datas.races.data.AttributeData;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 public class RaceUtil {
@@ -45,6 +45,6 @@ public class RaceUtil {
     }
 
     public static void reset(PlayerEntity player) {
-        AttributeData.reset(player);
+        AttributePool.reverse(player);
     }
 }

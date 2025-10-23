@@ -16,12 +16,12 @@ import net.sevenstars.middleearth.utils.IdentifierUtil;
  * <b><u>Datadriven content, do not use during runtime!</u></b>
  * <hr>
  */
-public class NpcTextureMaterialsME {
+public class CharacterMaterialsME {
     public record Keys(){
-        public static final RegistryKey<Registry<NpcTextureMaterial>> SKIN_KEY = ofRegistry("npc_skin_material");
-        public static final RegistryKey<Registry<NpcTextureMaterial>> EYE_KEY = ofRegistry("npc_eye_material");
-        public static final RegistryKey<Registry<NpcTextureMaterial>> HAIR_KEY = ofRegistry("npc_hair_material");
-        public static final RegistryKey<Registry<NpcTextureMaterial>> CLOTHING_KEY = ofRegistry("npc_clothing_material");
+        public static final RegistryKey<Registry<NpcTextureMaterial>> SKIN_KEY = ofRegistry("character_skin_material");
+        public static final RegistryKey<Registry<NpcTextureMaterial>> EYE_KEY = ofRegistry("character_eye_material");
+        public static final RegistryKey<Registry<NpcTextureMaterial>> HAIR_KEY = ofRegistry("character_hair_material");
+        public static final RegistryKey<Registry<NpcTextureMaterial>> CLOTHING_KEY = ofRegistry("character_clothing_material");
     }
 
     public record Skin(){
