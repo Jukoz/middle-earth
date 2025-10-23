@@ -1,0 +1,9 @@
+{
+  "asset_id": "wild-things:entity/cow/tan_bull",
+  "model": "cold",
+  "spawn_conditions": [
+    {
+      "priority": 0
+    }
+  ]
+}

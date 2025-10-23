@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-	"middle-earth:northern_dunland",
-	"middle-earth:southern_dunland"
+	"middle-earth:dunland"
   ]
 }

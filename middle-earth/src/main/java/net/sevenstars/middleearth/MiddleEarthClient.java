@@ -69,6 +69,7 @@ import net.sevenstars.middleearth.network.ModClientNetworkHandler;
 import net.sevenstars.middleearth.network.connections.ConnectionToServer;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
+import net.sevenstars.middleearth.particles.custom.BiomeFogParticle;
 import net.sevenstars.middleearth.particles.custom.RingOfSmokeParticle;
 
 public class MiddleEarthClient implements ClientModInitializer {
@@ -86,7 +87,6 @@ public class MiddleEarthClient implements ClientModInitializer {
     public static final EntityModelLayer ROUND_SHIELD_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "round_shield"), "main");
 
     public static final EntityModelLayer HELD_BANNER_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "held_banner"), "main");
-
 
     @Override
     public void onInitializeClient() {
@@ -188,6 +188,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         });
 
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.ANVIL_SPARK_PARTICLE, AnvilBonkParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.BIOME_FOG_PARTICLE, BiomeFogParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.RING_OF_SMOKE, RingOfSmokeParticle.Factory::new);
 
         initializeRenderLayerMap();
