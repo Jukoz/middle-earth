@@ -40,9 +40,9 @@ public interface ArmorMaterialsME {
     ExtendedArmorMaterial LEATHER_T1 = registerArmor("leather_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
     ExtendedArmorMaterial LEATHER_T2 = registerArmor("leather_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
 
-    ExtendedArmorMaterial BONE_T0 = registerArmor("bone_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_BONE_ARMOR);
-    ExtendedArmorMaterial BONE_T1 = registerArmor("bone_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_BONE_ARMOR);
-    ExtendedArmorMaterial BONE_T2 = registerArmor("bone_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_BONE_ARMOR);
+    ExtendedArmorMaterial BONE_T0 = registerArmor("bone_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_BONE_ARMOR);
+    ExtendedArmorMaterial BONE_T1 = registerArmor("bone_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_BONE_ARMOR);
+    ExtendedArmorMaterial BONE_T2 = registerArmor("bone_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_BONE_ARMOR);
 
     ExtendedArmorMaterial IRON_T2 = registerArmor("iron_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTags.REPAIRS_IRON_ARMOR);
     ExtendedArmorMaterial IRON_T3 = registerArmor("iron_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTags.REPAIRS_IRON_ARMOR);
