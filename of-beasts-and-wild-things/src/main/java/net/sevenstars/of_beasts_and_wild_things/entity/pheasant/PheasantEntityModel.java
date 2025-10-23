@@ -9,12 +9,14 @@ public class PheasantEntityModel extends EntityModel<PheasantEntityRenderState> 
     private final Animation walkingAnimation;
     private final Animation idlingAnimation;
     private final Animation diggingAnimation;
+    private final Animation flapAnimation;
 
     public PheasantEntityModel(ModelPart root) {
         super(root);
         this.walkingAnimation = PheasantEntityAnimations.WALK.createAnimation(root);
         this.idlingAnimation = PheasantEntityAnimations.IDLE.createAnimation(root);
         this.diggingAnimation = PheasantEntityAnimations.DIGGING.createAnimation(root);
+        this.flapAnimation = PheasantEntityAnimations.FLAP.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -61,5 +63,6 @@ public class PheasantEntityModel extends EntityModel<PheasantEntityRenderState> 
         this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 5.0F, 5.0F);
         this.idlingAnimation.apply(state.idleAnimationState, state.age);
         this.diggingAnimation.apply(state.diggingAnimationState, state.age, 1.2F);
+        this.flapAnimation.apply(state.flapAnimationState, state.age, 2.0F);
     }
 }

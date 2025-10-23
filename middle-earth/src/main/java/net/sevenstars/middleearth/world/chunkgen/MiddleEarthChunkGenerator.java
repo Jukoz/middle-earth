@@ -152,11 +152,11 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.GORGOROTH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GORGOROTH_ASHEN_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GORGOROTH_DELTA),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.GREY_MOUNTAINS),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.GREY_MOUNTAINS_BASE),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.GREY_MOUNTAINS_PEAKS),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.GREY_ASHEN_WOODS),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.GREY_PLAINS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GRAY_MOUNTAINS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GRAY_MOUNTAINS_BASE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GRAY_MOUNTAINS_PEAKS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GRAY_ASHEN_WOODS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GRAY_PLAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD_DESERT),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD_WOODS),
@@ -241,7 +241,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.NEN_HITHOEL_SHORES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NINDALF),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NORTH_DOWNS),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_DUNLAND),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DUNLAND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_DUNLAND_GLADE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_MIRKWOOD_MARSHES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_MIRKWOOD_SWAMP),
@@ -292,7 +292,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.SHIRE_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHEAST_RHOVANION),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHEAST_RHOVANION_FIELD),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHERN_DUNLAND),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DRUWAITH_IAUR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHERN_FOROCHEL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EPHEL_DUATH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EPHEL_DUATH_BASE),
@@ -326,7 +326,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.DOLOMITE_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GALONN_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GILDED_CAVE),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.IZHER_ABAN_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.IZHERABAN_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LIMESTONE_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MOUNTAIN_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MUD_CAVE),
@@ -429,7 +429,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                         trySetBlock(chunk, chunk.getPos().getBlockPos(x, currentHeight++, z), layerData.block.getDefaultState());
                     }
                 }
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 2), z), customHeightBiomeHeightData.getBiome().getBlocksLayering().layers.getFirst().block.getDefaultState());
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 2), z), customHeightBiomeHeightData.getBiome().getBlocksLayering().layers.getLast().block.getDefaultState());
                 BlockState surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().slopeDatas.getFirst().block.getDefaultState();
                 BlockState underSurfaceBlock;
 
@@ -437,10 +437,30 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState()) {
                     surfaceBlock = Blocks.DIRT.getDefaultState();
                     underSurfaceBlock = surfaceBlock;
+                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.CHALKSOIL_GRASS_BLOCK.getDefaultState()) {
+                    surfaceBlock = ModBlocks.CHALKSOIL.getDefaultState();
+                    underSurfaceBlock = surfaceBlock;
+                }else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.LOAM_GRASS_BLOCK.getDefaultState()) {
+                    surfaceBlock = ModBlocks.LOAM.getDefaultState();
+                    underSurfaceBlock = surfaceBlock;
+                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.PEAT_GRASS_BLOCK.getDefaultState()) {
+                    surfaceBlock = ModBlocks.PEAT.getDefaultState();
+                    underSurfaceBlock = surfaceBlock;
+                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.SILT_GRASS_BLOCK.getDefaultState()) {
+                    surfaceBlock = ModBlocks.SILT.getDefaultState();
+                    underSurfaceBlock = surfaceBlock;
                 } else {
                     surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().getBlockAtAngle(slopeAngle).getDefaultState();
                     if(surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState() || surfaceBlock == ModBlocks.SNOWY_GRASS_BLOCK.getDefaultState()) {
                         underSurfaceBlock = Blocks.DIRT.getDefaultState();
+                    } else if(surfaceBlock == ModBlocks.CHALKSOIL_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = ModBlocks.CHALKSOIL.getDefaultState();
+                    }else if(surfaceBlock == ModBlocks.LOAM_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = ModBlocks.LOAM.getDefaultState();
+                    } else if(surfaceBlock == ModBlocks.PEAT_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = ModBlocks.PEAT.getDefaultState();
+                    } else if(surfaceBlock == ModBlocks.SILT_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = ModBlocks.SILT.getDefaultState();
                     }
                     else underSurfaceBlock = surfaceBlock;
                 }

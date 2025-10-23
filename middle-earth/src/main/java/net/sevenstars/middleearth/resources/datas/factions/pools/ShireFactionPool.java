@@ -4,7 +4,7 @@ import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.ModBannerPatterns;
+import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
@@ -46,15 +46,18 @@ public class ShireFactionPool {
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.LIME),
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.LIME),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.LIME),
                         new BannerData.BannerPatternWithColor(BannerPatterns.CIRCLE, DyeColor.YELLOW),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.PIPE, DyeColor.BROWN)
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.PIPE, DyeColor.BROWN)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "shire.hobbiton"), new Vector2d(933, 900)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "shire.willowbottom"), new Vector2d(981, 970))
-                )), List.of(), List.of()
+                )), List.of(), List.of(),
+                List.of(),
+                List.of(FactionsME.LOTHLORIEN, FactionsME.GONDOR, FactionsME.ROHAN, FactionsME.LONGBEARDS, FactionsME.DALE),
+                List.of(FactionsME.MISTY_MOUNTAINS_GOBLINS, FactionsME.MORDOR, FactionsME.ISENGARD, FactionsME.BRIGAND)
         );
     }
 

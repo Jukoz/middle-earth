@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.resources.datas.attributes;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
@@ -45,17 +46,26 @@ public class AttributePool {
     }
 
     public boolean apply(LivingEntity entity){
+        boolean couldResolveOneAttribute = false;
         for(var element : pool){
-            var attributeInstance = entity.getAttributeInstance(Registries.ATTRIBUTE.getEntry(element.getIdentifier()).get());
-            if(attributeInstance != null){
-                attributeInstance.setBaseValue(element.getValue());
-                //if(!attributeInstance.hasModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf")))
-                    //attributeInstance.addPersistentModifier(new EntityAttributeModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf"), -0.20, EntityAttributeModifier.Operation.valueOf("ADD_MULTIPLIED_TOTAL")));
-            } else {
-                return false;
+            var optAttributeEntry = Registries.ATTRIBUTE.getEntry(element.getIdentifier());
+            if(optAttributeEntry.isPresent()){
+                var attributeEntry = optAttributeEntry.get();
+
+                var attributeInstance = entity.getAttributeInstance(attributeEntry);
+                if(attributeInstance != null){
+                    attributeInstance.setBaseValue(element.getValue());
+                    if(element.hasModifier() && !attributeInstance.hasModifier(element.getModifierIdentifier())){
+                        attributeInstance.addPersistentModifier(new EntityAttributeModifier(
+                                element.getModifierIdentifier(),
+                                element.getModifierValue(),
+                                EntityAttributeModifier.Operation.valueOf(element.getModifierType())));
+                    }
+                    couldResolveOneAttribute = true;
+                }
             }
         }
-        return true;
+        return couldResolveOneAttribute;
     }
 
     public static boolean reverse(LivingEntity entity){
@@ -65,8 +75,7 @@ public class AttributePool {
                 var defaultAttribute = Registries.ATTRIBUTE.get(identifier);
                 if(defaultAttribute != null){
                     attributeInstance.setBaseValue(defaultAttribute.getDefaultValue());
-                    //if(attributeInstance.hasModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf")))
-                        //attributeInstance.removeModifier(Identifier.of(MiddleEarth.MOD_ID, "damage_nerf"));
+                    attributeInstance.clearModifiers();
                 }
             }
         }

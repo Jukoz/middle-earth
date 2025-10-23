@@ -2,56 +2,69 @@ package net.sevenstars.middleearth.entity.npcs;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.block.entity.BedBlockEntity;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlocksAttacksComponent;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
-import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
+import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
+import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
+import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Set;
+import java.util.Objects;
+import java.util.Optional;
 
 public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     // Data to use
@@ -60,9 +73,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     private static final TrackedData<String> NPC_DATA_ID;
     private static final TrackedData<Long> INITIALIZATION_TICK;
     private static final TrackedData<NpcEntityTextureData> TEXTURE_DATA;
-    private static final TrackedData<BlockPos> STRUCTURE_MANAGER_HOST_POS;
-
-    public NpcData npcDataCache;
+    private static final TrackedData<Boolean> FIGHTING;
+    private static final TrackedData<Boolean> BLOCKING;
 
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
@@ -76,7 +88,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         builder.add(FACTION_ID, "");
         builder.add(NPC_DATA_ID, "");
         builder.add(TEXTURE_DATA, new NpcEntityTextureData());
-        builder.add(STRUCTURE_MANAGER_HOST_POS, getBlockPos());
+        builder.add(FIGHTING, false);
+        builder.add(BLOCKING, false);
+        assignStructureManager(null);
+        assignBed(null);
     }
 
     @Override
@@ -86,25 +101,12 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     @Override
-    protected void writeCustomData(WriteView view) {
-        super.writeCustomData(view);
-        //this.writeEntityData(view);
-    }
-
-    @Override
     public void readData(ReadView view) {
         super.readData(view);
         this.readEntityData(view);
     }
 
-    @Override
-    protected void readCustomData(ReadView view) {
-        super.readCustomData(view);
-        //this.readEntityData(view);
-    }
-
     private void writeEntityData(WriteView view){
-        view.put("StructureManagerHostPos", BlockPos.CODEC, dataTracker.get(STRUCTURE_MANAGER_HOST_POS));
         view.put("NpcDataId", Codec.STRING, dataTracker.get(NPC_DATA_ID));
         view.put("EntityCategory", Codec.STRING, dataTracker.get(CATEGORY));
         view.put("NpcTextureData", NpcEntityTextureData.CODEC, dataTracker.get(TEXTURE_DATA));
@@ -112,10 +114,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     private void readEntityData(ReadView view) {
-
-        view.read("StructureManagerHostPos", BlockPos.CODEC)
-            .ifPresent(this::setStructureManagerHost);
-        view.read("NpcDataId", Identifier.CODEC)
+        view.read("NpcDataId", Codec.STRING)
             .ifPresent(this::setNpcData);
         view.read("FactionId", Identifier.CODEC)
             .ifPresent(this::setFactionId);
@@ -130,100 +129,85 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         view.read("InitializationTick", Codec.LONG)
                 .ifPresent(x -> dataTracker.set(INITIALIZATION_TICK, x));
 
-        apply();
+        tryToInitializeData();
+    }
+
+    public void setNpcData(String value) {
+        if(value == null || value.isEmpty())
+            return;
+        this.dataTracker.set(NPC_DATA_ID, value);
     }
 
     public void setNpcData(Identifier npcDataId) {
         if(npcDataId == null)
             return;
         this.dataTracker.set(NPC_DATA_ID, npcDataId.toString());
-        this.npcDataCache = NpcDataLookup.getNpcData(getWorld(), npcDataId);
-        if(this.npcDataCache == null)
-            return;
     }
 
     public void setNpcData(NpcData npcData) {
-        this.npcDataCache = npcData;
         if(npcData != null){
             this.dataTracker.set(NPC_DATA_ID, npcData.getId().toString());
         }
     }
 
-    private void setFactionId(Identifier factionId) {
+    public void setFactionId(Identifier factionId) {
         if(factionId == null)
             return;
         this.dataTracker.set(FACTION_ID, factionId.toString());
     }
 
-    private void setNpcCategory(EntityCategory entityCategory) {
+    public void setNpcCategory(EntityCategory entityCategory) {
         if(entityCategory == null)
             return;
         this.dataTracker.set(CATEGORY, entityCategory.name());
     }
 
-    private void setNpcTextureData(NpcEntityTextureData npcEntityTextureData) {
+    public void setNpcTextureData(NpcEntityTextureData npcEntityTextureData) {
         if(npcEntityTextureData == null)
             return;
         this.dataTracker.set(TEXTURE_DATA, npcEntityTextureData);
     }
 
-    public void setStructureManagerHost(BlockPos blockPos) {
-        if(blockPos == null)
+    public void assignStructureManager(StructureManagerBlockEntity blockEntity){
+        if(getBrain() == null)
             return;
-        this.dataTracker.set(STRUCTURE_MANAGER_HOST_POS, blockPos);
+        boolean hasStructure = blockEntity != null;
+        if(!hasStructure){
+            this.getBrain().forget(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS);
+            return;
+        }
+        this.getBrain().remember(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS, blockEntity.getPos());
     }
 
-    public void apply(){
-        World world = getWorld();
-        if(world.isClient)
+    public void assignBed(BedBlockEntity bedBlockEntity){
+        if(getBrain() == null)
             return;
-        forceApply();
+        if(bedBlockEntity == null){
+            this.getBrain().forget(MemoryModulesME.ASSIGNED_BED_POS);
+            return;
+        }
+        //this.getBrain().remember(MemoryModulesME.ASSIGNED_BED_POS, new GlobalPos(getWorld(), bedBlockEntity.getPos()));
     }
 
-    public void forceApply() {
-        World world = getWorld();
-        DynamicRegistryManager dynamicRegistryManager = world.getRegistryManager();
+    public void setFighting(boolean state){
+        this.dataTracker.set(FIGHTING, state);
+    }
 
-        if(this.npcDataCache == null ){
-            Set<Identifier> identifierSet = dynamicRegistryManager.getOrThrow(NpcME.KEY).getIds();
-            Identifier currentNpcData = getNpcDataId();
-            npcDataCache = dynamicRegistryManager.getOrThrow(NpcME.KEY).get(currentNpcData);
-            if(npcDataCache == null){
-                currentNpcData = identifierSet.stream().toList().get(random.nextInt(identifierSet.size()));
-                this.setNpcData(currentNpcData);
+    public void tryToInitializeData(){
+        if(Objects.equals(getBlockPos(), new BlockPos(0, 0, 0))) // 0,0,0 is what's used for commands, needs to be delayed
+            return;
+
+        World world = getWorld();
+        if(world instanceof ServerWorld serverWorld){
+            if(NpcEntityInitializer.shouldInitialize(serverWorld, this)){
+                NpcEntityInitializer.initializeNpcEntity(serverWorld, this);
             }
         }
-        this.dataTracker.set(INITIALIZATION_TICK, world.getTickOrder());
-
-        // set attributes
-        if(this.getNpcCategory() == null)
-            setNpcCategory(npcDataCache.getRandomCategory());
-
-        npcDataCache.applyAttributes(this);
-
-        if(this.getNpcTextureData().getBodyTexture() == null){
-            // set textures
-            createNpcEntityTextureData(npcDataCache.getNpcTextureData());
-            // set gear
-            NpcUtil.equipAll(this, npcDataCache.getGear());
-        }
-    }
-
-    private void createNpcEntityTextureData(NpcTextureData npcTextureData) {
-        NpcTextureData.Identity identity = NpcTextureData.Identity.create(npcTextureData, getNpcCategory());
-        NpcEntityTextureData entityTextureData = new NpcEntityTextureData();
-        entityTextureData = NpcEntityHelper.generateSkinTextureData(entityTextureData, identity);
-        entityTextureData = NpcEntityHelper.generateEyeTextureData(entityTextureData, identity, npcDataCache.getNpcTextureData().haveEmissiveEyes(identity)); // Make it not hardcoded
-        entityTextureData = NpcEntityHelper.generateHairTextureData(entityTextureData, identity, getWorld().getRegistryManager());
-        entityTextureData = NpcEntityHelper.generateClothingTextureData(entityTextureData, identity);
-        setNpcTextureData(entityTextureData);
     }
 
     @Override
     protected void mobTick(ServerWorld world) {
-        if(npcDataCache == null)
-            apply();
-
+        tryToInitializeData();
         Profiler profiler = Profilers.get();
         profiler.push("npcBrain");
         this.getBrain().tick(world, this);
@@ -232,6 +216,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         NpcBrain.updateActivities(this);
         profiler.pop();
         super.mobTick(world);
+
+        if(hasVehicle()){
+            rotate(getVehicle().getYaw(), getVehicle().getPitch());
+        }
     }
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
@@ -242,12 +230,60 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         return (Brain<NpcEntity>)super.getBrain();
     }
 
-    @Override
-    @Nullable
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        entityData = super.initialize(world, difficulty, spawnReason, entityData);
+    public float getFightingMovementSpeed(){
+        var currentSpeed = this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
+        return (float) (currentSpeed);
+    }
 
-        return entityData;
+    public boolean isFighting() {
+        var memory = this.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
+        boolean isFighting;
+        if (memory != null && memory.isPresent()) {
+            isFighting = true;
+        } else {
+            isFighting = dataTracker.get(FIGHTING);
+        }
+
+        this.setSprinting(isFighting);
+        if(this.hasVehicle() && getVehicle() instanceof AbstractHorseEntity abstractHorseEntity){
+            abstractHorseEntity.setSprinting(isFighting);
+        }
+        return isFighting;
+    }
+
+    @Override
+    public void tickMovement() {
+        if(!this.getWorld().isClient) {
+            this.setAttacking(this.getTarget() != null);
+            if(this.isAttacking() && !this.isFighting()) {
+                this.getBrain().setSchedule(Schedule.EMPTY);
+                this.setFighting(true);
+            } else if (!this.isAttacking() && this.isFighting()) {
+                this.getBrain().setSchedule(SchedulesAPI.DEFAULT_SLEEP);
+                this.getBrain().forget(MemoryModuleType.LOOK_TARGET);
+                this.getBrain().forget(MemoryModuleType.WALK_TARGET);
+                this.getBrain().forget(MemoryModulesAPI.DEFENDING_HOME);
+                this.setFighting(false);
+            }
+        } else {
+            setupAnimationStates();
+        }
+
+        super.tickMovement();
+    }
+
+    private void setupAnimationStates() {
+
+    }
+
+        @Override
+    public boolean shouldControlVehicles() {
+        return true;
+    }
+
+    @Override
+    protected boolean couldAcceptPassenger() {
+        return false;
     }
 
     @Override
@@ -255,11 +291,22 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         // Overrides vanilla init equipment (gold sets???)
     }
 
-
     @Override
     public void onDeath(DamageSource damageSource) {
+        if(getVehicle() != null && getVehicle() instanceof LivingEntity vehicleEntity){
+            vehicleEntity.equipStack(EquipmentSlot.SADDLE, Items.AIR.getDefaultStack());
+            vehicleEntity.equipStack(EquipmentSlot.BODY, Items.AIR.getDefaultStack());
+            if(vehicleEntity instanceof AbstractHorseEntity abstractHorseEntity){
+                abstractHorseEntity.setTame(false);
+            }
+            if(vehicleEntity instanceof AbstractBeastEntity abstractBeastEntity){
+                abstractBeastEntity.setTameness(0);
+            }
+        }
         super.onDeath(damageSource);
-        StructureManagerBlockEntity.triggerDeathSignal(this.dataTracker.get(STRUCTURE_MANAGER_HOST_POS), this);
+        if(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent()){
+            StructureManagerBlockEntity.triggerDeathSignal(getStructureManagerHostPos(), this);
+        }
     }
 
     @Override
@@ -297,7 +344,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     @Override
     public boolean isPersistent() {
-        return getWorld().getBlockEntity(getStructureManagerHostPos()) != null || super.isPersistent();
+        if(getBrain() == null) return super.isPersistent();
+
+        if(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent())
+            return getWorld().getBlockEntity(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).get()) != null;
+        return super.isPersistent();
     }
 
     @Override
@@ -335,9 +386,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     protected RaceType getRaceType(){
-        if(getNpcDataId() == null || npcDataCache == null)
+        if(getNpcDataId() == null || getNpcData() == null)
             return null;
-        Race race = RaceLookup.getRace(getWorld(), npcDataCache.getRace());
+        Race race = RaceLookup.getRace(getWorld(), getNpcData().getRace());
         if(race == null)
             return null;
         return race.getRaceType();
@@ -351,6 +402,183 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         return Identifier.of(this.dataTracker.get(NPC_DATA_ID));
     }
 
+    public NpcData getNpcData() {
+        var id = getNpcDataId();
+        if(id == null)
+            return null;
+        return getWorld().getRegistryManager().getOrThrow(NpcME.KEY).get(id);
+    }
+
+    @Override
+    public boolean tryAttack(ServerWorld world, Entity target) {
+        if(hasVehicle() && getVehicle() instanceof AbstractBeastEntity mountEntity){
+            return mountEntity.tryAttack((ServerWorld) target.getWorld(), target);
+        }
+
+        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        boolean bl;
+        float damage = 1.0f;
+        try{
+            Optional<Double> damageOpt = Optional.of(this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE));
+            damage = damageOpt.get().floatValue();
+        } catch (Exception ignored){}
+        ItemStack itemStack = this.getWeaponStack();
+        DamageSource damageSource = Optional.ofNullable(itemStack.getItem().getDamageSource(this)).orElse(this.getDamageSources().mobAttack(this));
+
+        var enchantmentDamage = EnchantmentHelper.getDamage(world, itemStack, target, damageSource, damage);
+        var bonusDamage =  itemStack.getItem().getBonusAttackDamage(target, enchantmentDamage, damageSource);
+        var finalDamage = damage + bonusDamage;
+
+        bl = target.damage(world, damageSource, finalDamage);
+        if (bl) {
+            LivingEntity livingEntity;
+            float g = this.getAttackKnockbackAgainst(target, damageSource);
+            if (g > 0.0f && target instanceof LivingEntity) {
+                livingEntity = (LivingEntity)target;
+                livingEntity.takeKnockback(g * 0.5f, MathHelper.sin(this.getYaw() * ((float)Math.PI / 180)), -MathHelper.cos(this.getYaw() * ((float)Math.PI / 180)));
+                this.setVelocity(this.getVelocity().multiply(0.6, 1.0, 0.6));
+            }
+            if (target instanceof LivingEntity) {
+                livingEntity = (LivingEntity)target;
+                itemStack.postHit(livingEntity, this);
+            }
+            EnchantmentHelper.onTargetDamaged(world, target, damageSource);
+            this.onAttacking(target);
+            this.playAttackSound();
+            this.swingHand(Hand.MAIN_HAND);
+            this.swingHand(Hand.OFF_HAND);
+        }
+        return bl;
+    }
+
+    @Override
+    public void tickRiding() {
+        super.tickRiding();
+        Entity entity = this.getControllingVehicle();
+        if (entity instanceof PathAwareEntity pathAwareEntity) {
+            this.bodyYaw = pathAwareEntity.bodyYaw;
+        }
+    }
+
+    @Override
+    protected Text getDefaultName() {
+        return Text.translatable(this.getNpcDataId().toTranslationKey("npc_data"));
+    }
+
+    @Override
+    protected void takeShieldHit(ServerWorld world, LivingEntity attacker) {
+        super.takeShieldHit(world, attacker);
+        ItemStack itemStack = this.getBlockingItem();
+        BlocksAttacksComponent blocksAttacksComponent = itemStack != null ? itemStack.get(DataComponentTypes.BLOCKS_ATTACKS) : null;
+        float f = attacker.getWeaponDisableBlockingForSeconds();
+        if (f > 0.0f && blocksAttacksComponent != null) {
+            blocksAttacksComponent.applyShieldCooldown(world, this, f, itemStack);
+        }
+    }
+
+    public void setBlocking(boolean blockingState){
+        var blockingItem = this.getBlockingItem();
+        if(blockingItem == null){
+            return;
+        }
+        this.dataTracker.set(BLOCKING, blockingState);
+        this.getOffHandStack().getUseAction();
+    }
+
+    @Override
+    public boolean isBlocking() {
+        return true;
+    }
+
+    @Override
+    public boolean isUsingItem() {
+        return true;
+    }
+
+    private boolean getBlockingData(){
+        return dataTracker.get(BLOCKING);
+    }
+
+    public Optional<LivingEntity> getHurtBy() {
+        return this.getBrain()
+                .getOptionalRegisteredMemory(MemoryModuleType.HURT_BY)
+                .map(DamageSource::getAttacker)
+                .filter(attacker -> attacker instanceof LivingEntity)
+                .map(livingAttacker -> (LivingEntity)livingAttacker);
+    }
+
+    @Override
+    public boolean canTarget(LivingEntity target) {
+        return shouldTarget(this, target) && super.canTarget(target);
+    }
+
+    public static boolean shouldTarget(NpcEntity npcEntity, LivingEntity target){
+        Faction faction = npcEntity.getFaction();
+        if(faction != null){
+            if(target instanceof PlayerEntity player && player.canTakeDamage()){
+                var playerFaction = StateSaverAndLoader.getPlayerState(player).getFaction();
+                if(playerFaction == null)
+                    return true;
+                if(faction.getDiplomaticEnemies().contains(playerFaction))
+                    return true;
+            }
+
+            if(target instanceof NpcEntity targetNpcEntity){
+                if(targetNpcEntity.hasVehicle() && targetNpcEntity.getVehicle() instanceof AbstractHorseEntity)
+                    return false;
+
+                Faction targetFaction = targetNpcEntity.getFaction();
+                if(targetFaction == null || faction.getDiplomaticEnemies().contains(targetFaction.getId()))
+                    return true;
+                else if(targetFaction.getFactionType() == FactionType.SUBFACTION){
+                    if(faction.getDiplomaticEnemies().contains(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
+                        return true;
+                }
+            }
+
+            if(target instanceof AbstractHorseEntity abstractHorseEntity){
+                if(abstractHorseEntity.hasPassengers()){
+                    var entityList = abstractHorseEntity.getPassengersDeep();
+                    for(Entity entity : entityList){
+                        if(entity instanceof NpcEntity targetNpcEntity){
+                            Faction targetFaction = targetNpcEntity.getFaction();
+                            if(targetFaction == null || faction.getDiplomaticEnemies().contains(targetFaction.getId()))
+                                return true;
+                            else if(targetFaction.getFactionType() == FactionType.SUBFACTION){
+                                if(faction.getDiplomaticEnemies().contains(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
+                                    return true;
+                            }
+                        }
+                    }
+                    if(abstractHorseEntity instanceof AbstractBeastEntity abstractBeastEntity){
+                        if(abstractBeastEntity.getDisposition() != faction.getDisposition()){
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            // Beasts/mobs (spiders, trolls, etc, other data set.)
+        }
+        return false;
+    }
+
+    public int getTickAttackSpeedCooldown(){
+        if(!this.getAttributes().hasAttribute(EntityAttributes.ATTACK_SPEED))
+            return 1;
+        return (int)this.getAttributes().getValue(EntityAttributes.ATTACK_SPEED);
+    }
+
+    @Override
+    public @Nullable LivingEntity getTarget() {
+        return getTargetInBrain();
+    }
+
+    @Override
+    public void setTarget(@Nullable LivingEntity target) {
+        this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, target);
+    }
+
     public EntityCategory getNpcCategory() {
         var category = this.dataTracker.get(CATEGORY);
         if(category == null || category.isEmpty())
@@ -359,11 +587,25 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     public BlockPos getStructureManagerHostPos() {
-        return this.dataTracker.get(STRUCTURE_MANAGER_HOST_POS);
+        if(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent()){
+            return getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).get();
+        }
+        return null;
+    }
+
+    public BlockPos getAssignedBedPos() {
+        if(getBrain().getOptionalMemory(MemoryModulesME.ASSIGNED_BED_POS).isPresent()){
+            return getBrain().getOptionalMemory(MemoryModulesME.ASSIGNED_BED_POS).get();
+        }
+        return null;
     }
 
     public NpcEntityTextureData getNpcTextureData() {
         return this.dataTracker.get(TEXTURE_DATA);
+    }
+    public boolean hasTextureData(){
+        NpcEntityTextureData textureData = getNpcTextureData();
+        return textureData.getBodyTexture() != null;
     }
 
     static {
@@ -372,16 +614,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         NPC_DATA_ID = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_DATA_ID);
         CATEGORY = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.CATEGORY);
         TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_ENTITY_TEXTURE_DATA);
-        STRUCTURE_MANAGER_HOST_POS = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.STRUCTURE_MANAGER_HOST_POS);
+        FIGHTING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        BLOCKING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     }
-    // endregion
-
 
     public static DefaultAttributeContainer.Builder createAttributes() {
-        return MobEntity.createLivingAttributes()
-                .add(EntityAttributes.MAX_HEALTH, 8.0)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.3)
-                .add(EntityAttributes.FOLLOW_RANGE, 35.0);
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.ATTACK_DAMAGE, 2.0);
     }
 
     @Nullable

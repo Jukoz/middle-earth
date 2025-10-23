@@ -79,8 +79,6 @@ public class SimpleItemModel {
             add(FoodItemsME.COOKED_VEGETABLE_SKEWER);
             add(FoodItemsME.VEGETABLE_SOUP);
             add(FoodItemsME.SACK_OF_HORSEFEED);
-            add(FoodItemsME.RAW_VENISON);
-            add(FoodItemsME.COOKED_VENISON);
             add(FoodItemsME.RAW_HORSE);
             add(FoodItemsME.COOKED_HORSE);
 

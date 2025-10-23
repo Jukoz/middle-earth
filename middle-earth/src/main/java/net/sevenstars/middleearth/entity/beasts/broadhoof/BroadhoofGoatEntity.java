@@ -11,7 +11,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -20,7 +19,6 @@ import net.minecraft.item.GoatHornItem;
 import net.minecraft.item.Instrument;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.InstrumentTags;
@@ -46,11 +44,11 @@ import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.BeastRevengeGoal;
-import net.sevenstars.middleearth.entity.goals.BeastSitGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
+import net.sevenstars.middleearth.utils.PlayerUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -98,18 +96,16 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.getAttributeInstance(EntityAttributes.JUMP_STRENGTH).setBaseValue(this.getChildJumpStrengthBonus(random::nextDouble));
     }
 
-
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new BeastSitGoal(this));
+        this.goalSelector.add(2, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 2.5, false));
         this.goalSelector.add(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 1.0, (stack) -> {return stack.isIn(ItemTags.COW_FOOD);}, false));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(9, new LookAroundGoal(this));
+        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(8, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastRevengeGoal(this, new Class[0]).setGroupRevenge());
     }
 
@@ -158,12 +154,12 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected Disposition getDisposition() {
+    public Disposition getDisposition() {
         return Disposition.GOOD;
     }
 
     @Override
-    protected List<RaceType> getRaceType() {
+    public List<RaceType> getCompatibleRaces() {
         return List.of(RaceType.DWARF);
     }
 
@@ -171,56 +167,60 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
-        if(!this.getWorld().isClient() && !player.isCreative()) {
-            RaceType playerRace = RaceUtil.getRaceType(player);
+        if(this.isClientWorld()) { // Client
+            if(!itemStack.isEmpty()) {
+                return super.interactMob(player, hand);
+            }
+        }
+        else { // Server
+            for(RaceType race : this.getCompatibleRaces()) { // Check for race
+                if(PlayerUtil.isOfRace(player, race) || player.isCreative()) {
+                    if(this.isTame()) {
+                        if (this.isBreedingItem(itemStack)) { // Feed
+                            if(this.getHealth() < this.getMaxHealth()) { // Food provides health
+                                itemStack.decrementUnlessCreative(1, player);
+                                FoodComponent foodComponent = itemStack.get(DataComponentTypes.FOOD);
+                                float f = foodComponent != null ? (float)foodComponent.nutrition() : 1.0f;
+                                this.heal(2.0f * f);
+                                return ActionResult.SUCCESS_SERVER;
+                            }
+                            else if (this.getBreedingAge() == 0 && this.canEat()) { // Food provides baby
+                                this.eat(player, hand, itemStack);
+                                this.lovePlayer(player);
+                                return ActionResult.SUCCESS_SERVER;
+                            }
+                        }
+                        else if(itemStack.isOf(Items.BRUSH)) { // Brush beard
+                            this.setBrushedBeard(true);
+                            return ActionResult.SUCCESS_SERVER;
+                        }
+                        else if(itemStack.isOf(Items.SHEARS)) { // Un-Brush beard
+                            this.setBrushedBeard(false);
+                            return ActionResult.SUCCESS_SERVER;
+                        }
+                    }
 
-            if(playerRace == RaceType.NONE || (this.getRaceType() != null && !this.getRaceType().contains(playerRace))) {
-                return ActionResult.FAIL;
+                    return super.interactMob(player, hand);
+                }
             }
         }
 
-        if(this.isTame() && this.isTamable()) {
-            if (this.isBreedingItem(itemStack)) {
-                if(this.getHealth() < this.getMaxHealth()) {
-                    itemStack.decrementUnlessCreative(1, player);
-                    FoodComponent foodComponent = itemStack.get(DataComponentTypes.FOOD);
-                    float f = foodComponent != null ? (float)foodComponent.nutrition() : 1.0f;
-                    this.heal(2.0f * f);
-                    return ActionResult.SUCCESS;
-                }
-                else if (!this.getWorld().isClient && this.getBreedingAge() == 0 && this.canEat()) {
-                    this.eat(player, hand, itemStack);
-                    this.lovePlayer(player);
-                    return ActionResult.SUCCESS;
-                }
-            }
-            else if(itemStack.isOf(Items.BRUSH)) {
-                this.setBrushedBeard(true);
-                return ActionResult.SUCCESS;
-            }
-            else if(itemStack.isOf(Items.SHEARS)) {
-                this.setBrushedBeard(false);
-                return ActionResult.SUCCESS;
-            }
-        }
-
-        return super.interactMob(player, hand);
-    }
-
-    @Override
-    public boolean canCarryChest() {
-        return false;
+        return ActionResult.PASS;
     }
 
     @Override
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
-        float f = this.limbAnimator.getSpeed();
-        float g = this.limbAnimator.getSpeed() * (MathHelper.PI / 180) * 18; // TODO : Fix,was using limbAnimator.getPos()
-        // h is the frequency, which is calculated by dividing the speed of the animation by the duration of the animation.
-        float h = passenger.isSprinting() ? (1.2f/0.74f) : 4;
-        float j = passenger.isSprinting() ? 1 : 0;
+        float animationSpeed = this.limbAnimator.getSpeed();
+        float animationProgress = this.limbAnimator.getAnimationProgress() * (MathHelper.PI / 180) * 18;
 
-        double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * (0.06 + (0.05 * j)) - 0.05;
+        boolean sprinting = passenger.isSprinting();
+
+        // frequency is calculated by dividing the speed of the animation by the duration of the animation.
+        float frequency = sprinting ? (1.2f/0.74f) : 4;
+
+        double y = sprinting ?
+                MathHelper.sin(animationProgress * frequency + MathHelper.PI / 4) * 0.11 * animationSpeed - 0.05 :
+                MathHelper.cos(animationProgress * frequency) * 0.06 * animationSpeed - 0.05;
 
         if(this.isSitting()) {
             y = -0.5;
@@ -258,7 +258,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected boolean isMountable() {
+    public boolean isMountable() {
         return this.dataTracker.get(MOUNTABLE);
     }
 
@@ -277,14 +277,14 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         return stack.isIn(ItemTags.GOAT_FOOD);
     }
 
-    /*@Override
-    public boolean tryAttack(Entity target) {
-        if(!this.getWorld().isClient && super.tryAttack((ServerWorld)this.getWorld(), target)) {
+    @Override
+    public boolean tryAttack(ServerWorld world, Entity target) {
+        if(!world.isClient && super.tryAttack(world, target)) {
             this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-            return true;
         }
-        return false;
-    }*/
+
+        return super.tryAttack(world, target);
+    }
 
     @Override
     public void chargeAttack() {
@@ -304,7 +304,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         }
 
         for(Entity entity : entities) {
-            if(entity.getUuid() != this.getOwner().getUuid() && entity != this && !this.getPassengerList().contains(entity) && !this.getWorld().isClient()) {
+            if(entity != this.getOwner() && entity != this && !this.getPassengerList().contains(entity) && !this.getWorld().isClient()) {
                 entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), getAttackDamage());
 
                 Vec3d velocity = this.getVelocity();
@@ -328,7 +328,10 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     protected void jump(float strength, Vec3d movementInput) {
-        if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
+        if(this.hasControllingPassenger() && this.getControllingPassenger().isSprinting()) {
+            super.jump(strength, movementInput);
+        }
+        else {
             this.setChargeTimeout(30);
             double d = this.getJumpVelocity(strength);
             Vec3d vec3d = this.getVelocity().multiply(4);
@@ -340,9 +343,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                 float g = MathHelper.cos(this.getYaw() * ((float)Math.PI / 180));
                 this.setVelocity(this.getVelocity().add(-0.4f * f * strength, 0.0, 0.4f * g * strength));
             }
-        }
-        else {
-            super.jump(strength, movementInput);
         }
     }
 
@@ -360,16 +360,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         else {
             super.startJumping(height);
         }
-    }
-
-    /*@Override
-    public boolean isHorseArmor(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
-    }*/
-
-    @Override
-    public boolean canUseSlot(EquipmentSlot slot) {
-        return true;
     }
 
     @Override
@@ -437,8 +427,18 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
+    public boolean usesTameness() {
+        return false;
+    }
+
+    @Override
     public boolean isCommandItem(ItemStack stack) {
         return stack.isOf(Items.STICK);
+    }
+
+    @Override
+    public boolean isFoodItem(ItemStack itemStack) {
+        return false;
     }
 
     @Override
@@ -448,6 +448,15 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         }
 
         return super.getSaddledSpeed(controllingPlayer);
+    }
+
+    @Override
+    protected float getNpcSaddledSpeed(NpcEntity controllingNpc) {
+        if(!this.isSitting()) {
+            return controllingNpc.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 2f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.75f);
+        }
+
+        return super.getNpcSaddledSpeed(controllingNpc);
     }
 
     @Override

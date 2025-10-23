@@ -13,7 +13,7 @@ import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.verticalSlabs.TransparentVerticalSlab;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
+import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 
 import java.util.List;
 import java.util.Objects;
@@ -336,9 +336,9 @@ public class BlockSetRegistration {
         Block chair = getVanillaOrCreateNew(name + "_chair", StoneChairBlock::new,
                 AbstractBlock.Settings.copy(base).nonOpaque(), group);
 
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(stool.asItem().getDefaultStack());
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
+        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(stool.asItem().getDefaultStack());
+        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
+        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
 
         return new BlockRecordTypes.BaseStoneSet(base, slab, verticalSlab, stairs, wall, pressurePlate, button, trapdoor, stool, table, chair, rocks);
     }

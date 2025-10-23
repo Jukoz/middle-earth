@@ -4,7 +4,7 @@ import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.ModBannerPatterns;
+import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
@@ -49,9 +49,9 @@ public class GondorFactionPool {
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.GRAY),
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.GRAY),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.BLACK),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.TREE, DyeColor.WHITE)
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.TREE, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "gondor.minas_tirith"),  new Vector2d(1945, 1785)),
@@ -63,7 +63,9 @@ public class GondorFactionPool {
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "gondor.lebennin"),  new Vector2d(1715, 1955)), // Linhir
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "gondor.ringlo_vale"),  new Vector2d(1530, 1730)), // Calembel
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "gondor.dol_amroth"),  new Vector2d(1500, 1930))
-                )), List.of(), List.of()
+                )), List.of(), List.of(),
+                List.of(FactionsME.ROHAN), List.of(FactionsME.LOTHLORIEN, FactionsME.LONGBEARDS, FactionsME.DALE,
+                FactionsME.SHIRE), List.of(FactionsME.ISENGARD, FactionsME.MORDOR, FactionsME.MISTY_MOUNTAINS_GOBLINS, FactionsME.BRIGAND)
         );
     }
 }

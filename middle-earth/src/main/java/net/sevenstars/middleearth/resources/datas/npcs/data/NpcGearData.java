@@ -17,6 +17,7 @@ public class NpcGearData {
     public static NpcGearData create() {
         return new NpcGearData();
     }
+
     public NpcGearData(NbtCompound gearNbt) {
         this.gears = new HashMap<>();
         addSlot(gearNbt, EquipmentSlot.HEAD);

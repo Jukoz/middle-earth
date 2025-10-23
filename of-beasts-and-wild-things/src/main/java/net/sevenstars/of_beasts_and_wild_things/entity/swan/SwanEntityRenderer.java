@@ -5,26 +5,21 @@ import net.minecraft.client.model.BabyModelPair;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.model.CowEntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
-import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityModel;
-import net.sevenstars.of_beasts_and_wild_things.entity.model.ModEntityModelLayers;
+import net.sevenstars.of_beasts_and_wild_things.entity.model.EntityModelLayersWT;
 
 import java.util.Map;
-import java.util.Optional;
 
 public class SwanEntityRenderer  extends MobEntityRenderer<SwanEntity, SwanEntityRenderState, SwanEntityModel> {
     private static final String PATH = "textures/entity/swan/";
     BabyModelPair<SwanEntityModel> babyModelPair;
 
     public SwanEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new SwanEntityModel(context.getPart(ModEntityModelLayers.SWAN)), 0.5f);
-        babyModelPair = new BabyModelPair<>(new SwanAdultModel(context.getPart(ModEntityModelLayers.SWAN)), new SwanBabyModel(context.getPart(ModEntityModelLayers.SWAN_BABY)));
+        super(context, new SwanEntityModel(context.getPart(EntityModelLayersWT.SWAN)), 0.5f);
+        babyModelPair = new BabyModelPair<>(new SwanAdultModel(context.getPart(EntityModelLayersWT.SWAN)), new SwanBabyModel(context.getPart(EntityModelLayersWT.SWAN_BABY)));
     }
 
     public static final Map<SwanEntityVariant, String> LOCATION_BY_VARIANT =

@@ -4,7 +4,7 @@ import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.ModBannerPatterns;
+import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
@@ -48,14 +48,16 @@ public class DaleFactionPool {
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.BLUE),
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.BLUE),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.BLUE),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.BELL, DyeColor.YELLOW)
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.BELL, DyeColor.YELLOW)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "dale.capital"), new Vector2d(2021, 727)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "dale.esgaroth"), new Vector2d(2007, 757))
-                )), List.of(), List.of()
+                )), List.of(), List.of(),
+                List.of(FactionsME.LONGBEARDS_EREBOR), List.of(FactionsME.LOTHLORIEN, FactionsME.LONGBEARDS, FactionsME.GONDOR, FactionsME.ROHAN,
+                FactionsME.SHIRE), List.of(FactionsME.ISENGARD, FactionsME.MORDOR, FactionsME.MISTY_MOUNTAINS_GOBLINS, FactionsME.BRIGAND)
         );
     }
 

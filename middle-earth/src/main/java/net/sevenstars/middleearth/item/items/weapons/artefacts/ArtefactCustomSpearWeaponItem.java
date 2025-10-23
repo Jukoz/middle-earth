@@ -11,18 +11,16 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.item.items.weapons.CustomSpearWeaponItem;
-import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
+import net.sevenstars.middleearth.item.utils.WeaponTypesME;
 
 public class ArtefactCustomSpearWeaponItem extends CustomSpearWeaponItem {
 
     public ArtefactCustomSpearWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
         super(toolMaterial, settings);
-        this.type = ModWeaponTypes.SPEAR;
+        this.type = WeaponTypesME.SPEAR;
     }
 
     @Override

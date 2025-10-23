@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.item.items.weapons;
 
 import net.minecraft.item.Item;
-import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
+import net.sevenstars.middleearth.item.utils.WeaponTypesME;
 import net.minecraft.item.ToolMaterial;
 
 public class CustomSpearWeaponItem extends ReachWeaponItem {
@@ -10,11 +10,11 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
     private static final int STRENGTH_CHARGE_TIME = 20;
 
     public float pullProgress = 0;
-    public ModWeaponTypes type;
+    public WeaponTypesME type;
 
     public CustomSpearWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
-        super(toolMaterial, ModWeaponTypes.SPEAR, settings);
-        this.type = ModWeaponTypes.SPEAR;
+        super(toolMaterial, WeaponTypesME.SPEAR, settings);
+        this.type = WeaponTypesME.SPEAR;
     }
 
     /*public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {

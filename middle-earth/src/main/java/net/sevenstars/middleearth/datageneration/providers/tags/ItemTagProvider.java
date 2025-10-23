@@ -2,7 +2,14 @@ package net.sevenstars.middleearth.datageneration.providers.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.registration.OreRockSets;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
@@ -11,12 +18,8 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.utils.ItemTagsME;
+import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +40,13 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var warg_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor")));
         var broadhoof_goat_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
         var dyeable = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("dyeable")));
+        var chains = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "chains")));
+        var troll_weapons = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_weapons")));
+        var troll_food = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_food")));
+
+        var characterHideHair = valueLookupBuilder(ItemTagsME.CHARACTER_HELMET_HIDE_HAIR);
+        var characterHideBeard = valueLookupBuilder(ItemTagsME.CHARACTER_HELMET_HIDE_BEARD);
+        var characterShowEars = valueLookupBuilder(ItemTagsME.CHARACTER_HELMET_SHOW_EARS);
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("iron_ores"));
         TagKey<Item> gold_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("gold_ores"));
@@ -125,7 +135,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         warg_food.add(Items.BEEF);
         warg_food.add(Items.MUTTON);
         warg_food.add(FoodItemsME.RAW_HORSE);
-        warg_food.add(FoodItemsME.RAW_VENISON);
+        warg_food.add(ItemsWT.RAW_VENISON);
 
         warg_armor.add(EquipmentItemsME.WARG_MORDOR_PLATE_ARMOR);
         warg_armor.add(EquipmentItemsME.WARG_GUNDABAD_PLATE_ARMOR);
@@ -153,6 +163,58 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         dyeable.add(EquipmentItemsME.WARG_LEATHER_ARMOR);
         dyeable.add(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR);
+
+        chains.add(Items.CHAIN);
+        chains.add(ModDecorativeBlocks.BRONZE_CHAIN.asItem());
+        chains.add(ModDecorativeBlocks.BRONZE_BROAD_CHAIN.asItem());
+        chains.add(ModDecorativeBlocks.CRUDE_CHAIN.asItem());
+        chains.add(ModDecorativeBlocks.CRUDE_BROAD_CHAIN.asItem());
+        chains.add(ModDecorativeBlocks.SPIKY_CHAIN.asItem());
+
+        troll_weapons.add(WeaponItemsME.TROLL_MACE);
+        troll_weapons.add(WeaponItemsME.MACE_OF_SAURON);
+
+        troll_food.add(FoodItemsME.RAW_HORSE);
+        troll_food.add(FoodItemsME.COOKED_HORSE);
+        troll_food.add(ItemsWT.RAW_VENISON);
+        troll_food.add(ItemsWT.COOKED_VENISON);
+        troll_food.add(FoodItemsME.COOKED_MEAT_SKEWER);
+        troll_food.add(Items.PORKCHOP);
+        troll_food.add(Items.COOKED_PORKCHOP);
+        troll_food.add(Items.MUTTON);
+        troll_food.add(Items.COOKED_MUTTON);
+        troll_food.add(Items.BEEF);
+        troll_food.add(Items.COOKED_BEEF);
+        troll_food.add(Items.CHICKEN);
+        troll_food.add(Items.COOKED_CHICKEN);
+        troll_food.add(Items.ROTTEN_FLESH);
+        troll_food.add(Items.MUSHROOM_STEW);
+        troll_food.add(Items.BROWN_MUSHROOM);
+        troll_food.add(Items.RED_MUSHROOM);
+
+        // SHOW Ears
+        characterShowEars.add(EquipmentItemsME.LORIEN_DIADEM);
+        characterShowEars.add(EquipmentItemsME.KETTLE_HAT);
+        characterShowEars.add(EquipmentItemsME.MORDOR_KETTLE_HAT);
+        characterShowEars.add(EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT);
+
+        // HIDE Hairs
+        characterHideHair.add(EquipmentItemsME.MAIL_COIF);
+        characterHideHair.add(EquipmentItemsME.CLOSED_MAIL_COIF);
+
+        characterHideHair.add(EquipmentItemsME.ELVEN_MAIL_COIF);
+        characterHideHair.add(EquipmentItemsME.LORIEN_MAIL_COIF_DIADEM);
+
+        characterHideHair.add(EquipmentItemsME.DWARVEN_MAIL_COIF);
+        characterHideHair.add(EquipmentItemsME.EREBOR_MAIL_COIF);
+        characterHideHair.add(EquipmentItemsME.EREBOR_GILDED_MAIL_COIF);
+
+        characterHideHair.add(EquipmentItemsME.ORCISH_MAIL_COIF);
+        characterHideHair.add(EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF);
+        // HIDE Beards
+        characterHideBeard.add(EquipmentItemsME.CLOSED_MAIL_COIF);
+        characterHideBeard.add(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF);
+
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {

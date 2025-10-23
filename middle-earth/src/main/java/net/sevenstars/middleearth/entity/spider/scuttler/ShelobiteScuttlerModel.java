@@ -3,8 +3,10 @@ package net.sevenstars.middleearth.entity.spider.scuttler;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
 
 public class ShelobiteScuttlerModel extends EntityModel<ShelobiteScuttlerRenderState> {
+    private static final int CLIMBING_ROTATION_MAX = 90;
     private final ModelPart root;
     private final ModelPart legscore;
     private final ModelPart body;
@@ -143,15 +145,25 @@ public class ShelobiteScuttlerModel extends EntityModel<ShelobiteScuttlerRenderS
 
         if(state.climbingTicks > 0 && climbingPercentage > leapingPercentage) {
             this.root.pitch = -1.5f * climbingPercentage;
-            this.walkingAnimation.applyWalking((float)state.climbingTicks / 3.1f, 0.85f, 2.2F, 2.5F);
+            this.walkingAnimation.applyWalking(state.age, 0.4f, 1.75F, 2F);
+            return;
         } else if(state.leapingTicks > 0 && leapingPercentage > climbingPercentage) {
             this.root.pitch = -0.7f * leapingPercentage;
             this.walkingAnimation.applyWalking((float)state.leapingTicks / 3.7f, 0.7f, 2.2F, 2.5F);
+            return;
         }
 
-        this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
-        this.biteAnimation.apply(state.walkAnimationState, state.age, 1.25f);
-        this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.1f);
+        if(state.limbSwingAmplitude <= 0.4) {
+            this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
+        } else {
+            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
+        }
+
+        if(state.biteAnimationState.isRunning()) {
+            this.biteAnimation.apply(state.biteAnimationState, state.age, 1.5f);
+        }
+        if(state.pounceAnimationState.isRunning()) {
+            this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.1f);
+        }
     }
 }

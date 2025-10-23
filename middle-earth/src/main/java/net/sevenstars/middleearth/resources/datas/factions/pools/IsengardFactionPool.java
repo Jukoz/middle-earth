@@ -4,7 +4,8 @@ import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.ModBannerPatterns;
+import net.sevenstars.middleearth.item.utils.BannerPatternsME;
+import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -47,13 +48,15 @@ public class IsengardFactionPool {
                 }},
                 // TODO : add humans? No proper assets for them
                 new BannerData(DyeColor.WHITE, List.of(
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.GRAY),
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.GRAY),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.BLACK),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.HAND, DyeColor.WHITE)
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.HAND, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "isengard.orthanc"), new Vector2d(1402, 1467))
-                )), List.of(), List.of()
+                )), List.of(), List.of(),
+                List.of(FactionsME.MISTY_MOUNTAINS_GOBLINS, FactionsME.MORDOR), List.of(),
+                List.of(FactionsME.LOTHLORIEN, FactionsME.GONDOR, FactionsME.ROHAN, FactionsME.SHIRE, FactionsME.LONGBEARDS, FactionsME.DALE, FactionsME.BRIGAND)
         );
     }
 

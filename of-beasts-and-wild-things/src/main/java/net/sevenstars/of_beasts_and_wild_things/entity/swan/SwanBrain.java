@@ -20,13 +20,18 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.sevenstars.api.entity.ai.brain.ActivitiesAPI;
+import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
+import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
+import net.sevenstars.api.entity.ai.brain.task.DefendHomeTask;
+import net.sevenstars.api.entity.ai.brain.task.MoveTowardsPosMemoryTask;
+import net.sevenstars.api.entity.ai.brain.task.StrollAroundHomeTask;
+import net.sevenstars.api.entity.ai.brain.task.StrollInWaterTask;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModActivity;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSchedule;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModSensors;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.SensorsWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.*;
 
 import java.util.Optional;
@@ -49,7 +54,7 @@ public class SwanBrain {
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.FIGHT);
 
-        brain.setSchedule(ModSchedule.SWAN_DEFAULT);
+        brain.setSchedule(SchedulesAPI.DEFAULT_SLEEP);
 
         brain.refreshActivities(swanEntity.getWorld().getTimeOfDay(), swanEntity.getWorld().getTime());
         return brain;
@@ -62,7 +67,7 @@ public class SwanBrain {
                 new UpdateLookControlTask(45, 90),
                 DefendHomeTask.create(5),
                 UpdateAttackTargetTask.create((world, swan) -> swan.getHurtBy()),
-                new TickCooldownTask(ModMemoryModules.EGG_COOLDOWN)
+                new TickCooldownTask(MemoryModulesWT.EGG_COOLDOWN)
         ));
     }
 
@@ -109,7 +114,7 @@ public class SwanBrain {
     }
 
     private static void addBabyIdleActivities(Brain<SwanEntity> brain) {
-        brain.setTaskList(ModActivity.BABY_IDLE, ImmutableList.of(
+        brain.setTaskList(ActivitiesAPI.BABY_IDLE, ImmutableList.of(
                 Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
                         Pair.of(SearchForHomeTask.create(ModBlocks.BIRD_NEST), 2),
                         Pair.of(StrollTask.create(1.0F), 1)
@@ -124,7 +129,7 @@ public class SwanBrain {
     }
 
     private static void addBabyRestActivities(Brain<SwanEntity> brain) {
-        brain.setTaskList(ModActivity.BABY_REST, ImmutableList.of(
+        brain.setTaskList(ActivitiesAPI.BABY_REST, ImmutableList.of(
                 Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
                         Pair.of(SearchForHomeTask.create(ModBlocks.BIRD_NEST), 2),
                         Pair.of(StrollTask.create(1.0F), 1)
@@ -150,7 +155,7 @@ public class SwanBrain {
     }
 
     private static boolean shouldForgetTarget(ServerWorld world, LivingEntity target, SwanEntity swan) {
-        Optional<Boolean> defendingHome = swan.getBrain().getOptionalMemory(ModMemoryModules.DEFENDING_HOME);
+        Optional<Boolean> defendingHome = swan.getBrain().getOptionalMemory(MemoryModulesAPI.DEFENDING_HOME);
         Optional<GlobalPos> home = swan.getBrain().getOptionalMemory(MemoryModuleType.HOME);
 
         if(home != null && home.isPresent() && defendingHome != null && defendingHome.isPresent()) {
@@ -175,8 +180,8 @@ public class SwanBrain {
                 SensorType.NEAREST_LIVING_ENTITIES,
                 SensorType.IS_IN_WATER,
                 SensorType.NEAREST_ADULT,
-                ModSensors.SWAN_ATTACKABLES,
-                ModSensors.SWAN_TEMPTATIONS
+                SensorsWT.SWAN_ATTACKABLES,
+                SensorsWT.SWAN_TEMPTATIONS
         );
         MEMORY_MODULES = ImmutableList.of(
                 MemoryModuleType.WALK_TARGET,
@@ -198,8 +203,8 @@ public class SwanBrain {
                 MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
                 MemoryModuleType.BREED_TARGET,
                 MemoryModuleType.IS_PANICKING,
-                ModMemoryModules.DEFENDING_HOME,
-                ModMemoryModules.EGG_COOLDOWN
+                MemoryModulesAPI.DEFENDING_HOME,
+                MemoryModulesWT.EGG_COOLDOWN
         );
     }
 }

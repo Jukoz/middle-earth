@@ -1,0 +1,56 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "middle-earth:block/white_lily_pad_flowers",
+		"2": "middle-earth:block/white_lily_pad_flat_flowers",
+		"3": "middle-earth:block/large_lily_pad"
+	},
+	"elements": [
+		{
+			"from": [0, 0.25, 0],
+			"to": [16, 0.25, 16],
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#3", "tintindex": 0},
+				"down": {"uv": [0, 16, 16, 0], "texture": "#3", "tintindex": 0}
+			}
+		},
+		{
+			"from": [0, 0.45, 0],
+			"to": [16, 0.45, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0.2, 0]},
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#2"},
+				"down": {"uv": [0, 16, 16, 0], "texture": "#2"}
+			}
+		},
+		{
+			"from": [7.5, 0.45, 5.7],
+			"to": [7.5, 5.45, 14.7],
+			"rotation": {"angle": 45, "axis": "y", "origin": [6, 0.2, 8.2]},
+			"shade": false,
+			"faces": {
+				"north": {"uv": [0, 0, 0, 3], "texture": "#1"},
+				"east": {"uv": [7, 0, 16, 5], "texture": "#1"},
+				"south": {"uv": [0, 0, 0, 3], "texture": "#1"},
+				"west": {"uv": [7, 0, 16, 5], "texture": "#1"},
+				"up": {"uv": [0, 5, 0, 0], "texture": "#1"},
+				"down": {"uv": [0, 0, 0, 5], "texture": "#1"}
+			}
+		},
+		{
+			"from": [11, 0.45, 3.2],
+			"to": [11, 5.45, 12.2],
+			"rotation": {"angle": -45, "axis": "y", "origin": [9, 0.2, 5.2]},
+			"shade": false,
+			"faces": {
+				"north": {"uv": [0, 0, 0, 4], "texture": "#1"},
+				"east": {"uv": [7, 0, 16, 5], "texture": "#1"},
+				"south": {"uv": [0, 0, 0, 4], "texture": "#1"},
+				"west": {"uv": [7, 0, 16, 5], "texture": "#1"},
+				"up": {"uv": [0, 0, 0, 7], "texture": "#1"},
+				"down": {"uv": [0, 0, 0, 7], "texture": "#1"}
+			}
+		}
+	]
+}

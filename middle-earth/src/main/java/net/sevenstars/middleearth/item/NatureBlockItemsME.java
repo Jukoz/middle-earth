@@ -4,7 +4,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
+import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.minecraft.item.Item;
 import net.minecraft.item.PlaceableOnWaterItem;
 import net.minecraft.registry.Registries;
@@ -26,6 +26,13 @@ public class NatureBlockItemsME {
             (settings) ->  new PlaceableOnWaterItem(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS, settings), new Item.Settings());
     public static final Item LILY_PADS = registerItem("lily_pads",
             (settings) ->  new PlaceableOnWaterItem(ModNatureBlocks.LILY_PADS, settings), new Item.Settings());
+    public static final Item FLOWERING_LILY_PADS = registerItem("flowering_lily_pads",
+            (settings) ->  new PlaceableOnWaterItem(ModNatureBlocks.FLOWERING_LILY_PADS, settings), new Item.Settings());
+    public static final Item LARGE_LILY_PAD = registerItem("large_lily_pad",
+            (settings) ->  new PlaceableOnWaterItem(ModNatureBlocks.LARGE_LILY_PAD, settings), new Item.Settings());
+    public static final Item LARGE_FLOWERING_LILY_PAD = registerItem("large_flowering_lily_pad",
+            (settings) ->  new PlaceableOnWaterItem(ModNatureBlocks.LARGE_FLOWERING_LILY_PAD, settings), new Item.Settings());
+
     public static final Item DUCKWEED = registerItem("duckweed",
             (settings) ->  new PlaceableOnWaterItem(ModNatureBlocks.DUCKWEED, settings), new Item.Settings());
 
@@ -34,7 +41,7 @@ public class NatureBlockItemsME {
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.NATURE_BLOCKS_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsME.NATURE_BLOCKS_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);

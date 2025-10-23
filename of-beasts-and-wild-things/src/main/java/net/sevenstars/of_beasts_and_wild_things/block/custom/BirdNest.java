@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,10 +19,9 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ModMemoryModules;
+import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
-import net.sevenstars.of_beasts_and_wild_things.item.ModItems;
-import org.jetbrains.annotations.Nullable;
+import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 
 import java.util.List;
 import java.util.Random;
@@ -44,12 +42,12 @@ public class BirdNest extends Block {
             int level = state.get(NEST_LEVEL);
             if (level > 0){
                 if (level == 1){
-                    player.giveItemStack(new ItemStack(ModItems.SWAN_EGG));
-                    player.giveItemStack(new ItemStack(ModItems.SWAN_FEATHER, random.nextInt(3)));
+                    player.giveItemStack(new ItemStack(ItemsWT.SWAN_EGG));
+                    player.giveItemStack(new ItemStack(ItemsWT.SWAN_FEATHER, random.nextInt(3)));
                     world.setBlockState(pos, state.with(NEST_LEVEL, 0));
                 } else if (level == 2){
-                    player.giveItemStack(new ItemStack(ModItems.SWAN_EGG, 2));
-                    player.giveItemStack(new ItemStack(ModItems.SWAN_FEATHER, random.nextInt((3 - 1) + 1) + 1));
+                    player.giveItemStack(new ItemStack(ItemsWT.SWAN_EGG, 2));
+                    player.giveItemStack(new ItemStack(ItemsWT.SWAN_FEATHER, random.nextInt((3 - 1) + 1) + 1));
                     world.setBlockState(pos, state.with(NEST_LEVEL, 0));
                 }
 
@@ -84,7 +82,7 @@ public class BirdNest extends Block {
 
             swans.forEach(swan -> {
                 swan.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
-                swan.getBrain().forget(ModMemoryModules.DEFENDING_HOME);
+                swan.getBrain().forget(MemoryModulesAPI.DEFENDING_HOME);
             });
         }
     }

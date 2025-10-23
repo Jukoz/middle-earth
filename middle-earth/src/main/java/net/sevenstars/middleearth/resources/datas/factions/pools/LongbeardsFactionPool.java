@@ -4,7 +4,7 @@ import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.ModBannerPatterns;
+import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
@@ -26,7 +26,7 @@ public class LongbeardsFactionPool {
     static {
         LONGBEARDS = new Faction(FactionsME.getName(FactionsME.LONGBEARDS), true, Disposition.GOOD, FactionType.FACTION, null,
                 List.of(FactionsME.LONGBEARDS_EREBOR.getValue()),
-                null, null, null, List.of(), List.of());
+                null, null, null, List.of(), List.of(), List.of(), List.of(), List.of());
 
         EREBOR = new Faction(FactionsME.getName(FactionsME.LONGBEARDS_EREBOR), true, Disposition.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
@@ -53,15 +53,17 @@ public class LongbeardsFactionPool {
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.BLUE),
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.BLUE),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP, DyeColor.GRAY),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.DWARF_CROWN, DyeColor.WHITE)
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.DWARF_CROWN, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, LONGBEARDS.getName().concat(".erebor.ravenhill")), new Vector2d(2017, 722)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, LONGBEARDS.getName().concat(".erebor.iron_hills")), new Vector2d(2355, 725)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, LONGBEARDS.getName().concat(".erebor.iron_hills_spring")), new Vector2d(2262, 782))
-                )), List.of(), List.of()
+                )), List.of(), List.of(),
+                List.of(FactionsME.LONGBEARDS, FactionsME.DALE), List.of(FactionsME.LOTHLORIEN, FactionsME.GONDOR, FactionsME.ROHAN, FactionsME.SHIRE),
+                List.of(FactionsME.ISENGARD, FactionsME.MORDOR, FactionsME.MISTY_MOUNTAINS_GOBLINS, FactionsME.BRIGAND)
         );
 
     }
