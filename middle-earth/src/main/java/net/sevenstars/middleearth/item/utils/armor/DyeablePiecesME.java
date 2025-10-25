@@ -96,6 +96,11 @@ public class DyeablePiecesME {
         dyeablePieces.put(EquipmentItemsME.MORDOR_REINFORCED_COAT, true);
         dyeablePieces.put(EquipmentItemsME.RUSTED_MORDOR_REINFORCED_COAT, true);
 
+        dyeablePieces.put(EquipmentItemsME.DOL_GULDUR_STALKER_HELMET, true);
+        dyeablePieces.put(EquipmentItemsME.DOL_GULDUR_STALKER_CHESTPLATE, true);
+        dyeablePieces.put(EquipmentItemsME.WEATHERED_DOL_GULDUR_STALKER_HELMET, true);
+        dyeablePieces.put(EquipmentItemsME.WEATHERED_DOL_GULDUR_STALKER_CHESTPLATE, true);
+
         dyeablePieces.put(EquipmentItemsME.GUNDABAD_BONE_PAULDRON, true);
         dyeablePieces.put(EquipmentItemsME.GUNDABAD_SEEKER_HELMET, true);
         dyeablePieces.put(EquipmentItemsME.GUNDABAD_LEATHER_SCALE_COAT, true);

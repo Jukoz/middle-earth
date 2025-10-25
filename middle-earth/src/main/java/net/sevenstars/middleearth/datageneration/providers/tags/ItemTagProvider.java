@@ -197,6 +197,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         characterShowEars.add(EquipmentItemsME.KETTLE_HAT);
         characterShowEars.add(EquipmentItemsME.MORDOR_KETTLE_HAT);
         characterShowEars.add(EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT);
+        characterShowEars.add(EquipmentItemsME.DOL_GULDUR_JAILER_COLLAR);
+        characterShowEars.add(EquipmentItemsME.WEATHERED_DOL_GULDUR_JAILER_COLLAR);
 
         // HIDE Hairs
         characterHideHair.add(EquipmentItemsME.MAIL_COIF);
@@ -211,10 +213,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         characterHideHair.add(EquipmentItemsME.ORCISH_MAIL_COIF);
         characterHideHair.add(EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF);
+
         // HIDE Beards
         characterHideBeard.add(EquipmentItemsME.CLOSED_MAIL_COIF);
         characterHideBeard.add(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF);
-
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {

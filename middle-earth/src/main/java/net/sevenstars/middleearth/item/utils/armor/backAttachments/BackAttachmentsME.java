@@ -61,10 +61,13 @@ public enum BackAttachmentsME implements StringIdentifiable {
 
     MORDOR_BLACK_NUMENOREAN_CAPE(39,"mordor_black_numenorean_cape"),
     NAZGUL_ROBES(40,"nazgul_robes"),
+    BLACK_CASTELLAN_CAPE(41,"black_castellan_cape"),
+    BLACK_REAVER_SHOULDER_CAPE(42,"black_reaver_shoulder_cape"),
+    DOL_GULDUR_STALKER_CAPE(43,"dol_guldur_stalker_cape"),
 
-    ORTHANC_GUARD_CAPE(41,"orthanc_guard_cape"),
+    ORTHANC_GUARD_CAPE(44,"orthanc_guard_cape"),
 
-    SKULL_SPIKES(42,"skull_spikes"),
+    SKULL_SPIKES(45,"skull_spikes"),
     ;
 
     private static final IntFunction<BackAttachmentsME> BY_ID = ValueLists.createIndexToValueFunction(BackAttachmentsME::getId, BackAttachmentsME.values(), ValueLists.OutOfBoundsHandling.ZERO);;
@@ -73,7 +76,6 @@ public enum BackAttachmentsME implements StringIdentifiable {
 
     public static final Codec<BackAttachmentsME> CODEC = StringIdentifiable.createBasicCodec(BackAttachmentsME::values);
     public static final PacketCodec<ByteBuf, BackAttachmentsME> PACKET_CODEC = PacketCodecs.indexed(BY_ID, BackAttachmentsME::getId);
-
 
     BackAttachmentsME(int id, String name){
         this.name = name;

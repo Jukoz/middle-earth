@@ -10,6 +10,11 @@ public class KettleHelmetModel extends HelmetAddonModel {
     }
 
     public static TexturedModelData getTexturedModelData() {
+        ModelData modelData = getModelData();
+        return TexturedModelData.of(modelData, 64, 64);
+    }
+
+    public static ModelData getModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
@@ -27,6 +32,7 @@ public class KettleHelmetModel extends HelmetAddonModel {
         modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(modelData, 64, 64);
+        return modelData;
+
     }
 }
