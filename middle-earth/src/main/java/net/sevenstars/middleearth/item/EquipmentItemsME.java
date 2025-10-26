@@ -898,6 +898,20 @@ public class EquipmentItemsME {
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
+    public static final Item EGLADIL_SENTINEL_HELMET = registerCustomModelArmorPiece("egladil_sentinel_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item EGLADIL_SENTINEL_CHESTPLATE = registerArmorPiece("egladil_sentinel_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.EGLADIL_SENTINEL_CAPE))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item EGLADIL_SENTINEL_LEGGINGS = registerArmorPiece("egladil_sentinel_leggings",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item EGLADIL_SENTINEL_BOOTS = registerArmorPiece("egladil_sentinel_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+
     public static final Item GALADHRIM_LORD_HELMET = registerCustomModelArmorPiece("galadhrim_lord_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
@@ -928,6 +942,10 @@ public class EquipmentItemsME {
     public static final Item GALADHRIM_CAPE = registerBackAttachment("galadhrim_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.GALADHRIM_CAPE))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item EGLADIL_SENTINEL_CAPE = registerBackAttachment("egladil_sentinel_cape",
+            (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.EGLADIL_SENTINEL_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     public static final Item GALADHRIM_LORD_SURCOAT = registerBackAttachment("galadhrim_lord_surcoat",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
@@ -1259,6 +1277,148 @@ public class EquipmentItemsME {
             Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_MORDOR_PLATE_ARMOR.material())
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
 
+
+    //region DOL GULDUR
+    public static final Item DOL_GULDUR_JAILER_COLLAR = registerArmorPiece("dol_guldur_jailer_collar",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T1, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item WEATHERED_DOL_GULDUR_JAILER_COLLAR = registerArmorPiece("weathered_dol_guldur_jailer_collar",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.CRUDE_T1, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item DOL_GULDUR_EXECUTIONER_HOOD = registerCustomModelArmorPiece("dol_guldur_executioner_hood",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item DOL_GULDUR_EXECUTIONER_CHESTPLATE = registerArmorPiece("dol_guldur_executioner_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item WEATHERED_DOL_GULDUR_EXECUTIONER_CHESTPLATE = registerArmorPiece("weathered_dol_guldur_executioner_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item DOL_GULDUR_PADDED_CHESTPLATE = registerArmorPiece("dol_guldur_padded_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item DOL_GULDUR_RAIDER_HAUBERK = registerArmorPiece("dol_guldur_raider_hauberk",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item DOL_GULDUR_HUNTER_HELMET = registerCustomModelArmorPiece("dol_guldur_hunter_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item DOL_GULDUR_RAIDER_HELMET = registerCustomModelArmorPiece("dol_guldur_raider_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item WEATHERED_DOL_GULDUR_RAIDER_HELMET = registerCustomModelArmorPiece("weathered_dol_guldur_raider_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item DOL_GULDUR_RAIDER_CHESTPLATE = registerArmorPiece("dol_guldur_raider_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item WEATHERED_DOL_GULDUR_RAIDER_CHESTPLATE = registerArmorPiece("weathered_dol_guldur_raider_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item DOL_GULDUR_BOOTS = registerArmorPiece("dol_guldur_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item WEATHERED_DOL_GULDUR_BOOTS = registerArmorPiece("weathered_dol_guldur_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item DOL_GULDUR_MARAUDER_HELMET = registerCustomModelArmorPiece("dol_guldur_marauder_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item DOL_GULDUR_MARAUDER_CHESTPLATE = registerCustomModelArmorPiece("dol_guldur_marauder_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item DOL_GULDUR_MARAUDER_LEGGINGS = registerArmorPiece("dol_guldur_marauder_leggings",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item DOL_GULDUR_MARAUDER_BOOTS = registerArmorPiece("dol_guldur_marauder_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item WEATHERED_DOL_GULDUR_MARAUDER_HELMET = registerCustomModelArmorPiece("weathered_dol_guldur_marauder_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item WEATHERED_DOL_GULDUR_MARAUDER_CHESTPLATE = registerCustomModelArmorPiece("weathered_dol_guldur_marauder_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item WEATHERED_DOL_GULDUR_MARAUDER_LEGGINGS = registerArmorPiece("weathered_dol_guldur_marauder_leggings",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item WEATHERED_DOL_GULDUR_MARAUDER_BOOTS = registerArmorPiece("weathered_dol_guldur_marauder_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item DOL_GULDUR_STALKER_HELMET = registerDyeableCustomModelArmorPiece("dol_guldur_stalker_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x3D3232))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item DOL_GULDUR_STALKER_CHESTPLATE = registerDyeableCustomModelArmorPiece("dol_guldur_stalker_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.DOL_GULDUR_STALKER_CAPE))
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x3D3232))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item DOL_GULDUR_STALKER_LEGGINGS = registerArmorPiece("dol_guldur_stalker_leggings",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item DOL_GULDUR_STALKER_BOOTS = registerArmorPiece("dol_guldur_stalker_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item WEATHERED_DOL_GULDUR_STALKER_HELMET = registerDyeableCustomModelArmorPiece("weathered_dol_guldur_stalker_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x3D3232))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item WEATHERED_DOL_GULDUR_STALKER_CHESTPLATE = registerDyeableCustomModelArmorPiece("weathered_dol_guldur_stalker_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.DOL_GULDUR_STALKER_CAPE))
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x3D3232))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item WEATHERED_DOL_GULDUR_STALKER_LEGGINGS = registerArmorPiece("weathered_dol_guldur_stalker_leggings",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item WEATHERED_DOL_GULDUR_STALKER_BOOTS = registerArmorPiece("weathered_dol_guldur_stalker_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item BLACK_REAVER_HELMET = registerCustomModelArmorPiece("black_reaver_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item BLACK_CASTELLAN_HELMET = registerCustomModelArmorPiece("black_castellan_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item BLACK_CASTELLAN_CHESTPLATE = registerCustomModelArmorPiece("black_castellan_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.BLACK_CASTELLAN_CAPE))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item BLACK_CASTELLAN_LEGGINGS = registerArmorPiece("black_castellan_leggings",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item BLACK_CASTELLAN_BOOTS = registerArmorPiece("black_castellan_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item BLACK_CASTELLAN_CAPE = registerBackAttachment("black_castellan_cape",
+            (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.BLACK_CASTELLAN_CAPE))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item BLACK_REAVER_SHOULDER_CAPE = registerBackAttachment("black_reaver_shoulder_cape",
+            (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.BLACK_REAVER_SHOULDER_CAPE))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    public static final Item DOL_GULDUR_STALKER_CAPE = registerBackAttachment("dol_guldur_stalker_cape",
+            (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.DOL_GULDUR_STALKER_CAPE))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    //endregion
     //endregion
 
     //region ISENGARD

@@ -47,24 +47,29 @@ public enum BackAttachmentsME implements StringIdentifiable {
 
     LORIEN_MARCHWARDEN_CAPE(28,"lorien_marchwarden_cape"),
     GALADHRIM_CAPE(29,"galadhrim_cape"),
-    GALADHRIM_LORD_SURCOAT(30,"galadhrim_lord_surcoat"),
+    EGLADIL_SENTINEL_CAPE(30,"egladil_sentinel_cape"),
+    GALADHRIM_LORD_SURCOAT(31,"galadhrim_lord_surcoat"),
 
-    ORCISH_CAPE(31,"orcish_cape"),
-    ORCISH_LONG_CAPE(32,"orcish_long_cape"),
-    ORCISH_SHOULDERS(33,"orcish_shoulders"),
+    ORCISH_CAPE(32,"orcish_cape"),
+    ORCISH_LONG_CAPE(33,"orcish_long_cape"),
+    ORCISH_SHOULDERS(34,"orcish_shoulders"),
 
-    ORCISH_BLACK_FUR_SURCOAT_WITH_BONE(34,"orcish_black_fur_surcoat_with_bone"),
-    ORCISH_BROWN_FUR_SURCOAT_WITH_BONE(35,"orcish_brown_fur_surcoat_with_bone"),
-    ORCISH_GRAY_FUR_SURCOAT_WITH_BONE(36,"orcish_gray_fur_surcoat_with_bone"),
-    ORCISH_TAN_FUR_SURCOAT_WITH_BONE(37,"orcish_tan_fur_surcoat_with_bone"),
-    ORCISH_WHITE_FUR_SURCOAT_WITH_BONE(38,"orcish_white_fur_surcoat_with_bone"),
+    ORCISH_BLACK_FUR_SURCOAT_WITH_BONE(35,"orcish_black_fur_surcoat_with_bone"),
+    ORCISH_BROWN_FUR_SURCOAT_WITH_BONE(36,"orcish_brown_fur_surcoat_with_bone"),
+    ORCISH_GRAY_FUR_SURCOAT_WITH_BONE(37,"orcish_gray_fur_surcoat_with_bone"),
+    ORCISH_TAN_FUR_SURCOAT_WITH_BONE(38,"orcish_tan_fur_surcoat_with_bone"),
+    ORCISH_WHITE_FUR_SURCOAT_WITH_BONE(39,"orcish_white_fur_surcoat_with_bone"),
 
-    MORDOR_BLACK_NUMENOREAN_CAPE(39,"mordor_black_numenorean_cape"),
-    NAZGUL_ROBES(40,"nazgul_robes"),
+    MORDOR_BLACK_NUMENOREAN_CAPE(40,"mordor_black_numenorean_cape"),
+    NAZGUL_ROBES(41,"nazgul_robes"),
+    BLACK_CASTELLAN_CAPE(42,"black_castellan_cape"),
+    BLACK_REAVER_SHOULDER_CAPE(43,"black_reaver_shoulder_cape"),
+    DOL_GULDUR_STALKER_CAPE(44,"dol_guldur_stalker_cape"),
 
-    ORTHANC_GUARD_CAPE(41,"orthanc_guard_cape"),
+    ORTHANC_GUARD_CAPE(45,"orthanc_guard_cape"),
 
-    SKULL_SPIKES(42,"skull_spikes"),
+    SKULL_SPIKES(46,"skull_spikes"),
+
     ;
 
     private static final IntFunction<BackAttachmentsME> BY_ID = ValueLists.createIndexToValueFunction(BackAttachmentsME::getId, BackAttachmentsME.values(), ValueLists.OutOfBoundsHandling.ZERO);;
@@ -73,7 +78,6 @@ public enum BackAttachmentsME implements StringIdentifiable {
 
     public static final Codec<BackAttachmentsME> CODEC = StringIdentifiable.createBasicCodec(BackAttachmentsME::values);
     public static final PacketCodec<ByteBuf, BackAttachmentsME> PACKET_CODEC = PacketCodecs.indexed(BY_ID, BackAttachmentsME::getId);
-
 
     BackAttachmentsME(int id, String name){
         this.name = name;

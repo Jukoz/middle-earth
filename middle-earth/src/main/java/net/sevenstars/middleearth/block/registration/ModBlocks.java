@@ -479,6 +479,8 @@ public class ModBlocks {
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS), true);
     public static final Block TREATED_STEEL_BARS = registerMiscBlock("treated_steel_bars",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS), true);
+    public static final Block BURZUM_BARS = registerMiscBlock("burzum_bars",
+            PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS), true);
     public static final Block SILVER_BARS = registerMiscBlock("silver_bars",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.METAL), true);
     public static final Block GILDED_BARS = registerMiscBlock("gilded_bars",
@@ -496,6 +498,9 @@ public class ModBlocks {
             (settings) -> new TrapdoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR), true);
     public static final Block TREATED_STEEL_TRAPDOOR = registerMiscBlock("treated_steel_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR), true);
+
+    public static final Block BURZUM_SPIKES = registerMiscBlock("burzum_spikes",
+            SpikesBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque(), true);
     //endregion
 
     public static final Block RIVER_SAND = registerMiscBlock("river_sand",
