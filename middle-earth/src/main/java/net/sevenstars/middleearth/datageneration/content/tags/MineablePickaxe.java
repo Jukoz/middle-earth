@@ -78,6 +78,7 @@ public class MineablePickaxe {
             add(ModBlocks.BRONZE_BARS);
             add(ModBlocks.CRUDE_BARS);
             add(ModBlocks.TREATED_STEEL_BARS);
+            add(ModBlocks.BURZUM_BARS);
             add(ModBlocks.GILDED_BARS);
 
             add(ModDecorativeBlocks.FORGE);

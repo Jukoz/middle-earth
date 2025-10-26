@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "middle-earth:block/burzum_spikes_end"
+    },
+    "half=lower": {
+      "model": "middle-earth:block/burzum_spikes"
+    }
+  }
+}
