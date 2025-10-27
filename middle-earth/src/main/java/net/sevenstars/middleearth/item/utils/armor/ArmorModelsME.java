@@ -42,6 +42,7 @@ public class ArmorModelsME {
         KETTLE_HAT(EquipmentItemsME.KETTLE_HAT, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
         KETTLE_HAT_WITH_COIF(EquipmentItemsME.KETTLE_HAT_WITH_COIF, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
         KETTLE_HAT_WITH_CLOSED_COIF(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
+        WINGED_HELMET(EquipmentItemsME.WINGED_HELMET, new WingedHelmetModel(WingedHelmetModel.getTexturedModelData().createModel())),
         SALLET(EquipmentItemsME.SALLET, new SalletHelmetModel(SalletHelmetModel.getTexturedModelData().createModel())),
 
         SHIRRIF_HAT(EquipmentItemsME.SHIRRIFF_HAT, new ShirriffHatModel(ShirriffHatModel.getTexturedModelData().createModel())),

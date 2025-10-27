@@ -212,6 +212,9 @@ public class EquipmentItemsME {
     public static final Item OPEN_FACE_HELMET = registerArmorPiece("open_face_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.IRON_T3, settings), new Item.Settings());
 
+    public static final Item WINGED_HELMET = registerCustomModelArmorPiece("winged_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.IRON_T3, settings), new Item.Settings());
+
     public static final Item MAIL_HAUBERK = registerArmorPiece("mail_hauberk",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.IRON_T3, settings), new Item.Settings());
     public static final Item MAIL_SHIRT = registerArmorPiece("mail_shirt",
