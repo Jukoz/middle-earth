@@ -196,6 +196,8 @@ public class ArmorModelsME {
 
     public enum ModBackAttachmentPairedModels implements StringIdentifiable {
         CAPE(BackAttachmentsME.CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        SHOULDER_CAPE_LEFT(BackAttachmentsME.SHOULDER_CAPE_LEFT, BackAttachmentModelsME.WIDE_MODELS),
+        SHOULDER_CAPE_RIGHT(BackAttachmentsME.SHOULDER_CAPE_RIGHT, BackAttachmentModelsME.WIDE_MODELS),
         SURCOAT(BackAttachmentsME.SURCOAT, BackAttachmentModelsME.SURCOAT_MODELS),
         CLOAK(BackAttachmentsME.CLOAK, BackAttachmentModelsME.WIDE_MODELS),
         WANDERER_ROBES(BackAttachmentsME.WANDERER_ROBES, BackAttachmentModelsME.SURCOAT_MODELS),

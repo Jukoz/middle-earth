@@ -81,6 +81,14 @@ public class EquipmentItemsME {
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.CAPE))
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(5394247)));
+    public static final Item SHOULDER_CAPE_LEFT = registerDyeableBackAttachment("shoulder_cape_left",
+            (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.SHOULDER_CAPE_LEFT))
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(5394247)));
+    public static final Item SHOULDER_CAPE_RIGHT = registerDyeableBackAttachment("shoulder_cape_right",
+            (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.SHOULDER_CAPE_RIGHT))
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(5394247)));
     public static final Item SURCOAT = registerDyeableBackAttachment("surcoat",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.SURCOAT))
