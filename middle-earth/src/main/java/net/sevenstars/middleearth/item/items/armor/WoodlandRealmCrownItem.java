@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.item.items.armor;
 
+import net.minecraft.component.ComponentType;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -9,8 +11,10 @@ import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.particle.*;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.SeasonDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
@@ -62,10 +66,17 @@ public class WoodlandRealmCrownItem extends CustomHelmetItem {
                 } else if(season.equals(SeasonDataComponent.Season.WINTER)) {
                     world.spawnParticles(ParticleTypes.SNOWFLAKE, pos.getX(), pos.getY(), pos.getZ(), 12, OFFSET_XZ, OFFSET_Y, OFFSET_XZ, 0.05f);
                 }
+
+                String itemModelName = "woodland_realm_crown";
+                if(newSeason != SeasonDataComponent.Season.DEAD) {
+                    itemModelName += "_" + newSeason;
+                }
+                Identifier newItemModel = Identifier.of(MiddleEarth.MOD_ID, itemModelName.toLowerCase());
+                stack.set(DataComponentTypes.ITEM_MODEL, newItemModel);
+                stack.set(DataComponentTypesME.SEASON_DATA, new SeasonDataComponent(newSeason));
             }
 
             season = newSeason;
-            stack.set(DataComponentTypesME.SEASON_DATA, new SeasonDataComponent(newSeason));
         }
     }
 }
