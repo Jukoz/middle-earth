@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.recipe.*;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
@@ -19,8 +20,10 @@ import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.custom.AlloyRecipeJsonBuilder;
 import net.sevenstars.middleearth.datageneration.custom.AnvilShapingRecipeJsonBuilder;
+import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.recipe.*;
+import net.sevenstars.middleearth.resources.datas.Disposition;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -769,6 +772,16 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createToolSetRecipes(exporter, Items.STICK, ResourceItemsME.BRONZE_INGOT, ToolItemsME.BRONZE_PICKAXE, ToolItemsME.BRONZE_AXE, ToolItemsME.BRONZE_SHOVEL, ToolItemsME.BRONZE_HOE);
 
                 createToolSetRecipes(exporter, Items.STICK, ResourceItemsME.CRUDE_INGOT, ToolItemsME.CRUDE_PICKAXE, ToolItemsME.CRUDE_AXE, ToolItemsME.CRUDE_SHOVEL, ToolItemsME.CRUDE_HOE);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WEAVER_STING, 1)
+                        .pattern("  S")
+                        .pattern(" S ")
+                        .pattern("W  ")
+                        .input('S', ResourceItemsME.SPIDER_STINGER)
+                        .input('W', Items.STICK)
+                        .criterion(hasItem(ResourceItemsME.SPIDER_STINGER),
+                                conditionsFromItem(ResourceItemsME.SPIDER_STINGER))
+                        .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.MISC, ResourceItemsME.FABRIC, 2)
                         .pattern("sss")

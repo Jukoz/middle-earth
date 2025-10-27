@@ -123,6 +123,9 @@ public class WeaponItemsME {
     public static final Item NETHERITE_SPEAR = registerItemWithSpearModel("netherite_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.NETHERITE, settings), new Item.Settings());
 
+    public static final Item WEAVER_STING = registerItemWithModel("weaver_sting",
+            (settings) -> new WeaverStingItem(ToolMaterialsME.WEAVER_STING, settings), new Item.Settings().rarity(Rarity.EPIC), false);
+
     public static final Item ROUND_SHIELD = registerBannerShield("round_shield",
             (settings) -> new CustomBannerShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
     public static final Item HEATER_SHIELD = registerBannerShield("heater_shield",
