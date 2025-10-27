@@ -7,25 +7,21 @@ import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.model.equipment.CustomHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.item.dataComponents.BiomeDataComponent;
+import net.sevenstars.middleearth.item.dataComponents.SeasonDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
+import net.sevenstars.middleearth.world.biomes.BiomeTagsME;
 
 public class WoodlandCrownRenderer implements ArmorRenderer {
-
     private final CustomHelmetModel customHelmetModel = new CustomHelmetModel(CustomHelmetModel.getTexturedModelData().createModel());
     private HelmetAddonModel helmetAddonModel;
-
-    public WoodlandCrownRenderer() {
-    }
 
     public WoodlandCrownRenderer(HelmetAddonModel helmetModel) {
         this.helmetAddonModel = helmetModel;
@@ -49,21 +45,22 @@ public class WoodlandCrownRenderer implements ArmorRenderer {
                 dyeable = true;
             }
 
-            BiomeDataComponent biomeDataComponent = stack.getComponents().get(DataComponentTypesME.BIOME_DATA);
-            Identifier identifier = null;
-            if(biomeDataComponent != null) identifier = biomeDataComponent.biomeId();
+            SeasonDataComponent biomeDataComponent = stack.getComponents().get(DataComponentTypesME.SEASON_DATA);
+            SeasonDataComponent.Season season = null;
+            if(biomeDataComponent != null) season = biomeDataComponent.season();
 
             String texture = "textures/models/armor/woodland_realm_crown";
 
-            String id = identifier.toString();
-            if(id.contains("lebennin")) {
-                texture += "_spring";
-            } else if(id.contains("ithilien")) {
-                texture += "_summer";
-            } else if(id.contains("troll")) {
-                texture += "_autumn";
-            } else if(id.contains("foro")) {
-                texture += "_winter";
+            if(season != null) {
+                if(season.equals(SeasonDataComponent.Season.SPRING)) {
+                    texture += "_spring";
+                } else if(season.equals(SeasonDataComponent.Season.SUMMER)) {
+                    texture += "_summer";
+                } else if(season.equals(SeasonDataComponent.Season.AUTUMN)) {
+                    texture += "_autumn";
+                } else if(season.equals(SeasonDataComponent.Season.WINTER)) {
+                    texture += "_winter";
+                }
             }
 
             texture += ".png";

@@ -8,8 +8,9 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.item.dataComponents.BiomeDataComponent;
+import net.sevenstars.middleearth.item.dataComponents.SeasonDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
+import net.sevenstars.middleearth.world.biomes.BiomeTagsME;
 import org.jetbrains.annotations.Nullable;
 
 public class WoodlandRealmCrownItem extends CustomHelmetItem {
@@ -21,9 +22,21 @@ public class WoodlandRealmCrownItem extends CustomHelmetItem {
     @Override
     public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
         super.inventoryTick(stack, world, entity, slot);
-        RegistryEntry<Biome> biome = world.getBiome(entity.getBlockPos());
-        if(biome.getKey().isPresent()) {
-            stack.set(DataComponentTypesME.BIOME_DATA, new BiomeDataComponent(biome.getKey().get().getValue()));
+        RegistryEntry<Biome> biomeEntry = world.getBiome(entity.getBlockPos());
+        if(biomeEntry.getKey().isPresent()) {
+            SeasonDataComponent seasonDataComponent = new SeasonDataComponent(SeasonDataComponent.Season.SUMMER);
+
+            if(biomeEntry.isIn(BiomeTagsME.SPRING)) {
+                seasonDataComponent = new SeasonDataComponent(SeasonDataComponent.Season.SPRING);
+            } else if(biomeEntry.isIn(BiomeTagsME.AUTUMN)) {
+                seasonDataComponent = new SeasonDataComponent(SeasonDataComponent.Season.AUTUMN);
+            } else if(biomeEntry.isIn(BiomeTagsME.WINTER)) {
+                seasonDataComponent = new SeasonDataComponent(SeasonDataComponent.Season.WINTER);
+            } else if(biomeEntry.isIn(BiomeTagsME.DEAD)) {
+                seasonDataComponent = new SeasonDataComponent(SeasonDataComponent.Season.DEAD);
+            }
+
+            stack.set(DataComponentTypesME.SEASON_DATA, seasonDataComponent);
         }
     }
 }
