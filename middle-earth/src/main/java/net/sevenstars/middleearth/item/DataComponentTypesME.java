@@ -24,6 +24,10 @@ public class DataComponentTypesME {
         return builder.codec(ArtisanDataComponent.CODEC).packetCodec(ArtisanDataComponent.PACKET_CODEC);
     });
 
+    public static final ComponentType<BiomeDataComponent> BIOME_DATA = register("biome_data", (builder) -> {
+        return builder.codec(BiomeDataComponent.CODEC).packetCodec(BiomeDataComponent.PACKET_CODEC);
+    });
+
     public static final ComponentType<FactionDataComponent> FACTION_DATA = register("faction", (builder) -> {
         return builder.codec(FactionDataComponent.CODEC).packetCodec(FactionDataComponent.PACKET_CODEC);
     });

@@ -378,6 +378,8 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".temp_4", "Searing Hot");
             put("tooltip."+ MiddleEarth.MOD_ID +".temp_5", "Blazing Hot");
 
+            put("tooltip."+ MiddleEarth.MOD_ID +".biome", "Biome");
+
             //TODO try to automate
             put("trim_pattern."+ MiddleEarth.MOD_ID +".smithing_part", "Smithing Part");
             put("trim_material."+ MiddleEarth.MOD_ID +".jade", "Jade");

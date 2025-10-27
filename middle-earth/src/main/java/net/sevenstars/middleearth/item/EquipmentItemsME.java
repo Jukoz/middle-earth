@@ -960,7 +960,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
     public static final Item WOODLAND_REALM_CROWN = registerCustomModelArmorPiece("woodland_realm_crown",
-            (settings) -> new CustomHelmetItem(ArmorMaterialsME.STRAW_T1, settings), new Item.Settings()
+            (settings) -> new WoodlandRealmCrownItem(ArmorMaterialsME.STRAW_T1, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     //endregion
 
