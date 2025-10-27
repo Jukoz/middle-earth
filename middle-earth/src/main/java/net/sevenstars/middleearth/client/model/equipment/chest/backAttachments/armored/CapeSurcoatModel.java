@@ -45,12 +45,9 @@ public class CapeSurcoatModel extends ChestplateAddonModel {
         left_leg.addChild("left_leg", ModelPartBuilder.create().uv(56, 16).mirrored().cuboid(-1.968F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(1.1F)).mirrored(false),
                 ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-
         return TexturedModelData.of(modelData, 128, 128);
     }
 
     @Override
-    public void setAngles(BipedEntityRenderState bipedEntityRenderState) {
-        super.setAngles(bipedEntityRenderState);
-    }
+    public void setAngles(BipedEntityRenderState bipedEntityRenderState) {}
 }
