@@ -102,6 +102,7 @@ public class SimpleItemModel {
 
             add(ResourceItemsME.DIRTY_BONE);
             add(ResourceItemsME.FANG);
+            add(ResourceItemsME.SPIDER_STINGER);
 
             add(ResourceItemsME.SWAN_FEATHER);
 

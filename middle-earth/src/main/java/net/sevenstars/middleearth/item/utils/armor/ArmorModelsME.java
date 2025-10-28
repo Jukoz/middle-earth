@@ -43,6 +43,7 @@ public class ArmorModelsME {
         KETTLE_HAT(EquipmentItemsME.KETTLE_HAT, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
         KETTLE_HAT_WITH_COIF(EquipmentItemsME.KETTLE_HAT_WITH_COIF, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
         KETTLE_HAT_WITH_CLOSED_COIF(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
+        WINGED_HELMET(EquipmentItemsME.WINGED_HELMET, new WingedHelmetModel(WingedHelmetModel.getTexturedModelData().createModel())),
         SALLET(EquipmentItemsME.SALLET, new SalletHelmetModel(SalletHelmetModel.getTexturedModelData().createModel())),
 
         SHIRRIF_HAT(EquipmentItemsME.SHIRRIFF_HAT, new ShirriffHatModel(ShirriffHatModel.getTexturedModelData().createModel())),
@@ -216,6 +217,8 @@ public class ArmorModelsME {
 
     public enum ModBackAttachmentPairedModels implements StringIdentifiable {
         CAPE(BackAttachmentsME.CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        SHOULDER_CAPE_LEFT(BackAttachmentsME.SHOULDER_CAPE_LEFT, BackAttachmentModelsME.WIDE_MODELS),
+        SHOULDER_CAPE_RIGHT(BackAttachmentsME.SHOULDER_CAPE_RIGHT, BackAttachmentModelsME.WIDE_MODELS),
         SURCOAT(BackAttachmentsME.SURCOAT, BackAttachmentModelsME.SURCOAT_MODELS),
         CLOAK(BackAttachmentsME.CLOAK, BackAttachmentModelsME.WIDE_MODELS),
         WANDERER_ROBES(BackAttachmentsME.WANDERER_ROBES, BackAttachmentModelsME.SURCOAT_MODELS),

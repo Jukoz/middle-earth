@@ -121,6 +121,8 @@ public class DyeablePiecesME {
         dyeablePieces.put(EquipmentItemsME.WARG_MORDOR_MAIL_ARMOR, true);
 
         dyeableBackAttachments.put(BackAttachmentsME.CAPE, true);
+        dyeableBackAttachments.put(BackAttachmentsME.SHOULDER_CAPE_LEFT, false);
+        dyeableBackAttachments.put(BackAttachmentsME.SHOULDER_CAPE_RIGHT, false);
         dyeableBackAttachments.put(BackAttachmentsME.CLOAK, false);
         dyeableBackAttachments.put(BackAttachmentsME.SURCOAT, true);
         dyeableBackAttachments.put(BackAttachmentsME.WANDERER_ROBES, true);
