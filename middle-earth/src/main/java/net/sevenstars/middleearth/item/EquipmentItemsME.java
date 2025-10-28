@@ -1308,10 +1308,6 @@ public class EquipmentItemsME {
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
 
-    public static final Item DOL_GULDUR_RAIDER_HAUBERK = registerArmorPiece("dol_guldur_raider_hauberk",
-            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.CRUDE_T3, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
-
     public static final Item DOL_GULDUR_HUNTER_HELMET = registerCustomModelArmorPiece("dol_guldur_hunter_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
@@ -1328,6 +1324,10 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
     public static final Item WEATHERED_DOL_GULDUR_RAIDER_CHESTPLATE = registerArmorPiece("weathered_dol_guldur_raider_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item DOL_GULDUR_RAIDER_COAT = registerArmorPiece("dol_guldur_raider_coat",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.BURZUM_STEEL_T4, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
 
     public static final Item DOL_GULDUR_BOOTS = registerArmorPiece("dol_guldur_boots",

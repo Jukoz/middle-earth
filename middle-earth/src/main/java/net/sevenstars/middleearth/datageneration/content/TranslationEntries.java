@@ -262,6 +262,7 @@ public class TranslationEntries {
             put("item."+ MiddleEarth.MOD_ID +".dragon_banner_pattern.desc", "A great Dragon");
             put("item."+ MiddleEarth.MOD_ID +".pipeweed_banner_pattern.desc", "A delicacy from the shire");
             put("item."+ MiddleEarth.MOD_ID +".snail_banner_pattern.desc", "The Slimy Overlord");
+            put("item."+ MiddleEarth.MOD_ID +".spider_banner_pattern.desc", "Spider of Mirkwood");
 
             put("block."+ MiddleEarth.MOD_ID +".faction_banner", "%s Banner");
 
