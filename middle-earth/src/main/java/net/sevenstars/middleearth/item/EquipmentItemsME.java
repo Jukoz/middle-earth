@@ -907,18 +907,25 @@ public class EquipmentItemsME {
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
-    public static final Item EGLADIL_SENTINEL_HELMET = registerCustomModelArmorPiece("egladil_sentinel_helmet",
+    public static final Item EGLADIL_SENTINEL_HELMET = registerDyeableCustomModelArmorPiece("egladil_sentinel_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x6171AE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
-    public static final Item EGLADIL_SENTINEL_CHESTPLATE = registerArmorPiece("egladil_sentinel_chestplate",
+    public static final Item EGLADIL_SENTINEL_CHESTPLATE = registerDyeableArmorPiece("egladil_sentinel_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x6171AE))
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.EGLADIL_SENTINEL_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
-    public static final Item EGLADIL_SENTINEL_LEGGINGS = registerArmorPiece("egladil_sentinel_leggings",
+    public static final Item EGLADIL_SENTINEL_LEGGINGS = registerDyeableArmorPiece("egladil_sentinel_leggings",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x6171AE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     public static final Item EGLADIL_SENTINEL_BOOTS = registerArmorPiece("egladil_sentinel_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+
+    public static final Item EGLADIL_COMMANDER_HELMET = registerCustomModelArmorPiece("egladil_commander_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
     public static final Item GALADHRIM_LORD_HELMET = registerCustomModelArmorPiece("galadhrim_lord_helmet",
@@ -955,6 +962,10 @@ public class EquipmentItemsME {
     public static final Item EGLADIL_SENTINEL_CAPE = registerBackAttachment("egladil_sentinel_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.EGLADIL_SENTINEL_CAPE))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item GALADHRIM_LORD_CLOAK = registerBackAttachment("galadhrim_lord_cloak",
+            (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.GALADHRIM_LORD_CLOAK))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     public static final Item GALADHRIM_LORD_SURCOAT = registerBackAttachment("galadhrim_lord_surcoat",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
