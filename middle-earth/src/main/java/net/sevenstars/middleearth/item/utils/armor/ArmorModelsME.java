@@ -238,7 +238,7 @@ public class ArmorModelsME {
         GALADHRIM_CAPE(BackAttachmentsME.GALADHRIM_CAPE, BackAttachmentModelsME.SLIM_MODELS),
         EGLADIL_SENTINEL_CAPE(BackAttachmentsME.EGLADIL_SENTINEL_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         GALADHRIM_LORD_SURCOAT(BackAttachmentsME.GALADHRIM_LORD_SURCOAT, BackAttachmentModelsME.SURCOAT_MODELS),
-        GALADHRIM_LORD_CLOAK(BackAttachmentsME.GALADHRIM_LORD_CLOAK, BackAttachmentModelsME.WIDE_MODELS),
+        GALADHRIM_LORD_CLOAK(BackAttachmentsME.GALADHRIM_LORD_CLOAK, BackAttachmentModelsME.WIDE_PAULDRON_MODELS),
 
         ORCISH_CAPE(BackAttachmentsME.ORCISH_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         ORCISH_LONG_CAPE(BackAttachmentsME.ORCISH_LONG_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
