@@ -241,6 +241,8 @@ public class ArmorModelsME {
         EREBOR_CAPE(BackAttachmentsME.EREBOR_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         RAVENHILL_SENTINEL_CAPE(BackAttachmentsME.RAVENHILL_SENTINEL_CAPE, BackAttachmentModelsME.WIDE_MODELS),
 
+        SILVAN_LORD_CAPE(BackAttachmentsME.SILVAN_LORD_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+
         LORIEN_MARCHWARDEN_CAPE(BackAttachmentsME.LORIEN_MARCHWARDEN_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         GALADHRIM_CAPE(BackAttachmentsME.GALADHRIM_CAPE, BackAttachmentModelsME.SLIM_MODELS),
         EGLADIL_SENTINEL_CAPE(BackAttachmentsME.EGLADIL_SENTINEL_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),

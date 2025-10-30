@@ -70,7 +70,8 @@ public enum BackAttachmentsME implements StringIdentifiable {
     ORTHANC_GUARD_CAPE(45,"orthanc_guard_cape"),
     SKULL_SPIKES(46,"skull_spikes"),
 
-    WARDEN_OF_THE_GLADE_CAPE(47,"warden_of_the_glade_cape")
+    SILVAN_LORD_CAPE(47,"silvan_lord_cape"),
+    WARDEN_OF_THE_GLADE_CAPE(48,"warden_of_the_glade_cape")
     ;
 
     private static final IntFunction<BackAttachmentsME> BY_ID = ValueLists.createIndexToValueFunction(BackAttachmentsME::getId, BackAttachmentsME.values(), ValueLists.OutOfBoundsHandling.ZERO);;

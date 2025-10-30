@@ -843,6 +843,21 @@ public class EquipmentItemsME {
 
     public static final Item ELVEN_MAIL_SKIRT = registerArmorPiece("elven_mail_skirt",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.IRON_T3, settings), new Item.Settings());
+
+    public static final Item SILVAN_LORD_HELMET = registerCustomModelArmorPiece("silvan_lord_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings());
+    public static final Item SILVAN_LORD_CHESTPLATE = registerArmorPiece("silvan_lord_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.SILVAN_LORD_CAPE)));
+    public static final Item SILVAN_LORD_LEGGINGS = registerArmorPiece("silvan_lord_leggings",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings());
+    public static final Item SILVAN_LORD_BOOTS = registerArmorPiece("silvan_lord_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings());
+
+    public static final Item SILVAN_LORD_CAPE = registerBackAttachment("silvan_lord_cape",
+            (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.SILVAN_LORD_CAPE))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     //endregion
 
     //region LOTHLORIEN
@@ -992,15 +1007,6 @@ public class EquipmentItemsME {
     public static final Item WARDEN_OF_THE_GLADE_BOOTS = registerArmorPiece("warden_of_the_glade_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
-
-    public static final Item SILVAN_LORD_HELMET = registerCustomModelArmorPiece("silvan_lord_helmet",
-            (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings());
-    public static final Item SILVAN_LORD_CHESTPLATE = registerArmorPiece("silvan_lord_chestplate",
-            (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings());
-    public static final Item SILVAN_LORD_LEGGINGS = registerArmorPiece("silvan_lord_leggings",
-            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings());
-    public static final Item SILVAN_LORD_BOOTS = registerArmorPiece("silvan_lord_boots",
-            (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings());
 
     public static final Item WARDEN_OF_THE_GLADE_CAPE = registerBackAttachment("warden_of_the_glade_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
