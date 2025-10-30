@@ -51,26 +51,27 @@ public enum BackAttachmentsME implements StringIdentifiable {
     GALADHRIM_CAPE(31,"galadhrim_cape"),
     EGLADIL_SENTINEL_CAPE(32,"egladil_sentinel_cape"),
     GALADHRIM_LORD_SURCOAT(33,"galadhrim_lord_surcoat"),
+    GALADHRIM_LORD_CLOAK(34,"galadhrim_lord_cloak"),
+    
+    ORCISH_CAPE(35,"orcish_cape"),
+    ORCISH_LONG_CAPE(36,"orcish_long_cape"),
+    ORCISH_SHOULDERS(37,"orcish_shoulders"),
 
-    ORCISH_CAPE(34,"orcish_cape"),
-    ORCISH_LONG_CAPE(35,"orcish_long_cape"),
-    ORCISH_SHOULDERS(36,"orcish_shoulders"),
+    ORCISH_BLACK_FUR_SURCOAT_WITH_BONE(38,"orcish_black_fur_surcoat_with_bone"),
+    ORCISH_BROWN_FUR_SURCOAT_WITH_BONE(39,"orcish_brown_fur_surcoat_with_bone"),
+    ORCISH_GRAY_FUR_SURCOAT_WITH_BONE(40,"orcish_gray_fur_surcoat_with_bone"),
+    ORCISH_TAN_FUR_SURCOAT_WITH_BONE(41,"orcish_tan_fur_surcoat_with_bone"),
+    ORCISH_WHITE_FUR_SURCOAT_WITH_BONE(42,"orcish_white_fur_surcoat_with_bone"),
 
-    ORCISH_BLACK_FUR_SURCOAT_WITH_BONE(37,"orcish_black_fur_surcoat_with_bone"),
-    ORCISH_BROWN_FUR_SURCOAT_WITH_BONE(38,"orcish_brown_fur_surcoat_with_bone"),
-    ORCISH_GRAY_FUR_SURCOAT_WITH_BONE(39,"orcish_gray_fur_surcoat_with_bone"),
-    ORCISH_TAN_FUR_SURCOAT_WITH_BONE(40,"orcish_tan_fur_surcoat_with_bone"),
-    ORCISH_WHITE_FUR_SURCOAT_WITH_BONE(41,"orcish_white_fur_surcoat_with_bone"),
+    MORDOR_BLACK_NUMENOREAN_CAPE(43,"mordor_black_numenorean_cape"),
+    NAZGUL_ROBES(44,"nazgul_robes"),
+    BLACK_CASTELLAN_CAPE(45,"black_castellan_cape"),
+    BLACK_REAVER_SHOULDER_CAPE(46,"black_reaver_shoulder_cape"),
+    DOL_GULDUR_STALKER_CAPE(47,"dol_guldur_stalker_cape"),
 
-    MORDOR_BLACK_NUMENOREAN_CAPE(42,"mordor_black_numenorean_cape"),
-    NAZGUL_ROBES(43,"nazgul_robes"),
-    BLACK_CASTELLAN_CAPE(44,"black_castellan_cape"),
-    BLACK_REAVER_SHOULDER_CAPE(45,"black_reaver_shoulder_cape"),
-    DOL_GULDUR_STALKER_CAPE(46,"dol_guldur_stalker_cape"),
+    ORTHANC_GUARD_CAPE(48,"orthanc_guard_cape"),
 
-    ORTHANC_GUARD_CAPE(47,"orthanc_guard_cape"),
-
-    SKULL_SPIKES(48,"skull_spikes"),
+    SKULL_SPIKES(49,"skull_spikes"),
     ;
 
     private static final IntFunction<BackAttachmentsME> BY_ID = ValueLists.createIndexToValueFunction(BackAttachmentsME::getId, BackAttachmentsME.values(), ValueLists.OutOfBoundsHandling.ZERO);;

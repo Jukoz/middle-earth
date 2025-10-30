@@ -88,6 +88,7 @@ public class ArmorModelsME {
         LORIEN_SOLDIER_HELMET(EquipmentItemsME.LORIEN_SOLDIER_HELMET, new LorienHelmetModel(LorienHelmetModel.getTexturedModelData().createModel())),
         GALADHRIM_HELMET(EquipmentItemsME.GALADHRIM_HELMET, new LorienHelmetModel(LorienHelmetModel.getTexturedModelData().createModel())),
         EGLADIL_SENTINEL_HELMET(EquipmentItemsME.EGLADIL_SENTINEL_HELMET, new EgladilSentinelHelmetModel(EgladilSentinelHelmetModel.getTexturedModelData().createModel())),
+        EGLADIL_COMMANDER_HELMET(EquipmentItemsME.EGLADIL_COMMANDER_HELMET, new EgladilSentinelHelmetModel(EgladilSentinelHelmetModel.getTexturedModelData().createModel())),
         GALADHRIM_LORD_HELMET(EquipmentItemsME.GALADHRIM_LORD_HELMET, new LorienHelmetModel(LorienHelmetModel.getTexturedModelData().createModel())),
 
         ORCISH_BRACED_HELMET(EquipmentItemsME.ORCISH_BRACED_HELMET, new OrcSpikeHelmetModel(OrcSpikeHelmetModel.getTexturedModelData().createModel())),
@@ -257,6 +258,7 @@ public class ArmorModelsME {
         GALADHRIM_CAPE(BackAttachmentsME.GALADHRIM_CAPE, BackAttachmentModelsME.SLIM_MODELS),
         EGLADIL_SENTINEL_CAPE(BackAttachmentsME.EGLADIL_SENTINEL_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         GALADHRIM_LORD_SURCOAT(BackAttachmentsME.GALADHRIM_LORD_SURCOAT, BackAttachmentModelsME.SURCOAT_MODELS),
+        GALADHRIM_LORD_CLOAK(BackAttachmentsME.GALADHRIM_LORD_CLOAK, BackAttachmentModelsME.WIDE_PAULDRON_MODELS),
 
         ORCISH_CAPE(BackAttachmentsME.ORCISH_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         ORCISH_LONG_CAPE(BackAttachmentsME.ORCISH_LONG_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
