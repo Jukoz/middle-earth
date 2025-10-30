@@ -189,7 +189,12 @@ public class ItemModelProvider extends FabricModelProvider {
     }
 
     public final void registerWeaponBigItemModels(ItemModelGenerator itemModelGenerator, Item item) {
-        ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON));
+        ItemModel.Unbaked unbakedHand;
+        if (Registries.ITEM.getId(item).getPath().contains("staff")){
+            unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON_STAFF));
+        } else {
+            unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON));
+        }
         ItemModel.Unbaked unbakedInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_inventory", Models.GENERATED));
 
         if (item instanceof CustomLongswordWeaponItem longswordWeaponItem){
