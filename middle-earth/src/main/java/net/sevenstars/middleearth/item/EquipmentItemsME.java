@@ -993,7 +993,7 @@ public class EquipmentItemsME {
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
-    public static final Item SILVAN_LORD_HELMET = registerArmorPiece("silvan_lord_helmet",
+    public static final Item SILVAN_LORD_HELMET = registerCustomModelArmorPiece("silvan_lord_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings());
     public static final Item SILVAN_LORD_CHESTPLATE = registerArmorPiece("silvan_lord_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings());
