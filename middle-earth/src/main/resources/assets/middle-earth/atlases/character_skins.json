@@ -1,0 +1,67 @@
+{
+    "sources": [
+        {
+            "type": "paletted_permutations",
+            "textures": [
+                "middle-earth:character_skins/body_fat",
+                "middle-earth:character_skins/body_female",
+                "middle-earth:character_skins/body_muscular",
+                "middle-earth:character_skins/body_skin_to_bone",
+                "middle-earth:character_skins/body_slim",
+
+                "middle-earth:character_skins/ear_large_pointy",
+                "middle-earth:character_skins/ear_normal",
+                "middle-earth:character_skins/ear_pointy",
+                "middle-earth:character_skins/ear_small",
+                "middle-earth:character_skins/ear_small_pointy",
+                "middle-earth:character_skins/ear_square",
+                "middle-earth:character_skins/ear_square_pointy",
+                "middle-earth:character_skins/ear_wide_pointy",
+
+                "middle-earth:character_skins/head_female",
+                "middle-earth:character_skins/head_goblin",
+                "middle-earth:character_skins/head_goblin_small",
+                "middle-earth:character_skins/head_goblin_thick_brow",
+                "middle-earth:character_skins/head_goblin_very_wide",
+                "middle-earth:character_skins/head_goblin_wise",
+                "middle-earth:character_skins/head_male",
+                "middle-earth:character_skins/head_uruk_dumb",
+                "middle-earth:character_skins/head_uruk_tall_dumb",
+
+                "middle-earth:character_skins/nose_cube",
+                "middle-earth:character_skins/nose_large_center",
+                "middle-earth:character_skins/nose_large_high",
+                "middle-earth:character_skins/nose_villager",
+
+                "middle-earth:character_skins/scar_eye_right",
+                "middle-earth:character_skins/scar_eye_left"
+            ],
+            "palette_key": "middle-earth:character_skins/color_palettes/base_palette",
+            "permutations": {
+                "beige": "middle-earth:character_skins/color_palettes/beige",
+                "brown": "middle-earth:character_skins/color_palettes/brown",
+                "dark_beige": "middle-earth:character_skins/color_palettes/dark_beige",
+                "dark_green": "middle-earth:character_skins/color_palettes/dark_green",
+                "green": "middle-earth:character_skins/color_palettes/green",
+                "dark_pink": "middle-earth:character_skins/color_palettes/dark_pink",
+                "grey": "middle-earth:character_skins/color_palettes/grey",
+                "light_grey": "middle-earth:character_skins/color_palettes/light_grey",
+                "murky_green": "middle-earth:character_skins/color_palettes/murky_green",
+                "olive": "middle-earth:character_skins/color_palettes/olive",
+                "pale": "middle-earth:character_skins/color_palettes/pale",
+                "pale_green": "middle-earth:character_skins/color_palettes/pale_green",
+                "pale_white": "middle-earth:character_skins/color_palettes/pale_white",
+                "pink": "middle-earth:character_skins/color_palettes/pink",
+                "red": "middle-earth:character_skins/color_palettes/red",
+                "rust": "middle-earth:character_skins/color_palettes/rust",
+                "sandy_green": "middle-earth:character_skins/color_palettes/sandy_green",
+                "slight_brown": "middle-earth:character_skins/color_palettes/slight_brown",
+                "swampy_green": "middle-earth:character_skins/color_palettes/swampy_green",
+                "tan": "middle-earth:character_skins/color_palettes/tan",
+                "tan_desaturated": "middle-earth:character_skins/color_palettes/tan_desaturated",
+                "wine": "middle-earth:character_skins/color_palettes/wine",
+                "yellowish_green": "middle-earth:character_skins/color_palettes/yellowish_green"
+            }
+        }
+    ]
+}

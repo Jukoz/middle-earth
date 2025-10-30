@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.resources;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -10,11 +11,12 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.resources.datas.npcs.pools.*;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 
@@ -31,6 +33,11 @@ import java.util.Optional;
 public class NpcME {
     public final static String PATH = "npcs";
     public static final RegistryKey<Registry<NpcData>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
+    public static final HashMap<EntityCategory, AttributePool> COMMON_NPC_ATTRIBUTES = new HashMap<>(){{
+        put(EntityCategory.SHARED, new AttributePool().addElement(
+                AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.35, 0.45)
+        ));
+    }};
     public static ArrayList<RegistryKey<NpcData>> allNpcDatas;
     // [GENERIC]
     public final static NpcData HUMAN_CIVILIAN;
@@ -39,11 +46,6 @@ public class NpcME {
     public final static NpcData HOBBIT_CIVILIAN;
     public final static NpcData ORC_CIVILIAN;
     public final static NpcData URUK_CIVILIAN;
-
-    public static NpcTextureData COMMON_TEXTURE_TEST = new NpcTextureData(new HashMap<>(){{
-        put(EntityCategory.MALE, List.of(NpcTextureDataPool.HUMAN_MALE));
-        put(EntityCategory.FEMALE, List.of(NpcTextureDataPool.HUMAN_FEMALE));
-    }});
 
     public static void register(){
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Npcs for " + MiddleEarth.MOD_ID);
@@ -108,7 +110,7 @@ public class NpcME {
 
     static {
         // region [GENERIC/TEMPORARY]
-        HUMAN_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "human.civilian"), RacesME.HUMAN, FactionsME.GONDOR, List.of(
+        HUMAN_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "human.civilian"), RacesME.HUMAN, FactionsME.GONDOR, NpcTextureDatasME.GENERIC_HUMAN,   List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LEATHER_SKULLCAP).withWeight(2))
@@ -123,27 +125,27 @@ public class NpcME {
                                 .add(NpcGearItemData.create(EquipmentItemsME.SHOES).withWeight(2))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ), new HashMap<>(), COMMON_TEXTURE_TEST);
+        ), new HashMap<>());
 
-        DWARF_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "dwarf.civilian"), RacesME.DWARF, FactionsME.GONDOR, List.of(
+        DWARF_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "dwarf.civilian"), RacesME.DWARF, FactionsME.GONDOR, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
-        ), new HashMap<>(), COMMON_TEXTURE_TEST);
+        ), new HashMap<>());
 
-        ELF_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "elf.civilian"), RacesME.ELF, FactionsME.GONDOR, List.of(
+        ELF_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "elf.civilian"), RacesME.ELF, FactionsME.GONDOR, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
-        ), new HashMap<>(), COMMON_TEXTURE_TEST);
+        ), new HashMap<>());
 
-        HOBBIT_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "hobbit.civilian"), RacesME.HOBBIT, FactionsME.GONDOR, List.of(
+        HOBBIT_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "hobbit.civilian"), RacesME.HOBBIT, FactionsME.GONDOR, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
-        ), new HashMap<>(), COMMON_TEXTURE_TEST);
+        ), new HashMap<>());
 
-        ORC_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "orc.civilian"), RacesME.ORC, FactionsME.GONDOR, List.of(
+        ORC_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "orc.civilian"), RacesME.ORC, FactionsME.GONDOR, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
-        ), new HashMap<>(), COMMON_TEXTURE_TEST);
+        ), new HashMap<>());
 
-        URUK_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "uruk.civilian"), RacesME.URUK, FactionsME.GONDOR, List.of(
+        URUK_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "uruk.civilian"), RacesME.URUK, FactionsME.GONDOR, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
-        ), new HashMap<>(), COMMON_TEXTURE_TEST);
+        ), new HashMap<>());
         // endregion
     }
 }

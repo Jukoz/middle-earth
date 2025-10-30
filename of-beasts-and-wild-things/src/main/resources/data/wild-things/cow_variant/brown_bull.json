@@ -1,0 +1,9 @@
+{
+  "asset_id": "wild-things:entity/cow/brown_bull",
+  "model": "cold",
+  "spawn_conditions": [
+    {
+      "priority": 0
+    }
+  ]
+}

@@ -414,7 +414,7 @@ public class TranslationEntries {
 
             put("race_tooltip."+ MiddleEarth.MOD_ID +".attribute_header", "Attributes , ");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_0", "The fairest of gems found beneath,");
+            put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_0", "The fairest of gems found beneath");
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_1", "the lonely mountain.");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".dagamarth_lore_0", "A storied blade forged by Narvi and Celebrimbor,");

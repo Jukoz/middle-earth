@@ -123,6 +123,9 @@ public class WeaponItemsME {
     public static final Item NETHERITE_SPEAR = registerItemWithSpearModel("netherite_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterial.NETHERITE, settings), new Item.Settings());
 
+    public static final Item WEAVER_STING = registerItemWithModel("weaver_sting",
+            (settings) -> new WeaverStingItem(ToolMaterialsME.WEAVER_STING, settings), new Item.Settings().rarity(Rarity.EPIC), false);
+
     public static final Item ROUND_SHIELD = registerBannerShield("round_shield",
             (settings) -> new CustomBannerShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
     public static final Item HEATER_SHIELD = registerBannerShield("heater_shield",
@@ -852,6 +855,13 @@ public class WeaponItemsME {
     public static final Item AEGLOS = registerItemWithSpearModel("aeglos",
             (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("aeglos")));
+
+    public static final Item GUARDIAN_OF_THE_GREENWOOD_STAFF = registerItemWithModel("guardian_of_the_greenwood_staff",
+            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+    public static final Item KEEPER_OF_ORTHANC_STAFF = registerItemWithModel("keeper_of_orthanc_staff",
+            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+    public static final Item WANDERER_STAFF = registerItemWithModel("wanderer_staff",
+            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
 
     public static final Item ANORTHANN = registerShield("anorthann",
             (settings) -> new ArtefactCustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC)

@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.resources.datas.npcs.pools;
 
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.resources.NpcTextureMaterialsME;
-import net.sevenstars.middleearth.resources.NpcTexturePatternsME;
+import net.sevenstars.middleearth.resources.CharacterMaterialsME;
+import net.sevenstars.middleearth.resources.CharacterPatternsME;
 import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureMaterial;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 public class NpcTextureDataPool {
 public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
 
+    public final static NpcTextureDataPreset HUMAN_COMMON;
     public final static NpcTextureDataPreset HUMAN_MALE;
     public final static NpcTextureDataPreset HUMAN_FEMALE;
 
@@ -23,130 +24,130 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
         static {
             DWARF_MALE = new NpcTextureDataPreset()
                     .withMaterials(NpcTextureType.SKIN, List.of(
-                            NpcTextureMaterialsME.Skin.TAN,
-                            NpcTextureMaterialsME.Skin.TAN_DESATURATED,
-                            NpcTextureMaterialsME.Skin.PALE,
-                            NpcTextureMaterialsME.Skin.BEIGE
+                            CharacterMaterialsME.Skin.TAN,
+                            CharacterMaterialsME.Skin.TAN_DESATURATED,
+                            CharacterMaterialsME.Skin.PALE,
+                            CharacterMaterialsME.Skin.BEIGE
                     ))
                     .withPatterns(NpcTextureType.BODY, List.of(
-                            NpcTexturePatternsME.Skins.Body.MUSCULAR,
-                            NpcTexturePatternsME.Skins.Body.FAT
+                            CharacterPatternsME.Skins.Body.MUSCULAR,
+                            CharacterPatternsME.Skins.Body.FAT
                     ))
                     .withPatterns(NpcTextureType.HEAD, List.of(
-                            NpcTexturePatternsME.Skins.Head.MALE
+                            CharacterPatternsME.Skins.Head.MALE
                     ))
                     .withPatterns(NpcTextureType.NOSE, List.of(
-                            NpcTexturePatternsME.Skins.Nose.CUBE
+                            CharacterPatternsME.Skins.Nose.CUBE
                     ))
                     .withPatterns(NpcTextureType.EAR, List.of(
-                            NpcTexturePatternsME.Skins.Ear.SQUARE,
-                            NpcTexturePatternsME.Skins.Ear.NORMAL
+                            CharacterPatternsME.Skins.Ear.SQUARE,
+                            CharacterPatternsME.Skins.Ear.NORMAL
                     ))
                     .withMaterials(NpcTextureType.EYE, List.of(
-                            NpcTextureMaterialsME.Eye.BLUE,
-                            NpcTextureMaterialsME.Eye.GREEN,
-                            NpcTextureMaterialsME.Eye.DARK_GREEN,
-                            NpcTextureMaterialsME.Eye.BLACK,
-                            NpcTextureMaterialsME.Eye.NAVY,
-                            NpcTextureMaterialsME.Eye.BROWN
+                            CharacterMaterialsME.Eye.BLUE,
+                            CharacterMaterialsME.Eye.GREEN,
+                            CharacterMaterialsME.Eye.DARK_GREEN,
+                            CharacterMaterialsME.Eye.BLACK,
+                            CharacterMaterialsME.Eye.NAVY,
+                            CharacterMaterialsME.Eye.BROWN
                     ))
-                    .withPatterns(NpcTextureType.EYE, List.of(NpcTexturePatternsME.Eyes.Eye.COMMON))
+                    .withPatterns(NpcTextureType.EYE, List.of(CharacterPatternsME.Eyes.Eye.COMMON))
                     .withMaterials(NpcTextureType.HAIR, DEFAULT_HAIR)
                     .withPatterns(NpcTextureType.EYEBROW, List.of(
-                            NpcTexturePatternsME.Hairs.Eyebrow.UNI,
-                            NpcTexturePatternsME.Hairs.Eyebrow.BASIC,
-                            NpcTexturePatternsME.Hairs.Eyebrow.SHORT,
-                            NpcTexturePatternsME.Hairs.Eyebrow.THICK,
-                            NpcTexturePatternsME.Hairs.Eyebrow.LONG
+                            CharacterPatternsME.Hairs.Eyebrow.UNI,
+                            CharacterPatternsME.Hairs.Eyebrow.BASIC,
+                            CharacterPatternsME.Hairs.Eyebrow.SHORT,
+                            CharacterPatternsME.Hairs.Eyebrow.THICK,
+                            CharacterPatternsME.Hairs.Eyebrow.LONG
                     ))
                     .withPatterns(NpcTextureType.HAIR, Stream.of(
-                            NpcTexturePatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED,
-                            NpcTexturePatternsME.Hairs.Hair.SHARP,
-                            NpcTexturePatternsME.Hairs.Hair.BALD_SIDES,
-                            NpcTexturePatternsME.Hairs.Hair.DIRTY_MOP,
-                            NpcTexturePatternsME.Hairs.Hair.SHORT,
-                            NpcTexturePatternsME.Hairs.Hair.TOP_BALDING,
-                            NpcTexturePatternsME.Hairs.Hair.SIDE_BALDING,
+                            CharacterPatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED,
+                            CharacterPatternsME.Hairs.Hair.SHARP,
+                            CharacterPatternsME.Hairs.Hair.BALD_SIDES,
+                            CharacterPatternsME.Hairs.Hair.DIRTY_MOP,
+                            CharacterPatternsME.Hairs.Hair.SHORT,
+                            CharacterPatternsME.Hairs.Hair.TOP_BALDING,
+                            CharacterPatternsME.Hairs.Hair.SIDE_BALDING,
                             null).toList()
                     )
                     .withPatterns(NpcTextureType.BEARD, Stream.of(
-                            NpcTexturePatternsME.Hairs.Beard.BROAD,
-                            NpcTexturePatternsME.Hairs.Beard.CHUNKY_BRAIDS,
-                            NpcTexturePatternsME.Hairs.Beard.CLEAN,
-                            NpcTexturePatternsME.Hairs.Beard.DUAL_LARGE_ORNAMENTED,
-                            NpcTexturePatternsME.Hairs.Beard.DUAL_ORNAMENTED,
-                            NpcTexturePatternsME.Hairs.Beard.LARGE,
-                            NpcTexturePatternsME.Hairs.Beard.LONG_SINGLE_ORNAMENTED,
-                            NpcTexturePatternsME.Hairs.Beard.SHORT,
-                            NpcTexturePatternsME.Hairs.Beard.SINGLE,
-                            NpcTexturePatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
-                            NpcTexturePatternsME.Hairs.Beard.VERY_BROAD).toList())
+                            CharacterPatternsME.Hairs.Beard.BROAD,
+                            CharacterPatternsME.Hairs.Beard.CHUNKY_BRAIDS,
+                            CharacterPatternsME.Hairs.Beard.CLEAN,
+                            CharacterPatternsME.Hairs.Beard.DUAL_LARGE_ORNAMENTED,
+                            CharacterPatternsME.Hairs.Beard.DUAL_ORNAMENTED,
+                            CharacterPatternsME.Hairs.Beard.LARGE,
+                            CharacterPatternsME.Hairs.Beard.LONG_SINGLE_ORNAMENTED,
+                            CharacterPatternsME.Hairs.Beard.SHORT,
+                            CharacterPatternsME.Hairs.Beard.SINGLE,
+                            CharacterPatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
+                            CharacterPatternsME.Hairs.Beard.VERY_BROAD).toList())
                     .withMaterials(NpcTextureType.CLOTHING, List.of(
-                            NpcTextureMaterialsME.Clothing.BLUE_AND_COPPER,
-                            NpcTextureMaterialsME.Clothing.BROWN
+                            CharacterMaterialsME.Clothing.BLUE_AND_COPPER,
+                            CharacterMaterialsME.Clothing.BROWN
                     ))
                     .withPatterns(NpcTextureType.CLOTHING, List.of(
-                            NpcTexturePatternsME.Clothing.DWARVEN_GARMENT,
-                            NpcTexturePatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS,
-                            NpcTexturePatternsME.Clothing.PANTS
+                            CharacterPatternsME.Clothing.DWARVEN_GARMENT,
+                            CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS,
+                            CharacterPatternsME.Clothing.PANTS
                     ));
             DWARF_FEMALE = new NpcTextureDataPreset()
                     .withMaterials(NpcTextureType.SKIN, List.of(
-                            NpcTextureMaterialsME.Skin.TAN,
-                            NpcTextureMaterialsME.Skin.TAN_DESATURATED,
-                            NpcTextureMaterialsME.Skin.PALE,
-                            NpcTextureMaterialsME.Skin.BEIGE
+                            CharacterMaterialsME.Skin.TAN,
+                            CharacterMaterialsME.Skin.TAN_DESATURATED,
+                            CharacterMaterialsME.Skin.PALE,
+                            CharacterMaterialsME.Skin.BEIGE
                     ))
                     .withPatterns(NpcTextureType.BODY, List.of(
-                            NpcTexturePatternsME.Skins.Body.FEMALE,
-                            NpcTexturePatternsME.Skins.Body.SLIM,
-                            NpcTexturePatternsME.Skins.Body.FAT
+                            CharacterPatternsME.Skins.Body.FEMALE,
+                            CharacterPatternsME.Skins.Body.SLIM,
+                            CharacterPatternsME.Skins.Body.FAT
                     ))
                     .withPatterns(NpcTextureType.HEAD, List.of(
-                            NpcTexturePatternsME.Skins.Head.FEMALE
+                            CharacterPatternsME.Skins.Head.FEMALE
                     ))
                     .withPatterns(NpcTextureType.EAR, List.of(
-                            NpcTexturePatternsME.Skins.Ear.SQUARE,
-                            NpcTexturePatternsME.Skins.Ear.NORMAL
+                            CharacterPatternsME.Skins.Ear.SQUARE,
+                            CharacterPatternsME.Skins.Ear.NORMAL
                     ))
                     .withMaterials(NpcTextureType.EYE, List.of(
-                            NpcTextureMaterialsME.Eye.BLUE,
-                            NpcTextureMaterialsME.Eye.GREEN,
-                            NpcTextureMaterialsME.Eye.DARK_GREEN,
-                            NpcTextureMaterialsME.Eye.BLACK,
-                            NpcTextureMaterialsME.Eye.NAVY,
-                            NpcTextureMaterialsME.Eye.BROWN
+                            CharacterMaterialsME.Eye.BLUE,
+                            CharacterMaterialsME.Eye.GREEN,
+                            CharacterMaterialsME.Eye.DARK_GREEN,
+                            CharacterMaterialsME.Eye.BLACK,
+                            CharacterMaterialsME.Eye.NAVY,
+                            CharacterMaterialsME.Eye.BROWN
                     ))
                     .withPatterns(NpcTextureType.EYE, List.of(
-                            NpcTexturePatternsME.Eyes.Eye.COMMON
+                            CharacterPatternsME.Eyes.Eye.COMMON
                     ))
                     .withMaterials(NpcTextureType.HAIR, DEFAULT_HAIR)
                     .withPatterns(NpcTextureType.EYEBROW, List.of(
-                            NpcTexturePatternsME.Hairs.Eyebrow.UNI,
-                            NpcTexturePatternsME.Hairs.Eyebrow.BASIC,
-                            NpcTexturePatternsME.Hairs.Eyebrow.SHORT,
-                            NpcTexturePatternsME.Hairs.Eyebrow.THICK,
-                            NpcTexturePatternsME.Hairs.Eyebrow.LONG
+                            CharacterPatternsME.Hairs.Eyebrow.UNI,
+                            CharacterPatternsME.Hairs.Eyebrow.BASIC,
+                            CharacterPatternsME.Hairs.Eyebrow.SHORT,
+                            CharacterPatternsME.Hairs.Eyebrow.THICK,
+                            CharacterPatternsME.Hairs.Eyebrow.LONG
                     ))
                     .withPatterns(NpcTextureType.HAIR, Stream.of(
-                                    NpcTexturePatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED,
-                                    NpcTexturePatternsME.Hairs.Hair.LONG,
-                                    NpcTexturePatternsME.Hairs.Hair.FLAT_LONG,
-                                    NpcTexturePatternsME.Hairs.Hair.VERY_LONG
+                                    CharacterPatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED,
+                                    CharacterPatternsME.Hairs.Hair.LONG,
+                                    CharacterPatternsME.Hairs.Hair.FLAT_LONG,
+                                    CharacterPatternsME.Hairs.Hair.VERY_LONG
                             ).toList()
                     )
                     .withPatterns(NpcTextureType.BEARD, Stream.of(
-                            NpcTexturePatternsME.Hairs.Beard.CLEAN,
-                            NpcTexturePatternsME.Hairs.Beard.LONG_SINGLE_ORNAMENTED,
-                            NpcTexturePatternsME.Hairs.Beard.SHORT).toList())
+                            CharacterPatternsME.Hairs.Beard.CLEAN,
+                            CharacterPatternsME.Hairs.Beard.LONG_SINGLE_ORNAMENTED,
+                            CharacterPatternsME.Hairs.Beard.SHORT).toList())
                     .withMaterials(NpcTextureType.CLOTHING, List.of(
-                            NpcTextureMaterialsME.Clothing.BLUE_AND_COPPER,
-                            NpcTextureMaterialsME.Clothing.WHITE,
-                            NpcTextureMaterialsME.Clothing.GRAY
+                            CharacterMaterialsME.Clothing.BLUE_AND_COPPER,
+                            CharacterMaterialsME.Clothing.WHITE,
+                            CharacterMaterialsME.Clothing.GRAY
                     ))
                     .withPatterns(NpcTextureType.CLOTHING, List.of(
-                            NpcTexturePatternsME.Clothing.DWARVEN_GARMENT,
-                            NpcTexturePatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
+                            CharacterPatternsME.Clothing.DWARVEN_GARMENT,
+                            CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
                     ));
         }
     }
@@ -155,167 +156,130 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
     static {
         // region HAIR
         DEFAULT_HAIR = List.of(
-                NpcTextureMaterialsME.Hair.COLD_BLACK_COPPER,
-                NpcTextureMaterialsME.Hair.COLD_BLACK_GOLD,
-                NpcTextureMaterialsME.Hair.COLD_BLACK_SILVER,
-                NpcTextureMaterialsME.Hair.COLD_BLACK_ALMANDINE,
+                CharacterMaterialsME.Hair.COLD_BLACK_COPPER,
+                CharacterMaterialsME.Hair.COLD_BLACK_GOLD,
+                CharacterMaterialsME.Hair.COLD_BLACK_SILVER,
+                CharacterMaterialsME.Hair.COLD_BLACK_ALMANDINE,
 
-                NpcTextureMaterialsME.Hair.BLACK_COPPER,
-                NpcTextureMaterialsME.Hair.BLACK_GOLD,
-                NpcTextureMaterialsME.Hair.BLACK_SILVER,
-                NpcTextureMaterialsME.Hair.BLACK_ALMANDINE,
+                CharacterMaterialsME.Hair.BLACK_COPPER,
+                CharacterMaterialsME.Hair.BLACK_GOLD,
+                CharacterMaterialsME.Hair.BLACK_SILVER,
+                CharacterMaterialsME.Hair.BLACK_ALMANDINE,
 
-                NpcTextureMaterialsME.Hair.BROWN_COPPER,
-                NpcTextureMaterialsME.Hair.BROWN_GOLD,
-                NpcTextureMaterialsME.Hair.BROWN_SILVER,
-                NpcTextureMaterialsME.Hair.BROWN_ALMANDINE,
+                CharacterMaterialsME.Hair.BROWN_COPPER,
+                CharacterMaterialsME.Hair.BROWN_GOLD,
+                CharacterMaterialsME.Hair.BROWN_SILVER,
+                CharacterMaterialsME.Hair.BROWN_ALMANDINE,
 
-                NpcTextureMaterialsME.Hair.DARK_BROWN_COPPER,
-                NpcTextureMaterialsME.Hair.DARK_BROWN_GOLD,
-                NpcTextureMaterialsME.Hair.DARK_BROWN_SILVER,
-                NpcTextureMaterialsME.Hair.DARK_BROWN_ALMANDINE,
+                CharacterMaterialsME.Hair.DARK_BROWN_COPPER,
+                CharacterMaterialsME.Hair.DARK_BROWN_GOLD,
+                CharacterMaterialsME.Hair.DARK_BROWN_SILVER,
+                CharacterMaterialsME.Hair.DARK_BROWN_ALMANDINE,
 
-                NpcTextureMaterialsME.Hair.STRAW_COPPER,
-                NpcTextureMaterialsME.Hair.STRAW_GOLD,
-                NpcTextureMaterialsME.Hair.STRAW_SILVER,
-                NpcTextureMaterialsME.Hair.STRAW_ALMANDINE,
-                NpcTextureMaterialsME.Hair.STRAW_BEADS,
+                CharacterMaterialsME.Hair.STRAW_COPPER,
+                CharacterMaterialsME.Hair.STRAW_GOLD,
+                CharacterMaterialsME.Hair.STRAW_SILVER,
+                CharacterMaterialsME.Hair.STRAW_ALMANDINE,
+                CharacterMaterialsME.Hair.STRAW_BEADS,
 
-                NpcTextureMaterialsME.Hair.GINGER_COPPER,
-                NpcTextureMaterialsME.Hair.GINGER_GOLD,
-                NpcTextureMaterialsME.Hair.GINGER_SILVER,
-                NpcTextureMaterialsME.Hair.GINGER_ALMANDINE,
-                NpcTextureMaterialsME.Hair.GINGER_BEADS,
+                CharacterMaterialsME.Hair.GINGER_COPPER,
+                CharacterMaterialsME.Hair.GINGER_GOLD,
+                CharacterMaterialsME.Hair.GINGER_SILVER,
+                CharacterMaterialsME.Hair.GINGER_ALMANDINE,
+                CharacterMaterialsME.Hair.GINGER_BEADS,
 
-                NpcTextureMaterialsME.Hair.WHITE_COPPER,
-                NpcTextureMaterialsME.Hair.WHITE_GOLD,
-                NpcTextureMaterialsME.Hair.WHITE_ALMANDINE,
-                NpcTextureMaterialsME.Hair.WHITE_BEADS,
+                CharacterMaterialsME.Hair.WHITE_COPPER,
+                CharacterMaterialsME.Hair.WHITE_GOLD,
+                CharacterMaterialsME.Hair.WHITE_ALMANDINE,
+                CharacterMaterialsME.Hair.WHITE_BEADS,
 
-                NpcTextureMaterialsME.Hair.GRAY_COPPER,
-                NpcTextureMaterialsME.Hair.GRAY_GOLD,
-                NpcTextureMaterialsME.Hair.GRAY_ALMANDINE,
-                NpcTextureMaterialsME.Hair.GRAY_BEADS
+                CharacterMaterialsME.Hair.GRAY_COPPER,
+                CharacterMaterialsME.Hair.GRAY_GOLD,
+                CharacterMaterialsME.Hair.GRAY_ALMANDINE,
+                CharacterMaterialsME.Hair.GRAY_BEADS
         );
         // endregion
 
         // region HUMAN
+        HUMAN_COMMON = new NpcTextureDataPreset()
+                .withMaterials(NpcTextureType.SKIN, List.of(
+                        CharacterMaterialsME.Skin.TAN,
+                        CharacterMaterialsME.Skin.TAN_DESATURATED,
+                        CharacterMaterialsME.Skin.PALE,
+                        CharacterMaterialsME.Skin.BEIGE
+                ))
+                .withMaterials(NpcTextureType.EYE, List.of(
+                        CharacterMaterialsME.Eye.BLUE,
+                        CharacterMaterialsME.Eye.GREEN,
+                        CharacterMaterialsME.Eye.DARK_GREEN,
+                        CharacterMaterialsME.Eye.NAVY,
+                        CharacterMaterialsME.Eye.BROWN
+                ))
+                .withPatterns(NpcTextureType.EYE, List.of(
+                        CharacterPatternsME.Eyes.Eye.COMMON
+                ))
+                .withMaterials(NpcTextureType.HAIR, DEFAULT_HAIR)
+                .withPatterns(NpcTextureType.EYEBROW, List.of(
+                        CharacterPatternsME.Hairs.Eyebrow.UNI,
+                        CharacterPatternsME.Hairs.Eyebrow.BASIC,
+                        CharacterPatternsME.Hairs.Eyebrow.SHORT
+                ))
+                .withMaterials(NpcTextureType.CLOTHING, List.of(
+                        CharacterMaterialsME.Clothing.WHITE,
+                        CharacterMaterialsME.Clothing.BROWN
+                ))
+                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                        CharacterPatternsME.Clothing.TOGA,
+                        CharacterPatternsME.Clothing.FULL_TOGA,
+                        CharacterPatternsME.Clothing.SKIRT
+                ));
         HUMAN_MALE = new NpcTextureDataPreset()
-                .withMaterials(NpcTextureType.SKIN, List.of(
-                        NpcTextureMaterialsME.Skin.TAN,
-                        NpcTextureMaterialsME.Skin.TAN_DESATURATED,
-                        NpcTextureMaterialsME.Skin.PALE,
-                        NpcTextureMaterialsME.Skin.BEIGE
-                ))
                 .withPatterns(NpcTextureType.BODY, List.of(
-                        NpcTexturePatternsME.Skins.Body.MUSCULAR
+                        CharacterPatternsME.Skins.Body.MUSCULAR
                 ))
                 .withPatterns(NpcTextureType.HEAD, List.of(
-                        NpcTexturePatternsME.Skins.Head.MALE
+                        CharacterPatternsME.Skins.Head.MALE
                 ))
-                .withMaterials(NpcTextureType.EYE, List.of(
-                        NpcTextureMaterialsME.Eye.BLUE,
-                        NpcTextureMaterialsME.Eye.GREEN,
-                        NpcTextureMaterialsME.Eye.DARK_GREEN,
-                        NpcTextureMaterialsME.Eye.NAVY,
-                        NpcTextureMaterialsME.Eye.BROWN
-                ))
-                .withPatterns(NpcTextureType.EYE, List.of(
-                        NpcTexturePatternsME.Eyes.Eye.COMMON
-                ))
-                .withMaterials(NpcTextureType.HAIR, DEFAULT_HAIR)
                 .withPatterns(NpcTextureType.EYEBROW, List.of(
-                        NpcTexturePatternsME.Hairs.Eyebrow.UNI,
-                        NpcTexturePatternsME.Hairs.Eyebrow.BASIC,
-                        NpcTexturePatternsME.Hairs.Eyebrow.SHORT
+                        CharacterPatternsME.Hairs.Eyebrow.UNI,
+                        CharacterPatternsME.Hairs.Eyebrow.BASIC,
+                        CharacterPatternsME.Hairs.Eyebrow.SHORT
                 ))
                 .withPatterns(NpcTextureType.HAIR, Stream.of(
-                        NpcTexturePatternsME.Hairs.Hair.BOWL,
-                        NpcTexturePatternsME.Hairs.Hair.BALD_SIDES,
-                        NpcTexturePatternsME.Hairs.Hair.DIRTY_MOP,
-                        NpcTexturePatternsME.Hairs.Hair.SHORT,
-                        NpcTexturePatternsME.Hairs.Hair.TOP_BALDING,
-                        NpcTexturePatternsME.Hairs.Hair.SIDE_BALDING,
+                        CharacterPatternsME.Hairs.Hair.BOWL,
+                        CharacterPatternsME.Hairs.Hair.BALD_SIDES,
+                        CharacterPatternsME.Hairs.Hair.DIRTY_MOP,
+                        CharacterPatternsME.Hairs.Hair.SHORT,
+                        CharacterPatternsME.Hairs.Hair.TOP_BALDING,
+                        CharacterPatternsME.Hairs.Hair.SIDE_BALDING,
                         null).toList()
                 )
                 .withPatterns(NpcTextureType.BEARD, Stream.of(
-                        NpcTexturePatternsME.Hairs.Beard.CLEAN,
-                        NpcTexturePatternsME.Hairs.Beard.SHORT,
-                        NpcTexturePatternsME.Hairs.Beard.SINGLE,
-                        NpcTexturePatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
-                        null).toList())
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        NpcTextureMaterialsME.Clothing.WHITE,
-                        NpcTextureMaterialsME.Clothing.BROWN
-                ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        NpcTexturePatternsME.Clothing.TOGA,
-                        NpcTexturePatternsME.Clothing.FULL_TOGA,
-                        NpcTexturePatternsME.Clothing.ROBE,
-                        NpcTexturePatternsME.Clothing.SKIRT
-                ));
+                        CharacterPatternsME.Hairs.Beard.CLEAN,
+                        CharacterPatternsME.Hairs.Beard.SHORT,
+                        CharacterPatternsME.Hairs.Beard.SINGLE,
+                        CharacterPatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
+                        null).toList());
         HUMAN_FEMALE = new NpcTextureDataPreset()
-                .withMaterials(NpcTextureType.SKIN, List.of(
-                        NpcTextureMaterialsME.Skin.TAN,
-                        NpcTextureMaterialsME.Skin.TAN_DESATURATED,
-                        NpcTextureMaterialsME.Skin.PALE,
-                        NpcTextureMaterialsME.Skin.BEIGE
-                ))
                 .withPatterns(NpcTextureType.BODY, List.of(
-                        NpcTexturePatternsME.Skins.Body.MUSCULAR
+                        CharacterPatternsME.Skins.Body.FEMALE
                 ))
                 .withPatterns(NpcTextureType.HEAD, List.of(
-                        NpcTexturePatternsME.Skins.Head.MALE
-                ))
-                .withMaterials(NpcTextureType.HAIR, DEFAULT_HAIR)
-                .withMaterials(NpcTextureType.EYE, List.of(
-                        NpcTextureMaterialsME.Eye.BLUE,
-                        NpcTextureMaterialsME.Eye.GREEN,
-                        NpcTextureMaterialsME.Eye.DARK_GREEN,
-                        NpcTextureMaterialsME.Eye.NAVY,
-                        NpcTextureMaterialsME.Eye.BROWN
-                ))
-                .withPatterns(NpcTextureType.EYE, List.of(
-                        NpcTexturePatternsME.Eyes.Eye.COMMON
-                ))
-                .withMaterials(NpcTextureType.HAIR, List.of(
-                        NpcTextureMaterialsME.Hair.BROWN_GOLD,
-                        NpcTextureMaterialsME.Hair.DARK_BROWN_GOLD,
-                        NpcTextureMaterialsME.Hair.GINGER_GOLD,
-                        NpcTextureMaterialsME.Hair.GRAY_GOLD,
-                        NpcTextureMaterialsME.Hair.STRAW_GOLD,
-                        NpcTextureMaterialsME.Hair.BLACK_GOLD
+                        CharacterPatternsME.Skins.Head.FEMALE
                 ))
                 .withPatterns(NpcTextureType.EYEBROW, List.of(
-                        NpcTexturePatternsME.Hairs.Eyebrow.UNI,
-                        NpcTexturePatternsME.Hairs.Eyebrow.BASIC,
-                        NpcTexturePatternsME.Hairs.Eyebrow.SHORT
+                        CharacterPatternsME.Hairs.Eyebrow.UNI,
+                        CharacterPatternsME.Hairs.Eyebrow.BASIC,
+                        CharacterPatternsME.Hairs.Eyebrow.SHORT
                 ))
                 .withPatterns(NpcTextureType.HAIR, Stream.of(
-                        NpcTexturePatternsME.Hairs.Hair.BOWL,
-                        NpcTexturePatternsME.Hairs.Hair.BALD_SIDES,
-                        NpcTexturePatternsME.Hairs.Hair.DIRTY_MOP,
-                        NpcTexturePatternsME.Hairs.Hair.SHORT,
-                        NpcTexturePatternsME.Hairs.Hair.TOP_BALDING,
-                        NpcTexturePatternsME.Hairs.Hair.SIDE_BALDING,
+                        CharacterPatternsME.Hairs.Hair.DIRTY_MOP,
+                        CharacterPatternsME.Hairs.Hair.LONG,
+                        CharacterPatternsME.Hairs.Hair.SEMI_LONG,
+                        CharacterPatternsME.Hairs.Hair.VERY_LONG,
                         null).toList()
                 )
-                .withPatterns(NpcTextureType.BEARD, Stream.of(
-                        NpcTexturePatternsME.Hairs.Beard.CLEAN,
-                        NpcTexturePatternsME.Hairs.Beard.SHORT,
-                        NpcTexturePatternsME.Hairs.Beard.SINGLE,
-                        NpcTexturePatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
-                        null).toList())
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        NpcTextureMaterialsME.Clothing.WHITE,
-                        NpcTextureMaterialsME.Clothing.BROWN
-                ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        NpcTexturePatternsME.Clothing.TOGA,
-                        NpcTexturePatternsME.Clothing.FULL_TOGA,
-                        NpcTexturePatternsME.Clothing.ROBE,
-                        NpcTexturePatternsME.Clothing.SKIRT
-                ));
+                .withPatterns(NpcTextureType.CLOTHING, List.of(CharacterPatternsME.Clothing.ROBE));
         // endregion
     }
 }

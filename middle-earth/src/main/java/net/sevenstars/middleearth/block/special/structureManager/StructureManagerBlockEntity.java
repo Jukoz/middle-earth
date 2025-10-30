@@ -22,8 +22,12 @@ import net.minecraft.world.World;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
+import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
+import net.sevenstars.middleearth.block.special.structureManager.features.StructureNestList;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
+import net.sevenstars.middleearth.resources.StructureManagerDatasME;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import org.jetbrains.annotations.Nullable;
@@ -244,5 +248,23 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     private void updateListeners() {
         this.markDirty();
         this.world.updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
+    }
+
+    public void fetchBeds(){
+        // TODO : Fetch all beds surrounding the nodes, making sure there's no duplicate
+        StructureManagerData managerData = getWorld().getRegistryManager().getOptional(StructureManagerDatasME.KEY).get().get(structureManagerIdentifier);
+        for(SpawnNestManager data : structureNestList.getManagers()) {
+            SpawnNestNodeData nodeData = managerData.getNpcSpawnNest(data.getId());
+            if(nodeData == null)
+                continue;
+
+            int bedRadius = nodeData.getBedRadius();
+            BlockPos origin = data.getOriginPos();
+        }
+    }
+
+    public void redistributeBeds(){
+        // TODO : Redistribute beds to the nest nodes
+        // TODO : Makes sure the beds are still distributed to the correct npcs
     }
 }
