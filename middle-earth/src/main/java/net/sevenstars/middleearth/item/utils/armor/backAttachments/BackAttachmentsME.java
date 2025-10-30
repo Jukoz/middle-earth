@@ -52,7 +52,7 @@ public enum BackAttachmentsME implements StringIdentifiable {
     EGLADIL_SENTINEL_CAPE(32,"egladil_sentinel_cape"),
     GALADHRIM_LORD_SURCOAT(33,"galadhrim_lord_surcoat"),
     GALADHRIM_LORD_CLOAK(34,"galadhrim_lord_cloak"),
-    
+
     ORCISH_CAPE(35,"orcish_cape"),
     ORCISH_LONG_CAPE(36,"orcish_long_cape"),
     ORCISH_SHOULDERS(37,"orcish_shoulders"),
