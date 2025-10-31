@@ -20,11 +20,15 @@ public class DataComponentTypesME {
         return builder.codec(TemperatureDataComponent.CODEC).packetCodec(TemperatureDataComponent.PACKET_CODEC);
     });
 
+    public static final ComponentType<ArmorVariantDataComponent> ARMOR_VARIANT_DATA = register("armor_variant", (builder) -> {
+        return builder.codec(ArmorVariantDataComponent.CODEC).packetCodec(ArmorVariantDataComponent.PACKET_CODEC);
+    });
+
     public static final ComponentType<ArtisanDataComponent> ARTISAN_DATA = register("artisan", (builder) -> {
         return builder.codec(ArtisanDataComponent.CODEC).packetCodec(ArtisanDataComponent.PACKET_CODEC);
     });
 
-    public static final ComponentType<SeasonDataComponent> SEASON_DATA = register("season_data", (builder) -> {
+    public static final ComponentType<SeasonDataComponent> SEASON_DATA = register("season", (builder) -> {
         return builder.codec(SeasonDataComponent.CODEC).packetCodec(SeasonDataComponent.PACKET_CODEC);
     });
 

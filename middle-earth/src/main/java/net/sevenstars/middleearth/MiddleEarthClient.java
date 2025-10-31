@@ -163,7 +163,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "round_shield"), RoundShieldModelRenderer.Unbaked.CODEC);
 
         for(ArmorModelsME.ModHelmetModels model : ArmorModelsME.ModHelmetModels.values()){
-            ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());
+            ArmorRenderer.register(new HelmetVariantsRenderer(model.getModel()), model.getItem());
         }
         ArmorRenderer.register(new WoodlandCrownRenderer(new WoodlandRealmCrownModel(WoodlandRealmCrownModel.getTexturedModelData().createModel())), EquipmentItemsME.WOODLAND_REALM_CROWN);
 
