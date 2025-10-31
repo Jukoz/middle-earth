@@ -167,6 +167,7 @@ public class MiddleEarthClient implements ClientModInitializer {
             ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());
         }
         ArmorRenderer.register(new HelmetVariantsRenderer(new SilvanLordHelmetModel(SilvanLordHelmetModel.getTexturedModelData().createModel())), EquipmentItemsME.SILVAN_LORD_HELMET);
+        ArmorRenderer.register(new HelmetVariantsRenderer(new SilvanLordHelmetModel(SilvanLordHelmetModel.getTexturedModelData().createModel())), EquipmentItemsME.WOODLAND_WATCHWARDEN_HELMET);
         ArmorRenderer.register(new WoodlandCrownRenderer(new WoodlandRealmCrownModel(WoodlandRealmCrownModel.getTexturedModelData().createModel())), EquipmentItemsME.WOODLAND_REALM_CROWN);
 
         for(ArmorModelsME.ModChestplateModels model : ArmorModelsME.ModChestplateModels.values()){
